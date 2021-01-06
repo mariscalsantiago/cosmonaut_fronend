@@ -1,12 +1,80 @@
-<p>contenido works!</p>
-<div>
-ijsdifjidsjfijdsif
-
-ijsdifjidsjfijdsifij
-
-ijefi
+<div class="wrapper">
 
 
-  <router-outlet></router-outlet>
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <img src="../../../../assets/imgs/logo2.JPG" alt="" width="100px" height="100px" srcset="">
+        </div>
+
+        <ul class="list-unstyled components">
+            <p>Inicio</p>
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> INICIO</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#">iniocio 1</a>
+                    </li>
+                    <li>
+                        <a href="#">inicio 2</a>
+                    </li>
+                    <li>
+                        <a href="#">inicio 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">NOMINAS</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Pagina  1</a>
+                    </li>
+                    <li>
+                        <a href="#">pagina 2</a>
+                    </li>
+                    <li>
+                        <a href="#">pagina 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">EMPLEADOS</a>
+            </li>
+            <li>
+                <a href="#">EVENTOS</a>
+            </li>
+            <li>
+                <a href="#">IMSS</a>
+            </li>
+            <li>
+                <a href="#">REPORTES</a>
+            </li>
+            <li>
+                <a href="#">MI PERFIL</a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div class="content">
+        <nav class="navbar navbar-expand-lg navbar-light" >
+            
+    
+                <form style="width: 100%;
+                color: white;"  class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Buscar"
+                  aria-label="Search">
+              </form>
+    
+            
+        </nav>
+
+        
+        <div class="content-inside">
+
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 
 </div>
+
