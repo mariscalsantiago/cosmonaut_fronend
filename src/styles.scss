@@ -3,6 +3,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
 
 
+@import './styles/globals';
+
+
+
+
+
+/* Character Styles */
+.subtítulos_roboto-—-12pt {
+font-family: $unnamed-font-family-roboto;
+font-style: $unnamed-font-style-normal;
+font-weight: $unnamed-font-weight-bold;
+font-size: $unnamed-font-size-12;
+line-height: $unnamed-line-spacing-15;
+letter-spacing: $unnamed-character-spacing-0-24;
+color: $unnamed-color-00c1af;
+}
+.títulos_roboto-—-25pt {
+font-family: $unnamed-font-family-roboto;
+font-style: $unnamed-font-style-normal;
+font-weight: $unnamed-font-weight-bold;
+font-size: $unnamed-font-size-25;
+line-height: $unnamed-line-spacing-33;
+letter-spacing: $unnamed-character-spacing-1-25;
+color: $unnamed-color-00c1af !important;
+text-transform: $unnamed-text-transform-uppercase;
+}
+.unnamed-character-style-1 {
+font-family: $unnamed-font-family-roboto;
+font-style: $unnamed-font-style-normal;
+font-weight: $unnamed-font-weight-medium;
+font-size: $unnamed-font-size-16;
+line-height: $unnamed-line-spacing-15;
+letter-spacing: $unnamed-character-spacing-0-32;
+color: $unnamed-color-002637;
+}
+
+
 
 
 
@@ -26,6 +63,12 @@ button{
     font-weight: 700; //bold
     font-family: 'roboto';
     font-size: 14px;
+}
+
+
+body{
+    height: 100vh;
+    overflow: hidden;
 }
 
 

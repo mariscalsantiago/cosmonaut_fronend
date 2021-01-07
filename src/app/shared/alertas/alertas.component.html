@@ -1,0 +1,69 @@
+<div class="modal fade" id="modalshare" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-color" id="exampleModalLabel">Agregar percepción periodica</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tipo de percepción</label>
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option selected></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Referencia</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Fecha de inicio de percepción</label>
+                        <br>
+                        <input type="text" class="form-control" id="date" data-format="DD-MM-YYYY"
+                            data-template="D MMM YYYY" name="date" value="09-01-2013">
+                    </div>
+                    <div class="form-group grupo1">
+                       <label for="exampleInputPassword1">Monto total de percepción</label>
+                        <input type="number" class="form-control" id="exampleInputPassword1" >
+                    </div>
+
+                    <div class="form-group grupo1">
+                        <label for="exampleInputPassword1">Número de periodos</label>
+                        <input type="number" class="form-control" id="exampleInputPassword1" >
+                    </div>
+                    <div class="form-group grupo1">
+                        <label for="exampleInputPassword1">Monto por periodo</label>
+                        <input type="number" class="form-control" id="exampleInputPassword1" >
+                    </div>
+                    <div style="margin-left: 0px;" class="row form-group">
+                        <div class="input-group form-check form-check-inline col-12">
+                          <input formControlName="tieneieeps" class="form-check-input" type="checkbox" name="inlineRadioOptions" id="radio1" value="option1">
+                          <label style="font-size: initial;
+                          font-weight: 600; width: 300px;
+                      "  class="form-check-label" for="radio1">Activa</label>
+                        </div>
+                       
+                      </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Siguiente</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+</script>
