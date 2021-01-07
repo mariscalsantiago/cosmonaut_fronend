@@ -7,6 +7,7 @@
     height: 90vh;
     margin-top: 5vh;
     overflow: auto;
+    margin-right: 24px;
 }
 
 .content::-webkit-scrollbar{
@@ -24,8 +25,8 @@
 
 
 #sidebar {
-    min-width: 200px;
-    max-width: 200px;
+    min-width: 253px;
+    max-width: 253;
     min-height: 100vh;
     height: 100vh;
     
@@ -47,7 +48,7 @@ a[data-toggle='collapse'] {
 }
 
 .dropdown-toggle::after {
-    display: block;
+    display: none;
     position: absolute;
     top: 50%;
     right: 20px;
@@ -80,11 +81,14 @@ a, a:hover, a:focus {
 #sidebar .sidebar-header {
     padding: 20px;
     background: white;
+    text-align: center;
+    margin: 19px;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+    
+    margin-top: -50px;
 }
 
 #sidebar ul p {
@@ -107,7 +111,7 @@ a, a:hover, a:focus {
     color: $primary;
     background: white;
     border-style: solid;
-    width: 80%;
+    width: 253px;
     border-width: 2px;
     text-align: left;
     border-radius: 20px;
@@ -116,8 +120,10 @@ a, a:hover, a:focus {
 }
 ul ul a {
     font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: $primary;
+    padding-left: 60px !important;
+    background: white;
+    color:black
+
 }
 
 .cabecera{
@@ -135,7 +141,7 @@ ul ul a {
 }
 
 .chaticon img{
-    margin-right: 15px;
+    margin-right: 34px;
     margin-bottom: 12px;
 }
 
@@ -143,3 +149,9 @@ ul ul a {
 
 
 
+
+.sidebar-header img{
+    max-width: 150px;
+    height: auto;
+    
+}

@@ -26,6 +26,12 @@
     width: 40%
 }
 
+.imgblock img{
+    max-width: 250px;
+    height: auto;
+    
+}
+
 .formblock{
     @extend %bloque;
     width: 60%;
