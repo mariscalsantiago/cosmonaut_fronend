@@ -26,7 +26,7 @@
             <button *ngIf="!correcto" type="submit" [disabled]="myForm.invalid" class="btn btn-info heartbeat"><span *ngIf="!cargando">INGRESAR</span><div *ngIf="cargando" class="spinner-border" role="status">
               <span class="sr-only" >Loading...</span>
             </div></button>
-            <button *ngIf="correcto" type="submit"  class="btn btn-success heartbeat scale-in-center"><span >CORRECTO</span></button>
+            <button *ngIf="correcto" type="submit"  class="btn btn-success heartbeat"><span >CORRECTO</span></button>
             
         </div>
 
