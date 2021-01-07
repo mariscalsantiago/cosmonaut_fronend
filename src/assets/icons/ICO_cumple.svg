@@ -1,0 +1,10 @@
+<svg id="ICO_cumple" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <rect id="Rectangle_555" data-name="Rectangle 555" width="30" height="30" fill="none"/>
+  <g id="Group_484" data-name="Group 484" transform="translate(4 4)">
+    <path id="Path_1544" data-name="Path 1544" d="M1194.29,358.135h-.417a1.887,1.887,0,0,1-3.384,0h-.418a1.887,1.887,0,0,1-3.384,0h-.417a1.887,1.887,0,0,1-3.383,0h-.417a1.887,1.887,0,0,1-3.384,0h-.214a1.876,1.876,0,0,1-2.506.862v4.983a1.555,1.555,0,0,0,1.555,1.554h17.319a1.555,1.555,0,0,0,1.555-1.554V359a1.875,1.875,0,0,1-2.505-.862Z" transform="translate(-1175.279 -343.956)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path_1545" data-name="Path 1545" d="M1197.717,352.842a1.069,1.069,0,0,0-1.069-1.069h-20.454a1.07,1.07,0,0,0-1.069,1.069v3.384c0,.019.005.036.006.056-.005.055-.016.108-.016.164a1.9,1.9,0,0,0,3.592.849h.214a1.887,1.887,0,0,0,3.384,0h.417a1.887,1.887,0,0,0,3.383,0h.417a1.887,1.887,0,0,0,3.384,0h.418a1.887,1.887,0,0,0,3.384,0h.417a1.9,1.9,0,0,0,3.592-.849c0-.038-.009-.073-.011-.11a.9.9,0,0,0,.011-.109Z" transform="translate(-1175.114 -343.116)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1.5"/>
+    <rect id="Rectangle_498" data-name="Rectangle 498" width="2.706" height="3.202" transform="translate(9.949 5.455)" stroke-width="1.5" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path id="Path_1546" data-name="Path 1546" d="M1189.47,344.535a1.573,1.573,0,1,1-3.147,0c0-.869,1.573-2.737,1.573-2.737S1189.47,343.667,1189.47,344.535Z" transform="translate(-1176.595 -341.798)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_49" data-name="Line 49" y2="1.144" transform="translate(11.302 4.311)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>

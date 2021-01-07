@@ -1,0 +1,12 @@
+<svg id="ICO_eventos" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="Group_474" data-name="Group 474" transform="translate(-641.223 -845.195)">
+    <rect id="Rectangle_496" data-name="Rectangle 496" width="21.998" height="18.742" rx="3.034" transform="translate(645.223 851.578)" stroke-width="1.5" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path id="Path_1535" data-name="Path 1535" stroke="#1ec1af" d="M645.423,858.581" fill="none" transform="translate(-0.031 -1.444)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <line id="Line_39" data-name="Line 39" x1="21.998" transform="translate(645.223 857.137)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <g id="Group_473" data-name="Group 473" transform="translate(650.782 849.196)">
+      <line id="Line_40" data-name="Line 40" y2="4.606" transform="translate(10.88)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Line_41" data-name="Line 41" y2="4.606" stroke-width="1.5" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+  </g>
+  <rect id="Rectangle_547" data-name="Rectangle 547" width="30" height="30" fill="none"/>
+</svg>

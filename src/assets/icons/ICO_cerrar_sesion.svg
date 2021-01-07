@@ -1,0 +1,10 @@
+<svg id="ICO_cerrar_sesion" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <rect id="Rectangle_571" data-name="Rectangle 571" width="30" height="30" fill="none"/>
+  <g id="Group_495" data-name="Group 495" transform="translate(5 4)">
+    <g id="Group_494" data-name="Group 494" transform="translate(0 5.085)">
+      <path id="Path_1565" data-name="Path 1565" stroke="#1ec1af" d="M653.061,702.508l-5.544,5.544,5.544,5.544" fill="none" transform="translate(-647.517 -702.508)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+      <path id="Path_1566" data-name="Path 1566" d="M647.517,708.653h0Z" transform="translate(-647.517 -703.109)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+    <path id="Path_1567" data-name="Path 1567" d="M656.441,696.872h8.37a4.262,4.262,0,0,1,4.262,4.262v12.734a4.262,4.262,0,0,1-4.262,4.262h-8.37" transform="translate(-648.389 -696.872)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>

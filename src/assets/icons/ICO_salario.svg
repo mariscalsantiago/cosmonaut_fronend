@@ -1,0 +1,7 @@
+<svg id="ICO_salario" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <rect id="Rectangle_553" data-name="Rectangle 553" width="30" height="30" fill="none"/>
+  <g id="Group_610" data-name="Group 610" transform="translate(6 6)">
+    <text id="_" data-name="$" transform="translate(6.107 12.461)" fill="#1ec1af" font-size="11" font-family="Roboto-Medium, Roboto" font-weight="500"><tspan x="0" y="0">$</tspan></text>
+    <ellipse id="Ellipse_139" data-name="Ellipse 139" cx="9.298" cy="9.298" rx="9.298" ry="9.298" transform="translate(0 0)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>

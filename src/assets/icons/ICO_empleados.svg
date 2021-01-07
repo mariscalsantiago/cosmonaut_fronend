@@ -1,0 +1,9 @@
+<svg id="ICO_empleados" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="Group_469" data-name="Group 469" transform="translate(-112.438 -334.607)">
+    <path id="Path_1520" data-name="Path 1520" d="M132.41,342.665v-1.185a1.874,1.874,0,0,0-1.874-1.874h-3.724a1.874,1.874,0,0,0-1.874,1.874v1.185c0,.06.013.117.018.176h7.437C132.4,342.782,132.41,342.725,132.41,342.665Z" transform="translate(-1.564)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path_1521" data-name="Path 1521" d="M138.007,343.479H116.213a.775.775,0,0,0-.775.775v5.525c0,.114.48.356,1.264.648a37.186,37.186,0,0,0,8.438,1.916v-.968a.819.819,0,0,1,.82-.819h2.3a.819.819,0,0,1,.82.819v.968a37.186,37.186,0,0,0,8.438-1.916c.784-.292,1.264-.535,1.264-.648v-5.525A.775.775,0,0,0,138.007,343.479Z" transform="translate(0 -0.637)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path_1522" data-name="Path 1522" d="M129.329,353.713v.627a.819.819,0,0,1-.82.82h-2.3a.819.819,0,0,1-.82-.82v-.627a37.186,37.186,0,0,1-8.438-1.916v8.569a1.123,1.123,0,0,0,1.124,1.124h18.569a1.123,1.123,0,0,0,1.124-1.124V351.8A37.186,37.186,0,0,1,129.329,353.713Z" transform="translate(-0.249 -2.007)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path_1523" data-name="Path 1523" d="M130.172,351.95h-2.3a.819.819,0,0,0-.82.819v1.595a.819.819,0,0,0,.82.82h2.3a.819.819,0,0,0,.82-.82V352.77A.819.819,0,0,0,130.172,351.95Z" transform="translate(-1.912 -2.032)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1.5"/>
+  </g>
+  <rect id="Rectangle_546" data-name="Rectangle 546" width="30" height="30" fill="none"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg id="ICO_chat" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <rect id="Rectangle_560" data-name="Rectangle 560" width="30" height="30" fill="none"/>
+  <g id="Group_481" data-name="Group 481" transform="translate(3 4)">
+    <path id="Path_1539" data-name="Path 1539" d="M1190.161,595.8c-6.354,0-11.505,4.385-11.505,9.795a8.94,8.94,0,0,0,2.7,6.3l-2.415,4.962,6.3-2.407-.005-.014a13.109,13.109,0,0,0,4.928.955c6.354,0,11.506-4.385,11.506-9.795S1196.515,595.8,1190.161,595.8Z" transform="translate(-1178.656 -595.799)" fill="none" stroke="#1ec1af" stroke-linejoin="round" stroke-width="1.5"/>
+    <g id="Group_480" data-name="Group 480" transform="translate(4.01 8.186)">
+      <ellipse id="Ellipse_136" data-name="Ellipse 136" cx="1.721" cy="1.721" rx="1.721" ry="1.721" fill="none" stroke="#1ec1af" stroke-linejoin="round" stroke-width="1.5"/>
+      <ellipse id="Ellipse_137" data-name="Ellipse 137" cx="1.721" cy="1.721" rx="1.721" ry="1.721" transform="translate(5.775)" fill="none" stroke="#1ec1af" stroke-linejoin="round" stroke-width="1.5"/>
+      <ellipse id="Ellipse_138" data-name="Ellipse 138" cx="1.721" cy="1.721" rx="1.721" ry="1.721" transform="translate(11.551)" fill="none" stroke="#1ec1af" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

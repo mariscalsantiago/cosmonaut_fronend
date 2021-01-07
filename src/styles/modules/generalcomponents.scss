@@ -16,3 +16,15 @@ body{
 html{
     background-color: $fondo;
 }
+
+.button-outlet{
+     color:$primary !important;
+     background-color:white !important;
+     border-color: $primary;
+}
+
+.button-fill{
+    color:white !important;
+    background-color: $primary !important;
+    border-color: $primary;
+}

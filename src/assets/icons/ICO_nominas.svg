@@ -1,0 +1,9 @@
+<svg id="ICO_nominas" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="Group_477" data-name="Group 477" transform="translate(-495.4 -2842.869)">
+    <circle id="Ellipse_133" data-name="Ellipse 133" cx="3.903" cy="3.903" r="3.903" transform="translate(513.147 2853.24)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path_1518" data-name="Path 1518" d="M125.383,309.271a9.685,9.685,0,1,1,7.327-16.019" transform="translate(382.703 2558.069)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1519" data-name="Path 1519" d="M129.7,312.174a5.988,5.988,0,1,1,11.977,0" transform="translate(381.358 2557.505)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <text id="_" data-name="$" transform="translate(503.707 2860.717)" fill="#1ec1af" font-size="11" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">$</tspan></text>
+  </g>
+  <rect id="Rectangle_545" data-name="Rectangle 545" width="30" height="30" fill="none"/>
+</svg>
