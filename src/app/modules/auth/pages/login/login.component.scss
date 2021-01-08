@@ -23,14 +23,16 @@
 
 .imgblock{
     @extend %bloque;
-    width: 40%
+    width: 40%;
+
+    img{
+        max-width: 250px;
+        height: auto;
+        
+    }
 }
 
-.imgblock img{
-    max-width: 250px;
-    height: auto;
-    
-}
+
 
 .formblock{
     @extend %bloque;
@@ -57,11 +59,13 @@ a{
 .boton
 {
     text-align: center;
+
+    button{
+        width: 160px;
+    }
 }
 
-.boton button{
-    width: 160px;
-}
+
 
 
 span{
