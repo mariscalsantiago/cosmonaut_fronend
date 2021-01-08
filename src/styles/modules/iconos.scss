@@ -1,0 +1,14 @@
+@mixin icono-imagen($colorpersonalizado,$ruta) {
+    background-color: $colorpersonalizado;
+    -webkit-mask: url($ruta) no-repeat center;
+    mask: url($ruta) no-repeat center;
+    width: 25px;
+    height:25px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+
+  .icon_home{
+    @include icono-imagen($dark,'ICON_home.svg');
+  }

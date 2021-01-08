@@ -1,0 +1,64 @@
+@mixin icono-imagen($colorpersonalizado) {
+    background-color: $colorpersonalizado;
+    width: 25px;
+    height:25px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+
+  .icon_home{
+    $rutaimg:'../../assets/icons/ICO_home.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+
+  .icon_nominas{
+    $rutaimg:'../../assets/icons/ICO_nominas.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+
+  .icon_empleados{
+    $rutaimg:'../../assets/icons/ICO_empleados.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+
+  .icon_eventos{
+    $rutaimg:'../../assets/icons/ICO_eventos.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+
+  .icon_imss{
+    $rutaimg:'../../assets/icons/ICO_imss.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+
+  .icon_reportes{
+    $rutaimg:'../../assets/icons/ICO_reportes.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+
+  .icon_perfil{
+    $rutaimg:'../../assets/icons/ICO_perfil.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }

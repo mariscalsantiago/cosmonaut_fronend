@@ -101,11 +101,21 @@ a, a:hover, a:focus {
     font-size: 1.1em;
     display: block;
     text-align: left;
+
+   
 }
 #sidebar ul li a:hover {
     color: $primary;
     background: #fff;
+    
+    i{
+        background-color: $primary;
+    }
+
+  
 }
+
+
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: $primary;
@@ -116,6 +126,11 @@ a, a:hover, a:focus {
     text-align: left;
     border-radius: 20px;
     font-size: 16px;
+
+
+    i{
+        background-color: $primary;
+    }
 
 }
 ul ul a {
@@ -138,6 +153,7 @@ ul ul a {
     bottom: 5%;
     right: 100px;
     text-align: right;
+    z-index: -1;
 }
 
 .chaticon img{
@@ -155,3 +171,10 @@ ul ul a {
     height: auto;
     
 }
+
+
+  a{
+    display: flex;
+    flex-direction: row;
+  }
+
