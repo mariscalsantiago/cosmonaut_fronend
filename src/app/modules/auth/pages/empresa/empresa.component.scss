@@ -1,0 +1,85 @@
+ 
+@import '../../../../../styles.scss';
+
+
+%bloque{
+    float: left;
+    text-align: center;
+}
+
+
+.grupo1{
+    width: 30%;
+    display: inline-block;
+    margin-right: 10px;
+}
+.checkbox{
+    width: 10%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+
+.mt-5{
+
+
+    margin-top: auto!important;
+    margin-right: 50%!important;
+    margin-left: 5%;
+
+
+}
+
+
+.formblock{
+    @extend %bloque;
+    width: 90%;
+    text-align: justify;
+}
+
+.letra{
+    width: 100%;
+    color : $primary;
+}
+
+.form{
+    width:auto;
+    margin: auto ;
+}
+
+
+a{
+    color:$primary;
+    text-decoration: underline;
+}
+
+.boton
+{
+    text-align: center;
+}
+
+.boton button{
+    width: 160px;
+}
+
+
+
+
+.fade-in{-webkit-animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) both;animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) both}
+
+
+span{
+    font-size: x-small;
+
+}
+
+@-webkit-keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}
+
+
+
+.heartbeat:hover{-webkit-animation:heartbeat 1.5s ease-in-out infinite both;animation:heartbeat 1.5s ease-in-out infinite both}
+
+
+
+
+ @-webkit-keyframes heartbeat{from{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}10%{-webkit-transform:scale(.91);transform:scale(.91);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}17%{-webkit-transform:scale(.98);transform:scale(.98);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}33%{-webkit-transform:scale(.87);transform:scale(.87);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}45%{-webkit-transform:scale(1);transform:scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}}@keyframes heartbeat{from{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}10%{-webkit-transform:scale(.91);transform:scale(.91);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}17%{-webkit-transform:scale(.98);transform:scale(.98);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}33%{-webkit-transform:scale(.87);transform:scale(.87);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}45%{-webkit-transform:scale(1);transform:scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}}
