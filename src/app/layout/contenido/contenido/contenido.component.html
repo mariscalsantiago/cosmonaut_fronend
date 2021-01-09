@@ -1,56 +1,44 @@
 
-<div class="wrapper">
-   
-    
+<div class="contenido_component">
 
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <img src="../../../../assets/imgs/logo2.png" alt="" srcset="">
-        </div>
-
-        <ul class="list-unstyled components">
-
-            <li *ngFor="let item of arreglo"  [ngClass]="{'active':item.seleccionado}">
-                <a (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}"> <i [class]="item.icono"></i> {{item.nombre}}</a>
-                <ul  [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="item.nombre">
-                    <li  *ngFor="let item2 of item.submenu" (click)="seleccionarSubmenu(item,item2)">
-                        <a>{{item2.nombre}}</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-
-    <div class="content">
-        <nav class="navbar navbar-expand-lg navbar-light" >
-            
-    
-                <form style="width: 100%;
-                color: white;"  class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-                <i class="fas fa-search" aria-hidden="true"></i>
-                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Buscar"
-                  aria-label="Search">
-              </form>
-    
-            
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <img src="../../../../assets/imgs/logo2.png" alt="" srcset="">
+            </div>
+            <ul class="list-unstyled components">
+                <li *ngFor="let item of arreglo" [ngClass]="{'active':item.seleccionado}">
+                    <a (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}"> <i [class]="item.icono"></i>
+                        {{item.nombre}}</a>
+                    <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="item.nombre">
+                        <li *ngFor="let item2 of item.submenu" (click)="seleccionarSubmenu(item,item2)">
+                            <a>{{item2.nombre}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </nav>
-
-        
-        <div class="container content-inside ">
-
-
-            
-            <router-outlet></router-outlet>
+        <div class="content">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <form style="width: 100%;
+                    color: white;" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Buscar"
+                        aria-label="Search">
+                </form>
+            </nav>
+            <div class="container content-inside">
+                  <router-outlet></router-outlet>
+            </div>
         </div>
-        
-
-        
     </div>
-  
-</div>
-<div class="chaticon">
-    <img width="40px" height="40px" src="../../../../assets/imgs/ICO_CHAT.png" alt="">
-</div>
+    <div class="chaticon">
+        <img width="40px" height="40px" src="../../../../assets/imgs/ICO_CHAT.png" alt="">
+    </div>
 
 
+
+
+</div>
+
+    
