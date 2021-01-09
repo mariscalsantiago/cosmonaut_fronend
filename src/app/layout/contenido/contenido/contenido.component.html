@@ -9,48 +9,14 @@
         </div>
 
         <ul class="list-unstyled components">
-            <p>Inicio</p>
-            <li>
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> <i class="icon_home"></i> INICIO</a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                </ul>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle "><i class="icon_nominas"></i>  NOMINAS</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                </ul>
-            </li>
-            <li>
-                <a href="#menunomina" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle "><i class="icon_empleados"></i> EMPLEADOS</a>
-                <ul class="collapse list-unstyled" id="menunomina">
-                    <li>
-                        <a href="#">COMPLETAR</a>
-                    </li>
-                    <li>
-                        <a href="#">LISTA</a>
-                    </li>
-                    <li>
-                        <a href="#">DAR DE ALTA</a>
-                    </li>
-                    <li>
-                        <a href="#">DAR DE BAJA</a>
-                    </li>
-                    <li>
-                        <a href="#">DIRECTORIO</a>
+
+            <li *ngFor="let item of arreglo"  [ngClass]="{'active':item.seleccionado}">
+                <a (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}"> <i [class]="item.icono"></i> {{item.nombre}}</a>
+                <ul  [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="item.nombre">
+                    <li  *ngFor="let item2 of item.submenu" (click)="seleccionarSubmenu(item,item2)">
+                        <a>{{item2.nombre}}</a>
                     </li>
                 </ul>
-            </li>
-            <li>
-                <a href="#"><i class="icon_eventos"></i>  EVENTOS</a>
-            </li>
-            <li>
-                <a href="#"><i class="icon_imss"></i>IMSS</a>
-            </li>
-            <li>
-                <a href="#"><i class="icon_reportes"></i>REPORTES</a>
-            </li>
-            <li>
-                <a href="#"><i class="icon_perfil"></i>  MI PERFIL</a>
             </li>
         </ul>
     </nav>
