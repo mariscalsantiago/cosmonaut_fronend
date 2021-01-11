@@ -8,11 +8,11 @@
             </div>
             <ul class="list-unstyled components">
                 <li *ngFor="let item of arreglo" [ngClass]="{'active':item.seleccionado}">
-                    <a (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}"> <i [class]="item.icono"></i>
+                    <a [routerLink]="item.routerLink" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}"> <i [class]="item.icono"></i>
                         {{item.nombre}}</a>
                     <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="item.nombre">
                         <li *ngFor="let item2 of item.submenu" (click)="seleccionarSubmenu(item,item2)">
-                            <a>{{item2.nombre}}</a>
+                            <a [routerLink]="item2.routerLink" >{{item2.nombre}}</a>
                         </li>
                     </ul>
                 </li>

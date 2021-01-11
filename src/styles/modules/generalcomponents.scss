@@ -28,3 +28,28 @@ html{
     background-color: $primary !important;
     border-color: $primary;
 }
+
+.titulo-outlet{
+  
+    background-color: $secondary;
+    color:$light;
+    padding-top: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+
+.background-panel{
+
+    background-color: $light;
+    border-radius: 10px;
+
+
+}
+
+
+.titulo{
+    color:$secondary;
+    background-color: transparent;
+    display: block;
+}
