@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { menuprincipal, submenu } from '../../../core/data/estructuramenu';
-import { MenuService } from '../../../core/services/menu.service';
 
 @Component({
   selector: 'app-contenido',
@@ -9,17 +6,33 @@ import { MenuService } from '../../../core/services/menu.service';
   styleUrls: ['./contenido.component.scss']
 })
 export class ContenidoComponent implements OnInit {
-  public arreglo!: Array<menuprincipal>;
 
-  constructor(private router: Router, private menuPrd: MenuService) {
-  }
+  public arreglo: Array<menuprincipal> = [
+    { nombre: "INICIO", icono: "icon_home", seleccionado: true,seleccionadosubmenu:false,routerLink:['/inicio'] },
+    { nombre: "EMPLEADOS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false},
+    { nombre: "NOMINAS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,submenu:[
+                                                                                {nombre:"COMPLETAR",routerLink:[]},
+                                                                                {nombre:"LISTA",routerLink:[]},
+                                                                                {nombre:"DAR DE ALTA",routerLink:[]},
+                                                                                {nombre:"DAR DE BAJA",routerLink:[]},
+                                                                                {nombre:"DIRECTORIO",routerLink:[]}
+                                                                              ]},
+    { nombre: "EVENTOS", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
+    { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
+    { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
+    { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
+    { nombre: "CONFIGURACIÓN", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,submenu:[
+                                                                                {nombre:"COMPAÑIA",routerLink:['/company']},
+                                                                                {nombre:"USUARIOS",routerLink:['/usuarios']},
+                                                                              ]}
+  ];
+
+  constructor() { }
 
   ngOnInit(): void {
-
-    this.arreglo = this.menuPrd.getMenu();
   }
 
-  public limpiando() {
+  public limpiando(){
     for (let item of this.arreglo)
       item.seleccionado = false;
   }
@@ -33,12 +46,26 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public seleccionarSubmenu(obj: menuprincipal, obj2: submenu) {
+  public seleccionarSubmenu(obj:any,obj2:any)  {
     this.limpiando();
     obj.seleccionado = true;
-    this.router.navigate(obj2.routerLink);
+
+    
   }
 
 }
 
 
+interface menuprincipal {
+  nombre: string;
+  icono: string;
+  seleccionado: boolean,
+  seleccionadosubmenu:boolean,
+  submenu?: Array<submenu>,
+  routerLink?:Array<any>
+}
+
+interface submenu {
+  nombre: string;
+  routerLink:Array<any>
+}
