@@ -25,13 +25,58 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row margen">
     <div class="col titulo">
         <label >RESULTADOS</label>
     </div>
 </div>
-<div class="row margen background-panel">
+<div class="row margen margen-tabla background-panel">
 
-
+    
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#  </th>
+                <th scope="col">Nombre</th>
+                <th scope="col">F. Registro</th>
+                <th scope="col">Correo compañia</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><i class="icon_perfil"></i></th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>
+                    <button><i class="icon_editar text-center" ></i></button>
+                    <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><i class="icon_perfil"></i></th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>
+                    <button [routerLink]="['detalle_usuario']"><i class="icon_editar text-center" ></i></button>
+                    <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><i class="icon_perfil"></i></th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                <td>
+                    <button><i class="icon_editar text-center" ></i></button>
+                    <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+    
 
 </div>

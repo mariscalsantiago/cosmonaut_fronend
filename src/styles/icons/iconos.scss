@@ -69,3 +69,40 @@
     -webkit-mask: url($rutaimg) no-repeat center;
     mask: url($rutaimg) no-repeat center;
   }
+
+  .icontable_down{
+    $rutaimg:'../../assets/icons/icontable_down.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+  }
+
+  .icontable_up{
+    $rutaimg:'../../assets/icons/icontable_up.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+
+  .icontable_both{
+    $rutaimg:'../../assets/icons/icontable_both.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+  }
+
+  .icon_eliminar{
+    $rutaimg:'../../assets/icons/ICO_eliminar.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+  }
+
+  .icon_editar{
+    $rutaimg:'../../assets/icons/ICO_editar.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
