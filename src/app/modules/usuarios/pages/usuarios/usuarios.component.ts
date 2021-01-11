@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuarios',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsuariosComponent implements OnInit {
 
-  constructor() { }
+
+  public cargando:Boolean = false;
+
+  constructor(private routerPrd:Router) { }
 
   ngOnInit(): void {
+  }
+
+
+  public verdetalle(){
+
+    this.cargando = true;
+    setTimeout(() => {
+      
+      
+      this.routerPrd.navigate(['usuarios','detalle_usuario']);
+      this.cargando = false;
+
+
+    }, 2000);
+
   }
 
 }

@@ -22,7 +22,7 @@ export class MenuService {
     { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
     { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
     { nombre: "CONFIGURACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,submenu:[
-                                                                                {nombre:"COMPAÑIA",routerLink:[]},
+                                                                                {nombre:"COMPAÑIA",routerLink:['/company']},
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios']},
                                                                               ]}
   ];

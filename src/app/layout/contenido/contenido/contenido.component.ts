@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuService } from '../../../core/services/menu.service';
+import { menuprincipal,submenu } from '../../../core/data/estructuramenu';
 
 @Component({
   selector: 'app-contenido',
@@ -7,29 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContenidoComponent implements OnInit {
 
-  public arreglo: Array<menuprincipal> = [
-    { nombre: "INICIO", icono: "icon_home", seleccionado: true,seleccionadosubmenu:false,routerLink:['/inicio'] },
-    { nombre: "EMPLEADOS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false},
-    { nombre: "NOMINAS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,submenu:[
-                                                                                {nombre:"COMPLETAR",routerLink:[]},
-                                                                                {nombre:"LISTA",routerLink:[]},
-                                                                                {nombre:"DAR DE ALTA",routerLink:[]},
-                                                                                {nombre:"DAR DE BAJA",routerLink:[]},
-                                                                                {nombre:"DIRECTORIO",routerLink:[]}
-                                                                              ]},
-    { nombre: "EVENTOS", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
-    { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
-    { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
-    { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
-    { nombre: "CONFIGURACIÓN", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,submenu:[
-                                                                                {nombre:"COMPAÑIA",routerLink:['/company']},
-                                                                                {nombre:"USUARIOS",routerLink:['/usuarios']},
-                                                                              ]}
-  ];
+  public arreglo!: Array<menuprincipal>;
 
-  constructor() { }
+  constructor(private menuPrd:MenuService) { }
 
   ngOnInit(): void {
+
+    this.arreglo = this.menuPrd.getMenu();
+
   }
 
   public limpiando(){
@@ -56,16 +43,4 @@ export class ContenidoComponent implements OnInit {
 }
 
 
-interface menuprincipal {
-  nombre: string;
-  icono: string;
-  seleccionado: boolean,
-  seleccionadosubmenu:boolean,
-  submenu?: Array<submenu>,
-  routerLink?:Array<any>
-}
 
-interface submenu {
-  nombre: string;
-  routerLink:Array<any>
-}

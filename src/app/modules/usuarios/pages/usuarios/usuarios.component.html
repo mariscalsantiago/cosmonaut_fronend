@@ -1,82 +1,91 @@
-<div class="row margen">
-    <div class="col titulo-outlet">
-        <label >LISTA DE USUARIOS</label>
-    </div>
-</div>
+<div *ngIf="!cargando">
 
-<div class="margen">
-    <div class="form-group margen row "><label class="titulo">BUSQUEDA</label></div>
-    <div class="form group row margen">
-        <div class=" input-group-sm mb-3 col-4 ">
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Nombre de usuario">
-        </div>
-        <div class=" input-group-sm mb-3 col-3 ">
-            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Fecha de registro">
-        </div>
-        <div class=" input-group-sm mb-3 col-3 ">
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Correo personal">
-        </div>
-        <div class=" input-group-sm mb-3 col-2 ">
-            <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
+    <div class="row margen">
+        <div class="col titulo-outlet">
+            <label >LISTA DE USUARIOS</label>
         </div>
     </div>
-</div>
-
-<div class="row margen">
-    <div class="col titulo">
-        <label >RESULTADOS</label>
-    </div>
-</div>
-<div class="row margen margen-tabla background-panel">
-
     
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#  </th>
-                <th scope="col">Nombre</th>
-                <th scope="col">F. Registro</th>
-                <th scope="col">Correo compañia</th>
-                <th scope="col">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row"><i class="icon_perfil"></i></th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>
-                    <button><i class="icon_editar text-center" ></i></button>
-                    <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row"><i class="icon_perfil"></i></th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>
-                    <button [routerLink]="['detalle_usuario']"><i class="icon_editar text-center" ></i></button>
-                    <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row"><i class="icon_perfil"></i></th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>
-                    <button><i class="icon_editar text-center" ></i></button>
-                    <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
-                </td>
-              </tr>
-              
-            </tbody>
-          </table>
+    <div class="margen">
+        <div class="form-group margen row "><label class="titulo">BUSQUEDA</label></div>
+        <div class="form group row margen">
+            <div class=" input-group-sm mb-3 col-4 ">
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Nombre de usuario">
+            </div>
+            <div class=" input-group-sm mb-3 col-3 ">
+                <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Fecha de registro">
+            </div>
+            <div class=" input-group-sm mb-3 col-3 ">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Correo personal">
+            </div>
+            <div class=" input-group-sm mb-3 col-2 ">
+                <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
+            </div>
+        </div>
+    </div>
     
+    <div class="row margen">
+        <div class="col titulo">
+            <label >RESULTADOS</label>
+        </div>
+    </div>
+    <div class="row margen margen-tabla background-panel">
+    
+        
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#  </th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">F. Registro</th>
+                    <th scope="col">Correo compañia</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"><i class="icon_perfil"></i></th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>
+                        <button><i class="icon_editar text-center" ></i></button>
+                        <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><i class="icon_perfil"></i></th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                    <td>
+                        <button (click)="verdetalle()"><i class="icon_editar text-center" ></i></button>
+                        <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><i class="icon_perfil"></i></th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                    <td>
+                        <button><i class="icon_editar text-center" ></i></button>
+                        <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+        
+    
+    </div>
+    
+</div>
 
+<div class="acomodando" *ngIf="cargando">
+
+   <app-loading></app-loading>
 </div>
