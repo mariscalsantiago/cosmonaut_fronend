@@ -43,6 +43,13 @@
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
           </div>
+          <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
+            <div class="col text-right">
+              <button type="button" class="btn btn-light button-outlet" (click)="verdetalle()">
+                <i class="fa fa-plus"></i>Agregar
+              </button>
+            </div>
+          </div>
             <table class="table table-hover">
                 <thead>
                   <tr>
