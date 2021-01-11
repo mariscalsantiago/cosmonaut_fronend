@@ -11,6 +11,9 @@ export class UsuariosComponent implements OnInit {
 
   public cargando:Boolean = false;
 
+  public multiseleccion:Boolean = false;
+  public multiseleccionloading:boolean = false;
+
   constructor(private routerPrd:Router) { }
 
   ngOnInit(): void {
@@ -29,6 +32,26 @@ export class UsuariosComponent implements OnInit {
 
     }, 2000);
 
+  }
+
+
+  public activarMultiseleccion(){
+      this.multiseleccion = true;
+  }
+
+
+  public guardarMultiseleccion(){
+    this.multiseleccionloading = true;
+      setTimeout(() => {
+        this.multiseleccionloading = false;
+        this.multiseleccion = false;
+      }, 3000);
+  }
+
+
+  public cancelarMulti(){
+    this.multiseleccionloading = false;
+    this.multiseleccion = false;
   }
 
 }

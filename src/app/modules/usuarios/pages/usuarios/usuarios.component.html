@@ -5,6 +5,12 @@
             <label >LISTA DE USUARIOS</label>
         </div>
     </div>
+
+    <div class="row margen">
+        <div class="col">
+            <p class="text-white">1.- Dar doble click en la tabla de usuarios para desplegar multiselección </p>
+        </div>
+    </div>
     
     <div class="margen">
         <div class="form-group margen row "><label class="titulo">BUSQUEDA</label></div>
@@ -32,56 +38,51 @@
             <label >RESULTADOS</label>
         </div>
     </div>
-    <div class="row margen margen-tabla background-panel">
-    
-        
-            <table class="table">
+    <div class="row margen margen-tabla background-panel">        
+        <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
+          </div>
+            <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">#  </th>
+                    <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
                     <th scope="col">Nombre</th>
                     <th scope="col">F. Registro</th>
                     <th scope="col">Correo compañia</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col" *ngIf="!multiseleccion">Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row"><i class="icon_perfil"></i></th>
+                  <tr (dblclick)="activarMultiseleccion()">
+                    <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i>    <input *ngIf="multiseleccion" type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
                     <td>Mark</td>
                     <td>Otto</td>
                     <td>@mdo</td>
-                    <td>
-                        <button><i class="icon_editar text-center" ></i></button>
-                        <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><i class="icon_perfil"></i></th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>
+                    <td *ngIf="!multiseleccion">
                         <button (click)="verdetalle()"><i class="icon_editar text-center" ></i></button>
                         <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row"><i class="icon_perfil"></i></th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>
-                        <button><i class="icon_editar text-center" ></i></button>
-                        <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
-                    </td>
-                  </tr>
+                
+               
                   
                 </tbody>
               </table>
-        
+              <div *ngIf="multiseleccion" class="row text-center margin botonmultiseleccion" style="margin-bottom: 20px;">
+                <button type="button" class="btn btn-primary button-outlet mr-2" style="color:red" (click)="cancelarMulti()" *ngIf="!multiseleccionloading">Cancelar</button>
+                <button (click)="guardarMultiseleccion()" type="button" class="btn btn-primary button-fill agrandarloading"><span *ngIf="!multiseleccionloading">Guardar</span>
+                
+                    <div *ngIf="multiseleccionloading"  role="status">
+                        <span class="spinner-border"></span>
+                      </div>
+                </button>
+                
+            </div>
     
     </div>
+
+    
     
 </div>
 
