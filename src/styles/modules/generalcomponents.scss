@@ -20,13 +20,13 @@ html{
 .button-outlet{
      color:$primary !important;
      background-color:white !important;
-     border-color: $primary;
+     border-color: $primary !important;
 }
 
 .button-fill{
     color:white !important;
     background-color: $primary !important;
-    border-color: $primary;
+    border-color: $primary !important;
 }
 
 .titulo-outlet{
