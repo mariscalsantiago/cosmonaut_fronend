@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { menuprincipal,submenu } from '../../../core/data/estructuramenu';
+import { menuprincipal, submenu } from '../../../core/data/estructuramenu';
 import { MenuService } from '../../../core/services/menu.service';
 
 @Component({
@@ -9,18 +9,17 @@ import { MenuService } from '../../../core/services/menu.service';
   styleUrls: ['./contenido.component.scss']
 })
 export class ContenidoComponent implements OnInit {
-  public arreglo!:Array<menuprincipal>;
+  public arreglo!: Array<menuprincipal>;
 
-  constructor(private router:Router,private menuPrd:MenuService) { 
-
-       this.arreglo = menuPrd.getMenu();
-
+  constructor(private router: Router, private menuPrd: MenuService) {
   }
 
   ngOnInit(): void {
+
+    this.arreglo = this.menuPrd.getMenu();
   }
 
-  public limpiando(){
+  public limpiando() {
     for (let item of this.arreglo)
       item.seleccionado = false;
   }
@@ -34,14 +33,10 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public seleccionarSubmenu(obj:any,obj2:submenu)  {
-
-    this.router.navigate(obj2.routerLink);  
-    
-     
-
-    
-    
+  public seleccionarSubmenu(obj: menuprincipal, obj2: submenu) {
+    this.limpiando();
+    obj.seleccionado = true;
+    this.router.navigate(obj2.routerLink);
   }
 
 }
