@@ -12,7 +12,7 @@
                         {{item.nombre}}</a>
                     <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="item.nombre">
                         <li *ngFor="let item2 of item.submenu" (click)="seleccionarSubmenu(item,item2)">
-                            <a [routerLink]="item2.routerLink" >{{item2.nombre}}</a>
+                            <a  >{{item2.nombre}}</a>
                         </li>
                     </ul>
                 </li>

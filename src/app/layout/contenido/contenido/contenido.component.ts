@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contenido',
@@ -21,13 +22,13 @@ export class ContenidoComponent implements OnInit {
     { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
     { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
     { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
-    { nombre: "CONFIGURACIÓN", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,submenu:[
-                                                                                {nombre:"COMPAÑIA",routerLink:['/compania']},
+    { nombre: "CONFIGURACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,submenu:[
+                                                                                {nombre:"COMPAÑIA",routerLink:[]},
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios']},
                                                                               ]}
   ];
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -46,10 +47,13 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public seleccionarSubmenu(obj:any,obj2:any)  {
+  public seleccionarSubmenu(obj:any,obj2:submenu)  {
     this.limpiando();
     obj.seleccionado = true;
 
+     this.router.navigate(obj2.routerLink);
+
+    
     
   }
 

@@ -62,3 +62,10 @@
     mask: url($rutaimg) no-repeat center;
 
   }
+
+  .icon_admon{
+    $rutaimg:'../../assets/icons/ICO_admon.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+  }
