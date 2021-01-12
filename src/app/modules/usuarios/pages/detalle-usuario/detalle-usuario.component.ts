@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 
@@ -26,14 +26,17 @@ export class DetalleUsuarioComponent implements OnInit {
   public createForm(obj: any) {
     return this.formBuilder.group({
 
-      nombre: [obj.nombre],
-      apellidoPaterno: [obj.apellidoPaterno],
+      nombre: [obj.nombre,[Validators.required]],
+      apellidoPaterno: [obj.apellidoPaterno,[Validators.required]],
       apellidoMaterno: [obj.apellidoMaterno],
       curp: [obj.curp],
-      correoEmpresarial: [obj.correoEmpresarial],
-      correoPersonal: [obj.correoPersonal],
-      telefono: [obj.telefono],
-      fechaRegistro: [obj.fechaRegistro],
+      correoEmpresarial: [obj.correoEmpresarial,[Validators.required,Validators.email]],
+      correoPersonal: [obj.correoPersonal,[Validators.required,Validators.required]],
+      telefono: [obj.telefono,[Validators.required]],
+      fechaRegistro: [obj.fechaRegistro,[Validators.required]],
+      idTipoUsuario:[obj.idTipoUsuario,[Validators.required]],
+      idCompañia:[obj.idCompañia,[Validators.required]],
+      status:[obj.status,[Validators.required]],
       id: obj.id
 
 
