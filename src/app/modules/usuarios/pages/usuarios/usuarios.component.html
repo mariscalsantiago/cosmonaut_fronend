@@ -1,4 +1,4 @@
-<div *ngIf="!cargando">
+<div >
 
     <div class="row margen">
         <div class="col titulo-outlet">
@@ -38,37 +38,38 @@
             <label >RESULTADOS</label>
         </div>
     </div>
-    <div class="row margen margen-tabla background-panel">        
+    <div class="row margen margen-tabla background-panel scrooll">        
         <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
           </div>
           <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
             <div class="col text-right">
-              <button type="button" class="btn btn-light button-outlet" (click)="verdetalle()">
+              <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
                 <i class="fa fa-plus"></i>Agregar
               </button>
             </div>
           </div>
-            <table class="table table-hover">
+            <table *ngIf="!cargando" class="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
                     <th scope="col">Nombre</th>
                     <th scope="col">F. Registro</th>
                     <th scope="col">Correo compañia</th>
+                    <th scope="col">Correo personal</th>
                     <th scope="col" *ngIf="!multiseleccion">Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr (dblclick)="activarMultiseleccion()">
+                  <tr (dblclick)="activarMultiseleccion()"  *ngFor="let item of arreglo;">
                     <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i>    <input *ngIf="multiseleccion" type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>{{item.nombre}} {{item.apellidoPaterno}}{{ item.apellidoMaterno }}</td>
+                    <td>{{item.fechaRegistro}}</td>
+                    <td>{{item.correoEmpresarial}}</td>
+                    <td>{{item.correoPersonal}}</td>
                     <td *ngIf="!multiseleccion">
-                        <button (click)="verdetalle()"><i class="icon_editar text-center" ></i></button>
-                        <button><i class="icon_eliminar text-center" style="background-color: red;"></i></button>
+                        <button (click)="verdetalle(item)" class="btnPersonalizado"><i class="icon_editar text-center bg-light" ></i></button>
                     </td>
                   </tr>
                 
@@ -86,14 +87,11 @@
                 </button>
                 
             </div>
-    
+            <div *ngIf="cargando" class="col text-center mb-5">
+              <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+            </div>
     </div>
 
     
     
-</div>
-
-<div class="acomodando" *ngIf="cargando">
-
-   <app-loading></app-loading>
 </div>

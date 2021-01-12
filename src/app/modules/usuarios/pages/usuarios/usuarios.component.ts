@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../../services/usuario.service';
+
 
 @Component({
   selector: 'app-usuarios',
@@ -14,23 +16,46 @@ export class UsuariosComponent implements OnInit {
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
 
-  constructor(private routerPrd:Router) { }
+
+
+  /*
+    Directivas de filtros
+  */
+
+
+  public id_company:number = 1;
+
+
+
+  /*
+  
+    Resultados desplegados en un array
+
+  */
+
+  public arreglo:any = [];
+
+  constructor(private routerPrd:Router,private usuariosPrd:UsuarioService) { }
 
   ngOnInit(): void {
+
+
+    this.cargando = true;
+
+      this.usuariosPrd.getByCompany(this.id_company).subscribe(datos =>{
+        this.arreglo = datos.data;
+
+        this.cargando = false;
+      });
+
   }
 
 
-  public verdetalle(){
-
-    this.cargando = true;
-    setTimeout(() => {
-      
-      
-      this.routerPrd.navigate(['usuarios','detalle_usuario']);
-      this.cargando = false;
-
-
-    }, 2000);
+  public verdetalle(obj:any){
+    
+    this.routerPrd.navigate(['usuarios','detalle_usuario'],{state:{data:obj}});
+    this.cargando = false;
+    
 
   }
 

@@ -7,7 +7,9 @@
 
 <hr>
 
-<form>
+<form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
+
+    <input type="hidden" formControlName="id">
 
     <div class="background-panel margen">
         <div class="form-group row margen"><label class="titulo">SELECCIONAR</label></div>
@@ -52,25 +54,25 @@
         
             <div class=" input-group-sm mb-3 col-4 ">
                 <label for="exampleInputEmail1">NOMBRE</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input formControlName="nombre" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="">
     
             </div>
             <div class=" input-group-sm mb-3 col-4">
                 <label for="exampleInputEmail1">APELLIDO PATERNO</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input formControlName="apellidoPaterno" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="">
     
             </div>
             <div class=" input-group-sm mb-3 col-4">
                 <label for="exampleInputEmail1">APELLIDO MATERNO</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input formControlName="apellidoMaterno" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="">
     
             </div>
             <div class=" input-group-sm mb-3 col-4">
                 <label for="exampleInputEmail1">CURP</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input formControlName="curp" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="">
     
             </div>
@@ -86,25 +88,25 @@
 
             <div class=" input-group-sm mb-3 col-4">
                 <label for="exampleInputEmail1">CORREO EMPRESARIAL</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input formControlName="correoEmpresarial" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="">
     
             </div>
             <div class=" input-group-sm mb-3 col-4">
                 <label for="exampleInputEmail1">CORREO PERSONAL</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input formControlName="correoPersonal" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="">
     
             </div>
             <div class=" input-group-sm mb-3 col-4">
                 <label for="exampleInputEmail1">TELEFONO</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input formControlName="telefono" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="">
     
             </div>
             <div class=" input-group-sm mb-3 col-4">
                 <label for="exampleInputEmail1">FECHA DE REGISTRO</label>
-                <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                <input formControlName="fechaRegistro" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="">
     
             </div>
@@ -153,7 +155,7 @@
 
 
     <div class="text-center margin" style="margin-bottom: 20px;">
-        <button type="button" class="btn btn-primary button-fill" routerLink="/usuarios">Guardar</button>
-    </div>
+        <button [disabled]="!myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
+    </div>   
 
 </form>
