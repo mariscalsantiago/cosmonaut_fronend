@@ -50,13 +50,12 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
 
-    /*
+    
         this.usuariosPrd.save(obj).subscribe(datos =>{
-             console.log("Se pudo insertar los datos");
-             console.log(datos);
+             alert(datos.message);
         });
     
-    */
+    
 
 
   }

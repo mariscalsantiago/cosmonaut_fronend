@@ -13,6 +13,11 @@
     margin-right: 24px;
 }
 
+.content-modal{
+    overflow: hidden!important;
+    position: relative;
+}
+
 .content::-webkit-scrollbar{
     width: 0 !important;
 }

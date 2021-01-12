@@ -1,4 +1,3 @@
-
 <div class="contenido_component">
 
     <div class="wrapper">
@@ -8,11 +7,12 @@
             </div>
             <ul class="list-unstyled components">
                 <li *ngFor="let item of arreglo" [ngClass]="{'active':item.seleccionado}">
-                    <a [routerLink]="item.routerLink" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}"> <i [class]="item.icono"></i>
+                    <a [routerLink]="item.routerLink" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
+                        <i [class]="item.icono"></i>
                         {{item.nombre}}</a>
                     <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="item.nombre">
                         <li *ngFor="let item2 of item.submenu" (click)="seleccionarSubmenu(item,item2)">
-                            <a [routerLink]="item2.routerLink" >{{item2.nombre}}</a>
+                            <a [routerLink]="item2.routerLink">{{item2.nombre}}</a>
                         </li>
                     </ul>
                 </li>
@@ -28,8 +28,20 @@
                 </form>
             </nav>
             <div class="container content-inside">
-                  <router-outlet></router-outlet>
+                <router-outlet></router-outlet>
             </div>
+
+            <!-- <div class="bg_modal1">
+
+                <div class="bodymodal">
+
+
+
+                </div>
+
+            </div> -->
+
+
         </div>
     </div>
     <div class="chaticon">
@@ -40,5 +52,3 @@
 
 
 </div>
-
-    
