@@ -106,3 +106,11 @@
     mask: url($rutaimg) no-repeat center;
 
   }
+
+  .icon_upload{
+    $rutaimg:'../../assets/icons/ICO_upload.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
