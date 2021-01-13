@@ -1,6 +1,6 @@
 {
     "/api/*":{
-        "target":"http://0faa0bfffc28.ngrok.io",
+        "target":"http://796566551890.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/api": ""

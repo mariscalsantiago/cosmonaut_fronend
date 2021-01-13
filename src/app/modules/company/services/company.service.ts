@@ -14,6 +14,8 @@ export class CompanyService {
 
     this.url = direcciones.company;
 
+    this.url = '/api/company/';
+
   }
 
   public getByCompany(id_company:number):Observable<any>{

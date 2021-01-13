@@ -50,6 +50,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.modal = true;
 
+    return;
+
     let obj = this.myForm.value;
 
 
@@ -68,7 +70,10 @@ return;
   public recibir($evento:any){
      this.modal = false;
      if($evento){ 
-        console.log("enviar la petición");
+      let obj = this.myForm.value;
+      this.usuariosPrd.save(obj).subscribe(datos =>{
+        alert(datos.message);
+   });
      }
   }
 

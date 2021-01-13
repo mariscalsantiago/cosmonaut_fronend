@@ -143,7 +143,7 @@
 
 
     <div class="text-center margin" style="margin-bottom: 20px;">
-        <button [disabled]="myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
+        <button [disabled]="!myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
     </div>   
 
 </form>
