@@ -1,0 +1,101 @@
+<div >
+
+    <div class="row margen">
+        <div class="col titulo-outlet">
+            <label >LISTA DE COMPAÑIAS</label>
+        </div>
+    </div>
+
+    <div class="row margen">
+        <div class="col">
+            <p class="text-white">1.- Dar doble click en la tabla de usuarios para desplegar multiselección </p>
+        </div>
+    </div>
+    
+    <div class="margen">
+        <div class="form-group margen row "><label class="titulo">BUSQUEDA</label></div>
+        <div class="form group row margen">
+            <div class=" input-group-sm mb-3 col-4 ">
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Nombre de compañia">
+            </div>
+            <div class=" input-group-sm mb-3 col-3 ">
+                <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Fecha de registro">
+            </div>
+            <div class=" input-group-sm mb-3 col-3 ">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="RFC">
+            </div>
+            <div class=" input-group-sm mb-3 col-2 ">
+                <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row margen">
+        <div class="col titulo">
+            <label >RESULTADOS</label>
+        </div>
+    </div>
+    <div class="row margen margen-tabla background-panel scrooll">        
+        <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
+          </div>
+          <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
+            <div class="col text-right">
+              <button type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
+                <i class="fa fa-plus"></i>Agregar compañia
+              </button>
+            </div>
+          </div>
+            <table *ngIf="!cargando" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
+                    <th scope="col">Nombre compañia</th>
+                    <th scope="col">Razón social</th>
+                    <th scope="col">RFC</th>
+                    <th scope="col">Estatus</th>
+                    <th scope="col" *ngIf="!multiseleccion">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr (dblclick)="activarMultiseleccion()"  *ngFor="let item of arreglo;">
+                    <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i>    <input *ngIf="multiseleccion" type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
+                    <td>{{item.nombreCompania}}</td>
+                    <td>{{item.razonSocial}}</td>
+                    <td>{{item.rfc}}</td>
+                    <td>{{item.status}}</td>
+                    <td *ngIf="!multiseleccion">
+                        <button (click)="verdetallecom(item)" class="btnPersonalizado"><i class="icon_editar text-center bg-light" ></i></button>
+                    </td>
+                  </tr>
+                
+               
+                  
+                </tbody>
+              </table>
+              <div *ngIf="multiseleccion" class="row text-center margin botonmultiseleccion" style="margin-bottom: 20px;">
+                <button type="button" class="btn btn-primary button-outlet mr-2" style="color:red" (click)="cancelarMulti()" *ngIf="!multiseleccionloading">Cancelar</button>
+                <button (click)="guardarMultiseleccion()" type="button" class="btn btn-primary button-fill agrandarloading"><span *ngIf="!multiseleccionloading">Guardar</span>
+                
+                    <div *ngIf="multiseleccionloading"  role="status">
+                        <span class="spinner-border"></span>
+                      </div>
+                </button>
+                
+            </div>
+            <div *ngIf="cargando" class="col text-center mb-5">
+              <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+            </div>
+    </div>
+
+    
+    
+</div>
+
+
+
+
