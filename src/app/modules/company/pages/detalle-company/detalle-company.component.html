@@ -7,7 +7,9 @@
 
 <hr>
 
+
 <form>
+  <input type="hidden" formControlName="id">
 
   <div class="background-panel margen" >
     <br>
@@ -53,7 +55,9 @@
 
 </form>
  <br> 
-<form>
+ <form>
+
+  <input type="hidden" formControlName="id">
   <div class="background-panel margen">
     <br>
       <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE CONTACTO</label></div>
@@ -113,11 +117,8 @@
   
   </div>
 
-
-  <div class="text-center margin">
-      
-      <button type="button" class="btn btn-primary button-fill">Guardar</button>
-  </div>
+<div class="text-center margin" style="margin-bottom: 20px;">
+    <button [disabled]="myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
+</div>   
 
 </form>
-<br>

@@ -39,10 +39,12 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit(): void {
 
+    debugger;
 
     this.cargando = true;
 
-      this.companyProd.getByCompany(this.id_company).subscribe(datos =>{
+      this.companyProd.getAll().subscribe(datos =>{
+
         this.arreglo = datos.data;
 
         this.cargando = false;
