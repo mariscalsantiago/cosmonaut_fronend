@@ -33,7 +33,7 @@
 
 
 
-            <app-alert-questions *ngIf="modal" [scrollTop]="contenido.scrollTop"></app-alert-questions>
+            <app-alert-questions *ngIf="prueba()" [scrollTop]="contenido.scrollTop"></app-alert-questions>
 
 
             <button (click)="modal=true"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#alertQuestion">
