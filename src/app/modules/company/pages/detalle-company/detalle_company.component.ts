@@ -17,28 +17,20 @@ export class DetalleCompanyComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let objUsuario = history.state.data == undefined ? {} : history.state.data;
+    let objCompany = history.state.data == undefined ? {} : history.state.data;
 
-    this.myForm = this.createForm((objUsuario));
+    this.myForm = this.createForm((objCompany));
   }
 
 
   public createForm(obj: any) {
     return this.formBuilder.group({
 
-      nombre: [obj.nombre,[Validators.required]],
-      apellidoPaterno: [obj.apellidoPaterno,[Validators.required]],
+      nombreCompania: [obj.nombreCompania,[Validators.required]],
+      razonSocial: [obj.razonSocial,[Validators.required]],
       apellidoMaterno: [obj.apellidoMaterno],
-      curp: [obj.curp],
-      correoEmpresarial: [obj.correoEmpresarial,[Validators.required,Validators.email]],
-      correoPersonal: [obj.correoPersonal,[Validators.required,Validators.required]],
-      telefono: [obj.telefono,[Validators.required]],
-      fechaRegistro: [obj.fechaRegistro,[Validators.required]],
-      idTipoUsuario:[obj.idTipoUsuario,[Validators.required]],
-      idCompañia:[obj.idCompañia,[Validators.required]],
-      status:[obj.status,[Validators.required]],
-      id: obj.id
-
+      rfc: [obj.rfc,[Validators.required]],
+      estatus: [obj.estatus,[Validators.required]],
 
     });
   }
@@ -58,9 +50,9 @@ export class DetalleCompanyComponent implements OnInit {
 
 return;
     
-        //this.usuariosPrd.save(obj).subscribe(datos =>{
-          //   alert(datos.message);
-        //});
+        this.companyPrd.save(obj).subscribe(datos =>{
+             alert(datos.message);
+      });
     
     
 
