@@ -16,7 +16,7 @@ export class CompanyComponent implements OnInit {
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
 
-
+     
 
   /*
     Directivas de filtros
