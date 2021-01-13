@@ -17,11 +17,13 @@ export class CompanyService {
   }
 
   public getByCompany(id_company:number):Observable<any>{
+    debugger;
       return this.http.get(`/api/company/findById/${id_company}`);
   }
 
-  public getAll(id_user:number):Observable<any>{
+  public getAll():Observable<any>{
     
+    debugger;
 
     return this.http.get(`${this.url}/findAll/`);
 
