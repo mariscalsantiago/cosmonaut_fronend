@@ -18,7 +18,7 @@
                 </li>
             </ul>
         </nav>
-        <div class="content">
+        <div [ngClass]="{'content':true,'content-modal':modal}">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <form style="width: 100%;
                     color: white;" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
@@ -31,15 +31,34 @@
                 <router-outlet></router-outlet>
             </div>
 
-            <!-- <div class="bg_modal1">
+            <div class="bg_modal1" *ngIf="modal">
 
-                <div class="bodymodal">
+                <div class="bodymodal fade-in">
 
+                    <div style="height: 100px;width: 100%; background-color: #00C1AF;" class="text-center">
+                    
+                        <div class="containerimg">
+                            <img src="../../../../assets/icons/ICO_Alert.svg"  width="75px" height="75px" alt="" srcset="">
+                        </div>
+                    </div>
+                    <div>
 
+                        <div class="row mt-5 mr-4 ml-4 text-center"><div class="col">
+                            <h5 class="titulo">¿Deseas guardar cambios?</h5>
+                            <p>Una vez guardado cambios afectaras a la base de datos</p>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-primary button-outlet" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary button-fill">Aceptar</button>
+                            </div>
+                        </div></div>
+
+                    </div>
 
                 </div>
 
-            </div> -->
+            </div>
+
+            <button (click)="modal=true">otra ventan</button>
 
 
         </div>

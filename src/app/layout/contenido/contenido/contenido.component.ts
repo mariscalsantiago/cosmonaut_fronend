@@ -10,6 +10,7 @@ import { menuprincipal,submenu } from '../../../core/data/estructuramenu';
 export class ContenidoComponent implements OnInit {
 
   public arreglo!: Array<menuprincipal>;
+  public modal:boolean = false;
 
   constructor(private menuPrd:MenuService) { }
 
