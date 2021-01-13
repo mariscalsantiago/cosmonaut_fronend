@@ -12,6 +12,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public myForm!: FormGroup;
+  public modal:boolean = false;
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute) { }
 
@@ -46,10 +47,13 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public enviarPeticion() {
 
+
+    this.modal = true;
+
     let obj = this.myForm.value;
 
 
-
+return;
     
         this.usuariosPrd.save(obj).subscribe(datos =>{
              alert(datos.message);
@@ -58,6 +62,14 @@ export class DetalleUsuarioComponent implements OnInit {
     
 
 
+  }
+
+
+  public recibir($evento:any){
+     this.modal = false;
+     if($evento){
+        console.log("enviar la petición");
+     }
   }
 
 

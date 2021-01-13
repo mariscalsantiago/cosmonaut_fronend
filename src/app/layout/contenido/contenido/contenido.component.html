@@ -18,7 +18,7 @@
                 </li>
             </ul>
         </nav>
-        <div #contenido [ngClass]="{'content':true,'content-modal':modal}">
+        <div id="contenido" [ngClass]="{'content':true,'content-modal':modal}" style="position: relative;">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <form style="width: 100%;
                     color: white;" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
@@ -30,15 +30,6 @@
             <div class="container content-inside">
                 <router-outlet></router-outlet>
             </div>
-
-
-
-            <app-alert-questions *ngIf="prueba()" [scrollTop]="contenido.scrollTop"></app-alert-questions>
-
-
-            <button (click)="modal=true"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#alertQuestion">
-                Modal alerta
-              </button>
 
 
 

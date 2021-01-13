@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-alert-questions',
@@ -7,14 +7,40 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AlertQuestionsComponent implements OnInit {
 
-  @Input() scrollTop:any;
+  public scrollTop:any;
+  public content:any;
 
-  constructor() { }
+  @Output() eventoFunciones = new EventEmitter();
+
+
+
+  constructor() {
+
+    this.content = document.getElementById("contenido");
+    this.scrollTop = this.content.scrollTop;
+
+
+    this.content.style.overflow = "hidden";
+
+   }
+
+
 
   ngOnInit(): void {
 
     
 
+  }
+
+
+  public cancelar(){
+    this.content.style.overflow = "auto";
+    this.eventoFunciones.emit(false);
+  }
+
+  public aceptar(){
+    this.content.style.overflow = "auto";
+    this.eventoFunciones.emit(true);
   }
 
 }
