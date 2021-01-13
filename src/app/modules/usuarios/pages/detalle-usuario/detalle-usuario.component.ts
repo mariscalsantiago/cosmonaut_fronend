@@ -67,7 +67,7 @@ return;
 
   public recibir($evento:any){
      this.modal = false;
-     if($evento){
+     if($evento){ 
         console.log("enviar la petición");
      }
   }
