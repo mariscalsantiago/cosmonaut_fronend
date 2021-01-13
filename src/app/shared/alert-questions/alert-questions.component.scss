@@ -1,22 +1,29 @@
-.bodymodal{
-    background-color: white;
-    max-width: 300px;
-    height: 350px;
-    left: 36%;
-    top:25%; 
-    position: relative;
-}
+.bg_modal1{
+    background: #0000007d;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    
+    left: 0;
+    
 
-.containerimg{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: white;
-        /* margin: auto; */
-padding-top: 10p;
-/* margin-left: auto; */
-/* margin-right: 101px; */
-margin-top: 45px;
-margin-left: 90px;
-position: absolute;
+    .bodymodal{
+        background-color: white;
+        max-width: 300px;
+        height: 350px;
+        left: 36%;
+        top:15%; 
+        position: relative;
+    }
+
+    .containerimg{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: white;
+        padding-top: 10p;
+        margin-top: 45px;
+        margin-left: 106px;
+        position: absolute;
+    }
 }

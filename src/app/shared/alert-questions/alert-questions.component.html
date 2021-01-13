@@ -1,35 +1,26 @@
-<div class="modal fade" id="alertQuestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div style="height: 100px;width: 100%; background-color: #00C1AF;" class="text-center">
-                    
-                    <div class="containerimg">
-                        <img src="../../../../assets/icons/ICO_Alert.svg"  width="75px" height="75px" alt="" srcset="">
-                    </div>
-                </div>
-                <div>
+<div class="bg_modal1" [style.top]="scrollTop+'px'">
 
-                    <div class="row mt-5 mr-4 ml-4 text-center"><div class="col">
-                        <h5 class="titulo">¿Deseas guardar cambios?</h5>
-                        <p>Una vez guardado cambios afectaras a la base de datos</p>
-                        
-                    </div></div>
+    <div class="bodymodal slide-in-top">
 
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary button-outlet" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary button-fill">Aceptar</button>
+        <div style="height: 100px;width: 100%; background-color: #00C1AF;" class="text-center">
+        
+            <div class="containerimg">
+                <img src="../../../../assets/icons/ICO_Alert.svg"  width="75px" height="75px" alt="" srcset="">
             </div>
         </div>
+        <div>
+
+            <div class="row mt-5 mr-4 ml-4 text-center"><div class="col">
+                <h5 class="titulo">¿Deseas guardar cambios?</h5>
+                <p>Una vez guardado cambios afectaras a la base de datos</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary button-outlet" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary button-fill">Aceptar</button>
+                </div>
+            </div></div>
+
+        </div>
+
     </div>
+
 </div>
-
-

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-alert-questions',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alert-questions.component.scss']
 })
 export class AlertQuestionsComponent implements OnInit {
+
+  @Input() scrollTop:any;
 
   constructor() { }
 
