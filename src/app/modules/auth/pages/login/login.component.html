@@ -6,26 +6,34 @@
 </div>
 
 <div class="formblock mt-5 fade-in">
-  <label class="text-center letra títulos_roboto-—-25pt ">BIENVENIDO, INGRESA TUS DATOS</label>
-  <div class="alert alert-danger" *ngIf="error" role="alert">
+  <label *ngIf="!ventanapass" class="text-center letra títulos_roboto-—-25pt ">BIENVENIDO, INGRESA TUS DATOS
+  </label>
+  <label *ngIf="ventanapass" class="text-center letra títulos_roboto-—-25pt ">¿OLVIDASTE TU CONTRASEÑA?
+  </label>
+  <div *ngIf="!ventanapass && error" class="alert alert-danger"  role="alert">
     Email y/o contraseña invalidos
   </div>
   <form class="form" [formGroup]="myForm" (ngSubmit)="enviarformulario()">
     <div class="form-group">
-      <label class="text-light" for="exampleInputEmail1"><small>Email</small></label>
-      <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
+      <label class="text-light" for="exampleInputEmail1"><small *ngIf="!ventanapass">Email</small><small *ngIf="ventanapass">Ingresa tu email y te enviaremos un link para restablecerla</small></label>
+      <input *ngIf="!ventanapass" formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
         aria-describedby="emailHelp">
 
     </div>
-    <div class="form-group">
+    <div class="form-group" *ngIf="!ventanapass">
       <label class="text-light" for="exampleInputPassword1"><small>Contraseña</small></label>
       <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1">
     </div>
-    <a href=""><small>¿Olvidaste tu contraseña?</small></a>
-    <br><br><br>
-    <div class="boton">
+    <div class="form-group" *ngIf="ventanapass">
+      <label class="text-light" for="exampleInputPassword1"><small>Email</small></label>
+      <input #emailrestablecer type="email" class="form-control" id="exampleInputPassword1">
+    </div>
+    <a style="    color: #00c0af;" *ngIf="!ventanapass"  (click)="ventanapass=true"><small> <u>¿Olvidaste tu contraseña?</u> </small></a>
+
+    <br id="#lugar"><br><br>
+    <div class="boton" *ngIf="!ventanapass">
       <button *ngIf="!correcto" type="submit" [disabled]="myForm.invalid" class="btn btn-info heartbeat"><span
-          *ngIf="!cargando">INGRESAR</span>
+          *ngIf="!cargando && !ventanapass">INGRESAR</span>
         <div *ngIf="cargando" class="spinner-border" role="status">
           <span class="sr-only">Loading...</span>
         </div>
@@ -34,7 +42,18 @@
 
     </div>
 
-    <span class="text-light ">¿No tienes cuenta? <a href="#" [routerLink]="['/auth','solicitar']">Solicitala
+    <div class="boton" *ngIf="ventanapass">
+      <button  type="button" class="btn btn-info heartbeat"><span
+          *ngIf="!cargando">ENVIAR</span>
+        <div *ngIf="cargando" class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+      <button *ngIf="correcto" type="submit" class="btn btn-success button-fill"><span>CORRECTO</span></button>
+
+    </div>
+
+    <span *ngIf="!ventanapass" class="text-light ">¿No tienes cuenta? <a href="#" [routerLink]="['/auth','solicitar']">Solicitala
         aquí</a></span>
 
   </form>

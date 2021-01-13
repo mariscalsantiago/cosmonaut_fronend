@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   public error:boolean = false;
   public cargando:boolean = false;
   public correcto:boolean = false;
+  public ventanapass:boolean = false;
 
   constructor(public formBuilder: FormBuilder,private routerPrd:Router) { 
     let obj = {};
@@ -54,5 +55,8 @@ export class LoginComponent implements OnInit {
         }, 2000);
       }, 3000);
   }
+
+
+  
 
 }
