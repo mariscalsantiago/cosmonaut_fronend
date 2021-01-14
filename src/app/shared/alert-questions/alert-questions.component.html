@@ -4,18 +4,24 @@
 
         <div style="height: 100px;width: 100%; background-color: #00C1AF;" class="text-center">
         
-            <div class="containerimg">
+            <div *ngIf="iconType=='warning'" class="containerimg">
                 <img src="../../../../assets/icons/ICO_Alert.svg"  width="75px" height="75px" alt="" srcset="">
+            </div>
+            <div *ngIf="iconType=='success'" class="containerimg">
+                <img src="../../../assets/icons/success.svg"  width="75px" height="75px" alt="" srcset="">
+            </div>
+            <div *ngIf="iconType=='error'" class="containerimg">
+                <img src="../../../assets/icons/ICO_cerrar.svg"  width="75px" height="75px" alt="" srcset="">
             </div>
         </div>
         <div>
 
             <div class="row mt-5 mr-4 ml-4 text-center"><div class="col">
-                <h5 class="titulo">¿Deseas guardar cambios?</h5>
-                <p>Una vez guardado cambios afectaras a la base de datos</p>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary button-outlet" data-dismiss="modal" (click)="cancelar()">Cancelar</button>
-                    <button type="button" class="btn btn-primary button-fill" (click)="aceptar()">Aceptar</button>
+                <h5 class="titulo">{{titulo}}</h5>
+                <p>{{subtitulo}}</p>
+                <div class="modal-footer text-center">
+                    <button style="margin:auto" type="button" *ngIf="iconType!='success' && iconType != 'error'" class="btn btn-outline-primary button-outlet" data-dismiss="modal" (click)="cancelar()">Cancelar</button>
+                    <button style="margin:auto" type="button" class="btn btn-primary button-fill" (click)="aceptar()">Aceptar</button>
                 </div>
             </div></div>
 

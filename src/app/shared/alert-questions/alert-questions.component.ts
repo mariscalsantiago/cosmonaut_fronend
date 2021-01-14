@@ -11,6 +11,9 @@ export class AlertQuestionsComponent implements OnInit {
   public content:any;
 
   @Output() eventoFunciones = new EventEmitter();
+  @Input() titulo:string = "";
+  @Input() iconType:string="";
+  @Input() subtitulo:string = "";
 
 
 
