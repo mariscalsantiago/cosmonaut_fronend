@@ -11,7 +11,34 @@
             <p class="text-white">1.- Dar doble click en la tabla de compañia para desplegar multiselección </p>
         </div>
     </div>
-    
+    <div class="margen">
+      <div class="form-group margen row "><label class="titulo">BUSQUEDA</label></div>
+      <div class="form group row margen">
+          <div class=" input-group-sm mb-3 col-4 ">
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="RFC">
+          </div>
+          <div class=" input-group-sm mb-3 col-3 ">
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Nombre de la compañía">
+          </div>
+          <div class=" input-group-sm mb-3 col-3 ">
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Razón social">
+          </div>
+          <div class=" input-group-sm mb-3 col-3 ">
+            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Fecha de registro">
+        </div>
+        <div class=" input-group-sm mb-3 col-3 ">
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Estatus">
+      </div>
+          <div class=" input-group-sm mb-3 col-2 ">
+              <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
+          </div>
+      </div>
+  </div>
     
     
     <div class="row margen">
@@ -35,9 +62,10 @@
                 <thead>
                   <tr>
                     <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
-                    <th scope="col">Nombre compañia</th>
-                    <th scope="col">Razón social</th>
                     <th scope="col">RFC</th>
+                    <th scope="col">Nombre de la compañia</th>
+                    <th scope="col">Razón social</th>
+                    <th scope="col">Fecha de registro</th>
                     <th scope="col">Estatus</th>
                     <th scope="col" *ngIf="!multiseleccion">Opciones</th>
                   </tr>
