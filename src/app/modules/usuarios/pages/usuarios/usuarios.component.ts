@@ -46,6 +46,8 @@ export class UsuariosComponent implements OnInit {
   //   let datos = {
   //     "data": [
   //         {
+
+  //             "id":"1234",
   //             "nombre": "Julio Cesar",
   //             "apellidoPaterno": "Solorio",
   //             "apellidoMaterno": "Ortega",
@@ -59,6 +61,7 @@ export class UsuariosComponent implements OnInit {
   //             "idTipoUsuario": 1
   //         },
   //         {
+  //            "id":"2548",
   //             "nombre": "Julio Cesar",
   //             "apellidoPaterno": "Solorio",
   //             "apellidoMaterno": "Ortega",

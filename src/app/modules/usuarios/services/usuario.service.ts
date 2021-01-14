@@ -13,7 +13,7 @@ export class UsuarioService {
   constructor(private http:HttpClient) { 
 
     this.url = direcciones.usuarios;
-    this.url = '/api/user/';
+    this.url = '/api/user';
 
   }
 

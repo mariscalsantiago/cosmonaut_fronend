@@ -17,13 +17,14 @@
             <div class="input-group-sm mb-4 col-6">
                 <label for="exampleFormControlSelect1">Tipo de usuario *</label>
                 <select [disabled]="!myForm.valid" formControlName="idTipoUsuario" class="form-control">
-                  <option>1</option>
+                  <option value="1">Usuario Cosmonaut</option>
+                  <option value="2">Usuario Compañia</option>
                 </select>
             </div>
             <div class="input-group-sm mb-4 col-6">
                 <label for="exampleFormControlSelect1">Compañia *</label>
                 <select [disabled]="!insertar" formControlName="idCompañia" class="form-control" id="exampleFormControlSelect1">
-                  <option>1</option>
+                  <option value="1">Cosmonaut</option>
                 </select>
             </div>
         </div>
@@ -161,7 +162,7 @@
 
 
     <div class="text-center margin" style="margin-bottom: 20px;">
-        <button [disabled]="myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
+        <button [disabled]="!myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
     </div>   
 
 </form>
