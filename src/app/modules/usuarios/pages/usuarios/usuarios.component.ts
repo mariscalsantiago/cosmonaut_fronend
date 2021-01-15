@@ -23,7 +23,7 @@ export class UsuariosComponent implements OnInit {
   */
 
 
-  public id_company:number = 1;
+  public id_company:number = 2;
 
 
 
@@ -42,6 +42,49 @@ export class UsuariosComponent implements OnInit {
 
     this.cargando = true;
 
+
+  //   let datos = {
+  //     "data": [
+  //         {
+
+  //             "id":"1234",
+  //             "nombre": "Julio Cesar",
+  //             "apellidoPaterno": "Solorio",
+  //             "apellidoMaterno": "Ortega",
+  //             "curp": "SOOJ890306HDFLRL05",
+  //             "correoEmpresarial": "jcsolorio@advisoryservicesg.tech",
+  //             "correoPersonal": "julio.solorio@gmail.com",
+  //             "telefono": 5555998899,
+  //             "fechaRegistro": 1610344800000,
+  //             "estatus": true,
+  //             "idCompania": 1,
+  //             "idTipoUsuario": 1
+  //         },
+  //         {
+  //            "id":"2548",
+  //             "nombre": "Julio Cesar",
+  //             "apellidoPaterno": "Solorio",
+  //             "apellidoMaterno": "Ortega",
+  //             "curp": "SOOJ890306HDFLRL05",
+  //             "correoEmpresarial": "jsolorio@advisoryservicesg.tech",
+  //             "correoPersonal": "julio.solorio.ortega@gmail.com",
+  //             "telefono": 5555998899,
+  //             "fechaRegistro": 1610431200000,
+  //             "estatus": true,
+  //             "idCompania": 1,
+  //             "idTipoUsuario": 1
+  //         }
+  //     ],
+  //     "result": true,
+  //     "message": "Operación realizada con éxito"
+  // };
+
+  // this.cargando = false;
+
+  // this.arreglo = datos.data;
+
+  //   return;
+
       this.usuariosPrd.getByCompany(this.id_company).subscribe(datos =>{
         this.arreglo = datos.data;
 
@@ -53,7 +96,10 @@ export class UsuariosComponent implements OnInit {
 
   public verdetalle(obj:any){
     
-    this.routerPrd.navigate(['usuarios','detalle_usuario'],{state:{data:obj}});
+
+    let tipoinsert = (obj == undefined)? 'new':'update';
+
+    this.routerPrd.navigate(['usuarios','detalle_usuario',tipoinsert],{state:{data:obj}});
     this.cargando = false;
     
 

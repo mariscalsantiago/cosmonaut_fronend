@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -12,33 +12,77 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public myForm!: FormGroup;
-  public modal:boolean = false;
+  public modal: boolean = false;
+  public insertar: boolean = false;
+  public iconType:string = "";
+  public fechaActual: string = "";
+  public strTitulo: string = "";
+  public strsubtitulo:string = "";
+  public tipoPersonaId:number = 3;
+  public objusuario:any;
+  
 
-  constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
+    private routerPrd:Router) {
+
+    this.routerActivePrd.params.subscribe(datos => {
+      this.insertar = (datos["tipoinsert"] == 'new');
+
+      this.strTitulo = (this.insertar) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar el usuario?";
+
+    });
+
+
+
+
+
+    let fecha = new Date();
+    let dia = fecha.getDay() < 10 ? `0${fecha.getDay()}` : fecha.getDay();
+    let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
+    let anio = fecha.getFullYear();
+
+
+    this.fechaActual = `${anio}-${mes}-${dia}`;
+
+
+
+    
+
+
+  }
 
   ngOnInit(): void {
 
-    let objUsuario = history.state.data == undefined ? {} : history.state.data;
+    this.objusuario = history.state.data == undefined ? {} : history.state.data;
 
-    this.myForm = this.createForm((objUsuario));
+    this.myForm = this.createForm((this.objusuario));
+
+    console.log(this.f.nombre);
   }
 
 
   public createForm(obj: any) {
+
+
+    
+    
+
     return this.formBuilder.group({
 
-      nombre: [obj.nombre,[Validators.required]],
-      apellidoPaterno: [obj.apellidoPaterno,[Validators.required]],
-      apellidoMaterno: [obj.apellidoMaterno],
-      curp: [obj.curp],
-      correoEmpresarial: [obj.correoEmpresarial,[Validators.required,Validators.email]],
-      correoPersonal: [obj.correoPersonal,[Validators.required,Validators.required]],
-      telefono: [obj.telefono,[Validators.required]],
-      fechaRegistro: [obj.fechaRegistro,[Validators.required]],
-      idTipoUsuario:[obj.idTipoUsuario,[Validators.required]],
-      idCompañia:[obj.idCompañia,[Validators.required]],
-      status:[obj.status,[Validators.required]],
-      id: obj.id
+
+
+      nombre: [obj.nombre, [Validators.required]],
+      apellidoPat: [obj.apellidoPat, [Validators.required]],
+      apellidoMat: [obj.apellidoMat],
+      curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
+      emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
+      ciEmailPersonal: [obj.ciEmailPersonal, [Validators.required, Validators.email]],
+      ciTelefono: [obj.ciTelefono, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
+      idTipoUsuario: [{ value: obj.tipoPersonaId, disabled: !this.insertar }, [Validators.required]],
+      representanteLegalCentrocClienteId: [{ value: obj.representanteLegalCentrocClienteId, disabled: !this.insertar }, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
+      personaId: obj.personaId
 
 
     });
@@ -46,35 +90,73 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public enviarPeticion() {
-
-
+    this.iconType = "warning";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar el usuario?";
+    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
     this.modal = true;
-
-    return;
-
-    let obj = this.myForm.value;
-
-
-return;
-    
-        this.usuariosPrd.save(obj).subscribe(datos =>{
-             alert(datos.message);
-        });
-    
-    
-
-
   }
 
 
-  public recibir($evento:any){
-     this.modal = false;
-     if($evento){ 
-      let obj = this.myForm.value;
-      this.usuariosPrd.save(obj).subscribe(datos =>{
-        alert(datos.message);
-   });
-     }
+  public recibir($evento: any) {
+    this.modal = false;
+    if(this.iconType == "warning"){
+      if ($evento) {
+       
+        let obj = this.myForm.value;
+        
+        
+        obj.tipoPersonaId = this.tipoPersonaId;
+
+        if(this.insertar){
+          this.usuariosPrd.save(obj).subscribe(datos => {
+           
+            this.iconType = datos.result? "success":"error";
+    
+            this.strTitulo = datos.message;
+            this.strsubtitulo = datos.message
+            this.modal = true;
+          });
+
+        }else{
+          let objEnviar = this.cambiandoCampos(obj);         
+
+          this.usuariosPrd.modificar(objEnviar).subscribe(datos =>{
+            this.iconType =  datos.result? "success":"error";  
+            this.strTitulo = datos.message;
+            this.strsubtitulo = datos.message
+            this.modal = true;
+
+          });
+        }
+
+
+       
+      }
+    }else{
+      this.modal = false;
+
+      if(this.iconType == "success"){
+          this.routerPrd.navigate(["/usuarios"]);
+      }
+
+    }
+  }
+
+
+  get f() { return this.myForm.controls; }
+
+
+
+  public cambiandoCampos(obj:any){
+
+    for(let llave in obj){
+       this.objusuario[llave]=obj[llave];
+    }
+
+
+    return this.objusuario;
+
+
   }
 
 

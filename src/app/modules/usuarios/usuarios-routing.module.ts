@@ -13,7 +13,7 @@ const routes: Routes = [
       path: 'usuarios',
       component: UsuariosComponent
     },{
-        path: 'usuarios/detalle_usuario',
+        path: 'usuarios/detalle_usuario/:tipoinsert',
         component: DetalleUsuarioComponent
       }
   ]
