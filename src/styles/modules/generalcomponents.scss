@@ -53,3 +53,38 @@ html{
     background-color: transparent;
     display: block;
 }
+
+
+
+#navegadorTabs{
+   background-color: transparent;
+
+   a[aria-selected='true'] {
+    color: $primary;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 6px solid $primary;
+  }
+
+  a{
+      color:$light;
+  }
+
+}
+
+
+
+p{
+    
+    font-size: small !important;
+    width: 100% !important;
+    line-height: 60% !important;
+}
+
+
+.tableimg{
+    height: 45px;
+    width: 45px;
+    border: 0;
+    border-radius: 50%;
+}

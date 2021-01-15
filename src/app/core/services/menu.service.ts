@@ -9,11 +9,10 @@ export class MenuService {
   
   private arreglo: Array<menuprincipal> = [
     { nombre: "INICIO", icono: "icon_home", seleccionado: true,seleccionadosubmenu:false,routerLink:['/inicio'] },
-    { nombre: "EMPLEADOS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false},
-    { nombre: "NOMINAS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,submenu:[
-                                                                                {nombre:"COMPLETAR",routerLink:[]},
+    { nombre: "NOMINAS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false},
+    { nombre: "EMPLEADOS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,submenu:[
                                                                                 {nombre:"LISTA",routerLink:[]},
-                                                                                {nombre:"DAR DE ALTA",routerLink:[]},
+                                                                                {nombre:"DAR DE ALTA",routerLink:['/empleados']},
                                                                                 {nombre:"DAR DE BAJA",routerLink:[]},
                                                                                 {nombre:"DIRECTORIO",routerLink:[]}
                                                                               ]},
