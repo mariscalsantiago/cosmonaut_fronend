@@ -60,6 +60,11 @@ export class UsuarioService {
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
+
+  public getAllCompany():Observable<any>{
+     return this.http.get('/api/centroCostosCliente/listar/compania');
+  }
+
   
   
 }

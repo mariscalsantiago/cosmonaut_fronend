@@ -27,7 +27,10 @@
         <input type="Date" class="form-control" placeholder="Fecha de registro">
       </div>
       <div class=" input-group-sm mb-3 col-3 ">
-        <input type="email" class="form-control" placeholder="Compañia">
+        <select name="" id="" class="form-control">
+          <option value="" selected>Seleccionar compañia</option>
+          <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
+        </select>
       </div>
       <div class=" input-group-sm mb-3 col-3 ">
         <input type="email" class="form-control" placeholder="Correo Empresarial">
