@@ -23,7 +23,7 @@ export class UsuariosComponent implements OnInit {
   */
 
 
-  public id_company:number = 2;
+  public id_company:number = 0;
 
 
 
@@ -87,5 +87,16 @@ export class UsuariosComponent implements OnInit {
     this.multiseleccionloading = false;
     this.multiseleccion = false;
   }
+
+
+  public filtrar(){
+    this.cargando = true;
+     this.usuariosPrd.getByCompany(this.id_company).subscribe(datos => {
+       this.arreglo = datos.data;
+       this.cargando = false;
+     });
+  }
+
+ 
 
 }

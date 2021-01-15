@@ -27,8 +27,8 @@
         <input type="Date" class="form-control" placeholder="Fecha de registro">
       </div>
       <div class=" input-group-sm mb-3 col-3 ">
-        <select name="" id="" class="form-control">
-          <option value="" selected>Seleccionar compañia</option>
+        <select name="" id="" class="form-control" [(ngModel)]="id_company">
+          <option value="0" selected>Seleccionar compañia</option>
           <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
         </select>
       </div>
@@ -42,7 +42,7 @@
         <input type="email" class="form-control" placeholder="Estatus">
       </div>
       <div class=" input-group-sm mb-3 col-2 ">
-        <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
+        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@
     
     </div>
 
-    <div  *ngIf="!cargando" class="row margen" style="margin-bottom: -25px;">
+    <div *ngIf="!cargando && arreglo !== undefined" class="row margen" style="margin-bottom: -25px;">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
@@ -80,7 +80,7 @@
       </div>
     </div>
     
-    <table *ngIf="!cargando" class="table table-hover">
+    <table *ngIf="!cargando && arreglo !== undefined"  class="table table-hover">
       <thead>
         <tr>
           <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
@@ -107,9 +107,11 @@
           <td>{{item.emailCorp}}</td>
           <td>{{item.fechaAlta }}</td>
           <td>{{(item.esActivo)?'Activo':'Inactivo'}}</td>
-          <td *ngIf="!multiseleccion">
+          <td *ngIf="!multiseleccion" class="opciones">
             <button (click)="verdetalle(item)" class="btnPersonalizado"><i
-                class="icon_editar text-center bg-light"></i></button>
+                class="icon_ver text-center bg-light"></i></button>
+                <button (click)="verdetalle(item)" class="btnPersonalizado"><i
+                  class="icon_editar text-center bg-light"></i></button>
           </td>
         </tr>
 
@@ -117,7 +119,10 @@
 
       </tbody>
     </table>
-   <div  *ngIf="!cargando" class="row" style="width: 100%;">
+    <div *ngIf="!cargando && arreglo === undefined"   class="alert alert-warning col text-center">
+      <strong>Sin usuarios</strong> La tabla de usuario esta vacía.
+    </div>
+   <div  *ngIf="!cargando && arreglo !== undefined" class="row" style="width: 100%;">
      <div class="col" > 
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -133,6 +138,7 @@
         </ul>
       </nav></div>
    </div>
+   
     <div *ngIf="multiseleccion" class="row text-center margin botonmultiseleccion" style="margin-bottom: 20px;">
       <button type="button" class="btn btn-primary button-outlet mr-2" style="color:red" (click)="cancelarMulti()"
         *ngIf="!multiseleccionloading">Cancelar</button>

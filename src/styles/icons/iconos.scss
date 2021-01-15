@@ -114,3 +114,10 @@
     mask: url($rutaimg) no-repeat center;
 
   }
+  .icon_ver{
+    $rutaimg:'../../assets/icons/ICO_ver.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
