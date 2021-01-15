@@ -1,6 +1,6 @@
 <div class="row margen">
   <div class="col titulo-outlet">
-      <label >CONFIGURACIÓN DE COMPAÑIA</label>
+      <label >CONFIGURACIÓN DE COMPAÑÍA</label>
   </div>
 </div>
 
@@ -8,117 +8,88 @@
 <hr>
 
 
-<form>
-  <input type="hidden" formControlName="id">
+<form [formGroup]="myFormcomp" (ngSubmit)="enviarPeticioncomp()">
+
+  <input type="hidden" formControlName="centrocClienteId">
 
   <div class="background-panel margen" >
     <br>
-      <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE COMPAÑIA</label></div>
+      <div class="form-group row margen">
+        <label class="titulo">INFORMACIÓN DE COMPAÑÍA</label></div>
       <div class="form-group row margen">
       
           <div class=" input-group-sm mb-3 col-4 ">
-              <label for="nombrecompania">Nombre de la compañia *</label>
-              <input type="text" class="form-control" id="nombrecompania" aria-describedby="emailHelp"
-                  placeholder="">
+              <label >Nombre de la compañía *</label>
+              <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
+              <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
+                  Favor de ingresar el Nombre de la compañía.
+                </div>         
   
           </div>
-          <div class=" input-group-sm mb-3 col-4">
-              <label for="razonsocial">Razón social *</label>
-              <input type="text" class="form-control" id="razonsocial" aria-describedby="emailHelp"
-                  placeholder="">
+          <div class=" input-group-sm mb-3 col-4 ">
+              <label>Razón social *</label>
+              <input formControlName="razonSocial" type="text" class="form-control" [ngClass]="{'is-invalid':f.razonSocial.errors && f.razonSocial.touched}"  placeholder="">
+              <div *ngIf="f.razonSocial.errors && f.razonSocial.touched" class="invalid-feedback">
+                  Favor de ingresar la Razón social.
+                </div>
   
           </div>
-          <div class=" input-group-sm mb-3 col-4">
-              <label for="rfc">RFC *</label>
-              <input type="text" class="form-control" id="rfc" aria-describedby="emailHelp"
-                  placeholder="">
-  
+          <div class=" input-group-sm mb-3 col-4 ">
+              <label>RFC *</label>
+              <input formControlName="rfc" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.rfc.errors && f.rfc.touched}" >
+              <div *ngIf="f.rfc.errors?.required && f.rfc.touched" class="invalid-feedback">
+                Favor de ingresar el RFC(12 o 13 caracteres).
+              </div>
+              <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
+                Formato de RFC invalido, favor de verificar.
+              </div>
+                
           </div>
+          
           <div class=" input-group-sm mb-3 col-4">
-              <label for="estatus">Estatus *</label>
-              <input type="text" class="form-control" id="estatus" aria-describedby="emailHelp"
-                  placeholder="">
-  
-          </div>
-          <div class=" input-group-sm mb-3 col-4">
+            <label >Correo corporativo *</label>
+            <input formControlName="emailCorp" type="email" class="form-control" [ngClass]="{'is-invalid':f.emailCorp.errors && f.emailCorp.touched}"
+                placeholder="">
+                <div *ngIf="f.emailCorp.errors?.required && f.emailCorp.touched" class="invalid-feedback">
+                    Favor de ingresar el Correo Corporativo.
+                  </div>
+                  <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
+                    Formato de correo Corporativo invalido, favor de verificar.
+                  </div>
+
+        </div>
+         <div class=" input-group-sm mb-3 col-4">
+          <label >Fecha de registro*</label>
+          <input formControlName="fechaAlta" type="date" class="form-control" 
+              placeholder="">
+
+        </div>
+
+
+        <div class="input-group-sm mb-4 col-4">
+          <label for="exampleFormControlSelect1">Estado*</label>
+          <select formControlName="esActivo" class="form-control">
+            <option value="true" selected>ACTIVO</option>
+            <option value="false">INACTIVO</option>
+          </select>
+      </div>
+      
+          <div class=" input-group-sm mb-3 col-4 ">
             <label for="logo">logo</label>
             <input type="file" class="form-control" id="logo" aria-describedby="emailHelp"
                 placeholder="">
 
         </div>
       </div>
-  </div>
-  <div class="text-center margin">
       
-    <button type="button" class="btn btn-primary button-fill">Guardar</button>
+ 
   </div>
+  <div class="text-center margin" style="margin-bottom: 20px;">
+    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="redirect(undefined)" >Cancelar</button>
+    <button [disabled]="!myFormcomp.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+</div> 
 
 </form>
- <br> 
- <form>
 
-  <input type="hidden" formControlName="id">
-  <div class="background-panel margen">
-    <br>
-      <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE CONTACTO</label></div>
-      <div class="form group row margen">
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
 
-          <div class=" input-group-sm mb-3 col-4">
-              <label for="nombre">Nombre *</label>
-              <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp"
-                  placeholder="">
-  
-          </div>
-          <div class=" input-group-sm mb-3 col-4">
-              <label for="apellidopaterno">Apellido paterno *</label>
-              <input type="text" class="form-control" id="apellidopaterno" aria-describedby="emailHelp"
-                  placeholder="">
-  
-          </div>
-          <div class=" input-group-sm mb-3 col-4">
-              <label for="apellidomaterno">Apellido materno</label>
-              <input type="text" class="form-control" id="apellidomaterno" aria-describedby="emailHelp"
-                  placeholder="">
-  
-          </div>
-          <div class=" input-group-sm mb-3 col-4">
-              <label for="curp">CURP</label>
-              <input type="text" class="form-control" id="curp" aria-describedby="emailHelp"
-                  placeholder="">
-  
-          </div>
-          <div class="input-group-sm mb-3 col-4">
-              <label for="correoempresarial">Correo empresarial *</label>
-              <input type="email" class="form-control" id="correoempresarial" aria-describedby="emailHelp"
-                  placeholder="">
-  
-          </div>
-          <div class="input-group-sm mb-3 col-4">
-            <label for="correopersonal">Correo personal *</label>
-            <input type="text" class="form-control" id="correopersonal" aria-describedby="emailHelp"
-                placeholder="">
-
-        </div>
-        <div class="input-group-sm mb-3 col-4">
-          <label for="telefono">Teléfono *</label>
-          <input type="number" class="form-control" id="telefono" aria-describedby="emailHelp"
-              placeholder="">
-
-      </div>
-      <div class="input-group-sm mb-3 col-4">
-        <label for="fecharegistro">Fecha de registro</label>
-        <input type="date" class="form-control" id="fecharegistro" aria-describedby="emailHelp"
-            placeholder="">
-
-    </div>
-
-      </div>
-  
-  
-  </div>
-
-<div class="text-center margin" style="margin-bottom: 20px;">
-    <button [disabled]="myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
-</div>   
-
-</form>

@@ -56,7 +56,8 @@ export class CompanyComponent implements OnInit {
   public verdetallecom(obj:any){
     debugger;
     this.cargando = true;
-    this.routerPrd.navigate(['company','detalle_company'],{state:{data:obj}});
+    let tipoinsert = (obj == undefined)? 'nuevo':'modifica';
+    this.routerPrd.navigate(['company','detalle_company',tipoinsert],{state:{data:obj}});
     this.cargando = false;
     
 

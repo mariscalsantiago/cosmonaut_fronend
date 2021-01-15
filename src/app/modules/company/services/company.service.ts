@@ -14,7 +14,7 @@ export class CompanyService {
 
     this.url = direcciones.company;
 
-    this.url = '/api/company/';
+    this.url = '/api/centroCostosCliente';
 
   }
 
@@ -27,7 +27,7 @@ export class CompanyService {
     
     debugger;
 
-    return this.http.get(`${this.url}/findAll/`);
+    return this.http.get(`${this.url}/listar/compania/`);
 
   }
 
@@ -38,16 +38,13 @@ export class CompanyService {
         'Content-Type': 'application/json'
       })
     };
-
-
-
-
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/save`,json,httpOptions);
+    return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
+    debugger;
     
     const httpOptions={
       headers: new HttpHeaders({
@@ -56,11 +53,9 @@ export class CompanyService {
     };
 
 
-
-
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/update`,json,httpOptions);
+    return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
   

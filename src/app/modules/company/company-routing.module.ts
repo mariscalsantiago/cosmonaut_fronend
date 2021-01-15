@@ -14,7 +14,7 @@ const routes: Routes = [
       component: CompanyComponent
     },
     {
-      path: 'company/detalle_company',
+      path: 'company/detalle_company/:tipoinsert',
       component: DetalleCompanyComponent
     }
   ]
