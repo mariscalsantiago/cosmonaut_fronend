@@ -85,7 +85,7 @@ export class UsuariosComponent implements OnInit {
 
   public cancelarMulti(){
     this.multiseleccionloading = false;
-    this.multiseleccion = false;
+    this.multiseleccion = false;   
   }
 
 
