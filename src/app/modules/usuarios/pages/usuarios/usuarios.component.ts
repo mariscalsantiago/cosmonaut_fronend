@@ -23,7 +23,7 @@ export class UsuariosComponent implements OnInit {
   */
 
 
-  public id_company:number = 1;
+  public id_company:number = 2;
 
 
 

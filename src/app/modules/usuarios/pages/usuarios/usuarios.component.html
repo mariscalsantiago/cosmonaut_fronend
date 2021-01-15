@@ -87,8 +87,8 @@
           <th scope="col">Apellido Materno</th>
           <th scope="col">Centro de costos</th>
           <th scope="col">Correo Empresarial</th>
-          <th scope="col">Tipo de usuario</th>
           <th scope="col">Fecha de registro</th>
+          <th scope="col">Activo</th>
           <th scope="col" *ngIf="!multiseleccion">Opciones</th>
         </tr>
       </thead>
@@ -96,14 +96,14 @@
         <tr (dblclick)="activarMultiseleccion()" *ngFor="let item of arreglo;">
           <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i> <input *ngIf="multiseleccion"
               type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
-          <td style="color:  #00DED4">{{item.id}} </td>
+          <td style="color:  #00DED4">{{item.personaId}} </td>
           <td>{{item.nombre}} </td>
-          <td>{{item.apellidoPaterno}}</td>
-          <td>{{ item.apellidoMaterno }}</td>
-          <td>{{item.idCompania}}</td>
-          <td>{{item.correoEmpresarial}}</td>
-          <td>{{item.idTipoUsuario}}</td>
-          <td>{{item.fechaRegistro | date}}</td>
+          <td>{{item.apellidoPat}}</td>
+          <td>{{item.apellidoMat }}</td>
+          <td>{{item.representanteLegalCentrocClienteId}}</td>
+          <td>{{item.emailCorp}}</td>
+          <td>{{item.fechaAlta }}</td>
+          <td>{{(item.esActivo)?'Activo':'Inactivo'}}</td>
           <td *ngIf="!multiseleccion">
             <button (click)="verdetalle(item)" class="btnPersonalizado"><i
                 class="icon_editar text-center bg-light"></i></button>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -18,9 +18,12 @@ export class DetalleUsuarioComponent implements OnInit {
   public fechaActual: string = "";
   public strTitulo: string = "";
   public strsubtitulo:string = "";
+  public tipoPersonaId:number = 3;
+  public objusuario:any;
   
 
-  constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
+    private routerPrd:Router) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'new');
@@ -50,9 +53,9 @@ export class DetalleUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let objUsuario = history.state.data == undefined ? {} : history.state.data;
+    this.objusuario = history.state.data == undefined ? {} : history.state.data;
 
-    this.myForm = this.createForm((objUsuario));
+    this.myForm = this.createForm((this.objusuario));
 
     console.log(this.f.nombre);
   }
@@ -62,21 +65,24 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     
+    
 
     return this.formBuilder.group({
 
+
+
       nombre: [obj.nombre, [Validators.required]],
-      apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
-      apellidoMaterno: [obj.apellidoMaterno],
+      apellidoPat: [obj.apellidoPat, [Validators.required]],
+      apellidoMat: [obj.apellidoMat],
       curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
-      correoEmpresarial: [obj.correoEmpresarial, [Validators.required, Validators.email]],
-      correoPersonal: [obj.correoPersonal, [Validators.required, Validators.email]],
-      telefono: [obj.telefono, [Validators.required]],
-      fechaRegistro: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaRegistro), disabled: true }, [Validators.required]],
-      idTipoUsuario: [{ value: obj.idTipoUsuario, disabled: !this.insertar }, [Validators.required]],
-      idCompañia: [{ value: obj.idCompañia, disabled: !this.insertar }, [Validators.required]],
-      status: [{ value: (this.insertar) ? true : obj.status, disabled: this.insertar }, [Validators.required]],
-      id: obj.id
+      emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
+      ciEmailPersonal: [obj.ciEmailPersonal, [Validators.required, Validators.email]],
+      ciTelefono: [obj.ciTelefono, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
+      idTipoUsuario: [{ value: obj.tipoPersonaId, disabled: !this.insertar }, [Validators.required]],
+      representanteLegalCentrocClienteId: [{ value: obj.representanteLegalCentrocClienteId, disabled: !this.insertar }, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
+      personaId: obj.personaId
 
 
     });
@@ -97,18 +103,42 @@ export class DetalleUsuarioComponent implements OnInit {
       if ($evento) {
        
         let obj = this.myForm.value;
-     
-  
-        this.usuariosPrd.save(obj).subscribe(datos => {
-          this.iconType = "success";
-  
-          this.strTitulo = datos.message;
-          this.strsubtitulo = datos.message
-          this.modal = true;
-        });
+        
+        
+        obj.tipoPersonaId = this.tipoPersonaId;
+
+        if(this.insertar){
+          this.usuariosPrd.save(obj).subscribe(datos => {
+           
+            this.iconType = datos.result? "success":"error";
+    
+            this.strTitulo = datos.message;
+            this.strsubtitulo = datos.message
+            this.modal = true;
+          });
+
+        }else{
+          let objEnviar = this.cambiandoCampos(obj);         
+
+          this.usuariosPrd.modificar(objEnviar).subscribe(datos =>{
+            this.iconType =  datos.result? "success":"error";  
+            this.strTitulo = datos.message;
+            this.strsubtitulo = datos.message
+            this.modal = true;
+
+          });
+        }
+
+
+       
       }
     }else{
       this.modal = false;
+
+      if(this.iconType == "success"){
+          this.routerPrd.navigate(["/usuarios"]);
+      }
+
     }
   }
 
@@ -117,6 +147,17 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
 
+  public cambiandoCampos(obj:any){
+
+    for(let llave in obj){
+       this.objusuario[llave]=obj[llave];
+    }
+
+
+    return this.objusuario;
+
+
+  }
 
 
 

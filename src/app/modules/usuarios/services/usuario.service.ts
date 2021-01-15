@@ -13,12 +13,12 @@ export class UsuarioService {
   constructor(private http:HttpClient) { 
 
     this.url = direcciones.usuarios;
-    this.url = '/api/user';
+    this.url = '/api/persona';
 
   }
 
   public getByCompany(id_company:number):Observable<any>{
-      return this.http.get(`/api/user/findByIdCompany/${id_company}`);
+      return this.http.get(`/api/persona/obtener/id/compania/${id_company}`);
   }
 
   public getById(id_user:number):Observable<any>{
@@ -41,7 +41,7 @@ export class UsuarioService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/save`,json,httpOptions);
+    return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
@@ -57,7 +57,7 @@ export class UsuarioService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/update`,json,httpOptions);
+    return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
   
