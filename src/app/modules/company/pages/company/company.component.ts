@@ -38,9 +38,6 @@ export class CompanyComponent implements OnInit {
   constructor(private routerPrd:Router,private companyProd:CompanyService) { }
 
   ngOnInit(): void {
-
-    debugger;
-
     this.cargando = true;
 
       this.companyProd.getAll().subscribe(datos =>{
@@ -54,7 +51,7 @@ export class CompanyComponent implements OnInit {
 
 
   public verdetallecom(obj:any){
-    debugger;
+
     this.cargando = true;
     let tipoinsert = (obj == undefined)? 'nuevo':'modifica';
     this.routerPrd.navigate(['company','detalle_company',tipoinsert],{state:{data:obj}});

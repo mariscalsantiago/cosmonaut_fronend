@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from '../../services/company.service';
 
@@ -12,15 +12,27 @@ export class DetalleCompanyComponent implements OnInit {
 
   public myFormcomp!: FormGroup;
   //public myFormcont!: FormGroup;
+  public arreglo:any = [];
   public modal: boolean = false;
+  public contacto: boolean = false;
+  public listcontacto: boolean = false;
+  public compania: boolean = true;
+  public companiaprincipal: boolean = true;
   public insertar: boolean = false;
   public iconType:string = "";
   public fechaActual: string = "";
   public strTitulo: string = "";
   public strsubtitulo:string = "";
   public objcompany:any;
+  public objcont:any;
   public fechaAlta: string = "";
   public fechaConst: number = 1610258400000;
+  public cargando:Boolean = false;
+  public multiseleccion:Boolean = false;
+  public multiseleccionloading:boolean = false;
+  
+  public representanteLegalCentrocClienteId:number = 2;
+  public tipoPersonaId:number = 3;
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute, private routerPrd:Router) {
 
@@ -43,12 +55,13 @@ export class DetalleCompanyComponent implements OnInit {
   }
     
   ngOnInit(): void {
+    debugger;
 
-    let objCompany = history.state.data == undefined ? {} : history.state.data;
-    //let objCompanycont = history.state.data == undefined ? {} : history.state.data;
+
+    let objCompany = history.state.data == undefined ? {} : history.state.data ;
 
     this.myFormcomp = this.createFormcomp((objCompany));
-    //this.myFormcont = this.createFormcont((objCompany));
+
   }
 
 
@@ -66,7 +79,7 @@ export class DetalleCompanyComponent implements OnInit {
     });
   }
 
-  /*public createFormcont(obj: any) {
+  public createFormcont(obj: any) {
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -80,12 +93,43 @@ export class DetalleCompanyComponent implements OnInit {
       id: obj.idcont
 
     });
-  }*/
+  }
 
   public subirarchivos(){
 
   }
 
+
+  public verdetallecont(obj:any){
+    debugger;
+    this.cargando = true;
+    let tipoinsert = (obj == undefined)? 'nuevo':'modifica';
+    this.routerPrd.navigate(['company','detalle_company',tipoinsert],{state:{data:obj}});
+    this.compania = false;
+    this.companiaprincipal = false;
+    this.cargando = false;
+    
+
+  }
+
+  public activarMultiseleccion(){
+    this.multiseleccion = true;
+}
+
+
+public guardarMultiseleccion(){
+  this.multiseleccionloading = true;
+    setTimeout(() => {
+      this.multiseleccionloading = false;
+      this.multiseleccion = false;
+    }, 3000);
+}
+
+
+public cancelarMulti(){
+  this.multiseleccionloading = false;
+  this.multiseleccion = false;
+}
   
   public enviarPeticioncomp() {
     this.iconType = "warning";
@@ -121,17 +165,20 @@ export class DetalleCompanyComponent implements OnInit {
                 ...obj,
                 fechaAlta: this.fechaConst,
               };
-        
 
         if(this.insertar){
           debugger;
+          
           this.companyPrd.save(obj).subscribe(datos => {
-           
+            
             this.iconType = datos.result? "success":"error";
     
             this.strTitulo = datos.message;
             this.strsubtitulo = 'Registro agregado correctamente'
             this.modal = true;
+            this.compania = false;
+            this.contacto = true;
+            
           });
 
         }else{
@@ -143,27 +190,43 @@ export class DetalleCompanyComponent implements OnInit {
             this.strTitulo = datos.message;
             this.strsubtitulo = 'Registro modificado correctamente!'
             this.modal = true;
+            this.listcontacto = true;
+            this.compania = false;
 
           });
         }
       
       }
     }else{
-      this.modal = false;
-
-      if(this.iconType == "success"){
+      /*if(this.iconType == "success"){
           this.routerPrd.navigate(["/company"]);
-      }
+      }*/
+      let obj = this.objcont;
+      obj = {
+       ...obj,
+          representanteLegalCentrocClienteId: this.representanteLegalCentrocClienteId,
+          tipoPersonaId: this.tipoPersonaId
+        };
 
+        this.companyPrd.getAllCont(obj).subscribe(datos =>{
+          this.cargando = true;
+
+            this.arreglo = datos.data;
+    
+            this.cargando = false;
+          
+        });
+
+      this.modal = false;
     }
   }
 
-  /*public recibircont($evento: any) {
+  public recibircont($evento: any) {
     this.modal = false;
     if(this.iconType == "warning"){
       if ($evento) {
        
-        let obj = this.myFormcont.value;
+        /*let obj = this.myFormcont.value;
      
   
         this.companyPrd.save(obj).subscribe(datos => {
@@ -172,12 +235,12 @@ export class DetalleCompanyComponent implements OnInit {
           this.strTitulo = datos.message;
           this.strsubtitulo = datos.message
           this.modal = true;
-        });
+        });*/
       }
     }else{
       this.modal = false;
     }
-  }*/
+  }
 
   get f() { return this.myFormcomp.controls;  }
 
