@@ -12,7 +12,7 @@
 
   <input type="hidden" formControlName="centrocClienteId">
 
-  <div class="background-panel margen" >
+  <div *ngIf="companiaprincipal" class="background-panel margen" >
     <br>
       <div class="form-group row margen">
         <label class="titulo">INFORMACIÓN DE COMPAÑÍA</label></div>
@@ -84,8 +84,8 @@
       
  
   </div>
-  <div class="text-center margin" style="margin-bottom: 20px;">
-    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="redirect(undefined)" >Cancelar</button>
+  <div *ngIf="compania" class="text-center margin" style="margin-bottom: 20px;">
+    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
     <button [disabled]="!myFormcomp.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
 </div> 
 
@@ -93,3 +93,185 @@
 
 <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
 
+<form >
+
+  <input type="hidden" formControlName="id">
+
+  <div *ngIf="contacto" class="background-panel margen">
+    <br>
+      <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE CONTACTO</label></div>
+      <div class="form group row margen">
+
+          <div class=" input-group-sm mb-3 col-4">
+            <label >Nombre *</label>
+            <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
+            <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
+                Favor de ingresar el Nombre
+              </div>
+  
+          </div>
+          <div class=" input-group-sm mb-3 col-4">
+            <label >Apellido Paterno *</label>
+            <input formControlName="apellidoPaterno" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && f.apellidoPaterno.touched}"
+                placeholder="">
+                <div *ngIf="f.apellidoPaterno.errors && f.apellidoPaterno.touched" class="invalid-feedback">
+                    Favor de ingresar el Apellido Paterno
+                  </div>
+  
+          </div>
+          <div class=" input-group-sm mb-3 col-4">
+              <label >Apellido materno</label>
+              <input formControlName="apellidomaterno" type="text" class="form-control" id="apellidomaterno" aria-describedby="emailHelp"
+                  placeholder="">
+  
+          </div>
+          <div class=" input-group-sm mb-3 col-4">
+            <label >CURP</label>
+            <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}"
+                placeholder="">
+                <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
+                    CURP invalida, favor de verificar
+                  </div>
+  
+          </div>
+          <div class="input-group-sm mb-3 col-4">
+            <label >Correo Corporativo *</label>
+            <input formControlName="correoEmpresarial" type="email" class="form-control" [ngClass]="{'is-invalid':f.correoEmpresarial.errors && f.correoEmpresarial.touched}"
+                placeholder="">
+                <div *ngIf="f.correoEmpresarial.errors?.required && f.correoEmpresarial.touched" class="invalid-feedback">
+                    Favor de ingresar el Correo Corporativo
+                  </div>
+                  <div *ngIf="f.correoEmpresarial.errors?.email && f.correoEmpresarial.touched" class="invalid-feedback">
+                    Correo Corporativo invalido, Favor de verificar
+                  </div>
+  
+          </div>
+          <div class="input-group-sm mb-3 col-4">
+            <label >Correo Personal *</label>
+            <input formControlName="correoPersonal" type="email" class="form-control"  [ngClass]="{'is-invalid':f.correoPersonal.errors && f.correoPersonal.touched}"
+                placeholder="">
+
+                <div *ngIf="f.correoPersonal.errors?.required && f.correoPersonal.touched" class="invalid-feedback">
+                    Favor de ingresar el Correo Personal
+                  </div>
+                  <div *ngIf="f.correoPersonal.errors?.email && f.correoPersonal.touched" class="invalid-feedback">
+                    Correo Personal invalido, Favor de verificar
+                  </div>
+
+        </div>
+        <div class="input-group-sm mb-3 col-4">
+          <label >Teléfono *</label>
+          <input formControlName="telefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.telefono.errors && f.telefono.touched}"
+              placeholder="">
+
+              <div *ngIf="f.telefono.errors && f.telefono.touched" class="invalid-feedback">
+                  Favor de ingresar el Teléfono
+                </div>
+
+      </div>
+      <div class="input-group-sm mb-3 col-4">
+        <label >Fecha de registro *</label>
+        <input formControlName="fechaRegistro" type="date" class="form-control" 
+            placeholder="">
+
+    </div>
+
+      </div>
+  
+  
+  </div>
+
+  <div *ngIf="contacto" class="text-center margin" style="margin-bottom: 20px;">
+    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
+    <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+</div>   
+
+</form>
+
+<form >
+<div *ngIf="listcontacto"  class="row margen margen-tabla background-panel scrooll">   
+  <div class="background-panel margen" >
+    <br>
+      <div class="form-group row margen">
+        <label class="titulo">LISTA DE CONTACTOS</label></div>
+      <div class="form-group row margen">
+
+    <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
+    </div>
+    <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
+      <div class="col text-right">
+        <button type="button" class="btn btn-light button-outlet" >
+          <i class="fa fa-plus"></i>Agregar contacto
+        </button>
+      </div>
+    </div>
+    <div  class="row margen" style="margin-bottom: -25px;">
+      <div class="input-group mb-5">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01">
+          <option value="1" selected>20</option>
+          <option value="2">50</option>
+          <option value="3">100</option>
+        </select>
+       
+      </div>
+    </div>
+      <table  class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
+              <th scope="col">ID Contacto</th>
+              <th scope="col">Nombre contacto</th>
+              <th scope="col">Correo corporativo</th>
+              <th scope="col">Teléfono</th>
+              <th scope="col">Fecha registro</th>
+              <th scope="col">Estatus</th>
+              <th scope="col" *ngIf="!multiseleccion">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr (dblclick)="activarMultiseleccion()" *ngFor="let item of arreglo;">
+              <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i> <input *ngIf="multiseleccion"
+                  type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
+              <td style="color:  #00DED4">{{item.personaId}} </td>
+              <td>{{item.nombre}}</td>
+              <td>{{item.emailCorp}}</td>
+              <td>{{item.ciTelefono}}</td>
+              <td>{{item.fechaAlta}}</td>
+              <td>{{(item.esActivo)?'Activo':'Inactivo'}}</td>
+              <td *ngIf="!multiseleccion">
+                  <button  class="btnPersonalizado">
+                    <i class="icon_editar text-center bg-light" ></i></button>
+              </td>
+            </tr>
+         
+          </tbody>
+        </table>
+        <div   class="row" style="width: 100%;">
+          <div class="col" > 
+           <nav aria-label="Page navigation example">
+             <ul class="pagination justify-content-center">
+               <li class="page-item disabled">
+                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
+               </li>
+               <li class="page-item"><a class="page-link" >1</a></li>
+               <li class="page-item"><a class="page-link" >2</a></li>
+               <li class="page-item"><a class="page-link" >3</a></li>
+               <li class="page-item">
+                 <a class="page-link">Siguiente</a>
+               </li>
+             </ul>
+           </nav></div>
+        </div>
+
+      <div  class="col text-center mb-5">
+        <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+      </div>
+  </div>
+  </div>
+</div>
+</form>

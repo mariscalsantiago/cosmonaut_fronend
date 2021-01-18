@@ -14,20 +14,30 @@ export class CompanyService {
 
     this.url = direcciones.company;
 
-    this.url = '/api/centroCostosCliente';
+    this.url = '/api';
 
   }
 
-  public getByCompany(id_company:number):Observable<any>{
-    debugger;
-      return this.http.get(`/api/company/findById/${id_company}`);
-  }
-
-  public getAll():Observable<any>{
+   public getAll():Observable<any>{
     
-    debugger;
+    return this.http.get(`${this.url}/centroCostosCliente/listar/compania/`);
 
-    return this.http.get(`${this.url}/listar/compania/`);
+  }
+
+  public getAllCont(obj:any):Observable<any>{
+    debugger;
+    
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+    let json:string = JSON.stringify(obj);
+
+    return this.http.post(`${this.url}/persona/listar/compania/tipoPersona`,json,httpOptions);
+
 
   }
 
@@ -40,12 +50,11 @@ export class CompanyService {
     };
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/guardar`,json,httpOptions);
+    return this.http.put(`${this.url}/centroCostosCliente/guardar`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
-    debugger;
-    
+
     const httpOptions={
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -55,7 +64,7 @@ export class CompanyService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/modificar`,json,httpOptions);
+    return this.http.post(`${this.url}/centroCostosCliente/modificar`,json,httpOptions);
   }
 
   
