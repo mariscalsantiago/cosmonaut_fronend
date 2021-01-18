@@ -15,6 +15,10 @@ export class UsuariosComponent implements OnInit {
 
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
+  public numeroitems: number = 2;
+  public arreglotemp = [];
+  public arreglopaginas:Array<any> = [];
+
 
 
 
@@ -25,12 +29,12 @@ export class UsuariosComponent implements OnInit {
 
   public id_company: number = 0;
   public idUsuario: any = null;
-  public nombre:string = "";
-  public apellidoPat:string = "";
-  public apellidoMat:string = "";
-  public fechaRegistro:any = null;
-  public correoempresarial:string = "";
-  public activo:any = null;
+  public nombre: string = "";
+  public apellidoPat: string = "";
+  public apellidoMat: string = "";
+  public fechaRegistro: any = null;
+  public correoempresarial: string = "";
+  public activo: any = null;
 
 
 
@@ -55,8 +59,9 @@ export class UsuariosComponent implements OnInit {
 
 
     this.usuariosPrd.getAllUsers().subscribe(datos => {
-      this.arreglo = datos.data;
+      this.arreglotemp = datos.data;
       this.cargando = false;
+      this.paginar();
     });
 
     this.usuariosPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.data);
@@ -102,31 +107,31 @@ export class UsuariosComponent implements OnInit {
 
     this.cargando = true;
 
-    if(this.id_company != 0){
-       this.usuariosPrd.getByCompany(this.id_company).subscribe(datos =>{
-         this.arreglo = datos.data;
-         this.cargando = false;
-       });
-    }else{
-      let objConstruir = {
-        tipoPersonaId:3,
-        representanteLegalCentrocClienteId:null,
-        personaId: this.idUsuario==0?null:this.idUsuario,
-        nombre:this.nombre,
-        apellidoPat:this.apellidoPat,
-        apellidoMat:this.apellidoMat,
-        emailCorp:this.correoempresarial
-      };
-  
-  
-      this.usuariosPrd.filtrar(objConstruir).subscribe(datos =>{
-        this.arreglo = datos.data;      
+    if (this.id_company != 0) {
+      this.usuariosPrd.getByCompany(this.id_company).subscribe(datos => {
+        this.arreglo = datos.data;
         this.cargando = false;
       });
-  
+    } else {
+      let objConstruir = {
+        tipoPersonaId: 3,
+        representanteLegalCentrocClienteId: null,
+        personaId: this.idUsuario == 0 ? null : this.idUsuario,
+        nombre: this.nombre,
+        apellidoPat: this.apellidoPat,
+        apellidoMat: this.apellidoMat,
+        emailCorp: this.correoempresarial
+      };
+
+
+      this.usuariosPrd.filtrar(objConstruir).subscribe(datos => {
+        this.arreglo = datos.data;
+        this.cargando = false;
+      });
+
     }
 
-    
+
 
 
 
@@ -135,7 +140,63 @@ export class UsuariosComponent implements OnInit {
 
 
 
+  public paginar(){
+
+    this.arreglopaginas = [];
+
+    if(this.arreglotemp != undefined){
+        let paginas = this.arreglotemp.length / this.numeroitems;
+        
+
+        let primero = true;
+        paginas = Math.ceil(paginas);
+        
+        for(let x = 1; x <=paginas; x++){
+           
+           this.arreglopaginas.push({numeropagina:(x-1)*2,llavepagina:((x-1)*2)+this.numeroitems,mostrar:x,activado:primero});
+           primero = false;
+        }
+
+        this.arreglo = this.arreglotemp.slice(0,this.numeroitems);
+        console.log(this.arreglotemp);
+
+    }
+
+  }
+
+
+  public paginacambiar(item:any){
+    
+
+    this.arreglo = this.arreglotemp.slice(item.numeropagina,item.llavepagina);
+    
+
+
+    for(let item of this.arreglopaginas){
+        item.activado = false;
+    }
+
+    item.activado = true;
+      
+
+  }
+
+  public cambia(){
+
+    this.paginar();
+
+  }
+
+
+
+
+
+
 }
+
+
+
+
 
 
 
