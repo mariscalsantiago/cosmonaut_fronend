@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { empleadosPersonalRoutingModule } from './personal-routing.module';
+import { empleadosPersonalRoutingModule } from './empleados-personal-routing.module';
+import { PersonalComponent } from './pages/personal/personal.component';
 
 
 
 @NgModule({
-    declarations: [],
+    declarations: [PersonalComponent],
     imports: [
       CommonModule,
       empleadosPersonalRoutingModule

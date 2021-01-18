@@ -1,51 +1,78 @@
-<div class="m-3">
+<div class="moduloempleados">
+  <div class="m-3">
     <div class="row">
-        <div class="col titulo-outlet">
-            <label>Santiago Antonio Mariscal Velásquez</label>
-        </div>
+      <div class="col titulo-outlet">
+        <label>Santiago Antonio Mariscal Velásquez</label>
+      </div>
     </div>
-</div>
-
-
-<div class="row  m-3 background-panel scrooll">
-    <div class="col" style="display: inherit; padding: 20px;">
-
-        <div style="width: 100px;">
-            <img width="60px" height="60px" src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..." class="tableimg">    
-        </div>
-        <div style="width: 200px"><p>$345</p><p>$345</p></div>
-        <div style="width: 200px"><p>fecha nacimienot</p><p>$345</p></div>
-
-
-    </div>
-</div>
-
-
-<ul class="nav nav-tabs" id="navegadorTabs" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Personal</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Empleo</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Pago</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Eventos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Documentos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Kardex</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Notas</a>
-      </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
   </div>
+  
+  
+  <div class="row  m-3 background-panel scrooll">
+    <div class="col-9" style="display: inherit; padding: 20px;">
+  
+      <div style="width: 100px;">
+        <img width="60px" height="60px"
+          src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..."
+          class="tableimg">
+      </div>
+      <div class="descripcionTituloEmpleado" >
+        <p>$345</p>
+        <p>santiagoantoniomariscal@gmail.com</p>
+      </div>
+      <div class="descripcionTituloEmpleado" >
+        <p>fecha nacimiento 25/05/2014</p>
+        <p>Antiguedad: 8 años y 6 meses</p>
+      </div>
+  
+  
+    </div>
+
+    <div class="col-3 text-center">
+        
+         <div class="bg-primary text-white text-center bordeEmpleada"><strong class="m-5">Empleada</strong></div>
+         <button routerLink="/usuarios" type="submit" class="btn btn-primary button-outlet mt-4">  Descargar Perfil</button>
+
+    </div>
+
+  </div>
+  
+  
+  <ul class="nav nav-tabs" id="navegadorTabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal"
+        aria-selected="true" routerLinkActive="active" [routerLink]="['personal']">Personal</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+        aria-selected="false" routerLinkActive="active" [routerLink]="['empleo']">Empleo</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+        aria-selected="false" routerLinkActive="active">Pago</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+        aria-selected="false" routerLinkActive="active">Eventos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+        aria-selected="false" routerLinkActive="active">Documentos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+        aria-selected="false" routerLinkActive="active">Kardex</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+        aria-selected="false" routerLinkActive="active">Notas</a>
+    </li>
+  </ul>
+  
+  
+  <div class="row m-2 background-panel">
+    <div class="col-12 m-3">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

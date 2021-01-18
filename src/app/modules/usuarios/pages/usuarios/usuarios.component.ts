@@ -48,7 +48,6 @@ export class UsuariosComponent implements OnInit {
 
       this.usuariosPrd.getByCompany(this.id_company).subscribe(datos =>{
         this.arreglo = datos.data;
-
         this.cargando = false;
       });
 

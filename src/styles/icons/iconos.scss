@@ -121,3 +121,12 @@
     mask: url($rutaimg) no-repeat center;
 
   }
+
+
+  .icon_download{
+    $rutaimg : '../../assets/icons/ICCO_DOWNLD.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
