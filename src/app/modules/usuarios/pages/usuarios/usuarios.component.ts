@@ -11,10 +11,10 @@ import { UsuarioService } from '../../services/usuario.service';
 export class UsuariosComponent implements OnInit {
 
 
-  public cargando:Boolean = false;
+  public cargando: Boolean = false;
 
-  public multiseleccion:Boolean = false;
-  public multiseleccionloading:boolean = false;
+  public multiseleccion: Boolean = false;
+  public multiseleccionloading: boolean = false;
 
 
 
@@ -23,7 +23,15 @@ export class UsuariosComponent implements OnInit {
   */
 
 
-  public id_company:number = 0;
+  public id_company: number = 0;
+  public idUsuario: any = null;
+  public nombre:string = "";
+  public apellidoPat:string = "";
+  public apellidoMat:string = "";
+  public fechaRegistro:any = null;
+  public correoempresarial:string = "";
+  public activo:any = null;
+
 
 
 
@@ -33,10 +41,10 @@ export class UsuariosComponent implements OnInit {
 
   */
 
-  public arreglo:any = [];
-  public arregloCompany:any = [];
+  public arreglo: any = [];
+  public arregloCompany: any = [];
 
-  constructor(private routerPrd:Router,private usuariosPrd:UsuarioService) { }
+  constructor(private routerPrd: Router, private usuariosPrd: UsuarioService) { }
 
   ngOnInit(): void {
 
@@ -44,58 +52,91 @@ export class UsuariosComponent implements OnInit {
     this.cargando = true;
 
 
- 
 
-      this.usuariosPrd.getByCompany(this.id_company).subscribe(datos =>{
-        this.arreglo = datos.data;
+
+    this.usuariosPrd.getAllUsers().subscribe(datos => {
+      this.arreglo = datos.data;
+      this.cargando = false;
+    });
+
+    this.usuariosPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.data);
+
+  }
+
+
+  public verdetalle(obj: any) {
+
+
+    let tipoinsert = (obj == undefined) ? 'new' : 'update';
+
+    this.routerPrd.navigate(['usuarios', 'detalle_usuario', tipoinsert], { state: { data: obj, company: this.arregloCompany } });
+    this.cargando = false;
+
+
+  }
+
+
+  public activarMultiseleccion() {
+    this.multiseleccion = true;
+  }
+
+
+  public guardarMultiseleccion() {
+    this.multiseleccionloading = true;
+    setTimeout(() => {
+      this.multiseleccionloading = false;
+      this.multiseleccion = false;
+    }, 3000);
+  }
+
+
+  public cancelarMulti() {
+    this.multiseleccionloading = false;
+    this.multiseleccion = false;
+  }
+
+
+  public filtrar() {
+
+
+
+    this.cargando = true;
+
+    if(this.id_company != 0){
+       this.usuariosPrd.getByCompany(this.id_company).subscribe(datos =>{
+         this.arreglo = datos.data;
+         this.cargando = false;
+       });
+    }else{
+      let objConstruir = {
+        tipoPersonaId:3,
+        representanteLegalCentrocClienteId:null,
+        personaId: this.idUsuario==0?null:this.idUsuario,
+        nombre:this.nombre,
+        apellidoPat:this.apellidoPat,
+        apellidoMat:this.apellidoMat,
+        emailCorp:this.correoempresarial
+      };
+  
+  
+      this.usuariosPrd.filtrar(objConstruir).subscribe(datos =>{
+        this.arreglo = datos.data;      
         this.cargando = false;
       });
+  
+    }
 
-      this.usuariosPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.data);
-
-  }
-
-
-  public verdetalle(obj:any){
     
 
-    let tipoinsert = (obj == undefined)? 'new':'update';
 
-    this.routerPrd.navigate(['usuarios','detalle_usuario',tipoinsert],{state:{data:obj}});
-    this.cargando = false;
-    
+
 
   }
 
 
-  public activarMultiseleccion(){
-      this.multiseleccion = true;
-  }
-
-
-  public guardarMultiseleccion(){
-    this.multiseleccionloading = true;
-      setTimeout(() => {
-        this.multiseleccionloading = false;
-        this.multiseleccion = false;
-      }, 3000);
-  }
-
-
-  public cancelarMulti(){
-    this.multiseleccionloading = false;
-    this.multiseleccion = false;   
-  }
-
-
-  public filtrar(){
-    this.cargando = true;
-     this.usuariosPrd.getByCompany(this.id_company).subscribe(datos => {
-       this.arreglo = datos.data;
-       this.cargando = false;
-     });
-  }
-
- 
 
 }
+
+
+
+

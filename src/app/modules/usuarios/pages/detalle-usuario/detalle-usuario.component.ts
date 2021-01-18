@@ -20,6 +20,7 @@ export class DetalleUsuarioComponent implements OnInit {
   public strsubtitulo:string = "";
   public tipoPersonaId:number = 3;
   public objusuario:any;
+  public arregloCompany:any;
   
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
@@ -54,10 +55,12 @@ export class DetalleUsuarioComponent implements OnInit {
   ngOnInit(): void {
 
     this.objusuario = history.state.data == undefined ? {} : history.state.data;
+    this.arregloCompany = history.state.company == undefined ? {} : history.state.company;
+
+    console.log("Esta es la compañoa");
+    console.log(this.arregloCompany);
 
     this.myForm = this.createForm((this.objusuario));
-
-    console.log(this.f.nombre);
   }
 
 

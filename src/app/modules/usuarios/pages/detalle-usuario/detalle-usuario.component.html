@@ -24,7 +24,7 @@
             <div class="input-group-sm mb-4 col-6">
                 <label for="exampleFormControlSelect1">Compañia *</label>
                 <select [disabled]="!insertar" formControlName="representanteLegalCentrocClienteId" class="form-control" id="exampleFormControlSelect1">
-                  <option value="2">Cosmonaut</option>
+                  <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
                 </select>
             </div>
         </div>

@@ -17,6 +17,11 @@ export class UsuarioService {
 
   }
 
+
+  public getAllUsers():Observable<any>{
+     return this.http.get("/api/persona/lista/todos/3");
+  }
+
   public getByCompany(id_company:number):Observable<any>{
       return this.http.get(`/api/persona/obtener/id/compania/${id_company}`);
   }
@@ -24,8 +29,23 @@ export class UsuarioService {
   public getById(id_user:number):Observable<any>{
     
 
-    return this.http.get(`${this.url}/findById/${id_user}`);
+    return this.http.get(`/api/persona/obtener/id/${id_user}`);
 
+  }
+
+  public filtrar(obj : any):Observable<any>{
+    
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+
+
+    let json:string = JSON.stringify(obj);
+     return this.http.post("/api/persona/lista/dinamica",json,httpOptions);
   }
 
   public save(obj:any):Observable<any>{
