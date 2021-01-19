@@ -38,7 +38,7 @@ export class DetalleCompanyComponent implements OnInit {
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
 
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar a compañía?";
+      this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar la compañía?";
 
     });
 
@@ -118,13 +118,8 @@ public cancelarMulti(){
     this.modal = true;
   }
 
-  public redirect(obj:any){
-    debugger;
-    this.modal = true;
-    this.routerPrd.navigate(["/company"]);
-    this.modal = false;
-    
-
+  public cancelarcomp(){
+    this.routerPrd.navigate(['/company']);
   }
 
   public recibir($evento: any) {
