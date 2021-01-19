@@ -29,7 +29,16 @@ export class DetalleUsuarioComponent implements OnInit {
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'new');
 
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar el usuario?";
+
+      if( (this.insertar)){
+        this.strTitulo = "¿Deseas registrar el usuario?";
+
+      }else{
+        this.strTitulo = "¿Deseas actualizar el usuario?";
+
+      }
+
+      
 
     });
 
@@ -55,10 +64,7 @@ export class DetalleUsuarioComponent implements OnInit {
   ngOnInit(): void {
 
     this.objusuario = history.state.data == undefined ? {} : history.state.data;
-    this.arregloCompany = history.state.company == undefined ? {} : history.state.company;
-
-    console.log("Esta es la compañoa");
-    console.log(this.arregloCompany);
+    this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
 
     this.myForm = this.createForm((this.objusuario));
   }
@@ -160,6 +166,11 @@ export class DetalleUsuarioComponent implements OnInit {
     return this.objusuario;
 
 
+  }
+
+
+  public cancelar(){
+    this.routerPrd.navigate(['/usuarios']);
   }
 
 

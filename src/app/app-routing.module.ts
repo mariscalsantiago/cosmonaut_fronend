@@ -6,7 +6,7 @@ import { ContenidoComponent } from './layout/contenido/contenido/contenido.compo
 
 
 
-const routes: Routes = [
+export const routes: Routes = [
   {path: '',  redirectTo: '/auth/login',  pathMatch: 'full'},
   {path:'',component:ContenidoComponent,canActivate:[AutenticacionService],loadChildren:()=> import('./modules/inicio/inicio.module').then(m => m.InicioModule)},
   {path:'',component:ContenidoComponent,canActivate:[AutenticacionService],loadChildren:()=> import('./modules/usuarios/usuarios.module').then(m => m.UsuariosModule)},
