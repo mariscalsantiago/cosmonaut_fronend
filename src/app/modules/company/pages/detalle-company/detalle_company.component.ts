@@ -11,7 +11,6 @@ import { CompanyService } from '../../services/company.service';
 export class DetalleCompanyComponent implements OnInit {
 
   public myFormcomp!: FormGroup;
-  //public myFormcont!: FormGroup;
   public arreglo:any = [];
   public modal: boolean = false;
   public contacto: boolean = false;
@@ -23,14 +22,13 @@ export class DetalleCompanyComponent implements OnInit {
   public fechaActual: string = "";
   public strTitulo: string = "";
   public strsubtitulo:string = "";
-  public objcompany:any;
   public objcont:any;
   public fechaAlta: string = "";
   public fechaConst: number = 1610258400000;
   public cargando:Boolean = false;
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
-  
+  public objCompany:any;
   public representanteLegalCentrocClienteId:number = 2;
   public tipoPersonaId:number = 3;
 
@@ -57,9 +55,9 @@ export class DetalleCompanyComponent implements OnInit {
     
   ngOnInit(): void {
     debugger;
-    let objCompany = history.state.data == undefined ? {} : history.state.data ;
-    this.myFormcomp = this.createFormcomp((objCompany));
-
+    this.objCompany = history.state.data == undefined ? {} : history.state.data ;
+    this.myFormcomp = this.createFormcomp((this.objCompany));
+    this.compania = true;
   }
 
 
@@ -70,7 +68,8 @@ export class DetalleCompanyComponent implements OnInit {
       razonSocial: [obj.razonSocial,[Validators.required]],
       rfc: [obj.rfc,[Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
       emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
+      //fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
+      fechaAlta: [obj.fechaAlta , [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       centrocClienteId: obj.centrocClienteId
       
@@ -88,6 +87,7 @@ export class DetalleCompanyComponent implements OnInit {
     let tipoinsert = (obj == undefined)? 'nuevo':'modifica';
     this.routerPrd.navigate(['company','detalle_contacto',tipoinsert],{state:{data:obj}});
     this.cargando = false;
+
     
 
   }
@@ -150,7 +150,11 @@ public cancelarMulti(){
             this.modal = true;
             this.compania = false;
             this.contacto = true;
-            this.enviarPeticioncomp();
+            if(datos.result == true){
+              let obj = this.objcont;
+              this.verdetallecont(obj);
+            }
+            
             
           });
 

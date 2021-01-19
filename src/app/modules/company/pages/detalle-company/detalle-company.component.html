@@ -13,7 +13,6 @@
   <input type="hidden" formControlName="centrocClienteId">
 
   <div  class="background-panel margen" >
-    <br>
       <div class="form-group row margen">
         <label class="titulo">INFORMACIÓN DE COMPAÑÍA</label></div>
       <div class="form-group row margen">
@@ -81,17 +80,16 @@
 
         </div>
       </div>
-      
  
   </div>
-  <div class="text-center margin" style="margin-bottom: 20px;">
+  <div *ngIf="compania" class="text-center margin" style="margin-bottom: 20px;">
     <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
     <button [disabled]="!myFormcomp.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
 </div> 
 
 </form>
 
-<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)" ></app-alert-questions>
 
 
 <form >
@@ -179,5 +177,18 @@
       </div>
   </div>
   </div>
+</div>
+<div class="row">
+
+  <div *ngIf="multiseleccion" class="row text-center margin botonmultiseleccion" style="margin-bottom: 20px;">
+    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelarMulti()" *ngIf="!multiseleccionloading">Cancelar</button>
+    <button (click)="guardarMultiseleccion()" type="button" class="btn btn-primary button-fill agrandarloading"><span *ngIf="!multiseleccionloading">Guardar</span>
+    
+        <div *ngIf="multiseleccionloading"  role="status">
+            <span class="spinner-border"></span>
+          </div>
+    </button>
+  </div>
+    
 </div>
 </form>
