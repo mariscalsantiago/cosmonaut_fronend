@@ -20,7 +20,7 @@ export class CompanyService {
 
    public getAll():Observable<any>{
     
-    return this.http.get(`${this.url}/centroCostosCliente/listar/compania/`);
+    return this.http.get(`${this.url}/centroCostosCliente/listar/compania`);
 
   }
 
@@ -32,17 +32,11 @@ export class CompanyService {
         'Content-Type': 'application/json'
       })
     };
-
-
     let json:string = JSON.stringify(obj);
-
-    return this.http.post(`${this.url}/persona/listar/compania/tipoPersona`,json,httpOptions);
-
-
+    return this.http.post(`${this.url}/persona/lista/compania/tipoPersona`,json,httpOptions);
   }
 
   public save(obj:any):Observable<any>{
-   
     const httpOptions={
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -53,8 +47,18 @@ export class CompanyService {
     return this.http.put(`${this.url}/centroCostosCliente/guardar`,json,httpOptions);
   }
 
-  public modificar(obj:any):Observable<any>{
+  public savecont(obj:any):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json:string = JSON.stringify(obj);
 
+    return this.http.put(`${this.url}/persona/guardar`,json,httpOptions);
+  }
+
+  public modificar(obj:any):Observable<any>{
     const httpOptions={
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -65,6 +69,18 @@ export class CompanyService {
     let json:string = JSON.stringify(obj);
 
     return this.http.post(`${this.url}/centroCostosCliente/modificar`,json,httpOptions);
+  }
+  public modificarCont(obj:any):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+    let json:string = JSON.stringify(obj);
+
+    return this.http.post(`${this.url}/persona/modificar`,json,httpOptions);
   }
 
   
