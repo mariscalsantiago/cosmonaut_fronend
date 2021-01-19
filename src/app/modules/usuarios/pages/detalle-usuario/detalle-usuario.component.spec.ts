@@ -219,4 +219,15 @@ describe('componente-usuariodetalle ACTUALIZAR USUARIO',()=>{
         expect(componenteDetalle.myForm).not.toBeNull();
     });
 
+
+    it('enviando peticion verificando variables',()=>{
+        componenteDetalle.enviarPeticion();
+
+
+        expect(componenteDetalle.iconType).toBe("warning");
+        expect(componenteDetalle.strsubtitulo).toBe("Una vez aceptando los cambios seran efectuados");
+        expect();
+
+    });
+
 })

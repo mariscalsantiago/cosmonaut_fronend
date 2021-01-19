@@ -127,6 +127,8 @@ export class UsuariosComponent implements OnInit {
       this.usuariosPrd.filtrar(objConstruir).subscribe(datos => {
         this.arreglo = datos.data;
         this.cargando = false;
+        console.log("Se dispara el filtrar");
+        console.log(datos);
       });
 
     }
