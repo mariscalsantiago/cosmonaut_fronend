@@ -75,7 +75,7 @@ describe('componente-usuariodetalle INSERTAR USUARIOS', () => {
         //Validación de mis campos
 
         let nombre = myform.get("nombre");
-        nombre?.setValue("Santiago");
+        nombre?.setValue("santiago");
         expect(nombre?.valid).toBeTruthy();
 
         let apellido = myform.get("apellidoPat");

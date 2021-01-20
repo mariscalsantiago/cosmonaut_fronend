@@ -41,11 +41,7 @@ export class ContenidoComponent implements OnInit {
     
   }
 
-  public prueba(){
-    console.log("samv");
-    return false;
-  }
-
+  
 
 }
 
