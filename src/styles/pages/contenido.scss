@@ -84,6 +84,14 @@ a, a:hover, a:focus {
     background: white;
     color: $dark;
     transition: all 0.3s;
+
+    @media only screen and (max-width : $pantallamovil)
+    {
+
+        color:white;
+
+
+    }
 }
 
 #sidebar .sidebar-header {
@@ -104,13 +112,24 @@ a, a:hover, a:focus {
     padding: 10px;
 }
 
+#sidebar{
+    @media only screen and (max-width : $pantallamovil)
+    {
+    #listanavegadora{
+        padding-left: 25%;
+    }}
+}
+
 #sidebar ul li a {
     padding: 10px;
     font-size: 1.1em;
     display: block;
     text-align: left;
-
-   
+    @media only screen and (max-width : $pantallamovil)
+    {
+    i{
+        background: white!important;
+    }}
 }
 #sidebar ul li a:hover {
     color: $primary;
@@ -140,12 +159,42 @@ a, a:hover, a:focus {
         background-color: $primary;
     }
 
+
+    
+  @media only screen and (max-width : $pantallamovil)
+  {
+
+    i{
+        background-color: $primary;
+    }
+
+    color: $primary;
+    background: transparent;
+    border-style: none;
+    width: 253px;
+    border-width: 2px;
+    text-align: left;
+    border-radius: 20px;
+
+  }
+
 }
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 60px !important;
     background: white;
-    color:black
+    color:black;
+    @media only screen and (max-width : $pantallamovil)
+  {
+
+    font-size: 0.9em !important;
+    padding-left: 60px !important;
+    background: $dark;
+    color:white;
+
+   
+
+  }
 
 }
 
@@ -185,5 +234,61 @@ ul ul a {
   a{
     display: flex;
     flex-direction: row;
+  }
+
+  @media only screen and (max-width : $pantallamovil)
+  {
+
+
+
+    .content{
+        
+        width: 100%;
+        border-radius: 0px;
+        height: 100vh;
+        margin-top: 0;
+        overflow: auto;
+        margin-right: 24px;
+    }
+
+    .wrapper{
+
+        display: block;
+
+    }
+
+    #sidebar{
+        display: none;
+    }
+
+    .sidebarMenu{
+        display: block !important;
+        background: $dark !important;
+        .sidebar-header{
+            background-color: transparent !important;
+        }
+
+        position: absolute;
+        /* top: 0; */
+        left: 0;
+        right: 0;
+        bottom: 18vh;
+        z-index: 1;
+        border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+
+         .responsivo{
+            margin-top: 18vh;
+         }
+        
+        -webkit-animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+ 
+
+
+  
+
   }
 }

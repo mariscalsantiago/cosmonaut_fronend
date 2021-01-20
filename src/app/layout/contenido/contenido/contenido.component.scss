@@ -4,3 +4,77 @@
     width: 200px;
     height: 200px;
 }
+
+.responsivo{
+
+    display: none;
+    @media only screen and (max-width : 600px)
+  {
+
+
+    display: block;
+
+
+    button{
+        background: transparent !important;
+    color: #00C1AF !important;
+    border: 0 !important;
+      i{
+          font-size: 16px !important;  
+      }
+    }
+
+
+
+  }
+
+ 
+}
+
+.text-right{
+    button{
+        background: transparent!important;
+        color:white!important;
+        border:0;
+    }
+}
+
+.backgroundresponsive{
+    display: none;
+
+    @media only screen and (max-width : 600px)
+    {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: block;
+        z-index: 1;
+        background: #ffffffc6;
+        -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+    }
+
+  
+}
+
+
+.imgescritorio{
+    display: block;
+    @media only screen and (max-width : 600px)
+    {
+        display: none;
+    }
+}
+
+.imgmovil{
+    display: none;
+    @media only screen and (max-width : 600px)
+    {
+        display: block;
+    }
+}
+
+

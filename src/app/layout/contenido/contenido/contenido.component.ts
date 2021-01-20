@@ -11,6 +11,7 @@ export class ContenidoComponent implements OnInit {
 
   public arreglo!: Array<menuprincipal>;
   public modal:boolean = false;
+  public mostrarmenu:boolean = false;
 
   constructor(private menuPrd:MenuService) { }
 
