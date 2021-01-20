@@ -16,16 +16,6 @@ export class CompanyComponent implements OnInit {
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
 
-     
-
-  /*
-    Directivas de filtros
-  */
-
-
-  public id_company:number = 1;
-
-
 
   /*
   
@@ -40,75 +30,7 @@ export class CompanyComponent implements OnInit {
   ngOnInit(): void {
     this.cargando = true;
 
-    /*let datos = {
-      "data": [
-        {
-            "centrocClienteId": 13,
-            "rfc": "SOOJ890306GR2",
-            "razonSocial": "ASG",
-            "emailCorp": "jcsolorioortega@advisoryservicesg.tech",
-            "esActivo": true,
-            "nombre": "ASG",
-            "fechaAlta": "2021/01/14"
-        },
-        {
-            "centrocClienteId": 12,
-            "rfc": "SOOJ890306GR1",
-            "razonSocial": "ASG",
-            "emailCorp": "jcsolorio@advisoryservicesg.tech",
-            "esActivo": true,
-            "nombre": "ASG",
-            "fechaAlta": "2021/01/13"
-        },
-        {
-            "centrocClienteId": 2,
-            "rfc": "SOOJ890306GR9",
-            "razonSocial": "ASG",
-            "emailCorp": "jsolorio@advisoryservicesg.tech",
-            "esActivo": true,
-            "fechaAlta": "2021/01/10"
-        },
-        {
-            "centrocClienteId": 3,
-            "rfc": "SOOJ890306GR8",
-            "razonSocial": "ASG CA de CV",
-            "emailCorp": "jsolorio@advisoryservicesg.tech",
-            "esActivo": false,
-            "fechaAlta": "2021/01/10"
-        },
-        {
-            "centrocClienteId": 4,
-            "curp": "SOOJ890306",
-            "rfc": "SOOJ890306GR6",
-            "razonSocial": "ASG CV",
-            "emailCorp": "jsolorio@advisoryservicesg.tech",
-            "esActivo": false,
-            "registroPatronal": "Si",
-            "fechaAlta": "2021/01/10"
-        },
-        {
-            "centrocClienteId": 5,
-            "curp": "SOOJ890306",
-            "rfc": "SOOJ890306GR5",
-            "razonSocial": "ASG CV",
-            "fechaConstitucion": 1610085600000,
-            "emailCorp": "jsolorio@advisoryservicesg.tech",
-            "esActivo": false,
-            "registroPatronal": "Si",
-            "fechaAlta": "2021/01/10"
-        }
-    ],
-    "result": true,
-    "message": "Operación realizada con éxito"
-       };
-    
-       this.cargando = false;
-    
-       this.arreglo = datos.data;
-    
-         return;*/
-
-      this.companyProd.getAll().subscribe(datos =>{
+        this.companyProd.getAll().subscribe(datos =>{
 
         this.arreglo = datos.data;
 

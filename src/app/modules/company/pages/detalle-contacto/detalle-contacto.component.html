@@ -97,7 +97,7 @@
 
   <div class="text-center margin" style="margin-bottom: 20px;">
     <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
-    <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+    <button [disabled]="!myFormcont.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
 </div>   
 
 </form>
