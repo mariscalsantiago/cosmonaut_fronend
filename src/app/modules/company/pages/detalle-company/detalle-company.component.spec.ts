@@ -18,7 +18,7 @@ class routerFake {
 }
 
 
-describe('componente-compañiadetalle INSERTAR COMPAÑÍA', () => {
+describe('componente-compañíadetalle INSERTAR COMPAÑÍA', () => {
     let componenteDetalle: DetalleCompanyComponent;
     let fixed: ComponentFixture<DetalleCompanyComponent>;
     let router: Router;
@@ -55,7 +55,7 @@ describe('componente-compañiadetalle INSERTAR COMPAÑÍA', () => {
         expect(componenteDetalle).toBeTruthy();
     });
 
-    it('Campos necesarios para insertar compañia', () => {
+    it('Campos necesarios para insertar compañía', () => {
 
         expect(componenteDetalle.myFormcomp.contains("nombre")).toBeTruthy();
         expect(componenteDetalle.myFormcomp.contains("razonSocial")).toBeTruthy();
@@ -65,7 +65,7 @@ describe('componente-compañiadetalle INSERTAR COMPAÑÍA', () => {
 
     });
 
-    it('validación de campos necesarios al insertar compañia',()=>{
+    it('validación de campos necesarios al insertar compañía',()=>{
         let myFormcomp = componenteDetalle.myFormcomp;
 
         let nombre = myFormcomp.get("nombre");
@@ -87,7 +87,7 @@ describe('componente-compañiadetalle INSERTAR COMPAÑÍA', () => {
 
     });
 
-    /*it('redireccionamineto_cancelarCompañia', () => {
+    /*it('redireccionamineto_cancelarCompañía', () => {
 
         const router = TestBed.get(Router);
 
@@ -98,7 +98,7 @@ describe('componente-compañiadetalle INSERTAR COMPAÑÍA', () => {
     });*/
 
 
-    it('Enviando undefined una compañia nueva', () => {
+    it('Enviando undefined una compañía nueva', () => {
 
         expect(componenteDetalle.objCompany).toEqual({});
 
@@ -154,7 +154,7 @@ describe('componente-compañíadetalle ACTUALIZAR COMPAÑÍA',()=>{
     });
 
 
-    it('Se visualiza formulario para editar compañia', () => {
+    it('Se visualiza formulario para editar compañía', () => {
 
         let mensaje: string = componenteDetalle.strTitulo;
 
@@ -167,7 +167,7 @@ describe('componente-compañíadetalle ACTUALIZAR COMPAÑÍA',()=>{
     });  
 
 
-    /*it('verificacion de objeto enviado al formulario del detalle de una compañia',()=>{
+    /*it('verificacion de objeto enviado al formulario del detalle de una compañía',()=>{
           expect(componenteDetalle.objCompany).toEqual(objenviar);
     });*/
 
