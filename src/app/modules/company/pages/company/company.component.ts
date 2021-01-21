@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompanyService } from '../../services/company.service';
 
@@ -10,11 +10,21 @@ import { CompanyService } from '../../services/company.service';
 })
 export class CompanyComponent implements OnInit {
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    event.target.innerWidth;
 
+
+    this.tamanio = event.target.innerWidth;
+  }
+
+
+  public tamanio:number = 0;
   public cargando:Boolean = false;
 
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
+  public changeIconDown: boolean = false;
 
 
   /*
@@ -28,6 +38,11 @@ export class CompanyComponent implements OnInit {
   constructor(private routerPrd:Router,private companyProd:CompanyService) { }
 
   ngOnInit(): void {
+
+    let documento:any = document.defaultView;
+
+    this.tamanio = documento.innerWidth;
+
     this.cargando = true;
 
         this.companyProd.getAll().subscribe(datos =>{

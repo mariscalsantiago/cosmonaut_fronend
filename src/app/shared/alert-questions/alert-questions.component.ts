@@ -1,4 +1,4 @@
-import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter, Input, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-alert-questions',
@@ -15,6 +15,20 @@ export class AlertQuestionsComponent implements OnInit {
   @Input() iconType:string="";
   @Input() subtitulo:string = "";
 
+  public tamanio:number = 0;
+  public leftP:number = 0;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    event.target.innerWidth;
+
+
+    this.tamanio = event.target.innerWidth;
+    this.leftP = (this.tamanio / 2)-150;
+
+    console.log(this.leftP);
+  }
+
 
 
   constructor() {
@@ -30,6 +44,16 @@ export class AlertQuestionsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    let documento:any = document.defaultView;
+    this.tamanio = documento.innerWidth;
+
+
+    this.leftP = (this.tamanio / 2)-150;
+
+    
+
+    console.log(this.leftP);
+    console.log("left de la vetnana");
 
     
 

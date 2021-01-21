@@ -17,7 +17,7 @@
         <label class="titulo">INFORMACIÓN DE COMPAÑÍA</label></div>
       <div class="form-group row margen">
       
-          <div class=" input-group-sm mb-3 col-4 ">
+          <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-sm-12 col-md-6 col-lg-4 col-xl-3 ">
               <label >Nombre de la compañía *</label>
               <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
               <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
@@ -25,7 +25,7 @@
                 </div>         
   
           </div>
-          <div class=" input-group-sm mb-3 col-4 ">
+          <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 ">
               <label>Razón social *</label>
               <input formControlName="razonSocial" type="text" class="form-control" [ngClass]="{'is-invalid':f.razonSocial.errors && f.razonSocial.touched}"  placeholder="">
               <div *ngIf="f.razonSocial.errors && f.razonSocial.touched" class="invalid-feedback">
@@ -33,7 +33,7 @@
                 </div>
   
           </div>
-          <div class=" input-group-sm mb-3 col-4 ">
+          <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 ">
               <label>RFC *</label>
               <input formControlName="rfc" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.rfc.errors && f.rfc.touched}" >
               <div *ngIf="f.rfc.errors?.required && f.rfc.touched" class="invalid-feedback">
@@ -45,7 +45,7 @@
                 
           </div>
           
-          <div class=" input-group-sm mb-3 col-4">
+          <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
             <label >Correo corporativo *</label>
             <input formControlName="emailCorp" type="email" class="form-control" [ngClass]="{'is-invalid':f.emailCorp.errors && f.emailCorp.touched}"
                 placeholder="">
@@ -57,7 +57,7 @@
                   </div>
 
         </div>
-         <div class=" input-group-sm mb-3 col-4">
+         <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
           <label >Fecha de registro*</label>
           <input formControlName="fechaAlta" type="date" class="form-control" 
               placeholder="">
@@ -65,7 +65,7 @@
         </div>
 
 
-        <div class="input-group-sm mb-4 col-4">
+        <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
           <label for="exampleFormControlSelect1">Estado*</label>
           <select formControlName="esActivo" class="form-control">
             <option value="true" selected>ACTIVO</option>
@@ -118,7 +118,7 @@
        
       </div>
     </div>
-      <table *ngIf="!cargando" class="table table-hover">
+      <table *ngIf="!cargando" class="table table-hover table-responsive">
           <thead>
             <tr>
               <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
