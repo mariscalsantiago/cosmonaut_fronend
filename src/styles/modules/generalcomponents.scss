@@ -203,3 +203,20 @@ article.titulo{
 
     }
 }
+
+.aparece-movil-inline-block{
+
+    display: none;
+    @media only screen and (max-width : $pantallamovil)
+    {
+
+        display: inline-block;
+
+        margin: 0 20px;
+        font-size: 18px;
+
+    }
+}
+
+
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 
@@ -11,13 +11,24 @@ import { UsuarioService } from '../../services/usuario.service';
 export class UsuariosComponent implements OnInit {
 
 
+  
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    event.target.innerWidth;
+
+
+    this.tamanio = event.target.innerWidth;
+  }
+
+
   public cargando: Boolean = false;
 
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
   public numeroitems: number = 2;
   public arreglotemp = [];
-  public arreglopaginas:Array<any> = [];
+  public arreglopaginas: Array<any> = [];
 
 
 
@@ -48,13 +59,15 @@ export class UsuariosComponent implements OnInit {
   public arreglo: any = [];
   public arregloCompany: any = [];
   public tamanio = 0;
-  public changeIconDown:boolean = false;
+  public changeIconDown: boolean = false;
 
   constructor(private routerPrd: Router, private usuariosPrd: UsuarioService) { }
 
   ngOnInit(): void {
 
-    this.tamanio =  window.screen.width;
+    let documento:any = document.defaultView;
+
+    this.tamanio = documento.innerWidth;
 
 
     this.cargando = true;
@@ -71,6 +84,9 @@ export class UsuariosComponent implements OnInit {
     this.usuariosPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.data);
 
   }
+
+
+
 
 
   public verdetalle(obj: any) {
@@ -146,48 +162,48 @@ export class UsuariosComponent implements OnInit {
 
 
 
-  public paginar(){
+  public paginar() {
 
     this.arreglopaginas = [];
 
-    if(this.arreglotemp != undefined){
-        let paginas = this.arreglotemp.length / this.numeroitems;
-        
+    if (this.arreglotemp != undefined) {
+      let paginas = this.arreglotemp.length / this.numeroitems;
 
-        let primero = true;
-        paginas = Math.ceil(paginas);
-        
-        for(let x = 1; x <=paginas; x++){
-           
-           this.arreglopaginas.push({numeropagina:(x-1)*2,llavepagina:((x-1)*2)+this.numeroitems,mostrar:x,activado:primero});
-           primero = false;
-        }
 
-        this.arreglo = this.arreglotemp.slice(0,this.numeroitems);
-        console.log(this.arreglotemp);
+      let primero = true;
+      paginas = Math.ceil(paginas);
+
+      for (let x = 1; x <= paginas; x++) {
+
+        this.arreglopaginas.push({ numeropagina: (x - 1) * 2, llavepagina: ((x - 1) * 2) + this.numeroitems, mostrar: x, activado: primero });
+        primero = false;
+      }
+
+      this.arreglo = this.arreglotemp.slice(0, this.numeroitems);
+      console.log(this.arreglotemp);
 
     }
 
   }
 
 
-  public paginacambiar(item:any){
-    
-
-    this.arreglo = this.arreglotemp.slice(item.numeropagina,item.llavepagina);
-    
+  public paginacambiar(item: any) {
 
 
-    for(let item of this.arreglopaginas){
-        item.activado = false;
+    this.arreglo = this.arreglotemp.slice(item.numeropagina, item.llavepagina);
+
+
+
+    for (let item of this.arreglopaginas) {
+      item.activado = false;
     }
 
     item.activado = true;
-      
+
 
   }
 
-  public cambia(){
+  public cambia() {
 
     this.paginar();
 

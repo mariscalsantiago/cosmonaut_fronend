@@ -15,7 +15,7 @@
         <div class="card">
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-              <button (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <label class="titulo" style="    width: 80%;
                 float: left;
                 text-align: left;">Búsqueda</label>
@@ -23,7 +23,7 @@
                 <i *ngIf="!changeIconDown"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF" class="fas fa-chevron-down "></i>
                 
               </button>
-              <button class="btn btn-link aparece-desktop" >
+              <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block" >
                 <label class="titulo">Búsqueda</label>
               </button>
               
@@ -122,13 +122,13 @@
           <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
           <th scope="col">ID</th>
           <th scope="col">Nombre</th>
-          <th scope="col">Apellido Paterno</th>
-          <th scope="col">Apellido Materno</th>
-          <th scope="col">Centro de costos</th>
-          <th scope="col">Correo Empresarial</th>
-          <th scope="col">Fecha de registro</th>
-          <th scope="col">Activo</th>
-          <th scope="col" *ngIf="!multiseleccion">Opciones</th>
+          <th scope="col" *ngIf="tamanio >=600">Apellido Paterno</th>
+          <th scope="col" *ngIf="tamanio >=600">Apellido Materno</th>
+          <th scope="col" *ngIf="tamanio >=600">Centro de costos</th>
+          <th scope="col" *ngIf="tamanio >=600">Correo Empresarial</th>
+          <th scope="col" *ngIf="tamanio >=600">Fecha de registro</th>
+          <th scope="col" *ngIf="tamanio >=600">Activo</th>
+          <th scope="col " *ngIf="!multiseleccion">Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -137,12 +137,12 @@
               type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
           <td style="color:  #00DED4">{{item.personaId}} </td>
           <td>{{item.nombre}} </td>
-          <td>{{item.apellidoPat}}</td>
-          <td>{{item.apellidoMat }}</td>
-          <td>{{item.representanteLegalCentrocClienteId}}</td>
-          <td>{{item.emailCorp}}</td>
-          <td>{{item.fechaAlta }}</td>
-          <td>{{(item.esActivo)?'Activo':'Inactivo'}}</td>
+          <td *ngIf="tamanio >=600">{{item.apellidoPat}}</td>
+          <td *ngIf="tamanio >=600">{{item.apellidoMat }}</td>
+          <td *ngIf="tamanio >=600">{{item.representanteLegalCentrocClienteId}}</td>
+          <td *ngIf="tamanio >=600">{{item.emailCorp}}</td>
+          <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
+          <td *ngIf="tamanio >=600">{{(item.esActivo)?'Activo':'Inactivo'}}</td>
           <td *ngIf="!multiseleccion" class="opciones">
             <button (click)="verdetalle(item)" class="btnPersonalizado"><i
                 class="icon_ver text-center bg-light"></i></button>

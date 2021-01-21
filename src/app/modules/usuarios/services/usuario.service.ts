@@ -19,7 +19,7 @@ export class UsuarioService {
 
 
   public getAllUsers():Observable<any>{
-     return this.http.get("/api/persona/lista/todos/3");
+     return this.http.get("/api/persona/lista/todo/3");
   }
 
   public getByCompany(id_company:number):Observable<any>{
@@ -82,7 +82,7 @@ export class UsuarioService {
 
 
   public getAllCompany():Observable<any>{
-     return this.http.get('/api/centroCostosCliente/listar/compania');
+     return this.http.get('/api/centroCostosCliente/lista/compania');
   }
 
   
