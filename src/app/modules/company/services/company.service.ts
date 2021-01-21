@@ -20,7 +20,7 @@ export class CompanyService {
 
    public getAll():Observable<any>{
     
-    return this.http.get(`${this.url}/centroCostosCliente/listar/compania`);
+    return this.http.get(`${this.url}/centroCostosCliente/lista/compania`);
 
   }
 

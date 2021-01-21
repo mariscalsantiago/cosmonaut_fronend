@@ -25,7 +25,7 @@ const objenviar = {
 
 };
 
-describe("Lista de compañias",()=>{
+describe("Lista de compañías",()=>{
    
 
     let componenteCompany:CompanyComponent;
@@ -56,7 +56,7 @@ describe("Lista de compañias",()=>{
     });
 
 
-    it('Ver detalle de compañia',()=>{
+    it('Ver detalle de compañía',()=>{
 
         const router = TestBed.get(Router);
         const spyn = spyOn(router,"navigate");
