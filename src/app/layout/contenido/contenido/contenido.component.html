@@ -1,11 +1,19 @@
 <div class="contenido_component">
 
-    <div class="wrapper">
-        <nav id="sidebar">
-            <div class="sidebar-header">
+    <div class="wrapper" style="position: relative;">
+        <div (click)="mostrarmenu = false" class="backgroundresponsive" [ngClass]="{'backgroundresponsive':mostrarmenu}"></div>
+        <nav id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
+            <div class="col-2 responsivo" ><button style="    margin-left: 16px;
+                margin-top: 7px;" (click)="mostrarmenu = false" >
+                <i class="fas fa-bars"></i>
+            </button></div>
+            <div class="sidebar-header imgmovil">
+                <img src="../../../../assets/imgs/logo.png" alt="" srcset="">
+            </div>
+            <div class="sidebar-header imgescritorio">
                 <img src="../../../../assets/imgs/logo2.png" alt="" srcset="">
             </div>
-            <ul class="list-unstyled components">
+            <ul id="listanavegadora" class="list-unstyled components">
                 <li *ngFor="let item of arreglo" [ngClass]="{'active':item.seleccionado}">
                     <a [routerLink]="item.routerLink" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
                         <i [class]="item.icono"></i>
@@ -20,10 +28,15 @@
         </nav>
         <div id="contenido" class="content"  style="position: relative;">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <form style="width: 100%;
-                    color: white;" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-
-                </form>
+            
+                <div class="col-2 responsivo"><button (click)="mostrarmenu = true" >
+                    <i class="fas fa-bars"></i>
+                </button></div>
+                <div class="col-5"></div>
+                <div class="col-5 text-right">
+                    <button><i class="fas fa-search"></i></button>
+                    <button><i class="fas fa-question"></i></button>
+                </div>
             </nav>
             <div class="container content-inside">
                 <router-outlet></router-outlet>
