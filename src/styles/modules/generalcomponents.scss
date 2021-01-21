@@ -155,3 +155,51 @@ article.titulo{
         border: 1px solid $secondary;
     }
 }
+
+
+
+
+
+#accordionFiltro{
+    .card{
+        background-color: transparent;
+        border:0;
+    }
+
+    .card-header{
+        margin-left: -19px;
+        border-bottom: 0;
+    }
+
+     @media only screen and (max-width : $pantallamovil)
+    {
+
+        .card{
+            border:2px solid $primary;
+        }
+
+    }
+}
+
+
+.aparece-desktop{
+
+    display: block;
+    @media only screen and (max-width : $pantallamovil)
+    {
+
+        display: none;
+
+    }
+}
+
+.aparece-movil{
+
+    display: none;
+    @media only screen and (max-width : $pantallamovil)
+    {
+
+        display: block;
+
+    }
+}

@@ -14,14 +14,14 @@
     <div class="background-panel margen">
         <div class="form-group row margen"><label class="titulo">SELECCIONAR</label></div>
         <div class="form group row margen">
-            <div class="input-group-sm mb-4 col-6">
+            <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6">
                 <label for="exampleFormControlSelect1">Tipo de usuario *</label>
                 <select [disabled]="!myForm.valid" formControlName="idTipoUsuario" class="form-control">
                   <option value="1">Usuario Cosmonaut</option>
                   <option value="2">Usuario Compañia</option>
                 </select>
             </div>
-            <div class="input-group-sm mb-4 col-6">
+            <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6">
                 <label for="exampleFormControlSelect1">Compañia *</label>
                 <select [disabled]="!insertar" formControlName="representanteLegalCentrocClienteId" class="form-control" id="exampleFormControlSelect1">
                   <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
@@ -35,14 +35,14 @@
         <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE USUARIO</label></div>
         <div class="form-group row margen">
         
-            <div class=" input-group-sm mb-3 col-4 ">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label >Nombre *</label>
                 <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
                 <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
                     Favor de ingresar el Nombre
                   </div>
             </div>
-            <div class=" input-group-sm mb-3 col-4">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label >Apellido Paterno *</label>
                 <input formControlName="apellidoPat" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPat.errors && f.apellidoPat.touched}"
                     placeholder="">
@@ -51,13 +51,13 @@
                       </div>
     
             </div>
-            <div class=" input-group-sm mb-3 col-4">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label >Apellido Materno</label>
                 <input formControlName="apellidoMat" type="text" class="form-control" 
                     placeholder="">
     
             </div>
-            <div class=" input-group-sm mb-3 col-4">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label >CURP</label>
                 <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}"
                     placeholder="">
@@ -76,7 +76,7 @@
         <div class="form-group row margen"><label class="titulo">CONTACTO</label></div>
         <div class="form group row margen">
 
-            <div class=" input-group-sm mb-3 col-4">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label >Correo Corporativo*</label>
                 <input formControlName="emailCorp" type="email" class="form-control" [ngClass]="{'is-invalid':f.emailCorp.errors && f.emailCorp.touched}"
                     placeholder="">
@@ -88,7 +88,7 @@
                       </div>
     
             </div>
-            <div class=" input-group-sm mb-3 col-4">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label >Correo Personal*</label>
                 <input formControlName="ciEmailPersonal" type="email" class="form-control"  [ngClass]="{'is-invalid':f.ciEmailPersonal.errors && f.ciEmailPersonal.touched}"
                     placeholder="">
@@ -101,7 +101,7 @@
                       </div>
     
             </div>
-            <div class=" input-group-sm mb-3 col-4">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label >Teléfono*</label>
                 <input formControlName="ciTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.ciTelefono.errors && f.ciTelefono.touched}"
                     placeholder="">
@@ -111,13 +111,13 @@
                       </div>
     
             </div>
-            <div class=" input-group-sm mb-3 col-4">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label >Fecha de registro*</label>
                 <input formControlName="fechaAlta" type="date" class="form-control" 
                     placeholder="">
     
             </div>
-            <div class="input-group-sm mb-4 col-4">
+            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Estado*</label>
                 <select formControlName="esActivo" class="form-control">
                   <option value="true" selected>ACTIVO</option>

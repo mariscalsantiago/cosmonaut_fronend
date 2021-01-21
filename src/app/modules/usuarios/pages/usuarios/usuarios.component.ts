@@ -47,10 +47,14 @@ export class UsuariosComponent implements OnInit {
 
   public arreglo: any = [];
   public arregloCompany: any = [];
+  public tamanio = 0;
+  public changeIconDown:boolean = false;
 
   constructor(private routerPrd: Router, private usuariosPrd: UsuarioService) { }
 
   ngOnInit(): void {
+
+    this.tamanio =  window.screen.width;
 
 
     this.cargando = true;
