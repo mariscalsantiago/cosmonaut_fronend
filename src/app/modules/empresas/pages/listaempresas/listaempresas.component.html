@@ -52,6 +52,9 @@
                       </div>
                       <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
                         <div class="col text-right">
+                          <button type="button" class="btn btn-light button-outlet" [routerLink]="['/empresa','detalle','idempresa']" >
+                            ir al detalle de empresa (provisional)
+                          </button>
                           <button type="button" class="btn btn-light button-outlet" (click)="verdetalleemp(undefined)">
                             <i class="fa fa-plus"></i>Agregar empresa
                           </button>
