@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-listaempleados',
@@ -7,9 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaempleadosComponent implements OnInit {
 
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    event.target.innerWidth;
+
+
+    this.tamanio = event.target.innerWidth;
+  }
+
+
+  public tamanio:number = 0;
+
   constructor() { }
 
   ngOnInit(): void {
+
+    let documento:any = document.defaultView;
+
+    this.tamanio = documento.innerWidth;
+
   }
 
 }

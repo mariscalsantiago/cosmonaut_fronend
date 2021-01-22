@@ -57,15 +57,15 @@
 
                   <div class="row   margen-tabla background-panel scrooll">
                     <div class="col m-5">
-                        <table   class="table table-hover table-sm">
+                        <table   class="table table-hover  table-responsive">
                             <thead class="head">
                               <tr>
                                 <th scope="col" style="width: 44px;"> </th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">ID</th>
-                                <th scope="col">Puesto</th>
-                                <th scope="col">Área</th>
-                                <th scope="col">Sede</th>
+                                <th scope="col" *ngIf="tamanio >= 600">Puesto</th>
+                                <th scope="col" *ngIf="tamanio >= 600">Área</th>
+                                <th scope="col" *ngIf="tamanio >= 600">Sede</th>
                               </tr>
                             </thead>
                             <tbody class="text-muted body">
@@ -75,50 +75,11 @@
                                 </td>
                                 <td routerLink="/empleados/1/personal">Santiago antonio </td>
                                 <td style="color:  #00DED4">16386</td>
-                                <td>Head of Sales </td>
-                                <td>Sales</td>
-                                <td>Av. La Mar 1120, Miraflores, Lima, Perú</td>
+                                <td *ngIf="tamanio >= 600">Head of Sales </td>
+                                <td *ngIf="tamanio >= 600">Sales</td>
+                                <td *ngIf="tamanio >= 600">Av. La Mar 1120, Miraflores, Lima, Perú</td>
                               </tr>
-                              <tr >
-                                <td style="width: 44px;" scope="row">
-                                    <img width="60px" height="60px" src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..." class="tableimg">    
-                                </td>
-                                <td>Santiago antonio </td>
-                                <td style="color:  #00DED4">16386</td>
-                                <td>Head of Sales </td>
-                                <td>Sales</td>
-                                <td>Av. La Mar 1120, Miraflores, Lima, Perú</td>
-                              </tr>
-                              <tr >
-                                <td style="width: 44px;" scope="row">
-                                    <img width="60px" height="60px" src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..." class="tableimg">    
-                                </td>
-                                <td>Santiago antonio </td>
-                                <td style="color:  #00DED4">16386</td>
-                                <td>Head of Sales </td>
-                                <td>Sales</td>
-                                <td>Av. La Mar 1120, Miraflores, Lima, Perú</td>
-                              </tr>
-                              <tr >
-                                <td style="width: 44px;" scope="row">
-                                    <img width="60px" height="60px" src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..." class="tableimg">    
-                                </td>
-                                <td>Santiago antonio </td>
-                                <td style="color:  #00DED4">16386</td>
-                                <td>Head of Sales </td>
-                                <td>Sales</td>
-                                <td>Av. La Mar 1120, Miraflores, Lima, Perú</td>
-                              </tr>
-                              <tr >
-                                <td style="width: 44px;" scope="row">
-                                    <img width="60px" height="60px" src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..." class="tableimg">    
-                                </td>
-                                <td>Santiago antonio </td>
-                                <td style="color:  #00DED4">16386</td>
-                                <td>Head of Sales </td>
-                                <td>Sales</td>
-                                <td>Av. La Mar 1120, Miraflores, Lima, Perú</td>
-                              </tr>
+                         
                       
                               
                       
