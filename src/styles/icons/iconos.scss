@@ -63,13 +63,19 @@
 
   }
 
-  .icon_admon{
+  .icon_admoncos{
     $rutaimg:'../../assets/icons/ICO_admon.svg';
     @include icono-imagen($dark);
     -webkit-mask: url($rutaimg) no-repeat center;
     mask: url($rutaimg) no-repeat center;
   }
 
+  .icon_admon{
+    $rutaimg:'../../assets/icons/ICO_administrador.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+  }
   .icontable_down{
     $rutaimg:'../../assets/icons/icontable_down.svg';
     @include icono-imagen($dark);
