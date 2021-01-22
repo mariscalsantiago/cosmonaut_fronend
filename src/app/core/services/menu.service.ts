@@ -20,10 +20,11 @@ export class MenuService {
     { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
     { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
     { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
-    { nombre: "ADMINITRACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,submenu:[
+    { nombre: 'ADMIN. COSMONAUT', icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,submenu:[
                                                                                 {nombre:"COMPAÑIA",routerLink:['/company']},
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios']},
-                                                                              ]}
+                                                                              ]},
+    { nombre: "ADMINISTRACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,routerLink:['/empresas'] },
   ];
 
   constructor() { }
