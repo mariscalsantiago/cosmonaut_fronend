@@ -24,7 +24,7 @@ export class MenuService {
                                                                                 {nombre:"COMPAÑIA",routerLink:['/company']},
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios']},
                                                                               ]},
-    { nombre: "ADMINISTRACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,routerLink:['/empresas'] },
+    { nombre: "ADMINISTRACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,routerLink:['/listaempresas'] },
   ];
 
   constructor() { }

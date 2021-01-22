@@ -1,11 +1,77 @@
-.bordeEmpleada{
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+.margen{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
+
 
 .button-outlet{
+    background-color: transparent!important;
+}
 
-    color:#022538 !important;
-    border-color: #022538 !important;
+.titulo{
+    margin-top: 1em;
+}
+
+
+table{
+    border-radius: 10px;
+}
+
+
+.margen-tabla table{
+    margin:15px;
+}
+
+
+td{
+    color:rgb(49, 49, 49);
+
+    button{
+        border: 0px solid black;
+        margin-left: 2px;
+    }
+}
+
+
+.acomodando{
+
+    width: 100%;
+    height: 100%;
+
+
+    text-align: center;
+
+    
 
 }
+
+
+table{
+    tr{
+        cursor: pointer;
+    }
+}
+
+.botonmultiseleccion{
+    margin: auto;
+    height: 59px;
+}
+
+.agrandarloading{
+    width: 7em;
+}
+
+
+.scrooll{
+    overflow: auto;
+}
+
+.btnPersonalizado{
+    background-color: transparent;
+    i{
+        background-color: #00c1af !important;
+    }
+}
+
+

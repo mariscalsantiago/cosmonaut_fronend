@@ -1,0 +1,111 @@
+<div class="row margen">
+    <div class="col titulo-outlet">
+        <label >CONFIGURACIÓN DE EMPRESA</label>
+    </div>
+  </div>
+  
+  
+  <hr>
+  
+  
+  <form [formGroup]="myFormemp" (ngSubmit)="enviarPeticionemp()">
+  
+    <input type="hidden" formControlName="centrocClienteId">
+  
+    <div  class="background-panel margen" >
+        <div class="form-group row margen">
+          <label class="titulo">INFORMACIÓN DE EMPRESA</label></div>
+        <div class="form-group row margen">
+        
+            <div class="input-group-sm mb-3 col-4">
+                <label>Nombre de la empresa *</label>
+                <input formControlName="empresa" type="text" class="form-control" [ngClass]="{'is-invalid':f.empresa.errors && f.empresa.touched}"  placeholder="">
+                <div *ngIf="f.empresa.errors && f.empresa.touched" class="invalid-feedback">
+                    Favor de ingresar la Razón social.
+                  </div>
+              </div>
+              <div class="input-group-sm mb-3 col-4">
+                <label>Razon social *</label>
+                <input type="text" class="form-control" id="razonsocial">
+              </div>
+              <div class="input-group-sm mb-3 col-4">
+                <label>Logo</label>
+                <input type="text" class="form-control" id="logo">
+              </div>
+              <div class="input-group-sm mb-3 col-4">
+                <label>Actividad economica *</label>
+                <input type="text" class="form-control" id="nomEmpresa">
+              </div>
+              <div class="input-group-sm mb-3 col-4">
+                <label>RFC *</label>
+                <input type="text" class="form-control" id="nomEmpresa">
+              </div>
+              <div class="input-group-sm mb-3 col-4">
+                <label>Regimén fiscal *</label>
+                <input type="text" class="form-control" id="nomEmpresa">
+              </div>
+              <div class="input-group-sm mb-3 col-4">
+                <label>Registro patronal</label>
+                <input type="text" class="form-control" id="nomEmpresa">
+              </div>
+              <div class="input-group-sm mb-3 col-4">
+                <label>CURP de la razón social</label>
+                <input type="text" class="form-control" id="nomEmpresa">
+              </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Prima de riesgo</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            
+            <div class="input-group-sm mb-3 col-4">
+              <label>Código postal</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Entidad federativa</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Municipio o alcaldía</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Domicilio</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Cuentas bancarias</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Clave subdelegacional IMSS</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Certificado de sello digital</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Contraseña de certificado de sello digital</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <br><br>
+            <div class="form-group checkbox">
+              <label class="text-light" for="nomEmpresa">Lectura automática de horas extras</label>
+              <input type="checkbox" class="form-control" id="nomEmpresa">
+            </div>
+          
+        
+        </div>
+   
+    </div>
+    <div  class="text-center margin" style="margin-bottom: 20px;">
+      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelarcomp()" >Cancelar</button>
+      <button [disabled]="!myFormemp.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+  </div> 
+  
+  </form>
+  
+  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)" ></app-alert-questions>
+  
+  

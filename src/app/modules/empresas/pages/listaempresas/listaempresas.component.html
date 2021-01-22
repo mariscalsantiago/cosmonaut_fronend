@@ -79,7 +79,7 @@
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
                       </div>
-                      <div class="row" style="  margin-top: 10px;  width: 100%;">
+                      <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
                         <div class="col text-right">
                           <button type="button" class="btn btn-light button-outlet" (click)="verdetalleemp(undefined)">
                             <i class="fa fa-plus"></i>Agregar empresa

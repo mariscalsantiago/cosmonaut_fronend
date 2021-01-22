@@ -5,10 +5,17 @@ import { ListaEmpresasComponent } from './pages/listaempresas/listaempresas.comp
 
 
 const routes: Routes = [{
-  path:'',children:[
-     {path:'empresas',component:ListaEmpresasComponent},
-     //{path:'empresas/:id',component:EmpresasComponent,loadChildren:()=> import('./pages/submodulos/personal/empleados-personal.module').then(m => m.EmpleadosPersonalModule)},
-     //{path:'empresas/:id',component:EmpresasComponent,loadChildren:()=> import('./pages/submodulos/empleo/empleados-empleo.module').then(m => m.empleadosEmpleoModule)}
+  path:'',
+  children:[
+    {
+       path:'listaempresas',
+       component:ListaEmpresasComponent
+    },
+    {
+      path: 'listaempresas/empresas/:tipoinsert',
+      component: EmpresasComponent
+    },
+    
   ]
 }];
 
