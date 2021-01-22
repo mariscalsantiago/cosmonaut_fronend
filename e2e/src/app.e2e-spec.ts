@@ -26,8 +26,14 @@ describe('workspace-project App', () => {
     element(by.id('exampleInputEmail1')).sendKeys('juan@perez.com');
     element(by.id('exampleInputPassword1')).sendKeys('123456789');
     element(by.css('button')).click().then(() => {
-      expect(element(by.css('body')).getText()).toContain('inicio works!');
+      //expect(element(by.css('body')).getText()).toContain('inicio works!');
     });
+
+
+    element(by.id('exampleInputPassword1')).getText().then(datos => {
+      expect(datos).toContain("");
+    });
+
 
     afterEach(async () => {
       const logs = await browser.manage().logs().get(logging.Type.BROWSER);
@@ -36,13 +42,19 @@ describe('workspace-project App', () => {
       } as logging.Entry));
     });
 
+
+   
+
   });
   let page: AppPage;
 
   beforeEach(() => {
-      page = new AppPage();
-    }
+    page = new AppPage();
+  }
   );
+
+
+
 
 
 });
