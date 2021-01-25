@@ -1,1 +1,68 @@
-<p>detallecuentasbancarias works!</p>
+<br><br>
+<div class="row margen">
+    <div class="col titulo-outlet">
+        <label >INGRESAR CONTACTO RRH</label>
+    </div>
+  </div>
+  
+  
+  <hr>
+  
+  
+  <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
+  
+    <input type="hidden" >
+  
+    <div  class="background-panel margen" >
+        <div class="form-group row margen">
+          <label class="titulo">Campos a rellenar</label></div>
+        <div class="form-group row margen">
+        
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Nombre de cuenta *</label>
+                <input type="text" class="form-control"   placeholder="">
+                <div  class="invalid-feedback">
+                    Favor de ingresar el nombre de la cuenta.
+                  </div>
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>No. Cuenta *</label>
+                <input type="text" class="form-control"   placeholder="">
+                <div  class="invalid-feedback">
+                    Favor de ingresar el número de cuenta.
+                  </div>
+              </div>
+
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Nombre del banco</label>
+                <input type="text" class="form-control"  placeholder="">
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Descripción</label>
+                <input type="text" class="form-control"  placeholder="">
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Número de información</label>
+                <input type="text" class="form-control"  placeholder="">
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Cuenta CLABE</label>
+                <input type="text" class="form-control"  placeholder="">
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>No. Secursal</label>
+                <input type="text" class="form-control"  placeholder="">
+              </div>       
+        </div>
+   
+    </div>
+    <div  class="text-center margin" style="margin-bottom: 20px;">
+      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()" >Cancelar</button>
+      <button [disabled]="!myForm.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+  </div> 
+  
+  </form>
+  
+  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)" ></app-alert-questions>
+  
+  

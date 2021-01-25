@@ -9,52 +9,56 @@ import { EmpresasService } from '../../services/empresas.service';
 })
 export class ListaEmpresasComponent implements OnInit {
 
-  public cargando:Boolean = false;
+  public cargando: Boolean = false;
 
-  public multiseleccion:Boolean = false;
-  public multiseleccionloading:boolean = false;
-  public arreglo:any = [];
+  public multiseleccion: Boolean = false;
+  public multiseleccionloading: boolean = false;
+  public arreglo: any = [];
 
-  constructor(private routerPrd:Router, private empresasProd:EmpresasService) { }
+  constructor(private routerPrd: Router, private empresasProd: EmpresasService) { }
 
   ngOnInit(): void {
     this.cargando = true;
 
-        this.empresasProd.getAllEmp().subscribe(datos =>{
+    this.empresasProd.getAllEmp().subscribe(datos => {
 
-        this.arreglo = datos.data;
+      this.arreglo = datos.data;
 
-        this.cargando = false;
-      });
+      this.cargando = false;
+    });
 
   }
-  public verdetalleemp(obj:any){
-    debugger;
+  public verdetalleemp(obj: any) {
     this.cargando = true;
-    let tipoinsert = (obj == undefined)? 'nuevo':'modifica';
-    this.routerPrd.navigate(['listaempresas','empresas',tipoinsert],{state:{data:obj}});
+    let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
+    this.routerPrd.navigate(['listaempresas', 'empresas', tipoinsert], { state: { data: obj } });
     this.cargando = false;
-  
+
   }
 
-  public activarMultiseleccion(){
+  public activarMultiseleccion() {
     this.multiseleccion = true;
-}
+  }
 
 
-public guardarMultiseleccion(){
-  this.multiseleccionloading = true;
+  public guardarMultiseleccion() {
+    this.multiseleccionloading = true;
     setTimeout(() => {
       this.multiseleccionloading = false;
       this.multiseleccion = false;
     }, 3000);
-}
+  }
 
 
-public cancelarMulti(){
-  this.multiseleccionloading = false;
-  this.multiseleccion = false;
-}
+  public cancelarMulti() {
+    this.multiseleccionloading = false;
+    this.multiseleccion = false;
+  }
+
+
+  public verPerfilEmpresa(obj: any) {
+    this.routerPrd.navigate(['/empresa', 'detalle', obj.centrocClienteId,'representantelegal']);
+  }
 
 
 }

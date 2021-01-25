@@ -13,10 +13,7 @@ export const routes: Routes = [
   {path:'',component:ContenidoComponent,canActivate:[AutenticacionService],loadChildren:()=> import('./modules/company/company.module').then(m => m.CompanyModule)},
   {path:'',component:ContenidoComponent,canActivate:[AutenticacionService],loadChildren:()=> import('./modules/empleados/empleados.module').then(m => m.EmpleadosModule)},
   {path:'',component:ContenidoComponent,canActivate:[AutenticacionService],loadChildren:()=> import('./modules/empresas/empresas.module').then(m => m.EmpresasModule)},
-  {path: 'auth',  component: AuthComponent,  loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)},
-
-{ path: '**', redirectTo: '/auth/login', pathMatch: 'full' }];
-
+  {path: 'auth',  component: AuthComponent,  loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)}]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

@@ -1,1 +1,164 @@
-<p>listacontactosrrh works!</p>
+<br><br>
+<div>
+
+  <div class="row margen">
+    <div class="col titulo-outlet">
+      <label>LISTA DE CONTACTOS RRH</label>
+    </div>
+  </div>
+
+
+
+  <div class="margen">
+    <div id="accordionFiltro">
+
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
+                class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                <label class="titulo" style="    width: 80%;
+                  float: left;
+                  text-align: left;">Búsqueda</label>
+                <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
+                  class="fas fa-chevron-up "></i>
+                <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
+                  class="fas fa-chevron-down "></i>
+
+              </button>
+              <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                <label class="titulo">Búsqueda</label>
+              </button>
+
+            </h5>
+          </div>
+
+          <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne"
+            data-parent="#accordion">
+            <div class="card-body">
+              <div class="form group row margen">
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre">
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="text" [(ngModel)]="apellido" class="form-control" placeholder="Apellido">
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="text" [(ngModel)]="empresa" class="form-control" placeholder="Empresa">
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="text" [(ngModel)]="correoE" class="form-control" placeholder="Correo Empresarial">
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="text" [(ngModel)]="correoP" class="form-control" placeholder="Correo Personal">
+                </div>
+                <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+                  <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row margen">
+    <div class="col titulo">
+      <label>RESULTADOS</label>
+    </div>
+  </div>
+  <div class="row margen margen-tabla background-panel scrooll">
+    <div class="row" style="  margin-top: 10px;  width: 100%;">
+      <div class="col text-right">
+        <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+          <i class="fa fa-plus"></i>Agregar
+        </button>
+      </div>
+
+    </div>
+
+    <div *ngIf="!cargando && arreglo !== undefined" class="row margen" style="margin-bottom: -25px;">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01">
+          <option value="2" selected>2</option>
+          <option value="20" selected>20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+
+      </div>
+    </div>
+
+    <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">ID</th>
+          <th scope="col" *ngIf="tamanio >=600">Apellido Paterno</th>
+          <th scope="col" *ngIf="tamanio >=600">Apellido Materno</th>
+          <th scope="col" *ngIf="tamanio >=600">Centro de costos</th>
+          <th scope="col" *ngIf="tamanio >=600">Correo Empresarial</th>
+          <th scope="col" *ngIf="tamanio >=600">Fecha de registro</th>
+          <th scope="col" *ngIf="tamanio >=600">Activo</th>
+          <th scope="col " >Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of arreglo;">
+          <td style="color:  #00DED4">{{item.nombre}} </td>
+          <td>{{item.personaId}} </td>
+          <td>{{item.nombre}} </td>
+          <td>{{item.apellidoPat}} </td>
+          <td *ngIf="tamanio >=600">{{item.apellidoMat }}</td>
+          <td *ngIf="tamanio >=600">{{item.representanteLegalCentrocClienteId.centrocClienteId}}</td>
+          <td *ngIf="tamanio >=600">{{item.emailCorp}}</td>
+          <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
+          <td *ngIf="tamanio >=600">{{(item.esActivo)?'Activo':'Inactivo'}}</td>
+          <td  class="opciones">
+            <button (click)="verdetalle(item)" class="btnPersonalizado"><i
+                class="icon_ver text-center bg-light"></i></button>
+            <button (click)="verdetalle(item)" class="btnPersonalizado"><i
+                class="icon_editar text-center bg-light"></i></button>
+          </td>
+        </tr>
+
+
+
+      </tbody>
+    </table>
+    <div *ngIf="!cargando && arreglo === undefined" class="alert alert-warning col text-center">
+      <strong>Sin usuarios</strong> La tabla de contactor RRH esta vacía.
+    </div>
+    <div *ngIf="!cargando && arreglo !== undefined" class="row" style="width: 100%;">
+      <div class="col">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
+            </li>
+            <li class="page-item "><a class="page-link">1</a></li>
+            <li class="page-item disabled">
+              <a class="page-link">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div *ngIf="cargando" class="col text-center mb-5">
+      <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+    </div>
+  </div>
+
+
+
+</div>
