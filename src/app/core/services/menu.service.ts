@@ -20,7 +20,7 @@ export class MenuService {
     { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
     { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
     { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
-    { nombre: 'ADMIN. COSMONAUT', icono: "icon_admoncos", seleccionado: false ,seleccionadosubmenu:false,submenu:[
+    { nombre: 'CONFIGURACIÓN', icono: "icon_admoncos", seleccionado: false ,seleccionadosubmenu:false,submenu:[
                                                                                 {nombre:"COMPAÑIA",routerLink:['/company']},
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios']},
                                                                               ]},
