@@ -14,31 +14,30 @@ export class DetalleUsuarioComponent implements OnInit {
   public myForm!: FormGroup;
   public modal: boolean = false;
   public insertar: boolean = false;
-  public iconType:string = "";
+  public iconType: string = "";
   public fechaActual: string = "";
   public strTitulo: string = "";
-  public strsubtitulo:string = "";
-  public tipoPersonaId:number = 3;
-  public objusuario:any;
-  public arregloCompany:any;
-  
+  public strsubtitulo: string = "";
+  public objusuario: any;
+  public arregloCompany: any;
+
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
-    private routerPrd:Router) {
+    private routerPrd: Router) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'new');
 
 
-      if( (this.insertar)){
+      if ((this.insertar)) {
         this.strTitulo = "¿Deseas registrar el usuario?";
 
-      }else{
+      } else {
         this.strTitulo = "¿Deseas actualizar el usuario?";
 
       }
 
-      
+
 
     });
 
@@ -56,7 +55,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
 
-    
+
 
 
   }
@@ -66,15 +65,28 @@ export class DetalleUsuarioComponent implements OnInit {
     this.objusuario = history.state.data == undefined ? {} : history.state.data;
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
 
+    console.log(this.arregloCompany);
+    this.verificarCompaniasExista();
+    
+
     this.myForm = this.createForm((this.objusuario));
+  }
+
+
+  public verificarCompaniasExista(){
+    if ((this.arregloCompany == undefined))
+      this.cancelar();
+    else 
+      if (this.arregloCompany.length == 0) 
+        this.cancelar();
   }
 
 
   public createForm(obj: any) {
 
 
-    
-    
+
+
 
     return this.formBuilder.group({
 
@@ -83,11 +95,11 @@ export class DetalleUsuarioComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       apellidoPat: [obj.apellidoPat, [Validators.required]],
       apellidoMat: [obj.apellidoMat],
-      curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
+      curp: [obj.curp, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
       emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
       ciEmailPersonal: [obj.ciEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.ciTelefono, [Validators.required]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/", "-").replace("/", "-")), disabled: true }, [Validators.required]],
       idTipoUsuario: [{ value: obj.tipoPersonaId, disabled: !this.insertar }, [Validators.required]],
       representanteLegalCentrocClienteId: [{ value: obj.representanteLegalCentrocClienteId, disabled: !this.insertar }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
@@ -108,29 +120,30 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public recibir($evento: any) {
     this.modal = false;
-    if(this.iconType == "warning"){
+    if (this.iconType == "warning") {
       if ($evento) {
-       
-        let obj = this.myForm.value;
-        
-        
-        obj.tipoPersonaId = this.tipoPersonaId;
 
-        if(this.insertar){
+        let obj = this.myForm.value;
+
+
+        obj.representanteLegalCentrocClienteId={
+                 centrocClienteId: obj.representanteLegalCentrocClienteId}
+
+        if (this.insertar) {
           this.usuariosPrd.save(obj).subscribe(datos => {
-           
-            this.iconType = datos.result? "success":"error";
-    
+
+            this.iconType = datos.result ? "success" : "error";
+
             this.strTitulo = datos.message;
             this.strsubtitulo = datos.message
             this.modal = true;
           });
 
-        }else{
-          let objEnviar = this.cambiandoCampos(obj);         
+        } else {
+          let objEnviar = this.cambiandoCampos(obj);
 
-          this.usuariosPrd.modificar(objEnviar).subscribe(datos =>{
-            this.iconType =  datos.result? "success":"error";  
+          this.usuariosPrd.modificar(objEnviar).subscribe(datos => {
+            this.iconType = datos.result ? "success" : "error";
             this.strTitulo = datos.message;
             this.strsubtitulo = datos.message
             this.modal = true;
@@ -139,13 +152,13 @@ export class DetalleUsuarioComponent implements OnInit {
         }
 
 
-       
+
       }
-    }else{
+    } else {
       this.modal = false;
 
-      if(this.iconType == "success"){
-          this.routerPrd.navigate(["/usuarios"]);
+      if (this.iconType == "success") {
+        this.routerPrd.navigate(["/usuarios"]);
       }
 
     }
@@ -156,10 +169,10 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
 
-  public cambiandoCampos(obj:any){
+  public cambiandoCampos(obj: any) {
 
-    for(let llave in obj){
-       this.objusuario[llave]=obj[llave];
+    for (let llave in obj) {
+      this.objusuario[llave] = obj[llave];
     }
 
 
@@ -169,7 +182,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
 
-  public cancelar(){
+  public cancelar() {
     this.routerPrd.navigate(['/usuarios']);
   }
 

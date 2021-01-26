@@ -18,7 +18,7 @@
 
             <div class="row mt-5 mr-4 ml-4 text-center"><div class="col">
                 <h5 class="titulo">{{titulo}}</h5>
-                <p>{{subtitulo}}</p>
+                <p id="subtitulo">{{subtitulo}}</p>
                 <div class="modal-footer text-center">
                     <button style="margin:auto" type="button" *ngIf="iconType!='success' && iconType != 'error'" class="btn btn-outline-primary button-outlet" data-dismiss="modal" (click)="cancelar()">Cancelar</button>
                     <button style="margin:auto" type="button" class="btn btn-primary button-fill" (click)="aceptar()">Aceptar</button>

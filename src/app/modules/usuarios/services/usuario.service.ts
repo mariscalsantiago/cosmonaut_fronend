@@ -61,7 +61,10 @@ export class UsuarioService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/guardar`,json,httpOptions);
+
+    console.log(`${this.url}/guardar​/usuario`);
+    console.log(json);
+    return this.http.put(`${this.url}/guardar​/usuario`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{

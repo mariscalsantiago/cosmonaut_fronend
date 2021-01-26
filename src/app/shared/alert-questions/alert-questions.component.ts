@@ -26,7 +26,8 @@ export class AlertQuestionsComponent implements OnInit {
     this.tamanio = event.target.innerWidth;
     this.leftP = (this.tamanio / 2)-150;
 
-    console.log(this.leftP);
+    if(this.tamanio >= 600)
+       this.leftP -= 150;
   }
 
 
@@ -50,10 +51,9 @@ export class AlertQuestionsComponent implements OnInit {
 
     this.leftP = (this.tamanio / 2)-150;
 
-    
+    if(this.tamanio >= 600)
+    this.leftP -= 150;
 
-    console.log(this.leftP);
-    console.log("left de la vetnana");
 
     
 
