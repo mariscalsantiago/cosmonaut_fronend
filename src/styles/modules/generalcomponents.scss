@@ -123,7 +123,10 @@ p.interlineado{
     font-size: small;
    .opciones{
         display: inline-block;
-        width: 123px;
+        width: 140px;
+        button{
+            background-color: transparent;
+        }
     }
     
 }

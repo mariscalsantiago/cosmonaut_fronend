@@ -65,7 +65,6 @@ export class DetalleUsuarioComponent implements OnInit {
     this.objusuario = history.state.data == undefined ? {} : history.state.data;
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
 
-    console.log(this.arregloCompany);
     this.verificarCompaniasExista();
     
 
@@ -125,6 +124,11 @@ export class DetalleUsuarioComponent implements OnInit {
       if ($evento) {
 
         let obj = this.myForm.value;
+
+
+      
+
+
         let objEnviar:any = {
             nombre: obj.nombre,
             apellidoPat: obj.apellidoPat,
@@ -152,6 +156,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
         } else {
           objEnviar.personaId = obj.personaId;
+          objEnviar.representanteLegalCentrocClienteId.centrocClienteId  = this.objusuario.representanteLegalCentrocClienteId.centrocClienteId;
 
           this.usuariosPrd.modificar(objEnviar).subscribe(datos => {
             this.iconType = datos.result ? "success" : "error";

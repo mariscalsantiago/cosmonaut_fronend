@@ -11,7 +11,7 @@ import { UsuarioService } from '../../services/usuario.service';
 export class UsuariosComponent implements OnInit {
 
 
-  
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -65,7 +65,7 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let documento:any = document.defaultView;
+    let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
 
@@ -104,21 +104,51 @@ export class UsuariosComponent implements OnInit {
 
   public activarMultiseleccion() {
     this.multiseleccion = true;
+
+
+    let temp = [];
+
+
+    for (let item of this.arreglotemp) {
+      let obj: any = {};
+      for (let llave in item) {
+        obj[llave] = item[llave];
+      }
+      temp.push(obj);
+    }
+
+    this.arreglo = temp;
+
+
+
+
+
+
   }
 
 
   public guardarMultiseleccion() {
     this.multiseleccionloading = true;
-    setTimeout(() => {
+    let peticionEnviar = [];
+
+    for (let item of this.arreglo) {
+      peticionEnviar.push({
+        personaId: item.personaId,
+        esActivo: item.esActivo
+      });
+    }
+
+    this.usuariosPrd.modificarListaActivos(peticionEnviar).subscribe(datos => {
       this.multiseleccionloading = false;
       this.multiseleccion = false;
-    }, 3000);
+    });
   }
 
 
   public cancelarMulti() {
     this.multiseleccionloading = false;
     this.multiseleccion = false;
+    this.paginar();
   }
 
 
@@ -126,57 +156,55 @@ export class UsuariosComponent implements OnInit {
 
 
 
-    
+
     this.cargando = true;
 
     let fechar = "";
 
-    if(this.fechaRegistro != undefined || this.fechaRegistro != null){
+    if (this.fechaRegistro != undefined || this.fechaRegistro != null) {
 
-      if(this.fechaRegistro != ""){
+      if (this.fechaRegistro != "") {
 
 
         let arre = this.fechaRegistro.split('-');
-        fechar = arre[2]+"/"+arre[1]+"/"+arre[0];
+        fechar = arre[2] + "/" + arre[1] + "/" + arre[0];
 
       }
 
     }
 
-    let actboo:string = "";
+    let actboo: string = "";
 
-    if(this.activo == 1){
-        actboo = "true";
-    }else if(this.activo == 2){
-        actboo = "false";
+    if (this.activo == 1) {
+      actboo = "true";
+    } else if (this.activo == 2) {
+      actboo = "false";
     }
 
 
     let peticion = {
-      personaId:this.idUsuario,
-      nombre:this.nombre,
-      apellidoPat:this.apellidoPat,
-      apellidoMat:this.apellidoMat,
+      personaId: this.idUsuario,
+      nombre: this.nombre,
+      apellidoPat: this.apellidoPat,
+      apellidoMat: this.apellidoMat,
       fechaAlta: fechar,
       emailCorp: this.correoempresarial,
-      esActivo:"",
-         representanteLegalCentrocClienteId: {
-                    centrocClienteId: (this.id_company) == 0 ? "":this.id_company
-                },
-        tipoPersonaId: {
-                tipoPersonaId: 3
-            }
+      esActivo: "",
+      representanteLegalCentrocClienteId: {
+        centrocClienteId: (this.id_company) == 0 ? "" : this.id_company
+      },
+      tipoPersonaId: {
+        tipoPersonaId: 3
+      }
     }
 
 
-      this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-        this.arreglo = datos.data;
-        this.cargando = false;
-        console.log("Se dispara el filtrar");
-        console.log(datos);
-      });
+    this.usuariosPrd.filtrar(peticion).subscribe(datos => {
+      this.arreglo = datos.data;
+      this.cargando = false;
+    });
 
-    
+
 
 
 
@@ -235,7 +263,13 @@ export class UsuariosComponent implements OnInit {
   }
 
 
+  public seleccionarTodosBool(input: any) {
+    for (let item of this.arreglo)
+      item.esActivo = input.checked;
 
+
+    console.log(this.arreglotemp);
+  }
 
 
 
