@@ -44,7 +44,7 @@ export class DetalleCompanyComponent implements OnInit {
 
   
     let fecha = new Date();
-    let dia = fecha.getDay() < 10 ? `0${fecha.getDay()}` : fecha.getDay();
+    let dia = fecha.getDate().toString();
     let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
     let anio = fecha.getFullYear();
 
@@ -68,8 +68,7 @@ export class DetalleCompanyComponent implements OnInit {
       razonSocial: [obj.razonSocial,[Validators.required]],
       rfc: [obj.rfc,[Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
       emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
-      //fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
-      fechaAlta: [obj.fechaAlta , [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       centrocClienteId: obj.centrocClienteId
       
@@ -128,10 +127,10 @@ public cancelarMulti(){
     if(this.iconType == "warning"){
       if ($evento) {
         let obj = this.myFormcomp.value;
-               obj = {
-                ...obj,
-                fechaAlta: this.fechaConst,
-              };
+          //     obj = {
+            //    ...obj,
+              //  fechaAlta: this.fechaConst,
+              //};
 
         if(this.insertar){
           debugger;
@@ -148,15 +147,14 @@ public cancelarMulti(){
             if(datos.result == true){
               let obj = this.objcont;
               this.verdetallecont(obj);
-            }
-            
+            }            
             
           });
 
         }else{
     
           debugger;   
-
+            
           this.companyPrd.modificar(obj).subscribe(datos =>{
             this.iconType =  datos.result? "success":"error";  
             this.strTitulo = datos.message;

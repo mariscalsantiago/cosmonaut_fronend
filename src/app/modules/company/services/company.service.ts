@@ -44,7 +44,7 @@ export class CompanyService {
     };
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/centroCostosCliente/guardar`,json,httpOptions);
+    return this.http.put(`${this.url}/centroCostosCliente/guardar/compania`,json,httpOptions);
   }
 
   public savecont(obj:any):Observable<any>{
@@ -55,7 +55,7 @@ export class CompanyService {
     };
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/persona/guardar`,json,httpOptions);
+    return this.http.put(`${this.url}/persona/guardar/contacto/inicial`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
@@ -70,6 +70,7 @@ export class CompanyService {
 
     return this.http.post(`${this.url}/centroCostosCliente/modificar`,json,httpOptions);
   }
+  
   public modificarCont(obj:any):Observable<any>{
     const httpOptions={
       headers: new HttpHeaders({

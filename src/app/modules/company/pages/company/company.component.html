@@ -1,3 +1,4 @@
+<div >
 
   <div class="row margen">
       <div class="col titulo-outlet">
@@ -74,13 +75,8 @@
   
   
   <div class="row margen">
-      <div class="col-6 titulo">
+      <div class="col titulo">
           <label >RESULTADOS</label>
-      </div>
-      <div class="col-6 text-right">
-        <button type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
-          <i class="fa fa-plus"></i>Agregar compañÍa
-        </button>
       </div>
   </div>
   <div class="row margen margen-tabla background-panel scrooll">        
@@ -88,9 +84,27 @@
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
         </div>
-        
-       
-          <table *ngIf="!cargando" class="table table-hover ">
+        <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
+          <div class="col text-right">
+            <button type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
+              <i class="fa fa-plus"></i>Agregar compañÍa
+            </button>
+          </div>
+        </div>
+        <div  *ngIf="!cargando" class="row margen" style="margin-bottom: -25px;">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+              <option value="1" selected>20</option>
+              <option value="2">50</option>
+              <option value="3">100</option>
+            </select>
+           
+          </div>
+        </div>
+          <table *ngIf="!cargando" class="table table-hover table-responsive">
               <thead>
                 <tr>
                   <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
@@ -104,7 +118,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr  *ngFor="let item of arreglo;">
+                <tr (dblclick)="activarMultiseleccion()" *ngFor="let item of arreglo;">
                   <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i> <input *ngIf="multiseleccion"
                       type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
                   <td style="color:  #00DED4">{{item.centrocClienteId}} </td>
@@ -123,11 +137,43 @@
                 
               </tbody>
             </table>
-        
+            <div  *ngIf="!cargando" class="row" style="width: 100%;">
+              <div class="col" > 
+               <nav aria-label="Page navigation example">
+                 <ul class="pagination justify-content-center">
+                   <li class="page-item disabled">
+                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
+                   </li>
+                   <li class="page-item"><a class="page-link" >1</a></li>
+                   <li class="page-item"><a class="page-link" >2</a></li>
+                   <li class="page-item"><a class="page-link" >3</a></li>
+                   <li class="page-item">
+                     <a class="page-link">Siguiente</a>
+                   </li>
+                 </ul>
+               </nav></div>
+            </div>
 
           <div *ngIf="cargando" class="col text-center mb-5">
             <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
           </div>
   </div>
+  <div class="row">
+
+  <div *ngIf="multiseleccion" class="row text-center margin botonmultiseleccion" style="margin-bottom: 20px;">
+    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelarMulti()" *ngIf="!multiseleccionloading">Cancelar</button>
+    <button (click)="guardarMultiseleccion()" type="button" class="btn btn-primary button-fill agrandarloading"><span *ngIf="!multiseleccionloading">Guardar</span>
+    
+        <div *ngIf="multiseleccionloading"  role="status">
+            <span class="spinner-border"></span>
+          </div>
+    </button>
+  </div>
+    
+</div>
+  
+</div>
+
+
 
 

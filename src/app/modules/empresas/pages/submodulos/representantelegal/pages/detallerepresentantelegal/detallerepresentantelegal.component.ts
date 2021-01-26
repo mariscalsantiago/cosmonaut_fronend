@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EmpresasService } from '../../../../../services/empresas.service';
+import { RepresentanteLegalService } from '../services/representantelegal.service';
 
 @Component({
   selector: 'app-detallerepresentantelegal',
@@ -9,35 +9,34 @@ import { EmpresasService } from '../../../../../services/empresas.service';
   styleUrls: ['./detallerepresentantelegal.component.scss']
 })
 export class DetallerepresentantelegalComponent implements OnInit {
-  public myFormdetemp!: FormGroup;
+  public myFormrep!: FormGroup;
   public arreglo:any = [];
   public modal: boolean = false;
-  public detEmpresa: boolean = true;
   public insertar: boolean = false;
   public iconType:string = "";
   public fechaActual: string = "";
   public strTitulo: string = "";
   public strsubtitulo:string = "";
-  public objdetempresa:any;
-  public fechaAlta: string = "";
+  public objdetrep:any;
   public cargando:Boolean = false;
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
   
 
-  constructor(private formBuilder: FormBuilder, private empresasPrd: EmpresasService, private routerActivePrd: ActivatedRoute,
+  constructor(private formBuilder: FormBuilder, private empresasPrd: RepresentanteLegalService, private routerActivePrd: ActivatedRoute,
     private routerPrd:Router) {
-
+    debugger;
     this.routerActivePrd.params.subscribe(datos => {
-      this.insertar = (datos["tipoinsert"] == 'nuevo');
+      //this.insertar = (datos["tipoinsert"] == 'nuevo');
+      this.insertar = true;
 
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar a compañía?";
+      this.strTitulo = (this.insertar) ? "¿Deseas registrar el representatne legal?" : "¿Deseas actualizar el representatne legal?";
 
     });
 
   
     let fecha = new Date();
-    let dia = fecha.getDay() < 10 ? `0${fecha.getDay()}` : fecha.getDay();
+    let dia = fecha.getDate().toString();
     let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
     let anio = fecha.getFullYear();
 
@@ -48,22 +47,24 @@ export class DetallerepresentantelegalComponent implements OnInit {
     
   ngOnInit(): void {
     debugger;
-    let objdetempresa = history.state.data == undefined ? {} : history.state.data ;
-    this.myFormdetemp = this.createFormcont((objdetempresa));
+    let objdetrep = history.state.data == undefined ? {} : history.state.data ;
+    this.myFormrep = this.createFormrep((objdetrep));
 
   }
 
 
-  public createFormcont(obj: any) {
+  public createFormrep(obj: any) {
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
       apellidoPat: [obj.apellidoPat, [Validators.required]],
       apellidoMat: [obj.apellidoMat],
+      ibaNacionalidadId: [obj.ibaNacionalidadId,[Validators.required]],
       curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
       emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
       ciEmailPersonal: [obj.ciEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.ciTelefono, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
       personaId: obj.personaId
 
@@ -90,16 +91,10 @@ public cancelarMulti(){
   this.multiseleccion = false;
 }
   
-  public enviarPeticionemp() {
-    this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el contacto?" : "¿Deseas actualizar el contacto?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
-    this.modal = true;
-  }
 
-  public enviarPeticioncont() {
+  public enviarPeticion() {
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el contacto?" : "¿Deseas actualizar el contacto?";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar el representante legal" : "¿Deseas actualizar el representante legal?";
     this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
     this.modal = true;
   }
@@ -108,7 +103,7 @@ public cancelarMulti(){
   public redirect(obj:any){
     debugger;
     this.modal = true;
-    this.routerPrd.navigate(["/company"]);
+    this.routerPrd.navigate(["/empresa/detalle/idempresa/representantelegal"]);
     this.modal = false;
     
 
@@ -119,7 +114,7 @@ public cancelarMulti(){
     this.modal = false;
     if(this.iconType == "warning"){
       if ($evento) {
-        let obj = this.myFormdetemp.value;
+        let obj = this.myFormrep.value;
 
         if(this.insertar){
           debugger;
@@ -160,10 +155,7 @@ public cancelarMulti(){
       this.modal = false;
     }
   }
-
-
-
-  get f() { return this.myFormdetemp.controls;  }
+  get f() { return this.myFormrep.controls; }
 
  
 }
