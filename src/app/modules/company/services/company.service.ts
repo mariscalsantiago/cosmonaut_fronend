@@ -68,7 +68,7 @@ export class CompanyService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/centroCostosCliente/modificar`,json,httpOptions);
+    return this.http.post(`${this.url}/centroCostosCliente/modificar/compania`,json,httpOptions);
   }
   
   public modificarCont(obj:any):Observable<any>{

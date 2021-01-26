@@ -24,7 +24,6 @@ export class DetalleCompanyComponent implements OnInit {
   public strsubtitulo:string = "";
   public objcont:any;
   public fechaAlta: string = "";
-  public fechaConst: number = 1610258400000;
   public cargando:Boolean = false;
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
@@ -49,7 +48,7 @@ export class DetalleCompanyComponent implements OnInit {
     let anio = fecha.getFullYear();
 
 
-    this.fechaActual = `${anio}-${mes}-${dia}`;
+    this.fechaActual = `${dia}/${mes}/${anio}`; 
 
   }
     
@@ -127,10 +126,10 @@ public cancelarMulti(){
     if(this.iconType == "warning"){
       if ($evento) {
         let obj = this.myFormcomp.value;
-          //     obj = {
-            //    ...obj,
-              //  fechaAlta: this.fechaConst,
-              //};
+               obj = {
+                ...obj,
+                fechaAlta: this.fechaActual,
+              };
 
         if(this.insertar){
           debugger;

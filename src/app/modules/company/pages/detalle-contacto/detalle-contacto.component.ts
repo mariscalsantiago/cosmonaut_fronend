@@ -49,7 +49,8 @@ export class DetalleContactoComponent implements OnInit {
     let anio = fecha.getFullYear();
 
 
-    this.fechaActual = `${anio}-${mes}-${dia}`;
+    
+    this.fechaActual = `${dia}/${mes}/${anio}`; 
 
   }
     
