@@ -22,8 +22,18 @@ export class UsuarioService {
      return this.http.get("/api/persona/lista/todo/3");
   }
 
-  public getByCompany(id_company:number):Observable<any>{
-      return this.http.get(`/api/persona/obtener/id/compania/${id_company}`);
+  public getByCompany(obj:any):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+
+
+    let json:string = JSON.stringify(obj);
+      return this.http.post(`/api/persona/lista/compania/tipoPersona`,json,httpOptions);
   }
 
   public getById(id_user:number):Observable<any>{
@@ -45,6 +55,8 @@ export class UsuarioService {
 
 
     let json:string = JSON.stringify(obj);
+    console.log("peticion filtro dinamico");
+    console.log(json);
      return this.http.post("/api/persona/lista/dinamica",json,httpOptions);
   }
 
@@ -62,9 +74,9 @@ export class UsuarioService {
     let json:string = JSON.stringify(obj);
 
 
-    console.log(`${this.url}/guardar​/usuario`);
+    console.log(`/api/persona/guardar/usuario`);
     console.log(json);
-    return this.http.put(`${this.url}/guardar​/usuario`,json,httpOptions);
+    return this.http.put(`/api/persona/guardar/usuario`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
@@ -80,7 +92,7 @@ export class UsuarioService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/modificar`,json,httpOptions);
+    return this.http.post(`/api/persona/modificar/usuario`,json,httpOptions);
   }
 
 

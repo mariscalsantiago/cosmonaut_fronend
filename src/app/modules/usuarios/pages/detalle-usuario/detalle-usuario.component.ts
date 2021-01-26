@@ -70,6 +70,8 @@ export class DetalleUsuarioComponent implements OnInit {
     
 
     this.myForm = this.createForm((this.objusuario));
+    console.log("mi usuario recibido");
+    console.log(this.objusuario);
   }
 
 
@@ -100,8 +102,7 @@ export class DetalleUsuarioComponent implements OnInit {
       ciEmailPersonal: [obj.ciEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.ciTelefono, [Validators.required]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/", "-").replace("/", "-")), disabled: true }, [Validators.required]],
-      idTipoUsuario: [{ value: obj.tipoPersonaId, disabled: !this.insertar }, [Validators.required]],
-      representanteLegalCentrocClienteId: [{ value: obj.representanteLegalCentrocClienteId, disabled: !this.insertar }, [Validators.required]],
+      representanteLegalCentrocClienteId: [{ value: obj.representanteLegalCentrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: obj.personaId
 
@@ -124,13 +125,23 @@ export class DetalleUsuarioComponent implements OnInit {
       if ($evento) {
 
         let obj = this.myForm.value;
+        let objEnviar:any = {
+            nombre: obj.nombre,
+            apellidoPat: obj.apellidoPat,
+            apellidoMat: obj.apellidoMat,
+            curp: obj.curp,
+            emailCorp: obj.emailCorp,
+            ciEmailPersonal: obj.ciEmailPersonal,
+            ciTelefono: obj.ciTelefono,
+            representanteLegalCentrocClienteId: {
+                centrocClienteId: obj.representanteLegalCentrocClienteId
+            }
+        }
 
 
-        obj.representanteLegalCentrocClienteId={
-                 centrocClienteId: obj.representanteLegalCentrocClienteId}
-
+      
         if (this.insertar) {
-          this.usuariosPrd.save(obj).subscribe(datos => {
+          this.usuariosPrd.save(objEnviar).subscribe(datos => {
 
             this.iconType = datos.result ? "success" : "error";
 
@@ -140,7 +151,7 @@ export class DetalleUsuarioComponent implements OnInit {
           });
 
         } else {
-          let objEnviar = this.cambiandoCampos(obj);
+          objEnviar.personaId = obj.personaId;
 
           this.usuariosPrd.modificar(objEnviar).subscribe(datos => {
             this.iconType = datos.result ? "success" : "error";
@@ -169,17 +180,6 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
 
-  public cambiandoCampos(obj: any) {
-
-    for (let llave in obj) {
-      this.objusuario[llave] = obj[llave];
-    }
-
-
-    return this.objusuario;
-
-
-  }
 
 
   public cancelar() {

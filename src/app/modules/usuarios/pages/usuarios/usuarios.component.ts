@@ -26,7 +26,7 @@ export class UsuariosComponent implements OnInit {
 
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
-  public numeroitems: number = 2;
+  public numeroitems: number = 5;
   public arreglotemp = [];
   public arreglopaginas: Array<any> = [];
 
@@ -39,13 +39,13 @@ export class UsuariosComponent implements OnInit {
 
 
   public id_company: number = 0;
-  public idUsuario: any = null;
+  public idUsuario: any = "";
   public nombre: string = "";
   public apellidoPat: string = "";
   public apellidoMat: string = "";
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
-  public activo: any = null;
+  public activo: number = 0;
 
 
 
@@ -77,6 +77,7 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosPrd.getAllUsers().subscribe(datos => {
       this.arreglotemp = datos.data;
+      console.log(this.arreglotemp);
       this.cargando = false;
       this.paginar();
     });
@@ -125,33 +126,57 @@ export class UsuariosComponent implements OnInit {
 
 
 
+    
     this.cargando = true;
 
-    if (this.id_company != 0) {
-      this.usuariosPrd.getByCompany(this.id_company).subscribe(datos => {
-        this.arreglo = datos.data;
-        this.cargando = false;
-      });
-    } else {
-      let objConstruir = {
-        tipoPersonaId: 3,
-        representanteLegalCentrocClienteId: null,
-        personaId: this.idUsuario == 0 ? null : this.idUsuario,
-        nombre: this.nombre,
-        apellidoPat: this.apellidoPat,
-        apellidoMat: this.apellidoMat,
-        emailCorp: this.correoempresarial
-      };
+    let fechar = "";
+
+    if(this.fechaRegistro != undefined || this.fechaRegistro != null){
+
+      if(this.fechaRegistro != ""){
 
 
-      this.usuariosPrd.filtrar(objConstruir).subscribe(datos => {
+        let arre = this.fechaRegistro.split('-');
+        fechar = arre[2]+"/"+arre[1]+"/"+arre[0];
+
+      }
+
+    }
+
+    let actboo:string = "";
+
+    if(this.activo == 1){
+        actboo = "true";
+    }else if(this.activo == 2){
+        actboo = "false";
+    }
+
+
+    let peticion = {
+      personaId:this.idUsuario,
+      nombre:this.nombre,
+      apellidoPat:this.apellidoPat,
+      apellidoMat:this.apellidoMat,
+      fechaAlta: fechar,
+      emailCorp: this.correoempresarial,
+      esActivo:"",
+         representanteLegalCentrocClienteId: {
+                    centrocClienteId: (this.id_company) == 0 ? "":this.id_company
+                },
+        tipoPersonaId: {
+                tipoPersonaId: 3
+            }
+    }
+
+
+      this.usuariosPrd.filtrar(peticion).subscribe(datos => {
         this.arreglo = datos.data;
         this.cargando = false;
         console.log("Se dispara el filtrar");
         console.log(datos);
       });
 
-    }
+    
 
 
 

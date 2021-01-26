@@ -57,15 +57,12 @@
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                   <input type="email" [(ngModel)]="correoempresarial" class="form-control" placeholder="Correo Empresarial">
                 </div>
-                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <input type="email" class="form-control" placeholder="Tipo de usuario">
-                </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
                   <select class="form-control" [(ngModel)]="activo">
           
-                    <option value="">Ambos</option>
-                    <option value="true">Activo</option>
-                    <option value="false">Inactivo</option>
+                    <option value="0" selected>Ambos</option>
+                    <option value="1">Activo</option>
+                    <option value="2">Inactivo</option>
           
                   </select>
                 </div>
@@ -104,7 +101,7 @@
           <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
         </div>
         <select [(ngModel)]="numeroitems" class="custom-select" id="inputGroupSelect01" (change)="cambia()">
-          <option value="2" selected>2</option>
+          <option value="5" selected>5</option>
           <option value="20" selected>20</option>
           <option value="50">50</option>
           <option value="100">100</option>
