@@ -78,19 +78,20 @@
       <div class="col titulo">
           <label >RESULTADOS</label>
       </div>
+
+      <div class="col text-right">
+        <button type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
+          <i class="fa fa-plus"></i>Agregar compañÍa
+        </button>
+      </div>
+
   </div>
   <div class="row margen margen-tabla background-panel scrooll">        
       <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
         </div>
-        <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
-          <div class="col text-right">
-            <button type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
-              <i class="fa fa-plus"></i>Agregar compañÍa
-            </button>
-          </div>
-        </div>
+       
         <div  *ngIf="!cargando" class="row margen" style="margin-bottom: -25px;">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -104,7 +105,7 @@
            
           </div>
         </div>
-          <table *ngIf="!cargando" class="table table-hover table-responsive">
+          <table *ngIf="!cargando" class="table table-hover">
               <thead>
                 <tr>
                   <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
@@ -118,7 +119,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr (dblclick)="activarMultiseleccion()" *ngFor="let item of arreglo;">
+                <tr *ngFor="let item of arreglo;">
                   <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i> <input *ngIf="multiseleccion"
                       type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
                   <td style="color:  #00DED4">{{item.centrocClienteId}} </td>
