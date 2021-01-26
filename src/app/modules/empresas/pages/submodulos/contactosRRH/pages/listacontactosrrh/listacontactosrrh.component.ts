@@ -43,8 +43,18 @@ export class ListacontactosrrhComponent implements OnInit {
     this.CanRouterPrd.params.subscribe(datos =>{
 
 
-      this.id_empresa = datos["id"]
-      this.usuariosPrd.getByCompany(this.id_empresa).subscribe(datos =>{
+      this.id_empresa = datos["id"];
+      let peticion = {
+        representanteLegalCentrocClienteId: {
+          centrocClienteId: this.id_empresa
+        },
+        tipoPersonaId: {
+          tipoPersonaId: 4
+        }
+      }
+
+
+      this.usuariosPrd.filtrar(peticion).subscribe(datos => {
         this.arreglo = datos.data;
         this.cargando = false;
       });

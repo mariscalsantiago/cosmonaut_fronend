@@ -72,7 +72,6 @@ export class ListaEmpresasComponent implements OnInit {
 
 
   public verPerfilEmpresa(obj: any) {
-  alert("");
     this.routerPrd.navigate(['/empresa', 'detalle', obj.centrocClienteId,'representantelegal']);
   }
 

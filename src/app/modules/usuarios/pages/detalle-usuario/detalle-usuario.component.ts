@@ -69,8 +69,6 @@ export class DetalleUsuarioComponent implements OnInit {
     
 
     this.myForm = this.createForm((this.objusuario));
-    console.log("mi usuario recibido");
-    console.log(this.objusuario);
   }
 
 

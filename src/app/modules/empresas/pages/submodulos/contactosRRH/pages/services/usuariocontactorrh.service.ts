@@ -8,9 +8,9 @@ import { direcciones } from 'src/assets/direcciones';
 })
 export class UsuariocontactorrhService {
 
-  private url:string = '';
+  private url: string = '';
 
-  constructor(private http:HttpClient) { 
+  constructor(private http: HttpClient) {
 
     this.url = direcciones.usuarios;
     this.url = '/api/persona';
@@ -18,24 +18,34 @@ export class UsuariocontactorrhService {
   }
 
 
-  public getAllUsers():Observable<any>{
-     return this.http.get("/api/persona/lista/todo/4");
+  public getAllUsers(): Observable<any> {
+    return this.http.get("/api/persona/lista/todo/4");
   }
 
-  public getByCompany(id_company:number):Observable<any>{
-      return this.http.get(`/api/persona/obtener/id/compania/${id_company}`);
+  public getByCompany(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+
+
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`/api/persona/lista/compania/tipoPersona`, json, httpOptions);
   }
 
-  public getById(id_user:number):Observable<any>{
-    
+  public getById(id_user: number): Observable<any> {
+
 
     return this.http.get(`/api/persona/obtener/id/${id_user}`);
 
   }
 
-  public filtrar(obj : any):Observable<any>{
-    
-    const httpOptions={
+  public filtrar(obj: any): Observable<any> {
+
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
@@ -44,13 +54,15 @@ export class UsuariocontactorrhService {
 
 
 
-    let json:string = JSON.stringify(obj);
-     return this.http.post("/api/persona/lista/dinamica",json,httpOptions);
+    let json: string = JSON.stringify(obj);
+    console.log("peticion filtro dinamico");
+    console.log(json);
+    return this.http.post("/api/persona/lista/dinamica", json, httpOptions);
   }
 
-  public save(obj:any):Observable<any>{
-   
-    const httpOptions={
+  public save(obj: any): Observable<any> {
+
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
@@ -59,14 +71,14 @@ export class UsuariocontactorrhService {
 
 
 
-    let json:string = JSON.stringify(obj);
+    let json: string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/guardar`,json,httpOptions);
+    return this.http.put("/api/persona/guardar/contacto/recursosHumanos", json, httpOptions);
   }
 
-  public modificar(obj:any):Observable<any>{
-    
-    const httpOptions={
+  public modificar(obj: any): Observable<any> {
+
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
@@ -75,14 +87,37 @@ export class UsuariocontactorrhService {
 
 
 
-    let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/modificar`,json,httpOptions);
+
+    let json: string = JSON.stringify(obj);
+
+    console.log(json);
+
+    return this.http.post(`/api/persona/modificar/usuario`, json, httpOptions);
   }
 
 
-  public getAllCompany():Observable<any>{
-     return this.http.get('/api/centroCostosCliente/lista/compania');
+  public getAllCompany(): Observable<any> {
+    return this.http.get('/api/centroCostosCliente/lista/compania');
   }
+
+
+  public modificarListaActivos(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+
+
+
+
+    let json: string = JSON.stringify(obj);
+    return this.http.post("/api/persona/modificar/lista", json, httpOptions);
+  }
+
+
 
 }

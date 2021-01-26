@@ -7,7 +7,7 @@ import { ListacontactosrrhComponent } from "./pages/listacontactosrrh/listaconta
 const rutas:Routes = [
     {path:'',children:[
         {path:'contactosrrh',component:ListacontactosrrhComponent},
-        {path:'contactosrrh/nuevo',component:DetallecontactosrrhComponent}
+        {path:'contactosrrh/:tipoinsert',component:DetallecontactosrrhComponent}
 ]
 
 }];
