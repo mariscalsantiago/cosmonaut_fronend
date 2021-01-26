@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class DetalleempresasComponent implements OnInit {
 
-  public titulo:string = "CONFIGURACIÓN";
+  public titulo:string = "EMPRESA COSMONAUT";
 
   constructor(private routerPrd:Router) { }
 

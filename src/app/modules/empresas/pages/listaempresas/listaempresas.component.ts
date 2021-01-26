@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpresasService } from '../../services/empresas.service';
 
@@ -14,10 +14,25 @@ export class ListaEmpresasComponent implements OnInit {
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
   public arreglo: any = [];
+  public tamanio:number = 0;
+  public changeIconDown:boolean = false;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    event.target.innerWidth;
+
+
+    this.tamanio = event.target.innerWidth;
+  }
 
   constructor(private routerPrd: Router, private empresasProd: EmpresasService) { }
 
   ngOnInit(): void {
+
+    let documento:any = document.defaultView;
+
+    this.tamanio = documento.innerWidth;
+
     this.cargando = true;
 
     this.empresasProd.getAllEmp().subscribe(datos => {

@@ -1,164 +1,146 @@
 <div class="m-3">
-    <div class="row">
-        <div class="col titulo-outlet">
-            <label>ADMINISTRACIÓN</label>
-        </div>
+  <div class="row">
+    <div class="col titulo-outlet">
+      <label>ADMINISTRACIÓN</label>
     </div>
-    <div class="row col  mt-2" style="color:white">
-        <p class="interlineado" style="color:white">1.-Filtrar las empresas por área o por sede, simplemente haciendo click en el menú.</p>
-    </div>
+  </div>
+  <div class="row col  mt-2" style="color:white">
+    <p class="interlineado" style="color:white">1.-Filtrar las empresas por área o por sede, simplemente haciendo click
+      en el menú.</p>
+  </div>
 </div>
 
-<div class="margen">
-
-   
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
-
-            <div class="mt-2">
-
-                <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
-                <div class="form group row margen">
-                    <div class=" input-group-sm mb-3 col-3 ">
-                        <input type="date" class="form-control" placeholder="Nombre completo">
-                    </div>
-                    <div class=" input-group-sm mb-3 col-3 ">
-                        <input type="email" class="form-control" placeholder="Ärea o empresa">
-                    </div>
-                    <div class=" input-group-sm mb-3 col-3 ">
-                        <select name="" id="" class="form-control">
-                            <option value="" selected>Filtrar por</option>
-                            <option value="">Nombre</option>
-                        </select>
-                    </div>
-                    <div class=" input-group-sm mb-3 col-2 ">
-                        <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
-                    </div>
-
-                </div>
 
 
-                <div class="row margen">
-                    <div class="col titulo">
-                      <label>RESULTADOS</label>
-                    </div>
-                  </div>
 
 
-                  <div class="row margen margen-tabla background-panel scrooll">        
-                    <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
-                      </div>
-                      <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
-                        <div class="col text-right">
-                          <button type="button" class="btn btn-light button-outlet" [routerLink]="['/empresa','detalle','idempresa']" >
-                            ir al detalle de empresa (provisional)
-                          </button>
-                          <button type="button" class="btn btn-light button-outlet" (click)="verdetalleemp(undefined)">
-                            <i class="fa fa-plus"></i>Agregar empresa
-                          </button>
-                        </div>
-                      </div>
-                      <div  *ngIf="!cargando" class="row margen" style="margin-bottom: -25px;">
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
-                          </div>
-                          <select class="custom-select" id="inputGroupSelect01">
-                            <option value="1" selected>20</option>
-                            <option value="2">50</option>
-                            <option value="3">100</option>
-                          </select>
-                         
-                        </div>
-                      </div>
-                        <table *ngIf="!cargando" class="table table-hover">
-                            <thead>
-                              <tr>
-                                <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
-                                <th scope="col">ID Compañía</th>
-                                <th scope="col">Razón social</th>
-                                <th scope="col">Nombre de la compañía</th>
-                                <th scope="col">RFC</th>
-                                <th scope="col">Fecha registro</th>
-                                <th scope="col">Estatus</th>
-                                <th scope="col" *ngIf="!multiseleccion">Acciones</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr (dblclick)="activarMultiseleccion()" *ngFor="let item of arreglo;">
-                                <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i> <input *ngIf="multiseleccion"
-                                    type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
-                                <td style="color:  #00DED4">{{item.centrocClienteId}} </td>
-                                <td (click)="verPerfilEmpresa(item)">{{item.nombre}}</td>
-                                <td>{{item.razonSocial}}</td>
-                                <td>{{item.rfc}}</td>
-                                <td>{{item.fechaAlta}}</td>
-                                <td>{{(item.esActivo)?'Activo':'Inactivo'}}</td>
-                                <td *ngIf="!multiseleccion">
-                                    <button (click)="verdetalleemp(item)" class="btnPersonalizado">
-                                      <i class="icon_editar text-center bg-light" ></i></button>
-                                </td>
-                              </tr>
-                            
-                           
-                              
-                            </tbody>
-                          </table>
-                          <div  *ngIf="!cargando" class="row" style="width: 100%;">
-                            <div class="col" > 
-                             <nav aria-label="Page navigation example">
-                               <ul class="pagination justify-content-center">
-                                 <li class="page-item disabled">
-                                   <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
-                                 </li>
-                                 <li class="page-item"><a class="page-link" >1</a></li>
-                                 <li class="page-item"><a class="page-link" >2</a></li>
-                                 <li class="page-item"><a class="page-link" >3</a></li>
-                                 <li class="page-item">
-                                   <a class="page-link">Siguiente</a>
-                                 </li>
-                               </ul>
-                             </nav></div>
-                          </div>
-              
-                        <div *ngIf="cargando" class="col text-center mb-5">
-                          <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-                        </div>
-                </div>
-                <div class="row">
-              
-                <div *ngIf="multiseleccion" class="row text-center margin botonmultiseleccion" style="margin-bottom: 20px;">
-                  <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelarMulti()" *ngIf="!multiseleccionloading">Cancelar</button>
-                  <button (click)="guardarMultiseleccion()" type="button" class="btn btn-primary button-fill agrandarloading"><span *ngIf="!multiseleccionloading">Guardar</span>
-                  
-                      <div *ngIf="multiseleccionloading"  role="status">
-                          <span class="spinner-border"></span>
-                        </div>
+  <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
+
+    <div class="mt-2">
+
+      <div class="margen">
+        <div id="accordionFiltro">
+    
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
+                    class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    <label class="titulo" style="    width: 80%;
+                      float: left;
+                      text-align: left;">Búsqueda</label>
+                    <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                      aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
+                      class="fas fa-chevron-up "></i>
+                    <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                      aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
+                      class="fas fa-chevron-down "></i>
+    
                   </button>
-                </div>
-                  
+                  <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                    <label class="titulo">Búsqueda</label>
+                  </button>
+    
+                </h5>
               </div>
-
-
-
-
+    
+              <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne"
+                data-parent="#accordion">
+                <div class="card-body">
+                  <div class="form group row margen">
+                    <div class=" input-group-sm mb-3 col-12 col-lg-6 col-xl-3">
+                      <input type="date" class="form-control" placeholder="Nombre completo">
+                    </div>
+                    <div class=" input-group-sm mb-3 col-12 col-lg-6 col-xl-3">
+                      <input type="email" class="form-control" placeholder="Área o empresa">
+                    </div>
+                    <div class=" input-group-sm mb-3 col-12 col-lg-6 col-xl-3">
+                      <select name="" id="" class="form-control">
+                        <option value="" selected>Filtrar por</option>
+                        <option value="">Nombre</option>
+                      </select>
+                    </div>
+                    <div class=" input-group-sm mb-3 col-12 text-center col-lg-2">
+                      <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
+                    </div>
+            
+                  </div>
+                </div>
+              </div>
             </div>
-
+          </div>
+    
         </div>
-        <div class="tab-pane fade" id="baja" role="tabpanel" aria-labelledby="profile-tab">
+    
+      </div>
 
-
-           <div class="m-3">
-
-            <p class="text-light">hola desde aqui</p>
-
-           </div>
-
+      <div class="row margen">
+        <div class="col-6 titulo">
+          <label>RESULTADOS</label>
         </div>
+        <div class="col-6 text-right">
+
+          <button type="button" class="btn btn-light button-outlet" (click)="verdetalleemp(undefined)">
+            <i class="fa fa-plus"></i>Agregar empresa
+          </button>
+            </div>
+      </div>
+
+      <div class="row margen margen-tabla background-panel scrooll">
+        <div  class="row" style="  margin-top: 10px;  width: 100%;">
+          <div class="col text-right">
+            <!-- <button type="button" class="btn btn-light button-outlet" [routerLink]="['/empresa','detalle','idempresa']">
+              ir al detalle de empresa (provisional)
+            </button> -->
+           
+          </div>
+        </div>
+        <table *ngIf="!cargando" class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID Compañía</th>
+              <th scope="col">Razón social</th>
+              <th scope="col">Nombre de la compañía</th>
+              <th scope="col">RFC</th>
+              <th scope="col">Fecha registro</th>
+              <th scope="col">Estatus</th>
+              <th scope="col" *ngIf="!multiseleccion">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let item of arreglo;">
+              <td style="color:  #00DED4">{{item.centrocClienteId}} </td>
+              <td (click)="verPerfilEmpresa(item)">{{item.razonSocial}}</td>
+              <td>{{item.nombre}}</td>
+              <td>{{item.rfc}}</td>
+              <td>{{item.fechaAlta}}</td>
+              <td>{{(item.esActivo)?'Activo':'Inactivo'}}</td>
+              <td *ngIf="!multiseleccion">
+                <button (click)="verdetalleemp(item)" class="btnPersonalizado">
+                  <i class="icon_editar text-center bg-light"></i></button>
+              </td>
+            </tr>
+
+
+
+          </tbody>
+        </table>
+       
+
+        <div *ngIf="cargando" class="col text-center mb-5">
+          <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+        </div>
+      </div>
+      
+
+
+
 
     </div>
 
+  </div>
+ 
 
-</div>
++
