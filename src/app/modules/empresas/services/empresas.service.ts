@@ -22,6 +22,9 @@ export class EmpresasService {
     return this.http.get(`${this.url}/centroCostosCliente/lista/compania`);
 
   }
+  public getAllRep(id_company:number):Observable<any>{
+    return this.http.get(`/api/persona/obtener/id/compania/${id_company}`);
+}
 
 
   public save(obj:any):Observable<any>{
