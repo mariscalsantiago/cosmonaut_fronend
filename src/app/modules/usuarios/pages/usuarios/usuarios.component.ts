@@ -141,6 +141,8 @@ export class UsuariosComponent implements OnInit {
     this.usuariosPrd.modificarListaActivos(peticionEnviar).subscribe(datos => {
       this.multiseleccionloading = false;
       this.multiseleccion = false;
+      this.arreglotemp = this.arreglo;
+      this.paginar();
     });
   }
 
