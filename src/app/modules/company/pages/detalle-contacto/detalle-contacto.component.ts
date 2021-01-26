@@ -44,7 +44,7 @@ export class DetalleContactoComponent implements OnInit {
 
   
     let fecha = new Date();
-    let dia = fecha.getDay() < 10 ? `0${fecha.getDay()}` : fecha.getDay();
+    let dia = fecha.getDate().toString();
     let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
     let anio = fecha.getFullYear();
 

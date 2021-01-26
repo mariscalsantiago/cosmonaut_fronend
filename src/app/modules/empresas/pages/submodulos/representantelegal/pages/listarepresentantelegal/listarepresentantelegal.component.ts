@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EmpresasService } from '../../../../../services/empresas.service';
+import { RepresentanteLegalService } from '../services/representantelegal.service';
 
 @Component({
   selector: 'app-listarepresentantelegal',
@@ -33,7 +33,7 @@ export class ListarepresentantelegalComponent implements OnInit {
 
   public arreglo:any = [];
 
-  constructor(private routerPrd:Router,private empresasProd:EmpresasService,private CanRouterPrd:ActivatedRoute) { }
+  constructor(private routerPrd:Router,private representanteProd:RepresentanteLegalService,private CanRouterPrd:ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -47,7 +47,7 @@ export class ListarepresentantelegalComponent implements OnInit {
 
 
       this.id_empresa = datos["id"]
-      this.empresasProd.getAllRep(this.id_empresa).subscribe(datos =>{
+      this.representanteProd.getByRep(this.id_empresa).subscribe(datos =>{
         this.arreglo = datos.data;
         this.cargando = false;
       });
@@ -59,9 +59,9 @@ export class ListarepresentantelegalComponent implements OnInit {
 
   public verdetalle(obj:any){
     //debugger;
-    //this.cargando = true;
+    this.cargando = true;
     this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal','nuevo']);
-    //this.cargando = false;
+    this.cargando = false;
   }
 
 
