@@ -6,7 +6,7 @@ import { ListascuentasbancariasComponent } from "./pages/listascuentasbancarias/
 const rutas:Routes = [{
     path:'',children:[
         {path:'cuentasbancarias',component:ListascuentasbancariasComponent},
-        {path:'cuentasbancarias/nuevo',component:DetallecuentasbancariasComponent}
+        {path:'cuentasbancarias/:tipoinsert',component:DetallecuentasbancariasComponent}
     ]
 }];
 

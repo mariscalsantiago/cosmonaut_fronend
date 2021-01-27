@@ -91,9 +91,9 @@ export class UsuariocontactorrhService {
 
     let json: string = JSON.stringify(obj);
 
-    console.log(json);
+    
 
-    return this.http.post(`/api/persona/modificar/usuario`, json, httpOptions);
+    return this.http.post(`/api/persona/modificar/contactoRH`, json, httpOptions);
   }
 
 

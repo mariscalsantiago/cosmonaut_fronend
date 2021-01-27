@@ -127,7 +127,7 @@
       </thead>
       <tbody>
         <tr  *ngFor="let item of arreglo;">
-          <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i> <input *ngIf="multiseleccion"
+          <th scope="row"><i class="fas fa-user" *ngIf="!multiseleccion"></i> <input *ngIf="multiseleccion"
               type="checkbox" name="inlineRadioOptions" id="radio1" value="option1" [(ngModel)]="item.esActivo"> </th>
           <td style="color:  #00DED4">{{item.personaId}} </td>
           <td>{{item.nombre}} </td>
