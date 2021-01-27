@@ -7,7 +7,7 @@
   
   <form [formGroup]="myForm"  (ngSubmit)="enviarPeticion()">
   
-    <input type="hidden" >
+    <input formControlName="personaId" type="hidden" >
   
     <div  class="background-panel margen" >
         <div class="form-group row margen">

@@ -71,8 +71,15 @@ export class ListacontactosrrhComponent implements OnInit {
 
   public verdetalle(obj:any){
 
+    if(obj == undefined){
 
-    this.router.navigate(['empresa/detalle',this.id_empresa,'contactosrrh','nuevo']);
+      this.router.navigate(['empresa/detalle',this.id_empresa,'contactosrrh','nuevo']);
+    }else{
+
+      this.router.navigate(['empresa/detalle',this.id_empresa,'contactosrrh','editar'],{ state: { data: obj} });
+
+    }
+
 
   }
 

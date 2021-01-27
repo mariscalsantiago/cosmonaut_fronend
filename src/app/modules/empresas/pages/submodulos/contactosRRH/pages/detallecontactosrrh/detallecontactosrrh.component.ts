@@ -21,6 +21,7 @@ export class DetallecontactosrrhComponent implements OnInit {
   public subbmitActive: boolean = false;
   public id_empresa: number = 0;
   public esInsert: boolean = true;
+  public usuario:any;
   constructor(private formBuild: FormBuilder, private usuariosPrd: UsuariocontactorrhService, private ActiveRouter: ActivatedRoute,
     private routerPrd:Router) { }
 
@@ -40,6 +41,12 @@ export class DetallecontactosrrhComponent implements OnInit {
 
 
     let obj = {};
+
+    if(!this.esInsert){//Solo cuando es modificar
+      obj = history.state.data;
+      this.usuario = obj;
+      if(this.usuario == undefined) this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa,'contactosrrh']);
+    }
 
     this.myForm = this.createForm(obj);
 
@@ -66,7 +73,8 @@ export class DetallecontactosrrhComponent implements OnInit {
       ciEmailPersonal: [obj.ciEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.ciTelefono, [Validators.required]],
       ciExtension: [obj.ciExtension],
-      fechaAlta: { value: this.fechaActual, disabled: true }
+      fechaAlta: { value: this.fechaActual, disabled: true },
+      personaId:[obj.personaId]
 
     });
 
@@ -112,7 +120,7 @@ export class DetallecontactosrrhComponent implements OnInit {
 
         let obj = this.myForm.value;
 
-        let peticion = {
+        let peticion:any = {
           nombre: obj.nombre,
           apellidoPat: obj.apellidoPat,
           apellidoMat: obj.apellidoMat,
@@ -137,6 +145,20 @@ export class DetallecontactosrrhComponent implements OnInit {
             this.modal = true;  
   
           });
+        }else{
+
+          peticion.personaId = obj.personaId;
+
+          this.usuariosPrd.modificar(peticion).subscribe(datos => {
+
+            this.iconType = datos.result ? "success" : "error";
+
+            this.strTitulo = datos.message;
+            this.strsubtitulo = datos.message
+            this.modal = true;  
+  
+          });
+
         }
   
       }

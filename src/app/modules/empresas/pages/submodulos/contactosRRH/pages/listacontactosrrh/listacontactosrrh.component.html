@@ -75,22 +75,10 @@
     </div>
   </div>
   <div class="row margen margen-tabla background-panel scrooll">
-    <div *ngIf="!cargando && arreglo !== undefined" class="row margen" style="margin-bottom: -25px;">
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
-        </div>
-        <select class="custom-select" id="inputGroupSelect01">
-          <option value="2" selected>2</option>
-          <option value="20" selected>20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
+    
+   
 
-      </div>
-    </div>
-
-    <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover">
+    <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover mt-3">
       <thead>
         <tr>
           <th scope="col">Nombre</th>
@@ -108,7 +96,6 @@
         <tr *ngFor="let item of arreglo;">
           <td style="color:  #00DED4">{{item.nombre}} </td>
           <td>{{item.personaId}} </td>
-          <td>{{item.nombre}} </td>
           <td>{{item.apellidoPat}} </td>
           <td *ngIf="tamanio >=600">{{item.apellidoMat }}</td>
           <td *ngIf="tamanio >=600">{{item.representanteLegalCentrocClienteId.centrocClienteId}}</td>
@@ -116,10 +103,9 @@
           <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
           <td *ngIf="tamanio >=600">{{(item.esActivo)?'Activo':'Inactivo'}}</td>
           <td  class="opciones">
-            <button (click)="verdetalle(item)" class="btnPersonalizado"><i
-                class="icon_ver text-center bg-light"></i></button>
-            <button (click)="verdetalle(item)" class="btnPersonalizado"><i
-                class="icon_editar text-center bg-light"></i></button>
+            <button ><i class="far fa-eye primary"></i></button>
+            <button (click)="verdetalle(item)" ><i class="fas fa-pen primary"></i></button>
+            
           </td>
         </tr>
 
