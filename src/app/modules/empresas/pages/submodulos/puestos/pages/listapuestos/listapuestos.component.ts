@@ -31,7 +31,7 @@ export class ListapuestosComponent implements OnInit {
   constructor(private routerPrd:Router,private puestosProd:PuestosService,private CanRouterPrd:ActivatedRoute) { }
 
   ngOnInit(): void {
-
+    debugger;
     let documento:any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -53,7 +53,7 @@ export class ListapuestosComponent implements OnInit {
 
 
   public verdetalle(obj:any){
-    //debugger;
+    debugger;
     this.cargando = true;
     this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos','nuevo']);
     this.cargando = false;

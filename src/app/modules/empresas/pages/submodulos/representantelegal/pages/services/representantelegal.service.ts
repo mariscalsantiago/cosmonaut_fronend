@@ -60,7 +60,7 @@ export class RepresentanteLegalService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/guardar`,json,httpOptions);
+    return this.http.put(`${this.url}/persona/guardar/representanteLegal`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
@@ -76,7 +76,7 @@ export class RepresentanteLegalService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/modificar`,json,httpOptions);
+    return this.http.post(`${this.url}/persona/modificar/representanteLegal`,json,httpOptions);
   }
 
 

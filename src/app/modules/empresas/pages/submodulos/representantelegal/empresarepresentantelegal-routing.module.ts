@@ -10,7 +10,7 @@ const rutas:Routes = [{
             component:ListarepresentantelegalComponent
         },
         {
-            path:'representantelegal/nuevo',
+            path:'representantelegal/:tipoinsert',
             component:DetallerepresentantelegalComponent
         }
     ]

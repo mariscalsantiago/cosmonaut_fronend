@@ -87,9 +87,9 @@
       <div class="row margen margen-tabla background-panel scrooll">
         <div  class="row" style="  margin-top: 10px;  width: 100%;">
           <div class="col text-right">
-            <button type="button" class="btn btn-light button-outlet" [routerLink]="['/empresa','detalle','idempresa']">
+            <!-- <button type="button" class="btn btn-light button-outlet" [routerLink]="['/empresa','detalle','idempresa']">
               ir al detalle de empresa (provisional)
-            </button>
+            </button> -->
            
           </div>
         </div>
@@ -102,7 +102,7 @@
               <th scope="col">RFC</th>
               <th scope="col">Fecha registro</th>
               <th scope="col">Estatus</th>
-              <th scope="col" *ngIf="!multiseleccion">Acciones</th>
+              <th scope="col" >Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -113,7 +113,7 @@
               <td>{{item.rfc}}</td>
               <td>{{item.fechaAlta}}</td>
               <td>{{(item.esActivo)?'Activo':'Inactivo'}}</td>
-              <td *ngIf="!multiseleccion">
+              <td>
                 <button (click)="verdetalleemp(item)" class="btnPersonalizado">
                   <i class="icon_editar text-center bg-light"></i></button>
               </td>

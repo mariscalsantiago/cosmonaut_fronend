@@ -46,32 +46,29 @@ export class ListarepresentantelegalComponent implements OnInit {
 
     this.cargando = true;
 
-    /*this.CanRouterPrd.params.subscribe(datos =>{
-
+    this.CanRouterPrd.params.subscribe(datos =>{
 
       this.id_empresa = datos["id"]
-      this.representanteProd.getByRep(this.id_empresa).subscribe(datos =>{
-        this.arreglo = datos.data;
-        this.cargando = false;
-      });
-
-    });*/
-    this.representanteProd.getAllUsersRep().subscribe(datos => {
+      this.representanteProd.getAllUsersRep().subscribe(datos => {
       this.arreglo = datos.data;
       console.log(this.arreglo);
       this.cargando = false;
       this.paginar();
     });
 
+    });
+
   }
 
 
   public verdetalle(obj:any){
-    //debugger;
+    debugger;
     this.cargando = true;
-    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal','nuevo'],{state:{data:obj}});
+    let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
+    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal', tipoinsert],{state:{data:obj}});
     this.cargando = false;
   }
+
 
 
   public paginar() {
