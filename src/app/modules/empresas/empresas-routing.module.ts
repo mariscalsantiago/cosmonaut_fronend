@@ -30,6 +30,10 @@ const routes: Routes = [{
     },
     {
       path: 'empresa/detalle/:id',
+      component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/puestos/empresapuestos.module").then(m => m.empresapuestosModule)
+    },
+    {
+      path: 'empresa/detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/gruposNomina/empresasgruponominas.module").then(m => m.empresasGrupoNominasModule)
     }
     

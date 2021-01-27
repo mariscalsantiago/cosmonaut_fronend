@@ -16,6 +16,8 @@ export class ListarepresentantelegalComponent implements OnInit {
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
   public changeIconDown: boolean = false;
+  public numeroitems: number = 5;
+  public arreglopaginas: Array<any> = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -37,13 +39,14 @@ export class ListarepresentantelegalComponent implements OnInit {
 
   ngOnInit(): void {
 
+    debugger;
     let documento:any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
 
     this.cargando = true;
 
-    this.CanRouterPrd.params.subscribe(datos =>{
+    /*this.CanRouterPrd.params.subscribe(datos =>{
 
 
       this.id_empresa = datos["id"]
@@ -52,6 +55,12 @@ export class ListarepresentantelegalComponent implements OnInit {
         this.cargando = false;
       });
 
+    });*/
+    this.representanteProd.getAllUsersRep().subscribe(datos => {
+      this.arreglo = datos.data;
+      console.log(this.arreglo);
+      this.cargando = false;
+      this.paginar();
     });
 
   }
@@ -60,11 +69,57 @@ export class ListarepresentantelegalComponent implements OnInit {
   public verdetalle(obj:any){
     //debugger;
     this.cargando = true;
-    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal','nuevo']);
+    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal','nuevo'],{state:{data:obj}});
     this.cargando = false;
   }
 
 
+  public paginar() {
+
+    this.arreglopaginas = [];
+
+    if (this.arreglo != undefined) {
+      let paginas = this.arreglo.length / this.numeroitems;
+
+
+      let primero = true;
+      paginas = Math.ceil(paginas);
+
+      for (let x = 1; x <= paginas; x++) {
+
+        this.arreglopaginas.push({ numeropagina: (x - 1) * 2, llavepagina: ((x - 1) * 2) + this.numeroitems, mostrar: x, activado: primero });
+        primero = false;
+      }
+
+      this.arreglo = this.arreglo.slice(0, this.numeroitems);
+      console.log(this.arreglo);
+
+    }
+
+  }
+
+
+  public paginacambiar(item: any) {
+
+
+    this.arreglo = this.arreglo.slice(item.numeropagina, item.llavepagina);
+
+
+
+    for (let item of this.arreglopaginas) {
+      item.activado = false;
+    }
+
+    item.activado = true;
+
+
+  }
+
+  public cambia() {
+
+    this.paginar();
+
+  }
   public activarMultiseleccion(){
       this.multiseleccion = true;
   }

@@ -6,7 +6,7 @@ import { direcciones } from 'src/assets/direcciones';
 @Injectable({
   providedIn: 'root'
 })
-export class RepresentanteLegalService {
+export class PuestosService {
 
   private url:string = '';
 
@@ -17,7 +17,7 @@ export class RepresentanteLegalService {
   }
 
 
-  public getAllUsersRep():Observable<any>{
+  public getAllUsers():Observable<any>{
      return this.http.get("/api/persona/lista/todo/1");
   }
 
