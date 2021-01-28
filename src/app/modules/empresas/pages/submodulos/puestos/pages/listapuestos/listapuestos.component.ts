@@ -40,12 +40,13 @@ export class ListapuestosComponent implements OnInit {
 
     this.CanRouterPrd.params.subscribe(datos =>{
 
-
       this.id_empresa = datos["id"]
-      this.puestosProd.getByRep(this.id_empresa).subscribe(datos =>{
-        this.arreglo = datos.data;
-        this.cargando = false;
-      });
+      this.puestosProd.getAllArea().subscribe(datos => {
+      this.arreglo = datos.data;
+      console.log(this.arreglo);
+      this.cargando = false;
+      //this.paginar();
+    });
 
     });
 
@@ -55,7 +56,8 @@ export class ListapuestosComponent implements OnInit {
   public verdetalle(obj:any){
     debugger;
     this.cargando = true;
-    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos','nuevo']);
+    let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
+    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos', tipoinsert],{state:{data:obj}});
     this.cargando = false;
   }
 

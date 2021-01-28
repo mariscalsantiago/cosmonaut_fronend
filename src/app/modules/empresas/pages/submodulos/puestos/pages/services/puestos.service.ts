@@ -12,18 +12,16 @@ export class PuestosService {
 
   constructor(private http:HttpClient) { 
 
-    this.url = '/api';
+    this.url = direcciones.area;
+    //this.url = '/api';
 
   }
 
 
-  public getAllUsers():Observable<any>{
-     return this.http.get("/api/persona/lista/todo/1");
+  public getAllArea():Observable<any>{
+     return this.http.get("/api/area/listar/todos");
   }
 
-  public getByRep(id_company:number):Observable<any>{
-      return this.http.get(`/api/persona/obtener/id/compania/${id_company}`);
-  }
 
   public getById(id_user:number):Observable<any>{
     

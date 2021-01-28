@@ -10,7 +10,7 @@ const rutas:Routes = [{
             component:ListapuestosComponent
         },
         {
-            path:'puestos/nuevo',
+            path:'puestos/:tipoinsert',
             component:DetallepuestosComponent
         }
     ]
