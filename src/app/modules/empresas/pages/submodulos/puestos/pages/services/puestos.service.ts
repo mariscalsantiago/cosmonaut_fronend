@@ -12,8 +12,8 @@ export class PuestosService {
 
   constructor(private http:HttpClient) { 
 
-    this.url = direcciones.area;
-    //this.url = '/api';
+   // this.url = direcciones.area;
+    this.url = '/api';
 
   }
 
