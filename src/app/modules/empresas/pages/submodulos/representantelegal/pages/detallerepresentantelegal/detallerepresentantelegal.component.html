@@ -42,9 +42,12 @@
     
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >CURP</label>
+              <label >CURP *</label>
               <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}"
                   placeholder="">
+                  <div *ngIf="f.curp.errors?.required && f.curp.touched" class="invalid-feedback">
+                    Favor de ingresar el CURP
+                  </div>
                   <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
                       CURP invalida, favor de verificar
                     </div>
@@ -88,7 +91,7 @@
 
         <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
           <label >Fecha de registro *</label>
-          <input formControlName="fechaAlta" type="date" class="form-control" 
+          <input formControlName="fechaAlta" type="text" class="form-control" 
               placeholder="">
 
         </div>

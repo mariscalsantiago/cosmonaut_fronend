@@ -22,13 +22,12 @@ export class DetalleContactoComponent implements OnInit {
   public fechaActual: string = "";
   public strTitulo: string = "";
   public strsubtitulo:string = "";
-  public objcompany:any;
+  public objcontacto: any;
   public fechaAlta: string = "";
   public cargando:Boolean = false;
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
-  public representanteLegalCentrocClienteId:number = 2;
-  public tipoPersonaId:number = 3;
+  public centrocClienteId:number = 1;
 
   
 
@@ -38,7 +37,14 @@ export class DetalleContactoComponent implements OnInit {
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
 
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar a compañía?";
+      
+      if ((this.insertar)) {
+        this.strTitulo = "¿Deseas registrar la compañía?";
+
+      } else {
+        this.strTitulo = "¿Deseas actualizar a compañía?";
+
+      }
 
     });
 
@@ -49,14 +55,15 @@ export class DetalleContactoComponent implements OnInit {
     let anio = fecha.getFullYear();
 
 
-    this.fechaActual = `${anio}-${mes}-${dia}`;
+    
+    this.fechaActual = `${dia}/${mes}/${anio}`; 
 
   }
     
   ngOnInit(): void {
     debugger;
-    let objCompany = history.state.data == undefined ? {} : history.state.data ;
-    this.myFormcont = this.createFormcont((objCompany));
+    this.objcontacto = history.state.data == undefined ? {} : history.state.data ;
+    this.myFormcont = this.createFormcont((this.objcontacto));
 
   }
 
@@ -127,16 +134,27 @@ public cancelarMulti(){
     if(this.iconType == "warning"){
       if ($evento) {
         let obj = this.myFormcont.value;
-        obj = {
+        /*obj = {
           ...obj,
-             representanteLegalCentrocClienteId: this.representanteLegalCentrocClienteId,
-             tipoPersonaId: this.tipoPersonaId
-           };
+          fechaAlta: this.fechaActual,
+        };*/
+        let objEnviar:any = {
+          nombre: obj.nombre,
+          apellidoPat: obj.apellidoPat,
+          apellidoMat: obj.apellidoMat,
+          curp: obj.curp,
+          emailCorp: obj.emailCorp,
+          ciEmailPersonal: obj.ciEmailPersonal,
+          ciTelefono: obj.ciTelefono,
+          representanteLegalCentrocClienteId: {
+              centrocClienteId: obj.centrocClienteId
+          }
+      }
 
         if(this.insertar){
           debugger;
           
-          this.companyPrd.savecont(obj).subscribe(datos => {
+          this.companyPrd.savecont(objEnviar).subscribe(datos => {
             
             this.iconType = datos.result? "success":"error";
     
@@ -150,9 +168,12 @@ public cancelarMulti(){
 
         }else{
     
-          debugger;   
+          debugger;  
+          objEnviar.personaId = obj.personaId;
+          objEnviar.representanteLegalCentrocClienteId.centrocClienteId  = this.objcontacto.representanteLegalCentrocClienteId.centrocClienteId;
+ 
 
-          this.companyPrd.modificarCont(obj).subscribe(datos =>{
+          this.companyPrd.modificarCont(objEnviar).subscribe(datos =>{
             this.iconType =  datos.result? "success":"error";  
             this.strTitulo = datos.message;
             this.strsubtitulo = 'Registro modificado correctamente!'

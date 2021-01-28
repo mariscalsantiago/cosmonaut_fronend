@@ -16,20 +16,22 @@ export class DetallerepresentantelegalComponent implements OnInit {
   public iconType:string = "";
   public fechaActual: string = "";
   public strTitulo: string = "";
+  public nacionalidad: string = "";
   public strsubtitulo:string = "";
   public objdetrep:any;
   public cargando:Boolean = false;
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
+  public tipoRepresentanteId: number = 1;
+  public centrocClienteId: number = 1;
+  public nacionalidadId: number = 1;
   
 
-  constructor(private formBuilder: FormBuilder, private empresasPrd: RepresentanteLegalService, private routerActivePrd: ActivatedRoute,
+  constructor(private formBuilder: FormBuilder, private representantePrd: RepresentanteLegalService, private routerActivePrd: ActivatedRoute,
     private routerPrd:Router) {
-    debugger;
-    this.routerActivePrd.params.subscribe(datos => {
-      //this.insertar = (datos["tipoinsert"] == 'nuevo');
-      this.insertar = true;
 
+    this.routerActivePrd.params.subscribe(datos => {
+      this.insertar = (datos["tipoinsert"] == 'nuevo');
       this.strTitulo = (this.insertar) ? "¿Deseas registrar el representatne legal?" : "¿Deseas actualizar el representatne legal?";
 
     });
@@ -41,15 +43,20 @@ export class DetallerepresentantelegalComponent implements OnInit {
     let anio = fecha.getFullYear();
 
 
-    this.fechaActual = `${anio}-${mes}-${dia}`;
+    this.fechaActual = `${dia}/${mes}/${anio}`; 
 
   }
     
   ngOnInit(): void {
-    debugger;
     let objdetrep = history.state.data == undefined ? {} : history.state.data ;
-    this.myFormrep = this.createFormrep((objdetrep));
+    if(!this.insertar){
+      if(objdetrep.ibaNacionalidadId.nacionalidadId==1){
+        this.nacionalidad= "Mexicana";
+      }
+    }
 
+    this.myFormrep = this.createFormrep((objdetrep));
+    
   }
 
 
@@ -59,13 +66,13 @@ export class DetallerepresentantelegalComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       apellidoPat: [obj.apellidoPat, [Validators.required]],
       apellidoMat: [obj.apellidoMat],
-      ibaNacionalidadId: [obj.ibaNacionalidadId,[Validators.required]],
-      curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
+      ibaNacionalidadId: [this.nacionalidad,[Validators.required]],
+      curp: [obj.curp,[Validators.required,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
       emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
       ciEmailPersonal: [obj.ciEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.ciTelefono, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
       personaId: obj.personaId
 
     });
@@ -101,7 +108,7 @@ public cancelarMulti(){
 
 
   public redirect(obj:any){
-    debugger;
+ 
     this.modal = true;
     this.routerPrd.navigate(["/empresa/detalle/idempresa/representantelegal"]);
     this.modal = false;
@@ -110,46 +117,74 @@ public cancelarMulti(){
   }
 
   public recibir($evento: any) {
-    debugger;
+
     this.modal = false;
     if(this.iconType == "warning"){
       if ($evento) {
         let obj = this.myFormrep.value;
+        let objEnviar:any = {
+          nombre: obj.nombre,
+          apellidoPat: obj.apellidoPat,
+          apellidoMat: obj.apellidoMat,
+          curp: obj.curp,
+          emailCorp: obj.emailCorp,
+          ciEmailPersonal: obj.ciEmailPersonal,
+          ciTelefono: obj.ciTelefono,
+          tipoRepresentanteId: {
+            tipoRepresentanteId: this.tipoRepresentanteId
+          },
+          representanteLegalCentrocClienteId: {
+            centrocClienteId: this.centrocClienteId
+          },
+          ibaNacionalidadId: {
+            nacionalidadId: this.nacionalidadId
+          }
+      }
 
         if(this.insertar){
-          debugger;
+          objEnviar.fechaAlta= this.fechaActual;
           
-          /*this.companyPrd.savecont(obj).subscribe(datos => {
+          this.representantePrd.save(objEnviar).subscribe(datos => {
             
             this.iconType = datos.result? "success":"error";
-    
-            this.strTitulo = datos.message;
-            this.strsubtitulo = 'Registro agregado correctamente'
-            this.modal = true;
-            this.compania = false;
-            this.contacto = true;
+            if(datos.result){
+              this.strTitulo = datos.message;
+              this.strsubtitulo = 'Registro agregado correctamente'
+              this.modal = true;
+            }else{
+              this.strTitulo = datos.message;
+              this.strsubtitulo = 'Favor de verificar'
+              this.modal = true;
+
+            }
+
             
-          });*/
+          });
 
         }else{
-    
-          debugger;   
+          debugger;
+  
+          objEnviar.personaId = obj.personaId;
+          this.representantePrd.modificar(objEnviar).subscribe(datos =>{
+            this.iconType = datos.result? "success":"error";
+            if(datos.result){
+              this.strTitulo = datos.message;
+              this.strsubtitulo = 'Registro modificado correctamente!'
+              this.modal = true;
+            }else{
+              this.strTitulo = datos.message;
+              this.strsubtitulo = 'Favor de verificar'
+              this.modal = true;
 
-          /*this.companyPrd.modificarCont(obj).subscribe(datos =>{
-            this.iconType =  datos.result? "success":"error";  
-            this.strTitulo = datos.message;
-            this.strsubtitulo = 'Registro modificado correctamente!'
-            this.modal = true;
-            this.listcontacto = true;
-            this.compania = false;
+            }
 
-          });*/
+          });
         }
       
       }
     }else{
       if(this.iconType == "success"){
-          this.routerPrd.navigate(["/company"]);
+          this.routerPrd.navigate(["/empresa/detalle/idempresa/representantelegal"]);
       }
      
       this.modal = false;

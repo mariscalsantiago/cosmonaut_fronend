@@ -6,24 +6,22 @@ import { direcciones } from 'src/assets/direcciones';
 @Injectable({
   providedIn: 'root'
 })
-export class RepresentanteLegalService {
+export class PuestosService {
 
   private url:string = '';
 
   constructor(private http:HttpClient) { 
 
-    this.url = '/api';
+    this.url = direcciones.area;
+    //this.url = '/api';
 
   }
 
 
-  public getAllUsersRep():Observable<any>{
-     return this.http.get("/api/persona/lista/todo/1");
+  public getAllArea():Observable<any>{
+     return this.http.get("/api/area/listar/todos");
   }
 
-  public getByRep(id_company:number):Observable<any>{
-      return this.http.get(`/api/persona/obtener/id/compania/${id_company}`);
-  }
 
   public getById(id_user:number):Observable<any>{
     
@@ -60,7 +58,7 @@ export class RepresentanteLegalService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/persona/guardar/representanteLegal`,json,httpOptions);
+    return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
@@ -76,7 +74,7 @@ export class RepresentanteLegalService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/persona/modificar/representanteLegal`,json,httpOptions);
+    return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
 

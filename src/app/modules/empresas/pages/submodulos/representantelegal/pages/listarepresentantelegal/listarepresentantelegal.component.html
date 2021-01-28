@@ -12,13 +12,13 @@
                 <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <label class="titulo" style="    width: 80%;
                   float: left;
-                  text-align: left;">Búsqueda</label>
+                  text-align: left;">BÚSQUEDA</label>
                   <i *ngIf="changeIconDown"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF" class="fas fa-chevron-up "></i>
                   <i *ngIf="!changeIconDown"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF" class="fas fa-chevron-down "></i>
                   
                 </button>
                 <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block" >
-                  <label class="titulo">Búsqueda</label>
+                  <label class="titulo">BÚSQUEDA</label>
                 </button>
                 
               </h5>
@@ -64,28 +64,30 @@
         <div class="col titulo">
             <label >RESULTADOS</label>
         </div>
+        <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
+          <div class="col text-right">
+            <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+              <i class="fa fa-plus"></i> Agregar representante legal
+            </button>
+          </div>
+        </div>
     </div>
     <div class="row margen margen-tabla background-panel scrooll">        
         <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
           </div>
-          <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
-            <div class="col text-right">
-              <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-                <i class="fa fa-plus"></i> Agregar representante legal
-              </button>
-            </div>
-          </div>
+
           <div  *ngIf="!cargando" class="row margen" style="margin-bottom: -25px;">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
               </div>
-              <select class="custom-select" id="inputGroupSelect01">
-                <option value="1" selected>20</option>
-                <option value="2">50</option>
-                <option value="3">100</option>
+              <select [(ngModel)]="numeroitems" class="custom-select" id="inputGroupSelect01" (change)="cambia()">
+                <option value="5" selected>5</option>
+                <option value="20" selected>20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
               </select>
              
             </div>
@@ -118,8 +120,6 @@
                         <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
                         <td *ngIf="tamanio >=600">{{(item.esActivo)?'Activo':'Inactivo'}}</td>
                         <td *ngIf="!multiseleccion" class="opciones">
-                          <button (click)="verdetalle(item)" class="btnPersonalizado"><i
-                              class="icon_ver text-center bg-light"></i></button>
                               <button (click)="verdetalle(item)" class="btnPersonalizado"><i
                                 class="icon_editar text-center bg-light"></i></button>
                         </td>
@@ -127,22 +127,23 @@
                   
                 </tbody>
               </table>
-              <div  *ngIf="!cargando" class="row" style="width: 100%;">
-                <div class="col" > 
-                 <nav aria-label="Page navigation example">
-                   <ul class="pagination justify-content-center">
-                     <li class="page-item disabled">
-                       <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
-                     </li>
-                     <li class="page-item"><a class="page-link" >1</a></li>
-                     <li class="page-item"><a class="page-link" >2</a></li>
-                     <li class="page-item"><a class="page-link" >3</a></li>
-                     <li class="page-item">
-                       <a class="page-link">Siguiente</a>
-                     </li>
-                   </ul>
-                 </nav></div>
+              <div *ngIf="!cargando && arreglo === undefined"   class="alert alert-warning col text-center">
+                <strong>Sin usuarios</strong> La tabla de usuario esta vacía.
               </div>
+             <div  *ngIf="!cargando && arreglo !== undefined && !multiseleccion" class="row" style="width: 100%;">
+               <div class="col" > 
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
+                    </li>
+                    <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas" (click)="paginacambiar(item)"><a class="page-link" >{{item.mostrar}}</a></li>
+                    <li class="page-item disabled">
+                      <a class="page-link">Siguiente</a>
+                    </li>
+                  </ul>
+                </nav></div>
+             </div>
   
             <div *ngIf="cargando" class="col text-center mb-5">
               <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">

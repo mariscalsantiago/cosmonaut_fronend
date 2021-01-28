@@ -28,7 +28,7 @@ export class ListaEmpresasComponent implements OnInit {
   constructor(private routerPrd: Router, private empresasProd: EmpresasService) { }
 
   ngOnInit(): void {
-
+debugger;
     let documento:any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -51,24 +51,6 @@ export class ListaEmpresasComponent implements OnInit {
 
   }
 
-  public activarMultiseleccion() {
-    this.multiseleccion = true;
-  }
-
-
-  public guardarMultiseleccion() {
-    this.multiseleccionloading = true;
-    setTimeout(() => {
-      this.multiseleccionloading = false;
-      this.multiseleccion = false;
-    }, 3000);
-  }
-
-
-  public cancelarMulti() {
-    this.multiseleccionloading = false;
-    this.multiseleccion = false;
-  }
 
 
   public verPerfilEmpresa(obj: any) {

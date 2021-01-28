@@ -24,12 +24,11 @@ export class DetalleCompanyComponent implements OnInit {
   public strsubtitulo:string = "";
   public objcont:any;
   public fechaAlta: string = "";
-  public fechaConst: number = 1610258400000;
   public cargando:Boolean = false;
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
   public objCompany:any;
-  public representanteLegalCentrocClienteId:number = 2;
+  public centrocClienteId:number = 1;
   public tipoPersonaId:number = 3;
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
@@ -49,7 +48,7 @@ export class DetalleCompanyComponent implements OnInit {
     let anio = fecha.getFullYear();
 
 
-    this.fechaActual = `${anio}-${mes}-${dia}`;
+    this.fechaActual = `${dia}/${mes}/${anio}`; 
 
   }
     
@@ -127,10 +126,10 @@ public cancelarMulti(){
     if(this.iconType == "warning"){
       if ($evento) {
         let obj = this.myFormcomp.value;
-          //     obj = {
-            //    ...obj,
-              //  fechaAlta: this.fechaConst,
-              //};
+               obj = {
+                ...obj,
+                fechaAlta: this.fechaActual,
+              };
 
         if(this.insertar){
           debugger;
@@ -171,15 +170,16 @@ public cancelarMulti(){
       /*if(this.iconType == "success"){
           this.routerPrd.navigate(["/company"]);
       }*/
-      let obj = this.objcont;
-      obj = {
-       ...obj,
-          representanteLegalCentrocClienteId: this.representanteLegalCentrocClienteId,
-          tipoPersonaId: this.tipoPersonaId
-        };
-
+        let objEnviar:any = {
+            representanteLegalCentrocClienteId: {
+                centrocClienteId: this.centrocClienteId
+            },
+            tipoPersonaId: {
+                tipoPersonaId: this.tipoPersonaId
+                }
+        }
         
-        this.companyPrd.getAllCont(obj).subscribe(datos =>{
+        this.companyPrd.getAllCont(objEnviar).subscribe(datos =>{
           this.cargando = true;
 
             this.arreglo = datos.data;

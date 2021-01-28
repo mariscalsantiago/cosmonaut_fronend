@@ -4,10 +4,6 @@
       <label>ADMINISTRACIÓN</label>
     </div>
   </div>
-  <div class="row col  mt-2" style="color:white">
-    <p class="interlineado" style="color:white">1.-Filtrar las empresas por área o por sede, simplemente haciendo click
-      en el menú.</p>
-  </div>
 </div>
 
 
@@ -100,13 +96,13 @@
         <table *ngIf="!cargando" class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">ID Compañía</th>
+              <th scope="col">ID Empresa</th>
               <th scope="col">Razón social</th>
-              <th scope="col">Nombre de la compañía</th>
+              <th scope="col">Nombre de la empresa</th>
               <th scope="col">RFC</th>
               <th scope="col">Fecha registro</th>
               <th scope="col">Estatus</th>
-              <th scope="col" *ngIf="!multiseleccion">Acciones</th>
+              <th scope="col" >Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -117,7 +113,7 @@
               <td>{{item.rfc}}</td>
               <td>{{item.fechaAlta}}</td>
               <td>{{(item.esActivo)?'Activo':'Inactivo'}}</td>
-              <td *ngIf="!multiseleccion">
+              <td>
                 <button (click)="verdetalleemp(item)" class="btnPersonalizado">
                   <i class="icon_editar text-center bg-light"></i></button>
               </td>
