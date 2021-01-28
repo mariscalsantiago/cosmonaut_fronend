@@ -24,11 +24,11 @@
                   </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
-                <label>No. Cuenta <i (click)="mostrartooltip = !mostrartooltip" class="fas fa-question-circle primary cursorhand " data-toggle="tooltip" data-placement="top" title="Dar click para información"></i> <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a></div> </label>
+                <label>Número de Cuenta <i (click)="mostrartooltip = !mostrartooltip" class="fas fa-question-circle primary cursorhand " data-toggle="tooltip" data-placement="top" title="Dar click para información"></i> <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a><i class="far fa-times-circle"></i></div> </label>
                 <input formControlName="numeroCuenta" type="number" maxlength="24" class="form-control" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitInvalido}" 
                   placeholder="">
                 <div *ngIf="submitInvalido && f.numeroCuenta.errors" class="invalid-feedback">
-                  No. cuenta obligatorio.
+                  Número cuenta obligatorio.
                 </div>
               </div>
              
