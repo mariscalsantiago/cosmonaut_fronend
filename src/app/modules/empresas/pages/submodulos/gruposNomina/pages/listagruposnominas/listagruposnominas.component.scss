@@ -73,3 +73,20 @@ td{
     }
     
 }
+
+
+.ventanaemergente{
+    display: block;
+    overflow: auto;
+    padding: 4%;
+    width: 55%;
+    border-radius: 5px;
+    border:1px solid rgb(102, 102, 102);
+    height: auto;
+    background-color: white !important;
+    -webkit-box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42); 
+box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42);
+left:80px;
+
+position: absolute;
+}

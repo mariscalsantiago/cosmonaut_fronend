@@ -77,7 +77,52 @@
 
 <div class="row margen margen-tabla background-panel scrooll">
 
+  <div class="ventanaemergente">
 
+
+    <div  class="header"><h5 class="titulo">GRUPO DE NÓMINA</h5></div>
+    <hr>
+    <div  class="body">
+
+      <table class="table m-3 table-hober table-sm " style="width: 90%;">
+        <thead>
+          <tr>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            
+            <td>sofia rojasb</td>
+            <td>jisdf</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            
+            <td>sofia rojasbb</td>
+            <td>Thojisdfn</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            
+            <td>sofia rojasby</td>
+            <td>thejisdfd</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <hr>
+    <div  class="footer">
+      <div class="row">
+        <div class="col-12 text-center"><button type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+      </div>
+    </div>
+
+  </div>
   <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
     <thead>
       <tr>
@@ -94,7 +139,7 @@
           <td>{{item.nombre}} </td>
           <td>{{item.razon}} </td>
           <td>{{item.periodo}} </td>
-          <td style="color:  #00DED4">{{item.numero}} </td>
+          <td (click)="traerModal(this)" style="color:  #00DED4">{{item.numero}} </td>
           <td class="opciones">
             <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
             <button (click)="eliminar(item)"><i class="icon_eliminar danger-bg"></i></button>
@@ -104,8 +149,11 @@
 
           </td>
         </tr>
-
-        <tr *ngIf="item.seleccionado" class="slide-in-bck-center">
+        <tr *ngIf="item.seleccionado && item.cargandoDetalle" class="slide-in-bck-center">
+          <td colspan="5"> <div  class="col text-center mb-5">
+            <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+          </div></td></tr>
+        <tr *ngIf="item.seleccionado && !item.cargandoDetalle" class="slide-in-bck-center">
           <td colspan="5">
             <div class="row mb-4">
               <article class="titulo  col">
@@ -114,7 +162,7 @@
               </article>
               <article class="titulo   col">
                   Esquema para pago de nómina
-                  <article>Nómina estándar</article>
+                  <article>{{item.esquemaPagoId.descripcion}}</article>
               </article>
               <article class="titulo   col" >
                   Razón social
@@ -125,7 +173,7 @@
           <div class="row mb-4">
             <article class="titulo  col">
                 Moneda
-                <article>Peso mexicano</article>
+                <article>{{item.monedaId.descripcion}}</article>
             </article>
             <article class="titulo   col">
               Periodo de nómina
@@ -133,29 +181,29 @@
             </article>
             <article class="titulo   col" >
               Calcular periodo de nómina con base a:
-                <article>30.4 días</article>
+                <article>{{item.basePeriodoId.basePeriodoId}}</article>
             </article>
         
         </div>
         <div class="row mb-4">
           <article class="titulo  col">
             Periodo para pago de aguinaldo
-              <article>Diciembre</article>
+              <article>{{item.periodoAguinaldoId.descripcion}}</article>
           </article>
           <article class="titulo   col">
             Calcular ISR de aguinaldo aplicando reglamento:
-              <article>Sí</article>
+              <article>{{item.isrAguinaldoReglamento ? "Si":"No"}}</article>
           </article>
           <article class="titulo   col" >
             *Calcular subsidio al empleo de manera:
-              <article>Periódica</article>
+              <article>{{(item.maneraCalcularSubsidio=='P')?'Periódica':'Diaria'}}</article>
           </article>
       
       </div>
       <div class="row mb-4">
         <article class="titulo  col">
           Nómina automática
-            <article>Sí</article>
+            <article>{{item.esAutomatica?"Si":"No"}}</article>
         </article>
         <article class="titulo   col">
           Número de empleados asociados a este grupo:
@@ -182,4 +230,10 @@
   <div *ngIf="cargando" class="col text-center mb-5">
     <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
   </div>
+
+
+
+ 
+
+
 </div>

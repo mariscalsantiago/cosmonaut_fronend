@@ -51,13 +51,32 @@ export class DetallegruponominaComponent implements OnInit {
       periodoAguinaldoId:{}
     }
 
-
     this.myForm = this.crearForm(obj);
+    
+    if(!this.esInsert){
+      obj = history.state.data;
+      if(obj == undefined){
+        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
+          return;
+      }else{
+        this.grupoNominaPrd.getGroupNomina(obj.id).subscribe(datos =>{  
+          this.myForm = this.crearForm(datos.data);
+  
+        });;
+  
+      }
+    }
 
   }
 
   public crearForm(obj:any){
 
+    if(!this.esInsert){
+      obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
+      obj.esAutomatica = `${obj.esAutomatica}`
+      obj.clabe.clabe = `${obj.clabe.clabe}`
+    }
+    
     return this.formbuilder.group({
 
       nombre:[obj.nombre,[Validators.required]],
@@ -70,7 +89,8 @@ export class DetallegruponominaComponent implements OnInit {
       periodoAguinaldoId:[obj.periodoAguinaldoId.periodoAguinaldoId,[Validators.required]],
       isrAguinaldoReglamento:obj.isrAguinaldoReglamento,
       maneraCalcularSubsidio:[obj.maneraCalcularSubsidio,[Validators.required]],
-      esAutomatica:[obj.esAutomatica,[Validators.required]]
+      esAutomatica:[obj.esAutomatica,[Validators.required]],
+      grupoNominaId:obj.grupoNominaId
 
     });
   }
@@ -89,8 +109,12 @@ export class DetallegruponominaComponent implements OnInit {
 
         let obj = this.myForm.value;
 
+        let subsidio = obj.maneraCalcularSubsidio == "periodica"?"P":"D";
+
         let peticion: any = {
           nombre:obj.nombre,
+          esAutomatica:obj.esAutomatica,
+          maneraCalcularSubsidio:subsidio,
           esquemaPagoId:{esquemaPagoId:obj.esquemaPagoId},
           monedaId:{monedaId:obj.monedaId},
           centrocClienteId:{centrocClienteId:obj.centrocClienteId},
@@ -99,9 +123,10 @@ export class DetallegruponominaComponent implements OnInit {
           basePeriodoId:{basePeriodoId:obj.basePeriodoId},
           periodoAguinaldoId:{periodoAguinaldoId:obj.periodoAguinaldoId},
           isrAguinaldoReglamento:obj.isrAguinaldoReglamento,
-          maneraCalcularSubsidio:obj.maneraCalcularSubsidio,
-          esAutomatica:obj.esAutomatica
+
         };
+
+    
 
 
        
@@ -119,6 +144,8 @@ export class DetallegruponominaComponent implements OnInit {
 
           });
         } else {
+
+          peticion.grupoNominaId = obj.grupoNominaId;
 
           this.grupoNominaPrd.modificar(peticion).subscribe(datos => {
 

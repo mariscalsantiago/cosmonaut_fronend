@@ -13,6 +13,10 @@ export class GruponominasService {
     return this.http.get("/api/grupoNomina/lista/id/compania/"+id_compania);
   }
 
+  public getGroupNomina(id_grupo:number):Observable<any>{
+    return this.http.get("/api/grupoNomina/obtener/id/"+id_grupo);
+  }
+
   public save(obj:any):Observable<any>{
   
     const httpOptions = {

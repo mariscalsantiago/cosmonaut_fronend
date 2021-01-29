@@ -43,7 +43,10 @@ export class ListagruposnominasComponent implements OnInit {
       this.gruposnominaPrd.getAll(this.id_empresa).subscribe(datos =>{
         if(datos.data != undefined)
           for(let item of datos.data)
-            item.seleccionado = false;
+            {
+              item.seleccionado = false;
+              item.cargandoDetalle = false;
+            }
         this.arreglo = datos.data;
         this.cargando = false;
       });
@@ -73,6 +76,32 @@ export class ListagruposnominasComponent implements OnInit {
   }
 
   apagando(indice:number){
+
+
+
+    this.arreglo[indice].cargandoDetalle = true;
+    this.gruposnominaPrd.getGroupNomina(this.arreglo[indice].id).subscribe((datos)=>{
+
+
+      
+
+        let temp = datos.data;
+        if(temp != undefined){
+
+           for(let llave in temp ){
+              this.arreglo[indice][llave] = temp[llave];
+           }
+
+        }
+
+        console.log(this.arreglo[indice]);
+
+        
+
+        this.arreglo[indice].cargandoDetalle = false;
+
+    });
+    
     
     for(let x = 0;x < this.arreglo.length; x++){
       if(x == indice)
@@ -84,6 +113,12 @@ export class ListagruposnominasComponent implements OnInit {
 
     this.arreglo[indice].seleccionado = !this.arreglo[indice].seleccionado;
   
+  }
+
+
+  public traerModal(obj:any ){
+      console.log("traer modal");
+      console.log(obj);
   }
 
 }

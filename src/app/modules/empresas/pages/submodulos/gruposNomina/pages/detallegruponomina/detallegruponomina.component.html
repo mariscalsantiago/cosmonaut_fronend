@@ -2,7 +2,7 @@
 <hr>
 <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
 
-  <input type="hidden">
+  <input type="hidden" formControlName="grupoNominaId">
 
   <div class="background-panel margen">
     <div class="form-group row margen">
@@ -39,7 +39,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Cuenta bancaria *</label>
         <select formControlName="clabe" [ngClass]="{'is-invalid':f.clabe.errors && submitInvalido}" class="form-control">
-          <option value="1000000000000000000">1000000000000000000</option>
+          <option value="254285829292892529">254285829292892529</option>
         </select>
         <div *ngIf="submitInvalido && f.clabe.errors" class="invalid-feedback">
           Campo obligatorío
@@ -71,7 +71,7 @@
        
       </div>
       <div *ngIf="activadoISR"  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
-        <label>Ajustar base gravable del mes de periodos ordinarios faltantes.</label>
+        <label >Ajustar base gravable del mes de periodos ordinarios faltantes.</label>
         <label for="sibasegravable">Sí</label><input checked type="radio" name="grupo1" id="sibasegravable">
         <label for="nobasegravable">No</label><input type="radio" name="grupo1" id="nobasegravable">
         
@@ -79,7 +79,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Calcular periodo de nómina con base a *</label>
         <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
-          <option value="1">30.4 dias.</option>
+          <option value="15D">30.4 dias.</option>
         </select>
         <div *ngIf="submitInvalido && f.basePeriodoId.errors" class="invalid-feedback">
           Campo obligatorio.
@@ -95,8 +95,8 @@
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <input formControlName="isrAguinaldoReglamento" type="checkbox" name="" id="">
-        <label>Calcular ISR de aguinaldo aplicando reglamento</label>
+        <input formControlName="isrAguinaldoReglamento" type="checkbox" name="" id="irsaguinaldo">
+        <label for="irsaguinaldo">Calcular ISR de aguinaldo aplicando reglamento</label>
       </div>
       <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Calcular subsidio al empleo de manera :</label><br>
