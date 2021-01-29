@@ -11,9 +11,10 @@ import { EmpresasService } from '../../services/empresas.service';
 })
 export class EmpresasComponent implements OnInit {
 
+  public titulo:string = "ADMINISTRACIÓN DE EMPRESA";
+
   public myFormemp!: FormGroup;
   public objEmpresa: any;
-  public empresa: boolean = true;
   public arreglo:any = [];
   public modal: boolean = false;
   public insertar: boolean = false;
@@ -39,7 +40,7 @@ export class EmpresasComponent implements OnInit {
     debugger;
     this.objEmpresa = history.state.data == undefined ? {} : history.state.data ;
     this.myFormemp = this.createFormemp((this.objEmpresa));
-    this.empresa = true;
+
   }
 
   public createFormemp(obj: any) {
@@ -77,13 +78,14 @@ public cancelarMulti(){
 }
   
   public enviarPeticionemp() {
+    debugger;
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar la compañía?";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar la empresa?" : "¿Deseas actualizar la empresa?";
     this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
     this.modal = true;
   }
 
-  public cancelarcomp(){
+  public cancelaremp(){
     this.routerPrd.navigate(['/company']);
   }
 
