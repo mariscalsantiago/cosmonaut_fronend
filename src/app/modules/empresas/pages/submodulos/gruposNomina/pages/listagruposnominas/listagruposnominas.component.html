@@ -78,7 +78,7 @@
 <div class="row margen margen-tabla background-panel scrooll">
 
 
-  <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover">
+  <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
     <thead>
       <tr>
         <th scope="col">Nombre de grupo de nomina</th>
@@ -91,10 +91,10 @@
     <tbody>
       <ng-container *ngFor="let item of arreglo;let indice = index;">
         <tr>
-          <td>{{item.nombreCuenta}} </td>
-          <td>{{item.numeroCuenta}} </td>
-          <td>{{item.csBanco.nombreCorto}} </td>
-          <td style="color:  #00DED4">{{item.clabe}} </td>
+          <td>{{item.nombre}} </td>
+          <td>{{item.razon}} </td>
+          <td>{{item.periodo}} </td>
+          <td style="color:  #00DED4">{{item.numero}} </td>
           <td class="opciones">
             <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
             <button (click)="eliminar(item)"><i class="icon_eliminar danger-bg"></i></button>
@@ -110,7 +110,7 @@
             <div class="row mb-4">
               <article class="titulo  col">
                   Nombre de grupo de nomina
-                  <article>{{item.nombreCuenta}}</article>
+                  <article>{{item.nombre}}</article>
               </article>
               <article class="titulo   col">
                   Esquema para pago de nómina
@@ -118,7 +118,7 @@
               </article>
               <article class="titulo   col" >
                   Razón social
-                  <article>Grupo Condumex</article>
+                  <article>{{item.razon}}</article>
               </article>
           
           </div>
@@ -129,7 +129,7 @@
             </article>
             <article class="titulo   col">
               Periodo de nómina
-                <article>Mensual</article>
+                <article>{{item.periodo}}</article>
             </article>
             <article class="titulo   col" >
               Calcular periodo de nómina con base a:
@@ -159,7 +159,7 @@
         </article>
         <article class="titulo   col">
           Número de empleados asociados a este grupo:
-            <article>22</article>
+            <article>{{item.numero}}</article>
         </article>
         <article class="titulo   col">
           
@@ -177,7 +177,7 @@
     </tbody>
   </table>
   <div *ngIf="!cargando && arreglo === undefined" class="alert alert-warning col text-center">
-    <strong>Sin usuarios</strong> La tabla de cuentas bancarias esta vacía.
+    <strong>Sin grupos de nomina</strong> La tabla de grupos de nomina esta vacía.
   </div>
   <div *ngIf="cargando" class="col text-center mb-5">
     <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">

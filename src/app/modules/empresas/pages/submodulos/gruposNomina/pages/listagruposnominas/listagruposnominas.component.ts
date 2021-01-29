@@ -16,56 +16,7 @@ export class ListagruposnominasComponent implements OnInit {
   public cargando:boolean = false;
   public id_empresa:number = 0;
 
-  public arreglo  = [
-
-    {
-      clabe: "999999999999999999",
-      csBanco: { bancoId: 13, codBanco: "044", nombreCorto: "SCOTIABANK", razonSocial: "Scotiabank Inverlat, S.A.", fechaInicio: "01/01/2017" },
-      esActivo: true,
-      basePeriodoId: "30D",
-      centrocClienteId: 1,
-      emClaveDelegacionalImss: 0,
-      fechaAlta: "26/01/2021",
-      nombre: "ASG-Modificar",
-      razonSocial: "ASG",
-      rfc: "MAVS970126HOZ",
-      nombreCuenta: "joel",
-      numeroCuenta: "9999999999",
-      seleccionado:false
-    },
-    {
-      clabe: "999999999999999999",
-      csBanco: { bancoId: 13, codBanco: "044", nombreCorto: "SCOTIABANK", razonSocial: "Scotiabank Inverlat, S.A.", fechaInicio: "01/01/2017" },
-      esActivo: true,
-      basePeriodoId: "30D",
-      centrocClienteId: 1,
-      emClaveDelegacionalImss: 0,
-      fechaAlta: "26/01/2021",
-      nombre: "ASG-Modificar",
-      razonSocial: "ASG",
-      rfc: "MAVS970126HOZ",
-      nombreCuenta: "heidi",
-      numeroCuenta: "9999999999",
-      seleccionado:false
-    },
-    {
-      clabe: "999999999999999999",
-      csBanco: { bancoId: 13, codBanco: "044", nombreCorto: "SCOTIABANK", razonSocial: "Scotiabank Inverlat, S.A.", fechaInicio: "01/01/2017" },
-      esActivo: true,
-      basePeriodoId: "30D",
-      centrocClienteId: 1,
-      emClaveDelegacionalImss: 0,
-      fechaAlta: "26/01/2021",
-      nombre: "ASG-Modificar",
-      razonSocial: "ASG",
-      rfc: "MAVS970126HOZ",
-      nombreCuenta: "areli",
-      numeroCuenta: "9999999999",
-      seleccionado:false
-    }
-
-  ];
-  
+  public arreglo:any = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -86,6 +37,17 @@ export class ListagruposnominasComponent implements OnInit {
 
     this.routerActive.params.subscribe(datos =>{
       this.id_empresa = datos["id"];
+
+      this.cargando = true;
+
+      this.gruposnominaPrd.getAll(this.id_empresa).subscribe(datos =>{
+        if(datos.data != undefined)
+          for(let item of datos.data)
+            item.seleccionado = false;
+        this.arreglo = datos.data;
+        this.cargando = false;
+      });
+
     });
 
   }
