@@ -104,12 +104,6 @@ public cancelarMulti(){
   this.multiseleccion = false;
 }
   
-  public enviarPeticioncomp() {
-    this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el contacto?" : "¿Deseas actualizar el contacto?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
-    this.modal = true;
-  }
 
   public enviarPeticioncont() {
     this.iconType = "warning";
