@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { element } from 'protractor';
 import { GruponominasService } from '../../services/gruponominas.service';
 
 @Component({
@@ -15,6 +16,10 @@ export class ListagruposnominasComponent implements OnInit {
   public nombre:string = "";
   public cargando:boolean = false;
   public id_empresa:number = 0;
+  public aparecemodalito:boolean = false;
+  public scrolly:string = '5%';
+  public modalWidth:string = "55%";
+  
 
   public arreglo:any = [];
 
@@ -24,6 +29,15 @@ export class ListagruposnominasComponent implements OnInit {
 
 
     this.tamanio = event.target.innerWidth;
+
+    if(this.tamanio < 600){
+
+      this.modalWidth = "90%";
+
+    }else{
+      this.modalWidth = "55%";
+
+    }
   }
 
   constructor(private gruposnominaPrd:GruponominasService,private routerPrd:Router,
@@ -116,9 +130,36 @@ export class ListagruposnominasComponent implements OnInit {
   }
 
 
-  public traerModal(obj:any ){
-      console.log("traer modal");
-      console.log(obj);
+  public traerModal(indice:any ){
+    
+    let elemento:any = document.getElementById("vetanaprincipaltabla")
+    this.aparecemodalito = true;
+
+    
+  
+    if(elemento.getBoundingClientRect().y < -40){
+      let numero = elemento.getBoundingClientRect().y;
+      numero = Math.abs(numero);
+
+      this.scrolly = numero+100+"px";
+
+
+    }else{
+
+      this.scrolly = "5%";
+    }
+
+
+
+    if(this.tamanio < 600){
+
+      this.modalWidth = "90%";
+
+    }else{
+      this.modalWidth = "55%";
+
+    }
+
   }
 
 }

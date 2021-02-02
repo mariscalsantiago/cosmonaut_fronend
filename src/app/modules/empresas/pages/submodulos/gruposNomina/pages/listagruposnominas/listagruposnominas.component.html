@@ -75,21 +75,29 @@
 </div>
 
 
-<div class="row margen margen-tabla background-panel scrooll">
+<div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
 
-  <div class="ventanaemergente">
+  <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
 
 
-    <div  class="header"><h5 class="titulo">GRUPO DE NÓMINA</h5></div>
+    <div class="adentro">
+
+      <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div  class="header"><h5 class="titulo">GRUPO DE NÓMINA</h5>
+      
+        <!-- <p id="subtitulo"><strong>Grupo de nomina</strong>ASG coorporation</p> -->
+      </div>
     <hr>
     <div  class="body">
 
       <table class="table m-3 table-hober table-sm " style="width: 90%;">
         <thead>
           <tr>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Nombre de empleado</th>
+            <th scope="col">Número de empleado</th>
+            <th scope="col">Empresa</th>
           </tr>
         </thead>
         <tbody>
@@ -118,10 +126,11 @@
     <hr>
     <div  class="footer">
       <div class="row">
-        <div class="col-12 text-center"><button type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+        <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
       </div>
     </div>
 
+    </div>
   </div>
   <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
     <thead>
