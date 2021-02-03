@@ -21,7 +21,6 @@
             <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover">
               <thead>
                 <tr>
-                    <th scope="col"> <span>Activo</span> </th>
                     <th scope="col">ID Área</th>
                     <th scope="col">Nombre</th>
                     <th scope="col" *ngIf="tamanio >=600">Empresa</th>
@@ -34,7 +33,6 @@
                 <tbody>
                   <ng-container *ngFor="let item of arreglo;let indice = index;">
                     <tr>
-                        <th scope="row"><i class="icon_perfil"></i> </th>
                         <td style="color:  #00DED4">{{item.areaId}} </td>
                         <td>{{item.descripcion}} </td>
                         <td *ngIf="tamanio >=600">{{item.nclCentrocCliente.razonSocial}}</td>

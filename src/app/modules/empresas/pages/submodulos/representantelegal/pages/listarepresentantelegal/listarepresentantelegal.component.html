@@ -95,7 +95,6 @@
             <table *ngIf="!cargando" class="table table-hover table-responsive">
                 <thead>
                   <tr>
-                    <th scope="col"> <span>Activo</span> </th>
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
                     <th scope="col" *ngIf="tamanio >=600">Apellido Paterno</th>
@@ -109,7 +108,6 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of arreglo;">
-                        <th scope="row"><i  class="icon_perfil"></i> <input type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
                         <td style="color:  #00DED4">{{item.personaId}} </td>
                         <td>{{item.nombre}} </td>
                         <td *ngIf="tamanio >=600">{{item.apellidoPataterno}}</td>

@@ -96,19 +96,21 @@
         <table *ngIf="!cargando" class="table table-hover">
           <thead>
             <tr>
+              <th scope="col"></th>
               <th scope="col">ID Empresa</th>
               <th scope="col">Razón social</th>
               <th scope="col">Nombre de la empresa</th>
               <th scope="col">RFC</th>
               <th scope="col">Fecha registro</th>
               <th scope="col">Estatus</th>
-              <th scope="col" >Acciones</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr  *ngFor="let item of arreglo;">
-              <td style="color:  #00DED4">{{item.centrocClienteId}} </td>
-              <td (click)="verPerfilEmpresa(item)">{{item.razonSocial}}</td>
+              <th scope="row"><i  class="icon_perfil"></i> </th>
+              <td >{{item.centrocClienteId}} </td>
+              <td style="color:  #00DED4" (click)="verPerfilEmpresa(item)">{{item.razonSocial}}</td>
               <td>{{item.nombre}}</td>
               <td>{{item.rfc}}</td>
               <td>{{item.fechaAlta}}</td>
