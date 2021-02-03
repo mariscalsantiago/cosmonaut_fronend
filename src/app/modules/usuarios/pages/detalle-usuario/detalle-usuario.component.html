@@ -18,7 +18,7 @@
         <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Compañia *</label>
-                <select [disabled]="!insertar" formControlName="representanteLegalCentrocClienteId" class="form-control" id="exampleFormControlSelect1">
+                <select [disabled]="!insertar" formControlName="centrocClienteId" class="form-control" id="exampleFormControlSelect1">
                   <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
                 </select>
             </div>
@@ -152,7 +152,8 @@
 
 
     <div class="text-center margin" style="margin-bottom: 20px;">
-        <button (click)="cancelar()" class="btn btn-primary button-outlet">Cancelar</button>
+        
+        <button (click)="cancelar()" class="btn btn-primary button-outlet ">Cancelar</button>
         <button [disabled]="!myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
     </div>   
 

@@ -127,20 +127,18 @@
       </thead>
       <tbody>
         <tr  *ngFor="let item of arreglo;">
-          <th scope="row"><i class="fas fa-user" *ngIf="!multiseleccion"></i> <input *ngIf="multiseleccion"
-              type="checkbox" name="inlineRadioOptions" id="radio1" value="option1" [(ngModel)]="item.esActivo"> </th>
+          <th scope="row"><input type="checkbox" name="inlineRadioOptions" id="radio1" value="option1" [(ngModel)]="item.esActivo"> </th>
           <td style="color:  #00DED4">{{item.personaId}} </td>
           <td>{{item.nombre}} </td>
           <td *ngIf="tamanio >=600">{{item.apellidoPat}}</td>
           <td *ngIf="tamanio >=600">{{item.apellidoMat }}</td>
-          <td *ngIf="tamanio >=600">{{item.centrocClienteId.centrocClienteId}}</td>
+          <td *ngIf="tamanio >=600">{{item.centrocClienteId.nombre}}</td>
           <td *ngIf="tamanio >=600">{{item.emailCorp}}</td>
           <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
           <td *ngIf="tamanio >=600">{{(item.esActivo)?'Activo':'Inactivo'}}</td>
           <td *ngIf="!multiseleccion" class="opciones">
-            <button ><i class="far fa-eye primary"></i></button>
-            <button (click)="verdetalle(item)" ><i class="fas fa-pen primary"></i></button>
-            <button (click)="activarMultiseleccion()"><i class="fas fa-user-slash danger"></i></button>
+            <button ><i class="icon_ver primary-bg"></i></button>
+            <button (click)="verdetalle(item)" ><i class="icon_editar primary-bg"></i></button>
           </td>
         </tr>
 

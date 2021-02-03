@@ -66,9 +66,16 @@ export class DetalleUsuarioComponent implements OnInit {
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
 
     this.verificarCompaniasExista();
-    
+    if(this.insertar){
+      this.objusuario.centrocClienteId = {};
+   }
+
+
 
     this.myForm = this.createForm((this.objusuario));
+
+    
+
   }
 
 
@@ -92,15 +99,15 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
       nombre: [obj.nombre, [Validators.required]],
-      apellidoPat: [obj.apellidoPat, [Validators.required]],
-      apellidoMat: [obj.apellidoMat],
+      apellidoPat: [obj.apellidoPaterno, [Validators.required]],
+      apellidoMat: [obj.apellidoMaterno],
       curp: [obj.curp, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
-      emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
-      ciEmailPersonal: [obj.ciEmailPersonal, [Validators.required, Validators.email]],
-      ciTelefono: [obj.ciTelefono, [Validators.required]],
+      emailCorp: [obj.emailCorporativo, [Validators.required, Validators.email]],
+      ciEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
+      ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/", "-").replace("/", "-")), disabled: true }, [Validators.required]],
-      representanteLegalCentrocClienteId: [{ value: obj.representanteLegalCentrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
-      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
+      centrocClienteId: [{ value: obj.centrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.activo, disabled: this.insertar }, [Validators.required]],
       personaId: obj.personaId
 
 
@@ -129,14 +136,14 @@ export class DetalleUsuarioComponent implements OnInit {
 
         let objEnviar:any = {
             nombre: obj.nombre,
-            apellidoPat: obj.apellidoPat,
-            apellidoMat: obj.apellidoMat,
+            apellidoPaterno: obj.apellidoPat,
+            apellidoMaterno: obj.apellidoMat,
             curp: obj.curp,
-            emailCorp: obj.emailCorp,
-            ciEmailPersonal: obj.ciEmailPersonal,
-            ciTelefono: obj.ciTelefono,
-            representanteLegalCentrocClienteId: {
-                centrocClienteId: obj.representanteLegalCentrocClienteId
+            emailCorporativo: obj.emailCorp,
+            contactoInicialEmailPersonal: obj.ciEmailPersonal,
+            contactoInicialTelefono: obj.ciTelefono,
+            centrocClienteId: {
+                centrocClienteId: obj.centrocClienteId
             }
         }
 
@@ -144,22 +151,22 @@ export class DetalleUsuarioComponent implements OnInit {
       
         if (this.insertar) {
           this.usuariosPrd.save(objEnviar).subscribe(datos => {
+            this.iconType = datos.resultado ? "success" : "error";
 
-            this.iconType = datos.result ? "success" : "error";
-
-            this.strTitulo = datos.message;
-            this.strsubtitulo = datos.message
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje
             this.modal = true;
           });
 
         } else {
           objEnviar.personaId = obj.personaId;
-          objEnviar.representanteLegalCentrocClienteId.centrocClienteId  = this.objusuario.representanteLegalCentrocClienteId.centrocClienteId;
+          objEnviar.centrocClienteId.centrocClienteId  = this.objusuario.centrocClienteId.centrocClienteId;
 
           this.usuariosPrd.modificar(objEnviar).subscribe(datos => {
-            this.iconType = datos.result ? "success" : "error";
-            this.strTitulo = datos.message;
-            this.strsubtitulo = datos.message
+            this.iconType = datos.resultado ? "success" : "error";
+
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje
             this.modal = true;
 
           });

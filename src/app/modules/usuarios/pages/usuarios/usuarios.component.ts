@@ -77,7 +77,6 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosPrd.getAllUsers().subscribe(datos => {
       this.arreglotemp = datos.datos;
-      console.log(datos);
       this.cargando = false;
       this.paginar();
     });
@@ -192,7 +191,7 @@ export class UsuariosComponent implements OnInit {
       fechaAlta: fechar,
       emailCorp: this.correoempresarial,
       esActivo: "",
-      representanteLegalCentrocClienteId: {
+      centrocClienteId: {
         centrocClienteId: (this.id_company) == 0 ? "" : this.id_company
       },
       tipoPersonaId: {
@@ -201,8 +200,12 @@ export class UsuariosComponent implements OnInit {
     }
 
 
+    
+
+
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
+      console.log(datos);
       this.cargando = false;
     });
 
@@ -228,9 +231,10 @@ export class UsuariosComponent implements OnInit {
       let primero = true;
       paginas = Math.ceil(paginas);
 
+  
       for (let x = 1; x <= paginas; x++) {
 
-        this.arreglopaginas.push({ numeropagina: (x - 1) * 2, llavepagina: ((x - 1) * 2) + this.numeroitems, mostrar: x, activado: primero });
+        this.arreglopaginas.push({ numeropagina: (x - 1) * this.numeroitems, llavepagina: ((x - 1) * this.numeroitems) + this.numeroitems, mostrar: x, activado: primero });
         primero = false;
       }
 
@@ -243,12 +247,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public paginacambiar(item: any) {
-
-
     this.arreglo = this.arreglotemp.slice(item.numeropagina, item.llavepagina);
-
-
-
     for (let item of this.arreglopaginas) {
       item.activado = false;
     }
@@ -268,9 +267,6 @@ export class UsuariosComponent implements OnInit {
   public seleccionarTodosBool(input: any) {
     for (let item of this.arreglo)
       item.esActivo = input.checked;
-
-
-    console.log(this.arreglotemp);
   }
 
 

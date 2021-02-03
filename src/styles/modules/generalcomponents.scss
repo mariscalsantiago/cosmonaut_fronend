@@ -19,8 +19,13 @@ html{
 
 .button-outlet{
      color:$primary !important;
-     background-color:white !important;
+     background-color:transparent;
      border-color: $primary !important;
+}
+.button-outlet:hover{
+
+    background-color:white;
+    
 }
 
 .button-fill{
