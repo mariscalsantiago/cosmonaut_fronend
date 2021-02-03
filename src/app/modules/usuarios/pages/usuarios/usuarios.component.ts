@@ -76,13 +76,13 @@ export class UsuariosComponent implements OnInit {
 
 
     this.usuariosPrd.getAllUsers().subscribe(datos => {
-      this.arreglotemp = datos.data;
-      console.log(this.arreglotemp);
+      this.arreglotemp = datos.datos;
+      console.log(datos);
       this.cargando = false;
       this.paginar();
     });
 
-    this.usuariosPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.data);
+    this.usuariosPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
 
   }
 
@@ -202,7 +202,7 @@ export class UsuariosComponent implements OnInit {
 
 
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-      this.arreglo = datos.data;
+      this.arreglo = datos.datos;
       this.cargando = false;
     });
 
