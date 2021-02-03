@@ -17,7 +17,10 @@ export class MenuService {
                                                                                 {nombre:"DIRECTORIO",routerLink:[]}
                                                                               ]},
     { nombre: "EVENTOS", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
-    { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
+    { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,submenu:[
+                                                                                {nombre:"IDSE",routerLink:['imss','idse']},
+                                                                                {nombre:"MOVIMIENTOS",routerLink:[]},
+                                                                                {nombre:"VARIABILIDAD",routerLink:[]}] },
     { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,routerLink:[] },
     { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},
     { nombre: 'CONFIGURACIÓN', icono: "icon_admoncos", seleccionado: false ,seleccionadosubmenu:false,submenu:[
