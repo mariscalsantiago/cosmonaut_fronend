@@ -58,15 +58,15 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-        aria-selected="false" routerLinkActive="active">Pago</a>
+        aria-selected="false" routerLinkActive="active" [routerLink]="['pagos']">Pago</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-        aria-selected="false" routerLinkActive="active">Eventos</a>
+        aria-selected="false" routerLinkActive="active" [routerLink]="['eventos']">Eventos</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-        aria-selected="false" routerLinkActive="active">Documentos</a>
+        aria-selected="false" routerLinkActive="active" [routerLink]="['documentos']">Documentos</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
@@ -79,7 +79,7 @@
   </ul>
 
 
-  <div class="row m-2 background-panel">
+  <div class="row m-2 background-panel scrooll">
     <div class="col-12 m-3">
       <router-outlet></router-outlet>
     </div>

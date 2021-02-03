@@ -1,10 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { empleadosEmpleoRoutingModule } from "../empleo/empleados-empleo-routing.module";
+import { empleadosDocumentosRoutingModule } from "./empleados-documentos-routing.module";
+import { DocumentosComponent } from './pages/documentos/documentos.component';
 
 @NgModule({
-    declarations:[],
-    imports:[CommonModule,empleadosEmpleoRoutingModule],
+    declarations:[ DocumentosComponent],
+    imports:[CommonModule,empleadosDocumentosRoutingModule],
     providers:[]
     
 })
