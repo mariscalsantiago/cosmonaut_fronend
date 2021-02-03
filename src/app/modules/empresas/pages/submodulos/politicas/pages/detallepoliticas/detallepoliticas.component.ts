@@ -1,42 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PuestosService } from '../services/puestos.service';
+import { PoliticasService } from '../services/politicas.service';
 
 @Component({
-  selector: 'app-detallepuestos',
-  templateUrl: './detallepuestos.component.html',
-  styleUrls: ['./detallepuestos.component.scss']
+  selector: 'app-detallepoliticas',
+  templateUrl: './detallepoliticas.component.html',
+  styleUrls: ['./detallepoliticas.component.scss']
 })
-export class DetallepuestosComponent implements OnInit {
-  public myFormrep!: FormGroup;
+export class DetallepoliticasComponent implements OnInit {
+  public myFormpol!: FormGroup;
   public arreglo:any = [];
   public modal: boolean = false;
   public insertar: boolean = false;
   public iconType:string = "";
   public strTitulo: string = "";
   public strsubtitulo:string = "";
-  public objdetrep:any;
   public cargando:Boolean = false;
-  
+ 
+  public submitInvalido:boolean = false;
+  public esInsert:boolean = false;
+  public id_empresa:number = 0;
 
-  constructor(private formBuilder: FormBuilder, private puestosPrd: PuestosService, private routerActivePrd: ActivatedRoute,
+  constructor(private formBuilder: FormBuilder, private politicasPrd: PoliticasService, private routerActivePrd: ActivatedRoute,
     private routerPrd:Router) {
     debugger;
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
-      //this.insertar = true;
+      
 
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar el área?" : "¿Deseas actualizar el área?";
+      this.strTitulo = (this.insertar) ? "¿Deseas registrar la política?" : "¿Deseas actualizar la política?";
 
     });
+
 
   }
     
   ngOnInit(): void {
     debugger;
     let objdetrep = history.state.data == undefined ? {} : history.state.data ;
-    this.myFormrep = this.createFormrep((objdetrep));
+    this.myFormpol = this.createFormrep((objdetrep));
 
   }
 
@@ -45,17 +48,19 @@ export class DetallepuestosComponent implements OnInit {
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      apellidoPat: [obj.apellidoPat, [Validators.required]],
-      ibaNacionalidadId: [obj.ibaNacionalidadId,[Validators.required]],
+      diaseconomicos: [obj.diaseconomicos, [Validators.required]],
       personaId: obj.personaId
 
     });
   }
 
 
+
+
   public enviarPeticion() {
+    debugger;
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el área" : "¿Deseas actualizar el área?";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar la política" : "¿Deseas actualizar la política?";
     this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
     this.modal = true;
   }
@@ -64,7 +69,7 @@ export class DetallepuestosComponent implements OnInit {
   public redirect(obj:any){
     debugger;
     this.modal = true;
-    this.routerPrd.navigate(["/empresa/detalle/idempresa/puestos"]);
+    this.routerPrd.navigate(["/empresa/detalle/idempresa/politicas"]);
     this.modal = false;
     
 
@@ -75,7 +80,7 @@ export class DetallepuestosComponent implements OnInit {
     this.modal = false;
     if(this.iconType == "warning"){
       if ($evento) {
-        let obj = this.myFormrep.value;
+        let obj = this.myFormpol.value;
 
         if(this.insertar){
           debugger;
@@ -110,13 +115,13 @@ export class DetallepuestosComponent implements OnInit {
       }
     }else{
       if(this.iconType == "success"){
-          this.routerPrd.navigate(["/empresa/detalle/idempresa/puestos"]);
+          this.routerPrd.navigate(["/empresa/detalle/idempresa/politicas"]);
       }
      
       this.modal = false;
     }
   }
-  get f() { return this.myFormrep.controls; }
+  get f() { return this.myFormpol.controls; }
 
  
 }

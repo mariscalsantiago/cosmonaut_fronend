@@ -19,24 +19,24 @@
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Apellido Paterno *</label>
-              <input formControlName="apellidoPat" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPat.errors && f.apellidoPat.touched}"
+              <input formControlName="apellidoPataterno" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPataterno.errors && f.apellidoPataterno.touched}"
                   placeholder="">
-                  <div *ngIf="f.apellidoPat.errors && f.apellidoPat.touched" class="invalid-feedback">
+                  <div *ngIf="f.apellidoPataterno.errors && f.apellidoPataterno.touched" class="invalid-feedback">
                       Favor de ingresar el Apellido Paterno
                     </div>
     
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
                 <label >Apellido materno</label>
-                <input formControlName="apellidoMat" type="text" class="form-control" id="apellidoMat" aria-describedby="emailHelp"
+                <input formControlName="apellidoMataterno" type="text" class="form-control" id="apellidoMataterno" aria-describedby="apellidoMataterno"
                     placeholder="">
     
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Nacionalidad *</label>
-              <input formControlName="ibaNacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.ibaNacionalidadId.errors && f.ibaNacionalidadId.touched}"
+              <input formControlName="nacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.nacionalidadId.errors && f.nacionalidadId.touched}"
                   placeholder="">
-                  <div *ngIf="f.ibaNacionalidadId.errors && f.ibaNacionalidadId.touched" class="invalid-feedback">
+                  <div *ngIf="f.nacionalidadId.errors && f.nacionalidadId.touched" class="invalid-feedback">
                       Favor de ingresar la nacionalidad
                     </div>
     
@@ -55,35 +55,35 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Correo Corporativo *</label>
-              <input formControlName="emailCorp" type="email" class="form-control" [ngClass]="{'is-invalid':f.emailCorp.errors && f.emailCorp.touched}"
+              <input formControlName="emailCorporativo" type="email" class="form-control" [ngClass]="{'is-invalid':f.emailCorporativo.errors && f.emailCorporativo.touched}"
                   placeholder="">
-                  <div *ngIf="f.emailCorp.errors?.required && f.emailCorp.touched" class="invalid-feedback">
+                  <div *ngIf="f.emailCorporativo.errors?.required && f.emailCorporativo.touched" class="invalid-feedback">
                       Favor de ingresar el Correo Corporativo
                     </div>
-                    <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
+                    <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
                       Correo Corporativo invalido, Favor de verificar
                     </div>
     
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Correo Personal *</label>
-              <input formControlName="ciEmailPersonal" type="email" class="form-control"  [ngClass]="{'is-invalid':f.ciEmailPersonal.errors && f.ciEmailPersonal.touched}"
+              <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control"  [ngClass]="{'is-invalid':f.contactoInicialEmailPersonal.errors && f.contactoInicialEmailPersonal.touched}"
                   placeholder="">
   
-                  <div *ngIf="f.ciEmailPersonal.errors?.required && f.ciEmailPersonal.touched" class="invalid-feedback">
+                  <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                       Favor de ingresar el Correo Personal
                     </div>
-                    <div *ngIf="f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched" class="invalid-feedback">
+                    <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                       Correo Personal invalido, Favor de verificar
                     </div>
   
           </div>
           <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
             <label >Teléfono *</label>
-            <input formControlName="ciTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.ciTelefono.errors && f.ciTelefono.touched}"
+            <input formControlName="contactoInicialTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && f.contactoInicialTelefono.touched}"
                 placeholder="">
   
-                <div *ngIf="f.ciTelefono.errors && f.ciTelefono.touched" class="invalid-feedback">
+                <div *ngIf="f.contactoInicialTelefono.errors && f.contactoInicialTelefono.touched" class="invalid-feedback">
                     Favor de ingresar el Teléfono
                   </div>
   
@@ -98,7 +98,7 @@
 
         <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
           <label for="exampleFormControlSelect1">Estado de representante *</label>
-          <select formControlName="esActivo" class="form-control">
+          <select formControlName="activo" class="form-control">
             <option value="true" selected>ACTIVO</option>
             <option value="false">INACTIVO</option>
           </select>

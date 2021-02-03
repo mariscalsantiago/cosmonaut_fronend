@@ -1,0 +1,78 @@
+<br><br>
+ <form  [formGroup]="myFormpol" (ngSubmit)="enviarPeticion()">
+  
+    <input type="hidden" formControlName="personaId">
+  
+    <div class="background-panel margen">
+      <br>
+        <div class="form-group row margen">
+          <label class="titulo">INFORMACIÓN DE POLITÍCA</label></div>
+        <div class="form group row margen">
+  
+            <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+              <label >Nombre *</label>
+              <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
+              <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
+                  Favor de ingresar nombre
+                </div>
+    
+            </div>
+            <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+              <label >Días económicos *</label>
+              <input formControlName="diaseconomicos" type="text" class="form-control" [ngClass]="{'is-invalid':f.diaseconomicos.errors && f.diaseconomicos.touched}"
+                  placeholder="">
+                  <div *ngIf="f.diaseconomicos.errors && f.diaseconomicos.touched" class="invalid-feedback">
+                      Favor de ingresar días económicos
+                    </div>
+    
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+              <label >Prima vacacional al aniversario</label>
+              <input  type="text" class="form-control" id="primavacional" aria-describedby="emailHelp"
+                  placeholder="">
+  
+          </div>
+
+          <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
+            <label>Tipo de deducción</label>
+            <select  class="form-control">
+              <option value="01">Donativos</option>
+              <option value="02">Gastos funerarios</option>
+              <option value="03">Créditos hipotecarios</option>
+            </select>
+          </div>
+          <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <input type="checkbox" name="" id="faltas">
+            <label for="faltas"> Se descuentan faltas</label>
+          </div>
+          <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
+            <input type="checkbox" name="" id="incapacidades">
+            <label for="incapacidades"> Se descuentan incapacidades</label>
+          </div>
+          <div class="input-group-sm mb-4 col-6 col-sm-6 col-lg-6">
+            <input type="checkbox" name="" id="vales">
+            <label for="vales"> Costo vales de restaurante</label>
+          </div>
+          <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
+            <input type="checkbox" name="" id="septimodia">
+            <label for="septimodia"> Descuento proporción séptimo día</label>
+          </div>
+          <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <label>Cálculos en base a :</label><br>
+            <input  value="antiguedad"  type="radio" name="calculos" id=""> Fecha de antigüedad<br>
+            <input  value="contrato"  type="radio" name="calculos" id=""> Fecha de inicio de contrato
+          </div>
+  
+        </div>
+    
+    
+    </div>
+  
+    <div class="text-center margin" style="margin-bottom: 20px;">
+      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
+      <button [disabled]="!myFormpol.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+  </div>   
+  
+  </form>
+  
+  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>

@@ -10,7 +10,7 @@
         <div class="row" style="  margin-top: 10px;  width: 100%;">
           <div class="col text-right">
             <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-              <i class="fa fa-plus"></i> Agregar área
+              <i class="fa fa-plus"></i> Agregar politíca
             </button>
           </div>
         </div>
@@ -22,12 +22,9 @@
               <thead>
                 <tr>
                     <th scope="col"> <span>Activo</span> </th>
-                    <th scope="col">ID Área</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col" *ngIf="tamanio >=600">Empresa</th>
+                    <th scope="col">Nmbre política</th>
                     <th scope="col" *ngIf="tamanio >=600">No. de Empleados</th>
                     <th scope="col" *ngIf="tamanio >=600">Fecha de registro</th>
-                    <th *ngIf="tamanio >=600" scope="col">Estatus</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>

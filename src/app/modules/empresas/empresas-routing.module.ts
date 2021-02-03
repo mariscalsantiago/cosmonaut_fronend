@@ -34,6 +34,10 @@ const routes: Routes = [{
     },
     {
       path: 'empresa/detalle/:id',
+      component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/politicas/empresapoliticas.module").then(m => m.empresapoliticasModule)
+    },
+    {
+      path: 'empresa/detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/gruposNomina/empresasgruponominas.module").then(m => m.empresasGrupoNominasModule)
     }
     

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PuestosService {
+export class PoliticasService {
 
   private url:string = '';
 

@@ -62,7 +62,7 @@ export class DetalleContactoComponent implements OnInit {
     
   ngOnInit(): void {
     debugger;
-    this.objcontacto = history.state.data == undefined ? {} : history.state.data ;
+    this.objcontacto = history.state.datos == undefined ? {} : history.state.datos ;
     this.myFormcont = this.createFormcont((this.objcontacto));
 
   }
@@ -150,9 +150,9 @@ public cancelarMulti(){
           
           this.companyPrd.savecont(objEnviar).subscribe(datos => {
             
-            this.iconType = datos.result? "success":"error";
+            this.iconType = datos.resultado? "success":"error";
     
-            this.strTitulo = datos.message;
+            this.strTitulo = datos.mensaje;
             this.strsubtitulo = 'Registro agregado correctamente'
             this.modal = true;
             this.compania = false;
@@ -168,8 +168,8 @@ public cancelarMulti(){
  
 
           this.companyPrd.modificarCont(objEnviar).subscribe(datos =>{
-            this.iconType =  datos.result? "success":"error";  
-            this.strTitulo = datos.message;
+            this.iconType =  datos.resultado? "success":"error";  
+            this.strTitulo = datos.mensaje;
             this.strsubtitulo = 'Registro modificado correctamente!'
             this.modal = true;
             this.listcontacto = true;

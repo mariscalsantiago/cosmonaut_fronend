@@ -47,7 +47,7 @@ export class CompanyComponent implements OnInit {
 
         this.companyProd.getAll().subscribe(datos =>{
 
-        this.arreglo = datos.data;
+        this.arreglo = datos.datos;
 
         this.cargando = false;
       });

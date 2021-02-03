@@ -136,14 +136,14 @@ public cancelarMulti(){
           
           this.companyPrd.save(obj).subscribe(datos => {
             
-            this.iconType = datos.result? "success":"error";
+            this.iconType = datos.resultado? "success":"error";
     
-            this.strTitulo = datos.message;
+            this.strTitulo = datos.mensaje;
             this.strsubtitulo = 'Registro agregado correctamente'
             this.modal = true;
             this.compania = false;
             this.contacto = true;
-            if(datos.result == true){
+            if(datos.resultado == true){
               let obj = this.objcont;
               this.verdetallecont(obj);
             }            
@@ -155,8 +155,8 @@ public cancelarMulti(){
           debugger;   
             
           this.companyPrd.modificar(obj).subscribe(datos =>{
-            this.iconType =  datos.result? "success":"error";  
-            this.strTitulo = datos.message;
+            this.iconType =  datos.resultado? "success":"error";  
+            this.strTitulo = datos.mensaje;
             this.strsubtitulo = 'Registro modificado correctamente!'
             this.modal = true;
             this.listcontacto = true;

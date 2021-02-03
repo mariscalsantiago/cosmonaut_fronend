@@ -95,7 +95,7 @@
             <table *ngIf="!cargando" class="table table-hover table-responsive">
                 <thead>
                   <tr>
-                    <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
+                    <th scope="col"> <span>Activo</span> </th>
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
                     <th scope="col" *ngIf="tamanio >=600">Apellido Paterno</th>
@@ -108,18 +108,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr (dblclick)="activarMultiseleccion()" *ngFor="let item of arreglo;">
-                        <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i> <input *ngIf="multiseleccion"
-                            type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
+                    <tr *ngFor="let item of arreglo;">
+                        <th scope="row"><i  class="icon_perfil"></i> <input type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
                         <td style="color:  #00DED4">{{item.personaId}} </td>
                         <td>{{item.nombre}} </td>
-                        <td *ngIf="tamanio >=600">{{item.apellidoPat}}</td>
-                        <td *ngIf="tamanio >=600">{{item.apellidoMat }}</td>
+                        <td *ngIf="tamanio >=600">{{item.apellidoPataterno}}</td>
+                        <td *ngIf="tamanio >=600">{{item.apellidoMataterno}}</td>
                         <td *ngIf="tamanio >=600">{{item.curp}}</td>
-                        <td *ngIf="tamanio >=600">{{item.emailCorp}}</td>
+                        <td *ngIf="tamanio >=600">{{item.emailCorporativo}}</td>
                         <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
-                        <td *ngIf="tamanio >=600">{{(item.esActivo)?'Activo':'Inactivo'}}</td>
-                        <td *ngIf="!multiseleccion" class="opciones">
+                        <td *ngIf="tamanio >=600">{{(item.activo)?'Activo':'Inactivo'}}</td>
+                        <td class="Acciones">
                               <button (click)="verdetalle(item)" class="btnPersonalizado"><i
                                 class="icon_editar text-center bg-light"></i></button>
                         </td>

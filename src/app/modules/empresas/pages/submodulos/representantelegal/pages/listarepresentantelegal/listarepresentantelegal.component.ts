@@ -50,7 +50,7 @@ export class ListarepresentantelegalComponent implements OnInit {
 
       this.id_empresa = datos["id"]
       this.representanteProd.getAllUsersRep().subscribe(datos => {
-      this.arreglo = datos.data;
+      this.arreglo = datos.datos;
       console.log(this.arreglo);
       this.cargando = false;
       this.paginar();

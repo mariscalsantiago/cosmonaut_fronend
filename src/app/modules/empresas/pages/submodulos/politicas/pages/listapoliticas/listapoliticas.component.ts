@@ -1,13 +1,13 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PuestosService } from '../services/puestos.service';
+import { PoliticasService } from '../services/politicas.service';
 
 @Component({
-  selector: 'app-listapuestos',
-  templateUrl: './listapuestos.component.html',
-  styleUrls: ['./listapuestos.component.scss']
+  selector: 'app-listapoliticas',
+  templateUrl: './listapoliticas.component.html',
+  styleUrls: ['./listapoliticas.component.scss']
 })
-export class ListapuestosComponent implements OnInit {
+export class ListapoliticasComponent implements OnInit {
 
   
   public tamanio:number = 0;
@@ -28,7 +28,7 @@ export class ListapuestosComponent implements OnInit {
  
   public arreglo:any = [];
 
-  constructor(private routerPrd:Router,private puestosProd:PuestosService,private CanRouterPrd:ActivatedRoute) { }
+  constructor(private routerPrd:Router,private politicasProd:PoliticasService,private CanRouterPrd:ActivatedRoute) { }
 
   ngOnInit(): void {
     debugger;
@@ -41,7 +41,7 @@ export class ListapuestosComponent implements OnInit {
     this.CanRouterPrd.params.subscribe(datos =>{
 
       this.id_empresa = datos["id"]
-      this.puestosProd.getAllArea().subscribe(datos => {
+      this.politicasProd.getAllArea().subscribe(datos => {
       this.arreglo = datos.data;
       console.log(this.arreglo);
       this.cargando = false;
@@ -57,7 +57,7 @@ export class ListapuestosComponent implements OnInit {
     debugger;
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
-    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos', tipoinsert],{state:{data:obj}});
+    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'politicas', tipoinsert],{state:{data:obj}});
     this.cargando = false;
   }
   public eliminar(obj:any){
