@@ -59,7 +59,7 @@ export class CompanyComponent implements OnInit {
     debugger;
     this.cargando = true;
     let tipoinsert = (obj == undefined)? 'nuevo':'modifica';
-    this.routerPrd.navigate(['company','detalle_company',tipoinsert],{state:{data:obj}});
+    this.routerPrd.navigate(['company','detalle_company',tipoinsert],{state:{datos:obj}});
     this.cargando = false;
   
   }

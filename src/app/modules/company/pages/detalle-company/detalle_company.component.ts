@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,7 +29,7 @@ export class DetalleCompanyComponent implements OnInit {
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
   public objCompany:any;
-  public centrocClienteId:number = 1;
+  public centrocClienteId:number = 2;
   public tipoPersonaId:number = 3;
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
@@ -36,6 +37,10 @@ export class DetalleCompanyComponent implements OnInit {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
+      if(!this.insertar){
+        this.listaContacto();
+        this.listcontacto = true;
+      }
 
       this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar la compañía?";
 
@@ -54,7 +59,7 @@ export class DetalleCompanyComponent implements OnInit {
     
   ngOnInit(): void {
     debugger;
-    this.objCompany = history.state.data == undefined ? {} : history.state.data ;
+    this.objCompany = history.state.datos == undefined ? {} : history.state.datos ;
     this.myFormcomp = this.createFormcomp((this.objCompany));
     this.compania = true;
   }
@@ -83,30 +88,35 @@ export class DetalleCompanyComponent implements OnInit {
     debugger;
     this.cargando = true;
     let tipoinsert = (obj == undefined)? 'nuevo':'modifica';
-    this.routerPrd.navigate(['company','detalle_contacto',tipoinsert],{state:{data:obj}});
+    this.routerPrd.navigate(['company','detalle_contacto',tipoinsert],{state:{datos:obj}});
     this.cargando = false;
 
     
 
   }
 
-  public activarMultiseleccion(){
-    this.multiseleccion = true;
+
+
+public listaContacto(){
+debugger;
+  let objEnviar:any = {
+
+     centrocClienteId: {
+        centrocClienteId: this.centrocClienteId
+    },
+    tipoPersonaId: {
+      tipoPersonaId: this.tipoPersonaId
+        }
 }
 
+this.companyPrd.getAllCont(objEnviar).subscribe(datos =>{
+  this.cargando = true;
 
-public guardarMultiseleccion(){
-  this.multiseleccionloading = true;
-    setTimeout(() => {
-      this.multiseleccionloading = false;
-      this.multiseleccion = false;
-    }, 3000);
-}
-
-
-public cancelarMulti(){
-  this.multiseleccionloading = false;
-  this.multiseleccion = false;
+    this.arreglo = datos.datos;
+    console.log("Lista contactos -->",this.arreglo);
+    this.cargando = false;
+  
+});
 }
   
   public enviarPeticioncomp() {
@@ -167,26 +177,6 @@ public cancelarMulti(){
       
       }
     }else{
-      /*if(this.iconType == "success"){
-          this.routerPrd.navigate(["/company"]);
-      }*/
-        let objEnviar:any = {
-            representanteLegalCentrocClienteId: {
-                centrocClienteId: this.centrocClienteId
-            },
-            tipoPersonaId: {
-                tipoPersonaId: this.tipoPersonaId
-                }
-        }
-        
-        this.companyPrd.getAllCont(objEnviar).subscribe(datos =>{
-          this.cargando = true;
-
-            this.arreglo = datos.data;
-    
-            this.cargando = false;
-          
-        });
 
       this.modal = false;
     }

@@ -93,12 +93,7 @@
       <div class="form-group row margen">
         <label class="titulo">LISTA DE CONTACTOS</label></div>
       <div class="form-group row margen">
-
-    <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
-    </div>
-    <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
+    <div  class="row" style="  margin-top: 10px;  width: 100%;">
       <div class="col text-right">
         <button type="button" class="btn btn-light button-outlet" (click)="verdetallecont(undefined)">
           <i class="fa fa-plus"></i>Agregar contacto
@@ -132,16 +127,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr (dblclick)="activarMultiseleccion()" *ngFor="let item of arreglo;">
-              <th scope="row"><i *ngIf="!multiseleccion" class="icon_perfil"></i> <input *ngIf="multiseleccion"
-                  type="checkbox" name="inlineRadioOptions" id="radio1" value="option1"> </th>
+            <tr *ngFor="let item of arreglo;">
+              <th scope="row"><i class="icon_perfil"></i></th>
               <td style="color:  #00DED4">{{item.personaId}} </td>
               <td>{{item.nombre}}</td>
               <td>{{item.emailCorp}}</td>
               <td>{{item.ciTelefono}}</td>
               <td>{{item.fechaAlta}}</td>
               <td>{{(item.esActivo)?'Activo':'Inactivo'}}</td>
-              <td *ngIf="!multiseleccion">
+              <td>
                 <button (click)="verdetallecont(item)" class="btnPersonalizado">
                   <i class="icon_editar text-center bg-light" ></i></button>
             </td>
@@ -172,17 +166,5 @@
   </div>
   </div>
 </div>
-<div class="row">
 
-  <div *ngIf="multiseleccion" class="row text-center margin botonmultiseleccion" style="margin-bottom: 20px;">
-    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelarMulti()" *ngIf="!multiseleccionloading">Cancelar</button>
-    <button (click)="guardarMultiseleccion()" type="button" class="btn btn-primary button-fill agrandarloading"><span *ngIf="!multiseleccionloading">Guardar</span>
-    
-        <div *ngIf="multiseleccionloading"  role="status">
-            <span class="spinner-border"></span>
-          </div>
-    </button>
-  </div>
-    
-</div>
 </form>
