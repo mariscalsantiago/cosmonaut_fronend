@@ -29,8 +29,7 @@ export class GruponominasService {
     
 
     let json = JSON.stringify(obj);
-    console.log("antes de enviar la peticion");
-    console.log(json);
+    
     return this.http.put("/api/grupoNomina/guardar",json,httpOptions);
   }
 
@@ -43,7 +42,16 @@ export class GruponominasService {
 
 
 
+
     let json = JSON.stringify(obj);
-    return this.http.put("/api/grupoNomina/guardar",json,httpOptions);
+
+
+    return this.http.post("/api/grupoNomina/modificar",json,httpOptions);
+  }
+
+
+  public eliminar(id:any):Observable<any>{
+
+    return this.http.post('/api/grupoNomina/eliminar/id/'+id,{});
   }
 }

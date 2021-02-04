@@ -78,7 +78,7 @@
     
    
 
-    <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover mt-3">
+    <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm mt-3">
       <thead>
         <tr>
           <th scope="col">Nombre</th>
@@ -96,16 +96,15 @@
         <tr *ngFor="let item of arreglo;">
           <td style="color:  #00DED4">{{item.nombre}} </td>
           <td>{{item.personaId}} </td>
-          <td>{{item.apellidoPat}} </td>
-          <td *ngIf="tamanio >=600">{{item.apellidoMat }}</td>
-          <td *ngIf="tamanio >=600">{{item.representanteLegalCentrocClienteId.centrocClienteId}}</td>
-          <td *ngIf="tamanio >=600">{{item.emailCorp}}</td>
+          <td>{{item.apellidoPaterno}} </td>
+          <td *ngIf="tamanio >=600">{{item.apellidoMaterno }}</td>
+          <td *ngIf="tamanio >=600">{{item.centrocClienteId.nombre}}</td>
+          <td *ngIf="tamanio >=600">{{item.emailCorporativo}}</td>
           <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
-          <td *ngIf="tamanio >=600">{{(item.esActivo)?'Activo':'Inactivo'}}</td>
+          <td *ngIf="tamanio >=600">{{(item.activo)?'Activo':'Inactivo'}}</td>
           <td  class="opciones">
-            <button ><i class="far fa-eye primary"></i></button>
-            <button (click)="verdetalle(item)" ><i class="fas fa-pen primary"></i></button>
-            
+            <button ><i class="icon_ver primary-bg"></i></button>
+            <button (click)="verdetalle(item)" ><i class="icon_editar primary-bg"></i></button>
           </td>
         </tr>
 

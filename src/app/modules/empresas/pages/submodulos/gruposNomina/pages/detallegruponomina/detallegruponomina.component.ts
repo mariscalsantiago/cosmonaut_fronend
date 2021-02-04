@@ -60,7 +60,7 @@ export class DetallegruponominaComponent implements OnInit {
           return;
       }else{
         this.grupoNominaPrd.getGroupNomina(obj.id).subscribe(datos =>{  
-          this.myForm = this.crearForm(datos.data);
+          this.myForm = this.crearForm(datos.datos);
   
         });;
   
@@ -136,23 +136,24 @@ export class DetallegruponominaComponent implements OnInit {
             console.log("Esto despues de guardar");
             console.log(datos);
 
-            this.iconType = datos.result ? "success" : "error";
+            this.iconType = datos.resultado ? "success" : "error";
 
-            this.strTitulo = datos.message;
-            this.strsubtitulo = datos.message
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje
             this.modal = true;
 
           });
         } else {
 
           peticion.grupoNominaId = obj.grupoNominaId;
+          peticion.esActivo = true;
 
           this.grupoNominaPrd.modificar(peticion).subscribe(datos => {
 
-            this.iconType = datos.result ? "success" : "error";
+            this.iconType = datos.resultado ? "success" : "error";
 
-            this.strTitulo = datos.message;
-            this.strsubtitulo = datos.message
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje
             this.modal = true;
 
           });

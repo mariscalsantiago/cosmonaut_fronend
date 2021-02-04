@@ -45,7 +45,7 @@ export class ListacontactosrrhComponent implements OnInit {
 
       this.id_empresa = datos["id"];
       let peticion = {
-        representanteLegalCentrocClienteId: {
+        centrocClienteId: {
           centrocClienteId: this.id_empresa
         },
         tipoPersonaId: {
@@ -53,10 +53,13 @@ export class ListacontactosrrhComponent implements OnInit {
         }
       }
 
+      
+
 
       this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-        this.arreglo = datos.data;
+        this.arreglo = datos.datos;
         this.cargando = false;
+        console.log(this.arreglo);
       });
 
     });

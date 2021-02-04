@@ -138,6 +138,15 @@ p.interlineado{
     
 }
 
+.responsive_letter{
+    
+  
+
+        font-size: smaller;
+
+    
+}
+
 
 article.titulo{
     article{
@@ -253,4 +262,25 @@ article.titulo{
 
 .cursorhand{
     cursor: pointer;
+}
+
+.scrooll{
+    overflow: auto;
+}
+
+
+.margen-tabla {
+    table{
+        margin:15px;
+
+        td{
+            color:#616060;
+            
+            white-space: nowrap;
+            button{
+                border: 0px solid black;
+                margin-left: 2px;
+            }
+        }
+    }
 }

@@ -151,7 +151,7 @@
           <td (click)="traerModal(this)" style="color:  #00DED4">{{item.numero}} </td>
           <td class="opciones">
             <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
-            <button (click)="eliminar(item)"><i class="icon_eliminar danger-bg"></i></button>
+            <button (click)="eliminar(indice)"><i class="icon_eliminar danger-bg"></i></button>
             <button (click)="apagando(indice); "><i *ngIf="!item.seleccionado" class="fas fa-chevron-down primary" style="font-size: 14px;
                 margin: 9px;"></i><i *ngIf="item.seleccionado" class="fas fa-chevron-up primary" style="font-size: 14px;
                 margin: 9px;"></i></button>
@@ -246,3 +246,7 @@
 
 
 </div>
+
+
+
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>

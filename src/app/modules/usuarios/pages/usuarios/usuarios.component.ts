@@ -23,7 +23,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public cargando: Boolean = false;
-
+  public tipoguardad:boolean = false;
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
   public numeroitems: number = 5;
@@ -46,6 +46,11 @@ export class UsuariosComponent implements OnInit {
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
   public activo: number = 0;
+
+  public modal:boolean = false;
+  public strTitulo:string = "";
+  public strsubtitulo:string = "";
+  public iconType:string = "";
 
 
 
@@ -126,23 +131,20 @@ export class UsuariosComponent implements OnInit {
   }
 
 
-  public guardarMultiseleccion() {
-    this.multiseleccionloading = true;
-    let peticionEnviar = [];
+  
 
-    for (let item of this.arreglo) {
-      peticionEnviar.push({
-        personaId: item.personaId,
-        esActivo: item.esActivo
-      });
-    }
+  public guardarMultiseleccion(tipoguardad:boolean) {
+  
 
-    this.usuariosPrd.modificarListaActivos(peticionEnviar).subscribe(datos => {
-      this.multiseleccionloading = false;
-      this.multiseleccion = false;
-      this.arreglotemp = this.arreglo;
-      this.paginar();
-    });
+    this.tipoguardad = tipoguardad;
+
+   this.modal = true;
+   this.strTitulo = `¿Deseas ${tipoguardad?"activar":"desactivar"} estos usuarios?`;
+   this.strsubtitulo = `Una vez ${tipoguardad?"activados":"desactivados"} estos usuarios apareceran disponibles en el sistema`;
+   this.iconType = "warning";
+
+
+   
   }
 
 
@@ -186,11 +188,11 @@ export class UsuariosComponent implements OnInit {
     let peticion = {
       personaId: this.idUsuario,
       nombre: this.nombre,
-      apellidoPat: this.apellidoPat,
-      apellidoMat: this.apellidoMat,
+      apellidoPaterno: this.apellidoPat,
+      apellidoMaterno: this.apellidoMat,
       fechaAlta: fechar,
-      emailCorp: this.correoempresarial,
-      esActivo: "",
+      emailCorporativo: this.correoempresarial,
+      activo: "",
       centrocClienteId: {
         centrocClienteId: (this.id_company) == 0 ? "" : this.id_company
       },
@@ -268,6 +270,73 @@ export class UsuariosComponent implements OnInit {
     for (let item of this.arreglo)
       item.esActivo = input.checked;
   }
+
+
+  public verificaDisponibilidad(){
+
+    let variable:boolean = false;
+    
+    for(let item of this.arreglotemp){
+
+      if(item["esActivo"]){
+
+        variable = true;
+        break;
+      }
+
+      variable = false;
+
+    }
+    
+
+    return variable;
+  }
+
+
+
+  public recibir($evento:any){
+
+    this.modal = false;
+
+    if(this.iconType == "warning"){
+      if($evento){
+        let arregloUsuario = [];
+  
+        for(let item of this.arreglotemp){
+     
+         if(item["esActivo"]){
+     
+           arregloUsuario.push({personaId:item["personaId"],activo:this.tipoguardad});
+     
+         }
+        }
+
+        this.usuariosPrd.modificarListaActivos(arregloUsuario).subscribe(datos =>{
+          console.log(datos);
+
+          this.iconType = datos.resultado ? "success" : "error";
+
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje
+            this.modal = true;
+            
+            let item2:any;
+            for( item2 of this.arreglotemp){
+                item2["esActivo"] = false;
+            }
+          
+        });
+  
+  
+      }
+    }else{
+
+    }
+
+
+  }
+
+ 
 
 
 

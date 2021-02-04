@@ -89,14 +89,29 @@
       </button>
     </div>
   </div>
+
+  <div *ngIf="verificaDisponibilidad()" class="row text-right margin botonmultiseleccion">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary button-outlet mr-2" (click)="guardarMultiseleccion(false)"
+      *ngIf="!multiseleccionloading">Desactivar</button>
+    <button (click)="guardarMultiseleccion(true)" type="button" class="btn heartbeathand btn-primary button-fill agrandarloading"><span
+        *ngIf="!multiseleccionloading">Activar</span>
+
+      <div *ngIf="multiseleccionloading" role="status">
+        <span class="spinner-border"></span>
+      </div>
+    </button>  
+    </div>
+</div>
+ 
   <div class="row margen margen-tabla background-panel scrooll">
     <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
       <input (change)="seleccionarTodosBool(valor)" #valor type="checkbox" class="form-check-input" id="exampleCheck1">
       <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
     </div>
 
-    <div *ngIf="!cargando && arreglo !== undefined && !multiseleccion" class="row margen mt-3" style="margin-bottom: -25px;">
-      <div class="input-group mb-3">
+    <div *ngIf="!cargando && arreglo !== undefined && !multiseleccion" class="row  margen mt-3" style="margin-bottom: -25px;">
+      <div class="input-group mb-3 ">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
         </div>
@@ -108,9 +123,10 @@
         </select>
        
       </div>
+      
     </div>
     
-    <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover">
+    <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover table-sm responsive_letter">
       <thead>
         <tr>
           <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
@@ -130,12 +146,12 @@
           <th scope="row"><input type="checkbox" name="inlineRadioOptions" id="radio1" value="option1" [(ngModel)]="item.esActivo"> </th>
           <td style="color:  #00DED4">{{item.personaId}} </td>
           <td>{{item.nombre}} </td>
-          <td *ngIf="tamanio >=600">{{item.apellidoPat}}</td>
-          <td *ngIf="tamanio >=600">{{item.apellidoMat }}</td>
+          <td *ngIf="tamanio >=600">{{item.apellidoPaterno}}</td>
+          <td *ngIf="tamanio >=600">{{item.apellidoMaterno }}</td>
           <td *ngIf="tamanio >=600">{{item.centrocClienteId.nombre}}</td>
-          <td *ngIf="tamanio >=600">{{item.emailCorp}}</td>
+          <td *ngIf="tamanio >=600">{{item.emailCorporativo}}</td>
           <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
-          <td *ngIf="tamanio >=600">{{(item.esActivo)?'Activo':'Inactivo'}}</td>
+          <td *ngIf="tamanio >=600">{{(item.activo)?'Activo':'Inactivo'}}</td>
           <td *ngIf="!multiseleccion" class="opciones">
             <button ><i class="icon_ver primary-bg"></i></button>
             <button (click)="verdetalle(item)" ><i class="icon_editar primary-bg"></i></button>
@@ -171,20 +187,13 @@
   </div>
 
 
-  <div *ngIf="multiseleccion" class="row text-center margin botonmultiseleccion" style="margin-bottom: 20px;">
-      <div class="col-12">
-        <button type="button" class="btn btn-primary button-outlet mr-2" style="color:red" (click)="cancelarMulti()"
-        *ngIf="!multiseleccionloading">Cancelar</button>
-      <button (click)="guardarMultiseleccion()" type="button" class="btn heartbeathand btn-primary button-fill agrandarloading"><span
-          *ngIf="!multiseleccionloading">Guardar</span>
-  
-        <div *ngIf="multiseleccionloading" role="status">
-          <span class="spinner-border"></span>
-        </div>
-      </button>  
-      </div>
-  </div>
+
 
 
 
 </div>
+
+
+
+
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
