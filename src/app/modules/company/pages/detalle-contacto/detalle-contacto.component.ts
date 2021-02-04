@@ -25,8 +25,6 @@ export class DetalleContactoComponent implements OnInit {
   public objcontacto: any;
   public fechaAlta: string = "";
   public cargando:Boolean = false;
-  public multiseleccion:Boolean = false;
-  public multiseleccionloading:boolean = false;
   public centrocClienteId:number = 1;
 
   
@@ -83,27 +81,6 @@ export class DetalleContactoComponent implements OnInit {
 
     });
   }
-
-
-  public activarMultiseleccion(){
-    this.multiseleccion = true;
-}
-
-
-public guardarMultiseleccion(){
-  this.multiseleccionloading = true;
-    setTimeout(() => {
-      this.multiseleccionloading = false;
-      this.multiseleccion = false;
-    }, 3000);
-}
-
-
-public cancelarMulti(){
-  this.multiseleccionloading = false;
-  this.multiseleccion = false;
-}
-  
 
   public enviarPeticioncont() {
     this.iconType = "warning";
