@@ -6,7 +6,6 @@
       </div>
   </div>
   <div class="margen">
-
     <div id="accordionFiltro">
 
       <div id="accordion">
@@ -31,31 +30,34 @@
           <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
               <div class="form group row margen">
-                <div class=" input-group-sm mb-3 col-12 col-md-6 col-lg-4 ">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="RFC">
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="number" [(ngModel)]="centrocClienteId" class="form-control" placeholder="Id compañía">
                 </div>
-                <div class=" input-group-sm mb-3 col-12 col-md-6  col-lg-4">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Nombre de la compañía">
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="text" [(ngModel)]="rfc" class="form-control" placeholder="RFC">
                 </div>
-                <div class=" input-group-sm mb-3 col-12 col-md-6  col-lg-4">
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Razón social">
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre compañia">
                 </div>
-                <div class=" input-group-sm mb-3 col-12 col-md-6 col-lg-4 ">
-                  <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                      placeholder="Fecha de registro">
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
+                  <input type="text" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="Date" [(ngModel)]="fechaAlta" class="form-control" placeholder="Fecha de registro">
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
+                  <select class="form-control" [(ngModel)]="esActivo" placeholder="Estatus">
+                    
+                    <option value="0" selected></option>
+                    <option value="1">Activo</option>
+                    <option value="2">Inactivo</option>
+          
+                  </select>
+                </div>
+                <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+                  <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
+                </div>
               </div>
-              <div class=" input-group-sm mb-3 col-12 col-md-6 col-lg-4 ">
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Estatus">
-            </div>
-            <div class=" input-group-sm mb-3 col-12 col-md-2 text-center ">
-              <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
-          </div>
-            
-            </div>
             </div>
           </div>
         </div>
@@ -63,9 +65,7 @@
 
     </div>
 
-    
-    
-</div>
+  </div>
   
   
   <div class="row margen">

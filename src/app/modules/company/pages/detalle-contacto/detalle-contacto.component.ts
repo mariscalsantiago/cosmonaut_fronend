@@ -70,12 +70,12 @@ export class DetalleContactoComponent implements OnInit {
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      apellidoPat: [obj.apellidoPat, [Validators.required]],
-      apellidoMat: [obj.apellidoMat],
+      apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
+      apellidoMaterno: [obj.apellidoMaterno],
       curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
-      emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
-      ciEmailPersonal: [obj.ciEmailPersonal, [Validators.required, Validators.email]],
-      ciTelefono: [obj.ciTelefono, [Validators.required]],
+      emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
+      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
+      contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
       personaId: obj.personaId
 

@@ -19,7 +19,6 @@ export class CompanyService {
   }
 
    public getAll():Observable<any>{
-    console.log("http",this.http);
     return this.http.get(`/api/centroCostosCliente/lista/compania`);
     
    
@@ -83,6 +82,23 @@ export class CompanyService {
     let json:string = JSON.stringify(obj);
 
     return this.http.post(`/api/persona/modificar/usuario`,json,httpOptions);
+  }
+
+  public filtrar(obj: any): Observable<any> {
+    debugger;
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+
+
+    let json: string = JSON.stringify(obj);
+    console.log("peticion filtro dinamico",json);
+    return this.http.post("/api/centroCostosCliente/lista/dinamica", json, httpOptions);
   }
 
   
