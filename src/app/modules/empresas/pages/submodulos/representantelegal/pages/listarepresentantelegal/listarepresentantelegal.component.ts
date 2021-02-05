@@ -87,7 +87,7 @@ export class ListarepresentantelegalComponent implements OnInit {
     let peticion = {
 
       nombre: this.nombre,
-      apellidoPaterno: this.apellidoMaterno,
+      apellidoPaterno: this.apellidoPaterno,
       apellidoMaterno: this.apellidoMaterno,
       emailCorporativo: this.emailCorporativo,
       contactoInicialEmailPersonal: this.contactoInicialEmailPersonal,
