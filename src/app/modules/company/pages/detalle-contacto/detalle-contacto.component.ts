@@ -59,7 +59,7 @@ export class DetalleContactoComponent implements OnInit {
   }
     
   ngOnInit(): void {
-    debugger;
+    
     this.objcontacto = history.state.datos == undefined ? {} : history.state.datos ;
     this.myFormcont = this.createFormcont((this.objcontacto));
 
@@ -91,7 +91,7 @@ export class DetalleContactoComponent implements OnInit {
 
 
   public redirect(obj:any){
-    debugger;
+    
     this.modal = true;
     this.routerPrd.navigate(["/company"]);
     this.modal = false;
@@ -100,30 +100,31 @@ export class DetalleContactoComponent implements OnInit {
   }
 
   public recibircont($evento: any) {
-    debugger;
+    
     this.modal = false;
     if(this.iconType == "warning"){
       if ($evento) {
         let obj = this.myFormcont.value;
-        /*obj = {
+        obj = {
           ...obj,
           fechaAlta: this.fechaActual,
-        };*/
+        };
         let objEnviar:any = {
           nombre: obj.nombre,
           apellidoPaterno: obj.apellidoPaterno,
           apellidoMaterno: obj.apellidoMaterno,
           curp: obj.curp,
+          //fechaAlta: obj.fechaAlta,
           emailCorporativo: obj.emailCorporativo,
           contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
           contactoInicialTelefono: obj.contactoInicialTelefono,
-          representanteLegalCentrocClienteId: {
-              centrocClienteId: obj.centrocClienteId
+          centrocClienteId: {
+            centrocClienteId: this.centrocClienteId
           }
       }
 
         if(this.insertar){
-          debugger;
+          
           
           this.companyPrd.savecont(objEnviar).subscribe(datos => {
             
@@ -139,12 +140,10 @@ export class DetalleContactoComponent implements OnInit {
 
         }else{
     
-          debugger;  
+            
           objEnviar.personaId = obj.personaId;
-          objEnviar.representanteLegalCentrocClienteId.centrocClienteId  = this.objcontacto.representanteLegalCentrocClienteId.centrocClienteId;
- 
 
-          this.companyPrd.modificarCont(objEnviar).subscribe(datos =>{
+           this.companyPrd.modificarCont(objEnviar).subscribe(datos =>{
             this.iconType =  datos.resultado? "success":"error";  
             this.strTitulo = datos.mensaje;
             this.strsubtitulo = 'Registro modificado correctamente!'
