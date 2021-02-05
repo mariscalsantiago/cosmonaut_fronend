@@ -15,6 +15,8 @@ export class CompanyService {
     //this.url = direcciones.company;
 
     this.url = '/api';
+  
+  }
 
    public getAll():Observable<any>{
     console.log("http",this.http);
