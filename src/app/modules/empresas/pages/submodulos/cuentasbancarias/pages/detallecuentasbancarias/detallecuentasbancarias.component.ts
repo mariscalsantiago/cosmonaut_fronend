@@ -11,7 +11,7 @@ import { CuentasbancariasService } from '../../services/cuentasbancarias.service
 export class DetallecuentasbancariasComponent implements OnInit {
 
 
-  public mostrartooltip:boolean = false;
+  public mostrartooltip: boolean = false;
   public iconType: string = "";
   public myForm!: FormGroup;
   public modal: boolean = false;
@@ -39,15 +39,15 @@ export class DetallecuentasbancariasComponent implements OnInit {
     });
 
 
-    let obj = {bancoId:{bancoId:0}};
+    let obj = { csBanco: { bancoId: 0 } };
 
     if (!this.esInsert) {//Solo cuando es modificar
       obj = history.state.data;
       if (obj == undefined) this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
-      
+
     }
 
-    
+
     this.myForm = this.createForm(obj);
 
 
@@ -65,7 +65,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
       numeroCuenta: [obj.numeroCuenta, [Validators.required]],
       nombreCuenta: [obj.nombreCuenta, [Validators.required]],
-      idbanco: [obj.bancoId.bancoId, [Validators.required]],
+      idbanco: [obj.csBanco.bancoId, [Validators.required]],
       descripcion: [obj.descripcion],
       num_informacion: [obj.numInformacion],
       clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
@@ -125,6 +125,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
         let obj = this.myForm.value;
 
+
         let peticion: any = {
           numeroCuenta: obj.numeroCuenta,
           nombreCuenta: obj.nombreCuenta,
@@ -132,15 +133,17 @@ export class DetallecuentasbancariasComponent implements OnInit {
           numInformacion: obj.num_informacion,
           clabe: obj.clabe,
           numSucursal: obj.num_sucursal,
-          centrocClienteId: this.id_empresa,
-          bancoId: {
+          nclCentrocCliente: {
+            centrocClienteId: this.id_empresa
+          },
+          csBanco: {
             bancoId: obj.idbanco
           }
         };
 
 
-        console.log(peticion);
         
+
 
         if (this.esInsert) {
 
