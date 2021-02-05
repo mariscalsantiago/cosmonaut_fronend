@@ -111,12 +111,12 @@ export class DetalleContactoComponent implements OnInit {
         };*/
         let objEnviar:any = {
           nombre: obj.nombre,
-          apellidoPat: obj.apellidoPat,
-          apellidoMat: obj.apellidoMat,
+          apellidoPaterno: obj.apellidoPaterno,
+          apellidoMaterno: obj.apellidoMaterno,
           curp: obj.curp,
-          emailCorp: obj.emailCorp,
-          ciEmailPersonal: obj.ciEmailPersonal,
-          ciTelefono: obj.ciTelefono,
+          emailCorporativo: obj.emailCorporativo,
+          contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
+          contactoInicialTelefono: obj.contactoInicialTelefono,
           representanteLegalCentrocClienteId: {
               centrocClienteId: obj.centrocClienteId
           }
