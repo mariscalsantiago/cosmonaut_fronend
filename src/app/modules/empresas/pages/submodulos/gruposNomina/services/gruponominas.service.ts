@@ -54,4 +54,12 @@ export class GruponominasService {
 
     return this.http.post('/api/grupoNomina/eliminar/id/'+id,{});
   }
+
+
+  public getGroupNominaEmpleado(indice:number):Observable<any>{
+
+
+    return this.http.get("/api/colaboradorGrupoNomina/lista/id/grupoNomina/"+indice);
+
+  }
 }

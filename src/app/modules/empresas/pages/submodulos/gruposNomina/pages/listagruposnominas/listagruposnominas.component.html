@@ -92,7 +92,13 @@
     <hr>
     <div  class="body">
 
-      <table class="table m-3 table-hober table-sm " style="width: 90%;">
+
+      <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
+        <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+      </div>
+
+     <div *ngIf="!cargandodetallegrupo">
+      <table  class="table m-3 table-hober table-sm " style="width: 90%;">
         <thead>
           <tr>
             <th scope="col">Nombre de empleado</th>
@@ -101,26 +107,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let item of arreglodetalle">
             
-            <td>sofia rojasb</td>
-            <td>jisdf</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            
-            <td>sofia rojasbb</td>
-            <td>Thojisdfn</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            
-            <td>sofia rojasby</td>
-            <td>thejisdfd</td>
-            <td>@twitter</td>
+            <td>{{item.nombre}} {{item.apellidopaterno}} {{item.apellidomaterno}}</td>
+            <td>{{item.numeroempleado}}</td>
+            <td>{{item.razonsocial}}</td>
           </tr>
         </tbody>
       </table>
+     </div>
 
     </div>
     <hr>
@@ -145,10 +140,11 @@
     <tbody>
       <ng-container *ngFor="let item of arreglo;let indice = index;">
         <tr>
+          <td>{{item.id}}</td>
           <td>{{item.nombre}} </td>
           <td>{{item.razon}} </td>
           <td>{{item.periodo}} </td>
-          <td (click)="traerModal(this)" style="color:  #00DED4">{{item.numero}} </td>
+          <td (click)="traerModal(indice)" style="color:  #00DED4">{{item.numero}} </td>
           <td class="opciones">
             <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
             <button (click)="eliminar(indice)"><i class="icon_eliminar danger-bg"></i></button>
