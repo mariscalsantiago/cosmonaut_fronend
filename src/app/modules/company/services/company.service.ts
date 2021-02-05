@@ -14,7 +14,7 @@ export class CompanyService {
 
     //this.url = direcciones.company;
 
-    this.url = '/api';
+    this.url = '/api/company/';
 
   }
 
