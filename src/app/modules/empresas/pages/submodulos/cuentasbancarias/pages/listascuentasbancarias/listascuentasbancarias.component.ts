@@ -67,7 +67,9 @@ export class ListascuentasbancariasComponent implements OnInit {
 
       this.cuentasPrd.getListaCuentaBancaria().subscribe(peticion => {
         this.cargando = false;
-        this.arreglo = peticion.data;
+        this.arreglo = peticion.datos;
+        console.log("datos de cuentas bancarias");
+        console.log(peticion);
       });
 
 
@@ -118,9 +120,9 @@ export class ListascuentasbancariasComponent implements OnInit {
     if (this.iconType == "warning") {
       if ($event) {
         this.cuentasPrd.eliminar(objenviar).subscribe(datos => {
-          this.strTitulo = datos.message;
+          this.strTitulo = datos.mensaje;
           this.strsubtitulo = "";
-          this.iconType = datos.result ? "success" : "error";
+          this.iconType = datos.resultado ? "success" : "error";
           this.modal = true;
         });
       }

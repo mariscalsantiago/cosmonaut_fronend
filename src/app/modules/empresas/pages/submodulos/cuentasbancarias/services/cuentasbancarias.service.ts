@@ -13,6 +13,10 @@ export class CuentasbancariasService {
        return this.http.get("/yared/cuentaBanco/listar/todos");
   }
 
+  public getCuentaBancariaById(){
+      return this.http.get("");
+  }
+
 
   public getListaBancos():Observable<any>{
     let arreglobanco = {

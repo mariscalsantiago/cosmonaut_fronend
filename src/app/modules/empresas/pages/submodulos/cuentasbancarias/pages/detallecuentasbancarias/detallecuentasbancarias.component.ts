@@ -39,7 +39,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
     });
 
 
-    let obj = {csBanco:{bancoId:0}};
+    let obj = {bancoId:{bancoId:0}};
 
     if (!this.esInsert) {//Solo cuando es modificar
       obj = history.state.data;
@@ -65,11 +65,11 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
       numeroCuenta: [obj.numeroCuenta, [Validators.required]],
       nombreCuenta: [obj.nombreCuenta, [Validators.required]],
-      idbanco: [obj.csBanco.bancoId, [Validators.required]],
+      idbanco: [obj.bancoId.bancoId, [Validators.required]],
       descripcion: [obj.descripcion],
-      num_informacion: [obj.num_informacion],
+      num_informacion: [obj.numInformacion],
       clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
-      num_sucursal: [obj.num_sucursal]
+      num_sucursal: [obj.numSucursal]
 
     });
 
@@ -129,37 +129,41 @@ export class DetallecuentasbancariasComponent implements OnInit {
           numeroCuenta: obj.numeroCuenta,
           nombreCuenta: obj.nombreCuenta,
           descripcion: obj.descripcion,
-          num_informacion: obj.num_informacion,
+          numInformacion: obj.num_informacion,
           clabe: obj.clabe,
-          num_sucursal: obj.num_sucursal,
-          nclCentrocCliente: {
-            centrocClienteId: this.id_empresa
-          },
-          csBanco: {
+          numSucursal: obj.num_sucursal,
+          centrocClienteId: this.id_empresa,
+          bancoId: {
             bancoId: obj.idbanco
           }
         };
 
 
+        console.log(peticion);
+        
+
         if (this.esInsert) {
 
           this.cuentasPrd.save(peticion).subscribe(datos => {
 
-            this.iconType = datos.result ? "success" : "error";
+            this.iconType = datos.resultado ? "success" : "error";
 
-            this.strTitulo = datos.message;
-            this.strsubtitulo = datos.message
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje
             this.modal = true;
+
+            console.log("Esto trae al guardar");
+            console.log(datos);
 
           });
         } else {
 
           this.cuentasPrd.modificar(peticion).subscribe(datos => {
 
-            this.iconType = datos.result ? "success" : "error";
+            this.iconType = datos.resultado ? "success" : "error";
 
-            this.strTitulo = datos.message;
-            this.strsubtitulo = datos.message
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje
             this.modal = true;
 
           });
@@ -173,7 +177,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
       this.modal = false;
 
       if (this.iconType == "success") {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
+        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
       }
     }
 
