@@ -1,0 +1,61 @@
+<br>
+<div>
+
+ 
+
+  <div class="row margen">
+    <div class="col titulo">
+      <label>RESULTADOS</label>
+    </div>
+    <div class="col text-right">
+      <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+        <i class="fa fa-plus"></i>Agregar
+      </button>
+    </div>
+  </div>
+  <div class="row margen margen-tabla background-panel scrooll">
+    
+
+    <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th scope="col">Nombre cuenta</th>
+          <th scope="col">No. Cuenta</th>
+          <th scope="col">Nombre Banco</th>
+          <th scope="col">Cuenta CLABE</th>
+          <th scope="col " >Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of arreglo;">
+          <th><i class="fas fa-id-card"></i></th>
+          <td >{{item.nombreCuenta}} </td>
+          <td style="color:  #00DED4">{{item.numeroCuenta}} </td>
+          <td>{{item.csBanco.nombreCorto}} </td>
+          <td>{{item.clabe}} </td>
+          <td  class="opciones">
+            <button ><i class="far fa-eye primary"></i></button>
+            <button (click)="verdetalle(item)" ><i class="fas fa-pen primary"></i></button>
+            <button (click)="eliminar(item)"><i class="fas fa-trash-alt danger"></i></button>
+          </td>
+        </tr>
+
+
+
+      </tbody>
+    </table>
+    <div *ngIf="!cargando && arreglo === undefined" class="alert alert-warning col text-center">
+      <strong>Sin usuarios</strong> La tabla de cuentas bancarias esta vacía.
+    </div>
+    <div *ngIf="cargando" class="col text-center mb-5">
+      <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+    </div>
+  </div>
+
+
+
+</div>
+
+
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)" ></app-alert-questions>

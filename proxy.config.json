@@ -1,9 +1,17 @@
 {
     "/api/*":{
-        "target":"http://0faa0bfffc28.ngrok.io",
+        "target":"http://4e17087d1f7f.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/api": ""
+          },
+         "changeOrigin": true
+    },
+    "/yared/*":{
+        "target":"http://9192432d3091.ngrok.io",
+        "secure":false,
+        "pathRewrite": {
+            "^/yared": ""
           },
          "changeOrigin": true
     }

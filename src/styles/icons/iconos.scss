@@ -63,13 +63,19 @@
 
   }
 
-  .icon_admon{
+  .icon_admoncos{
     $rutaimg:'../../assets/icons/ICO_admon.svg';
     @include icono-imagen($dark);
     -webkit-mask: url($rutaimg) no-repeat center;
     mask: url($rutaimg) no-repeat center;
   }
 
+  .icon_admon{
+    $rutaimg:'../../assets/icons/ICO_administrador.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+  }
   .icontable_down{
     $rutaimg:'../../assets/icons/icontable_down.svg';
     @include icono-imagen($dark);
@@ -109,6 +115,22 @@
 
   .icon_upload{
     $rutaimg:'../../assets/icons/ICO_upload.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+  .icon_ver{
+    $rutaimg:'../../assets/icons/ICO_ver.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+
+
+  .icon_download{
+    $rutaimg : '../../assets/icons/ICCO_DOWNLD.svg';
     @include icono-imagen($dark);
     -webkit-mask: url($rutaimg) no-repeat center;
     mask: url($rutaimg) no-repeat center;

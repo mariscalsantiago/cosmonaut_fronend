@@ -9,6 +9,7 @@ import { usuariosRoutingModule } from './usuarios-routing.module';
 import { ShareModule } from 'src/app/shared/share.module';
 import { DetalleUsuarioComponent } from './pages/detalle-usuario/detalle-usuario.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { CoreModule } from 'src/app/core/core.module';
 
 
 
@@ -19,7 +20,8 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
     CommonModule,
     usuariosRoutingModule,
     ShareModule,
-    FormsModule,ReactiveFormsModule
+    FormsModule,ReactiveFormsModule,
+    CoreModule
   ],
   providers: [
     UsuarioService

@@ -31,8 +31,34 @@ $green:#67BF89;
 $blue:#1C8DD4;
 $orange:#E17B5B;
 $yellow:#FED630;
+$light_titulo:#7C7C7C;
 
 
 $fondo: #022538;
+
+
+$pantallamovil:600px;
+
+
+.primary{
+    color:$secondary;
+    font-size: large;
+}
+
+.danger{
+    color:$orange;
+    font-size: large;
+}
+
+
+.primary-bg{
+    background-color:$secondary !important;
+}
+
+.danger-bg{
+    background-color:$orange !important;
+}
+
+
 
 

@@ -1,0 +1,112 @@
+<div class="m-3">
+    <div class="row">
+        <div class="col titulo-outlet">
+            <label>LISTA DE EMPLEADOS</label>
+        </div>
+    </div>
+    <div class="row col  mt-2" style="color:white">
+        <p class="interlineado" style="color:white">1.-Dar click al nombre del empleado para ir a su perfil.</p>
+        <p class="interlineado" style="color:white">2.-Filtrar los empleados por área o por sede, simplemente haciendo click en el menú.</p>
+    </div>
+</div>
+
+<div class="margen">
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist" id="navegadorTabs">
+        <li class="nav-item">
+            <a class="nav-link active" id="altasid" data-toggle="tab" href="#altas" role="tab" aria-controls="alta"
+                aria-selected="true">Activos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="bajaid" data-toggle="tab" href="#baja" role="tab" aria-controls="profile"
+                aria-selected="false">Bajas</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
+
+            <div class="mt-2">
+
+                <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
+                <div class="form group row margen">
+                    <div class=" input-group-sm mb-3 col-3 ">
+                        <input type="date" class="form-control" placeholder="Nombre completo">
+                    </div>
+                    <div class=" input-group-sm mb-3 col-3 ">
+                        <input type="email" class="form-control" placeholder="Ärea o empresa">
+                    </div>
+                    <div class=" input-group-sm mb-3 col-3 ">
+                        <select name="" id="" class="form-control">
+                            <option value="" selected>Filtrar por</option>
+                            <option value="">Nombre</option>
+                        </select>
+                    </div>
+                    <div class=" input-group-sm mb-3 col-2 ">
+                        <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
+                    </div>
+
+                </div>
+
+
+                <div class="row margen">
+                    <div class="col titulo">
+                      <label>RESULTADOS</label>
+                    </div>
+                  </div>
+
+
+                  <div class="row   margen-tabla background-panel scrooll">
+                    <div class="col" >
+                        <table   class="table table-hover  ">
+                            <thead class="head">
+                              <tr>
+                                <th scope="col" style="width: 44px;"> </th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">ID</th>
+                                <th scope="col" *ngIf="tamanio >= 600">Puesto</th>
+                                <th scope="col" *ngIf="tamanio >= 600">Área</th>
+                                <th scope="col" *ngIf="tamanio >= 600">Sede</th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-muted body">
+                              <tr >
+                                <td style="width: 44px;" scope="row">
+                                    <img width="60px" height="60px" src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..." class="tableimg">    
+                                </td>
+                                <td routerLink="/empleados/1/personal">Santiago antonio </td>
+                                <td style="color:  #00DED4">16386</td>
+                                <td *ngIf="tamanio >= 600">Head of Sales </td>
+                                <td *ngIf="tamanio >= 600">Sales</td>
+                                <td *ngIf="tamanio >= 600">Av. La Mar 1120, Miraflores, Lima, Perú</td>
+                              </tr>
+                         
+                      
+                              
+                      
+                      
+                            </tbody>
+                          </table>
+                    </div>
+                  </div>
+
+
+
+
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="baja" role="tabpanel" aria-labelledby="profile-tab">
+
+
+           <div class="m-3">
+
+            <p class="text-light">hola desde aqui</p>
+
+           </div>
+
+        </div>
+
+    </div>
+
+
+</div>

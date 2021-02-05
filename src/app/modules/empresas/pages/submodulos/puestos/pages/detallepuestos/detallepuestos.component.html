@@ -1,0 +1,53 @@
+<br><br>
+ <form  [formGroup]="myFormrep" (ngSubmit)="enviarPeticion()">
+  
+    <input type="hidden" formControlName="personaId">
+  
+    <div class="background-panel margen">
+      <br>
+        <div class="form-group row margen">
+          <label class="titulo">INFORMACIÓN DE ÁREA</label></div>
+        <div class="form group row margen">
+  
+            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+              <label >Empresa *</label>
+              <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
+              <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
+                  Favor de ingresar empresa
+                </div>
+    
+            </div>
+            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+              <label >Nombre del área *</label>
+              <input formControlName="apellidoPat" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPat.errors && f.apellidoPat.touched}"
+                  placeholder="">
+                  <div *ngIf="f.apellidoPat.errors && f.apellidoPat.touched" class="invalid-feedback">
+                      Favor de ingresar nombre del área
+                    </div>
+    
+            </div>
+
+            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+              <label >Nombre del puesto *</label>
+              <input formControlName="ibaNacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.ibaNacionalidadId.errors && f.ibaNacionalidadId.touched}"
+                  placeholder="">
+                  <div *ngIf="f.ibaNacionalidadId.errors && f.ibaNacionalidadId.touched" class="invalid-feedback">
+                      Favor de ingresar nombre del puesto
+                    </div>
+    
+            </div>
+            
+  
+        </div>
+    
+    
+    </div>
+  
+    <div class="text-center margin" style="margin-bottom: 20px;">
+      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
+      <button [disabled]="!myFormrep.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+  </div>   
+  
+  </form>
+  
+  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>

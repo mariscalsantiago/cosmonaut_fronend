@@ -3,6 +3,9 @@
 
 
 
+$pantallamovil:600px;
+
+
 %bloque{
     float: left;
     text-align: center;
@@ -29,8 +32,56 @@
         max-width: 250px;
         height: auto;
         
+        
+    }
+
+    @media only screen and (max-width : $pantallamovil)
+    {
+
+
+        float: none;
+
+
     }
 }
+
+.displaymovil{
+
+    @media only screen and (max-width : $pantallamovil)
+    {
+
+
+        width: 100%!important;
+        .letra {
+            font-size: 14px!important;
+        }
+
+        img{
+            max-width: 130px;
+        }
+
+        top: 0!important;
+        position: absolute !important;
+        bottom: 0 !important;
+        overflow: auto !important;
+        left: 0;
+        right: 0;
+        #formulario{
+            width: 100%;
+        }
+    }
+    div{
+
+        margin: auto;
+
+    }
+
+  
+}
+
+
+
+
 
 
 

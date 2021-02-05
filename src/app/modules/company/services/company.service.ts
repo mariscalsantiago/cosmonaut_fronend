@@ -12,43 +12,54 @@ export class CompanyService {
 
   constructor(private http:HttpClient) { 
 
-    this.url = direcciones.company;
+    //this.url = direcciones.company;
 
-    this.url = '/api/company/';
+    this.url = '/api';
 
   }
 
-  public getByCompany(id_company:number):Observable<any>{
-    debugger;
-      return this.http.get(`/api/company/findById/${id_company}`);
-  }
-
-  public getAll():Observable<any>{
+   public getAll():Observable<any>{
+    console.log("http",this.http);
+    return this.http.get(`/api/centroCostosCliente/lista/compania`);
     
+   
+  }
+
+  public getAllCont(obj:any):Observable<any>{
     debugger;
-
-    return this.http.get(`${this.url}/findAll/`);
-
+    
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json:string = JSON.stringify(obj);
+    return this.http.post(`/api/persona/lista/compania/tipoPersona`,json,httpOptions);
   }
 
   public save(obj:any):Observable<any>{
-   
     const httpOptions={
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-
-
-
-
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/save`,json,httpOptions);
+    return this.http.put(`/api/centroCostosCliente/guardar/compania`,json,httpOptions);
+  }
+
+  public savecont(obj:any):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json:string = JSON.stringify(obj);
+
+    return this.http.put(`/api/persona/guardar/contacto/inicial`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
-    
     const httpOptions={
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -56,11 +67,22 @@ export class CompanyService {
     };
 
 
+    let json:string = JSON.stringify(obj);
+
+    return this.http.post(`/api/centroCostosCliente/modificar/compania`,json,httpOptions);
+  }
+  
+  public modificarCont(obj:any):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/update`,json,httpOptions);
+    return this.http.post(`/api/persona/modificar/usuario`,json,httpOptions);
   }
 
   

@@ -18,12 +18,19 @@ table{
 
 .margen-tabla table{
     margin:15px;
+
+
 }
 
 
-td{
-    color:rgb(49, 49, 49);
+th{
+    white-space: nowrap;
+}
 
+td{
+    color:#616060;
+    
+    white-space: nowrap;
     button{
         border: 0px solid black;
         margin-left: 2px;
@@ -44,11 +51,7 @@ td{
 }
 
 
-table{
-    tr{
-        cursor: pointer;
-    }
-}
+
 
 .botonmultiseleccion{
     margin: auto;
@@ -70,4 +73,5 @@ table{
         background-color: #00c1af !important;
     }
 }
+
 

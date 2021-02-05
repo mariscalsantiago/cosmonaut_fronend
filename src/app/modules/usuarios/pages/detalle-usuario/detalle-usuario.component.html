@@ -1,6 +1,7 @@
 <div class="row margen">
     <div class="col titulo-outlet">
-        <label >INFORMACIÓN BÁSICA</label>
+  
+        <label ><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/usuarios"></i>INFORMACIÓN BÁSICA</label>
     </div>
 </div>
 
@@ -9,59 +10,50 @@
 
 <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
 
-    <input type="hidden" formControlName="id">
-
-    <div class="background-panel margen">
-        <div class="form-group row margen"><label class="titulo">SELECCIONAR</label></div>
-        <div class="form group row margen">
-            <div class="input-group-sm mb-4 col-4">
-                <label for="exampleFormControlSelect1">TIPO DE USUARIO</label>
-                <select formControlName="idTipoUsuario" class="form-control" id="exampleFormControlSelect1">
-                  <option>1</option>
-                </select>
-            </div>
-            <div class="input-group-sm mb-4 col-4">
-                <label for="exampleFormControlSelect1">COMPAÑIA</label>
-                <select formControlName="idCompañia" class="form-control" id="exampleFormControlSelect1">
-                  <option>1</option>
-                </select>
-            </div>
-            <div class="input-group-sm mb-4 col-4">
-                <label for="exampleFormControlSelect1">USUARIO INICIAL</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>1</option>
-                </select>
-            </div>
-        </div>
-    </div>
+    <input type="hidden" formControlName="personaId">
 
     <div class="background-panel margen" >
 
         <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE USUARIO</label></div>
         <div class="form-group row margen">
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label for="exampleFormControlSelect1">Compañia *</label>
+                <select [disabled]="!insertar" formControlName="centrocClienteId" class="form-control" id="exampleFormControlSelect1">
+                  <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row margen">
         
-            <div class=" input-group-sm mb-3 col-4 ">
-                <label for="exampleInputEmail1">NOMBRE</label>
-                <input formControlName="nombre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >Nombre *</label>
+                <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
+                <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
+                    Favor de ingresar el Nombre
+                  </div>
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >Apellido Paterno *</label>
+                <input formControlName="apellidoPat" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPat.errors && f.apellidoPat.touched}"
+                    placeholder="">
+                    <div *ngIf="f.apellidoPat.errors && f.apellidoPat.touched" class="invalid-feedback">
+                        Favor de ingresar el Apellido Paterno
+                      </div>
+    
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >Apellido Materno</label>
+                <input formControlName="apellidoMat" type="text" class="form-control" 
                     placeholder="">
     
             </div>
-            <div class=" input-group-sm mb-3 col-4">
-                <label for="exampleInputEmail1">APELLIDO PATERNO</label>
-                <input formControlName="apellidoPaterno" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >CURP</label>
+                <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}"
                     placeholder="">
-    
-            </div>
-            <div class=" input-group-sm mb-3 col-4">
-                <label for="exampleInputEmail1">APELLIDO MATERNO</label>
-                <input formControlName="apellidoMaterno" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="">
-    
-            </div>
-            <div class=" input-group-sm mb-3 col-4">
-                <label for="exampleInputEmail1">CURP</label>
-                <input formControlName="curp" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="">
+                    <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
+                        CURP invalida, favor de verificar
+                      </div>
     
             </div>
         </div>
@@ -74,35 +66,52 @@
         <div class="form-group row margen"><label class="titulo">CONTACTO</label></div>
         <div class="form group row margen">
 
-            <div class=" input-group-sm mb-3 col-4">
-                <label for="exampleInputEmail1">CORREO EMPRESARIAL</label>
-                <input formControlName="correoEmpresarial" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >Correo Corporativo*</label>
+                <input formControlName="emailCorp" type="email" class="form-control" [ngClass]="{'is-invalid':f.emailCorp.errors && f.emailCorp.touched}"
+                    placeholder="">
+                    <div *ngIf="f.emailCorp.errors?.required && f.emailCorp.touched" class="invalid-feedback">
+                        Favor de ingresar el Correo Corporativo
+                      </div>
+                      <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
+                        Correo Corporativo invalido, Favor de verificar
+                      </div>
+    
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >Correo Personal*</label>
+                <input formControlName="ciEmailPersonal" type="email" class="form-control"  [ngClass]="{'is-invalid':f.ciEmailPersonal.errors && f.ciEmailPersonal.touched}"
+                    placeholder="">
+
+                    <div *ngIf="f.ciEmailPersonal.errors?.required && f.ciEmailPersonal.touched" class="invalid-feedback">
+                        Favor de ingresar el Correo Personal
+                      </div>
+                      <div *ngIf="f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched" class="invalid-feedback">
+                        Correo Personal invalido, Favor de verificar
+                      </div>
+    
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >Teléfono*</label>
+                <input formControlName="ciTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.ciTelefono.errors && f.ciTelefono.touched}"
+                    placeholder="">
+
+                    <div *ngIf="f.ciTelefono.errors && f.ciTelefono.touched" class="invalid-feedback">
+                        Favor de ingresar el Teléfono
+                      </div>
+    
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >Fecha de registro*</label>
+                <input formControlName="fechaAlta" type="date" class="form-control" 
                     placeholder="">
     
             </div>
-            <div class=" input-group-sm mb-3 col-4">
-                <label for="exampleInputEmail1">CORREO PERSONAL</label>
-                <input formControlName="correoPersonal" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="">
-    
-            </div>
-            <div class=" input-group-sm mb-3 col-4">
-                <label for="exampleInputEmail1">TELEFONO</label>
-                <input formControlName="telefono" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="">
-    
-            </div>
-            <div class=" input-group-sm mb-3 col-4">
-                <label for="exampleInputEmail1">FECHA DE REGISTRO</label>
-                <input formControlName="fechaRegistro" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="">
-    
-            </div>
-            <div class="input-group-sm mb-4 col-4">
-                <label for="exampleFormControlSelect1">STATUS</label>
-                <select formControlName="status" class="form-control" id="exampleFormControlSelect1">
-                  <option selected>ACTIVO</option>
-                  <option>INACTIVO</option>
+            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                <label for="exampleFormControlSelect1">Estado*</label>
+                <select formControlName="esActivo" class="form-control">
+                  <option value="true" selected>ACTIVO</option>
+                  <option value="false">INACTIVO</option>
                 </select>
             </div>
         </div>
@@ -143,12 +152,15 @@
 
 
     <div class="text-center margin" style="margin-bottom: 20px;">
-        <button [disabled]="myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
+        
+        <button (click)="cancelar()" class="btn btn-primary button-outlet ">Cancelar</button>
+        <button [disabled]="!myForm.valid" type="submit" class="btn btn-primary button-fill">Guardar</button>
     </div>   
 
 </form>
 
 
-<app-alert-questions *ngIf="modal"   (eventoFunciones)="recibir($event)"></app-alert-questions>
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
+
 
 

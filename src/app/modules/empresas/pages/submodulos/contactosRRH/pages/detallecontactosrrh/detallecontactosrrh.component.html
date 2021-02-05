@@ -1,0 +1,97 @@
+<br><br>
+
+  
+  
+  <hr>
+  
+  
+  <form [formGroup]="myForm"  (ngSubmit)="enviarPeticion()">
+  
+    <input formControlName="personaId" type="hidden" >
+  
+    <div  class="background-panel margen" >
+        <div class="form-group row margen">
+          <label class="titulo">Campos a rellenar</label></div>
+        <div class="form-group row margen">
+        
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Nombre *</label>
+                <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && subbmitActive}"  placeholder="">
+                <div *ngIf="f.nombre.errors && subbmitActive" class="invalid-feedback">
+                    Favor de ingresar el nombre.
+                  </div>
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Apellido Paterno *</label>
+                <input formControlName="apellidoPat" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPat.errors && subbmitActive}"  placeholder="">
+                <div *ngIf="f.apellidoPat.errors && subbmitActive" class="invalid-feedback">
+                    Favor de ingresar el aṕellido paterno.
+                  </div>
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Apellido Materno</label>
+                <input formControlName="apellidoMat"  type="text" class="form-control"  placeholder="">
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>CURP</label>
+                <input formControlName="curp" maxlength="18" type="text" class="form-control" [ngClass]="{'is-invalid':(f.curp.errors?.required && subbmitActive) || (f.curp.errors?.pattern && f.curp.touched)}" placeholder="">
+                <div *ngIf="f.curp.errors?.required && subbmitActive" class="invalid-feedback">
+                  Favor de ingresar el curp.
+                </div>
+                <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
+                  CURP invalida, favor de verificar
+                </div>
+
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Correo empresarial</label>
+                <input formControlName="emailCorp"  type="text" class="form-control" [ngClass]="{'is-invalid':(f.emailCorp.errors?.required && subbmitActive) || (f.emailCorp.errors?.email && f.emailCorp.touched)}"   placeholder="">
+                <div *ngIf="f.emailCorp.errors?.required && subbmitActive" class="invalid-feedback">
+                  Favor de ingresar el correo corporativo.
+                </div>
+                <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
+                  Error en el correo corporativo, favor de verificar.
+                </div>
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Correo Personal</label>
+                <input formControlName="ciEmailPersonal"  type="text" class="form-control" [ngClass]="{'is-invalid':(f.ciEmailPersonal.errors?.required && subbmitActive) || (f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched)}"  placeholder="">
+                <div *ngIf="f.ciEmailPersonal.errors?.required && subbmitActive" class="invalid-feedback">
+                  Favor de ingresar el correo personal.
+                </div>
+                <div *ngIf="f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched" class="invalid-feedback">
+                  Error en el correo personal, favor de verificar.
+                </div>
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Teléfono</label>
+                <input formControlName="ciTelefono" maxlength="10" type="text" class="form-control" [ngClass]="{'is-invalid':f.ciTelefono.errors && subbmitActive}"  placeholder="">
+                <div *ngIf="f.ciTelefono.errors && subbmitActive" class="invalid-feedback">
+                  Favor de ingresar el Teléfono.
+                </div>
+              </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Extensión</label>
+                <input maxlength="8" formControlName="ciExtension"  type="text" class="form-control"  placeholder="">
+              </div>
+              <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >Fecha de registro</label>
+                <input formControlName="fechaAlta"  type="date" class="form-control" 
+                    placeholder="">
+    
+            </div>
+          
+        
+        </div>
+   
+    </div>
+    <div  class="text-center margin" style="margin-bottom: 20px;">
+      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()" >Cancelar</button>
+      <button  type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+  </div> 
+  
+  </form>
+  
+  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)" ></app-alert-questions>
+  
+  

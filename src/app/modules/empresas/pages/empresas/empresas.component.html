@@ -1,0 +1,212 @@
+<div class="row margen">
+  <div class="col titulo-outlet">
+    <label>{{titulo}}</label>
+  </div>
+</div>
+<hr>
+
+<form [formGroup]="myFormemp" (ngSubmit)="enviarPeticionemp()">
+
+  <input type="hidden" formControlName="personaId">
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist" id="navegadorTabs">
+      <li class="nav-item">
+          <a class="nav-link active" id="altasid" data-toggle="tab" href="#empresa" role="tab" aria-controls="empresa"
+              aria-selected="true">1. Datos de empresa</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" id="bajaid" data-toggle="tab" href="#bancarios" role="tab" aria-controls="bancarios"
+              aria-selected="false">2. Datos bancarios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="bajaid" data-toggle="tab" href="#imss" role="tab" aria-controls="imss"
+            aria-selected="false">3. Datos de IMSS</a>
+    </li>
+  </ul>
+  <br>
+<div class="contenido_component">
+  <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="empresa" role="tabpanel" aria-labelledby="home-tab">
+        <div class="background-panel margen">
+            <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE EMPRESA</label></div>
+            <div class="form group row margen">
+        
+          <div class="input-group-sm mb-3 col-4">
+              <label>Nombre de la empresa *</label>
+              <input formControlName="empresa" type="text" class="form-control" [ngClass]="{'is-invalid':f.empresa.errors && f.empresa.touched}"  placeholder="">
+              <div *ngIf="f.empresa.errors && f.empresa.touched" class="invalid-feedback">
+                  Favor de ingresar la Razón social.
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Razon social *</label>
+              <input type="text" class="form-control" id="razonsocial">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Logo</label>
+              <input type="submit" class="form-control" id="logo">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Actividad economica *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>RFC *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Registro patronal *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>CURP de la razón social *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Domicilio *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Entidad federativa *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Código postal *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Municipio o alcaldía *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Regimén fiscal *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+          <div class="input-group-sm mb-3 col-4">
+            <label>Prima de riesgo *</label>
+            <input type="text" class="form-control" id="nomEmpresa">
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="bancarios" role="tabpanel" aria-labelledby="profile-tab">
+
+        <div class="background-panel margen">
+          <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE EMPRESA</label></div>
+          <div class="form group row margen">
+      
+            <div class="input-group-sm mb-3 col-4">
+              <label>Cuentas bancarias *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+
+            <div class="input-group-sm mb-3 col-4">
+              <label>Cuenta STP *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            
+            <div class="input-group-sm mb-3 col-4">
+              <label>Cuenta CLABE STP *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="form-check ml-4 mt-4">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Lectura automática de horas extras</label>
+            </div>
+            <div class="input-group-sm mb-3 col-8"></div>
+            <div class="form-check ml-4 mt-4">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Cálculo automático de promedio variables</label>
+            </div>
+            <div class="input-group-sm mb-3 col-4"></div>
+            <div class="form-check ml-4 mt-4">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Usar STP como medio de transferencia para el pago de nóminas</label>
+            </div>
+            
+      </div>
+      <br><br><br><br><br><br><br>
+      </div>
+      </div>
+      <div class="tab-pane fade" id="imss" role="tabpanel" aria-labelledby="profile-tab">
+
+        <div class="background-panel margen">
+          <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE EMPRESA</label></div>
+          <div class="form group row margen">
+      
+            <div class="input-group-sm mb-3 col-4">
+              <label>Clave subdelegacional IMSS *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-8"></div>
+
+            <div class="input-group-sm mb-3 col-4">
+              <label>Certificado IMSS *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Usuario de certificado IMSS *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Contraseña de certificado IMSS *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Certificado FIEL *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Llave privada FIEL *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+             <div class="input-group-sm mb-3 col-4">
+              <label>Contraseña de llave privada FIEL *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Certificado de sello digital *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Llave de certificado de sello digital *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+              <label>Contraseña de certificado de sello digital *</label>
+              <input type="text" class="form-control" id="nomEmpresa">
+            </div>
+            <div class="form-check ml-4 mt-4">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">IMSS obrero integrado IMSS patronal para salario minimo</label>
+            </div>
+            <div class="input-group-sm mb-3 col-4"></div>
+            <div class="form-check ml-4 mt-4">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Enviar movimientos al IMSS mediante Cosmonaut</label>
+            </div>
+            <div class="input-group-sm mb-3 col-4"></div>
+            <div class="form-check ml-4 mt-4">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Enviar movimientos al IMSS mediante certificado IMSS</label>
+            </div>
+            <div class="input-group-sm mb-3 col-4"></div>
+            <div class="form-check ml-4 mt-4">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Enviar movimientos al IMSS mediante FIEL</label>
+            </div>
+      </div>
+      <br><br><br>
+      </div>
+      <div class="text-center margin" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelaremp()" >Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>   
+      </div>
+
+  </div>
+
+</div>
+</form>
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>

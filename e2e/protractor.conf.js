@@ -13,10 +13,13 @@ exports.config = {
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    browserName: 'chrome'
+    browserName: 'chrome',
+    'chromeOptions': {
+      'args': ['show-fps-counter=true',"--no-sandbox","--disable-dev-shm-usage",'--headless']
+    }
   },
   directConnect: true,
-  SELENIUM_PROMISE_MANAGER: false,
+  // SELENIUM_PROMISE_MANAGER: false,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',
   jasmineNodeOpts: {
@@ -33,5 +36,19 @@ exports.config = {
         displayStacktrace: StacktraceOption.PRETTY
       }
     }));
+    let HtmlReporter = require('protractor-beautiful-reporter');
+    jasmine.getEnv().addReporter(new HtmlReporter({
+      baseDirectory: 'reports',
+      screenshotsSubfolder: 'screenshotsOnFailure',
+      takeScreenShotsOnlyForFailedSpecs: true,
+      jsonsSubfolder: 'jsonFiles',
+      excludeSkippedSpecs: true,
+      preserveDirectory: false,
+      clientDefaults:{
+        showTotalDurationIn: "header",
+        totalDurationFormat: "h:m:s",
+        gatherBrowserLogs: true
+      },
+    }).getJasmine2Reporter());
   }
 };

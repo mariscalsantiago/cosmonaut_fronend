@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompanyService } from '../../services/company.service';
 
@@ -10,21 +10,21 @@ import { CompanyService } from '../../services/company.service';
 })
 export class CompanyComponent implements OnInit {
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    event.target.innerWidth;
 
+
+    this.tamanio = event.target.innerWidth;
+  }
+
+
+  public tamanio:number = 0;
   public cargando:Boolean = false;
 
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
-
-
-
-  /*
-    Directivas de filtros
-  */
-
-
-  public id_company:number = 1;
-
+  public changeIconDown: boolean = false;
 
 
   /*
@@ -39,13 +39,15 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    let documento:any = document.defaultView;
+
+    this.tamanio = documento.innerWidth;
 
     this.cargando = true;
 
-      this.companyProd.getAll().subscribe(datos =>{
+        this.companyProd.getAll().subscribe(datos =>{
 
-        this.arreglo = datos.data;
+        this.arreglo = datos.datos;
 
         this.cargando = false;
       });
@@ -56,10 +58,10 @@ export class CompanyComponent implements OnInit {
   public verdetallecom(obj:any){
     debugger;
     this.cargando = true;
-    this.routerPrd.navigate(['company','detalle_company'],{state:{data:obj}});
+    let tipoinsert = (obj == undefined)? 'nuevo':'modifica';
+    this.routerPrd.navigate(['company','detalle_company',tipoinsert],{state:{datos:obj}});
     this.cargando = false;
-    
-
+  
   }
 
 

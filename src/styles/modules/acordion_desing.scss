@@ -1,0 +1,46 @@
+.acordion_desplegable{
+
+
+    .card-header{
+        button{
+            color:$dark;
+            width: 100%;
+            text-align: left;
+            i{
+                float:right;
+                color:$primary;
+            }
+        }
+
+
+        button[aria-expanded="true"]{
+            color:$secondary;            
+        }
+
+        
+    }
+
+    .card-header:has(button){
+        background-color: red !important;
+    }
+
+    .card{
+        margin-bottom: 10px;
+
+
+    }
+
+    .cardselected{
+        border-left: 8px solid $secondary;
+        border-right: 8px solid $secondary;
+    }
+
+    .fondoblanco{
+        background-color: white;;
+    }
+
+    .titulorow{
+         color:rgb(94, 94, 94);
+    }
+}
+
