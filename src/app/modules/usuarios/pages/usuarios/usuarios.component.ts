@@ -27,7 +27,7 @@ export class UsuariosComponent implements OnInit {
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
   public numeroitems: number = 5;
-  public arreglotemp = [];
+  public arreglotemp:any = [];
   public arreglopaginas: Array<any> = [];
 
 
@@ -97,10 +97,14 @@ export class UsuariosComponent implements OnInit {
   public verdetalle(obj: any) {
 
 
-    let tipoinsert = (obj == undefined) ? 'new' : 'update';
+    if(obj == undefined){
 
-    this.routerPrd.navigate(['usuarios', 'detalle_usuario', tipoinsert], { state: { data: obj, company: this.arregloCompany } });
-    this.cargando = false;
+      this.routerPrd.navigate(['usuarios', 'detalle_usuario', "agregar"], { state: { company: this.arregloCompany } });
+
+    }else{
+
+      this.routerPrd.navigate(['usuarios', 'detalle_usuario', "actualizar",obj.personaId], { state: {  company: this.arregloCompany } });
+    }
 
 
   }
@@ -206,8 +210,16 @@ export class UsuariosComponent implements OnInit {
 
 
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-      this.arreglo = datos.datos;
-      console.log(datos);
+      this.arreglotemp = datos.datos;
+      if(this.arreglotemp != undefined ){
+        for(let item of this.arreglotemp)
+        {
+          item["centrocClienteId"] = {
+            nombre:item["razonSocial"]
+          }
+        }
+      }
+      this.paginar();
       this.cargando = false;
     });
 

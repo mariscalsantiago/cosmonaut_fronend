@@ -13,7 +13,11 @@ const routes: Routes = [
       path: 'usuarios',
       component: UsuariosComponent
     },{
-        path: 'usuarios/detalle_usuario/:tipoinsert',
+        path: 'usuarios/detalle_usuario/agregar',
+        component: DetalleUsuarioComponent
+      },
+      {
+        path: 'usuarios/detalle_usuario/actualizar/:idusuario',
         component: DetalleUsuarioComponent
       }
   ]
