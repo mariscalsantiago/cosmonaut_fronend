@@ -36,7 +36,7 @@ export class DetalleUsuarioComponent implements OnInit {
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
 
     this.verificarCompaniasExista();
-    if (!this.insertar) {
+    
 
       this.routerActivePrd.params.subscribe(parametros => {
         let id = parametros["idusuario"];
@@ -48,7 +48,6 @@ export class DetalleUsuarioComponent implements OnInit {
         }
       });
 
-    }
 
 
     this.objusuario.centrocClienteId = {};
