@@ -29,7 +29,7 @@ export class DetalleCompanyComponent implements OnInit {
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
   public objCompany:any;
-  public centrocClienteId:number = 2;
+  public centrocClienteId:number = 1;
   public tipoPersonaId:number = 3;
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,

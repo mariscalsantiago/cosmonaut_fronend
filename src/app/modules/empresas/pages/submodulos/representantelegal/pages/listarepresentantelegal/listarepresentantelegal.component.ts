@@ -19,6 +19,16 @@ export class ListarepresentantelegalComponent implements OnInit {
   public numeroitems: number = 5;
   public arreglopaginas: Array<any> = [];
 
+
+  public id_company: number = 0;
+
+  public nombre: string = "";
+  public apellidoPaterno: string = "";
+  public apellidoMaterno: string = "";
+  public contactoInicialEmailPersonal: string = "";
+  public emailCorporativo: string = "";
+
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     event.target.innerWidth;
@@ -69,7 +79,42 @@ export class ListarepresentantelegalComponent implements OnInit {
     this.cargando = false;
   }
 
+  public filtrar() {
+    debugger;
 
+    this.cargando = true;
+
+    let peticion = {
+
+      nombre: this.nombre,
+      apellidoPaterno: this.apellidoMaterno,
+      apellidoMaterno: this.apellidoMaterno,
+      emailCorporativo: this.emailCorporativo,
+      contactoInicialEmailPersonal: this.contactoInicialEmailPersonal,
+      centrocClienteId: {
+        centrocClienteId: (this.id_company) == 0 ? "" : this.id_company
+      },
+      tipoPersonaId: {
+        tipoPersonaId: 3
+      }
+    } 
+ 
+
+
+    this.representanteProd.filtrar(peticion).subscribe(datos => {
+      this.arreglo = datos.datos;
+      console.log(datos);
+      this.cargando = false;
+    });
+
+
+
+
+
+
+
+
+  }
 
   public paginar() {
 
