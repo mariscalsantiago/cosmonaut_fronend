@@ -44,6 +44,10 @@ export class CompanyService {
     };
     let json:string = JSON.stringify(obj);
 
+
+    console.log("lo que mando ");
+    console.log(json);
+
     return this.http.put(`/api/centroCostosCliente/guardar/compania`,json,httpOptions);
   }
 

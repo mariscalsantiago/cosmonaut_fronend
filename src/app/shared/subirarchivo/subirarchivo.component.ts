@@ -47,6 +47,7 @@ export class SubirarchivoComponent implements OnInit {
 
         this.imagen.arrayBuffer().then(datos =>{
           this.buffer = datos;
+          this.emiteimagen.emit(this.arrayBufferToBase64(datos));
         });
         
         break;
@@ -55,14 +56,12 @@ export class SubirarchivoComponent implements OnInit {
 
 
   public arrayBufferToBase64( buffer:any ) {
-    var binary = '';
-    var bytes = new Uint8Array( buffer );
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
+    let binary = '';
+    let bytes = new Uint8Array( buffer );
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
        binary += String.fromCharCode( bytes[ i ] );
     }
-
-    this.emiteimagen.emit(binary);
     return window.btoa( binary );
   }
 

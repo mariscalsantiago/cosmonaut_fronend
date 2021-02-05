@@ -154,8 +154,11 @@ export class DetalleCompanyComponent implements OnInit {
         let obj = this.myFormcomp.value;
         obj = {
           ...obj,
-          fechaAlta: this.fechaActual
+          fechaAlta: this.fechaActual,
+          imagen:this.imagen
         };
+
+        
 
         if (this.insertar) {
           
