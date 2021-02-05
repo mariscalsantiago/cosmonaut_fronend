@@ -125,12 +125,12 @@ public cancelarMulti(){
         let obj = this.myFormrep.value;
         let objEnviar:any = {
           nombre: obj.nombre,
-          apellidoPat: obj.apellidoPat,
-          apellidoMat: obj.apellidoMat,
+          apellidoPaterno: obj.apellidoPaterno,
+          apellidoMaterno: obj.apellidoMaterno,
           curp: obj.curp,
-          emailCorp: obj.emailCorp,
-          ciEmailPersonal: obj.ciEmailPersonal,
-          ciTelefono: obj.ciTelefono,
+          emailCorporativo: obj.emailCorporativo,
+          contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
+          contactoInicialTelefono: obj.contactoInicialTelefono,
           tipoRepresentanteId: {
             tipoRepresentanteId: this.tipoRepresentanteId
           },
@@ -143,7 +143,7 @@ public cancelarMulti(){
       }
 
         if(this.insertar){
-          objEnviar.fechaAlta= this.fechaActual;
+          //objEnviar.fechaAlta= this.fechaActual;
           
           this.representantePrd.save(objEnviar).subscribe(datos => {
             

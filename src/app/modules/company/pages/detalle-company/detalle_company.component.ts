@@ -136,10 +136,6 @@ this.companyPrd.getAllCont(objEnviar).subscribe(datos =>{
     if(this.iconType == "warning"){
       if ($evento) {
         let obj = this.myFormcomp.value;
-               obj = {
-                ...obj,
-                fechaAlta: this.fechaActual,
-              };
 
         if(this.insertar){
           debugger;
