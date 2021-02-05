@@ -32,6 +32,7 @@ export class DetalleCompanyComponent implements OnInit {
   public centrocClienteId: number = 1;
   public tipoPersonaId: number = 3;
   public submitEnviado: boolean = false;
+  public imagen:any = undefined;
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router) {
@@ -59,7 +60,7 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.myFormcomp = this.createFormcomp((this.objCompany));
     this.compania = true;
@@ -86,7 +87,7 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public verdetallecont(obj: any) {
-    debugger;
+    
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
     this.routerPrd.navigate(['company', 'detalle_contacto', tipoinsert], { state: { datos: obj } });
@@ -99,7 +100,7 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public listaContacto() {
-    debugger;
+    
     let objEnviar: any = {
 
       centrocClienteId: {
@@ -146,18 +147,18 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
   public recibir($evento: any) {
-    debugger;
+    
     this.modal = false;
     if (this.iconType == "warning") {
       if ($evento) {
         let obj = this.myFormcomp.value;
         obj = {
           ...obj,
-          fechaAlta: this.fechaActual,
+          fechaAlta: this.fechaActual
         };
 
         if (this.insertar) {
-          debugger;
+          
 
           this.companyPrd.save(obj).subscribe(datos => {
 
@@ -177,7 +178,7 @@ export class DetalleCompanyComponent implements OnInit {
 
         } else {
 
-          debugger;
+          
 
           this.companyPrd.modificar(obj).subscribe(datos => {
             this.iconType = datos.resultado ? "success" : "error";
@@ -198,6 +199,14 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
   get f() { return this.myFormcomp.controls; }
+
+
+  public recibirImagen(imagen:any){
+
+    console.log("recibo la imagen",imagen);
+    this.imagen = imagen;
+
+  }
 
 
 }

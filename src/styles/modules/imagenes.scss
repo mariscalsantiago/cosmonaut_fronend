@@ -1,0 +1,66 @@
+.logocaja{
+    background-color: rgb(255, 255, 255);
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    border: 1px solid #ced4da;
+    padding: inherit;
+    padding-top: 58px;
+
+    img{
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+    }
+
+    &.anulartop{
+        padding-top: 3px;
+    }
+
+    p{
+        font-size: x-small;
+        text-align: center;
+    }
+    button{
+        margin: auto;
+        display: block;
+        width: 119px;
+    }
+    .mostrar{
+        display: none;
+    }
+    .mostrar2{
+        display: none;
+    }
+
+
+    &.seleccionado{
+        border: 3px dotted #4cc1b0;
+        background-color: #f5f7f8;
+        button{
+            display: none;
+        }
+        .titulo{
+            display: none;
+        }
+        .mostrar{
+            display: block;
+            color:$primary;
+            font-size: large;
+        }
+
+    }
+
+    &.errorimagen{
+  
+        border: 3px dotted red;
+        
+
+
+        .mostrar2{
+            display: block;
+            color:red;
+        }
+
+    }
+}
