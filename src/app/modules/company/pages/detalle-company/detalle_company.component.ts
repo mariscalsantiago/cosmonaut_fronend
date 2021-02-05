@@ -29,11 +29,7 @@ export class DetalleCompanyComponent implements OnInit {
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
   public objCompany:any;
-<<<<<<< HEAD
   public centrocClienteId:number = 1;
-=======
-  public centrocClienteId:number = 2;
->>>>>>> origin/samv
   public tipoPersonaId:number = 3;
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,

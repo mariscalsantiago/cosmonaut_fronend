@@ -17,10 +17,6 @@ const routes: Routes = [
     {
       path: 'company/detalle_company/:tipoinsert',
       component: DetalleCompanyComponent
-    },
-    {
-      path: 'company/detalle_contacto/:tipoinsert',
-      component: DetalleContactoComponent
     }
   ]
 }];

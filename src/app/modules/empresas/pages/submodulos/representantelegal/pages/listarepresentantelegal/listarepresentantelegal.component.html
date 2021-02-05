@@ -28,24 +28,28 @@
               <div class="card-body">
                 <div class="form group row margen">
                   <div class=" input-group-sm mb-3 col-12 col-md-6 col-lg-4 ">
-                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      <input type="text" [(ngModel)]="nombre" class="form-control"
                           placeholder="Nombre de representante legal">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-md-6  col-lg-4">
-                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                          placeholder="Apellido materno">
+                      <input type="text" [(ngModel)]="apellidoPaterno" class="form-control"
+                          placeholder="Apellido paterno">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-md-6  col-lg-4">
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input type="text" [(ngModel)]="apellidoMaterno" class="form-control"
+                        placeholder="Apellido materno">
+                </div>
+                  <div class=" input-group-sm mb-3 col-12 col-md-6  col-lg-4">
+                      <input type="email" [(ngModel)]="emailCorporativo" class="form-control"
                           placeholder="Correo empresarial">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-md-6 col-lg-4 ">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input type="text" [(ngModel)]="contactoInicialEmailPersonal" class="form-control"
                         placeholder="Correo personal">
                 </div>
-              <div class=" input-group-sm mb-3 col-12 col-md-2 text-center ">
-                <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
-            </div>
+                <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+                  <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
+                </div>
               
               </div>
               </div>
@@ -110,8 +114,8 @@
                     <tr *ngFor="let item of arreglo;">
                         <td style="color:  #00DED4">{{item.personaId}} </td>
                         <td>{{item.nombre}} </td>
-                        <td *ngIf="tamanio >=600">{{item.apellidoPataterno}}</td>
-                        <td *ngIf="tamanio >=600">{{item.apellidoMataterno}}</td>
+                        <td *ngIf="tamanio >=600">{{item.apellidoPaterno}}</td>
+                        <td *ngIf="tamanio >=600">{{item.apellidoMaterno}}</td>
                         <td *ngIf="tamanio >=600">{{item.curp}}</td>
                         <td *ngIf="tamanio >=600">{{item.emailCorporativo}}</td>
                         <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
@@ -125,7 +129,7 @@
                 </tbody>
               </table>
               <div *ngIf="!cargando && arreglo === undefined"   class="alert alert-warning col text-center">
-                <strong>Sin usuarios</strong> La tabla de usuario esta vacía.
+                <strong>Sin representantes legales</strong> La tabla de representantes legales esta vacía.
               </div>
              <div  *ngIf="!cargando && arreglo !== undefined && !multiseleccion" class="row" style="width: 100%;">
                <div class="col" > 
