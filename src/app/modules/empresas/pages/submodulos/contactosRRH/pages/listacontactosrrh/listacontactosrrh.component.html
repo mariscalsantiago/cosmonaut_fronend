@@ -101,7 +101,7 @@
           <td *ngIf="tamanio >=600">{{item.centrocClienteId.nombre}}</td>
           <td *ngIf="tamanio >=600">{{item.emailCorporativo}}</td>
           <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
-          <td *ngIf="tamanio >=600">{{(item.activo)?'Activo':'Inactivo'}}</td>
+          <td *ngIf="tamanio >=600">{{(item.activo)}}</td>
           <td  class="opciones">
             <button ><i class="icon_ver primary-bg"></i></button>
             <button (click)="verdetalle(item)" ><i class="icon_editar primary-bg"></i></button>

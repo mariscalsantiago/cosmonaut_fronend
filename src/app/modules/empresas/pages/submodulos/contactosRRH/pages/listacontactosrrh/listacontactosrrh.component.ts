@@ -60,6 +60,7 @@ export class ListacontactosrrhComponent implements OnInit {
         this.arreglo = datos.datos;
         this.cargando = false;
         console.log(this.arreglo);
+        console.log(this.arreglo);
       });
 
     });
