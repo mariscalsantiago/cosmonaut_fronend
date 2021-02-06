@@ -34,17 +34,18 @@
                   <ng-container *ngFor="let item of arreglo;let indice = index;">
                     <tr>
                         <td style="color:  #00DED4">{{item.areaId}} </td>
-                        <td>{{item.descripcion}} </td>
-                        <td *ngIf="tamanio >=600">{{item.nclCentrocCliente.razonSocial}}</td>
-                        <td *ngIf="tamanio >=600">{{item.nclCentrocCliente.centrocClienteId }}</td>
+                        <td>{{item.nombreCorto}} </td>
+                        <td *ngIf="tamanio >=600">{{item.razonSocial}}</td>
+                        <td *ngIf="tamanio >=600">{{item.count }}</td>
                         <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
                         <td *ngIf="tamanio >=600">{{(item.esActivo)?'Activo':'Inactivo'}}</td>
-                        <td class="Acciones">
-                          <button (click)="verdetalle(item)"><i class="fas fa-pen primary"></i></button>
+                        <td class="opciones">
+                          <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
                           <button (click)="eliminar(item)"><i class="icon_eliminar danger-bg"></i></button>
                           <button (click)="apagando(indice); "><i *ngIf="!item.seleccionado" class="fas fa-chevron-down primary" style="font-size: 14px;
                               margin: 9px;"></i><i *ngIf="item.seleccionado" class="fas fa-chevron-up primary" style="font-size: 14px;
                               margin: 9px;"></i></button>
+              
                         </td>
                       </tr>
 
@@ -117,7 +118,7 @@
                 </tbody>
               </table>
               <div *ngIf="!cargando && arreglo === undefined" class="alert alert-warning col text-center">
-                <strong>Sin empresas</strong> La tabla de empresas esta vacía.
+                <strong>Sin áreas</strong> La tabla de áreas esta vacía.
               </div>
               <div *ngIf="cargando" class="col text-center mb-5">
                 <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
@@ -129,5 +130,6 @@
   
   
   
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
   
   
