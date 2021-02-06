@@ -46,12 +46,9 @@
           </div>
           
           <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <label >Correo corporativo *</label>
-            <input formControlName="emailCorp" type="email" class="form-control" [ngClass]="{'is-invalid':f.emailCorp.errors && submitEnviado}"
+            <label >Correo corporativo</label>
+            <input formControlName="emailCorp" type="email" class="form-control" [ngClass]="{'is-invalid':f.emailCorp.errors}"
                 placeholder="">
-                <div *ngIf="f.emailCorp.errors?.required && submitEnviado" class="invalid-feedback">
-                    Favor de ingresar el Correo Corporativo.
-                  </div>
                   <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
                     Formato de correo Corporativo inválido, favor de verificar.
                   </div>
@@ -126,7 +123,6 @@
               <th scope="col">Correo corporativo</th>
               <th scope="col">Teléfono</th>
               <th scope="col">Fecha registro</th>
-              <th scope="col">Estatus</th>
               <th scope="col" *ngIf="!multiseleccion">Acciones</th>
             </tr>
           </thead>
@@ -138,7 +134,6 @@
               <td>{{item.emailCorporativo}}</td>
               <td>{{item.contactoInicialTelefono}}</td>
               <td>{{item.fechaAlta}}</td>
-              <td>{{(item.activo)?'Activo':'Inactivo'}}</td>
               <td>
                 <button (click)="verdetallecont(item)" class="btnPersonalizado">
                   <i class="icon_editar text-center bg-light" ></i></button>

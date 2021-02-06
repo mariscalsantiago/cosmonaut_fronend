@@ -59,7 +59,7 @@ export class CompanyComponent implements OnInit {
         this.companyProd.getAll().subscribe(datos =>{
 
         this.arreglo = datos.datos;
-
+        console.log("compania-->>",this.arreglo);
         this.cargando = false;
       });
 
@@ -116,7 +116,6 @@ export class CompanyComponent implements OnInit {
 
     this.companyProd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
-      console.log(datos);
       this.cargando = false;
     });
 

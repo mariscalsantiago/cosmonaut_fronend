@@ -73,7 +73,7 @@ export class DetalleCompanyComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial, [Validators.required]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
-      emailCorp: [obj.emailCorp, [Validators.required, Validators.email]],
+      emailCorp: [obj.emailCorp, [Validators.email]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       centrocClienteId: obj.centrocClienteId
@@ -115,7 +115,6 @@ export class DetalleCompanyComponent implements OnInit {
       this.cargando = true;
 
       this.arreglo = datos.datos;
-      console.log("Lista contactos -->", this.arreglo);
       this.cargando = false;
 
     });
@@ -206,7 +205,7 @@ export class DetalleCompanyComponent implements OnInit {
 
   public recibirImagen(imagen:any){
 
-    console.log("recibo la imagen",imagen);
+    
     this.imagen = imagen;
 
   }
