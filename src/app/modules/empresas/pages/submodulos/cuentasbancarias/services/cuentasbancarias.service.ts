@@ -13,38 +13,13 @@ export class CuentasbancariasService {
        return this.http.get("/yared/cuentaBanco/listar/todos");
   }
 
-  public getCuentaBancariaById(){
-      return this.http.get("");
+  public getCuentaBancariaById():Observable<any>{
+      return this.http.get("/catalogos/csbanco/listar/todos");
   }
 
 
   public getListaBancos():Observable<any>{
-    let arreglobanco = {
-      data:[ {
-        "bancoId": 1,
-        "codBanco": "002",
-        "nombreCorto": "BANAMEX",
-        "razonSocial": "Banco Nacional de México, S.A., Institución de Banca Múltiple, Grupo Financiero Banamex",
-        "fechaInicio": "01/01/2017",
-        "esActivo": true,
-        "fechaAlta": "14/12/2020"
-      },{
-        "bancoId": 13,
-        "codBanco": "044",
-        "nombreCorto": "SCOTIABANK",
-        "razonSocial": "Scotiabank Inverlat, S.A.",
-        "fechaInicio": "01/01/2017",
-        "esActivo": true,
-        "fechaAlta": "14/12/2020"
-      }]
-    }
-
-    const miObservable = of(arreglobanco);
-
-    
-
-
-    return miObservable;
+    return this.http.get("/catalogos/csbanco/listar/todos");
   }
 
   public save(obj:any):Observable<any>{

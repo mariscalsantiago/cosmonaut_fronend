@@ -68,8 +68,6 @@ export class ListascuentasbancariasComponent implements OnInit {
       this.cuentasPrd.getListaCuentaBancaria().subscribe(peticion => {
         this.cargando = false;
         this.arreglo = peticion.datos;
-        console.log("datos de cuentas bancarias");
-        console.log(peticion);
       });
 
 

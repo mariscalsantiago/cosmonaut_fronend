@@ -7,6 +7,7 @@ import { TablapaginadoComponent } from './tablapaginado/tablapaginado.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubirarchivoComponent } from './subirarchivo/subirarchivo.component';
 import { ManipularfilesDirective } from './directivas/manipularfiles.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { ManipularfilesDirective } from './directivas/manipularfiles.directive';
 
   ],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule
+    CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent]
 })

@@ -104,7 +104,7 @@
     </div>
 </div>
  
-  <div class="row margen margen-tabla background-panel scrooll">
+  <div class="row margen margen-tabla background-panel ">
     <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
       <input (change)="seleccionarTodosBool(valor)" #valor type="checkbox" class="form-check-input" id="exampleCheck1">
       <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
@@ -126,7 +126,7 @@
       
     </div>
     
-    <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover responsive_letter">
+    <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover table-responsive">
       <thead>
         <tr>
           <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>

@@ -52,7 +52,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
 
     this.cuentasPrd.getListaBancos().subscribe(datos => {
-      this.cuentasBancarias = datos.data;
+      this.cuentasBancarias = datos.datos;
     });
 
   }
