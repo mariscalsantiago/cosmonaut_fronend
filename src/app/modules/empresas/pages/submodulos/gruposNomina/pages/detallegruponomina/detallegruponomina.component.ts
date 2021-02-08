@@ -25,9 +25,9 @@ export class DetallegruponominaComponent implements OnInit {
   public id_empresa:number = 0;
   public activadoISR:boolean = false;
 
-  public arregloEsquemaPago = [];
-  public arregloCuentasBancarias = [];
-  public arregloMonedas = [];
+  public arregloEsquemaPago:any = [];
+  public arregloCuentasBancarias:any = [];
+  public arregloMonedas:any = [];
 
 
 
@@ -81,6 +81,8 @@ export class DetallegruponominaComponent implements OnInit {
 
     this.catalogosPrd.getEsquemaPago().subscribe(datos => this.arregloEsquemaPago = datos.datos);
     this.catalogosPrd.getMonedas().subscribe(datos => this.arregloMonedas = datos.datos);
+
+    
 
   }
 
