@@ -1,6 +1,6 @@
 {
     "/api/*":{
-        "target":"http://4e17087d1f7f.ngrok.io",
+        "target":"http://34.75.54.120/empresa",
         "secure":false,
         "pathRewrite": {
             "^/api": ""
@@ -8,11 +8,20 @@
          "changeOrigin": true
     },
     "/yared/*":{
-        "target":"http://ce961c3f2204.ngrok.io",
+        "target":"http://eaa20bd81ba7.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/yared": ""
           },
          "changeOrigin": true
+    },
+    "/catalogos/*":{
+        "target":"http://34.75.54.120/catalogos/catalogo",
+        "secure":false,
+        "pathRewrite": {
+            "^/catalogos": ""
+          },
+         "changeOrigin": true
     }
+
 }

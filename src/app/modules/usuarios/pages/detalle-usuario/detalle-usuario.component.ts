@@ -20,6 +20,7 @@ export class DetalleUsuarioComponent implements OnInit {
   public strsubtitulo: string = "";
   public objusuario: any = {};
   public arregloCompany: any;
+  public summitenviado:boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
@@ -40,7 +41,9 @@ export class DetalleUsuarioComponent implements OnInit {
 
       this.routerActivePrd.params.subscribe(parametros => {
         let id = parametros["idusuario"];
+        this.insertar = id == undefined;
         if (id != undefined) {
+          console.log("viene y recupera el usuario ");
           this.usuariosPrd.getById(id).subscribe(datosusuario => {
             this.objusuario = datosusuario.datos;
             this.myForm = this.createForm((this.objusuario));
@@ -98,6 +101,19 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public enviarPeticion() {
+
+    if(this.myForm.invalid){
+      this.iconType = "error";
+      this.strTitulo =  "Campos incorrectos";
+      this.strsubtitulo = "Verificar si hay campos incorrectos o por rellenar.";
+      this.modal = true;
+      this.summitenviado= true;
+
+
+      return;
+
+    }
+
     this.iconType = "warning";
     this.strTitulo = (this.insertar) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar el usuario?";
     this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";

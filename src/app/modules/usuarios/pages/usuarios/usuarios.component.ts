@@ -312,7 +312,7 @@ export class UsuariosComponent implements OnInit {
 
     if(this.iconType == "warning"){
       if($evento){
-        let arregloUsuario = [];
+        let arregloUsuario:any = [];
   
         for(let item of this.arreglotemp){
      
@@ -332,10 +332,24 @@ export class UsuariosComponent implements OnInit {
             this.strsubtitulo = datos.mensaje
             this.modal = true;
             
-            let item2:any;
-            for( item2 of this.arreglotemp){
-                item2["esActivo"] = false;
+           
+           
+            for(let item of arregloUsuario){
+
+              for(let item2 of this.arreglotemp){
+
+                if(item2.personaId === item.personaId){
+
+                  item2["activo"]=item["activo"];
+                  item2["esActivo"]=false;
+                  break;
+                }
+
+              }
+
+
             }
+
           
         });
   
