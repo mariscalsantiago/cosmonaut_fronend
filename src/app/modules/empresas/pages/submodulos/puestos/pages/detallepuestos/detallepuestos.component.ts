@@ -35,7 +35,7 @@ export class DetallepuestosComponent implements OnInit {
     
   ngOnInit(): void {
     debugger;
-    let objdetrep = history.state.data == undefined ? {} : history.state.data ;
+    let objdetrep = history.state.datos == undefined ? {} : history.state.datos ;
     this.myFormrep = this.createFormrep((objdetrep));
 
   }

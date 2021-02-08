@@ -9,13 +9,18 @@ import { PuestosService } from '../services/puestos.service';
 })
 export class ListapuestosComponent implements OnInit {
 
-  
+  public modal: boolean = false;
+  public insertar: boolean = false;
+  public iconType:string = "";
+  public strTitulo: string = "";
+  public strsubtitulo:string = "";
   public tamanio:number = 0;
   public cargando:Boolean = false;
   public id_empresa:number = 0;
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
   public changeIconDown: boolean = false;
+  public objEnviar:any ;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -41,9 +46,9 @@ export class ListapuestosComponent implements OnInit {
     this.CanRouterPrd.params.subscribe(datos =>{
 
       this.id_empresa = datos["id"]
-      this.puestosProd.getAllArea().subscribe(datos => {
-      this.arreglo = datos.data;
-      console.log(this.arreglo);
+      this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
+      this.arreglo = datos.datos;
+      console.log("puestos-->",this.arreglo);
       this.cargando = false;
       //this.paginar();
     });
@@ -57,12 +62,29 @@ export class ListapuestosComponent implements OnInit {
     debugger;
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
-    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos', tipoinsert],{state:{data:obj}});
+    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos', tipoinsert],{state:{datos:obj}});
     this.cargando = false;
   }
   public eliminar(obj:any){
 
+     debugger;
+     
+     this.objEnviar = {
+      areaId: obj.areaId,
+      descripcion: obj.descripcion,
+      nombreCorto: obj.nombreCorto,
+      fechaAlta: obj.fechaAlta,
+      esActivo: obj.esActivo,
+      centrocClienteId: obj.nclCentrocCliente.centrocClienteId
+    }
+
+    this.modal = true;
+    this.strTitulo = "¿Deseas eliminar el área?";
+    this.strsubtitulo = "Estas a punto de borrar un área";
+    this.iconType = "warning";
+            
   }
+  
 
   apagando(indice:number){
     
@@ -78,7 +100,43 @@ export class ListapuestosComponent implements OnInit {
   
   }
 
-  
-}
+  public recibir($evento: any) {
+    debugger;
+    this.modal = false;
+    if (this.iconType == "warning") {
+
+      if ($evento) {
+        //let id = this.arreglo[this.indexSeleccionado].id;
+
+        this.puestosProd.eliminar(this.objEnviar).subscribe(datos => {
+          let mensaje = datos.mensaje;
+          let resultado = datos.resultado;
+
+          this.strTitulo = mensaje;
+          this.iconType = resultado ? "success" : "error";
+
+          this.modal = true;
+
+          if(resultado){
+
+
+            this.arreglo.splice(this.objEnviar,1);
+            console.log("split -->>",this.arreglo);
+
+
+          }
+
+
+        });
+
+      }
+
+    }
+
+
+  }
+
+} 
+
 
 

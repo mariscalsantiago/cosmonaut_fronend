@@ -15,33 +15,14 @@ export class PuestosService {
   }
 
 
-  public getAllArea():Observable<any>{
-     return this.http.get("/yared/area/listar/todos");
-  }
-
-
-  public getById(id_user:number):Observable<any>{
-    
-
-    return this.http.get(`/yared/persona/obtener/id/${id_user}`);
+  public getAllArea(id_compania:number):Observable<any>{
+     return this.http.get("/yared/area/listar/areas/"+id_compania);
 
   }
 
-  public filtrar(obj : any):Observable<any>{
-    
-    const httpOptions={
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
 
 
-
-
-    let json:string = JSON.stringify(obj);
-     return this.http.post("/api/persona/lista/dinamica",json,httpOptions);
-  }
-
+ 
   public save(obj:any):Observable<any>{
    
     const httpOptions={
@@ -49,13 +30,22 @@ export class PuestosService {
         'Content-Type': 'application/json'
       })
     };
-
-
-
-
     let json:string = JSON.stringify(obj);
 
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
+  }
+
+  public eliminar(obj:any):Observable<any>{
+    
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json:string = JSON.stringify(obj);
+    console.log("Json puestos-->",json);
+    return this.http.post(`/yared/area/eliminar`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
