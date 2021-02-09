@@ -32,4 +32,9 @@ export class InformacionbasicaComponent implements OnInit {
 
     console.log(this.arreglopintar);
   }
+
+
+  public cancelar(){
+    
+  }
 }

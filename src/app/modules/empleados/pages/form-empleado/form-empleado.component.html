@@ -9,13 +9,7 @@
 
 <div class="row m-1 background-panel">
 
-    <div class="form-group mt-3 col-12 margen">
-
-
-        <h4 class="titulo">Dar de alta usuario</h4>
-
-    </div>
-
+  
     <div class="col-12">
   
         <nav>
@@ -23,6 +17,8 @@
               <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Información básica</a>
               <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Domicilio</a>
               <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Preferencias</a>
+              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-empleo" role="tab" aria-controls="nav-empleo" aria-selected="false">Información de empleo</a>
+              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-detalle" role="tab" aria-controls="nav-detalle" aria-selected="false">Detalle</a>
             </div>
           </nav>
           <div class="tab-content" id="nav-tabContent">
@@ -34,6 +30,12 @@
             </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <app-preferencias></app-preferencias>
+            </div>
+            <div class="tab-pane fade" id="nav-empleo" role="tabpanel" aria-labelledby="nav-empleo-tab">
+                <app-empleo></app-empleo>
+            </div>
+            <div class="tab-pane fade" id="nav-detalle" role="tabpanel" aria-labelledby="nav-detalle-tab">
+                <app-detalle></app-detalle>
             </div>
           </div>
     </div>

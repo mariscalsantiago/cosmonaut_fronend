@@ -10,10 +10,12 @@ import { HttpClient } from '@angular/common/http';
 import { InformacionbasicaComponent } from './pages/form-empleado/pestañas/informacionbasica/informacionbasica.component';
 import { DomicilioComponent } from './pages/form-empleado/pestañas/domicilio/domicilio.component';
 import { PreferenciasComponent } from './pages/form-empleado/pestañas/preferencias/preferencias.component';
+import { EmpleoComponent } from './pages/form-empleado/pestañas/empleo/empleo.component';
+import { DetalleComponent } from './pages/form-empleado/pestañas/detalle/detalle.component';
 
 
 @NgModule({
-    declarations: [ListaempleadosComponent, EmpleadoComponent, FormEmpleadoComponent, InformacionbasicaComponent, DomicilioComponent, PreferenciasComponent],
+    declarations: [ListaempleadosComponent, EmpleadoComponent, FormEmpleadoComponent, InformacionbasicaComponent, DomicilioComponent, PreferenciasComponent, EmpleoComponent, DetalleComponent],
     imports: [
       CommonModule,
       empleadosRoutingModule,

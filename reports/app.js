@@ -279,22 +279,45 @@ app.controller('ScreenshotReportController', ['$scope', '$http', 'TitleService',
         "passed": true,
         "pending": false,
         "os": "Linux",
-        "instanceId": 49933,
+        "instanceId": 94516,
         "browser": {
             "name": "chrome",
             "version": "88.0.4324.96"
         },
         "message": "Passed",
         "browserLogs": [],
-        "timestamp": 1611704144973,
-        "duration": 6
+        "timestamp": 1612912864102,
+        "duration": 5
     },
     {
-        "description": "Tiene un titulo nene|verificadno titulos",
+        "description": "Tiene un titulo |verificadno titulos",
         "passed": true,
         "pending": false,
         "os": "Linux",
-        "instanceId": 49933,
+        "instanceId": 94516,
+        "browser": {
+            "name": "chrome",
+            "version": "88.0.4324.96"
+        },
+        "message": "Passed.",
+        "trace": "",
+        "browserLogs": [
+            {
+                "level": "SEVERE",
+                "message": "http://juliemr.github.io/favicon.ico - Failed to load resource: the server responded with a status of 404 (Not Found)",
+                "timestamp": 1612912865017,
+                "type": ""
+            }
+        ],
+        "timestamp": 1612912864153,
+        "duration": 1035
+    },
+    {
+        "description": "titulo principal|verificando titulos",
+        "passed": true,
+        "pending": false,
+        "os": "Linux",
+        "instanceId": 94516,
         "browser": {
             "name": "chrome",
             "version": "88.0.4324.96"
@@ -302,8 +325,103 @@ app.controller('ScreenshotReportController', ['$scope', '$http', 'TitleService',
         "message": "Passed.",
         "trace": "",
         "browserLogs": [],
-        "timestamp": 1611704145002,
-        "duration": 1537
+        "timestamp": 1612912865204,
+        "duration": 1729
+    },
+    {
+        "description": "ingreso al sistema|verificando titulos",
+        "passed": true,
+        "pending": false,
+        "os": "Linux",
+        "instanceId": 94516,
+        "browser": {
+            "name": "chrome",
+            "version": "88.0.4324.96"
+        },
+        "message": "Passed.",
+        "trace": "",
+        "browserLogs": [
+            {
+                "level": "WARNING",
+                "message": "http://localhost:4200/inicio - [DOM] Found 4 elements with non-unique id #exampleInputPassword1: (More info: https://goo.gl/9p2vKq) %o %o %o %o",
+                "timestamp": 1612912874521,
+                "type": ""
+            }
+        ],
+        "timestamp": 1612912866949,
+        "duration": 7615
+    },
+    {
+        "description": "verificando todos los menus|menu principal",
+        "passed": false,
+        "pending": false,
+        "os": "Linux",
+        "instanceId": 94516,
+        "browser": {
+            "name": "chrome",
+            "version": "88.0.4324.96"
+        },
+        "message": [
+            "StaleElementReferenceError: stale element reference: element is not attached to the page document\n  (Session info: chrome=88.0.4324.96)\n  (Driver info: chromedriver=88.0.4324.96 (68dba2d8a0b149a1d3afac56fa74648032bcf46b-refs/branch-heads/4324@{#1784}),platform=Linux 5.8.0-41-generic x86_64)"
+        ],
+        "trace": [
+            "StaleElementReferenceError: stale element reference: element is not attached to the page document\n  (Session info: chrome=88.0.4324.96)\n  (Driver info: chromedriver=88.0.4324.96 (68dba2d8a0b149a1d3afac56fa74648032bcf46b-refs/branch-heads/4324@{#1784}),platform=Linux 5.8.0-41-generic x86_64)\n    at Object.checkLegacyResponse (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/error.js:546:15)\n    at parseHttpResponse (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/http.js:509:13)\n    at doSend.then.response (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/http.js:441:30)\n    at process._tickCallback (internal/process/next_tick.js:68:7)\nFrom: Task: WebElement.click()\n    at Driver.schedule (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/webdriver.js:807:17)\n    at WebElement.schedule_ (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/webdriver.js:2010:25)\n    at WebElement.click (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/webdriver.js:2092:17)\n    at actionFn (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/protractor/built/element.js:89:44)\n    at Array.map (<anonymous>)\n    at actionResults.getWebElements.then (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/protractor/built/element.js:461:65)\n    at ManagedPromise.invokeCallback_ (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/selenium-webdriver/lib/promise.js:2927:27)Error: \n    at ElementArrayFinder.applyAction_ (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/protractor/built/element.js:459:27)\n    at ElementArrayFinder.(anonymous function).args [as click] (/home/samv/Documentos/nominas/cosmonaut-front/node_modules/protractor/built/element.js:91:29)\n    at buttons.each (/home/samv/Documentos/nominas/cosmonaut-front/e2e/src/test/menu.e2e-spec.ts:19:23)\n    at process._tickCallback (internal/process/next_tick.js:68:7)"
+        ],
+        "browserLogs": [
+            {
+                "level": "WARNING",
+                "message": "http://localhost:4200/inicio - [DOM] Found 4 elements with non-unique id #exampleInputPassword1: (More info: https://goo.gl/9p2vKq) %o %o %o %o",
+                "timestamp": 1612912875823,
+                "type": ""
+            }
+        ],
+        "screenShotFile": "screenshotsOnFailure/009a0094-0082-0025-00ab-00cc00cf003d.png",
+        "timestamp": 1612912875866,
+        "duration": 1213
+    },
+    {
+        "description": "Verificando administracion|menu principal",
+        "passed": true,
+        "pending": false,
+        "os": "Linux",
+        "instanceId": 94516,
+        "browser": {
+            "name": "chrome",
+            "version": "88.0.4324.96"
+        },
+        "message": "Passed.",
+        "trace": "",
+        "browserLogs": [],
+        "timestamp": 1612912877351,
+        "duration": 511
+    },
+    {
+        "description": "Verificando empleados|menu principal",
+        "passed": true,
+        "pending": false,
+        "os": "Linux",
+        "instanceId": 94516,
+        "browser": {
+            "name": "chrome",
+            "version": "88.0.4324.96"
+        },
+        "message": "Passed",
+        "browserLogs": [
+            {
+                "level": "SEVERE",
+                "message": "http://localhost:4200/api/centroCostosCliente/lista/compania - Failed to load resource: the server responded with a status of 404 (Not Found)",
+                "timestamp": 1612912878222,
+                "type": ""
+            },
+            {
+                "level": "SEVERE",
+                "message": "http://localhost:4200/vendor.js 51095:12 \"ERROR\" HttpErrorResponse",
+                "timestamp": 1612912878226,
+                "type": ""
+            }
+        ],
+        "timestamp": 1612912877945,
+        "duration": 673
     }
 ];
 

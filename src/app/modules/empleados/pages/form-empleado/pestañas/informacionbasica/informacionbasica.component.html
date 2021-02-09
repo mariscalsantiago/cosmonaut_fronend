@@ -156,10 +156,71 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
+                        <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
+                            <h5 class="mb-0">
+                                <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse"
+                                    data-target="#detallepagocolapsar" aria-expanded="false"
+                                    aria-controls="detallepago">
+
+                                    Contacto de emergencia
+                                    <i *ngIf="!arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne" class="fas fa-chevron-up "></i>
+                                    <i *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne"
+                                        class="fas fa-chevron-down "></i>
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago"
+                            data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">Nombre *</label>
+                                        <input type="text" name="" id="" class="form-control">
+                                    </div>
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">Apellido paterno *</label>
+                                        <input type="text" name="" id="" class="form-control">
+                                    </div>
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">Apellido materno *</label>
+                                        <input type="text" name="" id="" class="form-control">
+                                    </div>
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">Parentesco</label>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">Madre</option>
+                                            <option value="">Padre</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1"> Correo personal</label>
+                                        <input type="text" name="" id="" class="form-control">
+                                    </div>
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1"> Celular</label>
+                                        <input type="text" name="" id="" class="form-control">
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 
 
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="text-center margin" style="margin-bottom: 20px;">
+
+                    <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                    <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
                 </div>
             </div>
         </div>

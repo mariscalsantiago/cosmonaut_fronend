@@ -12,4 +12,8 @@ export class DomicilioComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public cancelar(){
+    
+  }
+
 }

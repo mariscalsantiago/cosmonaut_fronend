@@ -12,4 +12,8 @@ export class PreferenciasComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  public cancelar(){
+
+  }
 }

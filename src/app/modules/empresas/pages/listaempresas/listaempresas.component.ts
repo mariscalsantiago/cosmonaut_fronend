@@ -76,6 +76,8 @@ export class ListaEmpresasComponent implements OnInit {
 
   public recibirTabla(obj:any){
    
+
+    console.log(obj);
     if(obj.type == "editar"){
       this.routerPrd.navigate(['listaempresas', 'empresas', 'modifica'], { state: { data: obj.datos } });
     }else if(obj.type == "columna"){
