@@ -1,0 +1,168 @@
+<form>
+
+    <div class="form-group mt-3 row margen"><label class="titulo">CONTACTO</label></div>
+    <div class="form group row margen">
+
+        <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Nombre*</label>
+            <input type="email" class="form-control" placeholder="">
+            <div class="invalid-feedback">
+                Favor de ingresar el Correo Corporativo
+            </div>
+
+
+        </div>
+        <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Apellido paterno*</label>
+            <input type="email" class="form-control" placeholder="">
+
+            <div class="invalid-feedback">
+                Favor de ingresar el Correo Personal
+            </div>
+
+
+        </div>
+        <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Apellido materno *</label>
+            <input maxlength="10" type="text" class="form-control" placeholder="">
+
+            <div class="invalid-feedback">
+                Favor de ingresar el Teléfono
+            </div>
+
+        </div>
+        <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Genero *</label>
+            <select class="form-control">
+                <option value="m">Masculino</option>
+                <option value="f">Femenino</option>
+            </select>
+
+        </div>
+        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+            <label for="exampleFormControlSelect1">Fecha de nacimiento*</label>
+            <input type="date" name="" id="" class="form-control">
+        </div>
+        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+            <input type="checkbox" name="" id="">
+            <label for="exampleFormControlSelect1">¿Tiene CURP,RFC y Seguro Social?</label>
+        </div>
+    </div>
+    <hr>
+    <div class="form group row margen">
+        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+            <label for="exampleFormControlSelect1">CURP *</label>
+            <input type="text" class="form-control" name="" id="">
+        </div>
+        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+            <label for="exampleFormControlSelect1">RFC *</label>
+            <input type="text" class="form-control" name="" id="">
+        </div>
+        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+            <label for="exampleFormControlSelect1">Seguro Socual *</label>
+            <input type="text" class="form-control" name="" id="">
+        </div>
+
+    </div>
+
+    <hr>
+    <div class="form group row margen">
+        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+            <label for="exampleFormControlSelect1">Correo empresarial *</label>
+            <input type="text" class="form-control" name="" id="">
+        </div>
+        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+            <label for="exampleFormControlSelect1">Correo Personal *</label>
+            <input type="text" class="form-control" name="" id="">
+        </div>
+        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+            <input type="checkbox" name="" id="">
+            <label for="exampleFormControlSelect1">Invitar al empleado a ingresar la información personal
+                adicional</label>
+        </div>
+    </div>
+
+
+    <!-- aqui empieza los tabs -->
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mr-3">
+                <div id="accordion" class="acordion_desplegable">
+                    <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
+                        <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
+                            <h5 class="mb-0">
+                                <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse"
+                                    data-target="#detallepagocolapsar" aria-expanded="false"
+                                    aria-controls="detallepago">
+
+                                    Información adicional
+                                    <i *ngIf="!arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne" class="fas fa-chevron-up "></i>
+                                    <i *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne"
+                                        class="fas fa-chevron-down "></i>
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago"
+                            data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">nacionalidad</label>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">Mexico</option>
+                                            <option value="">EUA</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">Estado civil</label>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">Soltero</option>
+                                            <option value="">Casado</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">Teléfono</label>
+                                        <input type="text" name="" id="" class="form-control">
+                                    </div>
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">¿Tienes hijos?</label>
+                                        <div>
+                                            <label for="si">Si</label>
+                                            <input type="radio" name="gruphijos" id="si" class="">
+                                        </div>
+                                        <div>
+                                            <label for="no">No</label>
+                                            <input type="radio" name="gruphijos" id="no" class="">
+                                        </div>
+                                    </div>
+
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">Número de hijos</label>
+                                        <input type="text" name="" id="" class="form-control">
+                                    </div>
+
+                                    <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                                        <label for="exampleFormControlSelect1">Perfil Linkedin</label>
+                                        <input type="text" name="" id="" class="form-control">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

@@ -121,7 +121,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of arreglo;">
-          <td style="width: 44px;" scope="row">
+          <td *ngIf="item.url !== undefined" style="width: 44px;" scope="row">
+            <img width="60px" height="60px"
+              [src]="item.url" alt="..."
+              class="tableimg">
+          </td>
+          <td *ngIf="item.url === undefined" style="width: 44px;" scope="row">
             <img width="60px" height="60px"
               src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..."
               class="tableimg">
