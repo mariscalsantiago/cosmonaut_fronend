@@ -117,6 +117,7 @@ export class CompanyComponent implements OnInit {
     this.companyProd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
       this.cargando = false;
+      console.log(this.arreglo);
     });
 
 

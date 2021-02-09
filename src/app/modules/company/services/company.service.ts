@@ -89,16 +89,13 @@ export class CompanyService {
   }
 
   public filtrar(obj: any): Observable<any> {
-    debugger;
+    
 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-
-
-
 
     let json: string = JSON.stringify(obj);
     console.log("peticion filtro dinamico",json);

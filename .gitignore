@@ -50,3 +50,7 @@ Thumbs.db
 .npm/
 .pki/
 e2e/reports/
+
+
+
+proxy.config.json

@@ -1,5 +1,5 @@
 
-    <div *ngIf="!cargando && arreglo !== undefined " class="row  margen mt-3" style="margin-bottom: -25px;">
+    <div *ngIf="!cargando && datos.filas !== undefined " class="row  margen mt-3" style="margin-bottom: -25px;">
         <div class="input-group mb-3 mostrarelementos ">
           <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
@@ -15,30 +15,15 @@
         
       </div>
       
-      <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover table-sm">
+      <table  *ngIf="!cargando && datos.filas !== undefined"  class="table table-hover table-sm">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col" >Apellido Paterno</th>
-            <th scope="col" >Apellido Materno</th>
-            <th scope="col" >Centro de costos</th>
-            <th scope="col" >Correo Empresarial</th>
-            <th scope="col" >Fecha de registro</th>
-            <th scope="col" >Activo</th>
-            <th scope="col ">Acción</th>
+            <th scope="col" *ngFor="let item of datos.columnas">{{item.nombre}}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td style="color:  #00DED4">nombre</td>
-            <td>apellido</td>
-            <td>nombre</td>
-            <td>apellido</td>
-            <td>apellido amter</td>
-            <td>casodf</td>
-            <td>fdg</td>
-            <td>dsf</td>
+          <tr *ngFor="let item of datos.filas">
+            <td *ngFor="let item2 of datos.columnas">{{item[item2.id]}}</td>
             <td class="opciones">
               <button ><i class="icon_ver primary-bg"></i></button>
               <button (click)="verdetalle('item')" ><i class="icon_editar primary-bg"></i></button>
@@ -49,7 +34,10 @@
     
         </tbody>
       </table>
-      <div *ngIf="!cargando && arreglo === undefined"   class="alert alert-warning col text-center">
+      <div *ngIf="!cargando && datos.filas === undefined"   class="alert alert-warning col text-center">
         <strong>Sin datos</strong> la tabla se encuentra vacía.
+      </div>
+      <div *ngIf="cargando" class="col text-center mb-5">
+        <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
       </div>
     

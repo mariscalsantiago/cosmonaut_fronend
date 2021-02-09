@@ -67,9 +67,9 @@
         </table>
        
 
-        <div *ngIf="cargando" class="col text-center mb-5">
-          <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-        </div>
+        <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando"></app-tablapaginado>
+
+      
       </div>
       
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tablapaginado',
@@ -7,25 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TablapaginadoComponent implements OnInit {
 
-  public cargando:boolean = false;
+  @Input() public cargando:boolean = false;
   public arreglo:any = [];
   public numeroitems:number = 5;
 
   estructuratabla:any;
 
-  public columnas:any = [];
+  @Input() public datos = {
+    columnas:[],
+    filas:[]
+  }
+
+
 
 
   constructor() { }
 
   ngOnInit(): void {
 
-    // for(let llave in this.estructuratabla){
-
-    //   let nombrecolumna:string = this.estructuratabla[llave].nombrecolumna;
-
-    // }
-
+   
   }
 
 
