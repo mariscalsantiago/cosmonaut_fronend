@@ -15,7 +15,7 @@
         
       </div>
       
-      <table  *ngIf="!cargando && datos.filas !== undefined"  class="table table-hover table-sm">
+      <table  *ngIf="!cargando && datos.filas !== undefined"  class="table table-hover ">
         <thead>
           <tr>
             <th scope="col" *ngFor="let item of datos.columnas">{{item.nombre}}</th>
