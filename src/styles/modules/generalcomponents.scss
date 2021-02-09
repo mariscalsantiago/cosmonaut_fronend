@@ -265,7 +265,7 @@ article.titulo{
 }
 
 .scrooll{
-    overflow: auto;
+    overflow: hidden;
 }
 
 
@@ -283,4 +283,9 @@ article.titulo{
             }
         }
     }
+}
+
+
+app-tablapaginado{
+    width: 100%;
 }

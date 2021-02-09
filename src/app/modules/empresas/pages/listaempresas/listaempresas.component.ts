@@ -45,13 +45,9 @@ export class ListaEmpresasComponent implements OnInit {
 
       this.arreglo = datos.datos;
 
-      console.log("Esta es la empresa");
-      console.log(this.arreglo);
-
-
       let columnas:Array<tabla> = [
-        new tabla("centrocClienteId","ID empresa"),
-        new tabla("razonSocial","Razón social	"),
+        new tabla("centrocClienteId","ID empresa",true),
+        new tabla("razonSocial","Razón social	",false,true),
         new tabla("nombre","Nombre de la empresa	"),
         new tabla("rfc","RFC"),
         new tabla("fechaAlta","Fecha registro"),
@@ -75,6 +71,17 @@ export class ListaEmpresasComponent implements OnInit {
 
   public verPerfilEmpresa(obj: any) {
     this.routerPrd.navigate(['/empresa', 'detalle', obj.centrocClienteId,'representantelegal']);
+  }
+
+
+  public recibirTabla(obj:any){
+   
+    if(obj.type == "editar"){
+      this.routerPrd.navigate(['listaempresas', 'empresas', 'modifica'], { state: { data: obj.datos } });
+    }else if(obj.type == "columna"){
+      this.routerPrd.navigate(['/empresa', 'detalle', obj.datos.centrocClienteId,'representantelegal']);
+    }
+
   }
 
 
