@@ -1,4 +1,4 @@
-import { Component, DebugElement, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PuestosService } from '../services/puestos.service';
 

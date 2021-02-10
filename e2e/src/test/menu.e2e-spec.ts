@@ -8,16 +8,16 @@ describe("menu principal", () => {
 
     it("verificando todos los menus", () => {
 
-        let menuflotante = element(by.id("listanavegadora"));
+        // let menuflotante = element(by.id("listanavegadora"));
 
-        let buttons = menuflotante.all(by.css("li"));
+        // let buttons = menuflotante.all(by.css("li"));
 
-        buttons.each(async (elemento, index) => {
-            let texto = await elemento?.getText();
-            console.log(texto);
-            let element1 = elemento?.all(by.css("a"));
-            element1?.click();
-        });
+        // buttons.each(async (elemento, index) => {
+        //     let texto = await elemento?.getText();
+        //     console.log(texto);
+        //     let element1 = elemento?.all(by.css("a"));
+        //     element1?.click();
+        // });
     });
 
     it("Verificando administracion", () => {
@@ -48,7 +48,7 @@ describe("menu principal", () => {
             if (texto == "EMPLEADOS") {
                 expect(texto).toBe("EMPLEADOS");
                 let element1 = elemento?.all(by.css("a"));
-                element1?.click();
+            //    element1?.click();
             }
         });
     });

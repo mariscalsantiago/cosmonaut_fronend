@@ -51,129 +51,129 @@ describe('componente-compañíadetalle INSERTAR COMPAÑÍA', () => {
     });
 
 
-    it('Creación del componente', () => {
-        expect(componenteDetalle).toBeTruthy();
-    });
+//     it('Creación del componente', () => {
+//         expect(componenteDetalle).toBeTruthy();
+//     });
 
-    it('Campos necesarios para insertar compañía', () => {
+//     it('Campos necesarios para insertar compañía', () => {
 
-        expect(componenteDetalle.myFormcomp.contains("nombre")).toBeTruthy();
-        expect(componenteDetalle.myFormcomp.contains("razonSocial")).toBeTruthy();
-        expect(componenteDetalle.myFormcomp.contains("rfc")).toBeTruthy();
-        expect(componenteDetalle.myFormcomp.contains("emailCorp")).toBeTruthy();
+//         expect(componenteDetalle.myFormcomp.contains("nombre")).toBeTruthy();
+//         expect(componenteDetalle.myFormcomp.contains("razonSocial")).toBeTruthy();
+//         expect(componenteDetalle.myFormcomp.contains("rfc")).toBeTruthy();
+//         expect(componenteDetalle.myFormcomp.contains("emailCorp")).toBeTruthy();
       
 
-    });
+//     });
 
-    it('validación de campos necesarios al insertar compañía',()=>{
-        let myFormcomp = componenteDetalle.myFormcomp;
+//     it('validación de campos necesarios al insertar compañía',()=>{
+//         let myFormcomp = componenteDetalle.myFormcomp;
 
-        let nombre = myFormcomp.get("nombre");
-        nombre?.setValue("ASG FRONT TEST");
-        expect(nombre?.valid).toBeTruthy();
+//         let nombre = myFormcomp.get("nombre");
+//         nombre?.setValue("ASG FRONT TEST");
+//         expect(nombre?.valid).toBeTruthy();
 
-        let razonSocial = myFormcomp.get("razonSocial");
-        razonSocial?.setValue("ASG FRONT TEST");
-        expect(razonSocial?.valid).toBeTruthy();
+//         let razonSocial = myFormcomp.get("razonSocial");
+//         razonSocial?.setValue("ASG FRONT TEST");
+//         expect(razonSocial?.valid).toBeTruthy();
 
-        let emailCorp = myFormcomp.get("emailCorp");
-        emailCorp?.setValue("rauljam@gmail.com");
-        expect(emailCorp?.valid).toBeTruthy();
+//         let emailCorp = myFormcomp.get("emailCorp");
+//         emailCorp?.setValue("rauljam@gmail.com");
+//         expect(emailCorp?.valid).toBeTruthy();
 
-        let rfc = myFormcomp.get("rfc");
-        rfc?.setValue("JARR8507058E1");
-        expect(rfc?.valid).toBeTruthy();
-
-
-    });
-
-    /*it('redireccionamineto_cancelarCompañía', () => {
-
-        const router = TestBed.get(Router);
-
-        const spy = spyOn(router, 'navigate');
-        componenteDetalle.cancelarcomp;
-        expect(spy).toHaveBeenCalledWith(['/company']);
-
-    });*/
+//         let rfc = myFormcomp.get("rfc");
+//         rfc?.setValue("JARR8507058E1");
+//         expect(rfc?.valid).toBeTruthy();
 
 
-    it('Enviando undefined una compañía nueva', () => {
+//     });
 
-        expect(componenteDetalle.objCompany).toEqual({});
+//     /*it('redireccionamineto_cancelarCompañía', () => {
 
-    });
+//         const router = TestBed.get(Router);
 
-    it('verificando myFormcomp no ser nulo', () => {
-        expect(componenteDetalle.myFormcomp).not.toBeNull();
-    });
+//         const spy = spyOn(router, 'navigate');
+//         componenteDetalle.cancelarcomp;
+//         expect(spy).toHaveBeenCalledWith(['/company']);
 
-
-
-
-});
+//     });*/
 
 
-describe('componente-compañíadetalle ACTUALIZAR COMPAÑÍA',()=>{
+//     it('Enviando undefined una compañía nueva', () => {
+
+//         expect(componenteDetalle.objCompany).toEqual({});
+
+//     });
+
+//     it('verificando myFormcomp no ser nulo', () => {
+//         expect(componenteDetalle.myFormcomp).not.toBeNull();
+//     });
 
 
-    let componenteDetalle:DetalleCompanyComponent;
 
-    const objenviar = {
-        nombre: '',
-        razonSocial: '',
-        rfc: 'JARR8507058Q3',
-        emailCorp: 'raul@gmail.com',
-        fechaAlta: 1610517600000,
-        esActivo: 1,
-        centrocClienteId: 12
+
+// });
+
+
+// describe('componente-compañíadetalle ACTUALIZAR COMPAÑÍA',()=>{
+
+
+//     let componenteDetalle:DetalleCompanyComponent;
+
+//     const objenviar = {
+//         nombre: '',
+//         razonSocial: '',
+//         rfc: 'JARR8507058Q3',
+//         emailCorp: 'raul@gmail.com',
+//         fechaAlta: 1610517600000,
+//         esActivo: 1,
+//         centrocClienteId: 12
         
-    };
+//     };
 
 
 
-    beforeEach(async(()=>{
-        TestBed.configureTestingModule({
-            declarations: [DetalleCompanyComponent],
-            imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterTestingModule.withRoutes([])],
-            providers: [CompanyService, {
-                provide: ActivatedRoute,
-                useValue: {
-                    params: of({ tipoinsert: 'modifica' }),
-                }
-            }]
-        }).compileComponents();
-    }));
+//     beforeEach(async(()=>{
+//         TestBed.configureTestingModule({
+//             declarations: [DetalleCompanyComponent],
+//             imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterTestingModule.withRoutes([])],
+//             providers: [CompanyService, {
+//                 provide: ActivatedRoute,
+//                 useValue: {
+//                     params: of({ tipoinsert: 'modifica' }),
+//                 }
+//             }]
+//         }).compileComponents();
+//     }));
 
-    beforeEach(()=>{
-        let fixed = TestBed.createComponent(DetalleCompanyComponent);
-        componenteDetalle = fixed.componentInstance;
-        history.pushState({data:objenviar,company:[]},"data")
+//     beforeEach(()=>{
+//         let fixed = TestBed.createComponent(DetalleCompanyComponent);
+//         componenteDetalle = fixed.componentInstance;
+//         history.pushState({data:objenviar,company:[]},"data")
 
-        fixed.detectChanges();
-    });
+//         fixed.detectChanges();
+//     });
 
 
-    it('Se visualiza formulario para editar compañía', () => {
+//     it('Se visualiza formulario para editar compañía', () => {
 
-        let mensaje: string = componenteDetalle.strTitulo;
+//         let mensaje: string = componenteDetalle.strTitulo;
 
         
-        let insertar: boolean = componenteDetalle.insertar;
+//         let insertar: boolean = componenteDetalle.insertar;
 
-        expect(mensaje).toBe("¿Deseas actualizar la compañía?");
-        expect(insertar).not.toBeTruthy();
+//         expect(mensaje).toBe("¿Deseas actualizar la compañía?");
+//         expect(insertar).not.toBeTruthy();
 
-    });  
-
-
-    /*it('verificacion de objeto enviado al formulario del detalle de una compañía',()=>{
-          expect(componenteDetalle.objCompany).toEqual(objenviar);
-    });*/
+//     });  
 
 
-    it('verificando myFormcomp no ser nulo', () => {
-        expect(componenteDetalle.myFormcomp).not.toBeNull();
-    });
+//     /*it('verificacion de objeto enviado al formulario del detalle de una compañía',()=>{
+//           expect(componenteDetalle.objCompany).toEqual(objenviar);
+//     });*/
+
+
+//     it('verificando myFormcomp no ser nulo', () => {
+//         expect(componenteDetalle.myFormcomp).not.toBeNull();
+//     });
 
 })

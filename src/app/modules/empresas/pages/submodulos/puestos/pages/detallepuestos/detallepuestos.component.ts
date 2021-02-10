@@ -1,6 +1,5 @@
-import { ConditionalExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PuestosService } from '../services/puestos.service';
 
