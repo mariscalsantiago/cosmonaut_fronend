@@ -39,6 +39,10 @@ const routes: Routes = [{
     {
       path: 'empresa/detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/gruposNomina/empresasgruponominas.module").then(m => m.empresasGrupoNominasModule)
+    },
+    {
+      path: 'empresa/detalle/:id',
+      component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/jonadaLaboral/empresasjornadalaboral.module").then(m => m.empresasJornadaLaboralModule)
     }
     
   ]

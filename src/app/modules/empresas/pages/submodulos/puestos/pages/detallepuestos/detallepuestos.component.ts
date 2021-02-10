@@ -27,6 +27,7 @@ export class DetallepuestosComponent implements OnInit {
   public tamanio:number = 0;
   public id_empresa: number = 0;
   public nom_empresa: string = "";
+  public puestoIdReporta: number =2;
 
   public aparecemodalito: boolean = false;
   public scrolly: string = '5%';
@@ -51,7 +52,12 @@ export class DetallepuestosComponent implements OnInit {
 
     
     this.areas = history.state.datos == undefined ? {} : history.state.datos ;
-    this.myFormrep = this.createFormrep((this.areas));
+    if(this.insertar){
+      this.myFormrep = this.createForm((this.areas));
+    }
+    else{ 
+      this.myFormrep = this.createFormMod((this.areas));
+    }
 
     this.puestosPrd.getAllCompany(this.id_empresa).subscribe(datos => {
       this.empresas = datos.datos;
@@ -59,7 +65,13 @@ export class DetallepuestosComponent implements OnInit {
         if (this.empresas != undefined){
 
            this.nom_empresa = this.empresas.nombre
-           this.myFormrep = this.createFormrep((this.areas));
+
+           if(this.insertar){
+            this.myFormrep = this.createForm((this.areas));
+          }
+          else{ 
+            this.myFormrep = this.createFormMod((this.areas));
+          }
       }
 
     });
@@ -74,12 +86,22 @@ export class DetallepuestosComponent implements OnInit {
   }
 
 
-  public createFormrep(obj: any) {
+  public createForm(obj: any) {
     return this.formBuilder.group({
 
       nombre: [ this.nom_empresa,[Validators.required]],
       nombreCorto: [obj.nombreCorto, [Validators.required]],
-      puestoId: [obj.areaId,[Validators.required]],
+      puesto: [obj.puesto,[Validators.required]],
+      areaId: obj.areaId
+
+    });
+  }
+
+  public createFormMod(obj: any) {
+    return this.formBuilder.group({
+
+      nombre: [ this.nom_empresa,[Validators.required]],
+      nombreCorto: [obj.nombreCorto, [Validators.required]],
       areaId: obj.areaId
 
     });
@@ -183,53 +205,55 @@ export class DetallepuestosComponent implements OnInit {
         let obj = this.myFormrep.value;
 
         let objEnviar:any = {
-            descripcion: "",
-            nombreCorto: "Logistica",
+            descripcion: obj.nombreCorto,
+            nombreCorto: obj.nombreCorto,
             centrocClienteId: this.id_empresa,
             nclPuestoDto: [
               {
-                descripcion: "",
-                nombreCorto: "Recepción",
-                puestoIdReporta: 0,
-                centrocClienteId: 1
+                descripcion: obj.puesto,
+                nombreCorto: obj.puesto,
+                //puestoIdReporta: this.puestoIdReporta,
+                centrocClienteId: this.id_empresa
               }
             ]
       }
 
         if(this.insertar){
-          debugger;
-          
-          /*this.companyPrd.savecont(obj).subscribe(datos => {
+          this.puestosPrd.save(objEnviar).subscribe(datos => {
             
-            this.iconType = datos.result? "success":"error";
-    
-            this.strTitulo = datos.message;
-            this.strsubtitulo = 'Registro agregado correctamente'
+            this.iconType = datos.resultado? "success":"error";
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje;
             this.modal = true;
-            this.compania = false;
-            this.contacto = true;
             
-          });*/
+          });
 
         }else{
-    
-          debugger;   
+          debugger;
+          let objEnviarMod:any = {
+            areaId: obj.areaId,
+            descripcion: obj.nombreCorto,
+            nombreCorto: obj.nombreCorto,
+            centrocClienteId: this.id_empresa,
+            nclPuestoDto:
+            [
 
-          /*this.companyPrd.modificarCont(obj).subscribe(datos =>{
-            this.iconType =  datos.result? "success":"error";  
-            this.strTitulo = datos.message;
-            this.strsubtitulo = 'Registro modificado correctamente!'
+            ]
+          }
+          this.puestosPrd.modificar(objEnviarMod).subscribe(datos =>{
+            this.iconType =  datos.resultado? "success":"error";  
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje;
             this.modal = true;
-            this.listcontacto = true;
-            this.compania = false;
 
-          });*/
+
+          });
         }
       
       }
     }else{
       if(this.iconType == "success"){
-          this.routerPrd.navigate(["/empresa/detalle/idempresa/puestos"]);
+          this.routerPrd.navigate(["/empresa/detalle/"+this.id_empresa+"/puestos"]);
       }
      
       this.modal = false;
