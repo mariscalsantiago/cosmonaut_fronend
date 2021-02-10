@@ -1,6 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
+proxy.*.json
 /dist
 /tmp
 /out-tsc
@@ -53,4 +54,4 @@ e2e/reports/
 
 
 
-proxy.config.json
+

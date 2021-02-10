@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, DebugElement, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PuestosService } from '../services/puestos.service';
 
@@ -17,10 +17,18 @@ export class ListapuestosComponent implements OnInit {
   public tamanio:number = 0;
   public cargando:Boolean = false;
   public id_empresa:number = 0;
+  public id_area: number = 0;
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
   public changeIconDown: boolean = false;
   public objEnviar:any ;
+
+  public aparecemodalito: boolean = false;
+  public scrolly: string = '5%';
+  public modalWidth: string = "55%";
+  public cargandodetallearea:boolean = false;
+  public nombreCorto : string = "";
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -32,6 +40,7 @@ export class ListapuestosComponent implements OnInit {
 
  
   public arreglo:any = [];
+  public arreglodetalle:any = [];
 
   constructor(private routerPrd:Router,private puestosProd:PuestosService,private CanRouterPrd:ActivatedRoute) { }
 
@@ -48,7 +57,6 @@ export class ListapuestosComponent implements OnInit {
       this.id_empresa = datos["id"]
       this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
       this.arreglo = datos.datos;
-      console.log("puestos-->",this.arreglo);
       this.cargando = false;
       //this.paginar();
     });
@@ -85,19 +93,71 @@ export class ListapuestosComponent implements OnInit {
             
   }
   
+  public traerModal(indice: any) {
 
-  apagando(indice:number){
-    
-    for(let x = 0;x < this.arreglo.length; x++){
-      if(x == indice)
-            continue;
+    debugger;
+    let elemento: any = document.getElementById("vetanaprincipaltabla")
+    this.aparecemodalito = true;
 
-      this.arreglo[x].seleccionado = false;
+
+
+    if (elemento.getBoundingClientRect().y < -40) {
+      let numero = elemento.getBoundingClientRect().y;
+      numero = Math.abs(numero);
+
+      this.scrolly = numero + 100 + "px";
+
+
+    } else {
+
+      this.scrolly = "5%";
     }
 
 
-    this.arreglo[indice].seleccionado = !this.arreglo[indice].seleccionado;
-  
+
+    if (this.tamanio < 600) {
+
+      this.modalWidth = "90%";
+
+    } else {
+      this.modalWidth = "55%";
+
+    }
+
+
+    let areapuestoitem = this.arreglo[indice];
+    
+    this.cargandodetallearea = true;
+    this.puestosProd.getdetalleArea(areapuestoitem.areaId,this.id_empresa).subscribe(datos =>{
+
+      this.cargandodetallearea = false;
+
+
+      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
+
+     
+
+    });
+
+  }
+
+  public filtrar() {
+    debugger;
+
+    this.cargando = true;
+
+    let peticion = {
+
+      nombreCorto: this.nombreCorto,
+      nclCentrocCliente: {
+        nombre: ""
+      }
+    } 
+ 
+    this.puestosProd.filtrar(peticion).subscribe(datos => {
+      this.arreglo = datos.datos;
+      this.cargando = false;
+    });
   }
 
   public recibir($evento: any) {
@@ -106,7 +166,6 @@ export class ListapuestosComponent implements OnInit {
     if (this.iconType == "warning") {
 
       if ($evento) {
-        //let id = this.arreglo[this.indexSeleccionado].id;
 
         this.puestosProd.eliminar(this.objEnviar).subscribe(datos => {
           let mensaje = datos.mensaje;
@@ -116,16 +175,6 @@ export class ListapuestosComponent implements OnInit {
           this.iconType = resultado ? "success" : "error";
 
           this.modal = true;
-
-          if(resultado){
-
-
-            this.arreglo.splice(this.objEnviar,1);
-            console.log("split -->>",this.arreglo);
-
-
-          }
-
 
         });
 
