@@ -51,6 +51,7 @@ Thumbs.db
 .npm/
 .pki/
 e2e/reports/
+reports/
 
 
 
