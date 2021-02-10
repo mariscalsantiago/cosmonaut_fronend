@@ -1,26 +1,29 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CuentasbancariasService {
 
-  constructor(private http:HttpClient) { }
+  public url:string = "";
+
+  constructor(private http:HttpClient) {
+
+    this.url = direcciones.cuentasbancarias;
+
+
+   }
 
   public getListaCuentaBancaria():Observable<any>{
-       return this.http.get("/yared/cuentaBanco/listar/todos");
+       return this.http.get(`${this.url}/listar/todos`);
   }
 
-  public getCuentaBancariaById():Observable<any>{
-      return this.http.get("/catalogos/csbanco/listar/todos");
-  }
+ 
 
 
-  public getListaBancos():Observable<any>{
-    return this.http.get("/catalogos/csbanco/listar/todos");
-  }
 
   public save(obj:any):Observable<any>{
 
@@ -32,9 +35,9 @@ export class CuentasbancariasService {
     };
 
     let json: string = JSON.stringify(obj);
-    console.log("guardar");
+    console.log(`guardar`);
     console.log(json);
-    return this.http.put("/yared/cuentaBanco/guardar",json,httpOptions);
+    return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
 
@@ -52,7 +55,7 @@ export class CuentasbancariasService {
 
     console.log(json);
 
-    return this.http.post("/yared/cuentaBanco/modificar",json,httpOptions);
+    return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
 
@@ -64,7 +67,7 @@ export class CuentasbancariasService {
     };
 
     let json: string = JSON.stringify(obj);
-    return this.http.post("/yared/cuentaBanco/eliminar",json,httpOptions);
+    return this.http.post(`${this.url}/eliminar`,json,httpOptions);
   }
 
 }

@@ -23,11 +23,11 @@ export class UsuariosComponent implements OnInit {
 
 
   public cargando: Boolean = false;
-  public tipoguardad:boolean = false;
+  public tipoguardad: boolean = false;
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
   public numeroitems: number = 5;
-  public arreglotemp:any = [];
+  public arreglotemp: any = [];
   public arreglopaginas: Array<any> = [];
 
 
@@ -47,10 +47,10 @@ export class UsuariosComponent implements OnInit {
   public correoempresarial: string = "";
   public activo: number = 0;
 
-  public modal:boolean = false;
-  public strTitulo:string = "";
-  public strsubtitulo:string = "";
-  public iconType:string = "";
+  public modal: boolean = false;
+  public strTitulo: string = "";
+  public strsubtitulo: string = "";
+  public iconType: string = "";
 
 
 
@@ -83,7 +83,11 @@ export class UsuariosComponent implements OnInit {
     this.usuariosPrd.getAllUsers().subscribe(datos => {
       this.arreglotemp = datos.datos;
       this.cargando = false;
-      this.paginar();
+
+      if (this.arreglotemp === undefined)
+        this.arreglo == undefined;
+      else
+        this.paginar();
     });
 
     this.usuariosPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
@@ -97,13 +101,13 @@ export class UsuariosComponent implements OnInit {
   public verdetalle(obj: any) {
 
 
-    if(obj == undefined){
+    if (obj == undefined) {
 
       this.routerPrd.navigate(['usuarios', 'detalle_usuario', "agregar"], { state: { company: this.arregloCompany } });
 
-    }else{
+    } else {
 
-      this.routerPrd.navigate(['usuarios', 'detalle_usuario', "actualizar",obj.personaId], { state: {  company: this.arregloCompany } });
+      this.routerPrd.navigate(['usuarios', 'detalle_usuario', "actualizar", obj.personaId], { state: { company: this.arregloCompany } });
     }
 
 
@@ -135,20 +139,20 @@ export class UsuariosComponent implements OnInit {
   }
 
 
-  
 
-  public guardarMultiseleccion(tipoguardad:boolean) {
-  
+
+  public guardarMultiseleccion(tipoguardad: boolean) {
+
 
     this.tipoguardad = tipoguardad;
 
-   this.modal = true;
-   this.strTitulo = `¿Deseas ${tipoguardad?"activar":"desactivar"} estos usuarios?`;
-   this.strsubtitulo = `Una vez ${tipoguardad?"activados":"desactivados"} estos usuarios apareceran disponibles en el sistema`;
-   this.iconType = "warning";
+    this.modal = true;
+    this.strTitulo = `¿Deseas ${tipoguardad ? "activar" : "desactivar"} estos usuarios?`;
+    this.strsubtitulo = `Una vez ${tipoguardad ? "activados" : "desactivados"} estos usuarios apareceran disponibles en el sistema`;
+    this.iconType = "warning";
 
 
-   
+
   }
 
 
@@ -206,16 +210,15 @@ export class UsuariosComponent implements OnInit {
     }
 
 
-    
+
 
 
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
       this.arreglotemp = datos.datos;
-      if(this.arreglotemp != undefined ){
-        for(let item of this.arreglotemp)
-        {
+      if (this.arreglotemp != undefined) {
+        for (let item of this.arreglotemp) {
           item["centrocClienteId"] = {
-            nombre:item["razonSocial"]
+            nombre: item["razonSocial"]
           }
         }
       }
@@ -245,7 +248,7 @@ export class UsuariosComponent implements OnInit {
       let primero = true;
       paginas = Math.ceil(paginas);
 
-  
+
       for (let x = 1; x <= paginas; x++) {
 
         this.arreglopaginas.push({ numeropagina: (x - 1) * this.numeroitems, llavepagina: ((x - 1) * this.numeroitems) + this.numeroitems, mostrar: x, activado: primero });
@@ -284,85 +287,87 @@ export class UsuariosComponent implements OnInit {
   }
 
 
-  public verificaDisponibilidad(){
+  public verificaDisponibilidad() {
 
-    let variable:boolean = false;
-    
-    for(let item of this.arreglotemp){
+    let variable: boolean = false;
 
-      if(item["esActivo"]){
+    if (this.arreglotemp !== undefined) {
+      for (let item of this.arreglotemp) {
 
-        variable = true;
-        break;
+        if (item["esActivo"]) {
+
+          variable = true;
+          break;
+        }
+
+        variable = false;
+
       }
-
-      variable = false;
-
     }
-    
+
 
     return variable;
   }
 
 
 
-  public recibir($evento:any){
+  public recibir($evento: any) {
 
     this.modal = false;
 
-    if(this.iconType == "warning"){
-      if($evento){
-        let arregloUsuario:any = [];
-  
-        for(let item of this.arreglotemp){
-     
-         if(item["esActivo"]){
-     
-           arregloUsuario.push({personaId:item["personaId"],activo:this.tipoguardad});
-     
-         }
+    if (this.iconType == "warning") {
+      if ($evento) {
+        let arregloUsuario: any = [];
+
+        for (let item of this.arreglotemp) {
+
+          if (item["esActivo"]) {
+
+            arregloUsuario.push({ personaId: item["personaId"], activo: this.tipoguardad });
+
+          }
         }
 
-        this.usuariosPrd.modificarListaActivos(arregloUsuario).subscribe(datos =>{
+        this.usuariosPrd.modificarListaActivos(arregloUsuario).subscribe(datos => {
           console.log(datos);
 
           this.iconType = datos.resultado ? "success" : "error";
 
-            this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
-            this.modal = true;
-            
-           
-           
-            for(let item of arregloUsuario){
+          this.strTitulo = datos.mensaje;
+          this.strsubtitulo = datos.mensaje
+          this.modal = true;
 
-              for(let item2 of this.arreglotemp){
 
-                if(item2.personaId === item.personaId){
 
-                  item2["activo"]=item["activo"];
-                  item2["esActivo"]=false;
-                  break;
-                }
+          for (let item of arregloUsuario) {
 
+            for (let item2 of this.arreglotemp) {
+
+              if (item2.personaId === item.personaId) {
+
+                item2["activo"] = item["activo"];
+                item2["esActivo"] = false;
+                break;
               }
-
 
             }
 
-          
+
+          }
+
+
         });
-  
-  
+
+
       }
-    }else{
+    } else {
 
     }
 
 
   }
 
- 
+
 
 
 

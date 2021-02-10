@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { CuentasbancariasService } from '../../services/cuentasbancarias.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class DetallecuentasbancariasComponent implements OnInit {
   public cuentasBancarias: any;
   public submitInvalido: boolean = false;
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
-    private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService) { }
+    private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService,
+    private catalogosPrd:CatalogosService) { }
 
   ngOnInit(): void {
 
@@ -51,7 +53,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
     this.myForm = this.createForm(obj);
 
 
-    this.cuentasPrd.getListaBancos().subscribe(datos => {
+    this.catalogosPrd.getCuentasBanco().subscribe(datos => {
       this.cuentasBancarias = datos.datos;
     });
 

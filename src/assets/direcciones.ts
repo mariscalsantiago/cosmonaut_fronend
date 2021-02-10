@@ -1,11 +1,14 @@
-const ip:string = "http://6e1f1a043807.ngrok.io";
-//const ip:string = "http://63b630808d12.ngrok.io";
-
+const ip:string = "/api";
+const ip2:string = "/yared";
+const ip3:string = "/catalogos";
 
 export const direcciones = {
 
-    usuarios:`${ip}/user`,
+    usuarios:`${ip}/persona`,
     company: `${ip}/company`,
     area: `${ip}`,
-
+    cuentasbancarias:`${ip2}/cuentaBanco`,
+    catalogo:`${ip3}/catalogo`,
+    gruponomina:`${ip}/grupoNomina`,
+    colaboradorGrupoNomina:`${ip}/colaboradorGrupoNomina`
 };
