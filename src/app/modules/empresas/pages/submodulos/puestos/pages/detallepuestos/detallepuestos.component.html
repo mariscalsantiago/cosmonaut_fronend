@@ -82,12 +82,13 @@
 
             <div *ngIf="listpuesto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
               <label for="exampleFormControlSelect1">Nombre de puesto *</label>
-              <input formControlName="puesto" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}"
-                  placeholder="">
-                  <div *ngIf="f.puesto.errors && f.puesto.touched" class="invalid-feedback">
-                      Favor ingresa nombre de puesto.
-                  </div>
-            </div>
+              <select formControlName="puestoId" type="text" class="form-control" [ngClass]="{'is-invalid':f.puestoId.errors && f.puestoId.touched}">
+                <option *ngFor="let item of arreglo;" [value]="item.areaId">{{item.nombreCorto}}</option>
+              </select>
+              <div *ngIf="f.puestoId.errors && f.puestoId.touched" class="invalid-feedback">
+                Favor de ingresar nombre de puesto
+              </div>
+          </div>
             
   
         </div>

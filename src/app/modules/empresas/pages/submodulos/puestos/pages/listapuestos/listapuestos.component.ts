@@ -128,7 +128,7 @@ export class ListapuestosComponent implements OnInit {
     let areapuestoitem = this.arreglo[indice];
     
     this.cargandodetallearea = true;
-    this.puestosProd.getdetalleArea(areapuestoitem.areaId,this.id_empresa).subscribe(datos =>{
+    this.puestosProd.getdetalleArea(this.id_empresa,areapuestoitem.areaId).subscribe(datos =>{
 
       this.cargandodetallearea = false;
 

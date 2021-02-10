@@ -1,23 +1,15 @@
-.margen{
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-}
 
 
 .button-outlet{
     background-color: transparent!important;
 }
 
-.titulo{
-    margin-top: 1em;
-}
+
 
 
 table{
     border-radius: 10px;
 }
-
 
 .margen-tabla table{
     margin:15px;
@@ -47,11 +39,7 @@ td{
 }
 
 
-table{
-    tr{
-        cursor: pointer;
-    }
-}
+
 
 .botonmultiseleccion{
     margin: auto;
@@ -73,5 +61,50 @@ table{
         background-color: #00c1af !important;
     }
 }
+
+
+.contenedorDiv{
+   
+    .consulta{
+        width: 100%;
+        height: auto;
+        left: 0;
+        
+    }
+    
+}
+
+
+.ventanaemergente{
+    z-index: 1;
+    display: block;
+    overflow: auto;
+    padding: 4%;
+    width: 50%;
+    border-radius: 5px;
+    border:1px solid rgb(102, 102, 102);
+    height: auto;
+    background-color: white !important;
+    -webkit-box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42); 
+box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42);
+left:5%;
+
+position: absolute;
+
+.btnclosemodal{
+    top: 0   !important;
+    position: absolute  !important;
+    right: 11px   !important;
+    
+
+    span{
+        color: #56dfd4;
+        font-size: x-large;
+    }
+}
+
+
+}
+
 
 

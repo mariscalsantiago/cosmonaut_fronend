@@ -59,7 +59,6 @@ export class DetallepuestosComponent implements OnInit {
         if (this.empresas != undefined){
 
            this.nom_empresa = this.empresas.nombre
-           console.log("nmbreempresa",this.nom_empresa);
            this.myFormrep = this.createFormrep((this.areas));
       }
 
@@ -78,7 +77,7 @@ export class DetallepuestosComponent implements OnInit {
   public createFormrep(obj: any) {
     return this.formBuilder.group({
 
-      nombre: [ this.nom_empresa],
+      nombre: [ this.nom_empresa,[Validators.required]],
       nombreCorto: [obj.nombreCorto, [Validators.required]],
       puestoId: [obj.areaId,[Validators.required]],
       areaId: obj.areaId
@@ -91,7 +90,6 @@ export class DetallepuestosComponent implements OnInit {
     this.puestosPrd.getdetPuestoID(this.areas.areaId,this.id_empresa).subscribe(datos =>{
       this.cargando = true;
       this.arreglo = datos.datos;
-      console.log("puestos", this.arreglo);
       this.cargando = false;
     });
   }
@@ -100,14 +98,12 @@ export class DetallepuestosComponent implements OnInit {
     this.puestosPrd.getAllPuestoID(this.id_empresa).subscribe(datos =>{
       this.cargando = true;
       this.arreglo = datos.datos;
-      console.log("puestos", this.arreglo);
       this.cargando = false;
     });
   }
 
   public traerModal(indice: any) {
 
-    debugger;
     let elemento: any = document.getElementById("vetanaprincipaltablapuesto")
     this.aparecemodalito = true;
 
@@ -137,8 +133,7 @@ export class DetallepuestosComponent implements OnInit {
     }
 
 
-    let areapuestoitem = this.arreglo[indice];
-    
+  
     this.cargandolistapuesto = true;
     this.puestosPrd.getAllArea(this.id_empresa).subscribe(datos =>{
 
@@ -173,9 +168,8 @@ export class DetallepuestosComponent implements OnInit {
 
 
   public redirect(obj:any){
-    debugger;
     this.modal = true;
-    this.routerPrd.navigate(["/empresa/detalle/idempresa/puestos"]);
+    this.routerPrd.navigate(["/empresa/detalle/"+this.id_empresa+"/puestos"]);
     this.modal = false;
     
 
@@ -189,12 +183,17 @@ export class DetallepuestosComponent implements OnInit {
         let obj = this.myFormrep.value;
 
         let objEnviar:any = {
-          nombreCorto : obj.nombreCorto,
-          fechaAlta : "08/02/2021",
-          esActivo : true,
-          centrocClienteId : this.id_empresa,
-          puestoId: obj.puestoId
-
+            descripcion: "",
+            nombreCorto: "Logistica",
+            centrocClienteId: this.id_empresa,
+            nclPuestoDto: [
+              {
+                descripcion: "",
+                nombreCorto: "Recepción",
+                puestoIdReporta: 0,
+                centrocClienteId: 1
+              }
+            ]
       }
 
         if(this.insertar){
