@@ -1,9 +1,9 @@
 {
-    "/api/*":{
+    "/empresa/*":{
         "target":"http://34.75.54.120/empresa",
         "secure":false,
         "pathRewrite": {
-            "^/api": ""
+            "^/empresa": ""
           },
          "changeOrigin": true
     },

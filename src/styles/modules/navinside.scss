@@ -1,0 +1,10 @@
+.nav-inside{
+    div{
+        color:rgb(179, 179, 179);
+    }
+
+    .activado{
+        color:$primary !important;
+        border-color: rgb(202, 202, 202);
+    }
+}

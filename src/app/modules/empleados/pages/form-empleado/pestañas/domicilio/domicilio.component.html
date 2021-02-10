@@ -1,64 +1,71 @@
 <div class="form-group mt-3 row margen"><label class="titulo">Domicilio</label></div>
-<div class="form group row margen">
+<div class="row">
+    <div class="col-10">
+        <div class="form group row  margen">
 
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Código postal</label>
-        <input type="email" class="form-control" placeholder="">
-        <div class="invalid-feedback">
-            Favor de ingresar el Correo Corporativo
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Código postal</label>
+                <input type="email" class="form-control" placeholder="">
+                <div class="invalid-feedback">
+                    Favor de ingresar el Correo Corporativo
+                </div>
+        
+        
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Entidad federativa</label>
+                <input type="email" class="form-control" placeholder="">
+        
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Municipio o alcadía </label>
+                <input type="email" class="form-control" placeholder="">
+        
+            </div>
+        
         </div>
-
-
-    </div>
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Entidad federativa</label>
-        <input type="email" class="form-control" placeholder="">
-
-    </div>
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Municipio o alcadía </label>
-        <input type="email" class="form-control" placeholder="">
-
-    </div>
-
-</div>
-
-<div class="form group row margen">
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Colonia</label>
-        <select name="" id="" class="form-control">
-            <option value="">col del maestro</option>
-            <option value="">Soledad</option>
-            <option value="">Santa rosa</option>
-        </select>
-
-    </div>
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Calle</label>
-        <input type="email" class="form-control" placeholder="">
-
-    </div>
-</div>
-
-<div class="form group row margen">
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Número exterior</label>
-       <input type="text" name="" id="" class="form-control">
-
-    </div>
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Número interior</label>
-        <input type="email" class="form-control" placeholder="">
-
+        
+        <div class="form group row margen">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Colonia</label>
+                <select name="" id="" class="form-control">
+                    <option value="">col del maestro</option>
+                    <option value="">Soledad</option>
+                    <option value="">Santa rosa</option>
+                </select>
+        
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8">
+                <label>Calle</label>
+                <input type="email" class="form-control" placeholder="">
+        
+            </div>
+        </div>
+        
+        <div class="form group row margen">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Número exterior</label>
+               <input type="text" name="" id="" class="form-control">
+        
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Número interior</label>
+                <input type="email" class="form-control" placeholder="">
+        
+            </div>
+        </div>
+    
     </div>
 </div>
 
+
+    
 <div class="row">
     <div class="col-12">
-        <div class="text-center margin" style="margin-bottom: 20px;">
+        <div class="text-right margin" style="margin-bottom: 20px;">
     
             <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-            <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+            <button  type="submit" (click)="guardar()" class="btn btn-primary button-fill">Guardar</button>
         </div>
     </div>
 </div>

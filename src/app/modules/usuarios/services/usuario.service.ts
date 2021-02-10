@@ -97,10 +97,7 @@ export class UsuarioService {
   }
 
 
-  public getAllCompany(): Observable<any> {
-    return this.http.get('/api/centroCostosCliente/lista/compania');
-  }
-
+ 
 
   public modificarListaActivos(obj: any): Observable<any> {
     const httpOptions = {

@@ -1,50 +1,50 @@
 <div class="form-group mt-3 row margen"><label class="titulo">Preferencias</label></div>
-<div class="form group row margen">
+<div class="row">
+    <div class="col-9">
+        <div class="form group row margen">
 
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Alimentación</label>
-        <select name="" id="" class="form-control">
-            <option value="">Vegetariana</option>
-            <option value="">Todo</option>
-        </select>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Alimentación</label>
+                <select name="" id="" class="form-control">
+                    <option value="">Vegetariana</option>
+                    <option value="">Todo</option>
+                </select>
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Alergías</label>
+                <input type="email" class="form-control" placeholder="">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Color favorito</label>
+                <input type="email" class="form-control" placeholder="">
+            </div>
+            
+        </div>
+        
+        <div class="form group row margen">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Bebida favorita</label>
+                <input type="email" class="form-control" placeholder="">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Cafe o te?</label>
+                <input type="email" class="form-control" placeholder="">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Dulce o salado?</label>
+                <input type="email" class="form-control" placeholder="">
+            </div>
+        </div>
+        
     </div>
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Alergías</label>
-        <input type="email" class="form-control" placeholder="">
-    </div>
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Color favorito</label>
-        <input type="email" class="form-control" placeholder="">
-    </div>
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Dulce favorito</label>
-        <input type="email" class="form-control" placeholder="">
-    </div>
-    
 </div>
-
-<div class="form group row margen">
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Bebida favorita</label>
-        <input type="email" class="form-control" placeholder="">
-    </div>
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Cafe o te?</label>
-        <input type="email" class="form-control" placeholder="">
-    </div>
-    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Dulce o salado?</label>
-        <input type="email" class="form-control" placeholder="">
-    </div>
-</div>
-
 
 <div class="row">
     <div class="col-12">
-        <div class="text-center margin" style="margin-bottom: 20px;">
+        <div class="text-right margin" style="margin-bottom: 20px;">
 
             <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-            <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+            <button  type="submit" (click)="guardar()" class="btn btn-primary button-fill">Guardar</button>
         </div>
     </div>
 </div>

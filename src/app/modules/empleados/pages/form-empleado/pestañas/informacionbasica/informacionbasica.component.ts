@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-informacionbasica',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InformacionbasicaComponent implements OnInit {
 
-  public arreglopintar: any = [false];
+  @Output() enviado = new EventEmitter();
 
   constructor() { }
 
@@ -15,22 +15,9 @@ export class InformacionbasicaComponent implements OnInit {
   }
 
 
-  public cambiarStatus(valor: any) {
-
-    for (let x = 0; x < this.arreglopintar.length; x++) {
-
-      if (x == valor) {
-        continue;
-      }
-
-      this.arreglopintar[x] = false;
-
-    }
-
-    this.arreglopintar[valor] = !this.arreglopintar[valor];
-
-
-    console.log(this.arreglopintar);
+ 
+  public guardar(){
+    this.enviado.emit({type:"informacion",valor:true});
   }
 
 

@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { UsuarioService } from '../../services/usuario.service';
 
 
@@ -66,7 +67,8 @@ export class UsuariosComponent implements OnInit {
   public tamanio = 0;
   public changeIconDown: boolean = false;
 
-  constructor(private routerPrd: Router, private usuariosPrd: UsuarioService) { }
+  constructor(private routerPrd: Router, private usuariosPrd: UsuarioService,
+    private companiPrd:SharedCompaniaService) { }
 
   ngOnInit(): void {
 
@@ -90,7 +92,7 @@ export class UsuariosComponent implements OnInit {
         this.paginar();
     });
 
-    this.usuariosPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
+    this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
 
   }
 

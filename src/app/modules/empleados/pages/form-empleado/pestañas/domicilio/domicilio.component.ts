@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-domicilio',
@@ -7,11 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DomicilioComponent implements OnInit {
 
+  @Output() enviado = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+
+ 
+  public guardar(){
+    this.enviado.emit({type:"domicilio",valor:true});
+  }
   public cancelar(){
     
   }
