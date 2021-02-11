@@ -1,6 +1,6 @@
 {
     "/empresa/*":{
-        "target":"http://34.75.54.120/empresa",
+        "target":"http://5655370305c6.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/empresa": ""

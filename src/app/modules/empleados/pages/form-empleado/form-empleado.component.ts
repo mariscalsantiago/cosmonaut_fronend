@@ -10,6 +10,21 @@ export class FormEmpleadoComponent implements OnInit {
   public activado = [{ tab: true, form: true, disabled: false }, { tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false },
   { tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false }];
 
+
+  public alerta = {
+
+    modal:false,
+    strTitulo:"",
+    iconType:"",
+    strsubtitulo:""
+  };
+
+  public enviarPeticion = {
+    enviarPeticion : false
+  };
+
+  public cambiaValor:boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -17,7 +32,6 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   public recibir(elemento: any) {
-    console.log(elemento);
 
     switch (elemento.type) {
       case "informacion":
@@ -58,5 +72,32 @@ export class FormEmpleadoComponent implements OnInit {
     }
 
   }
+
+
+  public recibirAlerta(obj:any){
+
+    this.cambiaValor = !this.cambiaValor;
+    
+    this.alerta.modal = false;
+    this.enviarPeticion.enviarPeticion = false;
+    
+
+    if(this.alerta.iconType === "warning" ){
+
+      if(obj){
+        this.enviarPeticion.enviarPeticion = true;
+      }
+
+
+    }else{
+      if(this.alerta.iconType == "success"){
+          this.recibir({type:"informacion",valor:true});
+      }
+    }
+
+  }
+
+
+
 
 }

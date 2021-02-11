@@ -6,7 +6,7 @@ import { EmpleadoComponent } from './pages/empleado/empleado.component';
 import { ShareModule } from 'src/app/shared/share.module';
 import { FormEmpleadoComponent } from './pages/form-empleado/form-empleado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { InformacionbasicaComponent } from './pages/form-empleado/pestañas/informacionbasica/informacionbasica.component';
 import { DomicilioComponent } from './pages/form-empleado/pestañas/domicilio/domicilio.component';
 import { PreferenciasComponent } from './pages/form-empleado/pestañas/preferencias/preferencias.component';
@@ -21,7 +21,8 @@ import { DetalleComponent } from './pages/form-empleado/pestañas/detalle/detall
       empleadosRoutingModule,
       ShareModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      HttpClientModule
     ],
     providers: []
   })

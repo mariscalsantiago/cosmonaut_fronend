@@ -294,5 +294,11 @@ app-tablapaginado{
 form{
     label{
         color:$dark;
+        font-size: small;
+    }
+
+
+    label[class='titulo']{
+        font-size: medium;
     }
 }
