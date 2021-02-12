@@ -1,4 +1,4 @@
-<form action="">
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
     <div class="form-group mt-3 row margen"><label class="titulo">Preferencias</label></div>
 <div class="row">
     <div class="col-9">
@@ -7,8 +7,7 @@
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Alimentación</label>
                 <select name="" id="" class="form-control">
-                    <option value="">Vegetariana</option>
-                    <option value="">Todo</option>
+                    <option *ngFor="let item of arregloPreferencias" [value]="item.tipoPreferenciaId">{{item.descripcion}}</option>
                 </select>
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
@@ -44,8 +43,8 @@
     <div class="col-12">
         <div class="text-right margin" style="margin-bottom: 20px;">
 
-            <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-            <button  type="submit" (click)="guardar()" class="btn btn-primary button-fill">Guardar</button>
+            <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+            <button  type="submit"  class="btn btn-primary button-fill">Guardar</button>
         </div>
     </div>
 </div>

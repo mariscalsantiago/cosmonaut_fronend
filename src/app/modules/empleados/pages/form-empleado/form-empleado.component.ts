@@ -7,23 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormEmpleadoComponent implements OnInit {
 
-  public activado = [{ tab: true, form: true, disabled: false }, { tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false },
+  public activado = [{ tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false },
   { tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false }];
 
 
+  public ocultarempleada:boolean = false;
+
+  public datosPersona:any;
+
   public alerta = {
 
-    modal:false,
-    strTitulo:"",
-    iconType:"",
-    strsubtitulo:""
+    modal: false,
+    strTitulo: "",
+    iconType: "",
+    strsubtitulo: ""
   };
 
   public enviarPeticion = {
-    enviarPeticion : false
+    enviarPeticion: false
   };
 
-  public cambiaValor:boolean = false;
+  public cambiaValor: boolean = false;
 
   constructor() { }
 
@@ -62,36 +66,63 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[4].disabled = false;
         this.activado[3].form = false;
         break;
-      case "detalle":
-
-        this.activado[5].tab = true;
-        this.activado[5].form = true;
-        this.activado[5].disabled = false;
-        this.activado[4].form = false;
-        break;
     }
 
   }
 
 
-  public recibirAlerta(obj:any){
+  public recibirAlerta(obj: any) {
 
+
+    
     this.cambiaValor = !this.cambiaValor;
     
+
     this.alerta.modal = false;
     this.enviarPeticion.enviarPeticion = false;
     
 
-    if(this.alerta.iconType === "warning" ){
-
-      if(obj){
+    if (this.alerta.iconType === "warning") {
+      
+      if (obj) {
+        
         this.enviarPeticion.enviarPeticion = true;
       }
 
 
-    }else{
-      if(this.alerta.iconType == "success"){
-          this.recibir({type:"informacion",valor:true});
+    } else {
+      if (this.alerta.iconType == "success") {
+
+        let indexSeleccionado = 0;
+        for (let x = 0; x < this.activado.length; x++) {
+          if (this.activado[x].form) {
+
+            indexSeleccionado = x;
+            break;
+          }
+        }
+
+      
+
+        switch (indexSeleccionado) {
+          case 0:
+            this.recibir({ type: "informacion", valor: true });
+            this.ocultarempleada = true;
+            break;
+          case 1:
+            this.recibir({ type: "domicilio", valor: true });
+            break;
+          case 2:
+            this.recibir({ type: "preferencias", valor: true });
+            break;
+          case 3:
+            this.recibir({ type: "empleo", valor: true });
+            break;
+            case 4:
+              alert("Termina la petición de empleados")
+            break;
+        }
+
       }
     }
 

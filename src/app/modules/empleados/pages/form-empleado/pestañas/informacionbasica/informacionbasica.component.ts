@@ -11,27 +11,27 @@ import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.se
 export class InformacionbasicaComponent implements OnInit {
 
   @Output() enviado = new EventEmitter();
-  @Input() alerta:any;
-  @Input() enviarPeticion:any;
-  @Input() cambiaValor:boolean = false;
+  @Input() alerta: any;
+  @Input() enviarPeticion: any;
+  @Input() cambiaValor: boolean = false;
 
 
 
-  public myform!:FormGroup;
+  public myform!: FormGroup;
 
-  public submitEnviado:boolean = false;
+  public submitEnviado: boolean = false;
 
-  public arreglonacionalidad:any = [];
+  public arreglonacionalidad: any = [];
 
 
-  constructor(private formBuilder:FormBuilder,private catalogosPrd:CatalogosService,
-    private empleadosPrd:EmpleadosService) { }
+  constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
+    private empleadosPrd: EmpleadosService) { }
 
   ngOnInit(): void {
 
     let obj = {
-      nacionalidadId:{},
-      medioContacto:{}
+      nacionalidadId: {},
+      medioContacto: {}
     };
     this.myform = this.createForm(obj);
 
@@ -40,47 +40,47 @@ export class InformacionbasicaComponent implements OnInit {
   }
 
 
-  public createForm(obj:any){
-      return this.formBuilder.group({
-         nombre:[obj.nombre,[Validators.required]],
-         apellidoPaterno:[obj.apellidoPaterno,[Validators.required]],
-         apellidoMaterno:[obj.apellidoMaterno],
-         genero:[obj.genero],
-         fechaNacimiento:[obj.fechaNacimiento],
-         tieneCurp:[obj.tieneCurp],
-         contactoInicialEmailPersonal:[obj.contactoInicialEmailPersonal,[Validators.required,Validators.email]],
-         emailCorporativo:[obj.emailCorporativo],
-         invitarEmpleado:obj.invitarEmpleado,
-         nacionalidadId:[obj.nacionalidadId.nacionalidadId,[Validators.required]],
-         estadoCivil:obj.estadoCivil,
-         contactoInicialTelefono:[obj.contactoInicialTelefono,[Validators.required]],
-         tieneHijos:obj.tieneHijos,
-         numeroHijos:obj.numeroHijos,
-         url:obj.medioContacto.url,
-         contactoEmergenciaNombre:[obj.contactoEmergenciaNombre,[Validators.required]],
-         contactoEmergenciaApellidoPaterno:[obj.contactoEmergenciaApellidoPaterno,[Validators.required]],
-         contactoEmergenciaApellidoMaterno:obj.contactoEmergenciaApellidoMaterno,
-         contactoEmergenciaParentesco:obj.contactoEmergenciaParentesco,
-         contactoEmergenciaEmail:[obj.contactoEmergenciaEmail,[Validators.email]],
-         contactoEmergenciaTelefono:obj.contactoEmergenciaTelefono
-      });
-  }
-
- 
-  public guardar(){
-    this.enviado.emit({type:"informacion",valor:true});
+  public createForm(obj: any) {
+    return this.formBuilder.group({
+      nombre: [obj.nombre, [Validators.required]],
+      apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
+      apellidoMaterno: [obj.apellidoMaterno],
+      genero: [obj.genero],
+      fechaNacimiento: [obj.fechaNacimiento],
+      tieneCurp: [obj.tieneCurp],
+      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
+      emailCorporativo: [obj.emailCorporativo],
+      invitarEmpleado: obj.invitarEmpleado,
+      nacionalidadId: [obj.nacionalidadId.nacionalidadId, [Validators.required]],
+      estadoCivil: obj.estadoCivil,
+      contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
+      tieneHijos: obj.tieneHijos,
+      numeroHijos: obj.numeroHijos,
+      url: obj.medioContacto.url,
+      contactoEmergenciaNombre: [obj.contactoEmergenciaNombre, [Validators.required]],
+      contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno, [Validators.required]],
+      contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
+      contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
+      contactoEmergenciaEmail: [obj.contactoEmergenciaEmail, [Validators.email]],
+      contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono
+    });
   }
 
 
-  public cancelar(){
-    
+  public guardar() {
+    this.enviado.emit({ type: "informacion", valor: true });
   }
 
 
-  public enviarFormulario(){
+  public cancelar() {
+
+  }
+
+
+  public enviarFormulario() {
 
     this.submitEnviado = true;
-    if(this.myform.invalid){
+    if (this.myform.invalid) {
       this.alerta.modal = true;
       this.alerta.strTitulo = "Campos obligatorios o invalidos";
       this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
@@ -95,53 +95,61 @@ export class InformacionbasicaComponent implements OnInit {
 
   }
 
-  public get f(){
+  public get f() {
     return this.myform.controls;
   }
 
 
   ngOnChanges(changes: SimpleChanges) {
 
-    if(this.enviarPeticion.enviarPeticion ){
-      this.enviarPeticion.enviarPeticion  = false;
+    console.log("otro lado");
 
+    if (this.enviarPeticion.enviarPeticion) {
+      this.enviarPeticion.enviarPeticion = false;
+      console.log("otro lado");
       let obj = this.myform.value;
-
-      let objenviar = {  nombre:obj.nombre,
-        apellidoPaterno:obj.apellidoPaterno,
-        apellidoMaterno:obj.apellidoMaterno,
-        genero:obj.genero,
-        fechaNacimiento:obj.fechaNacimiento,
-        tieneCurp:obj.tieneCurp,
-        contactoInicialEmailPersonal:obj.contactoInicialEmailPersonal,
-        emailCorporativo:obj.emailCorporativo,
-        invitarEmpleado:obj.invitarEmpleado,
-        nacionalidadId:{
-          nacionalidadId:obj.nacionalidadId
+      console.log("otro lado");
+      let objenviar = {
+        nombre: obj.nombre,
+        apellidoPaterno: obj.apellidoPaterno,
+        apellidoMaterno: obj.apellidoMaterno,
+        genero: obj.genero,
+        fechaNacimiento: obj.fechaNacimiento,
+        tieneCurp: obj.tieneCurp,
+        contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
+        emailCorporativo: obj.emailCorporativo,
+        invitarEmpleado: obj.invitarEmpleado,
+        nacionalidadId: {
+          nacionalidadId: obj.nacionalidadId
         },
-        estadoCivil:obj.estadoCivil,
-        contactoInicialTelefono:obj.contactoInicialTelefono,
-        tieneHijos:obj.tieneHijos,
-        numeroHijos:obj.numeroHijos,
-        medioContacto:{
-          url:obj.url
+        estadoCivil: obj.estadoCivil,
+        contactoInicialTelefono: obj.contactoInicialTelefono,
+        tieneHijos: obj.tieneHijos,
+        numeroHijos: obj.numeroHijos,
+        medioContacto: {
+          url: obj.url
         },
-        contactoEmergenciaNombre:obj.contactoEmergenciaNombre,
-        contactoEmergenciaApellidoPaterno:obj.contactoEmergenciaApellidoPaterno,
-        contactoEmergenciaApellidoMaterno:obj.contactoEmergenciaApellidoMaterno,
-        contactoEmergenciaParentesco:obj.contactoEmergenciaParentesco,
-        contactoEmergenciaEmail:obj.contactoEmergenciaEmail,
-        contactoEmergenciaTelefono:obj.contactoEmergenciaTelefono}
-
-      this.empleadosPrd.save(objenviar).subscribe(datos =>{
-        this.alerta.iconType = datos.resultado ? "success" : "error";
-
-            this.alerta.strTitulo = datos.mensaje;
-            this.alerta.strsubtitulo = datos.mensaje
-            this.alerta.modal = true;
-      });
+        contactoEmergenciaNombre: obj.contactoEmergenciaNombre,
+        contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
+        contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
+        contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
+        contactoEmergenciaEmail: obj.contactoEmergenciaEmail,
+        contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
+        centrocClienteId: {
+          centrocClienteId: 40
+        }
+      }
 
       
+      this.empleadosPrd.save(objenviar).subscribe(datos => {
+        this.alerta.iconType = datos.resultado ? "success" : "error";
+
+        this.alerta.strTitulo = datos.mensaje;
+        this.alerta.strsubtitulo = datos.mensaje
+        this.alerta.modal = true;
+      });
+
+
     }
 
   }

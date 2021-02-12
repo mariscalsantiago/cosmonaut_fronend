@@ -1,4 +1,4 @@
-<form action="">
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
 
     <div class="row">
         <div class="col-6" style="    border-right: 1px solid rgb(148, 148, 148);">
@@ -217,8 +217,8 @@
         <div class="col-12">
             <div class="text-right margin" style="margin-bottom: 20px;">
         
-                <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                <button  type="submit" (click)="guardar()" class="btn btn-primary button-fill">Guardar</button>
+                <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
             </div>
         </div>
     </div>
