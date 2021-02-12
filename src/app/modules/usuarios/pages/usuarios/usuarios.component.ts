@@ -217,12 +217,15 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
       this.arreglotemp = datos.datos;
+       console.log("estos son los datos",datos);
       if (this.arreglotemp != undefined) {
         for (let item of this.arreglotemp) {
           item["centrocClienteId"] = {
             nombre: item["razonSocial"]
           }
         }
+      }else{
+        this.arreglo = undefined;
       }
       this.paginar();
       this.cargando = false;
@@ -244,7 +247,7 @@ export class UsuariosComponent implements OnInit {
     this.arreglopaginas = [];
 
     if (this.arreglotemp != undefined) {
-      let paginas = this.arreglotemp.length / this.numeroitems;
+      let paginas = this.arreglotemp.length / Number(this.numeroitems);
 
 
       let primero = true;
@@ -253,11 +256,11 @@ export class UsuariosComponent implements OnInit {
 
       for (let x = 1; x <= paginas; x++) {
 
-        this.arreglopaginas.push({ numeropagina: (x - 1) * this.numeroitems, llavepagina: ((x - 1) * this.numeroitems) + this.numeroitems, mostrar: x, activado: primero });
+        this.arreglopaginas.push({ numeropagina: (x - 1) * Number(this.numeroitems), llavepagina: ((x - 1) * Number(this.numeroitems)) + Number(this.numeroitems), mostrar: x, activado: primero });
         primero = false;
       }
 
-      this.arreglo = this.arreglotemp.slice(0, this.numeroitems);
+      this.arreglo = this.arreglotemp.slice(0, Number(this.numeroitems));
       console.log(this.arreglotemp);
 
     }

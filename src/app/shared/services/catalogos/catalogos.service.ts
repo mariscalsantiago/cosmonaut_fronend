@@ -46,5 +46,12 @@ export class CatalogosService {
     return this.http.get(`${this.url}/nacionalidad/obtener/id/${idNacionalidad}`);
   }
 
+  public getPreferencias(): Observable<any> {
+    return this.http.get(`${this.url}/tipoPreferencia/listar/todos`);
+  }
+  public getPreferenciasById(idPreferencia:number): Observable<any> {
+    return this.http.get(`${this.url}/tipoPreferencia/obtener/id/${idPreferencia}`);
+  }
+
 
 }
