@@ -12,23 +12,23 @@ export class RepresentanteLegalService {
 
   constructor(private http:HttpClient) { 
 
-    this.url = '/api';
+    this.url = direcciones.usuarios;
 
   }
 
 
   public getAllUsersRep():Observable<any>{
-     return this.http.get("/api/persona/lista/todo/1");
+     return this.http.get(`${this.url}/lista/todo/1`);
   }
 
   public getByRep(id_company:number):Observable<any>{
-      return this.http.get(`/api/persona/obtener/id/compania/${id_company}`);
+      return this.http.get(`${this.url}/obtener/id/compania/${id_company}`);
   }
 
   public getById(id_user:number):Observable<any>{
     
 
-    return this.http.get(`/api/persona/obtener/id/${id_user}`);
+    return this.http.get(`${this.url}/obtener/id/${id_user}`);
 
   }
 
@@ -44,7 +44,9 @@ export class RepresentanteLegalService {
 
 
     let json:string = JSON.stringify(obj);
-     return this.http.post("/api/persona/lista/dinamica",json,httpOptions);
+    console.log("json representante legal");
+    console.log(json);
+     return this.http.post(`${this.url}/lista/dinamica`,json,httpOptions);
   }
 
   public save(obj:any):Observable<any>{
@@ -60,7 +62,7 @@ export class RepresentanteLegalService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/persona/guardar/representanteLegal`,json,httpOptions);
+    return this.http.put(`${this.url}/guardar/representanteLegal`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
@@ -76,12 +78,12 @@ export class RepresentanteLegalService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/persona/modificar/representanteLegal`,json,httpOptions);
+    return this.http.post(`${this.url}/modificar/representanteLegal`,json,httpOptions);
   }
 
 
   public getAllCompany():Observable<any>{
-     return this.http.get('/api/centroCostosCliente/lista/compania');
+     return this.http.get(`${direcciones.centroCostosCliente}/lista/compania`);
   }
 
 }

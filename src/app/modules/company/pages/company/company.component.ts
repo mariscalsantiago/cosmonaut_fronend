@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
 import { CompanyService } from '../../services/company.service';
 
 
@@ -45,6 +46,10 @@ export class CompanyComponent implements OnInit {
   */
 
   public arreglo:any = [];
+  public arreglotabla:any = {
+    columnas:[],
+    filas:[]
+  };
 
   constructor(private routerPrd:Router,private companyProd:CompanyService) { }
 
@@ -58,21 +63,27 @@ export class CompanyComponent implements OnInit {
 
         this.companyProd.getAll().subscribe(datos =>{
 
-        this.arreglo = datos.datos;
-        console.log("compania-->>",this.arreglo);
-        this.cargando = false;
+      
+          this.arreglo = datos.datos;
+
+          let columnas:Array<tabla> = [
+            new tabla("centrocClienteId","ID empresa",true),
+            new tabla("razonSocial","Razón social	",false,true),
+            new tabla("nombre","Nombre de la empresa	"),
+            new tabla("rfc","RFC"),
+            new tabla("fechaAlta","Fecha registro"),
+            new tabla("esActivo","Estatus")
+          ]
+          this.arreglotabla.columnas = columnas;
+          this.arreglotabla.filas = this.arreglo;
+          this.cargando = false;
       });
 
   }
 
 
   public verdetallecom(obj:any){
-    
-    this.cargando = true;
-    let tipoinsert = (obj == undefined)? 'nuevo':'modifica';
-    this.routerPrd.navigate(['company','detalle_company',tipoinsert],{state:{datos:obj}});
-    this.cargando = false;
-  
+    this.routerPrd.navigate(['company','detalle_company','nuevo'],{state:{datos:undefined}});
   }
 
   public filtrar() {
@@ -143,5 +154,14 @@ export class CompanyComponent implements OnInit {
     this.multiseleccionloading = false;
     this.multiseleccion = false;
   }
+
+
+
+  public recibirTabla(obj:any){
+    if(obj.type == "editar"){
+      this.routerPrd.navigate(['company','detalle_company','modifica'],{state:{datos:obj.datos}});
+    }
+  }
+
 
 }

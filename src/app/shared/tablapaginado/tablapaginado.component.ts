@@ -12,6 +12,7 @@ export class TablapaginadoComponent implements OnInit {
   public arreglo: any = [];
   public numeroitems: number = 5;
 
+
   public arreglopaginas: Array<any> = [];
 
   estructuratabla: any;
@@ -55,10 +56,16 @@ export class TablapaginadoComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
 
+    console.log("estos son los datos que se cambian");
+    console.log(this.datos);
+
     if (this.datos.filas !== undefined) {
       this.arreglotemp = this.datos.filas;
       this.paginar();
 
+    }else{
+      this.arreglo = undefined;
+      this.arreglotemp = undefined;
     }
 
   }

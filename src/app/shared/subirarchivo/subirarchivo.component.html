@@ -1,14 +1,16 @@
 <div class="logocaja"  [ngClass]="{'errorimagen':errorimagen,'seleccionado':seleccionado,'anulartop':buffer!=undefined}" appManipularfiles (fromManipularFiles)="recibir($event)">
 
     <p *ngIf="buffer == undefined" class="titulo">Arrastra o sube aquí el archivo</p>
-    <p *ngIf="buffer == undefined" class="mostrar">Soltar imagen</p>
+    <p *ngIf="buffer == undefined" class="mostrar"></p>
     <p *ngIf="buffer == undefined" class="mostrar2">Archivo seleccionado no es una imagen.</p>
     <div *ngIf="buffer == undefined" class="col-12 text-right">
         <button type="button" class="botonestilos"><small><i class="fas fa-upload"></i>Subir archivo</small></button>
     </div>
     <div *ngIf="buffer != undefined" class="col-12">
         <img [src]="sanitize('data:image/jpg;base64, ' + arrayBufferToBase64(buffer))"  alt="" srcset="">
-        <p class="cambia"><strong style="font-weight: bolder;">Tamaño </strong> {{tamanio()}}KB</p>
+        <p class="cambia" style="    color: #4cc1b0;"><strong style="font-weight: bolder;">Tamaño </strong> {{tamanio()}}KB</p>
+        
+        <i (click)="eliminarImagen()" class="far fa-times-circle" id="closeid"></i>
     </div>
 
 </div>

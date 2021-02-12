@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
 import { RepresentanteLegalService } from '../services/representantelegal.service';
 
 @Component({
@@ -19,14 +20,15 @@ export class ListarepresentantelegalComponent implements OnInit {
   public numeroitems: number = 5;
   public arreglopaginas: Array<any> = [];
 
-
-  public id_company: number = 0;
-
   public nombre: string = "";
   public apellidoPaterno: string = "";
   public apellidoMaterno: string = "";
   public contactoInicialEmailPersonal: string = "";
   public emailCorporativo: string = "";
+  public arreglotabla:any = {
+    columnas:[],
+    filas:[]
+  };
 
 
   @HostListener('window:resize', ['$event'])
@@ -48,8 +50,6 @@ export class ListarepresentantelegalComponent implements OnInit {
   constructor(private routerPrd:Router,private representanteProd:RepresentanteLegalService,private CanRouterPrd:ActivatedRoute) { }
 
   ngOnInit(): void {
-
-    debugger;
     let documento:any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -61,9 +61,20 @@ export class ListarepresentantelegalComponent implements OnInit {
       this.id_empresa = datos["id"]
       this.representanteProd.getAllUsersRep().subscribe(datos => {
       this.arreglo = datos.datos;
-      console.log(this.arreglo);
+
+      let columnas:Array<tabla> = [
+        new tabla("personaId","ID",true),
+        new tabla("nombre","Nombre"),
+        new tabla("apellidoPaterno","Apellido Paterno"),
+        new tabla("apellidoMaterno","Apellido Materno"),
+        new tabla("curp","CURP"),
+        new tabla("emailCorporativo","Correo Empresarial"),
+        new tabla("fechaAlta","Fecha de registro"),
+        new tabla("activo","Estatus")
+      ]
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = this.arreglo;
       this.cargando = false;
-      this.paginar();
     });
 
     });
@@ -72,16 +83,10 @@ export class ListarepresentantelegalComponent implements OnInit {
 
 
   public verdetalle(obj:any){
-    debugger;
-    this.cargando = true;
-    let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
-    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal', tipoinsert],{state:{data:obj}});
-    this.cargando = false;
+    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal', 'nuevo'],{state:{data:obj}});
   }
 
   public filtrar() {
-    debugger;
-
     this.cargando = true;
 
     let peticion = {
@@ -92,94 +97,49 @@ export class ListarepresentantelegalComponent implements OnInit {
       emailCorporativo: this.emailCorporativo,
       contactoInicialEmailPersonal: this.contactoInicialEmailPersonal,
       centrocClienteId: {
-        centrocClienteId: (this.id_company) == 0 ? "" : this.id_company
+        centrocClienteId: (this.id_empresa) == 0 ? "" : this.id_empresa
       },
       tipoPersonaId: {
-        tipoPersonaId: 3
+        tipoPersonaId: 1
       }
-    } 
+    }
+
  
+    
 
 
     this.representanteProd.filtrar(peticion).subscribe(datos => {
+
+      
+      
+      
       this.arreglo = datos.datos;
-      console.log(datos);
+      let columnas:Array<tabla> = [
+        new tabla("personaId","ID",true),
+        new tabla("nombre","Nombre"),
+        new tabla("apellidoPaterno","Apellido Paterno"),
+        new tabla("apellidoMaterno","Apellido Materno"),
+        new tabla("curp","CURP"),
+        new tabla("emailCorporativo","Correo Empresarial"),
+        new tabla("fechaAlta","Fecha de registro"),
+        new tabla("activo","Estatus")
+      ];
+
+      this.arreglotabla = {
+        columnas:columnas,
+        filas:this.arreglo
+      };
       this.cargando = false;
     });
 
-
-
-
-
-
-
-
   }
 
-  public paginar() {
-
-    this.arreglopaginas = [];
-
-    if (this.arreglo != undefined) {
-      let paginas = this.arreglo.length / this.numeroitems;
-
-
-      let primero = true;
-      paginas = Math.ceil(paginas);
-
-      for (let x = 1; x <= paginas; x++) {
-
-        this.arreglopaginas.push({ numeropagina: (x - 1) * 2, llavepagina: ((x - 1) * 2) + this.numeroitems, mostrar: x, activado: primero });
-        primero = false;
-      }
-
-      this.arreglo = this.arreglo.slice(0, this.numeroitems);
-      console.log(this.arreglo);
-
+  public recibirTabla(obj:any){
+    if(obj.type == "editar"){
+      this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal', 'modifica'],{state:{data:obj.datos}});
     }
-
   }
-
-
-  public paginacambiar(item: any) {
-
-
-    this.arreglo = this.arreglo.slice(item.numeropagina, item.llavepagina);
-
-
-
-    for (let item of this.arreglopaginas) {
-      item.activado = false;
-    }
-
-    item.activado = true;
-
-
-  }
-
-  public cambia() {
-
-    this.paginar();
-
-  }
-  public activarMultiseleccion(){
-      this.multiseleccion = true;
-  }
-
-
-  public guardarMultiseleccion(){
-    this.multiseleccionloading = true;
-      setTimeout(() => {
-        this.multiseleccionloading = false;
-        this.multiseleccion = false;
-      }, 3000);
-  }
-
-
-  public cancelarMulti(){
-    this.multiseleccionloading = false;
-    this.multiseleccion = false;
-  }
+  
 
 }
 

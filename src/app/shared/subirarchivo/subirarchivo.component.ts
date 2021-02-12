@@ -71,4 +71,13 @@ export class SubirarchivoComponent implements OnInit {
     return numero;
   }
 
+
+  public eliminarImagen(){
+    this.emiteimagen.emit(undefined);
+    this.errorimagen = false;
+    this.seleccionado = false;
+    
+    this.buffer = undefined;
+  }
+
 }

@@ -34,6 +34,8 @@ export class DetallerepresentantelegalComponent implements OnInit {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       this.strTitulo = (this.insertar) ? "¿Deseas registrar el representatne legal?" : "¿Deseas actualizar el representatne legal?";
 
+      this.centrocClienteId = datos["id"];
+
     });
 
   
@@ -74,7 +76,8 @@ export class DetallerepresentantelegalComponent implements OnInit {
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
       activo: [{ value: (this.insertar) ? true : obj.activo, disabled: this.insertar }, [Validators.required]],
-      personaId: obj.personaId
+      personaId: obj.personaId,
+      firma:obj.firma
 
     });
   }
@@ -123,6 +126,8 @@ public cancelarMulti(){
     if(this.iconType == "warning"){
       if ($evento) {
         let obj = this.myFormrep.value;
+
+     
         let objEnviar:any = {
           nombre: obj.nombre,
           apellidoPaterno: obj.apellidoPaterno,
@@ -131,10 +136,7 @@ public cancelarMulti(){
           emailCorporativo: obj.emailCorporativo,
           contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
           contactoInicialTelefono: obj.contactoInicialTelefono,
-          tipoRepresentanteId: {
-            tipoRepresentanteId: this.tipoRepresentanteId
-          },
-          representanteLegalCentrocClienteId: {
+          centrocClienteId: {
             centrocClienteId: this.centrocClienteId
           },
           ibaNacionalidadId: {
