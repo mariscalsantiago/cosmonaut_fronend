@@ -14,7 +14,7 @@
           <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <div  class="header"><h5 class="titulo">LISTA DE ÁREAS</h5>
+          <div  class="header"><h5 class="titulo">LISTA DE PUESTOS</h5>
           
             
           </div>
@@ -30,12 +30,12 @@
           <table  class="table m-3 table-hober table-sm " style="width: 90%;">
             <thead>
               <tr>
-                <th scope="col">Nombre de área</th>
+                <th scope="col">Nombre de puesto</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of arreglodetalle">
-                <td>{{item.nombreCorto}}</td>
+                <td>{{item.puesto}}</td>
               </tr>
             </tbody>
           </table>
@@ -53,7 +53,7 @@
       </div>
       <br>
         <div class="form-group row margen">
-          <label class="titulo">INFORMACIÓN DE ÁREAS</label></div>
+          <label class="titulo">INFORMACIÓN DE PUESTOS</label></div>
         <div  class="form group row margen">
   
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-10">
@@ -65,7 +65,20 @@
                   </div>
             </div>
 
-            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div *ngIf="aremodif" class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <label >Área *</label>
+              <input formControlName="area" type="text" maxlength="13" class="form-control" [ngClass]="{'is-invalid':f.area.errors && f.area.touched}"
+                  placeholder="">
+                  <div *ngIf="f.area.errors && f.area.touched" class="invalid-feedback">
+                      Favor ingresa nombre de área.
+                  </div>
+                 <br> 
+                    <nav>
+                        <a routerlinkactive="active" (click)="traerModal(undefined)" routerlink="/home" style="text-decoration: underline;color: #00c2c3;">
+                        Consultar puestos existentes</a>
+                     </nav>
+            </div>
+            <div *ngIf="areanew" class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
               <label >Área *</label>
               <input formControlName="nombreCorto" type="text" maxlength="13" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && f.nombreCorto.touched}"
                   placeholder="">
@@ -75,11 +88,11 @@
                  <br> 
                     <nav>
                         <a routerlinkactive="active" (click)="traerModal(undefined)" routerlink="/home" style="text-decoration: underline;color: #00c2c3;">
-                        Consultar areas existentes</a>
+                        Consultar puestos existentes</a>
                      </nav>
             </div>
 
-         <div *ngIf="listpuesto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+         <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
             <label for="exampleFormControlSelect1">Puesto *</label>
             <input formControlName="puesto" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}"
                 placeholder="">
@@ -103,73 +116,3 @@
   
   <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
 
-    <div *ngIf="puestonuevo" class="row margen margen-tabla background-panel scrooll">   
-      <div class="background-panel margen" >
-        <br>
-          <div class="form-group row margen">
-            <label class="titulo">PUESTOS EXISTENTES</label></div>
-          <div class="form-group row margen">
-        <div class="row" style="  margin-top: 10px;  width: 100%;">
-          <div class="col text-right">
-            <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-              <i class="fa fa-plus"></i>Agregar puesto
-            </button>
-          </div>
-        </div>
-        <div  class="row margen" style="margin-bottom: -25px;">
-          <div class="input-group mb-5">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01">
-              <option value="1" selected>20</option>
-              <option value="2">50</option>
-              <option value="3">100</option>
-            </select>
-           
-          </div>
-        </div>
-
-          <table *ngIf="!cargando" class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Nombre puesto</th>
-                  <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of arreglo;">
-                  <td style="color:  #00DED4">{{item.puesto}}</td>
-                  <td>
-                    <button (click)="verdetalle(item)" class="btnPersonalizado">
-                      <i class="icon_editar text-center bg-light" ></i></button>
-                </td>
-                </tr>
-             
-              </tbody>
-            </table>
-            <div *ngIf="!cargando" class="row" style="width: 100%;">
-              <div class="col" > 
-               <nav aria-label="Page navigation example">
-                 <ul class="pagination justify-content-center">
-                   <li class="page-item disabled">
-                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
-                   </li>
-                   <li class="page-item"><a class="page-link" >1</a></li>
-                   <li class="page-item"><a class="page-link" >2</a></li>
-                   <li class="page-item"><a class="page-link" >3</a></li>
-                   <li class="page-item">
-                     <a class="page-link">Siguiente</a>
-                   </li>
-                 </ul>
-               </nav></div>
-            </div>
-    
-          <div *ngIf="cargando" class="col text-center mb-5">
-            <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-          </div>
-          
-      </div>
-      </div>
-    </div>
-    

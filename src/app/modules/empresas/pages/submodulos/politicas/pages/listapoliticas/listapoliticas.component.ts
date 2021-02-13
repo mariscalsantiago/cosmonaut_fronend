@@ -13,9 +13,12 @@ export class ListapoliticasComponent implements OnInit {
   public tamanio:number = 0;
   public cargando:Boolean = false;
   public id_empresa:number = 0;
-  public multiseleccion:Boolean = false;
-  public multiseleccionloading:boolean = false;
   public changeIconDown: boolean = false;
+
+  public aparecemodalito: boolean = false;
+  public scrolly: string = '5%';
+  public modalWidth: string = "55%";
+  public cargandodetallearea:boolean = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -27,6 +30,7 @@ export class ListapoliticasComponent implements OnInit {
 
  
   public arreglo:any = [];
+  public arreglodetalle: any =[];
 
   constructor(private routerPrd:Router,private politicasProd:PoliticasService,private CanRouterPrd:ActivatedRoute) { }
 
@@ -41,11 +45,11 @@ export class ListapoliticasComponent implements OnInit {
     this.CanRouterPrd.params.subscribe(datos =>{
 
       this.id_empresa = datos["id"]
-      this.politicasProd.getAllArea().subscribe(datos => {
-      this.arreglo = datos.data;
+      this.politicasProd.getAllPol(this.id_empresa).subscribe(datos => {
+      this.arreglo = datos.datos;
       console.log(this.arreglo);
       this.cargando = false;
-      //this.paginar();
+
     });
 
     });
@@ -61,6 +65,54 @@ export class ListapoliticasComponent implements OnInit {
     this.cargando = false;
   }
   public eliminar(obj:any){
+
+  }
+
+  public traerModal(indice: any) {
+
+    debugger;
+    let elemento: any = document.getElementById("vetanaprincipaltabla")
+    this.aparecemodalito = true;
+
+
+
+    if (elemento.getBoundingClientRect().y < -40) {
+      let numero = elemento.getBoundingClientRect().y;
+      numero = Math.abs(numero);
+
+      this.scrolly = numero + 100 + "px";
+
+
+    } else {
+
+      this.scrolly = "5%";
+    }
+
+
+
+    if (this.tamanio < 600) {
+
+      this.modalWidth = "90%";
+
+    } else {
+      this.modalWidth = "55%";
+
+    }
+
+
+    let areapuestoitem = this.arreglo[indice];
+    
+    this.cargandodetallearea = true;
+    this.politicasProd.getAllPol(this.id_empresa).subscribe(datos =>{
+
+      this.cargandodetallearea = false;
+
+
+      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
+
+     
+
+    });
 
   }
 

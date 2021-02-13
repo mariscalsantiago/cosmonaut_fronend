@@ -26,35 +26,25 @@
                     </div>
     
             </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-              <label >Prima vacacional al aniversario</label>
-              <input  type="text" class="form-control" id="primavacional" aria-describedby="emailHelp"
-                  placeholder="">
-  
+          <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <input formControlName="vacional" type="checkbox" name="" id="faltas">
+            <label for="vacional"> Prima vacacional al aniversario</label>
           </div>
 
-          <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
-            <label>Tipo de deducción</label>
-            <select  class="form-control">
-              <option value="01">Donativos</option>
-              <option value="02">Gastos funerarios</option>
-              <option value="03">Créditos hipotecarios</option>
-            </select>
-          </div>
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-            <input type="checkbox" name="" id="faltas">
+            <input formControlName="faltas" type="checkbox" name="" id="faltas">
             <label for="faltas"> Se descuentan faltas</label>
           </div>
           <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-            <input type="checkbox" name="" id="incapacidades">
+            <input formControlName="incapacidades" type="checkbox" name="" id="incapacidades">
             <label for="incapacidades"> Se descuentan incapacidades</label>
           </div>
           <div class="input-group-sm mb-4 col-6 col-sm-6 col-lg-6">
-            <input type="checkbox" name="" id="vales">
+            <input formControlName="vales" type="checkbox" name="" id="vales">
             <label for="vales"> Costo vales de restaurante</label>
           </div>
           <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-            <input type="checkbox" name="" id="septimodia">
+            <input formControlName="septimodia" type="checkbox" name="" id="septimodia">
             <label for="septimodia"> Descuento proporción séptimo día</label>
           </div>
           <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">

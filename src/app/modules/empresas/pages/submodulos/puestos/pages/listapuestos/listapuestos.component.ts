@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, DebugElement, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PuestosService } from '../services/puestos.service';
 
@@ -18,8 +18,6 @@ export class ListapuestosComponent implements OnInit {
   public cargando:Boolean = false;
   public id_empresa:number = 0;
   public id_area: number = 0;
-  public multiseleccion:Boolean = false;
-  public multiseleccionloading:boolean = false;
   public changeIconDown: boolean = false;
   public objEnviar:any ;
 
@@ -45,7 +43,7 @@ export class ListapuestosComponent implements OnInit {
   constructor(private routerPrd:Router,private puestosProd:PuestosService,private CanRouterPrd:ActivatedRoute) { }
 
   ngOnInit(): void {
-    debugger;
+     
     let documento:any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -67,15 +65,15 @@ export class ListapuestosComponent implements OnInit {
 
 
   public verdetalle(obj:any){
-    debugger;
+     
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
-    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos', tipoinsert],{state:{datos:obj}});
+    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'area', tipoinsert],{state:{datos:obj}});
     this.cargando = false;
   }
   public eliminar(obj:any){
 
-     debugger;
+      
      
      this.objEnviar = {
       areaId: obj.areaId,
@@ -95,7 +93,7 @@ export class ListapuestosComponent implements OnInit {
   
   public traerModal(indice: any) {
 
-    debugger;
+     
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -128,7 +126,7 @@ export class ListapuestosComponent implements OnInit {
     let areapuestoitem = this.arreglo[indice];
     
     this.cargandodetallearea = true;
-    this.puestosProd.getdetalleArea(areapuestoitem.areaId,this.id_empresa).subscribe(datos =>{
+    this.puestosProd.getdetalleArea(this.id_empresa,areapuestoitem.areaId).subscribe(datos =>{
 
       this.cargandodetallearea = false;
 
@@ -142,7 +140,7 @@ export class ListapuestosComponent implements OnInit {
   }
 
   public filtrar() {
-    debugger;
+     
 
     this.cargando = true;
 
@@ -161,7 +159,7 @@ export class ListapuestosComponent implements OnInit {
   }
 
   public recibir($evento: any) {
-    debugger;
+     
     this.modal = false;
     if (this.iconType == "warning") {
 
@@ -173,17 +171,22 @@ export class ListapuestosComponent implements OnInit {
 
           this.strTitulo = mensaje;
           this.iconType = resultado ? "success" : "error";
-
+          this.cargando = false;
           this.modal = true;
+          if(resultado){
+
+            this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
+              this.arreglo = datos.datos;
+
+            });
+        }
 
         });
-
+        
       }
-
     }
 
-
-  }
+   }
 
 } 
 
