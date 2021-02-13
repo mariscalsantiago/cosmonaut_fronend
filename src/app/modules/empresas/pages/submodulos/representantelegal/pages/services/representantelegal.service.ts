@@ -17,8 +17,8 @@ export class RepresentanteLegalService {
   }
 
 
-  public getAllUsersRep():Observable<any>{
-     return this.http.get(`${this.url}/lista/todo/1`);
+  public getAllUsersRep(id_company:number):Observable<any>{
+     return this.http.get(`${this.url}/lista/todo/${id_company}`);
   }
 
   public getByRep(id_company:number):Observable<any>{

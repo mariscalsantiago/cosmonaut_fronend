@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
   providedIn: 'root'
@@ -11,25 +12,18 @@ export class PuestosService {
 
   constructor(private http:HttpClient) { 
 
-
+    this.url = direcciones.area;
   }
 
 
   public getAllArea(id_compania:number):Observable<any>{
-     return this.http.get("/api/area/listar/areas/"+id_compania);
+     return this.http.get(`${this.url}/listar/areas/${id_compania}`);
 
   }
 
   public getdetalleArea(id_empresa:number,id_area:number):Observable<any>{
-    return this.http.get("/api/area/obtener/empleado/idCliente/"+id_empresa+"?idArea="+id_area);
+    return this.http.get(`${this.url}/obtener/empleado/idCliente/${id_empresa}?idArea=${id_area}`);
 
-  }
-  public getdetPuestoID(id_empresa:number,id_area:number):Observable<any>{
-    return this.http.get("/api/puesto/obtener/cliente/area/id/"+id_empresa+"?idArea="+id_area);
-  }
-
-  public getAllPuestoID(id_empresa:number):Observable<any>{
-    return this.http.get("/api/puesto/obtener/cliente/id/"+id_empresa);
   }
 
   public filtrar(obj : any):Observable<any>{
@@ -40,7 +34,7 @@ export class PuestosService {
       })
     };
     let json:string = JSON.stringify(obj);
-     return this.http.post("/api/area/lista/dinamica",json,httpOptions);
+     return this.http.post(`${this.url}/lista/dinamica`,json,httpOptions);
   }
 
   public save(obj:any):Observable<any>{
@@ -50,6 +44,7 @@ export class PuestosService {
       })
     };
     let json:string = JSON.stringify(obj);
+    console.log(json);
 
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
@@ -63,7 +58,7 @@ export class PuestosService {
     };
 
     let json:string = JSON.stringify(obj);
-    return this.http.post(`/api/area/eliminar`,json,httpOptions);
+    return this.http.post(`${this.url}/eliminar`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
@@ -80,7 +75,7 @@ export class PuestosService {
 
 
   public getAllCompany(id_empresa:number):Observable<any>{
-     return this.http.get('/api/centroCostosCliente/obtener/id/'+id_empresa);
+     return this.http.get(`${direcciones.centroCostosCliente}/obtener/id/${id_empresa}`);
   }
 
 }

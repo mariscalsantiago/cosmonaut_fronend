@@ -59,7 +59,7 @@ export class ListarepresentantelegalComponent implements OnInit {
     this.CanRouterPrd.params.subscribe(datos =>{
 
       this.id_empresa = datos["id"]
-      this.representanteProd.getAllUsersRep().subscribe(datos => {
+      this.representanteProd.getAllUsersRep(this.id_empresa).subscribe(datos => {
       this.arreglo = datos.datos;
 
       let columnas:Array<tabla> = [

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
   providedIn: 'root'
@@ -10,37 +11,16 @@ export class PoliticasService {
   private url:string = '';
 
   constructor(private http:HttpClient) { 
-
-
-  }
-
-
-  public getAllArea():Observable<any>{
-     return this.http.get("/yared/area/listar/todos");
-  }
-
-
-  public getById(id_user:number):Observable<any>{
-    
-
-    return this.http.get(`/yared/persona/obtener/id/${id_user}`);
+    this.url = direcciones.nclPolitica;
 
   }
 
-  public filtrar(obj : any):Observable<any>{
-    
-    const httpOptions={
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
 
-
-
-
-    let json:string = JSON.stringify(obj);
-     return this.http.post("/api/persona/lista/dinamica",json,httpOptions);
+  public getAllPol(id_empresa:number):Observable<any>{
+     return this.http.get(`${this.url}/obtener/politica/idEmpresa/${id_empresa}`);
   }
+
+  
 
   public save(obj:any):Observable<any>{
    
@@ -49,9 +29,6 @@ export class PoliticasService {
         'Content-Type': 'application/json'
       })
     };
-
-
-
 
     let json:string = JSON.stringify(obj);
 
@@ -66,17 +43,10 @@ export class PoliticasService {
       })
     };
 
-
-
-
     let json:string = JSON.stringify(obj);
 
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
-
-  public getAllCompany():Observable<any>{
-     return this.http.get('/api/centroCostosCliente/lista/compania');
-  }
 
 }
