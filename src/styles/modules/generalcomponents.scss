@@ -265,7 +265,7 @@ article.titulo{
 }
 
 .scrooll{
-    overflow: auto;
+    overflow: hidden;
 }
 
 
@@ -282,5 +282,23 @@ article.titulo{
                 margin-left: 2px;
             }
         }
+    }
+}
+
+
+app-tablapaginado{
+    width: 100%;
+}
+
+
+form{
+    label{
+        color:$dark;
+        font-size: small;
+    }
+
+
+    label[class='titulo']{
+        font-size: medium;
     }
 }

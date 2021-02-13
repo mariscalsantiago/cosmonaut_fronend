@@ -1,18 +1,27 @@
 {
-    "/api/*":{
-        "target":"http://4e17087d1f7f.ngrok.io",
+    "/empresas/*":{
+        "target":"http://1d88fd31aa3e.ngrok.io",
         "secure":false,
         "pathRewrite": {
-            "^/api": ""
+            "^/empresas": ""
           },
          "changeOrigin": true
     },
     "/yared/*":{
-        "target":"http://63b630808d12.ngrok.io",
+        "target":"http://34.75.54.120/empresa",
         "secure":false,
         "pathRewrite": {
             "^/yared": ""
           },
          "changeOrigin": true
+    },
+    "/catalogos/*":{
+        "target":"http://34.75.54.120/catalogos",
+        "secure":false,
+        "pathRewrite": {
+            "^/catalogos": ""
+          },
+         "changeOrigin": true
     }
+
 }

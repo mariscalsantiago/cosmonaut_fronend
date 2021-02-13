@@ -67,7 +67,7 @@
 
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
               <label >Nombre del área *</label>
-              <input formControlName="nombreCorto" type="text" maxlength="13" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && f.nombreCorto.touched}"
+              <input formControlName="nombreCorto" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && f.nombreCorto.touched}"
                   placeholder="">
                   <div *ngIf="f.nombreCorto.errors && f.nombreCorto.touched" class="invalid-feedback">
                       Favor ingresa nombre de área.
@@ -79,14 +79,15 @@
                      </nav>
             </div>
 
-         <div *ngIf="listpuesto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-            <label for="exampleFormControlSelect1">Nombre de puesto *</label>
-            <input formControlName="puesto" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}"
-                placeholder="">
-                <div *ngIf="f.puesto.errors && f.puesto.touched" class="invalid-feedback">
-                    Favor ingresa nombre de empresa.
-                </div>
-          </div>
+
+            <div *ngIf="listpuesto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+              <label for="exampleFormControlSelect1">Nombre de puesto *</label>
+              <input formControlName="puesto" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}"
+                  placeholder="">
+                  <div *ngIf="f.puesto.errors && f.puesto.touched" class="invalid-feedback">
+                      Favor ingresa nombre de puesto.
+                  </div>
+            </div>
             
   
         </div>

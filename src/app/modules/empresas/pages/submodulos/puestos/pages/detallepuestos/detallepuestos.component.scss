@@ -1,15 +1,23 @@
+.margen{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
 
 
 .button-outlet{
     background-color: transparent!important;
 }
 
-
+.titulo{
+    margin-top: 1em;
+}
 
 
 table{
     border-radius: 10px;
 }
+
 
 .margen-tabla table{
     margin:15px;
@@ -39,7 +47,11 @@ td{
 }
 
 
-
+table{
+    tr{
+        cursor: pointer;
+    }
+}
 
 .botonmultiseleccion{
     margin: auto;
@@ -63,16 +75,6 @@ td{
 }
 
 
-.contenedorDiv{
-   
-    .consulta{
-        width: 100%;
-        height: auto;
-        left: 0;
-        
-    }
-    
-}
 
 
 .ventanaemergente{
@@ -105,6 +107,3 @@ position: absolute;
 
 
 }
-
-
-

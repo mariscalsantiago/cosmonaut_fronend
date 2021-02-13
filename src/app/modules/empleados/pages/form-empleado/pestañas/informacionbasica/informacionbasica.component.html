@@ -1,0 +1,209 @@
+<form  [formGroup]="myform" (ngSubmit)="enviarFormulario()">
+
+    <div class="row">
+        <div style="    border-right: 1px solid rgb(148, 148, 148);" class="col-6">
+            <div class="form-group mt-3 row margen"><label class="titulo">INFORMACIÓN PERSONAL</label></div>
+           
+            <div class="row">
+                <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
+                    <label>Nombre*</label>
+                    <input formControlName="nombre" type="text" class="form-control"  [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
+                    <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
+                        Nombre Obligatorio
+                    </div>
+    
+    
+                </div>
+    
+                <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
+                    <label>Apellido paterno*</label>
+                    <input formControlName="apellidoPaterno" type="text" class="form-control"  [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
+                    <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
+                        Apellido Paterno obligatorio
+                    </div>
+    
+    
+                </div>
+                <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
+                    <label>Apellido materno</label>
+                    <input formControlName="apellidoMaterno" type="email" class="form-control"  placeholder="">   
+                </div>
+              
+            </div>
+            <div class="row">
+                <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-4 col-xl-4">
+                    <label>Genero</label>
+                    <select formControlName="genero" class="form-control">
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                    </select>
+        
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-8 col-xl-8">
+                    <label >Fecha de nacimiento</label>
+                    <input formControlName="fechaNacimiento" type="date" name=""  class="form-control">
+                </div>
+            
+            </div>
+            <div class="row">
+                <div class="input-group-sm mb-4 col-12 ">
+                    <input id="tienecurp" formControlName="tieneCurp" type="checkbox" name="" >
+                    <label for="tienecurp" > &nbsp;&nbsp;¿Tiene CURP, RFC y Seguro Social?</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >CURP *</label>
+                    <input type="text" class="form-control" name="" >
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >RFC *</label>
+                    <input type="text" class="form-control" name="" >
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >Seguro social</label>
+                    <input type="text" class="form-control" name="" >
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group-sm mb-4 col-12">
+                    <label >Correo personal*</label>
+                    <input formControlName="contactoInicialEmailPersonal" type="text" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" class="form-control" name="" >
+                    <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
+                        Obligatorio correo personal
+                    </div>
+                    <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
+                        Correo Personal invalido
+                    </div>
+                </div>
+                <div class="input-group-sm mb-4 col-12">
+                    <label >Correo Empresarial</label>
+                    <input formControlName="emailCorporativo" type="text" class="form-control" name="" >
+                    <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" class="invalid-feedback">
+                        Correo Corporativo invalido
+                    </div>
+                </div>
+                <div class="input-group-sm mb-4 col-12">
+                  <div class="row">
+                      <div class="col-1"> <input id="invitar" formControlName="invitarEmpleado" type="checkbox"></div>
+                      <div class="col-11"> 
+                        <label for="invitar">&nbsp;&nbsp;Invitar al empleado a ingresar la información personal
+                            adicional</label></div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group mt-3 row margen"><label class="titulo">INFORMACIÓN ADICIONAL</label></div>
+            <div class="row">
+
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >nacionalidad</label>
+                    <select formControlName="nacionalidadId" name="" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}"  class="form-control">
+                        <option value=""></option>
+                        <option *ngFor="let item of arreglonacionalidad"  [value]="item.nacionalidadId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
+                        Teléfono Obligatorio
+                    </div>
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >Estado civil</label>
+                    <select formControlName="estadoCivil" name=""  class="form-control">
+                        <option value=""></option>
+                        <option value="S">Soltero(a)</option>
+                        <option value="C">Casado(a)</option>
+                        <option value="D">Divorciado(a)</option>
+                        <option value="V">Viudo(a)</option>
+                    </select>
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >Teléfono</label>
+                    <input formControlName="contactoInicialTelefono" type="text" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
+                    <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
+                        Teléfono Obligatorio
+                    </div>
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >¿Tienes hijos?</label>
+                    <div>
+                        <input formControlName="tieneHijos" value="true"  type="radio" name="tieneHijos" id="si" class="">
+                        <label for="si">Si</label>
+                    </div>
+                    <div>
+                        <input formControlName="tieneHijos" value="false" checked type="radio" name="tieneHijos" id="no" class="">
+                        <label for="no">No</label>
+                    </div>
+                </div>
+
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >Número de hijos</label>
+                    <input formControlName="numeroHijos" type="number" name=""  class="form-control">
+                </div>
+
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >Perfil Linkedin</label>
+                    <input formControlName="url" type="text" name=""  class="form-control">
+                </div>
+
+            </div>
+            <hr>
+            <div class="form-group mt-3 row margen"><label class="titulo">CONTACTO DE EMERGENCIA</label></div>
+            <div class="row">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >Nombre*</label>
+                    <input formControlName="contactoEmergenciaNombre" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}"  class="form-control">
+                    <div *ngIf="f.contactoEmergenciaNombre.errors && submitEnviado" class="invalid-feedback">
+                        Nombre Obligatorio
+                    </div>
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >Apellido paterno*</label>
+                    <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"  class="form-control">
+                    <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado" class="invalid-feedback">
+                        Apellido paterno Obligatorio
+                    </div>
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >Apellido materno*</label>
+                    <input formControlName="contactoEmergenciaApellidoMaterno" type="text" name=""  class="form-control">
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >Parentesco</label>
+                    <select formControlName="contactoEmergenciaParentesco" name=""  class="form-control">
+                        <option value="P">Padre</option>
+                        <option value="M">Madre</option>
+                        <option value="H">Hijo</option>
+                        <option value="B">Abuelo</option>
+                        <option value="O">Otro</option>
+                    </select>
+                </div>
+
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-12">
+                    <label > Correo personal</label>
+                    <input formControlName="contactoEmergenciaEmail" type="text" name=""  class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched}">
+                    <div *ngIf="f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched" class="invalid-feedback">
+                        Correo invalido
+                    </div>
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-5">
+                    <label > Celular</label>
+                    <input formControlName="contactoEmergenciaTelefono" type="text" maxlength="10"  class="form-control">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-right margin" style="margin-bottom: 20px;">
+
+        <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button  type="submit"  class="btn btn-primary button-fill">Guardar</button>
+    </div>
+    
+    
+
+</form>
+
+

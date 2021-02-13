@@ -13,13 +13,12 @@ export class UsuariocontactorrhService {
   constructor(private http: HttpClient) {
 
     this.url = direcciones.usuarios;
-    this.url = '/api/persona';
 
   }
 
 
   public getAllUsers(): Observable<any> {
-    return this.http.get("/api/persona/lista/todo/4");
+    return this.http.get(`${this.url}/lista/todo/4`);
   }
 
   public getByCompany(obj: any): Observable<any> {
@@ -33,13 +32,13 @@ export class UsuariocontactorrhService {
 
 
     let json: string = JSON.stringify(obj);
-    return this.http.post(`/api/persona/lista/compania/tipoPersona`, json, httpOptions);
+    return this.http.post(`${this.url}/lista/compania/tipoPersona`, json, httpOptions);
   }
 
   public getById(id_user: number): Observable<any> {
 
 
-    return this.http.get(`/api/persona/obtener/id/${id_user}`);
+    return this.http.get(`${this.url}/obtener/id/${id_user}`);
 
   }
 
@@ -55,9 +54,9 @@ export class UsuariocontactorrhService {
 
 
     let json: string = JSON.stringify(obj);
-    console.log("peticion filtro dinamico");
+    console.log(`peticion filtro dinamico`);
     console.log(json);
-    return this.http.post("/api/persona/lista/dinamica", json, httpOptions);
+    return this.http.post(`${this.url}/lista/dinamica`, json, httpOptions);
   }
 
   public save(obj: any): Observable<any> {
@@ -73,7 +72,7 @@ export class UsuariocontactorrhService {
 
     let json: string = JSON.stringify(obj);
 
-    return this.http.put("/api/persona/guardar/contacto/recursosHumanos", json, httpOptions);
+    return this.http.put(`${this.url}/guardar/contacto/recursosHumanos`, json, httpOptions);
   }
 
   public modificar(obj: any): Observable<any> {
@@ -93,13 +92,11 @@ export class UsuariocontactorrhService {
 
     
 
-    return this.http.post(`/api/persona/modificar/contactoRH`, json, httpOptions);
+    return this.http.post(`${this.url}/modificar/contactoRH`, json, httpOptions);
   }
 
 
-  public getAllCompany(): Observable<any> {
-    return this.http.get('/api/centroCostosCliente/lista/compania');
-  }
+
 
 
   public modificarListaActivos(obj: any): Observable<any> {
@@ -115,7 +112,7 @@ export class UsuariocontactorrhService {
 
 
     let json: string = JSON.stringify(obj);
-    return this.http.post("/api/persona/modificar/lista", json, httpOptions);
+    return this.http.post(`${this.url}/modificar/lista`, json, httpOptions);
   }
 
 

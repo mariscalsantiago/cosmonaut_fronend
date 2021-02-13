@@ -19,6 +19,7 @@ export class ListagruposnominasComponent implements OnInit {
   public aparecemodalito: boolean = false;
   public scrolly: string = '5%';
   public modalWidth: string = "55%";
+  public cargandodetallegrupo:boolean = false;
 
 
   public modal: boolean = false;
@@ -33,6 +34,7 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public arreglo: any = [];
+  public arreglodetalle:any = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -73,6 +75,8 @@ export class ListagruposnominasComponent implements OnInit {
           }
         this.arreglo = datos.datos;
         this.cargando = false;
+
+        console.log(this.arreglo);
       });
 
     });
@@ -179,6 +183,23 @@ export class ListagruposnominasComponent implements OnInit {
       this.modalWidth = "55%";
 
     }
+
+
+    let gruponominaitem = this.arreglo[indice];
+    
+    this.cargandodetallegrupo = true;
+    this.gruposnominaPrd.getGroupNominaEmpleado(gruponominaitem.id).subscribe(datos =>{
+
+      this.cargandodetallegrupo = false;
+
+
+      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
+
+
+      console.log(this.arreglodetalle);
+      
+
+    });
 
   }
 

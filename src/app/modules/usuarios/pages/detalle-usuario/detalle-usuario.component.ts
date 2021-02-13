@@ -18,72 +18,56 @@ export class DetalleUsuarioComponent implements OnInit {
   public fechaActual: string = "";
   public strTitulo: string = "";
   public strsubtitulo: string = "";
-  public objusuario: any;
+  public objusuario: any = {};
   public arregloCompany: any;
+  public summitenviado:boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router) {
-
-    this.routerActivePrd.params.subscribe(datos => {
-      this.insertar = (datos["tipoinsert"] == 'new');
-
-
-      if ((this.insertar)) {
-        this.strTitulo = "¿Deseas registrar el usuario?";
-
-      } else {
-        this.strTitulo = "¿Deseas actualizar el usuario?";
-
-      }
-
-
-
-    });
-
-
-
-
-
     let fecha = new Date();
     let dia = fecha.getDay() < 10 ? `0${fecha.getDay()}` : fecha.getDay();
     let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
     let anio = fecha.getFullYear();
-
-
     this.fechaActual = `${anio}-${mes}-${dia}`;
-
-
-
-
-
-
   }
 
   ngOnInit(): void {
 
-    this.objusuario = history.state.data == undefined ? {} : history.state.data;
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
 
     this.verificarCompaniasExista();
-    if(this.insertar){
-      this.objusuario.centrocClienteId = {};
-   }
+    
 
+      this.routerActivePrd.params.subscribe(parametros => {
+        let id = parametros["idusuario"];
+        this.insertar = id == undefined;
+        if (id != undefined) {
+          console.log("viene y recupera el usuario ");
+          this.usuariosPrd.getById(id).subscribe(datosusuario => {
+            this.objusuario = datosusuario.datos;
+            this.myForm = this.createForm((this.objusuario));
+          });
+        }
+      });
+
+
+
+    this.objusuario.centrocClienteId = {};
 
 
     this.myForm = this.createForm((this.objusuario));
 
-    
+
 
   }
 
 
-  public verificarCompaniasExista(){
+  public verificarCompaniasExista() {
     if ((this.arregloCompany == undefined))
       this.cancelar();
-    else 
-      if (this.arregloCompany.length == 0) 
+    else
+      if (this.arregloCompany.length == 0)
         this.cancelar();
   }
 
@@ -93,6 +77,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
 
+    console.log("construir esto", obj);
 
     return this.formBuilder.group({
 
@@ -116,6 +101,19 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public enviarPeticion() {
+
+    if(this.myForm.invalid){
+      this.iconType = "error";
+      this.strTitulo =  "Campos incorrectos";
+      this.strsubtitulo = "Verificar si hay campos incorrectos o por rellenar.";
+      this.modal = true;
+      this.summitenviado= true;
+
+
+      return;
+
+    }
+
     this.iconType = "warning";
     this.strTitulo = (this.insertar) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar el usuario?";
     this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
@@ -131,24 +129,24 @@ export class DetalleUsuarioComponent implements OnInit {
         let obj = this.myForm.value;
 
 
-      
 
 
-        let objEnviar:any = {
-            nombre: obj.nombre,
-            apellidoPaterno: obj.apellidoPat,
-            apellidoMaterno: obj.apellidoMat,
-            curp: obj.curp,
-            emailCorporativo: obj.emailCorp,
-            contactoInicialEmailPersonal: obj.ciEmailPersonal,
-            contactoInicialTelefono: obj.ciTelefono,
-            centrocClienteId: {
-                centrocClienteId: obj.centrocClienteId
-            }
+
+        let objEnviar: any = {
+          nombre: obj.nombre,
+          apellidoPaterno: obj.apellidoPat,
+          apellidoMaterno: obj.apellidoMat,
+          curp: obj.curp,
+          emailCorporativo: obj.emailCorp,
+          contactoInicialEmailPersonal: obj.ciEmailPersonal,
+          contactoInicialTelefono: obj.ciTelefono,
+          centrocClienteId: {
+            centrocClienteId: obj.centrocClienteId
+          }
         }
 
 
-      
+
         if (this.insertar) {
           this.usuariosPrd.save(objEnviar).subscribe(datos => {
             this.iconType = datos.resultado ? "success" : "error";
@@ -160,7 +158,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
         } else {
           objEnviar.personaId = obj.personaId;
-          objEnviar.centrocClienteId.centrocClienteId  = this.objusuario.centrocClienteId.centrocClienteId;
+          objEnviar.centrocClienteId.centrocClienteId = this.objusuario.centrocClienteId.centrocClienteId;
 
           this.usuariosPrd.modificar(objEnviar).subscribe(datos => {
             this.iconType = datos.resultado ? "success" : "error";

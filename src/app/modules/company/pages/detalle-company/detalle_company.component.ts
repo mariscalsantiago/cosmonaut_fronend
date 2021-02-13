@@ -32,6 +32,7 @@ export class DetalleCompanyComponent implements OnInit {
   public centrocClienteId: number = 1;
   public tipoPersonaId: number = 3;
   public submitEnviado: boolean = false;
+  public imagen:any = undefined;
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router) {
@@ -72,7 +73,6 @@ export class DetalleCompanyComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial, [Validators.required]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
-      emailCorp: [obj.emailCorp, [Validators.email]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       centrocClienteId: obj.centrocClienteId
@@ -153,7 +153,10 @@ export class DetalleCompanyComponent implements OnInit {
         obj = {
           ...obj,
           fechaAlta: this.fechaActual,
+          imagen:this.imagen
         };
+
+        
 
         if (this.insertar) {
           
@@ -197,6 +200,11 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
   get f() { return this.myFormcomp.controls; }
+
+
+  public recibirImagen(imagen:any){
+    this.imagen = imagen;
+  }
 
 
 }

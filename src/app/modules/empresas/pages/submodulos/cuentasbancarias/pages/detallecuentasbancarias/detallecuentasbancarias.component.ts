@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { CuentasbancariasService } from '../../services/cuentasbancarias.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { CuentasbancariasService } from '../../services/cuentasbancarias.service
 export class DetallecuentasbancariasComponent implements OnInit {
 
 
-  public mostrartooltip:boolean = false;
+  public mostrartooltip: boolean = false;
   public iconType: string = "";
   public myForm!: FormGroup;
   public modal: boolean = false;
@@ -23,7 +24,8 @@ export class DetallecuentasbancariasComponent implements OnInit {
   public cuentasBancarias: any;
   public submitInvalido: boolean = false;
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
-    private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService) { }
+    private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService,
+    private catalogosPrd:CatalogosService) { }
 
   ngOnInit(): void {
 
@@ -39,20 +41,20 @@ export class DetallecuentasbancariasComponent implements OnInit {
     });
 
 
-    let obj = {csBanco:{bancoId:0}};
+    let obj = { csBanco: { bancoId: 0 } };
 
     if (!this.esInsert) {//Solo cuando es modificar
       obj = history.state.data;
       if (obj == undefined) this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
-      
+
     }
 
-    
+
     this.myForm = this.createForm(obj);
 
 
-    this.cuentasPrd.getListaBancos().subscribe(datos => {
-      this.cuentasBancarias = datos.data;
+    this.catalogosPrd.getCuentasBanco().subscribe(datos => {
+      this.cuentasBancarias = datos.datos;
     });
 
   }
@@ -67,9 +69,9 @@ export class DetallecuentasbancariasComponent implements OnInit {
       nombreCuenta: [obj.nombreCuenta, [Validators.required]],
       idbanco: [obj.csBanco.bancoId, [Validators.required]],
       descripcion: [obj.descripcion],
-      num_informacion: [obj.num_informacion],
+      num_informacion: [obj.numInformacion],
       clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
-      num_sucursal: [obj.num_sucursal]
+      num_sucursal: [obj.numSucursal]
 
     });
 
@@ -125,13 +127,14 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
         let obj = this.myForm.value;
 
+
         let peticion: any = {
           numeroCuenta: obj.numeroCuenta,
           nombreCuenta: obj.nombreCuenta,
           descripcion: obj.descripcion,
-          num_informacion: obj.num_informacion,
+          numInformacion: obj.num_informacion,
           clabe: obj.clabe,
-          num_sucursal: obj.num_sucursal,
+          numSucursal: obj.num_sucursal,
           nclCentrocCliente: {
             centrocClienteId: this.id_empresa
           },
@@ -141,25 +144,31 @@ export class DetallecuentasbancariasComponent implements OnInit {
         };
 
 
+        
+
+
         if (this.esInsert) {
 
           this.cuentasPrd.save(peticion).subscribe(datos => {
 
-            this.iconType = datos.result ? "success" : "error";
+            this.iconType = datos.resultado ? "success" : "error";
 
-            this.strTitulo = datos.message;
-            this.strsubtitulo = datos.message
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje
             this.modal = true;
+
+            console.log("Esto trae al guardar");
+            console.log(datos);
 
           });
         } else {
 
           this.cuentasPrd.modificar(peticion).subscribe(datos => {
 
-            this.iconType = datos.result ? "success" : "error";
+            this.iconType = datos.resultado ? "success" : "error";
 
-            this.strTitulo = datos.message;
-            this.strsubtitulo = datos.message
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = datos.mensaje
             this.modal = true;
 
           });
@@ -173,7 +182,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
       this.modal = false;
 
       if (this.iconType == "success") {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
+        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
       }
     }
 

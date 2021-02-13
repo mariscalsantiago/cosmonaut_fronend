@@ -1,0 +1,66 @@
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
+    <div class="form-group mt-3 row margen"><label class="titulo">DETALLE DE LA CUENTA</label></div>
+<div class="row">
+    <div class="col-10">
+        <div class="form group row  margen">
+
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Método de pago</label>
+                <input type="email" class="form-control" placeholder="">
+                <div class="invalid-feedback">
+                    Favor de ingresar el Correo Corporativo
+                </div>
+
+
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Número de cuenta</label>
+                <input type="email" class="form-control" placeholder="">
+                <div class="invalid-feedback">
+                    Favor de ingresar el Correo Corporativo
+                </div>
+
+
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>CLABE</label>
+                <input type="email" class="form-control" placeholder="">
+                <div class="invalid-feedback">
+                    Favor de ingresar el Correo Corporativo
+                </div>
+
+
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Banco</label>
+                <input type="email" class="form-control" placeholder="">
+                <div class="invalid-feedback">
+                    Favor de ingresar el Correo Corporativo
+                </div>
+
+
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Número de ID cliente</label>
+                <input type="email" class="form-control" placeholder="">
+                <div class="invalid-feedback">
+                    Favor de ingresar el Correo Corporativo
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="text-right margin" style="margin-bottom: 20px;">
+    
+            <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+            <button  type="submit"  class="btn btn-primary button-fill">Guardar</button>
+        </div>
+    </div>
+</div>
+</form>

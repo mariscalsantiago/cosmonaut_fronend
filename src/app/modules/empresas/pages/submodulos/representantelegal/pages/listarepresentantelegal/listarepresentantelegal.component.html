@@ -1,6 +1,4 @@
-<br>
-<div >
-   
+
     <div class="margen">
   
       <div id="accordionFiltro">
@@ -76,95 +74,16 @@
           </div>
         </div>
     </div>
-    <div class="row margen margen-tabla background-panel scrooll">        
-        <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
-          </div>
-
-          <div  *ngIf="!cargando" class="row margen" style="margin-bottom: -25px;">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
-              </div>
-              <select [(ngModel)]="numeroitems" class="custom-select" id="inputGroupSelect01" (change)="cambia()">
-                <option value="5" selected>5</option>
-                <option value="20" selected>20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-             
-            </div>
-          </div>
-            <table *ngIf="!cargando" class="table table-hover table-responsive">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col" *ngIf="tamanio >=600">Apellido Paterno</th>
-                    <th scope="col" *ngIf="tamanio >=600">Apellido Materno</th>
-                    <th scope="col" *ngIf="tamanio >=600">CURP</th>
-                    <th scope="col" *ngIf="tamanio >=600">Correo Empresarial</th>
-                    <th scope="col" *ngIf="tamanio >=600">Fecha de registro</th>
-                    <th *ngIf="tamanio >=600" scope="col">Estatus</th>
-                    <th scope="col" *ngIf="!multiseleccion">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of arreglo;">
-                        <td style="color:  #00DED4">{{item.personaId}} </td>
-                        <td>{{item.nombre}} </td>
-                        <td *ngIf="tamanio >=600">{{item.apellidoPaterno}}</td>
-                        <td *ngIf="tamanio >=600">{{item.apellidoMaterno}}</td>
-                        <td *ngIf="tamanio >=600">{{item.curp}}</td>
-                        <td *ngIf="tamanio >=600">{{item.emailCorporativo}}</td>
-                        <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
-                        <td *ngIf="tamanio >=600">{{(item.activo)?'Activo':'Inactivo'}}</td>
-                        <td class="Acciones">
-                              <button (click)="verdetalle(item)" class="btnPersonalizado"><i
-                                class="icon_editar text-center bg-light"></i></button>
-                        </td>
-                      </tr>
-                  
-                </tbody>
-              </table>
-              <div *ngIf="!cargando && arreglo === undefined"   class="alert alert-warning col text-center">
-                <strong>Sin representantes legales</strong> La tabla de representantes legales esta vacía.
-              </div>
-             <div  *ngIf="!cargando && arreglo !== undefined && !multiseleccion" class="row" style="width: 100%;">
-               <div class="col" > 
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
-                    </li>
-                    <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas" (click)="paginacambiar(item)"><a class="page-link" >{{item.mostrar}}</a></li>
-                    <li class="page-item disabled">
-                      <a class="page-link">Siguiente</a>
-                    </li>
-                  </ul>
-                </nav></div>
-             </div>
+    <div class="row margen margen-tabla background-panel">        
+        
+     
+      <app-tablapaginado [datos]="arreglotabla" [editar]="true"  [imagen]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+          
+          
   
-            <div *ngIf="cargando" class="col text-center mb-5">
-              <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-            </div>
+         
     </div>
-    <div class="row">
-  
-    <div *ngIf="multiseleccion" class="row text-center margin botonmultiseleccion" style="margin-bottom: 20px;">
-      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelarMulti()" *ngIf="!multiseleccionloading">Cancelar</button>
-      <button (click)="guardarMultiseleccion()" type="button" class="btn btn-primary button-fill agrandarloading"><span *ngIf="!multiseleccionloading">Guardar</span>
-      
-          <div *ngIf="multiseleccionloading"  role="status">
-              <span class="spinner-border"></span>
-            </div>
-      </button>
-    </div>
-      
-  </div>
-    
-  </div>
+ 
 
   
   

@@ -21,7 +21,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Esquema para pago de nómina *</label>
         <select formControlName = "esquemaPagoId" [ngClass]="{'is-invalid':f.esquemaPagoId.errors && submitInvalido}"  class="form-control">
-          <option value="1">Nómina Estándar </option>
+          <option *ngFor="let item of arregloEsquemaPago" [value]="item.esquemaPagoId">{{item.descripcion}} </option>
         </select>
         <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
           Esquema para pago de nómina obligatorio.
@@ -39,7 +39,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Cuenta bancaria *</label>
         <select formControlName="clabe" [ngClass]="{'is-invalid':f.clabe.errors && submitInvalido}" class="form-control">
-          <option value="254285829292892529">254285829292892529</option>
+          <option *ngFor="let item of arregloCuentasBancarias" [value]="item.clabe">{{item.clabe}}</option>
         </select>
         <div *ngIf="submitInvalido && f.clabe.errors" class="invalid-feedback">
           Campo obligatorío
@@ -48,7 +48,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Moneda *</label>
         <select formControlName="monedaId" [ngClass]="{'is-invalid':f.monedaId.errors && submitInvalido}" class="form-control">
-          <option value="1">opcion</option>
+          <option *ngFor="let item of arregloMonedas" [value]="item.monedaId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.monedaId.errors" class="invalid-feedback">
           Tipo moneda obligatorio

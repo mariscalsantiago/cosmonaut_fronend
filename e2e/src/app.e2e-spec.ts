@@ -62,7 +62,7 @@ describe('workspace-project App', () => {
 
 describe('verificadno titulos',()=>{
 
-  it('Tiene un titulo nene', function() {
+  it('Tiene un titulo ', function() {
     browser.get('http://juliemr.github.io/protractor-demo/');
 
     expect(browser.getTitle()).toContain('Super Calculator');

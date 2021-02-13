@@ -6,7 +6,7 @@
           </div>
           <select [(ngModel)]="numeroitems" class="custom-select" id="inputGroupSelect01" (change)="cambia()">
             <option value="5" selected>5</option>
-            <option value="20" selected>20</option>
+            <option value="20" >20</option>
             <option value="50">50</option>
             <option value="100">100</option>
           </select>
@@ -15,33 +15,29 @@
         
       </div>
       
-      <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover table-sm">
+      <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover table-responsive anchura">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col" >Apellido Paterno</th>
-            <th scope="col" >Apellido Materno</th>
-            <th scope="col" >Centro de costos</th>
-            <th scope="col" >Correo Empresarial</th>
-            <th scope="col" >Fecha de registro</th>
-            <th scope="col" >Activo</th>
-            <th scope="col ">Acción</th>
+            <th *ngIf="imagen"></th>
+            <th scope="col" *ngFor="let item of datos.columnas" >{{item.nombre}}</th>
+            <th *ngIf="ver || editar || eliminar || desglosar">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td style="color:  #00DED4">nombre</td>
-            <td>apellido</td>
-            <td>nombre</td>
-            <td>apellido</td>
-            <td>apellido amter</td>
-            <td>casodf</td>
-            <td>fdg</td>
-            <td>dsf</td>
+          <tr *ngFor="let item of arreglo; let indice = index;">
+            <td *ngIf="imagen" style="width: 44px;" scope="row">
+              <img width="60px" height="60px"
+                src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..."
+                class="tableimg">
+            </td>
+            <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId}"  (click)="eventoclick(item2,item)">{{item[item2.id]}}</td>
             <td class="opciones">
-              <button ><i class="icon_ver primary-bg"></i></button>
-              <button (click)="verdetalle('item')" ><i class="icon_editar primary-bg"></i></button>
+              <button *ngIf="ver" (click)="btnVer(item)"><i class="icon_ver primary-bg"></i></button>
+              <button *ngIf="editar" (click)="btnEditar(item)" ><i class="icon_editar primary-bg"></i></button>
+              <button *ngIf="eliminar" (click)="btnEliminar(item)"><i class="icon_eliminar danger-bg"></i></button>
+              <button *ngIf="desglosar" (click)="btnDesglosar(item)"><i  class="fas fa-chevron-down primary" style="font-size: 14px;
+                margin: 9px;"></i></button>
+
             </td>
           </tr>
     
@@ -51,5 +47,24 @@
       </table>
       <div *ngIf="!cargando && arreglo === undefined"   class="alert alert-warning col text-center">
         <strong>Sin datos</strong> la tabla se encuentra vacía.
+      </div>
+
+      <div  *ngIf="!cargando && arreglo !== undefined" class="row" style="width: 100%;">
+        <div class="col" > 
+         <nav aria-label="Page navigation example">
+           <ul class="pagination justify-content-center">
+             <li class="page-item disabled">
+               <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
+             </li>
+             <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas" (click)="paginacambiar(item)"><a class="page-link" >{{item.mostrar}}</a></li>
+             <li class="page-item disabled">
+               <a class="page-link">Siguiente</a>
+             </li>
+           </ul>
+         </nav></div>
+      </div>
+
+      <div *ngIf="cargando" class="col text-center mb-5">
+        <img width="60px" height="60px" src="../../../assets/imgs/loading_nomina.gif" alt="">
       </div>
     

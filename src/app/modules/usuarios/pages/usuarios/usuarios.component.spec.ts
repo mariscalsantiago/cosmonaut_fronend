@@ -84,82 +84,82 @@ describe("Lista de usuarios", () => {
     });
 
 
-    it('Probando la carga de usuarios del services en la carga ngOnInit()',fakeAsync( () => {
-        let objanalizar: any = [{
-            personaId: 1, nombre: "santiago", apellidoPat: "mariscal", apellidoMat: "Velasquez", representanteLegalCentrocClienteId: 1,
-            emailCorp: "santiago@google.com", fechaAlta: "2007/02/02", esActivo: true
-        }];
+    // it('Probando la carga de usuarios del services en la carga ngOnInit()',fakeAsync( () => {
+    //     let objanalizar: any = [{
+    //         personaId: 1, nombre: "santiago", apellidoPat: "mariscal", apellidoMat: "Velasquez", representanteLegalCentrocClienteId: 1,
+    //         emailCorp: "santiago@google.com", fechaAlta: "2007/02/02", esActivo: true
+    //     }];
 
-        spyOn(usuariosPrd, 'getAllUsers')
-            .and
-            .callFake(()=>{
-                return Rx.of({data:objanalizar}).pipe(delay(100));
-            });
+    //     spyOn(usuariosPrd, 'getAllUsers')
+    //         .and
+    //         .callFake(()=>{
+    //             return Rx.of({data:objanalizar}).pipe(delay(100));
+    //         });
 
             
 
-            componenteUsuario.ngOnInit();
+    //         componenteUsuario.ngOnInit();
 
 
 
-            expect(componenteUsuario.cargando).toBeTruthy();
+    //         expect(componenteUsuario.cargando).toBeTruthy();
 
-            tick(100);
+    //         tick(100);
          
-            expect(componenteUsuario.arreglotemp).toEqual(objanalizar);
-            expect(componenteUsuario.cargando).not.toBeTruthy();
+    //         expect(componenteUsuario.arreglotemp).toEqual(objanalizar);
+    //         expect(componenteUsuario.cargando).not.toBeTruthy();
         
 
 
        
-    }));
+    // }));
 
-    it('Probando el filtrado de usuarios',fakeAsync(()=>{
-        let objConstruir:any = {
-            tipoPersonaId: 3,
-            representanteLegalCentrocClienteId: 1,
-            personaId: 1,
-            nombre: "santiago",
-            apellidoPat: "mariscal",
-            apellidoMat: "velasquesz",
-            emailCorp: "santaigo antonio mariscal"
-          };
+    // it('Probando el filtrado de usuarios',fakeAsync(()=>{
+    //     let objConstruir:any = {
+    //         tipoPersonaId: 3,
+    //         representanteLegalCentrocClienteId: 1,
+    //         personaId: 1,
+    //         nombre: "santiago",
+    //         apellidoPat: "mariscal",
+    //         apellidoMat: "velasquesz",
+    //         emailCorp: "santaigo antonio mariscal"
+    //       };
 
-        spyOn(usuariosPrd, 'filtrar')
-            .and
-            .callFake(()=>{
-                return Rx.of({data:[objConstruir]}).pipe(delay(100));
-            });
+    //     spyOn(usuariosPrd, 'filtrar')
+    //         .and
+    //         .callFake(()=>{
+    //             return Rx.of({data:[objConstruir]}).pipe(delay(100));
+    //         });
 
             
 
-            componenteUsuario.filtrar();
+    //         componenteUsuario.filtrar();
 
 
 
-            expect(componenteUsuario.cargando).toBeTruthy();
+    //         expect(componenteUsuario.cargando).toBeTruthy();
 
-            tick(100);
-         ;
-            expect(componenteUsuario.arreglo).toEqual([objConstruir]);
-            expect(componenteUsuario.cargando).not.toBeTruthy();
-    }));
-
-
-    it('Ver detalle de un usuario', () => {
+    //         tick(100);
+    //      ;
+    //         expect(componenteUsuario.arreglo).toEqual([objConstruir]);
+    //         expect(componenteUsuario.cargando).not.toBeTruthy();
+    // }));
 
 
-
-        const router = TestBed.get(Router);
-        const spyn = spyOn(router, "navigate");
-        componenteUsuario.verdetalle(objenviar);
-
-
-        expect(spyn).toHaveBeenCalledWith(['usuarios', 'detalle_usuario', "update"], { state: { data: objenviar, company: [] } });
+    // it('Ver detalle de un usuario', () => {
 
 
 
-    });
+    //     const router = TestBed.get(Router);
+    //     const spyn = spyOn(router, "navigate");
+    //     componenteUsuario.verdetalle(objenviar);
+
+
+    //     expect(spyn).toHaveBeenCalledWith(['usuarios', 'detalle_usuario', "update"], { state: { data: objenviar, company: [] } });
+
+
+
+    // });
 
 
 

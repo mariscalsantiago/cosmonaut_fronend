@@ -50,9 +50,8 @@ export class PuestosService {
       })
     };
     let json:string = JSON.stringify(obj);
-    console.log(json);
 
-    return this.http.put("/api/area/guardar",json,httpOptions);
+    return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
   public eliminar(obj:any):Observable<any>{
@@ -76,7 +75,7 @@ export class PuestosService {
     };
     let json:string = JSON.stringify(obj);
 
-    return this.http.post("/api/area/modificar",json,httpOptions);
+    return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
 

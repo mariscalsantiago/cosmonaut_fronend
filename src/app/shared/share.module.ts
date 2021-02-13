@@ -5,7 +5,9 @@ import { LoadingComponent } from './loading/loading.component';
 import { AlertQuestionsComponent } from './alert-questions/alert-questions.component';
 import { TablapaginadoComponent } from './tablapaginado/tablapaginado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { SubirarchivoComponent } from './subirarchivo/subirarchivo.component';
+import { ManipularfilesDirective } from './directivas/manipularfiles.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,12 +19,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
     AlertQuestionsComponent,
 
-    TablapaginadoComponent
+    TablapaginadoComponent,
+
+    SubirarchivoComponent,
+    ManipularfilesDirective
 
   ],
   imports: [
-    CommonModule,FormsModule,ReactiveFormsModule
+    CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule
   ],
-  exports:[AlertasComponent,LoadingComponent,AlertQuestionsComponent,TablapaginadoComponent]
+  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent]
 })
 export class ShareModule { }

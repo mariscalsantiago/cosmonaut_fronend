@@ -1,6 +1,5 @@
-import { ConditionalExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PuestosService } from '../services/puestos.service';
 
@@ -27,7 +26,6 @@ export class DetallepuestosComponent implements OnInit {
   public tamanio:number = 0;
   public id_empresa: number = 0;
   public nom_empresa: string = "";
-  public puestoIdReporta: number =2;
 
   public aparecemodalito: boolean = false;
   public scrolly: string = '5%';
@@ -52,12 +50,7 @@ export class DetallepuestosComponent implements OnInit {
 
     
     this.areas = history.state.datos == undefined ? {} : history.state.datos ;
-    if(this.insertar){
-      this.myFormrep = this.createForm((this.areas));
-    }
-    else{ 
-      this.myFormrep = this.createFormMod((this.areas));
-    }
+    this.myFormrep = this.createFormrep((this.areas));
 
     this.puestosPrd.getAllCompany(this.id_empresa).subscribe(datos => {
       this.empresas = datos.datos;
@@ -65,13 +58,8 @@ export class DetallepuestosComponent implements OnInit {
         if (this.empresas != undefined){
 
            this.nom_empresa = this.empresas.nombre
-
-           if(this.insertar){
-            this.myFormrep = this.createForm((this.areas));
-          }
-          else{ 
-            this.myFormrep = this.createFormMod((this.areas));
-          }
+           console.log("nmbreempresa",this.nom_empresa);
+           this.myFormrep = this.createFormrep((this.areas));
       }
 
     });
@@ -86,22 +74,12 @@ export class DetallepuestosComponent implements OnInit {
   }
 
 
-  public createForm(obj: any) {
+  public createFormrep(obj: any) {
     return this.formBuilder.group({
 
-      nombre: [ this.nom_empresa,[Validators.required]],
+      nombre: [ this.nom_empresa],
       nombreCorto: [obj.nombreCorto, [Validators.required]],
-      puesto: [obj.puesto,[Validators.required]],
-      areaId: obj.areaId
-
-    });
-  }
-
-  public createFormMod(obj: any) {
-    return this.formBuilder.group({
-
-      nombre: [ this.nom_empresa,[Validators.required]],
-      nombreCorto: [obj.nombreCorto, [Validators.required]],
+      puestoId: [obj.areaId,[Validators.required]],
       areaId: obj.areaId
 
     });
@@ -112,6 +90,7 @@ export class DetallepuestosComponent implements OnInit {
     this.puestosPrd.getdetPuestoID(this.areas.areaId,this.id_empresa).subscribe(datos =>{
       this.cargando = true;
       this.arreglo = datos.datos;
+      console.log("puestos", this.arreglo);
       this.cargando = false;
     });
   }
@@ -120,12 +99,14 @@ export class DetallepuestosComponent implements OnInit {
     this.puestosPrd.getAllPuestoID(this.id_empresa).subscribe(datos =>{
       this.cargando = true;
       this.arreglo = datos.datos;
+      console.log("puestos", this.arreglo);
       this.cargando = false;
     });
   }
 
   public traerModal(indice: any) {
 
+    debugger;
     let elemento: any = document.getElementById("vetanaprincipaltablapuesto")
     this.aparecemodalito = true;
 
@@ -155,7 +136,8 @@ export class DetallepuestosComponent implements OnInit {
     }
 
 
-  
+    let areapuestoitem = this.arreglo[indice];
+    
     this.cargandolistapuesto = true;
     this.puestosPrd.getAllArea(this.id_empresa).subscribe(datos =>{
 
@@ -190,8 +172,9 @@ export class DetallepuestosComponent implements OnInit {
 
 
   public redirect(obj:any){
+    debugger;
     this.modal = true;
-    this.routerPrd.navigate(["/empresa/detalle/"+this.id_empresa+"/puestos"]);
+    this.routerPrd.navigate(["/empresa/detalle/idempresa/puestos"]);
     this.modal = false;
     
 
@@ -205,55 +188,48 @@ export class DetallepuestosComponent implements OnInit {
         let obj = this.myFormrep.value;
 
         let objEnviar:any = {
-            descripcion: obj.nombreCorto,
-            nombreCorto: obj.nombreCorto,
-            centrocClienteId: this.id_empresa,
-            nclPuestoDto: [
-              {
-                descripcion: obj.puesto,
-                nombreCorto: obj.puesto,
-                //puestoIdReporta: this.puestoIdReporta,
-                centrocClienteId: this.id_empresa
-              }
-            ]
+          nombreCorto : obj.nombreCorto,
+          fechaAlta : "08/02/2021",
+          esActivo : true,
+          centrocClienteId : this.id_empresa,
+          puestoId: obj.puestoId
+
       }
 
         if(this.insertar){
-          this.puestosPrd.save(objEnviar).subscribe(datos => {
+          debugger;
+          
+          /*this.companyPrd.savecont(obj).subscribe(datos => {
             
-            this.iconType = datos.resultado? "success":"error";
-            this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje;
+            this.iconType = datos.result? "success":"error";
+    
+            this.strTitulo = datos.message;
+            this.strsubtitulo = 'Registro agregado correctamente'
             this.modal = true;
+            this.compania = false;
+            this.contacto = true;
             
-          });
+          });*/
 
         }else{
-          debugger;
-          let objEnviarMod:any = {
-            areaId: obj.areaId,
-            descripcion: obj.nombreCorto,
-            nombreCorto: obj.nombreCorto,
-            centrocClienteId: this.id_empresa,
-            nclPuestoDto:
-            [
+    
+          debugger;   
 
-            ]
-          }
-          this.puestosPrd.modificar(objEnviarMod).subscribe(datos =>{
-            this.iconType =  datos.resultado? "success":"error";  
-            this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje;
+          /*this.companyPrd.modificarCont(obj).subscribe(datos =>{
+            this.iconType =  datos.result? "success":"error";  
+            this.strTitulo = datos.message;
+            this.strsubtitulo = 'Registro modificado correctamente!'
             this.modal = true;
+            this.listcontacto = true;
+            this.compania = false;
 
-
-          });
+          });*/
         }
       
       }
     }else{
       if(this.iconType == "success"){
-          this.routerPrd.navigate(["/empresa/detalle/"+this.id_empresa+"/puestos"]);
+          this.routerPrd.navigate(["/empresa/detalle/idempresa/puestos"]);
       }
      
       this.modal = false;

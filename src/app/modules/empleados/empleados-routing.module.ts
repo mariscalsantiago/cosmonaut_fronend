@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EmpleadoComponent } from './pages/empleado/empleado.component';
+import { FormEmpleadoComponent } from './pages/form-empleado/form-empleado.component';
 import { ListaempleadosComponent } from './pages/listaempleados/listaempleados.component';
 
 
@@ -8,6 +9,7 @@ import { ListaempleadosComponent } from './pages/listaempleados/listaempleados.c
 const routes: Routes = [{
   path:'',children:[
      {path:'empleados',component:ListaempleadosComponent},
+     {path:'empleados/empleado',component:FormEmpleadoComponent},
      {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/personal/empleados-personal.module').then(m => m.EmpleadosPersonalModule)},
      {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/empleo/empleados-empleo.module').then(m => m.empleadosEmpleoModule)},
      {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/pagos/empleados-pagos.module').then(m => m.empleadosPagosModule)},

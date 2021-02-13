@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listaempleados',
@@ -19,13 +20,21 @@ export class ListaempleadosComponent implements OnInit {
 
   public tamanio:number = 0;
 
-  constructor() { }
+  constructor(private routerPrd:Router) { }
 
   ngOnInit(): void {
 
     let documento:any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
+
+  }
+
+
+  public agregar(){
+
+    this.routerPrd.navigate(['/empleados/empleado']);
+
 
   }
 

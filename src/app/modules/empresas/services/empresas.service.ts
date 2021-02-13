@@ -13,17 +13,17 @@ export class EmpresasService {
   constructor(private http:HttpClient) { 
 
 
-    this.url = '/api';
+    this.url = direcciones.centroCostosCliente;
 
   }
 
    public getAllEmp():Observable<any>{
     
-    return this.http.get(`${this.url}/centroCostosCliente/lista/compania`);
+    return this.http.get(`${this.url}/lista/compania`);
 
   }
   public getAllRep(id_company:number):Observable<any>{
-    return this.http.get(`/api/persona/obtener/id/compania/${id_company}`);
+    return this.http.get(`${direcciones.usuarios}/obtener/id/compania/${id_company}`);
 }
 
 
@@ -35,7 +35,7 @@ export class EmpresasService {
     };
     let json:string = JSON.stringify(obj);
 
-    return this.http.put(`${this.url}/centroCostosCliente/guardar`,json,httpOptions);
+    return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
  
@@ -50,7 +50,7 @@ export class EmpresasService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/centroCostosCliente/modificar`,json,httpOptions);
+    return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
     

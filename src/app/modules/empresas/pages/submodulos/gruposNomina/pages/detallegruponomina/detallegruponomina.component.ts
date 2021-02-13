@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CuentasbancariasService } from 'src/app/modules/empresas/services/cuentasbancarias/cuentasbancarias.service';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+
 import { GruponominasService } from '../../services/gruponominas.service';
 
 @Component({
@@ -22,10 +25,15 @@ export class DetallegruponominaComponent implements OnInit {
   public id_empresa:number = 0;
   public activadoISR:boolean = false;
 
+  public arregloEsquemaPago:any = [];
+  public arregloCuentasBancarias:any = [];
+  public arregloMonedas:any = [];
+
 
 
   constructor(private formbuilder:FormBuilder,private activeprd:ActivatedRoute,
-    private routerPrd:Router,private grupoNominaPrd:GruponominasService) { }
+    private routerPrd:Router,private grupoNominaPrd:GruponominasService,
+    private catalogosPrd:CatalogosService,private cuentasBancariasPrd:CuentasbancariasService) { }
 
   ngOnInit(): void {
 
@@ -39,6 +47,9 @@ export class DetallegruponominaComponent implements OnInit {
       } else {
         this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
       }
+
+
+      this.cuentasBancariasPrd.getAllByEmpresa(this.id_empresa).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
     });
 
     let obj:any = {
@@ -66,6 +77,12 @@ export class DetallegruponominaComponent implements OnInit {
   
       }
     }
+
+
+    this.catalogosPrd.getEsquemaPago().subscribe(datos => this.arregloEsquemaPago = datos.datos);
+    this.catalogosPrd.getMonedas().subscribe(datos => this.arregloMonedas = datos.datos);
+
+    
 
   }
 

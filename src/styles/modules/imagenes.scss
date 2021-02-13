@@ -1,0 +1,87 @@
+.logocaja{
+    background-color: rgb(255, 255, 255);
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    border: 1px solid #ced4da;
+    padding: inherit;
+    padding-top: 58px;
+    position: relative;;
+
+    img{
+        width: 80%;
+        height: 125px;
+        border-radius: 15px;
+        margin-top: 10px;
+        border: 1px dotted $primary;
+        margin-left: 18px;
+    }
+
+    #closeid{
+        position: absolute;
+        top: 0;
+        right: 30px;
+        
+        font-size: x-large;
+        color: #df5656;
+        background: white;
+        border-radius: 56%;
+    }
+
+
+
+    &.anulartop{
+        padding-top: 3px;
+    }
+
+    p{
+        font-size: x-small;
+        text-align: center;
+    }
+    button{
+        margin: auto;
+        display: block;
+        width: 119px;
+    }
+    .mostrar{
+        display: none;
+    }
+    .mostrar2{
+        display: none;
+    }
+
+
+    &.seleccionado{
+        border: 3px dotted #4cc1b0;
+        background-color: #f5f7f8;
+        button{
+            display: none;
+        }
+        .titulo{
+            display: none;
+        }
+        .mostrar{
+            display: block;
+            color:$primary;
+            font-size: large;
+        }
+
+    }
+
+    &.errorimagen{
+  
+        border: 3px dotted red;
+        
+
+
+        .mostrar2{
+            display: block;
+            color:red;
+        }
+
+    }
+
+    cambia{
+        color:$primary!important;
+    }
+}
