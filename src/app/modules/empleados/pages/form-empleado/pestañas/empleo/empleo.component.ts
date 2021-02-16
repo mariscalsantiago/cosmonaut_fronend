@@ -1,5 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
+import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
+import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
+import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { SharedPoliticasService } from 'src/app/shared/services/politicas/shared-politicas.service';
+
 
 @Component({
   selector: 'app-empleo',
@@ -11,37 +18,82 @@ export class EmpleoComponent implements OnInit {
   @Input() alerta: any;
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
+  @Input() datosPersona: any;
 
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  public arreglogruponominas: any = [];
+  public arregloArea: any = [];
+  public arregloPuestos: any = [];
+  public arregloPoliticas: any = [];
+  public arregloempleadosreporta: any = [];
+  public arregloCompensacion: any = [];
+  public tiposueldo: string = "b";
+  public id_empresa: number = 112;
+
+  constructor(private formBuilder: FormBuilder, private gruponominaPrd: GruponominasService,
+    private areasPrd: SharedAreasService, private politicasPrd: SharedPoliticasService,
+    private empleadosPrd: EmpleadosService, private catalogosPrd: CatalogosService,
+    private colaboradorPrd: ContratocolaboradorService) { }
 
   ngOnInit(): void {
 
     let obj = {};
     this.myForm = this.createForm(obj);
 
+    this.gruponominaPrd.getAll(112).subscribe(datos => {
+      this.arreglogruponominas = datos.datos
+      console.log(this.arreglogruponominas);
+    });
+
+    this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => this.arregloArea = datos.datos);
+    this.politicasPrd.getPoliticasByEmpresa(1).subscribe(datos => this.arregloPoliticas = datos.datos);
+    this.empleadosPrd.getEmpleadosCompania(40).subscribe(datos => this.arregloempleadosreporta = datos.datos);
+    this.catalogosPrd.getCompensacion().subscribe(datos => this.arregloCompensacion = datos.datos);
+
   }
 
   public createForm(obj: any) {
 
     return this.formBuilder.group({
-    
+      areaId: [obj.areaId, [Validators.required]],
+      puestoId: [obj.puestoId, [Validators.required]],
+      puesto_id_reporta: [obj.puesto_id_reporta],
+      sedeId: [obj.sedeId],
+      estadoId: [obj.estadoId],
+      politicaId: [obj.politicaId, [Validators.required]],
+      personaId: [this.datosPersona.personaId, [Validators.required]],
+      esSindicalizado: [obj.esSindicalizado],
+      fechaAntiguedad: [obj.fechaAntiguedad],
+      tipoContratoId: [obj.tipoContratoId],
+      fechaInicio: [obj.fechaInicio],
+      fechaFin: [obj.fechaFin],
+      jornadaId: [obj.jornadaId],
+      grupoNominaId: [obj.grupoNominaId, [Validators.required]],
+      tipoCompensacionId: [obj.tipoCompensacionId, [Validators.required]],
+      sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
+      sueldoNetoMensual: [obj.sueldoNetoMensual, [Validators.required]],
+      salarioDiario:[obj.salarioDiario,[Validators.required]],
+      dias_vacaciones:[obj.dias_vacaciones,[Validators.required]],
+      metodo_pago_id:[obj.metodo_pago_id,[Validators.required]]
+
     });
 
   }
 
 
 
- 
+
   public cancelar() {
 
   }
 
 
   public enviarFormulario() {
+
+    console.log(this.myForm.value);
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
@@ -68,16 +120,80 @@ export class EmpleoComponent implements OnInit {
 
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
-      alert("peticion empleo");
 
-      setTimeout(() => {
-        this.alerta.iconType = "success";
 
-          this.alerta.strTitulo = "Mensaje desde empleo";
-          this.alerta.strsubtitulo = "subtitutlo";
-          this.alerta.modal = true;
-      }, 2000);
+      let obj = this.myForm.value;
+
+      let objenviar = {
+        areaId: {
+          areaId: obj.areaId
+        },
+        puestoId: {
+          puestoId: obj.puestoId
+        },
+        politicaId: {
+          politicaId: obj.politicaId
+        },
+        numEmpleado: obj.personaId,
+        fechaAntiguedad: obj.fechaAntiguedad,
+        tipoContratoId: {
+          tipoContratoId: obj.tipoContratoId
+        },
+        fechaInicio: obj.fechaInicio,
+        fechaFin: obj.fechaFin,
+        grupoNominaId: {
+          grupoNominaId: obj.grupoNominaId
+        },
+        tipoCompensacionId: {
+          tipoCompensacionId: obj.tipoCompensacionId
+        },
+        "tipoRegimenContratacionId": {
+          "tipoRegimenContratacionId": "01"
+        },
+        sueldoBrutoMensual: obj.sueldoBrutoMensual,
+        salarioDiario: obj.salarioDiario,
+        jornadaId: {
+          jornadaId: 1
+        },
+        personaId: {
+          personaId: this.datosPersona.personaId
+        },
+        centrocClienteId: {
+          centrocClienteId: 112
+        },
+        "tipoJornadaId": "01",
+        estadoId: {
+          estadoId: obj.estadoId
+        },
+        "esSubcontratado": false,
+        sedeId: {
+          sedeId: obj.sedeId
+        },
+        esSindicalizado: obj.esSindicalizado
+      }
+
+      this.colaboradorPrd.save(objenviar).subscribe(datos => {
+
+        this.alerta.iconType = datos.resultado ? "success" : "error";
+
+        this.alerta.strTitulo = datos.mensaje;
+        this.alerta.strsubtitulo = datos.mensaje
+        this.alerta.modal = true;
+
+      });
+
+
 
     }
+  }
+
+  public cambiaArea() {
+
+    this.arregloPuestos = [];
+    this.areasPrd.getPuestoByArea(this.id_empresa, this.myForm.controls.areaId.value).subscribe(datos => {
+
+      this.arregloPuestos = datos.datos;
+    });
+
   }
 }

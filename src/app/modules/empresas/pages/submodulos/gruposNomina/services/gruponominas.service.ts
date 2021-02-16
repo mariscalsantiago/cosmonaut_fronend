@@ -35,6 +35,8 @@ export class GruponominasService {
     
 
     let json = JSON.stringify(obj);
+    console.log("Esto mando");
+    console.log(json);
     
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }

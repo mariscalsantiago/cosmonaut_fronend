@@ -70,4 +70,10 @@ export class CuentasbancariasService {
     return this.http.post(`${this.url}/eliminar`,json,httpOptions);
   }
 
+
+  public getCuentaBancariaByEmpresa(id_empresa:number):Observable<any>{
+
+    return this.http.get(`${this.url}/obtener/cliente/${id_empresa}`);
+  }
+
 }

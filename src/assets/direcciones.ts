@@ -12,5 +12,7 @@ export const direcciones = {
     catalogo:`${ip3}/catalogo`,
     gruponomina:`${ip}/grupoNomina`,
     colaboradorGrupoNomina:`${ip}/colaboradorGrupoNomina`,
-    domicilio:`${ip}/domicilio`
+    domicilio:`${ip}/domicilio`,
+    preferencias:`${ip}/preferencias`,
+    contratoColaborador:`${ip}/contratoColaborador`
 };

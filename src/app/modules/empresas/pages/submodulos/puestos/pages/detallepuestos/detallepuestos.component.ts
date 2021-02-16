@@ -73,6 +73,9 @@ export class DetallepuestosComponent implements OnInit {
 
     });
 
+    console.log(this.areas);
+
+
     if(this.insertar){
       this.myForm = this.createForm((this.areas));
 

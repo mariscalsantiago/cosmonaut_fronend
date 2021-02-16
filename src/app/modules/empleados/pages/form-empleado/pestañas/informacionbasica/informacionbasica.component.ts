@@ -11,6 +11,7 @@ import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.se
 export class InformacionbasicaComponent implements OnInit {
 
   @Output() enviado = new EventEmitter();
+  @Output() enviandouser = new EventEmitter();
   @Input() alerta: any;
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
@@ -147,6 +148,9 @@ export class InformacionbasicaComponent implements OnInit {
         this.alerta.strTitulo = datos.mensaje;
         this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
+
+        this.enviandouser.emit(datos.datos);
+        
       });
 
 

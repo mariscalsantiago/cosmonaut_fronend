@@ -7,13 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormEmpleadoComponent implements OnInit {
 
-  public activado = [{ tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false }, { tab: true, form: true, disabled: false },
-  { tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false }, { tab: false, form: false, disabled: false }];
+  public activado = [{ tab: false, form: false, disabled: false }, 
+    { tab: false, form: false, disabled: false }, 
+    { tab: false, form: false, disabled: false },
+  { tab: true, form: true, disabled: false }, 
+  { tab: false, form: false, disabled: false }, 
+  { tab: false, form: false, disabled: false }];
 
+  
 
   public ocultarempleada:boolean = false;
 
-  public datosPersona:any;
+  public datosPersona:any={
+    personaId:190
+  };
 
   public alerta = {
 
@@ -129,6 +136,14 @@ export class FormEmpleadoComponent implements OnInit {
   }
 
 
+
+  public recibiendoUserInsertado(evento:any){
+
+    console.log("recibiendo el usuario insertadp",evento);
+
+    this.datosPersona = evento;
+
+  }
 
 
 }

@@ -53,5 +53,19 @@ export class CatalogosService {
     return this.http.get(`${this.url}/tipoPreferencia/obtener/id/${idPreferencia}`);
   }
 
+  public getTipoContratos(): Observable<any>{
+    return this.http.get(`${this.url}/tipoContacto/listar/todos`);
+  }
+
+  public getCompensacion():Observable<any>{
+
+    return this.http.get(`${this.url}/tipoCompensacion/listar/todos`);
+
+  }
+
+  public getCompensacionById(idTipoCompensacion:number): Observable<any> {
+    return this.http.get(`${this.url}/tipoCompensacion/obtener/id/${idTipoCompensacion}`);
+  }
+
 
 }

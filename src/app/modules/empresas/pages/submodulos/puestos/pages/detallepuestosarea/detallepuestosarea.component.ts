@@ -52,7 +52,7 @@ export class DetallepuestosareaComponent implements OnInit {
   }
     
   ngOnInit(): void {
-     
+    console.log("Esto es editar");
 
     
     this.areas = history.state.datos == undefined ? {} : history.state.datos ;
@@ -71,6 +71,8 @@ export class DetallepuestosareaComponent implements OnInit {
           }
           else{ 
             this.myForm = this.createFormMod((this.areas));
+
+            console.log("Esto es editar",this.areas);
             
 
           }

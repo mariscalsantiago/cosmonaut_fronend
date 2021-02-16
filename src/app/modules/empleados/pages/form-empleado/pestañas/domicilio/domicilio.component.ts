@@ -15,6 +15,7 @@ export class DomicilioComponent implements OnInit {
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
   @Input() datosPersona:any;
+  
 
   public myForm!: FormGroup;
 

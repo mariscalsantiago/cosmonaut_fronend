@@ -11,6 +11,7 @@ export class DetalleComponent implements OnInit {
   @Input() alerta: any;
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
+  @Input() datosPersona:any;
 
   public myForm!: FormGroup;
 
