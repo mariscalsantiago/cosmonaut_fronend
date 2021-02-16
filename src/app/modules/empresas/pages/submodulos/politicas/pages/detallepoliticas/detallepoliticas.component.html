@@ -1,7 +1,7 @@
 <br><br>
  <form  [formGroup]="myFormpol" (ngSubmit)="enviarPeticion()">
   
-    <input type="hidden" formControlName="personaId">
+    <input type="hidden" formControlName="politicaId">
   
     <div class="background-panel margen">
       <br>
@@ -19,38 +19,38 @@
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label >Días económicos *</label>
-              <input formControlName="diaseconomicos" type="text" class="form-control" [ngClass]="{'is-invalid':f.diaseconomicos.errors && f.diaseconomicos.touched}"
+              <input formControlName="diasEconomicos" type="text" class="form-control" [ngClass]="{'is-invalid':f.diasEconomicos.errors && f.diasEconomicos.touched}"
                   placeholder="">
-                  <div *ngIf="f.diaseconomicos.errors && f.diaseconomicos.touched" class="invalid-feedback">
+                  <div *ngIf="f.diasEconomicos.errors && f.diasEconomicos.touched" class="invalid-feedback">
                       Favor de ingresar días económicos
                     </div>
     
             </div>
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-            <input formControlName="vacional" type="checkbox" name="" id="faltas">
-            <label for="vacional"> Prima vacacional al aniversario</label>
+            <input formControlName="primaAniversario" type="checkbox" name="" id="primaAniversario">
+            <label for="primaAniversario"> Prima vacacional al aniversario</label>
           </div>
 
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-            <input formControlName="faltas" type="checkbox" name="" id="faltas">
-            <label for="faltas"> Se descuentan faltas</label>
+            <input formControlName="descuentaFaltas" type="checkbox" name="" id="descuentaFaltas">
+            <label for="descuentaFaltas"> Se descuentan faltas</label>
           </div>
           <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-            <input formControlName="incapacidades" type="checkbox" name="" id="incapacidades">
-            <label for="incapacidades"> Se descuentan incapacidades</label>
+            <input formControlName="descuentaIncapacidades" type="checkbox" name="" id="descuentaIncapacidades">
+            <label for="descuentaIncapacidades"> Se descuentan incapacidades</label>
           </div>
           <div class="input-group-sm mb-4 col-6 col-sm-6 col-lg-6">
-            <input formControlName="vales" type="checkbox" name="" id="vales">
-            <label for="vales"> Costo vales de restaurante</label>
+            <input formControlName="costoValesRestaurante" type="checkbox" name="" id="costoValesRestaurante">
+            <label for="costoValesRestaurante"> Costo vales de restaurante</label>
           </div>
           <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-            <input formControlName="septimodia" type="checkbox" name="" id="septimodia">
-            <label for="septimodia"> Descuento proporción séptimo día</label>
+            <input formControlName="descuentoPropDia" type="checkbox" name="" id="descuentoPropDia">
+            <label for="descuentoPropDia"> Descuento proporción séptimo día</label>
           </div>
           <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Cálculos en base a :</label><br>
-            <input  value="antiguedad"  type="radio" name="calculos" id=""> Fecha de antigüedad<br>
-            <input  value="contrato"  type="radio" name="calculos" id=""> Fecha de inicio de contrato
+            <input  value="C" formControlName="calculoAntiguedadx"  type="radio" name="" id="calculoAntiguedadx"> Fecha de antigüedad<br>
+            <input  value="A" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id=""> Fecha de inicio de contrato
           </div>
   
         </div>

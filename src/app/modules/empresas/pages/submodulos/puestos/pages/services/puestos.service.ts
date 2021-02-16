@@ -21,6 +21,11 @@ export class PuestosService {
 
   }
 
+  public getListPues(id_empresa:number,id_area:number):Observable<any>{
+    return this.http.get(`${this.url}/obtener/cliente/area/id/${id_empresa}?idArea=${id_area}`);
+
+  }
+
   public getdetalleArea(id_empresa:number,id_area:number):Observable<any>{
     return this.http.get(`${this.url}/obtener/empleado/idCliente/${id_empresa}?idArea=${id_area}`);
 
@@ -49,6 +54,18 @@ export class PuestosService {
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
+  public savepuest(obj:any):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json:string = JSON.stringify(obj);
+    console.log(json);
+
+    return this.http.put(`${this.url}/agregarPuesto`,json,httpOptions);
+  }
+
   public eliminar(obj:any):Observable<any>{
     
     const httpOptions={
@@ -69,7 +86,7 @@ export class PuestosService {
       })
     };
     let json:string = JSON.stringify(obj);
-
+    console.log("JSonpuesto", json)
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 

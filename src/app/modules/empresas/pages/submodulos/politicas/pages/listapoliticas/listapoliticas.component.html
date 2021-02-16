@@ -45,65 +45,42 @@
                         <td colspan="5">
                           <div class="row mb-4">
                             <article class="titulo  col">
-                                Nombre de grupo de nomina
-                                <article>{{item.nombreCuenta}}</article>
+                                Días económicos 
+                                <article>{{item.diasEconomicos}}</article>
                             </article>
-                            <article class="titulo   col">
-                                Esquema para pago de nómina
-                                <article>Nómina estándar</article>
+                            <article class="titulo   col">  
+                                Prima vacacional al aniversario
+                                <article>
+                                <input type="checkbox" disabled="true" [(ngModel)]="item.primaAniversario"></article>
                             </article>
                             <article class="titulo   col" >
-                                Razón social
-                                <article>Grupo Condumex</article>
+                                Se descuentan faltas
+                                <article><input type="checkbox" disabled="true" [(ngModel)]="item.descuentaFaltas"></article>
                             </article>
                         
                         </div>
                         <div class="row mb-4">
                           <article class="titulo  col">
-                              Moneda
-                              <article>Peso mexicano</article>
+                              Se descuentan incapacidades
+                              <article><input type="checkbox" disabled="true" [(ngModel)]="item.descuentaIncapacidades"></article>
                           </article>
                           <article class="titulo   col">
-                            Periodo de nómina
-                              <article>Mensual</article>
+                              Costo vales de restaurante
+                              <article><input type="checkbox" disabled="true"[(ngModel)]="item.costoValesRestaurante"></article>
                           </article>
                           <article class="titulo   col" >
-                            Calcular periodo de nómina con base a:
-                              <article>30.4 días</article>
+                              Descuento proporción séptimo día
+                              <article><input type="checkbox" disabled="true" [(ngModel)]="item.descuentoPropDia"></article>
                           </article>
                       
                       </div>
                       <div class="row mb-4">
                         <article class="titulo  col">
-                          Periodo para pago de aguinaldo
-                            <article>Diciembre</article>
+                            Cálculos en base a :
+                            <article><input type="radio" disabled="true" [(ngModel)]="item.descuentoPropDia"></article>
                         </article>
-                        <article class="titulo   col">
-                          Calcular ISR de aguinaldo aplicando reglamento:
-                            <article>Sí</article>
-                        </article>
-                        <article class="titulo   col" >
-                          *Calcular subsidio al empleo de manera:
-                            <article>Periódica</article>
-                        </article>
-                    
-                    </div>
-                    <div class="row mb-4">
-                      <article class="titulo  col">
-                        Nómina automática
-                          <article>Sí</article>
-                      </article>
-                      <article class="titulo   col">
-                        Número de empleados asociados a este grupo:
-                          <article>22</article>
-                      </article>
-                      <article class="titulo   col">
-                        
-                          
-                      </article>
-                   
-                  </div>
-                        </td>
+                      </div>
+                      </td>
                       </tr>
               
                     </ng-container>              
