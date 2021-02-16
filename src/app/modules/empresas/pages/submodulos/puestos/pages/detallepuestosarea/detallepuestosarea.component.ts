@@ -1,8 +1,6 @@
-import { ConditionalExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { observable } from 'rxjs';
 import { PuestosService } from '../services/puestos.service';
 
 @Component({
@@ -13,6 +11,8 @@ import { PuestosService } from '../services/puestos.service';
 export class DetallepuestosareaComponent implements OnInit {
   public myForm!: FormGroup;
   public arreglo:any = [];
+  public puestoId : string = "";
+  public puesto : string = "";
   public arreglodetalle:any = [];
   public modal: boolean = false;
   public insertar: boolean = false;
@@ -30,8 +30,6 @@ export class DetallepuestosareaComponent implements OnInit {
   public nom_empresa: string = "";
   public puestoIdReporta: number =2;
 
-  public aremodif: boolean = false;
-  public areanew: boolean = false;
   public aparecemodalito: boolean = false;
   public scrolly: string = '5%';
   public modalWidth: string = "55%";
@@ -44,18 +42,20 @@ export class DetallepuestosareaComponent implements OnInit {
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       this.id_empresa = datos["id"]
-
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar el pusto?" : "¿Deseas actualizar el puesto?";
-
     });
 
   }
     
   ngOnInit(): void {
-     
+      
 
-    
+   
     this.areas = history.state.datos == undefined ? {} : history.state.datos ;
+    this.puestos = history.state.data == undefined ? {} : history.state.data ;
+    if(!this.insertar){
+    this.puesto = this.puestos.nombreCorto;
+    }
+
     this.bloqueado =  true;
 
     this.puestosPrd.getAllCompany(this.id_empresa).subscribe(datos => {
@@ -66,31 +66,14 @@ export class DetallepuestosareaComponent implements OnInit {
            this.nom_empresa = this.empresas.nombre
 
 
-           if(this.insertar){
             this.myForm = this.createForm((this.areas));
-          }
-          else{ 
-            this.myForm = this.createFormMod((this.areas));
-            
-
-          }
+            this.listaPuestos();
 
       }
 
     });
 
-    if(this.insertar){
-      this.areanew = true;
       this.myForm = this.createForm((this.areas));
-
-      
-    }
-    else{ 
-      this.aremodif = true;
-      this.myForm = this.createFormMod((this.areas));
-      this.listaPuestos();
-    }
-
 
   }
 
@@ -100,29 +83,17 @@ export class DetallepuestosareaComponent implements OnInit {
 
       nombre: [ {value: this.nom_empresa, disabled : this.bloqueado},[Validators.required]],
       nombreCorto: [{value :obj.nombreCorto, disabled : this.bloqueado}, [Validators.required]],
-      puesto: [obj.puesto,[Validators.required]],
-      areaId: obj.areaId
-
-    });
-  }
-
-
- 
-  public createFormMod(obj: any) {
-    return this.formBuilder.group({
-
-      nombre: [ {value: this.nom_empresa, disabled : this.bloqueado},[Validators.required]],
-      area: [{value :obj.area, disabled : this.bloqueado}, [Validators.required]],
-      puesto: [obj.puesto,[Validators.required]],
+      puesto: [this.puesto],
       areaId: obj.areaId,
-      puestoId : obj.puestoId
 
     });
   }
+
+
 
   public listaPuestos() {
     
-    this.puestosPrd.getdetalleArea(this.id_empresa,this.areas.areaId).subscribe(datos =>{
+    this.puestosPrd.getListPues(this.id_empresa,this.areas.areaId).subscribe(datos =>{
       this.cargando = true;
       this.arreglo = datos.datos;
       this.cargando = false;
@@ -130,7 +101,7 @@ export class DetallepuestosareaComponent implements OnInit {
   }
   
   public traerModal(indice: any) {
-
+     
     let elemento: any = document.getElementById("vetanaprincipaltablapuesto")
     this.aparecemodalito = true;
 
@@ -162,7 +133,7 @@ export class DetallepuestosareaComponent implements OnInit {
   
     this.cargandolistapuesto = true;
     
-      this.puestosPrd.getdetalleArea(this.id_empresa,this.areas.areaId).subscribe(datos =>{
+      this.puestosPrd.getListPues(this.id_empresa,this.areas.areaId).subscribe(datos =>{
         this.cargandolistapuesto = false;
         this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
       });
@@ -172,7 +143,7 @@ export class DetallepuestosareaComponent implements OnInit {
     
   public enviarPeticion() {
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el área" : "¿Deseas actualizar el área?";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar el puesto" : "¿Deseas actualizar el puesto?";
     this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
     this.modal = true;
   }
@@ -207,7 +178,7 @@ export class DetallepuestosareaComponent implements OnInit {
       }
 
         if(this.insertar){
-          this.puestosPrd.save(objEnviar).subscribe(datos => {
+          this.puestosPrd.savepuest(objEnviar).subscribe(datos => {
             
             this.iconType = datos.resultado? "success":"error";
             this.strTitulo = datos.mensaje;
@@ -220,10 +191,12 @@ export class DetallepuestosareaComponent implements OnInit {
            
           let objEnviarMod:any = {
             areaId: obj.areaId,
+            descripcion: this.areas.descripcion,
+            nombreCorto: this.areas.nombreCorto,
             centrocClienteId: this.id_empresa,
             nclPuestoDto:
             [{
-              puestoId : obj.puestoId,
+              puestoId : this.puestos.puestoId,
               descripcion : obj.puesto,
               nombreCorto : obj.puesto,
               centrocClienteId : this.id_empresa,

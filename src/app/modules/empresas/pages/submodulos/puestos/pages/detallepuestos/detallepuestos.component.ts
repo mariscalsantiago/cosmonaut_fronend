@@ -43,8 +43,6 @@ export class DetallepuestosComponent implements OnInit {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       this.id_empresa = datos["id"]
 
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar el área?" : "¿Deseas actualizar el área?";
-
     });
 
   }
@@ -111,10 +109,11 @@ export class DetallepuestosComponent implements OnInit {
   }
 
   public listaPuestos() {
-    
-    this.puestosPrd.getdetalleArea(this.id_empresa,this.areas.areaId).subscribe(datos =>{
+     
+    this.puestosPrd.getListPues(this.id_empresa,this.areas.areaId).subscribe(datos =>{
       this.cargando = true;
       this.arreglo = datos.datos;
+      console.log("lista puesto",this.arreglo);
       this.cargando = false;
     });
   }
@@ -170,11 +169,7 @@ export class DetallepuestosComponent implements OnInit {
      
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
-    if(obj == undefined){
-      this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos', tipoinsert],{state:{datos:this.areas}});
-    }else{
-      this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos', tipoinsert],{state:{datos:obj}});
-    }
+    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'puestos', tipoinsert],{state:{datos:this.areas, data:obj}});
     this.cargando = false;
   }
 
@@ -185,14 +180,6 @@ export class DetallepuestosComponent implements OnInit {
     this.modal = true;
   }
 
-  public enviarPeticionpuesto(){
-     
-    this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el área" : "¿Deseas actualizar el área?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
-    this.modal = true;
-
-  }
 
 
   public redirect(obj:any){
@@ -203,7 +190,7 @@ export class DetallepuestosComponent implements OnInit {
   }
 
   public recibir($evento: any) {
-     
+      
     this.modal = false;
     if(this.iconType == "warning"){
       if ($evento) {
@@ -217,7 +204,6 @@ export class DetallepuestosComponent implements OnInit {
               {
                 descripcion: obj.puesto,
                 nombreCorto: obj.puesto,
-                //puestoIdReporta: this.puestoIdReporta,
                 centrocClienteId: this.id_empresa
               }
             ]

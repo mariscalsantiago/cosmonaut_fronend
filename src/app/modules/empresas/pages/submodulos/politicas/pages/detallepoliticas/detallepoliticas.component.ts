@@ -48,8 +48,13 @@ export class DetallepoliticasComponent implements OnInit {
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      diaseconomicos: [obj.diaseconomicos, [Validators.required]],
-      personaId: obj.personaId
+      diasEconomicos: [obj.diasEconomicos, [Validators.required]],
+      primaAniversario: [obj.primaAniversario],
+      descuentaFaltas: [obj.descuentaFaltas],
+      descuentaIncapacidades: [obj.descuentaIncapacidades],
+      costoValesRestaurante: [obj.costoValesRestaurante],
+      descuentoPropDia: [obj.descuentoPropDia],
+      politicaId: obj.politicaId
 
     });
   }
@@ -82,34 +87,46 @@ export class DetallepoliticasComponent implements OnInit {
       if ($evento) {
         let obj = this.myFormpol.value;
 
+        let objEnviar: any ={
+          nombre: obj.nombre,
+          nombreCorto: obj.nombre,
+          diasEconomicos: obj.diasEconomicos,
+          calculoAntiguedadx: "A",
+          centrocClienteId: {
+            centrocClienteId: this.id_empresa
+            },
+          calculoAntiguedadId: {
+            calculoAntiguedadxId: 1
+          },
+          esEstandar: true
+        }
+
         if(this.insertar){
           debugger;
           
-          /*this.companyPrd.savecont(obj).subscribe(datos => {
+            this.politicasPrd.save(objEnviar).subscribe(datos => {
             
             this.iconType = datos.result? "success":"error";
     
             this.strTitulo = datos.message;
             this.strsubtitulo = 'Registro agregado correctamente'
             this.modal = true;
-            this.compania = false;
-            this.contacto = true;
+
             
-          });*/
+          });
 
         }else{
     
           debugger;   
 
-          /*this.companyPrd.modificarCont(obj).subscribe(datos =>{
-            this.iconType =  datos.result? "success":"error";  
-            this.strTitulo = datos.message;
+          this.politicasPrd.modificar(objEnviar).subscribe(datos =>{
+            this.iconType =  datos.resultado? "success":"error";  
+            this.strTitulo = datos.mensaje;
             this.strsubtitulo = 'Registro modificado correctamente!'
             this.modal = true;
-            this.listcontacto = true;
-            this.compania = false;
 
-          });*/
+
+          });
         }
       
       }

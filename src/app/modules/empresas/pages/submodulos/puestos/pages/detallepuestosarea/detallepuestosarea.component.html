@@ -35,7 +35,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of arreglodetalle">
-                <td>{{item.puesto}}</td>
+                <td>{{item.nombreCorto}}</td>
               </tr>
             </tbody>
           </table>
@@ -65,22 +65,9 @@
                   </div>
             </div>
 
-            <div *ngIf="aremodif" class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div  class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
               <label >Área *</label>
-              <input formControlName="area" type="text" maxlength="13" class="form-control" [ngClass]="{'is-invalid':f.area.errors && f.area.touched}"
-                  placeholder="">
-                  <div *ngIf="f.area.errors && f.area.touched" class="invalid-feedback">
-                      Favor ingresa nombre de área.
-                  </div>
-                 <br> 
-                    <nav>
-                        <a routerlinkactive="active" (click)="traerModal(undefined)" routerlink="/home" style="text-decoration: underline;color: #00c2c3;">
-                        Consultar puestos existentes</a>
-                     </nav>
-            </div>
-            <div *ngIf="areanew" class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-              <label >Área *</label>
-              <input formControlName="nombreCorto" type="text" maxlength="13" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && f.nombreCorto.touched}"
+              <input formControlName="nombreCorto" type="text" maxlength="11" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && f.nombreCorto.touched}"
                   placeholder="">
                   <div *ngIf="f.nombreCorto.errors && f.nombreCorto.touched" class="invalid-feedback">
                       Favor ingresa nombre de área.
@@ -94,7 +81,7 @@
 
          <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
             <label for="exampleFormControlSelect1">Puesto *</label>
-            <input formControlName="puesto" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}"
+            <input formControlName="puesto" maxlength="11" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}"
                 placeholder="">
                 <div *ngIf="f.puesto.errors && f.puesto.touched" class="invalid-feedback">
                     Favor ingresa nombre de puesto.
