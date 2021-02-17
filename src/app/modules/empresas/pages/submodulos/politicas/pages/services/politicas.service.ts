@@ -20,6 +20,10 @@ export class PoliticasService {
      return this.http.get(`${this.url}/obtener/politica/idEmpresa/${id_empresa}`);
   }
 
+  public getTabBen(id_politica:number,id_empresa:number):Observable<any>{
+    return this.http.get(`${this.url}/obtener/beneficio/idCliente/${id_politica}?idCliente=${id_empresa}`);
+
+  }
   
 
   public save(obj:any):Observable<any>{
@@ -31,6 +35,7 @@ export class PoliticasService {
     };
 
     let json:string = JSON.stringify(obj);
+    console.log(json);
 
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }

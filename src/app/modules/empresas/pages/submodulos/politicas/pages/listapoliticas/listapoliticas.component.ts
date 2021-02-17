@@ -16,6 +16,7 @@ export class ListapoliticasComponent implements OnInit {
   public changeIconDown: boolean = false;
 
   public aparecemodalito: boolean = false;
+  public aparecemodalitoempleado: boolean = false;
   public scrolly: string = '5%';
   public modalWidth: string = "55%";
   public cargandodetallearea:boolean = false;
@@ -99,20 +100,52 @@ export class ListapoliticasComponent implements OnInit {
 
     }
 
-
-    let areapuestoitem = this.arreglo[indice];
+      let politicaitem = this.arreglo[indice];
+      this.cargandodetallearea = true;
     
-    this.cargandodetallearea = true;
-    this.politicasProd.getAllPol(this.id_empresa).subscribe(datos =>{
+      this.politicasProd.getTabBen(politicaitem.politicaId,this.id_empresa).subscribe(datos =>{
+        this.cargandodetallearea = false;
+        this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
+      });
 
-      this.cargandodetallearea = false;
+  }
+  public traerModalEmpleo(indice: any) {
+    debugger;
+    let elemento: any = document.getElementById("vetanaprincipaltabla")
+    this.aparecemodalitoempleado = true;
 
 
-      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
 
-     
+    if (elemento.getBoundingClientRect().y < -40) {
+      let numero = elemento.getBoundingClientRect().y;
+      numero = Math.abs(numero);
 
-    });
+      this.scrolly = numero + 100 + "px";
+
+
+    } else {
+
+      this.scrolly = "5%";
+    }
+
+
+
+    if (this.tamanio < 600) {
+
+      this.modalWidth = "90%";
+
+    } else {
+      this.modalWidth = "55%";
+
+    }
+
+      let politicaitem = this.arreglo[indice];
+      this.cargandodetallearea = true;
+    
+      this.politicasProd.getTabBen(politicaitem.politicaId,this.id_empresa).subscribe(datos =>{
+        this.cargandodetallearea = false;
+        this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
+      });
 
   }
 
