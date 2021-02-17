@@ -8,7 +8,7 @@
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
                     <label>Nombre*</label>
                     <input formControlName="nombre" type="text" class="form-control"  [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
-                    <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
+                    <div *ngIf="f.nombre.errors " class="invalid-feedback">
                         Nombre Obligatorio
                     </div>
     

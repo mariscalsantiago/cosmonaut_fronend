@@ -68,4 +68,12 @@ export class CatalogosService {
   }
 
 
+  public getAreasGeograficas():Observable<any>{
+
+    return this.http.get(`${this.url}/areaGeografica/listar/todos`);
+
+  }
+
+
+
 }

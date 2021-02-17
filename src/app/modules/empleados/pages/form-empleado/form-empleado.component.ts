@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-empleado',
@@ -10,9 +11,8 @@ export class FormEmpleadoComponent implements OnInit {
   public activado = [{ tab: false, form: false, disabled: false }, 
     { tab: false, form: false, disabled: false }, 
     { tab: false, form: false, disabled: false },
-  { tab: true, form: true, disabled: false }, 
   { tab: false, form: false, disabled: false }, 
-  { tab: false, form: false, disabled: false }];
+  { tab: true, form: true, disabled: false }, ];
 
   
 
@@ -36,7 +36,7 @@ export class FormEmpleadoComponent implements OnInit {
 
   public cambiaValor: boolean = false;
 
-  constructor() { }
+  constructor(private routerPrd:Router) { }
 
   ngOnInit(): void {
   }
@@ -126,7 +126,7 @@ export class FormEmpleadoComponent implements OnInit {
             this.recibir({ type: "empleo", valor: true });
             break;
             case 4:
-              alert("Termina la petición de empleados")
+              this.routerPrd.navigate(['empleados']);
             break;
         }
 

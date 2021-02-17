@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
@@ -30,7 +30,11 @@ export class EmpleoComponent implements OnInit {
   public arregloPoliticas: any = [];
   public arregloempleadosreporta: any = [];
   public arregloCompensacion: any = [];
-  public tiposueldo: string = "b";
+  public arregloareasgeograficas: any = [];
+
+  public sueldoBruto: boolean = false;
+  public sueldoNeto: boolean = false;
+
   public id_empresa: number = 112;
 
   constructor(private formBuilder: FormBuilder, private gruponominaPrd: GruponominasService,
@@ -52,32 +56,40 @@ export class EmpleoComponent implements OnInit {
     this.politicasPrd.getPoliticasByEmpresa(1).subscribe(datos => this.arregloPoliticas = datos.datos);
     this.empleadosPrd.getEmpleadosCompania(40).subscribe(datos => this.arregloempleadosreporta = datos.datos);
     this.catalogosPrd.getCompensacion().subscribe(datos => this.arregloCompensacion = datos.datos);
+    this.catalogosPrd.getAreasGeograficas().subscribe(datos => this.arregloareasgeograficas = datos.datos);
+
 
   }
 
   public createForm(obj: any) {
-
     return this.formBuilder.group({
       areaId: [obj.areaId, [Validators.required]],
-      puestoId: [obj.puestoId, [Validators.required]],
+      puestoId: [{value:obj.puestoId,disabled:true}, [Validators.required]],
       puesto_id_reporta: [obj.puesto_id_reporta],
       sedeId: [obj.sedeId],
       estadoId: [obj.estadoId],
       politicaId: [obj.politicaId, [Validators.required]],
       personaId: [this.datosPersona.personaId, [Validators.required]],
       esSindicalizado: [obj.esSindicalizado],
-      fechaAntiguedad: [obj.fechaAntiguedad],
-      tipoContratoId: [obj.tipoContratoId],
-      fechaInicio: [obj.fechaInicio],
-      fechaFin: [obj.fechaFin],
-      jornadaId: [obj.jornadaId],
+      fechaAntiguedad: [obj.fechaAntiguedad,[Validators.required]],
+      tipoContratoId: [obj.tipoContratoId,[Validators.required]],
+      fechaInicio: [obj.fechaInicio,Validators.required],
+      fechaFin: [obj.fechaFin,[Validators.required]],
+      jornadaId: [obj.jornadaId,[Validators.required]],
       grupoNominaId: [obj.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId, [Validators.required]],
-      sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
-      sueldoNetoMensual: [obj.sueldoNetoMensual, [Validators.required]],
-      salarioDiario:[obj.salarioDiario,[Validators.required]],
-      dias_vacaciones:[obj.dias_vacaciones,[Validators.required]],
-      metodo_pago_id:[obj.metodo_pago_id,[Validators.required]]
+      sueldoBrutoMensual: [obj.sueldoBrutoMensual],
+      sueldoNetoMensual: [obj.sueldoNetoMensual],
+      salarioDiario: [obj.salarioDiario, [Validators.required]],
+      dias_vacaciones: [obj.dias_vacaciones, [Validators.required]],
+      metodo_pago_id: [obj.metodo_pago_id, [Validators.required]],
+      tipoRegimenContratacionId: [obj.tipoRegimenContratacionId, [Validators.required]],
+      areaGeograficaId: [obj.areaGeograficaId, [Validators.required]],
+      esSubcontratado: [obj.esSubcontratado],
+      suPorcentaje: [obj.suPorcentaje],
+      tiposueldo: [obj.tiposueldo, [Validators.required]],
+      sueldonetomensual: obj.sueldonetomensual,
+      subcontratistaId:obj.subcontratistaId
 
     });
 
@@ -87,6 +99,9 @@ export class EmpleoComponent implements OnInit {
 
 
   public cancelar() {
+
+
+
 
   }
 
@@ -147,8 +162,8 @@ export class EmpleoComponent implements OnInit {
         tipoCompensacionId: {
           tipoCompensacionId: obj.tipoCompensacionId
         },
-        "tipoRegimenContratacionId": {
-          "tipoRegimenContratacionId": "01"
+        tipoRegimenContratacionId: {
+          tipoRegimenContratacionId: obj.tipoRegimenContratacionId
         },
         sueldoBrutoMensual: obj.sueldoBrutoMensual,
         salarioDiario: obj.salarioDiario,
@@ -161,15 +176,18 @@ export class EmpleoComponent implements OnInit {
         centrocClienteId: {
           centrocClienteId: 112
         },
-        "tipoJornadaId": "01",
         estadoId: {
           estadoId: obj.estadoId
         },
-        "esSubcontratado": false,
+        esSubcontratado: obj.esSubcontratado,
         sedeId: {
           sedeId: obj.sedeId
         },
-        esSindicalizado: obj.esSindicalizado
+        esSindicalizado: obj.esSindicalizado,
+        areaGeograficaId: {
+          areaGeograficaId: obj.areaGeograficaId
+        },
+        suPorcentaje: obj.suPorcentaje
       }
 
       this.colaboradorPrd.save(objenviar).subscribe(datos => {
@@ -188,12 +206,50 @@ export class EmpleoComponent implements OnInit {
   }
 
   public cambiaArea() {
+    this.myForm.controls.puestoId.disable();
 
     this.arregloPuestos = [];
     this.areasPrd.getPuestoByArea(this.id_empresa, this.myForm.controls.areaId.value).subscribe(datos => {
 
       this.arregloPuestos = datos.datos;
+      this.myForm.controls.puestoId.enable();
     });
 
+  }
+
+
+  public cambiarSueldoField() {
+
+
+    this.sueldoBruto = this.myForm.controls.tiposueldo.value == 'b';
+    this.sueldoNeto = this.myForm.controls.tiposueldo.value == 'n';
+
+    this.myForm.controls.sueldoBrutoMensual.setErrors(null);
+    this.myForm.controls.sueldonetomensual.setErrors(null);
+
+    if (this.sueldoNeto) {
+
+      this.myForm.controls.sueldonetomensual.setErrors({ required: true });
+
+    }
+
+    if (this.sueldoBruto) {
+      this.myForm.controls.sueldoBrutoMensual.setErrors({ required: true });
+    }
+  }
+
+
+  public cambiarStatus(){
+
+    console.log(this.myForm.controls.esSubcontratado.value);
+    if(this.myForm.controls.esSubcontratado.value){
+
+      this.myForm.controls.subcontratistaId.setErrors({required:true});
+      this.myForm.controls.suPorcentaje.setErrors({required:true});
+
+    }else{
+      this.myForm.controls.subcontratistaId.setErrors(null);
+      this.myForm.controls.suPorcentaje.setErrors(null);
+    }
   }
 }

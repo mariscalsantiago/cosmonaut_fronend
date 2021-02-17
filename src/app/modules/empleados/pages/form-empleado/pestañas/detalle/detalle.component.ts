@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { CuentasbancariasService } from '../../../../../empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
 
 @Component({
   selector: 'app-detalle',
@@ -17,19 +19,31 @@ export class DetalleComponent implements OnInit {
 
   public submitEnviado: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  public arreglobancos:any = [];
+
+  constructor(private formBuilder: FormBuilder,private catalogosPrd:CatalogosService,
+    private bancosPrd:CuentasbancariasService) { }
 
   ngOnInit(): void {
 
-    let obj = {};
+    let obj = {
+      csBanco:{}
+    };
     this.myForm = this.createForm(obj);
+
+
+    this.catalogosPrd.getCuentasBanco().subscribe(datos => this.arreglobancos = datos.datos);
 
   }
 
   public createForm(obj: any) {
 
     return this.formBuilder.group({
-    
+      metodo_pago_id:{value:obj.metodo_pago_id,disabled:true},
+      numeroCuenta:[obj.numeroCuenta,[Validators.required]],
+      clabe:[obj.clabe,[Validators.required]],
+      csBanco:[obj.csBanco.bancoId,[Validators.required]],
+      numInformacion:obj.numInformacion
     });
 
   }
@@ -69,15 +83,30 @@ export class DetalleComponent implements OnInit {
 
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
-      alert("peticion desde detalle");
 
-      setTimeout(() => {
-        this.alerta.iconType = "success";
 
-          this.alerta.strTitulo = "Mensaje desde detalle";
-          this.alerta.strsubtitulo = "subtitutlo";
-          this.alerta.modal = true;
-      }, 2000);
+      let obj = this.myForm.value;
+
+      let objEnviar = {
+
+        numeroCuenta:obj.numeroCuenta,
+        clabe:obj.clabe,
+        csBanco:{
+          bancoId:obj.csBanco
+        },
+        numInformacion:obj.numInformacion
+
+      };
+
+      this.bancosPrd.save(objEnviar).subscribe(datos =>{
+        this.alerta.iconType = datos.resultado ? "success" : "error";
+
+        this.alerta.strTitulo = datos.mensaje;
+        this.alerta.strsubtitulo = datos.mensaje
+        this.alerta.modal = true;
+      });
+     
+      
 
     }
   }
