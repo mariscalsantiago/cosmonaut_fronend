@@ -106,9 +106,9 @@ export class ListajornadalaboralComponent implements OnInit {
 
 
     if (obj == undefined) {
-      this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'gruposnomina', 'nuevo']);
+      this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'jornadalaboral', 'nuevo']);
     } else {
-      this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'gruposnomina', 'editar'], { state: { data: obj } });
+      this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'jornadalaboral', 'editar'], { state: { data: obj } });
     }
 
   }

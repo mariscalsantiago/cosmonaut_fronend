@@ -5,115 +5,51 @@
   <input type="hidden" formControlName="grupoNominaId">
 
   <div class="background-panel margen">
+    <br>
     <div class="form-group row margen">
-      <label class="titulo">Campos a rellenar</label>
-    </div>
+      <label class="titulo">INFORMACIÓN DE JORNADA</label></div>
     <div class="form-group row margen">
 
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Nombre de grupo de nómina *</label>
+        <label>Nombre *</label>
         <input formControlName="nombre" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}"  type="text" class="form-control" placeholder="">
         <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
-          Nombre de grupo de nómina obligatorio.
+          Nombre de jornada obligatorio.
         </div>
       </div>
 
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Esquema para pago de nómina *</label>
+        <label>Tipo de Jornada *</label>
         <select formControlName = "esquemaPagoId" [ngClass]="{'is-invalid':f.esquemaPagoId.errors && submitInvalido}"  class="form-control">
-          <option value="1">Nómina Estándar </option>
+          <option value="1">Diurna </option>
+          <option value="2">Nocturna </option>
+          <option value="3">Mixta </option>
         </select>
         <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
-          Esquema para pago de nómina obligatorio.
+          Tipo de Jornada obligatorio.
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Razón social *</label>
-        <select formControlName="centrocClienteId" [ngClass]="{'is-invalid':f.centrocClienteId.errors && submitInvalido}" class="form-control">
-          <option value="1">ASG</option>
+        <label>Suma de horas para jornada *</label>
+        <select formControlName = "esquemaPagoId" [ngClass]="{'is-invalid':f.esquemaPagoId.errors && submitInvalido}"  class="form-control">
+          <option value="1">48</option>
         </select>
-        <div *ngIf="submitInvalido && f.centrocClienteId.errors" class="invalid-feedback">
-          Razón social obligatorio.
+        <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
+          Suma de horas para jornada obligatorio.
         </div>
       </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Cuenta bancaria *</label>
-        <select formControlName="clabe" [ngClass]="{'is-invalid':f.clabe.errors && submitInvalido}" class="form-control">
-          <option value="254285829292892529">254285829292892529</option>
-        </select>
-        <div *ngIf="submitInvalido && f.clabe.errors" class="invalid-feedback">
-          Campo obligatorío
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Moneda *</label>
-        <select formControlName="monedaId" [ngClass]="{'is-invalid':f.monedaId.errors && submitInvalido}" class="form-control">
-          <option value="1">opcion</option>
-        </select>
-        <div *ngIf="submitInvalido && f.monedaId.errors" class="invalid-feedback">
-          Tipo moneda obligatorio
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Periodo de nómina *</label>
-        <select #periodopago formControlName="periodicidadPagoId" [ngClass]="{'is-invalid':f.periodicidadPagoId.errors && submitInvalido}" class="form-control">
-          <option value="01">Diario</option>
-          <option value="02">Quincenal</option>
-          <option value="03">Mensual</option>
-        </select>
-        <div *ngIf="submitInvalido && f.periodicidadPagoId.errors" class="invalid-feedback">
-          Campo obligatorio.
-        </div>
-      </div>
-      <div *ngIf="periodopago.value == '02'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <input #ajusteisr (click)="activar(ajusteisr)" type="checkbox" name="" id="ajusteirs">
-        <label for="ajusteirs">Ajuste de ISR </label>
-       
-      </div>
-      <div *ngIf="activadoISR"  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
-        <label >Ajustar base gravable del mes de periodos ordinarios faltantes.</label>
-        <label for="sibasegravable">Sí</label><input checked type="radio" name="grupo1" id="sibasegravable">
-        <label for="nobasegravable">No</label><input type="radio" name="grupo1" id="nobasegravable">
-        
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Calcular periodo de nómina con base a *</label>
-        <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
-          <option value="15D">30.4 dias.</option>
-        </select>
-        <div *ngIf="submitInvalido && f.basePeriodoId.errors" class="invalid-feedback">
-          Campo obligatorio.
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Periodo para pago de aguinaldo *</label>
-        <select formControlName="periodoAguinaldoId" [ngClass]="{'is-invalid':f.periodoAguinaldoId.errors && submitInvalido}" class="form-control">
-          <option value="01">Diciembre</option>
-        </select>
-        <div *ngIf="submitInvalido && f.periodoAguinaldoId.errors" class="invalid-feedback">
-          Campo obligatorio.
-        </div>
-      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <input formControlName="isrAguinaldoReglamento" type="checkbox" name="" id="irsaguinaldo">
-        <label for="irsaguinaldo">Calcular ISR de aguinaldo aplicando reglamento</label>
+        <label for="irsaguinaldo"> Usuar el mismo horario de trabajo para todos los días</label>
       </div>
+      
       <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Calcular subsidio al empleo de manera :</label><br>
-        Periodica<input [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" value="periodica" formControlName="maneraCalcularSubsidio" type="radio" name="maneraCalcularSubsidio" id="">
-        Diaria<input [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" value="diaria" formControlName="maneraCalcularSubsidio" type="radio" name="maneraCalcularSubsidio" id="">
-        <div *ngIf="submitInvalido && f.maneraCalcularSubsidio.errors" class="invalid-feedback">
-          Campos obligatorios.
-        </div>
+        <input #ajusteisr (click)="activar(ajusteisr)" type="checkbox" name="" id="ajusteirs">
+        <label for="ajusteirs">Agregar horario de comida </label>
+       
       </div>
-      <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Nómina automática </label><br>
-        Si<input [ngClass]="{'is-invalid':f.esAutomatica.errors && submitInvalido}" value="true" formControlName="esAutomatica" type="radio" name="esAutomatica" id="">
-        No<input [ngClass]="{'is-invalid':f.esAutomatica.errors && submitInvalido}" value="false" formControlName="esAutomatica" type="radio" name="esAutomatica" id="">
-        <div *ngIf="submitInvalido && f.esAutomatica.errors" class="invalid-feedback">
-          Campos obligatorios.
-        </div>
-      </div>
+
     </div>
 
 

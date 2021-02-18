@@ -27,10 +27,7 @@ export class DetallepoliticasComponent implements OnInit {
     debugger;
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
-      
-
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar la política?" : "¿Deseas actualizar la política?";
-
+      this.id_empresa = datos["id"]
     });
 
 
@@ -74,7 +71,7 @@ export class DetallepoliticasComponent implements OnInit {
   public redirect(obj:any){
     debugger;
     this.modal = true;
-    this.routerPrd.navigate(["/empresa/detalle/idempresa/politicas"]);
+    this.routerPrd.navigate(["/empresa/detalle/"+this.id_empresa+"/politicas"]);
     this.modal = false;
     
 
@@ -89,16 +86,15 @@ export class DetallepoliticasComponent implements OnInit {
 
         let objEnviar: any ={
           nombre: obj.nombre,
-          nombreCorto: obj.nombre,
           diasEconomicos: obj.diasEconomicos,
-          calculoAntiguedadx: "A",
+          calculoAntiguedadx: "C",
           centrocClienteId: {
             centrocClienteId: this.id_empresa
             },
           calculoAntiguedadId: {
-            calculoAntiguedadxId: 1
+            calculoAntiguedadxId: 2
           },
-          esEstandar: true
+
         }
 
         if(this.insertar){
@@ -106,9 +102,9 @@ export class DetallepoliticasComponent implements OnInit {
           
             this.politicasPrd.save(objEnviar).subscribe(datos => {
             
-            this.iconType = datos.result? "success":"error";
+            this.iconType = datos.resultado? "success":"error";
     
-            this.strTitulo = datos.message;
+            this.strTitulo = datos.mensaje;
             this.strsubtitulo = 'Registro agregado correctamente'
             this.modal = true;
 
@@ -118,7 +114,7 @@ export class DetallepoliticasComponent implements OnInit {
         }else{
     
           debugger;   
-
+          objEnviar.politicaId = obj.politicaId;
           this.politicasPrd.modificar(objEnviar).subscribe(datos =>{
             this.iconType =  datos.resultado? "success":"error";  
             this.strTitulo = datos.mensaje;
@@ -132,7 +128,7 @@ export class DetallepoliticasComponent implements OnInit {
       }
     }else{
       if(this.iconType == "success"){
-          this.routerPrd.navigate(["/empresa/detalle/idempresa/politicas"]);
+          this.routerPrd.navigate(["/empresa/detalle/"+this.id_empresa+"/politicas"]);
       }
      
       this.modal = false;

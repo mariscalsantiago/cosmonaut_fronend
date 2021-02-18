@@ -115,7 +115,6 @@ export class DetallepuestosComponent implements OnInit {
     this.puestosPrd.getListPues(this.id_empresa,this.areas.areaId).subscribe(datos =>{
       this.cargando = true;
       this.arreglo = datos.datos;
-      console.log("lista puesto",this.arreglo);
       this.cargando = false;
     });
   }

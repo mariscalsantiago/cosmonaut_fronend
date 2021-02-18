@@ -45,7 +45,7 @@
 <div class="row" style="margin: 10px;">
   <div class="col-12 col-lg-12 text-right">
     <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-      <i class="fa fa-plus"></i>Agregar
+      <i class="fa fa-plus"></i>Agregar jornada
     </button>
   </div>
 </div>
@@ -105,17 +105,15 @@
   <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
     <thead>
       <tr>
-        <th scope="col">Nombre de grupo de nomina</th>
-        <th scope="col">Razón social</th>
-        <th scope="col">Período de nómina</th>
+        <th scope="col">Nombre de jornada</th>
+        <th scope="col">Tipo de jornada</th>
         <th scope="col">Número de empleados</th>
-        <th scope="col ">Opciones</th>
+        <th scope="col ">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <ng-container *ngFor="let item of arreglo;let indice = index;">
         <tr>
-          <td>{{item.id}}</td>
           <td>{{item.nombre}} </td>
           <td>{{item.razon}} </td>
           <td>{{item.periodo}} </td>

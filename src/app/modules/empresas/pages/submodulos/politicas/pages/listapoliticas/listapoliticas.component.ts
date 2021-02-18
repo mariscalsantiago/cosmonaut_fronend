@@ -14,11 +14,16 @@ export class ListapoliticasComponent implements OnInit {
   public cargando:Boolean = false;
   public id_empresa:number = 0;
   public changeIconDown: boolean = false;
-
+  public objEnviar:any ;
   public aparecemodalito: boolean = false;
+  public aparecemodalitoempleado: boolean = false;
   public scrolly: string = '5%';
   public modalWidth: string = "55%";
   public cargandodetallearea:boolean = false;
+  public modal: boolean = false;
+  public iconType:string = "";
+  public strTitulo: string = "";
+  public strsubtitulo:string = "";
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -31,6 +36,7 @@ export class ListapoliticasComponent implements OnInit {
  
   public arreglo:any = [];
   public arreglodetalle: any =[];
+  public arreglodetalleemp: any = [];
 
   constructor(private routerPrd:Router,private politicasProd:PoliticasService,private CanRouterPrd:ActivatedRoute) { }
 
@@ -65,8 +71,21 @@ export class ListapoliticasComponent implements OnInit {
     this.cargando = false;
   }
   public eliminar(obj:any){
+    debugger;
+     
+    this.objEnviar = {
+      politicaId: obj.politicaId,
+      centrocClienteId: {
+        centrocClienteId: obj.centrocClienteId
+        }
+      }
 
-  }
+   this.modal = true;
+   this.strTitulo = "¿Deseas eliminar la politíca?";
+   this.strsubtitulo = "Estas a punto de borrar una politíca";
+   this.iconType = "warning";
+           
+ }
 
   public traerModal(indice: any) {
 
@@ -99,20 +118,52 @@ export class ListapoliticasComponent implements OnInit {
 
     }
 
-
-    let areapuestoitem = this.arreglo[indice];
+      let politicaitem = this.arreglo[indice];
+      this.cargandodetallearea = true;
     
-    this.cargandodetallearea = true;
-    this.politicasProd.getAllPol(this.id_empresa).subscribe(datos =>{
+      this.politicasProd.getTabBen(politicaitem.politicaId,this.id_empresa).subscribe(datos =>{
+        this.cargandodetallearea = false;
+        this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
+      });
 
-      this.cargandodetallearea = false;
+  }
+  public traerModalEmpleo(indice: any) {
+    debugger;
+    let elemento: any = document.getElementById("vetanaprincipaltabla")
+    this.aparecemodalitoempleado = true;
 
 
-      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
 
-     
+    if (elemento.getBoundingClientRect().y < -40) {
+      let numero = elemento.getBoundingClientRect().y;
+      numero = Math.abs(numero);
 
-    });
+      this.scrolly = numero + 100 + "px";
+
+
+    } else {
+
+      this.scrolly = "5%";
+    }
+
+
+
+    if (this.tamanio < 600) {
+
+      this.modalWidth = "90%";
+
+    } else {
+      this.modalWidth = "55%";
+
+    }
+
+      let politicaitem = this.arreglo[indice];
+      this.cargandodetallearea = true;
+    
+      this.politicasProd.getdetallePolitica(politicaitem.politicaId,this.id_empresa).subscribe(datos =>{
+        this.cargandodetallearea = false;
+        this.arreglodetalleemp = datos.datos == undefined ? []:datos.datos;
+      });
 
   }
 
@@ -129,6 +180,36 @@ export class ListapoliticasComponent implements OnInit {
     this.arreglo[indice].seleccionado = !this.arreglo[indice].seleccionado;
   
   }
+
+  public recibir($evento: any) {
+    debugger; 
+    this.modal = false;
+    if (this.iconType == "warning") {
+
+      if ($evento) {
+
+        this.politicasProd.eliminar(this.objEnviar).subscribe(datos => {
+          let mensaje = datos.mensaje;
+          let resultado = datos.resultado;
+
+          this.strTitulo = mensaje;
+          this.iconType = resultado ? "success" : "error";
+          this.cargando = false;
+          this.modal = true;
+          if(resultado){
+
+            this.politicasProd.getAllPol(this.id_empresa).subscribe(datos => {
+              this.arreglo = datos.datos;
+
+            });
+        }
+
+        });
+        
+      }
+    }
+
+   }
 
   
 }

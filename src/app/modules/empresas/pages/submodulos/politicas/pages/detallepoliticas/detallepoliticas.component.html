@@ -11,7 +11,7 @@
   
             <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label >Nombre *</label>
-              <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
+              <input formControlName="nombre" maxlength="64" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
               <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
                   Favor de ingresar nombre
                 </div>
@@ -49,7 +49,7 @@
           </div>
           <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Cálculos en base a :</label><br>
-            <input  value="C" formControlName="calculoAntiguedadx"  type="radio" name="" id="calculoAntiguedadx"> Fecha de antigüedad<br>
+            <input  value="C" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" id=""> Fecha de antigüedad<br>
             <input  value="A" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id=""> Fecha de inicio de contrato
           </div>
   
