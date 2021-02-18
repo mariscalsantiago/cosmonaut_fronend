@@ -99,6 +99,7 @@ export class DetalleComponent implements OnInit {
       };
 
       this.bancosPrd.save(objEnviar).subscribe(datos =>{
+        
         this.alerta.iconType = datos.resultado ? "success" : "error";
 
         this.alerta.strTitulo = datos.mensaje;

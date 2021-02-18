@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-informacionbasica',
@@ -26,7 +27,7 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private empleadosPrd: EmpleadosService) { }
+    private empleadosPrd: EmpleadosService,private usuarioSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
@@ -137,7 +138,7 @@ export class InformacionbasicaComponent implements OnInit {
         contactoEmergenciaEmail: obj.contactoEmergenciaEmail,
         contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
         centrocClienteId: {
-          centrocClienteId: 40
+          centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
         }
       }
 

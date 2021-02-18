@@ -1,6 +1,6 @@
 {
     "/empresas/*":{
-        "target":"http://3148339ddb06.ngrok.io",
+        "target":"http://b4a0b2532016.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/empresas": ""
@@ -8,7 +8,7 @@
          "changeOrigin": true
     },
     "/yared/*":{
-        "target":"http://3148339ddb06.ngrok.io",
+        "target":"http://b4a0b2532016.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/yared": ""

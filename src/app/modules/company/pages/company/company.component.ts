@@ -62,8 +62,6 @@ export class CompanyComponent implements OnInit {
     this.cargando = true;
 
         this.companyProd.getAll().subscribe(datos =>{
-
-      
           this.arreglo = datos.datos;
 
           let columnas:Array<tabla> = [
@@ -128,7 +126,7 @@ export class CompanyComponent implements OnInit {
     this.companyProd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
       this.cargando = false;
-      console.log(this.arreglo);
+      
     });
 
 

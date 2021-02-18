@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { usuarioClass, UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpleadosService } from '../../services/empleados.service';
 
 @Component({
@@ -29,7 +30,8 @@ export class ListaempleadosComponent implements OnInit {
 
   public tamanio:number = 0;
 
-  constructor(private routerPrd:Router,private empleadosPrd:EmpleadosService) { }
+  constructor(private routerPrd:Router,private empleadosPrd:EmpleadosService,
+    private usuarioSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
@@ -39,7 +41,7 @@ export class ListaempleadosComponent implements OnInit {
 
     this.cargando = true;
 
-    this.empleadosPrd.getEmpleadosCompania(40).subscribe(datos =>{
+    this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
       this.arreglo = datos.datos;
       let columnas:Array<tabla> = [
         new tabla("nombre","Nombre",false,true),
