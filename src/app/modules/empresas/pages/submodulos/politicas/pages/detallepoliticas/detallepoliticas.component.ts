@@ -87,6 +87,11 @@ export class DetallepoliticasComponent implements OnInit {
         let objEnviar: any ={
           nombre: obj.nombre,
           diasEconomicos: obj.diasEconomicos,
+          primaAniversario: obj.primaAniversario,
+          descuentaFaltas: obj.descuentaFaltas,
+          descuentaIncapacidades: obj.descuentaIncapacidades,
+          costoValesRestaurante: obj.costoValesRestaurante,
+          descuentoPropDia: obj.descuentoPropDia,
           calculoAntiguedadx: "C",
           centrocClienteId: {
             centrocClienteId: this.id_empresa
@@ -114,7 +119,34 @@ export class DetallepoliticasComponent implements OnInit {
         }else{
     
           debugger;   
-          objEnviar.politicaId = obj.politicaId;
+
+          let objEnviar: any ={
+            politicaId: obj.politicaId,
+            nombre: obj.nombre,
+            diasEconomicos: obj.diasEconomicos,
+            primaAniversario: obj.primaAniversario,
+            descuentaFaltas: obj.descuentaFaltas,
+            descuentaIncapacidades: obj.descuentaIncapacidades,
+            costoValesRestaurante: obj.costoValesRestaurante,
+            descuentoPropDia: obj.descuentoPropDia,
+            centrocClienteId: {
+              centrocClienteId: this.id_empresa
+              },
+             
+            calculoAntiguedadx: "C",
+            calculoAntiguedadId: {
+              calculoAntiguedadxId: 2
+                },
+            beneficiosXPolitica: [
+              {
+                beneficioXPolitica: 23,
+                aniosAntiguedad: 1,
+                diasAguinaldo: 15,
+                diasVacaciones: 10,
+                primaVacacional: 0.5
+              }
+            ]
+          }
           this.politicasPrd.modificar(objEnviar).subscribe(datos =>{
             this.iconType =  datos.resultado? "success":"error";  
             this.strTitulo = datos.mensaje;

@@ -1,53 +1,70 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JornadalaboralService {
 
-  constructor(private http:HttpClient) { }
+  private url:string = '';
 
-  public getAll(id_compania:number):Observable<any>{
-    return this.http.get("/api/grupoNomina/lista/id/compania/"+id_compania);
+  constructor(private http:HttpClient) { 
+    this.url = direcciones.jornada;
+
   }
 
-  public getGroupNomina(id_grupo:number):Observable<any>{
-    return this.http.get("/api/grupoNomina/obtener/id/"+id_grupo);
+
+  public getAllJornada(id_empresa:number):Observable<any>{
+     return this.http.get(`${this.url}/listar/jornada/${id_empresa}`);
+  }
+
+
+  public getdetalleJornada(id_empresa:number,id_jornada:number):Observable<any>{
+    return this.http.get(`${this.url}/listar/${id_empresa}/${id_jornada}`);
+
+  }
+
+  public eliminar(obj:any):Observable<any>{
+    
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json:string = JSON.stringify(obj);
+    console.log("eliminar",json)
+    return this.http.post(`${this.url}/eliminar`,json,httpOptions);
   }
 
   public save(obj:any):Observable<any>{
-  
-    const httpOptions = {
+   
+    const httpOptions={
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    let json = JSON.stringify(obj);
-    
-    return this.http.put("/api/grupoNomina/guardar",json,httpOptions);
+
+    let json:string = JSON.stringify(obj);
+    console.log(json);
+
+    return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
-    const httpOptions = {
+    
+    const httpOptions={
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    let json = JSON.stringify(obj);
-    return this.http.post("/api/grupoNomina/modificar",json,httpOptions);
+    let json:string = JSON.stringify(obj);
+
+    return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
 
-  public eliminar(id:any):Observable<any>{
-    return this.http.post('/api/grupoNomina/eliminar/id/'+id,{});
-  }
-
-
-  public getGroupNominaEmpleado(indice:number):Observable<any>{
-    return this.http.get("/api/colaboradorGrupoNomina/lista/id/grupoNomina/"+indice);
-
-  }
 }

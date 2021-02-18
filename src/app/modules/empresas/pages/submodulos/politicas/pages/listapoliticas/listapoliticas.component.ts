@@ -189,11 +189,11 @@ export class ListapoliticasComponent implements OnInit {
       if ($evento) {
 
         this.politicasProd.eliminar(this.objEnviar).subscribe(datos => {
-          let mensaje = datos.mensaje;
           let resultado = datos.resultado;
-
-          this.strTitulo = mensaje;
+          let mensaje = datos.mensaje;
           this.iconType = resultado ? "success" : "error";
+          this.strTitulo = mensaje;
+          this.strsubtitulo = 'Registro eliminado correctamente!'
           this.cargando = false;
           this.modal = true;
           if(resultado){
