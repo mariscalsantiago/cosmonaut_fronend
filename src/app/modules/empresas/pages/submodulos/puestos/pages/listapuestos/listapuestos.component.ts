@@ -168,10 +168,9 @@ export class ListapuestosComponent implements OnInit {
         this.puestosProd.eliminar(this.objEnviar).subscribe(datos => {
           let mensaje = datos.mensaje;
           let resultado = datos.resultado;
-
-          this.strTitulo = mensaje;
           this.iconType = resultado ? "success" : "error";
-          this.cargando = false;
+          this.strTitulo = mensaje;
+          this.strsubtitulo = 'Registro eliminado correctamente!'
           this.modal = true;
           if(resultado){
 

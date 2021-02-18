@@ -8,6 +8,7 @@ export const direcciones = {
     centroCostosCliente: `${ip}/centroCostosCliente`,
     area: `${ip2}/area`,
     politica: `${ip2}/Politica`,
+    jornada: `${ip2}/Jornadas`,
     cuentasbancarias:`${ip2}/cuentaBanco`,
     catalogo:`${ip3}/catalogo`,
     gruponomina:`${ip}/grupoNomina`,

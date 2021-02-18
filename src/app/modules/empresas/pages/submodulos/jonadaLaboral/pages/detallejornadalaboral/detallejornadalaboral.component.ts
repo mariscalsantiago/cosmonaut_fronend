@@ -25,7 +25,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
 
   constructor(private formbuilder:FormBuilder,private activeprd:ActivatedRoute,
-    private routerPrd:Router,private grupoNominaPrd:JornadalaboralService) { }
+    private routerPrd:Router,private jornadaPrd:JornadalaboralService) { }
 
   ngOnInit(): void {
 
@@ -59,7 +59,7 @@ export class DetallejornadalaboralComponent implements OnInit {
         this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
           return;
       }else{
-        this.grupoNominaPrd.getGroupNomina(obj.id).subscribe(datos =>{  
+        this.jornadaPrd.getAllJornada(obj.id).subscribe(datos =>{  
           this.myForm = this.crearForm(datos.datos);
   
         });;
@@ -132,7 +132,7 @@ export class DetallejornadalaboralComponent implements OnInit {
        
         if (this.esInsert) {
 
-          this.grupoNominaPrd.save(peticion).subscribe(datos => {
+          this.jornadaPrd.save(peticion).subscribe(datos => {
             console.log("Esto despues de guardar");
             console.log(datos);
 
@@ -148,7 +148,7 @@ export class DetallejornadalaboralComponent implements OnInit {
           peticion.grupoNominaId = obj.grupoNominaId;
           peticion.esActivo = true;
 
-          this.grupoNominaPrd.modificar(peticion).subscribe(datos => {
+          this.jornadaPrd.modificar(peticion).subscribe(datos => {
 
             this.iconType = datos.resultado ? "success" : "error";
 

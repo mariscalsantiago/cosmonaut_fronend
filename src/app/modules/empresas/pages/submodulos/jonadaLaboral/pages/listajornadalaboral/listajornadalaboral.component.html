@@ -78,15 +78,15 @@
           <tr>
             <th scope="col">Nombre de empleado</th>
             <th scope="col">Número de empleado</th>
-            <th scope="col">Empresa</th>
+            <th scope="col">Puesto</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of arreglodetalle">
             
             <td>{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</td>
-            <td>{{item.numeroEmpleado}}</td>
-            <td>{{item.razonSocial}}</td>
+            <td>{{item.num_empleado}}</td>
+            <td>{{item.puesto}}</td>
           </tr>
         </tbody>
       </table>
@@ -115,9 +115,8 @@
       <ng-container *ngFor="let item of arreglo;let indice = index;">
         <tr>
           <td>{{item.nombre}} </td>
-          <td>{{item.razon}} </td>
-          <td>{{item.periodo}} </td>
-          <td (click)="traerModal(indice)" style="color:  #00DED4">{{item.numero}} </td>
+          <td>{{item.descripcion}} </td>
+          <td (click)="traerModal(indice)" style="color:  #00DED4">{{item.count}} </td>
           <td class="opciones">
             <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
             <button (click)="eliminar(indice)"><i class="icon_eliminar danger-bg"></i></button>

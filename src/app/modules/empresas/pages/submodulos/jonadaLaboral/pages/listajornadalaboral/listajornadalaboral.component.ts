@@ -53,7 +53,7 @@ export class ListajornadalaboralComponent implements OnInit {
     }
   }
 
-  constructor(private gruposnominaPrd: JornadalaboralService, private routerPrd: Router,
+  constructor(private jornadaPrd: JornadalaboralService, private routerPrd: Router,
     private routerActive: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
       this.cargando = true;
 
-      this.gruposnominaPrd.getAll(this.id_empresa).subscribe(datos => {
+      this.jornadaPrd.getAllJornada(this.id_empresa).subscribe(datos => {
         if (datos.datos != undefined)
           for (let item of datos.datos) {
             item.seleccionado = false;
@@ -75,8 +75,7 @@ export class ListajornadalaboralComponent implements OnInit {
           }
         this.arreglo = datos.datos;
         this.cargando = false;
-
-        console.log(this.arreglo);
+        console.log("Jornada",this.arreglo);
       });
 
     });
@@ -118,7 +117,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
 
     this.arreglo[indice].cargandoDetalle = true;
-    this.gruposnominaPrd.getGroupNomina(this.arreglo[indice].id).subscribe((datos) => {
+    this.jornadaPrd.getAllJornada(this.arreglo[indice].id).subscribe((datos) => {
 
 
 
@@ -155,7 +154,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
 
   public traerModal(indice: any) {
-
+    debugger;
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -185,10 +184,10 @@ export class ListajornadalaboralComponent implements OnInit {
     }
 
 
-    let gruponominaitem = this.arreglo[indice];
+    let jornadaitem = this.arreglo[indice];
     
     this.cargandodetallegrupo = true;
-    this.gruposnominaPrd.getGroupNominaEmpleado(gruponominaitem.id).subscribe(datos =>{
+    this.jornadaPrd.getdetalleJornada(this.id_empresa,jornadaitem.jornadaId).subscribe(datos =>{
 
       this.cargandodetallegrupo = false;
 
@@ -196,7 +195,7 @@ export class ListajornadalaboralComponent implements OnInit {
       this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
 
 
-      console.log(this.arreglodetalle);
+      console.log("empleados",this.arreglodetalle);
       
 
     });
@@ -213,7 +212,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
 
         let id = this.arreglo[this.indexSeleccionado].id;
-        this.gruposnominaPrd.eliminar(id).subscribe(datos => {
+        this.jornadaPrd.eliminar(id).subscribe(datos => {
           let mensaje = datos.mensaje;
           let resultado = datos.resultado;
 
