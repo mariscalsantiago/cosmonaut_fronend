@@ -229,12 +229,15 @@ export class EmpleoComponent implements OnInit {
 
     if (this.sueldoNeto) {
 
+      
       this.myForm.controls.sueldonetomensual.setErrors({ required: true });
 
     }
 
     if (this.sueldoBruto) {
       this.myForm.controls.sueldoBrutoMensual.setErrors({ required: true });
+
+      
     }
   }
 
