@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -17,17 +17,18 @@ export class InformacionbasicaComponent implements OnInit {
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
 
-
+ 
 
   public myform!: FormGroup;
 
   public submitEnviado: boolean = false;
 
   public arreglonacionalidad: any = [];
+  public mostrarRfc:boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private empleadosPrd: EmpleadosService,private usuarioSistemaPrd:UsuarioSistemaService) { }
+    private empleadosPrd: EmpleadosService, private usuarioSistemaPrd: UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
@@ -64,7 +65,10 @@ export class InformacionbasicaComponent implements OnInit {
       contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
       contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail, [Validators.email]],
-      contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono
+      contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
+      nss: obj.nss,
+      rfc: [obj.rfc,[Validators.required,Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
+      curp: [obj.curp,[Validators.required,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]]
     });
   }
 
@@ -81,13 +85,18 @@ export class InformacionbasicaComponent implements OnInit {
 
   public enviarFormulario() {
 
+   console.log(this.myform.controls);
+
     this.submitEnviado = true;
-    if (this.myform.invalid) {
-      this.alerta.modal = true;
-      this.alerta.strTitulo = "Campos obligatorios o invalidos";
-      this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
-      this.alerta.iconType = "error";
-      return;
+   
+    if(this.myform.controls.tieneCurp.value){
+      if (this.myform.invalid) {
+        this.alerta.modal = true;
+        this.alerta.strTitulo = "Campos obligatorios o invalidos";
+        this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
+        this.alerta.iconType = "error";
+        return;
+      }
     }
 
     this.alerta.modal = true;
@@ -104,19 +113,31 @@ export class InformacionbasicaComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
 
-    console.log("otro lado");
+    
+
 
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
-      console.log("otro lado");
       let obj = this.myform.value;
-      console.log("otro lado");
+
+      let fechanacimiento = '';
+
+      if(this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != ''){
+        let date:Date = new Date(`${obj.fechaNacimiento}T12:00-0600`);
+        let dia = (date.getDate()<10)?`0${date.getDate()}`:`${date.getDate()}`;
+        let mes = (date.getMonth()+1) < 10 ? `0${date.getMonth()}`:`${date.getMonth()}`;
+        let anio = date.getFullYear();
+       fechanacimiento = `${dia}/${mes}/${anio}`;
+      }
+
+     
+
       let objenviar = {
         nombre: obj.nombre,
         apellidoPaterno: obj.apellidoPaterno,
         apellidoMaterno: obj.apellidoMaterno,
         genero: obj.genero,
-        fechaNacimiento: obj.fechaNacimiento,
+        fechaNacimiento: fechanacimiento,
         tieneCurp: obj.tieneCurp,
         contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
         emailCorporativo: obj.emailCorporativo,
@@ -126,7 +147,7 @@ export class InformacionbasicaComponent implements OnInit {
         },
         estadoCivil: obj.estadoCivil,
         contactoInicialTelefono: obj.contactoInicialTelefono,
-        tieneHijos: obj.tieneHijos,
+        tieneHijos: false,
         numeroHijos: obj.numeroHijos,
         medioContacto: {
           url: obj.url
@@ -139,11 +160,18 @@ export class InformacionbasicaComponent implements OnInit {
         contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
         centrocClienteId: {
           centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
-        }
+        },
+        curp:obj.curp,
+        rfc:obj.rfc,
+        nns:obj.nns
       }
 
-      
+
       this.empleadosPrd.save(objenviar).subscribe(datos => {
+
+        console.log("es ultimo de empleados");
+        console.log(datos);
+
         this.alerta.iconType = datos.resultado ? "success" : "error";
 
         this.alerta.strTitulo = datos.mensaje;
@@ -151,11 +179,13 @@ export class InformacionbasicaComponent implements OnInit {
         this.alerta.modal = true;
 
         this.enviandouser.emit(datos.datos);
-        
+
       });
 
 
     }
 
   }
+
+
 }

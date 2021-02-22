@@ -79,4 +79,9 @@ export class ListaempleadosComponent implements OnInit {
 
   }
 
+
+  public bajaEmpleado(){
+    this.routerPrd.navigate(['empleados','bajaempleado']);
+  }
+
 }

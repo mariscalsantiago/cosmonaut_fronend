@@ -46,7 +46,7 @@
                     <label>Colonia</label>
                     <select formControlName="asentamientoId" name="" id=""
                         [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
-                        <option value="">col del maestro</option>
+                        <option *ngFor="let item of domicilioCodigoPostal" [value]="">col del maestro</option>
                         <option value="1">Soledad</option>
                         <option value="2">Santa rosa</option>
                     </select>

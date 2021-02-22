@@ -174,8 +174,7 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Tipo de contrato*</label>
                     <select [ngClass]="{'is-invalid':f.tipoContratoId.errors && submitEnviado}" formControlName="tipoContratoId" name="" id="" class="form-control">
-                        <option value="1">Tiempo identerminado</option>
-                        <option value="2">Proyecto</option>
+                       <option *ngFor="let item of arregloTipoContrato" [value]="item.tipoContratoId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.tipoContratoId.errors && submitEnviado" class="invalid-feedback">
                         Campo obligatorio
@@ -202,7 +201,7 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Jornada</label>
                     <select [ngClass]="{'is-invalid':f.jornadaId.errors && submitEnviado}" formControlName="jornadaId" name="" id="" class="form-control">
-                        <option value="1">Completa</option>
+                        <option *ngFor="let item of arregloJornadas" [value]="item.jornadaId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.jornadaId.errors && submitEnviado" class="invalid-feedback">
                         Campo obligatorio

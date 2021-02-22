@@ -3,9 +3,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
+import { JornadalaboralService } from 'src/app/modules/empresas/pages/submodulos/jonadaLaboral/services/jornadalaboral.service';
+import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { SharedPoliticasService } from 'src/app/shared/services/politicas/shared-politicas.service';
+import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 
 @Component({
@@ -31,34 +35,46 @@ export class EmpleoComponent implements OnInit {
   public arregloempleadosreporta: any = [];
   public arregloCompensacion: any = [];
   public arregloareasgeograficas: any = [];
+  public arregloTipoContrato:any = [];
+  public arregloJornadas:any = [];
+  public arregloSedes:any = [];
 
   public sueldoBruto: boolean = false;
   public sueldoNeto: boolean = false;
 
-  public id_empresa: number = 112;
+  public id_empresa!: number;
 
   constructor(private formBuilder: FormBuilder, private gruponominaPrd: GruponominasService,
     private areasPrd: SharedAreasService, private politicasPrd: SharedPoliticasService,
     private empleadosPrd: EmpleadosService, private catalogosPrd: CatalogosService,
-    private colaboradorPrd: ContratocolaboradorService) { }
+    private colaboradorPrd: ContratocolaboradorService,
+    private usuarioSistemaPrd:UsuarioSistemaService,
+    private jornadaPrd:JornadalaboralService,private sedesPrd:SharedSedesService) { }
 
   ngOnInit(): void {
+
+    this.id_empresa = this.usuarioSistemaPrd.getIdEmpresa();
 
     let obj = {};
     this.myForm = this.createForm(obj);
 
-    this.gruponominaPrd.getAll(112).subscribe(datos => {
+    this.gruponominaPrd.getAll(this.id_empresa).subscribe(datos => {
       this.arreglogruponominas = datos.datos
       console.log(this.arreglogruponominas);
     });
 
     this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => this.arregloArea = datos.datos);
-    this.politicasPrd.getPoliticasByEmpresa(1).subscribe(datos => this.arregloPoliticas = datos.datos);
-    this.empleadosPrd.getEmpleadosCompania(40).subscribe(datos => this.arregloempleadosreporta = datos.datos);
+    this.politicasPrd.getPoliticasByEmpresa(this.id_empresa).subscribe(datos => this.arregloPoliticas = datos.datos);
+    this.empleadosPrd.getEmpleadosCompania(this.id_empresa).subscribe(datos => this.arregloempleadosreporta = datos.datos);
     this.catalogosPrd.getCompensacion().subscribe(datos => this.arregloCompensacion = datos.datos);
     this.catalogosPrd.getAreasGeograficas().subscribe(datos => this.arregloareasgeograficas = datos.datos);
+    this.catalogosPrd.getTipoContratos().subscribe(datos =>this.arregloTipoContrato = datos.datos);
+    this.jornadaPrd.jornadasByEmpresa(this.id_empresa).subscribe(datos => this.arregloJornadas = datos.datos);
+    this.sedesPrd.getsedeByEmpresa(this.id_empresa).subscribe(datos => this.arregloSedes = datos.datos);
 
 
+
+    
   }
 
   public createForm(obj: any) {
@@ -174,7 +190,7 @@ export class EmpleoComponent implements OnInit {
           personaId: this.datosPersona.personaId
         },
         centrocClienteId: {
-          centrocClienteId: 112
+          centrocClienteId: this.id_empresa
         },
         estadoId: {
           estadoId: obj.estadoId
@@ -244,7 +260,6 @@ export class EmpleoComponent implements OnInit {
 
   public cambiarStatus(){
 
-    console.log(this.myForm.controls.esSubcontratado.value);
     if(this.myForm.controls.esSubcontratado.value){
 
       this.myForm.controls.subcontratistaId.setErrors({required:true});

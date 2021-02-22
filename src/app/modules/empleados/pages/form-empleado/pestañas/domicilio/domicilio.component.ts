@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 
 @Component({
   selector: 'app-domicilio',
@@ -20,8 +21,14 @@ export class DomicilioComponent implements OnInit {
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
+  public domicilioCodigoPostal:any = [];
+  public nombreEstado:string = "";
+  public idEstado:number = 0;
+  public nombreMunicipio:string = "";
+  public idMunicipio:number = 0;
 
-  constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService) { }
+  constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
+    private catalogosPrd:CatalogosService) { }
 
   ngOnInit(): void {
 
@@ -34,12 +41,12 @@ export class DomicilioComponent implements OnInit {
 
     return this.formBuilder.group({
       codigo: [obj.codigo, [Validators.required,Validators.pattern('[0-9]+')]],
-      estado:[obj.estado,[Validators.required]],
-      municipio:[obj.municipio,[Validators.required]],
-      asentamientoId:[obj.asentamientoId,[Validators.required]],
-      calle:[obj.calle,[Validators.required]],
-      numExterior:[obj.numExterior,[Validators.required]],
-      numInterior:obj.numInterior
+      estado:[{value:obj.estado,disabled:true},[Validators.required]],
+      municipio:[{value:obj.municipio,disabled:true},[Validators.required]],
+      asentamientoId:[{value:obj.asentamientoId,disabled:true},[Validators.required]],
+      calle:[{value:obj.calle,disabled:true},[Validators.required]],
+      numExterior:[{value:obj.numExterior,disabled:true},[Validators.required]],
+      numInterior:{value:obj.numInterior,disabled:true}
     });
 
   }
@@ -90,8 +97,8 @@ export class DomicilioComponent implements OnInit {
       let objenviar = 
         {
           codigo: obj.codigo,
-          municipio: obj.municipio,
-          estado: obj.estado,
+          municipio: 1,
+          estado: 1,
           asentamientoId: obj.asentamientoId,
           calle: obj.calle,
           numExterior: obj.numExterior,
@@ -119,9 +126,24 @@ export class DomicilioComponent implements OnInit {
 
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
-    if(this.myForm.controls.codigo.errors?.pattern === undefined){
-      this.myForm.controls.estado.setValue("Oaxaca");
-      this.myForm.controls.municipio.setValue("Oaxaca");
+
+    let valor:string = this.myForm.controls.codigo.value;
+
+    if(this.myForm.controls.codigo.errors?.pattern === undefined && valor !== null ){
+      if(valor.trim() !== ""){
+     
+        this.catalogosPrd.getAsentamientoByCodigoPostal(valor).subscribe(datos => {
+          console.log(datos);
+          if(datos.resultado){
+            this.domicilioCodigoPostal = datos.datos;
+            this.myForm.controls.asentamientoId.enable();
+            this.myForm.controls.numExterior.enable();
+            this.myForm.controls.numInterior.enable();
+            this.myForm.controls.calle.enable();
+          }
+        });
+
+      }
     }
   }
 

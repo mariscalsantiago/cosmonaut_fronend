@@ -19,4 +19,6 @@ export class SharedCompaniaService {
     return this.http.get(`${this.url}/lista/compania`);
   }
 
+ 
+
 }

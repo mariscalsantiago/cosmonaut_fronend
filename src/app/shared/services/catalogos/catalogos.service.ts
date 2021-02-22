@@ -54,7 +54,7 @@ export class CatalogosService {
   }
 
   public getTipoContratos(): Observable<any>{
-    return this.http.get(`${this.url}/tipoContacto/listar/todos`);
+    return this.http.get(`${this.url}/csTipoContrato/listar/todos`);
   }
 
   public getCompensacion():Observable<any>{
@@ -73,6 +73,12 @@ export class CatalogosService {
     return this.http.get(`${this.url}/areaGeografica/listar/todos`);
 
   }
+
+  public getAsentamientoByCodigoPostal(codigoPostal:any):Observable<any>{
+      return this.http.get(`${this.url}/catAsentamiento/obtener/codigo/${codigoPostal}`);
+  }
+
+
 
 
 

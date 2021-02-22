@@ -9,7 +9,7 @@
                     <label>Nombre*</label>
                     <input formControlName="nombre" type="text" class="form-control"  [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.nombre.errors " class="invalid-feedback">
-                        Nombre Obligatorio
+                        Campo obligatorio
                     </div>
     
     
@@ -19,7 +19,7 @@
                     <label>Apellido paterno*</label>
                     <input formControlName="apellidoPaterno" type="text" class="form-control"  [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
-                        Apellido Paterno obligatorio
+                        Campo obligatorio
                     </div>
     
     
@@ -47,22 +47,36 @@
             </div>
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 ">
-                    <input id="tienecurp" formControlName="tieneCurp" type="checkbox" name="" >
+                    <input  id="tienecurp" formControlName="tieneCurp" type="checkbox" name="" >
                     <label for="tienecurp" > &nbsp;&nbsp;¿Tiene CURP, RFC y Seguro Social?</label>
                 </div>
             </div>
-            <div class="row">
+            <div *ngIf="f.tieneCurp.value" class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >CURP *</label>
-                    <input type="text" class="form-control" name="" >
+                    <input [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
+                    <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
+                        Campo obligatorio
+                    </div>
+                    <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
+                        CURP inválido, favor de verificar
+                    </div>
+                 
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >RFC *</label>
-                    <input type="text" class="form-control" name="" >
+                    <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" type="text" class="form-control" name="" >
+                    <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
+                        Campo obligatorio
+                    </div>
+                    <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
+                        RFC inválido, favor de verificar
+                    </div>
+                    
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Seguro social</label>
-                    <input type="text" class="form-control" name="" >
+                    <input formControlName="nss" type="text" class="form-control" name="" >
                 </div>
             </div>
             <div class="row">
@@ -70,7 +84,7 @@
                     <label >Correo personal*</label>
                     <input formControlName="contactoInicialEmailPersonal" type="text" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" class="form-control" name="" >
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
-                        Obligatorio correo personal
+                        Campo obligatorio
                     </div>
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                         Correo Personal invalido
@@ -100,17 +114,15 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >nacionalidad</label>
                     <select formControlName="nacionalidadId" name="" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}"  class="form-control">
-                        <option value=""></option>
                         <option *ngFor="let item of arreglonacionalidad"  [value]="item.nacionalidadId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
-                        Teléfono Obligatorio
+                        Campo obligatorio
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Estado civil</label>
                     <select formControlName="estadoCivil" name=""  class="form-control">
-                        <option value=""></option>
                         <option value="S">Soltero(a)</option>
                         <option value="C">Casado(a)</option>
                         <option value="D">Divorciado(a)</option>
@@ -121,7 +133,7 @@
                     <label >Teléfono</label>
                     <input formControlName="contactoInicialTelefono" type="text" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
                     <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
-                        Teléfono Obligatorio
+                        Campo obligatorio
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -131,7 +143,7 @@
                         <label for="si">Si</label>
                     </div>
                     <div>
-                        <input formControlName="tieneHijos" value="false" checked type="radio" name="tieneHijos" id="no" class="">
+                        <input  formControlName="tieneHijos" value="false"  type="radio" name="tieneHijos" id="no" class="">
                         <label for="no">No</label>
                     </div>
                 </div>
@@ -154,14 +166,14 @@
                     <label >Nombre*</label>
                     <input formControlName="contactoEmergenciaNombre" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaNombre.errors && submitEnviado" class="invalid-feedback">
-                        Nombre Obligatorio
+                        Campo obligatorio
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Apellido paterno*</label>
                     <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado" class="invalid-feedback">
-                        Apellido paterno Obligatorio
+                        Campo obligatorio
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">

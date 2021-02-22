@@ -1,204 +1,268 @@
-<div class="row">
-    <div class="col-12 col-lg-6 col-xl-4 mb-3 mt-3 ">
-        <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label></div>
-        <div class="row mb-4">
-            <article class="titulo  col">
-                Nombre
-                <article>Santiago antonio</article>
-            </article>
-            <article class="titulo   col">
-                Apellido Paterno
-                <article>Mariscal</article>
-            </article>
-            <article class="titulo   col" >
-                Apellido Materno
-                <article>Velásquez</article>
-            </article>
-        
-        </div>
-        <div class="row mb-4">
-            <article class="titulo col">
-                Genero
-                <article><input id="femenino" type="radio" name="sexo" ><label for="femenino" >&nbsp; Femenino &nbsp;</label> <input id="masculino" type="radio" name="sexo"><label for="masculino">&nbsp; Masculino</label></article>
-                
-            </article>        
-        </div>
-        <div class="row">
-            <article class="titulo mr-1 col">
-                Fecha de nacimiento
-            </article>
-        
-        </div>
-        <div class="row">
-            <article class="titulo col">
-                Año
-                <article>1993</article>
-            </article>
-            <article class="titulo  col">
-                Mes
-                <article>Julio</article>
-            </article>
-            <article class="titulo  col" >
-                Día
-                <article>25</article>
-            </article>
-        
-        </div>
-
-        <hr>
-
-        <div class="row mb-2">
-            <article class="titulo col">
-                CURP
-                <article>MAVS970118HMNRLN06</article>
-            </article>
-        </div>
-        <div class="row mb-2">
-            <article class="titulo col">
-                RFC
-                <article>
-                    MAVS970118HMNRRCL
+<form [formGroup]="myForm" (ngSubmit)="enviandoFormulario()">
+    <div class="row">
+        <div class="col-12 col-lg-6 col-xl-4 mb-3 mt-3 ">
+            <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i *ngIf="!editarcampos" class="fas fa-pencil-alt primary" (click)="editarcampos = true" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+            <div class="row mb-4">
+                <article class="titulo  col">
+                    Nombre
+                    <article *ngIf="!editarcampos">Santiago antonio</article>
+                    <article *ngIf="editarcampos"> <input type="text" name="" id="" value="santiago antonio" class="form-control"> </article>
                 </article>
-            </article>
-        </div>
-        <div class="row mb-2">
-            <article class="titulo col">
-                Seguro Social
-                <article>
-                    JRP120601F69
+                <article class="titulo   col">
+                    Apellido Paterno
+                    <article  *ngIf="!editarcampos">Mariscal</article>
+                    <article *ngIf="editarcampos"><input type="text" name="" value="mariscal" id="" class="form-control"></article>
                 </article>
-            </article>
-        </div>
-        <div class="row mb-2">
-            <article class="titulo col">
-                Email Personal
-                <article>
-                    santiagoantoniomariscal@gmail.com
+                <article class="titulo   col" >
+                    Apellido Materno
+                    <article *ngIf="!editarcampos">Velásquez</article>
+                    <article *ngIf="editarcampos"><input type="text" name="" value="velasquez" id="" class="form-control"></article>
                 </article>
-            </article>
-        </div>
-        <div class="row ">
-            <article class="titulo col">
-                Email Corporativo
-                <article>
-                    santiagoantonio@google.com
+            
+            </div>
+            <div class="row mb-4">
+                <article class="titulo col">
+                    Genero
+                    <article><input id="femenino" disabled type="radio" name="sexo" ><label for="femenino" >&nbsp; Femenino &nbsp;</label> <input id="masculino" disabled type="radio" name="sexo"><label for="masculino">&nbsp; Masculino</label></article>
+                    
+                </article>        
+            </div>
+            <div class="row">
+                <article class="titulo mr-1 col">
+                    Fecha de nacimiento
                 </article>
-            </article>
-        </div>
-
-    </div>
-    <div class="col-12 col-lg-6 col-xl-4  mb-3 mt-3">
-        <div class="row"><label class="titulo">INFORMACIÓN ADICIONAL</label></div>
+            
+            </div>
+            <div class="row">
+                <article *ngIf="editarcampos" class="titulo col">
+                    <article ><input type="date" name="" id="" class="form-control"></article>
+                </article>
+                <article *ngIf="!editarcampos" class="titulo col">
+                    Año
+                    <article>1993</article>
+                </article>
+                <article *ngIf="!editarcampos" class="titulo  col">
+                    Mes
+                    <article>Julio</article>
+                </article>
+                <article *ngIf="!editarcampos" class="titulo  col" >
+                    Día
+                    <article>25</article>
+                </article>
+            
+            </div>
     
-        <div class="row mb-2">
-            <article class="titulo col">
-                Nacionalidad
-                <article>
-                    México
-                </article>
-            </article>
-            <article class="titulo col">
-                Teléfono
-                <article>
-                    3321496475
-                </article>
-            </article>
-        </div>
-        <div class="row mb-2">
-            <article class="titulo col">
-                Estado Civil
-                <article>
-                    Casado
-                </article>
-            </article>
-            <article class="titulo col">
-                Hijos
-                <article>
-                    1
-                </article>
-            </article>
-        </div>
-        <div class="row mb-2">
-            <article class="titulo col">
-                Dirección
-                <article>
-                    Av. Central #1 norte 206 colonia la soledad
-                </article>
-            </article>
-        </div>
-        <div class="row">
-            <article class="titulo col">
-                Perfin de Linkedin
-                <article>
-                    https://www.linkedin.com/in/santiagoantoniomariscal/
-                </article>
-            </article>
-        </div>
-
-
-
-        <div class="row mt-5"><label class="titulo">CONTACTO DE EMERGENCIA</label></div>
-
-        <div class="row mb-2">
-            <article class="titulo col">
-                Nombre
-                <article>
-                    Ancelmo Mariscal Ramirez
-                </article>
-            </article>
-            <article class="titulo col">
-                Parentezco
-                <article>
-                    Padre
-                </article>
-            </article>
-        </div>
-        <div class="row mb-2">
-            <article class="titulo col">
-                Email
-                <article>
-                    Ancelmo@gmail.com
-                </article>
-            </article>
-            <article class="titulo col">
-                Celular
-                <article>
-                    9515492620
-                </article>
-            </article>
-        </div>
-
+            <hr>
     
-    </div>
-    <div class="col-12 col-lg-6 col-xl-4  mb-3 mt-3">
-        <div class="row"><label class="titulo">PREFERENCIAS</label></div>
-        <div class="row mb-2">
-            <article class="titulo col">
-                Alimentación
-                <article>
-                    Mixta
+            <div class="row mb-2">
+                <article class="titulo col">
+                    CURP
+                    <article  *ngIf="!editarcampos">MAVS970118HMNRLN06</article>
+                    <article *ngIf="editarcampos"><input type="text" name="" value="MAVS970118HMNRLN06" id="" class="form-control"></article>
                 </article>
-            </article>
-            <article class="titulo col">
-                Color Favorito
-                <article>
-                    Azul
+            </div>
+            <div class="row mb-2">
+                <article class="titulo col">
+                    RFC
+                    <article *ngIf="!editarcampos">
+                        MAVS970118HMNRRCL
+                    </article>
+                    <article *ngIf="editarcampos"><input type="text" name="" value="MAVS970118HMNRRCL" id="" class="form-control"></article>
                 </article>
-            </article>
+            </div>
+            <div class="row mb-2">
+                <article class="titulo col">
+                    Seguro Social
+                    <article *ngIf="!editarcampos">
+                        JRP120601F69
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input type="text" name="" id="" value="JRP120601F69" class="form-control">
+                    </article>
+                </article>
+            </div>
+            <div class="row mb-2">
+                <article class="titulo col">
+                    Email Personal
+                    <article *ngIf="!editarcampos">
+                        santiagoantoniomariscal@gmail.com
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input type="text" name="" value="santiagoantoniomariscal@gmail.com" id="" class="form-control">
+                    </article>
+                </article>
+            </div>
+            <div class="row ">
+                <article class="titulo col">
+                    Email Corporativo
+                    <article *ngIf="!editarcampos">
+                        santiagoantonio@google.com
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input type="text" name="" value="santiagoantonio@google.com" id="" class="form-control">
+                    </article>
+                </article>
+            </div>
+    
         </div>
-        <div class="row mb-2">
-            <article class="titulo col">
-                Alergias
-                <article>
-                    Ninguna
+        <div class="col-12 col-lg-6 col-xl-4  mb-3 mt-3">
+            <div class="row"><label class="titulo">INFORMACIÓN ADICIONAL</label></div>
+        
+            <div class="row mb-2">
+                <article class="titulo col">
+                    Nacionalidad
+                    <article *ngIf="!editarcampos">
+                        México
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input value="México" type="text" name="" id="" class="form-control">
+                    </article>
                 </article>
-            </article>
-            <article class="titulo col">
-                Dulce Favorito
-                <article>
-                    Paleta de caramelo
+                <article class="titulo col">
+                    Teléfono
+                    <article *ngIf="!editarcampos">
+                        3321496475
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input value="3321496475" type="text" name="" id="" class="form-control">
+                    </article>
                 </article>
-            </article>
+            </div>
+            <div class="row mb-2">
+                <article class="titulo col">
+                    Estado Civil
+                    <article *ngIf="!editarcampos">
+                        Casado
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input value="casado" type="text" name="" id="" class="form-control">
+                    </article>
+                </article>
+                <article class="titulo col">
+                    Hijos
+                    <article *ngIf="!editarcampos">
+                        1
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input value="1" type="text" name="" id="" class="form-control">
+                    </article>
+                </article>
+            </div>
+            <div class="row mb-2">
+                <article class="titulo col">
+                    Dirección
+                    <article *ngIf="!editarcampos">
+                        Av. Central #1 norte 206 colonia la soledad
+                    </article>
+
+                    <article *ngIf="editarcampos">
+                        <input value="Av. Central #1 norte 206 colonia la soledad" type="text" name="" id="" class="form-control">
+                    </article>
+                </article>
+            </div>
+            <div class="row">
+                <article class="titulo col">
+                    Perfin de Linkedin
+                    <article *ngIf="!editarcampos">
+                        https://www.linkedin.com/in/santiagoantoniomariscal/
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input value="https://www.linkedin.com/in/santiagoantoniomariscal/" type="text" name="" class="form-control" id="">
+                    </article>
+                </article>
+            </div>
+    
+    
+    
+            <div class="row mt-5"><label class="titulo">CONTACTO DE EMERGENCIA</label></div>
+    
+            <div class="row mb-2">
+                <article class="titulo col">
+                    Nombre
+                    <article *ngIf="!editarcampos">
+                        Ancelmo Mariscal Ramirez
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input value="Ancelmo Mariscal Ramirez" type="text" name="" id="" class="form-control">
+                    </article>
+                </article>
+                <article class="titulo col">
+                    Parentezco
+                    <article *ngIf="!editarcampos">
+                        Padre
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input value="padre" type="text" name="" id="" class="form-control">
+                    </article>
+                </article>
+            </div>
+            <div class="row mb-2">
+                <article class="titulo col">
+                    Email
+                    <article *ngIf="!editarcampos">
+                        Ancelmo@gmail.com
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input value="Ancelmo@gmail.com" type="text" name="" id="" class="form-control">
+                    </article>
+                </article>
+                <article class="titulo col">
+                    Celular
+                    <article *ngIf="!editarcampos">
+                        9515492620
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input value = "9515492620" type="text" name="" id="" class="form-control">
+                    </article>
+                </article>
+            </div>
+    
+        
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4  mb-3 mt-3">
+            <div class="row"><label class="titulo">PREFERENCIAS</label></div>
+            <div class="row mb-2">
+                <article class="titulo col">
+                    Alimentación
+                    <article>
+                        Mixta
+                    </article>
+                </article>
+                <article class="titulo col">
+                    Color Favorito
+                    <article>
+                        Azul
+                    </article>
+                </article>
+            </div>
+            <div class="row mb-2">
+                <article class="titulo col">
+                    Alergias
+                    <article>
+                        Ninguna
+                    </article>
+                </article>
+                <article class="titulo col">
+                    Dulce Favorito
+                    <article>
+                        Paleta de caramelo
+                    </article>
+                </article>
+            </div>
         </div>
     </div>
-</div>
+    
+    
+    <div class="row" *ngIf="editarcampos">
+        <div class="col-12">
+            <div class="text-right " style="margin-bottom: 20px; margin-right: 16px;">
+    
+                <button (click)="editarcampos = false" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
