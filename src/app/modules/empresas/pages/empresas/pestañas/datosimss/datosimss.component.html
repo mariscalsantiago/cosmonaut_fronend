@@ -1,0 +1,80 @@
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
+
+    <div class="form-group mt-3 row margen"><label class="titulo">INFORMACIÓN DE PUESTO</label></div>
+            
+            <div class="form group row margen">
+
+                <div class="input-group-sm mb-3 col-4">
+                  <label>Registro patronal *</label>
+                  <input type="text" class="form-control" id="nomEmpresa">
+                </div>
+                <div class="input-group-sm mb-3 col-4">
+                  <label>Prima de riego *</label>
+                  <input type="text" class="form-control" id="nomEmpresa">
+                </div>
+          
+                <div class="input-group-sm mb-3 col-4">
+                  <label>Clave subdelegacional IMSS *</label>
+                  <input type="text" class="form-control" id="nomEmpresa">
+                </div>
+    
+               
+                <div class="form-check ml-4 mt-4">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">IMSS obrero integrado IMSS patronal para salario minimo</label>
+                </div>
+                <div class="input-group-sm mb-3 col-4"></div>
+                <div class="form-check ml-4 mt-4">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Enviar movimientos al IMSS mediante Cosmonaut</label>
+                </div>
+                <div class="input-group-sm mb-3 col-8"></div>
+                <div class="input-group-sm mb-3 col-8"></div>
+                <div  class="input-group-sm mb-3 col-8">
+                  <label>Enviar moviemientos vía: </label><br>
+                  <input #certificado (click)="activarcer(certificado)" id="certificado" type="radio" name="moviemientos" > Enviar movimientos al IMSS mediante certificado IMSS<br>
+                  <input #fiel (click)="activarfiel(fiel)" type="radio" name="moviemientos"> Enviar movimientos al IMSS mediante FIEL
+                  <div *ngIf="f.esAutomatica.errors" class="invalid-feedback">
+                    Campos obligatorios.
+                  </div>
+                </div>
+                <div class="input-group-sm mb-3 col-4"></div>
+                <div *ngIf="activadoCER" class="input-group-sm mb-3 col-4">
+                  <label>Usuario de certificado IMSS *</label>
+                  <input type="text" class="form-control" id="nomEmpresa">
+                </div>
+                <div *ngIf="activadoCER" class="input-group-sm mb-3 col-4">
+                  <label>Contraseña de certificado IMSS *</label>
+                  <input type="text" class="form-control" id="nomEmpresa">
+                </div>
+                <div *ngIf="activadoCER" class="input-group-sm mb-3 col-4">
+                  <label>Certificado IMSS *</label>
+                  <input type="text" class="form-control" id="nomEmpresa">
+                </div>
+                <div *ngIf="activadoFIEL" class="input-group-sm mb-3 col-4">
+                  <label>Contraseña de llave privada FIEL *</label>
+                  <input type="text" class="form-control" id="nomEmpresa">
+                </div>
+                <div *ngIf="activadoFIEL" class="input-group-sm mb-3 col-4">
+                  <label>Certificado FIEL *</label>
+                  <input type="text" class="form-control" id="nomEmpresa">
+                </div>
+                <div *ngIf="activadoFIEL" class="input-group-sm mb-3 col-4">
+                  <label>Llave privada FIEL *</label>
+                  <input type="text" class="form-control" id="nomEmpresa">
+                </div>
+    
+    </div>
+    
+    
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="text-right margin" style="margin-bottom: 20px;">
+        
+                <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+            </div>
+        </div>
+    </div>
+</form>

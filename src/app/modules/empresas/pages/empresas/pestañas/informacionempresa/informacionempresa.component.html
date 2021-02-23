@@ -1,0 +1,138 @@
+<form  [formGroup]="myform" (ngSubmit)="enviarFormulario()">
+
+    <div class="form-group mt-3 row margen"><label class="titulo">Datos de empresa</label></div>
+           
+    <div class="row">
+        <div class="col-8">
+            <div class=" row">
+                <div class="col-12">
+                    <div class=" row margen">
+                    
+                <div class="input-group-sm mb-3 col-12">
+                  <label>Registro patronal *</label>
+                  <input formControlName="registroPatronal" type="text" class="form-control"  [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado}" placeholder="">
+                  <div *ngIf="f.registroPatronal.errors " class="invalid-feedback">
+                    Registro patronal es obligatorio
+                  </div>
+                </div>
+
+                    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label>Nombre de la empresa *</label>
+                    <input formControlName="nombre" type="text" class="form-control"  [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
+                    <div *ngIf="f.nombre.errors " class="invalid-feedback">
+                        Nombre de la empresa es obligatorio
+                    </div>
+                  </div>
+                  <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label>Razon social *</label>
+                    <input formControlName="razonSocial" type="text" class="form-control"  [ngClass]="{'is-invalid':f.razonSocial.errors && submitEnviado}" placeholder="">
+                    <div *ngIf="f.razonSocial.errors " class="invalid-feedback">
+                        Razón social es obligatorio
+                    </div>
+                  </div>
+                  <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label >Actividad economica *</label>
+                    <select formControlName="actividadEconomicaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.actividadEconomicaId.errors && submitEnviado}">
+                        <option value=""></option>
+                        <option *ngFor="let item of arregloactividad"  [value]="item.actividadEconomicaId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.actividadEconomicaId.errors " class="invalid-feedback">
+                      Actividad economica es obligatorio
+                    </div>
+                </div>
+                  <div class="input-group-sm mb-3 col-6">
+                    <label>RFC *</label>
+                    <input formControlName="rfc" type="text" class="form-control"  [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}" placeholder="">
+                    <div *ngIf="f.rfc.errors " class="invalid-feedback">
+                        RFC es obligatorio
+                    </div>
+                  </div>
+      
+                  <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label>CURP de la razón social *</label>
+                    <input formControlName="curp" type="text" class="form-control"  [ngClass]="{'is-invalid':f.curp.errors && submitEnviado}" placeholder="">
+                    <div *ngIf="f.curp.errors " class="invalid-feedback">
+                      CURP de la razón social es obligatorio
+                    </div>
+                  </div>
+                  <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label >Regimén fiscal *</label>
+                    <select formControlName="regimenfiscalId" type="text" class="form-control" [ngClass]="{'is-invalid':f.regimenfiscalId.errors && submitEnviado}">
+                        <option value=""></option>
+                        <option *ngFor="let item of arregloregimen"  [value]="item.regimenfiscalId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.regimenfiscalId.errors " class="invalid-feedback">
+                        Regimén fiscal es obligatorio
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form group row margen">
+                  <div class="col-12 col-md-12 col-xl-2">
+                    <div class=" input-group-sm mb-3 col-12">
+                      <label>Logo</label>
+                      <app-subirarchivo (emiteimagen)="recibirImagen($event)"></app-subirarchivo>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class=" row">
+                <div class="col-12">
+                    <div class=" row margen">
+                  <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label>Certificado de sello digital *</label>
+                    <input type="text" class="form-control" id="nomEmpresa">
+                  </div>
+                  <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label>Llave de certificado de sello digital *</label>
+                    <input type="text" class="form-control" id="nomEmpresa">
+                  </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class=" row">
+                <div class="col-12">
+                    <div class=" row margen">
+                  <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-12">
+                    <label>Contraseña de certificado de sello digital *</label>
+                    <input type="password" class="form-control" id="nomEmpresa">
+                  </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form group row margen">
+                  <div class="form-check ml-4 mt-4">
+                    <input formControlName="horasExtrasAuto" type="checkbox" class="form-check-input" id="horasExtrasAuto">
+                    <label class="form-check-label" for="horasExtrasAuto">Lectura automática de horas extras</label>
+                  </div>
+                  <div class="input-group-sm mb-3 col-8"></div>
+                  <div class="form-check ml-4 mt-4">
+                    <input formControlName="calculoAutoPromedioVar" type="checkbox" class="form-check-input" id="calculoAutoPromedioVar">
+                    <label class="form-check-label" for="calculoAutoPromedioVar">Cálculo automático de promedio variables</label>
+                  </div>
+                
+            </div>
+            
+            
+        </div>
+    </div>
+
+
+    <div class="text-right margin" style="margin-bottom: 20px;">
+
+        <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button  type="submit"  class="btn btn-primary button-fill">Guardar</button>
+    </div>
+    
+    
+
+</form>
+
