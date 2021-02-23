@@ -68,6 +68,7 @@ export class ListagruposnominasComponent implements OnInit {
       this.cargando = true;
 
       this.gruposnominaPrd.getAll(this.id_empresa).subscribe(datos => {
+        console.log(datos.datos);
         if (datos.datos != undefined)
           for (let item of datos.datos) {
             item.seleccionado = false;

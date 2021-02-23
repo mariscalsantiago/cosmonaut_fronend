@@ -78,6 +78,18 @@ export class CatalogosService {
       return this.http.get(`${this.url}/catAsentamiento/obtener/codigo/${codigoPostal}`);
   }
 
+  public getTipoRegimencontratacion():Observable<any>{
+    return this.http.get(`${this.url}/csTipoRegimenContratacion/listar/todos`);
+  }
+
+  public getAllEstados():Observable<any>{
+    return this.http.get(`${this.url}/catEstados/listar/todos`);
+  }
+
+  public getAllMetodosPago():Observable<any>{
+    return this.http.get(`${this.url}/catMetodoPago/listar/todos`);
+  }
+
 
 
 

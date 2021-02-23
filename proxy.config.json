@@ -1,6 +1,6 @@
 {
     "/empresas/*":{
-        "target":"http://f9d691470723.ngrok.io",
+        "target":"http://a2437ffb59b5.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/empresas": ""
@@ -8,7 +8,7 @@
          "changeOrigin": true
     },
     "/yared/*":{
-        "target":"http://f9d691470723.ngrok.io",
+        "target":"http://a2437ffb59b5.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/yared": ""
@@ -16,7 +16,7 @@
          "changeOrigin": true
     },
     "/catalogos/*":{
-        "target":"http://eee97f14ffae.ngrok.io",
+        "target":"http://9344c7f0c102.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/catalogos": ""

@@ -36,14 +36,13 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Sede</label>
                     <select formControlName="sedeId" name="" id="" class="form-control">
-                        <option value="1">Aguas calientes</option>
-                        <option value="2">Almacen quintanaroo</option>
+                        <option *ngFor="let item of arregloSedes" [value]="item.sedeId">{{item.descripcion}}</option>
                     </select>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Estado de la republica</label>
                     <select formControlName="estadoId" name="" id="" class="form-control">
-                        <option value="1">México</option>
+                        <option *ngFor="let item of arregloEstados" [value]="item.estadoId">{{item.estado}}</option>
                         <option value="2">Oaxaca</option>
                     </select>
                 </div>
@@ -151,8 +150,7 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Método de pago*</label>
                     <select formControlName="metodo_pago_id" name="" id="" class="form-control"  [ngClass]="{'is-invalid':f.metodo_pago_id.errors && submitEnviado}" >
-                        <option value="1">Cheque</option>
-                        <option value="2">Transferencia</option>
+                        <option *ngFor="let item of arregloMetodosPago" [value]="item.metodoPagoId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.metodo_pago_id.errors && submitEnviado" class="invalid-feedback">
                         Campo obligatorio
@@ -173,7 +171,7 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Tipo de contrato*</label>
-                    <select [ngClass]="{'is-invalid':f.tipoContratoId.errors && submitEnviado}" formControlName="tipoContratoId" name="" id="" class="form-control">
+                    <select  [ngClass]="{'is-invalid':f.tipoContratoId.errors && submitEnviado}" formControlName="tipoContratoId" name="" id="" class="form-control">
                        <option *ngFor="let item of arregloTipoContrato" [value]="item.tipoContratoId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.tipoContratoId.errors && submitEnviado" class="invalid-feedback">
@@ -213,7 +211,7 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Tipo de empleado*</label>
                     <select [ngClass]="{'is-invalid':f.tipoRegimenContratacionId.errors && submitEnviado}" formControlName="tipoRegimenContratacionId" name="" id="" class="form-control">
-                        <option value="1">Sueldos</option>
+                        <option *ngFor="let item of arregloRegimenContratacion" [value]="item.tipoRegimenContratacionId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.tipoRegimenContratacionId.errors && submitEnviado" class="invalid-feedback">
                         Campo obligatorio

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 
@@ -28,7 +29,7 @@ export class DomicilioComponent implements OnInit {
   public idMunicipio:number = 0;
 
   constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
-    private catalogosPrd:CatalogosService) { }
+    private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
 
@@ -57,7 +58,7 @@ export class DomicilioComponent implements OnInit {
     this.enviado.emit({ type: "domicilio", valor: true });
   }
   public cancelar() {
-
+    this.routerPrd.navigate(['/empleados']);
   }
 
 
@@ -65,7 +66,7 @@ export class DomicilioComponent implements OnInit {
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
-      console.log(this.myForm);
+      
       this.alerta.modal = true;
       this.alerta.strTitulo = "Campos obligatorios o invalidos";
       this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
@@ -97,8 +98,8 @@ export class DomicilioComponent implements OnInit {
       let objenviar = 
         {
           codigo: obj.codigo,
-          municipio: 1,
-          estado: 1,
+          municipio: this.idMunicipio,
+          estado: this.idEstado,
           asentamientoId: obj.asentamientoId,
           calle: obj.calle,
           numExterior: obj.numExterior,
@@ -133,13 +134,39 @@ export class DomicilioComponent implements OnInit {
       if(valor.trim() !== ""){
      
         this.catalogosPrd.getAsentamientoByCodigoPostal(valor).subscribe(datos => {
-          console.log(datos);
+          
           if(datos.resultado){
             this.domicilioCodigoPostal = datos.datos;
+
+            for(let item of datos.datos){
+
+              this.nombreEstado = item.dedo;
+              this.nombreMunicipio = item.dmnpio;
+              this.idEstado = item.edo.estadoId;
+              this.idMunicipio = item.catmnpio.cmnpio;
+
+              this.myForm.controls.municipio.setValue(this.nombreMunicipio);
+              this.myForm.controls.estado.setValue(this.nombreEstado);
+
+
+            }
+
+
             this.myForm.controls.asentamientoId.enable();
             this.myForm.controls.numExterior.enable();
             this.myForm.controls.numInterior.enable();
             this.myForm.controls.calle.enable();
+          }else{
+            this.myForm.controls.asentamientoId.disable();
+            this.myForm.controls.numExterior.disable();
+            this.myForm.controls.numInterior.disable();
+            this.myForm.controls.calle.disable();
+            this.nombreEstado = "";
+            this.nombreMunicipio = "";
+            this.idEstado = -1;
+            this.idMunicipio = -1;
+            this.domicilioCodigoPostal=[]
+
           }
         });
 

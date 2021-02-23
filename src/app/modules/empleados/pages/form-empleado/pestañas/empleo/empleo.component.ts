@@ -38,6 +38,9 @@ export class EmpleoComponent implements OnInit {
   public arregloTipoContrato:any = [];
   public arregloJornadas:any = [];
   public arregloSedes:any = [];
+  public arregloRegimenContratacion:any = [];
+  public arregloEstados:any = [];
+  public arregloMetodosPago:any = [];
 
   public sueldoBruto: boolean = false;
   public sueldoNeto: boolean = false;
@@ -60,7 +63,6 @@ export class EmpleoComponent implements OnInit {
 
     this.gruponominaPrd.getAll(this.id_empresa).subscribe(datos => {
       this.arreglogruponominas = datos.datos
-      console.log(this.arreglogruponominas);
     });
 
     this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => this.arregloArea = datos.datos);
@@ -71,6 +73,10 @@ export class EmpleoComponent implements OnInit {
     this.catalogosPrd.getTipoContratos().subscribe(datos =>this.arregloTipoContrato = datos.datos);
     this.jornadaPrd.jornadasByEmpresa(this.id_empresa).subscribe(datos => this.arregloJornadas = datos.datos);
     this.sedesPrd.getsedeByEmpresa(this.id_empresa).subscribe(datos => this.arregloSedes = datos.datos);
+    this.catalogosPrd.getTipoRegimencontratacion().subscribe(datos => this.arregloRegimenContratacion = datos.datos);
+    this.catalogosPrd.getAllEstados().subscribe(datos => this.arregloEstados = datos.datos);
+    this.catalogosPrd.getAllMetodosPago().subscribe(datos =>this.arregloMetodosPago = datos.datos);
+
 
 
 
@@ -90,7 +96,7 @@ export class EmpleoComponent implements OnInit {
       fechaAntiguedad: [obj.fechaAntiguedad,[Validators.required]],
       tipoContratoId: [obj.tipoContratoId,[Validators.required]],
       fechaInicio: [obj.fechaInicio,Validators.required],
-      fechaFin: [obj.fechaFin,[Validators.required]],
+      fechaFin: [{value:obj.fechaFin,disabled:false},[Validators.required]],
       jornadaId: [obj.jornadaId,[Validators.required]],
       grupoNominaId: [obj.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId, [Validators.required]],
@@ -124,7 +130,6 @@ export class EmpleoComponent implements OnInit {
 
   public enviarFormulario() {
 
-    console.log(this.myForm.value);
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
@@ -155,58 +160,55 @@ export class EmpleoComponent implements OnInit {
 
       let obj = this.myForm.value;
 
-      let objenviar = {
-        areaId: {
-          areaId: obj.areaId
+      let objEnviar = {
+        areaId:{
+            areaId:obj.areaId
         },
-        puestoId: {
-          puestoId: obj.puestoId
+        puestoId:{
+            puestoId:obj.puestoId
         },
-        politicaId: {
-          politicaId: obj.politicaId
+        politicaId:{
+            politicaId:obj.politicaId
         },
-        numEmpleado: obj.personaId,
-        fechaAntiguedad: obj.fechaAntiguedad,
-        tipoContratoId: {
-          tipoContratoId: obj.tipoContratoId
+        numEmpleado:obj.personaId,
+        fechaAntiguedad:obj.fechaAntiguedad,
+        tipoContratoId:{
+            tipoContratoId:obj.tipoContratoId
         },
-        fechaInicio: obj.fechaInicio,
-        fechaFin: obj.fechaFin,
-        grupoNominaId: {
-          grupoNominaId: obj.grupoNominaId
+        fechaInicio:obj.fechaInicio,
+        fechaFin:obj.fechaFin,
+        areaGeograficaId:{
+            areaGeograficaId:obj.areaGeograficaId
         },
-        tipoCompensacionId: {
-          tipoCompensacionId: obj.tipoCompensacionId
+        grupoNominaId:{
+            grupoNominaId:obj.grupoNominaId
         },
-        tipoRegimenContratacionId: {
-          tipoRegimenContratacionId: obj.tipoRegimenContratacionId
+        tipoCompensacionId:{
+            tipoCompensacionId:obj.tipoCompensacionId
         },
-        sueldoBrutoMensual: obj.sueldoBrutoMensual,
-        salarioDiario: obj.salarioDiario,
-        jornadaId: {
-          jornadaId: 1
+        tipoRegimenContratacionId:{
+            tipoRegimenContratacionId:obj.tipoRegimenContratacionId
         },
-        personaId: {
-          personaId: this.datosPersona.personaId
+        sueldoBrutoMensual:obj.sueldoBrutoMensual,
+        salarioDiario:obj.salarioDiario,
+        jornadaId:{
+            jornadaId:obj.jornadaId
         },
-        centrocClienteId: {
-          centrocClienteId: this.id_empresa
+        personaId:{
+            personaId:this.datosPersona.personaId
         },
-        estadoId: {
-          estadoId: obj.estadoId
+        centrocClienteId:{
+            centrocClienteId:this.id_empresa
         },
-        esSubcontratado: obj.esSubcontratado,
-        sedeId: {
-          sedeId: obj.sedeId
+        estadoId:{
+            estadoId:obj.estadoId
         },
-        esSindicalizado: obj.esSindicalizado,
-        areaGeograficaId: {
-          areaGeograficaId: obj.areaGeograficaId
-        },
-        suPorcentaje: obj.suPorcentaje
-      }
+        esSubcontratado:obj.esSubcontratado==null?false:obj.esSubcontratado,
+        sbc:obj.salarioDiario,
+        "tipoJornadaId":"01"
+    }
 
-      this.colaboradorPrd.save(objenviar).subscribe(datos => {
+      this.colaboradorPrd.save(objEnviar).subscribe(datos => {
 
         this.alerta.iconType = datos.resultado ? "success" : "error";
 

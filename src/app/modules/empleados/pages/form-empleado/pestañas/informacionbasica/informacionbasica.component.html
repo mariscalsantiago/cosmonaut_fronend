@@ -115,7 +115,7 @@
                     <label >nacionalidad</label>
                     <select formControlName="nacionalidadId" name="" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}"  class="form-control">
                         <option *ngFor="let item of arreglonacionalidad"  [value]="item.nacionalidadId">{{item.descripcion}}</option>
-                    </select>
+                    </select>  
                     <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
                         Campo obligatorio
                     </div>
@@ -139,11 +139,11 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >¿Tienes hijos?</label>
                     <div>
-                        <input formControlName="tieneHijos" value="true"  type="radio" name="tieneHijos" id="si" class="">
+                        <input (change)="cambiaValorHijos()" formControlName="tieneHijos" value="true"  type="radio" name="tieneHijos" id="si" class="">
                         <label for="si">Si</label>
                     </div>
                     <div>
-                        <input  formControlName="tieneHijos" value="false"  type="radio" name="tieneHijos" id="no" class="">
+                        <input (change)="cambiaValorHijos()"  checked formControlName="tieneHijos" value="false"  type="radio" name="tieneHijos" id="no" class="">
                         <label for="no">No</label>
                     </div>
                 </div>

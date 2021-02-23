@@ -1,5 +1,6 @@
 import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -17,18 +18,19 @@ export class InformacionbasicaComponent implements OnInit {
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
 
- 
+
 
   public myform!: FormGroup;
 
   public submitEnviado: boolean = false;
 
   public arreglonacionalidad: any = [];
-  public mostrarRfc:boolean = false;
+  public mostrarRfc: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private empleadosPrd: EmpleadosService, private usuarioSistemaPrd: UsuarioSistemaService) { }
+    private empleadosPrd: EmpleadosService, private usuarioSistemaPrd: UsuarioSistemaService,
+    private routerPrd: Router) { }
 
   ngOnInit(): void {
 
@@ -57,8 +59,8 @@ export class InformacionbasicaComponent implements OnInit {
       nacionalidadId: [obj.nacionalidadId.nacionalidadId, [Validators.required]],
       estadoCivil: obj.estadoCivil,
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      tieneHijos: obj.tieneHijos,
-      numeroHijos: obj.numeroHijos,
+      tieneHijos: "false",
+      numeroHijos: {value:obj.numeroHijos,disabled:true},
       url: obj.medioContacto.url,
       contactoEmergenciaNombre: [obj.contactoEmergenciaNombre, [Validators.required]],
       contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno, [Validators.required]],
@@ -67,8 +69,8 @@ export class InformacionbasicaComponent implements OnInit {
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail, [Validators.email]],
       contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
       nss: obj.nss,
-      rfc: [obj.rfc,[Validators.required,Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
-      curp: [obj.curp,[Validators.required,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]]
+      rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
+      curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]]
     });
   }
 
@@ -80,24 +82,44 @@ export class InformacionbasicaComponent implements OnInit {
 
   public cancelar() {
 
+    this.routerPrd.navigate(['/empleados']);
+
   }
 
 
   public enviarFormulario() {
 
-   console.log(this.myform.controls);
+    
+
 
     this.submitEnviado = true;
-   
-    if(this.myform.controls.tieneCurp.value){
-      if (this.myform.invalid) {
-        this.alerta.modal = true;
-        this.alerta.strTitulo = "Campos obligatorios o invalidos";
-        this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
-        this.alerta.iconType = "error";
+
+    let noesRFC: boolean = (this.myform.controls.tieneCurp.value == null || this.myform.controls.tieneCurp.value == false);
+
+    if (this.myform.invalid) {
+      let invalido: boolean = true;
+      if (noesRFC) {
+        for (let item in this.myform.controls) {
+
+          if (item == "rfc" || item == "curp")
+            continue;
+
+          if (this.myform.controls[item].invalid) {
+            invalido = true;
+            break;
+          }
+          invalido = false;
+        }
+      }
+
+      if (invalido) {
+        this.mostrarMessage();
         return;
       }
     }
+
+
+
 
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas guardar cambios?";
@@ -110,10 +132,17 @@ export class InformacionbasicaComponent implements OnInit {
     return this.myform.controls;
   }
 
+  public mostrarMessage() {
+    this.alerta.modal = true;
+    this.alerta.strTitulo = "Campos obligatorios o invalidos";
+    this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
+    this.alerta.iconType = "error";
+  }
+
 
   ngOnChanges(changes: SimpleChanges) {
 
-    
+
 
 
     if (this.enviarPeticion.enviarPeticion) {
@@ -122,15 +151,15 @@ export class InformacionbasicaComponent implements OnInit {
 
       let fechanacimiento = '';
 
-      if(this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != ''){
-        let date:Date = new Date(`${obj.fechaNacimiento}T12:00-0600`);
-        let dia = (date.getDate()<10)?`0${date.getDate()}`:`${date.getDate()}`;
-        let mes = (date.getMonth()+1) < 10 ? `0${date.getMonth()}`:`${date.getMonth()}`;
+      if (this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != '') {
+        let date: Date = new Date(`${obj.fechaNacimiento}T12:00-0600`);
+        let dia = (date.getDate() < 10) ? `0${date.getDate()}` : `${date.getDate()}`;
+        let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`;
         let anio = date.getFullYear();
-       fechanacimiento = `${dia}/${mes}/${anio}`;
+        fechanacimiento = `${dia}/${mes}/${anio}`;
       }
 
-     
+
 
       let objenviar = {
         nombre: obj.nombre,
@@ -161,16 +190,16 @@ export class InformacionbasicaComponent implements OnInit {
         centrocClienteId: {
           centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
         },
-        curp:obj.curp,
-        rfc:obj.rfc,
-        nns:obj.nns
+        curp: obj.curp,
+        rfc: obj.rfc,
+        nns: obj.nns
       }
 
 
       this.empleadosPrd.save(objenviar).subscribe(datos => {
 
-        console.log("es ultimo de empleados");
-        console.log(datos);
+   
+        console.log("datos del empleado",datos.datos);
 
         this.alerta.iconType = datos.resultado ? "success" : "error";
 
@@ -185,6 +214,16 @@ export class InformacionbasicaComponent implements OnInit {
 
     }
 
+  }
+
+
+  public cambiaValorHijos(){
+    
+    if(this.myform.controls.tieneHijos.value == "true"){
+      this.myform.controls.numeroHijos.enable();
+    }else{
+      this.myform.controls.numeroHijos.disable();
+    }
   }
 
 
