@@ -1,0 +1,50 @@
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
+    <div class="form-group mt-3 row margen"><label class="titulo">Datos bancarios</label></div>
+<div class="row">
+    <div class="form group row margen">
+
+        <div class="form-check ml-4 mt-4">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1"> Usar STP como medio de transferencia para el pago de nóminas</label>
+        </div>
+      <br>
+
+      <div class="input-group-sm mb-3 col-8"></div>
+        <div class="input-group-sm mb-3 col-5">
+          <label>Cuenta STP *</label>
+          <input type="text" class="form-control" id="nomEmpresa">
+        </div>
+        
+        <div class="input-group-sm mb-3 col-5">
+          <label>Cuenta CLABE STP *</label>
+          <input type="text" class="form-control" id="nomEmpresa">
+        </div>
+
+       
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="text-right margin" style="margin-bottom: 20px;">
+
+            <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+            <button  type="submit"  class="btn btn-primary button-fill">Guardar</button>
+        </div>
+    </div>
+</div>
+</form>
+<table class="table table-hover table-sm">
+
+  <thead>
+    <tr>
+      <th scope="col " >  
+          <div class="col-12 col-lg-12 text-right">
+          <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+            <i class="fa fa-plus"></i> Agregar cuenta bancaria
+          </button>
+        </div>
+      </th>
+    </tr>
+  </thead> 
+</table>

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DetalleempresasComponent } from './pages/detalleempresas/detalleempresas.component';
 import { EmpresasComponent } from './pages/empresas/empresas.component';
 import { ListaEmpresasComponent } from './pages/listaempresas/listaempresas.component';
+import { SedeComponent } from './pages/empresas/pestañas/domicilio/sede/sede.component'
 
 
 const routes: Routes = [{
@@ -15,6 +16,11 @@ const routes: Routes = [{
     {
       path: 'listaempresas/empresas/:tipoinsert',
       component: EmpresasComponent
+    },
+    {
+      path: 'listaempresas/empresas/nuevo/sede',
+      component: SedeComponent
+      
     },
     {
       path: 'empresa/detalle/:id',

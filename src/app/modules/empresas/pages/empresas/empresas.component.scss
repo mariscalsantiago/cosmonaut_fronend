@@ -1,65 +1,71 @@
-.margen{
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+.margennav{
+    margin-top: 39px;
 }
 
+
+
+.bordeEmpleada{
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: 12px;
+    width: 94px;
+}
 
 .button-outlet{
-    background-color: transparent!important;
-}
 
-.titulo{
-    margin-top: 1em;
-}
+    color:#022538 !important;
+    border-color: #022538 !important;
 
-
-table{
-    border-radius: 10px;
 }
 
 
-.margen-tabla table{
-    margin:15px;
+#perfilEmpleada{
+    position: relative;
 }
 
+.botonestilo{
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    width: 115px;
+    color:#022538;
+    background-color: white;
+    border: 1px solid #022538;
+    width: 150px;
+    display: block;
+    @media only screen and (max-width : 800px)
+    {
 
-td{
-    color:rgb(49, 49, 49);
+        small{
+            font-size: 10px;
+        }
+        width: 100px;
 
-    button{
-        border: 0px solid black;
-        margin-left: 2px;
     }
-}
+    @media only screen and (max-width : 683px)
+    {
 
+        small{
+            font-size: 9px;
+        }
+        width: 80px;
 
-.acomodando{
-
-    width: 100%;
-    height: 100%;
-
-
-    text-align: center;
-
-    
-
-}
-
-
-table{
-    tr{
-        cursor: pointer;
     }
-}
+    @media only screen and (max-width : 600px)
+    {
 
-.botonmultiseleccion{
-    margin: auto;
-    height: 59px;
-}
+        small{
+            font-size: 10px;
+        }
+        width: 100px;
+        right: auto;
+        left: 20px;
 
-.agrandarloading{
-    width: 7em;
+    }
+  
 }
 
 
@@ -67,11 +73,7 @@ table{
     overflow: auto;
 }
 
-.btnPersonalizado{
-    background-color: transparent;
-    i{
-        background-color: #00c1af !important;
-    }
-}
+
+
 
 
