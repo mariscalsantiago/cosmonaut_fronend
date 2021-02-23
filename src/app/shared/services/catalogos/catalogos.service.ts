@@ -53,5 +53,45 @@ export class CatalogosService {
     return this.http.get(`${this.url}/tipoPreferencia/obtener/id/${idPreferencia}`);
   }
 
+  public getTipoContratos(): Observable<any>{
+    return this.http.get(`${this.url}/csTipoContrato/listar/todos`);
+  }
+
+  public getCompensacion():Observable<any>{
+
+    return this.http.get(`${this.url}/tipoCompensacion/listar/todos`);
+
+  }
+
+  public getCompensacionById(idTipoCompensacion:number): Observable<any> {
+    return this.http.get(`${this.url}/tipoCompensacion/obtener/id/${idTipoCompensacion}`);
+  }
+
+
+  public getAreasGeograficas():Observable<any>{
+
+    return this.http.get(`${this.url}/areaGeografica/listar/todos`);
+
+  }
+
+  public getAsentamientoByCodigoPostal(codigoPostal:any):Observable<any>{
+      return this.http.get(`${this.url}/catAsentamiento/obtener/codigo/${codigoPostal}`);
+  }
+
+  public getTipoRegimencontratacion():Observable<any>{
+    return this.http.get(`${this.url}/csTipoRegimenContratacion/listar/todos`);
+  }
+
+  public getAllEstados():Observable<any>{
+    return this.http.get(`${this.url}/catEstados/listar/todos`);
+  }
+
+  public getAllMetodosPago():Observable<any>{
+    return this.http.get(`${this.url}/catMetodoPago/listar/todos`);
+  }
+
+
+
+
 
 }

@@ -56,8 +56,7 @@ export class TablapaginadoComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
 
-    console.log("estos son los datos que se cambian");
-    console.log(this.datos);
+   
 
     if (this.datos.filas !== undefined) {
       this.arreglotemp = this.datos.filas;
@@ -90,14 +89,14 @@ export class TablapaginadoComponent implements OnInit {
       }
 
       this.arreglo = this.arreglotemp.slice(0, Number(this.numeroitems));
-      console.log(this.arreglotemp);
+      
 
     }
 
   }
 
   public paginacambiar(item: any) {
-    console.log(item);
+    
     this.arreglo = this.arreglotemp.slice(item.numeropagina, item.llavepagina);
     for (let item of this.arreglopaginas) {
       item.activado = false;

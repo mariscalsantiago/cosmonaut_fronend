@@ -8,10 +8,14 @@ export const direcciones = {
     centroCostosCliente: `${ip}/centroCostosCliente`,
     area: `${ip2}/area`,
     politica: `${ip2}/Politica`,
-    jornada: `${ip2}/Jornadas`,
+    jornada: `${ip2}/jornadas`,
     cuentasbancarias:`${ip2}/cuentaBanco`,
     catalogo:`${ip3}/catalogo`,
     gruponomina:`${ip}/grupoNomina`,
     colaboradorGrupoNomina:`${ip}/colaboradorGrupoNomina`,
-    domicilio:`${ip}/domicilio`
+    domicilio:`${ip}/domicilio`,
+    preferencias:`${ip}/preferencias`,
+    contratoColaborador:`${ip}/contratoColaborador`,
+    nclPolitica:`${ip2}/Politica`,
+    sedes:`${ip}/sede`
 };

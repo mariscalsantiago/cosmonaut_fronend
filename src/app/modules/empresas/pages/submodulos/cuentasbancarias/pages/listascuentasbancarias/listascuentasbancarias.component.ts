@@ -65,7 +65,7 @@ export class ListascuentasbancariasComponent implements OnInit {
 
       this.cargando = true;
 
-      this.cuentasPrd.getListaCuentaBancaria().subscribe(peticion => {
+      this.cuentasPrd.getCuentaBancariaByEmpresa(this.id_empresa).subscribe(peticion => {
         this.cargando = false;
         this.arreglo = peticion.datos;
       });

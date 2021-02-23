@@ -60,38 +60,8 @@
                   </div>
 
 
-                  <div class="row   margen-tabla background-panel scrooll">
-                    <div class="col" >
-                        <table   class="table table-hover  ">
-                            <thead class="head">
-                              <tr>
-                                <th scope="col" style="width: 44px;"> </th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">ID</th>
-                                <th scope="col" *ngIf="tamanio >= 600">Puesto</th>
-                                <th scope="col" *ngIf="tamanio >= 600">Área</th>
-                                <th scope="col" *ngIf="tamanio >= 600">Sede</th>
-                              </tr>
-                            </thead>
-                            <tbody class="text-muted body">
-                              <tr >
-                                <td style="width: 44px;" scope="row">
-                                    <img width="60px" height="60px" src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..." class="tableimg">    
-                                </td>
-                                <td routerLink="/empleados/1/personal">Santiago antonio </td>
-                                <td style="color:  #00DED4">16386</td>
-                                <td *ngIf="tamanio >= 600">Head of Sales </td>
-                                <td *ngIf="tamanio >= 600">Sales</td>
-                                <td *ngIf="tamanio >= 600">Av. La Mar 1120, Miraflores, Lima, Perú</td>
-                              </tr>
-                         
-                      
-                              
-                      
-                      
-                            </tbody>
-                          </table>
-                    </div>
+                  <div class="row   margen-tabla background-panel ">
+                    <app-tablapaginado [datos]="arreglotabla" [editar]="true"  [imagen]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
                   </div>
 
 
@@ -103,9 +73,20 @@
         <div class="tab-pane fade" id="baja" role="tabpanel" aria-labelledby="profile-tab">
 
 
-           <div class="m-3">
+           <div class="m-2">
 
-            <p class="text-light">hola desde aqui</p>
+            <div class="row margen">
+                <div class="col titulo">
+                  <label>RESULTADOS</label>
+                </div>
+                <div class="col text-right">
+                    <button type="button" class="btn btn-light button-outlet" (click)="bajaEmpleado()">
+                      <i class="fa fa-plus"></i>Baja empleado
+                    </button>
+                  </div>
+              </div>
+
+            
 
            </div>
 

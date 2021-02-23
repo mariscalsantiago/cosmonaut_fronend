@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CuentasbancariasService } from 'src/app/modules/empresas/services/cuentasbancarias/cuentasbancarias.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 
 import { GruponominasService } from '../../services/gruponominas.service';
 
@@ -28,12 +29,14 @@ export class DetallegruponominaComponent implements OnInit {
   public arregloEsquemaPago:any = [];
   public arregloCuentasBancarias:any = [];
   public arregloMonedas:any = [];
+  public arreglocompany:any = [];
 
 
 
   constructor(private formbuilder:FormBuilder,private activeprd:ActivatedRoute,
     private routerPrd:Router,private grupoNominaPrd:GruponominasService,
-    private catalogosPrd:CatalogosService,private cuentasBancariasPrd:CuentasbancariasService) { }
+    private catalogosPrd:CatalogosService,private cuentasBancariasPrd:CuentasbancariasService,
+    private companiaPrd:SharedCompaniaService) { }
 
   ngOnInit(): void {
 
@@ -82,6 +85,8 @@ export class DetallegruponominaComponent implements OnInit {
     this.catalogosPrd.getEsquemaPago().subscribe(datos => this.arregloEsquemaPago = datos.datos);
     this.catalogosPrd.getMonedas().subscribe(datos => this.arregloMonedas = datos.datos);
 
+    this.companiaPrd.getAllCompany().subscribe(datos => this.arreglocompany = datos.datos);
+
     
 
   }
@@ -128,7 +133,7 @@ export class DetallegruponominaComponent implements OnInit {
 
         let subsidio = obj.maneraCalcularSubsidio == "periodica"?"P":"D";
 
-        let peticion: any = {
+        let peticion:any = {
           nombre:obj.nombre,
           esAutomatica:obj.esAutomatica,
           maneraCalcularSubsidio:subsidio,
@@ -148,6 +153,9 @@ export class DetallegruponominaComponent implements OnInit {
 
        
         if (this.esInsert) {
+
+          peticion.centrocClienteId.centrocClienteId = this.id_empresa;
+
 
           this.grupoNominaPrd.save(peticion).subscribe(datos => {
             console.log("Esto despues de guardar");

@@ -6,17 +6,12 @@
 
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Método de pago</label>
-                <input type="email" class="form-control" placeholder="">
-                <div class="invalid-feedback">
-                    Favor de ingresar el Correo Corporativo
-                </div>
-
-
+                <input formControlName="metodo_pago_id" type="text" class="form-control" placeholder="">
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Número de cuenta</label>
-                <input type="email" class="form-control" placeholder="">
-                <div class="invalid-feedback">
+                <input maxlength="10" formControlName="numeroCuenta" type="text" class="form-control" placeholder="" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
+                <div *ngIf="f.numeroCuenta.errors && submitEnviado" class="invalid-feedback">
                     Favor de ingresar el Correo Corporativo
                 </div>
 
@@ -24,8 +19,8 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>CLABE</label>
-                <input type="email" class="form-control" placeholder="">
-                <div class="invalid-feedback">
+                <input maxlength="18" [ngClass]="{'is-invalid':f.clabe.errors && submitEnviado}" formControlName="clabe" type="text" class="form-control" placeholder="">
+                <div *ngIf="f.clabe.errors && submitEnviado" class="invalid-feedback">
                     Favor de ingresar el Correo Corporativo
                 </div>
 
@@ -33,8 +28,10 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Banco</label>
-                <input type="email" class="form-control" placeholder="">
-                <div class="invalid-feedback">
+                <select [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}" formControlName="csBanco" class="form-control" name="" id="">
+                    <option *ngFor="let item of arreglobancos" [value]="item.bancoId">{{item.nombreCorto}}</option>
+                </select>
+                <div *ngIf="f.csBanco.errors && submitEnviado" class="invalid-feedback">
                     Favor de ingresar el Correo Corporativo
                 </div>
 
@@ -42,10 +39,7 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Número de ID cliente</label>
-                <input type="email" class="form-control" placeholder="">
-                <div class="invalid-feedback">
-                    Favor de ingresar el Correo Corporativo
-                </div>
+                <input formControlName="numInformacion" type="text" class="form-control" placeholder="">
 
 
             </div>

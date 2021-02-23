@@ -1,6 +1,5 @@
-import { ConditionalExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PuestosService } from '../services/puestos.service';
 
@@ -71,6 +70,9 @@ export class DetallepuestosComponent implements OnInit {
       }
 
     });
+
+    console.log(this.areas);
+
 
     if(this.insertar){
       this.myForm = this.createForm((this.areas));

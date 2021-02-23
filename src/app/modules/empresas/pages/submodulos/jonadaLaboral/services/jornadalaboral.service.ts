@@ -66,5 +66,13 @@ export class JornadalaboralService {
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
+  public jornadasByEmpresa(idEmpresa:number):Observable<any>{
+
+    console.log(`${this.url}/listar/jornada/${idEmpresa}`);
+
+    return this.http.get(`${this.url}/listar/jornada/${idEmpresa}`);
+
+  }
+
 
 }
