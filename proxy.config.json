@@ -16,7 +16,7 @@
          "changeOrigin": true
     },
     "/catalogos/*":{
-        "target":"http://9344c7f0c102.ngrok.io",
+        "target":"http://8d2173f49513.ngrok.io/",
         "secure":false,
         "pathRewrite": {
             "^/catalogos": ""

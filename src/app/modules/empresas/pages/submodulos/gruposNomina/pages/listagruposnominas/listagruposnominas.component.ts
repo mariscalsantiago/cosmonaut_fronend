@@ -197,7 +197,7 @@ export class ListagruposnominasComponent implements OnInit {
       this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
 
 
-      console.log(this.arreglodetalle);
+      console.log(datos);
       
 
     });

@@ -42,14 +42,32 @@ export class ListaempleadosComponent implements OnInit {
     this.cargando = true;
 
     this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
-      this.arreglo = datos.datos;
       let columnas:Array<tabla> = [
         new tabla("nombre","Nombre",false,true),
         new tabla("personaId","ID",true),
         new tabla("puesto","Puesto"),
-        new tabla("Área","area"),
-        new tabla("Sede","Sede"),
+        new tabla("area","area"),
+        new tabla("sede","Sede"),
       ]
+
+      let arrayTemp = [];
+
+      for(let item of datos.datos){
+
+        let obj = {
+          nombre:item.personaId.nombre+" "+item.personaId.apellidoPaterno,
+          personaId:item.personaId.personaId,
+          puesto:item.puestoId.descripcion,
+          area:item.areaId.descripcion,
+          sede:item.sedeId.descripcion
+        }
+
+        arrayTemp.push(obj);
+
+      }
+
+      this.arreglo = arrayTemp;
+
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;
       this.cargando = false;
@@ -67,8 +85,6 @@ export class ListaempleadosComponent implements OnInit {
 
 
   public recibirTabla(obj:any){
-
-    console.log(obj);
     switch(obj.type){
 
       case "columna":

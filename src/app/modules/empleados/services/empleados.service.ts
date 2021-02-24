@@ -31,28 +31,20 @@ export class EmpleadosService {
   }
 
   public getEmpleadosCompania(idCompania:number):Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-    let obj = {
-  
-      centrocClienteId:{
-         "centrocClienteId":idCompania
-      },
-      "tipoPersonaId":{
-         "tipoPersonaId":5
-      }
-   }
+   
 
-
-   let json = JSON.stringify(obj);
-   console.log(`${direcciones.usuarios}/lista/dinamica`,json);
-
-   return this.http.post(`${direcciones.usuarios}/lista/dinamica`,json,httpOptions);
+   return this.http.get(`${direcciones.contratoColaborador}/obtener/empresa/id/${idCompania}`);
 
   }
+
+
+  public getEmpleadoById(idEmpleado:number):Observable<any>{
+    return this.http.get(`${direcciones.usuarios}/obtener/id/${idEmpleado}`);
+  }
+
+ 
+
+  
 
 
 }

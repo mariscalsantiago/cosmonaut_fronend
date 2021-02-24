@@ -2,7 +2,8 @@
   <div class="m-3">
     <div class="row">
       <div class="col titulo-outlet">
-        <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/empleados"></i>Santiago Antonio Mariscal Velásquez</label>
+        <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/empleados"></i>Santiago Antonio
+          Mariscal Velásquez</label>
       </div>
     </div>
   </div>
@@ -21,28 +22,33 @@
         <div class="col-12 col-lg-6 mt-2 mb-2">
           <i style="    border: 1px solid black;
           border-radius: 100%;
-          padding: 2px;" class="fas fa-dollar-sign"></i>$345
+          padding: 2px;" class="fas fa-dollar-sign"></i>$0
         </div>
         <div class="col-12 col-lg-6 mt-2 mb-2">
 
-          <i class="far fa-envelope"></i>cosmonau@gmail.com
+          <i class="far fa-envelope"></i>{{empleado.contactoInicialEmailPersonal}}
 
         </div>
         <div class="col-12 col-lg-6 mt-2 mb-2">
 
 
-          <i class="fas fa-birthday-cake"></i>fecha nacimiento 25/05/2014
+          <i class="fas fa-birthday-cake"></i>fecha nacimiento {{empleado.fechaNacimiento}}
 
         </div>
         <div class="col-12 col-lg-6 mt-2 mb-2">
-          <i class="fas fa-hourglass-half"></i>Antiguedad: 8 años y 6 meses
+          <i class="fas fa-hourglass-half"></i>Antiguedad: 0 años y 0 meses
         </div>
       </div>
 
     </div>
     <div class="col"></div>
-    <div class="bg-primary text-white text-center bordeEmpleada">Empleada</div>
-      <button class="botonestilo aparece-desktop"><small><i class="fas fa-download"></i>Iniciar descarga</small></button>
+    <div class="bg-primary text-white text-center bordeEmpleada">Empleado</div>
+    <button (click)="iniciarDescarga()" class="botonestilo aparece-desktop"><small *ngIf="!cargandoIcon"><i
+          class="fas fa-download"></i>Iniciar descarga</small>
+      <div *ngIf="cargandoIcon" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </button>
 
   </div>
 
@@ -81,7 +87,11 @@
 
   <div class="row m-2 background-panel ">
     <div class="col-12 m-3">
-      <router-outlet></router-outlet>
+      <router-outlet ></router-outlet>
     </div>
   </div>
 </div>
+
+
+<app-alert-questions *ngIf="alerta.modal" [titulo]="alerta.strTitulo" [iconType]="alerta.iconType"
+  [subtitulo]="alerta.strsubtitulo" (eventoFunciones)="recibirAlerta($event)"></app-alert-questions>

@@ -17,5 +17,6 @@ export const direcciones = {
     preferencias:`${ip}/preferencias`,
     contratoColaborador:`${ip}/contratoColaborador`,
     nclPolitica:`${ip2}/Politica`,
-    sedes:`${ip}/sede`
+    sedes:`${ip}/sede`,
+    reportes:`${ip}/reportes`
 };

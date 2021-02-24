@@ -207,6 +207,8 @@ export class InformacionbasicaComponent implements OnInit {
         this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
 
+        
+
         this.enviandouser.emit(datos.datos);
 
       });
