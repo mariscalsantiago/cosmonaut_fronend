@@ -1,6 +1,8 @@
-const ip:string = "/empresas";
-const ip2:string = "/yared";
-const ip3:string = "/catalogos";
+import {environment} from './../environments/environment';
+
+const ip:string = environment.rutaEmpresa;
+const ip2:string = environment.rutaEmpresa;
+const ip3:string = environment.rutaCatalogos;
 
 export const direcciones = {
 
