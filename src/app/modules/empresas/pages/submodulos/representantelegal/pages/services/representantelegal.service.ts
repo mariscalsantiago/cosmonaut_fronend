@@ -61,6 +61,7 @@ export class RepresentanteLegalService {
 
 
     let json:string = JSON.stringify(obj);
+    console.log("representante",json)
 
     return this.http.put(`${this.url}/guardar/representanteLegal`,json,httpOptions);
   }
