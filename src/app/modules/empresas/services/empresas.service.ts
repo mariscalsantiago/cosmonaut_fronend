@@ -20,6 +20,7 @@ export class EmpresasService {
    public getAllEmp(idEmpresA:number):Observable<any>{
     
     return this.http.get(`${this.url}/lista/compania/empresa/${idEmpresA}`);
+    
 
   }
   public getAllRep(id_company:number):Observable<any>{
@@ -53,6 +54,10 @@ export class EmpresasService {
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
+  public eliminar(id:any):Observable<any>{
+
+    return this.http.post(`${this.url}/eliminar/empresa/id/${id}`,{});
+  }
     
   
 }

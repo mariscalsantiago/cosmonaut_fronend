@@ -71,8 +71,9 @@ export class PersonalComponent implements OnInit {
 
   }
 
+
+
   public parsearInformacion() {
-    console.log("este es el empleado",this.empleado);
     if (this.empleado?.fechaNacimiento != null || this.empleado?.fechaNacimiento != undefined) {
 
       if(Number.isInteger(this.empleado.fechaNacimiento)){

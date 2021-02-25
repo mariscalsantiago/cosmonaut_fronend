@@ -23,6 +23,12 @@ export class ListaEmpresasComponent implements OnInit {
     filas:[]
   };
 
+  public modal: boolean = false;
+  public strTitulo: string = "";
+  public iconType: string = "";
+  public strsubtitulo: string = "";
+  public indexSeleccionado: number = 0;
+  
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     event.target.innerWidth;
@@ -35,6 +41,7 @@ export class ListaEmpresasComponent implements OnInit {
     private usuarioSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
+
     let documento:any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -76,9 +83,12 @@ export class ListaEmpresasComponent implements OnInit {
   }
 
 
-  public recibirTabla(obj:any){
-   
 
+  public recibirTabla(obj:any){
+   debugger;
+    if(obj.type == "eliminar"){
+      this.eliminar(obj.datos);
+    }
     if(obj.type == "editar"){
       this.routerPrd.navigate(['listaempresas', 'empresas', 'modifica'], { state: { data: obj.datos } });
     }else if(obj.type == "columna"){
@@ -87,5 +97,49 @@ export class ListaEmpresasComponent implements OnInit {
 
   }
 
+  public eliminar(indice: any) {
+  debugger;
 
+    this.indexSeleccionado = indice.centrocClienteId;
+
+    this.modal = true;
+    this.strTitulo = "¿Deseas eliminar la empresa?";
+    this.strsubtitulo = "Estas a punto de borrar una empresa";
+    this.iconType = "warning";
+
+
+  }
+
+  public recibir($evento: any) {
+    debugger;
+    this.modal = false;
+    if (this.iconType == "warning") {
+
+      if ($evento) {
+
+
+        let id = this.indexSeleccionado;
+
+        this.empresasProd.eliminar(id).subscribe(datos => {
+          let resultado = datos.resultado;
+          let mensaje = datos.mensaje;
+          this.iconType = resultado ? "success" : "error";
+          this.strTitulo = mensaje;
+          this.strsubtitulo = 'Registro eliminado correctamente!'
+          this.cargando = false;
+          this.modal = true;
+          if(resultado){
+
+            this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+              this.arreglo = datos.datos;
+
+            });
+          }
+        });
+      }
+    }
+
+   }
+
+  
 }

@@ -1,28 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Console } from 'console';
 import { Observable } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CuentasbancariasService {
+export class ImssService {
+
   public url:string = "";
 
   constructor(private http:HttpClient) { }
-
-  public getAll():Observable<any>{
-
-    return this.http.get("/yared/cuentaBanco/listar/todos");
-
-  }
-
-
-  public getAllByEmpresa(idEmpresa:number):Observable<any>{
-
-    return this.http.get(`/yared/cuentaBanco/obtener/cliente/${idEmpresa}`);
-
-  }
 
   public save(obj:any):Observable<any>{
 
@@ -34,7 +23,7 @@ export class CuentasbancariasService {
 
 
     let json = JSON.stringify(obj);
-    return this.http.put(`${direcciones.cuentasbancarias}/guardarSTP`,json,httpOptions);
+    return this.http.put(`${direcciones.registroPatronal}/guardar`,json,httpOptions);
 
   }
 }

@@ -24,10 +24,10 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <app-informacionempresa *ngIf="activado[0].form" (enviado)="recibir($event)" [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" (enviandouser)="recibiendoUserInsertado($event)"></app-informacionempresa>
+              <app-informacionempresa *ngIf="activado[0].form" (enviado)="recibir($event)" [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" [datosempresamod]="datosempresamod" [datosempresa]="datosempresa" (enviandouser)="recibiendoUserInsertado($event)"></app-informacionempresa>
           </div>
           <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <app-domicilio *ngIf="activado[1].form" (enviado)="recibir($event)"  [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" [datosempresa]="datosempresa"></app-domicilio>
+              <app-domicilio *ngIf="activado[1].form" (enviado)="recibir($event)"  [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor"  [datosempresa]="datosempresa" ></app-domicilio>
           </div>
           <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
               <app-datosbancarios *ngIf="activado[2].form" (enviado)="recibir($event)" [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" [datosempresa]="datosempresa"></app-datosbancarios>
@@ -45,6 +45,6 @@
 </div>
 
 
-<app-alert-questions *ngIf="alerta.modal" [titulo]="alerta.strTitulo" [iconType]="alerta.iconType" [subtitulo]="alerta.strsubtitulo"   (eventoFunciones)="recibirAlerta($event)"></app-alert-questions>
+<app-alert-questions *ngIf="alerta.modal" [titulo]="alerta.strTitulo" [iconType]="alerta.iconType" [subtitulo]="alerta.strsubtitulo"  (eventoFunciones)="recibirAlerta($event)"></app-alert-questions>
 
 

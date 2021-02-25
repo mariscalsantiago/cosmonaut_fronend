@@ -1,5 +1,5 @@
 <form  [formGroup]="myform" (ngSubmit)="enviarFormulario()">
-
+    <input type="hidden" formControlName="centrocClienteId">
     <div class="form-group mt-3 row margen"><label class="titulo">Datos de empresa</label></div>
            
     <div class="row">
@@ -8,14 +8,6 @@
                 <div class="col-12">
                     <div class=" row margen">
                     
-                <div class="input-group-sm mb-3 col-12">
-                  <label>Registro patronal *</label>
-                  <input formControlName="registroPatronal" type="text" class="form-control"  [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado}" placeholder="">
-                  <div *ngIf="f.registroPatronal.errors " class="invalid-feedback">
-                    Registro patronal es obligatorio
-                  </div>
-                </div>
-
                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                     <label>Nombre de la empresa *</label>
                     <input formControlName="nombre" type="text" class="form-control"  [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">

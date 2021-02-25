@@ -22,19 +22,36 @@ export class DomicilioComponent implements OnInit {
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
+  public habcontinuar: boolean = false;
+  public habGuardar: boolean = true;
   public domicilioCodigoPostal:any = [];
   public nombreEstado:string = "";
   public idEstado:number = 0;
   public nombreMunicipio:string = "";
   public idMunicipio:number = 0;
+  public id_empresa: number = 0;
+  public asentamientoCpCons: number =0;
 
   constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
+    debugger;
+    let obj:any = {};
+    this.id_empresa = this.datosempresa.centrocClienteEmpresa
+    if(!this.datosempresa.insertar){
 
-    let obj = {};
+    this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
+      obj = datos.datos[0];
+      obj.asentamientoCpCons = obj.asentamientoId
+      this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => this.domicilioCodigoPostal = datos.datos);
+
     this.myForm = this.createForm(obj);
+
+    });
+    }else{
+    this.myForm = this.createForm(obj);
+    }
 
   }
 
@@ -44,27 +61,27 @@ export class DomicilioComponent implements OnInit {
       codigo: [obj.codigo, [Validators.required,Validators.pattern('[0-9]+')]],
       estado:[obj.estado,[Validators.required]],
       municipio:[obj.municipio,[Validators.required]],
-      asentamientoId:[obj.asentamientoId,[Validators.required]],
+      asentamientoId:[obj.asentamientoCpCons,[Validators.required]],
       calle:[obj.calle,[Validators.required]],
       numExterior:[obj.numExterior,[Validators.required]],
-      numInterior:obj.numInterior
+      numInterior:obj.numInterior,
+      domicilioId: obj.domicilioId
     });
 
   }
 
 
 
-  public guardar() {
-    this.enviado.emit({ type: "domicilio", valor: true });
-  }
   public cancelar() {
     this.routerPrd.navigate(['/listaempresas']);
   }
 
 
   public enviarFormulario() {
-
+     
     this.submitEnviado = true;
+
+    if(!this.habcontinuar){
     if (this.myForm.invalid) {
       
       this.alerta.modal = true;
@@ -75,24 +92,35 @@ export class DomicilioComponent implements OnInit {
     }
 
     this.alerta.modal = true;
-    this.alerta.strTitulo = "¿Deseas guardar cambios?";
+    this.alerta.strTitulo = (this.datosempresa.insertar) ? "¿Deseas registrar el domicilio" : "¿Deseas actualizar el domicilio?";
     this.alerta.strsubtitulo = "Esta apunto de guardar el domicilio";
     this.alerta.iconType = "warning";
 
+  }else{
+    this.enviado.emit({
+      type:"domicilioCont"
+    });
+    
+    this.alerta.modal = true;
+    this.alerta.strTitulo = "¿Deseas continuar?";
+    this.alerta.strsubtitulo = "Esta apunto de pasar a datos bancarios";
+    this.alerta.iconType = "warning";
+
   }
+}
 
   public verdetalle(obj:any){
-    debugger;
-   this.routerPrd.navigate(['listaempresas', 'empresas', 'nuevo','sede'], { state: { data: obj } });
+     
+   this.routerPrd.navigate(['listaempresas', 'empresas', 'nuevo','sede'], { state: { data: this.datosempresa } });
  }
 
   public get f() {
     return this.myForm.controls;
   }
 
-
+  
   ngOnChanges(changes: SimpleChanges) {
-    debugger;
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       
@@ -100,7 +128,7 @@ export class DomicilioComponent implements OnInit {
       let obj = this.myForm.value;
 
 
-      let objenviar = 
+      let objenviar: any = 
         {
           codigo: obj.codigo,
           municipio: this.idMunicipio,
@@ -114,22 +142,41 @@ export class DomicilioComponent implements OnInit {
           }
       }
 
+      if(this.datosempresa.insertar){
       this.domicilioPrd.save(objenviar).subscribe(datos =>{
+
         this.alerta.iconType = datos.resultado ? "success" : "error";
 
         this.alerta.strTitulo = datos.mensaje;
         this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
+        this.enviado.emit({
+          type:"domicilioSede"
+        });
+        if(datos.resultado){
+          this.habcontinuar= true;
+          this.habGuardar=false;
+          
+        }
       });
-      
+      }else{
+      debugger;
+      objenviar.domicilioId = obj.domicilioId;
 
+        this.domicilioPrd.modificar(objenviar).subscribe(datos =>{
+          this.alerta.iconType = datos.result? "success":"error";
+          this.alerta.strTitulo = datos.mensaje;
+          this.alerta.strsubtitulo = datos.mensaje
+          this.alerta.modal = true;
 
-  
-    }
+        });
+      }
+     }
+
   }
 
   public buscar(obj:any){
-
+    debugger;
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
 

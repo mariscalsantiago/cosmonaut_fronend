@@ -1,65 +1,77 @@
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
 
-    <div class="form-group mt-3 row margen"><label class="titulo">INFORMACIÓN DE PUESTO</label></div>
+    <div class="form-group mt-3 row margen"><label class="titulo">Datos imss</label></div>
             
             <div class="form group row margen">
 
-                <div class="input-group-sm mb-3 col-4">
-                  <label>Registro patronal *</label>
-                  <input type="text" class="form-control" id="nomEmpresa">
+              <div class="input-group-sm mb-3 col-4">
+                <label>Registro patronal *</label>
+                <input formControlName="registroPatronal" type="text" class="form-control"  [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado}" placeholder="">
+                <div *ngIf="f.registroPatronal.errors " class="invalid-feedback">
+                  Registro patronal es obligatorio
                 </div>
+              </div>
                 <div class="input-group-sm mb-3 col-4">
                   <label>Prima de riego *</label>
-                  <input type="text" class="form-control" id="nomEmpresa">
+                  <input formControlName="emPrimaRiesgo" maxlength="2" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
+                  <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
+                    Prima de riego es obligatorio
+                  </div>
+                  <div *ngIf="f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched" class="invalid-feedback">
+                    Prima de riego no es válida
+                  </div>
                 </div>
           
                 <div class="input-group-sm mb-3 col-4">
                   <label>Clave subdelegacional IMSS *</label>
-                  <input type="text" class="form-control" id="nomEmpresa">
+                  <input formControlName="emClaveDelegacionalImss" maxlength="2" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emClaveDelegacionalImss.errors?.required) || (f.emClaveDelegacionalImss.errors?.pattern && f.emClaveDelegacionalImss.touched)}" placeholder="">
+                  <div *ngIf="submitEnviado && f.emClaveDelegacionalImss.errors?.required" class="invalid-feedback">
+                    Clave subdelegacional IMSS es obligatorio
+                  </div>
+                  <div *ngIf="f.emClaveDelegacionalImss.errors?.pattern && f.emClaveDelegacionalImss.touched" class="invalid-feedback">
+                    Clave subdelegacional IMSS no es válida
+                  </div>
                 </div>
     
                
-                <div class="form-check ml-4 mt-4">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">IMSS obrero integrado IMSS patronal para salario minimo</label>
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                  <input formControlName="emImssObreroIntegradoApatronal" type="checkbox" name="" id="emImssObreroIntegradoApatronal">
+                  <label for="emImssObreroIntegradoApatronal">IMSS obrero integrado IMSS patronal para salario minimo</label>
                 </div>
+
                 <div class="input-group-sm mb-3 col-4"></div>
-                <div class="form-check ml-4 mt-4">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Enviar movimientos al IMSS mediante Cosmonaut</label>
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                  <input formControlName="emEnviarMovsImss" type="checkbox" name="" id="emEnviarMovsImss">
+                  <label for="emEnviarMovsImss">Enviar movimientos al IMSS mediante Cosmonaut</label>
                 </div>
-                <div class="input-group-sm mb-3 col-8"></div>
-                <div class="input-group-sm mb-3 col-8"></div>
+                
                 <div  class="input-group-sm mb-3 col-8">
                   <label>Enviar moviemientos vía: </label><br>
-                  <input #certificado (click)="activarcer(certificado)" id="certificado" type="radio" name="moviemientos" > Enviar movimientos al IMSS mediante certificado IMSS<br>
-                  <input #fiel (click)="activarfiel(fiel)" type="radio" name="moviemientos"> Enviar movimientos al IMSS mediante FIEL
-                  <div *ngIf="f.esAutomatica.errors" class="invalid-feedback">
-                    Campos obligatorios.
-                  </div>
+                  <input (click)="activcer()" id="certificado" type="radio" name="moviemientos"> Enviar movimientos al IMSS mediante certificado IMSS<br>
+                  <input (click)="activfiel()" id="fiel" type="radio" name="moviemientos"> Enviar movimientos al IMSS mediante FIEL
                 </div>
                 <div class="input-group-sm mb-3 col-4"></div>
-                <div *ngIf="activadoCER" class="input-group-sm mb-3 col-4">
+                <div *ngIf="activadoCer" class="input-group-sm mb-3 col-4">
                   <label>Usuario de certificado IMSS *</label>
                   <input type="text" class="form-control" id="nomEmpresa">
                 </div>
-                <div *ngIf="activadoCER" class="input-group-sm mb-3 col-4">
+                <div *ngIf="activadoCer" class="input-group-sm mb-3 col-4">
                   <label>Contraseña de certificado IMSS *</label>
-                  <input type="text" class="form-control" id="nomEmpresa">
+                  <input type="password" class="form-control" id="nomEmpresa">
                 </div>
-                <div *ngIf="activadoCER" class="input-group-sm mb-3 col-4">
+                <div *ngIf="activadoCer" class="input-group-sm mb-3 col-4"> 
                   <label>Certificado IMSS *</label>
                   <input type="text" class="form-control" id="nomEmpresa">
                 </div>
-                <div *ngIf="activadoFIEL" class="input-group-sm mb-3 col-4">
+                <div *ngIf="activadoFiel" class="input-group-sm mb-3 col-4">
                   <label>Contraseña de llave privada FIEL *</label>
-                  <input type="text" class="form-control" id="nomEmpresa">
+                  <input type="password" class="form-control" id="nomEmpresa">
                 </div>
-                <div *ngIf="activadoFIEL" class="input-group-sm mb-3 col-4">
+                <div *ngIf="activadoFiel" class="input-group-sm mb-3 col-4">
                   <label>Certificado FIEL *</label>
                   <input type="text" class="form-control" id="nomEmpresa">
                 </div>
-                <div *ngIf="activadoFIEL" class="input-group-sm mb-3 col-4">
+                <div *ngIf="activadoFiel" class="input-group-sm mb-3 col-4">
                   <label>Llave privada FIEL *</label>
                   <input type="text" class="form-control" id="nomEmpresa">
                 </div>

@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ImssService } from 'src/app/modules/empresas/services/imss/imss.service';
+
 
 
 @Component({
@@ -17,9 +20,10 @@ export class DatosimssComponent implements OnInit {
 
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
-  public activadoCER:boolean = false;
-  public activadoFIEL: boolean = false;
-  constructor(private formBuilder:FormBuilder) { }
+  public activadoCer:boolean = false;
+  public activadoFiel: boolean = false;
+
+  constructor(private formBuilder:FormBuilder,private imssPrd: ImssService,private routerPrd:Router) { }
 
   ngOnInit(): void {
 
@@ -31,26 +35,30 @@ export class DatosimssComponent implements OnInit {
   public createForm(obj: any) {
 
     return this.formBuilder.group({
+      registroPatronal: [obj.registroPatronal,[Validators.required]],
+      emPrimaRiesgo:[obj.emPrimaRiesgo,[Validators.required, Validators.pattern(/^\d{2}$/)]],
+      emClaveDelegacionalImss:[obj.emClaveDelegacionalImss,[Validators.required, Validators.pattern(/^\d{2}$/)]],
+      emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
+      emEnviarMovsImss:obj.emEnviarMovsImss
     
     });
 
   }
 
 
-  public activarcer(obj:any){
-    debugger;
-    //this.activadoCER = obj.checked;
-    this.activadoFIEL = false;
-    this.activadoCER = true;
+public activcer(){
+     
+    this.activadoFiel = false;
+    this.activadoCer = true;
 }
-public activarfiel(obj:any){
-  debugger;
-  //this.activadoFIEL = obj.checked;
-  this.activadoFIEL = true;
-  this.activadoCER = false;
+public activfiel(){
+   
+  this.activadoFiel = true;
+  this.activadoCer = false;
 }
  
   public cancelar() {
+    this.routerPrd.navigate(['/listaempresas']);
 
   }
 
@@ -78,20 +86,42 @@ public activarfiel(obj:any){
   }
 
 
- /* ngOnChanges(changes: SimpleChanges) {
-
+  ngOnChanges(changes: SimpleChanges) {
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
-      alert("peticion empleo");
+      let obj = this.myForm.value;
+      let objenviar = {
+          registroPatronal: obj.registroPatronal,
+          emPrimaRiesgo: obj.emPrimaRiesgo,
+          emClaveDelegacionalImss: obj.emClaveDelegacionalImss,
+          emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
+          emEnviarMovsImss: obj.emEnviarMovsImss,
+          centrocClienteId:{
+              centrocClienteId: this.datosempresa.centrocClienteId
+          }
 
-      setTimeout(() => {
-        this.alerta.iconType = "success";
+        }
 
-          this.alerta.strTitulo = "Mensaje desde empleo";
-          this.alerta.strsubtitulo = "subtitutlo";
-          this.alerta.modal = true;
-      }, 2000);
+        
+      this.imssPrd.save(objenviar).subscribe(datos => {
+        this.alerta.iconType = datos.resultado ? "success" : "error";
 
+        this.alerta.strTitulo = datos.mensaje;
+        this.alerta.strsubtitulo = datos.mensaje
+        this.alerta.modal = true;
+      });
+
+
+    }else{
+      if(this.alerta.iconType == "success"){
+        this.routerPrd.navigate(["/listaempresas"]);
     }
-  }*/
+   
+    this.alerta.modal = false;
+    }
+
+  }
 }
+
+

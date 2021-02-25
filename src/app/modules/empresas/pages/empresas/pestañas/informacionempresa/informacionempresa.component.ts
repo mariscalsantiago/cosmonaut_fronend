@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatosempresaService } from 'src/app/modules/empresas/services/datosempresa/datosempresa.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 
@@ -15,6 +16,8 @@ export class InformacionempresaComponent implements OnInit {
   @Input() alerta: any;
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
+  @Input() datosempresa:any;
+  @Input() datosempresamod:any;
 
 
 
@@ -27,17 +30,20 @@ export class InformacionempresaComponent implements OnInit {
   public imagen:any = undefined;
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private empresaPrd: DatosempresaService) { }
+    private empresaPrd: DatosempresaService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-
-    let obj = {
-      regimenfiscalId: {},
-      actividadEconomicaId: {}
-    };
+    debugger;
+    let obj = this.datosempresamod.datosempresaObj
+    if(this.datosempresa.insertar){
+      obj = {
+        regimenfiscalId: {},
+        actividadEconomicaId: {}
+      };
+    }
+   
     this.myform = this.createForm(obj);
     this.catalogosPrd.getRegimenFiscal().subscribe(datos => this.arregloregimen = datos.datos);
-    console.log("REgimen",this.arregloregimen);
     this.catalogosPrd.getActividadEconomica().subscribe(datos => this.arregloactividad = datos.datos);
 
   }
@@ -46,6 +52,7 @@ export class InformacionempresaComponent implements OnInit {
     this.imagen = imagen;
   }
   public createForm(obj: any) {
+    debugger;
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial,[Validators.required]],
@@ -53,9 +60,9 @@ export class InformacionempresaComponent implements OnInit {
       rfc: [obj.rfc,[Validators.required]],
       curp: [obj.curp,[Validators.required]],
       regimenfiscalId: [obj.regimenfiscalId.regimenfiscalId,[Validators.required]],
-      registroPatronal: [obj.registroPatronal,[Validators.required]],
       calculoAutoPromedioVar: obj.calculoAutoPromedioVar,
       horasExtrasAuto: obj.horasExtrasAuto,
+      centrocClienteId: obj.centrocClienteId
       
  
     });
@@ -68,12 +75,13 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public cancelar() {
+    this.routerPrd.navigate(['/listaempresas']);
 
   }
 
 
   public enviarFormulario() {
-debugger;
+ 
     this.submitEnviado = true;
     if (this.myform.invalid) {
       this.alerta.modal = true;
@@ -84,7 +92,7 @@ debugger;
     }
 
     this.alerta.modal = true;
-    this.alerta.strTitulo = "¿Deseas guardar cambios?";
+    this.alerta.strTitulo = (this.datosempresa.insertar) ? "¿Deseas registrar la empresa" : "¿Deseas actualizar la empresa?";
     this.alerta.strsubtitulo = "Esta apunto de guardar una empresa";
     this.alerta.iconType = "warning";
 
@@ -96,24 +104,23 @@ debugger;
 
 
   ngOnChanges(changes: SimpleChanges) {
-    debugger;
+     debugger;
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;
-      let objenviar = {
+      let objenviar:any = {
            nombre : obj.nombre,
            razonSocial : obj.razonSocial,
            rfc : obj.rfc ,
-           regimenfiscal:{
+           regimenfiscalId:{
             regimenfiscalId: obj.regimenfiscalId
-          },
+            },
            centroCostosCentrocClienteId: {
-            centrocClienteId: 1
+            centrocClienteId: this.datosempresa.centrocClienteId
            },
            actividadEconomicaId: {
             actividadEconomicaId: obj.actividadEconomicaId
            },
-           registroPatronal: obj.registroPatronal,
            curp : obj.curp,
            horasExtrasAuto:obj.horasExtrasAuto,
            calculoAutoPromedioVar: obj.calculoAutoPromedioVar,
@@ -122,15 +129,35 @@ debugger;
            contrasenia:"prueba123456"
         }
 
-        
-      this.empresaPrd.save(objenviar).subscribe(datos => {
-        this.alerta.iconType = datos.resultado ? "success" : "error";
+      if(this.datosempresa.insertar){  
 
-        this.alerta.strTitulo = datos.mensaje;
-        this.alerta.strsubtitulo = datos.mensaje
+      this.empresaPrd.save(objenviar).subscribe(datos => {
+        let resultado = datos.resultado;
+        let mensaje = datos.mensaje;
+        if(resultado){
+
+          this.datosempresa.centrocClienteId = datos.datos.centrocClienteId;
+        }
+        this.alerta.iconType = resultado ? "success" : "error";
+        this.alerta.strTitulo = mensaje;
+        this.alerta.strsubtitulo = mensaje
         this.alerta.modal = true;
+
       });
 
+    }else{
+        debugger;
+
+        objenviar.centrocClienteId = obj.centrocClienteId;
+
+        this.empresaPrd.modificar(objenviar).subscribe(datos =>{
+          this.alerta.iconType = datos.result? "success":"error";
+          this.alerta.strTitulo = datos.mensaje;
+          this.alerta.strsubtitulo = datos.mensaje
+          this.alerta.modal = true;
+
+        });
+      }
 
     }
 
