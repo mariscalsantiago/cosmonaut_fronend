@@ -64,6 +64,9 @@ export class DetalleCompanyComponent implements OnInit {
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.myFormcomp = this.createFormcomp((this.objCompany));
     this.compania = true;
+
+    console.log("Datos de la url",this.objCompany.url);
+    
   }
 
 

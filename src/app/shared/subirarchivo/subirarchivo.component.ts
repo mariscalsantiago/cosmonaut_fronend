@@ -1,4 +1,4 @@
-import { Component, OnInit,EventEmitter, Output } from '@angular/core';
+import { Component, OnInit,EventEmitter, Output, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -14,6 +14,8 @@ export class SubirarchivoComponent implements OnInit {
   public seleccionado:boolean = false;
   public imagen!:File;
   public buffer:any ;
+
+  @Input() public externo!:string;
 
   constructor(private sanitizer:DomSanitizer) { }
   sanitize( url:string ) {
@@ -78,6 +80,34 @@ export class SubirarchivoComponent implements OnInit {
     this.seleccionado = false;
     
     this.buffer = undefined;
+  }
+
+
+  public abrirArchivo(){
+
+    let elemento:any = document.createElement("input");
+    elemento.type = "file";
+    elemento.click();
+    elemento.onchange = ()=>{
+      for(let item in Object.getOwnPropertyNames(elemento.files)){
+
+        let archivo:File = elemento.files[item];
+
+        if(this.esImagen(archivo.type)){        
+          this.recibir({tipo:"imagen",valor:archivo});
+        }else{ 
+          this.recibir({tipo:"errorimagen",valor:"La archivo seleccionado no es una imagen"});
+        }
+          
+  
+      }
+    }
+    
+
+  }
+
+  private esImagen( tipoArchivo: string ): boolean {
+    return ( tipoArchivo === '' || tipoArchivo === undefined ) ? false : tipoArchivo.startsWith('image');
   }
 
 }

@@ -23,7 +23,7 @@ export class CompanyService {
   }
 
   public getAllCont(obj:any):Observable<any>{
-    debugger;
+    
     
     const httpOptions={
       headers: new HttpHeaders({
