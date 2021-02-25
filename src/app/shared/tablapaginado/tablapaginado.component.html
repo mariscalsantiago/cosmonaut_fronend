@@ -19,18 +19,19 @@
         <thead>
           <tr>
             <th *ngIf="imagen"></th>
-            <th scope="col" *ngFor="let item of datos.columnas" >{{item.nombre}}</th>
+            <th scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url'}" >{{item.nombre}}</th>
             <th *ngIf="ver || editar || eliminar || desglosar">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of arreglo; let indice = index;">
             <td *ngIf="imagen" style="width: 44px;" scope="row">
-              <img width="60px" height="60px"
-                src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..."
-                class="tableimg">
+              <img *ngIf="item.url" width="60px" height="60px"
+                [src]="item.url" class="tableimg">
+                <img *ngIf="item.url == undefined" width="60px" height="60px"
+                src="../../../assets/imgs/logo2.png" class="tableimg">
             </td>
-            <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId}"  (click)="eventoclick(item2,item)">{{item[item2.id]}}</td>
+            <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url'}"  (click)="eventoclick(item2,item)">{{item[item2.id]}}</td>
             <td class="opciones">
               <button *ngIf="ver" (click)="btnVer(item)"><i class="icon_ver primary-bg"></i></button>
               <button *ngIf="editar" (click)="btnEditar(item)" ><i class="icon_editar primary-bg"></i></button>

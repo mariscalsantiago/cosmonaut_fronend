@@ -104,8 +104,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
     if(this.myForm.invalid){
       this.iconType = "error";
-      this.strTitulo =  "Campos incorrectos";
-      this.strsubtitulo = "Verificar si hay campos incorrectos o por rellenar.";
+      this.strTitulo =  "Campos obligatorios o inválidos";
+      this.strsubtitulo = "";
       this.modal = true;
       this.summitenviado= true;
 
@@ -115,8 +115,8 @@ export class DetalleUsuarioComponent implements OnInit {
     }
 
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar el usuario?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar los datos del usuario?";
+    this.strsubtitulo = "";
     this.modal = true;
   }
 

@@ -15,7 +15,7 @@
     <div class="background-panel margen">
         <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE USUARIO</label></div>
         <div class="form-group row margen">
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
                 <label for="exampleFormControlSelect1">Compañia *</label>
                 <select [disabled]="!insertar" formControlName="centrocClienteId" class="form-control" [ngClass]="{'is-invalid':f.centrocClienteId.errors && summitenviado}"
                     id="exampleFormControlSelect1">
@@ -113,36 +113,6 @@
             </div>
         </div>
         <hr>
-        <div class="form-group row margen"><label class="titulo">HISTORICO DE STATUS</label></div>
-        <div class="row">
-            <div class="col-12 ">
-                <table class="table table-hover table-sm tablapropiedadstatus">
-                    <thead>
-                        <tr>
-                            <th>Status</th>
-                            <th>Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                            <td>Activo</td>
-                            <td>01/01/2019</td>
-                        </tr>
-                        <tr>
-                            <td>Activo</td>
-                            <td>04/02/2019</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-
-
-
     </div>
 
 
