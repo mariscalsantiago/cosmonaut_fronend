@@ -57,7 +57,7 @@ export class ListarepresentantelegalComponent implements OnInit {
     this.cargando = true;
 
     this.CanRouterPrd.params.subscribe(datos =>{
-
+      debugger;
       this.id_empresa = datos["id"]
       this.representanteProd.getAllUsersRep(this.id_empresa).subscribe(datos => {
       this.arreglo = datos.datos;

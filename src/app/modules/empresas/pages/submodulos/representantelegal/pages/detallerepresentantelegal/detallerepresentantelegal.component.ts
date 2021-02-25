@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DebugElement, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RepresentanteLegalService } from '../services/representantelegal.service';
@@ -25,6 +25,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
   public multiseleccion:Boolean = false;
   public multiseleccionloading:boolean = false;
   public centrocClienteId: number = 0;
+  public tipoRepresentanteId : number =1;
 
   
 
@@ -146,26 +147,21 @@ public cancelarMulti(){
           },
           nacionalidadId: {
             nacionalidadId: obj.nacionalidadId
-          }
+          },
+          tipoRepresentanteId: {
+            tipoRepresentanteId: this.tipoRepresentanteId
+        }
       }
 
         if(this.insertar){
           
           this.representantePrd.save(objEnviar).subscribe(datos => {
-            
-            this.iconType = datos.result? "success":"error";
-            if(datos.result){
-              this.strTitulo = datos.message;
-              this.strsubtitulo = 'Registro agregado correctamente'
+            debugger;
+            this.iconType = datos.resultado? "success":"error";
+              this.strTitulo = datos.mensaje;
+              this.strsubtitulo = datos.mensaje
               this.modal = true;
-            }else{
-              this.strTitulo = datos.message;
-              this.strsubtitulo = 'Favor de verificar'
-              this.modal = true;
-
-            }
-
-            
+           
           });
 
         }else{
@@ -174,18 +170,10 @@ public cancelarMulti(){
           objEnviar.personaId = obj.personaId;
 
           this.representantePrd.modificar(objEnviar).subscribe(datos =>{
-            this.iconType = datos.result? "success":"error";
-            if(datos.result){
-              this.strTitulo = datos.message;
-              this.strsubtitulo = 'Registro modificado correctamente!'
+            this.iconType = datos.resultado? "success":"error";
+              this.strTitulo = datos.mensaje;
+              this.strsubtitulo = datos.mensaje
               this.modal = true;
-            }else{
-              this.strTitulo = datos.message;
-              this.strsubtitulo = 'Favor de verificar'
-              this.modal = true;
-
-            }
-
           });
         }
       
