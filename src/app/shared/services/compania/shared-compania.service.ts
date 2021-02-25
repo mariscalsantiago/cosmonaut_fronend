@@ -19,6 +19,13 @@ export class SharedCompaniaService {
     return this.http.get(`${this.url}/lista/compania`);
   }
 
+  public getAllEmp(idEmpresA:number):Observable<any>{
+    
+    return this.http.get(`${this.url}/lista/compania/empresa/${idEmpresA}`);
+    
+
+  }
+
  
 
 }

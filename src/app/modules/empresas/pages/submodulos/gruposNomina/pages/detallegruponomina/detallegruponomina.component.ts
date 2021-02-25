@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CuentasbancariasService } from 'src/app/modules/empresas/services/cuentasbancarias/cuentasbancarias.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 import { GruponominasService } from '../../services/gruponominas.service';
 
@@ -30,13 +31,16 @@ export class DetallegruponominaComponent implements OnInit {
   public arregloCuentasBancarias:any = [];
   public arregloMonedas:any = [];
   public arreglocompany:any = [];
+  public arregloPeriocidadPago:any = [];
+  public arregloBasePeriodos:any = [];
+  public arregloCatPeriodosAguinaldo:any = [];
 
 
 
   constructor(private formbuilder:FormBuilder,private activeprd:ActivatedRoute,
     private routerPrd:Router,private grupoNominaPrd:GruponominasService,
     private catalogosPrd:CatalogosService,private cuentasBancariasPrd:CuentasbancariasService,
-    private companiaPrd:SharedCompaniaService) { }
+    private companiaPrd:SharedCompaniaService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
@@ -53,6 +57,7 @@ export class DetallegruponominaComponent implements OnInit {
 
 
       this.cuentasBancariasPrd.getAllByEmpresa(this.id_empresa).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
+      this.companiaPrd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arreglocompany = datos.datos);
     });
 
     let obj:any = {
@@ -84,8 +89,12 @@ export class DetallegruponominaComponent implements OnInit {
 
     this.catalogosPrd.getEsquemaPago().subscribe(datos => this.arregloEsquemaPago = datos.datos);
     this.catalogosPrd.getMonedas().subscribe(datos => this.arregloMonedas = datos.datos);
+    this.catalogosPrd.getPeriocidadPago().subscribe(datos => this.arregloPeriocidadPago = datos.datos);
+    this.catalogosPrd.getBasePeriodos().subscribe(datos => this.arregloBasePeriodos = datos.datos);
+    this.catalogosPrd.getCatPeriodoAguinaldo().subscribe(datos => this.arregloCatPeriodosAguinaldo = datos.datos);
 
-    this.companiaPrd.getAllCompany().subscribe(datos => this.arreglocompany = datos.datos);
+
+
 
     
 

@@ -102,5 +102,23 @@ export class CatalogosService {
   }
 
 
+  public getPeriocidadPago():Observable<any>{
+
+    return this.http.get(`${this.url}/csPeriodicidadPago/listar/todos`);
+
+  }
+
+  public getBasePeriodos():Observable<any>{
+
+    return this.http.get(`${this.url}/catBasePeriodo/listar/todos`);
+
+  }
+
+
+  public getCatPeriodoAguinaldo():Observable<any>{
+    return this.http.get(`${this.url}/catPeriodoAguinaldo/listar/todos`);
+  }
+
+
 
 }
