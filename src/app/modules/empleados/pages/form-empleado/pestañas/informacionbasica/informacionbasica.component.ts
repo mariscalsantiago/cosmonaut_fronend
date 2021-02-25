@@ -176,7 +176,7 @@ export class InformacionbasicaComponent implements OnInit {
         },
         estadoCivil: obj.estadoCivil,
         contactoInicialTelefono: obj.contactoInicialTelefono,
-        tieneHijos: false,
+        tieneHijos: obj.tieneHijos,
         numeroHijos: obj.numeroHijos,
         medioContacto: {
           url: obj.url
@@ -197,9 +197,6 @@ export class InformacionbasicaComponent implements OnInit {
 
 
       this.empleadosPrd.save(objenviar).subscribe(datos => {
-
-   
-        console.log("datos del empleado",datos.datos);
 
         this.alerta.iconType = datos.resultado ? "success" : "error";
 
