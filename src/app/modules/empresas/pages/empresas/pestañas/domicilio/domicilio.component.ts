@@ -44,9 +44,30 @@ export class DomicilioComponent implements OnInit {
     this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
       obj = datos.datos[0];
       obj.asentamientoCpCons = obj.asentamientoId
-      this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => this.domicilioCodigoPostal = datos.datos);
+      this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
+          
+        if(datos.resultado){
+          this.domicilioCodigoPostal = datos.datos;
 
-    this.myForm = this.createForm(obj);
+          for(let item of datos.datos){
+
+            this.nombreEstado = item.dedo;
+            this.nombreMunicipio = item.dmnpio;
+            this.idEstado = item.edo.estadoId;
+            this.idMunicipio = item.catmnpio.cmnpio;
+
+            obj.municipio = this.nombreMunicipio;
+            obj.estado = this.nombreEstado;
+
+
+          }
+
+        }
+
+        this.myForm = this.createForm(obj);
+      });      
+    
+      this.myForm = this.createForm(obj);
 
     });
     }else{
@@ -161,10 +182,23 @@ export class DomicilioComponent implements OnInit {
       });
       }else{
       debugger;
-      objenviar.domicilioId = obj.domicilioId;
-
+      let objenviar: any = 
+        {
+          domicilioId: obj.domicilioId,
+          codigo: obj.codigo,
+          municipio: this.idMunicipio,
+          estado: this.idEstado,
+          asentamientoId: obj.asentamientoId,
+          calle: obj.calle,
+          numExterior: obj.numExterior,
+          numInterior:obj.numInterior,
+          centrocClienteId: {
+            centrocClienteId: this.datosempresa.centrocClienteId
+          }
+      }
+      
         this.domicilioPrd.modificar(objenviar).subscribe(datos =>{
-          this.alerta.iconType = datos.result? "success":"error";
+          this.alerta.iconType = datos.resultado? "success":"error";
           this.alerta.strTitulo = datos.mensaje;
           this.alerta.strsubtitulo = datos.mensaje
           this.alerta.modal = true;

@@ -121,6 +121,7 @@ export class InformacionempresaComponent implements OnInit {
            actividadEconomicaId: {
             actividadEconomicaId: obj.actividadEconomicaId
            },
+           esActivo: true,
            curp : obj.curp,
            horasExtrasAuto:obj.horasExtrasAuto,
            calculoAutoPromedioVar: obj.calculoAutoPromedioVar,
@@ -151,9 +152,11 @@ export class InformacionempresaComponent implements OnInit {
         objenviar.centrocClienteId = obj.centrocClienteId;
 
         this.empresaPrd.modificar(objenviar).subscribe(datos =>{
-          this.alerta.iconType = datos.result? "success":"error";
-          this.alerta.strTitulo = datos.mensaje;
-          this.alerta.strsubtitulo = datos.mensaje
+          let resultado = datos.resultado;
+          let mensaje = datos.mensaje;
+          this.alerta.iconType = resultado? "success":"error";
+          this.alerta.strTitulo = mensaje;
+          this.alerta.strsubtitulo = mensaje
           this.alerta.modal = true;
 
         });
