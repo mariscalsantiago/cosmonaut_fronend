@@ -17,16 +17,6 @@ export class DatosempresaService {
 
   }
 
-   public getAllEmp():Observable<any>{
-    
-    return this.http.get(`${this.url}/lista/compania`);
-
-  }
-  public getAllRep(id_company:number):Observable<any>{
-    return this.http.get(`${direcciones.usuarios}/obtener/id/compania/${id_company}`);
-}
-
-
   public save(obj:any):Observable<any>{
     const httpOptions={
       headers: new HttpHeaders({
@@ -34,7 +24,7 @@ export class DatosempresaService {
       })
     };
     let json:string = JSON.stringify(obj);
-
+    console.log("empresa",json);
     return this.http.put(`${this.url}/guardar/empresa`,json,httpOptions);
   }
 
@@ -47,10 +37,9 @@ export class DatosempresaService {
       })
     };
 
-
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/modificar`,json,httpOptions);
+    return this.http.post(`${this.url}/modificar/empresa`,json,httpOptions);
   }
 
     

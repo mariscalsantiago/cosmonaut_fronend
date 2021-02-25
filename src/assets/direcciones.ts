@@ -1,8 +1,6 @@
-import {environment} from './../environments/environment';
-
-const ip:string = environment.rutaEmpresa;
-const ip2:string = environment.rutaEmpresa;
-const ip3:string = environment.rutaCatalogos;
+const ip:string = "/empresas";
+const ip2:string = "/yared";
+const ip3:string = "/catalogos";
 
 export const direcciones = {
 
@@ -20,5 +18,6 @@ export const direcciones = {
     contratoColaborador:`${ip}/contratoColaborador`,
     nclPolitica:`${ip2}/Politica`,
     sedes:`${ip}/sede`,
-    reportes:`${ip}/reportes`
+	reportes:`${ip}/reportes`,
+    registroPatronal:`${ip}/registroPatronal`
 };

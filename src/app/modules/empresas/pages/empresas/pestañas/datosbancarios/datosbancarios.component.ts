@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { CuentasbancariasService } from 'src/app/modules/empresas/services/cuentasbancarias/cuentasbancarias.service';
+
 
 @Component({
   selector: 'app-datosbancarios',
@@ -15,49 +17,62 @@ export class DatosbancariosComponent implements OnInit {
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
   @Input() datosempresa:any;
+  
 
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
+  public habcontinuar: boolean = false;
+  public habGuardar: boolean = false;
+  public actguardar: boolean = false;
 
-  public arregloPreferencias:any = [];
-
-  constructor(private formBuilder: FormBuilder,private catalogosPrd:CatalogosService,private routerPrd:Router) { }
-
+  constructor(private formBuilder: FormBuilder,private cuentasPrd:CuentasbancariasService,
+    private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
 
     let obj = {};
     this.myForm = this.createForm(obj);
 
-
-    this.catalogosPrd.getPreferencias().subscribe(datos => this.arregloPreferencias = datos.datos);
   }
 
   public createForm(obj: any) {
 
     return this.formBuilder.group({
+      cuentaStp: [obj.cuentaStp, [Validators.required,Validators.pattern('[0-9]+')]],
+      clabeStp: [obj.clabeStp, [Validators.required,Validators.pattern(/^\d{18}$/)]],
     
     });
 
   }
 
 
-
- 
   public cancelar() {
-
+    this.routerPrd.navigate(['/listaempresas']);
   }
 
-  public verdetalle(obj:any){
-    debugger;
-  this.routerPrd.navigate(['/empresa/detalle/'+this.datosempresa.centrocClienteId+'/cuentasbancarias/nuevo'], { state: { data: obj } });
+  public activar(){
+     
+    if(!this.actguardar){
+    this.habGuardar= true;
+    this.actguardar= true;
+    }else{
+    this.habGuardar = false;
+    this.actguardar= false;
+    }
+  }
+
+  public activarCont(){
+    this.habcontinuar = true;
   }
 
   public enviarFormulario() {
-
+     
     this.submitEnviado = true;
+    
+    if(!this.habcontinuar){
     if (this.myForm.invalid) {
+      
       this.alerta.modal = true;
       this.alerta.strTitulo = "Campos obligatorios o invalidos";
       this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
@@ -67,9 +82,24 @@ export class DatosbancariosComponent implements OnInit {
 
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas guardar cambios?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar un empleado";
+    this.alerta.strsubtitulo = "Esta apunto de guardar datos bancarios STP";
     this.alerta.iconType = "warning";
 
+  }else{
+    this.enviado.emit({
+      type:"bancosCont"
+    });
+    
+    this.alerta.modal = true;
+    this.alerta.strTitulo = "¿Deseas continuar?";
+    this.alerta.strsubtitulo = "Esta apunto de pasar a datos imss";
+    this.alerta.iconType = "warning";
+    this.habcontinuar = false;
+  }
+}
+  public verdetalle(obj:any){
+     
+    this.routerPrd.navigate(['listaempresas', 'empresas', 'nuevo','cuenta'], { state: { data: this.datosempresa } });
   }
 
   public get f() {
@@ -78,19 +108,42 @@ export class DatosbancariosComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
-      alert("peticion preferencias");
+      
 
-      setTimeout(() => {
-        this.alerta.iconType = "success";
+      let obj = this.myForm.value;
+      let objenviar = 
+          {
+ 
+            usaStp: true,
+            cuentaStp: obj.cuentaStp, 
+            clabeStp: obj.clabeStp,
+            nclCentrocCliente: {
+              centrocClienteId: this.datosempresa.centrocClienteId
+            }
+          
+      }
 
-          this.alerta.strTitulo = "Mensaje desde preferencias";
-          this.alerta.strsubtitulo = "subtitutlo";
-          this.alerta.modal = true;
-      }, 2000);
+      this.cuentasPrd.save(objenviar).subscribe(datos =>{
 
-    }
+        this.alerta.iconType = datos.resultado ? "success" : "error";
+
+        this.alerta.strTitulo = datos.mensaje;
+        this.alerta.strsubtitulo = datos.mensaje
+        this.alerta.modal = true;
+        this.enviado.emit({
+          type:"cuentasBancarias"
+        });
+        if(datos.resultado){
+          this.habcontinuar= true;
+          this.habGuardar=false;
+          
+        }
+      });
+     }
+
   }
+
 }

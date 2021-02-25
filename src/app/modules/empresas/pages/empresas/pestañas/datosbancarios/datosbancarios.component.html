@@ -1,27 +1,33 @@
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
     <div class="form-group mt-3 row margen"><label class="titulo">Datos bancarios</label></div>
-<div class="row">
     <div class="form group row margen">
 
-        <div class="form-check ml-4 mt-4">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1"> Usar STP como medio de transferencia para el pago de nóminas</label>
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
+          <input formControlName="stp" (click)="activar()" type="checkbox"  id="stp">
+          <label for="stp">  Usar STP como medio de transferencia para el pago de nóminas</label>
         </div>
       <br>
 
       <div class="input-group-sm mb-3 col-8"></div>
-        <div class="input-group-sm mb-3 col-5">
+        <div *ngIf="habGuardar" class="input-group-sm mb-3 col-5">
           <label>Cuenta STP *</label>
-          <input type="text" class="form-control" id="nomEmpresa">
+          <input formControlName="cuentaStp" maxlength="15" type="text" class="form-control"
+          [ngClass]="{'is-invalid':f.cuentaStp.errors && submitEnviado}" placeholder="">
+          <div *ngIf="submitEnviado && f.cuentaStp.errors" class="invalid-feedback">
+            Cuenta STP obligatorio.
+          </div>
         </div>
         
-        <div class="input-group-sm mb-3 col-5">
+        <div *ngIf="habGuardar" class="input-group-sm mb-3 col-5">
           <label>Cuenta CLABE STP *</label>
-          <input type="text" class="form-control" id="nomEmpresa">
+          <input formControlName="clabeStp" maxlength="18" type="text" class="form-control"
+          [ngClass]="{'is-invalid':f.clabeStp.errors && submitEnviado}" placeholder="">
+          <div *ngIf="submitEnviado && f.clabeStp.errors" class="invalid-feedback">
+            Cuenta STP obligatorio.
+          </div>
         </div>
 
-       
-  </div>
+
 </div>
 
 <div class="row">
@@ -29,7 +35,8 @@
         <div class="text-right margin" style="margin-bottom: 20px;">
 
             <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-            <button  type="submit"  class="btn btn-primary button-fill">Guardar</button>
+            <button *ngIf="habGuardar" (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
+            <button (click)="activarCont()" type="submit" class="btn btn-primary button-fill">Continuar</button>
         </div>
     </div>
 </div>

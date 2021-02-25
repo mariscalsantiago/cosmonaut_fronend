@@ -12,8 +12,8 @@ import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.se
 export class SedeComponent implements OnInit {
 
   @Input() enviarPeticion: any;
-  @Input() datosempresa:any;
-  //@Input() alerta: any;
+ 
+
   public alerta = {
 
     modal: false,
@@ -25,17 +25,23 @@ export class SedeComponent implements OnInit {
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
   public domicilioCodigoPostal:any = [];
+  public objdsede: any = []; 
   public nombreEstado:string = "";
   public idEstado:number = 0;
   public nombreMunicipio:string = "";
   public idMunicipio:number = 0;
+  public insertar: boolean = false;
 
   constructor(private formBuilder: FormBuilder,private sedePrd:SedeService,
-    private catalogosPrd:CatalogosService,private routerPrd:Router) {
+    private catalogosPrd:CatalogosService,private routerPrd:Router, private routerActivePrd: ActivatedRoute )
+    {
+       
      
   }
     
   ngOnInit(): void {
+    this.objdsede = history.state.data == undefined ? {} : history.state.data ;
+    this.insertar = this.objdsede.insertar;
     let obj = {};
       this.myForm = this.createForm((obj));
 
@@ -56,46 +62,10 @@ export class SedeComponent implements OnInit {
     });
   }
 
-  public recibirAlerta(obj: any) {
-
-    debugger;
-    //this.cambiaValor = !this.cambiaValor;
-    
-
-    this.alerta.modal = false;
-    this.enviarPeticion.enviarPeticion = false;
-    
-
-    if (this.alerta.iconType === "warning") {
-      
-      if (obj) {
-        
-        this.enviarPeticion.enviarPeticion = true;
-      }
-
-
-    } /*else {
-      if (this.alerta.iconType == "success") {
-
-        let indexSeleccionado = 0;
-        for (let x = 0; x < this.activado.length; x++) {
-          if (this.activado[x].form) {
-
-            indexSeleccionado = x;
-            break;
-          }
-        }
-
-      }
-    }*/
-
-  }
-
   public enviarFormulario() {
-  debugger;
+   
     this.submitEnviado = true;
     if (this.myForm.invalid) {
-      console.log(this.myForm);
       this.alerta.modal = true;
       this.alerta.strTitulo = "Campos obligatorios o invalidos";
       this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
@@ -114,50 +84,69 @@ export class SedeComponent implements OnInit {
     this.routerPrd.navigate(["/listaempresas/empresas/nuevo"]);
    
   }
-  
-  ngOnChanges(changes: SimpleChanges) {
-    debugger;
-    if (this.enviarPeticion.enviarPeticion) {
-      this.enviarPeticion.enviarPeticion = false;
-      
-
-      let obj = this.myForm.value;
-
-
-      let objenviar = 
-        {
-          sede: obj.sede,
-          codigo: obj.codigo,
-          municipio: this.idMunicipio,
-          estado: this.idEstado,
-          asentamientoId: obj.asentamientoId,
-          calle: obj.calle,
-          numExterior: obj.numExterior,
-          numInterior:obj.numInterior,
-          centrocClienteId: {
-            centrocClienteId: this.datosempresa.centrocClienteId
-          },
-          sedeId: {
-            descripcion: obj.sede,
-             centrocClienteId: {
-              centrocClienteId: this.datosempresa.centrocClienteId
+  public recibir($evento: any) {
+     
+    this.alerta.modal = false;
+    if(this.alerta.iconType == "warning"){
+      if ($evento) {
+        let obj = this.myForm.value;
+        let objenviar = 
+          {
+            sede: obj.sede,
+            codigo: obj.codigo,
+            municipio: this.idMunicipio,
+            estado: this.idEstado,
+            asentamientoId: obj.asentamientoId,
+            calle: obj.calle,
+            numExterior: obj.numExterior,
+            numInterior:obj.numInterior,
+            centrocClienteId: {
+              centrocClienteId: this.objdsede.centrocClienteId
+            },
+            sedeId: {
+              descripcion: obj.sede,
+               centrocClienteId: {
+                centrocClienteId: this.objdsede.centrocClienteId
+            }
           }
         }
-      }
 
-      this.sedePrd.save(objenviar).subscribe(datos =>{
-        this.alerta.iconType = datos.resultado ? "success" : "error";
+        if(this.insertar){
+           
+          
+          this.sedePrd.save(objenviar).subscribe(datos =>{
+            this.alerta.iconType = datos.resultado ? "success" : "error";
+    
+            this.alerta.strTitulo = datos.mensaje;
+            this.alerta.strsubtitulo = datos.mensaje
+            this.alerta.modal = true;
+          });
 
-        this.alerta.strTitulo = datos.mensaje;
-        this.alerta.strsubtitulo = datos.mensaje
-        this.alerta.modal = true;
-      });
+        }else{
+    
+              
+
+          /*this.politicasPrd.modificar(objEnviar).subscribe(datos =>{
+            this.iconType =  datos.resultado? "success":"error";  
+            this.strTitulo = datos.mensaje;
+            this.strsubtitulo = 'Registro modificado correctamente!'
+            this.modal = true;
+
+
+          });*/
+        }
       
-
+      }
+    }else{
+      if(this.alerta.iconType == "success"){
+          this.routerPrd.navigate(["/listaempresas/empresas/nuevo"]);
+      }
+     
+      this.alerta.modal = false;
     }
   }
-
-  public buscar(obj:any){
+  
+    public buscar(obj:any){
 
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");

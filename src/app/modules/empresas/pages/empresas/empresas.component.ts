@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { ActivatedRoute } from '@angular/router';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-empresas',
@@ -11,14 +13,20 @@ export class EmpresasComponent implements OnInit {
   public modal: boolean = false;
 
   public activado = [
+    { tab: true, form: true, disabled: false }, 
     { tab: false, form: false, disabled: false }, 
-    { tab: false, form: false, disabled: false }, 
-    { tab: true, form: true, disabled: false },
+    { tab: false, form: false, disabled: false },
     { tab: false, form: false, disabled: false }
   ];
   
   public cambiaValor: boolean = false;
-  public ocultarempleada:boolean = false;
+  public guardarDom: boolean = false;
+  public cuentaBanco: boolean = false;
+  public continuarDom: boolean = false;
+  public continuarBancos: boolean = false
+  public insertar: boolean = false;
+  public centrocClienteEmpresa:number = 0;
+  public objdetrep: any = [];
   public enviarPeticion = {
     enviarPeticion: false
   };
@@ -32,21 +40,37 @@ export class EmpresasComponent implements OnInit {
   };
 
   public datosempresa:any={
-    centrocClienteId:190
+    centrocClienteId:this.usuarioSistemaPrd.getIdEmpresa(),
+    centrocClienteEmpresa:this.centrocClienteEmpresa,
+    insertar: this.insertar
   };
 
-  constructor( ) {
+  public datosempresamod:any={
+    datosempresaObj: this.objdetrep
+  };
+ 
+  constructor(private usuarioSistemaPrd:UsuarioSistemaService, private routerActivePrd: ActivatedRoute ) {
+    debugger;
+    this.routerActivePrd.params.subscribe(datos => {
+      this.insertar = (datos["tipoinsert"] == 'nuevo');
+      this.datosempresa.insertar= this.insertar;
+
+    });
 
     }
 
   ngOnInit(): void {
-
+    debugger;
+    this.objdetrep = history.state.data == undefined ? {} : history.state.data ;
+    this.datosempresamod.datosempresaObj= this.objdetrep;
+    this.datosempresa.centrocClienteEmpresa = this.datosempresamod.datosempresaObj.centrocClienteId;
   }
 
 
 
 public recibir(elemento: any) {
-  debugger;
+   
+
   switch (elemento.type) {
     case "informacion":
 
@@ -62,6 +86,22 @@ public recibir(elemento: any) {
       this.activado[2].disabled = false;
       this.activado[1].form = false;
       break;
+    case "domicilioSede":
+
+      this.guardarDom = true;
+        break;
+    case "domicilioCont":
+
+      this.continuarDom = true;
+        break;
+    case "bancosCont":
+
+      this.continuarBancos = true;
+    break;
+    case "cuentasBancarias":
+
+      this.cuentaBanco = true;
+    break;
     case "datosbancarios":
 
       this.activado[3].tab = true;
@@ -69,33 +109,44 @@ public recibir(elemento: any) {
       this.activado[3].disabled = false;
       this.activado[2].form = false;
       break;
-    case "datosimss":
-
-      this.activado[4].tab = true;
-      this.activado[4].form = true;
-      this.activado[4].disabled = false;
-      this.activado[3].form = false;
-      break;
   }
 
 }
 
   public recibirAlerta(obj: any) {
 
-    debugger;
+     
     this.cambiaValor = !this.cambiaValor;
-    
+     
 
     this.alerta.modal = false;
     this.enviarPeticion.enviarPeticion = false;
     
 
     if (this.alerta.iconType === "warning") {
-      
-      if (obj) {
+
+      if(this.continuarDom && obj){
         
-        this.enviarPeticion.enviarPeticion = true;
+        this.recibir({ type: "domicilio", valor: true });
+        this.continuarDom = false;
+
+
       }
+      if(this.continuarBancos && obj){
+        
+        this.recibir({ type: "datosbancarios", valor: true });
+        this.continuarDom = false;
+        this.continuarBancos= false;
+
+
+      }
+      else{
+        if (obj) {
+        
+          this.enviarPeticion.enviarPeticion = true;
+        }
+      }
+      
 
 
     } else {
@@ -110,12 +161,18 @@ public recibir(elemento: any) {
           }
         }
 
-      
+        if(indexSeleccionado==1 && this.guardarDom){
+           indexSeleccionado=3;
+        }
+
+        if(indexSeleccionado==2 && this.cuentaBanco){
+          indexSeleccionado=3;
+       }
 
         switch (indexSeleccionado) {
           case 0:
             this.recibir({ type: "informacion", valor: true });
-            this.ocultarempleada = true;
+
             break;
           case 1:
             this.recibir({ type: "domicilio", valor: true });
@@ -124,12 +181,12 @@ public recibir(elemento: any) {
             this.recibir({ type: "datosbancarios", valor: true });
             break;
           case 3:
-            this.recibir({ type: "datosimss", valor: true });
-            break;
-            case 4:
-              alert("Termina la petición de empresas")
-            break;
+            this.guardarDom = false;
+            this.cuentaBanco = false;
+          break;
+
         }
+      
 
       }
     }
@@ -138,9 +195,8 @@ public recibir(elemento: any) {
 
   public recibiendoUserInsertado(evento:any){
 
-    console.log("recibiendo el id empresa insertado",evento);
-
     this.datosempresa = evento;
+    this.datosempresamod = evento;
 
   }
 
