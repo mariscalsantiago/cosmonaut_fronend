@@ -6,7 +6,7 @@
 
               <div class="input-group-sm mb-3 col-4">
                 <label>Registro patronal *</label>
-                <input formControlName="registroPatronal" type="text" class="form-control"  [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado}" placeholder="">
+                <input formControlName="registroPatronal" maxlength="11" type="text" class="form-control"  [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado}" placeholder="">
                 <div *ngIf="f.registroPatronal.errors " class="invalid-feedback">
                   Registro patronal es obligatorio
                 </div>
