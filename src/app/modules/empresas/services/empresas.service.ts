@@ -17,9 +17,9 @@ export class EmpresasService {
 
   }
 
-   public getAllEmp():Observable<any>{
+   public getAllEmp(idEmpresA:number):Observable<any>{
     
-    return this.http.get(`${this.url}/lista/compania/empresa/112`);
+    return this.http.get(`${this.url}/lista/compania/empresa/${idEmpresA}`);
 
   }
   public getAllRep(id_company:number):Observable<any>{

@@ -67,7 +67,7 @@ export class GruponominasService {
   public getGroupNominaEmpleado(indice:number):Observable<any>{
 
 
-    return this.http.get(`${direcciones.colaboradorGrupoNomina}/lista/id/grupoNomina/`+indice);
+    return this.http.get(`${direcciones.contratoColaborador}/obtener/grupoNomina/id/`+indice);
 
   }
 }

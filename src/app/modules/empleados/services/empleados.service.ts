@@ -9,11 +9,11 @@ import { direcciones } from 'src/assets/direcciones';
 })
 export class EmpleadosService {
 
-  
 
-  constructor(private http:HttpClient) { }
 
-  public save(obj:any):Observable<any>{
+  constructor(private http: HttpClient) { }
+
+  public save(obj: any): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -26,33 +26,41 @@ export class EmpleadosService {
 
     console.log(json);
 
-    return this.http.put(`${direcciones.usuarios}/guardar/empleado`,json,httpOptions);
+    return this.http.put(`${direcciones.usuarios}/guardar/empleado`, json, httpOptions);
 
   }
 
-  public getEmpleadosCompania(idCompania:number):Observable<any>{
+  public getEmpleadosCompania(idCompania: number): Observable<any> {
+
+
+    return this.http.get(`${direcciones.contratoColaborador}/obtener/empresa/id/${idCompania}`);
+
+  }
+
+
+  public getEmpleadoById(idEmpleado: number): Observable<any> {
+    return this.http.get(`${direcciones.usuarios}/obtener/id/${idEmpleado}`);
+  }
+
+
+  public update(obj: any): Observable<any> {
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    let obj = {
-  
-      centrocClienteId:{
-         "centrocClienteId":idCompania
-      },
-      "tipoPersonaId":{
-         "tipoPersonaId":5
-      }
-   }
 
+    let json = JSON.stringify(obj);
 
-   let json = JSON.stringify(obj);
-   console.log(`${direcciones.usuarios}/lista/dinamica`,json);
+    console.log("json enviado",json);
 
-   return this.http.post(`${direcciones.usuarios}/lista/dinamica`,json,httpOptions);
-
+    return this.http.post(`${direcciones.usuarios}/modificar/empleado`, json, httpOptions);
   }
+
+
+
+
 
 
 }

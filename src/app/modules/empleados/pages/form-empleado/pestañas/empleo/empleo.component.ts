@@ -161,51 +161,33 @@ export class EmpleoComponent implements OnInit {
       let obj = this.myForm.value;
 
       let objEnviar = {
-        areaId:{
-            areaId:obj.areaId
-        },
-        puestoId:{
-            puestoId:obj.puestoId
-        },
-        politicaId:{
-            politicaId:obj.politicaId
-        },
+        areaId:{areaId:obj.areaId},
+        puestoId:{puestoId:obj.puestoId},
+        politicaId:{politicaId:obj.politicaId},
         numEmpleado:obj.personaId,
         fechaAntiguedad:obj.fechaAntiguedad,
-        tipoContratoId:{
-            tipoContratoId:obj.tipoContratoId
-        },
+        tipoContratoId:{tipoContratoId:obj.tipoContratoId},
         fechaInicio:obj.fechaInicio,
         fechaFin:obj.fechaFin,
-        areaGeograficaId:{
-            areaGeograficaId:obj.areaGeograficaId
-        },
-        grupoNominaId:{
-            grupoNominaId:obj.grupoNominaId
-        },
-        tipoCompensacionId:{
-            tipoCompensacionId:obj.tipoCompensacionId
-        },
-        tipoRegimenContratacionId:{
-            tipoRegimenContratacionId:obj.tipoRegimenContratacionId
-        },
+        areaGeograficaId:{areaGeograficaId:obj.areaGeograficaId},
+        grupoNominaId:{grupoNominaId:obj.grupoNominaId},
+        tipoCompensacionId:{tipoCompensacionId:obj.tipoCompensacionId},
+        tipoRegimenContratacionId:{tipoRegimenContratacionId:obj.tipoRegimenContratacionId},
         sueldoBrutoMensual:obj.sueldoBrutoMensual,
         salarioDiario:obj.salarioDiario,
-        jornadaId:{
-            jornadaId:obj.jornadaId
-        },
-        personaId:{
-            personaId:this.datosPersona.personaId
-        },
-        centrocClienteId:{
-            centrocClienteId:this.id_empresa
-        },
-        estadoId:{
-            estadoId:obj.estadoId
-        },
+        jornadaId:{jornadaId:obj.jornadaId},
+        personaId:{personaId:this.datosPersona.personaId},
+        centrocClienteId:{centrocClienteId:this.id_empresa},
+        estadoId:{estadoId:obj.estadoId},
         esSubcontratado:obj.esSubcontratado==null?false:obj.esSubcontratado,
         sbc:obj.salarioDiario,
-        "tipoJornadaId":"01"
+        "tipoJornadaId":"01",
+        sedeId:{sedeId:obj.sedeId},
+        esSindicalizado:obj.esSindicalizado,
+        diasVacaciones:obj.dias_vacaciones,
+        metodoPagoId:{metodoPagoId:obj.metodo_pago_id},
+        porcentaje:obj.suPorcentaje,
+        subcontratistaId:{subcontratistaId:obj.subcontratistaId}
     }
 
       this.colaboradorPrd.save(objEnviar).subscribe(datos => {

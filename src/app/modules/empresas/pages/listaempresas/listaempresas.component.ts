@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpresasService } from '../../services/empresas.service';
 
 @Component({
@@ -30,7 +31,8 @@ export class ListaEmpresasComponent implements OnInit {
     this.tamanio = event.target.innerWidth;
   }
 
-  constructor(private routerPrd: Router, private empresasProd: EmpresasService) { }
+  constructor(private routerPrd: Router, private empresasProd: EmpresasService,
+    private usuarioSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
     let documento:any = document.defaultView;
@@ -41,7 +43,7 @@ export class ListaEmpresasComponent implements OnInit {
 
     
 
-    this.empresasProd.getAllEmp().subscribe(datos => {
+    this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
       this.arreglo = datos.datos;
 

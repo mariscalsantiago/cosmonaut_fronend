@@ -20,9 +20,15 @@ export class ContratocolaboradorService {
 
 
     let json = JSON.stringify(obj);
-    console.log("json enviado");
-    console.log(json);
     return this.http.put(`${direcciones.contratoColaborador}/guardar`,json,httpOptions);
+
+  }
+
+
+  public getContratoColaboradorById(idEmpleado:number):Observable<any>{
+
+    return this.http.get(`${direcciones.contratoColaborador}/obtener/persona/id/${idEmpleado}`);
+
 
   }
 }
