@@ -15,7 +15,6 @@ export class SubirarchivoComponent implements OnInit {
   public imagen!:File;
   public buffer:any ;
 
-  @Input() public externo!:string;
 
   constructor(private sanitizer:DomSanitizer) { }
   sanitize( url:string ) {

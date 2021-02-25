@@ -34,7 +34,7 @@
                 </div>
                   <div class="input-group-sm mb-3 col-6">
                     <label>RFC *</label>
-                    <input formControlName="rfc" type="text" class="form-control"  [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}" placeholder="">
+                    <input formControlName="rfc" maxlength="13" type="text" class="form-control"  [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.rfc.errors " class="invalid-feedback">
                         RFC es obligatorio
                     </div>
@@ -42,7 +42,7 @@
       
                   <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                     <label>CURP de la razón social *</label>
-                    <input formControlName="curp" type="text" class="form-control"  [ngClass]="{'is-invalid':f.curp.errors && submitEnviado}" placeholder="">
+                    <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':f.curp.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.curp.errors " class="invalid-feedback">
                       CURP de la razón social es obligatorio
                     </div>

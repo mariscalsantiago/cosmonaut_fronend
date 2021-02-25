@@ -68,6 +68,7 @@ export class ListascuentasbancariasComponent implements OnInit {
       this.cuentasPrd.getCuentaBancariaByEmpresa(this.id_empresa).subscribe(peticion => {
         this.cargando = false;
         this.arreglo = peticion.datos;
+        console.log(this.arreglo);
       });
 
 

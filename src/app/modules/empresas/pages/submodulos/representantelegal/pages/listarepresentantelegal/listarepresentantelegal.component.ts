@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { UsuariocontactorrhService } from '../../../contactosRRH/pages/services/usuariocontactorrh.service';
 import { RepresentanteLegalService } from '../services/representantelegal.service';
 
 @Component({
@@ -47,7 +48,8 @@ export class ListarepresentantelegalComponent implements OnInit {
 
   public arreglo:any = [];
 
-  constructor(private routerPrd:Router,private representanteProd:RepresentanteLegalService,private CanRouterPrd:ActivatedRoute) { }
+  constructor(private routerPrd:Router,private representanteProd:RepresentanteLegalService,private CanRouterPrd:ActivatedRoute,
+    private usuariosPrd:UsuariocontactorrhService) { }
 
   ngOnInit(): void {
     let documento:any = document.defaultView;
@@ -57,25 +59,39 @@ export class ListarepresentantelegalComponent implements OnInit {
     this.cargando = true;
 
     this.CanRouterPrd.params.subscribe(datos =>{
-      debugger;
-      this.id_empresa = datos["id"]
-      this.representanteProd.getAllUsersRep(this.id_empresa).subscribe(datos => {
-      this.arreglo = datos.datos;
+      this.id_empresa = datos["id"];
+      let peticion = {
+        centrocClienteId: {
+          centrocClienteId: this.id_empresa
+        },
+        tipoPersonaId: {
+          tipoPersonaId: 1
+        }
+      }
 
-      let columnas:Array<tabla> = [
-        new tabla("personaId","ID",true),
-        new tabla("nombre","Nombre"),
-        new tabla("apellidoPaterno","Apellido Paterno"),
-        new tabla("apellidoMaterno","Apellido Materno"),
-        new tabla("curp","CURP"),
-        new tabla("emailCorporativo","Correo Empresarial"),
-        new tabla("fechaAlta","Fecha de registro"),
-        new tabla("activo","Estatus")
-      ]
-      this.arreglotabla.columnas = columnas;
-      this.arreglotabla.filas = this.arreglo;
-      this.cargando = false;
-    });
+      
+
+
+      this.usuariosPrd.filtrar(peticion).subscribe(datos => {
+        this.arreglo = datos.datos;
+
+        let columnas:Array<tabla> = [
+          new tabla("personaId","ID",true),
+          new tabla("nombre","Nombre"),
+          new tabla("apellidoPaterno","Apellido Paterno"),
+          new tabla("apellidoMaterno","Apellido Materno"),
+          new tabla("curp","CURP"),
+          new tabla("emailCorporativo","Correo Empresarial"),
+          new tabla("fechaAlta","Fecha de registro"),
+          new tabla("activo","Estatus")
+        ]
+        this.arreglotabla.columnas = columnas;
+        this.arreglotabla.filas = this.arreglo;
+        this.cargando = false;
+        this.cargando = false;
+      });
+
+  
 
     });
 
