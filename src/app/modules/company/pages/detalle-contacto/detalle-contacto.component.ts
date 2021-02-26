@@ -176,6 +176,10 @@ export class DetalleContactoComponent implements OnInit {
     }
   }
 
+  public regresarPantallaPrincipal(){
+    this.routerPrd.navigate(['company','detalle_company','modifica'],{state:{datos:this.datosEmpresa}});
+  }
+
 
 
   get f() { return this.myFormcont.controls;  }

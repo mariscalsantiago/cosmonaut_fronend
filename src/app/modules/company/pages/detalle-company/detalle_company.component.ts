@@ -49,6 +49,8 @@ export class DetalleCompanyComponent implements OnInit {
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.compania = true;
 
+    console.log("mi compañia",this.objCompany);
+
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       if (!this.insertar) {
@@ -170,9 +172,13 @@ export class DetalleCompanyComponent implements OnInit {
         let obj = this.myFormcomp.value;
         obj = {
           ...obj,
-          imagen: this.imagen
+          imagen: this.imagen  
         };
 
+        
+
+
+        console.log("Este es el obj que mando",obj);
 
 
         if (this.insertar) {
