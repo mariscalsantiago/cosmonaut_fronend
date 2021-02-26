@@ -76,12 +76,12 @@ export class ListarepresentantelegalComponent implements OnInit {
         this.arreglo = datos.datos;
 
         let columnas:Array<tabla> = [
-          new tabla("personaId","ID",true),
+          new tabla("personaId","ID"),
           new tabla("nombre","Nombre"),
-          new tabla("apellidoPaterno","Apellido Paterno"),
-          new tabla("apellidoMaterno","Apellido Materno"),
+          new tabla("apellidoPaterno","Apellido paterno"),
+          new tabla("apellidoMaterno","Apellido materno"),
           new tabla("curp","CURP"),
-          new tabla("emailCorporativo","Correo Empresarial"),
+          new tabla("emailCorporativo","Correo empresarial"),
           new tabla("fechaAlta","Fecha de registro"),
           new tabla("activo","Estatus")
         ]
@@ -133,10 +133,10 @@ export class ListarepresentantelegalComponent implements OnInit {
       let columnas:Array<tabla> = [
         new tabla("personaId","ID",true),
         new tabla("nombre","Nombre"),
-        new tabla("apellidoPaterno","Apellido Paterno"),
-        new tabla("apellidoMaterno","Apellido Materno"),
+        new tabla("apellidoPaterno","Apellido paterno"),
+        new tabla("apellidoMaterno","Apellido materno"),
         new tabla("curp","CURP"),
-        new tabla("emailCorporativo","Correo Empresarial"),
+        new tabla("emailCorporativo","Correo empresarial"),
         new tabla("fechaAlta","Fecha de registro"),
         new tabla("activo","Estatus")
       ];

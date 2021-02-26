@@ -92,10 +92,6 @@ export class DetalleUsuarioComponent implements OnInit {
   public createForm(obj: any) {
 
 
-
-
-    console.log("construir esto", obj);
-
     return this.formBuilder.group({
 
 

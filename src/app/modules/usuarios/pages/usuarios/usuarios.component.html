@@ -40,10 +40,10 @@
                   <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre">
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <input type="text" [(ngModel)]="apellidoPat" class="form-control" placeholder="Apellido Paterno">
+                  <input type="text" [(ngModel)]="apellidoPat" class="form-control" placeholder="Apellido paterno">
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
-                  <input type="text" [(ngModel)]="apellidoMat" class="form-control" placeholder="Apellido Materno">
+                  <input type="text" [(ngModel)]="apellidoMat" class="form-control" placeholder="Apellido materno">
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                   <input type="Date" [(ngModel)]="fechaRegistro" class="form-control" placeholder="Fecha de registro">
@@ -55,7 +55,7 @@
                   </select>
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <input type="email" [(ngModel)]="correoempresarial" class="form-control text-lowercase" placeholder="Correo Empresarial">
+                  <input type="email" [(ngModel)]="correoempresarial" class="form-control text-lowercase" placeholder="Correo empresarial">
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
                   <select class="form-control" [(ngModel)]="activo">
@@ -132,10 +132,10 @@
           <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
           <th scope="col">ID</th>
           <th scope="col">Nombre</th>
-          <th scope="col" *ngIf="tamanio >=600">Apellido Paterno</th>
-          <th scope="col" *ngIf="tamanio >=600">Apellido Materno</th>
+          <th scope="col" *ngIf="tamanio >=600">Apellido paterno</th>
+          <th scope="col" *ngIf="tamanio >=600">Apellido materno</th>
           <th scope="col" *ngIf="tamanio >=600">Centro de costos</th>
-          <th scope="col" *ngIf="tamanio >=600">Correo Empresarial</th>
+          <th scope="col" *ngIf="tamanio >=600">Correo empresarial</th>
           <th scope="col" *ngIf="tamanio >=600">Fecha de registro</th>
           <th scope="col" *ngIf="tamanio >=600">Activo</th>
           <th scope="col " *ngIf="!multiseleccion">Opciones</th>

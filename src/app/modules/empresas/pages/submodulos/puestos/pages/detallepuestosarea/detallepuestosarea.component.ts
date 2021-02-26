@@ -162,7 +162,7 @@ export class DetallepuestosareaComponent implements OnInit {
     }
 
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el puesto" : "¿Deseas actualizar los datos del puesto?";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar el puesto?" : "¿Deseas actualizar los datos del puesto?";
     this.modal = true;
   }
 

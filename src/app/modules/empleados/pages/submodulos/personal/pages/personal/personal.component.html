@@ -17,7 +17,7 @@
                     </article>
                 </article>
                 <article class="titulo   col">
-                    Apellido Paterno
+                    Apellido paterno
                     <article *ngIf="!editarcampos">{{empleado.apellidoPaterno}}</article>
                     <article *ngIf="editarcampos">
                         <input [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
@@ -29,7 +29,7 @@
                     </article>
                 </article>
                 <article class="titulo   col">
-                    Apellido Materno
+                    Apellido materno
                     <article *ngIf="!editarcampos">{{empleado.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
                         <input formControlName="apellidoMaterno" type="text" name=""  id=""
@@ -130,7 +130,7 @@
             </div>
             <div class="row mb-2">
                 <article class="titulo col">
-                  Correo Personal
+                  Correo personal
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoInicialEmailPersonal}}
                     </article>
@@ -144,14 +144,14 @@
                         </div>
                         <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched"
                             class="invalid-feedback">
-                            Correo Personal inválido
+                            Correo personal inválido
                         </div>
                     </article>
                 </article>
             </div>
             <div class="row ">
                 <article class="titulo col">
-                  Correo Empresarial
+                  Correo empresarial
                     <article *ngIf="!editarcampos">
                         {{empleado.emailCorporativo}}
                     </article>
@@ -161,7 +161,7 @@
                         <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched"
                             [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}"
                             class="invalid-feedback">
-                          Correo Empresarial inválido
+                          Correo empresarial inválido
                         </div>
                     </article>
                 </article>
@@ -274,7 +274,7 @@
                     </article>
                 </article>
                 <article *ngIf="editarcampos" class="titulo col">
-                    Apellido Paterno
+                    Apellido paterno
                     <article>
                         <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name=""
                             [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"
@@ -286,7 +286,7 @@
                     </article>
                 </article>
                 <article *ngIf="editarcampos" class="titulo col">
-                    Apellido Materno
+                    Apellido materno
                     <article>
                         <input formControlName="contactoEmergenciaApellidoMaterno" type="text" name=""
                             class="form-control">

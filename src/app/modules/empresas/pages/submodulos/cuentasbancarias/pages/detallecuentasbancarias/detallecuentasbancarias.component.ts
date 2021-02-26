@@ -40,7 +40,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
     });
 
 
-    let obj = { csBanco: { bancoId: 0 } };
+    let obj = { bancoId: { bancoId: 0 } };
 
     if (!this.esInsert) {//Solo cuando es modificar
       obj = history.state.data;
@@ -72,10 +72,10 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
       numeroCuenta: [obj.numeroCuenta, [Validators.required]],
       nombreCuenta: [obj.nombreCuenta, [Validators.required]],
-      idbanco: [obj.csBanco.bancoId, [Validators.required]],
+      idbanco: [obj.bancoId.bancoId, [Validators.required]],
       descripcion: [obj.descripcion],
       num_informacion: [obj.numInformacion],
-      clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
+      clabe: [{value:obj.clabe,disabled:!this.esInsert}, [Validators.required, Validators.pattern(/^\d{18}$/)]],
       num_sucursal: [obj.numSucursal]
 
     });

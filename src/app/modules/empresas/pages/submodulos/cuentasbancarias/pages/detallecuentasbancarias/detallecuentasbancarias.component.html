@@ -11,8 +11,8 @@
   <input type="hidden">
 
   <div class="background-panel margen">
-    <div class="form-group row margen">
-      <label class="titulo">Campos a rellenar</label>
+    <div class="form-group row margen mt-3">
+      <label class="titulo">INFORMACIÓN DE LA CUENTA</label>
     </div>
     <div class="form-group row margen">
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
@@ -24,12 +24,15 @@
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
-        <label>Número de Cuenta * <i (click)="mostrartooltip = !mostrartooltip"
-            class="fas fa-question-circle primary cursorhand " data-toggle="tooltip" data-placement="top"
-            title="Dar click para información"></i>
+        <label>Número de cuenta * 
           <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No
             tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a><i class="far fa-times-circle"></i>
           </div>
+
+          <!-- <i (click)="mostrartooltip = !mostrartooltip"
+            class="fas fa-question-circle primary cursorhand " data-toggle="tooltip" data-placement="top"
+            title="Dar click para información"></i> -->
+
         </label>
         <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="10" class="form-control"
           [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitInvalido}" placeholder="">
@@ -58,7 +61,7 @@
         <input formControlName="num_informacion" type="text" class="form-control" placeholder="">
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Cuenta CLABE</label>
+        <label>Cuenta CLABE *</label>
         <input maxlength="18" appSolonumeros formControlName="clabe" type="text" class="form-control"
           [ngClass]="{'is-invalid':(submitInvalido && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
           placeholder="">
@@ -70,7 +73,7 @@
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>No. Sucursal</label>
+        <label>Número de sucursal</label>
         <input appSolonumeros formControlName="num_sucursal" type="text" class="form-control" placeholder="">
       </div>
     </div>

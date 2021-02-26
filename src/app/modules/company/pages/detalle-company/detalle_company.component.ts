@@ -122,11 +122,14 @@ export class DetalleCompanyComponent implements OnInit {
       let columnas: Array<tabla> = [
         new tabla("personaId", "ID contacto"),
         new tabla("nombre", "Nombre contacto"),
-        new tabla("emailCorporativo", "Correo Empresarial"),
+        new tabla("emailCorporativo", "Correo empresarial"),
         new tabla("contactoInicialTelefono", "Teléfono"),
         new tabla("fechaAlta", "Fecha registro")
       ]
 
+
+
+      
 
 
       if (this.arreglo !== undefined)

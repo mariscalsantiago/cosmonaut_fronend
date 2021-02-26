@@ -22,14 +22,14 @@
                   </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Apellido Paterno *</label>
+                <label>Apellido paterno *</label>
                 <input formControlName="apellidoPat" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPat.errors && subbmitActive}"  placeholder="">
                 <div *ngIf="f.apellidoPat.errors && subbmitActive" class="invalid-feedback">
                   Campo requerido
                   </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Apellido Materno</label>
+                <label>Apellido materno</label>
                 <input formControlName="apellidoMat"  type="text" class="form-control"  placeholder="">
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
@@ -50,17 +50,17 @@
                   Campo requerido
                 </div>
                 <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
-                  Error en el correo empresarial, favor de verificar.
+                  Error en el Correo empresarial, favor de verificar.
                 </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Correo Personal</label>
+                <label>Correo personal</label>
                 <input formControlName="ciEmailPersonal"  type="text" class="form-control" [ngClass]="{'is-invalid':(f.ciEmailPersonal.errors?.required && subbmitActive) || (f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched)}"  placeholder="">
                 <div *ngIf="f.ciEmailPersonal.errors?.required && subbmitActive" class="invalid-feedback">
                   Campo requerido
                 </div>
                 <div *ngIf="f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched" class="invalid-feedback">
-                  Error en el correo personal, favor de verificar.
+                  Error en el Correo personal, favor de verificar.
                 </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">

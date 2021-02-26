@@ -6,7 +6,7 @@
 
   <div class="background-panel margen">
     <div class="form-group row margen">
-      <label class="titulo">Campos a rellenar</label>
+      <label class="titulo">INFORMACIÓN DE GRUPOS DE NÓMINA</label>
     </div>
     <div class="form-group row margen">
 
@@ -98,7 +98,7 @@
       </div>
       <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Calcular subsidio al empleo de manera :</label><br>
-        Periodica<input [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" value="periodica" formControlName="maneraCalcularSubsidio" type="radio" name="maneraCalcularSubsidio" id="">
+        Periódica<input [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" value="periodica" formControlName="maneraCalcularSubsidio" type="radio" name="maneraCalcularSubsidio" id="">
         Diaria<input [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" value="diaria" formControlName="maneraCalcularSubsidio" type="radio" name="maneraCalcularSubsidio" id="">
         <div *ngIf="submitInvalido && f.maneraCalcularSubsidio.errors" class="invalid-feedback">
           Campo requerido

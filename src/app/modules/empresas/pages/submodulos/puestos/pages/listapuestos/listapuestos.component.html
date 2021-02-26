@@ -121,7 +121,7 @@
       <tr>
         <th scope="col">Nombre</th>
         <th scope="col" *ngIf="tamanio >=600">Empresa</th>
-        <th scope="col" *ngIf="tamanio >=600">Número de Empleados</th>
+        <th scope="col" *ngIf="tamanio >=600">Número de empleados</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
@@ -155,4 +155,4 @@
 
 
 
-<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"  (eventoFunciones)="recibir($event)"></app-alert-questions>

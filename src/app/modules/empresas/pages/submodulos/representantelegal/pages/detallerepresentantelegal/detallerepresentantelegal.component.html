@@ -18,7 +18,7 @@
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Apellido Paterno *</label>
+              <label >Apellido paterno *</label>
               <input formControlName="apellidoPaterno" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
                   placeholder="">
                   <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
@@ -54,19 +54,19 @@
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Correo Empresarial *</label>
+              <label >Correo empresarial *</label>
               <input formControlName="emailCorporativo" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched)}"
                   placeholder="">
                   <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
                     Campo requerido
                     </div>
                     <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
-                      Correo Empresarial inválido, Favor de verificar
+                      Correo empresarial inválido, Favor de verificar
                     </div>
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Correo Personal *</label>
+              <label >Correo personal *</label>
               <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase"  [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
                   placeholder="">
 
@@ -74,7 +74,7 @@
                       Campo requerido
                     </div>
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
-                      Correo Personal inválido, Favor de verificar
+                      Correo personal inválido, Favor de verificar
                     </div>
 
           </div>
@@ -98,18 +98,18 @@
 
         <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
           <label for="exampleFormControlSelect1">Estado de representante *</label>
-          <select formControlName="activo" class="form-control">
+          <select  formControlName="activo" class="form-control">
             <option value="true" selected>ACTIVO</option>
             <option value="false">INACTIVO</option>
           </select>
       </div>
 
-      <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+      <!-- <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
         <label >Firma</label>
         <input formControlName="firma" type="text" class="form-control" id="firma" aria-describedby="firma"
             placeholder="">
 
-      </div>
+      </div> -->
 
         </div>
 

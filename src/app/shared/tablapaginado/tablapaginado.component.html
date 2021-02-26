@@ -28,7 +28,7 @@
               <img *ngIf="item.url" width="45px" height="45px"
                 [src]="item.url" class="tableimg">
                 <img *ngIf="item.url == undefined" width="45px" height="45px"
-                src="../../../assets/imgs/logo2.png" class="tableimg">
+                src="../../../assets/imgs/empresa_01.png" class="tableimg">
             </td>
             <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url'}"  (click)="eventoclick(item2,item)">{{(item2.nombre == 'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}</td>
             <td class="opciones">

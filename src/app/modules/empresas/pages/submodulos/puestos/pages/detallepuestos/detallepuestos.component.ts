@@ -197,7 +197,7 @@ export class DetallepuestosComponent implements OnInit {
 
 
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el área" : "¿Deseas actualizar los datos del área?";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar el área?" : "¿Deseas actualizar los datos del área?";
     this.modal = true;
   }
 

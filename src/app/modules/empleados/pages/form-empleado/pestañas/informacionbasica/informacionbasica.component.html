@@ -87,14 +87,14 @@
                         Campo requerido
                     </div>
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
-                        Correo Personal inválido
+                        Correo personal inválido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12">
-                    <label >Correo Empresarial</label>
+                    <label >Correo empresarial</label>
                     <input formControlName="emailCorporativo" type="text" class="form-control" name="" >
                     <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" class="invalid-feedback">
-                        correo empresarial inválido
+                        Correo empresarial inválido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12">

@@ -16,7 +16,6 @@ export class ListascuentasbancariasComponent implements OnInit {
 
 
   public strTitulo: string = "";
-  public strsubtitulo: string = "";
   public modal: boolean = false;
   public iconType: string = "";
 
@@ -94,8 +93,7 @@ export class ListascuentasbancariasComponent implements OnInit {
   public eliminar(obj: any) {
 
 
-    this.strTitulo = "¿Deseas eliminar la cuenta?";
-    this.strsubtitulo = "Se eliminará la cuenta de banco";
+    this.strTitulo = "¿Deseas eliminar la cuenta bancaria?";
     this.iconType = "warning";
     this.modal = true;
 
@@ -120,7 +118,6 @@ export class ListascuentasbancariasComponent implements OnInit {
       if ($event) {
         this.cuentasPrd.eliminar(objenviar).subscribe(datos => {
           this.strTitulo = datos.mensaje;
-          this.strsubtitulo = "";
           this.iconType = datos.resultado ? "success" : "error";
           this.modal = true;
         });

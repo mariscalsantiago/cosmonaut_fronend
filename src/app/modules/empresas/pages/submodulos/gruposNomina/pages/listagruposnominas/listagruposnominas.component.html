@@ -14,7 +14,7 @@
                 aria-expanded="true" aria-controls="collapseOne">
                 <label class="titulo" style="    width: 80%;
                 float: left;
-                text-align: left;">GRUPO DE NÓMINAS</label>
+                text-align: left;">GRUPOS DE NÓMINA</label>
                 <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
                   class="fas fa-chevron-up "></i>
@@ -40,11 +40,7 @@
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                   <input list="browsers" placeholder="Filtrar por" class="form-control" name="browser">
                   <datalist id="browsers">
-                    <option value="Internet Explorer">
-                    <option value="Firefox">
-                    <option value="Chrome">
-                    <option value="Opera">
-                    <option value="Safari">
+                    <option value="Consumir servicio">
                   </datalist>
                 </div>
                 <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
@@ -130,7 +126,7 @@
   <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
     <thead>
       <tr>
-        <th scope="col">Nombre de grupo de nomina</th>
+        <th scope="col">Nombre de grupo de nómina</th>
         <th scope="col">Razón social</th>
         <th scope="col">Período de nómina</th>
         <th scope="col">Número de empleados</th>
@@ -228,7 +224,7 @@
 
     </tbody>
   </table>
-  <div *ngIf="!cargando && arreglo === undefined" class="alert alert-warning col text-center">
+  <div *ngIf="!cargando && arreglo === undefined" class="alert  col text-center">
     <strong>Sin grupos de nomina</strong> La tabla de grupos de nomina esta vacía.
   </div>
   <div *ngIf="cargando" class="col text-center mb-5">
