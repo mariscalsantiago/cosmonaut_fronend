@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from '../../services/company.service';
@@ -10,6 +10,7 @@ import { CompanyService } from '../../services/company.service';
   styleUrls: ['./detalle-contacto.component.scss']
 })
 export class DetalleContactoComponent implements OnInit {
+  @ViewChild("nombre") public nombre!:ElementRef;
 
   public myFormcont!: FormGroup;
   public arreglo:any = [];
@@ -61,6 +62,13 @@ export class DetalleContactoComponent implements OnInit {
   }
 
 
+  ngAfterViewInit(): void{
+
+    this.nombre.nativeElement.focus();
+
+  }
+
+
   public createFormcont(obj: any) {
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
@@ -81,6 +89,7 @@ export class DetalleContactoComponent implements OnInit {
   public enviarPeticioncont() {
 
     this.submitEnviado = true;
+    console.log(this.myFormcont.value);
 
     if(this.myFormcont.invalid){
       this.iconType = "error";

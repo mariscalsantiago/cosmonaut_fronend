@@ -9,7 +9,7 @@
                     <label>Nombre*</label>
                     <input formControlName="nombre" type="text" class="form-control"  [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.nombre.errors " class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
     
     
@@ -19,14 +19,14 @@
                     <label>Apellido paterno*</label>
                     <input formControlName="apellidoPaterno" type="text" class="form-control"  [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
     
     
                 </div>
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
                     <label>Apellido materno</label>
-                    <input formControlName="apellidoMaterno" type="email" class="form-control"  placeholder="">   
+                    <input formControlName="apellidoMaterno" type="email" class="form-control text-lowercase"  placeholder="">   
                 </div>
               
             </div>
@@ -56,7 +56,7 @@
                     <label >CURP *</label>
                     <input [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
                     <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                     <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
                         CURP inválido, favor de verificar
@@ -67,7 +67,7 @@
                     <label >RFC *</label>
                     <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" type="text" class="form-control" name="" >
                     <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                     <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
                         RFC inválido, favor de verificar
@@ -84,7 +84,7 @@
                     <label >Correo personal*</label>
                     <input formControlName="contactoInicialEmailPersonal" type="text" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" class="form-control" name="" >
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                         Correo Personal inválido
@@ -94,7 +94,7 @@
                     <label >Correo Empresarial</label>
                     <input formControlName="emailCorporativo" type="text" class="form-control" name="" >
                     <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" class="invalid-feedback">
-                        Correo Corporativo inválido
+                        correo empresarial inválido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12">
@@ -117,7 +117,7 @@
                         <option *ngFor="let item of arreglonacionalidad"  [value]="item.nacionalidadId">{{item.descripcion}}</option>
                     </select>  
                     <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -131,9 +131,9 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Teléfono</label>
-                    <input formControlName="contactoInicialTelefono" type="text" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
+                    <input appSolonumeros formControlName="contactoInicialTelefono" type="text" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
                     <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -166,14 +166,14 @@
                     <label >Nombre*</label>
                     <input formControlName="contactoEmergenciaNombre" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaNombre.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Apellido paterno*</label>
                     <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">

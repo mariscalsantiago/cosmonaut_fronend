@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatosempresaService } from 'src/app/modules/empresas/services/datosempresa/datosempresa.service';
@@ -10,6 +10,7 @@ import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.se
   styleUrls: ['./informacionempresa.component.scss']
 })
 export class InformacionempresaComponent implements OnInit {
+  @ViewChild("nombre") public nombre!:ElementRef;
 
   @Output() enviado = new EventEmitter();
   @Output() enviandouser = new EventEmitter();
@@ -33,7 +34,7 @@ export class InformacionempresaComponent implements OnInit {
     private empresaPrd: DatosempresaService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    debugger;
+    
     let obj = this.datosempresamod.datosempresaObj
     if(this.datosempresa.insertar){
       obj = {
@@ -48,11 +49,18 @@ export class InformacionempresaComponent implements OnInit {
 
   }
 
+
+  ngAfterViewInit(): void{
+
+    this.nombre.nativeElement.focus();
+
+  }
+
   public recibirImagen(imagen:any){
     this.imagen = imagen;
   }
   public createForm(obj: any) {
-    debugger;
+    
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial,[Validators.required]],
@@ -104,7 +112,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-     debugger;
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;
@@ -147,7 +155,7 @@ export class InformacionempresaComponent implements OnInit {
       });
 
     }else{
-        debugger;
+        
 
         objenviar.centrocClienteId = obj.centrocClienteId;
 

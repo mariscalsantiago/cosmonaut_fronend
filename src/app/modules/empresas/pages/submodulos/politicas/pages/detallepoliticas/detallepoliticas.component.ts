@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoliticasService } from '../services/politicas.service';
@@ -9,22 +9,22 @@ import { PoliticasService } from '../services/politicas.service';
   styleUrls: ['./detallepoliticas.component.scss']
 })
 export class DetallepoliticasComponent implements OnInit {
+  @ViewChild("nombre") public nombre!:ElementRef;
   public myFormpol!: FormGroup;
-  public arreglo:any = [];
+  public arreglo: any = [];
   public modal: boolean = false;
   public insertar: boolean = false;
-  public iconType:string = "";
+  public iconType: string = "";
   public strTitulo: string = "";
-  public strsubtitulo:string = "";
-  public cargando:Boolean = false;
- 
-  public submitInvalido:boolean = false;
-  public esInsert:boolean = false;
-  public id_empresa:number = 0;
+  public cargando: Boolean = false;
+
+  public submitEnviado: boolean = false;
+  public esInsert: boolean = false;
+  public id_empresa: number = 0;
 
   constructor(private formBuilder: FormBuilder, private politicasPrd: PoliticasService, private routerActivePrd: ActivatedRoute,
-    private routerPrd:Router) {
-    debugger;
+    private routerPrd: Router) {
+    
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       this.id_empresa = datos["id"]
@@ -32,11 +32,16 @@ export class DetallepoliticasComponent implements OnInit {
 
 
   }
-    
+
   ngOnInit(): void {
-    debugger;
-    let objdetrep = history.state.data == undefined ? {} : history.state.data ;
+    
+    let objdetrep = history.state.data == undefined ? {} : history.state.data;
     this.myFormpol = this.createFormrep((objdetrep));
+
+  }
+  ngAfterViewInit(): void{
+
+    this.nombre.nativeElement.focus();
 
   }
 
@@ -51,7 +56,8 @@ export class DetallepoliticasComponent implements OnInit {
       descuentaIncapacidades: [obj.descuentaIncapacidades],
       costoValesRestaurante: [obj.costoValesRestaurante],
       descuentoPropDia: [obj.descuentoPropDia],
-      politicaId: obj.politicaId
+      politicaId: obj.politicaId,
+      calculoAntiguedadx:[obj.calculoAntiguedadx]
 
     });
   }
@@ -60,31 +66,42 @@ export class DetallepoliticasComponent implements OnInit {
 
 
   public enviarPeticion() {
-    debugger;
+
+
+    this.submitEnviado = true;
+    if (this.myFormpol.invalid) {
+      this.iconType = "error";
+      this.strTitulo = "Campos obligatorios o inválidos";
+      this.modal = true;
+      return;
+
+    }
+
+
+
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar la política" : "¿Deseas actualizar la política?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar la política" : "¿Deseas actualizar los datos de la política?";
     this.modal = true;
   }
 
 
-  public redirect(obj:any){
-    debugger;
-    this.modal = true;
-    this.routerPrd.navigate(["/empresa/detalle/"+this.id_empresa+"/politicas"]);
-    this.modal = false;
+  public redirect(obj: any) {
     
+    this.modal = true;
+    this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/politicas"]);
+    this.modal = false;
+
 
   }
 
   public recibir($evento: any) {
-    debugger;
+    
     this.modal = false;
-    if(this.iconType == "warning"){
+    if (this.iconType == "warning") {
       if ($evento) {
         let obj = this.myFormpol.value;
 
-        let objEnviar: any ={
+        let objEnviar: any = {
           nombre: obj.nombre,
           diasEconomicos: obj.diasEconomicos,
           primaAniversario: obj.primaAniversario,
@@ -95,32 +112,31 @@ export class DetallepoliticasComponent implements OnInit {
           calculoAntiguedadx: "C",
           centrocClienteId: {
             centrocClienteId: this.id_empresa
-            },
+          },
           calculoAntiguedadId: {
             calculoAntiguedadxId: 2
           },
 
         }
 
-        if(this.insertar){
-          debugger;
+        if (this.insertar) {
           
-            this.politicasPrd.save(objEnviar).subscribe(datos => {
-            
-            this.iconType = datos.resultado? "success":"error";
-    
+
+          this.politicasPrd.save(objEnviar).subscribe(datos => {
+
+            this.iconType = datos.resultado ? "success" : "error";
+
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = 'Registro agregado correctamente'
             this.modal = true;
 
-            
+
           });
 
-        }else{
-    
-          debugger;   
+        } else {
 
-          let objEnviar: any ={
+          
+
+          let objEnviar: any = {
             politicaId: obj.politicaId,
             nombre: obj.nombre,
             diasEconomicos: obj.diasEconomicos,
@@ -131,12 +147,12 @@ export class DetallepoliticasComponent implements OnInit {
             descuentoPropDia: obj.descuentoPropDia,
             centrocClienteId: {
               centrocClienteId: this.id_empresa
-              },
-             
+            },
+
             calculoAntiguedadx: "C",
             calculoAntiguedadId: {
               calculoAntiguedadxId: 2
-                },
+            },
             beneficiosXPolitica: [
               {
                 beneficioXPolitica: 23,
@@ -147,27 +163,26 @@ export class DetallepoliticasComponent implements OnInit {
               }
             ]
           }
-          this.politicasPrd.modificar(objEnviar).subscribe(datos =>{
-            this.iconType =  datos.resultado? "success":"error";  
+          this.politicasPrd.modificar(objEnviar).subscribe(datos => {
+            this.iconType = datos.resultado ? "success" : "error";
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = 'Registro modificado correctamente!'
             this.modal = true;
 
 
           });
         }
-      
+
       }
-    }else{
-      if(this.iconType == "success"){
-          this.routerPrd.navigate(["/empresa/detalle/"+this.id_empresa+"/politicas"]);
+    } else {
+      if (this.iconType == "success") {
+        this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/politicas"]);
       }
-     
+
       this.modal = false;
     }
   }
   get f() { return this.myFormpol.controls; }
 
- 
+
 }
 

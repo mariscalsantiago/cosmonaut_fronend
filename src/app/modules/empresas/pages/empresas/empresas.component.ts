@@ -50,7 +50,7 @@ export class EmpresasComponent implements OnInit {
   };
  
   constructor(private usuarioSistemaPrd:UsuarioSistemaService, private routerActivePrd: ActivatedRoute ) {
-    debugger;
+    
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       this.datosempresa.insertar= this.insertar;
@@ -60,7 +60,7 @@ export class EmpresasComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    debugger;
+    
     this.objdetrep = history.state.data == undefined ? {} : history.state.data ;
     this.datosempresamod.datosempresaObj= this.objdetrep;
     this.datosempresa.centrocClienteEmpresa = this.datosempresamod.datosempresaObj.centrocClienteId;

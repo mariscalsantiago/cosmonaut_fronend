@@ -36,7 +36,7 @@ export class DomicilioComponent implements OnInit {
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    debugger;
+    
     let obj:any = {};
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
     if(!this.datosempresa.insertar){
@@ -181,7 +181,7 @@ export class DomicilioComponent implements OnInit {
         }
       });
       }else{
-      debugger;
+      
       let objenviar: any = 
         {
           domicilioId: obj.domicilioId,
@@ -210,7 +210,7 @@ export class DomicilioComponent implements OnInit {
   }
 
   public buscar(obj:any){
-    debugger;
+    
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
 

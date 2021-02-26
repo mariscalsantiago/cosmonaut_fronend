@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
@@ -9,6 +9,10 @@ import { UsuarioService } from '../../services/usuario.service';
   styleUrls: ['./detalle-usuario.component.scss']
 })
 export class DetalleUsuarioComponent implements OnInit {
+
+
+  @ViewChild("centroCliente") public centrocliente!:ElementRef;
+  @ViewChild("nombre") public nombre!:ElementRef;
 
 
   public myForm!: FormGroup;
@@ -59,6 +63,19 @@ export class DetalleUsuarioComponent implements OnInit {
     this.myForm = this.createForm((this.objusuario));
 
 
+
+  }
+
+
+  ngAfterViewInit(): void{
+
+    if(!this.insertar){
+
+      this.nombre.nativeElement.focus();
+
+    }else{
+      this.centrocliente.nativeElement.focus();
+    }
 
   }
 

@@ -56,8 +56,8 @@ export class ListaEmpresasComponent implements OnInit {
 
       let columnas:Array<tabla> = [
         new tabla("url","imagen"),
-        new tabla("centrocClienteId","ID empresa",true),
-        new tabla("razonSocial","Razón social	",false,true),
+        new tabla("centrocClienteId","ID empresa"),
+        new tabla("razonSocial","Razón social	",true,true),
         new tabla("nombre","Nombre de la empresa	"),
         new tabla("rfc","RFC"),
         new tabla("fechaAlta","Fecha registro"),
@@ -86,7 +86,7 @@ export class ListaEmpresasComponent implements OnInit {
 
 
   public recibirTabla(obj:any){
-   debugger;
+   
     if(obj.type == "eliminar"){
       this.eliminar(obj.datos);
     }
@@ -99,7 +99,7 @@ export class ListaEmpresasComponent implements OnInit {
   }
 
   public eliminar(indice: any) {
-  debugger;
+  
 
     this.indexSeleccionado = indice.centrocClienteId;
 
@@ -112,7 +112,7 @@ export class ListaEmpresasComponent implements OnInit {
   }
 
   public recibir($evento: any) {
-    debugger;
+    
     this.modal = false;
     if (this.iconType == "warning") {
 

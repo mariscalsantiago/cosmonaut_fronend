@@ -12,9 +12,9 @@
 
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Nombre de grupo de nómina *</label>
-        <input formControlName="nombre" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}"  type="text" class="form-control" placeholder="">
+        <input #nombre formControlName="nombre" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}"  type="text" class="form-control" placeholder="">
         <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
-          Nombre de grupo de nómina obligatorio.
+          Campo requerido
         </div>
       </div>
 
@@ -24,7 +24,7 @@
           <option *ngFor="let item of arregloEsquemaPago" [value]="item.esquemaPagoId">{{item.descripcion}} </option>
         </select>
         <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
-          Esquema para pago de nómina obligatorio.
+          Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -33,7 +33,7 @@
           <option *ngFor="let item of arreglocompany" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
         </select>
         <div *ngIf="submitInvalido && f.centrocClienteId.errors" class="invalid-feedback">
-          Razón social obligatorio.
+          Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -42,7 +42,7 @@
           <option *ngFor="let item of arregloCuentasBancarias" [value]="item.clabe">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.clabe.errors" class="invalid-feedback">
-          Campo obligatorío
+          Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -51,7 +51,7 @@
           <option *ngFor="let item of arregloMonedas" [value]="item.monedaId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.monedaId.errors" class="invalid-feedback">
-          Tipo moneda obligatorio
+          Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -60,7 +60,7 @@
           <option *ngFor="let item of arregloPeriocidadPago" [value]="item.periodicidadPagoId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.periodicidadPagoId.errors" class="invalid-feedback">
-          Campo obligatorio.
+          Campo requerido.
         </div>
       </div>
       <div *ngIf="periodopago.value == '04'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -80,7 +80,7 @@
           <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.basePeriodoId.errors" class="invalid-feedback">
-          Campo obligatorio.
+          Campo requerido.
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -89,7 +89,7 @@
           <option *ngFor="let item of arregloCatPeriodosAguinaldo" [value]="item.periodoAguinaldoId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.periodoAguinaldoId.errors" class="invalid-feedback">
-          Campo obligatorio.
+          Campo requerido.
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -101,7 +101,7 @@
         Periodica<input [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" value="periodica" formControlName="maneraCalcularSubsidio" type="radio" name="maneraCalcularSubsidio" id="">
         Diaria<input [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" value="diaria" formControlName="maneraCalcularSubsidio" type="radio" name="maneraCalcularSubsidio" id="">
         <div *ngIf="submitInvalido && f.maneraCalcularSubsidio.errors" class="invalid-feedback">
-          Campos obligatorios.
+          Campo requerido
         </div>
       </div>
       <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -109,7 +109,7 @@
         Si<input [ngClass]="{'is-invalid':f.esAutomatica.errors && submitInvalido}" value="true" formControlName="esAutomatica" type="radio" name="esAutomatica" id="">
         No<input [ngClass]="{'is-invalid':f.esAutomatica.errors && submitInvalido}" value="false" formControlName="esAutomatica" type="radio" name="esAutomatica" id="">
         <div *ngIf="submitInvalido && f.esAutomatica.errors" class="invalid-feedback">
-          Campos obligatorios.
+          Campo requerido
         </div>
       </div>
     </div>
@@ -125,5 +125,5 @@
 
 </form>
 
-<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"
   (eventoFunciones)="recibir($event)"></app-alert-questions>

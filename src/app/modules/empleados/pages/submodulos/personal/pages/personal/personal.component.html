@@ -12,7 +12,7 @@
                         <input [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" formControlName="nombre"
                             type="text" name="" id=""  class="form-control">
                         <div *ngIf="f.nombre.errors " class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
@@ -24,7 +24,7 @@
                             formControlName="apellidoPaterno" type="text" name=""  id=""
                             class="form-control">
                         <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
@@ -89,7 +89,7 @@
                             formControlName="curp" type="text" name=""  id=""
                             class="form-control">
                         <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                         <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
                             CURP inválido, favor de verificar
@@ -109,7 +109,7 @@
                             formControlName="rfc" maxlength="13" type="text" name=""  id=""
                             class="form-control">
                         <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                         <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
                             RFC inválido, favor de verificar
@@ -140,7 +140,7 @@
                             class="form-control">
                         <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado"
                             class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                         <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched"
                             class="invalid-feedback">
@@ -184,7 +184,7 @@
                                 [value]="item.nacionalidadId">{{item.descripcion}}</option>
                         </select>
                         <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
@@ -197,7 +197,7 @@
                         <input formControlName="contactoInicialTelefono" maxlength="10" class="form-control"
                             [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
                         <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
@@ -269,7 +269,7 @@
                             [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}"
                             class="form-control">
                         <div *ngIf="f.contactoEmergenciaNombre.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
@@ -281,7 +281,7 @@
                             class="form-control">
                         <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado"
                             class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CuentasbancariasService } from 'src/app/modules/empresas/services/cuentasbancarias/cuentasbancarias.service';
@@ -14,11 +14,10 @@ import { GruponominasService } from '../../services/gruponominas.service';
   styleUrls: ['./detallegruponomina.component.scss']
 })
 export class DetallegruponominaComponent implements OnInit {
-
+  @ViewChild("nombre") public nombre!:ElementRef;
   public modal:boolean = false;
   public strTitulo:string = "";
   public iconType:string = "";
-  public strsubtitulo:string = "";
 
   public myForm!:FormGroup;
 
@@ -70,7 +69,7 @@ export class DetallegruponominaComponent implements OnInit {
       periodoAguinaldoId:{}
     }
 
-    this.myForm = this.crearForm(obj);
+    this.myForm = this.crearForm(obj)  ;
     
     if(!this.esInsert){
       obj = history.state.data;
@@ -97,6 +96,12 @@ export class DetallegruponominaComponent implements OnInit {
 
 
     
+
+  }
+
+  ngAfterViewInit(): void{
+
+    this.nombre.nativeElement.focus();
 
   }
 
@@ -173,7 +178,6 @@ export class DetallegruponominaComponent implements OnInit {
             this.iconType = datos.resultado ? "success" : "error";
 
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
             this.modal = true;
 
           });
@@ -187,7 +191,6 @@ export class DetallegruponominaComponent implements OnInit {
             this.iconType = datos.resultado ? "success" : "error";
 
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
             this.modal = true;
 
           });
@@ -213,8 +216,7 @@ export class DetallegruponominaComponent implements OnInit {
 
     if (!this.myForm.valid) {
 
-      this.strTitulo = "Campos inválidos, Favor de verificar";
-      this.strsubtitulo = "Algunos campos son incorrectos.";
+      this.strTitulo =  "Campos obligatorios o inválidos";
       this.iconType = "error";
       this.modal = true;
       this.submitInvalido = true;
@@ -224,8 +226,7 @@ export class DetallegruponominaComponent implements OnInit {
 
 
     this.iconType = "warning";
-    this.strTitulo = (this.esInsert) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar el usuario?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
+    this.strTitulo = (this.esInsert) ? "¿Deseas registrar un grupo de nómina?" : "¿Deseas actualizar los datos del grupo de nómina?";
     this.modal = true;
 
   }

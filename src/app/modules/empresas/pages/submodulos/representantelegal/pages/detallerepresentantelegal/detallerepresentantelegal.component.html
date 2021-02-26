@@ -11,42 +11,42 @@
 
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Nombre *</label>
-              <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
-              <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
-                  Favor de ingresar el Nombre
+              <input #nombre formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"  placeholder="">
+              <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
+                Campo requerido
                 </div>
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Apellido Paterno *</label>
-              <input formControlName="apellidoPataterno" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPataterno.errors && f.apellidoPataterno.touched}"
+              <input formControlName="apellidoPaterno" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
                   placeholder="">
-                  <div *ngIf="f.apellidoPataterno.errors && f.apellidoPataterno.touched" class="invalid-feedback">
-                      Favor de ingresar el Apellido Paterno
+                  <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
                     </div>
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
                 <label >Apellido materno</label>
-                <input formControlName="apellidoMataterno" type="text" class="form-control" id="apellidoMataterno" aria-describedby="apellidoMataterno"
+                <input formControlName="apellidoMaterno" type="text" class="form-control" id="apellidoMaterno" aria-describedby="apellidoMaterno"
                     placeholder="">
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Nacionalidad *</label>
-              <input formControlName="nacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.nacionalidadId.errors && f.nacionalidadId.touched}"
+              <input formControlName="nacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}"
                   placeholder="">
-                  <div *ngIf="f.nacionalidadId.errors && f.nacionalidadId.touched" class="invalid-feedback">
-                      Favor de ingresar la nacionalidad
+                  <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
                     </div>
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >CURP *</label>
-              <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}"
+              <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || (f.curp.errors?.pattern && f.curp.touched)}"
                   placeholder="">
-                  <div *ngIf="f.curp.errors?.required && f.curp.touched" class="invalid-feedback">
-                    Favor de ingresar el CURP
+                  <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
+                    Campo requerido
                   </div>
                   <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
                       CURP inválida, favor de verificar
@@ -55,10 +55,10 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Correo Empresarial *</label>
-              <input formControlName="emailCorporativo" type="email" class="form-control" [ngClass]="{'is-invalid':f.emailCorporativo.errors && f.emailCorporativo.touched}"
+              <input formControlName="emailCorporativo" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched)}"
                   placeholder="">
-                  <div *ngIf="f.emailCorporativo.errors?.required && f.emailCorporativo.touched" class="invalid-feedback">
-                      Favor de ingresar el Correo Empresarial
+                  <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
+                    Campo requerido
                     </div>
                     <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
                       Correo Empresarial inválido, Favor de verificar
@@ -67,11 +67,11 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Correo Personal *</label>
-              <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control"  [ngClass]="{'is-invalid':f.contactoInicialEmailPersonal.errors && f.contactoInicialEmailPersonal.touched}"
+              <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase"  [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
                   placeholder="">
 
-                  <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
-                      Favor de ingresar el Correo Personal
+                  <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
+                      Campo requerido
                     </div>
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                       Correo Personal inválido, Favor de verificar
@@ -80,11 +80,11 @@
           </div>
           <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
             <label >Teléfono *</label>
-            <input formControlName="contactoInicialTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && f.contactoInicialTelefono.touched}"
+            <input appSolonumeros formControlName="contactoInicialTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}"
                 placeholder="">
 
-                <div *ngIf="f.contactoInicialTelefono.errors && f.contactoInicialTelefono.touched" class="invalid-feedback">
-                    Favor de ingresar el Teléfono
+                <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
                   </div>
 
         </div>
@@ -118,9 +118,9 @@
 
     <div class="text-center margin" style="margin-bottom: 20px;">
       <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
-      <button [disabled]="!myFormrep.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+      <button  type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
   </div>
 
   </form>
 
-  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
+  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"  (eventoFunciones)="recibir($event)"></app-alert-questions>

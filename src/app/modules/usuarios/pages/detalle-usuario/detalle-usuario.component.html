@@ -17,7 +17,7 @@
         <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
                 <label for="exampleFormControlSelect1">Compañia *</label>
-                <select [disabled]="!insertar" formControlName="centrocClienteId" class="form-control" [ngClass]="{'is-invalid':f.centrocClienteId.errors && summitenviado}"
+                <select #centroCliente [disabled]="!insertar" formControlName="centrocClienteId" class="form-control" [ngClass]="{'is-invalid':f.centrocClienteId.errors && summitenviado}"
                     id="exampleFormControlSelect1">
                     <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
                 </select>
@@ -30,7 +30,7 @@
 
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Nombre *</label>
-                <input formControlName="nombre" type="text" class="form-control"
+                <input #nombre formControlName="nombre" type="text" class="form-control"
                     [ngClass]="{'is-invalid':f.nombre.errors && summitenviado}" placeholder="">
                 <div *ngIf="f.nombre.errors && summitenviado" class="invalid-feedback">
                     Campo requerido
@@ -66,7 +66,7 @@
 
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Correo Empresarial *</label>
-                <input formControlName="emailCorp" type="email" class="form-control"
+                <input formControlName="emailCorp" type="email" class="form-control text-lowercase"
                     [ngClass]="{'is-invalid':(f.emailCorp.errors?.email && f.emailCorp.touched) || (f.emailCorp.errors?.required && summitenviado) }" placeholder="">
                 <div *ngIf="f.emailCorp.errors?.required && summitenviado" class="invalid-feedback">
                     Campo requerido
@@ -78,7 +78,7 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Correo Personal *</label>
-                <input formControlName="ciEmailPersonal" type="email" class="form-control"
+                <input formControlName="ciEmailPersonal" type="email" class="form-control text-lowercase"
                     [ngClass]="{'is-invalid':(f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched) || (f.ciEmailPersonal.errors?.required && summitenviado)}" placeholder="">
 
                 <div *ngIf="f.ciEmailPersonal.errors?.required && summitenviado" class="invalid-feedback">
@@ -91,7 +91,7 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Teléfono *</label>
-                <input formControlName="ciTelefono" maxlength="10" type="text" class="form-control"
+                <input appSolonumeros formControlName="ciTelefono" maxlength="10" type="text" class="form-control"
                     [ngClass]="{'is-invalid':f.ciTelefono.errors && summitenviado}" placeholder="">
 
                 <div *ngIf="f.ciTelefono.errors && summitenviado" class="invalid-feedback">

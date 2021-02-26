@@ -11,7 +11,7 @@
                         <option *ngFor="let item of arregloArea" [value]="item.areaId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.areaId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -21,7 +21,7 @@
                         </option>
                     </select>
                     <div *ngIf="f.puestoId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -52,14 +52,14 @@
                         <option *ngFor="let item of arregloPoliticas" [value]="item.politicaId">{{item.nombre}}</option>
                     </select>
                     <div *ngIf="f.politicaId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Número de empleado</label>
                     <input formControlName="personaId" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}">
                     <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -87,7 +87,7 @@
                         <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
                     </select>
                     <div *ngIf="f.grupoNominaId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -97,7 +97,7 @@
                             {{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.tipoCompensacionId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -108,7 +108,7 @@
                         <option value="n">Neto</option>
                     </select>
                     <div *ngIf="f.tiposueldo.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                         [disabled] = "!sueldoBruto">
                     
                         <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     
                 </div>
@@ -127,7 +127,7 @@
                     <label for="exampleFormControlSelect1">Salario base cotización*</label>
                     <input formControlName="salarioDiario" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.salarioDiario.errors && submitEnviado}">
                     <div *ngIf="f.salarioDiario.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -135,7 +135,7 @@
                     <input formControlName="sueldonetomensual" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldonetomensual.errors && submitEnviado,'disabled':!sueldoNeto}"
                     [disabled] = "!sueldoNeto">
                     <div *ngIf="f.sueldonetomensual.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                     <label for="exampleFormControlSelect1">Días de vacaciones</label>
                     <input formControlName="dias_vacaciones" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.dias_vacaciones.errors && submitEnviado}" >
                     <div *ngIf="f.dias_vacaciones.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -153,7 +153,7 @@
                         <option *ngFor="let item of arregloMetodosPago" [value]="item.metodoPagoId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.metodo_pago_id.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
             </div>
@@ -166,7 +166,7 @@
                     <label for="exampleFormControlSelect1">Fecha de antigüedad*</label>
                     <input [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && submitEnviado}" formControlName="fechaAntiguedad" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaAntiguedad.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
@@ -175,7 +175,7 @@
                        <option *ngFor="let item of arregloTipoContrato" [value]="item.tipoContratoId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.tipoContratoId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
 
@@ -186,14 +186,14 @@
                     <label for="exampleFormControlSelect1">Fecha inicio de contrato*</label>
                     <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Fecha fin de contrato*</label>
                     <input [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
@@ -202,7 +202,7 @@
                         <option *ngFor="let item of arregloJornadas" [value]="item.jornadaId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.jornadaId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
             </div>
@@ -214,7 +214,7 @@
                         <option *ngFor="let item of arregloRegimenContratacion" [value]="item.tipoRegimenContratacionId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.tipoRegimenContratacionId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
@@ -224,7 +224,7 @@
                             <input [ngClass]="{'is-invalid':f.areaGeograficaId.errors && submitEnviado}" formControlName="areaGeograficaId" name="areaGeograficaId" type="radio" [value]="item.areaGeograficaId" [id]="item.nombreCorto">
                             <label [for]="item.nombreCorto">{{item.descripcion}}</label>
                             <div *ngIf="f.areaGeograficaId.errors && submitEnviado" class="invalid-feedback">
-                                Campo obligatorio
+                                Campo requerido
                             </div>
                         </div>
                         
@@ -247,14 +247,14 @@
                     <label for="subcontratado">Empresa de subcontratación*</label>
                     <input formControlName="subcontratistaId" [ngClass]="{'is-invalid':f.subcontratistaId.errors && submitEnviado}" type="text" name="" id="" class="form-control">
                     <div *ngIf="f.subcontratistaId.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="subcontratado">Porcentaje %*</label>
                     <input [ngClass]="{'is-invalid':f.suPorcentaje.errors && submitEnviado}"  formControlName="suPorcentaje" type="text" name="" id="" class="form-control">
                     <div *ngIf="f.suPorcentaje.errors && submitEnviado" class="invalid-feedback">
-                        Campo obligatorio
+                        Campo requerido
                     </div>
                 </div>
 

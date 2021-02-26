@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -10,14 +10,13 @@ import { CuentasbancariasService } from '../../services/cuentasbancarias.service
   styleUrls: ['./detallecuentasbancarias.component.scss']
 })
 export class DetallecuentasbancariasComponent implements OnInit {
-
+  @ViewChild("nombre") public nombre!:ElementRef;
 
   public mostrartooltip: boolean = false;
   public iconType: string = "";
   public myForm!: FormGroup;
   public modal: boolean = false;
   public strTitulo: string = "";
-  public strsubtitulo: string = "";
   public id_empresa: number = 0;
   public esInsert: boolean = false;
   public cuenta: any;
@@ -25,7 +24,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
   public submitInvalido: boolean = false;
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
     private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService,
-    private catalogosPrd:CatalogosService) { }
+    private catalogosPrd: CatalogosService) { }
 
   ngOnInit(): void {
 
@@ -59,6 +58,12 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
   }
 
+  ngAfterViewInit(): void{
+
+    this.nombre.nativeElement.focus();
+
+  }
+
   public createForm(obj: any) {
 
 
@@ -83,21 +88,20 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
 
 
-    if (!this.myForm.valid) {
 
-      this.strTitulo = "Campos inválidos, Favor de verificar";
-      this.strsubtitulo = "Algunos campos son incorrectos.";
+    this.submitInvalido = true;
+    if (this.myForm.invalid) {
       this.iconType = "error";
+      this.strTitulo = "Campos obligatorios o inválidos";
       this.modal = true;
-      this.submitInvalido = true;
-
       return;
+
     }
 
 
+
     this.iconType = "warning";
-    this.strTitulo = (this.esInsert) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar el usuario?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
+    this.strTitulo = (this.esInsert) ? "¿Deseas registrar la cuenta bancaria?" : "¿Deseas actualizar los datos de la cuenta bancaria?";
     this.modal = true;
 
 
@@ -144,7 +148,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
         };
 
 
-        
+
 
 
         if (this.esInsert) {
@@ -154,7 +158,6 @@ export class DetallecuentasbancariasComponent implements OnInit {
             this.iconType = datos.resultado ? "success" : "error";
 
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
             this.modal = true;
 
             console.log("Esto trae al guardar");
@@ -168,7 +171,6 @@ export class DetallecuentasbancariasComponent implements OnInit {
             this.iconType = datos.resultado ? "success" : "error";
 
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
             this.modal = true;
 
           });

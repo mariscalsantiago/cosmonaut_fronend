@@ -42,6 +42,7 @@ export class ListaempleadosComponent implements OnInit {
     this.cargando = true;
 
     this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+      console.log("Ver lo que se intera",datos);
       let columnas:Array<tabla> = [
         new tabla("nombre","Nombre",false,true),
         new tabla("personaId","ID",true),
@@ -52,6 +53,7 @@ export class ListaempleadosComponent implements OnInit {
 
       let arrayTemp = [];
 
+     if(datos.datos !== undefined){
       for(let item of datos.datos){
 
         let obj = {
@@ -65,8 +67,9 @@ export class ListaempleadosComponent implements OnInit {
         arrayTemp.push(obj);
 
       }
+     }
 
-      this.arreglo = arrayTemp;
+      this.arreglo = arrayTemp.length == 0 ? undefined:arrayTemp;
 
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;

@@ -12,9 +12,9 @@
 
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Nombre *</label>
-        <input formControlName="nombre" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}"  type="text" class="form-control" placeholder="">
+        <input #nombre formControlName="nombre" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}"  type="text" class="form-control" placeholder="">
         <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
-          Nombre de jornada obligatorio.
+          Campo requerido
         </div>
       </div>
 
@@ -26,7 +26,7 @@
           <option value="3">Mixta </option>
         </select>
         <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
-          Tipo de Jornada obligatorio.
+          Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -35,7 +35,7 @@
           <option value="1">48</option>
         </select>
         <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
-          Suma de horas para jornada obligatorio.
+          Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
@@ -63,5 +63,5 @@
 
 </form>
 
-<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" 
   (eventoFunciones)="recibir($event)"></app-alert-questions>

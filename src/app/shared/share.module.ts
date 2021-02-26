@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubirarchivoComponent } from './subirarchivo/subirarchivo.component';
 import { ManipularfilesDirective } from './directivas/manipularfiles.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { MayusculasDirective } from './directivas/mayusculas.directive';
+import { SolonumerosDirective } from './directivas/solonumeros.directive';
 
 
 @NgModule({
@@ -22,12 +24,14 @@ import { HttpClientModule } from '@angular/common/http';
     TablapaginadoComponent,
 
     SubirarchivoComponent,
-    ManipularfilesDirective
+    ManipularfilesDirective,
+    MayusculasDirective,
+    SolonumerosDirective
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule
   ],
-  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent]
+  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent,MayusculasDirective,SolonumerosDirective]
 })
 export class ShareModule { }

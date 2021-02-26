@@ -154,7 +154,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
 
   public traerModal(indice: any) {
-    debugger;
+    
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 

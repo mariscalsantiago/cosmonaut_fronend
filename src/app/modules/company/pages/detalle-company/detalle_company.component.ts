@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
@@ -13,6 +13,7 @@ import { CompanyService } from '../../services/company.service';
   styleUrls: ['./detalle-company.component.scss']
 })
 export class DetalleCompanyComponent implements OnInit {
+  @ViewChild("nombre") nombre: any;
 
   public myFormcomp!: FormGroup;
   public arreglo: any = [];
@@ -24,7 +25,7 @@ export class DetalleCompanyComponent implements OnInit {
   public insertar: boolean = false;
   public iconType: string = "";
   public strTitulo: string = "";
-  
+
   public objcont: any;
   public fechaAlta: string = "";
   public cargando: Boolean = false;
@@ -33,14 +34,14 @@ export class DetalleCompanyComponent implements OnInit {
   public objCompany: any;
   public submitEnviado: boolean = false;
   public imagen: any = undefined;
-  public arreglotabla:any = {
-    columnas:[],
-    filas:[]
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
   };
-  
+
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router,private usuariosPrd:UsuarioService) {
+    private routerPrd: Router, private usuariosPrd: UsuarioService) {
   }
 
   ngOnInit(): void {
@@ -59,8 +60,11 @@ export class DetalleCompanyComponent implements OnInit {
     });
 
 
+  }
 
-    
+  ngAfterViewInit(): void {
+
+    this.nombre.nativeElement.focus();
 
   }
 
@@ -89,7 +93,7 @@ export class DetalleCompanyComponent implements OnInit {
 
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
-    this.routerPrd.navigate(['company', 'detalle_contacto', tipoinsert], { state: { datos: obj,empresa:this.objCompany } });
+    this.routerPrd.navigate(['company', 'detalle_contacto', tipoinsert], { state: { datos: obj, empresa: this.objCompany } });
     this.cargando = false;
 
 
@@ -113,13 +117,20 @@ export class DetalleCompanyComponent implements OnInit {
     this.cargando = true;
     this.usuariosPrd.filtrar(objEnviar).subscribe(datos => {
       this.arreglo = datos.datos;
-      let columnas:Array<tabla> = [
-        new tabla("personaId","ID contacto"),
-        new tabla("nombre","Nombre contacto"),
-        new tabla("emailCorporativo","Correo Empresarial"),
-        new tabla("contactoInicialTelefono","Teléfono"),
-        new tabla("fechaAlta","Fecha registro")
+      let columnas: Array<tabla> = [
+        new tabla("personaId", "ID contacto"),
+        new tabla("nombre", "Nombre contacto"),
+        new tabla("emailCorporativo", "Correo Empresarial"),
+        new tabla("contactoInicialTelefono", "Teléfono"),
+        new tabla("fechaAlta", "Fecha registro")
       ]
+
+
+
+      if (this.arreglo !== undefined)
+        for (let item of this.arreglo)
+          item.nombre = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno}`;
+
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;
       this.cargando = false;
@@ -197,12 +208,12 @@ export class DetalleCompanyComponent implements OnInit {
       }
     } else {
 
-      if(this.iconType == "success"){
+      if (this.iconType == "success") {
         this.modal = false;
-        
+
 
         if (this.insertar) {
-          this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined,empresa:this.objCompany } });
+          this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined, empresa: this.objCompany } });
         }
       }
     }
@@ -216,7 +227,7 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
 
-  public recibirTabla(obj:any){
+  public recibirTabla(obj: any) {
 
     console.log(obj.datos);
 

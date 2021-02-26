@@ -18,7 +18,7 @@
 
           <div class=" input-group-sm mb-3 col-4">
             <label >Nombre *</label>
-            <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"  placeholder="">
+            <input #nombre formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"  placeholder="">
             <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
               </div>
@@ -50,7 +50,7 @@
           </div>
           <div class="input-group-sm mb-3 col-4">
             <label >Correo empresarial *</label>
-            <input formControlName="emailCorporativo" type="email" class="form-control" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched) }"
+            <input formControlName="emailCorporativo" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched) }"
                 placeholder="">
                 <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
                   Campo requerido
@@ -62,7 +62,7 @@
           </div>
           <div class="input-group-sm mb-3 col-4">
             <label >Correo personal *</label>
-            <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control"  [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched}"
+            <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase"  [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched}"
                 placeholder="">
 
                 <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
@@ -75,7 +75,7 @@
         </div>
         <div class="input-group-sm mb-3 col-4">
           <label >Teléfono *</label>
-          <input formControlName="contactoInicialTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}"
+          <input appSolonumeros formControlName="contactoInicialTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}"
               placeholder="">
 
               <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">

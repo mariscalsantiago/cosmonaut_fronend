@@ -15,7 +15,7 @@
                             <option *ngFor="let item of arregloArea" [value]="item.areaId">{{item.descripcion}}</option>
                         </select>
                         <div *ngIf="f.areaId.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
@@ -30,7 +30,7 @@
                             </option>
                         </select>
                         <div *ngIf="f.puestoId.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
 
                     </article>
@@ -94,7 +94,7 @@
                         <input id="fechaantiguedad" [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && submitEnviado}"
                             formControlName="fechaAntiguedad" type="date" name="" id="" class="form-control">
                         <div *ngIf="f.fechaAntiguedad.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
 
                     </article>
@@ -132,7 +132,7 @@
                             </option>
                         </select>
                         <div *ngIf="f.politicaId.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
@@ -150,7 +150,7 @@
                         <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}"
                             formControlName="fechaInicio" type="date" name="" id="" class="form-control">
                         <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
@@ -206,7 +206,7 @@
                         <input [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin"
                             type="date" name="" id="" class="form-control">
                         <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
@@ -242,7 +242,7 @@
                             </option>
                         </select>
                         <div *ngIf="f.jornadaId.errors && submitEnviado" class="invalid-feedback">
-                            Campo obligatorio
+                            Campo requerido
                         </div>
                     </article>
                 </article>
