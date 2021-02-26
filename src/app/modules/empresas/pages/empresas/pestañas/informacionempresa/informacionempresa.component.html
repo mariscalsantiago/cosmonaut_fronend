@@ -16,20 +16,20 @@
                     </div>
                   </div>
                   <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                    <label>Razon social *</label>
+                    <label>Razón social *</label>
                     <input formControlName="razonSocial" type="text" class="form-control"  [ngClass]="{'is-invalid':f.razonSocial.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.razonSocial.errors " class="invalid-feedback">
                         Razón social es obligatorio
                     </div>
                   </div>
                   <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
-                    <label >Actividad economica *</label>
+                    <label >Actividad económica *</label>
                     <select formControlName="actividadEconomicaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.actividadEconomicaId.errors && submitEnviado}">
                         <option value=""></option>
                         <option *ngFor="let item of arregloactividad"  [value]="item.actividadEconomicaId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.actividadEconomicaId.errors " class="invalid-feedback">
-                      Actividad economica es obligatorio
+                      Actividad económica es obligatorio
                     </div>
                 </div>
                   <div class="input-group-sm mb-3 col-6">
@@ -48,13 +48,13 @@
                     </div>
                   </div>
                   <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
-                    <label >Regimén fiscal *</label>
+                    <label >Régimen fiscal *</label>
                     <select formControlName="regimenfiscalId" type="text" class="form-control" [ngClass]="{'is-invalid':f.regimenfiscalId.errors && submitEnviado}">
                         <option value=""></option>
                         <option *ngFor="let item of arregloregimen"  [value]="item.regimenfiscalId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.regimenfiscalId.errors " class="invalid-feedback">
-                        Regimén fiscal es obligatorio
+                        Régimen fiscal es obligatorio
                     </div>
                 </div>
                 </div>

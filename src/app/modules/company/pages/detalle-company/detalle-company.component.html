@@ -28,7 +28,7 @@
               <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
                 Favor de ingresar el Nombre de la compañía.
               </div>
-      
+
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4  ">
               <label>Razón social *</label>
@@ -37,28 +37,28 @@
               <div *ngIf="f.razonSocial.errors && submitEnviado" class="invalid-feedback">
                 Favor de ingresar la Razón social.
               </div>
-      
+
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
               <label>RFC *</label>
               <input formControlName="rfc" maxlength="13" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}">
               <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
-                Favor de ingresar el RFC(12 o 13 caracteres).
+                Favor de ingresar el RFC (12 o 13 caracteres).
               </div>
               <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
-                Formato de RFC invalido, favor de verificar.
+                Formato de RFC inválido, favor de verificar.
               </div>
-      
+
             </div>
-      
-          
+
+
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
               <label>Fecha de registro *</label>
               <input formControlName="fechaAlta" type="text" class="form-control" placeholder="">
-      
+
             </div>
-      
+
             <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-4 ">
               <label for="exampleFormControlSelect1">Estado *</label>
               <select formControlName="esActivo" class="form-control">
@@ -123,7 +123,7 @@
               <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
               <th scope="col">ID Contacto</th>
               <th scope="col">Nombre contacto</th>
-              <th scope="col">Correo corporativo</th>
+              <th scope="col">Correo Empresarial</th>
               <th scope="col">Teléfono</th>
               <th scope="col">Fecha registro</th>
               <th scope="col" *ngIf="!multiseleccion">Acciones</th>

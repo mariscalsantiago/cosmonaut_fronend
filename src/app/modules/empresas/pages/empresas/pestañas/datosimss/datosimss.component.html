@@ -12,13 +12,13 @@
                 </div>
               </div>
                 <div class="input-group-sm mb-3 col-4">
-                  <label>Prima de riego *</label>
+                  <label>Prima de riesgo *</label>
                   <input formControlName="emPrimaRiesgo" maxlength="2" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
                   <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
-                    Prima de riego es obligatorio
+                    Prima de riesgo es obligatorio
                   </div>
                   <div *ngIf="f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched" class="invalid-feedback">
-                    Prima de riego no es válida
+                    Prima de riesgo no es válida
                   </div>
                 </div>
           

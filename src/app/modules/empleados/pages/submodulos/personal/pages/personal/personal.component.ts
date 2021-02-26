@@ -182,8 +182,8 @@ export class PersonalComponent implements OnInit {
 
     if (this.myForm.invalid) {
       this.modalPrd.getModal().modal = true;
-      this.modalPrd.getModal().strTitulo = "Campos obligatorios o invalidos";
-      this.modalPrd.getModal().strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
+      this.modalPrd.getModal().strTitulo = "Campos obligatorios o inválidos";
+      this.modalPrd.getModal().strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
       this.modalPrd.getModal().iconType = "error";
       return;
     }

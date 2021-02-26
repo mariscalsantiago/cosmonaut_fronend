@@ -134,8 +134,8 @@ export class InformacionbasicaComponent implements OnInit {
 
   public mostrarMessage() {
     this.alerta.modal = true;
-    this.alerta.strTitulo = "Campos obligatorios o invalidos";
-    this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
+    this.alerta.strTitulo = "Campos obligatorios o inválidos";
+    this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
     this.alerta.iconType = "error";
   }
 
