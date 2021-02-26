@@ -87,14 +87,14 @@
                         Campo obligatorio
                     </div>
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
-                        Correo Personal invalido
+                        Correo Personal inválido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12">
                     <label >Correo Empresarial</label>
                     <input formControlName="emailCorporativo" type="text" class="form-control" name="" >
                     <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" class="invalid-feedback">
-                        Correo Corporativo invalido
+                        Correo Corporativo inválido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12">
@@ -195,7 +195,7 @@
                     <label > Correo personal</label>
                     <input formControlName="contactoEmergenciaEmail" type="text" name=""  class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched}">
                     <div *ngIf="f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched" class="invalid-feedback">
-                        Correo invalido
+                        Correo inválido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-5">

@@ -85,8 +85,8 @@ export class InformacionempresaComponent implements OnInit {
     this.submitEnviado = true;
     if (this.myform.invalid) {
       this.alerta.modal = true;
-      this.alerta.strTitulo = "Campos obligatorios o invalidos";
-      this.alerta.strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
+      this.alerta.strTitulo = "Campos obligatorios o inválidos";
+      this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
       this.alerta.iconType = "error";
       return;
     }

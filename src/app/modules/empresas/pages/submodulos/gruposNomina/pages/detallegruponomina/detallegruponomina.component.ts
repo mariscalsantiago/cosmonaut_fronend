@@ -213,7 +213,7 @@ export class DetallegruponominaComponent implements OnInit {
 
     if (!this.myForm.valid) {
 
-      this.strTitulo = "Campos invalidos, Favor de verificar";
+      this.strTitulo = "Campos inválidos, Favor de verificar";
       this.strsubtitulo = "Algunos campos son incorrectos.";
       this.iconType = "error";
       this.modal = true;

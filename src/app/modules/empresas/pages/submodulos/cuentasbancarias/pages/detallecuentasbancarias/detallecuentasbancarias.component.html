@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
-        <label>Número de Cuenta <i (click)="mostrartooltip = !mostrartooltip"
+        <label>Número de Cuenta * <i (click)="mostrartooltip = !mostrartooltip"
             class="fas fa-question-circle primary cursorhand " data-toggle="tooltip" data-placement="top"
             title="Dar click para información"></i>
           <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No
@@ -34,7 +34,7 @@
         <input formControlName="numeroCuenta" type="number" maxlength="24" class="form-control"
           [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitInvalido}" placeholder="">
         <div *ngIf="submitInvalido && f.numeroCuenta.errors" class="invalid-feedback">
-          Número cuenta obligatorio.
+          Número de cuenta obligatorio.
         </div>
       </div>
 
@@ -63,14 +63,14 @@
           [ngClass]="{'is-invalid':(submitInvalido && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
           placeholder="">
         <div *ngIf="submitInvalido && f.clabe.errors?.required" class="invalid-feedback">
-          No. Clabe banco obligatorio.
+          No. Cuenta Clabe obligatorio.
         </div>
         <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
           La CLABE no es válida
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>No. Secursal</label>
+        <label>No. Sucursal</label>
         <input formControlName="num_sucursal" type="text" class="form-control" placeholder="">
       </div>
     </div>

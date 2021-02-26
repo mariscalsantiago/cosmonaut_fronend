@@ -13,7 +13,7 @@
 
     <input type="hidden" formControlName="personaId">
     <div class="background-panel margen">
-        <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE USUARIO</label></div>
+        <div class="form-group row margen"><label class="titulo">Información de Usuario</label></div>
         <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
                 <label for="exampleFormControlSelect1">Compañia *</label>
@@ -22,7 +22,7 @@
                     <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
                 </select>
                 <div *ngIf="f.centrocClienteId.errors && summitenviado" class="invalid-feedback">
-                    Seleccionar compañia 
+                    Seleccionar compañia
                 </div>
             </div>
         </div>
@@ -55,29 +55,29 @@
                 <input formControlName="curp" maxlength="18" type="text" class="form-control"
                     [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}" placeholder="">
                 <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
-                    CURP invalida, favor de verificar
+                    CURP inválida, favor de verificar
                 </div>
 
             </div>
         </div>
         <hr>
-        <div class="form-group row margen"><label class="titulo">CONTACTO</label></div>
+        <div class="form-group row margen"><label class="titulo">Contacto</label></div>
         <div class="form group row margen">
 
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Correo Corporativo*</label>
+                <label>Correo Empresarial *</label>
                 <input formControlName="emailCorp" type="email" class="form-control"
                     [ngClass]="{'is-invalid':(f.emailCorp.errors?.email && f.emailCorp.touched) || (f.emailCorp.errors?.required && summitenviado) }" placeholder="">
                 <div *ngIf="f.emailCorp.errors?.required && summitenviado" class="invalid-feedback">
-                    Favor de ingresar el Correo Corporativo
+                    Favor de ingresar el Correo Empresarial
                 </div>
                 <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
-                    Correo Corporativo invalido, Favor de verificar
+                    Correo Empresarial inválido, Favor de verificar
                 </div>
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Correo Personal*</label>
+                <label>Correo Personal *</label>
                 <input formControlName="ciEmailPersonal" type="email" class="form-control"
                     [ngClass]="{'is-invalid':(f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched) || (f.ciEmailPersonal.errors?.required && summitenviado)}" placeholder="">
 
@@ -85,12 +85,12 @@
                     Favor de ingresar el Correo Personal
                 </div>
                 <div *ngIf="f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched" class="invalid-feedback">
-                    Correo Personal invalido, Favor de verificar
+                    Correo Personal inválido, Favor de verificar
                 </div>
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Teléfono*</label>
+                <label>Teléfono *</label>
                 <input formControlName="ciTelefono" maxlength="10" type="text" class="form-control"
                     [ngClass]="{'is-invalid':f.ciTelefono.errors && summitenviado}" placeholder="">
 
@@ -100,12 +100,12 @@
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Fecha de registro*</label>
+                <label>Fecha de registro *</label>
                 <input formControlName="fechaAlta" type="date" class="form-control" placeholder="">
 
             </div>
             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                <label for="exampleFormControlSelect1">Estado*</label>
+                <label for="exampleFormControlSelect1">Estado *</label>
                 <select formControlName="esActivo" class="form-control">
                     <option value="true" selected>ACTIVO</option>
                     <option value="false">INACTIVO</option>

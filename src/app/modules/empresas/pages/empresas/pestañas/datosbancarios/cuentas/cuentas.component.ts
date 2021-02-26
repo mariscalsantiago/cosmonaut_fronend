@@ -94,7 +94,7 @@ export class CuentasComponent implements OnInit {
     this.submitEnviado = true;
     if (!this.myForm.valid) {
 
-      this.alerta.strTitulo = "Campos invalidos, Favor de verificar";
+      this.alerta.strTitulo = "Campos inválidos, Favor de verificar";
       this.alerta.strsubtitulo = "Algunos campos son incorrectos.";
       this.alerta.iconType = "error";
       this.alerta.modal = true;

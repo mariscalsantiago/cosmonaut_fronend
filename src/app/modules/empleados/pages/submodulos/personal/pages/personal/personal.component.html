@@ -130,7 +130,7 @@
             </div>
             <div class="row mb-2">
                 <article class="titulo col">
-                    Email Personal
+                  Correo Personal
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoInicialEmailPersonal}}
                     </article>
@@ -144,14 +144,14 @@
                         </div>
                         <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched"
                             class="invalid-feedback">
-                            Correo Personal invalido
+                            Correo Personal inválido
                         </div>
                     </article>
                 </article>
             </div>
             <div class="row ">
                 <article class="titulo col">
-                    Email Corporativo
+                  Correo Empresarial
                     <article *ngIf="!editarcampos">
                         {{empleado.emailCorporativo}}
                     </article>
@@ -161,7 +161,7 @@
                         <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched"
                             [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}"
                             class="invalid-feedback">
-                            Correo Corporativo invalido
+                          Correo Empresarial inválido
                         </div>
                     </article>
                 </article>
@@ -243,7 +243,7 @@
             </div>
             <div class="row">
                 <article class="titulo col">
-                    Perfin de Linkedin
+                    Perfil de Linkedin
                     <article *ngIf="!editarcampos">
                         {{empleado.medioContacto?.url}}
                     </article>
@@ -292,12 +292,12 @@
                             class="form-control">
                     </article>
                 </article>
-              
+
             </div>
 
             <div class="row mb-2">
                 <article class="titulo col">
-                    Parentezco
+                    Parentesco
                     <article *ngIf="!editarcampos">
                         {{empleado?.contactoEmergenciaParentescoDescripcion}}
                     </article>
@@ -315,14 +315,14 @@
 
             <div class="row mb-2">
                 <article class="titulo col">
-                    Email
+                  Correo
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoEmergenciaEmail}}
                     </article>
                     <article *ngIf="editarcampos">
                         <input formControlName="contactoEmergenciaEmail" type="text" name=""  class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched}">
                         <div *ngIf="f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched" class="invalid-feedback">
-                            Correo invalido
+                            Correo inválido
                         </div>
                     </article>
                 </article>
