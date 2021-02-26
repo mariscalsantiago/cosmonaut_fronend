@@ -8,7 +8,7 @@
             <div class="row mb-4">
                 <article class="titulo  col">
                     Área
-                    <article *ngIf="!editarcampos">{{empleado?.areaId?.descripcion}}</article>
+                    <article *ngIf="!editarcampos">{{empleado.areaId?.descripcion}}</article>
                     <article *ngIf="editarcampos">
                         <select (change)="cambiaArea()" formControlName="areaId" name="" id="" class="form-control"
                             [ngClass]="{'is-invalid':f.areaId.errors && submitEnviado}">

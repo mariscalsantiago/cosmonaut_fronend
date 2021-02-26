@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
+import { ModalempleadosService } from 'src/app/modules/empleados/services/modalempleados.service';
 import { JornadalaboralService } from 'src/app/modules/empresas/pages/submodulos/jonadaLaboral/services/jornadalaboral.service';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -19,33 +20,34 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 })
 export class EmpleoComponent implements OnInit {
 
-  public editarcampos:boolean = false;
-  public submitEnviado:boolean = false;
+  public editarcampos: boolean = false;
+  public submitEnviado: boolean = false;
 
-  public myForm!:FormGroup;
-  public idEmpleado!:number;
+  public myForm!: FormGroup;
+  public idEmpleado!: number;
 
-  public empleado:any = {};
-  public arregloArea:any = [];
-  public arregloPuestos:any = [];
-  public arregloempleadosreporta:any = [];
-  public arregloSedes:any = [];
-  public arregloEstados:any = [];
-  public arregloJornadas:any = [];
-  public arregloPoliticas:any = [];
+  public empleado: any = {};
+  public arregloArea: any = [];
+  public arregloPuestos: any = [];
+  public arregloempleadosreporta: any = [];
+  public arregloSedes: any = [];
+  public arregloEstados: any = [];
+  public arregloJornadas: any = [];
+  public arregloPoliticas: any = [];
 
-  constructor(private formBuilder:FormBuilder,private contratoColaboradorPrd:ContratocolaboradorService,
-    private router:ActivatedRoute,public catalogosPrd:CatalogosService,
-    private areasPrd:SharedAreasService,private usuariosSistemaPrd:UsuarioSistemaService,
-    private empleadosPrd:EmpleadosService,private sedesPrd:SharedSedesService,private jornadaPrd:JornadalaboralService,private politicasPrd:SharedPoliticasService) { }
+  constructor(private formBuilder: FormBuilder, private contratoColaboradorPrd: ContratocolaboradorService,
+    private router: ActivatedRoute, public catalogosPrd: CatalogosService,
+    private areasPrd: SharedAreasService, private usuariosSistemaPrd: UsuarioSistemaService,
+    private empleadosPrd: EmpleadosService, private sedesPrd: SharedSedesService, private jornadaPrd: JornadalaboralService, private politicasPrd: SharedPoliticasService,
+    private modalPrd: ModalempleadosService) { }
 
-   ngOnInit() {
-    
-    
+  ngOnInit() {
 
-   
-    this.router.params.subscribe(params =>{
-       this.idEmpleado = params["id"];
+
+
+
+    this.router.params.subscribe(params => {
+      this.idEmpleado = params["id"];
 
       this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
         this.empleado = datos.datos;
@@ -66,45 +68,72 @@ export class EmpleoComponent implements OnInit {
     this.catalogosPrd.getAllEstados().subscribe(datos => this.arregloEstados = datos.datos);
     this.jornadaPrd.jornadasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloJornadas = datos.datos);
     this.politicasPrd.getPoliticasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloPoliticas = datos.datos);
-    
+
 
   }
 
 
-    
-    public createForm (obj:any){
-      let datePipe = new DatePipe("en-MX");
-      
 
-      
+  public createForm(obj: any) {
+    let datePipe = new DatePipe("en-MX");
 
-      return this.formBuilder.group({
-        areaId:[obj.areaId?.areaId,[Validators.required]],
-        puestoId:[{value:obj.puestoId?.puestoId,disabled:true},[Validators.required]],
-        puesto_id_reporta:obj.puesto_id_reporta,
-        sedeId:obj.sedeId?.sedeId,
-        estadoId:obj.estadoId?.estadoId,
-        fechaAntiguedad:[datePipe.transform(obj.fechaAntiguedad, 'yyyy-MM-dd'),[Validators.required]],
-        fechaInicio:[datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd'),[Validators.required]],
-        fechaFin:[datePipe.transform(obj.fechaFin, 'yyyy-MM-dd'),[Validators.required]],
-        jornadaId:[obj.jornadaId?.jornadaId,[Validators.required]],
-        politicaId:[obj.politicaId?.politicaId,[Validators.required]],
-        esSindicalizado:[obj.esSindicalizado]
-      });
 
-      
 
+
+    return this.formBuilder.group({
+      areaId: [obj.areaId?.areaId, [Validators.required]],
+      puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
+      puesto_id_reporta: obj.puesto_id_reporta,
+      sedeId: obj.sedeId?.sedeId,
+      estadoId: obj.estadoId?.estadoId,
+      fechaAntiguedad: [datePipe.transform(obj.fechaAntiguedad, 'yyyy-MM-dd'), [Validators.required]],
+      fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd'), [Validators.required]],
+      fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd'), [Validators.required]],
+      jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
+      politicaId: [obj.politicaId?.politicaId, [Validators.required]],
+      esSindicalizado: [obj.esSindicalizado]
+    });
+
+
+
+  }
+
+
+
+  public enviarFormulario() {
+    this.submitEnviado = true;
+
+    console.log(this.myForm.value);
+
+    if (this.myForm.invalid) {
+      this.modalPrd.getModal().modal = true;
+      this.modalPrd.getModal().strTitulo = "Campos obligatorios o invalidos";
+      this.modalPrd.getModal().strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
+      this.modalPrd.getModal().iconType = "error";
+      return;
     }
 
+    this.modalPrd.getModal().modal = true;
+    this.modalPrd.getModal().strsubtitulo = "Vas a modificar el perfil del usuario ¿Deseas continuar?";
+    this.modalPrd.getModal().iconType = "warning";
+    this.modalPrd.getModal().strTitulo = "¿Deseas modificar el empleado?";
 
+    this.modalPrd.esperarPeticion().subscribe(datos => {
+      if (datos.valor == "aceptado") {
 
-  public enviarFormulario(){
-    console.log(this.myForm.value);
-    this.submitEnviado = true;
+        setTimeout(() => {
+          this.modalPrd.getModal().modal = true;
+          this.modalPrd.getModal().strsubtitulo = "Completado";
+          this.modalPrd.getModal().iconType = "success";
+          this.modalPrd.getModal().strTitulo = "Completado";
+        }, 2000);
+
+      }
+    });
   }
 
 
-  public cambiaArea(){
+  public cambiaArea() {
     this.myForm.controls.puestoId.disable();
 
     this.arregloPuestos = [];
@@ -116,7 +145,7 @@ export class EmpleoComponent implements OnInit {
   }
 
 
-  public get f(){
+  public get f() {
     return this.myForm.controls;
   }
 
