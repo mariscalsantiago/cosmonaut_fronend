@@ -57,8 +57,8 @@ export class InformacionempresaComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial,[Validators.required]],
       actividadEconomicaId: [obj.actividadEconomicaId.actividadEconomicaId,[Validators.required]],
-      rfc: [obj.rfc,[Validators.required]],
-      curp: [obj.curp,[Validators.required]],
+      rfc: [obj.rfc,[Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
+      curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
       regimenfiscalId: [obj.regimenfiscalId.regimenfiscalId,[Validators.required]],
       calculoAutoPromedioVar: obj.calculoAutoPromedioVar,
       horasExtrasAuto: obj.horasExtrasAuto,
@@ -68,10 +68,6 @@ export class InformacionempresaComponent implements OnInit {
     });
   }
 
-
-  public guardar() {
-    this.enviado.emit({ type: "informacion", valor: true });
-  }
 
 
   public cancelar() {
@@ -122,6 +118,7 @@ export class InformacionempresaComponent implements OnInit {
             actividadEconomicaId: obj.actividadEconomicaId
            },
            esActivo: true,
+           imagen:this.imagen,
            curp : obj.curp,
            horasExtrasAuto:obj.horasExtrasAuto,
            calculoAutoPromedioVar: obj.calculoAutoPromedioVar,

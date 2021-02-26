@@ -23,6 +23,12 @@ export class EmpresasService {
     
 
   }
+  public getActivos(idEmpresA:number):Observable<any>{
+    
+    return this.http.get(`${this.url}/validacion/captura/empresa/${idEmpresA}`);
+    
+
+  }
   public getAllRep(id_company:number):Observable<any>{
     return this.http.get(`${direcciones.usuarios}/obtener/id/compania/${id_company}`);
 }

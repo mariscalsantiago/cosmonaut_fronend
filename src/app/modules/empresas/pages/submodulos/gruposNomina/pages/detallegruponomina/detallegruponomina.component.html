@@ -39,7 +39,6 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Cuenta bancaria *</label>
         <select formControlName="clabe" [ngClass]="{'is-invalid':f.clabe.errors && submitInvalido}" class="form-control">
-          <option value="123456789456214578">123456789456214578</option>
           <option *ngFor="let item of arregloCuentasBancarias" [value]="item.clabe">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.clabe.errors" class="invalid-feedback">
@@ -58,15 +57,13 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Periodo de nómina *</label>
         <select #periodopago formControlName="periodicidadPagoId" [ngClass]="{'is-invalid':f.periodicidadPagoId.errors && submitInvalido}" class="form-control">
-          <option value="01">Diario</option>
-          <option value="02">Quincenal</option>
-          <option value="03">Mensual</option>
+          <option *ngFor="let item of arregloPeriocidadPago" [value]="item.periodicidadPagoId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.periodicidadPagoId.errors" class="invalid-feedback">
           Campo obligatorio.
         </div>
       </div>
-      <div *ngIf="periodopago.value == '02'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+      <div *ngIf="periodopago.value == '04'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <input #ajusteisr (click)="activar(ajusteisr)" type="checkbox" name="" id="ajusteirs">
         <label for="ajusteirs">Ajuste de ISR </label>
        
@@ -80,7 +77,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Calcular periodo de nómina con base a *</label>
         <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
-          <option value="15D">30.4 dias.</option>
+          <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.basePeriodoId.errors" class="invalid-feedback">
           Campo obligatorio.
@@ -89,7 +86,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Periodo para pago de aguinaldo *</label>
         <select formControlName="periodoAguinaldoId" [ngClass]="{'is-invalid':f.periodoAguinaldoId.errors && submitInvalido}" class="form-control">
-          <option value="01">Diciembre</option>
+          <option *ngFor="let item of arregloCatPeriodosAguinaldo" [value]="item.periodoAguinaldoId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.periodoAguinaldoId.errors" class="invalid-feedback">
           Campo obligatorio.

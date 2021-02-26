@@ -138,7 +138,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
           nclCentrocCliente: {
             centrocClienteId: this.id_empresa
           },
-          csBanco: {
+          bancoId: {
             bancoId: obj.idbanco
           }
         };

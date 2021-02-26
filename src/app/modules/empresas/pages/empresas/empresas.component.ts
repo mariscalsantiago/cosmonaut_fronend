@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { ActivatedRoute } from '@angular/router';
 import { Console } from 'console';
+import { EmpresasService } from '../../services/empresas.service';
+import { element } from 'protractor';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 
 @Component({
   selector: 'app-empresas',
@@ -16,6 +20,7 @@ export class EmpresasComponent implements OnInit {
     { tab: true, form: true, disabled: false }, 
     { tab: false, form: false, disabled: false }, 
     { tab: false, form: false, disabled: false },
+    { tab: false, form: false, disabled: false },
     { tab: false, form: false, disabled: false }
   ];
   
@@ -27,6 +32,9 @@ export class EmpresasComponent implements OnInit {
   public insertar: boolean = false;
   public centrocClienteEmpresa:number = 0;
   public objdetrep: any = [];
+  public arregloactivos: any = [];
+  public activos: any = [];
+  public arregloregimen: any=[];
   public enviarPeticion = {
     enviarPeticion: false
   };
@@ -49,7 +57,7 @@ export class EmpresasComponent implements OnInit {
     datosempresaObj: this.objdetrep
   };
  
-  constructor(private usuarioSistemaPrd:UsuarioSistemaService, private routerActivePrd: ActivatedRoute ) {
+  constructor(private usuarioSistemaPrd:UsuarioSistemaService,  private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService) {
     debugger;
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -62,14 +70,117 @@ export class EmpresasComponent implements OnInit {
   ngOnInit(): void {
     debugger;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data ;
-    this.datosempresamod.datosempresaObj= this.objdetrep;
+   
+    this.datosempresamod.datosempresaObj= this.objdetrep; 
+    this.empresasProd.getActivos(this.objdetrep.centrocClienteId).subscribe(datos => {this.activos = datos
+    console.log("activo",datos)
+    });
     this.datosempresa.centrocClienteEmpresa = this.datosempresamod.datosempresaObj.centrocClienteId;
+
+    this.activos ={
+      informacion: true,
+      domicilio: true,
+      datosbancarios: false,
+      datosimss: false
+      
+    }
+    if(this.activos.informacion){
+      this.activado[0].tab = true;
+    }
+    if(this.activos.domicilio){
+      this.activado[1].tab = true;
+    }
+    if(this.activos.datosbancarios){
+      this.activado[2].tab = true;
+    }
+    if(this.activos.datosimss){
+      this.activado[3].tab = true;
+    }
   }
 
 
+  public empresa(){
+    if(!this.insertar){
+    this.recibirTabs({ type: "informacion", valor: true });
+    }
+  }
+
+  public domicilio(){
+    if(!this.insertar){
+    this.recibirTabs({ type: "domicilio", valor: true });
+    }
+  }
+  public bancos(){
+    if(!this.insertar){
+    this.recibirTabs({ type: "datosbancarios", valor: true });
+    }
+  }
+
+  public imss(){
+    if(!this.insertar){
+    this.recibirTabs({ type: "datosimss", valor: true });
+    }
+  }
+
+  public recibirTabs(elemento: any) {
+    debugger;
+ 
+   switch (elemento.type) {
+     case "informacion":
+ 
+       this.activado[0].tab = true;
+       this.activado[0].form = true;
+       this.activado[0].disabled = false;
+       this.activado[1].form = false;
+       this.activado[2].form = false;
+       this.activado[3].form = false;
+       this.activado[1].tab = false;
+       this.activado[2].tab = false;
+       this.activado[3].tab = false;
+
+       break;
+     case "domicilio":
+ 
+       this.activado[1].tab = true;
+       this.activado[1].form = true;
+       this.activado[1].disabled = false;
+       this.activado[0].form = false;
+       this.activado[2].form = false;
+       this.activado[3].form = false;
+       this.activado[0].tab = false;
+       this.activado[2].tab = false;
+       this.activado[3].tab = false;
+       break;
+     case "datosbancarios":
+ 
+       this.activado[2].tab = true;
+       this.activado[2].form = true;
+       this.activado[2].disabled = false;
+       this.activado[0].form = false;
+       this.activado[1].form = false;
+       this.activado[3].form = false;
+       this.activado[0].tab = false;
+       this.activado[1].tab = false;
+       this.activado[3].tab = false;
+       break;
+       case "datosimss":
+ 
+         this.activado[3].tab = true;
+         this.activado[3].form = true;
+         this.activado[3].disabled = false;
+         this.activado[0].form = false;
+         this.activado[1].form = false;
+         this.activado[2].form = false;
+         this.activado[0].tab = false;
+         this.activado[1].tab = false;
+         this.activado[2].tab = false;
+         break;
+   }
+  }
+ 
 
 public recibir(elemento: any) {
-   
+   debugger;
 
   switch (elemento.type) {
     case "informacion":
@@ -114,7 +225,7 @@ public recibir(elemento: any) {
 }
 
   public recibirAlerta(obj: any) {
-
+    debugger;
      
     this.cambiaValor = !this.cambiaValor;
      
