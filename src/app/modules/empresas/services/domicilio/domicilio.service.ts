@@ -13,7 +13,7 @@ export class DomicilioService {
   constructor(private http:HttpClient) { }
 
   public getDetDom(id_empresa:number):Observable<any>{
-    return this.http.get(`${direcciones.domicilio}/obtener/id/empresa/${id_empresa}`);
+    return this.http.get(`${direcciones.domicilio}/obtener/id/empresa/domicilio/${id_empresa}`);
   }
 
   public save(obj:any):Observable<any>{
@@ -40,7 +40,7 @@ export class DomicilioService {
 
 
     let json = JSON.stringify(obj);
-    return this.http.put(`${direcciones.domicilio}/modificar`,json,httpOptions);
+    return this.http.post(`${direcciones.domicilio}/modificar`,json,httpOptions);
 
   }
 

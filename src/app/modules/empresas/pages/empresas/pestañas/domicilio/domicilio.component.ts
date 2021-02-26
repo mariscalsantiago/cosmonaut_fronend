@@ -31,6 +31,7 @@ export class DomicilioComponent implements OnInit {
   public idMunicipio:number = 0;
   public id_empresa: number = 0;
   public asentamientoCpCons: number =0;
+  public arreglo: any=[];
 
   constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
@@ -40,6 +41,16 @@ export class DomicilioComponent implements OnInit {
     let obj:any = {};
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
     if(!this.datosempresa.insertar){
+      this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
+        this.arreglo = datos.datos[0];
+        this.catalogosPrd.getAsentamientoByCodigoPostal(this.arreglo.codigo).subscribe(datos => {
+            
+            this.arreglo = datos.datos;
+        });
+      });
+      this.myForm = this.createForm(obj);
+    }
+    if(!this.datosempresa.insertar && this.arreglo !=undefined ){
 
     this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
       obj = datos.datos[0];
@@ -99,7 +110,7 @@ export class DomicilioComponent implements OnInit {
 
 
   public enviarFormulario() {
-     
+     debugger;
     this.submitEnviado = true;
 
     if(!this.habcontinuar){

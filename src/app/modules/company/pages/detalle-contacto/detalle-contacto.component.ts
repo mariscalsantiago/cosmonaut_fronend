@@ -169,7 +169,7 @@ export class DetalleContactoComponent implements OnInit {
       }
     }else{
       if(this.iconType == "success"){
-          this.routerPrd.navigate(["/company"]);
+        this.routerPrd.navigate(['company','detalle_company','modifica'],{state:{datos:this.datosEmpresa}});
       }
      
       this.modal = false;
