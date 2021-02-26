@@ -10,7 +10,7 @@ export class TablapaginadoComponent implements OnInit {
 
   @Input() public cargando: any = false;
   public arreglo: any = [];
-  public numeroitems: number = 5;
+  public numeroitems: number = 20;
 
 
   public arreglopaginas: Array<any> = [];

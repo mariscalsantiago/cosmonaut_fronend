@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,11 +22,13 @@ export class DetalleContactoComponent implements OnInit {
   public iconType:string = "";
   public fechaActual: string = "";
   public strTitulo: string = "";
-  public strsubtitulo:string = "";
   public objcontacto: any;
   public fechaAlta: string = "";
   public cargando:Boolean = false;
   public centrocClienteId:number = 1;
+  public datosEmpresa:any;
+
+  public submitEnviado:boolean = false;
 
   
 
@@ -34,16 +37,6 @@ export class DetalleContactoComponent implements OnInit {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
-
-      
-      if ((this.insertar)) {
-        this.strTitulo = "¿Deseas registrar la compañía?";
-
-      } else {
-        this.strTitulo = "¿Deseas actualizar a compañía?";
-
-      }
-
     });
 
   
@@ -61,12 +54,15 @@ export class DetalleContactoComponent implements OnInit {
   ngOnInit(): void {
     
     this.objcontacto = history.state.datos == undefined ? {} : history.state.datos ;
+    this.datosEmpresa = history.state.empresa == undefined ? {} : history.state.empresa ;
+
     this.myFormcont = this.createFormcont((this.objcontacto));
 
   }
 
 
   public createFormcont(obj: any) {
+    let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -76,16 +72,25 @@ export class DetalleContactoComponent implements OnInit {
       emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/","-").replace("/","-")), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : datePipe.transform(new Date(), 'dd/MM/yyyy')), disabled: true }, [Validators.required]],
       personaId: obj.personaId
 
     });
   }
 
   public enviarPeticioncont() {
+
+    this.submitEnviado = true;
+
+    if(this.myFormcont.invalid){
+      this.iconType = "error";
+      this.strTitulo =  "Campos obligatorios o inválidos";
+      this.modal = true;
+      return;
+    }
+
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el contacto?" : "¿Deseas actualizar el contacto?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar el contacto?" : "¿Deseas actualizar los datos del contacto inicial?";
     this.modal = true;
   }
 
@@ -119,7 +124,7 @@ export class DetalleContactoComponent implements OnInit {
           contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
           contactoInicialTelefono: obj.contactoInicialTelefono,
           centrocClienteId: {
-            centrocClienteId: this.centrocClienteId
+            centrocClienteId: this.datosEmpresa.centrocClienteId
           }
       }
 
@@ -131,7 +136,6 @@ export class DetalleContactoComponent implements OnInit {
             this.iconType = datos.resultado? "success":"error";
     
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = 'Registro agregado correctamente'
             this.modal = true;
             this.compania = false;
             this.contacto = true;
@@ -146,7 +150,6 @@ export class DetalleContactoComponent implements OnInit {
            this.companyPrd.modificarCont(objEnviar).subscribe(datos =>{
             this.iconType =  datos.resultado? "success":"error";  
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = 'Registro modificado correctamente!'
             this.modal = true;
             this.listcontacto = true;
             this.compania = false;

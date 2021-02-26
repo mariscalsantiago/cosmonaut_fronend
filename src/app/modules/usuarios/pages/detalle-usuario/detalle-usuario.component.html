@@ -22,7 +22,7 @@
                     <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
                 </select>
                 <div *ngIf="f.centrocClienteId.errors && summitenviado" class="invalid-feedback">
-                    Seleccionar compañia
+                    Campo requerido
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <input formControlName="nombre" type="text" class="form-control"
                     [ngClass]="{'is-invalid':f.nombre.errors && summitenviado}" placeholder="">
                 <div *ngIf="f.nombre.errors && summitenviado" class="invalid-feedback">
-                    Favor de ingresar el Nombre
+                    Campo requerido
                 </div>
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
@@ -41,7 +41,7 @@
                 <input formControlName="apellidoPat" type="text" class="form-control"
                     [ngClass]="{'is-invalid':f.apellidoPat.errors && summitenviado}" placeholder="">
                 <div *ngIf="f.apellidoPat.errors && summitenviado" class="invalid-feedback">
-                    Favor de ingresar el Apellido Paterno
+                    Campo requerido
                 </div>
 
             </div>
@@ -69,7 +69,7 @@
                 <input formControlName="emailCorp" type="email" class="form-control"
                     [ngClass]="{'is-invalid':(f.emailCorp.errors?.email && f.emailCorp.touched) || (f.emailCorp.errors?.required && summitenviado) }" placeholder="">
                 <div *ngIf="f.emailCorp.errors?.required && summitenviado" class="invalid-feedback">
-                    Favor de ingresar el Correo Empresarial
+                    Campo requerido
                 </div>
                 <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
                     Correo Empresarial inválido, Favor de verificar
@@ -82,7 +82,7 @@
                     [ngClass]="{'is-invalid':(f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched) || (f.ciEmailPersonal.errors?.required && summitenviado)}" placeholder="">
 
                 <div *ngIf="f.ciEmailPersonal.errors?.required && summitenviado" class="invalid-feedback">
-                    Favor de ingresar el Correo Personal
+                    Campo requerido
                 </div>
                 <div *ngIf="f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched" class="invalid-feedback">
                     Correo Personal inválido, Favor de verificar
@@ -95,7 +95,7 @@
                     [ngClass]="{'is-invalid':f.ciTelefono.errors && summitenviado}" placeholder="">
 
                 <div *ngIf="f.ciTelefono.errors && summitenviado" class="invalid-feedback">
-                    Favor de ingresar el Teléfono
+                    Campo requerido
                 </div>
 
             </div>

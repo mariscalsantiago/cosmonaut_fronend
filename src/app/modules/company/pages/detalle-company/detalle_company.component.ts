@@ -1,7 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
+import { UsuarioService } from 'src/app/modules/usuarios/services/usuario.service';
 import { CompanyService } from '../../services/company.service';
 
 @Component({
@@ -20,22 +23,30 @@ export class DetalleCompanyComponent implements OnInit {
   public companiaprincipal: boolean = true;
   public insertar: boolean = false;
   public iconType: string = "";
-  public fechaActual: string = "";
   public strTitulo: string = "";
-  public strsubtitulo: string = "";
+  
   public objcont: any;
   public fechaAlta: string = "";
   public cargando: Boolean = false;
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
   public objCompany: any;
-  public centrocClienteId: number = 1;
-  public tipoPersonaId: number = 3;
   public submitEnviado: boolean = false;
-  public imagen:any = undefined;
+  public imagen: any = undefined;
+  public arreglotabla:any = {
+    columnas:[],
+    filas:[]
+  };
+  
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router) {
+    private routerPrd: Router,private usuariosPrd:UsuarioService) {
+  }
+
+  ngOnInit(): void {
+
+    this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
+    this.compania = true;
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -44,40 +55,26 @@ export class DetalleCompanyComponent implements OnInit {
         this.listcontacto = true;
       }
 
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar la compañía?";
-
+      this.myFormcomp = this.createFormcomp((this.objCompany));
     });
 
 
-    let fecha = new Date();
-    let dia = fecha.getDate().toString();
-    let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
-    let anio = fecha.getFullYear();
 
-
-    this.fechaActual = `${dia}/${mes}/${anio}`;
-
-  }
-
-  ngOnInit(): void {
     
-    this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
-    this.myFormcomp = this.createFormcomp((this.objCompany));
-    this.compania = true;
 
-    console.log("Datos de la url",this.objCompany.url);
-    
   }
 
 
   public createFormcomp(obj: any) {
+    let datePipe = new DatePipe("en-MX");
+    console.log(datePipe.transform(new Date(), 'dd/MM/yyyy'));
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial, [Validators.required]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
-      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd/MM/yyyy') : obj.fechaAlta), disabled: true }, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? "true" : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       centrocClienteId: obj.centrocClienteId
 
     });
@@ -89,10 +86,10 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public verdetallecont(obj: any) {
-    
+
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
-    this.routerPrd.navigate(['company', 'detalle_contacto', tipoinsert], { state: { datos: obj } });
+    this.routerPrd.navigate(['company', 'detalle_contacto', tipoinsert], { state: { datos: obj,empresa:this.objCompany } });
     this.cargando = false;
 
 
@@ -102,22 +99,31 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public listaContacto() {
-    
+
     let objEnviar: any = {
 
       centrocClienteId: {
-        centrocClienteId: this.centrocClienteId
+        centrocClienteId: this.objCompany?.centrocClienteId
       },
       tipoPersonaId: {
-        tipoPersonaId: this.tipoPersonaId
+        tipoPersonaId: 2
       }
     }
 
-    this.companyPrd.getAllCont(objEnviar).subscribe(datos => {
-      this.cargando = true;
-
+    this.cargando = true;
+    this.usuariosPrd.filtrar(objEnviar).subscribe(datos => {
       this.arreglo = datos.datos;
+      let columnas:Array<tabla> = [
+        new tabla("personaId","ID contacto"),
+        new tabla("nombre","Nombre contacto"),
+        new tabla("emailCorporativo","Correo Empresarial"),
+        new tabla("contactoInicialTelefono","Teléfono"),
+        new tabla("fechaAlta","Fecha registro")
+      ]
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = this.arreglo;
       this.cargando = false;
+
 
     });
   }
@@ -128,8 +134,7 @@ export class DetalleCompanyComponent implements OnInit {
 
       this.submitEnviado = true;
       this.iconType = "error";
-      this.strTitulo = "Faltan campos obligatorios";
-      this.strsubtitulo = "Verifica que campos hacen falta";
+      this.strTitulo = "Campos obligatorios o inválidos";
       this.modal = true;
 
       return;
@@ -137,8 +142,7 @@ export class DetalleCompanyComponent implements OnInit {
 
 
     this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar la compañía?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
+    this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar los datos de la compañía?";
     this.modal = true;
 
   }
@@ -148,46 +152,41 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
   public recibir($evento: any) {
-    
+
     this.modal = false;
     if (this.iconType == "warning") {
       if ($evento) {
         let obj = this.myFormcomp.value;
         obj = {
           ...obj,
-          fechaAlta: this.fechaActual,
-          imagen:this.imagen
+          imagen: this.imagen
         };
 
-        
+
 
         if (this.insertar) {
-          
+
 
           this.companyPrd.save(obj).subscribe(datos => {
 
             this.iconType = datos.resultado ? "success" : "error";
-
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = 'Registro agregado correctamente'
             this.modal = true;
             this.compania = !datos.resultado;
             this.contacto = true;
-            if (datos.resultado == true) {
-              let obj = this.objcont;
-              this.verdetallecont(obj);
+            if (datos.resultado) {
+              this.objCompany = datos.datos;
             }
 
           });
 
         } else {
 
-          
+
 
           this.companyPrd.modificar(obj).subscribe(datos => {
             this.iconType = datos.resultado ? "success" : "error";
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = 'Registro modificado correctamente!'
             this.modal = true;
             this.listcontacto = true;
             this.compania = false;
@@ -198,15 +197,31 @@ export class DetalleCompanyComponent implements OnInit {
       }
     } else {
 
-      this.modal = false;
+      if(this.iconType == "success"){
+        this.modal = false;
+        
+
+        if (this.insertar) {
+          this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined,empresa:this.objCompany } });
+        }
+      }
     }
   }
 
   get f() { return this.myFormcomp.controls; }
 
 
-  public recibirImagen(imagen:any){
+  public recibirImagen(imagen: any) {
     this.imagen = imagen;
+  }
+
+
+  public recibirTabla(obj:any){
+
+    console.log(obj.datos);
+
+    this.verdetallecont(obj.datos);
+
   }
 
 

@@ -63,13 +63,10 @@ export class CompanyComponent implements OnInit {
 
         this.companyProd.getAll().subscribe(datos =>{
           this.arreglo = datos.datos;
-
-          console.log(this.arreglo);
-
           let columnas:Array<tabla> = [
             new tabla("url","imagen"),
-            new tabla("centrocClienteId","ID empresa",true),
-            new tabla("razonSocial","Razón social	",false,true),
+            new tabla("centrocClienteId","ID empresa"),
+            new tabla("razonSocial","Razón social	"),
             new tabla("nombre","Nombre de la empresa	"),
             new tabla("rfc","RFC"),
             new tabla("fechaAlta","Fecha registro"),

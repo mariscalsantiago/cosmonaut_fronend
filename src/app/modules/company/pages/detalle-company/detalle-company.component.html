@@ -26,7 +26,7 @@
               <input formControlName="nombre" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
               <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
-                Favor de ingresar el Nombre de la compañía.
+                Campo requerido
               </div>
 
             </div>
@@ -35,7 +35,7 @@
               <input formControlName="razonSocial" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.razonSocial.errors && submitEnviado}" placeholder="">
               <div *ngIf="f.razonSocial.errors && submitEnviado" class="invalid-feedback">
-                Favor de ingresar la Razón social.
+                Campo requerido
               </div>
 
             </div>
@@ -44,7 +44,7 @@
               <input formControlName="rfc" maxlength="13" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}">
               <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
-                Favor de ingresar el RFC (12 o 13 caracteres).
+                Campo requerido
               </div>
               <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
                 Formato de RFC inválido, favor de verificar.
@@ -85,14 +85,13 @@
 
 </form>
 
-<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" 
   (eventoFunciones)="recibir($event)"></app-alert-questions>
 
 
 <form>
   <div *ngIf="listcontacto" class="row margen margen-tabla background-panel scrooll">
     <div class="background-panel margen">
-      <br>
       <div class="form-group row margen">
         <label class="titulo">LISTA DE CONTACTOS</label>
       </div>
@@ -104,68 +103,7 @@
             </button>
           </div>
         </div>
-        <div class="row margen" style="margin-bottom: -25px;">
-          <div class="input-group mb-5">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01">
-              <option value="1" selected>20</option>
-              <option value="2">50</option>
-              <option value="3">100</option>
-            </select>
-
-          </div>
-        </div>
-        <table *ngIf="!cargando" class="table table-hover table-responsive">
-          <thead>
-            <tr>
-              <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
-              <th scope="col">ID Contacto</th>
-              <th scope="col">Nombre contacto</th>
-              <th scope="col">Correo Empresarial</th>
-              <th scope="col">Teléfono</th>
-              <th scope="col">Fecha registro</th>
-              <th scope="col" *ngIf="!multiseleccion">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of arreglo;">
-              <th scope="row"><i class="icon_perfil"></i></th>
-              <td style="color:  #00DED4">{{item.personaId}} </td>
-              <td>{{item.nombre}}</td>
-              <td>{{item.emailCorporativo}}</td>
-              <td>{{item.contactoInicialTelefono}}</td>
-              <td>{{item.fechaAlta}}</td>
-              <td>
-                <button (click)="verdetallecont(item)" class="btnPersonalizado">
-                  <i class="icon_editar text-center bg-light"></i></button>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-        <div *ngIf="!cargando" class="row" style="width: 100%;">
-          <div class="col">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
-                </li>
-                <li class="page-item"><a class="page-link">1</a></li>
-                <li class="page-item"><a class="page-link">2</a></li>
-                <li class="page-item"><a class="page-link">3</a></li>
-                <li class="page-item">
-                  <a class="page-link">Siguiente</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-
-        <div *ngIf="cargando" class="col text-center mb-5">
-          <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-        </div>
+        <app-tablapaginado [datos]="arreglotabla" [editar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
       </div>
     </div>
   </div>

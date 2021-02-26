@@ -15,7 +15,7 @@
         
       </div>
       
-      <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover table-responsive anchura table-sm">
+      <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover table-responsive anchura ">
         <thead>
           <tr>
             <th *ngIf="imagen"></th>
@@ -31,7 +31,7 @@
                 <img *ngIf="item.url == undefined" width="60px" height="60px"
                 src="../../../assets/imgs/logo2.png" class="tableimg">
             </td>
-            <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url'}"  (click)="eventoclick(item2,item)">{{item[item2.id]}}</td>
+            <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url'}"  (click)="eventoclick(item2,item)">{{(item2.nombre == 'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}</td>
             <td class="opciones">
               <button *ngIf="ver" (click)="btnVer(item)"><i class="icon_ver primary-bg"></i></button>
               <button *ngIf="editar" (click)="btnEditar(item)" ><i class="icon_editar primary-bg"></i></button>
