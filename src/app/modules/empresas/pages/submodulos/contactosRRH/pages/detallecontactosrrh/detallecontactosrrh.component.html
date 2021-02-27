@@ -16,21 +16,21 @@
 
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Nombre *</label>
-                <input #nombre formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && subbmitActive}"  placeholder="">
+                <input #nombre formControlName="nombre" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && subbmitActive}"  placeholder="">
                 <div *ngIf="f.nombre.errors && subbmitActive" class="invalid-feedback">
                     Campo requerido
                   </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Apellido paterno *</label>
-                <input formControlName="apellidoPat" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPat.errors && subbmitActive}"  placeholder="">
+                <input formControlName="apellidoPat" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPat.errors && subbmitActive}"  placeholder="">
                 <div *ngIf="f.apellidoPat.errors && subbmitActive" class="invalid-feedback">
                   Campo requerido
                   </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Apellido materno</label>
-                <input formControlName="apellidoMat"  type="text" class="form-control"  placeholder="">
+                <input formControlName="apellidoMat" appMayusculas type="text" class="form-control"  placeholder="">
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>CURP</label>

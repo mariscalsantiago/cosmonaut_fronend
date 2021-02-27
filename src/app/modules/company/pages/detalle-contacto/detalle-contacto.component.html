@@ -18,7 +18,7 @@
 
           <div class=" input-group-sm mb-3 col-4">
             <label >Nombre *</label>
-            <input #nombre formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"  placeholder="">
+            <input #nombre formControlName="nombre" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"  placeholder="">
             <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
               </div>
@@ -26,7 +26,7 @@
           </div>
           <div class=" input-group-sm mb-3 col-4">
             <label >Apellido paterno *</label>
-            <input formControlName="apellidoPaterno" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
+            <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
                 placeholder="">
                 <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                   Campo requerido
@@ -35,7 +35,7 @@
           </div>
           <div class=" input-group-sm mb-3 col-4">
               <label >Apellido materno</label>
-              <input formControlName="apellidoMaterno" type="text" class="form-control" id="apellidoMaterno" aria-describedby="emailHelp"
+              <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control" id="apellidoMaterno" aria-describedby="emailHelp"
                   placeholder="">
 
           </div>
