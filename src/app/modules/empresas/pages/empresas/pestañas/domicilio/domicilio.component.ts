@@ -125,7 +125,7 @@ export class DomicilioComponent implements OnInit {
 
     this.alerta.modal = true;
     this.alerta.strTitulo = (this.datosempresa.insertar) ? "¿Deseas registrar el domicilio" : "¿Deseas actualizar el domicilio?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar el domicilio";
+    //this.alerta.strsubtitulo = "Esta apunto de guardar el domicilio";
     this.alerta.iconType = "warning";
 
   }else{
@@ -135,7 +135,7 @@ export class DomicilioComponent implements OnInit {
     
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas continuar?";
-    this.alerta.strsubtitulo = "Esta apunto de pasar a datos bancarios";
+    //this.alerta.strsubtitulo = "Esta apunto de pasar a datos bancarios";
     this.alerta.iconType = "warning";
 
   }
@@ -173,7 +173,7 @@ export class DomicilioComponent implements OnInit {
           numExterior: obj.numExterior,
           numInterior:obj.numInterior,
           centrocClienteId: {
-            centrocClienteId: this.datosempresa.centrocClienteId
+            centrocClienteId: this.datosempresa.centrocClienteEmpresa
           }
       }
 
@@ -208,7 +208,7 @@ export class DomicilioComponent implements OnInit {
           numExterior: obj.numExterior,
           numInterior:obj.numInterior,
           centrocClienteId: {
-            centrocClienteId: this.datosempresa.centrocClienteId
+            centrocClienteId: this.datosempresa.centrocClienteEmpresa
           }
       }
       
