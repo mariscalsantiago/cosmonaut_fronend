@@ -6,7 +6,7 @@ import {menuprincipal,submenu} from '../data/estructuramenu';
 })
 export class MenuService {
 
-  
+  public tipoinsert: string = 'nuevo';
   private arreglo: Array<menuprincipal> = [
     { nombre: "INICIO", icono: "icon_home", seleccionado: true,seleccionadosubmenu:false,routerLink:['/inicio'] },
     { nombre: "NOMINAS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false},
@@ -25,7 +25,10 @@ export class MenuService {
                                                                                 {nombre:"COMPAÑIA",routerLink:['/company']},
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios']},
                                                                               ]},
-    { nombre: "ADMINISTRACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,routerLink:['/listaempresas'] },
+    { nombre: "ADMINISTRACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,submenu:[
+                                                                                {nombre:"CONFIGURACIÓN EWMPRESA",routerLink:['/listaempresas']},
+                                                                                {nombre:"EMPRESA",routerLink:['listaempresas', 'empresas', this.tipoinsert]},
+                                                                              ]},
   ];
 
   constructor() { }

@@ -20,6 +20,8 @@ export class InformacionempresaComponent implements OnInit {
   @Input() datosempresa:any;
   @Input() datosempresamod:any;
 
+  public obj:any ={};
+
 
 
   public myform!: FormGroup;
@@ -35,15 +37,15 @@ export class InformacionempresaComponent implements OnInit {
 
   ngOnInit(): void {
     
-    let obj = this.datosempresamod.datosempresaObj
+    this.obj = this.datosempresamod.datosempresaObj
     if(this.datosempresa.insertar){
-      obj = {
+      this.obj = {
         regimenfiscalId: {},
         actividadEconomicaId: {}
       };
     }
    
-    this.myform = this.createForm(obj);
+    this.myform = this.createForm(this.obj);
     this.catalogosPrd.getRegimenFiscal().subscribe(datos => this.arregloregimen = datos.datos);
     this.catalogosPrd.getActividadEconomica().subscribe(datos => this.arregloactividad = datos.datos);
 
@@ -64,7 +66,7 @@ export class InformacionempresaComponent implements OnInit {
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial,[Validators.required]],
-      actividadEconomicaId: [obj.actividadEconomicaId.actividadEconomicaId,[Validators.required]],
+      actividadEconomicaId: [obj.actividadEconomicaId?.actividadEconomicaId,[Validators.required]],
       rfc: [obj.rfc,[Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
       curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
       regimenfiscalId: [obj.regimenfiscalId.regimenfiscalId,[Validators.required]],

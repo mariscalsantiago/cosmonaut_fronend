@@ -131,9 +131,11 @@
                     <tr>
                         <td>{{item.nombre}} </td>
                         <td (click)="traerModalEmpleo(indice)" style="color:  #00DED4" *ngIf="tamanio >=600">{{item.count}}</td>
-                        <td class="opciones"><button (click)="traerModal(indice)"><i class="icon_ver primary-bg"></i></button></td>
-                        <td class="opciones">
-                          <button (click)="traerModal(indice)"><i class="icon_ver primary-bg"></i></button>
+                        <td >
+                          <button style="background-color: transparent;" (click)="traerModal(indice)"><i class="icon_ver primary-bg"></i>
+                          </button>
+                        </td>
+                        <td class="opciones" >
                           <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
                           <button (click)="eliminar(item)"><i class="icon_eliminar danger-bg"></i></button>
                           <button (click)="apagando(indice); "><i *ngIf="!item.seleccionado" class="fas fa-chevron-down primary" style="font-size: 14px;
@@ -187,8 +189,8 @@
                     </ng-container>              
                 </tbody>
               </table>
-              <div *ngIf="!cargando && arreglo === undefined" class="alert alert-warning col text-center">
-                <strong>Sin empresas</strong> La tabla de empresas esta vacía.
+              <div *ngIf="!cargando && arreglo === undefined" class="alert col text-center">
+                <strong>En este momento no existen registros</strong>
               </div>
               <div *ngIf="cargando" class="col text-center mb-5">
                 <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
