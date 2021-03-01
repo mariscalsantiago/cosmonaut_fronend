@@ -19,14 +19,14 @@
                     <label>Apellido paterno*</label>
                     <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control"  [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
+                        Campo requerido  
                     </div>
     
     
                 </div>
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
                     <label>Apellido materno</label>
-                    <input formControlName="apellidoMaterno" appMayusculas type="email" class="form-control text-lowercase"  placeholder="">   
+                    <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control"  placeholder="">   
                 </div>
               
             </div>
@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12">
                     <label >Correo personal*</label>
-                    <input formControlName="contactoInicialEmailPersonal" type="text" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" class="form-control" name="" >
+                    <input appMayusculas [minusculas]="true" formControlName="contactoInicialEmailPersonal" type="email" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" class="form-control" name="" >
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12">
                     <label >Correo empresarial</label>
-                    <input formControlName="emailCorporativo" type="text" class="form-control" name="" >
+                    <input appMayusculas [minusculas]="true" formControlName="emailCorporativo" type="email" class="form-control" name="" >
                     <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" class="invalid-feedback">
                         Correo empresarial inválido
                     </div>
@@ -193,7 +193,7 @@
 
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-12">
                     <label > Correo personal</label>
-                    <input formControlName="contactoEmergenciaEmail" type="text" name=""  class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched}">
+                    <input appMayusculas [minusculas]="true" formControlName="contactoEmergenciaEmail" type="text" name=""  class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched}">
                     <div *ngIf="f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched" class="invalid-feedback">
                         Correo inválido
                     </div>

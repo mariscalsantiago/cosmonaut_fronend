@@ -14,28 +14,40 @@ export class MayusculasDirective {
   @HostListener("input", ["$event"])
   onKeyDown(event: KeyboardEvent) {
    
+    console.log("Estoy recibiendo el evento paps...");
+    
+    if(this.minusculas){
+      this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
+    }
+
   }
 
 
   @HostListener('focusout', ['$event.target'])
     onFocusout(target: any) {
-      const valorCampo:string = this.el.nativeElement.value;
-      const valorDividido:string[] = valorCampo.split(' ');
-      const regex = /^(la|el|los|de|del|al|la)$/g;
-  
-      let cadena:string = '';
-  
-      valorDividido.forEach((dato, i) => {
-        const es =  (i === (valorDividido.length - 1) ? '' : ' ');
-        if (regex.test(dato)) { 
-          cadena += dato + es;
-        } else {
-          cadena += dato.substring(0,1).toUpperCase() +
-           dato.substring(1,dato.length).toLowerCase() +  es;
-        }
-        console.log(cadena);
-      });
-      this.render.setProperty(this.el.nativeElement, 'value', cadena);
+
+      if(!this.minusculas){
+        const valorCampo:string = this.el.nativeElement.value;
+        const valorDividido:string[] = valorCampo.split(' ');
+        const regex = /^(la|el|los|de|del|al|la)$/g;
+    
+        let cadena:string = '';
+    
+        valorDividido.forEach((dato, i) => {
+          const es =  (i === (valorDividido.length - 1) ? '' : ' ');
+          if (regex.test(dato)) { 
+            cadena += dato + es;
+          } else {
+            cadena += dato.substring(0,1).toUpperCase() +
+             dato.substring(1,dato.length).toLowerCase() +  es;
+          }
+          console.log(cadena);
+        });
+        this.render.setProperty(this.el.nativeElement, 'value', cadena);
+      }else{
+        this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
+      }
+
     }
     
 }

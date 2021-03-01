@@ -34,20 +34,30 @@
     
                
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                  <input formControlName="emImssObreroIntegradoApatronal" type="checkbox" name="" id="emImssObreroIntegradoApatronal">
-                  <label for="emImssObreroIntegradoApatronal">IMSS obrero integrado IMSS patronal para salario minimo</label>
+                  <label class="contenedorInputCheckRadio">IMSS obrero integrado IMSS patronal para salario minimo
+                    <input formControlName="emImssObreroIntegradoApatronal" type="checkbox" name="" id="emImssObreroIntegradoApatronal">
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
 
                 <div class="input-group-sm mb-3 col-4"></div>
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                  <input formControlName="emEnviarMovsImss" type="checkbox" name="" id="emEnviarMovsImss">
-                  <label for="emEnviarMovsImss">Enviar movimientos al IMSS mediante Cosmonaut</label>
+                  <label class="contenedorInputCheckRadio">Enviar movimientos al IMSS mediante Cosmonaut
+                    <input formControlName="emEnviarMovsImss" type="checkbox" name="" id="emEnviarMovsImss">
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
                 
                 <div  class="input-group-sm mb-3 col-8">
                   <label>Enviar moviemientos vía: </label><br>
-                  <input (click)="activcer()" id="certificado" type="radio" name="moviemientos"> Enviar movimientos al IMSS mediante certificado IMSS<br>
-                  <input (click)="activfiel()" id="fiel" type="radio" name="moviemientos"> Enviar movimientos al IMSS mediante FIEL
+                  <label class="contenedorInputCheckRadio"> Enviar movimientos al IMSS mediante certificado IMSS
+                    <input (click)="activcer()" id="certificado" type="radio" name="moviemientos">
+                    <span class="radiomark"></span>
+                  </label>
+                  <label class="contenedorInputCheckRadio"> Enviar movimientos al IMSS mediante FIEL
+                    <input (click)="activfiel()" id="fiel" type="radio" name="moviemientos">
+                    <span class="radiomark"></span>
+                  </label>
                 </div>
                 <div class="input-group-sm mb-3 col-4"></div>
                 <div *ngIf="activadoCer" class="input-group-sm mb-3 col-4">

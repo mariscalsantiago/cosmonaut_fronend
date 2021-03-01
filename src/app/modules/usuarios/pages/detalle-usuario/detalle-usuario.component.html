@@ -78,7 +78,7 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Correo personal *</label>
-                <input formControlName="ciEmailPersonal" type="email" class="form-control text-lowercase"
+                <input appMayusculas [minusculas]="true" formControlName="ciEmailPersonal" type="email" class="form-control text-lowercase"
                     [ngClass]="{'is-invalid':(f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched) || (f.ciEmailPersonal.errors?.required && summitenviado)}" placeholder="">
 
                 <div *ngIf="f.ciEmailPersonal.errors?.required && summitenviado" class="invalid-feedback">
