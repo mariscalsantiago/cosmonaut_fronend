@@ -11,18 +11,18 @@
   
             <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label >Nombre *</label>
-              <input formControlName="nombre" maxlength="64" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"  placeholder="">
-              <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
-                  Favor de ingresar nombre
+              <input #nombre formControlName="nombre" maxlength="64" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"  placeholder="">
+              <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
+                  Campo requerido
                 </div>
     
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label >Días económicos *</label>
-              <input formControlName="diasEconomicos" type="text" class="form-control" [ngClass]="{'is-invalid':f.diasEconomicos.errors && f.diasEconomicos.touched}"
+              <input formControlName="diasEconomicos" type="text" class="form-control" [ngClass]="{'is-invalid':f.diasEconomicos.errors && submitEnviado}"
                   placeholder="">
-                  <div *ngIf="f.diasEconomicos.errors && f.diasEconomicos.touched" class="invalid-feedback">
-                      Favor de ingresar días económicos
+                  <div *ngIf="f.diasEconomicos.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
                     </div>
     
             </div>
@@ -49,8 +49,11 @@
           </div>
           <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Cálculos en base a :</label><br>
-            <input  value="C" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" id=""> Fecha de antigüedad<br>
-            <input  value="A" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id=""> Fecha de inicio de contrato
+            <input [ngClass]="{'is-invalid':f.calculoAntiguedadx.errors && submitEnviado}" value="antiguedad" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id="">Fecha de antigüedad <br>
+            <input [ngClass]="{'is-invalid':f.calculoAntiguedadx.errors && submitEnviado}" value="contrato" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id="">Fecha de inicio de contrato
+            <div *ngIf="submitEnviado && f.calculoAntiguedadx.errors" class="invalid-feedback">
+              Campo requerido
+            </div>
           </div>
   
         </div>
@@ -60,9 +63,9 @@
   
     <div class="text-center margin" style="margin-bottom: 20px;">
       <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
-      <button [disabled]="!myFormpol.valid" type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+      <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
   </div>   
   
   </form>
   
-  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
+  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"    (eventoFunciones)="recibir($event)"></app-alert-questions>

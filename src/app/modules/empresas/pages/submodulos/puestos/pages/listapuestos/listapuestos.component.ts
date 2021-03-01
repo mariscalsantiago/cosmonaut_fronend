@@ -13,7 +13,6 @@ export class ListapuestosComponent implements OnInit {
   public insertar: boolean = false;
   public iconType:string = "";
   public strTitulo: string = "";
-  public strsubtitulo:string = "";
   public tamanio:number = 0;
   public cargando:Boolean = false;
   public id_empresa:number = 0;
@@ -56,6 +55,7 @@ export class ListapuestosComponent implements OnInit {
       this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
       this.arreglo = datos.datos;
       this.cargando = false;
+      console.log(datos.datos);
       //this.paginar();
     });
 
@@ -86,7 +86,6 @@ export class ListapuestosComponent implements OnInit {
 
     this.modal = true;
     this.strTitulo = "¿Deseas eliminar el área?";
-    this.strsubtitulo = "Estas a punto de borrar un área";
     this.iconType = "warning";
             
   }
@@ -170,7 +169,6 @@ export class ListapuestosComponent implements OnInit {
           let resultado = datos.resultado;
           this.iconType = resultado ? "success" : "error";
           this.strTitulo = mensaje;
-          this.strsubtitulo = 'Registro eliminado correctamente!'
           this.modal = true;
           if(resultado){
 

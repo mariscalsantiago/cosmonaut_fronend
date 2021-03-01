@@ -20,6 +20,10 @@ export class PuestosService {
      return this.http.get(`${this.url}/listar/areas/${id_compania}`);
 
   }
+  public getAreaID(id_empresa:number):Observable<any>{
+    return this.http.get(`${this.url}/obtener/idArea/${id_empresa}`);
+
+ }
 
   public getListPues(id_empresa:number,id_area:number):Observable<any>{
     return this.http.get(`${this.url}/obtener/cliente/area/id/${id_empresa}?idArea=${id_area}`);

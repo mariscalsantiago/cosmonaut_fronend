@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
-import { UsuariocontactorrhService } from '../../../contactosRRH/pages/services/usuariocontactorrh.service';
 import { RepresentanteLegalService } from '../services/representantelegal.service';
 
 @Component({
@@ -25,6 +24,7 @@ export class ListarepresentantelegalComponent implements OnInit {
   public apellidoPaterno: string = "";
   public apellidoMaterno: string = "";
   public contactoInicialEmailPersonal: string = "";
+  public nacionalidadId: string= "";
   public emailCorporativo: string = "";
   public arreglotabla:any = {
     columnas:[],
@@ -49,7 +49,7 @@ export class ListarepresentantelegalComponent implements OnInit {
   public arreglo:any = [];
 
   constructor(private routerPrd:Router,private representanteProd:RepresentanteLegalService,private CanRouterPrd:ActivatedRoute,
-    private usuariosPrd:UsuariocontactorrhService) { }
+    ) { }
 
   ngOnInit(): void {
     let documento:any = document.defaultView;
@@ -72,16 +72,16 @@ export class ListarepresentantelegalComponent implements OnInit {
       
 
 
-      this.usuariosPrd.filtrar(peticion).subscribe(datos => {
+      this.representanteProd.getAllUsersRep(peticion).subscribe(datos => {
         this.arreglo = datos.datos;
 
         let columnas:Array<tabla> = [
-          new tabla("personaId","ID",true),
+          new tabla("personaId","ID"),
           new tabla("nombre","Nombre"),
-          new tabla("apellidoPaterno","Apellido Paterno"),
-          new tabla("apellidoMaterno","Apellido Materno"),
+          new tabla("apellidoPaterno","Apellido paterno"),
+          new tabla("apellidoMaterno","Apellido materno"),
           new tabla("curp","CURP"),
-          new tabla("emailCorporativo","Correo Empresarial"),
+          new tabla("emailCorporativo","Correo empresarial"),
           new tabla("fechaAlta","Fecha de registro"),
           new tabla("activo","Estatus")
         ]
@@ -103,6 +103,7 @@ export class ListarepresentantelegalComponent implements OnInit {
   }
 
   public filtrar() {
+    
     this.cargando = true;
 
     let peticion = {
@@ -112,6 +113,7 @@ export class ListarepresentantelegalComponent implements OnInit {
       apellidoMaterno: this.apellidoMaterno,
       emailCorporativo: this.emailCorporativo,
       contactoInicialEmailPersonal: this.contactoInicialEmailPersonal,
+      nacionalidadId: this.nacionalidadId,
       centrocClienteId: {
         centrocClienteId: (this.id_empresa) == 0 ? "" : this.id_empresa
       },
@@ -120,23 +122,17 @@ export class ListarepresentantelegalComponent implements OnInit {
       }
     }
 
- 
-    
-
-
     this.representanteProd.filtrar(peticion).subscribe(datos => {
-
-      
-      
       
       this.arreglo = datos.datos;
+      
       let columnas:Array<tabla> = [
         new tabla("personaId","ID",true),
         new tabla("nombre","Nombre"),
-        new tabla("apellidoPaterno","Apellido Paterno"),
-        new tabla("apellidoMaterno","Apellido Materno"),
+        new tabla("apellidoPaterno","Apellido paterno"),
+        new tabla("apellidoMaterno","Apellido materno"),
         new tabla("curp","CURP"),
-        new tabla("emailCorporativo","Correo Empresarial"),
+        new tabla("emailCorporativo","Correo empresarial"),
         new tabla("fechaAlta","Fecha de registro"),
         new tabla("activo","Estatus")
       ];

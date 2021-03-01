@@ -15,8 +15,8 @@
                 class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
                 aria-expanded="true" aria-controls="collapseOne">
                 <label class="titulo" style="    width: 80%;
-                  float: left;
-                  text-align: left;">Búsqueda</label>
+                float: left;
+                text-align: left;">BÚSQUEDA</label>
                 <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
                   class="fas fa-chevron-up "></i>
@@ -25,8 +25,8 @@
                   class="fas fa-chevron-down "></i>
 
               </button>
-              <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
-                <label class="titulo">Búsqueda</label>
+              <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block" >
+                <label class="titulo">BÚSQUEDA</label>
               </button>
 
             </h5>
@@ -43,13 +43,10 @@
                   <input type="text" [(ngModel)]="apellido" class="form-control" placeholder="Apellido">
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <input type="text" [(ngModel)]="empresa" class="form-control" placeholder="Empresa">
+                  <input type="text" [(ngModel)]="correoE" class="form-control" placeholder="Correo empresarial">
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <input type="text" [(ngModel)]="correoE" class="form-control" placeholder="Correo Empresarial">
-                </div>
-                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <input type="text" [(ngModel)]="correoP" class="form-control" placeholder="Correo Personal">
+                  <input type="text" [(ngModel)]="correoP" class="form-control" placeholder="Correo personal">
                 </div>
                 <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
                   <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
@@ -70,7 +67,7 @@
     </div>
     <div class="col text-right">
       <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-        <i class="fa fa-plus"></i>Agregar
+        <i class="fa fa-plus"></i> Agregar contacto RRHH
       </button>
     </div>
   </div>
@@ -83,27 +80,25 @@
         <tr>
           <th scope="col">Nombre</th>
           <th scope="col">ID</th>
-          <th scope="col" *ngIf="tamanio >=600">Apellido Paterno</th>
-          <th scope="col" *ngIf="tamanio >=600">Apellido Materno</th>
-          <th scope="col" *ngIf="tamanio >=600">Centro de costos</th>
-          <th scope="col" *ngIf="tamanio >=600">Correo Empresarial</th>
+          <th scope="col" *ngIf="tamanio >=600">Apellido paterno</th>
+          <th scope="col" *ngIf="tamanio >=600">Apellido materno</th>
+          <th scope="col" *ngIf="tamanio >=600">Correo empresarial</th>
           <th scope="col" *ngIf="tamanio >=600">Fecha de registro</th>
-          <th scope="col" *ngIf="tamanio >=600">Activo</th>
+          <!--<th scope="col" *ngIf="tamanio >=600">Activo</th>-->
           <th scope="col " >Opciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of arreglo;">
-          <td style="color:  #00DED4">{{item.nombre}} </td>
+          <td >{{item.nombre}} </td>
           <td>{{item.personaId}} </td>
           <td>{{item.apellidoPaterno}} </td>
           <td *ngIf="tamanio >=600">{{item.apellidoMaterno }}</td>
-          <td *ngIf="tamanio >=600">{{item.centrocClienteId.nombre}}</td>
           <td *ngIf="tamanio >=600">{{item.emailCorporativo}}</td>
           <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
-          <td *ngIf="tamanio >=600">{{(item.activo)}}</td>
+          <!--<td *ngIf="tamanio >=600">{{(item.activo)}}</td>-->
           <td  class="opciones">
-            <button ><i class="icon_ver primary-bg"></i></button>
+            <!--<button ><i class="icon_ver primary-bg"></i></button>-->
             <button (click)="verdetalle(item)" ><i class="icon_editar primary-bg"></i></button>
           </td>
         </tr>

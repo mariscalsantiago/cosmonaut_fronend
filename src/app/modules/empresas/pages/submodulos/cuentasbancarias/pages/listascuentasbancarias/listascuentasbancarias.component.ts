@@ -16,7 +16,6 @@ export class ListascuentasbancariasComponent implements OnInit {
 
 
   public strTitulo: string = "";
-  public strsubtitulo: string = "";
   public modal: boolean = false;
   public iconType: string = "";
 
@@ -25,7 +24,8 @@ export class ListascuentasbancariasComponent implements OnInit {
 
 
   public id_empresa: number = 0;
-  public arreglo: any = [
+  public arreglo: any = [];
+  /*public arreglo: any = [
 
     {
       clabe: "999999999999999999",
@@ -42,7 +42,7 @@ export class ListascuentasbancariasComponent implements OnInit {
       numeroCuenta: "9999999999"
     }
 
-  ];
+  ];*/
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -58,6 +58,7 @@ export class ListascuentasbancariasComponent implements OnInit {
 
   ngOnInit(): void {
 
+    debugger;
     this.activateRouter.params.subscribe(datos => {
 
       this.id_empresa = datos["id"];
@@ -76,6 +77,19 @@ export class ListascuentasbancariasComponent implements OnInit {
 
   }
 
+  apagando(indice:number){
+    
+    for(let x = 0;x < this.arreglo.length; x++){
+      if(x == indice)
+            continue;
+
+      this.arreglo[x].seleccionado = false;
+    }
+
+
+    this.arreglo[indice].seleccionado = !this.arreglo[indice].seleccionado;
+  
+  }
 
   public verdetalle(obj: any) {
 
@@ -94,8 +108,7 @@ export class ListascuentasbancariasComponent implements OnInit {
   public eliminar(obj: any) {
 
 
-    this.strTitulo = "¿Deseas eliminar la cuenta?";
-    this.strsubtitulo = "Se eliminará la cuenta de banco";
+    this.strTitulo = "¿Deseas eliminar la cuenta bancaria?";
     this.iconType = "warning";
     this.modal = true;
 
@@ -120,7 +133,6 @@ export class ListascuentasbancariasComponent implements OnInit {
       if ($event) {
         this.cuentasPrd.eliminar(objenviar).subscribe(datos => {
           this.strTitulo = datos.mensaje;
-          this.strsubtitulo = "";
           this.iconType = datos.resultado ? "success" : "error";
           this.modal = true;
         });

@@ -41,7 +41,7 @@ export class ListapoliticasComponent implements OnInit {
   constructor(private routerPrd:Router,private politicasProd:PoliticasService,private CanRouterPrd:ActivatedRoute) { }
 
   ngOnInit(): void {
-    debugger;
+    
     let documento:any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -64,14 +64,14 @@ export class ListapoliticasComponent implements OnInit {
 
 
   public verdetalle(obj:any){
-    debugger;
+    
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
     this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'politicas', tipoinsert],{state:{data:obj}});
     this.cargando = false;
   }
   public eliminar(obj:any){
-    debugger;
+    
      
     this.objEnviar = {
       politicaId: obj.politicaId,
@@ -89,7 +89,7 @@ export class ListapoliticasComponent implements OnInit {
 
   public traerModal(indice: any) {
 
-    debugger;
+    
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -128,7 +128,7 @@ export class ListapoliticasComponent implements OnInit {
 
   }
   public traerModalEmpleo(indice: any) {
-    debugger;
+    
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalitoempleado = true;
 
@@ -182,7 +182,7 @@ export class ListapoliticasComponent implements OnInit {
   }
 
   public recibir($evento: any) {
-    debugger; 
+     
     this.modal = false;
     if (this.iconType == "warning") {
 

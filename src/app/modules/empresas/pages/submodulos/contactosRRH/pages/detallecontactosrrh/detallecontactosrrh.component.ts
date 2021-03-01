@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuariocontactorrhService } from '../services/usuariocontactorrh.service';
@@ -10,42 +10,41 @@ import { UsuariocontactorrhService } from '../services/usuariocontactorrh.servic
 })
 export class DetallecontactosrrhComponent implements OnInit {
 
-
+  @ViewChild("nombre") public nombre!:ElementRef;
 
   public iconType: string = "";
   public myForm!: FormGroup;
   public modal: boolean = false;
   public strTitulo: string = "";
-  public strsubtitulo: string = "";
   public fechaActual: string = "";
   public subbmitActive: boolean = false;
   public id_empresa: number = 0;
   public esInsert: boolean = true;
-  public usuario:any;
+  public usuario: any;
   constructor(private formBuild: FormBuilder, private usuariosPrd: UsuariocontactorrhService, private ActiveRouter: ActivatedRoute,
-    private routerPrd:Router) { }
+    private routerPrd: Router) { }
 
   ngOnInit(): void {
 
 
     this.ActiveRouter.params.subscribe(datos => {
       this.id_empresa = datos["id"];
-      if(datos["tipoinsert"]=="nuevo"){
-         this.esInsert = true;
-      }else if(datos["tipoinsert"]=="editar"){
-          this.esInsert = false;
-      }else{
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa,'contactosrrh']);
+      if (datos["tipoinsert"] == "nuevo") {
+        this.esInsert = true;
+      } else if (datos["tipoinsert"] == "editar") {
+        this.esInsert = false;
+      } else {
+        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
       }
     });
 
 
     let obj = {};
 
-    if(!this.esInsert){//Solo cuando es modificar
+    if (!this.esInsert) {//Solo cuando es modificar
       obj = history.state.data;
       this.usuario = obj;
-      if(this.usuario == undefined) this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa,'contactosrrh']);
+      if (this.usuario == undefined) this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
     }
 
     this.myForm = this.createForm(obj);
@@ -74,9 +73,15 @@ export class DetallecontactosrrhComponent implements OnInit {
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       ciExtension: [obj.contactoInicialExtension],
       fechaAlta: { value: this.fechaActual, disabled: true },
-      personaId:[obj.personaId]
+      personaId: [obj.personaId]
 
     });
+
+  }
+
+  ngAfterViewInit(): void{
+
+    this.nombre.nativeElement.focus();
 
   }
 
@@ -86,20 +91,26 @@ export class DetallecontactosrrhComponent implements OnInit {
 
 
     this.subbmitActive = true;
-    if (!this.myForm.valid)
+
+    if (this.myForm.invalid) {
+      this.iconType = "error";
+      this.strTitulo = "Campos obligatorios o inválidos";
+      this.modal = true;
       return;
+
+    }
+
 
 
 
     this.iconType = "warning";
-    this.strTitulo = (this.esInsert) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar el usuario?";
-    this.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
+    this.strTitulo = (this.esInsert) ? "¿Desea registrar el contacto RRH?" : "¿Desea actualizar los datos del contacto RRH?";
     this.modal = true;
   }
 
 
   public cancelar() {
-    this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa,'contactosrrh']);
+    this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
   }
 
 
@@ -120,7 +131,7 @@ export class DetallecontactosrrhComponent implements OnInit {
 
         let obj = this.myForm.value;
 
-        let peticion:any = {
+        let peticion: any = {
           nombre: obj.nombre,
           apellidoPaterno: obj.apellidoPat,
           apellidoMaterno: obj.apellidoMat,
@@ -128,25 +139,24 @@ export class DetallecontactosrrhComponent implements OnInit {
           emailCorporativo: obj.emailCorp,
           contactoInicialEmailPersonal: obj.ciEmailPersonal,
           contactoInicialTelefono: obj.ciTelefono,
-          contactoInicialExtension:obj.ciExtension,
+          contactoInicialExtension: obj.ciExtension,
           centrocClienteId: {
             "centrocClienteId": this.id_empresa
           }
         };
-  
-  
+
+
         if (this.esInsert) {
-  
+
           this.usuariosPrd.save(peticion).subscribe(datos => {
 
             this.iconType = datos.resultado ? "success" : "error";
 
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
-            this.modal = true;  
-  
+            this.modal = true;
+
           });
-        }else{
+        } else {
 
           peticion.personaId = obj.personaId;
 
@@ -155,21 +165,20 @@ export class DetallecontactosrrhComponent implements OnInit {
             this.iconType = datos.resultado ? "success" : "error";
 
             this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
-            this.modal = true;  
-  
+            this.modal = true;
+
           });
 
         }
-  
-      }
-  
 
-    }else{
+      }
+
+
+    } else {
       this.modal = false;
 
       if (this.iconType == "success") {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa,'contactosrrh']);
+        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
       }
     }
 

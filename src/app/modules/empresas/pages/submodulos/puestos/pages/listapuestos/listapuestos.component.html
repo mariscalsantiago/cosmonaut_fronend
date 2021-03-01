@@ -1,38 +1,31 @@
-<br><br>
-<div class="row">
+<br>
+<div class="margen">
 
-
-  <div class="col-12 col-lg-12">
     <div id="accordionFiltro">
 
       <div id="accordion">
         <div class="card">
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-              <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
-                class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
+              <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <label class="titulo" style="    width: 80%;
                 float: left;
-                text-align: left;"> ADMINISTRACIÓN ÁREAS Y PUESTOS</label>
-                <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                  class="fas fa-chevron-up "></i>
-                <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                  class="fas fa-chevron-down "></i>
+                text-align: left;">BÚSQUEDA</label>
+                <i *ngIf="changeIconDown"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF" class="fas fa-chevron-up "></i>
+                <i *ngIf="!changeIconDown"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF" class="fas fa-chevron-down "></i>
+                
               </button>
-              <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
-                <label class="titulo"> ADMINISTRACIÓN ÁREAS Y PUESTOS</label>
+              <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block" >
+                <label class="titulo">BÚSQUEDA</label>
               </button>
+              
             </h5>
           </div>
-          <br><br>
-          <div id="collapseOne" style="    margin: -36px;" class="collapse" [ngClass]="{'show':tamanio >600}"
-            aria-labelledby="headingOne" data-parent="#accordion">
+
+          <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
               <div class="form group row margen">
-                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class=" input-group-sm mb-3 col-12 col-md-6 col-lg-4">
                   <input type="text" [(ngModel)]="nombreCorto" class="form-control" 
                   placeholder="Nombre de área">
                 </div>
@@ -47,14 +40,12 @@
       </div>
 
     </div>
-  </div>
-
-  
-
-
 
 </div>
-
+<div class="row margen">
+<div class="col titulo">
+  <label >RESULTADOS</label>
+</div>
 <div class="row" style="margin: 10px;">
   <div class="col-12 col-lg-12 text-right">
     <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
@@ -62,7 +53,7 @@
     </button>
   </div>
 </div>
-
+</div>
 
 <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
 
@@ -121,14 +112,14 @@
       <tr>
         <th scope="col">Nombre</th>
         <th scope="col" *ngIf="tamanio >=600">Empresa</th>
-        <th scope="col" *ngIf="tamanio >=600">Número de Empleados</th>
+        <th scope="col" *ngIf="tamanio >=600">Número de empleados</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <ng-container *ngFor="let item of arreglo;let indice = index;">
         <tr>
-          <td style="color:  #00DED4">{{item.nombreCorto}} </td>
+          <td >{{item.nombreCorto}} </td>
           <td *ngIf="tamanio >=600">{{item.razonSocial}}</td>
           <td *ngIf="tamanio >=600">{{item.count }}</td>
           <td class="opciones">
@@ -155,4 +146,4 @@
 
 
 
-<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" [subtitulo]="strsubtitulo"   (eventoFunciones)="recibir($event)"></app-alert-questions>
+<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"  (eventoFunciones)="recibir($event)"></app-alert-questions>
