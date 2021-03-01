@@ -9,7 +9,7 @@ export class UsuarioSistemaService {
 
   constructor() { 
    
-    this.usuario = new usuarioClass(112,1);
+    this.usuario = new usuarioClass(233,1);
 
   }
 

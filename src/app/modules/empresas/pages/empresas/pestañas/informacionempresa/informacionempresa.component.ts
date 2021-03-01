@@ -92,7 +92,7 @@ export class InformacionempresaComponent implements OnInit {
     if (this.myform.invalid) {
       this.alerta.modal = true;
       this.alerta.strTitulo = "Campos obligatorios o inválidos";
-      this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
+      //this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
       this.alerta.iconType = "error";
       return;
     }
@@ -148,7 +148,7 @@ export class InformacionempresaComponent implements OnInit {
         }
         this.alerta.iconType = resultado ? "success" : "error";
         this.alerta.strTitulo = mensaje;
-        this.alerta.strsubtitulo = mensaje
+        //this.alerta.strsubtitulo = mensaje
         this.alerta.modal = true;
 
       });
@@ -163,7 +163,7 @@ export class InformacionempresaComponent implements OnInit {
           let mensaje = datos.mensaje;
           this.alerta.iconType = resultado? "success":"error";
           this.alerta.strTitulo = mensaje;
-          this.alerta.strsubtitulo = mensaje
+          //this.alerta.strsubtitulo = mensaje
           this.alerta.modal = true;
 
         });
