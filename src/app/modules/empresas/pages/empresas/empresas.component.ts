@@ -58,7 +58,7 @@ export class EmpresasComponent implements OnInit {
   };
  
   constructor(private usuarioSistemaPrd:UsuarioSistemaService,  private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService) {
-    debugger;
+    
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       this.datosempresa.insertar= this.insertar;
@@ -123,7 +123,7 @@ export class EmpresasComponent implements OnInit {
   }
 
   public recibirTabs(elemento: any) {
-    debugger;
+    
  
    switch (elemento.type) {
      case "informacion":
@@ -180,7 +180,7 @@ export class EmpresasComponent implements OnInit {
  
 
 public recibir(elemento: any) {
-   debugger;
+   
 
   switch (elemento.type) {
     case "informacion":
@@ -225,7 +225,7 @@ public recibir(elemento: any) {
 }
 
   public recibirAlerta(obj: any) {
-    debugger;
+    
      
     this.cambiaValor = !this.cambiaValor;
      

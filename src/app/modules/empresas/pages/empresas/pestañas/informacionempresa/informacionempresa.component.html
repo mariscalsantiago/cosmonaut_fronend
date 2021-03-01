@@ -88,11 +88,22 @@
           <div class=" row">
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label>Certificado de sello digital *</label>
-              <input type="text" class="form-control" id="nomEmpresa">
+              <div class="input-group mb-3">
+                <input #cer type="text" class="form-control">
+                <div (click)="abrirCer()" class="input-group-append" style="cursor: pointer;">
+                  <span  class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
+                </div>
+              </div>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label>Llave de certificado de sello digital *</label>
-              <input type="text" class="form-control" id="nomEmpresa">
+              <div class="input-group mb-3">
+                <input #key type="text" class=" form-control" >
+                <input type="hidden" >
+                <div class="input-group-append" style="cursor: pointer;">
+                  <span (click)="abrirKey()"  class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

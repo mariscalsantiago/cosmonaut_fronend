@@ -44,7 +44,7 @@ export class ListascuentasbancariasComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.activateRouter.params.subscribe(datos => {
 
       this.id_empresa = datos["id"];

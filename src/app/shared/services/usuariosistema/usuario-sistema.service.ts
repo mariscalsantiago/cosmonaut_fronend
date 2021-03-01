@@ -28,6 +28,8 @@ export class UsuarioSistemaService {
 }
 
 
+
+
 export class usuarioClass{
   public idEmpresa!:number;
   public nombreEmpresa!:string;

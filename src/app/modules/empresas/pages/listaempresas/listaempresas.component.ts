@@ -51,7 +51,7 @@ export class ListaEmpresasComponent implements OnInit {
     
 
     this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      debugger;
+      
       this.arreglo = datos.datos;
 
       let columnas:Array<tabla> = [

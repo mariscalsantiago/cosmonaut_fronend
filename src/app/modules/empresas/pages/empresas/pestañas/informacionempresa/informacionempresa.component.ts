@@ -12,6 +12,9 @@ import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.se
 export class InformacionempresaComponent implements OnInit {
   @ViewChild("nombre") public nombre!:ElementRef;
 
+  @ViewChild("key") public inputkey!:ElementRef;
+  @ViewChild("cer") public inputcer!:ElementRef;
+
   @Output() enviado = new EventEmitter();
   @Output() enviandouser = new EventEmitter();
   @Input() alerta: any;
@@ -171,5 +174,32 @@ export class InformacionempresaComponent implements OnInit {
 
     }
 
+  }
+
+
+  public abrirCer(){
+    let input = document.createElement("input");
+    input.type="file";
+    input.accept = ".cer";
+
+    input.click();
+
+    input.onchange = ()=>{
+       let imagenInput =input.files;
+       this.inputcer.nativeElement.value = imagenInput![0].name;
+    }
+  }
+
+  public abrirKey(){
+    let input = document.createElement("input");
+    input.type="file";
+    input.accept = ".key";
+
+    input.click();
+
+    input.onchange = ()=>{
+       let imagenInput =input.files;
+       this.inputkey.nativeElement.value = imagenInput![0].name;
+    }
   }
 }

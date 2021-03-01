@@ -48,7 +48,7 @@ export class DetallepoliticasComponent implements OnInit {
 
 
   public createFormrep(obj: any) {
-    debugger;
+    
     if(!this.insertar){
       obj.calculoAntiguedadx = obj.calculoAntiguedadx == "C"?"contrato":"antiguedad";
 

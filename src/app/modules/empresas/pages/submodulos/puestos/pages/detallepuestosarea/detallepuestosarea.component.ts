@@ -168,11 +168,7 @@ export class DetallepuestosareaComponent implements OnInit {
 
 
   public redirect(obj: any) {
-
-    this.modal = true;
     this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area/modifica"], { state: { datos: this.areas} });
-    this.modal = false;
-
   }
 
 
