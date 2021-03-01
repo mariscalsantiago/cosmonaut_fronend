@@ -44,6 +44,7 @@ export class ListascuentasbancariasComponent implements OnInit {
 
   ngOnInit(): void {
 
+    debugger;
     this.activateRouter.params.subscribe(datos => {
 
       this.id_empresa = datos["id"];
@@ -79,6 +80,19 @@ export class ListascuentasbancariasComponent implements OnInit {
 
   }
 
+  apagando(indice:number){
+    
+    for(let x = 0;x < this.arreglo.length; x++){
+      if(x == indice)
+            continue;
+
+      this.arreglo[x].seleccionado = false;
+    }
+
+
+    this.arreglo[indice].seleccionado = !this.arreglo[indice].seleccionado;
+  
+  }
 
   public verdetalle(obj: any) {
 

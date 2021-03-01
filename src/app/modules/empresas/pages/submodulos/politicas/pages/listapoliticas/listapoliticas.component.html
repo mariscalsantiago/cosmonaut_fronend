@@ -122,6 +122,7 @@
                 <tr>
                     <th scope="col">Nombre de política</th>
                     <th scope="col" *ngIf="tamanio >=600" >Número de empleados</th>
+                    <th scope="col">Tabla de beneficios</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
@@ -130,6 +131,7 @@
                     <tr>
                         <td>{{item.nombre}} </td>
                         <td (click)="traerModalEmpleo(indice)" style="color:  #00DED4" *ngIf="tamanio >=600">{{item.count}}</td>
+                        <td class="opciones"><button (click)="traerModal(indice)"><i class="icon_ver primary-bg"></i></button></td>
                         <td class="opciones">
                           <button (click)="traerModal(indice)"><i class="icon_ver primary-bg"></i></button>
                           <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
@@ -149,36 +151,36 @@
                             </article>
                             <article class="titulo   col">  
                                 Prima vacacional al aniversario
-                                <article>
-                                <input type="checkbox" disabled="true" [(ngModel)]="item.primaAniversario"></article>
+                                <article>{{(item.primaAniversario)?'Si':'No'}}</article>
                             </article>
                             <article class="titulo   col" >
                                 Se descuentan faltas
-                                <article><input type="checkbox" disabled="true" [(ngModel)]="item.descuentaFaltas"></article>
+                                <article>{{(item.descuentaFaltas)?'Si':'No'}}</article>
                             </article>
                         
                         </div>
                         <div class="row mb-4">
                           <article class="titulo  col">
                               Se descuentan incapacidades
-                              <article><input type="checkbox" disabled="true" [(ngModel)]="item.descuentaIncapacidades"></article>
+                              <article>{{(item.descuentaIncapacidades)?'Si':'No'}}</article>
                           </article>
                           <article class="titulo   col">
                               Costo vales de restaurante
-                              <article><input type="checkbox" disabled="true"[(ngModel)]="item.costoValesRestaurante"></article>
+                              <article>{{(item.costoValesRestaurante)?'Si':'No'}}</article>
                           </article>
                           <article class="titulo   col" >
                               Descuento proporción séptimo día
-                              <article><input type="checkbox" disabled="true" [(ngModel)]="item.descuentoPropDia"></article>
+                              <article>{{(item.descuentoPropDia)?'Si':'No'}}</article>
                           </article>
                       
                       </div>
-                      <!--<div class="row mb-4">
-                        <article class="titulo  col">
-                            Cálculos en base a :
-                            <article><input type="radio" disabled="true" [(ngModel)]="item.descuentoPropDia"></article>
-                        </article>
-                      </div>-->
+                      <div class="row mb-4">
+                      <article class="titulo   col" >
+                        Cálculos en base a :
+                          <article>{{(item.calculoAntiguedadx=='C')?'Fecha de inicio de contrato':'Fecha de antigüedad'}}</article>
+                      </article>
+                      </div>
+
                       </td>
                       </tr>
               

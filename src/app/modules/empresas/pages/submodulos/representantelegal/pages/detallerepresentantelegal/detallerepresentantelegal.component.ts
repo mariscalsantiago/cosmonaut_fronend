@@ -67,7 +67,6 @@ export class DetallerepresentantelegalComponent implements OnInit {
     this.myFormrep = this.createFormrep((objdetrep));
     this.catalogosPrd.getNacinalidades().subscribe(datos => this.arreglonacionalidad = datos.datos);
 
-
   }
 
   ngAfterViewInit(): void{
@@ -140,6 +139,12 @@ export class DetallerepresentantelegalComponent implements OnInit {
     this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/representantelegal"]);
 
   }
+  public recibirTabla(obj:any){
+    
+    if(obj.type == "editar"){
+      this.routerPrd.navigate(['company','detalle_company','modifica'],{state:{datos:obj.datos}});
+    }
+  }
 
   public recibir($evento: any) {
 
@@ -180,7 +185,6 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
         } else {
           
-
           objEnviar.personaId = obj.personaId;
 
           this.representantePrd.modificar(objEnviar).subscribe(datos => {

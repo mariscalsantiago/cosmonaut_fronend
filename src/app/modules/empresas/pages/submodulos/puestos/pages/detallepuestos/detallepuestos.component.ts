@@ -52,7 +52,6 @@ export class DetallepuestosComponent implements OnInit {
   ngOnInit(): void {
 
 
-
     this.areas = history.state.datos == undefined ? {} : history.state.datos;
 
 
@@ -176,7 +175,6 @@ export class DetallepuestosComponent implements OnInit {
   }
 
   public verdetalle(obj: any) {
-
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
     this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'puestos', tipoinsert], { state: { datos: this.areas, data: obj } });

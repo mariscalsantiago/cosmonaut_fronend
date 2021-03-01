@@ -21,6 +21,7 @@ export class DetallepoliticasComponent implements OnInit {
   public submitEnviado: boolean = false;
   public esInsert: boolean = false;
   public id_empresa: number = 0;
+  public calculoAntiguedadx: number = 0;
 
   constructor(private formBuilder: FormBuilder, private politicasPrd: PoliticasService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router) {
@@ -47,6 +48,11 @@ export class DetallepoliticasComponent implements OnInit {
 
 
   public createFormrep(obj: any) {
+    debugger;
+    if(!this.insertar){
+      obj.calculoAntiguedadx = obj.calculoAntiguedadx == "C"?"contrato":"antiguedad";
+
+    }
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -100,6 +106,12 @@ export class DetallepoliticasComponent implements OnInit {
     if (this.iconType == "warning") {
       if ($evento) {
         let obj = this.myFormpol.value;
+        let antiguedad = obj.calculoAntiguedadx == "contrato"?"C":"A";
+        if(antiguedad == "C"){
+          this.calculoAntiguedadx = 2;
+        }else{
+          this.calculoAntiguedadx = 1;
+        }
 
         let objEnviar: any = {
           nombre: obj.nombre,
@@ -109,12 +121,12 @@ export class DetallepoliticasComponent implements OnInit {
           descuentaIncapacidades: obj.descuentaIncapacidades,
           costoValesRestaurante: obj.costoValesRestaurante,
           descuentoPropDia: obj.descuentoPropDia,
-          calculoAntiguedadx: "C",
+          calculoAntiguedadx: antiguedad,
           centrocClienteId: {
             centrocClienteId: this.id_empresa
           },
           calculoAntiguedadId: {
-            calculoAntiguedadxId: 2
+            calculoAntiguedadxId: this.calculoAntiguedadx
           },
 
         }
@@ -149,9 +161,9 @@ export class DetallepoliticasComponent implements OnInit {
               centrocClienteId: this.id_empresa
             },
 
-            calculoAntiguedadx: "C",
+            calculoAntiguedadx:  antiguedad,
             calculoAntiguedadId: {
-              calculoAntiguedadxId: 2
+              calculoAntiguedadxId: this.calculoAntiguedadx
             },
             beneficiosXPolitica: [
               {

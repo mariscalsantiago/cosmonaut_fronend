@@ -1,3 +1,51 @@
+<br>
+<div class="col-7">
+<div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
+
+
+  <div class="adentro">
+
+    <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div  class="header"><h5 class="titulo">LISTA DE ÁREAS</h5>
+    
+      
+    </div>
+  <hr>
+  <div  class="body">
+
+
+    <div *ngIf="cargandolistapuesto" class="col text-center mb-5">
+      <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+    </div>
+
+   <div *ngIf="!cargandolistapuesto">
+    <table  class="table m-3 table-hober table-sm " style="width: 90%;">
+      <thead>
+        <tr>
+          <th scope="col">Nombre de área</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of arreglodetalle">
+          <td>{{item.nombreCorto}}</td>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+
+  </div>
+  <hr>
+  <div  class="footer">
+    <div class="row">
+      <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+    </div>
+  </div>
+
+  </div>
+</div>
+</div>
 <br><br>
  <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
   
@@ -6,51 +54,6 @@
     
     <div class="background-panel margen">
       <div id="vetanaprincipaltablapuesto"  class=" background-panel scrooll" style="position: relative;"  >
-      <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
-
-
-        <div class="adentro">
-    
-          <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <div  class="header"><h5 class="titulo">LISTA DE ÁREAS</h5>
-          
-            
-          </div>
-        <hr>
-        <div  class="body">
-    
-    
-          <div *ngIf="cargandolistapuesto" class="col text-center mb-5">
-            <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-          </div>
-    
-         <div *ngIf="!cargandolistapuesto">
-          <table  class="table m-3 table-hober table-sm " style="width: 90%;">
-            <thead>
-              <tr>
-                <th scope="col">Nombre de área</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of arreglodetalle">
-                <td>{{item.nombreCorto}}</td>
-              </tr>
-            </tbody>
-          </table>
-         </div>
-    
-        </div>
-        <hr>
-        <div  class="footer">
-          <div class="row">
-            <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
-          </div>
-        </div>
-    
-        </div>
-      </div>
       <br>
         <div class="form-group row margen">
           <label class="titulo">INFORMACIÓN DE ÁREAS</label></div>
@@ -140,7 +143,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let item of arreglo;">
-                  <td style="color:  #00DED4">{{item.nombreCorto}}</td>
+                  <td>{{item.nombreCorto}}</td>
                   <td>{{item.fechaAlta}}</td>
                   <td>
                     <button (click)="verdetalle(item)" class="btnPersonalizado">

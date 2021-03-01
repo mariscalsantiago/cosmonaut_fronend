@@ -17,8 +17,18 @@ export class RepresentanteLegalService {
   }
 
 
-  public getAllUsersRep(id_company:number):Observable<any>{
-     return this.http.get(`${this.url}/lista/todo/${id_company}`);
+  public getAllUsersRep(obj : any):Observable<any>{
+    
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json:string = JSON.stringify(obj);
+    console.log("json representante legal");
+    console.log(json);
+     return this.http.post(`${this.url}/lista/compania/tipoPersona`,json,httpOptions);
   }
 
   public getByRep(id_company:number):Observable<any>{
@@ -39,9 +49,6 @@ export class RepresentanteLegalService {
         'Content-Type': 'application/json'
       })
     };
-
-
-
 
     let json:string = JSON.stringify(obj);
     console.log("json representante legal");

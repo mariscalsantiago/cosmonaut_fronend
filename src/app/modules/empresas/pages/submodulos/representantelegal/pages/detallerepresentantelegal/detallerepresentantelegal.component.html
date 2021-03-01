@@ -34,13 +34,14 @@
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Nacionalidad *</label>
-              <input formControlName="nacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}"
-                  placeholder="">
-                  <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
+              <select formControlName="nacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.nacionalidadId.errors && f.nacionalidadId.touched}">
+                  <option value=""></option>
+                  <option *ngFor="let item of arreglonacionalidad"  [value]="item.nacionalidadId">{{item.descripcion}}</option>
+              </select>
+              <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
-                    </div>
-
-            </div>
+              </div>
+          </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >CURP *</label>
               <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || (f.curp.errors?.pattern && f.curp.touched)}"
