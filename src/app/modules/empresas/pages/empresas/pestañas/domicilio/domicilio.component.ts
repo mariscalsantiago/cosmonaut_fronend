@@ -118,7 +118,7 @@ export class DomicilioComponent implements OnInit {
       
       this.alerta.modal = true;
       this.alerta.strTitulo = "Campos obligatorios o inválidos";
-      this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
+      //this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
       this.alerta.iconType = "error";
       return;
     }
@@ -152,12 +152,15 @@ export class DomicilioComponent implements OnInit {
 
   
   ngOnChanges(changes: SimpleChanges) {
-     
+     debugger;
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       
 
       let obj = this.myForm.value;
+       if(obj.domicilioId == null && !this.datosempresa.insertar){
+        this.datosempresa.insertar = true;
+       }
 
 
       let objenviar: any = 
@@ -180,7 +183,7 @@ export class DomicilioComponent implements OnInit {
         this.alerta.iconType = datos.resultado ? "success" : "error";
 
         this.alerta.strTitulo = datos.mensaje;
-        this.alerta.strsubtitulo = datos.mensaje
+        //this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
         this.enviado.emit({
           type:"domicilioSede"
@@ -192,6 +195,7 @@ export class DomicilioComponent implements OnInit {
         }
       });
       }else{
+       
       
       let objenviar: any = 
         {
@@ -211,7 +215,7 @@ export class DomicilioComponent implements OnInit {
         this.domicilioPrd.modificar(objenviar).subscribe(datos =>{
           this.alerta.iconType = datos.resultado? "success":"error";
           this.alerta.strTitulo = datos.mensaje;
-          this.alerta.strsubtitulo = datos.mensaje
+          //this.alerta.strsubtitulo = datos.mensaje
           this.alerta.modal = true;
 
         });

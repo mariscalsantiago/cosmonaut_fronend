@@ -75,7 +75,7 @@ export class DatosbancariosComponent implements OnInit {
       
       this.alerta.modal = true;
       this.alerta.strTitulo = "Campos obligatorios o inválidos";
-      this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
+      //this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
       this.alerta.iconType = "error";
       return;
     }
@@ -131,7 +131,7 @@ export class DatosbancariosComponent implements OnInit {
         this.alerta.iconType = datos.resultado ? "success" : "error";
 
         this.alerta.strTitulo = datos.mensaje;
-        this.alerta.strsubtitulo = datos.mensaje
+        //this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
         this.enviado.emit({
           type:"cuentasBancarias"

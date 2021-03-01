@@ -69,7 +69,7 @@ public activfiel(){
     if (this.myForm.invalid) {
       this.alerta.modal = true;
       this.alerta.strTitulo = "Campos obligatorios o inválidos";
-      this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
+      //this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
       this.alerta.iconType = "error";
       return;
     }
@@ -108,7 +108,7 @@ public activfiel(){
         this.alerta.iconType = datos.resultado ? "success" : "error";
 
         this.alerta.strTitulo = datos.mensaje;
-        this.alerta.strsubtitulo = datos.mensaje
+        //this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
       });
 

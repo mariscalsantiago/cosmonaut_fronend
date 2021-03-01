@@ -34,7 +34,7 @@ export class EmpresasComponent implements OnInit {
   public objdetrep: any = [];
   public arregloactivos: any = [];
   public activos: any = [];
-  public arregloregimen: any=[];
+  public arreglo: any=[];
   public enviarPeticion = {
     enviarPeticion: false
   };
@@ -68,22 +68,27 @@ export class EmpresasComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    
+    debugger;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data ;
-   
     this.datosempresamod.datosempresaObj= this.objdetrep; 
-    this.empresasProd.getActivos(this.objdetrep.centrocClienteId).subscribe(datos => {this.activos = datos
-    console.log("activo",datos)
+    if(!this.insertar){
+    this.empresasProd.getActivos(this.objdetrep.centrocClienteId).subscribe(datos => {this.arreglo = datos
+      console.log("datos", datos);
+      this.activos ={
+        informacion: datos.empresa,
+        domicilio: datos.domicilio,
+        datosbancarios: datos.banco,
+        datosimss: datos.imss
+        
+      }
+
     });
+    }
     this.datosempresa.centrocClienteEmpresa = this.datosempresamod.datosempresaObj.centrocClienteId;
 
-    this.activos ={
-      informacion: true,
-      domicilio: true,
-      datosbancarios: false,
-      datosimss: false
-      
-    }
+   
+
+    console.log("Activos",this.activos)
     if(this.activos.informacion){
       this.activado[0].tab = true;
     }
