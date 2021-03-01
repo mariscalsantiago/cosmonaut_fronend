@@ -70,7 +70,7 @@
 
             <div  class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
               <label >Área *</label>
-              <input formControlName="nombreCorto" type="text" maxlength="11" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && f.nombreCorto.touched}"
+              <input formControlName="nombreCorto" type="text" maxlength="250" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && f.nombreCorto.touched}"
                   placeholder="">
                   <div *ngIf="f.nombreCorto.errors && f.nombreCorto.touched" class="invalid-feedback">
                     Campo requerido
@@ -84,7 +84,7 @@
 
          <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
             <label for="exampleFormControlSelect1">Puesto *</label>
-            <input #nombre  formControlName="puesto" maxlength="11" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}"
+            <input #nombre  formControlName="puesto" maxlength="250" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}"
                 placeholder="">
                 <div *ngIf="f.puesto.errors && f.puesto.touched" class="invalid-feedback">
                     Campo requerido

@@ -14,7 +14,7 @@
                 aria-expanded="true" aria-controls="collapseOne">
                 <label class="titulo" style="    width: 80%;
                 float: left;
-                text-align: left;">GRUPO DE NÓMINAS</label>
+                text-align: left;">GRUPOS DE NÓMINA</label>
                 <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
                   class="fas fa-chevron-up "></i>
@@ -24,7 +24,7 @@
 
               </button>
               <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
-                <label class="titulo">GRUPO DE NÓMINAS</label>
+                <label class="titulo">GRUPOS DE NÓMINA</label>
               </button>
 
             </h5>
@@ -36,11 +36,6 @@
               <div class="form group row margen">
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                   <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre grupo de nómina">
-                </div>
-                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <select [(ngModel)]="idEsquema"  class="form-control">
-                    <option *ngFor="let item of arregloEsquemaPago" [value]="item.esquemaPagoId">{{item.descripcion}}</option>
-                  </select>
                 </div>
                 <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
                   <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
