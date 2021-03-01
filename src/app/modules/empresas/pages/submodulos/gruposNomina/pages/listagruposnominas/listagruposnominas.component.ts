@@ -98,6 +98,9 @@ export class ListagruposnominasComponent implements OnInit {
       nombre: this.nombre,
       esquemaPagoId: {
         esquemaPagoId: this.idEsquema
+      },
+      centrocClienteId:{
+        centrocClienteId:this.id_empresa
       }
     }
 

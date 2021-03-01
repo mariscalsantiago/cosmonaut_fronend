@@ -119,6 +119,12 @@ export class CatalogosService {
     return this.http.get(`${this.url}/catPeriodoAguinaldo/listar/todos`);
   }
 
+  public getTipoJornadas():Observable<any>{
+
+    return this.http.get(`${this.url}/csTipoJornada/listar/todos`);
+
+  }
+
 
 
 }

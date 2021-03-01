@@ -21,9 +21,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Tipo de Jornada *</label>
         <select formControlName = "esquemaPagoId" [ngClass]="{'is-invalid':f.esquemaPagoId.errors && submitInvalido}"  class="form-control">
-          <option value="1">Diurna </option>
-          <option value="2">Nocturna </option>
-          <option value="3">Mixta </option>
+          <option *ngFor="let item of arreglotipojornadas" [value]="item.tipoJornadaId">{{item.descripcion}} </option>
         </select>
         <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
           Campo requerido

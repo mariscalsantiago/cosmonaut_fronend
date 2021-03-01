@@ -66,14 +66,18 @@
                     <label for="exampleFormControlSelect1">Sindicalizado</label>
 
                     <div>
-                        <input formControlName="esSindicalizado" value="true" type="radio" name="esSindicalizado"
+                        <label class="contenedorInputCheckRadio">Si
+                            <input  formControlName="esSindicalizado" value="true" type="radio" name="esSindicalizado"
                             id="sisindicalizado">
-                        <label for="sisindicalizado">Si</label>
+                            <span class="radiomark"></span>
+                          </label>
                     </div>
                     <div>
-                        <input formControlName="esSindicalizado" value="false" type="radio" name="esSindicalizado"
+                        <label class="contenedorInputCheckRadio">No
+                            <input  formControlName="esSindicalizado" value="false" type="radio" name="esSindicalizado"
                             id="nosindicalizado">
-                        <label for="nosindicalizado">No</label>
+                            <span class="radiomark"></span>
+                          </label>
                     </div>
 
                 </div>
@@ -221,8 +225,12 @@
                     <div>
                         <label >Área geografica*</label>
                         <div *ngFor="let item of arregloareasgeograficas">
-                            <input [ngClass]="{'is-invalid':f.areaGeograficaId.errors && submitEnviado}" formControlName="areaGeograficaId" name="areaGeograficaId" type="radio" [value]="item.areaGeograficaId" [id]="item.nombreCorto">
-                            <label [for]="item.nombreCorto">{{item.descripcion}}</label>
+
+                            <label class="contenedorInputCheckRadio">{{item.descripcion}}
+                                <input [ngClass]="{'is-invalid':f.areaGeograficaId.errors && submitEnviado}" formControlName="areaGeograficaId" name="areaGeograficaId" type="radio" [value]="item.areaGeograficaId" [id]="item.nombreCorto">
+                                <span class="radiomark"></span>
+                              </label>
+
                             <div *ngIf="f.areaGeograficaId.errors && submitEnviado" class="invalid-feedback">
                                 Campo requerido
                             </div>
@@ -234,9 +242,10 @@
 
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-
-                    <input (change)="cambiarStatus()" formControlName="esSubcontratado" type="checkbox" name="" id="subcontratado">
-                    <label for="subcontratado">Empleado subcontratado</label>
+                    <label class="contenedorInputCheckRadio">Empleado subcontratado
+                        <input  (change)="cambiarStatus()" formControlName="esSubcontratado" type="checkbox" name="" id="subcontratado">
+                        <span class="checkmark"></span>
+                      </label>
                 </div>
             </div>
 

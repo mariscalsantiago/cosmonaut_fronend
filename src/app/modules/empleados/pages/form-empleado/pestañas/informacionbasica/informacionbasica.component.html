@@ -47,8 +47,10 @@
             </div>
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 ">
-                    <input  id="tienecurp" formControlName="tieneCurp" type="checkbox" name="" >
-                    <label for="tienecurp" > &nbsp;&nbsp;¿Tiene CURP, RFC y Seguro Social?</label>
+                    <label class="contenedorInputCheckRadio">¿Tiene CURP, RFC y Seguro Social?
+                        <input  id="tienecurp" formControlName="tieneCurp" type="checkbox" name="" >
+                        <span class="checkmark"></span>
+                      </label>
                 </div>
             </div>
             <div *ngIf="f.tieneCurp.value" class="row">
@@ -99,10 +101,15 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12">
                   <div class="row">
-                      <div class="col-1"> <input id="invitar" formControlName="invitarEmpleado" type="checkbox"></div>
-                      <div class="col-11"> 
-                        <label for="invitar">&nbsp;&nbsp;Invitar al empleado a ingresar la información personal
-                            adicional</label></div>
+                      <div class="col-12">                     
+                        <label class="contenedorInputCheckRadio">Invitar al empleado a ingresar la información personal
+                            adicional
+                            <input id="invitar" formControlName="invitarEmpleado" type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                    </div>
+                            
+                          
                   </div>
                 </div>
             </div>
@@ -139,12 +146,16 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >¿Tienes hijos?</label>
                     <div>
-                        <input (change)="cambiaValorHijos()" formControlName="tieneHijos" value="true"  type="radio" name="tieneHijos" id="si" class="">
-                        <label for="si">Si</label>
+                        <label class="contenedorInputCheckRadio">Si
+                            <input (change)="cambiaValorHijos()" formControlName="tieneHijos" value="true"  type="radio" name="tieneHijos" id="si" class="">
+                            <span class="radiomark"></span>
+                          </label>
                     </div>
                     <div>
-                        <input (change)="cambiaValorHijos()"  checked formControlName="tieneHijos" value="false"  type="radio" name="tieneHijos" id="no" class="">
-                        <label for="no">No</label>
+                        <label class="contenedorInputCheckRadio">No
+                            <input (change)="cambiaValorHijos()"  checked formControlName="tieneHijos" value="false"  type="radio" name="tieneHijos" id="no" class="">
+                            <span class="radiomark"></span>
+                          </label>
                     </div>
                 </div>
 

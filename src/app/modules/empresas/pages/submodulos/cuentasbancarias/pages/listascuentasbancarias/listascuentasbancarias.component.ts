@@ -56,16 +56,16 @@ export class ListascuentasbancariasComponent implements OnInit {
         let columnas: Array<tabla> = [
           new tabla("nombreCuenta", "Nombre cuenta"),
           new tabla("numeroCuenta", "Número de cuenta"),
-          // new tabla("nombrebanco", "Nombre banco"),
+          new tabla("nombrebanco", "Nombre banco"),
           new tabla("clabe", "Cuenta CLABE"),
           new tabla("esActivo", "Estatus")
         ];
 
-        console.log("dentro del forefdfdgfdgach");
+        console.log("datos de cuentas",datos);
 
         if(datos.datos !== undefined){
           datos.datos.forEach((part:any) => {
-            console.log(part);
+            part.nombrebanco=part.bancoId?.nombreCorto;
           });
         }
       

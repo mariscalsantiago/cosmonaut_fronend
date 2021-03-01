@@ -76,7 +76,8 @@ export class DetallecuentasbancariasComponent implements OnInit {
       descripcion: [obj.descripcion],
       num_informacion: [obj.numInformacion],
       clabe: [{value:obj.clabe,disabled:!this.esInsert}, [Validators.required, Validators.pattern(/^\d{18}$/)]],
-      num_sucursal: [obj.numSucursal]
+      num_sucursal: [obj.numSucursal],
+      esActivo:[obj.esActivo]
 
     });
 
@@ -139,6 +140,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
           numInformacion: obj.num_informacion,
           clabe: obj.clabe,
           numSucursal: obj.num_sucursal,
+          esActivo:obj.esActivo,
           nclCentrocCliente: {
             centrocClienteId: this.id_empresa
           },
@@ -165,6 +167,11 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
           });
         } else {
+
+          peticion.clabe = this.myForm.controls.clabe.value;
+          console.log("se va a modificar",peticion);
+
+
 
           this.cuentasPrd.modificar(peticion).subscribe(datos => {
 

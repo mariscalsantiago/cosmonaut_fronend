@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { JornadalaboralService } from '../../services/jornadalaboral.service';
 
 @Component({
@@ -20,11 +21,13 @@ export class DetallejornadalaboralComponent implements OnInit {
   public esInsert: boolean = false;
   public id_empresa: number = 0;
   public activadoISR: boolean = false;
+  public arreglotipojornadas:any = [];
 
 
 
   constructor(private formbuilder: FormBuilder, private activeprd: ActivatedRoute,
-    private routerPrd: Router, private jornadaPrd: JornadalaboralService) { }
+    private routerPrd: Router, private jornadaPrd: JornadalaboralService,
+    private catalogosPrd:CatalogosService) { }
 
   ngOnInit(): void {
 
@@ -65,6 +68,9 @@ export class DetallejornadalaboralComponent implements OnInit {
 
       }
     }
+
+
+    this.catalogosPrd.getTipoJornadas().subscribe(datos => this.arreglotipojornadas = datos.datos);
 
   }
 
@@ -200,7 +206,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public cancelar() {
-    this.routerPrd.navigate(['/empresa/detalle', this.id_empresa, 'gruposnomina']);
+    this.routerPrd.navigate(['/empresa/detalle', this.id_empresa, 'jornadalaboral']);
   }
 
   get f() {
