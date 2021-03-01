@@ -57,7 +57,8 @@ export class ListascuentasbancariasComponent implements OnInit {
           new tabla("nombreCuenta", "Nombre cuenta"),
           new tabla("numeroCuenta", "Número de cuenta"),
           // new tabla("nombrebanco", "Nombre banco"),
-          new tabla("clabe", "Cuenta CLABE")
+          new tabla("clabe", "Cuenta CLABE"),
+          new tabla("esActivo", "Estatus")
         ];
 
         console.log("dentro del forefdfdgfdgach");
@@ -144,6 +145,15 @@ export class ListascuentasbancariasComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    this.verdetalle(obj.datos);
+    switch(obj.type){
+
+      case "editar":
+        this.verdetalle(obj.datos);
+        break;
+        case "eliminar":
+          this.eliminar(obj.datos);
+          break;
+
+    }
   }
 }

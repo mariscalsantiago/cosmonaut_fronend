@@ -26,7 +26,7 @@ export class MenuService {
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios']},
                                                                               ]},
     { nombre: "ADMINISTRACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,submenu:[
-                                                                                {nombre:"CONFIGURACIÓN EWMPRESA",routerLink:['/listaempresas']},
+                                                                                {nombre:"CONFIGURACIÓN EMPRESA",routerLink:['/listaempresas']},
                                                                                 {nombre:"EMPRESA",routerLink:['listaempresas', 'empresas', this.tipoinsert]},
                                                                               ]},
   ];
