@@ -76,7 +76,7 @@ public activfiel(){
 
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas guardar cambios?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar un empleado";
+    //this.alerta.strsubtitulo = "Esta apunto de guardar un empleado";
     this.alerta.iconType = "warning";
 
   }
@@ -98,7 +98,7 @@ public activfiel(){
           emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
           emEnviarMovsImss: obj.emEnviarMovsImss,
           centrocClienteId:{
-              centrocClienteId: this.datosempresa.centrocClienteId
+              centrocClienteId: this.datosempresa.centrocClienteEmpresa
           }
 
         }

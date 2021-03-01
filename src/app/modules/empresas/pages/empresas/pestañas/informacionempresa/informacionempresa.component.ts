@@ -102,7 +102,7 @@ export class InformacionempresaComponent implements OnInit {
 
     this.alerta.modal = true;
     this.alerta.strTitulo = (this.datosempresa.insertar) ? "¿Deseas registrar la empresa" : "¿Deseas actualizar la empresa?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar una empresa";
+    //this.alerta.strsubtitulo = "Esta apunto de guardar una empresa";
     this.alerta.iconType = "warning";
 
   }
@@ -147,7 +147,7 @@ export class InformacionempresaComponent implements OnInit {
         let mensaje = datos.mensaje;
         if(resultado){
 
-          this.datosempresa.centrocClienteId = datos.datos.centrocClienteId;
+          this.datosempresa.centrocClienteEmpresa = datos.datos.centrocClienteId;
         }
         this.alerta.iconType = resultado ? "success" : "error";
         this.alerta.strTitulo = mensaje;

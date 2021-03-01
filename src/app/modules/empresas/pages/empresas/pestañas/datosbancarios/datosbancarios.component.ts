@@ -82,7 +82,7 @@ export class DatosbancariosComponent implements OnInit {
 
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas guardar cambios?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar datos bancarios STP";
+    //this.alerta.strsubtitulo = "Esta apunto de guardar datos bancarios STP";
     this.alerta.iconType = "warning";
 
   }else{
@@ -92,7 +92,7 @@ export class DatosbancariosComponent implements OnInit {
     
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas continuar?";
-    this.alerta.strsubtitulo = "Esta apunto de pasar a datos imss";
+    //this.alerta.strsubtitulo = "Esta apunto de pasar a datos imss";
     this.alerta.iconType = "warning";
     this.habcontinuar = false;
   }
@@ -121,7 +121,7 @@ export class DatosbancariosComponent implements OnInit {
             cuentaStp: obj.cuentaStp, 
             clabeStp: obj.clabeStp,
             nclCentrocCliente: {
-              centrocClienteId: this.datosempresa.centrocClienteId
+              centrocClienteId: this.datosempresa.centrocClienteEmpresa
             }
           
       }
