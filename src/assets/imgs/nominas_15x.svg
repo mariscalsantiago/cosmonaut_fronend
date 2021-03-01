@@ -1,0 +1,9 @@
+<svg id="nominas_15x" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+  <g id="Group_477" data-name="Group 477" transform="translate(1.477 2.508)">
+    <circle id="Ellipse_133" data-name="Ellipse 133" cx="1.919" cy="1.919" r="1.919" transform="translate(7.251 2.592)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_1518" data-name="Path 1518" d="M120.461,299.426a4.763,4.763,0,1,1,3.6-7.878" transform="translate(-115.698 -289.9)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_1519" data-name="Path 1519" d="M129.7,309.13a2.945,2.945,0,1,1,5.89,0" transform="translate(-123.477 -298.454)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <text id="_" data-name="$" transform="translate(3.184 6.43)" fill="#1ec1af" font-size="4" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">$</tspan></text>
+  </g>
+  <rect id="Rectangle_545" data-name="Rectangle 545" width="15" height="15" fill="none"/>
+</svg>

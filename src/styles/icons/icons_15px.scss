@@ -1,0 +1,16 @@
+@mixin icono-imagen($colorpersonalizado) {
+    background-color: $colorpersonalizado;
+    width: 25px;
+    height:25px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+
+  .icon_upload15{
+    $rutaimg:'../../assets/imgs/upload_15x.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }

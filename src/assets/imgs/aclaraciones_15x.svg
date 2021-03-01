@@ -1,0 +1,14 @@
+<svg id="aclaraciones_15x" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+  <rect id="Rectangle_559" data-name="Rectangle 559" width="15" height="15" fill="none"/>
+  <g id="Group_482" data-name="Group 482" transform="translate(1.5 3)">
+    <path id="Path_1540" data-name="Path 1540" d="M1181.147,545.227a5.77,5.77,0,0,0-5.815,5.724,5.618,5.618,0,0,0,.417,2.124,10.4,10.4,0,0,1,4.289-1.315,1.151,1.151,0,0,1-.012-.124,1.121,1.121,0,0,1,2.242,0,1.039,1.039,0,0,1-.013.124,10.4,10.4,0,0,1,4.289,1.315,5.621,5.621,0,0,0,.417-2.124A5.77,5.77,0,0,0,1181.147,545.227Z" transform="translate(-1175.332 -545.227)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_1541" data-name="Path 1541" d="M1189.155,559.786a1.1,1.1,0,0,0,.013-.126,1.121,1.121,0,1,0-2.242,0,1.158,1.158,0,0,0,.013.126c.364-.034.732-.057,1.109-.057S1188.792,559.752,1189.155,559.786Z" transform="translate(-1182.232 -553.149)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_1542" data-name="Path 1542" d="M1182.85,561.535c-.363-.034-.729-.058-1.1-.058s-.743.023-1.105.058a10.234,10.234,0,0,0-4.277,1.336,5.8,5.8,0,0,0,.716,1.295h9.332a5.814,5.814,0,0,0,.716-1.295A10.235,10.235,0,0,0,1182.85,561.535Z" transform="translate(-1175.947 -554.897)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1"/>
+    <line id="Line_43" data-name="Line 43" x1="1.346" y2="4" transform="translate(6.245 1.476)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_44" data-name="Line 44" x2="1.089" transform="translate(0.004 5.655)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_45" data-name="Line 45" y2="1.089" transform="translate(5.815 0)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_46" data-name="Line 46" x2="0.928" y2="0.928" transform="translate(1.8 1.612)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_47" data-name="Line 47" x1="1.089" transform="translate(10.541 5.808)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_48" data-name="Line 48" x1="0.928" y2="0.928" transform="translate(8.907 1.764)" fill="none" stroke="#1ec1af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>
