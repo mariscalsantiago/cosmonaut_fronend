@@ -108,9 +108,10 @@ export class DetallegruponominaComponent implements OnInit {
   public crearForm(obj:any){
 
     if(!this.esInsert){
+      console.log("Este es el obj",obj);
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
-      obj.esAutomatica = `${obj.esAutomatica}`
-      obj.clabe.clabe = `${obj.clabe.clabe}`
+    }else{
+      obj.centrocClienteId.centrocClienteId = this.id_empresa;
     }
     
     return this.formbuilder.group({
@@ -119,13 +120,12 @@ export class DetallegruponominaComponent implements OnInit {
       esquemaPagoId:[obj.esquemaPagoId.esquemaPagoId,[Validators.required]],
       monedaId:[obj.monedaId.monedaId,[Validators.required]],
       centrocClienteId:[obj.centrocClienteId.centrocClienteId,[Validators.required]],
-      clabe:[obj.clabe.clabe,[Validators.required]],
+      clabe:[obj.clabe?.clabe,[Validators.required]],
       periodicidadPagoId:[obj.periodicidadPagoId.periodicidadPagoId,[Validators.required]],
       basePeriodoId:[obj.basePeriodoId.basePeriodoId,[Validators.required]],
       periodoAguinaldoId:[obj.periodoAguinaldoId.periodoAguinaldoId,[Validators.required]],
       isrAguinaldoReglamento:obj.isrAguinaldoReglamento,
       maneraCalcularSubsidio:[obj.maneraCalcularSubsidio,[Validators.required]],
-      esAutomatica:[obj.esAutomatica,[Validators.required]],
       grupoNominaId:obj.grupoNominaId
 
     });
@@ -153,7 +153,7 @@ export class DetallegruponominaComponent implements OnInit {
           maneraCalcularSubsidio:subsidio,
           esquemaPagoId:{esquemaPagoId:obj.esquemaPagoId},
           monedaId:{monedaId:obj.monedaId},
-          centrocClienteId:{centrocClienteId:obj.centrocClienteId},
+          centrocClienteId:{centrocClienteId:this.id_empresa},
           clabe:{clabe:obj.clabe},
           periodicidadPagoId:{periodicidadPagoId:obj.periodicidadPagoId},
           basePeriodoId:{basePeriodoId:obj.basePeriodoId},
@@ -168,23 +168,17 @@ export class DetallegruponominaComponent implements OnInit {
        
         if (this.esInsert) {
 
-          peticion.centrocClienteId.centrocClienteId = this.id_empresa;
-
-
           this.grupoNominaPrd.save(peticion).subscribe(datos => {
-            console.log("Esto despues de guardar");
-            console.log(datos);
-
             this.iconType = datos.resultado ? "success" : "error";
-
             this.strTitulo = datos.mensaje;
             this.modal = true;
+
+            console.log("Este es lo guardado",datos);
 
           });
         } else {
 
           peticion.grupoNominaId = obj.grupoNominaId;
-          peticion.esActivo = true;
 
           this.grupoNominaPrd.modificar(peticion).subscribe(datos => {
 

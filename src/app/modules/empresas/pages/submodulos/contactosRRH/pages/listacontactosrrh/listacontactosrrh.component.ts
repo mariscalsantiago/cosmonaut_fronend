@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
 import { UsuariocontactorrhService } from '../services/usuariocontactorrh.service';
 
 @Component({
@@ -10,17 +11,20 @@ import { UsuariocontactorrhService } from '../services/usuariocontactorrh.servic
 export class ListacontactosrrhComponent implements OnInit {
 
 
-  public tamanio:number = 0;
-  public cargando:boolean = false;
-  public changeIconDown:boolean = false;
+  public tamanio: number = 0;
+  public cargando: boolean = false;
+  public changeIconDown: boolean = false;
 
-  public nombre:any;
-  public apellido:any;
-  public empresa:any;
-  public correoE:string = "";
-  public correoP:string = "";
-  public id_empresa:number = 0;
-  public arreglo:any = [{nombre:"santiago",id:324324,apellido:"mariscal",correoempresa:"santiagomariscal@gmail.com"}];
+  public nombre: any;
+  public apellidoPaterno: any;
+  public apellidoMaterno: any;
+  public correoE: string = "";
+  public correoP: string = "";
+  public id_empresa: number = 0;
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
+  };
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -31,16 +35,16 @@ export class ListacontactosrrhComponent implements OnInit {
   }
 
 
-  constructor(private router:Router,private usuariosPrd:UsuariocontactorrhService,private CanRouterPrd:ActivatedRoute) { }
+  constructor(private router: Router, private usuariosPrd: UsuariocontactorrhService, private CanRouterPrd: ActivatedRoute) { }
 
   ngOnInit(): void {
-    let documento:any = document.defaultView;
+    let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
 
     this.cargando = true;
 
-    this.CanRouterPrd.params.subscribe(datos =>{
+    this.CanRouterPrd.params.subscribe(datos => {
 
 
       this.id_empresa = datos["id"];
@@ -53,37 +57,93 @@ export class ListacontactosrrhComponent implements OnInit {
         }
       }
 
-      
+
 
 
       this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-        this.arreglo = datos.datos;
+
+        let columnas: Array<tabla> = [
+          new tabla("personaId", "ID"),
+          new tabla("nombre", "Nombre"),
+          new tabla("apellidoPaterno", "Apellido paterno"),
+          new tabla("apellidoMaterno", "Apellido materno"),
+          new tabla("curp", "CURP"),
+          new tabla("emailCorporativo", "Correo empresarial"),
+          new tabla("fechaAlta", "Fecha de registro"),
+          new tabla("activo", "Estatus")
+        ]
+        this.arreglotabla.columnas = columnas;
+        this.arreglotabla.filas = datos.datos;
         this.cargando = false;
-        console.log(this.arreglo);
-        console.log(this.arreglo);
       });
 
     });
-    
-  }
-
-
-  public filtrar(){
 
   }
 
 
-  public verdetalle(obj:any){
+  
+    public filtrar() {
 
-    if(obj == undefined){
 
-      this.router.navigate(['empresa/detalle',this.id_empresa,'contactosrrh','nuevo']);
-    }else{
 
-      this.router.navigate(['empresa/detalle',this.id_empresa,'contactosrrh','editar'],{ state: { data: obj} });
+
+    this.cargando = true;
+
+
+
+    let peticion = {
+      nombre: this.nombre,
+      apellidoPaterno: this.apellidoPaterno,
+      apellidoMaterno: this.apellidoMaterno,
+      contactoInicialEmailPersonal:this.correoP,
+      emailCorporativo:this.correoE,
+      centrocClienteId: {
+        centrocClienteId: this.id_empresa
+      },
+      tipoPersonaId: {
+        tipoPersonaId: 4
+      }
+    }
+
+    this.usuariosPrd.filtrar(peticion).subscribe(datos => {
+      let columnas: Array<tabla> = [
+        new tabla("personaId", "ID"),
+        new tabla("nombre", "Nombre"),
+        new tabla("apellidoPaterno", "Apellido paterno"),
+        new tabla("apellidoMaterno", "Apellido materno"),
+        new tabla("curp", "CURP"),
+        new tabla("emailCorporativo", "Correo empresarial"),
+        new tabla("fechaAlta", "Fecha de registro"),
+        new tabla("activo", "Estatus")
+      ]
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = datos.datos;
+      this.cargando = false;
+    });
+  }
+
+
+
+
+  public verdetalle(obj: any) {
+
+    if (obj == undefined) {
+
+      this.router.navigate(['empresa/detalle', this.id_empresa, 'contactosrrh', 'nuevo']);
+    } else {
+
+      this.router.navigate(['empresa/detalle', this.id_empresa, 'contactosrrh', 'editar'], { state: { data: obj } });
 
     }
 
+
+  }
+
+
+  public recibirTabla(obj: any) {
+
+    this.verdetalle(obj.datos);
 
   }
 

@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
 import { PuestosService } from '../services/puestos.service';
 
 @Component({
@@ -11,20 +12,24 @@ export class ListapuestosComponent implements OnInit {
 
   public modal: boolean = false;
   public insertar: boolean = false;
-  public iconType:string = "";
+  public iconType: string = "";
   public strTitulo: string = "";
-  public tamanio:number = 0;
-  public cargando:Boolean = false;
-  public id_empresa:number = 0;
+  public tamanio: number = 0;
+  public cargando: Boolean = false;
+  public id_empresa: number = 0;
   public id_area: number = 0;
   public changeIconDown: boolean = false;
-  public objEnviar:any ;
+  public objEnviar: any;
 
   public aparecemodalito: boolean = false;
   public scrolly: string = '5%';
   public modalWidth: string = "55%";
-  public cargandodetallearea:boolean = false;
-  public nombreCorto : string = "";
+  public cargandodetallearea: boolean = false;
+  public nombreCorto: string = "";
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
+  };
 
 
   @HostListener('window:resize', ['$event'])
@@ -35,47 +40,55 @@ export class ListapuestosComponent implements OnInit {
     this.tamanio = event.target.innerWidth;
   }
 
- 
-  public arreglo:any = [];
-  public arreglodetalle:any = [];
 
-  constructor(private routerPrd:Router,private puestosProd:PuestosService,private CanRouterPrd:ActivatedRoute) { }
+  public arreglo: any = [];
+  public arreglodetalle: any = [];
+
+  constructor(private routerPrd: Router, private puestosProd: PuestosService, private CanRouterPrd: ActivatedRoute) { }
 
   ngOnInit(): void {
-     
-    let documento:any = document.defaultView;
+
+    let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
 
     this.cargando = true;
 
-    this.CanRouterPrd.params.subscribe(datos =>{
+    this.CanRouterPrd.params.subscribe(datos => {
 
       this.id_empresa = datos["id"]
       this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
-      this.arreglo = datos.datos;
-      this.cargando = false;
-      console.log(datos.datos);
-      //this.paginar();
-    });
+
+        let columnas: Array<tabla> = [
+          new tabla("nombreCorto", "Nombre"),
+          new tabla("razonSocial", "Empresa"),
+          new tabla("count", "Número de empleados")
+        ];
+
+        this.arreglotabla.columnas = columnas;
+        this.arreglotabla.filas = datos.datos;
+
+
+        this.cargando = false;
+      });
 
     });
 
   }
 
 
-  public verdetalle(obj:any){
-     
+  public verdetalle(obj: any) {
+
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
-    this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'area', tipoinsert],{state:{datos:obj}});
+    this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'area', tipoinsert], { state: { datos: obj } });
     this.cargando = false;
   }
-  public eliminar(obj:any){
+  public eliminar(obj: any) {
 
-      
-     
-     this.objEnviar = {
+
+
+    this.objEnviar = {
       areaId: obj.areaId,
       descripcion: obj.descripcion,
       nombreCorto: obj.nombreCorto,
@@ -87,12 +100,12 @@ export class ListapuestosComponent implements OnInit {
     this.modal = true;
     this.strTitulo = "¿Deseas eliminar el área?";
     this.iconType = "warning";
-            
-  }
-  
-  public traerModal(indice: any) {
 
-     
+  }
+
+  public traerModal(obj: any) {
+
+
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -122,24 +135,24 @@ export class ListapuestosComponent implements OnInit {
     }
 
 
-    let areapuestoitem = this.arreglo[indice];
-    
+    let areapuestoitem = obj;
+
     this.cargandodetallearea = true;
-    this.puestosProd.getdetalleArea(this.id_empresa,areapuestoitem.areaId).subscribe(datos =>{
+    this.puestosProd.getdetalleArea(this.id_empresa, areapuestoitem.areaId).subscribe(datos => {
 
       this.cargandodetallearea = false;
 
 
-      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
+      this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
 
-     
+
 
     });
 
   }
 
   public filtrar() {
-     
+
 
     this.cargando = true;
 
@@ -149,16 +162,25 @@ export class ListapuestosComponent implements OnInit {
       nclCentrocCliente: {
         nombre: ""
       }
-    } 
- 
+    }
+
     this.puestosProd.filtrar(peticion).subscribe(datos => {
-      this.arreglo = datos.datos;
+      let columnas: Array<tabla> = [
+        new tabla("nombreCorto", "Nombre"),
+        new tabla("razonSocial", "Empresa"),
+        new tabla("count", "Número de empleados")
+      ];
+
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = datos.datos;
+
+
       this.cargando = false;
     });
   }
 
   public recibir($evento: any) {
-     
+
     this.modal = false;
     if (this.iconType == "warning") {
 
@@ -170,22 +192,38 @@ export class ListapuestosComponent implements OnInit {
           this.iconType = resultado ? "success" : "error";
           this.strTitulo = mensaje;
           this.modal = true;
-          if(resultado){
+          if (resultado) {
 
             this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
               this.arreglo = datos.datos;
 
             });
-        }
+          }
 
         });
-        
+
       }
     }
 
-   }
+  }
 
-} 
+
+  public recibirTabla(obj: any) {
+    switch (obj.type) {
+
+      case "editar":
+        this.verdetalle(obj.datos);
+        break;
+      case "ver":
+        this.traerModal(obj.datos);
+        break;
+      case "eliminar":
+        this.eliminar(obj.datos);
+        break;
+
+    }
+  }
+}
 
 
 

@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { element } from 'protractor';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { GruponominasService } from '../../services/gruponominas.service';
 
 @Component({
@@ -14,12 +15,15 @@ export class ListagruposnominasComponent implements OnInit {
   public tamanio: number = 0;
   public changeIconDown: boolean = false;
   public nombre: string = "";
+  public razon: string = "";
+  public idEsquema: number = 0;
+
   public cargando: boolean = false;
-  public id_empresa: number = 0;
+  public id_empresa: number = -1;
   public aparecemodalito: boolean = false;
   public scrolly: string = '5%';
   public modalWidth: string = "55%";
-  public cargandodetallegrupo:boolean = false;
+  public cargandodetallegrupo: boolean = false;
 
 
   public modal: boolean = false;
@@ -28,13 +32,15 @@ export class ListagruposnominasComponent implements OnInit {
   public strsubtitulo: string = "";
   public indexSeleccionado: number = 0;
 
+  public arregloEsquemaPago: any = [];
+
 
 
 
 
 
   public arreglo: any = [];
-  public arreglodetalle:any = [];
+  public arreglodetalle: any = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -54,7 +60,7 @@ export class ListagruposnominasComponent implements OnInit {
   }
 
   constructor(private gruposnominaPrd: GruponominasService, private routerPrd: Router,
-    private routerActive: ActivatedRoute) { }
+    private routerActive: ActivatedRoute, private catalogosPrd: CatalogosService) { }
 
   ngOnInit(): void {
 
@@ -68,7 +74,6 @@ export class ListagruposnominasComponent implements OnInit {
       this.cargando = true;
 
       this.gruposnominaPrd.getAll(this.id_empresa).subscribe(datos => {
-        console.log(datos.datos);
         if (datos.datos != undefined)
           for (let item of datos.datos) {
             item.seleccionado = false;
@@ -76,15 +81,37 @@ export class ListagruposnominasComponent implements OnInit {
           }
         this.arreglo = datos.datos;
         this.cargando = false;
-
-        console.log(this.arreglo);
       });
 
     });
 
+
+    this.catalogosPrd.getEsquemaPago().subscribe(datos => this.arregloEsquemaPago = datos.datos);
+
   }
 
   public filtrar() {
+
+
+    let objEnviar = {
+
+      nombre: this.nombre,
+      esquemaPagoId: {
+        esquemaPagoId: this.idEsquema
+      }
+    }
+
+    this.gruposnominaPrd.filtrar(objEnviar).subscribe(datos => {
+
+      if (datos.datos != undefined)
+        for (let item of datos.datos) {
+          item.seleccionado = false;
+          item.cargandoDetalle = false;
+        }
+      this.arreglo = datos.datos;
+      this.cargando = false;
+    });
+
 
   }
 
@@ -187,18 +214,18 @@ export class ListagruposnominasComponent implements OnInit {
 
 
     let gruponominaitem = this.arreglo[indice];
-    
+
     this.cargandodetallegrupo = true;
-    this.gruposnominaPrd.getGroupNominaEmpleado(gruponominaitem.id).subscribe(datos =>{
+    this.gruposnominaPrd.getGroupNominaEmpleado(gruponominaitem.id).subscribe(datos => {
 
       this.cargandodetallegrupo = false;
 
 
-      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
+      this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
 
 
       console.log(datos);
-      
+
 
     });
 
@@ -223,10 +250,10 @@ export class ListagruposnominasComponent implements OnInit {
 
           this.modal = true;
 
-          if(resultado){
+          if (resultado) {
 
 
-            this.arreglo.splice(this.indexSeleccionado,1);
+            this.arreglo.splice(this.indexSeleccionado, 1);
 
 
           }

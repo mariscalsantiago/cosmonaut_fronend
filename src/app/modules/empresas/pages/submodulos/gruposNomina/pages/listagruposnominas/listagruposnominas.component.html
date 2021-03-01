@@ -35,13 +35,12 @@
             <div class="card-body">
               <div class="form group row margen">
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre completo">
+                  <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre grupo de nómina">
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <input list="browsers" placeholder="Filtrar por" class="form-control" name="browser">
-                  <datalist id="browsers">
-                    <option value="Consumir servicio">
-                  </datalist>
+                  <select [(ngModel)]="idEsquema"  class="form-control">
+                    <option *ngFor="let item of arregloEsquemaPago" [value]="item.esquemaPagoId">{{item.descripcion}}</option>
+                  </select>
                 </div>
                 <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
                   <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
@@ -225,7 +224,7 @@
     </tbody>
   </table>
   <div *ngIf="!cargando && arreglo === undefined" class="alert  col text-center">
-    <strong>Sin grupos de nomina</strong> La tabla de grupos de nomina esta vacía.
+    <strong>En este momento no existen registros</strong>
   </div>
   <div *ngIf="cargando" class="col text-center mb-5">
     <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">

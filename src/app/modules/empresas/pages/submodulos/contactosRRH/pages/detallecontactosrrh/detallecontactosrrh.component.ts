@@ -104,7 +104,7 @@ export class DetallecontactosrrhComponent implements OnInit {
 
 
     this.iconType = "warning";
-    this.strTitulo = (this.esInsert) ? "¿Desea registrar el contacto RRH?" : "¿Desea actualizar los datos del contacto RRH?";
+    this.strTitulo = (this.esInsert) ? "¿Desea registrar el contacto RRHH?" : "¿Desea actualizar los datos del contacto RRHH?";
     this.modal = true;
   }
 

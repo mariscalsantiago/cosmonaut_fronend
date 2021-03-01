@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
 import { CuentasbancariasService } from '../../services/cuentasbancarias.service';
 
 @Component({
@@ -18,30 +19,16 @@ export class ListascuentasbancariasComponent implements OnInit {
   public strTitulo: string = "";
   public modal: boolean = false;
   public iconType: string = "";
-
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
+  };
 
 
 
 
   public id_empresa: number = 0;
-  public arreglo: any = [
-
-    {
-      clabe: "999999999999999999",
-      csBanco: { bancoId: 13, codBanco: "044", nombreCorto: "SCOTIABANK", razonSocial: "Scotiabank Inverlat, S.A.", fechaInicio: "01/01/2017" },
-      esActivo: true,
-      basePeriodoId: "30D",
-      centrocClienteId: 1,
-      emClaveDelegacionalImss: 0,
-      fechaAlta: "26/01/2021",
-      nombre: "ASG-Modificar",
-      razonSocial: "ASG",
-      rfc: "MAVS970126HOZ",
-      nombreCuenta: "Prueba",
-      numeroCuenta: "9999999999"
-    }
-
-  ];
+  public arreglo: any = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -64,10 +51,27 @@ export class ListascuentasbancariasComponent implements OnInit {
 
       this.cargando = true;
 
-      this.cuentasPrd.getCuentaBancariaByEmpresa(this.id_empresa).subscribe(peticion => {
+      this.cuentasPrd.getCuentaBancariaByEmpresa(this.id_empresa).subscribe(datos => {
+        let columnas: Array<tabla> = [
+          new tabla("nombreCuenta", "Nombre cuenta"),
+          new tabla("numeroCuenta", "Número de cuenta"),
+          // new tabla("nombrebanco", "Nombre banco"),
+          new tabla("clabe", "Cuenta CLABE")
+        ];
+
+        console.log("dentro del forefdfdgfdgach");
+
+        if(datos.datos !== undefined){
+          datos.datos.forEach((part:any) => {
+            console.log(part);
+          });
+        }
+      
+
+        this.arreglotabla.columnas = columnas;
+        this.arreglotabla.filas = datos.datos;
         this.cargando = false;
-        this.arreglo = peticion.datos;
-        console.log(this.arreglo);
+        
       });
 
 
@@ -123,5 +127,9 @@ export class ListascuentasbancariasComponent implements OnInit {
         });
       }
     }
+  }
+
+  public recibirTabla(obj:any){
+    this.verdetalle(obj.datos);
   }
 }

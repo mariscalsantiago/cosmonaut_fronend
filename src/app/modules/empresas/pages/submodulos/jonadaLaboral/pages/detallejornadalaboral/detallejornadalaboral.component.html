@@ -40,13 +40,17 @@
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <input formControlName="isrAguinaldoReglamento" type="checkbox" name="" id="irsaguinaldo">
-        <label for="irsaguinaldo"> Usuar el mismo horario de trabajo para todos los días</label>
+        <label class="contenedorInputCheckRadio">Usar el mismo horario de trabajo para todos los días
+          <input formControlName="isrAguinaldoReglamento" type="checkbox" name="" id="irsaguinaldo">
+          <span class="checkmark"></span>
+        </label>
       </div>
       
       <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <input #ajusteisr (click)="activar(ajusteisr)" type="checkbox" name="" id="ajusteirs">
-        <label for="ajusteirs">Agregar horario de comida </label>
+        <label class="contenedorInputCheckRadio">Agregar horario de comida 
+          <input #ajusteisr (click)="activar(ajusteisr)" type="checkbox" name="" id="ajusteirs">
+          <span class="checkmark"></span>
+        </label>
        
       </div>
 

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, EventEmitter, Output, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
 
 
 

@@ -15,7 +15,6 @@
               <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
                   Campo requerido
                 </div>
-    
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label >Días económicos *</label>
@@ -27,30 +26,49 @@
     
             </div>
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-            <input formControlName="primaAniversario" type="checkbox" name="" id="primaAniversario">
-            <label for="primaAniversario"> Prima vacacional al aniversario</label>
+            <label class="contenedorInputCheckRadio">Prima vacacional al aniversario
+              <input formControlName="primaAniversario" type="checkbox" name="" id="primaAniversario">
+              <span class="checkmark"></span>
+            </label>
           </div>
 
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-            <input formControlName="descuentaFaltas" type="checkbox" name="" id="descuentaFaltas">
-            <label for="descuentaFaltas"> Se descuentan faltas</label>
+            <label class="contenedorInputCheckRadio">Se descuentan faltas
+              <input formControlName="descuentaFaltas" type="checkbox" name="" id="descuentaFaltas">
+              <span class="checkmark"></span>
+            </label>
           </div>
           <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-            <input formControlName="descuentaIncapacidades" type="checkbox" name="" id="descuentaIncapacidades">
-            <label for="descuentaIncapacidades"> Se descuentan incapacidades</label>
+            <label class="contenedorInputCheckRadio">Se descuentan incapacidades
+              <input formControlName="descuentaIncapacidades" type="checkbox" name="" id="descuentaIncapacidades">
+              <span class="checkmark"></span>
+            </label>
           </div>
           <div class="input-group-sm mb-4 col-6 col-sm-6 col-lg-6">
-            <input formControlName="costoValesRestaurante" type="checkbox" name="" id="costoValesRestaurante">
-            <label for="costoValesRestaurante"> Costo vales de restaurante</label>
+            <label class="contenedorInputCheckRadio">Costo vales de restaurante
+              <input formControlName="costoValesRestaurante" type="checkbox" name="" id="costoValesRestaurante">
+              <span class="checkmark"></span>
+            </label>
           </div>
           <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-            <input formControlName="descuentoPropDia" type="checkbox" name="" id="descuentoPropDia">
-            <label for="descuentoPropDia"> Descuento proporción séptimo día</label>
+            <label class="contenedorInputCheckRadio">Descuento proporción séptimo día
+              <input formControlName="descuentoPropDia" type="checkbox" name="" id="descuentoPropDia">
+              <span class="checkmark"></span>
+            </label>
           </div>
           <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Cálculos en base a :</label><br>
-            <input  value="C" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" id=""> Fecha de antigüedad<br>
-            <input  value="A" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id=""> Fecha de inicio de contrato
+
+            <label class="contenedorInputCheckRadio"> Fecha de antigüedad
+              <input  value="C" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" id="">
+              <span class="radiomark"></span>
+            </label>
+
+            <label class="contenedorInputCheckRadio"> Fecha de inicio de contrato
+              <input value="A" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id="">
+              <span class="radiomark"></span>
+            </label>
+            
           </div>
   
         </div>

@@ -64,14 +64,23 @@
         </div>
       </div>
       <div *ngIf="periodopago.value == '04'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <input #ajusteisr (click)="activar(ajusteisr)" type="checkbox" name="" id="ajusteirs">
-        <label for="ajusteirs">Ajuste de ISR </label>
+        <label class="contenedorInputCheckRadio">Ajuste de ISR
+          <input  #ajusteisr (click)="activar(ajusteisr)" type="checkbox" name="" id="ajusteirs">
+          <span class="checkmark"></span>
+        </label>      
        
       </div>
       <div *ngIf="activadoISR"  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
         <label >Ajustar base gravable del mes de periodos ordinarios faltantes.</label>
-        <label for="sibasegravable">Sí</label><input checked type="radio" name="grupo1" id="sibasegravable">
-        <label for="nobasegravable">No</label><input type="radio" name="grupo1" id="nobasegravable">
+        <label class="contenedorInputCheckRadio">Sí
+          <input checked type="radio" name="grupo1" id="sibasegravable">
+          <span class="radiomark"></span>
+        </label>
+        <label class="contenedorInputCheckRadio">No
+          <input  type="radio" name="grupo1" id="sibasegravable">
+          <span class="radiomark"></span>
+        </label>
+        
         
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -93,22 +102,22 @@
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <input formControlName="isrAguinaldoReglamento" type="checkbox" name="" id="irsaguinaldo">
-        <label for="irsaguinaldo">Calcular ISR de aguinaldo aplicando reglamento</label>
+        <label class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
+          <input formControlName="isrAguinaldoReglamento" id="irsaguinaldo" type="checkbox">
+          <span class="checkmark"></span>
+        </label>      
       </div>
       <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Calcular subsidio al empleo de manera :</label><br>
-        Periódica<input [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" value="periodica" formControlName="maneraCalcularSubsidio" type="radio" name="maneraCalcularSubsidio" id="">
-        Diaria<input [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" value="diaria" formControlName="maneraCalcularSubsidio" type="radio" name="maneraCalcularSubsidio" id="">
+        <label class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
+          <input name="maneraCalcularSubsidio" formControlName="maneraCalcularSubsidio" type="radio" value="periodica"  [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" >
+          <span class="radiomark"></span>
+        </label>   
+        <label class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
+          <input name="maneraCalcularSubsidio" formControlName="maneraCalcularSubsidio" type="radio" value="diaria"   [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" >
+          <span class="radiomark"></span>
+        </label>
         <div *ngIf="submitInvalido && f.maneraCalcularSubsidio.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Nómina automática </label><br>
-        Si<input [ngClass]="{'is-invalid':f.esAutomatica.errors && submitInvalido}" value="true" formControlName="esAutomatica" type="radio" name="esAutomatica" id="">
-        No<input [ngClass]="{'is-invalid':f.esAutomatica.errors && submitInvalido}" value="false" formControlName="esAutomatica" type="radio" name="esAutomatica" id="">
-        <div *ngIf="submitInvalido && f.esAutomatica.errors" class="invalid-feedback">
           Campo requerido
         </div>
       </div>
@@ -127,3 +136,6 @@
 
 <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"
   (eventoFunciones)="recibir($event)"></app-alert-questions>
+
+
+

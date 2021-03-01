@@ -1,5 +1,5 @@
-<br>
-<div>
+
+<div class="mt-3">
 
  
 
@@ -14,43 +14,8 @@
     </div>
   </div>
   <div class="row margen margen-tabla background-panel scrooll">
-    
-
-    <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover">
-      <thead>
-        <tr>
-          <th></th>
-          <th scope="col">Nombre cuenta</th>
-          <th scope="col">No. Cuenta</th>
-          <th scope="col">Nombre banco</th>
-          <th scope="col">Cuenta CLABE</th>
-          <th scope="col " >Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of arreglo;">
-          <th><i class="fas fa-id-card"></i></th>
-          <td >{{item.nombreCuenta}} </td>
-          <td style="color:  #00DED4">{{item.numeroCuenta}} </td>
-          <td>{{item.csBanco?.nombreCorto}} </td>
-          <td>{{item.clabe}} </td>
-          <td  class="opciones">
-            <button ><i class="icon_ver primary-bg"></i></button>
-            <button (click)="verdetalle(item)" ><i class="icon_editar primary-bg"></i></button>
-            <button (click)="eliminar(item)"><i class="icon_eliminar danger-bg"></i></button>
-          </td>
-        </tr>
-
-
-
-      </tbody>
-    </table>
-    <div *ngIf="!cargando && arreglo === undefined" class="alert alert-warning col text-center">
-      <strong>Sin usuarios</strong> La tabla de cuentas bancarias esta vacía.
-    </div>
-    <div *ngIf="cargando" class="col text-center mb-5">
-      <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-    </div>
+    <app-tablapaginado [datos]="arreglotabla" [editar]="true" [cargando]="cargando" (salida)="recibirTabla($event)">
+    </app-tablapaginado>
   </div>
 
 

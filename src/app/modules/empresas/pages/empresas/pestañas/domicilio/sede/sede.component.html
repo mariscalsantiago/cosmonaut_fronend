@@ -32,7 +32,7 @@
                             [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
                             placeholder="">
                         <div *ngIf="f.codigo.errors?.required && submitEnviado" class="invalid-feedback">
-                            Ingresar código postal
+                            Campo requerido
                         </div>
                         <div *ngIf="f.codigo.errors?.pattern && f.codigo.touched" class="invalid-feedback">
                             Código postal incorrecto, Formato númerico
