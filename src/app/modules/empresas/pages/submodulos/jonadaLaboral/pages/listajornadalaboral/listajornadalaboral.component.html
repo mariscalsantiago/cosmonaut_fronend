@@ -69,8 +69,8 @@
       <tbody>
         <tr *ngFor="let item of arreglodetalle">
           
-          <td>{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</td>
-          <td>{{item.num_empleado}}</td>
+          <td>{{item.nombre}} {{item.apellidom}} {{item.apellidop}}</td>
+          <td>{{item.numeroemp}}</td>
           <td>{{item.puesto}}</td>
         </tr>
       </tbody>
@@ -116,7 +116,7 @@
           <td (click)="traerModal(indice)" style="color:  #00DED4">{{item.count}} </td>
           <td class="opciones">
             <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
-            <button (click)="eliminar(indice)"><i class="icon_eliminar danger-bg"></i></button>
+            <button (click)="eliminar(item)"><i class="icon_eliminar danger-bg"></i></button>
             <button (click)="apagando(indice); "><i *ngIf="!item.seleccionado" class="fas fa-chevron-down primary" style="font-size: 14px;
                 margin: 9px;"></i><i *ngIf="item.seleccionado" class="fas fa-chevron-up primary" style="font-size: 14px;
                 margin: 9px;"></i></button>

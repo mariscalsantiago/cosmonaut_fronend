@@ -87,7 +87,6 @@ export class ListapuestosComponent implements OnInit {
   public eliminar(obj: any) {
 
 
-
     this.objEnviar = {
       areaId: obj.areaId,
       descripcion: obj.descripcion,
@@ -192,13 +191,13 @@ export class ListapuestosComponent implements OnInit {
           this.iconType = resultado ? "success" : "error";
           this.strTitulo = mensaje;
           this.modal = true;
-          if (resultado) {
+          //if (resultado) {
 
             this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
               this.arreglo = datos.datos;
 
             });
-          }
+          //}
 
         });
 
