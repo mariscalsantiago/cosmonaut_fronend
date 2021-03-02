@@ -44,8 +44,8 @@ export class ListaempleadosComponent implements OnInit {
     this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
       console.log("Ver lo que se intera",datos);
       let columnas:Array<tabla> = [
-        new tabla("nombre","Nombre",false,true),
-        new tabla("personaId","ID",true),
+        new tabla("nombre","Nombre",true,true),
+        new tabla("personaId","Número de empleado"),
         new tabla("puesto","Puesto"),
         new tabla("area","area"),
         new tabla("sede","Sede"),
@@ -101,6 +101,10 @@ export class ListaempleadosComponent implements OnInit {
 
   public bajaEmpleado(){
     this.routerPrd.navigate(['empleados','bajaempleado']);
+  }
+
+  public filtrar(){
+    
   }
 
 }

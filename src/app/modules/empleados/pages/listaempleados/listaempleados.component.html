@@ -5,9 +5,7 @@
         </div>
     </div>
     <div class="row col  mt-2" style="color:white">
-        <p class="interlineado" style="color:white">1.-Dar click al nombre del empleado para ir a su perfil.</p>
-        <p class="interlineado" style="color:white">2.-Filtrar los empleados por área o por sede, simplemente haciendo click en el menú.</p>
-    </div>
+          </div>
 </div>
 
 <div class="margen">
@@ -30,21 +28,44 @@
                 <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
                 <div class="form group row margen">
                     <div class=" input-group-sm mb-3 col-3 ">
-                        <input type="date" class="form-control" placeholder="Nombre completo">
+                        <input type="date" class="form-control" placeholder="Número de empleado">
                     </div>
                     <div class=" input-group-sm mb-3 col-3 ">
-                        <input type="email" class="form-control text-lowercase" placeholder="Ärea o empresa">
+                        <input type="date" class="form-control" placeholder="Nombre">
                     </div>
                     <div class=" input-group-sm mb-3 col-3 ">
-                        <select name="" id="" class="form-control">
-                            <option value="" selected>Filtrar por</option>
-                            <option value="">Nombre</option>
+                        <input type="date" class="form-control" placeholder="Apellido paterno">
+                    </div>
+                    <div class=" input-group-sm mb-3 col-3 ">
+                        <input type="date" class="form-control" placeholder="Apellido materno">
+                    </div>
+                    <div class=" input-group-sm mb-3 col-3 ">
+                        <select class="form-control">
+                            <option value="">Seleccionar empresa</option>
                         </select>
                     </div>
-                    <div class=" input-group-sm mb-3 col-2 ">
-                        <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
+                    <div class=" input-group-sm mb-3 col-3 ">
+                        <select class="form-control">
+                            <option value="">Seleccionar área</option>
+                        </select>
                     </div>
+                    <div class=" input-group-sm mb-3 col-3 ">
+                        <select class="form-control">
+                            <option value="">Seleccionar puesto</option>
+                        </select>
+                    </div>
+                    <div class=" input-group-sm mb-3 col-3 ">
+                        <select class="form-control">
+                            <option value="">Estatus</option>
+                            <option value="true">Activo</option>
+                            <option value="false">Inactivo</option>
+                        </select>
+                    </div>
+                    <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
+                      </div>
 
+                    
                 </div>
 
 
@@ -61,7 +82,7 @@
 
 
                   <div class="row   margen-tabla background-panel ">
-                    <app-tablapaginado [datos]="arreglotabla" [imagen]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                    <app-tablapaginado [datos]="arreglotabla" [imagen]="true" [icondefault]="'usuario'" [cargando]="cargando" (salida)="recibirTabla($event)" [porcentaje]="true"></app-tablapaginado>
                   </div>
 
 

@@ -25,7 +25,7 @@ export class CompanyComponent implements OnInit {
   public nombre: string = "";
   public razonSocial: string = "";
   public fechaAlta: any = null;
-  public esActivo: number = 0;
+  public esActivo: string = "";
 
   public modal:boolean = false;
   public strTitulo:string = "";
@@ -107,9 +107,9 @@ export class CompanyComponent implements OnInit {
 
     let actboo: string = "";
 
-    if (this.esActivo == 1) {
+    if (this.esActivo == "1") {
       actboo = "true";
-    } else if (this.esActivo == 2) {
+    } else if (this.esActivo == "2") {
       actboo = "false";
     }
 
