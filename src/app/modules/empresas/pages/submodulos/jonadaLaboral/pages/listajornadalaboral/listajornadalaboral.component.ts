@@ -94,7 +94,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
     this.modal = true;
     this.strTitulo = "¿Deseas eliminar el grupo de nómina?";
-    this.strsubtitulo = "Estas a punto de borrar un grupo de nómina";
+    //this.strsubtitulo = "Estas a punto de borrar un grupo de nómina";
     this.iconType = "warning";
 
 
