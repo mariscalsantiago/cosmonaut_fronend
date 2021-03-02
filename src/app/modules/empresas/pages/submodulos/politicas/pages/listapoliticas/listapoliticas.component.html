@@ -1,6 +1,104 @@
 <br>
 <div >
-   
+  <div class="col-10">
+    <div *ngIf="aparecemodalitoempleado" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
+     <div class="adentro">
+        <button (click)="aparecemodalitoempleado = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div  class="header"><h5 class="titulo">ADMINISTRACIÓN DE POLITÍCAS</h5>
+        
+          
+        </div>
+      <hr>
+      <div  class="body">
+  
+  
+        <div *ngIf="cargandodetallearea" class="col text-center mb-5">
+          <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+        </div>
+  
+       <div *ngIf="!cargandodetallearea">
+        <table  class="table m-3 table-hober table-sm " style="width: 90%;">
+          <thead>
+            <tr>
+              <th scope="col">Nombre de empleado</th>
+              <th scope="col">Número de empleado</th>
+              <th scope="col">Puesto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of arreglodetalleemp">
+              <td>{{item.nombre}} {{item.apellidoPat}} {{item.apellidoMat}}</td>
+              <td>{{item.numEmpleado}}</td>
+              <td>{{item.puesto}}</td>
+            </tr>
+          </tbody>
+        </table>
+       </div>
+  
+      </div>
+      <hr>
+      <div  class="footer">
+        <div class="row">
+          <div class="col-12 text-center"><button (click)="aparecemodalitoempleado = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+        </div>
+      </div>
+  
+      </div>
+    </div>
+</div>
+<div class="col-12">
+<div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
+  <div class="adentro">
+    <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div  class="header"><h5 class="titulo">TABLA DE BENEFICIOS</h5>
+    
+      
+    </div>
+  <hr>
+  <div  class="body">
+
+
+    <div *ngIf="cargandodetallearea" class="col text-center mb-5">
+      <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+    </div>
+
+   <div *ngIf="!cargandodetallearea">
+    <table  class="table m-3 table-hober table-sm " style="width: 90%;">
+      <thead>
+        <tr>
+          <th scope="col">Años de antiguedad</th>
+          <th scope="col">Días de aguinaldo</th>
+          <th scope="col">Días de vacaciones</th>
+          <th scope="col">Prima vacacional</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of arreglodetalle">
+          
+          <td>{{item.aniosAntiguedad}}</td>
+          <td>{{item.diasAguinaldo}}</td>
+          <td>{{item.diasVacaciones}}</td>
+          <td>{{item.primaVacacional}}</td>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+
+  </div>
+  <hr>
+  <div  class="footer">
+    <div class="row">
+      <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+    </div>
+  </div>
+
+  </div>
+</div>
+</div>
      <div class="row margen">
         <div class="col titulo">
             <label >RESULTADOS</label>
@@ -15,107 +113,6 @@
     </div>
 
     <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
-      <div *ngIf="aparecemodalitoempleado" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
-
-
-        <div class="adentro">
-    
-          <button (click)="aparecemodalitoempleado = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <div  class="header"><h5 class="titulo">ADMINISTRACIÓN DE POLITÍCAS</h5>
-          
-            
-          </div>
-        <hr>
-        <div  class="body">
-    
-    
-          <div *ngIf="cargandodetallearea" class="col text-center mb-5">
-            <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-          </div>
-    
-         <div *ngIf="!cargandodetallearea">
-          <table  class="table m-3 table-hober table-sm " style="width: 90%;">
-            <thead>
-              <tr>
-                <th scope="col">Nombre de empleado</th>
-                <th scope="col">Número de empleado</th>
-                <th scope="col">Puesto</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of arreglodetalleemp">
-                <td>{{item.nombre}} {{item.apellidoPat}} {{item.apellidoMat}}</td>
-                <td>{{item.numEmpleado}}</td>
-                <td>{{item.puesto}}</td>
-              </tr>
-            </tbody>
-          </table>
-         </div>
-    
-        </div>
-        <hr>
-        <div  class="footer">
-          <div class="row">
-            <div class="col-12 text-center"><button (click)="aparecemodalitoempleado = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
-          </div>
-        </div>
-    
-        </div>
-      </div>
-      <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
-
-
-        <div class="adentro">
-    
-          <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <div  class="header"><h5 class="titulo">TABLA DE BENEFICIOS</h5>
-          
-            
-          </div>
-        <hr>
-        <div  class="body">
-    
-    
-          <div *ngIf="cargandodetallearea" class="col text-center mb-5">
-            <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-          </div>
-    
-         <div *ngIf="!cargandodetallearea">
-          <table  class="table m-3 table-hober table-sm " style="width: 90%;">
-            <thead>
-              <tr>
-                <th scope="col">Años de antiguedad</th>
-                <th scope="col">Días de aguinaldo</th>
-                <th scope="col">Días de vacaciones</th>
-                <th scope="col">Prima vacacional</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of arreglodetalle">
-                
-                <td>{{item.aniosAntiguedad}}</td>
-                <td>{{item.diasAguinaldo}}</td>
-                <td>{{item.diasVacaciones}}</td>
-                <td>{{item.primaVacacional}}</td>
-              </tr>
-            </tbody>
-          </table>
-         </div>
-    
-        </div>
-        <hr>
-        <div  class="footer">
-          <div class="row">
-            <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
-          </div>
-        </div>
-    
-        </div>
-      </div>
 
             <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover">
               <thead>

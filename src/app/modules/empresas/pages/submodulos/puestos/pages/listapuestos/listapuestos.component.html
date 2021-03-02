@@ -1,4 +1,5 @@
 <br>
+
 <div class="margen">
 
     <div id="accordionFiltro">
@@ -42,26 +43,12 @@
     </div>
 
 </div>
-<div class="row margen">
-<div class="col titulo">
-  <label >RESULTADOS</label>
-</div>
-<div class="row" style="margin: 10px;">
-  <div class="col-12 col-lg-12 text-right">
-    <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-      <i class="fa fa-plus"></i> Agregar área
-    </button>
-  </div>
-</div>
-</div>
-
-<div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
-
+<div class="col-10">
   <div *ngIf="aparecemodalito" [style.top]="scrolly" style="z-index: 4;" class="ventanaemergente" [style.width]="modalWidth">
-
-
+  
+  
     <div class="adentro">
-
+  
       <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -71,12 +58,12 @@
       </div>
     <hr>
     <div  class="body">
-
-
+  
+  
       <div *ngIf="cargandodetallearea" class="col text-center mb-5">
         <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
       </div>
-
+  
      <div *ngIf="!cargandodetallearea">
       <table  class="table m-3 table-hober table-sm " style="width: 90%;">
         <thead>
@@ -96,7 +83,7 @@
         </tbody>
       </table>
      </div>
-
+  
     </div>
     <hr>
     <div  class="footer">
@@ -104,9 +91,26 @@
         <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
       </div>
     </div>
-
+  
     </div>
   </div>
+  </div>
+<div class="row margen">
+<div class="col titulo">
+  <label >RESULTADOS</label>
+</div>
+<div class="row" style="margin: 10px;">
+  <div class="col-12 col-lg-12 text-right">
+    <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+      <i class="fa fa-plus"></i> Agregar área
+    </button>
+  </div>
+</div>
+</div>
+ 
+
+<div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
+
   <app-tablapaginado [datos]="arreglotabla" [ver]="true" [editar]="true" [eliminar]="true"  [cargando]="cargando" (salida)="recibirTabla($event)">
   </app-tablapaginado>
 </div>

@@ -80,27 +80,25 @@ export class EmpresasComponent implements OnInit {
         datosbancarios: datos.banco,
         datosimss: datos.imss
         
+        
+      }
+      if(this.activos.informacion){
+        this.activado[0].tab = true;
+      }
+      if(this.activos.domicilio){
+        this.activado[1].tab = true;
+      }
+      if(this.activos.datosbancarios){
+        this.activado[2].tab = true;
+      }
+      if(this.activos.datosimss){
+        this.activado[3].tab = true;
       }
 
     });
     }
     this.datosempresa.centrocClienteEmpresa = this.datosempresamod.datosempresaObj.centrocClienteId;
 
-   
-
-    console.log("Activos",this.activos)
-    if(this.activos.informacion){
-      this.activado[0].tab = true;
-    }
-    if(this.activos.domicilio){
-      this.activado[1].tab = true;
-    }
-    if(this.activos.datosbancarios){
-      this.activado[2].tab = true;
-    }
-    if(this.activos.datosimss){
-      this.activado[3].tab = true;
-    }
   }
 
 

@@ -39,7 +39,7 @@ export class DetallejornadalaboralComponent implements OnInit {
       } else if (datos["tipoinsert"] == "editar") {
         this.esInsert = false;
       } else {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
+        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);
       }
     });
 
@@ -58,7 +58,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     if (!this.esInsert) {
       obj = history.state.data;
       if (obj == undefined) {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
+        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);
         return;
       } else {
         this.jornadaPrd.getAllJornada(obj.id).subscribe(datos => {
@@ -82,64 +82,72 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   public crearForm(obj: any) {
 
-    if (!this.esInsert) {
-      obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P" ? "periodica" : "diaria";
-      obj.esAutomatica = `${obj.esAutomatica}`
-      obj.clabe.clabe = `${obj.clabe.clabe}`
-    }
-
+      obj.lunes= true;
+      obj.martes= true;
+      obj.miercoles= true;
+      obj.jueves= true;
+      obj.viernes= true;
+    
     return this.formbuilder.group({
-
       nombre: [obj.nombre, [Validators.required]],
-      esquemaPagoId: [obj.esquemaPagoId.esquemaPagoId, [Validators.required]],
-      monedaId: [obj.monedaId.monedaId, [Validators.required]],
-      centrocClienteId: [obj.centrocClienteId.centrocClienteId, [Validators.required]],
-      clabe: [obj.clabe.clabe, [Validators.required]],
-      periodicidadPagoId: [obj.periodicidadPagoId.periodicidadPagoId, [Validators.required]],
-      basePeriodoId: [obj.basePeriodoId.basePeriodoId, [Validators.required]],
-      periodoAguinaldoId: [obj.periodoAguinaldoId.periodoAguinaldoId, [Validators.required]],
-      isrAguinaldoReglamento: obj.isrAguinaldoReglamento,
-      maneraCalcularSubsidio: [obj.maneraCalcularSubsidio, [Validators.required]],
-      esAutomatica: [obj.esAutomatica, [Validators.required]],
-      grupoNominaId: obj.grupoNominaId
+      tipoJornadaId: [obj.tipoJornadaId?.tipoJornadaId, [Validators.required]],
+      sumaHorasJornada: [obj.sumaHorasJornada, [Validators.required]],
+      horaEntrada: [obj.horaEntrada, [Validators.required]],
+      horaSalida: [obj.horaSalida, [Validators.required]],
+      horaInicioComida: obj.horaInicioComida,
+      horaFinComida: obj.horaFinComida,
+      lunes: obj.lunes,
+      martes: obj.martes,
+      miercoles: obj.miercoles,
+      jueves: obj.jueves,
+      viernes: obj.viernes,
+      sabado: obj.sabado,
+      domingo: obj.domingo,
+      jorndaId: obj.jorndaId
+
 
     });
   }
 
 
   public recibir($event: any) {
-
+debugger;
 
     this.modal = false;
 
 
     if (this.iconType == "warning") {
-
-
       if ($event) {
 
         let obj = this.myForm.value;
-
-        let subsidio = obj.maneraCalcularSubsidio == "periodica" ? "P" : "D";
-
         let peticion: any = {
-          nombre: obj.nombre,
-          esAutomatica: obj.esAutomatica,
-          maneraCalcularSubsidio: subsidio,
-          esquemaPagoId: { esquemaPagoId: obj.esquemaPagoId },
-          monedaId: { monedaId: obj.monedaId },
-          centrocClienteId: { centrocClienteId: obj.centrocClienteId },
-          clabe: { clabe: obj.clabe },
-          periodicidadPagoId: { periodicidadPagoId: obj.periodicidadPagoId },
-          basePeriodoId: { basePeriodoId: obj.basePeriodoId },
-          periodoAguinaldoId: { periodoAguinaldoId: obj.periodoAguinaldoId },
-          isrAguinaldoReglamento: obj.isrAguinaldoReglamento,
 
+          tipoJornadaId: {
+              tipoJornadaId: obj.tipoJornadaId,
+            },
+            nombre: obj.nombre,
+            mismoHorario: true,
+            horarioComida: false,
+            incidirAsistencias: true,
+            sumaHorasJornada: "J",
+            horaEntrada: obj.horaEntrada,
+            horaInicioComida: obj.horaInicioComida,
+            horaFinComida: obj.horaFinComida,
+            horaSalida: obj.horaSalida,
+            centrocClienteId: {
+              centrocClienteId: this.id_empresa
+              },
+            anMinutosTolerancia: 88,
+            anHayTolerancia: true,
+            registroPrimaDominicalAuto: true,
+            registroDescansoLaboralAuto: true,
+            anPermiteJustificarRetardo: true,
+            soloUnRegistroDia: "S",
+            paraDiasParcialmenteLaborados: "C",
+            heSolicitudHorasExtra: true,
+            heMinutos: 15
+          
         };
-
-
-
-
 
         if (this.esInsert) {
 
@@ -172,11 +180,11 @@ export class DetallejornadalaboralComponent implements OnInit {
       }
 
 
-    } else {
+    } else {  
       this.modal = false;
 
       if (this.iconType == "success") {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
+        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);
       }
     }
   }

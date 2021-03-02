@@ -2,7 +2,7 @@
 <hr>
 <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
 
-  <input type="hidden" formControlName="grupoNominaId">
+  <input type="hidden" formControlName="jorndaId">
 
   <div class="background-panel margen">
     <br>
@@ -20,36 +20,79 @@
 
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Tipo de Jornada *</label>
-        <select formControlName = "esquemaPagoId" [ngClass]="{'is-invalid':f.esquemaPagoId.errors && submitInvalido}"  class="form-control">
+        <select formControlName = "tipoJornadaId" [ngClass]="{'is-invalid':f.tipoJornadaId.errors && submitInvalido}"  class="form-control">
           <option *ngFor="let item of arreglotipojornadas" [value]="item.tipoJornadaId">{{item.descripcion}} </option>
         </select>
-        <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
+        <div *ngIf="submitInvalido && f.tipoJornadaId.errors" class="invalid-feedback">
           Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Suma de horas para jornada *</label>
-        <select formControlName = "esquemaPagoId" [ngClass]="{'is-invalid':f.esquemaPagoId.errors && submitInvalido}"  class="form-control">
-          <option value="1">48</option>
+        <select formControlName = "sumaHorasJornada" [ngClass]="{'is-invalid':f.sumaHorasJornada.errors && submitInvalido}"  class="form-control">
+          <option value="1">8 horas</option>
         </select>
-        <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
+        <div *ngIf="submitInvalido && f.sumaHorasJornada.errors" class="invalid-feedback">
           Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label class="contenedorInputCheckRadio">Usar el mismo horario de trabajo para todos los días
-          <input formControlName="isrAguinaldoReglamento" type="checkbox" name="" id="irsaguinaldo">
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-12">
+        <label>Días de trabajo :</label>
+      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">      
+          <label class="contenedorInputCheckRadio">Lunes
+            <input formControlName="lunes" id="lunes" type="checkbox">
+            <span class="checkmark"></span>
+          </label>  
+        <label class="contenedorInputCheckRadio">Martes
+          <input formControlName="martes" type="checkbox" name="" id="martes">
+          <span class="checkmark"></span>
+        </label>
+        <label class="contenedorInputCheckRadio">Miercoles
+          <input formControlName="miercoles" type="checkbox" name="" id="miercoles">
+          <span class="checkmark"></span>
+        </label>
+        <label class="contenedorInputCheckRadio">Jueves
+          <input formControlName="jueves" type="checkbox" name="" id="jueves">
           <span class="checkmark"></span>
         </label>
       </div>
-      
-      <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label class="contenedorInputCheckRadio">Agregar horario de comida 
-          <input #ajusteisr (click)="activar(ajusteisr)" type="checkbox" name="" id="ajusteirs">
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label class="contenedorInputCheckRadio">Viernes
+          <input formControlName="viernes" type="checkbox" name="" id="viernes">
           <span class="checkmark"></span>
         </label>
-       
+        <label class="contenedorInputCheckRadio">Sabado
+          <input formControlName="sabado" type="checkbox" name="" id="sabado">
+          <span class="checkmark"></span>
+        </label>
+        <label class="contenedorInputCheckRadio">Domingo
+          <input formControlName="domingo" type="checkbox" name="" id="domingo">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label>Hora de entrada *</label>
+        <input #nombre formControlName="horaEntrada" [ngClass]="{'is-invalid':f.horaEntrada.errors && submitInvalido}"  type="time" class="form-control" placeholder="">
+        <div *ngIf="submitInvalido && f.horaEntrada.errors" class="invalid-feedback">
+          Campo requerido
+        </div>
+      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label>Hora de salida *</label>
+        <input #nombre formControlName="horaSalida" [ngClass]="{'is-invalid':f.horaSalida.errors && submitInvalido}"  type="time" class="form-control" placeholder="">
+        <div *ngIf="submitInvalido && f.horaSalida.errors" class="invalid-feedback">
+          Campo requerido
+        </div>
+      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label>Hora de inicio de comida</label>
+        <input #nombre formControlName="horaInicioComida" type="time" class="form-control" placeholder="">
+      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label>Hora fin de comida</label>
+        <input #nombre formControlName="horaFinComida" type="time" class="form-control" placeholder="">
       </div>
 
     </div>
