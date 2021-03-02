@@ -36,12 +36,58 @@
     </div>
   </div>
 
-  
-
-
-
 </div>
+<div class="col-10">
+<div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
 
+
+  <div class="adentro">
+
+    <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div  class="header"><h5 class="titulo">JORNADA LABORAL</h5>
+    
+    </div>
+  <hr>
+  <div  class="body">
+
+
+    <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
+      <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+    </div>
+
+   <div *ngIf="!cargandodetallegrupo">
+    <table  class="table m-3 table-hober table-sm " style="width: 90%;">
+      <thead>
+        <tr>
+          <th scope="col">Nombre de empleado</th>
+          <th scope="col">Número de empleado</th>
+          <th scope="col">Puesto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of arreglodetalle">
+          
+          <td>{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</td>
+          <td>{{item.num_empleado}}</td>
+          <td>{{item.puesto}}</td>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+
+  </div>
+  <hr>
+  <div  class="footer">
+    <div class="row">
+      <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+    </div>
+  </div>
+
+  </div>
+</div>
+</div>
 <div class="row" style="margin: 10px;">
   <div class="col-12 col-lg-12 text-right">
     <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
@@ -53,56 +99,7 @@
 
 <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
 
-  <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
-
-
-    <div class="adentro">
-
-      <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <div  class="header"><h5 class="titulo">JORNADA LABORAL</h5>
-      
-      </div>
-    <hr>
-    <div  class="body">
-
-
-      <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
-        <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-      </div>
-
-     <div *ngIf="!cargandodetallegrupo">
-      <table  class="table m-3 table-hober table-sm " style="width: 90%;">
-        <thead>
-          <tr>
-            <th scope="col">Nombre de empleado</th>
-            <th scope="col">Número de empleado</th>
-            <th scope="col">Puesto</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of arreglodetalle">
-            
-            <td>{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</td>
-            <td>{{item.num_empleado}}</td>
-            <td>{{item.puesto}}</td>
-          </tr>
-        </tbody>
-      </table>
-     </div>
-
-    </div>
-    <hr>
-    <div  class="footer">
-      <div class="row">
-        <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
-      </div>
-    </div>
-
-    </div>
-  </div>
-  <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
+ <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
     <thead>
       <tr>
         <th scope="col">Nombre de jornada</th>
