@@ -44,7 +44,7 @@
                   <input type="text" [(ngModel)]="rfc" class="form-control" placeholder="RFC">
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                  <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre compañia">
+                  <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre compañía">
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
                   <input type="text" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
@@ -55,7 +55,7 @@
                 <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
                   <select class="form-control" [(ngModel)]="esActivo" placeholder="Estatus">
 
-                    <option value="0" selected></option>
+                    <option value="" selected>Estatus</option>
                     <option value="1">Activo</option>
                     <option value="2">Inactivo</option>
 
@@ -86,6 +86,6 @@
     </div>
   </div>
   <div class="row margen margen-tabla background-panel">
-    <app-tablapaginado [datos]="arreglotabla" [editar]="true"  [imagen]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+    <app-tablapaginado [datos]="arreglotabla" [editar]="true"  [imagen]="true" [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
   </div>
 </div>

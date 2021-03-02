@@ -142,10 +142,6 @@ export class InformacionempresaComponent implements OnInit {
            contrasenia:obj.contrasenia
         }
 
-        console.log("Esto son los archivos a enviar");
-        console.log(objenviar);
-
-
       if(this.datosempresa.insertar){  
 
       this.empresaPrd.save(objenviar).subscribe(datos => {

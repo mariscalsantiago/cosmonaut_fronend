@@ -30,7 +30,7 @@
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Razón social *</label>
-        <select formControlName="centrocClienteId" [ngClass]="{'is-invalid':f.centrocClienteId.errors && submitInvalido}" class="form-control">
+        <select formControlName="centrocClienteId" [ngClass]="{'is-invalid':f.centrocClienteId.errors && submitInvalido}" class="form-control disabled">
           <option *ngFor="let item of arreglocompany" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
         </select>
         <div *ngIf="submitInvalido && f.centrocClienteId.errors" class="invalid-feedback">
@@ -87,7 +87,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Calcular periodo de nómina con base a *</label>
         <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
-          <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.descripcion}}</option>
+          <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.nombreCorto}}</option>
         </select>
         <div *ngIf="submitInvalido && f.basePeriodoId.errors" class="invalid-feedback">
           Campo requerido

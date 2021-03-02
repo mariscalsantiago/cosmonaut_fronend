@@ -1,9 +1,0 @@
-<svg id="empleados_15x" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
-  <g id="Group_469" data-name="Group 469" transform="translate(1.5 2.5)">
-    <path id="Path_1520" data-name="Path 1520" d="M128.674,341.136v-.592a.937.937,0,0,0-.937-.937h-1.862a.937.937,0,0,0-.937.937v.592c0,.03.006.058.009.088h3.718C128.668,341.195,128.674,341.166,128.674,341.136Z" transform="translate(-120.97 -339.607)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1"/>
-    <path id="Path_1521" data-name="Path 1521" d="M126.722,343.479h-10.9a.388.388,0,0,0-.388.388v2.763c0,.057.24.178.632.324a18.593,18.593,0,0,0,4.219.958v-.484a.41.41,0,0,1,.41-.41h1.15a.41.41,0,0,1,.41.41v.484a18.593,18.593,0,0,0,4.219-.958c.392-.146.632-.267.632-.324v-2.763A.387.387,0,0,0,126.722,343.479Z" transform="translate(-115.438 -341.862)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1"/>
-    <path id="Path_1522" data-name="Path 1522" d="M123.14,352.755v.313a.41.41,0,0,1-.41.41h-1.15a.41.41,0,0,1-.41-.41v-.313a18.593,18.593,0,0,1-4.219-.958v4.284a.562.562,0,0,0,.562.562H126.8a.562.562,0,0,0,.562-.562V351.8A18.593,18.593,0,0,1,123.14,352.755Z" transform="translate(-116.319 -346.705)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1"/>
-    <path id="Path_1523" data-name="Path 1523" d="M128.612,351.95h-1.15a.41.41,0,0,0-.41.41v.8a.41.41,0,0,0,.41.41h1.15a.41.41,0,0,0,.41-.41v-.8A.41.41,0,0,0,128.612,351.95Z" transform="translate(-122.201 -346.794)" fill="none" stroke="#1ec1af" stroke-miterlimit="10" stroke-width="1"/>
-  </g>
-  <rect id="Rectangle_546" data-name="Rectangle 546" width="15" height="15" fill="none"/>
-</svg>

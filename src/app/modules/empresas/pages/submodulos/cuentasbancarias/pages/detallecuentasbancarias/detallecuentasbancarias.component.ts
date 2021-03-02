@@ -77,7 +77,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
       num_informacion: [obj.numInformacion],
       clabe: [{value:obj.clabe,disabled:!this.esInsert}, [Validators.required, Validators.pattern(/^\d{18}$/)]],
       num_sucursal: [obj.numSucursal],
-      esActivo:[obj.esActivo]
+      esActivo:[(!this.esInsert)?obj.esActivo:{value:"true",disabled:true}]
 
     });
 

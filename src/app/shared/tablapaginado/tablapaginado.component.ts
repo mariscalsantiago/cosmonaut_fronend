@@ -27,12 +27,22 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public eliminar: any;
   @Input() public desglosar: any;
   @Input() public imagen:any;
+  @Input() public porcentaje:boolean = false;
+
+  @Input() public icondefault:string = "default";
 
   @Output() public salida = new EventEmitter();
 
   public arreglotemp: any = [];
 
 
+  public rutaimagenes:any={
+
+    "default":'../../../assets/imgs/logo.png',
+    "usuario":'../../../assets/imgs/usuario.png',
+    "empresa":'../../../assets/imgs/empresa_03.png'
+
+  };
 
 
   constructor() { }
