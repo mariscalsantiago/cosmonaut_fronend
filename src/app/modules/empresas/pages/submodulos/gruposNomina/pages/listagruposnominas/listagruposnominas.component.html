@@ -37,6 +37,18 @@
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                   <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre grupo de nómina">
                 </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <select [(ngModel)]="razonsocial" class="form-control">
+                    <option value="">Razón social</option>
+                    <option *ngFor="let item of arregloRazonSocial" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
+                  </select>
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <select [(ngModel)]="periodonomina" class="form-control">
+                    <option value="" checked>Período de nómina</option>
+                    <option *ngFor="let item of arregloperiodo" [value]="item.periodicidadPagoId">{{item.descripcion}}</option>
+                  </select>
+                </div>
                 <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
                   <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
                 </div>

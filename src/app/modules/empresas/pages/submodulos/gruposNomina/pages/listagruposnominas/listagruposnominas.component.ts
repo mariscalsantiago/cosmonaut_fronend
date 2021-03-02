@@ -2,6 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { element } from 'protractor';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { GruponominasService } from '../../services/gruponominas.service';
 
 @Component({
@@ -15,8 +17,8 @@ export class ListagruposnominasComponent implements OnInit {
   public tamanio: number = 0;
   public changeIconDown: boolean = false;
   public nombre: string = "";
-  public razon: string = "";
-  public idEsquema: number = 0;
+  public razonsocial: number = -1;
+  public periodonomina: string = "";
 
   public cargando: boolean = false;
   public id_empresa: number = -1;
@@ -32,15 +34,12 @@ export class ListagruposnominasComponent implements OnInit {
   public strsubtitulo: string = "";
   public indexSeleccionado: number = 0;
 
-  public arregloEsquemaPago: any = [];
-
-
-
-
 
 
   public arreglo: any = [];
   public arreglodetalle: any = [];
+  public arregloperiodo:any = [];
+  public arregloRazonSocial:any = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -60,7 +59,8 @@ export class ListagruposnominasComponent implements OnInit {
   }
 
   constructor(private gruposnominaPrd: GruponominasService, private routerPrd: Router,
-    private routerActive: ActivatedRoute, private catalogosPrd: CatalogosService) { }
+    private routerActive: ActivatedRoute, private catalogosPrd: CatalogosService,
+    private empresasPrd:SharedCompaniaService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
@@ -83,10 +83,15 @@ export class ListagruposnominasComponent implements OnInit {
         this.cargando = false;
       });
 
+
+      this.catalogosPrd.getPeriocidadPago().subscribe(datos => this.arregloperiodo = datos.datos);
+      this.empresasPrd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloRazonSocial = datos.datos);
+
+
+      this.razonsocial = this.id_empresa;
+
     });
 
-
-    this.catalogosPrd.getEsquemaPago().subscribe(datos => this.arregloEsquemaPago = datos.datos);
 
   }
 
@@ -97,11 +102,19 @@ export class ListagruposnominasComponent implements OnInit {
 
       nombre: this.nombre,
       centrocClienteId:{
-        centrocClienteId:this.id_empresa
+        centrocClienteId:this.razonsocial
+      },
+      periodicidadPagoId:{
+        periodicidadPagoId:this.periodonomina
       }
     }
 
+
+    this.cargando = true;
+
     this.gruposnominaPrd.filtrar(objEnviar).subscribe(datos => {
+
+      this.cargando = false;
 
       if (datos.datos != undefined)
         for (let item of datos.datos) {
