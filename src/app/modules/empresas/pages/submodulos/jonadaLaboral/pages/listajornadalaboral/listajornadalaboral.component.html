@@ -134,64 +134,80 @@
           <td colspan="5">
             <div class="row mb-4">
               <article class="titulo  col">
-                  Nombre de grupo de nomina
+                  Nombre de jornada
                   <article>{{item.nombre}}</article>
               </article>
               <article class="titulo   col">
-                  Esquema para pago de nómina
-                  <article>{{item.esquemaPagoId.descripcion}}</article>
+                  Tipo de Jornada 
+                  <article>{{item.descripcion}}</article>
               </article>
               <article class="titulo   col" >
-                  Razón social
-                  <article>{{item.razon}}</article>
+                  Suma de horas para jornada
+                  <article>8 horas</article>
+              </article>
+              <article class="titulo  col">
+                Hora de entrada
+                <article>09:00</article>
               </article>
           
           </div>
           <div class="row mb-4">
-            <article class="titulo  col">
-                Moneda
-                <article>{{item.monedaId.descripcion}}</article>
+
+            <article class="titulo   col">
+                Hora de salida
+                <article>18:00</article>
             </article>
             <article class="titulo   col">
-              Periodo de nómina
-                <article>{{item.periodo}}</article>
-            </article>
-            <article class="titulo   col" >
-              Calcular periodo de nómina con base a:
-                <article>{{item.basePeriodoId.basePeriodoId}}</article>
-            </article>
-        
-        </div>
-        <div class="row mb-4">
-          <article class="titulo  col">
-            Periodo para pago de aguinaldo
-              <article>{{item.periodoAguinaldoId.descripcion}}</article>
+              Hora de inicio de comida
+           <article>14:00</article>
           </article>
-          <article class="titulo   col">
-            Calcular ISR de aguinaldo aplicando reglamento:
-              <article>{{item.isrAguinaldoReglamento ? "Si":"No"}}</article>
+
+            <article class="titulo   col">
+                 Hora fin de comida
+              <article>15:00</article>
           </article>
-          <article class="titulo   col" >
-            *Calcular subsidio al empleo de manera:
-              <article>{{(item.maneraCalcularSubsidio=='P')?'Periódica':'Diaria'}}</article>
-          </article>
-      
+          <article class="titulo   col"></article>
       </div>
       <div class="row mb-4">
         <article class="titulo  col">
-          Nómina automática
-            <article>{{item.esAutomatica?"Si":"No"}}</article>
+          Días de trabajo :
+         
+        </article>
+      </div>
+      <div class="row mb-4">
+        <article class="titulo   col">
+          Lunes
+            <article>{{item.lunes?"No":"Si"}}</article>
         </article>
         <article class="titulo   col">
-          Número de empleados asociados a este grupo:
-            <article>{{item.numero}}</article>
+          Martes
+            <article>{{item.martes?"No":"Si"}}</article>
         </article>
         <article class="titulo   col">
-          
-            
+          Miercoles
+            <article>{{item.miercoles?"No":"Si"}}</article>
         </article>
-     
+        <article class="titulo   col">
+          Jueves
+            <article>{{item.jueves?"No":"Si"}}</article>
+        </article>
     </div>
+    <div class="row mb-4">
+      <article class="titulo   col">
+        Viernes
+          <article>{{item.viernes?"No":"Si"}}</article>
+      </article>
+      <article class="titulo   col">
+        Sabado
+          <article>{{item.sabado?"Si":"No"}}</article>
+      </article>
+      <article class="titulo   col">
+        Domingo
+          <article>{{item.domingo?"Si":"No"}}</article>
+      </article>
+      <article class="titulo   col"></article>
+    </div>
+
           </td>
         </tr>
 
