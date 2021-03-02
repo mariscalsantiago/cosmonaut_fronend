@@ -18,7 +18,7 @@
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label >Días económicos *</label>
-              <input formControlName="diasEconomicos" type="text" class="form-control" [ngClass]="{'is-invalid':f.diasEconomicos.errors && submitEnviado}"
+              <input appSolonumeros formControlName="diasEconomicos" type="text" class="form-control" [ngClass]="{'is-invalid':f.diasEconomicos.errors && submitEnviado}"
                   placeholder="">
                   <div *ngIf="f.diasEconomicos.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
