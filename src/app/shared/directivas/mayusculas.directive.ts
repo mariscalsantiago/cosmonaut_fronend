@@ -12,10 +12,7 @@ export class MayusculasDirective {
   constructor(private el: ElementRef, private render : Renderer2) { }
 
   @HostListener("input", ["$event"])
-  onKeyDown(event: KeyboardEvent) {
-   
-    console.log("Estoy recibiendo el evento paps...");
-    
+  onKeyDown(event: KeyboardEvent) {    
     if(this.minusculas){
       this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
     }
