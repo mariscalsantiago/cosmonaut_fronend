@@ -36,12 +36,58 @@
     </div>
   </div>
 
-  
-
-
-
 </div>
+<div class="col-10">
+<div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
 
+
+  <div class="adentro">
+
+    <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div  class="header"><h5 class="titulo">JORNADA LABORAL</h5>
+    
+    </div>
+  <hr>
+  <div  class="body">
+
+
+    <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
+      <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
+    </div>
+
+   <div *ngIf="!cargandodetallegrupo">
+    <table  class="table m-3 table-hober table-sm " style="width: 90%;">
+      <thead>
+        <tr>
+          <th scope="col">Nombre de empleado</th>
+          <th scope="col">Número de empleado</th>
+          <th scope="col">Puesto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of arreglodetalle">
+          
+          <td>{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</td>
+          <td>{{item.num_empleado}}</td>
+          <td>{{item.puesto}}</td>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+
+  </div>
+  <hr>
+  <div  class="footer">
+    <div class="row">
+      <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+    </div>
+  </div>
+
+  </div>
+</div>
+</div>
 <div class="row" style="margin: 10px;">
   <div class="col-12 col-lg-12 text-right">
     <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
@@ -53,56 +99,7 @@
 
 <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
 
-  <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
-
-
-    <div class="adentro">
-
-      <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <div  class="header"><h5 class="titulo">JORNADA LABORAL</h5>
-      
-      </div>
-    <hr>
-    <div  class="body">
-
-
-      <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
-        <img width="60px" height="60px" src="../../../../../assets/imgs/loading_nomina.gif" alt="">
-      </div>
-
-     <div *ngIf="!cargandodetallegrupo">
-      <table  class="table m-3 table-hober table-sm " style="width: 90%;">
-        <thead>
-          <tr>
-            <th scope="col">Nombre de empleado</th>
-            <th scope="col">Número de empleado</th>
-            <th scope="col">Puesto</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of arreglodetalle">
-            
-            <td>{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</td>
-            <td>{{item.num_empleado}}</td>
-            <td>{{item.puesto}}</td>
-          </tr>
-        </tbody>
-      </table>
-     </div>
-
-    </div>
-    <hr>
-    <div  class="footer">
-      <div class="row">
-        <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
-      </div>
-    </div>
-
-    </div>
-  </div>
-  <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
+ <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
     <thead>
       <tr>
         <th scope="col">Nombre de jornada</th>
@@ -134,64 +131,80 @@
           <td colspan="5">
             <div class="row mb-4">
               <article class="titulo  col">
-                  Nombre de grupo de nomina
+                  Nombre de jornada
                   <article>{{item.nombre}}</article>
               </article>
               <article class="titulo   col">
-                  Esquema para pago de nómina
-                  <article>{{item.esquemaPagoId.descripcion}}</article>
+                  Tipo de Jornada 
+                  <article>{{item.descripcion}}</article>
               </article>
               <article class="titulo   col" >
-                  Razón social
-                  <article>{{item.razon}}</article>
+                  Suma de horas para jornada
+                  <article>8 horas</article>
+              </article>
+              <article class="titulo  col">
+                Hora de entrada
+                <article>09:00</article>
               </article>
           
           </div>
           <div class="row mb-4">
-            <article class="titulo  col">
-                Moneda
-                <article>{{item.monedaId.descripcion}}</article>
+
+            <article class="titulo   col">
+                Hora de salida
+                <article>18:00</article>
             </article>
             <article class="titulo   col">
-              Periodo de nómina
-                <article>{{item.periodo}}</article>
-            </article>
-            <article class="titulo   col" >
-              Calcular periodo de nómina con base a:
-                <article>{{item.basePeriodoId.basePeriodoId}}</article>
-            </article>
-        
-        </div>
-        <div class="row mb-4">
-          <article class="titulo  col">
-            Periodo para pago de aguinaldo
-              <article>{{item.periodoAguinaldoId.descripcion}}</article>
+              Hora de inicio de comida
+           <article>14:00</article>
           </article>
-          <article class="titulo   col">
-            Calcular ISR de aguinaldo aplicando reglamento:
-              <article>{{item.isrAguinaldoReglamento ? "Si":"No"}}</article>
+
+            <article class="titulo   col">
+                 Hora fin de comida
+              <article>15:00</article>
           </article>
-          <article class="titulo   col" >
-            *Calcular subsidio al empleo de manera:
-              <article>{{(item.maneraCalcularSubsidio=='P')?'Periódica':'Diaria'}}</article>
-          </article>
-      
+          <article class="titulo   col"></article>
       </div>
       <div class="row mb-4">
         <article class="titulo  col">
-          Nómina automática
-            <article>{{item.esAutomatica?"Si":"No"}}</article>
+          Días de trabajo :
+         
+        </article>
+      </div>
+      <div class="row mb-4">
+        <article class="titulo   col">
+          Lunes
+            <article>{{item.lunes?"No":"Si"}}</article>
         </article>
         <article class="titulo   col">
-          Número de empleados asociados a este grupo:
-            <article>{{item.numero}}</article>
+          Martes
+            <article>{{item.martes?"No":"Si"}}</article>
         </article>
         <article class="titulo   col">
-          
-            
+          Miercoles
+            <article>{{item.miercoles?"No":"Si"}}</article>
         </article>
-     
+        <article class="titulo   col">
+          Jueves
+            <article>{{item.jueves?"No":"Si"}}</article>
+        </article>
     </div>
+    <div class="row mb-4">
+      <article class="titulo   col">
+        Viernes
+          <article>{{item.viernes?"No":"Si"}}</article>
+      </article>
+      <article class="titulo   col">
+        Sabado
+          <article>{{item.sabado?"Si":"No"}}</article>
+      </article>
+      <article class="titulo   col">
+        Domingo
+          <article>{{item.domingo?"Si":"No"}}</article>
+      </article>
+      <article class="titulo   col"></article>
+    </div>
+
           </td>
         </tr>
 

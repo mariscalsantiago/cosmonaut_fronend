@@ -22,52 +22,26 @@ export class DetallejornadalaboralComponent implements OnInit {
   public id_empresa: number = 0;
   public activadoISR: boolean = false;
   public arreglotipojornadas:any = [];
+  public peticion:any = [];
 
 
 
   constructor(private formbuilder: FormBuilder, private activeprd: ActivatedRoute,
     private routerPrd: Router, private jornadaPrd: JornadalaboralService,
-    private catalogosPrd:CatalogosService) { }
+    private catalogosPrd:CatalogosService) { 
+
+      this.activeprd.params.subscribe(datos => {
+        this.esInsert = (datos["tipoinsert"] == 'nuevo');
+        this.id_empresa = datos["id"]
+      });
+
+    }
 
   ngOnInit(): void {
+    debugger;
 
-
-    this.activeprd.params.subscribe(datos => {
-      this.id_empresa = datos["id"];
-      if (datos["tipoinsert"] == "nuevo") {
-        this.esInsert = true;
-      } else if (datos["tipoinsert"] == "editar") {
-        this.esInsert = false;
-      } else {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);
-      }
-    });
-
-    let obj: any = {
-      esquemaPagoId: {},
-      monedaId: {},
-      centrocClienteId: {},
-      clabe: {},
-      periodicidadPagoId: {},
-      basePeriodoId: {},
-      periodoAguinaldoId: {}
-    }
-
-    this.myForm = this.crearForm(obj);
-
-    if (!this.esInsert) {
-      obj = history.state.data;
-      if (obj == undefined) {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);
-        return;
-      } else {
-        this.jornadaPrd.getAllJornada(obj.id).subscribe(datos => {
-          this.myForm = this.crearForm(datos.datos);
-
-        });;
-
-      }
-    }
+    let objdetrep = history.state.data == undefined ? {} : history.state.data;
+    this.myForm = this.crearForm((objdetrep));
 
 
     this.catalogosPrd.getTipoJornadas().subscribe(datos => this.arreglotipojornadas = datos.datos);
@@ -103,7 +77,7 @@ export class DetallejornadalaboralComponent implements OnInit {
       viernes: obj.viernes,
       sabado: obj.sabado,
       domingo: obj.domingo,
-      jorndaId: obj.jorndaId
+      jornadaId: obj.jornadaId
 
 
     });
@@ -120,7 +94,8 @@ debugger;
       if ($event) {
 
         let obj = this.myForm.value;
-        let peticion: any = {
+
+        this.peticion = {
 
           tipoJornadaId: {
               tipoJornadaId: obj.tipoJornadaId,
@@ -151,9 +126,7 @@ debugger;
 
         if (this.esInsert) {
 
-          this.jornadaPrd.save(peticion).subscribe(datos => {
-            console.log("Esto despues de guardar");
-            console.log(datos);
+          this.jornadaPrd.save(this.peticion).subscribe(datos => {
 
             this.iconType = datos.resultado ? "success" : "error";
 
@@ -163,10 +136,9 @@ debugger;
           });
         } else {
 
-          peticion.grupoNominaId = obj.grupoNominaId;
-          peticion.esActivo = true;
+          this.peticion.jornadaId = obj.jornadaId;
 
-          this.jornadaPrd.modificar(peticion).subscribe(datos => {
+          this.jornadaPrd.modificar(this.peticion).subscribe(datos => {
 
             this.iconType = datos.resultado ? "success" : "error";
 

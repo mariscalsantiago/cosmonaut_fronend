@@ -103,7 +103,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
   public verdetalle(obj: any) {
 
-
+debugger;
     if (obj == undefined) {
       this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'jornadalaboral', 'nuevo']);
     } else {
@@ -114,44 +114,19 @@ export class ListajornadalaboralComponent implements OnInit {
 
   apagando(indice: number) {
 
+    debugger;
 
-
-    this.arreglo[indice].cargandoDetalle = true;
-    this.jornadaPrd.getAllJornada(this.arreglo[indice].id).subscribe((datos) => {
-
-
-
-
-      let temp = datos.datos;
-      if (temp != undefined) {
-
-        for (let llave in temp) {
-          this.arreglo[indice][llave] = temp[llave];
-        }
-
-      }
-
-      console.log(this.arreglo[indice]);
-
-
-
-      this.arreglo[indice].cargandoDetalle = false;
-
-    });
-
-
-    for (let x = 0; x < this.arreglo.length; x++) {
-      if (x == indice)
-        continue;
+    for(let x = 0;x < this.arreglo.length; x++){
+      if(x == indice)
+            continue;
 
       this.arreglo[x].seleccionado = false;
     }
 
 
     this.arreglo[indice].seleccionado = !this.arreglo[indice].seleccionado;
-
+  
   }
-
 
   public traerModal(indice: any) {
     
