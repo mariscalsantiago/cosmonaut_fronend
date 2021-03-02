@@ -86,6 +86,7 @@ export class GruponominasService {
 
 
     let json = JSON.stringify(obj);
+    console.log("dato enviado grupo de nomina filtrado",json);
 
     return this.http.post(`${this.url}/lista/dinamica`,json,httpOptions);
 

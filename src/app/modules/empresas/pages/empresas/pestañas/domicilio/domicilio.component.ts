@@ -152,7 +152,7 @@ export class DomicilioComponent implements OnInit {
 
   
   ngOnChanges(changes: SimpleChanges) {
-     debugger;
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       
