@@ -12,6 +12,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
 
   public tamanio: number = 0;
+  public objEnviar: any;
   public changeIconDown: boolean = false;
   public nombre: string = "";
   public cargando: boolean = false;
@@ -87,10 +88,15 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
 
-  public eliminar(indice: any) {
+  public eliminar(obj: any) {
 
-
-    this.indexSeleccionado = indice;
+    debugger;
+    this.objEnviar = {
+      jornadaId: obj.jornadaId,
+      centrocClienteId: {
+        centrocClienteId: this.id_empresa
+      }
+    }
 
     this.modal = true;
     this.strTitulo = "¿Deseas eliminar el grupo de nómina?";
@@ -129,7 +135,7 @@ debugger;
   }
 
   public traerModal(indice: any) {
-    
+    debugger;
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -185,9 +191,7 @@ debugger;
 
       if ($evento) {
 
-
-        let id = this.arreglo[this.indexSeleccionado].id;
-        this.jornadaPrd.eliminar(id).subscribe(datos => {
+        this.jornadaPrd.eliminar(this.objEnviar).subscribe(datos => {
           let mensaje = datos.mensaje;
           let resultado = datos.resultado;
 

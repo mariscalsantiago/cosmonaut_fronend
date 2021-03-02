@@ -36,7 +36,7 @@ export class JornadalaboralService {
 
     let json:string = JSON.stringify(obj);
     console.log("eliminar",json)
-    return this.http.post(`${this.url}/eliminar`,json,httpOptions);
+    return this.http.put(`${this.url}/eliminar`,json,httpOptions);
   }
 
   public save(obj:any):Observable<any>{
@@ -63,7 +63,7 @@ export class JornadalaboralService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/modificar`,json,httpOptions);
+    return this.http.put(`${this.url}/modificar`,json,httpOptions);
   }
 
   public jornadasByEmpresa(idEmpresa:number):Observable<any>{
