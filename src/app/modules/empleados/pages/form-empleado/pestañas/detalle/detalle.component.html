@@ -10,7 +10,7 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Número de cuenta *</label>
-                <input maxlength="10" formControlName="numeroCuenta" type="text" class="form-control" placeholder="" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
+                <input appSolonumeros maxlength="10" formControlName="numeroCuenta" type="text" class="form-control" placeholder="" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
                 <div *ngIf="f.numeroCuenta.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -19,7 +19,7 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>CLABE *</label>
-                <input maxlength="18" [ngClass]="{'is-invalid':f.clabe.errors && submitEnviado}" formControlName="clabe" type="text" class="form-control" placeholder="">
+                <input appSolonumeros maxlength="18" [ngClass]="{'is-invalid':f.clabe.errors && submitEnviado}" formControlName="clabe" type="text" class="form-control" placeholder="">
                 <div *ngIf="f.clabe.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -39,7 +39,7 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Número de ID cliente</label>
-                <input formControlName="numInformacion" type="text" class="form-control" placeholder="">
+                <input appSolonumeros formControlName="numInformacion" type="text" class="form-control" placeholder="">
 
 
             </div>

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
-import { usuarioClass, UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpleadosService } from '../../services/empleados.service';
 
 @Component({
@@ -76,7 +76,7 @@ export class ListaempleadosComponent implements OnInit {
         for (let item of datos.datos) {
 
           let obj = {
-            nombre: item.personaId.nombre + " " + item.personaId.apellidoPaterno + " " + item.personaId.apellidoMaterno,
+            nombre: item.personaId.nombre + " " + item.personaId.apellidoPaterno + " " + (item.personaId.apellidoMaterno == undefined? "":item.personaId.apellidoMaterno),
             personaId: item.personaId.personaId,
             puesto: item.puestoId.descripcion,
             area: item.areaId.descripcion,
@@ -152,7 +152,7 @@ export class ListaempleadosComponent implements OnInit {
 
       if(datos.datos !== undefined){
         for(let item of datos.datos){
-            item["nombre"]=`${item["nombre"]} ${item["apellidoPaterno"]} ${item["apellidoMaterno"]}`;
+            item["nombre"]=`${item["nombre"]} ${item["apellidoPaterno"]} ${item["apellidoMaterno"]==undefined?"":item["apellidoMaterno"]}`;
         }
       }
 
