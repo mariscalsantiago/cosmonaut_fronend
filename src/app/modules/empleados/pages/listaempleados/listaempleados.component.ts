@@ -144,7 +144,7 @@ export class ListaempleadosComponent implements OnInit {
           apellidoMaterno:this.apellidoPaterno
       },
       centrocClienteId: {
-          centrocClienteId: this.idEmpresa
+          centrocClienteId: (this.empresa == "" || this.empresa == undefined || this.empresa == null)?this.idEmpresa:this.empresa
       },
       esActivo:this.estatus,
       numEmpleado:this.personaId
