@@ -46,9 +46,11 @@ export class ListaempleadosComponent implements OnInit {
       let columnas:Array<tabla> = [
         new tabla("nombre","Nombre",true,true),
         new tabla("personaId","Número de empleado"),
+        new tabla("nombreEmpresa","Empresa"),
         new tabla("puesto","Puesto"),
-        new tabla("area","area"),
+        new tabla("area","Área"),
         new tabla("sede","Sede"),
+        new tabla("esActivo","Estatus")
       ]
 
       let arrayTemp = [];
@@ -57,11 +59,13 @@ export class ListaempleadosComponent implements OnInit {
       for(let item of datos.datos){
 
         let obj = {
-          nombre:item.personaId.nombre+" "+item.personaId.apellidoPaterno,
+          nombre:item.personaId.nombre+" "+item.personaId.apellidoPaterno+" "+item.personaId.apellidoMaterno,
           personaId:item.personaId.personaId,
           puesto:item.puestoId.descripcion,
           area:item.areaId.descripcion,
-          sede:item.sedeId.descripcion
+          sede:item.sedeId.descripcion,
+          esActivo:item.personaId.esActivo,
+          nombreEmpresa:"DEFINIR"
         }
 
         arrayTemp.push(obj);
