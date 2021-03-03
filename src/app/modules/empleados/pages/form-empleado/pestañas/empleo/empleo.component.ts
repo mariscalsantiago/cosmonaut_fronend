@@ -130,6 +130,25 @@ export class EmpleoComponent implements OnInit {
 
   public enviarFormulario() {
 
+    let metodopago = {};
+
+    for(let item of this.arregloMetodosPago){
+
+      if(item.metodoPagoId == 4){
+
+        metodopago = item;
+        break;
+      }
+
+    }
+
+
+    let objemitir = {
+      type:"metodopago",
+      datos:metodopago
+    }
+
+    console.log(objemitir);
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
@@ -158,7 +177,21 @@ export class EmpleoComponent implements OnInit {
       this.enviarPeticion.enviarPeticion = false;
 
 
+    
+
       let obj = this.myForm.value;
+
+      let idTipoJornada = -1;
+
+      for(let item of this.arregloJornadas){
+
+        if(obj.jornadaId == item.jornadaId){
+         
+          idTipoJornada = item.tipoJornadaId;
+          break;
+        }
+
+      }
 
       let objEnviar = {
         areaId:{areaId:obj.areaId},
@@ -176,7 +209,7 @@ export class EmpleoComponent implements OnInit {
         sueldoBrutoMensual:obj.sueldoBrutoMensual,
         salarioDiario:obj.salarioDiario,
         jornadaId:{jornadaId:obj.jornadaId},
-        "tipoJornadaId":"01",
+        tipoJornadaId:idTipoJornada,
         personaId:{personaId:this.datosPersona.personaId},
         centrocClienteId:{centrocClienteId:this.id_empresa},
         estadoId:{estadoId:obj.estadoId},
@@ -190,6 +223,8 @@ export class EmpleoComponent implements OnInit {
         subcontratistaId:{subcontratistaId:obj.subcontratistaId}
     }
 
+    
+
       this.colaboradorPrd.save(objEnviar).subscribe(datos => {
 
         this.alerta.iconType = datos.resultado ? "success" : "error";
@@ -198,11 +233,33 @@ export class EmpleoComponent implements OnInit {
         this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
 
+        let metodopago = {};
+
+        for(let item of this.arregloMetodosPago){
+
+          if(item.metodoPagoId == 4){
+
+            metodopago = item;
+            break;
+          }
+
+        }
+
+
+        let objemitir = {
+          type:"metodopago",
+          datos:metodopago
+        }
+
+        this.enviado.emit(objemitir);
+
       });
 
 
 
     }
+
+    
   }
 
   public cambiaArea() {

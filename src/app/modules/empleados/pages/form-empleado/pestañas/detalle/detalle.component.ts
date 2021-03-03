@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { CuentasbancariasService } from '../../../../../empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
@@ -8,12 +8,13 @@ import { CuentasbancariasService } from '../../../../../empresas/pages/submodulo
   templateUrl: './detalle.component.html',
   styleUrls: ['./detalle.component.scss']
 })
-export class DetalleComponent implements OnInit {
+export class DetalleComponent implements OnInit,OnChanges {
   @Output() enviado = new EventEmitter();
   @Input() alerta: any;
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
   @Input() datosPersona:any;
+  @Input() metodopago:any = {};
 
   public myForm!: FormGroup;
 
@@ -35,6 +36,10 @@ export class DetalleComponent implements OnInit {
     this.catalogosPrd.getCuentasBanco().subscribe(datos => this.arreglobancos = datos.datos);
 
   }
+
+
+
+  
 
   public createForm(obj: any) {
 
@@ -94,7 +99,8 @@ export class DetalleComponent implements OnInit {
         csBanco:{
           bancoId:obj.csBanco
         },
-        numInformacion:obj.numInformacion
+        numInformacion:obj.numInformacion,
+        
 
       };
 
@@ -110,5 +116,10 @@ export class DetalleComponent implements OnInit {
       
 
     }
+
+    
+
+
+
   }
 }
