@@ -131,15 +131,27 @@ export class ListaempleadosComponent implements OnInit {
   }
 
   public filtrar() {
-    let objEnviar = {
-      areaId: { areaId: this.idarea },
-      puestoId: { puestoId: this.idPuesto },
-      personaId: { personaId: this.personaId },
-      centrocClienteId: { centrocClienteId: this.empresa }
-    }
+   let objenviar =  {
+      areaId: {
+          areaId: this.idarea
+      },
+      puestoId: {
+          puestoId: this.idPuesto
+      },
+      personaId: {
+          nombre: this.nombre,
+          apellidoPaterno:this.apellidoPaterno,
+          apellidoMaterno:this.apellidoPaterno
+      },
+      centrocClienteId: {
+          centrocClienteId: this.idEmpresa
+      },
+      esActivo:this.estatus,
+      numEmpleado:this.personaId
+  }
 
     this.cargando = true;
-    this.empleadosPrd.filtrar(objEnviar).subscribe(datos =>{
+    this.empleadosPrd.filtrar(objenviar).subscribe(datos =>{
       let columnas: Array<tabla> = [
         new tabla("nombre", "Nombre", true, true),
         new tabla("idPersona", "Número de empleado"),
