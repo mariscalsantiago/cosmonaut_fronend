@@ -5,7 +5,7 @@
             <div class="form group row  margen">
 
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                    <label>Código postal</label>
+                    <label>Código postal *</label>
                     <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control"
                         [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
                         placeholder="">
@@ -13,13 +13,13 @@
                         Campo requerido
                     </div>
                     <div *ngIf="f.codigo.errors?.pattern && f.codigo.touched" class="invalid-feedback">
-                        Código postal incorrecto, Formato númerico
+                        Código postal incorrecto, formato númerico
                     </div>
 
 
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                    <label>Entidad federativa</label>
+                    <label>Entidad federativa *</label>
                     <input formControlName="estado"  type="email"
                         [ngClass]="{'is-invalid':f.estado.errors?.required && submitEnviado}"
                         class="form-control disabled bg-light" placeholder="">
@@ -29,7 +29,7 @@
 
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                    <label>Municipio o alcadía </label>
+                    <label>Municipio o alcadía *</label>
                     <input formControlName="municipio"  type="email"
                         [ngClass]="{'is-invalid':f.municipio.errors?.required && submitEnviado}"
                         class="form-control disabled bg-light" placeholder="">
@@ -43,7 +43,7 @@
 
             <div class="form group row margen">
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                    <label>Colonia</label>
+                    <label>Colonia *</label>
                     <select formControlName="asentamientoId" name="" id=""
                         [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
                         <option *ngFor="let item of domicilioCodigoPostal" [value]="item.asentamientoCpCons">{{item.asentamiento}}</option>
@@ -54,7 +54,7 @@
 
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8">
-                    <label>Calle</label>
+                    <label>Calle *</label>
                     <input formControlName="calle" type="text" [ngClass]="{'is-invalid':f.calle.errors && submitEnviado}" class="form-control" placeholder="">
                     <div *ngIf="f.calle.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
@@ -64,7 +64,7 @@
 
             <div class="form group row margen">
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                    <label>Número exterior</label>
+                    <label>Número exterior *</label>
                     <input formControlName="numExterior" type="text" name="" id=""
                         [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
                     <div *ngIf="f.numExterior.errors && submitEnviado" class="invalid-feedback">

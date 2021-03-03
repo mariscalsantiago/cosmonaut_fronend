@@ -88,7 +88,7 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public enviarFormulario() {
-
+debugger;
     
 
 
