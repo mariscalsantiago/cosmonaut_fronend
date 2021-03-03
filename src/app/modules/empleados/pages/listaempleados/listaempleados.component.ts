@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
-import { usuarioClass, UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpleadosService } from '../../services/empleados.service';
 
 @Component({
@@ -76,7 +76,7 @@ export class ListaempleadosComponent implements OnInit {
         for (let item of datos.datos) {
 
           let obj = {
-            nombre: item.personaId.nombre + " " + item.personaId.apellidoPaterno + " " + item.personaId.apellidoMaterno,
+            nombre: item.personaId.nombre + " " + item.personaId.apellidoPaterno + " " + (item.personaId.apellidoMaterno == undefined? "":item.personaId.apellidoMaterno),
             personaId: item.personaId.personaId,
             puesto: item.puestoId.descripcion,
             area: item.areaId.descripcion,
@@ -131,15 +131,27 @@ export class ListaempleadosComponent implements OnInit {
   }
 
   public filtrar() {
-    let objEnviar = {
-      areaId: { areaId: this.idarea },
-      puestoId: { puestoId: this.idPuesto },
-      personaId: { personaId: this.personaId },
-      centrocClienteId: { centrocClienteId: this.empresa }
-    }
+   let objenviar =  {
+      areaId: {
+          areaId: this.idarea
+      },
+      puestoId: {
+          puestoId: this.idPuesto
+      },
+      personaId: {
+          nombre: this.nombre,
+          apellidoPaterno:this.apellidoPaterno,
+          apellidoMaterno:this.apellidoPaterno
+      },
+      centrocClienteId: {
+          centrocClienteId: (this.empresa == "" || this.empresa == undefined || this.empresa == null)?this.idEmpresa:this.empresa
+      },
+      esActivo:this.estatus,
+      numEmpleado:this.personaId
+  }
 
     this.cargando = true;
-    this.empleadosPrd.filtrar(objEnviar).subscribe(datos =>{
+    this.empleadosPrd.filtrar(objenviar).subscribe(datos =>{
       let columnas: Array<tabla> = [
         new tabla("nombre", "Nombre", true, true),
         new tabla("idPersona", "Número de empleado"),
@@ -152,7 +164,7 @@ export class ListaempleadosComponent implements OnInit {
 
       if(datos.datos !== undefined){
         for(let item of datos.datos){
-            item["nombre"]=`${item["nombre"]} ${item["apellidoPaterno"]} ${item["apellidoMaterno"]}`;
+            item["nombre"]=`${item["nombre"]} ${item["apellidoPaterno"]} ${item["apellidoMaterno"]==undefined?"":item["apellidoMaterno"]}`;
         }
       }
 

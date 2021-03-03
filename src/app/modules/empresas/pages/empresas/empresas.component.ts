@@ -16,10 +16,12 @@ export class EmpresasComponent implements OnInit {
 
   public modal: boolean = false;
 
+
+
   public activado = [
+    { tab: true, form: true, disabled: false }, 
     { tab: false, form: false, disabled: false }, 
-    { tab: false, form: false, disabled: false }, 
-    { tab: true, form: true, disabled: false },
+    { tab: false, form: false, disabled: false },
     { tab: false, form: false, disabled: false },
     { tab: false, form: false, disabled: false },
     { tab: false, form: false, disabled: false }
