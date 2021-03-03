@@ -59,14 +59,45 @@
                 Campo requerido
               </div>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-              <label>CURP de la razón social *</label>
+            <!--<div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+              <label>CURP de la razón social </label>
               <input formControlName="curp" maxlength="18" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.curp.errors && submitEnviado}" placeholder="">
               <div *ngIf="f.curp.errors " class="invalid-feedback">
                 Campo requerido
               </div>
-            </div>
+            </div>-->
+            <div class="row">
+              <div class="input-group-sm mb-4 col-12 ">
+                  <label class="contenedorInputCheckRadio">¿Tiene CURP, RFC y Seguro Social?
+                      <input  id="tienecurp" formControlName="tieneCurp" type="checkbox" name="" >
+                      <span class="checkmark"></span>
+                    </label>
+              </div>
+          </div>
+          <div *ngIf="f.tieneCurp.value" class="row">
+              <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                  <label >CURP *</label>
+                  <input [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
+                  <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
+                      Campo requerido
+                  </div>
+                  <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
+                      CURP inválido, favor de verificar
+                  </div>
+               
+              </div>
+          </div>
+            <!--<div *ngIf="f.regimenfiscalId.value == 606 || f.regimenfiscalId.value == 612 || f.regimenfiscalId.value == 621"  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+              <label >CURP </label>
+              <input [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
+              <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
+                  Campo requerido
+              </div>
+              <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
+                  CURP inválido, favor de verificar
+              </div>
+            </div>-->
 
           </div>
         </div>

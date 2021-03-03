@@ -32,6 +32,7 @@ export class DomicilioComponent implements OnInit {
   public id_empresa: number = 0;
   public asentamientoCpCons: number =0;
   public arreglo: any=[];
+  public modsinIdDom: boolean = false;
 
   constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
@@ -160,6 +161,7 @@ export class DomicilioComponent implements OnInit {
       let obj = this.myForm.value;
        if(obj.domicilioId == null && !this.datosempresa.insertar){
         this.datosempresa.insertar = true;
+        this.modsinIdDom = true;
        }
 
 
@@ -185,14 +187,16 @@ export class DomicilioComponent implements OnInit {
         this.alerta.strTitulo = datos.mensaje;
         //this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
+        if(this.modsinIdDom){
         this.enviado.emit({
           type:"domicilioSede"
         });
         if(datos.resultado){
           this.habcontinuar= true;
           this.habGuardar=false;
-          
+          this.modsinIdDom=false;
         }
+      }
       });
       }else{
        

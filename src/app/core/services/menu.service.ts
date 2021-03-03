@@ -12,6 +12,7 @@ export class MenuService {
     { nombre: "NOMINAS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false},
     { nombre: "EMPLEADOS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,submenu:[
                                                                                 {nombre:"LISTA Y ALTA DE EMPLEADOS",routerLink:['/empleados']},
+                                                                                {nombre:"BAJA DE EMPLEADOS",routerLink:['/empleados/bajaempleado']},
                                                                                 {nombre:"DIRECTORIO",routerLink:[]}
                                                                               ]},
     { nombre: "EVENTOS", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,routerLink:[]},

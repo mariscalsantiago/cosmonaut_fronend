@@ -6,7 +6,7 @@
            
             <div class="row">
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
-                    <label>Nombre*</label>
+                    <label>Nombre *</label>
                     <input formControlName="nombre" appMayusculas type="text" class="form-control"  [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.nombre.errors " class="invalid-feedback">
                         Campo requerido
@@ -16,7 +16,7 @@
                 </div>
     
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
-                    <label>Apellido paterno*</label>
+                    <label>Apellido paterno *</label>
                     <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control"  [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido  
@@ -83,7 +83,7 @@
             </div>
             <div class="row">
                 <div class="input-group-sm mb-4 col-8">
-                    <label >Correo personal*</label>
+                    <label >Correo personal *</label>
                     <input appMayusculas [minusculas]="true" formControlName="contactoInicialEmailPersonal" type="email" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" class="form-control" name="" >
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
@@ -119,7 +119,7 @@
             <div class="row">
 
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >nacionalidad</label>
+                    <label >Nacionalidad *</label>
                     <select formControlName="nacionalidadId" name="" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}"  class="form-control">
                         <option *ngFor="let item of arreglonacionalidad"  [value]="item.nacionalidadId">{{item.descripcion}}</option>
                     </select>  
@@ -137,7 +137,7 @@
                     </select>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >Teléfono</label>
+                    <label >Teléfono *</label>
                     <input appSolonumeros formControlName="contactoInicialTelefono" type="text" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
                     <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
@@ -165,7 +165,7 @@
                 </div>
 
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >Perfil Linkedin</label>
+                    <label >Perfil LinkedIn</label>
                     <input formControlName="url" type="text" name=""  class="form-control">
                 </div>
 
@@ -174,21 +174,21 @@
             <div class="form-group mt-3 row margen"><label class="titulo">CONTACTO DE EMERGENCIA</label></div>
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >Nombre*</label>
+                    <label >Nombre *</label>
                     <input formControlName="contactoEmergenciaNombre" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaNombre.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >Apellido paterno*</label>
+                    <label >Apellido paterno *</label>
                     <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >Apellido materno*</label>
+                    <label >Apellido materno *</label>
                     <input formControlName="contactoEmergenciaApellidoMaterno" type="text" name=""  class="form-control">
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">

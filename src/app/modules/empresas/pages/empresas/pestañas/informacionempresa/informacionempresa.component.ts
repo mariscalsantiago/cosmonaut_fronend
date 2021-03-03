@@ -71,11 +71,12 @@ export class InformacionempresaComponent implements OnInit {
       razonSocial: [obj.razonSocial,[Validators.required]],
       actividadEconomicaId: [obj.actividadEconomicaId?.actividadEconomicaId,[Validators.required]],
       rfc: [obj.rfc,[Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
-      curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
+      curp: [obj.curp,[Validators.required,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
       regimenfiscalId: [obj.regimenfiscalId.regimenfiscalId,[Validators.required]],
       calculoAutoPromedioVar: obj.calculoAutoPromedioVar,
       horasExtrasAuto: obj.horasExtrasAuto,
       centrocClienteId: obj.centrocClienteId,
+      tieneCurp: [obj.tieneCurp],
       cer:obj.cer,
       key:obj.key,
       contrasenia:obj.contrasenia
@@ -92,21 +93,45 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
- 
+    debugger;
     this.submitEnviado = true;
-    if (this.myform.invalid) {
-      this.alerta.modal = true;
-      this.alerta.strTitulo = "Campos obligatorios o inválidos";
-      //this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
-      this.alerta.iconType = "error";
-      return;
-    }
+    let noesRFC: boolean = (this.myform.controls.tieneCurp.value == null || this.myform.controls.tieneCurp.value == false);
 
+    //let noesRFC: boolean = (this.myform.controls.regimenfiscalId.value == null || this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
+
+    if (this.myform.invalid) {
+      let invalido: boolean = true;
+      if (noesRFC) {
+        for (let item in this.myform.controls) {
+
+          if (item == "curp")
+            continue;
+
+          if (this.myform.controls[item].invalid) {
+            invalido = true;
+            break;
+          }
+          invalido = false;
+        }
+      }
+
+      if (invalido) {
+        this.mostrarMessage();
+        return;
+      }
+    }
+ 
     this.alerta.modal = true;
     this.alerta.strTitulo = (this.datosempresa.insertar) ? "¿Deseas registrar la empresa" : "¿Deseas actualizar la empresa?";
-    //this.alerta.strsubtitulo = "Esta apunto de guardar una empresa";
+
     this.alerta.iconType = "warning";
 
+  }
+
+  public mostrarMessage() {
+    this.alerta.modal = true;
+    this.alerta.strTitulo = "Campos obligatorios o inválidos";
+    this.alerta.iconType = "error";
   }
 
   public get f() {
