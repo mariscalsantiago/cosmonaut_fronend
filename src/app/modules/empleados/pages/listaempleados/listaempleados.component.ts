@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
+import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { usuarioClass, UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpleadosService } from '../../services/empleados.service';
 
@@ -11,12 +13,27 @@ import { EmpleadosService } from '../../services/empleados.service';
 })
 export class ListaempleadosComponent implements OnInit {
 
-  public arreglo:any = [];
-  public cargando:boolean = false;
+  public personaId: any = "";
+  public nombre: any = "";
+  public apellidoPaterno = "";
+  public apellidoMaterno = "";
+  public idarea: any = "";
+  public idPuesto: any = "";
+  public empresa: any = "";
+  public estatus: any = "";
 
-  public arreglotabla:any = {
-    columnas:[],
-    filas:[]
+  public idEmpresa: number = -1;
+  public arregloEmpresa: any = [];
+  public arregloAreas: any = [];
+  public arregloPuestos: any = [];
+
+
+  public arreglo: any = [];
+  public cargando: boolean = false;
+
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
   };
 
   @HostListener('window:resize', ['$event'])
@@ -28,62 +45,68 @@ export class ListaempleadosComponent implements OnInit {
   }
 
 
-  public tamanio:number = 0;
+  public tamanio: number = 0;
 
-  constructor(private routerPrd:Router,private empleadosPrd:EmpleadosService,
-    private usuarioSistemaPrd:UsuarioSistemaService) { }
+  constructor(private routerPrd: Router, private empleadosPrd: EmpleadosService,
+    private usuarioSistemaPrd: UsuarioSistemaService, private empresasPrd: SharedCompaniaService,
+    private areasPrd: SharedAreasService) { }
 
   ngOnInit(): void {
 
-    let documento:any = document.defaultView;
+    let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
 
     this.cargando = true;
 
-    this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
-      console.log("Ver lo que se intera",datos);
-      let columnas:Array<tabla> = [
-        new tabla("nombre","Nombre",true,true),
-        new tabla("personaId","Número de empleado"),
-        new tabla("nombreEmpresa","Empresa"),
-        new tabla("puesto","Puesto"),
-        new tabla("area","Área"),
-        new tabla("sede","Sede"),
-        new tabla("esActivo","Estatus")
+    this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      let columnas: Array<tabla> = [
+        new tabla("nombre", "Nombre", true, true),
+        new tabla("personaId", "Número de empleado"),
+        new tabla("nombreEmpresa", "Empresa"),
+        new tabla("puesto", "Puesto"),
+        new tabla("area", "Área"),
+        new tabla("sede", "Sede"),
+        new tabla("esActivo", "Estatus")
       ]
 
       let arrayTemp = [];
 
-     if(datos.datos !== undefined){
-      for(let item of datos.datos){
+      if (datos.datos !== undefined) {
+        for (let item of datos.datos) {
 
-        let obj = {
-          nombre:item.personaId.nombre+" "+item.personaId.apellidoPaterno+" "+item.personaId.apellidoMaterno,
-          personaId:item.personaId.personaId,
-          puesto:item.puestoId.descripcion,
-          area:item.areaId.descripcion,
-          sede:item.sedeId.descripcion,
-          esActivo:item.personaId.esActivo,
-          nombreEmpresa:"DEFINIR"
+          let obj = {
+            nombre: item.personaId.nombre + " " + item.personaId.apellidoPaterno + " " + item.personaId.apellidoMaterno,
+            personaId: item.personaId.personaId,
+            puesto: item.puestoId.descripcion,
+            area: item.areaId.descripcion,
+            sede: item.sedeId.descripcion,
+            esActivo: item.personaId.esActivo,
+            nombreEmpresa: "DEFINIR"
+          }
+
+          arrayTemp.push(obj);
+
         }
-
-        arrayTemp.push(obj);
-
       }
-     }
 
-      this.arreglo = arrayTemp.length == 0 ? undefined:arrayTemp;
+      this.arreglo = arrayTemp.length == 0 ? undefined : arrayTemp;
 
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;
       this.cargando = false;
     });
 
+
+    this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
+    this.empresasPrd.getAllEmp(this.idEmpresa).subscribe(datos => this.arregloEmpresa = datos.datos);
+    this.areasPrd.getAreasByEmpresa(this.idEmpresa).subscribe(datos => this.arregloAreas = datos.datos);
+    this.areasPrd.getPuestosPorEmpresa(this.idEmpresa).subscribe(datos => this.arregloPuestos = datos.datos);
+
   }
 
 
-  public agregar(){
+  public agregar() {
 
     this.routerPrd.navigate(['/empleados/empleado']);
 
@@ -91,11 +114,11 @@ export class ListaempleadosComponent implements OnInit {
   }
 
 
-  public recibirTabla(obj:any){
-    switch(obj.type){
+  public recibirTabla(obj: any) {
+    switch (obj.type) {
 
       case "columna":
-        this.routerPrd.navigate(['empleados',obj.datos.personaId,'personal']);
+        this.routerPrd.navigate(['empleados', obj.datos.personaId, 'personal']);
         break;
 
     }
@@ -103,12 +126,42 @@ export class ListaempleadosComponent implements OnInit {
   }
 
 
-  public bajaEmpleado(){
-    this.routerPrd.navigate(['empleados','bajaempleado']);
+  public bajaEmpleado() {
+    this.routerPrd.navigate(['empleados', 'bajaempleado']);
   }
 
-  public filtrar(){
-    
+  public filtrar() {
+    let objEnviar = {
+      areaId: { areaId: this.idarea },
+      puestoId: { puestoId: this.idPuesto },
+      personaId: { personaId: this.personaId },
+      centrocClienteId: { centrocClienteId: this.empresa }
+    }
+
+    this.cargando = true;
+    this.empleadosPrd.filtrar(objEnviar).subscribe(datos =>{
+      let columnas: Array<tabla> = [
+        new tabla("nombre", "Nombre", true, true),
+        new tabla("idPersona", "Número de empleado"),
+        new tabla("razonSocial", "Empresa"),
+        new tabla("puesto", "Puesto"),
+        new tabla("area", "Área"),
+        new tabla("sede", "Sede"),
+        new tabla("estatus", "Estatus")
+      ];
+
+      if(datos.datos !== undefined){
+        for(let item of datos.datos){
+            item["nombre"]=`${item["nombre"]} ${item["apellidoPaterno"]} ${item["apellidoMaterno"]}`;
+        }
+      }
+
+
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = datos.datos;
+
+      this.cargando = false;
+    });
   }
 
 }
