@@ -22,18 +22,15 @@ export class InformacionempresaComponent implements OnInit {
   @Input() cambiaValor: boolean = false;
   @Input() datosempresa:any;
   @Input() datosempresamod:any;
+  
 
   public obj:any ={};
-
-
-
   public myform!: FormGroup;
-
   public submitEnviado: boolean = false;
-
   public arregloregimen: any = [];
   public arregloactividad: any = [];
   public imagen:any = undefined;
+  public curpFinal: string = "";
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private empresaPrd: DatosempresaService,private routerPrd:Router) { }
@@ -71,7 +68,8 @@ export class InformacionempresaComponent implements OnInit {
       razonSocial: [obj.razonSocial,[Validators.required]],
       actividadEconomicaId: [obj.actividadEconomicaId?.actividadEconomicaId,[Validators.required]],
       rfc: [obj.rfc,[Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
-      curp: [obj.curp,[Validators.required,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
+      curpInv: [obj.curp,[Validators.required,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
+      curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
       regimenfiscalId: [obj.regimenfiscalId.regimenfiscalId,[Validators.required]],
       calculoAutoPromedioVar: obj.calculoAutoPromedioVar,
       horasExtrasAuto: obj.horasExtrasAuto,
@@ -95,16 +93,14 @@ export class InformacionempresaComponent implements OnInit {
   public enviarFormulario() {
     debugger;
     this.submitEnviado = true;
-    //let noesRFC: boolean = (this.myform.controls.tieneCurp.value == null || this.myform.controls.tieneCurp.value == false);
-
     let noesRFC: boolean = (this.myform.controls.regimenfiscalId.value == null || this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
 
     if (this.myform.invalid) {
       let invalido: boolean = true;
-      if (noesRFC) {
+      if (!noesRFC) {
         for (let item in this.myform.controls) {
 
-          if (item == "curp")
+          if (item == "curpInv")
             continue;
 
           if (this.myform.controls[item].invalid) {
@@ -140,10 +136,15 @@ export class InformacionempresaComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-     
+     debugger;
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;
+      if(obj.curpInv != null){
+          this.curpFinal = obj.curpInv;
+      }else{
+        this.curpFinal = obj.curp
+      }
       let objenviar:any = {
            nombre : obj.nombre,
            razonSocial : obj.razonSocial,
@@ -159,7 +160,7 @@ export class InformacionempresaComponent implements OnInit {
            },
            esActivo: true,
            imagen:this.imagen,
-           curp : obj.curp,
+           curp : this.curpFinal,
            horasExtrasAuto:obj.horasExtrasAuto,
            calculoAutoPromedioVar: obj.calculoAutoPromedioVar,
            cer:obj.cer,
