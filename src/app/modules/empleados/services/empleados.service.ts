@@ -60,6 +60,22 @@ export class EmpleadosService {
 
 
 
+  public filtrar(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json = JSON.stringify(obj);
+
+    console.log("json enviado",json);
+
+    return this.http.post(`${direcciones.contratoColaborador}/lista/dinamica`, json, httpOptions);
+  }
+
+
+
 
 
 

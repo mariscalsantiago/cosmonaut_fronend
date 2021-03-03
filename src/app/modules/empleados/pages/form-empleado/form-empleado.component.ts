@@ -13,7 +13,7 @@ export class FormEmpleadoComponent implements OnInit {
   { tab: false, form: false, disabled: false }, 
   { tab: false, form: false, disabled: false },
   { tab: false, form: false, disabled: false }, 
-  { tab: false, form: false, disabled: false }, ];
+  { tab: false, form: false, disabled: false } ];
 
   
 
@@ -35,11 +35,21 @@ export class FormEmpleadoComponent implements OnInit {
     enviarPeticion: false
   };
 
+
+  public metodopago:any = {descripcion:'sdfd'};
+
   public cambiaValor: boolean = false;
 
   constructor(private routerPrd:Router) { }
 
   ngOnInit(): void {
+
+    setTimeout(() => {
+      this.metodopago = {descripcion:"transferencia"}
+      console.log("se ejecuta");
+      console.log(this.metodopago);
+    }, 4000);
+
   }
 
 
@@ -74,6 +84,12 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[4].disabled = false;
         this.activado[3].form = false;
         break;
+        case "metodopago":
+
+       
+          this.metodopago = elemento.datos;
+
+          break;
     }
 
   }
