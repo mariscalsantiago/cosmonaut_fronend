@@ -62,7 +62,7 @@ export class JornadalaboralService {
     };
 
     let json:string = JSON.stringify(obj);
-
+    console.log("Modificar",json);
     return this.http.put(`${this.url}/modificar`,json,httpOptions);
   }
 
