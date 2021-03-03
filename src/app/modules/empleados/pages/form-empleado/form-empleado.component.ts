@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
 })
 export class FormEmpleadoComponent implements OnInit {
 
-  public activado = [{ tab: false, form: false, disabled: false }, 
+  public activado = [{ tab: true, form: true, disabled: false }, 
     { tab: false, form: false, disabled: false }, 
     { tab: false, form: false, disabled: false },
-  { tab: true, form: true, disabled: false }, 
+  { tab: false, form: false, disabled: false }, 
   { tab: false, form: false, disabled: false }, ];
 
   
