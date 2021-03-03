@@ -17,8 +17,9 @@ export class EmpresasComponent implements OnInit {
   public modal: boolean = false;
 
   public activado = [
-    { tab: true, form: true, disabled: false }, 
     { tab: false, form: false, disabled: false }, 
+    { tab: false, form: false, disabled: false }, 
+    { tab: true, form: true, disabled: false },
     { tab: false, form: false, disabled: false },
     { tab: false, form: false, disabled: false },
     { tab: false, form: false, disabled: false }
@@ -28,7 +29,9 @@ export class EmpresasComponent implements OnInit {
   public guardarDom: boolean = false;
   public cuentaBanco: boolean = false;
   public continuarDom: boolean = false;
-  public continuarBancos: boolean = false
+  public continuarBancos: boolean = false;
+  public continuarSede: boolean = false;
+  public continuarCuentas: boolean= false;
   public insertar: boolean = false;
   public centrocClienteEmpresa:number = 0;
   public objdetrep: any = [];
@@ -58,7 +61,7 @@ export class EmpresasComponent implements OnInit {
   };
  
   constructor(private usuarioSistemaPrd:UsuarioSistemaService,  private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService) {
-    
+    debugger;
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       this.datosempresa.insertar= this.insertar;
@@ -68,7 +71,7 @@ export class EmpresasComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    
+    debugger;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data ;
     this.datosempresamod.datosempresaObj= this.objdetrep; 
     if(!this.insertar){
@@ -126,7 +129,7 @@ export class EmpresasComponent implements OnInit {
   }
 
   public recibirTabs(elemento: any) {
-    
+    debugger;
  
    switch (elemento.type) {
      case "informacion":
@@ -184,7 +187,7 @@ export class EmpresasComponent implements OnInit {
 
 public recibir(elemento: any) {
    
-
+debugger;
   switch (elemento.type) {
     case "informacion":
 
@@ -208,6 +211,14 @@ public recibir(elemento: any) {
 
       this.continuarDom = true;
         break;
+    case "sedeCont":
+
+      this.continuarSede = true;
+    break;
+    case "cuentasCont":
+
+      this.continuarCuentas = true;
+    break;
     case "bancosCont":
 
       this.continuarBancos = true;
@@ -223,12 +234,40 @@ public recibir(elemento: any) {
       this.activado[3].disabled = false;
       this.activado[2].form = false;
       break;
+    case "sede":
+
+        this.activado[1].tab = true;
+        this.activado[4].form = true;
+        this.activado[4].disabled = false;
+        this.activado[1].form = false;
+    break;
+    case "sedeDom":
+
+      this.activado[1].tab = true;
+      this.activado[1].form = true;
+      this.activado[1].disabled = false;
+      this.activado[4].form = false;
+  break;
+  case "cuentas":
+
+    this.activado[2].tab = true;
+    this.activado[5].form = true;
+    this.activado[5].disabled = false;
+    this.activado[2].form = false;
+  break;
+  case "cuentaDatosBancarios":
+
+    this.activado[2].tab = true;
+    this.activado[2].form = true;
+    this.activado[2].disabled = false;
+    this.activado[5].form = false;
+  break;
   }
 
 }
 
   public recibirAlerta(obj: any) {
-    
+    debugger;
      
     this.cambiaValor = !this.cambiaValor;
      
@@ -244,6 +283,17 @@ public recibir(elemento: any) {
         this.recibir({ type: "domicilio", valor: true });
         this.continuarDom = false;
 
+      }
+      if(this.continuarSede && obj){
+        
+        this.recibir({ type: "sedeDom", valor: true });
+        this.continuarSede = false;
+
+      }
+      if(this.continuarCuentas && obj){
+        
+        this.recibir({ type: "cuentaDatosBancarios", valor: true });
+        this.continuarCuentas = false;
 
       }
       if(this.continuarBancos && obj){

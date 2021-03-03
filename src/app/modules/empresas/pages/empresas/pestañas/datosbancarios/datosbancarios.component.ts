@@ -75,14 +75,12 @@ export class DatosbancariosComponent implements OnInit {
       
       this.alerta.modal = true;
       this.alerta.strTitulo = "Campos obligatorios o inválidos";
-      //this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
       this.alerta.iconType = "error";
       return;
     }
 
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas guardar cambios?";
-    //this.alerta.strsubtitulo = "Esta apunto de guardar datos bancarios STP";
     this.alerta.iconType = "warning";
 
   }else{
@@ -92,15 +90,18 @@ export class DatosbancariosComponent implements OnInit {
     
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas continuar?";
-    //this.alerta.strsubtitulo = "Esta apunto de pasar a datos imss";
     this.alerta.iconType = "warning";
     this.habcontinuar = false;
   }
 }
-  public verdetalle(obj:any){
-     
-    this.routerPrd.navigate(['listaempresas', 'empresas', 'nuevo','cuenta'], { state: { data: this.datosempresa } });
-  }
+
+public verdetalle(obj:any){
+
+  this.enviado.emit({
+    type:"cuentas"
+  }); 
+
+}
 
   public get f() {
     return this.myForm.controls;

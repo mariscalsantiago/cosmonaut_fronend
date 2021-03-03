@@ -38,7 +38,7 @@ export class DomicilioComponent implements OnInit {
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    
+    debugger;
     let obj:any = {};
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
     if(!this.datosempresa.insertar){
@@ -103,7 +103,10 @@ export class DomicilioComponent implements OnInit {
 
   }
 
+  public activarContunuar(){
 
+    this.habcontinuar = true;
+  }
 
   public cancelar() {
     this.routerPrd.navigate(['/listaempresas']);
@@ -111,7 +114,7 @@ export class DomicilioComponent implements OnInit {
 
 
   public enviarFormulario() {
-     
+     debugger;
     this.submitEnviado = true;
 
     if(!this.habcontinuar){
@@ -126,25 +129,26 @@ export class DomicilioComponent implements OnInit {
 
     this.alerta.modal = true;
     this.alerta.strTitulo = (this.datosempresa.insertar) ? "¿Deseas registrar el domicilio" : "¿Deseas actualizar el domicilio?";
-    //this.alerta.strsubtitulo = "Esta apunto de guardar el domicilio";
     this.alerta.iconType = "warning";
 
   }else{
     this.enviado.emit({
       type:"domicilioCont"
     });
-    
+    this.habcontinuar= false;
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas continuar?";
-    //this.alerta.strsubtitulo = "Esta apunto de pasar a datos bancarios";
     this.alerta.iconType = "warning";
 
   }
 }
 
   public verdetalle(obj:any){
-     
-   this.routerPrd.navigate(['listaempresas', 'empresas', 'nuevo','sede'], { state: { data: this.datosempresa } });
+
+        this.enviado.emit({
+          type:"sede"
+        }); 
+   
  }
 
   public get f() {
@@ -187,7 +191,7 @@ export class DomicilioComponent implements OnInit {
         this.alerta.strTitulo = datos.mensaje;
         //this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
-        if(this.modsinIdDom){
+        if(!this.modsinIdDom){
         this.enviado.emit({
           type:"domicilioSede"
         });

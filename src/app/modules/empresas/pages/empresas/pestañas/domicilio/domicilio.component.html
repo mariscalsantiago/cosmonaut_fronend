@@ -87,8 +87,8 @@
         <div class="col-12">
             <div class="text-right margin" style="margin-bottom: 20px;">
                 <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                <button *ngIf="habGuardar" (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
-                <button *ngIf="habcontinuar" type="submit" class="btn btn-primary button-fill">Continuar</button>
+                <button (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
+                <button  type="submit" (click)="activarContunuar()" class="btn btn-primary button-fill">Continuar</button>
             </div>
         </div>
     </div>

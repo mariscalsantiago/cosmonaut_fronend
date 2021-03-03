@@ -11,6 +11,12 @@ import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodul
 })
 export class CuentasComponent implements OnInit {
 
+  @Output() enviado = new EventEmitter();
+  @Input() alerta: any;
+  @Input() enviarPeticion: any;
+  @Input() cambiaValor: boolean = false;
+  @Input() datosempresa:any;
+
 
   public mostrartooltip: boolean = false;
   public myForm!: FormGroup;
@@ -20,47 +26,18 @@ export class CuentasComponent implements OnInit {
   public cuenta: any;
   public cuentasBancarias: any;
   public objdsede: any = []; 
+  public peticion: any = [];
+  public habcontinuarSede: boolean = false;
  
-
-
-  @Input() enviarPeticion: any;
- 
-
-  public alerta = {
-
-    modal: false,
-    strTitulo: "",
-    iconType: "",
-    strsubtitulo: ""
-  };
-
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
     private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService,
     private catalogosPrd:CatalogosService) { }
 
   ngOnInit(): void {
  
-    /*this.routerActive.params.subscribe(datos => {
-      this.id_empresa = datos["id"];
-      if (datos["tipoinsert"] == "nuevo") {
-        this.esInsert = true;
-      } else if (datos["tipoinsert"] == "editar") {
-        this.esInsert = false;
-      } else {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
-      }
-    });*/
-
     this.objdsede = history.state.data == undefined ? {} : history.state.data ;
     this.esInsert = this.objdsede.insertar;
     let obj = { csBanco: { bancoId: 0 } };
-
-    /*if (!this.esInsert) {//Solo cuando es modificar
-      obj = history.state.data;
-      if (obj == undefined) this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
-
-    }*/
-
 
     this.myForm = this.createForm(obj);
 
@@ -77,7 +54,7 @@ export class CuentasComponent implements OnInit {
 
       numeroCuenta: [obj.numeroCuenta, [Validators.required]],
       nombreCuenta: [obj.nombreCuenta, [Validators.required]],
-      idbanco: [obj.csBanco.bancoId, [Validators.required]],
+      bancoId: [obj.csBanco.bancoId, [Validators.required]],
       descripcion: [obj.descripcion],
       num_informacion: [obj.numInformacion],
       clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
@@ -90,103 +67,97 @@ export class CuentasComponent implements OnInit {
 
 
   public enviarFormulario() {
-    
+    debugger;
+   
+   if(!this.habcontinuarSede){
     this.submitEnviado = true;
-    if (!this.myForm.valid) {
+   if (this.myForm.invalid) {
+     
+     this.alerta.modal = true;
+     this.alerta.strTitulo = "Campos obligatorios o inválidos";
+     this.alerta.iconType = "error";
+     return;
+   }
 
-      this.alerta.strTitulo = "Campos inválidos, Favor de verificar";
-      //this.alerta.strsubtitulo = "Algunos campos son incorrectos.";
-      this.alerta.iconType = "error";
-      this.alerta.modal = true;
-      return;
-    }
+   this.alerta.modal = true;
+   this.alerta.strTitulo = (this.datosempresa.insertar) ? "¿Deseas registrar la cuenta bancaria" : "¿Deseas actualizar la cuenta bancaria?";
+   this.alerta.iconType = "warning";
 
-    this.alerta.iconType = "warning";
-    this.alerta.strTitulo = (this.esInsert) ? "¿Deseas registrar la cuenta bancaria?" : "¿Deseas actualizar la cuenta bancaria?";
-    this.alerta.strsubtitulo = "Una vez aceptando los cambios seran efectuados";
-    this.alerta.modal = true;
+ }else{
+   this.enviado.emit({
+     type:"cuentasCont"
+   });
+   this.habcontinuarSede= false;
+   this.alerta.modal = true;
+   this.alerta.strTitulo = "¿Deseas cancelar?";
+   this.alerta.iconType = "warning";
 
+ }
+}
 
-  }
+public activarCancel(){
 
-
-  public cancelar() {
-    this.routerPrd.navigate(["/listaempresas/empresas/nuevo"]);
-  }
+  this.habcontinuarSede = true;
+}
 
 
   get f() {
     return this.myForm.controls;
   }
 
-
-  public recibir($event: any) {
-
-   
-    this.alerta.modal = false;
-
-
-    if (this.alerta.iconType == "warning") {
-
-
-      if ($event) {
-
-        let obj = this.myForm.value;
-
-
-        let peticion: any = {
-          numeroCuenta: obj.numeroCuenta,
-          nombreCuenta: obj.nombreCuenta,
-          descripcion: obj.descripcion,
-          numInformacion: obj.num_informacion,
-          clabe: obj.clabe,
-          numSucursal: obj.num_sucursal,
-          nclCentrocCliente: {
-            centrocClienteId: this.objdsede.centrocClienteId
-          },
-          bancoId: {
-            bancoId: obj.idbanco
-          }
-        };
-
-        if (this.esInsert) {
-
-          this.cuentasPrd.save(peticion).subscribe(datos => {
-
-            this.alerta.iconType = datos.resultado ? "success" : "error";
-
-            this.alerta.strTitulo = datos.mensaje;
-            //this.alerta.strsubtitulo = datos.mensaje
-            this.alerta.modal = true;
-
-
-          });
-        } else {
-
-          /*this.cuentasPrd.modificar(peticion).subscribe(datos => {
-
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
-            this.modal = true;
-
-          });*/
-
+  ngOnChanges(changes: SimpleChanges) {
+    debugger;
+   if (this.enviarPeticion.enviarPeticion) {
+     this.enviarPeticion.enviarPeticion = false;
+      let obj = this.myForm.value;
+      this.peticion = {
+        numeroCuenta: obj.numeroCuenta,
+        nombreCuenta: obj.nombreCuenta,
+        descripcion: obj.descripcion,
+        numInformacion: obj.num_informacion,
+        clabe: obj.clabe,
+        numSucursal: obj.num_sucursal,
+        nclCentrocCliente: {
+          centrocClienteId: this.objdsede.centrocClienteEmpresa
+        },
+        bancoId: {
+          bancoId: obj.bancoId
         }
+      };
 
-      }
+     if(this.datosempresa.insertar){
 
+        this.cuentasPrd.save(this.peticion).subscribe(datos => {
+        this.alerta.iconType = datos.resultado ? "success" : "error";
+        this.alerta.strTitulo = datos.mensaje;
+        this.alerta.modal = true;
+        this.enviado.emit({
+          type:"cuentasCont"
+        });
 
-    } else {
-      this.alerta.modal = false;
-
-      if (this.alerta.iconType == "success") {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
-      }
+      });
+     }else{
+      
+   
+         this.cuentasPrd.save(this.peticion).subscribe(datos =>{
+           this.alerta.iconType = datos.resultado ? "success" : "error";
+           this.alerta.strTitulo = datos.mensaje;
+           this.alerta.modal = true;
+             //if(!this.modsinIdDom){
+               this.enviado.emit({
+               type:"domicilioSede"
+             });
+             if(datos.resultado){
+               //this.habcontinuar= true;
+               //this.habGuardar=false;
+               //this.modsinIdDom=false;
+             }
+           //}
+         });
+     }
     }
 
-  }
+ }
 
 
 }
