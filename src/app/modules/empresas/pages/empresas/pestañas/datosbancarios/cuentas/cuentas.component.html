@@ -1,16 +1,9 @@
-<div class="m-3">
-  <div class="row">
-      <div class="col titulo-outlet">
-          <label>ADMINISTRACIÓN DE EMPRESA</label>
-      </div>
-  </div>
-</div>
 
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()" class="background-panel">
 
   <input type="hidden">
   <br>
-  <div class="form-group mt-3 row margen"><label class="titulo">Cuenta bancaria</label></div>
+  <div class="form-group mt-3 row margen"><label class="titulo">INFORMACIÓN DE CUENTA BANCARIA</label></div>
 
     <div class="form-group row margen">
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
@@ -18,33 +11,27 @@
         <input formControlName="nombreCuenta" type="text" class="form-control"
           [ngClass]="{'is-invalid':f.nombreCuenta.errors && submitEnviado}" placeholder="">
         <div *ngIf="submitEnviado && f.nombreCuenta.errors" class="invalid-feedback">
-          Nombre de la cuenta obligatorio.
+          Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
-        <label>Número de Cuenta <i (click)="mostrartooltip = !mostrartooltip"
-            class="fas fa-question-circle primary cursorhand " data-toggle="tooltip" data-placement="top"
-            title="Dar click para información"></i>
-          <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No
-            tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a><i class="far fa-times-circle"></i>
-          </div>
-        </label>
+        <label>Número de Cuenta *</label>
         <input formControlName="numeroCuenta" type="number" maxlength="10" class="form-control"
           [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}" placeholder="">
         <div *ngIf="submitEnviado && f.numeroCuenta.errors" class="invalid-feedback">
-          Número cuenta obligatorio.
+          Campo requerido
         </div>
       </div>
 
 
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
         <label for="exampleFormControlSelect1">Banco *</label>
-        <select formControlName="idbanco" class="form-control"
-          [ngClass]="{'is-invalid':f.idbanco.errors && submitEnviado}">
+        <select formControlName="bancoId" class="form-control"
+          [ngClass]="{'is-invalid':f.bancoId.errors && submitEnviado}">
           <option *ngFor="let item of cuentasBancarias" [value]="item.bancoId">{{item.nombreCorto}}</option>
         </select>
-        <div *ngIf="submitEnviado && f.idbanco.errors" class="invalid-feedback">
-          Banco obligatorio.
+        <div *ngIf="submitEnviado && f.bancoId.errors" class="invalid-feedback">
+          Campo requerido
         </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
@@ -61,7 +48,7 @@
           [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
           placeholder="">
         <div *ngIf="submitEnviado && f.clabe.errors?.required" class="invalid-feedback">
-          No. Clabe banco obligatorio.
+          Campo requerido
         </div>
         <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
           La CLABE no es válida
@@ -74,15 +61,15 @@
     </div>
 
   
-        <div class="row">
-            <div class="col-12">
-                <div class="text-right margin" style="margin-bottom: 20px;">
-                    <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                    <button type="submit" class="btn btn-primary button-fill mr-2">Guardar</button>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+      <div class="col-12">
+          <div class="text-right margin" style="margin-bottom: 20px;">
+              <button type="submit" (click)="activarCancel()"class="btn btn-primary button-outlet mr-2">Cancelar</button>
+              <button (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
+
+          </div>
+      </div>
+  </div>
 
 </form>
 
-<app-alert-questions *ngIf="alerta.modal" [titulo]="alerta.strTitulo" [iconType]="alerta.iconType"   (eventoFunciones)="recibir($event)"></app-alert-questions>

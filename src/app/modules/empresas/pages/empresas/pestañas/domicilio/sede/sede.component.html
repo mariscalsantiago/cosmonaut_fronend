@@ -1,15 +1,8 @@
-<div class="m-3">
-    <div class="row">
-        <div class="col titulo-outlet">
-            <label>ADMINISTRACIÓN DE EMPRESA</label>
-        </div>
-    </div>
-  </div>
-  
+ 
    
    <form [formGroup]="myForm"  (ngSubmit)="enviarFormulario()" class="background-panel">
     <br>
-    <div class="form-group mt-3 row margen"><label class="titulo">Sedes</label></div>
+    <div class="form-group mt-3 row margen"><label class="titulo">INFORMACIÓN DE SEDE</label></div>
         
         <div class="row">
 
@@ -21,7 +14,7 @@
                         <input formControlName="sede" type="text" name="" id=""
                             [ngClass]="{'is-invalid':f.sede.errors && submitEnviado}" class="form-control">
                         <div *ngIf="f.sede.errors && submitEnviado" class="invalid-feedback">
-                          Nombre de la sede Campo requerido
+                            Campo requerido 
                         </div>
                     </div>
                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8"></div>
@@ -106,11 +99,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="text-right margin" style="margin-bottom: 20px;">
-                    <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                    <button type="submit" class="btn btn-primary button-fill mr-2">Guardar</button>
+                    <button type="submit" (click)="activarCancel()"class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                    <button (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
+
                 </div>
             </div>
         </div>
 
     </form>
-    <app-alert-questions *ngIf="alerta.modal" [titulo]="alerta.strTitulo" [iconType]="alerta.iconType"  (eventoFunciones)="recibir($event)"></app-alert-questions>
+    <!--<app-alert-questions *ngIf="alerta.modal" [titulo]="alerta.strTitulo" [iconType]="alerta.iconType"  (eventoFunciones)="recibir($event)"></app-alert-questions>-->
