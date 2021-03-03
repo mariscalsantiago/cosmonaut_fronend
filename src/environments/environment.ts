@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   rutaEmpresa:'/empresas',
-  rutaCatalogos:'/catalogos',
-  rutaProvicional:'/yared'
+  rutaCatalogos:'/catalogos'
 };
 
 /*
