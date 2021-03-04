@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { UsuarioService } from 'src/app/modules/usuarios/services/usuario.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { CompanyService } from '../../services/company.service';
 
 @Component({
@@ -17,14 +18,11 @@ export class DetalleCompanyComponent implements OnInit {
 
   public myFormcomp!: FormGroup;
   public arreglo: any = [];
-  public modal: boolean = false;
   public contacto: boolean = false;
   public listcontacto: boolean = false;
   public compania: boolean = true;
   public companiaprincipal: boolean = true;
   public insertar: boolean = false;
-  public iconType: string = "";
-  public strTitulo: string = "";
 
   public objcont: any;
   public fechaAlta: string = "";
@@ -41,7 +39,7 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router, private usuariosPrd: UsuarioService) {
+    private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService) {
   }
 
   ngOnInit(): void {
@@ -49,7 +47,9 @@ export class DetalleCompanyComponent implements OnInit {
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.compania = true;
 
-    console.log("mi compañia",this.objCompany);
+    this.companyPrd.getEmpresaById(this.objCompany.centrocClienteId).subscribe(datos => this.imagen = datos.datos?.imagen);
+
+    
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -57,6 +57,9 @@ export class DetalleCompanyComponent implements OnInit {
         this.listaContacto();
         this.listcontacto = true;
       }
+
+
+      
 
       this.myFormcomp = this.createFormcomp((this.objCompany));
     });
@@ -146,52 +149,31 @@ export class DetalleCompanyComponent implements OnInit {
 
   public enviarPeticioncomp() {
 
-    if (this.myFormcomp.invalid) {
-
-      this.submitEnviado = true;
-      this.iconType = "error";
-      this.strTitulo = "Campos obligatorios o inválidos";
-      this.modal = true;
-
+    this.submitEnviado = true;
+    if (this.myFormcomp.invalid) {     
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
 
+    let mensaje = this.insertar ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar los datos de la compañía?";
+    
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
 
-    this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar los datos de la compañía?";
-    this.modal = true;
-
-  }
-
-  public cancelarcomp() {
-    this.routerPrd.navigate(['/company']);
-  }
-
-  public recibir($evento: any) {
-
-    this.modal = false;
-    if (this.iconType == "warning") {
-      if ($evento) {
+      if(valor){
         let obj = this.myFormcomp.value;
         obj = {
           ...obj,
           imagen: this.imagen  
         };
 
-        
-
-
-        console.log("Este es el obj que mando",obj);
-
-
         if (this.insertar) {
 
 
           this.companyPrd.save(obj).subscribe(datos => {
 
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
+              .then(()=> this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined, empresa: this.objCompany } }));
+
             this.compania = !datos.resultado;
             this.contacto = true;
             if (datos.resultado) {
@@ -205,27 +187,20 @@ export class DetalleCompanyComponent implements OnInit {
 
 
           this.companyPrd.modificar(obj).subscribe(datos => {
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
             this.listcontacto = true;
             this.compania = false;
 
           });
         }
-
       }
-    } else {
 
-      if (this.iconType == "success") {
-        this.modal = false;
+    });
 
+  }
 
-        if (this.insertar) {
-          this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined, empresa: this.objCompany } });
-        }
-      }
-    }
+  public cancelarcomp() {
+    this.routerPrd.navigate(['/company']);
   }
 
   get f() { return this.myFormcomp.controls; }
@@ -237,11 +212,7 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-
-    console.log(obj.datos);
-
     this.verdetallecont(obj.datos);
-
   }
 
 
