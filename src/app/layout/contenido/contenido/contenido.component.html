@@ -41,6 +41,8 @@
             </nav>
             <div class="container content-inside">
                 <router-outlet></router-outlet>
+
+                <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
             </div>
 
 
