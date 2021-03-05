@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { UsuarioService } from 'src/app/modules/usuarios/services/usuario.service';
@@ -108,6 +108,10 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public listaContacto() {
+
+
+    
+
 
     let objEnviar: any = {
 

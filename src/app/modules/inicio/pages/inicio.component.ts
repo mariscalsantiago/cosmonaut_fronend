@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-inicio',
@@ -7,11 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalPrd:ModalService) { }
 
   ngOnInit(): void {
   }
 
+
+  public alerta(){
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"Hola desde js");
+
+  }
 
 
 }

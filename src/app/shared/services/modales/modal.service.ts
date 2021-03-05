@@ -26,6 +26,9 @@ export class ModalService {
        alerta = alerta ? "success" : "error";
     }
 
+
+
+
     this.modal.modal = true;
     this.modal.iconType = alerta;
     titulo = (titulo == undefined) ? "" : titulo;
