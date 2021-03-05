@@ -24,6 +24,9 @@ export class EmpleoComponent implements OnInit {
   @Input() cambiaValor: boolean = false;
   @Input() datosPersona: any;
 
+
+  public aparecerTemp:boolean = false;
+
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;

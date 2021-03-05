@@ -100,6 +100,13 @@ export class CompanyService {
     return this.http.post(`${this.url}/lista/dinamica`, json, httpOptions);
   }
 
+
+
+  public getEmpresaById(idEmpresa:number):Observable<any>{
+
+    return this.http.get(`${this.url}//obtener/id/${idEmpresa}`);
+
+  }
   
   
 }

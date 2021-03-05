@@ -1,6 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -11,29 +13,25 @@ import { UsuarioService } from '../../services/usuario.service';
 export class DetalleUsuarioComponent implements OnInit {
 
 
-  @ViewChild("centroCliente") public centrocliente!:ElementRef;
-  @ViewChild("nombre") public nombre!:ElementRef;
+  @ViewChild("centroCliente") public centrocliente!: ElementRef;
+  @ViewChild("nombre") public nombre!: ElementRef;
 
 
   public myForm!: FormGroup;
-  public modal: boolean = false;
   public insertar: boolean = false;
-  public iconType: string = "";
-  public fechaActual: string = "";
-  public strTitulo: string = "";
-  public strsubtitulo: string = "";
+  public fechaActual: any = "";;
   public objusuario: any = {};
   public arregloCompany: any;
-  public summitenviado:boolean = false;
+  public summitenviado: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router) {
+    private routerPrd: Router, private modalPrd: ModalService) {
+
+    let datePipe = new DatePipe("en-MX");
+
     let fecha = new Date();
-    let dia = fecha.getDay() < 10 ? `0${fecha.getDay()}` : fecha.getDay();
-    let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
-    let anio = fecha.getFullYear();
-    this.fechaActual = `${anio}-${mes}-${dia}`;
+    this.fechaActual = datePipe.transform(fecha, 'yyyy-MM-dd')
   }
 
   ngOnInit(): void {
@@ -41,19 +39,18 @@ export class DetalleUsuarioComponent implements OnInit {
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
 
     this.verificarCompaniasExista();
-    
 
-      this.routerActivePrd.params.subscribe(parametros => {
-        let id = parametros["idusuario"];
-        this.insertar = id == undefined;
-        if (id != undefined) {
-          console.log("viene y recupera el usuario ");
-          this.usuariosPrd.getById(id).subscribe(datosusuario => {
-            this.objusuario = datosusuario.datos;
-            this.myForm = this.createForm((this.objusuario));
-          });
-        }
-      });
+
+    this.routerActivePrd.params.subscribe(parametros => {
+      let id = parametros["idusuario"];
+      this.insertar = id == undefined;
+      if (id != undefined) {
+        this.usuariosPrd.getById(id).subscribe(datosusuario => {
+          this.objusuario = datosusuario.datos;
+          this.myForm = this.createForm((this.objusuario));
+        });
+      }
+    });
 
 
 
@@ -67,15 +64,12 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
 
-  ngAfterViewInit(): void{
+  ngAfterViewInit(): void {
 
-    if(!this.insertar){
-
+    if (!this.insertar)
       this.nombre.nativeElement.focus();
-
-    }else{
+    else
       this.centrocliente.nativeElement.focus();
-    }
 
   }
 
@@ -115,36 +109,17 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public enviarPeticion() {
 
-    if(this.myForm.invalid){
-      this.iconType = "error";
-      this.strTitulo =  "Campos obligatorios o inválidos";
-      this.strsubtitulo = "";
-      this.modal = true;
-      this.summitenviado= true;
 
-
+    this.summitenviado = true;
+    if (this.myForm.invalid) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
-
     }
 
-    this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar los datos del usuario?";
-    this.strsubtitulo = "";
-    this.modal = true;
-  }
-
-
-  public recibir($evento: any) {
-    this.modal = false;
-    if (this.iconType == "warning") {
-      if ($evento) {
-
+    let mensaje = this.insertar ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar los datos del usuario?";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
+      if (valor) {
         let obj = this.myForm.value;
-
-
-
-
-
         let objEnviar: any = {
           nombre: obj.nombre,
           apellidoPaterno: obj.apellidoPat,
@@ -158,15 +133,9 @@ export class DetalleUsuarioComponent implements OnInit {
           }
         }
 
-
-
         if (this.insertar) {
           this.usuariosPrd.save(objEnviar).subscribe(datos => {
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => this.routerPrd.navigate(["/usuarios"]));
           });
 
         } else {
@@ -174,27 +143,15 @@ export class DetalleUsuarioComponent implements OnInit {
           objEnviar.centrocClienteId.centrocClienteId = this.objusuario.centrocClienteId.centrocClienteId;
 
           this.usuariosPrd.modificar(objEnviar).subscribe(datos => {
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.strsubtitulo = datos.mensaje
-            this.modal = true;
-
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => this.routerPrd.navigate(["/usuarios"]));
           });
         }
-
-
-
       }
-    } else {
-      this.modal = false;
+    });
 
-      if (this.iconType == "success") {
-        this.routerPrd.navigate(["/usuarios"]);
-      }
-
-    }
   }
+
+
 
 
   get f() { return this.myForm.controls; }

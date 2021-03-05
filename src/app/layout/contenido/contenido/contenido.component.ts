@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../../core/services/menu.service';
 import { menuprincipal,submenu } from '../../../core/data/estructuramenu';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-contenido',
@@ -10,10 +11,21 @@ import { menuprincipal,submenu } from '../../../core/data/estructuramenu';
 export class ContenidoComponent implements OnInit {
 
   public arreglo!: Array<menuprincipal>;
-  public modal:boolean = false;
   public mostrarmenu:boolean = false;
 
-  constructor(private menuPrd:MenuService) { }
+  
+
+  public modal = {
+     strTitulo: "",
+     iconType : "",
+     modal : false
+  }
+
+
+
+  constructor(private menuPrd:MenuService,private modalPrd:ModalService) {
+    this.modalPrd.setModal(this.modal);
+   }
 
   ngOnInit(): void {
 
@@ -40,6 +52,17 @@ export class ContenidoComponent implements OnInit {
     obj.seleccionado = true;
 
     
+  }
+
+
+  public recibir(obj:any){
+
+    this.modalPrd.recibiendomensajes(obj);
+
+  }
+
+  public mostrarVentana(){
+    this.modalPrd.showMessageDialog(this.modalPrd.success).then();
   }
 
   

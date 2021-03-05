@@ -38,9 +38,9 @@ export class TablapaginadoComponent implements OnInit {
 
   public rutaimagenes:any={
 
-    "default":'../../../assets/imgs/logo.png',
-    "usuario":'../../../assets/imgs/usuario.png',
-    "empresa":'../../../assets/imgs/empresa_03.png'
+    "default":'assets/imgs/logo.png',
+    "usuario":'assets/imgs/usuario.png',
+    "empresa":'assets/imgs/empresa_03.png'
 
   };
 

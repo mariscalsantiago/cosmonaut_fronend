@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioService } from '../../services/usuario.service';
 
 
@@ -48,10 +49,7 @@ export class UsuariosComponent implements OnInit {
   public correoempresarial: string = "";
   public activo: number = 0;
 
-  public modal: boolean = false;
-  public strTitulo: string = "";
-  public strsubtitulo: string = "";
-  public iconType: string = "";
+
 
 
 
@@ -68,7 +66,7 @@ export class UsuariosComponent implements OnInit {
   public changeIconDown: boolean = false;
 
   constructor(private routerPrd: Router, private usuariosPrd: UsuarioService,
-    private companiPrd:SharedCompaniaService) { }
+    private companiPrd: SharedCompaniaService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
 
@@ -147,11 +145,39 @@ export class UsuariosComponent implements OnInit {
 
 
     this.tipoguardad = tipoguardad;
+    let mensaje = `¿Deseas ${tipoguardad ? "activar" : "desactivar"} estos usuarios?`;
 
-    this.modal = true;
-    this.strTitulo = `¿Deseas ${tipoguardad ? "activar" : "desactivar"} estos usuarios?`;
-    this.strsubtitulo = `Una vez ${tipoguardad ? "activados" : "desactivados"} estos usuarios apareceran disponibles en el sistema`;
-    this.iconType = "warning";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor => {
+      if (valor) {
+        let arregloUsuario: any = [];
+
+        for (let item of this.arreglotemp) {
+
+          if (item["esActivo"]) {
+
+            arregloUsuario.push({ personaId: item["personaId"], activo: this.tipoguardad });
+
+          }
+        }
+
+        this.usuariosPrd.modificarListaActivos(arregloUsuario).subscribe(datos => {
+
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+
+
+
+          for (let item of arregloUsuario) {
+            for (let item2 of this.arreglotemp) {
+              if (item2.personaId === item.personaId) {
+                item2["activo"] = item["activo"];
+                item2["esActivo"] = false;
+                break;
+              }
+            }
+          }
+        });
+      }
+    });
 
 
 
@@ -217,14 +243,14 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
       this.arreglotemp = datos.datos;
-       console.log("estos son los datos",datos);
+      console.log("estos son los datos", datos);
       if (this.arreglotemp != undefined) {
         for (let item of this.arreglotemp) {
           item["centrocClienteId"] = {
             nombre: item["razonSocial"]
           }
         }
-      }else{
+      } else {
         this.arreglo = undefined;
       }
       this.paginar();
@@ -313,69 +339,6 @@ export class UsuariosComponent implements OnInit {
 
     return variable;
   }
-
-
-
-  public recibir($evento: any) {
-
-    this.modal = false;
-
-    if (this.iconType == "warning") {
-      if ($evento) {
-        let arregloUsuario: any = [];
-
-        for (let item of this.arreglotemp) {
-
-          if (item["esActivo"]) {
-
-            arregloUsuario.push({ personaId: item["personaId"], activo: this.tipoguardad });
-
-          }
-        }
-
-        this.usuariosPrd.modificarListaActivos(arregloUsuario).subscribe(datos => {
-          console.log(datos);
-
-          this.iconType = datos.resultado ? "success" : "error";
-
-          this.strTitulo = datos.mensaje;
-          this.strsubtitulo = datos.mensaje
-          this.modal = true;
-
-
-
-          for (let item of arregloUsuario) {
-
-            for (let item2 of this.arreglotemp) {
-
-              if (item2.personaId === item.personaId) {
-
-                item2["activo"] = item["activo"];
-                item2["esActivo"] = false;
-                break;
-              }
-
-            }
-
-
-          }
-
-
-        });
-
-
-      }
-    } else {
-
-    }
-
-
-  }
-
-
-
-
-
 }
 
 
