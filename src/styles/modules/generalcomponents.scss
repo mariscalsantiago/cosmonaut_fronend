@@ -300,3 +300,11 @@ form{
     background-color: $fondo;
     overflow: hidden;
 }
+
+
+.titulosfijos{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #022538;
+}

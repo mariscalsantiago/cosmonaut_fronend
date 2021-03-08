@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
@@ -10,9 +10,19 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class DetalleUsuarioComponent implements OnInit {
 
+  public tamanio:number= 0;
 
   @ViewChild("centroCliente") public centrocliente!:ElementRef;
   @ViewChild("nombre") public nombre!:ElementRef;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    event.target.innerWidth;
+
+
+    this.tamanio = event.target.innerHeight;
+    console.log(this.tamanio);
+  }
 
 
   public myForm!: FormGroup;
