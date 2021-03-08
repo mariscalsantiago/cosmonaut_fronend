@@ -52,6 +52,14 @@ html{
 
 }
 
+.content::-webkit-scrollbar{
+    width: 0 !important;
+}
+.content{
+    overflow:auto;
+}
+
+
 
 .titulo{
     color:$secondary;
