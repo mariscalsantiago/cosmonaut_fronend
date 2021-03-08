@@ -35,7 +35,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    debugger;
+    
 
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     this.myForm = this.crearForm((objdetrep));

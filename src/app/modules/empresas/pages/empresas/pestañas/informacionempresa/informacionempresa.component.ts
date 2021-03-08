@@ -91,7 +91,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-    debugger;
+    
     this.submitEnviado = true;
     let noesRFC: boolean = (this.myform.controls.regimenfiscalId.value == null || this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
 
@@ -136,7 +136,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-     debugger;
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;

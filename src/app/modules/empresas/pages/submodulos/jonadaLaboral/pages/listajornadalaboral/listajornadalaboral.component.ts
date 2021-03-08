@@ -126,7 +126,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
   apagando(indice: number) {
 
-    debugger;
+    
 
     for(let x = 0;x < this.arreglo.length; x++){
       if(x == indice)
@@ -141,7 +141,7 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
   public traerModal(indice: any) {
-    debugger;
+    
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
