@@ -1,8 +1,6 @@
+<div class="scrooll-designempresa">
 
 <div class="mt-3">
-
- 
-
   <div class="row margen">
     <div class="col titulo">
       <label>RESULTADOS</label>
@@ -17,11 +15,7 @@
     <app-tablapaginado [datos]="arreglotabla" [editar]="true" [ver]="true" [cargando]="cargando" (salida)="recibirTabla($event)">
     </app-tablapaginado>
   </div>
-
-  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
-
-
 </div>
 
 
-<app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"  (eventoFunciones)="recibir($event)" ></app-alert-questions>
+</div>

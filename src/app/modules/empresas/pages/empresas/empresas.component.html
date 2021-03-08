@@ -8,46 +8,48 @@
 
 
 
-<div class="row m-1 background-panel">
+<div class="form-desing mt-3">
+  <div class="row m-1 background-panel margen-desing">
 
 
-  <div class="col-12 margennav">
-
-      <nav class="nav-inside">
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link " (click)="empresa()" [ngClass]="{'activado':activado[0].tab}" id="nav-home-tab"  role="tab" aria-controls="nav-home" aria-selected="true">1. Datos de empresa</a>
-            <a class="nav-item nav-link " (click)="domicilio()" [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled}" id="nav-profile-tab"  role="tab" aria-controls="nav-profile" aria-selected="false">2. Domicilio y sedes</a>
-            <a class="nav-item nav-link " (click)="bancos()" [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Datos bancarios</a>
-            <a class="nav-item nav-link " (click)="imss()" [ngClass]="{'activado':activado[3].tab,'disabled':activado[3].disabled}" id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">4. Datos de IMSS</a>
-            <a class="nav-item nav-link "  [ngClass]="{'activado':activado[4].tab,'disabled':activado[4].disabled}" id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false"></a>
-            <a class="nav-item nav-link "  [ngClass]="{'activado':activado[5].tab,'disabled':activado[5].disabled}" id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false"></a>
+    <div class="col-12 mt-2 margennav">
+  
+        <nav class="nav-inside">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link " (click)="empresa()" [ngClass]="{'activado':activado[0].tab}" id="nav-home-tab"  role="tab" aria-controls="nav-home" aria-selected="true">1. Datos de empresa</a>
+              <a class="nav-item nav-link " (click)="domicilio()" [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled}" id="nav-profile-tab"  role="tab" aria-controls="nav-profile" aria-selected="false">2. Domicilio y sedes</a>
+              <a class="nav-item nav-link " (click)="bancos()" [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Datos bancarios</a>
+              <a class="nav-item nav-link " (click)="imss()" [ngClass]="{'activado':activado[3].tab,'disabled':activado[3].disabled}" id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">4. Datos de IMSS</a>
+              <a class="nav-item nav-link "  [ngClass]="{'activado':activado[4].tab,'disabled':activado[4].disabled}" id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false"></a>
+              <a class="nav-item nav-link "  [ngClass]="{'activado':activado[5].tab,'disabled':activado[5].disabled}" id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false"></a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <app-informacionempresa *ngIf="activado[0].form" (enviado)="recibir($event)" [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" [datosempresamod]="datosempresamod" [datosempresa]="datosempresa" (enviandouser)="recibiendoUserInsertado($event)"></app-informacionempresa>
+            </div>
+            <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <app-domicilio *ngIf="activado[1].form" (enviado)="recibir($event)"  [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor"  [datosempresa]="datosempresa" ></app-domicilio>
+            </div>
+            <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <app-datosbancarios *ngIf="activado[2].form" (enviado)="recibir($event)" [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" [datosempresa]="datosempresa"></app-datosbancarios>
+            </div>
+            <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel" aria-labelledby="nav-empleo-tab">
+                <app-datosimss *ngIf="activado[3].form" (enviado)="recibir($event)" [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" [datosempresa]="datosempresa"></app-datosimss>
+            </div>
+            <div class="tab-pane fade" [ngClass]="{'show active':activado[4].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <app-sede *ngIf="activado[4].form" (enviado)="recibir($event)"  [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor"  [datosempresa]="datosempresa" ></app-sede>
           </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <app-informacionempresa *ngIf="activado[0].form" (enviado)="recibir($event)" [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" [datosempresamod]="datosempresamod" [datosempresa]="datosempresa" (enviandouser)="recibiendoUserInsertado($event)"></app-informacionempresa>
-          </div>
-          <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <app-domicilio *ngIf="activado[1].form" (enviado)="recibir($event)"  [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor"  [datosempresa]="datosempresa" ></app-domicilio>
-          </div>
-          <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-              <app-datosbancarios *ngIf="activado[2].form" (enviado)="recibir($event)" [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" [datosempresa]="datosempresa"></app-datosbancarios>
-          </div>
-          <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel" aria-labelledby="nav-empleo-tab">
-              <app-datosimss *ngIf="activado[3].form" (enviado)="recibir($event)" [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor" [datosempresa]="datosempresa"></app-datosimss>
-          </div>
-          <div class="tab-pane fade" [ngClass]="{'show active':activado[4].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <app-sede *ngIf="activado[4].form" (enviado)="recibir($event)"  [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor"  [datosempresa]="datosempresa" ></app-sede>
+          <div class="tab-pane fade" [ngClass]="{'show active':activado[5].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <app-cuentas *ngIf="activado[5].form" (enviado)="recibir($event)"  [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor"  [datosempresa]="datosempresa" ></app-cuentas>
         </div>
-        <div class="tab-pane fade" [ngClass]="{'show active':activado[5].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-          <app-cuentas *ngIf="activado[5].form" (enviado)="recibir($event)"  [alerta]="alerta" [enviarPeticion]="enviarPeticion"  [cambiaValor]="cambiaValor"  [datosempresa]="datosempresa" ></app-cuentas>
-      </div>
-        </div>
+          </div>
+    </div>
+  
+  
+  
+  
   </div>
-
-
-
-
 </div>
 
 

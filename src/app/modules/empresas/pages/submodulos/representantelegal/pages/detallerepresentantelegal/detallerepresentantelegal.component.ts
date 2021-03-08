@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { RepresentanteLegalService } from '../services/representantelegal.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-detallerepresentantelegal',
@@ -11,16 +12,13 @@ import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.se
 })
 export class DetallerepresentantelegalComponent implements OnInit {
 
-  @ViewChild("nombre") public nombre!:ElementRef;
+  @ViewChild("nombre") public nombre!: ElementRef;
 
   public myFormrep!: FormGroup;
   public arreglo: any = [];
   public arreglonacionalidad: any = [];
-  public modal: boolean = false;
   public insertar: boolean = false;
-  public iconType: string = "";
   public fechaActual: string = "";
-  public strTitulo: string = "";
   public nacionalidad: string = "";
   public objdetrep: any;
   public cargando: Boolean = false;
@@ -33,12 +31,11 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private representantePrd: RepresentanteLegalService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router, private catalogosPrd: CatalogosService) {
+    private routerPrd: Router, private catalogosPrd: CatalogosService,
+    private modalPrd: ModalService) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
-      this.strTitulo = (this.insertar) ? "¿Deseas registrar el representante legal?" : "¿Deseas actualizar los datos del representante legal?";
-
       this.centrocClienteId = datos["id"];
 
     });
@@ -55,7 +52,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
 
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     if (this.insertar) {
@@ -69,7 +66,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
   }
 
-  ngAfterViewInit(): void{
+  ngAfterViewInit(): void {
 
     this.nombre.nativeElement.focus();
 
@@ -122,35 +119,16 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
     if (this.myFormrep.invalid) {
 
-      this.iconType = "error";
-      this.strTitulo = "Campos obligatorios o inválidos";
-      this.modal = true;
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
 
       return;
     }
 
-    this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Desea registrar el representante legal" : "¿Desea actualizar los datos del representante legal?";
-    this.modal = true;
-  }
-
-
-  public redirect(obj: any) {
-    this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/representantelegal"]);
-
-  }
-  public recibirTabla(obj:any){
+    const titulo = (this.insertar) ? "¿Desea registrar el representante legal" : "¿Desea actualizar los datos del representante legal?";
     
-    if(obj.type == "editar"){
-      this.routerPrd.navigate(['company','detalle_company','modifica'],{state:{datos:obj.datos}});
-    }
-  }
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
 
-  public recibir($evento: any) {
-
-    this.modal = false;
-    if (this.iconType == "warning") {
-      if ($evento) {
         let obj = this.myFormrep.value;
 
 
@@ -176,33 +154,45 @@ export class DetallerepresentantelegalComponent implements OnInit {
         if (this.insertar) {
 
           this.representantePrd.save(objEnviar).subscribe(datos => {
-            
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+
+           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+             if(datos.resultado){
+              this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/representantelegal"]);
+             }
+           });
 
           });
 
         } else {
-          
+
           objEnviar.personaId = obj.personaId;
 
           this.representantePrd.modificar(objEnviar).subscribe(datos => {
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+               this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/representantelegal"]);
+              }
+            });
           });
         }
 
       }
-    } else {
-      if (this.iconType == "success") {
-        this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/representantelegal"]);
-      }
+    });
 
-      this.modal = false;
+  }
+
+
+  public redirect(obj: any) {
+    this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/representantelegal"]);
+
+  }
+  public recibirTabla(obj: any) {
+
+    if (obj.type == "editar") {
+      this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
     }
   }
+
   get f() { return this.myFormrep.controls; }
 
 

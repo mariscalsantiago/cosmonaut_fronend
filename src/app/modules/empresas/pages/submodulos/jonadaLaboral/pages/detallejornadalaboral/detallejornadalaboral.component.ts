@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { JornadalaboralService } from '../../services/jornadalaboral.service';
 
 @Component({
@@ -11,10 +12,6 @@ import { JornadalaboralService } from '../../services/jornadalaboral.service';
 })
 export class DetallejornadalaboralComponent implements OnInit {
   @ViewChild("nombre") public nombre!:ElementRef;
-  public modal: boolean = false;
-  public strTitulo: string = "";
-  public iconType: string = "";
-
   public myForm!: FormGroup;
 
   public submitInvalido: boolean = false;
@@ -28,7 +25,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   constructor(private formbuilder: FormBuilder, private activeprd: ActivatedRoute,
     private routerPrd: Router, private jornadaPrd: JornadalaboralService,
-    private catalogosPrd:CatalogosService) { 
+    private catalogosPrd:CatalogosService,private modalPrd:ModalService) { 
 
       this.activeprd.params.subscribe(datos => {
         this.esInsert = (datos["tipoinsert"] == 'nuevo');
@@ -84,14 +81,25 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
 
-  public recibir($event: any) {
-debugger;
-
-    this.modal = false;
+  
 
 
-    if (this.iconType == "warning") {
-      if ($event) {
+  public enviarPeticion() {
+
+
+
+
+    this.submitInvalido = true;
+    if (this.myForm.invalid) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
+
+    }
+
+    const titulo = this.esInsert ? "¿Deseas registrar la jornada laboral?" : "¿Deseas actualizar los datos de la jornada laboral?";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
+
 
         let obj = this.myForm.value;
 
@@ -128,10 +136,11 @@ debugger;
 
           this.jornadaPrd.save(this.peticion).subscribe(datos => {
 
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+             if(datos.resultado){
+              this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);
+             }
+           });
 
           });
         } else {
@@ -140,48 +149,18 @@ debugger;
 
           this.jornadaPrd.modificar(this.peticion).subscribe(datos => {
 
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+               this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);
+              }
+            });
 
           });
 
         }
-
       }
-
-
-    } else {  
-      this.modal = false;
-
-      if (this.iconType == "success") {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);
-      }
-    }
-  }
-
-
-  public enviarPeticion() {
-
-
-
-
-    this.submitInvalido = true;
-    if (this.myForm.invalid) {
-      this.iconType = "error";
-      this.strTitulo = "Campos obligatorios o inválidos";
-      this.modal = true;
-      return;
-
-    }
-
-
-
-    this.iconType = "warning";
-    this.strTitulo = (this.esInsert) ? "¿Deseas registrar la jornada laboral?" : "¿Deseas actualizar los datos de la jornada laboral?";
-  
-    this.modal = true;
+    });
+    
 
   }
 

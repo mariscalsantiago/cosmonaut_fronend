@@ -1,6 +1,6 @@
 <div class="contenido_component">
 
-    <div class="wrapper" style="position: relative;">
+    <div class="wrapper" >
         <div (click)="mostrarmenu = false" class="backgroundresponsive" [ngClass]="{'backgroundresponsive':mostrarmenu}"></div>
         <nav id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
             <div class="col-2 responsivo" ><button style="    margin-left: 16px;
@@ -27,19 +27,9 @@
             </ul>
         </nav>
         <div id="contenido" class="content"  style="position: relative;">
-            <nav class="navbar navbar-expand-lg navbar-light">
-            
-                <div class="col-2 responsivo"><button (click)="mostrarmenu = true" >
-                    <i class="fas fa-bars"></i>
-                </button></div>
-                <div class="col-2 aparece-desktop"></div>
-                <div class="col-5"></div>
-                <div class="col-5 text-right">
-                    <!-- <button><i class="fas fa-search"></i></button>
-                    <button><i class="fas fa-question"></i></button> -->
-                </div>
-            </nav>
-            <div class="container content-inside">
+            <div class="container-fluid" style="height: 100%;
+            overflow: hidden;
+            position: absolute;padding-top: 20px;">
                 <router-outlet></router-outlet>
 
                 <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>

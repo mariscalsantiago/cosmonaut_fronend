@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PuestosService } from '../services/puestos.service';
 
 @Component({
@@ -15,12 +16,10 @@ export class DetallepuestosComponent implements OnInit {
   public myForm!: FormGroup;
   public arreglo: any = [];
   public arreglodetalle: any = [];
-  public modal: boolean = false;
+
   public modalpuesto: boolean = false;
   public insertar: boolean = false;
   public listpuesto: boolean = true;
-  public iconType: string = "";
-  public strTitulo: string = "";
   public objdetrep: any;
   public cargando: Boolean = false;
   public empresas: any;
@@ -39,7 +38,7 @@ export class DetallepuestosComponent implements OnInit {
   public submitEnviado:boolean = false;
 
   constructor(private formBuilder: FormBuilder, private puestosPrd: PuestosService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router) {
+    private routerPrd: Router,private modalPrd:ModalService) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -186,33 +185,18 @@ export class DetallepuestosComponent implements OnInit {
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
-      this.iconType = "error";
-      this.strTitulo = "Campos obligatorios o inválidos";
-      this.modal = true;
+     
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
 
     }
 
+    const titulo = (this.insertar) ? "¿Deseas registrar el área?" : "¿Deseas actualizar los datos del área?";
+    
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
 
-    this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el área?" : "¿Deseas actualizar los datos del área?";
-    this.modal = true;
-  }
+      if(valor){
 
-
-
-  public redirect(obj: any) {
-    this.modal = true;
-    this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area"]);
-    this.modal = false;
-
-  }
-
-  public recibir($evento: any) {
-
-    this.modal = false;
-    if (this.iconType == "warning") {
-      if ($evento) {
         let obj = this.myForm.value;
 
         let objEnviar: any = {
@@ -231,9 +215,11 @@ export class DetallepuestosComponent implements OnInit {
         if (this.insertar) {
           this.puestosPrd.save(objEnviar).subscribe(datos => {
 
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+             if(datos.resultado){
+              this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area"]);
+             }
+           });
 
           });
 
@@ -250,23 +236,28 @@ export class DetallepuestosComponent implements OnInit {
               ]
           }
           this.puestosPrd.modificar(objEnviarMod).subscribe(datos => {
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+               this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area"]);
+              }
+            });
 
 
           });
         }
-
-      }
-    } else {
-      if (this.iconType == "success") {
-        this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area"]);
       }
 
-      this.modal = false;
-    }
+    });;
+
   }
+
+
+
+  public redirect(obj: any) {
+    this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area"]);
+    }
+
+  
   get f() { return this.myForm.controls; }
 
 

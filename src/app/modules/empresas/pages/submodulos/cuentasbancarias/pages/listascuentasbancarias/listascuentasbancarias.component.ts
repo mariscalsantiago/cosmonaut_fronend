@@ -16,9 +16,6 @@ export class ListascuentasbancariasComponent implements OnInit {
 
 
 
-  public strTitulo: string = "";
-  public modal: boolean = false;
-  public iconType: string = "";
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -109,40 +106,9 @@ export class ListascuentasbancariasComponent implements OnInit {
 
 
   public obj: any;
-  public eliminar(obj: any) {
+ 
 
-
-    this.strTitulo = "¿Deseas eliminar la cuenta bancaria?";
-    this.iconType = "warning";
-    this.modal = true;
-
-    this.obj = obj;
-
-  }
-
-  public recibir($event: any) {
-
-    this.modal = false;
-
-
-    let objenviar = {
-      clabe:this.obj.clabe
-    }
-
-    console.log(objenviar);
-
-   
-
-    if (this.iconType == "warning") {
-      if ($event) {
-        this.cuentasPrd.eliminar(objenviar).subscribe(datos => {
-          this.strTitulo = datos.mensaje;
-          this.iconType = datos.resultado ? "success" : "error";
-          this.modal = true;
-        });
-      }
-    }
-  }
+  
 
   public recibirTabla(obj:any){
     switch(obj.type){
@@ -151,7 +117,7 @@ export class ListascuentasbancariasComponent implements OnInit {
         this.verdetalle(obj.datos);
         break;
         case "eliminar":
-          this.eliminar(obj.datos);
+          //eliminar método
           break;
 
     }
