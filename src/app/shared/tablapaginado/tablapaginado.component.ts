@@ -49,6 +49,7 @@ export class TablapaginadoComponent implements OnInit {
 
   ngOnInit(): void {
 
+   
 
   }
 
@@ -66,10 +67,12 @@ export class TablapaginadoComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
 
-   
+  
 
     if (this.datos.filas !== undefined) {
       this.arreglotemp = this.datos.filas;
+      console.log("paginas a paginas",this.arreglotemp);
+      console.log("sdkifjsdf",this.datos);
       this.paginar();
 
     }else{

@@ -159,7 +159,8 @@ export class ListaempleadosComponent implements OnInit {
         new tabla("puesto", "Puesto"),
         new tabla("area", "Área"),
         new tabla("sede", "Sede"),
-        new tabla("estatus", "Estatus")
+        new tabla("estatus", "Estatus"),
+        new tabla("porcentaje","Porcentaje de avance")
       ];
 
       if(datos.datos !== undefined){
