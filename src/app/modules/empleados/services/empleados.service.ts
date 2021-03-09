@@ -30,6 +30,23 @@ export class EmpleadosService {
 
   }
 
+  public saveBaja(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+    let json = JSON.stringify(obj);
+
+    console.log(json);
+
+    return this.http.post(`${direcciones.contratoColaborador}/guardar/baja`, json, httpOptions);
+
+  }
+
   public getEmpleadosCompania(idCompania: number): Observable<any> {
 
 
@@ -58,7 +75,16 @@ export class EmpleadosService {
     return this.http.post(`${direcciones.usuarios}/modificar/empleado`, json, httpOptions);
   }
 
+  public empleadoListCom(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.usuarios}/lista/compania/tipoPersona`, json, httpOptions);
+  }
 
   public filtrar(obj:any):Observable<any>{
     const httpOptions = {

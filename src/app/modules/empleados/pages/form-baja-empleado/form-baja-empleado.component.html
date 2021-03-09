@@ -1,95 +1,121 @@
-<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
-    <div class="m-3">
-        <div class="row">
-            <div class="col titulo-outlet">
-                <label>BAJA DE EMPLEADO</label>
-            </div>
-        </div>
+<div class="row margen">
+    <div class="col titulo-outlet">
+      <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/company"></i>BAJA DE EMPLEADOS</label>
     </div>
-    
-    
-    <div class="background-panel">
-        <br>
-        <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE BAJA</label></div>
-        <div class="form-group row margen">
-    
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Seleccionar al empleado *</label>
-                <select name="" id="" class="form-control">
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                </select>
-                <div class="invalid-feedback">
+  </div>
+  
+  
+  <hr>
+  
+  
+  <form [formGroup]="myFormcomp" (ngSubmit)="enviarPeticion()">
+  
+    <input type="hidden" >
+  
+    <div class="background-panel margen">
+    <br>
+      <div class="form-group row margen">
+        <label class="titulo">INFORMACIÓN PARA BAJA DE EMPLEADO</label>
+      </div>
+      <div class="form-group row margen">
+  
+          <div class="col-12 col-md-12 col-xl-11">
+            <div class="row">
+                <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label>Seleccionar al empleado *</label>
+                    <select formControlName="personaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}">
+                        <option value=""></option>
+                        <option *ngFor="let item of arregloempleados"  [value]="item.personaId">{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</option>
+                    </select>
+                    <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                      </div>
+                </div>
+                <!--<div class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label for="exampleFormControlSelect1">Seleccionar al empleado*</label>
+                    <input list="empleados" class="form-control" formControlName="personaId"
+                        name="browser" id="browser">
+
+                    <datalist id="empleados">
+                        <option *ngFor="let item of arregloempleados" [value]="item.nombre">{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</option>
+                    </datalist>
+                </div>-->
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label>Tipo de baja *</label>
+                    <select formControlName="tipoBajaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoBajaId.errors && submitEnviado}">
+                        <option value=""></option>
+                        <option *ngFor="let item of arregloTipoBaja"  [value]="item.tipoBajaId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.tipoBajaId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                      </div>
+                </div>
+                <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label >Motivo de salida*</label>
+                    <select formControlName="motivoBajaId" type="text" [ngClass]="{'is-invalid':f.motivoBajaId.errors && submitEnviado}" class="form-control" >
+                        <option value=""></option>
+                        <option *ngFor="let item of arregloMotivoBaja"  [value]="item.motivoBajaId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.motivoBajaId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                      </div>
+                </div>
+
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label>Último día de baja*</label>
+                   <input formControlName="ultimoDia" type="date" [ngClass]="{'is-invalid':f.ultimoDia.errors && submitEnviado}" class="form-control">
+                   <div *ngIf="f.ultimoDia.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
+                  </div>
                 </div>
-            </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Tipo de baja *</label>
-                <select name="" id="" class="form-control">
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                </select>
-                <div class="invalid-feedback">
-                    Campo requerido
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-12">
+                    <label>Notas</label>
+                   <textarea type="text-right" maxlength="512" class="form-control">
+                   </textarea>
                 </div>
-            </div>
-            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                <label >Fecha para cálculo</label>
-                <div>
-                    <input  value="true"  type="radio" name="tieneHijos" id="si" class="">
-                    <label for="si">*Fecha de antigüedad</label>
-                </div>
-                <div>
-                    <input   value="false"  type="radio" name="tieneHijos" id="no" class="">
-                    <label for="no">*Fecha de inicio de contrato</label>
-                </div>
-            </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Motivo de salida*</label>
-                <select name="" id="" class="form-control">
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                </select>
-                <div class="invalid-feedback">
-                    Campo requerido
-                </div>
-            </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Último día de baja*</label>
-               <input type="date" name="" id="" class="form-control">
-                <div class="invalid-feedback">
-                    Campo requerido
-                </div>
-            </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Notas</label>
-               <input type="text" name="" id="" class="form-control">
-            </div>
-            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                <label>Pagos que se harán por liquidación:</label>
-                <div>
-                    <input  value="true"  type="checkbox" name="tieneHijos" id="si" class="">
-                    <label for="si">*Prima de antigüedad</label>
-                </div>
-                <div>
-                    <input   value="false"  type="checkbox" name="tieneHijos" id="no" class="">
-                    <label for="no">*Prima de antigüedad                </label>
-                </div>
-                <div>
-                    <input   value="false"  type="checkbox" name="tieneHijos" id="no" class="">
-                    <label for="no">*Indemnización 20 días por año</label>
-                </div>
-            </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                    <label>Pagos que se harán por liquidación:</label>
+
+                    <label class="contenedorInputCheckRadio">Prima de antigüedad *
+                        <input value="1" formControlName="pagosXliquidacionId" type="radio" name="pagosXliquidacionId" id="">
+                        <span class="checkmark"></span>
+                      </label>
+                    <label class="contenedorInputCheckRadio">Indemnización 90 días *
+                            <input value="2" formControlName="pagosXliquidacionId" type="radio" name="pagosXliquidacionId" id="">
+                            <span class="checkmark"></span>
+                        </label>
+                    <label class="contenedorInputCheckRadio">Indemnización 20 días por año *
+                                <input value="3" formControlName="pagosXliquidacionId" type="radio" name="pagosXliquidacionId" id="">
+                                <span class="checkmark"></span>
+                        </label>
     
-        </div>
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                    <label >Fecha para cálculo</label>
+                    <label class="contenedorInputCheckRadio"> Fecha de antigüedad *
+                        <input  value="antiguedad" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" id="">
+                        <span class="radiomark"></span>
+                      </label>
+          
+                      <label class="contenedorInputCheckRadio"> Fecha de inicio de contrato *
+                        <input value="contrato" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id="">
+                        <span class="radiomark"></span>
+                      </label>
+                </div>
+              
+
+            </div>
+          </div>
+      </div>
+  
     </div>
-    
-    <div class="text-right margin" style="margin-bottom: 20px;">
-    
-        <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-        <button  type="submit"  class="btn btn-primary button-fill">Guardar</button>
+    <div class="text-right margen" style="margin-bottom: 20px;">
+      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
+        (click)="cancelarcomp()">Cancelar</button>
+      <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
     </div>
-</form>
+  
+  </form>
+  
+  
+ 

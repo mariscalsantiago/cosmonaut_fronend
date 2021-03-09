@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UsuarioService } from 'src/app/modules/usuarios/services/usuario.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { EmpleadosService } from '../../services/empleados.service';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-form-baja-empleado',
@@ -8,25 +13,159 @@ import { Router } from '@angular/router';
   styleUrls: ['./form-baja-empleado.component.scss']
 })
 export class FormBajaEmpleadoComponent implements OnInit {
-  public myForm!:FormGroup;
+  @ViewChild("nombre") nombre: any;
 
-  constructor(private routerPrd:Router,private formBuilder:FormBuilder) { }
+  public myFormcomp!: FormGroup;
+  public arreglo: any = [];
+  public insertar: boolean = false;
+  public objCompany: any = [];
+
+  public cargando: Boolean = false;
+  public submitEnviado: boolean = false;
+  public estatus: boolean = true;
+  public arregloMotivoBaja: any = [];
+  public arregloTipoBaja: any = []; 
+  public arregloempleados: any = [];
+  public fechaContrato = new Date();
+  public fechaUltimo: string = "";
+  
+
+
+  constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute,
+    private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
+    private catalogosPrd:CatalogosService, private EmpleadosService:EmpleadosService) {
+  }
 
   ngOnInit(): void {
-    let obj = {};
-    this.myForm = this.createForm(obj);
-  }
 
-  public createForm(obj:any){
-    return this.formBuilder.group({});
-  }
+    this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
 
-  public cancelar(){
-    this.routerPrd.navigate(['/empleados']);
-  }
+    let objEnviar: any = {
 
-  public enviarFormulario(){
+      centrocClienteId: {
+        centrocClienteId:this.usuarioSistemaPrd.getIdEmpresa(),
+      },
+      tipoPersonaId: {
+        tipoPersonaId: 5
+      }
+    }
+    this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
+    console.log("Empleados",this.arregloempleados)
+    this.catalogosPrd.getMotivoBajaEmpleado(this.estatus).subscribe(datos => this.arregloMotivoBaja = datos.datos);
+    this.catalogosPrd.getTipoBajaEmpleado(this.estatus).subscribe(datos => this.arregloTipoBaja = datos.datos);
+
     
+
+    this.routerActivePrd.params.subscribe(datos => {
+      this.insertar = (datos["tipoinsert"] == 'nuevo');
+      if (!this.insertar) {
+      }
+
+
+      
+
+      this.myFormcomp = this.createFormcomp((this.objCompany));
+    });
+
+
   }
+
+  ngAfterViewInit(): void {
+
+    this.nombre.nativeElement.focus();
+
+  }
+
+
+  public createFormcomp(obj: any) {
+
+    return this.formBuilder.group({
+
+      personaId: [obj.personaId, [Validators.required]],
+      tipoBajaId: [obj.tipoBajaId, [Validators.required]],
+      motivoBajaId: [obj.motivoBajaId, [Validators.required]],
+      ultimoDia: [obj.ultimoDia, [Validators.required]],
+      calculoAntiguedadx: [obj.calculoAntiguedadx],
+      pagosXliquidacionId: [obj.pagosXliquidacionId],
+
+
+
+    });
+  }
+
+  public subirarchivos() {
+
+  }
+
+
+  public enviarPeticion() {
+    debugger;
+    this.submitEnviado = true;
+    if (this.myFormcomp.invalid) {     
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
+    }
+
+    let mensaje = "¿Deseas dar de baja el empleado?";
+    
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
+debugger;
+      if(valor){
+        let obj = this.myFormcomp.value;
+        for (let item of this.arregloempleados){
+          if(item.personaId == obj.personaId){
+                this.fechaContrato = item.fechaAlta
+              }
+        }
+
+        let fechar = "";
+        let arre = obj.ultimoDia.split('-');
+        fechar = arre[2] + "/" + arre[1] + "/" + arre[0];
+        
+        let antiguedad = obj.calculoAntiguedadx == "contrato"?"C":"A";
+        
+        let objEnviar: any ={
+          fechaContrato: this.fechaContrato,
+          personaId: {
+              personaId: obj.personaId
+          },
+          centrocClienteId: {
+              centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
+          },
+          tipoBajaId: {
+              tipoBajaId: obj.tipoBajaId
+          },
+          motivoBajaId: {
+              motivoBajaId: obj.motivoBajaId
+          },
+          pagosXliquidacionId: {
+              pagosXliquidacionId: obj.pagosXliquidacionId
+          },
+          ultimoDia: fechar,
+          fechaParaCalculo: antiguedad
+      }
+
+          debugger;
+          this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
+
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
+              .then(()=> this.routerPrd.navigate(['/empleado'], { state: { datos: undefined } }));
+
+            //this.compania = !datos.resultado;
+
+          });
+
+     }
+
+    });
+
+  }
+
+  public cancelarcomp() {
+    this.routerPrd.navigate(['/empleado']);
+  }
+
+  get f() { return this.myFormcomp.controls; }
+
 
 }

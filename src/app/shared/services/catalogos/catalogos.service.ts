@@ -123,8 +123,19 @@ export class CatalogosService {
 
     return this.http.get(`${this.url}/csTipoJornada/listar/todos`);
 
+  } 
+
+  public getMotivoBajaEmpleado(estatus:boolean):Observable<any>{
+
+    return this.http.get(`${this.url}/catMotivoBaja/listar/todosActivo/${estatus}`);
+
   }
 
+  public getTipoBajaEmpleado(estatus:boolean):Observable<any>{
+
+    return this.http.get(`${this.url}/tipoBaja/listar/todosActivo/${estatus}`);
+
+  }
 
 
 }

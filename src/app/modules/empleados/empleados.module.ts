@@ -14,9 +14,9 @@ import { EmpleoComponent } from './pages/form-empleado/pestañas/empleo/empleo.c
 import { DetalleComponent } from './pages/form-empleado/pestañas/detalle/detalle.component';
 import { FormBajaEmpleadoComponent } from './pages/form-baja-empleado/form-baja-empleado.component';
 
-
 @NgModule({
-    declarations: [ListaempleadosComponent, EmpleadoComponent, FormEmpleadoComponent, InformacionbasicaComponent, DomicilioComponent, PreferenciasComponent, EmpleoComponent, DetalleComponent, FormBajaEmpleadoComponent],
+    declarations: [ListaempleadosComponent, EmpleadoComponent, FormEmpleadoComponent, InformacionbasicaComponent, DomicilioComponent, PreferenciasComponent, EmpleoComponent,
+                   DetalleComponent, FormBajaEmpleadoComponent],
     imports: [
       CommonModule,
       empleadosRoutingModule,
