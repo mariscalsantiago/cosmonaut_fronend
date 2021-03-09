@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PuestosService } from '../services/puestos.service';
 
 @Component({
@@ -10,10 +11,8 @@ import { PuestosService } from '../services/puestos.service';
 })
 export class ListapuestosComponent implements OnInit {
 
-  public modal: boolean = false;
+  
   public insertar: boolean = false;
-  public iconType: string = "";
-  public strTitulo: string = "";
   public tamanio: number = 0;
   public cargando: Boolean = false;
   public id_empresa: number = 0;
@@ -44,7 +43,8 @@ export class ListapuestosComponent implements OnInit {
   public arreglo: any = [];
   public arreglodetalle: any = [];
 
-  constructor(private routerPrd: Router, private puestosProd: PuestosService, private CanRouterPrd: ActivatedRoute) { }
+  constructor(private routerPrd: Router, private puestosProd: PuestosService, private CanRouterPrd: ActivatedRoute,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -96,9 +96,29 @@ export class ListapuestosComponent implements OnInit {
       centrocClienteId: obj.nclCentrocCliente.centrocClienteId
     }
 
-    this.modal = true;
-    this.strTitulo = "¿Deseas eliminar el área?";
-    this.iconType = "warning";
+    
+    const titulo = "¿Deseas eliminar el área?";
+    
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+
+      if(valor){
+
+
+        this.puestosProd.eliminar(this.objEnviar).subscribe(datos => {
+         
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+          //if (resultado) {
+
+            this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
+              this.arreglo = datos.datos;
+
+            });
+          //}
+
+        });
+      }
+
+      });
 
   }
 
@@ -178,33 +198,6 @@ export class ListapuestosComponent implements OnInit {
     });
   }
 
-  public recibir($evento: any) {
-
-    this.modal = false;
-    if (this.iconType == "warning") {
-
-      if ($evento) {
-
-        this.puestosProd.eliminar(this.objEnviar).subscribe(datos => {
-          let mensaje = datos.mensaje;
-          let resultado = datos.resultado;
-          this.iconType = resultado ? "success" : "error";
-          this.strTitulo = mensaje;
-          this.modal = true;
-          //if (resultado) {
-
-            this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
-              this.arreglo = datos.datos;
-
-            });
-          //}
-
-        });
-
-      }
-    }
-
-  }
 
 
   public recibirTabla(obj: any) {

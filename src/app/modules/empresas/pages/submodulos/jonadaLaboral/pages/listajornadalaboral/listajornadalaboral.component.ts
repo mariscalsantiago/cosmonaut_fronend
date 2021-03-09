@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { element } from 'protractor';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { JornadalaboralService } from '../../services/jornadalaboral.service';
 
 @Component({
@@ -22,11 +23,6 @@ export class ListajornadalaboralComponent implements OnInit {
   public modalWidth: string = "55%";
   public cargandodetallegrupo:boolean = false;
 
-
-  public modal: boolean = false;
-  public strTitulo: string = "";
-  public iconType: string = "";
-  public strsubtitulo: string = "";
   public indexSeleccionado: number = 0;
 
 
@@ -55,7 +51,7 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
   constructor(private jornadaPrd: JornadalaboralService, private routerPrd: Router,
-    private routerActive: ActivatedRoute) { }
+    private routerActive: ActivatedRoute,private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -90,7 +86,6 @@ export class ListajornadalaboralComponent implements OnInit {
 
   public eliminar(obj: any) {
 
-    debugger;
     this.objEnviar = {
       jornadaId: obj.jornadaId,
       centrocClienteId: {
@@ -98,29 +93,40 @@ export class ListajornadalaboralComponent implements OnInit {
       }
     }
 
-    this.modal = true;
-    this.strTitulo = "¿Deseas eliminar el grupo de nómina?";
-    //this.strsubtitulo = "Estas a punto de borrar un grupo de nómina";
-    this.iconType = "warning";
+  
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar el grupo de nómina?").then(valor =>{
+      if(valor){
+
+
+        this.jornadaPrd.eliminar(this.objEnviar).subscribe(datos => {
+          
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+
+          if(datos.resultado){
+            this.arreglo.splice(this.indexSeleccionado,1);
+          }
+
+
+        });
+      }
+    });
 
 
 
   }
 
   public verdetalle(obj: any) {
-
-debugger;
     if (obj == undefined) {
       this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'jornadalaboral', 'nuevo']);
     } else {
       this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'jornadalaboral', 'editar'], { state: { data: obj } });
     }
-
   }
 
   apagando(indice: number) {
 
-    debugger;
+    
 
     for(let x = 0;x < this.arreglo.length; x++){
       if(x == indice)
@@ -135,7 +141,7 @@ debugger;
   }
 
   public traerModal(indice: any) {
-    debugger;
+    
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -173,49 +179,13 @@ debugger;
       this.cargandodetallegrupo = false;
 
 
-      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;
-
-
-      console.log("empleados",this.arreglodetalle);
-      
+      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;      
 
     });
 
   }
 
 
-  public recibir($evento: any) {
-
-    this.modal = false;
-    if (this.iconType == "warning") {
-
-      if ($evento) {
-
-        this.jornadaPrd.eliminar(this.objEnviar).subscribe(datos => {
-          let mensaje = datos.mensaje;
-          let resultado = datos.resultado;
-
-          this.strTitulo = mensaje;
-          this.iconType = resultado ? "success" : "error";
-
-          this.modal = true;
-
-          if(resultado){
-
-
-            this.arreglo.splice(this.indexSeleccionado,1);
-
-
-          }
-
-
-        });
-
-      }
-
-    }
-
-
-  }
+ 
 
 }

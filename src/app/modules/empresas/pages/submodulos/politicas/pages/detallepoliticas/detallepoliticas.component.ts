@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PoliticasService } from '../services/politicas.service';
 
 @Component({
@@ -12,10 +13,7 @@ export class DetallepoliticasComponent implements OnInit {
   @ViewChild("nombre") public nombre!:ElementRef;
   public myFormpol!: FormGroup;
   public arreglo: any = [];
-  public modal: boolean = false;
   public insertar: boolean = false;
-  public iconType: string = "";
-  public strTitulo: string = "";
   public cargando: Boolean = false;
 
   public submitEnviado: boolean = false;
@@ -24,7 +22,7 @@ export class DetallepoliticasComponent implements OnInit {
   public calculoAntiguedadx: number = 0;
 
   constructor(private formBuilder: FormBuilder, private politicasPrd: PoliticasService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router) {
+    private routerPrd: Router,private modalPrd:ModalService) {
     
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -76,35 +74,17 @@ export class DetallepoliticasComponent implements OnInit {
 
     this.submitEnviado = true;
     if (this.myFormpol.invalid) {
-      this.iconType = "error";
-      this.strTitulo = "Campos obligatorios o inválidos";
-      this.modal = true;
+     
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
 
     }
 
 
+    const titulo = (this.insertar) ? "¿Deseas registrar la política" : "¿Deseas actualizar los datos de la política?";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
 
-    this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar la política" : "¿Deseas actualizar los datos de la política?";
-    this.modal = true;
-  }
-
-
-  public redirect(obj: any) {
-    
-    this.modal = true;
-    this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/politicas"]);
-    this.modal = false;
-
-
-  }
-
-  public recibir($evento: any) {
-    
-    this.modal = false;
-    if (this.iconType == "warning") {
-      if ($evento) {
         let obj = this.myFormpol.value;
         let antiguedad = obj.calculoAntiguedadx == "contrato"?"C":"A";
         if(antiguedad == "C"){
@@ -136,10 +116,11 @@ export class DetallepoliticasComponent implements OnInit {
 
           this.politicasPrd.save(objEnviar).subscribe(datos => {
 
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/politicas"]);
+              }
+            });
 
 
           });
@@ -176,22 +157,24 @@ export class DetallepoliticasComponent implements OnInit {
             ]
           }
           this.politicasPrd.modificar(objEnviar).subscribe(datos => {
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+           
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/politicas"]);
+              }
+            });
 
 
           });
         }
 
       }
-    } else {
-      if (this.iconType == "success") {
-        this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/politicas"]);
-      }
+    });
+  }
 
-      this.modal = false;
-    }
+
+  public redirect(obj: any) {
+    this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/politicas"]);
   }
   get f() { return this.myFormpol.controls; }
 

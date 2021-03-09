@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { CuentasbancariasService } from '../../services/cuentasbancarias.service';
 
 @Component({
@@ -10,13 +11,10 @@ import { CuentasbancariasService } from '../../services/cuentasbancarias.service
   styleUrls: ['./detallecuentasbancarias.component.scss']
 })
 export class DetallecuentasbancariasComponent implements OnInit {
-  @ViewChild("nombre") public nombre!:ElementRef;
+  @ViewChild("nombre") public nombre!: ElementRef;
 
   public mostrartooltip: boolean = false;
-  public iconType: string = "";
   public myForm!: FormGroup;
-  public modal: boolean = false;
-  public strTitulo: string = "";
   public id_empresa: number = 0;
   public esInsert: boolean = false;
   public cuenta: any;
@@ -24,7 +22,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
   public submitInvalido: boolean = false;
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
     private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService,
-    private catalogosPrd: CatalogosService) { }
+    private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
 
@@ -58,7 +56,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
   }
 
-  ngAfterViewInit(): void{
+  ngAfterViewInit(): void {
 
     this.nombre.nativeElement.focus();
 
@@ -75,9 +73,9 @@ export class DetallecuentasbancariasComponent implements OnInit {
       idbanco: [obj.bancoId.bancoId, [Validators.required]],
       descripcion: [obj.descripcion],
       num_informacion: [obj.numInformacion],
-      clabe: [{value:obj.clabe,disabled:!this.esInsert}, [Validators.required, Validators.pattern(/^\d{18}$/)]],
+      clabe: [{ value: obj.clabe, disabled: !this.esInsert }, [Validators.required, Validators.pattern(/^\d{18}$/)]],
       num_sucursal: [obj.numSucursal],
-      esActivo:[(!this.esInsert)?obj.esActivo:{value:"true",disabled:true}]
+      esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }]
 
     });
 
@@ -92,18 +90,77 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
     this.submitInvalido = true;
     if (this.myForm.invalid) {
-      this.iconType = "error";
-      this.strTitulo = "Campos obligatorios o inválidos";
-      this.modal = true;
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+
       return;
 
     }
 
+    let titulo = this.esInsert ? "¿Deseas registrar la cuenta bancaria?" : "¿Deseas actualizar los datos de la cuenta bancaria?";
 
 
-    this.iconType = "warning";
-    this.strTitulo = (this.esInsert) ? "¿Deseas registrar la cuenta bancaria?" : "¿Deseas actualizar los datos de la cuenta bancaria?";
-    this.modal = true;
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
+      .then(valor => {
+
+
+        if (valor) {
+
+          let obj = this.myForm.value;
+
+
+          let peticion: any = {
+            numeroCuenta: obj.numeroCuenta,
+            nombreCuenta: obj.nombreCuenta,
+            descripcion: obj.descripcion,
+            numInformacion: obj.num_informacion,
+            clabe: obj.clabe,
+            numSucursal: obj.num_sucursal,
+            esActivo: obj.esActivo,
+            nclCentrocCliente: {
+              centrocClienteId: this.id_empresa
+            },
+            bancoId: {
+              bancoId: obj.idbanco
+            }
+          };
+
+
+
+
+
+          if (this.esInsert) {
+
+            this.cuentasPrd.save(peticion).subscribe(datos => {
+
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+                .then(() => {
+                  if (datos.resultado) {
+                    this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
+                  }
+                });
+
+            });
+          } else {
+
+            peticion.clabe = this.myForm.controls.clabe.value;
+            this.cuentasPrd.modificar(peticion).subscribe(datos => {
+
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+                .then(() => {
+                  if (datos.resultado) {
+                    this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
+                  }
+                });
+
+            });
+
+          }
+
+        }
+
+
+      });
 
 
   }
@@ -119,83 +176,8 @@ export class DetallecuentasbancariasComponent implements OnInit {
   }
 
 
-  public recibir($event: any) {
-
-
-    this.modal = false;
-
-
-    if (this.iconType == "warning") {
-
-
-      if ($event) {
-
-        let obj = this.myForm.value;
-
-
-        let peticion: any = {
-          numeroCuenta: obj.numeroCuenta,
-          nombreCuenta: obj.nombreCuenta,
-          descripcion: obj.descripcion,
-          numInformacion: obj.num_informacion,
-          clabe: obj.clabe,
-          numSucursal: obj.num_sucursal,
-          esActivo:obj.esActivo,
-          nclCentrocCliente: {
-            centrocClienteId: this.id_empresa
-          },
-          bancoId: {
-            bancoId: obj.idbanco
-          }
-        };
-
-
-
-
-
-        if (this.esInsert) {
-
-          this.cuentasPrd.save(peticion).subscribe(datos => {
-
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
-
-            console.log("Esto trae al guardar");
-            console.log(datos);
-
-          });
-        } else {
-
-          peticion.clabe = this.myForm.controls.clabe.value;
-          console.log("se va a modificar",peticion);
-
-
-
-          this.cuentasPrd.modificar(peticion).subscribe(datos => {
-
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
-
-          });
-
-        }
-
-      }
-
-
-    } else {
-      this.modal = false;
-
-      if (this.iconType == "success") {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
-      }
-    }
-
-  }
+  
+  
 
 
 }

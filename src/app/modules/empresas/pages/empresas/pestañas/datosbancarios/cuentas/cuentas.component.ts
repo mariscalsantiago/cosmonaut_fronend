@@ -67,7 +67,7 @@ export class CuentasComponent implements OnInit {
 
 
   public enviarFormulario() {
-    debugger;
+    
    
    if(!this.habcontinuarSede){
     this.submitEnviado = true;
@@ -106,7 +106,7 @@ public activarCancel(){
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    debugger;
+    
    if (this.enviarPeticion.enviarPeticion) {
      this.enviarPeticion.enviarPeticion = false;
       let obj = this.myForm.value;

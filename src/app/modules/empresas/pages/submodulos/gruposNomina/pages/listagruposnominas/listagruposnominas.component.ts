@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { element } from 'protractor';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { GruponominasService } from '../../services/gruponominas.service';
 
@@ -27,11 +28,6 @@ export class ListagruposnominasComponent implements OnInit {
   public modalWidth: string = "55%";
   public cargandodetallegrupo: boolean = false;
 
-
-  public modal: boolean = false;
-  public strTitulo: string = "";
-  public iconType: string = "";
-  public strsubtitulo: string = "";
   public indexSeleccionado: number = 0;
 
 
@@ -60,7 +56,8 @@ export class ListagruposnominasComponent implements OnInit {
 
   constructor(private gruposnominaPrd: GruponominasService, private routerPrd: Router,
     private routerActive: ActivatedRoute, private catalogosPrd: CatalogosService,
-    private empresasPrd:SharedCompaniaService,private usuariosSistemaPrd:UsuarioSistemaService) { }
+    private empresasPrd:SharedCompaniaService,private usuariosSistemaPrd:UsuarioSistemaService,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -134,10 +131,33 @@ export class ListagruposnominasComponent implements OnInit {
 
     this.indexSeleccionado = indice;
 
-    this.modal = true;
-    this.strTitulo = "¿Deseas eliminar el grupo de nómina?";
-    this.strsubtitulo = "Estas a punto de borrar un grupo de nómina";
-    this.iconType = "warning";
+    
+    const titulo = "¿Deseas eliminar el grupo de nómina?";
+  
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
+
+
+
+        let id = this.arreglo[this.indexSeleccionado].id;
+        this.gruposnominaPrd.eliminar(id).subscribe(datos => {
+
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+
+
+          if (datos.resultado) {
+
+
+            this.arreglo.splice(this.indexSeleccionado, 1);
+
+
+          }
+
+
+        });
+      }
+    });
 
 
 
@@ -241,43 +261,6 @@ export class ListagruposnominasComponent implements OnInit {
 
 
     });
-
-  }
-
-
-  public recibir($evento: any) {
-
-    this.modal = false;
-    if (this.iconType == "warning") {
-
-      if ($evento) {
-
-
-        let id = this.arreglo[this.indexSeleccionado].id;
-        this.gruposnominaPrd.eliminar(id).subscribe(datos => {
-          let mensaje = datos.mensaje;
-          let resultado = datos.resultado;
-
-          this.strTitulo = mensaje;
-          this.iconType = resultado ? "success" : "error";
-
-          this.modal = true;
-
-          if (resultado) {
-
-
-            this.arreglo.splice(this.indexSeleccionado, 1);
-
-
-          }
-
-
-        });
-
-      }
-
-    }
-
 
   }
 

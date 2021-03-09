@@ -1,9 +1,9 @@
 <br><br>
- <form  [formGroup]="myFormrep" (ngSubmit)="enviarPeticion()">
+ <form class="form-desing" [formGroup]="myFormrep" (ngSubmit)="enviarPeticion()">
 
     <input type="hidden" formControlName="personaId">
 
-    <div class="background-panel margen">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
       <br>
         <div class="form-group row margen">
           <label class="titulo">INFORMACIÓN DE REPRESENTANTE LEGAL</label></div>
@@ -123,5 +123,3 @@
   </div>
 
   </form>
-
-  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"  (eventoFunciones)="recibir($event)"></app-alert-questions>

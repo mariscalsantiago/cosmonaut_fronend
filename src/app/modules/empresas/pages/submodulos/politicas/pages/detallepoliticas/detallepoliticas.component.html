@@ -1,9 +1,9 @@
 <br><br>
- <form  [formGroup]="myFormpol" (ngSubmit)="enviarPeticion()">
+ <form  [formGroup]="myFormpol" class="form-desing" (ngSubmit)="enviarPeticion()">
   
     <input type="hidden" formControlName="politicaId">
   
-    <div class="background-panel margen">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
       <br>
         <div class="form-group row margen">
           <label class="titulo">INFORMACIÓN DE POLITÍCA</label></div>
@@ -82,5 +82,3 @@
   </div>   
   
   </form>
-  
-  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"    (eventoFunciones)="recibir($event)"></app-alert-questions>
