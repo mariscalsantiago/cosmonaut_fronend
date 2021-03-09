@@ -25,7 +25,10 @@ export class FormBajaEmpleadoComponent implements OnInit {
   public estatus: boolean = true;
   public arregloMotivoBaja: any = [];
   public arregloTipoBaja: any = []; 
-  public arregloEmpleados: any = [];
+  public arregloempleados: any = [];
+  public fechaContrato = new Date();
+  public fechaUltimo: string = "";
+  
 
 
   constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute,
@@ -46,8 +49,8 @@ export class FormBajaEmpleadoComponent implements OnInit {
         tipoPersonaId: 5
       }
     }
-    this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloEmpleados = datos.datos);
-    console.log("Empleados",this.arregloEmpleados)
+    this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
+    console.log("Empleados",this.arregloempleados)
     this.catalogosPrd.getMotivoBajaEmpleado(this.estatus).subscribe(datos => this.arregloMotivoBaja = datos.datos);
     this.catalogosPrd.getTipoBajaEmpleado(this.estatus).subscribe(datos => this.arregloTipoBaja = datos.datos);
 
@@ -83,7 +86,8 @@ export class FormBajaEmpleadoComponent implements OnInit {
       motivoBajaId: [obj.motivoBajaId, [Validators.required]],
       ultimoDia: [obj.ultimoDia, [Validators.required]],
       calculoAntiguedadx: [obj.calculoAntiguedadx],
-      pagosXliquidacionId: [obj.pagosXliquidacionId]
+      pagosXliquidacionId: [obj.pagosXliquidacionId],
+
 
 
     });
@@ -95,7 +99,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
 
   public enviarPeticion() {
-
+    debugger;
     this.submitEnviado = true;
     if (this.myFormcomp.invalid) {     
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -105,12 +109,23 @@ export class FormBajaEmpleadoComponent implements OnInit {
     let mensaje = "¿Deseas dar de baja el empleado?";
     
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
-
+debugger;
       if(valor){
         let obj = this.myFormcomp.value;
+        for (let item of this.arregloempleados){
+          if(item.personaId == obj.personaId){
+                this.fechaContrato = item.fechaAlta
+              }
+        }
+
+        let fechar = "";
+        let arre = obj.ultimoDia.split('-');
+        fechar = arre[2] + "/" + arre[1] + "/" + arre[0];
+        
         let antiguedad = obj.calculoAntiguedadx == "contrato"?"C":"A";
+        
         let objEnviar: any ={
-          fechaContrato: "09/02/2021",
+          fechaContrato: this.fechaContrato,
           personaId: {
               personaId: obj.personaId
           },
@@ -124,13 +139,13 @@ export class FormBajaEmpleadoComponent implements OnInit {
               motivoBajaId: obj.motivoBajaId
           },
           pagosXliquidacionId: {
-              pagosXliquidacionId: 1
+              pagosXliquidacionId: obj.pagosXliquidacionId
           },
-          ultimoDia: obj.ultimoDia,
+          ultimoDia: fechar,
           fechaParaCalculo: antiguedad
       }
 
-
+          debugger;
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)

@@ -25,12 +25,21 @@
                     <label>Seleccionar al empleado *</label>
                     <select formControlName="personaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}">
                         <option value=""></option>
-                        <option *ngFor="let item of arregloEmpleados"  [value]="item.personaId">{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</option>
+                        <option *ngFor="let item of arregloempleados"  [value]="item.personaId">{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</option>
                     </select>
                     <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                       </div>
                 </div>
+                <!--<div class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label for="exampleFormControlSelect1">Seleccionar al empleado*</label>
+                    <input list="empleados" class="form-control" formControlName="personaId"
+                        name="browser" id="browser">
+
+                    <datalist id="empleados">
+                        <option *ngFor="let item of arregloempleados" [value]="item.nombre">{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</option>
+                    </datalist>
+                </div>-->
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                     <label>Tipo de baja *</label>
                     <select formControlName="tipoBajaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoBajaId.errors && submitEnviado}">
@@ -66,24 +75,19 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label>Pagos que se harán por liquidación:</label>
-                    <div>
+
                     <label class="contenedorInputCheckRadio">Prima de antigüedad *
-                        <input formControlName="pagosXliquidacionId" type="checkbox" name="pagosXliquidacionId" id="1">
+                        <input value="1" formControlName="pagosXliquidacionId" type="radio" name="pagosXliquidacionId" id="">
                         <span class="checkmark"></span>
                       </label>
-                    </div>
-                    <div>
-                        <label class="contenedorInputCheckRadio">Indemnización 90 días *
-                            <input formControlName="pagosXliquidacionId" type="checkbox" name="pagosXliquidacionId" id="2">
+                    <label class="contenedorInputCheckRadio">Indemnización 90 días *
+                            <input value="2" formControlName="pagosXliquidacionId" type="radio" name="pagosXliquidacionId" id="">
                             <span class="checkmark"></span>
-                          </label>
-                    </div>
-                    <div>
-                            <label class="contenedorInputCheckRadio">Indemnización 20 días por año *
-                                <input formControlName="pagosXliquidacionId" type="checkbox" name="pagosXliquidacionId" id="3">
+                        </label>
+                    <label class="contenedorInputCheckRadio">Indemnización 20 días por año *
+                                <input value="3" formControlName="pagosXliquidacionId" type="radio" name="pagosXliquidacionId" id="">
                                 <span class="checkmark"></span>
-                              </label>
-                    </div>
+                        </label>
     
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">

@@ -43,7 +43,7 @@ export class EmpleadosService {
 
     console.log(json);
 
-    return this.http.put(`${direcciones.contratoColaborador}/guardar/baja`, json, httpOptions);
+    return this.http.post(`${direcciones.contratoColaborador}/guardar/baja`, json, httpOptions);
 
   }
 
