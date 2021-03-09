@@ -47,12 +47,12 @@
 </div>
 </div>
 <br><br>
- <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
+ <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
   
     <input type="hidden" formControlName="areaId">
 
     
-    <div class="background-panel margen">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
       <div id="vetanaprincipaltablapuesto"  class=" background-panel scrooll" style="position: relative;"  >
       <br>
         <div class="form-group row margen">
@@ -93,6 +93,80 @@
             
   
         </div>
+
+        <hr>
+        <div *ngIf="puestonuevo" class="row margen scrooll">   
+          <div>
+            <br>
+              <div class="form-group row margen">
+                <label class="titulo">PUESTOS EXISTENTES</label></div>
+              <div class="form-group row margen">
+            <div class="row" style="  margin-top: 10px;  width: 100%;">
+              <div class="col text-right">
+                <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+                  <i class="fa fa-plus"></i>Agregar puesto
+                </button>
+              </div>
+            </div>
+            <div  class="row margen" style="margin-bottom: -25px;">
+              <div class="input-group mb-5">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01">
+                  <option value="1" selected>20</option>
+                  <option value="2">50</option>
+                  <option value="3">100</option>
+                </select>
+               
+              </div>
+            </div>
+    
+              <table *ngIf="!cargando" class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre de puesto</th>
+                      <th scope="col">Fecha registro</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of arreglo;">
+                      <td>{{item.nombreCorto}}</td>
+                      <td>{{item.fechaAlta}}</td>
+                      <td>
+                        <button (click)="verdetalle(item)" class="btnPersonalizado">
+                          <i class="icon_editar text-center bg-light" ></i></button>
+                    </td>
+                    </tr>
+                 
+                  </tbody>
+                </table>
+                <div *ngIf="!cargando" class="row" style="width: 100%;">
+                  <div class="col" > 
+                   <nav aria-label="Page navigation example">
+                     <ul class="pagination justify-content-center">
+                       <li class="page-item disabled">
+                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
+                       </li>
+                       <li class="page-item"><a class="page-link" >1</a></li>
+                       <li class="page-item"><a class="page-link" >2</a></li>
+                       <li class="page-item"><a class="page-link" >3</a></li>
+                       <li class="page-item">
+                         <a class="page-link">Siguiente</a>
+                       </li>
+                     </ul>
+                   </nav></div>
+                </div>
+        
+              <div *ngIf="cargando" class="col text-center mb-5">
+                <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+              </div>
+              
+          </div>
+          </div>
+        </div>
+        
     
       </div>
     </div>
@@ -104,77 +178,5 @@
   
   </form>
   
-  <app-alert-questions *ngIf="modal" [titulo]="strTitulo" [iconType]="iconType"  (eventoFunciones)="recibir($event)"></app-alert-questions>
 
-    <div *ngIf="puestonuevo" class="row margen margen-tabla background-panel scrooll">   
-      <div class="background-panel margen" >
-        <br>
-          <div class="form-group row margen">
-            <label class="titulo">PUESTOS EXISTENTES</label></div>
-          <div class="form-group row margen">
-        <div class="row" style="  margin-top: 10px;  width: 100%;">
-          <div class="col text-right">
-            <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-              <i class="fa fa-plus"></i>Agregar puesto
-            </button>
-          </div>
-        </div>
-        <div  class="row margen" style="margin-bottom: -25px;">
-          <div class="input-group mb-5">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01">
-              <option value="1" selected>20</option>
-              <option value="2">50</option>
-              <option value="3">100</option>
-            </select>
-           
-          </div>
-        </div>
-
-          <table *ngIf="!cargando" class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Nombre de puesto</th>
-                  <th scope="col">Fecha registro</th>
-                  <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of arreglo;">
-                  <td>{{item.nombreCorto}}</td>
-                  <td>{{item.fechaAlta}}</td>
-                  <td>
-                    <button (click)="verdetalle(item)" class="btnPersonalizado">
-                      <i class="icon_editar text-center bg-light" ></i></button>
-                </td>
-                </tr>
-             
-              </tbody>
-            </table>
-            <div *ngIf="!cargando" class="row" style="width: 100%;">
-              <div class="col" > 
-               <nav aria-label="Page navigation example">
-                 <ul class="pagination justify-content-center">
-                   <li class="page-item disabled">
-                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
-                   </li>
-                   <li class="page-item"><a class="page-link" >1</a></li>
-                   <li class="page-item"><a class="page-link" >2</a></li>
-                   <li class="page-item"><a class="page-link" >3</a></li>
-                   <li class="page-item">
-                     <a class="page-link">Siguiente</a>
-                   </li>
-                 </ul>
-               </nav></div>
-            </div>
-    
-          <div *ngIf="cargando" class="col text-center mb-5">
-            <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-          </div>
-          
-      </div>
-      </div>
-    </div>
-    
+ 

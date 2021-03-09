@@ -57,51 +57,14 @@ export class ListaempleadosComponent implements OnInit {
 
     this.tamanio = documento.innerWidth;
 
-    this.cargando = true;
-
-    this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      let columnas: Array<tabla> = [
-        new tabla("nombre", "Nombre", true, true),
-        new tabla("personaId", "Número de empleado"),
-        new tabla("nombreEmpresa", "Empresa"),
-        new tabla("puesto", "Puesto"),
-        new tabla("area", "Área"),
-        new tabla("sede", "Sede"),
-        new tabla("esActivo", "Estatus")
-      ]
-
-      let arrayTemp = [];
-
-      if (datos.datos !== undefined) {
-        for (let item of datos.datos) {
-
-          let obj = {
-            nombre: item.personaId.nombre + " " + item.personaId.apellidoPaterno + " " + (item.personaId.apellidoMaterno == undefined? "":item.personaId.apellidoMaterno),
-            personaId: item.personaId.personaId,
-            puesto: item.puestoId.descripcion,
-            area: item.areaId.descripcion,
-            sede: item.sedeId.descripcion,
-            esActivo: item.personaId.esActivo,
-            nombreEmpresa: "DEFINIR"
-          }
-
-          arrayTemp.push(obj);
-
-        }
-      }
-
-      this.arreglo = arrayTemp.length == 0 ? undefined : arrayTemp;
-
-      this.arreglotabla.columnas = columnas;
-      this.arreglotabla.filas = this.arreglo;
-      this.cargando = false;
-    });
 
 
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.empresasPrd.getAllEmp(this.idEmpresa).subscribe(datos => this.arregloEmpresa = datos.datos);
     this.areasPrd.getAreasByEmpresa(this.idEmpresa).subscribe(datos => this.arregloAreas = datos.datos);
     this.areasPrd.getPuestosPorEmpresa(this.idEmpresa).subscribe(datos => this.arregloPuestos = datos.datos);
+
+    this.filtrar();
 
   }
 
@@ -118,7 +81,7 @@ export class ListaempleadosComponent implements OnInit {
     switch (obj.type) {
 
       case "columna":
-        this.routerPrd.navigate(['empleados', obj.datos.personaId, 'personal']);
+        this.routerPrd.navigate(['empleados', obj.datos.idPersona, 'personal']);
         break;
 
     }
@@ -159,7 +122,8 @@ export class ListaempleadosComponent implements OnInit {
         new tabla("puesto", "Puesto"),
         new tabla("area", "Área"),
         new tabla("sede", "Sede"),
-        new tabla("estatus", "Estatus")
+        new tabla("estatus", "Estatus"),
+        new tabla("porcentaje","Porcentaje de avance")
       ];
 
       if(datos.datos !== undefined){

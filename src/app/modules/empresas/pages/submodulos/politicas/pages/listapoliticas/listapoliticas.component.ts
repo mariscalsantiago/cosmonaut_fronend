@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PoliticasService } from '../services/politicas.service';
 
 @Component({
@@ -20,10 +21,6 @@ export class ListapoliticasComponent implements OnInit {
   public scrolly: string = '5%';
   public modalWidth: string = "55%";
   public cargandodetallearea:boolean = false;
-  public modal: boolean = false;
-  public iconType:string = "";
-  public strTitulo: string = "";
-  public strsubtitulo:string = "";
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -38,7 +35,8 @@ export class ListapoliticasComponent implements OnInit {
   public arreglodetalle: any =[];
   public arreglodetalleemp: any = [];
 
-  constructor(private routerPrd:Router,private politicasProd:PoliticasService,private CanRouterPrd:ActivatedRoute) { }
+  constructor(private routerPrd:Router,private politicasProd:PoliticasService,private CanRouterPrd:ActivatedRoute,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
     
@@ -80,10 +78,25 @@ export class ListapoliticasComponent implements OnInit {
         }
       }
 
-   this.modal = true;
-   this.strTitulo = "¿Deseas eliminar la politíca?";
-   this.strsubtitulo = "Estas a punto de borrar una politíca";
-   this.iconType = "warning";
+   
+   const titulo = "¿Deseas eliminar la politíca?";
+  
+   this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+     if(valor){
+
+
+      this.politicasProd.eliminar(this.objEnviar).subscribe(datos => {
+        this.cargando = false;        
+        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+        if(datos.resultado){
+          this.politicasProd.getAllPol(this.id_empresa).subscribe(datos => {
+            this.arreglo = datos.datos;
+          });
+      }
+
+      });
+     }
+   });;
            
  }
 
@@ -181,35 +194,7 @@ export class ListapoliticasComponent implements OnInit {
   
   }
 
-  public recibir($evento: any) {
-     
-    this.modal = false;
-    if (this.iconType == "warning") {
 
-      if ($evento) {
-
-        this.politicasProd.eliminar(this.objEnviar).subscribe(datos => {
-          let resultado = datos.resultado;
-          let mensaje = datos.mensaje;
-          this.iconType = resultado ? "success" : "error";
-          this.strTitulo = mensaje;
-          this.strsubtitulo = 'Registro eliminado correctamente!'
-          this.cargando = false;
-          this.modal = true;
-          if(resultado){
-
-            this.politicasProd.getAllPol(this.id_empresa).subscribe(datos => {
-              this.arreglo = datos.datos;
-
-            });
-        }
-
-        });
-        
-      }
-    }
-
-   }
 
   
 }

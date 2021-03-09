@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PuestosService } from '../services/puestos.service';
 
 @Component({
@@ -16,11 +17,8 @@ export class DetallepuestosareaComponent implements OnInit {
   public puestoId: string = "";
   public puesto: string = "";
   public arreglodetalle: any = [];
-  public modal: boolean = false;
   public insertar: boolean = false;
   public listpuesto: boolean = true;
-  public iconType: string = "";
-  public strTitulo: string = "";
   public objdetrep: any;
   public cargando: Boolean = false;
   public empresas: any;
@@ -39,7 +37,7 @@ export class DetallepuestosareaComponent implements OnInit {
   public bloqueado: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private puestosPrd: PuestosService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router) {
+    private routerPrd: Router,private modalPrd:ModalService) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -154,29 +152,14 @@ export class DetallepuestosareaComponent implements OnInit {
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
-      this.iconType = "error";
-      this.strTitulo = "Campos obligatorios o inválidos";
-      this.modal = true;
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
 
     }
+    const titulo = (this.insertar) ? "¿Deseas registrar el puesto?" : "¿Deseas actualizar los datos del puesto?";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
 
-    this.iconType = "warning";
-    this.strTitulo = (this.insertar) ? "¿Deseas registrar el puesto?" : "¿Deseas actualizar los datos del puesto?";
-    this.modal = true;
-  }
-
-
-  public redirect(obj: any) {
-    this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area/modifica"], { state: { datos: this.areas} });
-  }
-
-
-  public recibir($evento: any) {
-
-    this.modal = false;
-    if (this.iconType == "warning") {
-      if ($evento) {
         let obj = this.myForm.value;
 
         let objEnviar: any = {
@@ -194,9 +177,11 @@ export class DetallepuestosareaComponent implements OnInit {
         if (this.insertar) {
           this.puestosPrd.savepuest(objEnviar).subscribe(datos => {
 
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area/modifica"], { state: { datos: this.areas} });
+              }
+            });
 
           });
 
@@ -217,23 +202,23 @@ export class DetallepuestosareaComponent implements OnInit {
           }
 
           this.puestosPrd.modificar(objEnviarMod).subscribe(datos => {
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
-
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area/modifica"], { state: { datos: this.areas} });
+              }
+            });
 
           });
         }
-
       }
-    } else {
-      if (this.iconType == "success") {
-        this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area/modifica"], { state: { datos: this.areas} });
-      }
-
-      this.modal = false;
-    }
+    });
   }
+
+
+  public redirect(obj: any) {
+    this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area/modifica"], { state: { datos: this.areas} });
+  }
+
   get f() { return this.myForm.controls; }
 
 

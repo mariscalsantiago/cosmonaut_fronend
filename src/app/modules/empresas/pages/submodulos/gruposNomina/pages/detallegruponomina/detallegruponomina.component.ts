@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CuentasbancariasService } from 'src/app/modules/empresas/services/cuentasbancarias/cuentasbancarias.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 import { GruponominasService } from '../../services/gruponominas.service';
@@ -15,9 +16,6 @@ import { GruponominasService } from '../../services/gruponominas.service';
 })
 export class DetallegruponominaComponent implements OnInit {
   @ViewChild("nombre") public nombre!:ElementRef;
-  public modal:boolean = false;
-  public strTitulo:string = "";
-  public iconType:string = "";
 
   public myForm!:FormGroup;
 
@@ -39,7 +37,8 @@ export class DetallegruponominaComponent implements OnInit {
   constructor(private formbuilder:FormBuilder,private activeprd:ActivatedRoute,
     private routerPrd:Router,private grupoNominaPrd:GruponominasService,
     private catalogosPrd:CatalogosService,private cuentasBancariasPrd:CuentasbancariasService,
-    private companiaPrd:SharedCompaniaService,private usuariosSistemaPrd:UsuarioSistemaService) { }
+    private companiaPrd:SharedCompaniaService,private usuariosSistemaPrd:UsuarioSistemaService,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -132,16 +131,24 @@ export class DetallegruponominaComponent implements OnInit {
   }
 
 
-  public recibir($event: any) {
+  public enviarPeticion(){
 
 
-    this.modal = false;
+
+    if (!this.myForm.valid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+
+      return;
+    }
+
+    let titulo = (this.esInsert) ? "¿Deseas registrar un grupo de nómina?" : "¿Deseas actualizar los datos del grupo de nómina?";
+    
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
 
 
-    if (this.iconType == "warning") {
+      if(valor){
 
-
-      if ($event) {
 
         let obj = this.myForm.value;
 
@@ -169,11 +176,12 @@ export class DetallegruponominaComponent implements OnInit {
         if (this.esInsert) {
 
           this.grupoNominaPrd.save(peticion).subscribe(datos => {
-            this.iconType = datos.resultado ? "success" : "error";
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
-
-            console.log("Este es lo guardado",datos);
+            
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
+              }
+            });
 
           });
         } else {
@@ -182,10 +190,11 @@ export class DetallegruponominaComponent implements OnInit {
 
           this.grupoNominaPrd.modificar(peticion).subscribe(datos => {
 
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
+              }
+            });
 
           });
 
@@ -194,34 +203,8 @@ export class DetallegruponominaComponent implements OnInit {
       }
 
 
-    } else {
-      this.modal = false;
+    });
 
-      if (this.iconType == "success") {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
-      }
-    }
-  }
-
-
-  public enviarPeticion(){
-
-
-
-    if (!this.myForm.valid) {
-
-      this.strTitulo =  "Campos obligatorios o inválidos";
-      this.iconType = "error";
-      this.modal = true;
-      this.submitInvalido = true;
-
-      return;
-    }
-
-
-    this.iconType = "warning";
-    this.strTitulo = (this.esInsert) ? "¿Deseas registrar un grupo de nómina?" : "¿Deseas actualizar los datos del grupo de nómina?";
-    this.modal = true;
 
   }
 

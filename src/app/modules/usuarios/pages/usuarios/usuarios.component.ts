@@ -74,6 +74,8 @@ export class UsuariosComponent implements OnInit {
 
     this.tamanio = documento.innerWidth;
 
+    
+
 
     this.cargando = true;
 

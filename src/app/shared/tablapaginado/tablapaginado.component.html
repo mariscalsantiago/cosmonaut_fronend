@@ -18,7 +18,7 @@
   <thead>
     <tr>
       <th *ngIf="imagen"></th>
-      <th scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url'}">
+      <th scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
         {{item.nombre}}</th>
       <th *ngIf="porcentaje">Porcentaje de avance</th>
       <th *ngIf="ver || editar || eliminar || desglosar">Acciones</th>
@@ -31,13 +31,13 @@
         <img *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]"
           class="tableimg">
       </td>
-      <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url'}"
+      <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje'}"
         (click)="eventoclick(item2,item)">{{(item2.nombre ==
         'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}</td>
       <td *ngIf="porcentaje">
         <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0"
-            aria-valuemax="100">75%</div>
+          <div class="progress-bar" role="progressbar" [style.width]="item.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0"
+            aria-valuemax="100">{{item.porcentaje}}%</div>
         </div>
       </td>
       <td class="opciones">

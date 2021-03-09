@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariocontactorrhService } from '../services/usuariocontactorrh.service';
 
 @Component({
@@ -10,19 +11,16 @@ import { UsuariocontactorrhService } from '../services/usuariocontactorrh.servic
 })
 export class DetallecontactosrrhComponent implements OnInit {
 
-  @ViewChild("nombre") public nombre!:ElementRef;
+  @ViewChild("nombre") public nombre!: ElementRef;
 
-  public iconType: string = "";
   public myForm!: FormGroup;
-  public modal: boolean = false;
-  public strTitulo: string = "";
   public fechaActual: string = "";
   public subbmitActive: boolean = false;
   public id_empresa: number = 0;
   public esInsert: boolean = true;
   public usuario: any;
   constructor(private formBuild: FormBuilder, private usuariosPrd: UsuariocontactorrhService, private ActiveRouter: ActivatedRoute,
-    private routerPrd: Router) { }
+    private routerPrd: Router, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
 
@@ -79,7 +77,7 @@ export class DetallecontactosrrhComponent implements OnInit {
 
   }
 
-  ngAfterViewInit(): void{
+  ngAfterViewInit(): void {
 
     this.nombre.nativeElement.focus();
 
@@ -93,42 +91,17 @@ export class DetallecontactosrrhComponent implements OnInit {
     this.subbmitActive = true;
 
     if (this.myForm.invalid) {
-      this.iconType = "error";
-      this.strTitulo = "Campos obligatorios o inválidos";
-      this.modal = true;
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
 
     }
 
 
+    let titulo = this.esInsert ? "¿Desea registrar el contacto RRHH?" : "¿Desea actualizar los datos del contacto RRHH?";
 
 
-    this.iconType = "warning";
-    this.strTitulo = (this.esInsert) ? "¿Desea registrar el contacto RRHH?" : "¿Desea actualizar los datos del contacto RRHH?";
-    this.modal = true;
-  }
-
-
-  public cancelar() {
-    this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
-  }
-
-
-  get f() {
-    return this.myForm.controls;
-  }
-
-
-  public recibir($event: any) {
-
-    this.modal = false;
-
-
-    if (this.iconType == "warning") {
-
-
-      if ($event) {
-
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
+      if (valor) {
         let obj = this.myForm.value;
 
         let peticion: any = {
@@ -149,12 +122,8 @@ export class DetallecontactosrrhComponent implements OnInit {
         if (this.esInsert) {
 
           this.usuariosPrd.save(peticion).subscribe(datos => {
-
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
-
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+              .then(() => this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']));
           });
         } else {
 
@@ -162,37 +131,25 @@ export class DetallecontactosrrhComponent implements OnInit {
 
           this.usuariosPrd.modificar(peticion).subscribe(datos => {
 
-            this.iconType = datos.resultado ? "success" : "error";
-
-            this.strTitulo = datos.mensaje;
-            this.modal = true;
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+              .then(() => this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']));
 
           });
 
         }
-
       }
-
-
-    } else {
-      this.modal = false;
-
-      if (this.iconType == "success") {
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
-      }
-    }
-
-
-
-
-
+    });
 
   }
 
 
+  public cancelar() {
+    this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
+  }
 
 
-
-
+  get f() {
+    return this.myForm.controls;
+  }
 
 }
