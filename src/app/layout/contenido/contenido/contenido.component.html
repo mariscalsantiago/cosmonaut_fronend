@@ -39,9 +39,7 @@
                     <button><i class="fas fa-question"></i></button> -->
                 </div>
             </nav>
-            <div class="container-fluid" style="height: 100%;
-            overflow: hidden;
-            position: absolute;padding-top: 20px;">
+            <div class="container-fluid" >
                 <router-outlet></router-outlet>
 
                 <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>

@@ -10,6 +10,7 @@ import { ManipularfilesDirective } from './directivas/manipularfiles.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { MayusculasDirective } from './directivas/mayusculas.directive';
 import { SolonumerosDirective } from './directivas/solonumeros.directive';
+import { TamanioVentanaDirective } from './directivas/tamanio-ventana.directive';
 
 
 @NgModule({
@@ -26,12 +27,13 @@ import { SolonumerosDirective } from './directivas/solonumeros.directive';
     SubirarchivoComponent,
     ManipularfilesDirective,
     MayusculasDirective,
-    SolonumerosDirective
+    SolonumerosDirective,
+    TamanioVentanaDirective
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule
   ],
-  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent,MayusculasDirective,SolonumerosDirective]
+  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent,MayusculasDirective,SolonumerosDirective,TamanioVentanaDirective]
 })
 export class ShareModule { }

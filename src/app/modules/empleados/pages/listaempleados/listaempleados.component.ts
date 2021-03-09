@@ -81,7 +81,7 @@ export class ListaempleadosComponent implements OnInit {
     switch (obj.type) {
 
       case "columna":
-        this.routerPrd.navigate(['empleados', obj.datos.personaId, 'personal']);
+        this.routerPrd.navigate(['empleados', obj.datos.idPersona, 'personal']);
         break;
 
     }
