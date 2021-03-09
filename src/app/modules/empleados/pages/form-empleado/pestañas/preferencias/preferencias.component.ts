@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PreferenciasService } from 'src/app/modules/empleados/services/preferencias.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-preferencias',
@@ -11,19 +12,12 @@ import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.se
 export class PreferenciasComponent implements OnInit {
 
   @Output() enviado = new EventEmitter();
-  @Input() alerta: any;
-  @Input() enviarPeticion: any;
-  @Input() cambiaValor: boolean = false;
   @Input() datosPersona:any;
-
-  
-
-  public submitEnviado: boolean = false;
 
   public arregloPreferencias:any = [];
 
   constructor(private formBuilder: FormBuilder,private catalogosPrd:CatalogosService,
-    private preferenciasPrd:PreferenciasService) { }
+    private preferenciasPrd:PreferenciasService,private modalPrd:ModalService) { }
 
 
   ngOnInit(): void {
@@ -65,36 +59,27 @@ export class PreferenciasComponent implements OnInit {
 
   public enviarPreferencias() {
 
-    this.submitEnviado = true;
+    const titulo  = "¿Deseas guardar cambios?";
     
-    this.alerta.modal = true;
-    this.alerta.strTitulo = "¿Deseas guardar cambios?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar un empleado";
-    this.alerta.iconType = "warning";
-
-  }
-
-
-
-
-  ngOnChanges(changes: SimpleChanges) {
-
-    if (this.enviarPeticion.enviarPeticion) {
-      this.enviarPeticion.enviarPeticion = false;
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
       
 
-      for(let item of this.arregloPreferencias){
-        item.personaId = {
-          personaId:this.datosPersona.personaId
+        for(let item of this.arregloPreferencias){
+          item.personaId = {
+            personaId:this.datosPersona.personaId
+          }
+          this.preferenciasPrd.save(item).subscribe(datos =>{
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                    this.enviado.emit({type:"preferencias"});
+                }
+              });
+          });
         }
-        this.preferenciasPrd.save(item).subscribe(datos =>{
-          this.alerta.iconType = datos.resultado ? "success" : "error";
-
-          this.alerta.strTitulo = datos.mensaje;
-          this.alerta.strsubtitulo = datos.mensaje
-          this.alerta.modal = true;
-        });
       }
-    }
+    });
+
   }
+
 }

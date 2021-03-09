@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { EmpleadosService } from '../../services/empleados.service';
-import { ModalempleadosService } from '../../services/modalempleados.service';
 
 
 @Component({
@@ -11,23 +10,16 @@ import { ModalempleadosService } from '../../services/modalempleados.service';
   styleUrls: ['./empleado.component.scss']
 })
 export class EmpleadoComponent implements OnInit {
-  public alerta = {
-    strsubtitulo: "",
-    iconType: "",
-    strTitulo: "",
-    modal: false
-  };
+  
 
   public cargandoIcon:boolean = false;
 
   public empleado: any = {};
 
-  constructor(private modalPrd: ModalempleadosService, private routerCan: ActivatedRoute,
+  constructor( private routerCan: ActivatedRoute,
     private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
-    this.modalPrd.setModal(this.alerta);
-
     this.routerCan.params.subscribe(params => {
       let idEmpleado = params["id"];
       this.empleadosPrd.getEmpleadoById(idEmpleado).subscribe(datos => {
@@ -39,25 +31,7 @@ export class EmpleadoComponent implements OnInit {
   }
 
 
-  public recibirAlerta($evento: any) {
-
-    this.alerta.modal = false;
-
-    if (this.alerta.iconType == "warning") {
-      if ($evento) {
-        this.modalPrd.setCompletarSuscripcion({ valor: "aceptado" });
-      }
-
-
-    } else {
-      if (this.alerta.iconType == "success") {
-        this.modalPrd.setCompletarSuscripcion({ valor: "finalizado" });
-      }
-    }
-
-
-
-  }
+ 
 
 
   public iniciarDescarga() {

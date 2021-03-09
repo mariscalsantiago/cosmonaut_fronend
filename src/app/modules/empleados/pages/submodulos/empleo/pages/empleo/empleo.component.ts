@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
-import { ModalempleadosService } from 'src/app/modules/empleados/services/modalempleados.service';
 import { JornadalaboralService } from 'src/app/modules/empresas/pages/submodulos/jonadaLaboral/services/jornadalaboral.service';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { SharedPoliticasService } from 'src/app/shared/services/politicas/shared-politicas.service';
 import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -39,7 +39,7 @@ export class EmpleoComponent implements OnInit {
     private router: ActivatedRoute, public catalogosPrd: CatalogosService,
     private areasPrd: SharedAreasService, private usuariosSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private sedesPrd: SharedSedesService, private jornadaPrd: JornadalaboralService, private politicasPrd: SharedPoliticasService,
-    private modalPrd: ModalempleadosService) { }
+    private modalPrd: ModalService) { }
 
   ngOnInit() {
 
@@ -106,26 +106,17 @@ export class EmpleoComponent implements OnInit {
     console.log(this.myForm.value);
 
     if (this.myForm.invalid) {
-      this.modalPrd.getModal().modal = true;
-      this.modalPrd.getModal().strTitulo = "Campos obligatorios o invalidos";
-      this.modalPrd.getModal().strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
-      this.modalPrd.getModal().iconType = "error";
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
 
-    this.modalPrd.getModal().modal = true;
-    this.modalPrd.getModal().strsubtitulo = "Vas a modificar el perfil del usuario ¿Deseas continuar?";
-    this.modalPrd.getModal().iconType = "warning";
-    this.modalPrd.getModal().strTitulo = "¿Deseas modificar el empleado?";
-
-    this.modalPrd.esperarPeticion().subscribe(datos => {
-      if (datos.valor == "aceptado") {
+    const titulo =  "¿Deseas actualizar los datos del usuario?";
+ 
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
 
         setTimeout(() => {
-          this.modalPrd.getModal().modal = true;
-          this.modalPrd.getModal().strsubtitulo = "Completado";
-          this.modalPrd.getModal().iconType = "success";
-          this.modalPrd.getModal().strTitulo = "Completado";
+          this.modalPrd.showMessageDialog(this.modalPrd.success,"Completado con exito");
         }, 2000);
 
       }

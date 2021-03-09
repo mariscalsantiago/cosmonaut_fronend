@@ -7,6 +7,7 @@ import { JornadalaboralService } from 'src/app/modules/empresas/pages/submodulos
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { SharedPoliticasService } from 'src/app/shared/services/politicas/shared-politicas.service';
 import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -19,9 +20,6 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 })
 export class EmpleoComponent implements OnInit {
   @Output() enviado = new EventEmitter();
-  @Input() alerta: any;
-  @Input() enviarPeticion: any;
-  @Input() cambiaValor: boolean = false;
   @Input() datosPersona: any;
 
 
@@ -55,7 +53,8 @@ export class EmpleoComponent implements OnInit {
     private empleadosPrd: EmpleadosService, private catalogosPrd: CatalogosService,
     private colaboradorPrd: ContratocolaboradorService,
     private usuarioSistemaPrd:UsuarioSistemaService,
-    private jornadaPrd:JornadalaboralService,private sedesPrd:SharedSedesService) { }
+    private jornadaPrd:JornadalaboralService,private sedesPrd:SharedSedesService,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -103,8 +102,8 @@ export class EmpleoComponent implements OnInit {
       jornadaId: [obj.jornadaId,[Validators.required]],
       grupoNominaId: [obj.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId, [Validators.required]],
-      sueldoBrutoMensual: [obj.sueldoBrutoMensual],
-      sueldoNetoMensual: [obj.sueldoNetoMensual],
+      sueldoBrutoMensual: 0,
+      sueldoNetoMensual: 0,
       salarioDiario: [obj.salarioDiario, [Validators.required]],
       dias_vacaciones: [obj.dias_vacaciones, [Validators.required]],
       metodo_pago_id: [obj.metodo_pago_id, [Validators.required]],
@@ -113,7 +112,6 @@ export class EmpleoComponent implements OnInit {
       esSubcontratado: [obj.esSubcontratado],
       suPorcentaje: [obj.suPorcentaje],
       tiposueldo: [obj.tiposueldo, [Validators.required]],
-      sueldonetomensual: obj.sueldonetomensual,
       subcontratistaId:obj.subcontratistaId
 
     });
@@ -155,17 +153,87 @@ export class EmpleoComponent implements OnInit {
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
-      this.alerta.modal = true;
-      this.alerta.strTitulo = "Campos obligatorios o inválidos";
-      this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
-      this.alerta.iconType = "error";
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
 
-    this.alerta.modal = true;
-    this.alerta.strTitulo = "¿Deseas guardar cambios?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar un empleado";
-    this.alerta.iconType = "warning";
+    
+    const titulo = "¿Deseas guardar cambios?";
+   
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){    
+          let obj = this.myForm.value;    
+          //Se verifica que tipo de jornada se selecciono
+          let idTipoJornada = -1;    
+          for(let item of this.arregloJornadas){    
+            if(obj.jornadaId == item.jornadaId){             
+              idTipoJornada = item.tipoJornadaId;
+              break;
+            }    
+          }
+          //******************************************* */
+    
+          let objEnviar = {
+            areaId:{areaId:obj.areaId},
+            puestoId:{puestoId:obj.puestoId},
+            politicaId:{politicaId:obj.politicaId},
+            numEmpleado:obj.personaId,
+            fechaAntiguedad:obj.fechaAntiguedad,
+            tipoContratoId:{tipoContratoId:obj.tipoContratoId},
+            fechaInicio:obj.fechaInicio,
+            fechaFin:obj.fechaFin,
+            areaGeograficaId:{areaGeograficaId:obj.areaGeograficaId},
+            grupoNominaId:{grupoNominaId:obj.grupoNominaId},
+            tipoCompensacionId:{tipoCompensacionId:obj.tipoCompensacionId},
+            tipoRegimenContratacionId:{tipoRegimenContratacionId:obj.tipoRegimenContratacionId},
+            sueldoBrutoMensual:obj.sueldoBrutoMensual,
+            salarioDiario:obj.salarioDiario,
+            jornadaId:{jornadaId:obj.jornadaId},
+            tipoJornadaId:idTipoJornada,
+            personaId:{personaId:this.datosPersona.personaId},
+            centrocClienteId:{centrocClienteId:this.id_empresa},
+            estadoId:{estadoId:obj.estadoId},
+            esSubcontratado:obj.esSubcontratado==null?false:obj.esSubcontratado,
+            sbc:obj.salarioDiario,
+            sedeId:{sedeId:obj.sedeId},
+            esSindicalizado:obj.esSindicalizado,
+            diasVacaciones:obj.dias_vacaciones,
+            metodoPagoId:{metodoPagoId:obj.metodo_pago_id},
+            porcentaje:obj.suPorcentaje,
+            subcontratistaId:{subcontratistaId:obj.subcontratistaId}
+        }
+    
+        
+    
+          this.colaboradorPrd.save(objEnviar).subscribe(datos => {
+    
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                let metodopago = {};
+    
+                for(let item of this.arregloMetodosPago){
+        
+                  if(item.metodoPagoId == 4){
+        
+                    metodopago = item;
+                    break;
+                  }
+        
+                }
+        
+                this.enviado.emit({type:"empleo",datos:metodopago});
+              }
+            });
+          
+    
+          });
+    
+    
+    
+        
+    
+      }
+    });;
 
   }
 
@@ -173,97 +241,6 @@ export class EmpleoComponent implements OnInit {
     return this.myForm.controls;
   }
 
-
-  ngOnChanges(changes: SimpleChanges) {
-
-    if (this.enviarPeticion.enviarPeticion) {
-      this.enviarPeticion.enviarPeticion = false;
-
-
-    
-
-      let obj = this.myForm.value;
-
-      let idTipoJornada = -1;
-
-      for(let item of this.arregloJornadas){
-
-        if(obj.jornadaId == item.jornadaId){
-         
-          idTipoJornada = item.tipoJornadaId;
-          break;
-        }
-
-      }
-
-      let objEnviar = {
-        areaId:{areaId:obj.areaId},
-        puestoId:{puestoId:obj.puestoId},
-        politicaId:{politicaId:obj.politicaId},
-        numEmpleado:obj.personaId,
-        fechaAntiguedad:obj.fechaAntiguedad,
-        tipoContratoId:{tipoContratoId:obj.tipoContratoId},
-        fechaInicio:obj.fechaInicio,
-        fechaFin:obj.fechaFin,
-        areaGeograficaId:{areaGeograficaId:obj.areaGeograficaId},
-        grupoNominaId:{grupoNominaId:obj.grupoNominaId},
-        tipoCompensacionId:{tipoCompensacionId:obj.tipoCompensacionId},
-        tipoRegimenContratacionId:{tipoRegimenContratacionId:obj.tipoRegimenContratacionId},
-        sueldoBrutoMensual:obj.sueldoBrutoMensual,
-        salarioDiario:obj.salarioDiario,
-        jornadaId:{jornadaId:obj.jornadaId},
-        tipoJornadaId:idTipoJornada,
-        personaId:{personaId:this.datosPersona.personaId},
-        centrocClienteId:{centrocClienteId:this.id_empresa},
-        estadoId:{estadoId:obj.estadoId},
-        esSubcontratado:obj.esSubcontratado==null?false:obj.esSubcontratado,
-        sbc:obj.salarioDiario,
-        sedeId:{sedeId:obj.sedeId},
-        esSindicalizado:obj.esSindicalizado,
-        diasVacaciones:obj.dias_vacaciones,
-        metodoPagoId:{metodoPagoId:obj.metodo_pago_id},
-        porcentaje:obj.suPorcentaje,
-        subcontratistaId:{subcontratistaId:obj.subcontratistaId}
-    }
-
-    
-
-      this.colaboradorPrd.save(objEnviar).subscribe(datos => {
-
-        this.alerta.iconType = datos.resultado ? "success" : "error";
-
-        this.alerta.strTitulo = datos.mensaje;
-        this.alerta.strsubtitulo = datos.mensaje
-        this.alerta.modal = true;
-
-        let metodopago = {};
-
-        for(let item of this.arregloMetodosPago){
-
-          if(item.metodoPagoId == 4){
-
-            metodopago = item;
-            break;
-          }
-
-        }
-
-
-        let objemitir = {
-          type:"metodopago",
-          datos:metodopago
-        }
-
-        this.enviado.emit(objemitir);
-
-      });
-
-
-
-    }
-
-    
-  }
 
   public cambiaArea() {
     this.myForm.controls.puestoId.disable();
@@ -281,16 +258,17 @@ export class EmpleoComponent implements OnInit {
   public cambiarSueldoField() {
 
 
+    
     this.sueldoBruto = this.myForm.controls.tiposueldo.value == 'b';
     this.sueldoNeto = this.myForm.controls.tiposueldo.value == 'n';
 
     this.myForm.controls.sueldoBrutoMensual.setErrors(null);
-    this.myForm.controls.sueldonetomensual.setErrors(null);
+    this.myForm.controls.sueldoNetoMensual.setErrors(null);
 
     if (this.sueldoNeto) {
 
       
-      this.myForm.controls.sueldonetomensual.setErrors({ required: true });
+      this.myForm.controls.sueldoNetoMensual.setErrors({ required: true });
 
     }
 
@@ -299,6 +277,8 @@ export class EmpleoComponent implements OnInit {
 
       
     }
+
+    console.log();
   }
 
 

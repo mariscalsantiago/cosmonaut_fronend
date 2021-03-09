@@ -1,11 +1,9 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
-
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
-import { ModalempleadosService } from 'src/app/modules/empleados/services/modalempleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
@@ -35,9 +33,10 @@ export class PersonalComponent implements OnInit {
 
   public arreglonacionalidad?: Promise<any>;
 
-  constructor(private formBuilder: FormBuilder, private modalPrd: ModalempleadosService,
+  constructor(private formBuilder: FormBuilder,
     private navparams: ActivatedRoute, private empleadoPrd: EmpleadosService,
-    private catalogosPrd: CatalogosService, private usuarioSistemaPrd: UsuarioSistemaService) { }
+    private catalogosPrd: CatalogosService, private usuarioSistemaPrd: UsuarioSistemaService,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
     this.myForm = this.createForm({});
@@ -182,108 +181,94 @@ export class PersonalComponent implements OnInit {
 
 
     if (this.myForm.invalid) {
-      this.modalPrd.getModal().modal = true;
-      this.modalPrd.getModal().strTitulo = "Campos obligatorios o inválidos";
-      this.modalPrd.getModal().strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
-      this.modalPrd.getModal().iconType = "error";
+      this.modalPrd.showMessageDialog(this.modalPrd.error);     
       return;
     }
 
-    this.modalPrd.getModal().modal = true;
-    this.modalPrd.getModal().strsubtitulo = "Vas a modificar el perfil del usuario ¿Deseas continuar?";
-    this.modalPrd.getModal().iconType = "warning";
-    this.modalPrd.getModal().strTitulo = "¿Deseas modificar el empleado?";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas modificar los datos el empleado?").then(valor =>{
+      if(valor){
 
-
-
-    this.modalPrd.esperarPeticion().subscribe(datos => {
-      if (datos.valor == "aceptado") {
-
-
-        let obj = this.myForm.value;
-
-        let fechanacimiento = '';
-
-        if (this.myForm.controls?.fechaNacimiento.value != null && this.myForm.controls?.fechaNacimiento.value != '') {
-          let date: Date = new Date(`${obj.fechaNacimiento}T12:00-0600`);
-          let dia = (date.getDate() < 10) ? `0${date.getDate()}` : `${date.getDate()}`;
-          let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`;
-          let anio = date.getFullYear();
-          fechanacimiento = `${dia}/${mes}/${anio}`;
-        }
-
-
-        let genero = "";
-        if (obj.genero == "true")
-          genero = "F";
-        else if (obj.genero == "false")
-          genero = "M";
-
-
-        let objenviar = {
-          nombre: obj.nombre,
-          apellidoPaterno: obj.apellidoPaterno,
-          apellidoMaterno: obj.apellidoMaterno,
-          genero: genero,
-          fechaNacimiento: fechanacimiento,
-          tieneCurp: obj.tieneCurp,
-          contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
-          emailCorporativo: obj.emailCorporativo,
-          invitarEmpleado: obj.invitarEmpleado,
-          nacionalidadId: {
-            nacionalidadId: obj.nacionalidadId
-          },
-          estadoCivil: obj.estadoCivil,
-          contactoInicialTelefono: obj.contactoInicialTelefono,
-          tieneHijos: false,
-          numeroHijos: obj.numeroHijos,
-          medioContacto: {
-            url: obj.url
-          },
-          contactoEmergenciaNombre: obj.contactoEmergenciaNombre,
-          contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
-          contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
-          contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
-          contactoEmergenciaEmail: obj.contactoEmergenciaEmail,
-          contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
-          curp: obj.curp,
-          rfc: obj.rfc,
-          nns: obj.nns,
-          personaId: this.idEmpleado,
-          centrocClienteId: {
-            centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
-          },
-        }
-
-
-
-        this.empleadoPrd.update(objenviar).subscribe(datos => {
-
-
-          this.modalPrd.getModal().iconType = datos.resultado ? "success" : "error";
-          this.modalPrd.getModal().strTitulo = datos.mensaje;
-          this.modalPrd.getModal().strsubtitulo = datos.mensaje
-          this.modalPrd.getModal().modal = true;
-          if (datos.resultado) {
-            this.empleado = datos.datos;
-            this.parsearInformacion();
-            this.myForm = this.createForm(this.empleado);
-            this.modalPrd.esperarPeticion().subscribe(datos => {
-
-              if (datos.valor == "finalizado") {
-                this.editarcampos = false;
-              }
-            })
-          }
-
-
-        });
+        this.realizarOperacion();
 
       }
     });
+  }
+
+
+  public realizarOperacion(){
+
+    let obj = this.myForm.value;
+
+    let fechanacimiento = '';
+
+    if (this.myForm.controls?.fechaNacimiento.value != null && this.myForm.controls?.fechaNacimiento.value != '') {
+      let date: Date = new Date(`${obj.fechaNacimiento}T12:00-0600`);
+      let dia = (date.getDate() < 10) ? `0${date.getDate()}` : `${date.getDate()}`;
+      let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`;
+      let anio = date.getFullYear();
+      fechanacimiento = `${dia}/${mes}/${anio}`;
+    }
+
+
+    let genero = "";
+    if (obj.genero == "true")
+      genero = "F";
+    else if (obj.genero == "false")
+      genero = "M";
+
+
+    let objenviar = {
+      nombre: obj.nombre,
+      apellidoPaterno: obj.apellidoPaterno,
+      apellidoMaterno: obj.apellidoMaterno,
+      genero: genero,
+      fechaNacimiento: fechanacimiento,
+      tieneCurp: obj.tieneCurp,
+      contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
+      emailCorporativo: obj.emailCorporativo,
+      invitarEmpleado: obj.invitarEmpleado,
+      nacionalidadId: {
+        nacionalidadId: obj.nacionalidadId
+      },
+      estadoCivil: obj.estadoCivil,
+      contactoInicialTelefono: obj.contactoInicialTelefono,
+      tieneHijos: false,
+      numeroHijos: obj.numeroHijos,
+      medioContacto: {
+        url: obj.url
+      },
+      contactoEmergenciaNombre: obj.contactoEmergenciaNombre,
+      contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
+      contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
+      contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
+      contactoEmergenciaEmail: obj.contactoEmergenciaEmail,
+      contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
+      curp: obj.curp,
+      rfc: obj.rfc,
+      nns: obj.nns,
+      personaId: this.idEmpleado,
+      centrocClienteId: {
+        centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
+      },
+    }
 
 
 
+    this.empleadoPrd.update(objenviar).subscribe(datos => {
+
+
+      this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+        if(datos.resultado){
+
+          this.empleado = datos.datos;
+          this.parsearInformacion();
+          this.myForm = this.createForm(this.empleado);
+         
+          this.editarcampos = false;
+
+        }
+      });
+    });
   }
 
   public cancelarOperacion() {
