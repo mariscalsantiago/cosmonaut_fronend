@@ -4,6 +4,7 @@ import { ContratocolaboradorService } from 'src/app/modules/empleados/services/c
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
 import { JornadalaboralService } from 'src/app/modules/empresas/pages/submodulos/jonadaLaboral/services/jornadalaboral.service';
+import { PuestosService } from 'src/app/modules/empresas/pages/submodulos/puestos/pages/services/puestos.service';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -23,9 +24,19 @@ export class EmpleoComponent implements OnInit {
   @Input() datosPersona: any;
 
 
+  public aparecemodalito:boolean = false;
+  public scrolly: string = '5%';
+  public modalWidth: string = "55%";
+  public enviadoSubmitArea:boolean = false;
+  public apareceplusPuesto:boolean = false;
+  public textoArea:string = "";
+  public mensajeModalito:string = "";
+
+
   public aparecerTemp:boolean = false;
 
   public myForm!: FormGroup;
+  public myFormArea!:FormGroup;
 
   public submitEnviado: boolean = false;
 
@@ -54,7 +65,7 @@ export class EmpleoComponent implements OnInit {
     private colaboradorPrd: ContratocolaboradorService,
     private usuarioSistemaPrd:UsuarioSistemaService,
     private jornadaPrd:JornadalaboralService,private sedesPrd:SharedSedesService,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService, private puestosPrd: PuestosService) { }
 
   ngOnInit(): void {
 
@@ -83,6 +94,118 @@ export class EmpleoComponent implements OnInit {
 
 
     
+  }
+
+
+  public createFormArea(parametro:boolean,nombre:string){
+    return this.formBuilder.group(
+      {
+        nombreCorto: [{value:nombre,disabled:parametro}, [Validators.required]],
+        puesto: ["", [Validators.required]],
+      });
+  }
+
+  public agregarAreasModal(){
+    this.myFormArea = this.createFormArea(false,"");
+    this.aparecemodalito = true;
+    this.mensajeModalito = "Área";
+  }
+
+  public agregarPuestoModal(){
+    this.mensajeModalito = "Puesto";
+    this.myFormArea = this.createFormArea(true,this.textoArea);
+    this.aparecemodalito = true;
+  }
+
+  public get f2(){
+    return this.myFormArea.controls;
+  }
+
+
+  public enviarPeticinoArea(){
+    
+    this.enviadoSubmitArea = true;
+    if(this.myFormArea.invalid)
+    {
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
+    }
+
+
+    const titulo = (this.myFormArea.value.nombreCorto !== undefined)?"¿Deseas registrar un área?":"¿Deseas registrar un puesto?";
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
+
+        let obj = this.myFormArea.value;
+
+        
+
+        let objEnviar: any = {
+          centrocClienteId: this.id_empresa,
+          nclPuestoDto: [
+            {
+              descripcion: obj.puesto,
+              nombreCorto: obj.puesto,
+              centrocClienteId: this.id_empresa
+            }
+          ]
+        }
+
+
+        if(this.myFormArea.value.nombreCorto !== undefined){
+          objEnviar.descripcion= obj.nombreCorto;
+          objEnviar.nombreCorto= obj.nombreCorto;
+
+          this.puestosPrd.save(objEnviar).subscribe(datos => {
+
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => {
+                  this.arregloArea = datos.datos;
+                  
+                });
+   
+                this.aparecemodalito = false;
+                this.enviadoSubmitArea = false;
+              }
+            });
+  
+           });
+        }else{
+          objEnviar.areaId= this.myForm.controls.areaId.value;
+
+          this.puestosPrd.savepuest(objEnviar).subscribe(datos => {
+
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+              
+                this.arregloPuestos = [];
+                this.areasPrd.getPuestoByArea(this.id_empresa, this.myForm.controls.areaId.value).subscribe(datos => {
+            
+                  this.arregloPuestos = datos.datos;
+                  this.myForm.controls.puestoId.enable();
+                });
+
+                this.aparecemodalito = false;
+                  this.enviadoSubmitArea = false;
+                
+   
+  
+              }
+            });
+  
+           });
+        }
+
+       
+
+        
+
+
+      }
+      
+    });
   }
 
   public createForm(obj: any) {
@@ -242,8 +365,14 @@ export class EmpleoComponent implements OnInit {
   }
 
 
-  public cambiaArea() {
+  public cambiaArea($event:any) {
     this.myForm.controls.puestoId.disable();
+
+
+    this.apareceplusPuesto = true;
+    console.log(this.myForm.controls.areaId.value);
+    this.textoArea = $event.target.options[$event.target.options.selectedIndex].text;
+    
 
     this.arregloPuestos = [];
     this.areasPrd.getPuestoByArea(this.id_empresa, this.myForm.controls.areaId.value).subscribe(datos => {

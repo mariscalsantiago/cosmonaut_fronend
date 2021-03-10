@@ -91,7 +91,7 @@ export class EmpleoComponent implements OnInit {
       fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd'), [Validators.required]],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
-      esSindicalizado: [obj.esSindicalizado]
+      esSindicalizado: [`${obj.esSindicalizado}`]
     });
 
 
@@ -115,9 +115,49 @@ export class EmpleoComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
 
-        setTimeout(() => {
-          this.modalPrd.showMessageDialog(this.modalPrd.success,"Completado con exito");
-        }, 2000);
+
+        let obj = this.myForm.value;    
+        //Se verifica que tipo de jornada se selecciono
+        let idTipoJornada = -1;    
+        for(let item of this.arregloJornadas){    
+          if(obj.jornadaId == item.jornadaId){             
+            idTipoJornada = item.tipoJornadaId;
+            break;
+          }    
+        }
+        //******************************************* */
+  
+        let objEnviar = {
+          
+          areaId:{areaId:obj.areaId},
+          puestoId:{puestoId:obj.puestoId},
+          sedeId:{sedeId:obj.sedeId},
+          estadoId:{estadoId:obj.estadoId},
+          fechaAntiguedad:obj.fechaAntiguedad,
+          fechaInicio:obj.fechaInicio,
+          fechaFin:obj.fechaFin,
+          jornadaId:{jornadaId:obj.jornadaId,tipoJornadaId:idTipoJornada},
+          tipoJornadaId:idTipoJornada,
+          politicaId:{politicaId:obj.politicaId},
+          esSindicalizado:obj.esSindicalizado          
+      }
+
+      console.log("mi obj a enviar",objEnviar);
+
+      
+      this.contratoColaboradorPrd.update(objEnviar).subscribe(datos =>{
+        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+          if(datos.resultado){
+            console.log(datos);
+            this.empleado = datos.datos;
+            this.myForm = this.createForm(this.empleado);           
+            this.editarcampos = false;
+          }
+        });
+      });
+
+      
+      
 
       }
     });

@@ -24,6 +24,20 @@ export class ContratocolaboradorService {
 
   }
 
+  public update(obj:any):Observable<any>{
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.contratoColaborador}/modificar`,json,httpOptions);
+
+  }
+
 
   public getContratoColaboradorById(idEmpleado:number):Observable<any>{
 

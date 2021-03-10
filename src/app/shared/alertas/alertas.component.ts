@@ -18,7 +18,7 @@ export class AlertasComponent implements OnInit {
 
   ngOnInit(): void {
 
-    $('#date').combodate();  
+    
   }
 
 }
