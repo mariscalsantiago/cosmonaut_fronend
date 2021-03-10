@@ -163,7 +163,7 @@
             <hr>
             <div *ngIf="!aparecerTemp" class="form-group mt-3 row margen"><label class="titulo">COMPENSACIÓN</label>
             </div>
-            <div *ngIf="!aparecerTemp" class="row">
+            <div  class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Grupo de nómina*</label>
                     <select formControlName="grupoNominaId" class="form-control"
@@ -229,7 +229,7 @@
             </div>
             <div *ngIf="aparecerTemp" class="form-group mt-3 row margen"><label class="titulo">COMPENSACIÓN</label>
             </div>
-            <div *ngIf="aparecerTemp" class="row">
+            <div  class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Grupo de nómina*</label>
                     <select class="form-control" [ngClass]="{'is-invalid':f.grupoNominaId.errors && submitEnviado}">
