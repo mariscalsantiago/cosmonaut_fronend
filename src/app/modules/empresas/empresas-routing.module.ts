@@ -55,7 +55,12 @@ const routes: Routes = [{
     {
       path: 'empresa/detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/jonadaLaboral/empresasjornadalaboral.module").then(m => m.empresasJornadaLaboralModule)
+    },
+    {
+      path: 'empresa/detalle/:id',
+      component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/conceptos/empresasconceptos.module").then(m => m.empresasConceptosModule)
     }
+
     
   ]
 }];

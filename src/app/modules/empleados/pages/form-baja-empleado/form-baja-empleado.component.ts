@@ -53,12 +53,8 @@ export class FormBajaEmpleadoComponent implements OnInit {
       }
     }
     this.idEmpresa=this.usuarioSistemaPrd.getIdEmpresa();
-    this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos => this.arreglobaja = datos.datos.personaid);
-    this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos =>{
-      console.log("Empresa",datos.datos);
-      this.arreglobaja = datos.datos
-    });
-    this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
+    this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos => this.arreglobaja = datos.datos);
+    //this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
     this.catalogosPrd.getMotivoBajaEmpleado(this.estatus).subscribe(datos => this.arregloMotivoBaja = datos.datos);
     this.catalogosPrd.getTipoBajaEmpleado(this.estatus).subscribe(datos => this.arregloTipoBaja = datos.datos);
 
@@ -108,7 +104,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
     if (this.myFormcomp.invalid) {     
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -118,7 +114,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
     let mensaje = "¿Deseas dar de baja el empleado?";
     
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
-debugger;
+
       if(valor){
         let obj = this.myFormcomp.value;
         for (let item of this.arreglobaja){
@@ -155,7 +151,7 @@ debugger;
           fechaParaCalculo: antiguedad
       }
 
-          debugger;
+          
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
