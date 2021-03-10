@@ -26,8 +26,11 @@ export class FormBajaEmpleadoComponent implements OnInit {
   public arregloMotivoBaja: any = [];
   public arregloTipoBaja: any = []; 
   public arregloempleados: any = [];
+  public arreglobaja: any = [];
   public fechaContrato = new Date();
   public fechaUltimo: string = "";
+  public idEmpresa: number = 0;
+  public estatusBaj: boolean = false;
   
 
 
@@ -49,8 +52,13 @@ export class FormBajaEmpleadoComponent implements OnInit {
         tipoPersonaId: 5
       }
     }
+    this.idEmpresa=this.usuarioSistemaPrd.getIdEmpresa();
+    this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos => this.arreglobaja = datos.datos.personaid);
+    this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos =>{
+      console.log("Empresa",datos.datos);
+      this.arreglobaja = datos.datos
+    });
     this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
-    console.log("Empleados",this.arregloempleados)
     this.catalogosPrd.getMotivoBajaEmpleado(this.estatus).subscribe(datos => this.arregloMotivoBaja = datos.datos);
     this.catalogosPrd.getTipoBajaEmpleado(this.estatus).subscribe(datos => this.arregloTipoBaja = datos.datos);
 
@@ -87,6 +95,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
       ultimoDia: [obj.ultimoDia, [Validators.required]],
       calculoAntiguedadx: [obj.calculoAntiguedadx],
       pagosXliquidacionId: [obj.pagosXliquidacionId],
+      notas: [obj.notas],
 
 
 
@@ -112,9 +121,9 @@ export class FormBajaEmpleadoComponent implements OnInit {
 debugger;
       if(valor){
         let obj = this.myFormcomp.value;
-        for (let item of this.arregloempleados){
-          if(item.personaId == obj.personaId){
-                this.fechaContrato = item.fechaAlta
+        for (let item of this.arreglobaja){
+          if(item.numEmpleado == obj.personaId){
+                this.fechaContrato = item.fechaContrato
               }
         }
 
@@ -126,6 +135,7 @@ debugger;
         
         let objEnviar: any ={
           fechaContrato: this.fechaContrato,
+          notas: obj.notas,
           personaId: {
               personaId: obj.personaId
           },
@@ -149,10 +159,11 @@ debugger;
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
-              .then(()=> this.routerPrd.navigate(['/empleado'], { state: { datos: undefined } }));
-
-            //this.compania = !datos.resultado;
-
+              //.then(()=> this.routerPrd.navigate(['/empleados']
+            //));
+              if(datos.resultado){
+                this.routerPrd.navigate(['/empleados']);
+              }
           });
 
      }
@@ -162,7 +173,7 @@ debugger;
   }
 
   public cancelarcomp() {
-    this.routerPrd.navigate(['/empleado']);
+    this.routerPrd.navigate(['/empleados']);
   }
 
   get f() { return this.myFormcomp.controls; }
