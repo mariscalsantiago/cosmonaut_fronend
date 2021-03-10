@@ -1,0 +1,38 @@
+<div class="scrooll-designempresa">
+
+<div class="mt-3">
+  <div class="row margen">
+    <div class="col titulo">
+      <label>RESULTADOS</label>
+    </div>
+    <div class="col text-right">
+      <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+        <i class="fa fa-plus"></i> Agregar percepción
+      </button>
+    </div>
+  </div>
+  <div class="row margen margen-tabla background-panel scrooll">
+    <app-tablapaginado [datos]="arreglotablaPer" [editar]="true" [ver]="true" [eliminar]="true"  (salida)="recibirTabla($event)">
+    </app-tablapaginado>
+  </div>
+</div>
+
+<div class="mt-3">
+  <div class="row margen">
+    <div class="col titulo">
+      <label>RESULTADOS</label>
+    </div>
+    <div class="col text-right">
+      <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+        <i class="fa fa-plus"></i> Agregar deducción
+      </button>
+    </div>
+  </div>
+  <div class="row margen margen-tabla background-panel scrooll">
+    <app-tablapaginado [datos]="arreglotablaDed" [editar]="true" [ver]="true" [eliminar]="true"  (salida)="recibirTabla($event)">
+    </app-tablapaginado>
+  </div>
+</div>
+
+
+</div>

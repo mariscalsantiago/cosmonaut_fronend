@@ -25,7 +25,7 @@
                     <label>Seleccionar al empleado *</label>
                     <select formControlName="personaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}">
                         <option value=""></option>
-                        <option *ngFor="let item of arregloempleados"  [value]="item.personaId">{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</option>
+                        <option *ngFor="let item of arreglobaja"  [value]="item.numEmpleado">{{item.personaId.nombre}} {{item.personaId.apellidoPaterno}} {{item.personaId.apellidoMaterno}}</option>
                     </select>
                     <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
@@ -70,7 +70,7 @@
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-12">
                     <label>Notas</label>
-                   <textarea type="text-right" maxlength="512" class="form-control">
+                   <textarea formControlName="notas" type="textarea" maxlength="512" class="form-control">
                    </textarea>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">

@@ -53,8 +53,14 @@ export class EmpleadosService {
     return this.http.get(`${direcciones.contratoColaborador}/obtener/empresa/id/${idCompania}`);
 
   }
+  public getEmpleadosBaja(id: number,status: boolean): Observable<any> {
 
 
+    return this.http.get(`${direcciones.contratoColaborador}/lista/empleado/baja/${id}/${status}`);
+
+  }
+
+ 
   public getEmpleadoById(idEmpleado: number): Observable<any> {
     return this.http.get(`${direcciones.usuarios}/obtener/id/${idEmpleado}`);
   }
@@ -85,6 +91,7 @@ export class EmpleadosService {
     let json: string = JSON.stringify(obj);
     return this.http.post(`${direcciones.usuarios}/lista/compania/tipoPersona`, json, httpOptions);
   }
+  
 
   public filtrar(obj:any):Observable<any>{
     const httpOptions = {
