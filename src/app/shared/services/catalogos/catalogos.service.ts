@@ -76,8 +76,8 @@ export class CatalogosService {
 
   }
 
-  public getAsentamientoByCodigoPostal(codigoPostal:any,esActivo:boolean):Observable<any>{
-      return this.http.get(`${this.url}/catAsentamiento/obtener/codigo/${codigoPostal}/${esActivo}`);
+  public getAsentamientoByCodigoPostal(codigoPostal:any):Observable<any>{
+      return this.http.get(`${this.url}/catAsentamiento/obtener/codigo/${codigoPostal}`);
   }
 
   public getTipoRegimencontratacion():Observable<any>{
