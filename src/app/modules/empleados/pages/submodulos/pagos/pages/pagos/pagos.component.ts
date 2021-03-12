@@ -29,7 +29,7 @@ export class PagosComponent implements OnInit {
   public arregloCompensacion!:Promise<any>;
   public arreglobancos!:Promise<any>;
   public idEmpleado:number = -1;
-  public empleado:any;
+  public empleado:any = {};
 
 
   public myFormMetodoPago!:FormGroup;
@@ -146,7 +146,7 @@ export class PagosComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas guardar los datos?").then(valor =>{
       if(valor){
         let obj = this.myFormMetodoPago.value;  
-        let objEnviar = {  
+        let objEnviar:any = {  
           numeroCuenta: obj.numeroCuenta,
           clabe: obj.clabe,
           bancoId: {
@@ -159,14 +159,12 @@ export class PagosComponent implements OnInit {
           nclCentrocCliente: {
             centrocClienteId: this.empleado.centrocClienteId.centrocClienteId
           },
-          nombreCuenta: '  ',
-          cuentaBancoId:obj.cuentaBancoId,
-          esActivo:true
+          nombreCuenta: '  '
   
         };  
 
       
-        if(objEnviar.cuentaBancoId == undefined){
+        if(obj.cuentaBancoId == undefined){
           console.log("Se va a insertar");
           this.bancosPrd.save(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
@@ -189,6 +187,9 @@ export class PagosComponent implements OnInit {
           });
         }else{
           console.log("Se va a modificar");
+        
+          objEnviar.cuentaBancoId=obj.cuentaBancoId;
+          objEnviar.esActivo=true;
           this.bancosPrd.modificar(objEnviar).subscribe(datos => {
             console.log("se modifica el cliente cuentas bancarias",datos.datos);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
@@ -234,7 +235,18 @@ export class PagosComponent implements OnInit {
   //*********************Termina métodos de pago***************** */
 
 
-  //Empieza lo de detalle de compensacion//
+  //*************Empieza lo de detalle de compensacion****************
+
+  public myFormCompensacion!:FormGroup;
+
+  public createFormCompensacion(obj:any){
+      return this.formbuilder.group({
+        grupoNominaId:[obj.grupoNominaId?.grupoNominaId,[Validators.required]],
+        tipoCompensacionId:[obj.tipoCompensacionId?.tipoCompensacionId,[Validators.required]],
+        sueldoBrutoMensual:[obj.sueldoBrutoMensual,[Validators.required]],
+        sbc:[obj.sbc,[Validators.required]]
+      });
+  }
 
   public guardarDetalleCompensacion(){
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas actualizar los datos del usuario?").then(valor =>{
@@ -246,6 +258,43 @@ export class PagosComponent implements OnInit {
           }, 1000);
       }
     });
+  }
+
+  public enviarCompensacio(){
+    if(this.myFormCompensacion){
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
+    }
+
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas actualizar los datos del empleado?").then(valor =>{
+      if(valor){
+
+        const obj = this.myFormCompensacion.value;
+        const objEnviar = {
+          ...this.empleado,
+          grupoNominaId:{grupoNominaId:obj.grupoNominaId},
+          tipoCompensacionId:{tipoCompensacionId:obj.tipoCompensacionId},
+          sbc:obj.sbc
+        }
+
+        this.contratoColaboradorPrd.update(objEnviar).subscribe(datos =>{
+          this.modalPrd.showMessageDialog(datos.resultados,datos.mensaje).then(()=>{
+            if(datos.resultado){
+                this.empleado = datos.datos;
+                this.cancelar();
+            }
+          });
+        });
+
+      }
+    });
+  }
+
+
+  public verDetalleCompensacion(){
+    this.detallecompensacionbool=true
+    this.myFormCompensacion = this.createFormCompensacion(this.empleado);
   }
 
   //*******************************Termina detalle compensación */

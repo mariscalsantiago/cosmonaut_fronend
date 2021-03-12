@@ -126,15 +126,15 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-6">
-
+                  <form [formGroup]="myFormCompensacion" (ngSubmit)="enviarCompensacio()"></form>
                   <table class="table table-striped table-borderless">
                     <tbody>
                       <tr>
                         <td class="titulorow">Grupo de nómina</td>
-                        <td *ngIf="!detallecompensacionbool">Grupo 1 (semanal)</td>
+                        <td *ngIf="!detallecompensacionbool">{{empleado?.grupoNominaId?.grupoNominaId}}</td>
                         <td *ngIf="detallecompensacionbool">
 
-                          <select name="" id="" class="form-control">
+                          <select formControlName="grupoNominaId" name="" id="" class="form-control">
                             <option *ngFor="let item of (arreglogrupoNomina | async)?.datos" [value]="item.id">
                               {{item.nombre}}</option>
                           </select>
@@ -143,9 +143,9 @@
                       </tr>
                       <tr>
                         <td class="titulorow">Tipo de compensación</td>
-                        <td *ngIf="!detallecompensacionbool">Variado</td>
+                        <td *ngIf="!detallecompensacionbool">{{empleado.tipoCompensacionId?.tipoCompensacionId}}</td>
                         <td *ngIf="detallecompensacionbool">
-                          <select name="" id="" class="form-control">
+                          <select formControlName="tipoCompensacionId" name="" id="" class="form-control">
                             <option *ngFor="let item of (arregloCompensacion | async)?.datos"
                               [value]="item.tipoCompensacionId">{{item.descripcion}}</option>
                           </select>
@@ -153,16 +153,16 @@
                       </tr>
                       <tr>
                         <td class="titulorow">Sueldo bruto mensual</td>
-                        <td *ngIf="!detallecompensacionbool">$9,648.75</td>
+                        <td *ngIf="!detallecompensacionbool">{{empleado.sueldoBrutoMensual | currency}}</td>
                         <td *ngIf="detallecompensacionbool">
-                          <input type="text" class="form-control">
+                          <input formControlName="sueldoBrutoMensual"  type="text" class="form-control">
                         </td>
                       </tr>
                       <tr>
                         <td class="titulorow">Salario Base de Cotización</td>
-                        <td *ngIf="!detallecompensacionbool">$338.80</td>
+                        <td *ngIf="!detallecompensacionbool">{{empleado.sbc | currency}}</td>
                         <td *ngIf="detallecompensacionbool">
-                          <input type="text" class="form-control">
+                          <input formControlName="sbc" type="text" class="form-control">
                         </td>
                       </tr>
                     </tbody>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4 text-right">
-                  <button *ngIf="!detallecompensacionbool" (click)="detallecompensacionbool=true"
+                  <button *ngIf="!detallecompensacionbool" (click)="verDetalleCompensacion()"
                     class="btn btn-primary button-fill">Editar</button>
                   <button *ngIf="detallecompensacionbool" (click)="cancelar()"
                     class="btn btn-primary button-outlet mr-2">Cancelar</button>

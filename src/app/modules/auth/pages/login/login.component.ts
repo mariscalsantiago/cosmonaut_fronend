@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-    $('#modalshare').modal('show');
+   // $('#modalshare').modal('show');
   }
 
   public createMyForm(obj: any) {
