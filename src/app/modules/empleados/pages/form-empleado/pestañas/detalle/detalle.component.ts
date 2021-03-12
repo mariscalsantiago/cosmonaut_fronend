@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { CuentasbancariasService } from '../../../../../empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
 
@@ -9,13 +11,9 @@ import { CuentasbancariasService } from '../../../../../empresas/pages/submodulo
   templateUrl: './detalle.component.html',
   styleUrls: ['./detalle.component.scss']
 })
-export class DetalleComponent implements OnInit, OnChanges {
+export class DetalleComponent implements OnInit {
   @Output() enviado = new EventEmitter();
-  @Input() alerta: any;
-  @Input() enviarPeticion: any;
-  @Input() cambiaValor: boolean = false;
   @Input() datosPersona: any;
-  @Input() metodopago: any = {};
 
   public myForm!: FormGroup;
 
@@ -24,14 +22,11 @@ export class DetalleComponent implements OnInit, OnChanges {
   public arreglobancos: any = [];
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private bancosPrd: CuentasbancariasService,private usuariosSistemaPrd:UsuarioSistemaService) { }
+    private bancosPrd: CuentasbancariasService,private usuariosSistemaPrd:UsuarioSistemaService,
+    private modalPrd:ModalService,private navigate:Router) { }
 
   ngOnInit(): void {
-
-    let obj = {
-      csBanco: {}
-    };
-    this.myForm = this.createForm(obj);
+    this.myForm = this.createForm({});
 
 
     this.catalogosPrd.getCuentasBanco().subscribe(datos => this.arreglobancos = datos.datos);
@@ -48,7 +43,7 @@ export class DetalleComponent implements OnInit, OnChanges {
       metodo_pago_id: { value: obj.metodo_pago_id, disabled: true },
       numeroCuenta: [obj.numeroCuenta, [Validators.required]],
       clabe: [obj.clabe, [Validators.required]],
-      csBanco: [obj.csBanco.bancoId, [Validators.required]],
+      csBanco: [obj.csBanco?.bancoId, [Validators.required]],
       numInformacion: obj.numInformacion
     });
 
@@ -66,17 +61,48 @@ export class DetalleComponent implements OnInit, OnChanges {
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
-      this.alerta.modal = true;
-      this.alerta.strTitulo = "Campos obligatorios o inválidos";
-      this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
-      this.alerta.iconType = "error";
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
 
-    this.alerta.modal = true;
-    this.alerta.strTitulo = "¿Deseas guardar cambios?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar un empleado";
-    this.alerta.iconType = "warning";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas guardar los cambios?").then(valor =>{
+      if(valor){
+
+
+        let obj = this.myForm.value;
+  
+        let objEnviar = {
+  
+          numeroCuenta: obj.numeroCuenta,
+          clabe: obj.clabe,
+          bancoId: {
+            bancoId: obj.csBanco
+          },
+          numInformacion: obj.numInformacion,
+          ncoPersona: {
+            personaId: this.datosPersona.personaId
+          },
+          nclCentrocCliente: {
+            centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
+          },
+          nombreCuenta: '  '
+  
+  
+        };
+  
+        this.bancosPrd.save(objEnviar).subscribe(datos => {
+  
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+            if(datos.resultado){
+                this.navigate.navigate(['/empleados']);
+            }
+          });
+
+        });
+  
+  
+      }
+    });
 
   }
 
@@ -85,49 +111,5 @@ export class DetalleComponent implements OnInit, OnChanges {
   }
 
 
-  ngOnChanges(changes: SimpleChanges) {
-
-    if (this.enviarPeticion.enviarPeticion) {
-      this.enviarPeticion.enviarPeticion = false;
-
-
-      let obj = this.myForm.value;
-
-      let objEnviar = {
-
-        numeroCuenta: obj.numeroCuenta,
-        clabe: obj.clabe,
-        bancoId: {
-          bancoId: obj.csBanco
-        },
-        numInformacion: obj.numInformacion,
-        ncoPersona: {
-          personaId: this.datosPersona.personaId
-        },
-        nclCentrocCliente: {
-          centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
-        },
-        nombreCuenta: '  '
-
-
-      };
-
-      this.bancosPrd.save(objEnviar).subscribe(datos => {
-
-        this.alerta.iconType = datos.resultado ? "success" : "error";
-
-        this.alerta.strTitulo = datos.mensaje;
-        this.alerta.strsubtitulo = datos.mensaje
-        this.alerta.modal = true;
-      });
-
-
-
-    }
-
-
-
-
-
-  }
+ 
 }

@@ -26,7 +26,13 @@
                     <tbody>
                       <tr>
                         <td class="titulorow">Método de pago</td>
-                        <td>Efectivo</td>
+                        <td *ngIf="!metodopagobool">Efectivo</td>
+                        <td *ngIf="metodopagobool">
+                          <select class="form-control">
+                            <option *ngFor="let item of (arregloMetodosPago | async)?.datos"
+                              [value]="item.metodoPagoId">{{item.descripcion}}</option>
+                          </select>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -34,8 +40,12 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4 text-right">
-                  <button class="botonestilos aparece-desktop"><small><i
-                        class="fas fa-pencil-alt"></i>Editar</small></button>
+                  <button *ngIf="!metodopagobool" (click)="metodopagobool = !metodopagobool"
+                    class="botonestilos aparece-desktop"><small><i class="fas fa-pencil-alt"></i>Editar</small></button>
+                  <button *ngIf="metodopagobool" (click)="cancelar()"
+                    class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                  <button *ngIf="metodopagobool" (click)="guardandometodoPago()"
+                    class="btn btn-primary button-fill">Guardar</button>
                 </div>
               </div>
             </div>
@@ -63,19 +73,37 @@
                     <tbody>
                       <tr>
                         <td class="titulorow">Grupo de nómina</td>
-                        <td>Grupo 1 (semanal)</td>
+                        <td *ngIf="!detallecompensacionbool">Grupo 1 (semanal)</td>
+                        <td *ngIf="detallecompensacionbool">
+
+                          <select name="" id="" class="form-control">
+                            <option *ngFor="let item of (arreglogrupoNomina | async)?.datos" [value]="item.id">{{item.nombre}}</option>
+                          </select>
+
+                        </td>
                       </tr>
                       <tr>
                         <td class="titulorow">Tipo de compensación</td>
-                        <td>Variado</td>
+                        <td *ngIf="!detallecompensacionbool">Variado</td>
+                        <td *ngIf="detallecompensacionbool">
+                          <select name="" id="" class="form-control">
+                            <option *ngFor="let item of (arregloCompensacion | async)?.datos" [value]="item.tipoCompensacionId">{{item.descripcion}}</option>
+                          </select>
+                        </td>
                       </tr>
                       <tr>
                         <td class="titulorow">Sueldo bruto mensual</td>
-                        <td>$9,648.75</td>
+                        <td *ngIf="!detallecompensacionbool">$9,648.75</td>
+                        <td *ngIf="detallecompensacionbool">
+                          <input type="text" class="form-control">
+                        </td>
                       </tr>
                       <tr>
                         <td class="titulorow">Salario Base de Cotización</td>
-                        <td>$338.80</td>
+                        <td *ngIf="!detallecompensacionbool">$338.80</td>
+                        <td *ngIf="detallecompensacionbool">
+                          <input type="text" class="form-control">
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -83,8 +111,12 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4 text-right">
-                  <button class="botonestilos aparece-desktop"><small><i
-                        class="fas fa-pencil-alt"></i>Editar</small></button>
+                  <button *ngIf="!detallecompensacionbool" (click)="detallecompensacionbool=true"
+                    class="botonestilos aparece-desktop"><small><i class="fas fa-pencil-alt"></i>Editar</small></button>
+                  <button *ngIf="detallecompensacionbool" (click)="cancelar()"
+                    class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                  <button *ngIf="detallecompensacionbool" (click)="guardarDetalleCompensacion()"
+                    class="btn btn-primary button-fill">Guardar</button>
                 </div>
               </div>
             </div>
@@ -120,8 +152,8 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4 text-right">
-                  <button class="botonestilos aparece-desktop"><small><i
-                        class="fas fa-plus"   data-toggle="modal" data-target="#modalshare"></i>Agregar</small></button>
+                  <button class="botonestilos aparece-desktop"><small><i class="fas fa-plus" data-toggle="modal"
+                        data-target="#modalshare"></i>Agregar</small></button>
                 </div>
               </div>
             </div>
@@ -170,19 +202,20 @@
                       <div class="card">
                         <div class="card-header" id="personal">
                           <h5 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#personalacordion" aria-expanded="false" aria-controls="collapseOne">
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                              data-target="#personalacordion" aria-expanded="false" aria-controls="collapseOne">
                               Pensión Alimenticia
                             </button>
                           </h5>
                         </div>
-                    
+
                         <div id="personalacordion" class="collapse" aria-labelledby="personal" data-parent="#acordion2">
                           <div class="card-body">
-                            
+
 
                             <div class="row">
                               <div class="col-6">
-              
+
                                 <table class="table table-striped table-borderless">
                                   <tbody>
                                     <tr>
@@ -199,7 +232,7 @@
                                     </tr>
                                   </tbody>
                                 </table>
-              
+
                               </div>
                               <div class="col-6">
 
@@ -226,17 +259,19 @@
                       <div class="card">
                         <div class="card-header" id="infonavit">
                           <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#infonavitcolapse" aria-expanded="false" aria-controls="collapseTwo">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                              data-target="#infonavitcolapse" aria-expanded="false" aria-controls="collapseTwo">
                               INFONAVIT
                             </button>
                           </h5>
                         </div>
-                        <div id="infonavitcolapse" class="collapse" aria-labelledby="infonavit" data-parent="#acordion2">
+                        <div id="infonavitcolapse" class="collapse" aria-labelledby="infonavit"
+                          data-parent="#acordion2">
                           <div class="card-body">
-                            
+
                             <div class="row">
                               <div class="col-6">
-              
+
                                 <table class="table table-striped table-borderless">
                                   <tbody>
                                     <tr>
@@ -261,7 +296,7 @@
                                     </tr>
                                   </tbody>
                                 </table>
-              
+
                               </div>
                               <div class="col-6">
 
@@ -294,16 +329,18 @@
                       <div class="card">
                         <div class="card-header" id="unfonacot">
                           <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#unfonacotcolapse" aria-expanded="false" aria-controls="collapseThree">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                              data-target="#unfonacotcolapse" aria-expanded="false" aria-controls="collapseThree">
                               INFONACOT
                             </button>
                           </h5>
                         </div>
-                        <div id="unfonacotcolapse" class="collapse" aria-labelledby="unfonacot" data-parent="#acordion2">
+                        <div id="unfonacotcolapse" class="collapse" aria-labelledby="unfonacot"
+                          data-parent="#acordion2">
                           <div class="card-body">
                             <div class="row">
                               <div class="col-6">
-              
+
                                 <table class="table table-striped table-borderless">
                                   <tbody>
                                     <tr>
@@ -328,7 +365,7 @@
                                     </tr>
                                   </tbody>
                                 </table>
-              
+
                               </div>
                               <div class="col-6">
 
@@ -367,16 +404,19 @@
                       <div class="card">
                         <div class="card-header" id="personalalimenticia">
                           <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#personalalimenticiacollapse" aria-expanded="false" aria-controls="collapseThree">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                              data-target="#personalalimenticiacollapse" aria-expanded="false"
+                              aria-controls="collapseThree">
                               Préstamo personal
                             </button>
                           </h5>
                         </div>
-                        <div id="personalalimenticiacollapse" class="collapse" aria-labelledby="personalalimenticia" data-parent="#acordion2">
+                        <div id="personalalimenticiacollapse" class="collapse" aria-labelledby="personalalimenticia"
+                          data-parent="#acordion2">
                           <div class="card-body">
                             <div class="row">
                               <div class="col-6">
-              
+
                                 <table class="table table-striped table-borderless">
                                   <tbody>
                                     <tr>
@@ -401,7 +441,7 @@
                                     </tr>
                                   </tbody>
                                 </table>
-              
+
                               </div>
                               <div class="col-6">
 
@@ -463,36 +503,36 @@
           </div>
           <div id="collapseSix" class="collapse" aria-labelledby="recibospago" data-parent="#accordion">
             <div class="card-body">
-             
+
 
               <div class="row">
                 <div class="col-12 text-center">
-              
 
-                <table class="table table-hover">
-                  <thead>
 
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Mes</th>
-                      <th>Día pago</th>
-                      <th>Descargar</th>
-                    </tr>
+                  <table class="table table-hover">
+                    <thead>
 
-                  </thead>
-                  <tbody>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Mes</th>
+                        <th>Día pago</th>
+                        <th>Descargar</th>
+                      </tr>
 
-                    <tr>
-                      <td>Nómina Semanal Solusoft</td>
-                      <td>Octubre</td>
-                      <td>2020-10-12</td>
-                      <td></td>
-                    </tr>
+                    </thead>
+                    <tbody>
 
-                  </tbody>
-                </table>
+                      <tr>
+                        <td>Nómina Semanal Solusoft</td>
+                        <td>Octubre</td>
+                        <td>2020-10-12</td>
+                        <td></td>
+                      </tr>
 
-              </div>
+                    </tbody>
+                  </table>
+
+                </div>
               </div>
 
 

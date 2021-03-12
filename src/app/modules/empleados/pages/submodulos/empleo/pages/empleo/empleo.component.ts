@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
-import { ModalempleadosService } from 'src/app/modules/empleados/services/modalempleados.service';
 import { JornadalaboralService } from 'src/app/modules/empresas/pages/submodulos/jonadaLaboral/services/jornadalaboral.service';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { SharedPoliticasService } from 'src/app/shared/services/politicas/shared-politicas.service';
 import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -39,7 +39,7 @@ export class EmpleoComponent implements OnInit {
     private router: ActivatedRoute, public catalogosPrd: CatalogosService,
     private areasPrd: SharedAreasService, private usuariosSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private sedesPrd: SharedSedesService, private jornadaPrd: JornadalaboralService, private politicasPrd: SharedPoliticasService,
-    private modalPrd: ModalempleadosService) { }
+    private modalPrd: ModalService) { }
 
   ngOnInit() {
 
@@ -91,7 +91,7 @@ export class EmpleoComponent implements OnInit {
       fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd'), [Validators.required]],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
-      esSindicalizado: [obj.esSindicalizado]
+      esSindicalizado: [`${obj.esSindicalizado}`]
     });
 
 
@@ -106,27 +106,58 @@ export class EmpleoComponent implements OnInit {
     console.log(this.myForm.value);
 
     if (this.myForm.invalid) {
-      this.modalPrd.getModal().modal = true;
-      this.modalPrd.getModal().strTitulo = "Campos obligatorios o invalidos";
-      this.modalPrd.getModal().strsubtitulo = "Hay campos invalidos o sin rellenar, favor de verificar";
-      this.modalPrd.getModal().iconType = "error";
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
 
-    this.modalPrd.getModal().modal = true;
-    this.modalPrd.getModal().strsubtitulo = "Vas a modificar el perfil del usuario ¿Deseas continuar?";
-    this.modalPrd.getModal().iconType = "warning";
-    this.modalPrd.getModal().strTitulo = "¿Deseas modificar el empleado?";
+    const titulo =  "¿Deseas actualizar los datos del usuario?";
+ 
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
 
-    this.modalPrd.esperarPeticion().subscribe(datos => {
-      if (datos.valor == "aceptado") {
 
-        setTimeout(() => {
-          this.modalPrd.getModal().modal = true;
-          this.modalPrd.getModal().strsubtitulo = "Completado";
-          this.modalPrd.getModal().iconType = "success";
-          this.modalPrd.getModal().strTitulo = "Completado";
-        }, 2000);
+        let obj = this.myForm.value;    
+        //Se verifica que tipo de jornada se selecciono
+        let idTipoJornada = -1;    
+        for(let item of this.arregloJornadas){    
+          if(obj.jornadaId == item.jornadaId){             
+            idTipoJornada = item.tipoJornadaId;
+            break;
+          }    
+        }
+        //******************************************* */
+  
+        let objEnviar = {
+          
+          areaId:{areaId:obj.areaId},
+          puestoId:{puestoId:obj.puestoId},
+          sedeId:{sedeId:obj.sedeId},
+          estadoId:{estadoId:obj.estadoId},
+          fechaAntiguedad:obj.fechaAntiguedad,
+          fechaInicio:obj.fechaInicio,
+          fechaFin:obj.fechaFin,
+          jornadaId:{jornadaId:obj.jornadaId,tipoJornadaId:idTipoJornada},
+          tipoJornadaId:idTipoJornada,
+          politicaId:{politicaId:obj.politicaId},
+          esSindicalizado:obj.esSindicalizado          
+      }
+
+      console.log("mi obj a enviar",objEnviar);
+
+      
+      this.contratoColaboradorPrd.update(objEnviar).subscribe(datos =>{
+        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+          if(datos.resultado){
+            console.log(datos);
+            this.empleado = datos.datos;
+            this.myForm = this.createForm(this.empleado);           
+            this.editarcampos = false;
+          }
+        });
+      });
+
+      
+      
 
       }
     });

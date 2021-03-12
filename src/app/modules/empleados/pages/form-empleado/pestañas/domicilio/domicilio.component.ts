@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-domicilio',
@@ -13,9 +14,6 @@ export class DomicilioComponent implements OnInit {
 
 
   @Output() enviado = new EventEmitter();
-  @Input() alerta: any;
-  @Input() enviarPeticion: any;
-  @Input() cambiaValor: boolean = false;
   @Input() datosPersona:any;
   
 
@@ -29,7 +27,7 @@ export class DomicilioComponent implements OnInit {
   public idMunicipio:number = 0;
 
   constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
-    private catalogosPrd:CatalogosService,private routerPrd:Router) { }
+    private catalogosPrd:CatalogosService,private routerPrd:Router,private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -66,19 +64,43 @@ export class DomicilioComponent implements OnInit {
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
-      
-      this.alerta.modal = true;
-      this.alerta.strTitulo = "Campos obligatorios o inválidos";
-      this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
-      this.alerta.iconType = "error";
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
 
-    this.alerta.modal = true;
-    this.alerta.strTitulo = "¿Deseas guardar cambios?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar un empleado";
-    this.alerta.iconType = "warning";
+    
+    const titulo = "¿Deseas guardar cambios?";
+  
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
+        let obj = this.myForm.value; 
+  
+        let objenviar = 
+          {
+            codigo: obj.codigo,
+            municipio: this.idMunicipio,
+            estado: this.idEstado,
+            asentamientoId: obj.asentamientoId,
+            calle: obj.calle,
+            numExterior: obj.numExterior,
+            numInterior:obj.numInterior,
+            personaId: {
+                personaId: this.datosPersona.personaId
+            }
+        }
+  
+        this.domicilioPrd.save(objenviar).subscribe(datos =>{
+        
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+            if(datos.resultado){
+              this.guardar();
+            }
+          });
 
+        });
+        
+      }
+    });
   }
 
   public get f() {
@@ -86,42 +108,7 @@ export class DomicilioComponent implements OnInit {
   }
 
 
-  ngOnChanges(changes: SimpleChanges) {
-
-    if (this.enviarPeticion.enviarPeticion) {
-      this.enviarPeticion.enviarPeticion = false;
-      
-
-      let obj = this.myForm.value;
-
-
-      let objenviar = 
-        {
-          codigo: obj.codigo,
-          municipio: this.idMunicipio,
-          estado: this.idEstado,
-          asentamientoId: obj.asentamientoId,
-          calle: obj.calle,
-          numExterior: obj.numExterior,
-          numInterior:obj.numInterior,
-          personaId: {
-              personaId: this.datosPersona.personaId
-          }
-      }
-
-      this.domicilioPrd.save(objenviar).subscribe(datos =>{
-        this.alerta.iconType = datos.resultado ? "success" : "error";
-
-        this.alerta.strTitulo = datos.mensaje;
-        this.alerta.strsubtitulo = datos.mensaje
-        this.alerta.modal = true;
-      });
-      
-
-
-  
-    }
-  }
+ 
 
   public buscar(obj:any){
 

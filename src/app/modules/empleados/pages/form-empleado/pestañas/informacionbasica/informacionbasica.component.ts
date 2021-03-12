@@ -1,8 +1,9 @@
-import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
@@ -13,10 +14,6 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 export class InformacionbasicaComponent implements OnInit {
 
   @Output() enviado = new EventEmitter();
-  @Output() enviandouser = new EventEmitter();
-  @Input() alerta: any;
-  @Input() enviarPeticion: any;
-  @Input() cambiaValor: boolean = false;
 
 
 
@@ -30,15 +27,10 @@ export class InformacionbasicaComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private empleadosPrd: EmpleadosService, private usuarioSistemaPrd: UsuarioSistemaService,
-    private routerPrd: Router) { }
+    private routerPrd: Router,private modalPrd:ModalService) { }
 
   ngOnInit(): void {
-
-    let obj = {
-      nacionalidadId: {},
-      medioContacto: {}
-    };
-    this.myform = this.createForm(obj);
+    this.myform = this.createForm({});
 
     this.catalogosPrd.getNacinalidades().subscribe(datos => this.arreglonacionalidad = datos.datos);
 
@@ -56,12 +48,12 @@ export class InformacionbasicaComponent implements OnInit {
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       emailCorporativo: [obj.emailCorporativo],
       invitarEmpleado: obj.invitarEmpleado,
-      nacionalidadId: [obj.nacionalidadId.nacionalidadId, [Validators.required]],
+      nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
       estadoCivil: obj.estadoCivil,
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       tieneHijos: "false",
       numeroHijos: {value:obj.numeroHijos,disabled:true},
-      url: obj.medioContacto.url,
+      url: obj.medioContacto?.url,
       contactoEmergenciaNombre: [obj.contactoEmergenciaNombre, [Validators.required]],
       contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno, [Validators.required]],
       contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
@@ -113,108 +105,87 @@ export class InformacionbasicaComponent implements OnInit {
       }
 
       if (invalido) {
-        this.mostrarMessage();
+        this.modalPrd.showMessageDialog(this.modalPrd.error);
         return;
       }
     }
 
+  
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas guardar cambios?").then(valor =>{
+
+      if(valor){
+          this.guardarCambios();
+      }
+
+    });
+
+  }
+
+  public guardarCambios(){
+    let obj = this.myform.value;
+
+    let fechanacimiento = '';
+
+    if (this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != '') {
+      let date: Date = new Date(`${obj.fechaNacimiento}T12:00-0600`);
+      let dia = (date.getDate() < 10) ? `0${date.getDate()}` : `${date.getDate()}`;
+      let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`;
+      let anio = date.getFullYear();
+      fechanacimiento = `${dia}/${mes}/${anio}`;
+    }
 
 
 
-    this.alerta.modal = true;
-    this.alerta.strTitulo = "¿Deseas guardar cambios?";
-    this.alerta.strsubtitulo = "Esta apunto de guardar un empleado";
-    this.alerta.iconType = "warning";
+    let objenviar = {
+      nombre: obj.nombre,
+      apellidoPaterno: obj.apellidoPaterno,
+      apellidoMaterno: obj.apellidoMaterno,
+      genero: obj.genero,
+      fechaNacimiento: fechanacimiento,
+      tieneCurp: obj.tieneCurp,
+      contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
+      emailCorporativo: obj.emailCorporativo,
+      invitarEmpleado: obj.invitarEmpleado,
+      nacionalidadId: {
+        nacionalidadId: obj.nacionalidadId
+      },
+      estadoCivil: obj.estadoCivil,
+      contactoInicialTelefono: obj.contactoInicialTelefono,
+      tieneHijos: obj.tieneHijos,
+      numeroHijos: obj.numeroHijos,
+      medioContacto: {
+        url: obj.url
+      },
+      contactoEmergenciaNombre: obj.contactoEmergenciaNombre,
+      contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
+      contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
+      contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
+      contactoEmergenciaEmail: obj.contactoEmergenciaEmail,
+      contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
+      centrocClienteId: {
+        centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
+      },
+      curp: obj.curp,
+      rfc: obj.rfc,
+      nns: obj.nns
+    }
+
+
+    this.empleadosPrd.save(objenviar).subscribe(datos => {
+
+     
+      this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+        if(datos.resultado){
+          this.enviado.emit({type:"informacion",datos:datos.datos})
+        }
+      });
+    });
 
   }
 
   public get f() {
     return this.myform.controls;
   }
-
-  public mostrarMessage() {
-    this.alerta.modal = true;
-    this.alerta.strTitulo = "Campos obligatorios o inválidos";
-    this.alerta.strsubtitulo = "Hay campos inválidos o sin rellenar, favor de verificar";
-    this.alerta.iconType = "error";
-  }
-
-
-  ngOnChanges(changes: SimpleChanges) {
-
-
-
-
-    if (this.enviarPeticion.enviarPeticion) {
-      this.enviarPeticion.enviarPeticion = false;
-      let obj = this.myform.value;
-
-      let fechanacimiento = '';
-
-      if (this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != '') {
-        let date: Date = new Date(`${obj.fechaNacimiento}T12:00-0600`);
-        let dia = (date.getDate() < 10) ? `0${date.getDate()}` : `${date.getDate()}`;
-        let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`;
-        let anio = date.getFullYear();
-        fechanacimiento = `${dia}/${mes}/${anio}`;
-      }
-
-
-
-      let objenviar = {
-        nombre: obj.nombre,
-        apellidoPaterno: obj.apellidoPaterno,
-        apellidoMaterno: obj.apellidoMaterno,
-        genero: obj.genero,
-        fechaNacimiento: fechanacimiento,
-        tieneCurp: obj.tieneCurp,
-        contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
-        emailCorporativo: obj.emailCorporativo,
-        invitarEmpleado: obj.invitarEmpleado,
-        nacionalidadId: {
-          nacionalidadId: obj.nacionalidadId
-        },
-        estadoCivil: obj.estadoCivil,
-        contactoInicialTelefono: obj.contactoInicialTelefono,
-        tieneHijos: obj.tieneHijos,
-        numeroHijos: obj.numeroHijos,
-        medioContacto: {
-          url: obj.url
-        },
-        contactoEmergenciaNombre: obj.contactoEmergenciaNombre,
-        contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
-        contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
-        contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
-        contactoEmergenciaEmail: obj.contactoEmergenciaEmail,
-        contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
-        centrocClienteId: {
-          centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
-        },
-        curp: obj.curp,
-        rfc: obj.rfc,
-        nns: obj.nns
-      }
-
-
-      this.empleadosPrd.save(objenviar).subscribe(datos => {
-
-        this.alerta.iconType = datos.resultado ? "success" : "error";
-
-        this.alerta.strTitulo = datos.mensaje;
-        this.alerta.strsubtitulo = datos.mensaje
-        this.alerta.modal = true;
-
-        
-
-        this.enviandouser.emit(datos.datos);
-
-      });
-
-
-    }
-
-  }
-
 
   public cambiaValorHijos(){
     
