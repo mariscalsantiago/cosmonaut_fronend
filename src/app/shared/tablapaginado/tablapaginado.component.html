@@ -36,7 +36,7 @@
         'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}</td>
       <td *ngIf="porcentaje">
         <div class="progress">
-          <div class="progress-bar" role="progressbar" [style.width]="item.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0"
+          <div class="progress-bar primary-bg" role="progressbar" [style.width]="item.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0"
             aria-valuemax="100">{{item.porcentaje}}%</div>
         </div>
       </td>

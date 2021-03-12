@@ -1,4 +1,8 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
+import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -15,19 +19,44 @@ export class PagosComponent implements OnInit {
 
   public metodopagobool:boolean = false;
   public detallecompensacionbool:boolean = false;
+  public esTransferencia:boolean = false;
+  public submitEnviado:boolean = false;
+  public indexMetodoSeleccionado:number = 0;
+  
 
   public arregloMetodosPago!:Promise<any>;
   public arreglogrupoNomina!:Promise<any>;
   public arregloCompensacion!:Promise<any>;
+  public arreglobancos!:Promise<any>;
+  public idEmpleado:number = -1;
+  public empleado:any;
+
+
+  public myFormMetodoPago!:FormGroup;
+
+  
 
   constructor(private modalPrd:ModalService,private catalogosPrd:CatalogosService,
-    private gruponominaPrd: GruponominasService,private usuariosSistemaPrd:UsuarioSistemaService) { }
+    private gruponominaPrd: GruponominasService,private usuariosSistemaPrd:UsuarioSistemaService,
+    private formbuilder:FormBuilder,private router:ActivatedRoute,private contratoColaboradorPrd:ContratocolaboradorService,
+    private bancosPrd: CuentasbancariasService) {
+
+     }
 
   ngOnInit(): void {
-
    this.arregloMetodosPago =  this.catalogosPrd.getAllMetodosPago().toPromise();   
    this.arreglogrupoNomina = this.gruponominaPrd.getAll(this.usuariosSistemaPrd.getIdEmpresa()).toPromise();
    this.arregloCompensacion = this.catalogosPrd.getCompensacion().toPromise();
+   this.arreglobancos = this.catalogosPrd.getCuentasBanco().toPromise();
+
+
+   this.router.params.subscribe(params => {
+    this.idEmpleado = params["id"];
+
+    this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
+      this.empleado = datos.datos;
+    });;
+  });
 
   }
 
@@ -46,18 +75,166 @@ export class PagosComponent implements OnInit {
     this.arreglopintar[valor] = !this.arreglopintar[valor];
   }
 
-  public guardandometodoPago(){
+  //*****************Métodos de pago******************* */
+
+  public createMyFormMetodoPago(obj:any){
+    return this.formbuilder.group({
+      numeroCuenta: [obj.numeroCuenta, [Validators.required]],
+      clabe: [obj.clabe, [Validators.required]],
+      csBanco: [obj.bancoId?.bancoId, [Validators.required]],
+      numInformacion: obj.numInformacion,
+      cuentaBancoId:obj.cuentaBancoId
+    });
+  }
+
+  public editandoMetodoPago(obj:any){
+    this.myFormMetodoPago = this.createMyFormMetodoPago({});
+    this.metodopagobool = true;
+    if(obj == undefined){
+      this.indexMetodoSeleccionado = this.empleado.metodoPagoId?.metodoPagoId;
+    }
+    this.esTransferencia = this.indexMetodoSeleccionado  == 4;   
+
+    if(this.esTransferencia){   
+
+      
+
+        this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos =>{
+          if(datos.resultado){
+              
+              this.myFormMetodoPago = this.createMyFormMetodoPago(datos.datos);
+          }
+        });
+        
+    }
+
+  }
+
+  public guardandometodoPago(){//Solo guarda el método de pago metodopagoid
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas actualizar los datos del método de pago?").then(valor =>{
       if(valor){
-          setTimeout(() => {
-            this.modalPrd.showMessageDialog(this.modalPrd.success,"Operación exitosa").then(()=>{
+        
+        let objEnviar = {
+          ...this.empleado,
+          metodoPagoId:{
+            metodoPagoId: this.indexMetodoSeleccionado
+          }
+        }
+        this.contratoColaboradorPrd.update(objEnviar).subscribe(datos =>{
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+            if(datos.resultado){
+              this.empleado = datos.datos;
               this.metodopagobool = false;
-            });;
-          }, 1000);
+              this.detallecompensacionbool = false;
+            }
+          });
+        });
+
       }
     });
   }
 
+  
+
+  public enviandoMetodoPago(){ //Método guardar transferencia bancaría...
+    this.submitEnviado = true;
+    if(this.myFormMetodoPago.invalid){
+        this.modalPrd.showMessageDialog(this.modalPrd.error);
+        return;
+    }
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas guardar los datos?").then(valor =>{
+      if(valor){
+        let obj = this.myFormMetodoPago.value;  
+        let objEnviar = {  
+          numeroCuenta: obj.numeroCuenta,
+          clabe: obj.clabe,
+          bancoId: {
+            bancoId: obj.csBanco
+          },
+          numInformacion: obj.numInformacion,
+          ncoPersona: {
+            personaId: this.idEmpleado
+          },
+          nclCentrocCliente: {
+            centrocClienteId: this.empleado.centrocClienteId.centrocClienteId
+          },
+          nombreCuenta: '  ',
+          cuentaBancoId:obj.cuentaBancoId,
+          esActivo:true
+  
+        };  
+
+      
+        if(objEnviar.cuentaBancoId == undefined){
+          console.log("Se va a insertar");
+          this.bancosPrd.save(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                let objEnviar = {
+                  ...this.empleado,
+                  metodoPagoId:{
+                    metodoPagoId:this.indexMetodoSeleccionado
+                  }
+                }
+                this.contratoColaboradorPrd.update(objEnviar).subscribe((respContrato) =>{
+                  this.empleado = respContrato.datos;
+                  console.log(this.empleado);
+                  this.cancelar();
+                });
+  
+              }
+            });
+  
+          });
+        }else{
+          console.log("Se va a modificar");
+          this.bancosPrd.modificar(objEnviar).subscribe(datos => {
+            console.log("se modifica el cliente cuentas bancarias",datos.datos);
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                let objEnviar = {
+                  ...this.empleado,
+                  metodoPagoId:{
+                    metodoPagoId:this.indexMetodoSeleccionado
+                  }
+                }
+
+                console.log("Esto se va a mandar",objEnviar);
+                this.contratoColaboradorPrd.update(objEnviar).subscribe((requestContrato) =>{
+                  this.empleado = requestContrato.datos;
+                  console.log(requestContrato);
+                  this.cancelar();
+                });
+  
+              }
+            });
+  
+          });
+        }
+  
+      }
+    });
+  }
+
+  public cancelar(){
+    this.metodopagobool = false;
+    this.detallecompensacionbool = false;
+  }
+
+  public cambiaValorMetodo(){
+    this.editandoMetodoPago("");    
+  }
+  public get f(){
+    return this.myFormMetodoPago.controls;
+  }
+
+
+
+  //*********************Termina métodos de pago***************** */
+
+
+  //Empieza lo de detalle de compensacion//
 
   public guardarDetalleCompensacion(){
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas actualizar los datos del usuario?").then(valor =>{
@@ -71,9 +248,6 @@ export class PagosComponent implements OnInit {
     });
   }
 
+  //*******************************Termina detalle compensación */
 
-  public cancelar(){
-    this.metodopagobool = false;
-    this.detallecompensacionbool = false;
-  }
 }

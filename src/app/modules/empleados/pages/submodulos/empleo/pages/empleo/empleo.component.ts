@@ -128,7 +128,7 @@ export class EmpleoComponent implements OnInit {
         //******************************************* */
   
         let objEnviar = {
-          
+          ...this.empleado,          
           areaId:{areaId:obj.areaId},
           puestoId:{puestoId:obj.puestoId},
           sedeId:{sedeId:obj.sedeId},

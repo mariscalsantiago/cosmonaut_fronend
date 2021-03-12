@@ -44,7 +44,7 @@ export class DomicilioComponent implements OnInit {
     if(!this.datosempresa.insertar){
       this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
         this.arreglo = datos.datos[0];
-        this.catalogosPrd.getAsentamientoByCodigoPostal(this.arreglo.codigo).subscribe(datos => {
+        this.catalogosPrd.getAsentamientoByCodigoPostal(this.arreglo.codigo,true).subscribe(datos => {
             
             this.arreglo = datos.datos;
         });
@@ -56,7 +56,7 @@ export class DomicilioComponent implements OnInit {
     this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
       obj = datos.datos[0];
       obj.asentamientoCpCons = obj.asentamientoId
-      this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
+      this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo,true).subscribe(datos => {
           
         if(datos.resultado){
           this.domicilioCodigoPostal = datos.datos;
@@ -242,7 +242,7 @@ export class DomicilioComponent implements OnInit {
     if(this.myForm.controls.codigo.errors?.pattern === undefined && valor !== null ){
       if(valor.trim() !== ""){
      
-        this.catalogosPrd.getAsentamientoByCodigoPostal(valor).subscribe(datos => {
+        this.catalogosPrd.getAsentamientoByCodigoPostal(valor,true).subscribe(datos => {
           
           if(datos.resultado){
             this.domicilioCodigoPostal = datos.datos;

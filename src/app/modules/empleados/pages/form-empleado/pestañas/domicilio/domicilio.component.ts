@@ -120,7 +120,7 @@ export class DomicilioComponent implements OnInit {
     if(this.myForm.controls.codigo.errors?.pattern === undefined && valor !== null ){
       if(valor.trim() !== ""){
      
-        this.catalogosPrd.getAsentamientoByCodigoPostal(valor).subscribe(datos => {
+        this.catalogosPrd.getAsentamientoByCodigoPostal(valor,true).subscribe(datos => {
           
           if(datos.resultado){
             this.domicilioCodigoPostal = datos.datos;

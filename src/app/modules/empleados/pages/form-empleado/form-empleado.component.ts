@@ -9,15 +9,18 @@ import { Router } from '@angular/router';
 export class FormEmpleadoComponent implements OnInit {
 
   public activado = [
-  { tab: false, form: false, disabled: false }, 
+  { tab: true, form: true, disabled: false }, 
   { tab: false, form: false, disabled: false }, 
   { tab: false, form: false, disabled: false },
-  { tab: true, form: true, disabled: false }, 
+  { tab: false, form: false, disabled: false }, 
   { tab: false, form: false, disabled: false } ];
+
+  public ocultarDetalleTransfrencia:boolean = true;
+  public ocultarempleada:boolean = false;
 
   
 
-  public ocultarempleada:boolean = false;
+  public mostrarDetalleTransferencia:boolean = false;
 
   public datosPersona:any={
     personaId:190
@@ -33,6 +36,7 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   public recibir(elemento: any) {
+    this.ocultarempleada = true;
 
     switch (elemento.type) {
       case "informacion":
@@ -47,6 +51,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[2].form = true;
         this.activado[2].disabled = false;
         this.activado[1].form = false;
+        
         break;
       case "preferencias":
 
@@ -54,14 +59,23 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[3].form = true;
         this.activado[3].disabled = false;
         this.activado[2].form = false;
+        
         break;
       case "empleo":
-
-        this.activado[4].tab = true;
-        this.activado[4].form = true;
-        this.activado[4].disabled = false;
-        this.activado[3].form = false;
+        debugger;
         this.datosPersona.metodopago = elemento.datos;
+        this.ocultarDetalleTransfrencia = this.datosPersona.metodopago.metodoPagoId !== 4;
+
+        if(!this.ocultarDetalleTransfrencia){
+          this.activado[4].tab = true;
+          this.activado[4].form = true;
+          this.activado[4].disabled = false;
+          this.activado[3].form = false;
+        }else{
+          this.routerPrd.navigate(['/empleados']);
+        }
+
+        this.ocultarempleada = true;
         break;
     }
 
