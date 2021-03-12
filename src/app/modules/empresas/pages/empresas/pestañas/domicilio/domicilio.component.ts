@@ -41,7 +41,7 @@ export class DomicilioComponent implements OnInit {
     debugger;
     let obj:any = {};
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
-    /*if(!this.datosempresa.insertar){
+    if(!this.datosempresa.insertar){
       this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
         this.arreglo = datos.datos[0];
         this.catalogosPrd.getAsentamientoByCodigoPostal(this.arreglo.codigo).subscribe(datos => {
@@ -50,8 +50,8 @@ export class DomicilioComponent implements OnInit {
         });
       });
       this.myForm = this.createForm(obj);
-    }*/
-    if(!this.datosempresa.insertar && this.arreglo != undefined ){
+    }
+    if(!this.datosempresa.insertar && this.arreglo.asentamientoCpCons != undefined ){
 
     this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
       obj = datos.datos[0];

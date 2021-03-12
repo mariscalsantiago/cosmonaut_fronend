@@ -104,10 +104,11 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 
 
   public eliminarPer(obj: any) {
-
+    debugger;
     this.objEnviar = {
       conceptoPercepcionId: obj.conceptoPercepcionId,
-      centrocClienteId: obj.centrocClienteId
+      centrocClienteId: obj.centrocClienteId,
+      tipoPercepcionId: obj.tipoPercepcionId
       }
 
       const titulo = "¿Deseas eliminar el concepto de la percepción?";
@@ -162,7 +163,8 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 debugger;
     this.objEnviar = {
       conceptoDeduccionId: obj.conceptoDeduccionId,
-      centrocClienteId: obj.centrocClienteId
+      centrocClienteId: obj.centrocClienteId,
+      tipoDeduccionId: obj.tipoDeduccionId
       }
 
       const titulo = "¿Deseas eliminar el concepto de la deducción?";
