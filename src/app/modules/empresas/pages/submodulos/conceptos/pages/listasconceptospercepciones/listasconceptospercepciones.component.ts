@@ -107,8 +107,10 @@ export class ListasconceptospercepcionesComponent implements OnInit {
     debugger;
     this.objEnviar = {
       conceptoPercepcionId: obj.conceptoPercepcionId,
-      centrocClienteId: obj.centrocClienteId,
-      tipoPercepcionId: obj.tipoPercepcionId
+      tipoPercepcionId: {
+        tipoPercepcionId: obj.tipoPercepcionId.tipoPercepcionId
+       },
+      centrocClienteId: obj.centrocClienteId
       }
 
       const titulo = "¿Deseas eliminar el concepto de la percepción?";
@@ -163,8 +165,10 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 debugger;
     this.objEnviar = {
       conceptoDeduccionId: obj.conceptoDeduccionId,
-      centrocClienteId: obj.centrocClienteId,
-      tipoDeduccionId: obj.tipoDeduccionId
+      tipoDeduccionId: {
+        tipoDeduccionId: obj.tipoDeduccionId.tipoDeduccionId
+       },
+      centrocClienteId: obj.centrocClienteId
       }
 
       const titulo = "¿Deseas eliminar el concepto de la deducción?";
