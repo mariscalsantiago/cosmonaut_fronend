@@ -104,9 +104,12 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 
 
   public eliminarPer(obj: any) {
-
+    debugger;
     this.objEnviar = {
       conceptoPercepcionId: obj.conceptoPercepcionId,
+      tipoPercepcionId: {
+        tipoPercepcionId: obj.tipoPercepcionId.tipoPercepcionId
+       },
       centrocClienteId: obj.centrocClienteId
       }
 
@@ -162,6 +165,9 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 debugger;
     this.objEnviar = {
       conceptoDeduccionId: obj.conceptoDeduccionId,
+      tipoDeduccionId: {
+        tipoDeduccionId: obj.tipoDeduccionId.tipoDeduccionId
+       },
       centrocClienteId: obj.centrocClienteId
       }
 
