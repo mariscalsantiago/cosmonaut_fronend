@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
@@ -10,7 +10,17 @@ export class ReportesService {
 
   constructor(private http:HttpClient) { }
 
-  public getReportePerfilPersonal(idPersona:number):Observable<any>{
-    return this.http.get(`${direcciones.reportes}/perfil/personal/${idPersona}`);
+  public getReportePerfilPersonal(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+    let json = JSON.stringify(obj);
+
+    console.log(json);
+    return this.http.post(`${direcciones.reportes}/perfil/personal`,json,httpOptions);
   }
 }

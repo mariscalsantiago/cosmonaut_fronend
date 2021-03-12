@@ -161,10 +161,10 @@
                 </div>
             </div>
             <hr>
-            <div *ngIf="!aparecerTemp" class="form-group mt-3 row margen"><label class="titulo">COMPENSACIÓN</label>
+            <div *ngIf="aparecerTemp" class="form-group mt-3 row margen"><label class="titulo">COMPENSACIÓN</label>
             </div>
             <div  class="row">
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Grupo de nómina*</label>
                     <select formControlName="grupoNominaId" class="form-control"
                         [ngClass]="{'is-invalid':f.grupoNominaId.errors && submitEnviado}">
@@ -174,7 +174,7 @@
                         Campo requerido
                     </div>
                 </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Tipo de compensación*</label>
                     <select formControlName="tipoCompensacionId" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.tipoCompensacionId.errors && submitEnviado}">
@@ -185,38 +185,7 @@
                         Campo requerido
                     </div>
                 </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Tipo sueldo*</label>
-                    <select formControlName="tiposueldo" (change)="cambiarSueldoField()" name="" id=""
-                        class="form-control" [ngClass]="{'is-invalid':f.tiposueldo.errors && submitEnviado}">
-                        <option value="b">Bruto</option>
-                        <option value="n">Neto</option>
-                    </select>
-                    <div *ngIf="f.tiposueldo.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Sueldo bruto mensual*</label>
-                    <input formControlName="sueldoBrutoMensual" type="text" name="" id="" class="form-control"
-                        [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}">
-
-                    <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Salarío base cotización*</label>
-                    <input formControlName="salarioDiario" type="text" name="" id="" class="form-control"
-                        [ngClass]="{'is-invalid':f.salarioDiario.errors && submitEnviado}">
-
-                    <div *ngIf="f.salarioDiario.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Salarío neto mensual*</label>
                     <input formControlName="sueldoNetoMensual" type="text" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.sueldoNetoMensual.errors && submitEnviado,'disabled':!sueldoNeto}">
@@ -226,59 +195,23 @@
                     </div>
 
                 </div>
-            </div>
-            <div *ngIf="aparecerTemp" class="form-group mt-3 row margen"><label class="titulo">COMPENSACIÓN</label>
-            </div>
-            <div  class="row">
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Grupo de nómina*</label>
-                    <select class="form-control" [ngClass]="{'is-invalid':f.grupoNominaId.errors && submitEnviado}">
-                        <option selected value="">Grupo 1</option>
-                    </select>
-                    <div *ngIf="f.grupoNominaId.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Tipo de compensación*</label>
-                    <select name="" id="" class="form-control"
-                        [ngClass]="{'is-invalid':f.tipoCompensacionId.errors && submitEnviado}">
-                        <option *ngFor="let item of arregloCompensacion" [value]="item.tipoCompensacionId">
-                            {{item.descripcion}}</option>
-                    </select>
-                    <div *ngIf="f.tipoCompensacionId.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Sueldo neto mensual*</label>
-                    <input value="$45,000.00" type="text" name="" id="" class="form-control"
-                        [ngClass]="{'is-invalid':f.sueldonetomensual.errors && submitEnviado,'disabled':!sueldoNeto}"
-                        [disabled]="!sueldoNeto">
-                    <div *ngIf="f.sueldonetomensual.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-                </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label class="contenedorInputCheckRadio">Salario bruto IMSS*
-                        <input checked id="tienecurp" type="checkbox" name="">
+                        <input checked (change)="desabilitarinput = false"  type="radio" value="salariobrutoImss" name="opcionimss">
                         <span class="radiomark"></span>
                     </label>
-                    <input type="text" value="$3,064.12" name="" id="" class="form-control">
+                    <input [disabled]="desabilitarinput" type="text" value="$3,064.12" name="" id="" class="form-control">
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label class="contenedorInputCheckRadio">Salario diario IMSS
-                        <input id="tienecurp" type="checkbox" name="">
+                        <input (change)="desabilitarinput = true"  type="radio" value="salarioImss" name="opcionimss">
                         <span class="radiomark"></span>
                     </label>
-                    <input disabled value="$102.14" type="text" name="" id="" class="form-control">
+                    <input [disabled]="!desabilitarinput" value="$102.14" type="text" name="" id="" class="form-control">
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label class="contenedorInputCheckRadio">SBC IMSS
-                        <input id="tienecurp" type="checkbox" name="">
-
-                    </label>
-                    <input disabled value="$106.75" type="text" name="" id="" class="form-control">
+                    <label for="exampleFormControlSelect1">SBC IMSS</label>
+                    <input  type="text" class="form-control">
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">PPP*</label>
@@ -291,13 +224,34 @@
                     </div>
 
                 </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Sueldo bruto mensual*</label>
-                    <input disabled value="$45,167.23" type="text" name="" id="" class="form-control"
-                        [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}"
-                        [disabled]="!sueldoBruto">
+                    <input formControlName="sueldoBrutoMensual" type="text" name="" id="" class="form-control"
+                        [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}">
 
                     <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                    <label for="exampleFormControlSelect1">Tipo sueldo*</label>
+                    <select formControlName="tiposueldo" (change)="cambiarSueldoField()" name="" id=""
+                        class="form-control" [ngClass]="{'is-invalid':f.tiposueldo.errors && submitEnviado}">
+                        <option value="b">Bruto</option>
+                        <option value="n">Neto</option>
+                    </select>
+                    <div *ngIf="f.tiposueldo.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+               
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                    <label for="exampleFormControlSelect1">Salarío base cotización*</label>
+                    <input formControlName="salarioDiario" type="text" name="" id="" class="form-control"
+                        [ngClass]="{'is-invalid':f.salarioDiario.errors && submitEnviado}">
+
+                    <div *ngIf="f.salarioDiario.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
 
@@ -309,7 +263,7 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Días de vacaciones</label>
-                    <input formControlName="dias_vacaciones" type="text" name="" id="" class="form-control"
+                    <input appSolonumeros formControlName="dias_vacaciones" type="text" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.dias_vacaciones.errors && submitEnviado}">
                     <div *ngIf="f.dias_vacaciones.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido

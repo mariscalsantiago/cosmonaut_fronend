@@ -33,7 +33,7 @@ export class InformacionbasicaComponent implements OnInit {
     this.myform = this.createForm({});
 
     this.catalogosPrd.getNacinalidades().subscribe(datos => this.arreglonacionalidad = datos.datos);
-
+    
   }
 
 
@@ -64,6 +64,7 @@ export class InformacionbasicaComponent implements OnInit {
       rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]]
     });
+    
   }
 
 
@@ -80,9 +81,11 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public enviarFormulario() {
-
+    
     
 
+    console.log(this.myform.value);
+    console.log(this.myform.controls.nombre.value);
 
     this.submitEnviado = true;
 

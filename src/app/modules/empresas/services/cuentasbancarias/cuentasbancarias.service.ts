@@ -13,14 +13,14 @@ export class CuentasbancariasService {
 
   public getAll():Observable<any>{
 
-    return this.http.get("/yared/cuentaBanco/listar/todos");
+    return this.http.get(`${direcciones.cuentasbancarias}/listar/todos`);
 
   }
 
 
   public getAllByEmpresa(idEmpresa:number):Observable<any>{
 
-    return this.http.get(`/yared/cuentaBanco/obtener/cliente/${idEmpresa}`);
+    return this.http.get(`${direcciones.cuentasbancarias}/obtener/cliente/${idEmpresa}`);
 
   }
 
@@ -37,4 +37,7 @@ export class CuentasbancariasService {
     return this.http.put(`${direcciones.cuentasbancarias}/guardarSTP`,json,httpOptions);
 
   }
+
+
+ 
 }

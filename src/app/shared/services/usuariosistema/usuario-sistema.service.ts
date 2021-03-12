@@ -10,6 +10,7 @@ export class UsuarioSistemaService {
   constructor() { 
    
     this.usuario = new usuarioClass(112,1);
+    console.log("Se inicializa mi usuario de sistema");
 
   }
 

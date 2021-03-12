@@ -36,6 +36,8 @@ export class CatalogosService {
   }
 
   public getCuentasBanco(): Observable<any> {
+
+     
     return this.http.get(`${this.url}/csbanco/listar/todos`);
   }
 
@@ -74,8 +76,8 @@ export class CatalogosService {
 
   }
 
-  public getAsentamientoByCodigoPostal(codigoPostal:any):Observable<any>{
-      return this.http.get(`${this.url}/catAsentamiento/obtener/codigo/${codigoPostal}`);
+  public getAsentamientoByCodigoPostal(codigoPostal:any,esActivo:boolean):Observable<any>{
+      return this.http.get(`${this.url}/catAsentamiento/obtener/codigo/${codigoPostal}/${esActivo}`);
   }
 
   public getTipoRegimencontratacion():Observable<any>{

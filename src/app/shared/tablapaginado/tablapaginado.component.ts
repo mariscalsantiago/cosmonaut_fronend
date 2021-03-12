@@ -101,6 +101,7 @@ export class TablapaginadoComponent implements OnInit {
         primero = false;
       }
 
+      
       this.arreglo = this.arreglotemp.slice(0, Number(this.numeroitems));
       
 
