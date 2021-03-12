@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { ConceptosService } from '../../services/conceptos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-listasconceptospercepciones',
@@ -11,24 +12,22 @@ import { ConceptosService } from '../../services/conceptos.service';
 export class ListasconceptospercepcionesComponent implements OnInit {
 
   public tamanio: number = 0;
-  public cargando: boolean = false;
+  public objEnviar: any;
   public changeIconDown: boolean = false;
-
-
-
-  public arreglotablaPer: any = {
-    columnas: [],
-    filas: []
-  };
-
-  public arreglotablaDed: any = {
-    columnas: [],
-    filas: []
-  };
-
-
+  public nombre: string = "";
+  public cargando: boolean = false;
   public id_empresa: number = 0;
-  public arreglo: any = [];
+  public aparecemodalito: boolean = false;
+  public scrolly: string = '5%';
+  public modalWidth: string = "55%";
+  public cargandodetallegrupo:boolean = false;
+  public indexSeleccionado: number = 0;
+
+  public arreglotablaPer: any = [];
+
+  public arreglotablaDed: any = [];
+
+  public arreglodetalle:any = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -36,104 +35,210 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 
 
     this.tamanio = event.target.innerWidth;
+
+    if (this.tamanio < 600) {
+
+      this.modalWidth = "90%";
+
+    } else {
+      this.modalWidth = "55%";
+
+    }
   }
 
-
-  constructor(private routerPrd: Router, private activateRouter: ActivatedRoute,
-    private cuentasPrd: ConceptosService) { }
+  constructor(private conceptosPrd: ConceptosService, private routerPrd: Router,
+    private routerActive: ActivatedRoute,private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
-    
-    this.activateRouter.params.subscribe(datos => {
+    let documento: any = document.defaultView;
 
+    this.tamanio = documento.innerWidth;
+
+    this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
 
-
       this.cargando = true;
+      
+      this.conceptosPrd.getListaConceptoPercepcion(this.id_empresa).subscribe(datos => {
+        debugger;
 
-      this.cuentasPrd.getCuentaBancariaByEmpresa(this.id_empresa).subscribe(datos => {
-        let columnas: Array<tabla> = [
-          new tabla("nombreCuenta", "Nombre de percepción"),
-          new tabla("numeroCuenta", "Tipo de concepto"),
-          new tabla("nombrebanco", "Descripción SAT"),
-          new tabla("clabe", "Cuenta contable")
-        ];
+        if(datos.datos !== undefined){
+          datos.datos.forEach((part:any) => {
+            part.descripcion=part.tipoPercepcionId?.descripcion;
+            if(part.tipoConcepto == "O"){
+              part.tipoConcepto= "Ordinario"
+            }
+            if(part.tipoConcepto == "E"){
+              part.tipoConcepto= "Extraordinario"
+            }
 
-        console.log("datos de cuentas",datos);
+            if(part.tipoPeriodicidad == "P"){
+              part.tipoPeriodicidad= "Periodica"
+            }
+            if(part.tipoPeriodicidad == "E"){
+              part.tipoPeriodicidad= "Estandar"
+            }
+            if(part.tipoPeriodicidad == "A"){
+              part.tipoPeriodicidad= "Ambos"
+            }
 
-  
-
-        this.arreglotablaPer.columnas = columnas;
-        this.arreglotablaPer.filas = datos.datos;
+          });
+        }
+        this.arreglotablaPer = datos.datos;
         this.cargando = false;
-        
       });
 
-      this.cuentasPrd.getCuentaBancariaByEmpresa(this.id_empresa).subscribe(datos => {
-        let columnas: Array<tabla> = [
-          new tabla("nombreCuenta", "Nombre de la deducción"),
-          new tabla("nombrebanco", "Descripción SAT"),
-          new tabla("clabe", "Cuenta contable")
-        ];
-
-        console.log("datos de cuentas",datos);
-
-  
-
-        this.arreglotablaDed.columnas = columnas;
-        this.arreglotablaDed.filas = datos.datos;
+      this.conceptosPrd.getListaConceptoDeduccion(this.id_empresa).subscribe(datos => {
+        this.arreglotablaDed = datos.datos;
         this.cargando = false;
-        
       });
-
 
     });
 
   }
 
-  apagando(indice:number){
+  public filtrar() {
+
+  }
+
+
+  public eliminarPer(obj: any) {
+
+    this.objEnviar = {
+      conceptoPercepcionId: obj.conceptoPercepcionId,
+      centrocClienteId: obj.centrocClienteId
+      }
+
+      const titulo = "¿Deseas eliminar el concepto de la percepción?";
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
+
+
+        this.conceptosPrd.eliminarPer(this.objEnviar).subscribe(datos => {
+          this.cargando = false;        
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+        
+          if (datos.resultado) {
+            this.conceptosPrd.getListaConceptoPercepcion(this.id_empresa).subscribe(datos => {
+
+              if(datos.datos !== undefined){
+                datos.datos.forEach((part:any) => {
+                  part.descripcion=part.tipoPercepcionId?.descripcion;
+                  if(part.tipoConcepto == "O"){
+                    part.tipoConcepto= "Ordinario"
+                  }
+                  if(part.tipoConcepto == "E"){
+                    part.tipoConcepto= "Extraordinario"
+                  }
+                  if(part.tipoPeriodicidad == "P"){
+                    part.tipoPeriodicidad= "Periodica"
+                  }
+                  if(part.tipoPeriodicidad == "E"){
+                    part.tipoPeriodicidad= "Estandar"
+                  }
+                  if(part.tipoPeriodicidad == "A"){
+                    part.tipoPeriodicidad= "Ambos"
+                  }
+      
+                });
+              }
+              this.arreglotablaPer = datos.datos;
+              this.cargando = false;
+            });
+
+        }
+  
+        });
+       }
+    });
+
+
+
+  }
+
+  public eliminarDed(obj: any) {
+debugger;
+    this.objEnviar = {
+      conceptoDeduccionId: obj.conceptoDeduccionId,
+      centrocClienteId: obj.centrocClienteId
+      }
+
+      const titulo = "¿Deseas eliminar el concepto de la deducción?";
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
+
+
+        this.conceptosPrd.eliminarDed(this.objEnviar).subscribe(datos => {
+          this.cargando = false;        
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+        
+          if (datos.resultado) {
+            this.conceptosPrd.getListaConceptoDeduccion(this.id_empresa).subscribe(datos => {
+              this.arreglotablaDed = datos.datos;
+            });
+
+        }
+  
+        });
+       }
+    });
+
+
+
+  }
+
+  public verdetallePer(obj: any) {
+    debugger;
+        if(obj == undefined){
+          this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'conceptosPercepciones', 'nuevo']);
+        }else{
+          this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'conceptosPercepciones', 'editar'],{ state: { data: obj}});
+        }
+      }
+      public verdetalleDed(obj: any) {
+    debugger;
+        if(obj == undefined){
+          this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'conceptosDeducciones', 'nuevo']);
+        }else{
+          this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'conceptosDeducciones', 'editar'],{ state: { data: obj}});
+        }
+      }
+
+  apagandoPer(indice: number) {
+
     
-    for(let x = 0;x < this.arreglo.length; x++){
+
+    for(let x = 0;x < this.arreglotablaPer.length; x++){
       if(x == indice)
             continue;
 
-      this.arreglo[x].seleccionado = false;
+      this.arreglotablaPer[x].seleccionado = false;
     }
 
 
-    this.arreglo[indice].seleccionado = !this.arreglo[indice].seleccionado;
+    this.arreglotablaPer[indice].seleccionado = !this.arreglotablaPer[indice].seleccionado;
   
   }
 
-  public verdetalle(obj: any) {
+  apagandoDed(indice: number) {
 
-    if(obj == undefined){
-      this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'cuentasbancarias', 'nuevo']);
-    }else{
-      this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'cuentasbancarias', 'editar'],{ state: { data: obj}});
+    
+
+    for(let x = 0;x < this.arreglotablaDed.length; x++){
+      if(x == indice)
+            continue;
+
+      this.arreglotablaDed[x].seleccionado = false;
     }
 
 
-
-  }
-
-
-  public obj: any;
- 
-
+    this.arreglotablaDed[indice].seleccionado = !this.arreglotablaDed[indice].seleccionado;
   
-
-  public recibirTabla(obj:any){
-    switch(obj.type){
-
-      case "editar":
-        this.verdetalle(obj.datos);
-        break;
-        case "eliminar":
-          //eliminar método
-          break;
-
-    }
   }
+
+
+
 }

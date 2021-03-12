@@ -12,20 +12,23 @@ export class ConceptosService {
 
   constructor(private http:HttpClient) {
 
-    this.url = direcciones.cuentasbancarias;
+    this.url = direcciones.conceptos;
 
 
    }
 
-  public getListaCuentaBancaria():Observable<any>{
-       return this.http.get(`${this.url}/listar/todos`);
+  public getListaConceptoPercepcion(id_empresa:number):Observable<any>{
+       return this.http.get(`${this.url}/obtener/percepcion/${id_empresa}`);
   }
 
  
+  public getListaConceptoDeduccion(id_empresa:number):Observable<any>{
+
+    return this.http.get(`${this.url}/obtener/deduccion/${id_empresa}`);
+  }
 
 
-
-  public save(obj:any):Observable<any>{
+  public savePer(obj:any):Observable<any>{
 
 
     const httpOptions = {
@@ -35,14 +38,42 @@ export class ConceptosService {
     };
 
     let json: string = JSON.stringify(obj);
-    console.log(`guardar`);
+    console.log(`guardar percepcion`,json);
+    return this.http.put(`${this.url}/guardarPercepcion`,json,httpOptions);
+  }
+  public saveDed(obj:any):Observable<any>{
+
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    console.log(`guardar percepcion`,json);
+    return this.http.put(`${this.url}/guardarDeduccion`,json,httpOptions);
+  }
+
+
+
+  public  modificarPer(obj:any):Observable<any>{
+
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+
     console.log(json);
-    return this.http.put(`${this.url}/guardar`,json,httpOptions);
+
+    return this.http.post(`${this.url}/modificarPercepcion`,json,httpOptions);
   }
 
-
-
-  public  modificar(obj:any):Observable<any>{
+  public  modificarDed(obj:any):Observable<any>{
 
 
     const httpOptions = {
@@ -55,11 +86,11 @@ export class ConceptosService {
 
     console.log(json);
 
-    return this.http.post(`${this.url}/modificar`,json,httpOptions);
+    return this.http.post(`${this.url}/modificarDeduccion`,json,httpOptions);
   }
 
 
-  public eliminar(obj:any):Observable<any>{
+  public eliminarPer(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -67,13 +98,18 @@ export class ConceptosService {
     };
 
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${this.url}/eliminar`,json,httpOptions);
+    return this.http.post(`${this.url}/eliminarPercepcion`,json,httpOptions);
   }
 
+  public eliminarDed(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
-  public getCuentaBancariaByEmpresa(id_empresa:number):Observable<any>{
-
-    return this.http.get(`${this.url}/obtener/cliente/${id_empresa}`);
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${this.url}/eliminarDeduccion`,json,httpOptions);
   }
 
 }

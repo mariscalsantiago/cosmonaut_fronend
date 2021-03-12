@@ -137,5 +137,17 @@ export class CatalogosService {
 
   }
 
+  public getTipoPercepcion(estatus:boolean):Observable<any>{
+
+    return this.http.get(`${this.url}/csTipoPercepcion/listar/todosActivo/${estatus}`);
+
+  }
+
+  public getTipoDeduccion(estatus:boolean):Observable<any>{
+
+    return this.http.get(`${this.url}/csTipoDeduccion/listar/todosActivo/${estatus}`);
+
+  }
+
 
 }

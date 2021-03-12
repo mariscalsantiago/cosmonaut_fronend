@@ -5,12 +5,12 @@ import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.se
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ConceptosService } from '../../services/conceptos.service';
 
-@Component({
-  selector: 'app-detalleconceptospercepciones',
-  templateUrl: './detalleconceptospercepciones.component.html',
-  styleUrls: ['./detalleconceptospercepciones.component.scss']
+@Component({ 
+  selector: 'app-detalleconceptosdeducciones',
+  templateUrl: './detalleconceptosdeducciones.component.html',
+  styleUrls: ['./detalleconceptosdeducciones.component.scss']
 })
-export class DetalleconceptospercepcionesComponent implements OnInit {
+export class DetalleconceptosdeduccionesComponent implements OnInit {
   @ViewChild("nombre") public nombre!: ElementRef;
 
   public mostrartooltip: boolean = false;
@@ -18,7 +18,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public id_empresa: number = 0;
   public esInsert: boolean = false;
   public submitInvalido: boolean = false;
-  public arregloTipoPercepcion: any = [];
+  public arregloTipoDeduccion: any = [];
   public estatus: boolean = true;
   public peticion: any = [];
 
@@ -28,9 +28,10 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
-    this.catalogosPrd.getTipoPercepcion(this.estatus).subscribe(datos => this.arregloTipoPercepcion = datos.datos);
- 
+    
+    this.catalogosPrd.getTipoDeduccion(this.estatus).subscribe(datos => this.arregloTipoDeduccion = datos.datos);
+    console.log("deducciones",this.arregloTipoDeduccion);
+
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -42,21 +43,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
     let obj = history.state.data == undefined ? {} : history.state.data;
-
-    if(obj.tipoPeriodicidad == "Periodica"){
-      obj.tipoPeriodicidad= "P"
-    }
-    if(obj.tipoPeriodicidad == "Estandar"){
-      obj.tipoPeriodicidad= "E"
-    }
-    if(obj.tipoPeriodicidad == "Ambos"){
-      obj.tipoPeriodicidad= "A"
-    }
     if (this.esInsert) {
       obj = {
-        tipoPercepcionId: {}
+        tipoDeduccionId: {}
       };
     }
+
 
     this.myForm = this.createForm(obj);
 
@@ -69,18 +61,14 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    debugger;
+
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      tipoPercepcionId: [obj.tipoPercepcionId.tipoPercepcionId, [Validators.required]],
-      tipoPeriodicidad: [obj.tipoPeriodicidad, [Validators.required]],
-      gravaIsr: [obj.gravaIsr, [Validators.required]],
-      gravaIsn: [obj.gravaIsn, [Validators.required]],
-      cuentaContable: [obj.cuentaContable,[Validators.required]],
-      tipoConcepto: [obj.tipoConcepto],
+      tipoDeduccionId: [obj.tipoDeduccionId.tipoDeduccionId, [Validators.required]],
+      cuentaContable: [obj.cuentaContable],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
-      conceptoPercepcionId: [obj.conceptoPercepcionId],
+      conceptoDeduccionId: [obj.conceptoDeduccionId]
 
     });
 
@@ -99,7 +87,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     }
 
-    let titulo = this.esInsert ? "¿Deseas registrar el concepto de percepcion ?" : "¿Deseas actualizar el concepto de percepcion?";
+    let titulo = this.esInsert ? "¿Deseas registrar el concepto de la deducción ?" : "¿Deseas actualizar el concepto de la deducción?";
 
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
@@ -109,36 +97,21 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         if (valor) {
 
           let obj = this.myForm.value;
-
-          obj.tipoConcepto = obj.tipoConcepto == "Ordinario"?"O":"E";
-          
-    
-          let gravaIsr = obj.gravaIsr == "true"?"N":"S";
-
           this.peticion = {
   
             nombre: obj.nombre,
-            tipoPercepcionId: {
-              tipoPercepcionId: obj.tipoPercepcionId
+            tipoDeduccionId: {
+              tipoDeduccionId: obj.tipoDeduccionId
               },
-          
-            tipoPeriodicidad: obj.tipoPeriodicidad,
             cuentaContable: obj.cuentaContable,
-            tipoConcepto:  obj.tipoConcepto,
-            gravaIsn: obj.gravaIsn,
-            gravaIsr: gravaIsr,
             centrocClienteId: {
               centrocClienteId: this.id_empresa
               }
           };
 
+           if (this.esInsert) {
 
-
-
-
-          if (this.esInsert) {
-
-            this.conceptosPrd.savePer(this.peticion).subscribe(datos => {
+            this.conceptosPrd.saveDed(this.peticion).subscribe(datos => {
 
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
@@ -151,9 +124,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
             });
           } else {
 
-            this.peticion.conceptoPercepcionId = obj.conceptoPercepcionId;
+            this.peticion.conceptoDeduccionId = obj.conceptoDeduccionId;
 
-            this.conceptosPrd.modificarPer(this.peticion).subscribe(datos => {
+            this.conceptosPrd.modificarDed(this.peticion).subscribe(datos => {
 
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {

@@ -3,81 +3,93 @@
 
 <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
 
-  <input type="hidden">
+  <input type="hidden" formControlName="conceptoPercepcionId">
   
   <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
     <br>
     <div class="form-group row margen">
-      <label class="titulo">INFORMACIÓN DE CUENTAS BANCARIAS</label>
+      <label class="titulo">INFORMACIÓN DE LA PERCEPCIÓN</label>
     </div>
     <div class="form-group row margen">
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Nombre de cuenta *</label>
-        <input #nombre formControlName="nombreCuenta" type="text" class="form-control"
-          [ngClass]="{'is-invalid':f.nombreCuenta.errors && submitInvalido}" placeholder="">
-        <div *ngIf="submitInvalido && f.nombreCuenta.errors" class="invalid-feedback">
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label>Nombre de la percepción *</label>
+        <input appMayusculas formControlName="nombre" maxlength="100" type="text" name=""  class="form-control"
+          [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}" placeholder="">
+        <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
           Campo requerido
         </div>
       </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
-        <label>Número de cuenta * 
-          <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No
-            tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a><i class="far fa-times-circle"></i>
-          </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label>Tipo de percepción *</label>
+        <select formControlName="tipoPeriodicidad" name=""  class="form-control"
+        [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitInvalido}">
+          <option value="P">Periodica</option>
+          <option value="E">Estandar</option>
+          <option value="A">Ambos</option>
+      </select>
+        <div *ngIf="submitInvalido && f.tipoPeriodicidad.errors" class="invalid-feedback">
+          Campo requerido
+        </div>
+      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
+        <label>Catálogo SAT *</label>
+          <select formControlName="tipoPercepcionId" class="form-control"
+          [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}">
+          <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipoPercepcionId">{{item.descripcion}}</option>
+        </select>
+        <div *ngIf="submitInvalido && f.tipoPercepcionId.errors" class="invalid-feedback">
+          Campo requerido
+        </div>
+      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label>Cuenta contable</label>
+        <input formControlName="cuentaContable" maxlength="100" appMayusculas type="text" class="form-control" id="cuentaContable" aria-describedby="cuentaContable"
+            placeholder="">
 
-          <!-- <i (click)="mostrartooltip = !mostrartooltip"
-            class="fas fa-question-circle primary cursorhand " data-toggle="tooltip" data-placement="top"
-            title="Dar click para información"></i> -->
-
+    </div>
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+      <label>Estatus</label>
+      <select name="" id="" class="form-control" formControlName="esActivo">
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
+      </select>
+    </div>
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
+      <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
+        <label class="contenedorInputCheckRadio">Grava ISR *    
+          <input formControlName="gravaIsr" type="checkbox" name="" id="gravaIsr"
+          [ngClass]="{'is-invalid':f.gravaIsr.errors && submitInvalido}">
+          <span class="checkmark"></span>
         </label>
-        <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="10" class="form-control"
-          [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitInvalido}" placeholder="">
-        <div *ngIf="submitInvalido && f.numeroCuenta.errors" class="invalid-feedback">
+        
+        <div *ngIf="submitInvalido && f.gravaIsr.errors" class="invalid-feedback">
           Campo requerido
         </div>
+      
+        <label class="contenedorInputCheckRadio">Grava ISN *
+          <input formControlName="gravaIsn" type="checkbox" name="" id="gravaIsn"
+          [ngClass]="{'is-invalid':f.gravaIsn.errors && submitInvalido}">
+          <span class="checkmark"></span>
+        </label>
+        <div *ngIf="submitInvalido && f.gravaIsn.errors" class="invalid-feedback">
+          Campo requerido
+        </div>
+
       </div>
 
+      <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label>Tipo concepto:</label><br>
 
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label for="exampleFormControlSelect1">Banco *</label>
-        <select formControlName="idbanco" class="form-control"
-          [ngClass]="{'is-invalid':f.idbanco.errors && submitInvalido}">
-          <option *ngFor="let item of cuentasBancarias" [value]="item.bancoId">{{item.nombreCorto}}</option>
-        </select>
-        <div *ngIf="submitInvalido && f.idbanco.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Descripción</label>
-        <input formControlName="descripcion" type="text" class="form-control" placeholder="">
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Número de información</label>
-        <input appSolonumeros formControlName="num_informacion" type="text" class="form-control" placeholder="">
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Cuenta CLABE *</label>
-        <input maxlength="18" appSolonumeros formControlName="clabe" type="text" class="form-control"
-          [ngClass]="{'is-invalid':(submitInvalido && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
-          placeholder="">
-        <div *ngIf="submitInvalido && f.clabe.errors?.required" class="invalid-feedback">
-          Campo requerido
-        </div>
-        <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
-          La CLABE no es válida
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Número de sucursal</label>
-        <input appSolonumeros formControlName="num_sucursal" type="text" class="form-control" placeholder="">
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Estatus</label>
-        <select name="" id="" class="form-control" formControlName="esActivo">
-          <option value="true">Activo</option>
-          <option value="false">Inactivo</option>
-        </select>
+        <label class="contenedorInputCheckRadio"> Ordinario
+          <input  value="Ordinario" formControlName="tipoConcepto"  type="radio" name="tipoConcepto" id="">
+          <span class="radiomark"></span>
+        </label>
+
+        <label class="contenedorInputCheckRadio"> Extraordinario
+          <input value="Extraordinario" formControlName="tipoConcepto" type="radio" name="tipoConcepto" id="">
+          <span class="radiomark"></span>
+        </label>
+        
       </div>
     </div>
 

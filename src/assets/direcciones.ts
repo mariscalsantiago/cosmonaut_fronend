@@ -20,5 +20,6 @@ export const direcciones = {
     nclPolitica:`${ip}/Politica`,
     sedes:`${ip}/sede`,
 	reportes:`${ip}/reportes`,
-    registroPatronal:`${ip}/registroPatronal`
+    registroPatronal:`${ip}/registroPatronal`,
+    conceptos:`${ip}/percepcionDeduccion`
 };
