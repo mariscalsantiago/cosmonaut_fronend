@@ -38,20 +38,14 @@ export class DomicilioComponent implements OnInit {
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    
+    debugger;
     let obj:any = {};
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
-    if(!this.datosempresa.insertar){
-      this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
-        this.arreglo = datos.datos[0];
-        this.catalogosPrd.getAsentamientoByCodigoPostal(this.arreglo.codigo).subscribe(datos => {
-            
-            this.arreglo = datos.datos;
-        });
-      });
-      this.myForm = this.createForm(obj);
+   if(!this.datosempresa.insertar){
+      this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => this.arreglo = datos.datos[0]);
+
     }
-    if(!this.datosempresa.insertar && this.arreglo !=undefined ){
+    if(!this.datosempresa.insertar && this.arreglo.asentamientoCpCons != undefined ){
 
     this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
       obj = datos.datos[0];
@@ -76,13 +70,14 @@ export class DomicilioComponent implements OnInit {
 
         }
 
-        this.myForm = this.createForm(obj);
+        //this.myForm = this.createForm(obj);
       });      
     
       this.myForm = this.createForm(obj);
 
     });
-    }else{
+    }
+    else{
     this.myForm = this.createForm(obj);
     }
 
@@ -233,7 +228,7 @@ export class DomicilioComponent implements OnInit {
   }
 
   public buscar(obj:any){
-    
+    debugger;
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
 
