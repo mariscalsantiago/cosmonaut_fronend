@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../../core/services/menu.service';
 import { menuprincipal,submenu } from '../../../core/data/estructuramenu';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-contenido',
@@ -21,13 +22,17 @@ export class ContenidoComponent implements OnInit {
      modal : false
   }
 
+  public rol!:string;
 
 
-  constructor(private menuPrd:MenuService,private modalPrd:ModalService) {
+
+  constructor(private menuPrd:MenuService,private modalPrd:ModalService,private sistemaUsuarioPrd:UsuarioSistemaService) {
     this.modalPrd.setModal(this.modal);
    }
 
   ngOnInit(): void {
+
+    this.rol = this.sistemaUsuarioPrd.getRol();
 
     this.arreglo = this.menuPrd.getMenu();
 
