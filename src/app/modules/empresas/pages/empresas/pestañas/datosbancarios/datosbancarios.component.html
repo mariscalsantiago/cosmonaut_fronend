@@ -13,19 +13,19 @@
       <div class="input-group-sm mb-3 col-8"></div>
         <div *ngIf="habGuardar" class="input-group-sm mb-3 col-5">
           <label>Cuenta STP *</label>
-          <input formControlName="cuentaStp" maxlength="15" type="text" class="form-control"
+          <input appSolonumeros formControlName="cuentaStp" maxlength="15" type="text" class="form-control"
           [ngClass]="{'is-invalid':f.cuentaStp.errors && submitEnviado}" placeholder="">
           <div *ngIf="submitEnviado && f.cuentaStp.errors" class="invalid-feedback">
-            Cuenta STP obligatorio.
+            Campo requerido
           </div>
         </div>
         
         <div *ngIf="habGuardar" class="input-group-sm mb-3 col-5">
           <label>Cuenta CLABE STP *</label>
-          <input formControlName="clabeStp" maxlength="18" type="text" class="form-control"
+          <input appSolonumeros formControlName="clabeStp" maxlength="18" type="text" class="form-control"
           [ngClass]="{'is-invalid':f.clabeStp.errors && submitEnviado}" placeholder="">
           <div *ngIf="submitEnviado && f.clabeStp.errors" class="invalid-feedback">
-            Cuenta STP obligatorio.
+            Campo requerido
           </div>
         </div>
 

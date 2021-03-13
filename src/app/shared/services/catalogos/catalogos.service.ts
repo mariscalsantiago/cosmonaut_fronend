@@ -92,9 +92,9 @@ export class CatalogosService {
     return this.http.get(`${this.url}/catMetodoPago/listar/todos`);
   }
 
-  public getActividadEconomica():Observable<any>{
+  public getActividadEconomica(idNivel:number):Observable<any>{
 
-    return this.http.get(`${this.url}/csActividadEconomica/listar/todos`);
+    return this.http.get(`${this.url}/csActividadEconomica/obtener/todos/true/${idNivel}`);
 
   }
   public getRegimenFiscal():Observable<any>{

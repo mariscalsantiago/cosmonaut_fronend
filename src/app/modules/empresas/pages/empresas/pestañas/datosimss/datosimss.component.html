@@ -1,16 +1,17 @@
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
 
             
-            <div class="form group row mt-3">
-
-              <div class="input-group-sm mb-3 col-4">
+  <div class="row mt-3">
+    <div class="col-10">
+      <div class="form group row">
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Registro patronal *</label>
                 <input formControlName="registroPatronal" maxlength="11" type="text" class="form-control"  [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado}" placeholder="">
                 <div *ngIf="f.registroPatronal.errors " class="invalid-feedback">
                   Registro patronal es obligatorio
                 </div>
               </div>
-                <div class="input-group-sm mb-3 col-4">
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                   <label>Prima de riesgo *</label>
                   <input formControlName="emPrimaRiesgo" maxlength="2" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
                   <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
@@ -21,7 +22,7 @@
                   </div>
                 </div>
           
-                <div class="input-group-sm mb-3 col-4">
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                   <label>Clave subdelegacional IMSS *</label>
                   <input formControlName="emClaveDelegacionalImss" maxlength="2" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emClaveDelegacionalImss.errors?.required) || (f.emClaveDelegacionalImss.errors?.pattern && f.emClaveDelegacionalImss.touched)}" placeholder="">
                   <div *ngIf="submitEnviado && f.emClaveDelegacionalImss.errors?.required" class="invalid-feedback">
@@ -32,7 +33,9 @@
                   </div>
                 </div>
     
-               
+      </div>
+      <div class="form group row">
+                <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12"></div>
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                   <label class="contenedorInputCheckRadio">IMSS obrero integrado IMSS patronal para salario minimo
                     <input formControlName="emImssObreroIntegradoApatronal" type="checkbox" name="" id="emImssObreroIntegradoApatronal">
@@ -40,7 +43,7 @@
                   </label>
                 </div>
 
-                <div class="input-group-sm mb-3 col-4"></div>
+               <!--<div class="input-group-sm mb-3 col-4"></div>
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                   <label class="contenedorInputCheckRadio">Enviar movimientos al IMSS mediante Cosmonaut
                     <input formControlName="emEnviarMovsImss" type="checkbox" name="" id="emEnviarMovsImss">
@@ -83,9 +86,11 @@
                 <div *ngIf="activadoFiel" class="input-group-sm mb-3 col-4">
                   <label>Llave privada FIEL *</label>
                   <input type="text" class="form-control" id="nomEmpresa">
-                </div>
+                </div>-->
+              </div>
     
     </div>
+  </div>
     
     
     

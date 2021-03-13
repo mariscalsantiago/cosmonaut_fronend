@@ -31,6 +31,7 @@ export class InformacionempresaComponent implements OnInit {
   public arregloactividad: any = [];
   public imagen:any = undefined;
   public curpFinal: string = "";
+  public idNivel: number = 5 ;
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private empresaPrd: DatosempresaService,private routerPrd:Router) { }
@@ -47,7 +48,7 @@ export class InformacionempresaComponent implements OnInit {
    
     this.myform = this.createForm(this.obj);
     this.catalogosPrd.getRegimenFiscal().subscribe(datos => this.arregloregimen = datos.datos);
-    this.catalogosPrd.getActividadEconomica().subscribe(datos => this.arregloactividad = datos.datos);
+    this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
 
   }
 
