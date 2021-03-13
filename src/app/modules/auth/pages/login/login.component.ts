@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-    $('#modalshare').modal('show');
+    //$('#modalshare').modal('show');
   }
 
   public createMyForm(obj: any) {
@@ -65,24 +65,43 @@ export class LoginComponent implements OnInit {
   }
 
 
-  public enviarformulario() {
-    let form = this.myForm.value;
+  public enviarformulario() {   
 
-    console.log("Lo que se envia", form);
+    this.usuarioSistemaPrd.login(this.myForm.value).subscribe(datos =>{
+        if(datos.resultado) {
+            if(datos.datos == undefined){
+                alert("Usuario invalido");
+                this.cargando = false;
+            }else{
+              if(!this.myForm.value.email.includes(this.myForm.value.password)){
+
+                alert("Contraseña invalida");
+                this.cargando = false;
+                this.correcto = false;
+  
+                return;
+              }
+
+              this.cargando = false;
+              this.correcto = true;
+
+              
+
+              let objRecibido = datos.datos[0];
+              const usuario:usuarioClass = new usuarioClass(objRecibido.centrocClienteId.centrocClienteId,objRecibido.personaId);
+              usuario.setDatosEmpleado(objRecibido);
+              this.usuarioSistemaPrd.setUsuario(usuario);
+
+              setTimeout(() => {
+                this.routerPrd.navigate(['/inicio']);        
+              }, 2000);
+            }
+        }
+    });
 
     this.cargando = true;
 
 
-    setTimeout(() => {
-
-      this.cargando = false;
-      this.correcto = true;
-
-      setTimeout(() => {
-        this.routerPrd.navigate(['/inicio']);
-
-      }, 2000);
-    }, 3000);
   }
 
 

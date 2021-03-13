@@ -4,10 +4,12 @@ export interface menuprincipal {
     seleccionado: boolean,
     seleccionadosubmenu:boolean,
     submenu?: Array<submenu>,
-    routerLink?:Array<any>
+    routerLink?:Array<any>,
+    rol?:Array<String>
   }
   
   export interface submenu {
     nombre: string;
-    routerLink:Array<any>
+    routerLink:Array<any>,
+    rol?:Array<String>
   }

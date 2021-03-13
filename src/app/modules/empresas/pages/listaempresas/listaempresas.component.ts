@@ -50,6 +50,10 @@ export class ListaEmpresasComponent implements OnInit {
 
       this.arreglo = datos.datos;
 
+      if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
+          this.arreglo = [this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId]
+      }
+
       let columnas: Array<tabla> = [
         new tabla("url", "imagen"),
         new tabla("centrocClienteId", "ID empresa"),
