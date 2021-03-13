@@ -73,8 +73,19 @@ export class LoginComponent implements OnInit {
                 alert("Usuario invalido");
                 this.cargando = false;
             }else{
+              if(!this.myForm.value.email.includes(this.myForm.value.password)){
+
+                alert("Contraseña invalida");
+                this.cargando = false;
+                this.correcto = false;
+  
+                return;
+              }
+
               this.cargando = false;
               this.correcto = true;
+
+              
 
               let objRecibido = datos.datos[0];
               const usuario:usuarioClass = new usuarioClass(objRecibido.centrocClienteId.centrocClienteId,objRecibido.personaId);
