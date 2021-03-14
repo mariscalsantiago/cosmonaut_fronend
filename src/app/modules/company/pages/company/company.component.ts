@@ -63,6 +63,7 @@ export class CompanyComponent implements OnInit {
 
         this.companyProd.getAll().subscribe(datos =>{
           this.arreglo = datos.datos;
+          
           let columnas:Array<tabla> = [
             new tabla("url","imagen"),
             new tabla("centrocClienteId","ID empresa"),
@@ -123,8 +124,28 @@ export class CompanyComponent implements OnInit {
       esActivo: "",
     }
 
+
     this.companyProd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
+
+      
+
+      this.arreglo = datos.datos;
+          
+      let columnas:Array<tabla> = [
+        new tabla("url","imagen"),
+        new tabla("centrocClienteId","ID empresa"),
+        new tabla("razonSocial","Razón social	"),
+        new tabla("nombre","Nombre de la empresa	"),
+        new tabla("rfc","RFC"),
+        new tabla("fechaAlta","Fecha registro"),
+        new tabla("esActivo","Estatus")
+      ]
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = this.arreglo;
+      this.cargando = false;
+      
+
       this.cargando = false;
       
     });

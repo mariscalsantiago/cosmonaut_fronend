@@ -75,6 +75,9 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public createFormcomp(obj: any) {
+
+    console.log(obj.fechaAlta);
+
     let datePipe = new DatePipe("en-MX");
     console.log(datePipe.transform(new Date(), 'dd/MM/yyyy'));
     return this.formBuilder.group({

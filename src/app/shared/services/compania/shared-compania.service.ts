@@ -29,7 +29,7 @@ export class SharedCompaniaService {
 
   public getEmpresaById(idEmpresa:number):Observable<any>{
 
-    return this.http.get(`${this.url}//obtener/id/${idEmpresa}`);
+    return this.http.get(`${this.url}/obtener/id/${idEmpresa}`);
 
   }
 

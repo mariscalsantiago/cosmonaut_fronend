@@ -55,9 +55,11 @@ export class DetalleUsuarioComponent implements OnInit {
       let id = parametros["idusuario"];
       this.insertar = id == undefined;
       if (id != undefined) {
+        console.log("Esto es antes de buscar el usuario",id);
         this.usuariosPrd.getById(id).subscribe(datosusuario => {
           this.objusuario = datosusuario.datos;
-          this.myForm = this.createForm((this.objusuario));
+          console.log(this.objusuario);
+           this.myForm = this.createForm((this.objusuario));
         });
       }
     });
@@ -107,7 +109,7 @@ export class DetalleUsuarioComponent implements OnInit {
       emailCorp: [obj.emailCorporativo, [Validators.required, Validators.email]],
       ciEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta.replace("/", "-").replace("/", "-")), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta?.replace("/", "-").replace("/", "-")), disabled: true }, [Validators.required]],
       centrocClienteId: [{ value: obj.centrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.activo, disabled: this.insertar }, [Validators.required]],
       personaId: obj.personaId
