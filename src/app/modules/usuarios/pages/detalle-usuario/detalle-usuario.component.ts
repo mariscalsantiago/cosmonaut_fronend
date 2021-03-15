@@ -55,10 +55,11 @@ export class DetalleUsuarioComponent implements OnInit {
       let id = parametros["idusuario"];
       this.insertar = id == undefined;
       if (id != undefined) {
-        console.log("Esto es antes de buscar el usuario",id);
+        
         this.usuariosPrd.getById(id).subscribe(datosusuario => {
           this.objusuario = datosusuario.datos;
           console.log(this.objusuario);
+          
            this.myForm = this.createForm((this.objusuario));
         });
       }

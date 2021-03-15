@@ -123,7 +123,7 @@ export class DetalleContactoComponent implements OnInit {
           this.companyPrd.savecont(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-              .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
+              .then(() => this.routerPrd.navigate(['company']));
 
             this.compania = false;
             this.contacto = true;
@@ -132,6 +132,10 @@ export class DetalleContactoComponent implements OnInit {
         } else {
 
           objEnviar.personaId = obj.personaId;
+
+
+          console.log(objEnviar);
+          
 
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {
 

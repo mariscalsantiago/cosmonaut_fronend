@@ -82,8 +82,9 @@ export class CompanyService {
 
 
     let json:string = JSON.stringify(obj);
+    console.log("Esto si manda en contacto inicial",json);
 
-    return this.http.post(`${direcciones.usuarios}/modificar/usuario`,json,httpOptions);
+    return this.http.post(`${direcciones.usuarios}/modificar/contacto/inicial`,json,httpOptions);
   }
 
   public filtrar(obj: any): Observable<any> {
