@@ -12,8 +12,14 @@ export class DomicilioService {
 
   constructor(private http:HttpClient) { }
 
+  
+
   public getDetDom(id_empresa:number):Observable<any>{
     return this.http.get(`${direcciones.domicilio}/obtener/id/empresa/domicilio/${id_empresa}`);
+  }
+
+  public getListaSede(id_empresa:number):Observable<any>{
+    return this.http.get(`${direcciones.sedes}/obtener/id/compania/${id_empresa}`);
   }
 
   public save(obj:any):Observable<any>{

@@ -129,7 +129,7 @@
         <div class="col-12">
           <div class=" row">
 
-            <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label>Contraseña de certificado de sello digital *</label>
               <input formControlName="contrasenia" maxlength="30" type="password" class="form-control"
                 [ngClass]="{'is-invalid':f.contrasenia.errors && submitEnviado}" placeholder="">
@@ -137,6 +137,14 @@
                 Campo requerido
               </div>
             </div>
+
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+              <label for="exampleFormControlSelect1">Estado de empresa *</label>
+              <select  formControlName="esActivo" class="form-control">
+                <option value="true" selected>ACTIVO</option>
+                <option value="false">INACTIVO</option>
+              </select>
+          </div>
 
           </div>
         </div>

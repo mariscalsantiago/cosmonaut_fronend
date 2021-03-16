@@ -4,7 +4,7 @@
 
         <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
           <label class="contenedorInputCheckRadio">Usar STP como medio de transferencia para el pago de nóminas
-            <input formControlName="stp" (click)="activar()" type="checkbox"  id="stp">
+            <input formControlName="usaStp" (click)="activar()" type="checkbox"  id="usaStp">
             <span class="checkmark"></span>
           </label>
         </div>
@@ -43,7 +43,7 @@
     </div>
 </div>
 </form>
-<table class="table table-hover table-sm">
+<table *ngIf="listaCuentaNuevo" class="table table-hover table-sm">
 
   <thead>
     <tr>
@@ -57,3 +57,61 @@
     </tr>
   </thead> 
 </table>
+
+<div *ngIf="listaCuentaModificar" class="scrooll-designempresa">
+
+  <div class="mt-3">
+    <div class="row margen">
+      <div class="col titulo">
+        <label>RESULTADOS</label>
+      </div>
+      <div class="col text-right">
+        <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+          <i class="fa fa-plus"></i> Agregar cuenta bancaria
+        </button>
+      </div>
+    </div>
+    <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
+
+      <table *ngIf="!cargando && arregloListaCuenta !== undefined" class="table table-hover table-sm">
+         <thead>
+           <tr>
+             <th scope="col">Nombre cuenta</th>
+             <th scope="col">Número de cuenta</th>
+             <th scope="col">Nombre banco</th>
+             <th scope="col">Cuenta CLABE</th>
+             <th scope="col">Estatus</th>
+             <th scope="col ">Acciones</th>
+           </tr>
+         </thead>
+         <tbody>
+           <ng-container *ngFor="let item of arregloListaCuenta;let indice = index;">
+             <tr>
+               <td>{{item.nombreCuenta}} </td>
+               <td>{{item.numeroCuenta}} </td>
+               <td>{{item.bancoId.nombreCorto}} </td>
+               <td>{{item.clabe}} </td>
+               <td>{{item.esActivo?'Activo':'Inactivo'}}</td>
+               <td class="opciones">
+                 <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
+                 <button ><i class="icon_eliminar danger-bg"></i></button>
+   
+               </td>
+             </tr>
+             </ng-container>
+       
+     
+         </tbody>
+       </table>
+       <div *ngIf="!cargando && arregloListaCuenta === undefined" class="alert  col text-center">
+         <strong>En este momento no existen registros</strong>
+       </div>
+       <div *ngIf="cargando" class="col text-center mb-5">
+         <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+       </div>
+     
+     </div>
+  </div>
+  
+  
+  </div>

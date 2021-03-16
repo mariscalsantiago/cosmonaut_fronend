@@ -27,7 +27,10 @@ export class CuentasComponent implements OnInit {
   public cuentasBancarias: any;
   public objdsede: any = []; 
   public peticion: any = [];
+  public obj: any = [];
   public habcontinuarSede: boolean = false;
+  public insertarMof: boolean = false;
+  public esActivoMod: boolean = true;
  
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
     private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService,
@@ -36,30 +39,37 @@ export class CuentasComponent implements OnInit {
   ngOnInit(): void {
  
     this.objdsede = history.state.data == undefined ? {} : history.state.data ;
-    this.esInsert = this.objdsede.insertar;
-    let obj = { csBanco: { bancoId: 0 } };
+    
+    if(this.datosempresa.insertar){
+      this.obj = { bancoId: { bancoId: 0 } };
+    }
 
-    this.myForm = this.createForm(obj);
+    this.myForm = this.createForm(this.obj);
 
 
     this.catalogosPrd.getCuentasBanco().subscribe(datos => {
       this.cuentasBancarias = datos.datos;
+      console.log("Cuentas",this.cuentasBancarias);
+      if(this.cuentasBancarias.cuentaBancoId == undefined){
+          this.esActivoMod = true;
+      }
     });
 
   }
 
   public createForm(obj: any) {
-
+debugger;
    return this.formBuild.group({
 
-      numeroCuenta: [obj.numeroCuenta, [Validators.required]],
-      nombreCuenta: [obj.nombreCuenta, [Validators.required]],
-      bancoId: [obj.csBanco.bancoId, [Validators.required]],
-      descripcion: [obj.descripcion],
-      num_informacion: [obj.numInformacion],
-      clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
-      num_sucursal: [obj.numSucursal]
-
+    numeroCuenta: [obj.numeroCuenta, [Validators.required]],
+    nombreCuenta: [obj.nombreCuenta, [Validators.required]],
+    bancoId: [obj.bancoId?.bancoId, [Validators.required]],
+    descripcion: [obj.descripcion],
+    num_informacion: [obj.numInformacion],
+    clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
+    num_sucursal: [obj.numSucursal],
+    //esActivoMod: [{ value: (this.esActivoMod) ? true : obj.esActivo, disabled: this.esActivoMod }, [Validators.required]]
+    esActivo: [(!this.esActivoMod) ? obj.esActivo : { value: "true", disabled: true }]
     });
 
   }
@@ -67,7 +77,7 @@ export class CuentasComponent implements OnInit {
 
 
   public enviarFormulario() {
-    
+    debugger;
    
    if(!this.habcontinuarSede){
     this.submitEnviado = true;
@@ -106,46 +116,67 @@ public activarCancel(){
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    
+    debugger;
    if (this.enviarPeticion.enviarPeticion) {
      this.enviarPeticion.enviarPeticion = false;
       let obj = this.myForm.value;
-      this.peticion = {
-        numeroCuenta: obj.numeroCuenta,
-        nombreCuenta: obj.nombreCuenta,
-        descripcion: obj.descripcion,
-        numInformacion: obj.num_informacion,
-        clabe: obj.clabe,
-        numSucursal: obj.num_sucursal,
-        nclCentrocCliente: {
-          centrocClienteId: this.objdsede.centrocClienteEmpresa
-        },
-        bancoId: {
-          bancoId: obj.bancoId
-        }
-      };
 
-     if(this.datosempresa.insertar){
+      if(!this.datosempresa.insertar && obj.cuentaBancoId == undefined){
+        this.insertarMof = true;
+      }
 
-        this.cuentasPrd.save(this.peticion).subscribe(datos => {
-        this.alerta.iconType = datos.resultado ? "success" : "error";
-        this.alerta.strTitulo = datos.mensaje;
-        this.alerta.modal = true;
-        this.enviado.emit({
-          type:"cuentasCont"
+          this.peticion = {
+            numeroCuenta: obj.numeroCuenta,
+            nombreCuenta: obj.nombreCuenta,
+            descripcion: obj.descripcion,
+            numInformacion: obj.num_informacion,
+            clabe: obj.clabe,
+            numSucursal: obj.num_sucursal,
+            esActivo: true,
+            nclCentrocCliente: {
+              centrocClienteId: this.datosempresa.centrocClienteEmpresa
+            },
+            bancoId: {
+              bancoId: obj.bancoId
+            }
+          }
+    
+          if(this.insertarMof){
+            this.cuentasPrd.save(this.peticion).subscribe(datos =>{
+              this.alerta.iconType = datos.resultado ? "success" : "error";
+              this.alerta.strTitulo = datos.mensaje;
+              this.alerta.modal = true;
+              if(datos.resultado){
+                  this.enviado.emit({
+                    type:"cuentasCont"
+                  });
+                }
+    
+            });
+          }
+          else if(this.datosempresa.insertar){
+
+          this.cuentasPrd.save(this.peticion).subscribe(datos => {
+          this.alerta.iconType = datos.resultado ? "success" : "error";
+          this.alerta.strTitulo = datos.mensaje;
+          this.alerta.modal = true;
+          if(datos.resultado){
+          this.enviado.emit({ 
+            type:"cuentasCont"
+          });
+          }
+
         });
-
-      });
-     }else{
+        }else{
       
-   
-         this.cuentasPrd.save(this.peticion).subscribe(datos =>{
+        this.peticion.cuentaBancoId = obj.cuentaBancoId;
+         this.cuentasPrd.modificar(this.peticion).subscribe(datos =>{
            this.alerta.iconType = datos.resultado ? "success" : "error";
            this.alerta.strTitulo = datos.mensaje;
            this.alerta.modal = true;
              //if(!this.modsinIdDom){
                this.enviado.emit({
-               type:"domicilioSede"
+               type:"cuentasCont"
              });
              if(datos.resultado){
                //this.habcontinuar= true;

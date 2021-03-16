@@ -34,7 +34,10 @@ export class EmpresasComponent implements OnInit {
   public continuarBancos: boolean = false;
   public continuarSede: boolean = false;
   public continuarCuentas: boolean= false;
+  public activarGuardaMod: boolean = true;
   public insertar: boolean = false;
+  public activarList : boolean = false;
+  public activarForm : boolean = true;
   public centrocClienteEmpresa:number = 0;
   public objdetrep: any = [];
   public arregloactivos: any = [];
@@ -55,18 +58,29 @@ export class EmpresasComponent implements OnInit {
   public datosempresa:any={
     centrocClienteId:this.usuarioSistemaPrd.getIdEmpresa(),
     centrocClienteEmpresa:this.centrocClienteEmpresa,
-    insertar: this.insertar
+    insertar: this.insertar,
+    activarForm: this.activarForm,
+    activarList: this.activarList,
+    activarGuardaMod : this.activarGuardaMod
+    
+    
   };
 
   public datosempresamod:any={
     datosempresaObj: this.objdetrep
   };
- 
+
+
   constructor(private usuarioSistemaPrd:UsuarioSistemaService,  private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService) {
     
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       this.datosempresa.insertar= this.insertar;
+      if(!this.insertar){
+        this.datosempresa.activarForm = false;
+        this.datosempresa.activarList = true;
+
+      }
 
     });
 
@@ -189,7 +203,7 @@ export class EmpresasComponent implements OnInit {
 
 public recibir(elemento: any) {
    
-
+debugger;
   switch (elemento.type) {
     case "informacion":
 
@@ -269,7 +283,7 @@ public recibir(elemento: any) {
 }
 
   public recibirAlerta(obj: any) {
-    
+    debugger;
      
     this.cambiaValor = !this.cambiaValor;
      
@@ -290,24 +304,26 @@ public recibir(elemento: any) {
         
         this.recibir({ type: "sedeDom", valor: true });
         this.continuarSede = false;
+        this.datosempresa.activarGuardaMod = false;
 
       }
       if(this.continuarCuentas && obj){
         
         this.recibir({ type: "cuentaDatosBancarios", valor: true });
         this.continuarCuentas = false;
-
+        this.datosempresa.activarGuardaMod = false;
       }
       if(this.continuarBancos && obj){
         
         this.recibir({ type: "datosbancarios", valor: true });
         this.continuarDom = false;
         this.continuarBancos= false;
+        
 
 
       }
       else{
-        if (obj) {
+        if (obj && this.datosempresa.activarGuardaMod) {
         
           this.enviarPeticion.enviarPeticion = true;
         }
@@ -363,6 +379,7 @@ public recibir(elemento: any) {
 
     this.datosempresa = evento;
     this.datosempresamod = evento;
+
 
   }
 

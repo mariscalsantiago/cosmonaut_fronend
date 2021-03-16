@@ -94,7 +94,7 @@
     </div>
 </form>
 
-<table class="table table-hover table-sm">
+<table *ngIf="listaSedeNuevo" class="table table-hover table-sm">
 
     <thead>
       <tr>
@@ -108,4 +108,60 @@
       </tr>
     </thead> 
   </table>
+
+  <div *ngIf="listaSedeModificar" class="scrooll-designempresa">
+
+    <div class="mt-3">
+      <div class="row margen">
+        <div class="col titulo">
+          <label>RESULTADOS</label>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+            <i class="fa fa-plus"></i> Agregar sede
+          </button>
+        </div>
+      </div>
+      <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
+
+        <table *ngIf="!cargando && arregloListaSede !== undefined" class="table table-hover table-sm">
+           <thead>
+             <tr>
+               <th scope="col">Nombre de la cede</th>
+               <th scope="col">Código postal</th>
+               <th scope="col">Municipio o alcadía</th>
+               <th scope="col">Entidad Federativa</th>
+               <th scope="col ">Acciones</th>
+             </tr>
+           </thead>
+           <tbody>
+             <ng-container *ngFor="let item of arregloListaSede;let indice = index;">
+               <tr>
+                 <td>{{item.sedeNombre}} </td>
+                 <td>{{item.codigoPostal}} </td>
+                 <td>{{item.municipio}} </td>
+                 <td>{{item.entidadFederativa}} </td>
+                 <td class="opciones">
+                   <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
+                   <button ><i class="icon_eliminar danger-bg"></i></button>
+     
+                 </td>
+               </tr>
+               </ng-container>
+         
+       
+           </tbody>
+         </table>
+         <div *ngIf="!cargando && arregloListaSede === undefined" class="alert  col text-center">
+           <strong>En este momento no existen registros</strong>
+         </div>
+         <div *ngIf="cargando" class="col text-center mb-5">
+           <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+         </div>
+       
+       </div>
+    </div>
+    
+    
+    </div>
   

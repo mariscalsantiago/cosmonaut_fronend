@@ -37,7 +37,7 @@ export class InformacionempresaComponent implements OnInit {
     private empresaPrd: DatosempresaService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    
+    debugger;
     this.obj = this.datosempresamod.datosempresaObj
     if(this.datosempresa.insertar){
       this.obj = {
@@ -63,7 +63,7 @@ export class InformacionempresaComponent implements OnInit {
     this.imagen = imagen;
   }
   public createForm(obj: any) {
-    
+    debugger;
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial,[Validators.required]],
@@ -78,7 +78,8 @@ export class InformacionempresaComponent implements OnInit {
       tieneCurp: [obj.tieneCurp],
       cer: [obj.cer, [Validators.required]],
       key: [obj.key, [Validators.required]],
-      contrasenia: [obj.contrasenia, [Validators.required]]
+      contrasenia: [obj.contrasenia, [Validators.required]],
+      esActivo: [{ value: (this.datosempresa.insertar) ? true : obj.esActivo, disabled: this.datosempresa.insertar }, [Validators.required]],
  
     });
   }
@@ -137,7 +138,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-     
+     debugger;
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;
@@ -159,14 +160,14 @@ export class InformacionempresaComponent implements OnInit {
            actividadEconomicaId: {
             actividadEconomicaId: obj.actividadEconomicaId
            },
-           esActivo: true,
            imagen:this.imagen,
            curp : this.curpFinal,
            horasExtrasAuto:obj.horasExtrasAuto,
            calculoAutoPromedioVar: obj.calculoAutoPromedioVar,
            cer:obj.cer,
            key:obj.key,
-           contrasenia:obj.contrasenia
+           contrasenia:obj.contrasenia,
+           esActivo:obj.esActivo
         }
 
       if(this.datosempresa.insertar){  
