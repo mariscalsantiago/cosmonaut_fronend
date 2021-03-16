@@ -96,21 +96,27 @@
             <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
               <label>Certificado de sello digital *</label>
               <div class="input-group mb-3">
-                <input type="hidden" formControlName="cer">
-                <input #cer type="text" class="form-control" >
+                <input type="hidden" formControlName="cer" [ngClass]="{'is-invalid':f.cer.errors && submitEnviado}">
+                <input #cer type="text" class="form-control" [ngClass]="{'is-invalid':f.cer.errors && submitEnviado}" >
                 <div (click)="abrirCer()" class="input-group-append" style="cursor: pointer;">
                   <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
+                </div>
+                <div *ngIf="f.cer.errors " class="invalid-feedback">
+                  Campo requerido
                 </div>
               </div>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
               <label>Llave de certificado de sello digital *</label>
               <div class="input-group mb-3">
-                <input type="hidden" formControlName="key">
-                <input #key type="text" class=" form-control" >
+                <input type="hidden" formControlName="key" [ngClass]="{'is-invalid':f.key.errors && submitEnviado}">
+                <input #key type="text" class=" form-control" [ngClass]="{'is-invalid':f.key.errors && submitEnviado}">
                 <input type="hidden" >
                 <div class="input-group-append" style="cursor: pointer;">
                   <span style="font-size: small;" (click)="abrirKey()"  class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
+                </div>
+                <div *ngIf="f.key.errors " class="invalid-feedback">
+                  Campo requerido
                 </div>
               </div>
             </div>
@@ -122,10 +128,16 @@
       <div class=" row">
         <div class="col-12">
           <div class=" row">
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-12">
+
+            <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
               <label>Contraseña de certificado de sello digital *</label>
-              <input type="password" class="form-control" id="nomEmpresa">
+              <input formControlName="contrasenia" maxlength="30" type="password" class="form-control"
+                [ngClass]="{'is-invalid':f.contrasenia.errors && submitEnviado}" placeholder="">
+              <div *ngIf="f.contrasenia.errors " class="invalid-feedback">
+                Campo requerido
+              </div>
             </div>
+
           </div>
         </div>
       </div>
