@@ -17,6 +17,7 @@ export class FormEmpleadoComponent implements OnInit {
 
   public ocultarDetalleTransfrencia:boolean = true;
   public ocultarempleada:boolean = false;
+  public cargandoIcon:boolean = false;
 
   
 
@@ -88,6 +89,11 @@ export class FormEmpleadoComponent implements OnInit {
 
   public recibiendoUserInsertado(evento:any){
     this.datosPersona = evento;
+  }
+
+
+  public iniciarDescarga(){
+
   }
 
 

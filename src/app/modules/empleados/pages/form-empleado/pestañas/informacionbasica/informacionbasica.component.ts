@@ -5,6 +5,7 @@ import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.s
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { validacionesForms } from 'src/app/shared/validaciones/validaciones';
 
 @Component({
   selector: 'app-informacionbasica',
@@ -44,7 +45,7 @@ export class InformacionbasicaComponent implements OnInit {
       apellidoMaterno: [obj.apellidoMaterno],
       genero: [obj.genero],
       fechaNacimiento: [obj.fechaNacimiento],
-      tieneCurp: [obj.tieneCurp],
+      tieneCurp: [true],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       emailCorporativo: [obj.emailCorporativo],
       invitarEmpleado: obj.invitarEmpleado,
@@ -60,7 +61,7 @@ export class InformacionbasicaComponent implements OnInit {
       contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail, [Validators.email]],
       contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
-      nss: obj.nss,
+      nss: [obj.nss,[validacionesForms.nssValido]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]]
     });
@@ -84,7 +85,7 @@ export class InformacionbasicaComponent implements OnInit {
     
     
 
-    console.log(this.myform.value);
+    console.log(this.myform.controls);
     console.log(this.myform.controls.nombre.value);
 
     this.submitEnviado = true;

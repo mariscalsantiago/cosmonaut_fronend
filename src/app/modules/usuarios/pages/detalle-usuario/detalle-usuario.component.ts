@@ -41,7 +41,7 @@ export class DetalleUsuarioComponent implements OnInit {
     let datePipe = new DatePipe("en-MX");
 
     let fecha = new Date();
-    this.fechaActual = datePipe.transform(fecha, 'yyyy-MM-dd')
+    this.fechaActual = datePipe.transform(fecha, 'dd/MM/yyyy')
   }
 
   ngOnInit(): void {
@@ -60,6 +60,8 @@ export class DetalleUsuarioComponent implements OnInit {
           this.objusuario = datosusuario.datos;
           console.log(this.objusuario);
           
+          this.objusuario.fechaAlta = (new Date(this.objusuario.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
+          this.objusuario.fechaAlta = new Date(this.objusuario.fechaAlta).toLocaleDateString();
            this.myForm = this.createForm((this.objusuario));
         });
       }
@@ -110,7 +112,7 @@ export class DetalleUsuarioComponent implements OnInit {
       emailCorp: [obj.emailCorporativo, [Validators.required, Validators.email]],
       ciEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta?.replace("/", "-").replace("/", "-")), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
       centrocClienteId: [{ value: obj.centrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.activo, disabled: this.insertar }, [Validators.required]],
       personaId: obj.personaId

@@ -15,6 +15,8 @@ import { FooterComponent } from './layout/footer/footer/footer.component';
 import { ContenidoComponent } from './layout/contenido/contenido/contenido.component';
 import { NavComponent } from './layout/nav/nav/nav.component';
 import { ShareModule } from './shared/share.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './core/interceptores/interceptor.service';
 
 
 @NgModule({
@@ -34,7 +36,11 @@ import { ShareModule } from './shared/share.module';
     AuthModule,
     ShareModule
   ],
-  providers: [MDBSpinningPreloader],
+  providers: [MDBSpinningPreloader,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService, multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

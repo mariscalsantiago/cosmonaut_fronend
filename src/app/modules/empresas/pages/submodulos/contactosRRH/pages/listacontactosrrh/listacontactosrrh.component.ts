@@ -71,7 +71,13 @@ export class ListacontactosrrhComponent implements OnInit {
           new tabla("emailCorporativo", "Correo empresarial"),
           new tabla("fechaAlta", "Fecha de registro"),
           new tabla("activo", "Estatus")
-        ]
+        ];
+        if(datos.datos !== undefined){
+          for(let item of datos.datos){
+            item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
+            item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+          }
+        }
         this.arreglotabla.columnas = columnas;
         this.arreglotabla.filas = datos.datos;
         this.cargando = false;
@@ -116,7 +122,15 @@ export class ListacontactosrrhComponent implements OnInit {
         new tabla("emailCorporativo", "Correo empresarial"),
         new tabla("fechaAlta", "Fecha de registro"),
         new tabla("activo", "Estatus")
-      ]
+      ];
+
+      if(datos.datos !== undefined){
+        for(let item of datos.datos){
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
+          item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+        }
+      }
+
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = datos.datos;
       this.cargando = false;
