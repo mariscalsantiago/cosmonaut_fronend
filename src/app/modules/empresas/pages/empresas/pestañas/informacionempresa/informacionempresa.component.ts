@@ -76,9 +76,9 @@ export class InformacionempresaComponent implements OnInit {
       horasExtrasAuto: obj.horasExtrasAuto,
       centrocClienteId: obj.centrocClienteId,
       tieneCurp: [obj.tieneCurp],
-      cer:obj.cer,
-      key:obj.key,
-      contrasenia:obj.contrasenia
+      cer: [obj.cer, [Validators.required]],
+      key: [obj.key, [Validators.required]],
+      contrasenia: [obj.contrasenia, [Validators.required]]
  
     });
   }
