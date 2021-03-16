@@ -45,14 +45,6 @@
                 </div>
             
             </div>
-            <div class="row">
-                <div class="input-group-sm mb-4 col-12 ">
-                    <label class="contenedorInputCheckRadio">¿Tiene CURP, RFC y seguro social?
-                        <input  id="tienecurp" formControlName="tieneCurp" type="checkbox" name="" >
-                        <span class="checkmark"></span>
-                      </label>
-                </div>
-            </div>
             <div *ngIf="f.tieneCurp.value" class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >CURP *</label>
@@ -78,7 +70,10 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Seguro social</label>
-                    <input formControlName="nss" type="text" class="form-control" name="" >
+                    <input [ngClass]="{'is-invalid': f.nss.errors && f.nss.touched}" formControlName="nss" maxlength="11" type="text" class="form-control" name="" >
+                    <div *ngIf="f.nss.errors && f.nss.touched" class="invalid-feedback">
+                        Número de seguro social invalido.
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -98,19 +93,6 @@
                     <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" class="invalid-feedback">
                         Correo empresarial inválido
                     </div>
-                </div>
-                <div class="input-group-sm mb-4 col-12">
-                  <div class="row">
-                      <div class="col-12">                     
-                        <label class="contenedorInputCheckRadio">Invitar al empleado a ingresar la información personal
-                            adicional
-                            <input id="invitar" formControlName="invitarEmpleado" type="checkbox">
-                            <span class="checkmark"></span>
-                          </label>
-                    </div>
-                            
-                          
-                  </div>
                 </div>
             </div>
         </div>
