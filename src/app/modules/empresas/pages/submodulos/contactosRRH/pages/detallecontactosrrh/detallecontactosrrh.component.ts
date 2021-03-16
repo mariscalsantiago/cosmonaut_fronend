@@ -53,12 +53,7 @@ export class DetallecontactosrrhComponent implements OnInit {
 
 
     let fecha = new Date();
-    let dia = fecha.getDay() < 10 ? `0${fecha.getDay()}` : fecha.getDay();
-    let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
-    let anio = fecha.getFullYear();
-
-
-    this.fechaActual = `${anio}-${mes}-${dia}`;
+    this.fechaActual = fecha.toLocaleDateString();
 
     return this.formBuild.group({
 
@@ -70,7 +65,7 @@ export class DetallecontactosrrhComponent implements OnInit {
       ciEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       ciExtension: [obj.contactoInicialExtension],
-      fechaAlta: { value: this.fechaActual, disabled: true },
+      fechaAlta: { value: this.esInsert?this.fechaActual:obj.fechaAlta, disabled: true },
       personaId: [obj.personaId]
 
     });

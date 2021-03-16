@@ -76,10 +76,9 @@ export class DetalleCompanyComponent implements OnInit {
 
   public createFormcomp(obj: any) {
 
-    console.log(obj.fechaAlta);
+    
 
     let datePipe = new DatePipe("en-MX");
-    console.log(datePipe.transform(new Date(), 'dd/MM/yyyy'));
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -101,7 +100,7 @@ export class DetalleCompanyComponent implements OnInit {
 
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
-    this.routerPrd.navigate(['company', 'detalle_contacto', tipoinsert], { state: { datos: obj, empresa: this.objCompany } });
+    this.routerPrd.navigate(['company', 'detalle_contacto', tipoinsert], { state: { datos: obj, empresa: this.objCompany,modificaEmpresa:true } });
     this.cargando = false;
 
 
@@ -131,7 +130,7 @@ export class DetalleCompanyComponent implements OnInit {
       this.arreglo = datos.datos;
       let columnas: Array<tabla> = [
         new tabla("personaId", "ID contacto"),
-        new tabla("nombre", "Nombre contacto"),
+        new tabla("nombrecompleto", "Nombre contacto"),
         new tabla("emailCorporativo", "Correo empresarial"),
         new tabla("contactoInicialTelefono", "Teléfono"),
         new tabla("fechaAlta", "Fecha registro")
@@ -144,7 +143,7 @@ export class DetalleCompanyComponent implements OnInit {
 
       if (this.arreglo !== undefined)
         for (let item of this.arreglo)
-          item.nombre = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno}`;
+          item.nombrecompleto = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno}`;
 
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;
@@ -173,26 +172,30 @@ export class DetalleCompanyComponent implements OnInit {
           imagen: this.imagen  
         };
 
+        
+
         if (this.insertar) {
 
 
           this.companyPrd.save(obj).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
-              .then(()=> this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined, empresa: this.objCompany } }));
+              .then(()=> {
+                this.compania = !datos.resultado;
+                this.contacto = true;
+                if (datos.resultado) {
+                  this.objCompany = datos.datos;
+                  this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined, empresa: this.objCompany } })
+                }
 
-            this.compania = !datos.resultado;
-            this.contacto = true;
-            if (datos.resultado) {
-              this.objCompany = datos.datos;
-            }
+
+              });
+
+           
 
           });
 
         } else {
-
-
-
           this.companyPrd.modificar(obj).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
             this.listcontacto = true;
@@ -215,6 +218,7 @@ export class DetalleCompanyComponent implements OnInit {
 
   public recibirImagen(imagen: any) {
     this.imagen = imagen;
+    
   }
 
 

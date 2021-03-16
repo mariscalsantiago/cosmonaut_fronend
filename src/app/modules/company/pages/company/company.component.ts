@@ -73,6 +73,14 @@ export class CompanyComponent implements OnInit {
             new tabla("fechaAlta","Fecha registro"),
             new tabla("esActivo","Estatus")
           ]
+          if(this.arreglo !== undefined){
+            for(let item of this.arreglo){
+              item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
+              item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+              
+            }
+          }
+
           this.arreglotabla.columnas = columnas;
           this.arreglotabla.filas = this.arreglo;
           this.cargando = false;
@@ -140,7 +148,15 @@ export class CompanyComponent implements OnInit {
         new tabla("rfc","RFC"),
         new tabla("fechaAlta","Fecha registro"),
         new tabla("esActivo","Estatus")
-      ]
+      ];
+
+      if(this.arreglo !== undefined){
+        for(let item of this.arreglo){
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
+          item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+          
+        }
+      }
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;
       this.cargando = false;

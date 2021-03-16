@@ -28,6 +28,7 @@ export class DetalleContactoComponent implements OnInit {
   public datosEmpresa: any;
 
   public submitEnviado: boolean = false;
+  public  esModificaEmpresa:boolean = false;
 
 
 
@@ -54,6 +55,7 @@ export class DetalleContactoComponent implements OnInit {
 
     this.objcontacto = history.state.datos == undefined ? {} : history.state.datos;
     this.datosEmpresa = history.state.empresa == undefined ? {} : history.state.empresa;
+    this.esModificaEmpresa = history.state.modificaEmpresa == undefined ? false : history.state.modificaEmpresa;
 
     this.myFormcont = this.createFormcont((this.objcontacto));
 
@@ -123,7 +125,13 @@ export class DetalleContactoComponent implements OnInit {
           this.companyPrd.savecont(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-              .then(() => this.routerPrd.navigate(['company']));
+              .then(() => {
+                if(this.esModificaEmpresa){
+                  this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } });
+                }else{
+                  this.routerPrd.navigate(['company'])
+                }
+              });
 
             this.compania = false;
             this.contacto = true;
@@ -140,7 +148,7 @@ export class DetalleContactoComponent implements OnInit {
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-              .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));;
+              .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
             this.listcontacto = true;
             this.compania = false;
 

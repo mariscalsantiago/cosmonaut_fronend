@@ -62,7 +62,16 @@ export class ListaEmpresasComponent implements OnInit {
         new tabla("rfc", "RFC"),
         new tabla("fechaAlta", "Fecha registro"),
         new tabla("esActivo", "Estatus")
-      ]
+      ];
+      if(this.arreglo !== undefined){
+        for(let item of this.arreglo){
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
+          item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+          
+        }
+      }
+
+      
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;
       this.cargando = false;
@@ -102,6 +111,7 @@ export class ListaEmpresasComponent implements OnInit {
 
 
     this.indexSeleccionado = indice.centrocClienteId;
+    console.log("La empresa modificada",indice);
 
 
 
@@ -112,6 +122,8 @@ export class ListaEmpresasComponent implements OnInit {
         if (valor) {
 
 
+
+
           let id = this.indexSeleccionado;
 
           this.empresasProd.eliminar(id).subscribe(datos => {
@@ -120,10 +132,7 @@ export class ListaEmpresasComponent implements OnInit {
 
             if (datos.resultado) {
 
-              this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-                this.arreglo = datos.datos;
-
-              });
+               indice.esActivo = false;
             }
           });
         }

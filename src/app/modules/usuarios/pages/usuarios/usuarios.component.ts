@@ -84,6 +84,12 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosPrd.getAllUsers().subscribe(datos => {
       this.arreglotemp = datos.datos;
+      console.log(datos);
+      for(let item of this.arreglotemp){
+        item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
+        item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+        
+      }
       this.cargando = false;
 
       if (this.arreglotemp === undefined)
@@ -245,12 +251,17 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
       this.arreglotemp = datos.datos;
-      console.log("estos son los datos", datos);
       if (this.arreglotemp != undefined) {
         for (let item of this.arreglotemp) {
           item["centrocClienteId"] = {
             nombre: item["razonSocial"]
           }
+
+
+          console.log(item);
+
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
+          item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
         }
       } else {
         this.arreglo = undefined;
