@@ -128,7 +128,7 @@ export class ListagruposnominasComponent implements OnInit {
 
   public eliminar(indice: any) {
 
-
+    debugger;
     this.indexSeleccionado = indice;
 
     
@@ -147,7 +147,6 @@ export class ListagruposnominasComponent implements OnInit {
 
 
           if (datos.resultado) {
-
 
             this.arreglo.splice(this.indexSeleccionado, 1);
 

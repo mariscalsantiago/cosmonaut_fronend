@@ -5,60 +5,76 @@
   <br>
   <div class="form-group mt-3 row margen"><label class="titulo">INFORMACIÓN DE CUENTA BANCARIA</label></div>
 
-    <div class="form-group row margen">
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Nombre de cuenta *</label>
-        <input formControlName="nombreCuenta" type="text" class="form-control"
-          [ngClass]="{'is-invalid':f.nombreCuenta.errors && submitEnviado}" placeholder="">
-        <div *ngIf="submitEnviado && f.nombreCuenta.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
-        <label>Número de cuenta *</label>
-        <input appSolonumeros formControlName="numeroCuenta" type="text" maxlength="10" class="form-control"
-          [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}" placeholder="">
-        <div *ngIf="submitEnviado && f.numeroCuenta.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-
-
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label for="exampleFormControlSelect1">Banco *</label>
-        <select formControlName="bancoId" class="form-control"
-          [ngClass]="{'is-invalid':f.bancoId.errors && submitEnviado}">
-          <option *ngFor="let item of cuentasBancarias" [value]="item.bancoId">{{item.nombreCorto}}</option>
-        </select>
-        <div *ngIf="submitEnviado && f.bancoId.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Descripción</label>
-        <input formControlName="descripcion" type="text" class="form-control" placeholder="">
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Número de información</label>
-        <input formControlName="num_informacion" type="text" class="form-control" placeholder="">
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Cuenta CLABE *</label>
-        <input maxlength="18" formControlName="clabe" type="text" class="form-control"
-          [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
-          placeholder="">
-        <div *ngIf="submitEnviado && f.clabe.errors?.required" class="invalid-feedback">
-          Campo requerido
-        </div>
-        <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
-          La CLABE no es válida
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Número de sucursal</label>
-        <input formControlName="num_sucursal" type="text" class="form-control" placeholder="">
+  <div class="form-group row margen">
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+      <label>Nombre de cuenta *</label>
+      <input #nombre formControlName="nombreCuenta" type="text" class="form-control"
+        [ngClass]="{'is-invalid':f.nombreCuenta.errors && submitEnviado}" placeholder="">
+      <div *ngIf="submitEnviado && f.nombreCuenta.errors" class="invalid-feedback">
+        Campo requerido
       </div>
     </div>
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
+      <label>Número de cuenta * 
+        <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No
+          tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a><i class="far fa-times-circle"></i>
+        </div>
+
+        <!-- <i (click)="mostrartooltip = !mostrartooltip"
+          class="fas fa-question-circle primary cursorhand " data-toggle="tooltip" data-placement="top"
+          title="Dar click para información"></i> -->
+
+      </label>
+      <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="10" class="form-control"
+        [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}" placeholder="">
+      <div *ngIf="submitEnviado && f.numeroCuenta.errors" class="invalid-feedback">
+        Campo requerido
+      </div>
+    </div>
+
+
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+      <label for="exampleFormControlSelect1">Banco *</label>
+      <select formControlName="bancoId" class="form-control"
+        [ngClass]="{'is-invalid':f.bancoId.errors && submitEnviado}">
+        <option *ngFor="let item of cuentasBancarias" [value]="item.bancoId">{{item.nombreCorto}}</option>
+      </select>
+      <div *ngIf="submitEnviado && f.bancoId.errors" class="invalid-feedback">
+        Campo requerido
+      </div>
+    </div>
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+      <label>Descripción</label>
+      <input formControlName="descripcion" type="text" class="form-control" placeholder="">
+    </div>
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+      <label>Número de información</label>
+      <input appSolonumeros formControlName="num_informacion" type="text" class="form-control" placeholder="">
+    </div>
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+      <label>Cuenta CLABE *</label>
+      <input maxlength="18" appSolonumeros formControlName="clabe" type="text" class="form-control"
+        [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
+        placeholder="">
+      <div *ngIf="submitEnviado && f.clabe.errors?.required" class="invalid-feedback">
+        Campo requerido
+      </div>
+      <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
+        La CLABE no es válida
+      </div>
+    </div>
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+      <label>Número de sucursal</label>
+      <input appSolonumeros formControlName="num_sucursal" type="text" class="form-control" placeholder="">
+    </div>
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+      <label for="exampleFormControlSelect1">Estado de empresa *</label>
+      <select  formControlName="esActivo" class="form-control">
+        <option value="true" selected>ACTIVO</option>
+        <option value="false">INACTIVO</option>
+      </select>
+  </div>
+  </div>
 
   
     <div class="row">

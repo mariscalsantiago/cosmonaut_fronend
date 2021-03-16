@@ -13,6 +13,13 @@ export class ImssService {
 
   constructor(private http:HttpClient) { }
 
+  public getAllByImss(idEmpresa:number):Observable<any>{
+
+    return this.http.get(`${direcciones.registroPatronal}/obtener/empresa/id/${idEmpresa}`);
+
+  }
+
+
   public save(obj:any):Observable<any>{
 
     const httpOptions = {

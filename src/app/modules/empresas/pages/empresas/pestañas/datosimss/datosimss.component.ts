@@ -22,13 +22,27 @@ export class DatosimssComponent implements OnInit {
   public submitEnviado: boolean = false;
   public activadoCer:boolean = false;
   public activadoFiel: boolean = false;
+  public id_empresa: number = 0;
+  public cargando: Boolean = false;
+  public arregloImss: any = [];
 
   constructor(private formBuilder:FormBuilder,private imssPrd: ImssService,private routerPrd:Router) { }
 
   ngOnInit(): void {
 
     let obj = {};
-    this.myForm = this.createForm(obj);
+    this.id_empresa = this.datosempresa.centrocClienteEmpresa
+debugger;
+
+   this.cargando = true;
+   this.imssPrd.getAllByImss(this.id_empresa).subscribe(datos => {
+   this.arregloImss = datos.datos[0];
+   console.log(this.arregloImss);
+   this.cargando = false;
+   this.myForm = this.createForm(this.arregloImss);
+  });
+
+  this.myForm = this.createForm(this.arregloImss);
 
   }
 
@@ -36,7 +50,7 @@ export class DatosimssComponent implements OnInit {
 
     return this.formBuilder.group({
       registroPatronal: [obj.registroPatronal,[Validators.required]],
-      emPrimaRiesgo:[obj.emPrimaRiesgo,[Validators.required, Validators.pattern(/^\d{2}$/)]],
+      emPrimaRiesgo:[obj.emPrimaRiesgo,[Validators.required, Validators.pattern(/^\d{1}$/)]],
       emClaveDelegacionalImss:[obj.emClaveDelegacionalImss,[Validators.required, Validators.pattern(/^\d{2}$/)]],
       emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
       emEnviarMovsImss:obj.emEnviarMovsImss
@@ -90,6 +104,7 @@ public activfiel(){
      
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
+      
       let obj = this.myForm.value;
       let objenviar = {
           registroPatronal: obj.registroPatronal,

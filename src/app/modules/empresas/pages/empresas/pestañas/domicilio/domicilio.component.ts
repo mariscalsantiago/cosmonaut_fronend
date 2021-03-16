@@ -17,6 +17,7 @@ export class DomicilioComponent implements OnInit {
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
   @Input() datosempresa:any;
+  @Input() datosmoficar: any;
   
 
   public myForm!: FormGroup;
@@ -32,7 +33,11 @@ export class DomicilioComponent implements OnInit {
   public id_empresa: number = 0;
   public asentamientoCpCons: number =0;
   public arreglo: any=[];
+  public arregloListaSede: any = [] ;
   public modsinIdDom: boolean = false;
+  public listaSedeNuevo: boolean = true;
+  public listaSedeModificar: boolean = false;
+  public cargando: Boolean = false;
 
   constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
@@ -40,7 +45,23 @@ export class DomicilioComponent implements OnInit {
   ngOnInit(): void {
     debugger;
     let obj:any = {};
+    this.datosempresa.activarGuardaMod= true;
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
+    if(!this.datosempresa.insertar){
+      debugger;
+      this.listaSedeModificar = this.datosempresa.activarList;
+      this.listaSedeNuevo = this.datosempresa.activarForm;
+
+      this.cargando = true;
+      this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
+        this.arregloListaSede = datos.datos;
+        console.log(this.arregloListaSede);
+        this.cargando = false;
+  
+      });
+
+    }
+
     /*if(!this.datosempresa.insertar){
       this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
         this.arreglo = datos.datos[0];
@@ -146,10 +167,12 @@ export class DomicilioComponent implements OnInit {
 }
 
   public verdetalle(obj:any){
-
+debugger;
+    //this.datosmoficar.datosmoficarObj = obj;
         this.enviado.emit({
           type:"sede"
         }); 
+        
    
  }
 

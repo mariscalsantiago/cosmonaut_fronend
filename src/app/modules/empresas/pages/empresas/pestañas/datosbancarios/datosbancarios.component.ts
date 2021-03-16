@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { CuentasbancariasService } from 'src/app/modules/empresas/services/cuentasbancarias/cuentasbancarias.service';
 
 
@@ -25,20 +24,51 @@ export class DatosbancariosComponent implements OnInit {
   public habcontinuar: boolean = false;
   public habGuardar: boolean = false;
   public actguardar: boolean = false;
+  public id_empresa: number = 0;
+  public listaCuentaNuevo: boolean = true;
+  public listaCuentaModificar: boolean = false;
+  public cargando: Boolean = false;
+  public arregloListaCuenta: any = [];
+  public obj: any =[];
+  public objenviar: any = [];
 
   constructor(private formBuilder: FormBuilder,private cuentasPrd:CuentasbancariasService,
-    private catalogosPrd:CatalogosService,private routerPrd:Router) { }
+    private routerPrd:Router) { }
 
   ngOnInit(): void {
+    debugger;
+    
+    this.datosempresa.activarGuardaMod= true;
+    this.id_empresa = this.datosempresa.centrocClienteEmpresa
 
-    let obj = {};
-    this.myForm = this.createForm(obj);
+
+    if(!this.datosempresa.insertar){
+      debugger;
+      this.listaCuentaModificar = this.datosempresa.activarList;
+      this.listaCuentaNuevo = this.datosempresa.activarForm;
+
+   }
+
+   this.cargando = true;
+   this.cuentasPrd.getAllByEmpresa(this.id_empresa).subscribe(datos => {
+   this.arregloListaCuenta = datos.datos;
+   console.log(this.arregloListaCuenta);
+   this.obj = datos.datos[0];
+   this.myForm = this.createForm(this.obj);
+   this.cargando = false;
+
+  });
+    this.myForm = this.createForm(this.obj);
 
   }
 
   public createForm(obj: any) {
-
+    if(!this.datosempresa.insertar && obj.usaStp){
+      this.activar();
+    }
     return this.formBuilder.group({
+
+      usaStp: obj.usaStp,
       cuentaStp: [obj.cuentaStp, [Validators.required,Validators.pattern('[0-9]+')]],
       clabeStp: [obj.clabeStp, [Validators.required,Validators.pattern(/^\d{18}$/)]],
     
@@ -115,7 +145,7 @@ public verdetalle(obj:any){
       
 
       let obj = this.myForm.value;
-      let objenviar = 
+      this.objenviar = 
           {
  
             usaStp: true,
@@ -127,22 +157,40 @@ public verdetalle(obj:any){
           
       }
 
-      this.cuentasPrd.save(objenviar).subscribe(datos =>{
+      if(this.datosempresa.insertar){
+      //this.objenviar.cuentaBancoId = obj.cuentaBancoId;
+      this.cuentasPrd.save(this.objenviar).subscribe(datos =>{
 
         this.alerta.iconType = datos.resultado ? "success" : "error";
-
         this.alerta.strTitulo = datos.mensaje;
-        //this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
+        if(datos.resultado){
         this.enviado.emit({
           type:"cuentasBancarias"
         });
-        if(datos.resultado){
-          this.habcontinuar= true;
-          this.habGuardar=false;
-          
+        this.habcontinuar= true;
+        this.habGuardar=false;
         }
       });
+      }else{
+        //this.objenviar.cuentaBancoId = obj.cuentaBancoId;
+        this.cuentasPrd.modificar(this.objenviar).subscribe(datos =>{
+
+          this.alerta.iconType = datos.resultado ? "success" : "error";
+          this.alerta.strTitulo = datos.mensaje;
+          this.alerta.modal = true;
+          if(datos.resultado){
+          this.enviado.emit({
+            type:"cuentasBancarias"
+          });
+          this.habcontinuar= true;
+          this.habGuardar=false;
+          }
+        });
+
+
+
+      }
      }
 
   }

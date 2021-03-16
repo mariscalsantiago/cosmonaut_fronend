@@ -84,9 +84,10 @@ export class ListapuestosComponent implements OnInit {
     this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'area', tipoinsert], { state: { datos: obj } });
     this.cargando = false;
   }
+
   public eliminar(obj: any) {
 
-
+    
     this.objEnviar = {
       areaId: obj.areaId,
       descripcion: obj.descripcion,
@@ -107,13 +108,9 @@ export class ListapuestosComponent implements OnInit {
         this.puestosProd.eliminar(this.objEnviar).subscribe(datos => {
          
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
-          //if (resultado) {
-
-            this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
-              this.arreglo = datos.datos;
-
-            });
-          //}
+          if (datos.resultado) {
+            this.ngOnInit();
+          }
 
         });
       }

@@ -17,6 +17,7 @@ export class SedeComponent implements OnInit {
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
   @Input() datosempresa:any;
+
  
 
 
@@ -31,6 +32,7 @@ export class SedeComponent implements OnInit {
   public insertar: boolean = false;
   public habcontinuardom: boolean = false;
   public objenviar: any = [];
+  public insertarMof: boolean = false;
 
   constructor(private formBuilder: FormBuilder,private sedePrd:SedeService,
     private catalogosPrd:CatalogosService,private routerPrd:Router, private routerActivePrd: ActivatedRoute )
@@ -40,7 +42,7 @@ export class SedeComponent implements OnInit {
   }
     
   ngOnInit(): void {
-    this.objdsede = history.state.data == undefined ? {} : history.state.data ;
+    debugger;
     this.insertar = this.objdsede.insertar;
     let obj = {};
       this.myForm = this.createForm((obj));
@@ -50,7 +52,7 @@ export class SedeComponent implements OnInit {
 
   public createForm(obj: any) {
     return this.formBuilder.group({
-          sede: [obj.sede,[Validators.required]],
+          sede: [obj.descripcion,[Validators.required]],
           codigo: [obj.codigo, [Validators.required,Validators.pattern('[0-9]+')]],
           estado:[obj.estado,[Validators.required]],
           municipio:[obj.municipio,[Validators.required]],
@@ -63,7 +65,7 @@ export class SedeComponent implements OnInit {
   }
 
   public enviarFormulario() {
-    
+    debugger;
    
    if(!this.habcontinuardom){
     this.submitEnviado = true;
@@ -97,10 +99,13 @@ public activarCancel(){
 }
 
   ngOnChanges(changes: SimpleChanges) {
-     
+     debugger;
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
        let obj = this.myForm.value;
+       if(!this.datosempresa.insertar && obj.domicilioId == undefined){
+          this.insertarMof = true;
+       }
        this.objenviar = 
        {
          sede: obj.sede,
@@ -122,15 +127,28 @@ public activarCancel(){
        }
      }
 
-      if(this.datosempresa.insertar){
+      if(this.insertarMof){
         this.sedePrd.save(this.objenviar).subscribe(datos =>{
           this.alerta.iconType = datos.resultado ? "success" : "error";
           this.alerta.strTitulo = datos.mensaje;
           this.alerta.modal = true;
+            if(datos.resultado){
               this.enviado.emit({
                 type:"sedeCont"
               });
-
+            }
+        });
+      }
+      else if(this.datosempresa.insertar){
+        this.sedePrd.save(this.objenviar).subscribe(datos =>{
+          this.alerta.iconType = datos.resultado ? "success" : "error";
+          this.alerta.strTitulo = datos.mensaje;
+          this.alerta.modal = true;
+          if(datos.resultado){
+              this.enviado.emit({
+                type:"sedeCont"
+              });
+            }
         });
       }else{
        

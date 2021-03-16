@@ -24,6 +24,7 @@ export class CuentasbancariasService {
 
   }
 
+
   public save(obj:any):Observable<any>{
 
     const httpOptions = {
@@ -35,6 +36,20 @@ export class CuentasbancariasService {
 
     let json = JSON.stringify(obj);
     return this.http.put(`${direcciones.cuentasbancarias}/guardarSTP`,json,httpOptions);
+
+  }
+
+  public modificar(obj:any):Observable<any>{
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.cuentasbancarias}/modificarSTP`,json,httpOptions);
 
   }
 
