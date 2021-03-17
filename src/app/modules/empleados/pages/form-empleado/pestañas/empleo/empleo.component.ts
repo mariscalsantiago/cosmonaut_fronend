@@ -317,7 +317,12 @@ export class EmpleoComponent implements OnInit {
 
 
         this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado =>{
-          debugger;
+          
+           if(!valorEmpleado.resultado){
+             this.modalPrd.showMessageDialog(valorEmpleado.resultado,valorEmpleado.mensaje);
+             return;
+           }
+
            objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
 
 
@@ -345,7 +350,10 @@ export class EmpleoComponent implements OnInit {
   
                 }
   
-                this.enviado.emit({ type: "empleo", datos: metodopago });
+                let datosPersona = valorEmpleado.datos;
+                datosPersona.metodopago = metodopago;
+
+                this.enviado.emit({ type: "empleo", datos: datosPersona });
               }
             });
   
