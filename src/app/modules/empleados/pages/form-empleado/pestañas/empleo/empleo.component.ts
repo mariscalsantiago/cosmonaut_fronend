@@ -317,14 +317,15 @@ export class EmpleoComponent implements OnInit {
 
 
         this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado =>{
-           objEnviar.personaId = valorEmpleado.personaId;
+          debugger;
+           objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
 
 
            this.colaboradorPrd.save(objEnviar).subscribe(datos => {
 
             let domicilio = this.arregloEnviar[1];
            //let preferencias = this.arregloEnviar[2];
-            domicilio.personaId = valorEmpleado.personaId;
+            domicilio.personaId = valorEmpleado.datos.personaId;
            // preferencias.personaId = valorEmpleado.personaId;
 
             this.domicilioPrd.save(domicilio).toPromise();
