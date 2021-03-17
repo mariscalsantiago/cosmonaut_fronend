@@ -68,7 +68,7 @@ export class CompanyComponent implements OnInit {
             new tabla("url","imagen"),
             new tabla("centrocClienteId","ID empresa"),
             new tabla("razonSocial","Razón social	"),
-            new tabla("nombre","Nombre de la empresa	"),
+            new tabla("nombre","Nombre de compañía"),
             new tabla("rfc","RFC"),
             new tabla("fechaAlta","Fecha registro"),
             new tabla("esActivo","Estatus")
@@ -107,8 +107,7 @@ export class CompanyComponent implements OnInit {
       if (this.fechaAlta != "") {
 
 
-        let arre = this.fechaAlta.split('-');
-        fechar = arre[2] + "/" + arre[1] + "/" + arre[0];
+        fechar = `${new Date(this.fechaAlta).getTime()}`
 
       }
 
@@ -144,7 +143,7 @@ export class CompanyComponent implements OnInit {
         new tabla("url","imagen"),
         new tabla("centrocClienteId","ID empresa"),
         new tabla("razonSocial","Razón social	"),
-        new tabla("nombre","Nombre de la empresa	"),
+        new tabla("nombre","Nombre de compañía"),
         new tabla("rfc","RFC"),
         new tabla("fechaAlta","Fecha registro"),
         new tabla("esActivo","Estatus")

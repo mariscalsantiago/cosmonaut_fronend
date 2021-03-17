@@ -18,6 +18,7 @@ export class FormEmpleadoComponent implements OnInit {
   public ocultarDetalleTransfrencia:boolean = true;
   public ocultarempleada:boolean = false;
   public cargandoIcon:boolean = false;
+  public tabsEnviar:any=[];
 
   
 
@@ -37,8 +38,6 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   public recibir(elemento: any) {
-    this.ocultarempleada = true;
-
     switch (elemento.type) {
       case "informacion":
         this.datosPersona = elemento.datos;
@@ -46,13 +45,14 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[1].form = true;
         this.activado[1].disabled = false;
         this.activado[0].form = false;
+        this.tabsEnviar.push(elemento.datos);
         break;
       case "domicilio":
         this.activado[2].tab = true;
         this.activado[2].form = true;
         this.activado[2].disabled = false;
         this.activado[1].form = false;
-        
+        this.tabsEnviar.push(elemento.datos);
         break;
       case "preferencias":
 
@@ -60,10 +60,10 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[3].form = true;
         this.activado[3].disabled = false;
         this.activado[2].form = false;
-        
+        this.tabsEnviar.push(elemento.datos);
         break;
       case "empleo":
-        debugger;
+        this.ocultarempleada = true;
         this.datosPersona.metodopago = elemento.datos;
         this.ocultarDetalleTransfrencia = this.datosPersona.metodopago.metodoPagoId !== 4;
 

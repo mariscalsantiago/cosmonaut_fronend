@@ -69,14 +69,11 @@ export class PreferenciasComponent implements OnInit {
           item.personaId = {
             personaId:this.datosPersona.personaId
           }
-          this.preferenciasPrd.save(item).subscribe(datos =>{
-              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-                if(datos.resultado){
-                    this.enviado.emit({type:"preferencias"});
-                }
-              });
-          });
+
+
         }
+
+        this.enviado.emit({type:"preferencias"});
       }
     });
 

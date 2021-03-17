@@ -169,15 +169,7 @@ export class InformacionbasicaComponent implements OnInit {
     }
 
 
-    this.empleadosPrd.save(objenviar).subscribe(datos => {
-
-     
-      this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-        if(datos.resultado){
-          this.enviado.emit({type:"informacion",datos:datos.datos})
-        }
-      });
-    });
+    this.enviado.emit({type:"informacion",datos:objenviar})
 
   }
 

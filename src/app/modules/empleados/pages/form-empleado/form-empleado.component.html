@@ -79,7 +79,7 @@
                 <app-preferencias *ngIf="activado[2].form" (enviado)="recibir($event)"   [datosPersona]="datosPersona"></app-preferencias>
             </div>
             <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel" aria-labelledby="nav-empleo-tab">
-                <app-empleo *ngIf="activado[3].form" (enviado)="recibir($event)"   [datosPersona]="datosPersona"></app-empleo>
+                <app-empleo *ngIf="activado[3].form" (enviado)="recibir($event)"   [datosPersona]="datosPersona" [arregloEnviar]="tabsEnviar"></app-empleo>
             </div>
             <div class="tab-pane fade" [ngClass]="{'show active':activado[4].form}" id="nav-detalle" role="tabpanel" aria-labelledby="nav-detalle-tab">
                 <app-detalle *ngIf="activado[4].form" (enviado)="recibir($event)"   [datosPersona]="datosPersona"></app-detalle>

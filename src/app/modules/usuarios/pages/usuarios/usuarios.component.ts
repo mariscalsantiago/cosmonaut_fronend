@@ -212,9 +212,9 @@ export class UsuariosComponent implements OnInit {
 
       if (this.fechaRegistro != "") {
 
+      
 
-        let arre = this.fechaRegistro.split('-');
-        fechar = arre[2] + "/" + arre[1] + "/" + arre[0];
+        fechar = `${new Date(this.fechaRegistro).getTime()}`
 
       }
 
