@@ -13,7 +13,7 @@
               </div>
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                   <label>Prima de riesgo *</label>
-                  <input appSolonumeros formControlName="emPrimaRiesgo" maxlength="2" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
+                  <input formControlName="emPrimaRiesgo" maxlength="20" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
                   <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
                     Campo requerido
                   </div>
