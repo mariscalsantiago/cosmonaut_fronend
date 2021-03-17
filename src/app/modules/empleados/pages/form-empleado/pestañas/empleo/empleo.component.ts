@@ -330,7 +330,7 @@ export class EmpleoComponent implements OnInit {
 
             let domicilio = this.arregloEnviar[1];
            //let preferencias = this.arregloEnviar[2];
-            domicilio.personaId = valorEmpleado.datos.personaId;
+            domicilio.personaId.personaId = valorEmpleado.datos.personaId;
            // preferencias.personaId = valorEmpleado.personaId;
 
             this.domicilioPrd.save(domicilio).toPromise();

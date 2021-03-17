@@ -20,6 +20,7 @@ export class CuentasbancariasService {
 
   public getAllByEmpresa(idEmpresa:number):Observable<any>{
 
+    console.log("ESTA ES LA CUENTA",`${direcciones.cuentasbancarias}/obtener/cliente/${idEmpresa}`);
     return this.http.get(`${direcciones.cuentasbancarias}/obtener/cliente/${idEmpresa}`);
 
   }

@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
-import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { datosTemporales, UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpresasService } from '../../services/empresas.service';
 
 @Component({
@@ -89,6 +89,7 @@ export class ListaEmpresasComponent implements OnInit {
 
 
   public verPerfilEmpresa(obj: any) {
+    datosTemporales.configuracionEmpresaNombreEmpresa = obj.nombre;
     this.routerPrd.navigate(['/empresa', 'detalle', obj.centrocClienteId, 'representantelegal']);
   }
 

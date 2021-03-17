@@ -100,3 +100,8 @@ export class usuarioClass {
 
 
 }
+
+
+export class datosTemporales{
+  public static configuracionEmpresaNombreEmpresa:string = "";
+}

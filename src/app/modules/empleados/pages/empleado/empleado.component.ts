@@ -51,13 +51,7 @@ export class EmpleadoComponent implements OnInit {
 
       let fechacontrato = datos.datos?.fechaContrato;
       
-      if (fechacontrato !== undefined) {
-
-        const fecha: Date = new Date(fechacontrato);
-
-        fecha.toUTCString()
-
-      }
+      
 
 
       let objenviar = {
