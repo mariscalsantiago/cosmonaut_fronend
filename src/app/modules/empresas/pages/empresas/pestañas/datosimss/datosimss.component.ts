@@ -25,6 +25,9 @@ export class DatosimssComponent implements OnInit {
   public id_empresa: number = 0;
   public cargando: Boolean = false;
   public arregloImss: any = [];
+  public objenviar: any = [];
+  public insertarMof: boolean = false;
+
 
   constructor(private formBuilder:FormBuilder,private imssPrd: ImssService,private routerPrd:Router) { }
 
@@ -49,8 +52,8 @@ debugger;
   public createForm(obj: any) {
 
     return this.formBuilder.group({
-      registroPatronal: [obj.registroPatronal,[Validators.required]],
-      emPrimaRiesgo:[obj.emPrimaRiesgo,[Validators.required, Validators.pattern(/^\d{1}$/)]],
+      registroPatronal: [obj.registroPatronal,Validators.required],
+      emPrimaRiesgo:[obj.emPrimaRiesgo,[Validators.required]],
       emClaveDelegacionalImss:[obj.emClaveDelegacionalImss,[Validators.required, Validators.pattern(/^\d{2}$/)]],
       emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
       emEnviarMovsImss:obj.emEnviarMovsImss
@@ -101,12 +104,17 @@ public activfiel(){
 
 
   ngOnChanges(changes: SimpleChanges) {
-     
+     debugger;
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       
       let obj = this.myForm.value;
-      let objenviar = {
+
+      if(!this.datosempresa.insertar && this.arregloImss.registroPatronalId == undefined){
+        this.insertarMof = true;
+     }
+     
+      this.objenviar = {
           registroPatronal: obj.registroPatronal,
           emPrimaRiesgo: obj.emPrimaRiesgo,
           emClaveDelegacionalImss: obj.emClaveDelegacionalImss,
@@ -117,17 +125,35 @@ public activfiel(){
           }
 
         }
-
-        
-      this.imssPrd.save(objenviar).subscribe(datos => {
+      
+      if(this.insertarMof){
+          this.imssPrd.save(this.objenviar).subscribe(datos =>{
+            this.alerta.iconType = datos.resultado ? "success" : "error";
+            this.alerta.strTitulo = datos.mensaje;
+            this.alerta.modal = true;
+              if(datos.resultado){
+                this.enviado.emit({
+                  type:"sedeCont"
+                });
+              }
+          });
+      }
+      else if(this.datosempresa.insertar){        
+      this.imssPrd.save(this.objenviar).subscribe(datos => {
         this.alerta.iconType = datos.resultado ? "success" : "error";
-
         this.alerta.strTitulo = datos.mensaje;
-        //this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
       });
 
+      }else{
 
+      this.objenviar.registroPatronalId = this.arregloImss.registroPatronalId;
+      this.imssPrd.modificar(this.objenviar).subscribe(datos => {
+        this.alerta.iconType = datos.resultado ? "success" : "error";
+        this.alerta.strTitulo = datos.mensaje;
+        this.alerta.modal = true;
+      });
+    }
     }else{
       if(this.alerta.iconType == "success"){
         this.routerPrd.navigate(["/listaempresas"]);

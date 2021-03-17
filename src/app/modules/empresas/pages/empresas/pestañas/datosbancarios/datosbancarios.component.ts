@@ -31,6 +31,7 @@ export class DatosbancariosComponent implements OnInit {
   public arregloListaCuenta: any = [];
   public obj: any =[];
   public objenviar: any = [];
+  public insertarMof: boolean = false;
 
   constructor(private formBuilder: FormBuilder,private cuentasPrd:CuentasbancariasService,
     private routerPrd:Router) { }
@@ -52,12 +53,16 @@ export class DatosbancariosComponent implements OnInit {
    this.cargando = true;
    this.cuentasPrd.getAllByEmpresa(this.id_empresa).subscribe(datos => {
    this.arregloListaCuenta = datos.datos;
-   console.log(this.arregloListaCuenta);
-   this.obj = datos.datos[0];
-   this.myForm = this.createForm(this.obj);
    this.cargando = false;
 
   });
+
+  this.cuentasPrd.getAllByDetCuentas(this.id_empresa).subscribe(datos => {
+    this.obj = datos.datos;
+    this.myForm = this.createForm(this.obj);
+    this.cargando = false;
+ 
+   });
     this.myForm = this.createForm(this.obj);
 
   }
@@ -139,12 +144,16 @@ public verdetalle(obj:any){
 
 
   ngOnChanges(changes: SimpleChanges) {
-     
+     debugger;
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       
-
       let obj = this.myForm.value;
+
+      if(!this.datosempresa.insertar && this.obj.cuentaBancoId == undefined){
+        this.insertarMof = true;
+     }
+
       this.objenviar = 
           {
  
@@ -157,8 +166,19 @@ public verdetalle(obj:any){
           
       }
 
-      if(this.datosempresa.insertar){
-      //this.objenviar.cuentaBancoId = obj.cuentaBancoId;
+      if(this.insertarMof){
+        this.cuentasPrd.save(this.objenviar).subscribe(datos =>{
+          this.alerta.iconType = datos.resultado ? "success" : "error";
+          this.alerta.strTitulo = datos.mensaje;
+          this.alerta.modal = true;
+            if(datos.resultado){
+              this.enviado.emit({
+                type:"cuentasBancarias"
+              });
+            }
+        });
+      }
+      else if(this.datosempresa.insertar){
       this.cuentasPrd.save(this.objenviar).subscribe(datos =>{
 
         this.alerta.iconType = datos.resultado ? "success" : "error";
@@ -173,7 +193,7 @@ public verdetalle(obj:any){
         }
       });
       }else{
-        //this.objenviar.cuentaBancoId = obj.cuentaBancoId;
+        this.objenviar.cuentaBancoId = this.obj.cuentaBancoId;
         this.cuentasPrd.modificar(this.objenviar).subscribe(datos =>{
 
           this.alerta.iconType = datos.resultado ? "success" : "error";

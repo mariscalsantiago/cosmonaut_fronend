@@ -24,6 +24,12 @@ export class CuentasbancariasService {
 
   }
 
+    public getAllByDetCuentas(idEmpresa:number):Observable<any>{
+
+    return this.http.get(`${direcciones.cuentasbancarias}/obtener/STP/cliente/${idEmpresa}`);
+
+  }
+
 
   public save(obj:any):Observable<any>{
 

@@ -87,7 +87,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
     }
 
-    let titulo = this.esInsert ? "¿Deseas registrar el concepto de la deducción ?" : "¿Deseas actualizar el concepto de la deducción?";
+    let titulo = this.esInsert ? "¿Deseas registrar la deducción ?" : "¿Deseas actualizar la deducción?";
 
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
