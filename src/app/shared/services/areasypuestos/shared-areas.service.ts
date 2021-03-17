@@ -21,6 +21,6 @@ export class SharedAreasService {
   }
 
   public getPuestoByArea(idEmpresa:number,idArea:number):Observable<any>{
-      return this.http.get(`${direcciones.area}/obtener/cliente/area/id/${idEmpresa}?idArea=${idArea}`);
+      return this.http.get(`${direcciones.area}/obtener/cliente/area/${idEmpresa}/${idArea}`);
   }
 }
