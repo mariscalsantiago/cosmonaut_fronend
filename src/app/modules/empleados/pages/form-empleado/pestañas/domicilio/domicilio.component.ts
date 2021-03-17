@@ -90,7 +90,7 @@ export class DomicilioComponent implements OnInit {
         }
   
 
-        this.enviado.emit({type:"domicilio",objenviar});
+        this.enviado.emit({type:"domicilio",datos:objenviar});
         
         
 
