@@ -85,9 +85,6 @@ export class InformacionbasicaComponent implements OnInit {
     
     
 
-    console.log(this.myform.controls);
-    console.log(this.myform.controls.nombre.value);
-
     this.submitEnviado = true;
 
     let noesRFC: boolean = (this.myform.controls.tieneCurp.value == null || this.myform.controls.tieneCurp.value == false);
@@ -130,14 +127,11 @@ export class InformacionbasicaComponent implements OnInit {
 
     let fechanacimiento = '';
 
-    if (this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != '') {
-      let date: Date = new Date(`${obj.fechaNacimiento}T12:00-0600`);
-      let dia = (date.getDate() < 10) ? `0${date.getDate()}` : `${date.getDate()}`;
-      let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`;
-      let anio = date.getFullYear();
-      fechanacimiento = `${dia}/${mes}/${anio}`;
-    }
 
+    if (this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != '') {
+      let date: Date = new Date(`${this.myform.value.fechaNacimiento}`);
+      fechanacimiento =`${date.getTime()}`;
+    }
 
 
     let objenviar = {
