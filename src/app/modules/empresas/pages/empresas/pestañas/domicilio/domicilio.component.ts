@@ -47,17 +47,18 @@ export class DomicilioComponent implements OnInit {
     let obj:any = {};
     this.datosempresa.activarGuardaMod= true;
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
+
     if(!this.datosempresa.insertar){
       debugger;
       this.listaSedeModificar = this.datosempresa.activarList;
       this.listaSedeNuevo = this.datosempresa.activarForm;
 
-      this.cargando = true;
+      
       this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
+        this.cargando = true;
         this.arregloListaSede = datos.datos;
         console.log(this.arregloListaSede);
-        this.cargando = false;
-  
+
       });
 
     }
@@ -78,7 +79,6 @@ export class DomicilioComponent implements OnInit {
       obj = datos.datos[0];
       obj.asentamientoCpCons = obj.asentamientoId
       this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
-          
         if(datos.resultado){
           this.domicilioCodigoPostal = datos.datos;
 
@@ -98,6 +98,8 @@ export class DomicilioComponent implements OnInit {
         }
 
         this.myForm = this.createForm(obj);
+        this.cargando = false;
+ 
         
       });      
     
@@ -107,6 +109,8 @@ export class DomicilioComponent implements OnInit {
     }
     else{
     this.myForm = this.createForm(obj);
+    this.cargando = false;
+
     }
 
   }

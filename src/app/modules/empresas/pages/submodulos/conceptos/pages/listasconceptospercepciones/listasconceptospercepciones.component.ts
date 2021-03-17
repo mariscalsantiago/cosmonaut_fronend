@@ -113,7 +113,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
       centrocClienteId: obj.centrocClienteId
       }
 
-      const titulo = "¿Deseas eliminar el concepto de la percepción?";
+      const titulo = "¿Deseas eliminar la percepción?";
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
@@ -171,7 +171,7 @@ debugger;
       centrocClienteId: obj.centrocClienteId
       }
 
-      const titulo = "¿Deseas eliminar el concepto de la deducción?";
+      const titulo = "¿Deseas eliminar la deducción?";
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
