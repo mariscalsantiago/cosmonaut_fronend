@@ -18,14 +18,17 @@ export class DetallecuentasbancariasComponent implements OnInit {
   public id_empresa: number = 0;
   public esInsert: boolean = false;
   public cuenta: any;
+  public objCuenta: any = [];
   public cuentasBancarias: any;
   public submitInvalido: boolean = false;
+  public peticion: any = [];
+ 
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
     private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService,
     private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-
+    debugger;
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -38,16 +41,16 @@ export class DetallecuentasbancariasComponent implements OnInit {
     });
 
 
-    let obj = { bancoId: { bancoId: 0 } };
+    this.objCuenta = { bancoId: { bancoId: 0 } };
 
     if (!this.esInsert) {//Solo cuando es modificar
-      obj = history.state.data;
-      if (obj == undefined) this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
+      this.objCuenta = history.state.data;
+      if (this.objCuenta == undefined) this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'cuentasbancarias']);
 
     }
 
 
-    this.myForm = this.createForm(obj);
+    this.myForm = this.createForm(this.objCuenta);
 
 
     this.catalogosPrd.getCuentasBanco().subscribe(datos => {
@@ -109,7 +112,7 @@ debugger;
           let obj = this.myForm.value;
 
 
-          let peticion: any = {
+          this.peticion = {
             numeroCuenta: obj.numeroCuenta,
             nombreCuenta: obj.nombreCuenta,
             descripcion: obj.descripcion,
@@ -131,7 +134,7 @@ debugger;
 
           if (this.esInsert) {
 
-            this.cuentasPrd.save(peticion).subscribe(datos => {
+            this.cuentasPrd.save(this.peticion).subscribe(datos => {
 
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
@@ -142,9 +145,10 @@ debugger;
 
             });
           } else {
-
-            peticion.clabe = this.myForm.controls.clabe.value;
-            this.cuentasPrd.modificar(peticion).subscribe(datos => {
+            
+            this.peticion.clabe = this.myForm.controls.clabe.value;
+            this.peticion.cuentaBancoId = this.objCuenta.cuentaBancoId;
+            this.cuentasPrd.modificar(this.peticion).subscribe(datos => {
 
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
