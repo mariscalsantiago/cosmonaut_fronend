@@ -26,12 +26,12 @@ export class PuestosService {
  }
 
   public getListPues(id_empresa:number,id_area:number):Observable<any>{
-    return this.http.get(`${this.url}/obtener/cliente/area/id/${id_empresa}?idArea=${id_area}`);
+    return this.http.get(`${this.url}/obtener/cliente/area/${id_empresa}/${id_area}`);
 
   }
 
   public getdetalleArea(id_empresa:number,id_area:number):Observable<any>{
-    return this.http.get(`${this.url}/obtener/empleado/idCliente/${id_empresa}?idArea=${id_area}`);
+    return this.http.get(`${this.url}/obtener/empleado/${id_empresa}/${id_area}`);
 
   }
 

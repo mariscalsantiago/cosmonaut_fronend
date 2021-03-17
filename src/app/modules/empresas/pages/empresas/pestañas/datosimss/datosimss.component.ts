@@ -37,11 +37,11 @@ export class DatosimssComponent implements OnInit {
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
 debugger;
 
-   this.cargando = true;
+
    this.imssPrd.getAllByImss(this.id_empresa).subscribe(datos => {
    this.arregloImss = datos.datos[0];
    console.log(this.arregloImss);
-   this.cargando = false;
+
    this.myForm = this.createForm(this.arregloImss);
   });
 
