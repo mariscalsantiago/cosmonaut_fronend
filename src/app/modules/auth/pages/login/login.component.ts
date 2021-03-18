@@ -76,6 +76,8 @@ export class LoginComponent implements OnInit {
               if(!this.myForm.value.email.includes(this.myForm.value.password)){
 
                 alert("Contraseña invalida");
+                console.log(this.myForm.value.password);
+                console.log(this.myForm.value.email);
                 this.cargando = false;
                 this.correcto = false;
   

@@ -18,3 +18,18 @@
 .ocultarcolumna{
    display: none!important;
 }
+
+
+table{
+   th{
+      text-align: center;
+   }
+   td{
+      text-align: center;
+   }
+
+}
+.pagination .page-item.active .page-link{
+   background-color: #4cc1b0 !important;
+border-radius: 50% !important;
+}

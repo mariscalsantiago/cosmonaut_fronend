@@ -18,7 +18,7 @@
     <form class="form" [formGroup]="myForm" (ngSubmit)="enviarformulario()">
       <div class="form-group">
         <label class="text-light" for="usuariologin"><small *ngIf="!ventanapass">Email</small><small *ngIf="ventanapass">Ingresa tu email y te enviaremos un link para restablecerla</small></label>
-        <input *ngIf="!ventanapass" formControlName="email" type="email" class="form-control text-lowercase" id="usuariologin"
+        <input *ngIf="!ventanapass" formControlName="email" type="email" class="form-control " id="usuariologin"
           aria-describedby="emailHelp">
 
       </div>
@@ -28,7 +28,7 @@
       </div>
       <div class="form-group" *ngIf="ventanapass">
         <label class="text-light" for="exampleInputPassword1"><small>Email</small></label>
-        <input #emailrestablecer type="email" class="form-control text-lowercase" id="exampleInputPassword1">
+        <input #emailrestablecer type="email" class="form-control" id="exampleInputPassword1">
       </div>
       <a style="    color: #00c0af;" *ngIf="!ventanapass"  (click)="ventanapass=true"><small> <u>¿Olvidaste tu contraseña?</u> </small></a>
 

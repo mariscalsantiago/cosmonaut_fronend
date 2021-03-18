@@ -12,6 +12,8 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { SharedPoliticasService } from 'src/app/shared/services/politicas/shared-politicas.service';
 import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
+import { PreferenciasService } from 'src/app/modules/empleados/services/preferencias.service';
 
 
 @Component({
@@ -22,6 +24,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 export class EmpleoComponent implements OnInit {
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;
+  @Input() arregloEnviar:any;
 
 
   public aparecemodalito: boolean = false;
@@ -66,7 +69,8 @@ export class EmpleoComponent implements OnInit {
     private colaboradorPrd: ContratocolaboradorService,
     private usuarioSistemaPrd: UsuarioSistemaService,
     private jornadaPrd: JornadalaboralService, private sedesPrd: SharedSedesService,
-    private modalPrd: ModalService, private puestosPrd: PuestosService) { }
+    private modalPrd: ModalService, private puestosPrd: PuestosService,
+    private domicilioPrd:DomicilioService,private preferenciasPrd:PreferenciasService) { }
 
   ngOnInit(): void {
 
@@ -286,10 +290,10 @@ export class EmpleoComponent implements OnInit {
           puestoId: { puestoId: obj.puestoId },
           politicaId: { politicaId: obj.politicaId },
           numEmpleado: obj.personaId,
-          fechaAntiguedad: obj.fechaAntiguedad,
+          fechaAntiguedad: new Date(obj.fechaAntiguedad).getTime(),
           tipoContratoId: { tipoContratoId: obj.tipoContratoId },
-          fechaInicio: obj.fechaInicio,
-          fechaFin: obj.fechaFin,
+          fechaInicio: new Date(obj.fechaInicio).getTime(),
+          fechaFin: new Date(obj.fechaFin).getTime(),
           areaGeograficaId: { areaGeograficaId: obj.areaGeograficaId },
           grupoNominaId: { grupoNominaId: obj.grupoNominaId },
           tipoCompensacionId: { tipoCompensacionId: obj.tipoCompensacionId },
@@ -312,29 +316,54 @@ export class EmpleoComponent implements OnInit {
         }
 
 
+        this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado =>{
+          
+           if(!valorEmpleado.resultado){
+             this.modalPrd.showMessageDialog(valorEmpleado.resultado,valorEmpleado.mensaje);
+             return;
+           }
 
-        this.colaboradorPrd.save(objEnviar).subscribe(datos => {
+           objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
 
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-            if (datos.resultado) {
-              let metodopago = {};
 
-              for (let item of this.arregloMetodosPago) {
+           this.colaboradorPrd.save(objEnviar).subscribe(datos => {
 
-                if (item.metodoPagoId == this.myForm.value.metodo_pago_id) {
+            let domicilio = this.arregloEnviar[1];
+           //let preferencias = this.arregloEnviar[2];
+            domicilio.personaId.personaId = valorEmpleado.datos.personaId;
+           // preferencias.personaId = valorEmpleado.personaId;
 
-                  metodopago = item;
-                  break;
+            this.domicilioPrd.save(domicilio).toPromise();
+           // this.preferenciasPrd.save(preferencias).toPromise();
+
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                let metodopago = {};
+  
+                for (let item of this.arregloMetodosPago) {
+  
+                  if (item.metodoPagoId == this.myForm.value.metodo_pago_id) {
+  
+                    metodopago = item;
+                    break;
+                  }
+  
                 }
+  
+                let datosPersona = valorEmpleado.datos;
+                datosPersona.metodopago = metodopago;
+                datosPersona.contratoColaborador = datos.datos;
 
+                this.enviado.emit({ type: "empleo", datos: datosPersona });
               }
-
-              this.enviado.emit({ type: "empleo", datos: metodopago });
-            }
+            });
+  
+  
           });
 
-
         });
+
+        
 
 
 

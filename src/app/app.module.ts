@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +18,11 @@ import { ShareModule } from './shared/share.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './core/interceptores/interceptor.service';
 
+
+//Importamos para el lenguaje en mis fechas (SAMV)
+import localeEn from '@angular/common/locales/es-MX';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEn, 'es-MX');
 
 @NgModule({
   declarations: [
@@ -40,6 +45,9 @@ import { InterceptorService } from './core/interceptores/interceptor.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService, multi: true
+    },
+    {
+      provide:LOCALE_ID,useValue:'es-MX'
     }],
   bootstrap: [AppComponent]
 })

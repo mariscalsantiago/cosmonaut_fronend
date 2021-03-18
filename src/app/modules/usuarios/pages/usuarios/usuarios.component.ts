@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
@@ -74,7 +75,7 @@ export class UsuariosComponent implements OnInit {
 
     this.tamanio = documento.innerWidth;
 
-    
+
 
 
     this.cargando = true;
@@ -84,11 +85,12 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosPrd.getAllUsers().subscribe(datos => {
       this.arreglotemp = datos.datos;
-      console.log(datos);
-      for(let item of this.arreglotemp){
-        item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-        item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
-        
+      
+      for (let item of this.arreglotemp) {
+        var datePipe = new DatePipe("es-MX");
+        item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+        item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd MMM yyyy');
+        console.log("HOLA ISDJFIDSJFOIDSFJO",item.fechaAlta);
       }
       this.cargando = false;
 
@@ -155,7 +157,7 @@ export class UsuariosComponent implements OnInit {
     this.tipoguardad = tipoguardad;
     let mensaje = `¿Deseas ${tipoguardad ? "activar" : "desactivar"} estos usuarios?`;
 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor => {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
       if (valor) {
         let arregloUsuario: any = [];
 
@@ -211,11 +213,8 @@ export class UsuariosComponent implements OnInit {
     if (this.fechaRegistro != undefined || this.fechaRegistro != null) {
 
       if (this.fechaRegistro != "") {
-
-
-        let arre = this.fechaRegistro.split('-');
-        fechar = arre[2] + "/" + arre[1] + "/" + arre[0];
-
+        const fecha1 = new Date(this.fechaRegistro).toUTCString().replace("GMT", "");
+        fechar = `${new Date(fecha1).getTime()}`;
       }
 
     }
@@ -258,10 +257,10 @@ export class UsuariosComponent implements OnInit {
           }
 
 
-          console.log(item);
+          var datePipe = new DatePipe("es-MX");
 
           item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-          item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+           item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd MMM yyyy');
         }
       } else {
         this.arreglo = undefined;
@@ -300,7 +299,7 @@ export class UsuariosComponent implements OnInit {
       }
 
       this.arreglo = this.arreglotemp.slice(0, Number(this.numeroitems));
-      console.log(this.arreglotemp);
+      
 
     }
 

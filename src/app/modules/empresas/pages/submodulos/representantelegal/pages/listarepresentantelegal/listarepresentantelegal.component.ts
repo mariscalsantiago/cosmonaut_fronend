@@ -85,10 +85,14 @@ export class ListarepresentantelegalComponent implements OnInit {
           new tabla("fechaAlta","Fecha de registro"),
           new tabla("activo","Estatus")
         ];
-        for(let item of this.arreglo){
-          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-          item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
-          
+       
+
+        if(this.arreglo !== undefined){
+          for(let item of this.arreglo){
+            item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
+            item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+            
+          }
         }
         this.arreglotabla.columnas = columnas;
         this.arreglotabla.filas = this.arreglo;

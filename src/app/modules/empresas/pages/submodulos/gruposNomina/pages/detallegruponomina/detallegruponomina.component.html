@@ -40,7 +40,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Cuenta bancaria *</label>
         <select formControlName="clabe" [ngClass]="{'is-invalid':f.clabe.errors && submitInvalido}" class="form-control">
-          <option *ngFor="let item of arregloCuentasBancarias" [value]="item.clabe">{{item.descripcion}}</option>
+          <option *ngFor="let item of arregloCuentasBancarias" [value]="item.clabe">{{item.nombreCuenta}}</option>
         </select>
         <div *ngIf="submitInvalido && f.clabe.errors" class="invalid-feedback">
           Campo requerido
