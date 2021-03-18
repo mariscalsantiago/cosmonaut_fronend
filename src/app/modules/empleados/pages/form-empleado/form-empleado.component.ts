@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 
 @Component({
   selector: 'app-form-empleado',
@@ -31,7 +32,7 @@ export class FormEmpleadoComponent implements OnInit {
 
   public cambiaValor: boolean = false;
 
-  constructor(private routerPrd:Router) { }
+  constructor(private routerPrd:Router,private reportesPrd:ReportesService) { }
 
   ngOnInit(): void {
   }
@@ -94,6 +95,46 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   public iniciarDescarga(){
+
+
+    this.cargandoIcon = true;
+
+
+
+
+      let fechacontrato = this.datosPersona.contratoColaborador?.fechaContrato;
+      
+      
+
+
+      let objenviar = {
+        fechaContrato: fechacontrato,
+        "centrocClienteId": {
+          "centrocClienteId": this.datosPersona.contratoColaborador.centrocClienteId.centrocClienteId
+        },
+        "personaId": {
+          "personaId": this.datosPersona.contratoColaborador.personaId.personaId
+        }
+
+      }
+
+      console.log(objenviar);
+
+      this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(datos => {
+        this.cargandoIcon = false;
+        const linkSource = 'data:application/pdf;base64,' + `${datos.datos}\n`;
+        const downloadLink = document.createElement("a");
+        const fileName = `${this.datosPersona.nombre}.pdf`;
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      });
+
+
+    
+
+
 
   }
 

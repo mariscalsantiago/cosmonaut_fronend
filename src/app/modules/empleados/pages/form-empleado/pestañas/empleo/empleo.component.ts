@@ -352,6 +352,7 @@ export class EmpleoComponent implements OnInit {
   
                 let datosPersona = valorEmpleado.datos;
                 datosPersona.metodopago = metodopago;
+                datosPersona.contratoColaborador = datos.datos;
 
                 this.enviado.emit({ type: "empleo", datos: datosPersona });
               }
