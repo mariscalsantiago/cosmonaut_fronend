@@ -1,7 +1,7 @@
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
     <input type="hidden" formControlName="domicilioId">
     
-    <div *ngIf="!cargando && arregloListaSede !== undefined" class="row mt-3">
+    <div class="row mt-3">
         <div class="col-10">
             <div class="form group row">
 
@@ -87,8 +87,8 @@
         <div class="col-12">
             <div class="text-right margin" style="margin-bottom: 20px;">
                 <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                <button (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
-                <button  type="submit" (click)="activarContunuar()" class="btn btn-primary button-fill">Continuar</button>
+                <button *ngIf="habGuardar" (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
+                <button *ngIf="habContinua" type="submit" (click)="activarContunuar()" class="btn btn-primary button-fill">Continuar</button>
             </div>
         </div>
     </div>
@@ -152,13 +152,13 @@
        
            </tbody>
          </table>
+         <div *ngIf="cargando" class="col text-center mb-5">
+          <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+        </div>
          <div *ngIf="!cargando && arregloListaSede === undefined" class="alert  col text-center">
            <strong>En este momento no existen registros</strong>
          </div>
-         <div *ngIf="cargando" class="col text-center mb-5">
-           <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-         </div>
-       
+      
        </div>
     </div>
     

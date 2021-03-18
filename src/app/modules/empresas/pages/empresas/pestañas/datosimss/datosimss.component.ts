@@ -52,8 +52,8 @@ debugger;
   public createForm(obj: any) {
 
     return this.formBuilder.group({
-      registroPatronal: [obj.registroPatronal,Validators.required],
-      emPrimaRiesgo:[obj.emPrimaRiesgo,[Validators.required]],
+      registroPatronal: [obj.registroPatronal,[Validators.required,Validators.pattern(/^[A-Za-z,ñ,Ñ,&]/)]],
+      emPrimaRiesgo:[obj.emPrimaRiesgo,[Validators.required, Validators.pattern(/[0-9]{1}(\.[0-9])/)]],
       emClaveDelegacionalImss:[obj.emClaveDelegacionalImss,[Validators.required, Validators.pattern(/^\d{2}$/)]],
       emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
       emEnviarMovsImss:obj.emEnviarMovsImss

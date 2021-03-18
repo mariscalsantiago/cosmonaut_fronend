@@ -32,6 +32,7 @@ export class InformacionempresaComponent implements OnInit {
   public imagen:any = undefined;
   public curpFinal: string = "";
   public idNivel: number = 5 ;
+  public cargando: Boolean = false;
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private empresaPrd: DatosempresaService,private routerPrd:Router) { }
@@ -139,6 +140,7 @@ export class InformacionempresaComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
      debugger;
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;
@@ -171,8 +173,8 @@ export class InformacionempresaComponent implements OnInit {
         }
 
       if(this.datosempresa.insertar){  
-
-      this.empresaPrd.save(objenviar).subscribe(datos => {
+        this.cargando = true;
+        this.empresaPrd.save(objenviar).subscribe(datos => {
         let resultado = datos.resultado;
         let mensaje = datos.mensaje;
         if(resultado){
@@ -183,11 +185,12 @@ export class InformacionempresaComponent implements OnInit {
         this.alerta.strTitulo = mensaje;
         //this.alerta.strsubtitulo = mensaje
         this.alerta.modal = true;
+        this.cargando = false;
 
       });
 
     }else{
-        
+      this.cargando = true;
 
         objenviar.centrocClienteId = obj.centrocClienteId;
 
@@ -198,6 +201,7 @@ export class InformacionempresaComponent implements OnInit {
           this.alerta.strTitulo = mensaje;
           //this.alerta.strsubtitulo = mensaje
           this.alerta.modal = true;
+          this.cargando = false;
 
         });
       }

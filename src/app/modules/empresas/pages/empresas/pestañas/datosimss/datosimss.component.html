@@ -6,14 +6,17 @@
       <div class="form group row">
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Registro patronal *</label>
-                <input formControlName="registroPatronal" maxlength="11" type="text" class="form-control"  [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado}" placeholder="">
-                <div *ngIf="f.registroPatronal.errors " class="invalid-feedback">
+                <input formControlName="registroPatronal" maxlength="11" type="text" class="form-control"  [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado || (f.registroPatronal.errors?.pattern && f.registroPatronal.touched)}" placeholder="">
+                <div *ngIf="submitEnviado && f.registroPatronal.errors?.required" class="invalid-feedback">
                   Campo requerido
+                </div>
+                <div *ngIf="f.registroPatronal.errors?.pattern && f.registroPatronal.touched" class="invalid-feedback">
+                  Registro patronal no es válida
                 </div>
               </div>
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                   <label>Prima de riesgo *</label>
-                  <input formControlName="emPrimaRiesgo" maxlength="20" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
+                  <input formControlName="emPrimaRiesgo" maxlength="7" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
                   <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
                     Campo requerido
                   </div>
