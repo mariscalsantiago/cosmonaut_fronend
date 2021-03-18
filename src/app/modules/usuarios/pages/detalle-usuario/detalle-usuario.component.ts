@@ -38,10 +38,10 @@ export class DetalleUsuarioComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private modalPrd: ModalService) {
 
-    let datePipe = new DatePipe("en-MX");
+    let datePipe = new DatePipe("es-MX");
 
     let fecha = new Date();
-    this.fechaActual = datePipe.transform(fecha, 'dd/MM/yyyy')
+    this.fechaActual = datePipe.transform(fecha, 'dd MMM yyyy')
   }
 
   ngOnInit(): void {
@@ -59,9 +59,9 @@ export class DetalleUsuarioComponent implements OnInit {
         this.usuariosPrd.getById(id).subscribe(datosusuario => {
           this.objusuario = datosusuario.datos;
           console.log(this.objusuario);
-          
+          let datePipe = new DatePipe("es-MX");
           this.objusuario.fechaAlta = (new Date(this.objusuario.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-          this.objusuario.fechaAlta = new Date(this.objusuario.fechaAlta).toLocaleDateString();
+          this.objusuario.fechaAlta = datePipe.transform(this.objusuario.fechaAlta,"dd MMM yyyy");
            this.myForm = this.createForm((this.objusuario));
         });
       }
@@ -85,7 +85,6 @@ export class DetalleUsuarioComponent implements OnInit {
       this.nombre.nativeElement.focus();
     else
       this.centrocliente.nativeElement.focus();
-
   }
 
 

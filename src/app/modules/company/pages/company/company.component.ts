@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
@@ -27,15 +28,15 @@ export class CompanyComponent implements OnInit {
   public fechaAlta: any = null;
   public esActivo: string = "";
 
-  public modal:boolean = false;
-  public strTitulo:string = "";
-  public strsubtitulo:string = "";
-  public iconType:string = "";
-  public tamanio:number = 0;
-  public cargando:Boolean = false;
+  public modal: boolean = false;
+  public strTitulo: string = "";
+  public strsubtitulo: string = "";
+  public iconType: string = "";
+  public tamanio: number = 0;
+  public cargando: Boolean = false;
 
-  public multiseleccion:Boolean = false;
-  public multiseleccionloading:boolean = false;
+  public multiseleccion: Boolean = false;
+  public multiseleccionloading: boolean = false;
   public changeIconDown: boolean = false;
 
 
@@ -45,52 +46,54 @@ export class CompanyComponent implements OnInit {
 
   */
 
-  public arreglo:any = [];
-  public arreglotabla:any = {
-    columnas:[],
-    filas:[]
+  public arreglo: any = [];
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
   };
 
-  constructor(private routerPrd:Router,private companyProd:CompanyService) { }
+  constructor(private routerPrd: Router, private companyProd: CompanyService) { }
 
   ngOnInit(): void {
 
-    let documento:any = document.defaultView;
+    let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
 
     this.cargando = true;
 
-        this.companyProd.getAll().subscribe(datos =>{
-          this.arreglo = datos.datos;
-          
-          let columnas:Array<tabla> = [
-            new tabla("url","imagen"),
-            new tabla("centrocClienteId","ID empresa"),
-            new tabla("razonSocial","Razón social	"),
-            new tabla("nombre","Nombre de compañía"),
-            new tabla("rfc","RFC"),
-            new tabla("fechaAlta","Fecha registro"),
-            new tabla("esActivo","Estatus")
-          ]
-          if(this.arreglo !== undefined){
-            for(let item of this.arreglo){
-              item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-              item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
-              
-            }
-          }
+    this.companyProd.getAll().subscribe(datos => {
+      this.arreglo = datos.datos;
 
-          this.arreglotabla.columnas = columnas;
-          this.arreglotabla.filas = this.arreglo;
-          this.cargando = false;
-      });
+      let columnas: Array<tabla> = [
+        new tabla("url", "imagen"),
+        new tabla("centrocClienteId", "ID empresa"),
+        new tabla("razonSocial", "Razón social	"),
+        new tabla("nombre", "Nombre de compañía"),
+        new tabla("rfc", "RFC"),
+        new tabla("fechaAlta", "Fecha registro"),
+        new tabla("esActivo", "Estatus")
+      ]
+      if (this.arreglo !== undefined) {
+        for (let item of this.arreglo) {
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          let datepipe = new DatePipe("es-MX");
+          item.fechaAlta = datepipe.transform(item.fechaAlta, "dd MMM yyyy");
+          console.log("Se puede hacer");
+
+        }
+      }
+
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = this.arreglo;
+      this.cargando = false;
+    });
 
   }
 
 
-  public verdetallecom(obj:any){
-    this.routerPrd.navigate(['company','detalle_company','nuevo'],{state:{datos:undefined}});
+  public verdetallecom(obj: any) {
+    this.routerPrd.navigate(['company', 'detalle_company', 'nuevo'], { state: { datos: undefined } });
   }
 
   public filtrar() {
@@ -106,8 +109,8 @@ export class CompanyComponent implements OnInit {
 
       if (this.fechaAlta != "") {
 
-
-        fechar = `${new Date(this.fechaAlta).getTime()}`
+        const fecha1 = new Date(this.fechaAlta).toUTCString().replace("GMT", "");
+        fechar = `${new Date(fecha1).getTime()}`;
 
       }
 
@@ -135,34 +138,35 @@ export class CompanyComponent implements OnInit {
     this.companyProd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
 
-      
+
 
       this.arreglo = datos.datos;
-          
-      let columnas:Array<tabla> = [
-        new tabla("url","imagen"),
-        new tabla("centrocClienteId","ID empresa"),
-        new tabla("razonSocial","Razón social	"),
-        new tabla("nombre","Nombre de compañía"),
-        new tabla("rfc","RFC"),
-        new tabla("fechaAlta","Fecha registro"),
-        new tabla("esActivo","Estatus")
+
+      let columnas: Array<tabla> = [
+        new tabla("url", "imagen"),
+        new tabla("centrocClienteId", "ID empresa"),
+        new tabla("razonSocial", "Razón social	"),
+        new tabla("nombre", "Nombre de compañía"),
+        new tabla("rfc", "RFC"),
+        new tabla("fechaAlta", "Fecha registro"),
+        new tabla("esActivo", "Estatus")
       ];
 
-      if(this.arreglo !== undefined){
-        for(let item of this.arreglo){
-          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-          item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
-          
+      if (this.arreglo !== undefined) {
+        for (let item of this.arreglo) {
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          let datepipe = new DatePipe("es-MX");
+          item.fechaAlta = datepipe.transform(item.fechaAlta, "dd MMM yyyy");
+
         }
       }
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;
       this.cargando = false;
-      
+
 
       this.cargando = false;
-      
+
     });
 
 
@@ -170,30 +174,30 @@ export class CompanyComponent implements OnInit {
   }
 
 
-  public activarMultiseleccion(){
-      this.multiseleccion = true;
+  public activarMultiseleccion() {
+    this.multiseleccion = true;
   }
 
 
-  public guardarMultiseleccion(){
+  public guardarMultiseleccion() {
     this.multiseleccionloading = true;
-      setTimeout(() => {
-        this.multiseleccionloading = false;
-        this.multiseleccion = false;
-      }, 3000);
+    setTimeout(() => {
+      this.multiseleccionloading = false;
+      this.multiseleccion = false;
+    }, 3000);
   }
 
 
-  public cancelarMulti(){
+  public cancelarMulti() {
     this.multiseleccionloading = false;
     this.multiseleccion = false;
   }
 
 
 
-  public recibirTabla(obj:any){
-    if(obj.type == "editar"){
-      this.routerPrd.navigate(['company','detalle_company','modifica'],{state:{datos:obj.datos}});
+  public recibirTabla(obj: any) {
+    if (obj.type == "editar") {
+      this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
     }
   }
 
