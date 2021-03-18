@@ -56,7 +56,8 @@ debugger;
       emPrimaRiesgo:[obj.emPrimaRiesgo,[Validators.required, Validators.pattern(/[0-9]{1}(\.[0-9])/)]],
       emClaveDelegacionalImss:[obj.emClaveDelegacionalImss,[Validators.required, Validators.pattern(/^\d{2}$/)]],
       emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
-      emEnviarMovsImss:obj.emEnviarMovsImss
+      emEnviarMovsImss:obj.emEnviarMovsImss,
+      calculoAutoPromedioVar: obj.calculoAutoPromedioVar
     
     });
 
