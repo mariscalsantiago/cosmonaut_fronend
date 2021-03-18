@@ -23,8 +23,9 @@ export class DomicilioComponent implements OnInit {
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
-  public habcontinuar: boolean = false;
   public habGuardar: boolean = true;
+  public habcontinuar: boolean = false;
+  public habContinua: boolean = true;
   public domicilioCodigoPostal:any = [];
   public nombreEstado:string = "";
   public idEstado:number = 0;
@@ -38,6 +39,8 @@ export class DomicilioComponent implements OnInit {
   public listaSedeNuevo: boolean = true;
   public listaSedeModificar: boolean = false;
   public cargando: Boolean = false;
+  public arregloCons: any = [];
+  public cargaDom: boolean = false;
 
   constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
@@ -45,73 +48,99 @@ export class DomicilioComponent implements OnInit {
   ngOnInit(): void {
     debugger;
     let obj:any = {};
+    if(!this.datosempresa.insertar){
+      this.habContinua=false;
+      
+    }
     this.datosempresa.activarGuardaMod= true;
-    this.id_empresa = this.datosempresa.centrocClienteEmpresa
+    this.listaSedeModificar = this.datosempresa.activarList;
+    this.listaSedeNuevo = this.datosempresa.activarForm;
+
+    this.id_empresa = this.datosempresa.centrocClienteEmpresa;
+    this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {this.arregloCons = datos.datos
+
+      if(this.arregloCons != undefined){
+        this.cargaDom =true;
+      }
+
+
 
     if(!this.datosempresa.insertar){
       debugger;
-      this.listaSedeModificar = this.datosempresa.activarList;
-      this.listaSedeNuevo = this.datosempresa.activarForm;
-
-      
-      this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
         this.cargando = true;
+        this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
         this.arregloListaSede = datos.datos;
         console.log(this.arregloListaSede);
+        this.cargando = false;
 
+      });
+      this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
+        obj = datos.datos[0];
+        obj.asentamientoCpCons = obj.asentamientoId
+        this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
+          if(datos.resultado){
+            this.domicilioCodigoPostal = datos.datos;
+  
+            for(let item of datos.datos){
+  
+              this.nombreEstado = item.dedo;
+              this.nombreMunicipio = item.dmnpio;
+              this.idEstado = item.edo.estadoId;
+              this.idMunicipio = item.catmnpio.cmnpio;
+  
+              obj.municipio = this.nombreMunicipio;
+              obj.estado = this.nombreEstado;
+  
+  
+            }
+  
+          }
+  
+          this.myForm = this.createForm(obj);
+  
+          
+        });      
+ 
       });
 
     }
-
-    /*if(!this.datosempresa.insertar){
+    else if(this.cargaDom && this.datosempresa.insertar){
       this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
-        this.arreglo = datos.datos[0];
-        this.catalogosPrd.getAsentamientoByCodigoPostal(this.arreglo.codigo).subscribe(datos => {
-            
-            this.arreglo = datos.datos;
-        });
-      });
-      this.myForm = this.createForm(obj);
-    }*/
-    if(!this.datosempresa.insertar && this.arreglo != undefined ){
-
-    this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
-      obj = datos.datos[0];
-      obj.asentamientoCpCons = obj.asentamientoId
-      this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
-        if(datos.resultado){
-          this.domicilioCodigoPostal = datos.datos;
-
-          for(let item of datos.datos){
-
-            this.nombreEstado = item.dedo;
-            this.nombreMunicipio = item.dmnpio;
-            this.idEstado = item.edo.estadoId;
-            this.idMunicipio = item.catmnpio.cmnpio;
-
-            obj.municipio = this.nombreMunicipio;
-            obj.estado = this.nombreEstado;
-
-
+        obj = datos.datos[0];
+        obj.asentamientoCpCons = obj.asentamientoId
+        this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
+          if(datos.resultado){
+            this.domicilioCodigoPostal = datos.datos;
+  
+            for(let item of datos.datos){
+  
+              this.nombreEstado = item.dedo;
+              this.nombreMunicipio = item.dmnpio;
+              this.idEstado = item.edo.estadoId;
+              this.idMunicipio = item.catmnpio.cmnpio;
+  
+              obj.municipio = this.nombreMunicipio;
+              obj.estado = this.nombreEstado;
+  
+  
+            }
+  
           }
+  
+          this.myForm = this.createForm(obj);
+          this.habGuardar =  false;
 
-        }
+        });      
 
-        this.myForm = this.createForm(obj);
-        this.cargando = false;
- 
-        
-      });      
-    
-      this.myForm = this.createForm(obj);
-
-    });
+      });
     }
     else{
     this.myForm = this.createForm(obj);
-    this.cargando = false;
+
 
     }
+
+  });
 
   }
 
@@ -162,7 +191,6 @@ export class DomicilioComponent implements OnInit {
     this.enviado.emit({
       type:"domicilioCont"
     });
-    this.habcontinuar= false;
     this.alerta.modal = true;
     this.alerta.strTitulo = "¿Deseas continuar?";
     this.alerta.iconType = "warning";
@@ -225,7 +253,6 @@ debugger;
           type:"domicilioSede"
         });
         if(datos.resultado){
-          this.habcontinuar= true;
           this.habGuardar=false;
           this.modsinIdDom=false;
         }

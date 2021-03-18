@@ -41,14 +41,9 @@ export class DatosbancariosComponent implements OnInit {
     
     this.datosempresa.activarGuardaMod= true;
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
+    this.listaCuentaModificar = this.datosempresa.activarList;
+    this.listaCuentaNuevo = this.datosempresa.activarForm;
 
-
-    if(!this.datosempresa.insertar){
-      debugger;
-      this.listaCuentaModificar = this.datosempresa.activarList;
-      this.listaCuentaNuevo = this.datosempresa.activarForm;
-
-   }
 
    this.cargando = true;
    this.cuentasPrd.getAllByEmpresa(this.id_empresa).subscribe(datos => {

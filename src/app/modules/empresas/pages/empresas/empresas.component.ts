@@ -156,9 +156,13 @@ export class EmpresasComponent implements OnInit {
        this.activado[1].form = false;
        this.activado[2].form = false;
        this.activado[3].form = false;
+       this.activado[4].form = false;
+       this.activado[5].form = false;
        this.activado[1].tab = false;
        this.activado[2].tab = false;
        this.activado[3].tab = false;
+       this.activado[4].tab = false;
+       this.activado[5].tab = false;
 
        break;
      case "domicilio":
@@ -169,9 +173,13 @@ export class EmpresasComponent implements OnInit {
        this.activado[0].form = false;
        this.activado[2].form = false;
        this.activado[3].form = false;
+       this.activado[4].form = false;
+       this.activado[5].form = false;
        this.activado[0].tab = false;
        this.activado[2].tab = false;
        this.activado[3].tab = false;
+       this.activado[4].tab = false;
+       this.activado[5].tab = false;
        break;
      case "datosbancarios":
  
@@ -181,9 +189,13 @@ export class EmpresasComponent implements OnInit {
        this.activado[0].form = false;
        this.activado[1].form = false;
        this.activado[3].form = false;
+       this.activado[4].form = false;
+       this.activado[5].form = false;
        this.activado[0].tab = false;
        this.activado[1].tab = false;
        this.activado[3].tab = false;
+       this.activado[4].tab = false;
+       this.activado[5].tab = false;
        break;
        case "datosimss":
  
@@ -193,9 +205,13 @@ export class EmpresasComponent implements OnInit {
          this.activado[0].form = false;
          this.activado[1].form = false;
          this.activado[2].form = false;
+         this.activado[4].form = false;
+         this.activado[5].form = false;
          this.activado[0].tab = false;
          this.activado[1].tab = false;
          this.activado[2].tab = false;
+         this.activado[4].tab = false;
+         this.activado[5].tab = false;
          break;
    }
   }
