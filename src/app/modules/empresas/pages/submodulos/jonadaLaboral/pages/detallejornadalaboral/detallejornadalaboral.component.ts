@@ -20,6 +20,8 @@ export class DetallejornadalaboralComponent implements OnInit {
   public activadoISR: boolean = false;
   public arreglotipojornadas:any = [];
   public peticion:any = [];
+  public arreglosumahoras: any =[];
+  public estatus: boolean = true;
 
 
 
@@ -41,8 +43,8 @@ export class DetallejornadalaboralComponent implements OnInit {
     this.myForm = this.crearForm((objdetrep));
 
 
-    this.catalogosPrd.getTipoJornadas().subscribe(datos => this.arreglotipojornadas = datos.datos);
-
+    this.catalogosPrd.getTipoJornadas(this.estatus).subscribe(datos => this.arreglotipojornadas = datos.datos);
+    this.catalogosPrd.getSumaHras(this.estatus).subscribe(datos => this.arreglosumahoras = datos.datos);
   }
 
   ngAfterViewInit(): void{
@@ -62,7 +64,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     return this.formbuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       tipoJornadaId: [obj.tipoJornadaId?.tipoJornadaId, [Validators.required]],
-      sumaHorasJornada: [obj.sumaHorasJornada, [Validators.required]],
+      sumaHorasJornadaId: [obj.sumaHorasJornadaId, [Validators.required]],
       horaEntrada: [obj.horaEntrada, [Validators.required]],
       horaSalida: [obj.horaSalida, [Validators.required]],
       horaInicioComida: [obj.horaInicioComida, [Validators.required]],

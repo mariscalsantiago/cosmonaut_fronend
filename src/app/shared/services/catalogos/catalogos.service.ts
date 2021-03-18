@@ -121,12 +121,19 @@ export class CatalogosService {
     return this.http.get(`${this.url}/catPeriodoAguinaldo/listar/todos`);
   }
 
-  public getTipoJornadas():Observable<any>{
+  public getTipoJornadas(estatus:boolean):Observable<any>{
 
-    return this.http.get(`${this.url}/csTipoJornada/listar/todos`);
+    return this.http.get(`${this.url}/csTipoJornada/listar/todosActivo/${estatus}`);
 
-  } 
+  }
 
+  public getSumaHras(estatus:boolean):Observable<any>{
+
+    return this.http.get(`${this.url}/catSumaHorasJornada/listar/todosActivo/${estatus}`);
+
+  }
+  
+  
   public getMotivoBajaEmpleado(estatus:boolean):Observable<any>{
 
     return this.http.get(`${this.url}/catMotivoBaja/listar/todosActivo/${estatus}`);

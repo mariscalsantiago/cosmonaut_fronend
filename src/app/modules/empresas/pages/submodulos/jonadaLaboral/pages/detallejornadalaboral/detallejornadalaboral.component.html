@@ -19,7 +19,7 @@
       </div>
 
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Tipo de Jornada *</label>
+        <label>Tipo de jornada *</label>
         <select formControlName = "tipoJornadaId" [ngClass]="{'is-invalid':f.tipoJornadaId.errors && submitInvalido}"  class="form-control">
           <option *ngFor="let item of arreglotipojornadas" [value]="item.tipoJornadaId">{{item.descripcion}} </option>
         </select>
@@ -29,10 +29,10 @@
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Suma de horas para jornada *</label>
-        <select formControlName = "sumaHorasJornada" [ngClass]="{'is-invalid':f.sumaHorasJornada.errors && submitInvalido}"  class="form-control">
-          <option value="1">8 horas</option>
+        <select formControlName = "sumaHorasJornadaId" [ngClass]="{'is-invalid':f.sumaHorasJornadaId.errors && submitInvalido}"  class="form-control">
+          <option *ngFor="let item of arreglosumahoras" [value]="item.sumaHorasJornadaId">{{item.descripcion}} </option>
         </select>
-        <div *ngIf="submitInvalido && f.sumaHorasJornada.errors" class="invalid-feedback">
+        <div *ngIf="submitInvalido && f.sumaHorasJornadaId.errors" class="invalid-feedback">
           Campo requerido
         </div>
       </div>

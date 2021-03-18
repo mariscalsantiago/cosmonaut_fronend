@@ -99,7 +99,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     }
 
-    let titulo = this.esInsert ? "¿Deseas registrar la percepcion ?" : "¿Deseas actualizar la percepcion?";
+    let titulo = this.esInsert ? "¿Deseas registrar la percepción ?" : "¿Deseas actualizar la percepción?";
 
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)

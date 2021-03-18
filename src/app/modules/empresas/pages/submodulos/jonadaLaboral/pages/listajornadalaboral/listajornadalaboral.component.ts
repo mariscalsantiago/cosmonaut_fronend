@@ -95,7 +95,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
   
 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar el grupo de nómina?").then(valor =>{
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar la jornada laboral?").then(valor =>{
       if(valor){
 
 
