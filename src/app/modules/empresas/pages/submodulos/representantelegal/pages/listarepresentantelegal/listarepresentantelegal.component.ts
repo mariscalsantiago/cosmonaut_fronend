@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { RepresentanteLegalService } from '../services/representantelegal.service';
@@ -89,9 +90,11 @@ export class ListarepresentantelegalComponent implements OnInit {
 
         if(this.arreglo !== undefined){
           for(let item of this.arreglo){
-            item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-            item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+            item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+            let datepipe = new DatePipe("es-MX");
+            item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
             
+          
           }
         }
         this.arreglotabla.columnas = columnas;

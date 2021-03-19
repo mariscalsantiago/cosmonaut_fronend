@@ -89,8 +89,7 @@ export class UsuariosComponent implements OnInit {
       for (let item of this.arreglotemp) {
         var datePipe = new DatePipe("es-MX");
         item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-        item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd MMM yyyy');
-        console.log("HOLA ISDJFIDSJFOIDSFJO",item.fechaAlta);
+        item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y');
       }
       this.cargando = false;
 
@@ -260,7 +259,7 @@ export class UsuariosComponent implements OnInit {
           var datePipe = new DatePipe("es-MX");
 
           item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-           item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd MMM yyyy');
+           item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y');
         }
       } else {
         this.arreglo = undefined;

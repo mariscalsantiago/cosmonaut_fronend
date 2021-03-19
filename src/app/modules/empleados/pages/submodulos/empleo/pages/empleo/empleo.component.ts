@@ -86,9 +86,9 @@ export class EmpleoComponent implements OnInit {
       puesto_id_reporta: obj.puesto_id_reporta,
       sedeId: obj.sedeId?.sedeId,
       estadoId: obj.estadoId?.estadoId,
-      fechaAntiguedad: [datePipe.transform(obj.fechaAntiguedad, 'yyyy-MM-dd'), [Validators.required]],
-      fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd'), [Validators.required]],
-      fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd'), [Validators.required]],
+      fechaAntiguedad: [datePipe.transform(obj.fechaAntiguedad, 'dd-MMM-y'), [Validators.required]],
+      fechaInicio: [datePipe.transform(obj.fechaInicio, 'dd-MMM-y'), [Validators.required]],
+      fechaFin: [datePipe.transform(obj.fechaFin, 'dd-MMM-y'), [Validators.required]],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       esSindicalizado: [`${obj.esSindicalizado}`]

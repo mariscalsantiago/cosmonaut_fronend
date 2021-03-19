@@ -41,7 +41,7 @@ export class DetalleUsuarioComponent implements OnInit {
     let datePipe = new DatePipe("es-MX");
 
     let fecha = new Date();
-    this.fechaActual = datePipe.transform(fecha, 'dd MMM yyyy')
+    this.fechaActual = datePipe.transform(fecha, 'dd-MMM-y')
   }
 
   ngOnInit(): void {
@@ -61,7 +61,7 @@ export class DetalleUsuarioComponent implements OnInit {
           console.log(this.objusuario);
           let datePipe = new DatePipe("es-MX");
           this.objusuario.fechaAlta = (new Date(this.objusuario.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-          this.objusuario.fechaAlta = datePipe.transform(this.objusuario.fechaAlta,"dd MMM yyyy");
+          this.objusuario.fechaAlta = datePipe.transform(this.objusuario.fechaAlta,"dd-MMM-y");
            this.myForm = this.createForm((this.objusuario));
         });
       }

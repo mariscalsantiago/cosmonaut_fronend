@@ -13,11 +13,12 @@
   <div id="perfilEmpleada" class="row ml-1 mr-1 mt-1 background-panel scrooll">
 
 
-    <div class="col-5 col-sm-2">
-      <img width="60px" height="60px"
-        src="https://rociohernandezcruz.com/wp-content/uploads/2019/11/rocio-hernandez-cruz-2.jpg" alt="..."
+    <div class="col-5 col-sm-2 marginImage" >
+      <img width="60px" height="60px" 
+        src="assets/imgs/usuario.png" alt="..."
         class="tableimg">
-    </div>
+
+  </div>
     <div class="col-7 col-md-6" style="font-size: 12px;">
       <div class="row mt-2">
         <div class="col-12 col-lg-6 mt-2 mb-2">
@@ -45,7 +46,7 @@
     <div class="col"></div>
     <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div>
     <a (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
-          class="fas fa-download"></i>Iniciar descarga</small>
+          class="fas fa-download"></i> Descargar perfil</small>
       <div *ngIf="cargandoIcon" class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
