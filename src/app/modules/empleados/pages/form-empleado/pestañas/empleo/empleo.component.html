@@ -1,6 +1,6 @@
 
 <!-- ------------------------- -->
-<div class="col-12 ">
+<div class="col-12 " style="z-index: 2;">
     <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente fade-in-second " [style.width]="modalWidth">
         <div class="adentro">
             <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal"
@@ -71,14 +71,15 @@
 
             <div class="row">
                 <div style="position: relative;" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-5">
-                    <label for="exampleFormControlSelect1">Área *</label>
+                    <label for="exampleFormControlSelect1">Área*</label>
                     <select (change)="cambiaArea($event)" formControlName="areaId" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.areaId.errors && submitEnviado}">
                         <option *ngFor="let item of arregloArea" [value]="item.areaId">{{item.descripcion}}</option>
                     </select>
                     <i (click)="agregarAreasModal()" style="position: absolute;
                     top: 37px;
-                    right: -1px;
+                    right: -10px;
+                    z-index: 1;
                     color: #4cc1b0;cursor: pointer;" class="fas fa-plus"></i>
                     <div *ngIf="f.areaId.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
@@ -86,7 +87,7 @@
                 </div>
                 <div class="col-1"></div>
                 <div style="position: relative;" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-5">
-                    <label for="exampleFormControlSelect1">Puesto *</label>
+                    <label for="exampleFormControlSelect1">Puesto*</label>
                     <select formControlName="puestoId" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.puestoId.errors && submitEnviado}">
                         <option *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}
@@ -94,7 +95,8 @@
                     </select>
                     <i (click)="agregarPuestoModal()" *ngIf="apareceplusPuesto" style="position: absolute;
                     top: 37px;
-                    right: -1px;
+                    right: -10px;
+                    
                     color: #4cc1b0;cursor: pointer;" class="fas fa-plus"></i>
                     <div *ngIf="f.puestoId.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
@@ -133,7 +135,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Número de empleado</label>
+                    <label for="exampleFormControlSelect1">Número de empleado*</label>
                     <input formControlName="personaId" maxlength="24" type="text" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}">
                     <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
@@ -165,7 +167,7 @@
             </div>
             <div  class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Grupo de nómina *</label>
+                    <label for="exampleFormControlSelect1">Grupo de nómina*</label>
                     <select formControlName="grupoNominaId" class="form-control"
                         [ngClass]="{'is-invalid':f.grupoNominaId.errors && submitEnviado}">
                         <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
@@ -175,7 +177,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Tipo de compensación *</label>
+                    <label for="exampleFormControlSelect1">Tipo de compensación*</label>
                     <select formControlName="tipoCompensacionId" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.tipoCompensacionId.errors && submitEnviado}">
                         <option *ngFor="let item of arregloCompensacion" [value]="item.tipoCompensacionId">
@@ -186,55 +188,6 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Salario neto mensual *</label>
-                    <input formControlName="sueldoNetoMensual" type="text" name="" id="" class="form-control"
-                        [ngClass]="{'is-invalid':f.sueldoNetoMensual.errors && submitEnviado,'disabled':!sueldoNeto}">
-
-                    <div *ngIf="f.sueldoNetoMensual.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label class="contenedorInputCheckRadio">Salario bruto IMSS *
-                        <input checked (change)="desabilitarinput = false"  type="radio" value="salariobrutoImss" name="opcionimss">
-                        <span class="radiomark"></span>
-                    </label>
-                    <input [disabled]="desabilitarinput" type="text" value="$3,064.12" name="" id="" class="form-control">
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label class="contenedorInputCheckRadio">Salario diario IMSS
-                        <input (change)="desabilitarinput = true"  type="radio" value="salarioImss" name="opcionimss">
-                        <span class="radiomark"></span>
-                    </label>
-                    <input [disabled]="!desabilitarinput" value="$102.14" type="text" name="" id="" class="form-control">
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">SBC IMSS</label>
-                    <input  type="text" class="form-control">
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">PPP *</label>
-                    <input value="$42,103.11" disabled type="text" name="" id="" class="form-control"
-                        [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}"
-                        [disabled]="!sueldoBruto">
-
-                    <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Sueldo bruto mensual *</label>
-                    <input formControlName="sueldoBrutoMensual" type="text" name="" id="" class="form-control"
-                        [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}">
-
-                    <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Tipo sueldo de entrada*</label>
                     <select formControlName="tiposueldo" (change)="cambiarSueldoField()" name="" id=""
                         class="form-control" [ngClass]="{'is-invalid':f.tiposueldo.errors && submitEnviado}">
@@ -245,8 +198,66 @@
                         Campo requerido
                     </div>
                 </div>
+                <div *ngIf="f.tiposueldo.value == 'n'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Salario neto mensual*</label>
+                    <input formControlName="sueldoNetoMensual" type="text" name="" id="" class="form-control"
+                        [ngClass]="{'is-invalid':f.sueldoNetoMensual.errors && submitEnviado,'disabled':!sueldoNeto}">
+
+                    <div *ngIf="f.sueldoNetoMensual.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+                <div *ngIf="f.tiposueldo.value== 'b'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Sueldo bruto mensual*</label>
+                    <input formControlName="sueldoBrutoMensual" type="text" name="" id="" class="form-control"
+                        [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}">
+
+                    <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Salario diario IMSS</label>
+                    <input disabled  type="text" name="" id="" class="form-control">
+                </div>                   
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Salario diario integrado IMSS*</label>
+                    <input disabled  type="text" name="" id="" class="form-control">
+                </div>  
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Pago IMSS*</label>
+                    <input disabled  type="text" name="" id="" class="form-control">
+                </div>    
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">ISR*</label>
+                    <input disabled type="text" name="" id="" class="form-control">
+                </div>    
+                <div *ngIf="f.tiposueldo.value == 'b'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Salario neto mensual*</label>
+                    <input formControlName="sueldoNetoMensual" type="text" name="" id="" class="form-control"
+                        [ngClass]="{'is-invalid':f.sueldoNetoMensual.errors && submitEnviado,'disabled':!sueldoNeto}">
+
+                    <div *ngIf="f.sueldoNetoMensual.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+                <div *ngIf="f.tiposueldo.value== 'n'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Sueldo bruto mensual*</label>
+                    <input formControlName="sueldoBrutoMensual" type="text" name="" id="" class="form-control"
+                        [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}">
+
+                    <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+                
+            
                
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                <!-- <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Salario base cotización *</label>
                     <input formControlName="salarioDiario" type="text" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.salarioDiario.errors && submitEnviado}">
@@ -255,7 +266,7 @@
                         Campo requerido
                     </div>
 
-                </div>
+                </div> -->
             </div>
 
 
@@ -270,7 +281,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Método de pago *</label>
+                    <label for="exampleFormControlSelect1">Método de pago*</label>
                     <select formControlName="metodo_pago_id" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.metodo_pago_id.errors && submitEnviado}">
                         <option *ngFor="let item of arregloMetodosPago" [value]="item.metodoPagoId">{{item.descripcion}}
@@ -287,7 +298,7 @@
             <div class="form-group mt-3 row margen"><label class="titulo">CONTRATO</label></div>
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Fecha de antigüedad *</label>
+                    <label for="exampleFormControlSelect1">Fecha de antigüedad*</label>
                     <input [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && submitEnviado}"
                         formControlName="fechaAntiguedad" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaAntiguedad.errors && submitEnviado" class="invalid-feedback">
@@ -295,7 +306,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Tipo de contrato *</label>
+                    <label for="exampleFormControlSelect1">Tipo de contrato*</label>
                     <select [ngClass]="{'is-invalid':f.tipoContratoId.errors && submitEnviado}"
                         formControlName="tipoContratoId" name="" id="" class="form-control">
                         <option *ngFor="let item of arregloTipoContrato" [value]="item.tipoContratoId">
@@ -310,7 +321,7 @@
 
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Fecha inicio de contrato *</label>
+                    <label for="exampleFormControlSelect1">Fecha inicio de contrato*</label>
                     <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}"
                         formControlName="fechaInicio" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
@@ -318,7 +329,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Fecha fin de contrato *</label>
+                    <label for="exampleFormControlSelect1">Fecha fin de contrato*</label>
                     <input [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin"
                         type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
@@ -326,7 +337,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Nombre de jornada</label>
+                    <label for="exampleFormControlSelect1">Nombre de jornada*</label>
                     <select [ngClass]="{'is-invalid':f.jornadaId.errors && submitEnviado}" formControlName="jornadaId"
                         name="" id="" class="form-control">
                         <option *ngFor="let item of arregloJornadas" [value]="item.jornadaId">{{item.descripcion}}
@@ -340,7 +351,7 @@
 
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Tipo de empleado *</label>
+                    <label for="exampleFormControlSelect1">Tipo de empleado*</label>
                     <select [ngClass]="{'is-invalid':f.tipoRegimenContratacionId.errors && submitEnviado}"
                         formControlName="tipoRegimenContratacionId" name="" id="" class="form-control">
                         <option *ngFor="let item of arregloRegimenContratacion"
@@ -371,7 +382,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label class="contenedorInputCheckRadio">Empleado subcontratado
                         <input (change)="cambiarStatus()" formControlName="esSubcontratado" type="checkbox" name=""
@@ -379,9 +390,9 @@
                         <span class="checkmark"></span>
                     </label>
                 </div>
-            </div>
+            </div> -->
 
-            <hr>
+            <!-- <hr>
             <div class="form-group mt-3 row margen"><label class="titulo">DETALLE DE SUBCONTRATACIÓN</label></div>
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
@@ -402,7 +413,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
         </div>
     </div>
 

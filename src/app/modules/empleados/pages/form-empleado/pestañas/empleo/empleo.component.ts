@@ -78,6 +78,7 @@ export class EmpleoComponent implements OnInit {
 
     let obj = {};
     this.myForm = this.createForm(obj);
+    this.cambiarSueldoField();
 
     this.gruponominaPrd.getAll(this.id_empresa).subscribe(datos => {
       this.arreglogruponominas = datos.datos
@@ -220,7 +221,7 @@ export class EmpleoComponent implements OnInit {
       estadoId: [obj.estadoId],
       politicaId: [obj.politicaId, [Validators.required]],
       personaId: [this.datosPersona.personaId, [Validators.required]],
-      esSindicalizado: [obj.esSindicalizado],
+      esSindicalizado: ['false'],
       fechaAntiguedad: [obj.fechaAntiguedad, [Validators.required]],
       tipoContratoId: [obj.tipoContratoId, [Validators.required]],
       fechaInicio: [obj.fechaInicio, Validators.required],
@@ -230,14 +231,14 @@ export class EmpleoComponent implements OnInit {
       tipoCompensacionId: [obj.tipoCompensacionId, [Validators.required]],
       sueldoBrutoMensual: 0,
       sueldoNetoMensual: 0,
-      salarioDiario: [obj.salarioDiario, [Validators.required]],
+      salarioDiario: [0, [Validators.required]],
       dias_vacaciones: [obj.dias_vacaciones, [Validators.required]],
       metodo_pago_id: [obj.metodo_pago_id, [Validators.required]],
       tipoRegimenContratacionId: [obj.tipoRegimenContratacionId, [Validators.required]],
       areaGeograficaId: [obj.areaGeograficaId, [Validators.required]],
       esSubcontratado: [obj.esSubcontratado],
       suPorcentaje: [obj.suPorcentaje],
-      tiposueldo: [obj.tiposueldo, [Validators.required]],
+      tiposueldo: ['b', [Validators.required]],
       subcontratistaId: obj.subcontratistaId
 
     });
