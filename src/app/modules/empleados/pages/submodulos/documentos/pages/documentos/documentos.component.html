@@ -3,19 +3,28 @@
 <div class="row">
     <div class="row"><label class="titulo">DOCUMENTOS</label></div>
 
-</div>
-<div class="row">
-    <div class="col">
+    <div id="accordionFiltro">
 
-
-        <input type="text" name="" id="" class="form-control">
-
-
-    </div>
-    <div class="col text-right">
-
-        combo
-
+      <div id="accordion">
+        <div class="card">
+  
+          <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="form group row margen">
+                <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
+                  <input type="text"  class="form-control" 
+                  placeholder="Tipo de movimiento">
+                </div>
+                <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+                  <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
     </div>
 </div>
 
@@ -38,7 +47,7 @@
               <tr>
                 <td>acta_de_nacimiento.pdf  </td>
                 <td class="opciones"><button ><i class="fas fa-pen primary"></i></button></td>
-                <td >12/02/2020</td>
+                <td >12-ene.-2021</td>
                 <td >Otros </td>
                 <td >Admin RH</td>
                 <td class="opciones">

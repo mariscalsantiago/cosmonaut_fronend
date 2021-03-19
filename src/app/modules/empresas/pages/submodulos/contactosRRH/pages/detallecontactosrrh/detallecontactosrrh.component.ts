@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariocontactorrhService } from '../services/usuariocontactorrh.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-detallecontactosrrh',
@@ -54,7 +55,7 @@ export class DetallecontactosrrhComponent implements OnInit {
 
     let fecha = new Date();
     this.fechaActual = fecha.toLocaleDateString();
-
+    let datePipe = new DatePipe("en-MX");
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -65,7 +66,7 @@ export class DetallecontactosrrhComponent implements OnInit {
       ciEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       ciExtension: [obj.contactoInicialExtension],
-      fechaAlta: { value: this.esInsert?this.fechaActual:obj.fechaAlta, disabled: true },
+      fechaAlta: [{ value: ((this.esInsert) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
       personaId: [obj.personaId]
 
     });

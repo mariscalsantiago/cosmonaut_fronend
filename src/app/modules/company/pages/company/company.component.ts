@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { format } from 'path';
 import { tabla } from 'src/app/core/data/tabla';
 import { CompanyService } from '../../services/company.service';
 
@@ -78,7 +79,7 @@ export class CompanyComponent implements OnInit {
         for (let item of this.arreglo) {
           item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
-          item.fechaAlta = datepipe.transform(item.fechaAlta, "dd MMM yyyy");
+          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
           console.log("Se puede hacer");
 
         }
@@ -111,6 +112,7 @@ export class CompanyComponent implements OnInit {
 
         const fecha1 = new Date(this.fechaAlta).toUTCString().replace("GMT", "");
         fechar = `${new Date(fecha1).getTime()}`;
+
 
       }
 
@@ -156,7 +158,7 @@ export class CompanyComponent implements OnInit {
         for (let item of this.arreglo) {
           item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
-          item.fechaAlta = datepipe.transform(item.fechaAlta, "dd MMM yyyy");
+          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
 
         }
       }

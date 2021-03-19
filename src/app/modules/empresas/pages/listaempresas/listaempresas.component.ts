@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { datosTemporales, UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+
 import { EmpresasService } from '../../services/empresas.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-listaempresas',
@@ -65,8 +67,10 @@ export class ListaEmpresasComponent implements OnInit {
       ];
       if(this.arreglo !== undefined){
         for(let item of this.arreglo){
-          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-          item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          let datepipe = new DatePipe("es-MX");
+          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
           
         }
       }

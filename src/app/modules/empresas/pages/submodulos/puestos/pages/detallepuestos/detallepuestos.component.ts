@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PuestosService } from '../services/puestos.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-detallepuestos',
@@ -122,6 +123,16 @@ export class DetallepuestosComponent implements OnInit {
     this.puestosPrd.getListPues(this.id_empresa, this.areas.areaId).subscribe(datos => {
       this.cargando = true;
       this.arreglo = datos.datos;
+      if (this.arreglo !== undefined) {
+        for (let item of this.arreglo) {
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          let datepipe = new DatePipe("es-MX");
+          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
+
+        }
+      }
+
+
       this.cargando = false;
     });
   }

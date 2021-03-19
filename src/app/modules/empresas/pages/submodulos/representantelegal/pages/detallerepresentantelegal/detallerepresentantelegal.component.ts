@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RepresentanteLegalService } from '../services/representantelegal.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-detallerepresentantelegal',
@@ -41,14 +42,6 @@ export class DetallerepresentantelegalComponent implements OnInit {
     });
 
 
-    let fecha = new Date();
-    let dia = fecha.getDate().toString();
-    let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
-    let anio = fecha.getFullYear();
-
-
-    this.fechaActual = `${dia}/${mes}/${anio}`;
-
   }
 
   ngOnInit(): void {
@@ -74,6 +67,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
 
   public createFormrep(obj: any) {
+    let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -84,7 +78,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
       emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
       activo: [{ value: (this.insertar) ? true : obj.activo, disabled: this.insertar }, [Validators.required]],
       personaId: obj.personaId,
       firma: obj.firma
