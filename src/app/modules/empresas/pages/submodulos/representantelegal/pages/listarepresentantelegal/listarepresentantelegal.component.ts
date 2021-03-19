@@ -125,7 +125,6 @@ export class ListarepresentantelegalComponent implements OnInit {
       apellidoMaterno: this.apellidoMaterno,
       emailCorporativo: this.emailCorporativo,
       contactoInicialEmailPersonal: this.contactoInicialEmailPersonal,
-      nacionalidadId: this.nacionalidadId,
       centrocClienteId: {
         centrocClienteId: (this.id_empresa) == 0 ? "" : this.id_empresa
       },
@@ -148,10 +147,15 @@ export class ListarepresentantelegalComponent implements OnInit {
         new tabla("fechaAlta","Fecha de registro"),
         new tabla("activo","Estatus")
       ];
-      for(let item of this.arreglo){
-        item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-        item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
-        
+     
+
+      if(this.arreglo !== undefined){
+        for(let item of this.arreglo){
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          let datepipe = new DatePipe("es-MX");
+          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
+          
+        }
       }
 
       this.arreglotabla = {

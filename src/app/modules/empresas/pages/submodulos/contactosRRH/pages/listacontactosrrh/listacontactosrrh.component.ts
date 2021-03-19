@@ -128,8 +128,9 @@ export class ListacontactosrrhComponent implements OnInit {
 
       if(datos.datos !== undefined){
         for(let item of datos.datos){
-          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-          item.fechaAlta = new Date(item.fechaAlta).toLocaleDateString();
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          let datepipe = new DatePipe("es-MX");
+          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
         }
       }
 
