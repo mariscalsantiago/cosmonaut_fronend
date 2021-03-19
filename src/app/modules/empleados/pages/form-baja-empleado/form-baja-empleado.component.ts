@@ -124,8 +124,14 @@ export class FormBajaEmpleadoComponent implements OnInit {
         }
 
         let fechar = "";
-        let arre = obj.ultimoDia.split('-');
-        fechar = arre[2] + "/" + arre[1] + "/" + arre[0];
+        if (obj.ultimoDia != undefined || obj.ultimoDia != null) {
+    
+          if (obj.ultimoDia != "") {
+    
+            const fecha1 = new Date(obj.ultimoDia).toUTCString().replace("GMT", "");
+            fechar = `${new Date(fecha1).getTime()}`;
+          }
+        }
         
         let antiguedad = obj.calculoAntiguedadx == "contrato"?"C":"A";
         
