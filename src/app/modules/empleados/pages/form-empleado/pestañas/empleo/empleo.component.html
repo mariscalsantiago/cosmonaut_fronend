@@ -118,14 +118,16 @@
                     </select>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Estado de la República</label>
-                    <select formControlName="estadoId" name="" id="" class="form-control">
+                    <label for="exampleFormControlSelect1">Estado de la República*</label>
+                    <select [ngClass]="{'is-invalid':f.estadoId.errors && submitEnviado}" formControlName="estadoId" name="" id="" class="form-control">
                         <option *ngFor="let item of arregloEstados" [value]="item.estadoId">{{item.estado}}</option>
-                        <option value="2">Oaxaca</option>
                     </select>
+                    <div *ngIf="f.estadoId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Políticas *</label>
+                    <label for="exampleFormControlSelect1">Políticas*</label>
                     <select formControlName="politicaId" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.politicaId.errors && submitEnviado}">
                         <option *ngFor="let item of arregloPoliticas" [value]="item.politicaId">{{item.nombre}}</option>
@@ -351,7 +353,7 @@
 
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Tipo de empleado*</label>
+                    <label for="exampleFormControlSelect1">Régimen de contratación*</label>
                     <select [ngClass]="{'is-invalid':f.tipoRegimenContratacionId.errors && submitEnviado}"
                         formControlName="tipoRegimenContratacionId" name="" id="" class="form-control">
                         <option *ngFor="let item of arregloRegimenContratacion"

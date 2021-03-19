@@ -92,10 +92,7 @@ export class ListaEmpresasComponent implements OnInit {
 
 
 
-  public verPerfilEmpresa(obj: any) {
-    datosTemporales.configuracionEmpresaNombreEmpresa = obj.nombre;
-    this.routerPrd.navigate(['/empresa', 'detalle', obj.centrocClienteId, 'representantelegal']);
-  }
+ 
 
 
 
@@ -107,6 +104,8 @@ export class ListaEmpresasComponent implements OnInit {
     if (obj.type == "editar") {
       this.routerPrd.navigate(['listaempresas', 'empresas', 'modifica'], { state: { data: obj.datos } });
     } else if (obj.type == "columna") {
+      datosTemporales.configuracionEmpresaNombreEmpresa = obj.datos.razonSocial;
+      console.log("DATOS DE LA EMPRESA",obj);
       this.routerPrd.navigate(['/empresa', 'detalle', obj.datos.centrocClienteId, 'representantelegal']);
     }
 
