@@ -104,7 +104,7 @@ export class ListaempleadosComponent implements OnInit {
       personaId: {
           nombre: this.nombre,
           apellidoPaterno:this.apellidoPaterno,
-          apellidoMaterno:this.apellidoPaterno
+          apellidoMaterno:this.apellidoMaterno
       },
       centrocClienteId: {
           centrocClienteId: (this.empresa == "" || this.empresa == undefined || this.empresa == null)?this.idEmpresa:this.empresa
@@ -117,7 +117,7 @@ export class ListaempleadosComponent implements OnInit {
     this.empleadosPrd.filtrar(objenviar).subscribe(datos =>{
       let columnas: Array<tabla> = [
         new tabla("nombre", "Nombre", true, true),
-        new tabla("idPersona", "Número de empleado"),
+        new tabla("numeroEmpleado", "Número de empleado"),
         new tabla("razonSocial", "Empresa"),
         new tabla("puesto", "Puesto"),
         new tabla("area", "Área"),

@@ -316,6 +316,9 @@ export class EmpleoComponent implements OnInit {
         }
 
 
+        console.log("Esto se manda como persona",this.arregloEnviar[0]);
+
+
         this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado =>{
           
            if(!valorEmpleado.resultado){
@@ -326,6 +329,10 @@ export class EmpleoComponent implements OnInit {
            objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
 
 
+
+           console.log("SI SE PUDO ");
+
+           console.log("Se va a mandar contrato colaborador",objEnviar);
            this.colaboradorPrd.save(objEnviar).subscribe(datos => {
 
             let domicilio = this.arregloEnviar[1];
