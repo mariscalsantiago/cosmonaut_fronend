@@ -56,25 +56,15 @@
     </div>
     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
       <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-        <label class="contenedorInputCheckRadio">Grava ISR *    
-          <input formControlName="gravaIsr" type="checkbox" name="" id="gravaIsr"
-          [ngClass]="{'is-invalid':f.gravaIsr.errors && submitInvalido}">
+        <label class="contenedorInputCheckRadio">Grava ISR    
+          <input formControlName="gravaIsr" type="checkbox" name="" id="gravaIsr">
           <span class="checkmark"></span>
         </label>
-        
-        <div *ngIf="submitInvalido && f.gravaIsr.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
       
-        <label class="contenedorInputCheckRadio">Grava ISN *
-          <input formControlName="gravaIsn" type="checkbox" name="" id="gravaIsn"
-          [ngClass]="{'is-invalid':f.gravaIsn.errors && submitInvalido}">
+        <label class="contenedorInputCheckRadio">Grava ISN 
+          <input formControlName="gravaIsn" type="checkbox" name="" id="gravaIsn">
           <span class="checkmark"></span>
         </label>
-        <div *ngIf="submitInvalido && f.gravaIsn.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-
       </div>
 
       <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
