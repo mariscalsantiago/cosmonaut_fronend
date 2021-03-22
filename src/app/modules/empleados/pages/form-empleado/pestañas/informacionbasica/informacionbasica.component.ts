@@ -24,17 +24,19 @@ export class InformacionbasicaComponent implements OnInit {
 
   public arreglonacionalidad: any = [];
   public mostrarRfc: boolean = false;
+  public arregloParentezco: any = [];
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private empleadosPrd: EmpleadosService, private usuarioSistemaPrd: UsuarioSistemaService,
-    private routerPrd: Router,private modalPrd:ModalService) { }
+    private routerPrd: Router, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
     this.myform = this.createForm({});
 
     this.catalogosPrd.getNacinalidades().subscribe(datos => this.arreglonacionalidad = datos.datos);
-    
+    this.catalogosPrd.getCatalogoParentezco(true).subscribe(datos => this.arregloParentezco = datos.datos);
+
   }
 
 
@@ -53,7 +55,7 @@ export class InformacionbasicaComponent implements OnInit {
       estadoCivil: obj.estadoCivil,
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       tieneHijos: "false",
-      numeroHijos: {value:obj.numeroHijos,disabled:true},
+      numeroHijos: { value: obj.numeroHijos, disabled: true },
       url: obj.medioContacto?.url,
       contactoEmergenciaNombre: [obj.contactoEmergenciaNombre, [Validators.required]],
       contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno, [Validators.required]],
@@ -61,11 +63,11 @@ export class InformacionbasicaComponent implements OnInit {
       contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail, [Validators.email]],
       contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
-      nss: [obj.nss,[validacionesForms.nssValido]],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
+      nss: [obj.nss, [validacionesForms.nssValido]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]]
     });
-    
+
   }
 
 
@@ -82,8 +84,8 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public enviarFormulario() {
-    
-    
+
+
 
     this.submitEnviado = true;
 
@@ -111,18 +113,18 @@ export class InformacionbasicaComponent implements OnInit {
       }
     }
 
-  
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas guardar cambios?").then(valor =>{
 
-      if(valor){
-          this.guardarCambios();
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar cambios?").then(valor => {
+
+      if (valor) {
+        this.guardarCambios();
       }
 
     });
 
   }
 
-  public guardarCambios(){
+  public guardarCambios() {
     let obj = this.myform.value;
 
     let fechanacimiento = '';
@@ -130,7 +132,7 @@ export class InformacionbasicaComponent implements OnInit {
 
     if (this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != '') {
       let date: Date = new Date(`${this.myform.value.fechaNacimiento}`);
-      fechanacimiento =`${date.getTime()}`;
+      fechanacimiento = `${date.getTime()}`;
     }
 
 
@@ -151,13 +153,13 @@ export class InformacionbasicaComponent implements OnInit {
       contactoInicialTelefono: obj.contactoInicialTelefono,
       tieneHijos: obj.tieneHijos,
       numeroHijos: obj.numeroHijos,
-      medioContacto: {
-        url: obj.url
-      },
+      urlLinkedin: obj.url,
       contactoEmergenciaNombre: obj.contactoEmergenciaNombre,
       contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
       contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
-      contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
+      parentescoId: {
+        parentescoId: obj.contactoEmergenciaParentesco
+      },
       contactoEmergenciaEmail: obj.contactoEmergenciaEmail,
       contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
       centrocClienteId: {
@@ -165,11 +167,13 @@ export class InformacionbasicaComponent implements OnInit {
       },
       curp: obj.curp,
       rfc: obj.rfc,
-      nns: obj.nns
+      nss: obj.nss
     }
 
 
-    this.enviado.emit({type:"informacion",datos:objenviar})
+    console.log("Parentezco y nss", JSON.stringify(objenviar));
+
+    this.enviado.emit({ type: "informacion", datos: objenviar })
 
   }
 
@@ -177,11 +181,11 @@ export class InformacionbasicaComponent implements OnInit {
     return this.myform.controls;
   }
 
-  public cambiaValorHijos(){
-    
-    if(this.myform.controls.tieneHijos.value == "true"){
+  public cambiaValorHijos() {
+
+    if (this.myform.controls.tieneHijos.value == "true") {
       this.myform.controls.numeroHijos.enable();
-    }else{
+    } else {
       this.myform.controls.numeroHijos.disable();
     }
   }

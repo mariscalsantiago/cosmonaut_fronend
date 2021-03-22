@@ -176,11 +176,7 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Parentesco</label>
                     <select formControlName="contactoEmergenciaParentesco" name=""  class="form-control">
-                        <option value="P">Padre</option>
-                        <option value="M">Madre</option>
-                        <option value="H">Hijo</option>
-                        <option value="B">Abuelo</option>
-                        <option value="O">Otro</option>
+                        <option *ngFor="let item of arregloParentezco" [value]="item.parentescoId">{{item.descripcion}}</option>
                     </select>
                 </div>
 

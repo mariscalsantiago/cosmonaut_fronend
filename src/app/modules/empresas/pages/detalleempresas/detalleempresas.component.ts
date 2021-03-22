@@ -9,9 +9,12 @@ import { datosTemporales } from 'src/app/shared/services/usuariosistema/usuario-
 })
 export class DetalleempresasComponent implements OnInit {
 
-  public titulo:string = datosTemporales.configuracionEmpresaNombreEmpresa;
+  public titulo:string = `CONFIGURACIÓN EMPRESA ${datosTemporales.configuracionEmpresaNombreEmpresa}`;
 
-  constructor(private routerPrd:Router) { }
+  constructor(private routerPrd:Router) {
+
+    
+   }
 
   ngOnInit(): void {
     

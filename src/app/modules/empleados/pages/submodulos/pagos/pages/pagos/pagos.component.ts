@@ -55,6 +55,7 @@ export class PagosComponent implements OnInit {
 
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
       this.empleado = datos.datos;
+      console.log("Esto es lo maximo",this.empleado);
     });;
   });
 

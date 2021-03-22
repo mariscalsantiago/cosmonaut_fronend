@@ -159,4 +159,9 @@ export class CatalogosService {
   }
 
 
+  public getCatalogoParentezco(status:boolean):Observable<any>{
+    return this.http.get(`${this.url}/catParentesco/listar/todosActivo/${status}`);
+  }
+
+
 }

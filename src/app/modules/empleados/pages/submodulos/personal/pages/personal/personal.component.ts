@@ -202,11 +202,9 @@ export class PersonalComponent implements OnInit {
     let fechanacimiento = '';
 
     if (this.myForm.controls?.fechaNacimiento.value != null && this.myForm.controls?.fechaNacimiento.value != '') {
-      let date: Date = new Date(`${obj.fechaNacimiento}T12:00-0600`);
-      let dia = (date.getDate() < 10) ? `0${date.getDate()}` : `${date.getDate()}`;
-      let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`;
-      let anio = date.getFullYear();
-      fechanacimiento = `${dia}/${mes}/${anio}`;
+      const date: String = new Date(`${obj.fechaNacimiento}`).toUTCString();
+      let aux = new Date(date.replace("GMT",""));
+      fechanacimiento = `${aux.getTime()}`;  
     }
 
 
