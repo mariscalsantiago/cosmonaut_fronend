@@ -104,12 +104,15 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Reporta a</label>
-                    <input list="empleadosreporta" class="form-control" formControlName="puesto_id_reporta"
+                    <input autocomplete="off" [ngClass]="{'is-invalid':f.puesto_id_reporta.errors}" (focusout)="salirReportaA()" list="empleadosreporta" class="form-control" formControlName="puesto_id_reporta"
                         name="browser" id="browser">
 
                     <datalist id="empleadosreporta">
                         <option *ngFor="let item of arregloempleadosreporta" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno"></option>
                     </datalist>
+                    <div *ngIf="f.puesto_id_reporta.errors" class="invalid-feedback">
+                        No existe la persona seleccionada
+                    </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Sede</label>

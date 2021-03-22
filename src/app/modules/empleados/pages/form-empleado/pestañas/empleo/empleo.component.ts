@@ -24,7 +24,7 @@ import { PreferenciasService } from 'src/app/modules/empleados/services/preferen
 export class EmpleoComponent implements OnInit {
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;
-  @Input() arregloEnviar:any;
+  @Input() arregloEnviar: any;
 
 
   public aparecemodalito: boolean = false;
@@ -34,7 +34,7 @@ export class EmpleoComponent implements OnInit {
   public apareceplusPuesto: boolean = false;
   public textoArea: string = "";
   public mensajeModalito: string = "";
-  public desabilitarinput:boolean = false;
+  public desabilitarinput: boolean = false;
 
 
   public aparecerTemp: boolean = true;
@@ -70,7 +70,7 @@ export class EmpleoComponent implements OnInit {
     private usuarioSistemaPrd: UsuarioSistemaService,
     private jornadaPrd: JornadalaboralService, private sedesPrd: SharedSedesService,
     private modalPrd: ModalService, private puestosPrd: PuestosService,
-    private domicilioPrd:DomicilioService,private preferenciasPrd:PreferenciasService) { }
+    private domicilioPrd: DomicilioService, private preferenciasPrd: PreferenciasService) { }
 
   ngOnInit(): void {
 
@@ -239,7 +239,8 @@ export class EmpleoComponent implements OnInit {
       esSubcontratado: [obj.esSubcontratado],
       suPorcentaje: [obj.suPorcentaje],
       tiposueldo: ['b', [Validators.required]],
-      subcontratistaId: obj.subcontratistaId
+      subcontratistaId: obj.subcontratistaId,
+      puestoIdReporta:obj.puestoIdReporta
 
     });
 
@@ -258,7 +259,7 @@ export class EmpleoComponent implements OnInit {
 
   public enviarFormulario() {
 
-  
+
 
     this.submitEnviado = true;
     if (this.myForm.invalid) {
@@ -313,51 +314,54 @@ export class EmpleoComponent implements OnInit {
           diasVacaciones: obj.dias_vacaciones,
           metodoPagoId: { metodoPagoId: obj.metodo_pago_id },
           porcentaje: obj.suPorcentaje,
-          subcontratistaId: { subcontratistaId: obj.subcontratistaId }
+          subcontratistaId: { subcontratistaId: obj.subcontratistaId },
+          puestoIdReporta: {
+            puestoIdReporta: obj.puestoIdReporta
+          }
         }
 
 
-        console.log("Esto se manda como persona",this.arregloEnviar[0]);
+        console.log("Esto se manda como persona", this.arregloEnviar[0]);
 
 
-        this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado =>{
-          
-           if(!valorEmpleado.resultado){
-             this.modalPrd.showMessageDialog(valorEmpleado.resultado,valorEmpleado.mensaje);
-             return;
-           }
+        this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado => {
 
-           objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
+          if (!valorEmpleado.resultado) {
+            this.modalPrd.showMessageDialog(valorEmpleado.resultado, valorEmpleado.mensaje);
+            return;
+          }
+
+          objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
 
 
 
-           console.log("SI SE PUDO ");
+          console.log("SI SE PUDO ");
 
-           console.log("Se va a mandar contrato colaborador",objEnviar);
-           this.colaboradorPrd.save(objEnviar).subscribe(datos => {
+          console.log("Se va a mandar contrato colaborador", objEnviar);
+          this.colaboradorPrd.save(objEnviar).subscribe(datos => {
 
             let domicilio = this.arregloEnviar[1];
-           //let preferencias = this.arregloEnviar[2];
+            //let preferencias = this.arregloEnviar[2];
             domicilio.personaId.personaId = valorEmpleado.datos.personaId;
-           // preferencias.personaId = valorEmpleado.personaId;
+            // preferencias.personaId = valorEmpleado.personaId;
 
             this.domicilioPrd.save(domicilio).toPromise();
-           // this.preferenciasPrd.save(preferencias).toPromise();
+            // this.preferenciasPrd.save(preferencias).toPromise();
 
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
                 let metodopago = {};
-  
+
                 for (let item of this.arregloMetodosPago) {
-  
+
                   if (item.metodoPagoId == this.myForm.value.metodo_pago_id) {
-  
+
                     metodopago = item;
                     break;
                   }
-  
+
                 }
-  
+
                 let datosPersona = valorEmpleado.datos;
                 datosPersona.metodopago = metodopago;
                 datosPersona.contratoColaborador = datos.datos;
@@ -365,13 +369,13 @@ export class EmpleoComponent implements OnInit {
                 this.enviado.emit({ type: "empleo", datos: datosPersona });
               }
             });
-  
-  
+
+
           });
 
         });
 
-        
+
 
 
 
@@ -443,6 +447,34 @@ export class EmpleoComponent implements OnInit {
     } else {
       this.myForm.controls.subcontratistaId.setErrors(null);
       this.myForm.controls.suPorcentaje.setErrors(null);
+    }
+  }
+
+
+  public salirReportaA() {
+
+    this.myForm.controls.puesto_id_reporta.setErrors(null);
+    this.myForm.value.puestoIdReporta = undefined;
+    const nombreCapturado = this.myForm.value.puesto_id_reporta;
+    if (nombreCapturado !== undefined) {
+      if (nombreCapturado.trim() !== "") {
+        let encontrado: boolean = false;
+        for (let item of this.arregloempleadosreporta) {
+          console.log(item);
+          const nombreCompleto = item.personaId.nombre + " " + item.personaId.apellidoPaterno;
+          console.log("Este es el nombre completo", nombreCompleto);
+          console.log("Este es el nombre capturado", nombreCapturado);
+          if (nombreCompleto.includes(nombreCapturado)) {
+            encontrado = true;
+            this.myForm.value.puestoIdReporta = item.personaId.personaId;
+            break;
+          }
+        }
+        this.myForm.controls.puesto_id_reporta.setErrors({ require: true });
+        if (encontrado) {
+          this.myForm.controls.puesto_id_reporta.setErrors(null);
+        }
+      }
     }
   }
 }
