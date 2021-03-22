@@ -13,7 +13,7 @@
     <div class="form-group row margen">
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Nombre de la percepción *</label>
-        <input appMayusculas formControlName="nombre" maxlength="100" type="text" name=""  class="form-control"
+        <input formControlName="nombre" maxlength="100" type="text" name=""  class="form-control"
           [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}" placeholder="">
         <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
           Campo requerido
