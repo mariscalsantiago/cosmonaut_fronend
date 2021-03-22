@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,6 +16,7 @@ import { validacionesForms } from 'src/app/shared/validaciones/validaciones';
 export class InformacionbasicaComponent implements OnInit {
 
   @Output() enviado = new EventEmitter();
+  @Input() datosPersona:any;
 
 
 
@@ -26,27 +28,37 @@ export class InformacionbasicaComponent implements OnInit {
   public mostrarRfc: boolean = false;
   public arregloParentezco: any = [];
 
+  
+
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private empleadosPrd: EmpleadosService, private usuarioSistemaPrd: UsuarioSistemaService,
     private routerPrd: Router, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    this.myform = this.createForm({});
+    console.log("Vuelve a iniciar");
+    console.log(this.datosPersona);
+    this.myform = this.createForm(this.datosPersona[0]);
 
     this.catalogosPrd.getNacinalidades().subscribe(datos => this.arreglonacionalidad = datos.datos);
     this.catalogosPrd.getCatalogoParentezco(true).subscribe(datos => this.arregloParentezco = datos.datos);
 
   }
 
+  
+
 
   public createForm(obj: any) {
+
+    const pipe = new DatePipe("es-MX");
+
+
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: [obj.apellidoMaterno],
       genero: [obj.genero],
-      fechaNacimiento: [obj.fechaNacimiento],
+      fechaNacimiento: [(obj.fechaNacimiento!==undefined && obj.fechaNacimiento!=="")?pipe.transform(new Date(Number(obj.fechaNacimiento)),"yyyy-MM-dd"):obj.fechaNacimiento],
       tieneCurp: [true],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       emailCorporativo: [obj.emailCorporativo],
@@ -54,13 +66,13 @@ export class InformacionbasicaComponent implements OnInit {
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
       estadoCivil: obj.estadoCivil,
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      tieneHijos: "false",
+      tieneHijos: obj.tieneHijos == undefined?"false":obj.tieneHijos,
       numeroHijos: { value: obj.numeroHijos, disabled: true },
-      url: obj.medioContacto?.url,
+      url: obj.urlLinkedin,
       contactoEmergenciaNombre: [obj.contactoEmergenciaNombre, [Validators.required]],
       contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno, [Validators.required]],
       contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
-      contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
+      contactoEmergenciaParentesco: obj.parentescoId?.parentescoId,
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail, [Validators.email]],
       contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
       nss: [obj.nss, [validacionesForms.nssValido]],
@@ -131,8 +143,8 @@ export class InformacionbasicaComponent implements OnInit {
 
 
     if (this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != '') {
-      let date: Date = new Date(`${this.myform.value.fechaNacimiento}`);
-      fechanacimiento = `${date.getTime()}`;
+      const fecha1 = new Date(this.myform.controls.fechaNacimiento.value).toUTCString().replace("GMT", "");
+      fechanacimiento = `${new Date(fecha1).getTime()}`;
     }
 
 

@@ -287,15 +287,27 @@ export class EmpleoComponent implements OnInit {
         }
         //******************************************* */
 
+
+        if(obj.fechaAntiguedad != undefined || obj.fechaAntiguedad != ''){
+          obj.fechaAntiguedad = new Date((new Date(obj.fechaAntiguedad).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+        }
+
+        if(obj.fechaInicio != undefined || obj.fechaInicio != ''){
+          obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+        }
+        if(obj.fechaFin != undefined || obj.fechaFin != ''){
+          obj.fechaFin = new Date((new Date(obj.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+        }
+
         let objEnviar = {
           areaId: { areaId: obj.areaId },
           puestoId: { puestoId: obj.puestoId },
           politicaId: { politicaId: obj.politicaId },
           numEmpleado: obj.personaId,
-          fechaAntiguedad: new Date(obj.fechaAntiguedad).getTime(),
+          fechaAntiguedad: obj.fechaAntiguedad,
           tipoContratoId: { tipoContratoId: obj.tipoContratoId },
-          fechaInicio: new Date(obj.fechaInicio).getTime(),
-          fechaFin: new Date(obj.fechaFin).getTime(),
+          fechaInicio: obj.fechaInicio,
+          fechaFin: obj.fechaFin,
           areaGeograficaId: { areaGeograficaId: obj.areaGeograficaId },
           grupoNominaId: { grupoNominaId: obj.grupoNominaId },
           tipoCompensacionId: { tipoCompensacionId: obj.tipoCompensacionId },

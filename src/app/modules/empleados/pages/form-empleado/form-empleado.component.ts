@@ -10,29 +10,29 @@ import { ReportesService } from 'src/app/shared/services/reportes/reportes.servi
 export class FormEmpleadoComponent implements OnInit {
 
   public activado = [
-  { tab: true, form: true, disabled: false }, 
-  { tab: false, form: false, disabled: false }, 
-  { tab: false, form: false, disabled: false },
-  { tab: false, form: false, disabled: false }, 
-  { tab: false, form: false, disabled: false } ];
+    { tab: true, form: true, disabled: false },
+    { tab: false, form: false, disabled: false },
+    { tab: false, form: false, disabled: false },
+    { tab: false, form: false, disabled: false },
+    { tab: false, form: false, disabled: false }];
 
-  public ocultarDetalleTransfrencia:boolean = true;
-  public ocultarempleada:boolean = false;
-  public cargandoIcon:boolean = false;
-  public tabsEnviar:any=[];
+  public ocultarDetalleTransfrencia: boolean = true;
+  public ocultarempleada: boolean = false;
+  public cargandoIcon: boolean = false;
+  public tabsEnviar: any = [{}, {}, {}];
 
-  
 
-  public mostrarDetalleTransferencia:boolean = false;
 
-  public datosPersona:any={
-    personaId:190
+  public mostrarDetalleTransferencia: boolean = false;
+
+  public datosPersona: any = {
+    personaId: 190
   };
 
 
   public cambiaValor: boolean = false;
 
-  constructor(private routerPrd:Router,private reportesPrd:ReportesService) { }
+  constructor(private routerPrd: Router, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
   }
@@ -46,14 +46,14 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[1].form = true;
         this.activado[1].disabled = false;
         this.activado[0].form = false;
-        this.tabsEnviar.push(elemento.datos);
+        this.tabsEnviar[0] = elemento.datos;
         break;
       case "domicilio":
         this.activado[3].tab = true;
         this.activado[3].form = true;
         this.activado[3].disabled = false;
         this.activado[1].form = false;
-        this.tabsEnviar.push(elemento.datos);
+        this.tabsEnviar[1] = elemento.datos;
         break;
       case "preferencias":
 
@@ -61,7 +61,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[3].form = true;
         this.activado[3].disabled = false;
         this.activado[2].form = false;
-        this.tabsEnviar.push(elemento.datos);
+        this.tabsEnviar[2] = elemento.datos;
         break;
       case "empleo":
         debugger;
@@ -69,12 +69,12 @@ export class FormEmpleadoComponent implements OnInit {
         this.datosPersona = elemento.datos;
         this.ocultarDetalleTransfrencia = this.datosPersona.metodopago.metodoPagoId !== 4;
 
-        if(!this.ocultarDetalleTransfrencia){
+        if (!this.ocultarDetalleTransfrencia) {
           this.activado[4].tab = true;
           this.activado[4].form = true;
           this.activado[4].disabled = false;
           this.activado[3].form = false;
-        }else{
+        } else {
           this.routerPrd.navigate(['/empleados']);
         }
 
@@ -85,16 +85,16 @@ export class FormEmpleadoComponent implements OnInit {
   }
 
 
-  
 
 
 
-  public recibiendoUserInsertado(evento:any){
+
+  public recibiendoUserInsertado(evento: any) {
     this.datosPersona = evento;
   }
 
 
-  public iniciarDescarga(){
+  public iniciarDescarga() {
 
 
     this.cargandoIcon = true;
@@ -102,43 +102,57 @@ export class FormEmpleadoComponent implements OnInit {
 
 
 
-      let fechacontrato = this.datosPersona.contratoColaborador?.fechaContrato;
-      
-      
+    let fechacontrato = this.datosPersona.contratoColaborador?.fechaContrato;
 
 
-      let objenviar = {
-        fechaContrato: fechacontrato,
-        "centrocClienteId": {
-          "centrocClienteId": this.datosPersona.contratoColaborador.centrocClienteId.centrocClienteId
-        },
-        "personaId": {
-          "personaId": this.datosPersona.contratoColaborador.personaId.personaId
-        }
 
+
+    let objenviar = {
+      fechaContrato: fechacontrato,
+      "centrocClienteId": {
+        "centrocClienteId": this.datosPersona.contratoColaborador.centrocClienteId.centrocClienteId
+      },
+      "personaId": {
+        "personaId": this.datosPersona.contratoColaborador.personaId.personaId
       }
 
-      console.log(objenviar);
+    }
 
-      this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(datos => {
-        this.cargandoIcon = false;
-        const linkSource = 'data:application/pdf;base64,' + `${datos.datos}\n`;
-        const downloadLink = document.createElement("a");
-        const fileName = `${this.datosPersona.nombre}.pdf`;
+    console.log(objenviar);
 
-        downloadLink.href = linkSource;
-        downloadLink.download = fileName;
-        downloadLink.click();
-      });
+    this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(datos => {
+      this.cargandoIcon = false;
+      const linkSource = 'data:application/pdf;base64,' + `${datos.datos}\n`;
+      const downloadLink = document.createElement("a");
+      const fileName = `${this.datosPersona.nombre}.pdf`;
+
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
+    });
 
 
-    
+
 
 
 
   }
 
 
- 
- 
+  public backTab(numero: number) {
+
+    if (!this.activado[numero].tab) return;
+
+    for (let item of this.activado) {
+      item.form = false;
+    }
+
+    this.activado[numero].tab = true;
+    this.activado[numero].form = true;
+
+  }
+
+
+
+
 }
