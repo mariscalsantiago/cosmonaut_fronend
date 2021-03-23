@@ -16,6 +16,7 @@ export class DomicilioComponent implements OnInit {
 
   @Output() enviado = new EventEmitter();
   @Input() datosPersona:any;
+  @Input() tabsDatos:any;
   
 
   public myForm!: FormGroup;
@@ -32,8 +33,13 @@ export class DomicilioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let obj = {};
-    this.myForm = this.createForm(obj);
+    if(this.tabsDatos[1] !== undefined){
+      this.myForm = this.createForm(this.tabsDatos[1]);
+      this.buscar(undefined);
+
+    }else{
+      this.myForm = this.createForm({});
+    }
 
   }
 
