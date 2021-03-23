@@ -44,7 +44,7 @@ export class SedeComponent implements OnInit {
   ngOnInit(): void {
     debugger;
     this.insertar = this.objdsede.insertar;
-    let obj = {};
+    let obj = this.datosempresa.idModificar
       this.myForm = this.createForm((obj));
 
   }
@@ -52,13 +52,13 @@ export class SedeComponent implements OnInit {
 
   public createForm(obj: any) {
     return this.formBuilder.group({
-          sede: [obj.descripcion,[Validators.required]],
+          sede: [obj.sedeNombre,[Validators.required]],
           codigo: [obj.codigo, [Validators.required,Validators.pattern('[0-9]+')]],
           estado:[obj.estado,[Validators.required]],
           municipio:[obj.municipio,[Validators.required]],
           asentamientoId:[obj.asentamientoId,[Validators.required]],
           calle:[obj.calle,[Validators.required]],
-          numExterior:[obj.numExterior,[Validators.required]],
+          numExterior:[obj.numeroExterior,[Validators.required]],
           numInterior:obj.numInterior
       
     });

@@ -77,7 +77,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       tipoPeriodicidad: [obj.tipoPeriodicidad, [Validators.required]],
       gravaIsr: obj.gravaIsr,
       gravaIsn: obj.gravaIsn,
-      cuentaContable: [obj.cuentaContable,[Validators.required]],
+      cuentaContable: obj.cuentaContable,
       tipoConcepto: [obj.tipoConcepto],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
       conceptoPercepcionId: [obj.conceptoPercepcionId],
@@ -110,10 +110,15 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
           let obj = this.myForm.value;
 
-          obj.tipoConcepto = obj.tipoConcepto == "Ordinario"?"O":"E";
+          if(obj.tipoConcepto == "Ordinario"){
+            obj.tipoConcepto = "O"
+          }
+          if(obj.tipoConcepto == "Extraordinario"){
+            obj.tipoConcepto = "E"
+          }
           
-    
-          let gravaIsr = obj.gravaIsr == "true"?"N":"S";
+   
+          let gravaIsr = obj.gravaIsr == "true"?"S":"N";
 
           this.peticion = {
   
@@ -126,10 +131,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
             cuentaContable: obj.cuentaContable,
             tipoConcepto:  obj.tipoConcepto,
             gravaIsn: obj.gravaIsn,
+            esActivo: obj.esActivo,
             gravaIsr: gravaIsr,
             centrocClienteId: {
               centrocClienteId: this.id_empresa
               }
+
           };
 
 

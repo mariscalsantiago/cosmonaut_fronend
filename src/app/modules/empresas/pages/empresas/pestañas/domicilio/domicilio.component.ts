@@ -199,8 +199,9 @@ export class DomicilioComponent implements OnInit {
 }
 
   public verdetalle(obj:any){
-debugger;
-    //this.datosmoficar.datosmoficarObj = obj;
+  debugger;
+
+        this.datosempresa.idModificar = obj;
         this.enviado.emit({
           type:"sede"
         }); 

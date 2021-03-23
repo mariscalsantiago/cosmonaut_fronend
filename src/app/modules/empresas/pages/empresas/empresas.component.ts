@@ -43,6 +43,9 @@ export class EmpresasComponent implements OnInit {
   public arregloactivos: any = [];
   public activos: any = [];
   public arreglo: any=[];
+  public objModificar: any = [];
+
+
   public enviarPeticion = {
     enviarPeticion: false
   };
@@ -61,7 +64,8 @@ export class EmpresasComponent implements OnInit {
     insertar: this.insertar,
     activarForm: this.activarForm,
     activarList: this.activarList,
-    activarGuardaMod : this.activarGuardaMod
+    activarGuardaMod : this.activarGuardaMod,
+    idModificar : this.objModificar,
     
     
   };
@@ -87,6 +91,7 @@ export class EmpresasComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    debugger;
     
     this.objdetrep = history.state.data == undefined ? {} : history.state.data ;
     this.datosempresamod.datosempresaObj= this.objdetrep; 
