@@ -104,9 +104,11 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
               tipoDeduccionId: obj.tipoDeduccionId
               },
             cuentaContable: obj.cuentaContable,
+            esActivo: obj.esActivo,
             centrocClienteId: {
               centrocClienteId: this.id_empresa
               }
+            
           };
 
            if (this.esInsert) {
