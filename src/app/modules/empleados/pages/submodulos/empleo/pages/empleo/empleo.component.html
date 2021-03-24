@@ -59,7 +59,7 @@
                     <article *ngIf="editarcampos">
 
                         <select formControlName="sedeId" name="" id="" class="form-control">
-                            <option *ngFor="let item of arregloSedes" [value]="item.sedeId">{{item.descripcion}}
+                            <option *ngFor="let item of arregloSedes" [value]="item.sedeId">{{item.sedeNombre}}
                             </option>
                         </select>
 
@@ -69,11 +69,10 @@
                 </article>
                 <article class="titulo   col">
                     Estado de la República
-                    <article *ngIf="!editarcampos">{{empleado.estadoId?.estadoId}}</article>
+                    <article *ngIf="!editarcampos">{{empleado.estadoId?.estado}}</article>
                     <article *ngIf="editarcampos">
                         <select formControlName="estadoId" name="" id="" class="form-control">
                             <option *ngFor="let item of arregloEstados" [value]="item.estadoId">{{item.estado}}</option>
-                            <option value="2">Oaxaca</option>
                         </select>
                     </article>
                 </article>
@@ -123,7 +122,7 @@
                 <article class="titulo  col">
                     Políticas
                     <article *ngIf="!editarcampos">
-                        {{empleado.politicaId?.politicaId}}
+                        {{empleado.politicaId?.nombre}}
                     </article>
                     <article *ngIf="editarcampos">
                         <select formControlName="politicaId" name="" id="" class="form-control"
@@ -233,7 +232,7 @@
                 <article class="titulo aparece-desktop  col">
                     Jornada
                     <article *ngIf="!editarcampos">
-                        {{empleado.jornadaId?.jornadaId}}
+                        {{empleado.jornadaId?.nombre}}
                     </article>
                     <article *ngIf="editarcampos">
                         <select [ngClass]="{'is-invalid':f.jornadaId.errors && submitEnviado}"

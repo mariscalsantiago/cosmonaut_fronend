@@ -28,4 +28,9 @@ export class DomicilioService {
     return this.http.put(`${direcciones.domicilio}/guardar`,json,httpOptions);
 
   }
+
+
+  public getDomicilioPorEmpleado(idEmpleado:number):Observable<any>{
+    return this.http.get(`${direcciones.domicilio}/obtener/id/persona/${idEmpleado}`);
+  }
 }

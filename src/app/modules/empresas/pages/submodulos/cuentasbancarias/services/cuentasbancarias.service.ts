@@ -78,7 +78,7 @@ export class CuentasbancariasService {
 
 
   public getByEmpleado(idEmpleado:number):Observable<any>{
-    return  this.http.get(`${direcciones.cuentasbancarias}/obtener/${idEmpleado}`);
+    return  this.http.get(`${direcciones.cuentasbancarias}/obtener/persona/${idEmpleado}`);
   }
 
 }

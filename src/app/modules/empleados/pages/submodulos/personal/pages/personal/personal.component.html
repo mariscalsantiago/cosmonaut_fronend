@@ -206,7 +206,7 @@
                 <article class="titulo col">
                     Estado Civil
                     <article *ngIf="!editarcampos">
-                        {{empleado.estadoCivil}}
+                        {{empleado.estadoCivilDescripcion}}
                     </article>
                     <article *ngIf="editarcampos">
 
@@ -232,7 +232,7 @@
                 <article class="titulo col">
                     Dirección
                     <article *ngIf="!editarcampos">
-                        Av. Central #1 norte 206 colonia la soledad
+                        {{domicilioArreglo?.calle}} # {{domicilioArreglo?.numExterior}}
                     </article>
 
                     <article *ngIf="editarcampos">
@@ -245,7 +245,7 @@
                 <article class="titulo col">
                     Perfil de Linkedin
                     <article *ngIf="!editarcampos">
-                        {{empleado.medioContacto?.url}}
+                        {{empleado.urlLinkedin}}
                     </article>
                     <article *ngIf="editarcampos">
                         <input formControlName="url" type="text" name="" class="form-control">
@@ -299,15 +299,11 @@
                 <article class="titulo col">
                     Parentesco
                     <article *ngIf="!editarcampos">
-                        {{empleado?.contactoEmergenciaParentescoDescripcion}}
+                        {{empleado.parentescoId?.descripcion}}
                     </article>
                     <article *ngIf="editarcampos">
                         <select formControlName="contactoEmergenciaParentesco" name=""  class="form-control">
-                            <option value="P">Padre</option>
-                            <option value="M">Madre</option>
-                            <option value="H">Hijo</option>
-                            <option value="B">Abuelo</option>
-                            <option value="O">Otro</option>
+                            <option *ngFor="let item of (arregloParenteesco | async)?.datos" [value]="item.parentescoId">{{item.descripcion}}}</option>
                         </select>
                     </article>
                 </article>

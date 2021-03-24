@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -32,11 +33,13 @@ export class PersonalComponent implements OnInit {
   public idEmpleado: number = -1;
 
   public arreglonacionalidad?: Promise<any>;
+  public arregloParenteesco?:Promise<any>;
+  public domicilioArreglo:any = [];
 
   constructor(private formBuilder: FormBuilder,
     private navparams: ActivatedRoute, private empleadoPrd: EmpleadosService,
     private catalogosPrd: CatalogosService, private usuarioSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService,private domicilioPrd:DomicilioService) { }
 
   ngOnInit(): void {
     this.myForm = this.createForm({});
@@ -48,11 +51,11 @@ export class PersonalComponent implements OnInit {
 
 
       this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datos => {
-        console.log("Si se pudo insertar", datos);
         this.empleado = datos.datos;
 
         this.parsearInformacion();
-        console.log(this.empleado);
+        this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datos =>this.domicilioArreglo = datos?.datos[0]);
+        
 
         this.myForm = this.createForm(this.empleado);
 
@@ -66,6 +69,7 @@ export class PersonalComponent implements OnInit {
 
 
     this.arreglonacionalidad = this.catalogosPrd.getNacinalidades().toPromise();
+    this.arregloParenteesco = this.catalogosPrd.getCatalogoParentezco(true).toPromise();
 
 
   }
@@ -97,26 +101,20 @@ export class PersonalComponent implements OnInit {
 
       }
 
-    }
-
-    this.empleado.contactoEmergenciaParentescoDescripcion = "";
-    switch (this.empleado.contactoEmergenciaParentesco) {
-
-      case "P":
-        this.empleado.contactoEmergenciaParentescoDescripcion = "Padre";
-        break;
-      case "M":
-        this.empleado.contactoEmergenciaParentescoDescripcion = "Madre";
-        break;
-      case "H":
-        this.empleado.contactoEmergenciaParentescoDescripcion = "Hijo";
-        break;
-      case "B":
-        this.empleado.contactoEmergenciaParentescoDescripcion = "Abuelo";
-        break;
-      case "O":
-        this.empleado.contactoEmergenciaParentescoDescripcion = "Otro";
-        break;
+      switch(this.empleado.estadoCivil){
+          case "S":
+              this.empleado.estadoCivilDescripcion = "Soltero(a)";
+            break;
+            case "C":
+              this.empleado.estadoCivilDescripcion = "Casado(a)";
+            break;
+            case "D":
+              this.empleado.estadoCivilDescripcion = "Divorciado(a)";
+            break;
+            case "V":
+              this.empleado.estadoCivilDescripcion = "Viudo(a)";
+            break;
+      }
 
     }
   }

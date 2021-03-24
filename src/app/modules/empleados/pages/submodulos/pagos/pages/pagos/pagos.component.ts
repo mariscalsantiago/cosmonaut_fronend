@@ -44,6 +44,10 @@ export class PagosComponent implements OnInit {
      }
 
   ngOnInit(): void {
+
+    this.myFormMetodoPago = this.formbuilder.group({});
+    this.myFormCompensacion = this.formbuilder.group({});
+
    this.arregloMetodosPago =  this.catalogosPrd.getAllMetodosPago().toPromise();   
    this.arreglogrupoNomina = this.gruponominaPrd.getAll(this.usuariosSistemaPrd.getIdEmpresa()).toPromise();
    this.arregloCompensacion = this.catalogosPrd.getCompensacion().toPromise();
@@ -55,9 +59,10 @@ export class PagosComponent implements OnInit {
 
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
       this.empleado = datos.datos;
-      console.log("Esto es lo maximo",this.empleado);
     });;
   });
+
+
 
   }
 
@@ -77,6 +82,10 @@ export class PagosComponent implements OnInit {
   }
 
   //*****************Métodos de pago******************* */
+
+
+
+  
 
   public createMyFormMetodoPago(obj:any){
     return this.formbuilder.group({

@@ -80,15 +80,17 @@ export class EmpleoComponent implements OnInit {
 
 
 
+
+
     return this.formBuilder.group({
       areaId: [obj.areaId?.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
       puesto_id_reporta: obj.puesto_id_reporta,
       sedeId: obj.sedeId?.sedeId,
       estadoId: obj.estadoId?.estadoId,
-      fechaAntiguedad: [datePipe.transform(obj.fechaAntiguedad, 'dd-MMM-y'), [Validators.required]],
-      fechaInicio: [datePipe.transform(obj.fechaInicio, 'dd-MMM-y'), [Validators.required]],
-      fechaFin: [datePipe.transform(obj.fechaFin, 'dd-MMM-y'), [Validators.required]],
+      fechaAntiguedad: [datePipe.transform(obj.fechaAntiguedad, 'yyyy-MM-dd'), [Validators.required]],
+      fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd'), [Validators.required]],
+      fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd'), [Validators.required]],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       esSindicalizado: [`${obj.esSindicalizado}`]
@@ -126,6 +128,23 @@ export class EmpleoComponent implements OnInit {
           }    
         }
         //******************************************* */
+
+
+        if (obj.fechaAntiguedad != null && obj.fechaAntiguedad != '') {
+          const fecha1 = new Date(obj.fechaAntiguedad).toUTCString().replace("GMT", "");
+          obj.fechaAntiguedad = `${new Date(fecha1).getTime()}`;
+        }
+
+        if (obj.fechaInicio != null && obj.fechaInicio != '') {
+          const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
+          obj.fechaInicio = `${new Date(fecha1).getTime()}`;
+        }
+        if (obj.fechaFin != null && obj.fechaFin != '') {
+          const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
+          obj.fechaFin = `${new Date(fecha1).getTime()}`;
+        }
+    
+    
   
         let objEnviar = {
           ...this.empleado,          
@@ -136,14 +155,13 @@ export class EmpleoComponent implements OnInit {
           fechaAntiguedad:obj.fechaAntiguedad,
           fechaInicio:obj.fechaInicio,
           fechaFin:obj.fechaFin,
-          jornadaId:{jornadaId:obj.jornadaId,tipoJornadaId:idTipoJornada},
+          jornadaId:{jornadaId:obj.jornadaId,tipoJornadaId:{tipoJornadaId:idTipoJornada}},
           tipoJornadaId:idTipoJornada,
           politicaId:{politicaId:obj.politicaId},
           esSindicalizado:obj.esSindicalizado          
       }
 
-      console.log("mi obj a enviar",objEnviar);
-
+    
       
       this.contratoColaboradorPrd.update(objEnviar).subscribe(datos =>{
         this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{

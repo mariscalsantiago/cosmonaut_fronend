@@ -5,7 +5,6 @@ import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.s
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
 import { JornadalaboralService } from 'src/app/modules/empresas/pages/submodulos/jonadaLaboral/services/jornadalaboral.service';
 import { PuestosService } from 'src/app/modules/empresas/pages/submodulos/puestos/pages/services/puestos.service';
-import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -25,6 +24,7 @@ export class EmpleoComponent implements OnInit {
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;
   @Input() arregloEnviar: any;
+  @Input() tabsDatos:any;
 
 
   public aparecemodalito: boolean = false;
@@ -77,7 +77,12 @@ export class EmpleoComponent implements OnInit {
     this.id_empresa = this.usuarioSistemaPrd.getIdEmpresa();
 
     let obj = {};
-    this.myForm = this.createForm(obj);
+
+    if(this.tabsDatos[2]!==undefined){
+      this.myForm = this.createForm(this.tabsDatos[2]);
+    }else{
+      this.myForm = this.createForm(obj);
+    }
     this.cambiarSueldoField();
 
     this.gruponominaPrd.getAll(this.id_empresa).subscribe(datos => {
@@ -351,7 +356,8 @@ export class EmpleoComponent implements OnInit {
 
           console.log("Se va a mandar contrato colaborador", objEnviar);
           this.colaboradorPrd.save(objEnviar).subscribe(datos => {
-
+            
+            
             let domicilio = this.arregloEnviar[1];
             //let preferencias = this.arregloEnviar[2];
             domicilio.personaId.personaId = valorEmpleado.datos.personaId;
