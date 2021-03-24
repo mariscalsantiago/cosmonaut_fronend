@@ -33,6 +33,7 @@ export class SedeComponent implements OnInit {
   public habcontinuardom: boolean = false;
   public objenviar: any = [];
   public insertarMof: boolean = false;
+  public objMod: any = [];
 
   constructor(private formBuilder: FormBuilder,private sedePrd:SedeService,
     private catalogosPrd:CatalogosService,private routerPrd:Router, private routerActivePrd: ActivatedRoute )
@@ -43,9 +44,31 @@ export class SedeComponent implements OnInit {
     
   ngOnInit(): void {
     debugger;
-    this.insertar = this.objdsede.insertar;
-    let obj = this.datosempresa.idModificar
-      this.myForm = this.createForm((obj));
+    this.objMod = this.datosempresa.idModificar
+    
+    if(!this.datosempresa.insertar && this.objMod != undefined){
+    
+    this.catalogosPrd.getAsentamientoByCodigoPostal(this.objMod.codigoPostal).subscribe(datos => {
+      if(datos.resultado){
+        this.domicilioCodigoPostal = datos.datos;
+        for(let item of datos.datos){
+
+          if(item.asentamiento == this.objMod.colonia){
+            this.idEstado = item.edo.estadoId;
+            this.idMunicipio = item.catmnpio.cmnpio;
+            this.objMod.asentamientoId = item.asentamientoCpCons;
+          }
+
+        }
+        
+      }
+
+      this.myForm = this.createForm(this.objMod);
+
+    }); 
+  }
+  let obj : any = {};
+  this.myForm = this.createForm(obj);
 
   }
 
@@ -53,8 +76,8 @@ export class SedeComponent implements OnInit {
   public createForm(obj: any) {
     return this.formBuilder.group({
           sede: [obj.sedeNombre,[Validators.required]],
-          codigo: [obj.codigo, [Validators.required,Validators.pattern('[0-9]+')]],
-          estado:[obj.estado,[Validators.required]],
+          codigo: [obj.codigoPostal, [Validators.required,Validators.pattern('[0-9]+')]],
+          estado:[obj.entidadFederativa,[Validators.required]],
           municipio:[obj.municipio,[Validators.required]],
           asentamientoId:[obj.asentamientoId,[Validators.required]],
           calle:[obj.calle,[Validators.required]],
@@ -103,7 +126,7 @@ public activarCancel(){
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
        let obj = this.myForm.value;
-       if(!this.datosempresa.insertar && obj.domicilioId == undefined){
+       if(!this.datosempresa.insertar && this.objMod == undefined){
           this.insertarMof = true;
        }
        this.objenviar = 
@@ -140,6 +163,7 @@ public activarCancel(){
         });
       }
       else if(this.datosempresa.insertar){
+        
         this.sedePrd.save(this.objenviar).subscribe(datos =>{
           this.alerta.iconType = datos.resultado ? "success" : "error";
           this.alerta.strTitulo = datos.mensaje;
@@ -151,24 +175,34 @@ public activarCancel(){
             }
         });
       }else{
-       
 
-        this.objenviar.domicilioId = obj.domicilioId,
-      
-          this.sedePrd.save(this.objenviar).subscribe(datos =>{
+        this.objenviar = 
+       {
+         descripcion: obj.sede,
+         sedeId: this.objMod.sedeId,
+         codigo: obj.codigo,
+         municipio: this.idMunicipio,
+         estado: this.idEstado,
+         asentamientoId: obj.asentamientoId,
+         calle: obj.calle,
+         esActivo: true,
+         numExterior: obj.numExterior,
+         numInterior:obj.numInterior,
+         centrocClienteId: {
+           centrocClienteId: this.datosempresa.centrocClienteEmpresa
+         }
+      }
+       
+  
+          this.sedePrd.modificar(this.objenviar).subscribe(datos =>{
             this.alerta.iconType = datos.resultado ? "success" : "error";
             this.alerta.strTitulo = datos.mensaje;
             this.alerta.modal = true;
-              //if(!this.modsinIdDom){
-                this.enviado.emit({
-                type:"domicilioSede"
+            if(datos.resultado){
+              this.enviado.emit({
+                type:"sedeCont"
               });
-              if(datos.resultado){
-                //this.habcontinuar= true;
-                //this.habGuardar=false;
-                //this.modsinIdDom=false;
-              }
-            //}
+            }
           });
       }
      }
@@ -177,7 +211,7 @@ public activarCancel(){
    
   public buscar(obj:any){
     
-    
+    debugger;
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
 

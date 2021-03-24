@@ -81,7 +81,7 @@ export class ListagruposnominasComponent implements OnInit {
       });
 
 
-      this.catalogosPrd.getPeriocidadPago().subscribe(datos => this.arregloperiodo = datos.datos);
+      this.catalogosPrd.getPeriocidadPago(true).subscribe(datos => this.arregloperiodo = datos.datos);
       this.empresasPrd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloRazonSocial = datos.datos);
 
 

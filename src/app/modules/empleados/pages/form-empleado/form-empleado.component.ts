@@ -26,7 +26,7 @@ export class FormEmpleadoComponent implements OnInit {
   public mostrarDetalleTransferencia: boolean = false;
 
   public datosPersona: any = {
-    personaId: 190
+    personaId: undefined
   };
 
 

@@ -30,7 +30,7 @@ export class PagosComponent implements OnInit {
   public arreglobancos!:Promise<any>;
   public idEmpleado:number = -1;
   public empleado:any = {};
-
+  
 
   public myFormMetodoPago!:FormGroup;
 
@@ -48,10 +48,10 @@ export class PagosComponent implements OnInit {
     this.myFormMetodoPago = this.formbuilder.group({});
     this.myFormCompensacion = this.formbuilder.group({});
 
-   this.arregloMetodosPago =  this.catalogosPrd.getAllMetodosPago().toPromise();   
+    this.arregloMetodosPago =  this.catalogosPrd.getAllMetodosPago(true).toPromise();    
    this.arreglogrupoNomina = this.gruponominaPrd.getAll(this.usuariosSistemaPrd.getIdEmpresa()).toPromise();
-   this.arregloCompensacion = this.catalogosPrd.getCompensacion().toPromise();
-   this.arreglobancos = this.catalogosPrd.getCuentasBanco().toPromise();
+   this.arregloCompensacion = this.catalogosPrd.getCompensacion(true).toPromise();
+   this.arreglobancos = this.catalogosPrd.getCuentasBanco(true).toPromise();
 
 
    this.router.params.subscribe(params => {

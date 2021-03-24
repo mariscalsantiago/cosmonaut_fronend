@@ -17,15 +17,15 @@ export class CatalogosService {
   }
 
 
-  public getEsquemaPago(): Observable<any> {
+  public getEsquemaPago(estatus:boolean): Observable<any> {
 
-    return this.http.get(`${this.url}/esquemaPago/listar/todos`);
+    return this.http.get(`${this.url}/esquemaPago/listar/todosActivo/${estatus}`);
 
   }
 
-  public getMonedas(): Observable<any> {
+  public getMonedas(estatus:boolean): Observable<any> {
 
-    return this.http.get(`${this.url}/moneda/listar/todos`);
+    return this.http.get(`${this.url}/moneda/listar/todosActivo/${estatus}`);
 
   }
 
@@ -35,33 +35,33 @@ export class CatalogosService {
 
   }
 
-  public getCuentasBanco(): Observable<any> {
+  public getCuentasBanco(estatus:boolean): Observable<any> {
 
      
-    return this.http.get(`${this.url}/csbanco/listar/todos`);
+    return this.http.get(`${this.url}/csbanco/listar/todosActivo/${estatus}`);
   }
 
-  public getNacinalidades(): Observable<any> {
-    return this.http.get(`${this.url}/nacionalidad/listar/todos`);
+  public getNacinalidades(estatus:boolean): Observable<any> {
+    return this.http.get(`${this.url}/nacionalidad/listar/todosActivo/${estatus}`);
   }
   public getNacinalidadById(idNacionalidad: number): Observable<any> {
     return this.http.get(`${this.url}/nacionalidad/obtener/id/${idNacionalidad}`);
   }
 
-  public getPreferencias(): Observable<any> {
-    return this.http.get(`${this.url}/tipoPreferencia/listar/todos`);
+  public getPreferencias(estatus:boolean): Observable<any> {
+    return this.http.get(`${this.url}/tipoPreferencia/listar/todosActivo/${estatus}`);
   }
   public getPreferenciasById(idPreferencia:number): Observable<any> {
     return this.http.get(`${this.url}/tipoPreferencia/obtener/id/${idPreferencia}`);
   }
 
-  public getTipoContratos(): Observable<any>{
-    return this.http.get(`${this.url}/csTipoContrato/listar/todos`);
+  public getTipoContratos(estatus:boolean): Observable<any>{
+    return this.http.get(`${this.url}/csTipoContrato/listar/todosActivo/${estatus}`);
   }
 
-  public getCompensacion():Observable<any>{
+  public getCompensacion(estatus:boolean):Observable<any>{
 
-    return this.http.get(`${this.url}/tipoCompensacion/listar/todos`);
+    return this.http.get(`${this.url}/tipoCompensacion/listar/todosActivo/${estatus}`);
 
   }
 
@@ -70,9 +70,9 @@ export class CatalogosService {
   }
 
 
-  public getAreasGeograficas():Observable<any>{
+  public getAreasGeograficas(estatus:boolean):Observable<any>{
 
-    return this.http.get(`${this.url}/areaGeografica/listar/todos`);
+    return this.http.get(`${this.url}/areaGeografica/listar/todosActivo/${estatus}`);
 
   }
 
@@ -80,16 +80,16 @@ export class CatalogosService {
       return this.http.get(`${this.url}/catAsentamiento/obtener/codigo/${codigoPostal}`);
   }
 
-  public getTipoRegimencontratacion():Observable<any>{
-    return this.http.get(`${this.url}/csTipoRegimenContratacion/listar/todos`);
+  public getTipoRegimencontratacion(estatus:boolean):Observable<any>{
+    return this.http.get(`${this.url}/csTipoRegimenContratacion/listar/todosActivo/${estatus}`);
   }
 
-  public getAllEstados():Observable<any>{
-    return this.http.get(`${this.url}/catEstados/listar/todos`);
+  public getAllEstados(estatus:boolean):Observable<any>{
+    return this.http.get(`${this.url}/catEstados/listar/todosActivo/${estatus}`);
   }
 
-  public getAllMetodosPago():Observable<any>{
-    return this.http.get(`${this.url}/catMetodoPago/listar/todos`);
+  public getAllMetodosPago(estatus:boolean):Observable<any>{
+    return this.http.get(`${this.url}/catMetodoPago/listar/todosActivo/${estatus}`);
   }
 
   public getActividadEconomica(idNivel:number):Observable<any>{
@@ -104,21 +104,21 @@ export class CatalogosService {
   }
 
 
-  public getPeriocidadPago():Observable<any>{
+  public getPeriocidadPago(estatus:boolean):Observable<any>{
 
-    return this.http.get(`${this.url}/csPeriodicidadPago/listar/todos`);
-
-  }
-
-  public getBasePeriodos():Observable<any>{
-
-    return this.http.get(`${this.url}/catBasePeriodo/listar/todos`);
+    return this.http.get(`${this.url}/csPeriodicidadPago/listar/todosActivo/${estatus}`);
 
   }
 
+  public getBasePeriodos(estatus:boolean):Observable<any>{
 
-  public getCatPeriodoAguinaldo():Observable<any>{
-    return this.http.get(`${this.url}/catPeriodoAguinaldo/listar/todos`);
+    return this.http.get(`${this.url}/catBasePeriodo/listar/todosActivo/${estatus}`);
+
+  }
+
+
+  public getCatPeriodoAguinaldo(estatus:boolean):Observable<any>{
+    return this.http.get(`${this.url}/catPeriodoAguinaldo/listar/todosActivo/${estatus}`);
   }
 
   public getTipoJornadas(estatus:boolean):Observable<any>{

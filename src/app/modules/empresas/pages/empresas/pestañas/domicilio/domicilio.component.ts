@@ -41,6 +41,9 @@ export class DomicilioComponent implements OnInit {
   public cargando: Boolean = false;
   public arregloCons: any = [];
   public cargaDom: boolean = false;
+  public indexSeleccionado: number = 0;
+  public eliminarSede: boolean = false;
+
 
   constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
@@ -113,7 +116,7 @@ export class DomicilioComponent implements OnInit {
             this.domicilioCodigoPostal = datos.datos;
   
             for(let item of datos.datos){
-  
+              
               this.nombreEstado = item.dedo;
               this.nombreMunicipio = item.dmnpio;
               this.idEstado = item.edo.estadoId;
@@ -163,6 +166,23 @@ export class DomicilioComponent implements OnInit {
 
     this.habcontinuar = true;
   }
+
+  public eliminar(indice: any){
+    debugger;
+     
+   this.indexSeleccionado = indice.sedeId;
+   this.eliminarSede = true;
+   
+   const titulo = "¿Deseas eliminar la sede?";
+  
+   this.alerta.modal = true;
+   this.alerta.strTitulo = titulo;
+   this.alerta.iconType = "warning";
+
+     
+   
+           
+ }
 
   public cancelar() {
     this.routerPrd.navigate(['/listaempresas']);
@@ -240,8 +260,32 @@ export class DomicilioComponent implements OnInit {
             centrocClienteId: this.datosempresa.centrocClienteEmpresa
           }
       }
+      if(this.eliminarSede){
 
-      if(this.datosempresa.insertar){
+        this.domicilioPrd.eliminar(this.indexSeleccionado).subscribe(datos => {
+          this.alerta.iconType = datos.resultado ? "success" : "error";
+          this.alerta.strTitulo = datos.mensaje;
+          this.alerta.modal = true;
+
+          if(datos.resultado){
+            this.enviado.emit({
+              type:"domicilioSede"
+            });
+
+            this.cargando = true;
+            this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
+            this.arregloListaSede = datos.datos;
+            console.log(this.arregloListaSede);
+            this.cargando = false;
+    
+          });
+            
+          }
+  
+        });
+      }
+
+      else if(this.datosempresa.insertar){
       this.domicilioPrd.save(objenviar).subscribe(datos =>{
 
         this.alerta.iconType = datos.resultado ? "success" : "error";

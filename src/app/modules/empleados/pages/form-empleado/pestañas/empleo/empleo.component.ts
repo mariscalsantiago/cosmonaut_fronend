@@ -92,14 +92,14 @@ export class EmpleoComponent implements OnInit {
     this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => this.arregloArea = datos.datos);
     this.politicasPrd.getPoliticasByEmpresa(this.id_empresa).subscribe(datos => this.arregloPoliticas = datos.datos);
     this.empleadosPrd.getEmpleadosCompania(this.id_empresa).subscribe(datos => this.arregloempleadosreporta = datos.datos);
-    this.catalogosPrd.getCompensacion().subscribe(datos => this.arregloCompensacion = datos.datos);
-    this.catalogosPrd.getAreasGeograficas().subscribe(datos => this.arregloareasgeograficas = datos.datos);
-    this.catalogosPrd.getTipoContratos().subscribe(datos => this.arregloTipoContrato = datos.datos);
+    this.catalogosPrd.getCompensacion(true).subscribe(datos => this.arregloCompensacion = datos.datos);
+    this.catalogosPrd.getAreasGeograficas(true).subscribe(datos => this.arregloareasgeograficas = datos.datos);
+    this.catalogosPrd.getTipoContratos(true).subscribe(datos => this.arregloTipoContrato = datos.datos);
     this.jornadaPrd.jornadasByEmpresa(this.id_empresa).subscribe(datos => this.arregloJornadas = datos.datos);
     this.sedesPrd.getsedeByEmpresa(this.id_empresa).subscribe(datos => this.arregloSedes = datos.datos);
-    this.catalogosPrd.getTipoRegimencontratacion().subscribe(datos => this.arregloRegimenContratacion = datos.datos);
-    this.catalogosPrd.getAllEstados().subscribe(datos => this.arregloEstados = datos.datos);
-    this.catalogosPrd.getAllMetodosPago().subscribe(datos => this.arregloMetodosPago = datos.datos);
+    this.catalogosPrd.getTipoRegimencontratacion(true).subscribe(datos => this.arregloRegimenContratacion = datos.datos);
+    this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
+    this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
 
 
 
@@ -341,57 +341,39 @@ export class EmpleoComponent implements OnInit {
         console.log("Esto se manda como persona", this.arregloEnviar[0]);
 
 
-        this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado => {
 
-          if (!valorEmpleado.resultado) {
-            this.modalPrd.showMessageDialog(valorEmpleado.resultado, valorEmpleado.mensaje);
-            return;
-          }
+        if(this.datosPersona.personaId.personaId === undefined){
+          this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado => {
 
-          objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
+            if (!valorEmpleado.resultado) {
+              this.modalPrd.showMessageDialog(valorEmpleado.resultado, valorEmpleado.mensaje);
+              return;
+            }
+  
+            this.datosPersona.personaId.personaId  = valorEmpleado.datos.personaId;
+            objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
+  
+            this.guardarContratoColaborador(objEnviar,valorEmpleado);
+  
+          });
+        }else{
+          this.empleadosPrd.update(this.datosPersona).subscribe(valorEmpleado =>{
 
+            if (!valorEmpleado.resultado) {
+              this.modalPrd.showMessageDialog(valorEmpleado.resultado, valorEmpleado.mensaje);
+              return;
+            }
 
+            this.datosPersona.personaId.personaId  = valorEmpleado.datos.personaId;
+            objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
+  
+            this.guardarContratoColaborador(objEnviar,valorEmpleado);
 
-          console.log("SI SE PUDO ");
-
-          console.log("Se va a mandar contrato colaborador", objEnviar);
-          this.colaboradorPrd.save(objEnviar).subscribe(datos => {
-            
-            
-            let domicilio = this.arregloEnviar[1];
-            //let preferencias = this.arregloEnviar[2];
-            domicilio.personaId.personaId = valorEmpleado.datos.personaId;
-            // preferencias.personaId = valorEmpleado.personaId;
-
-            this.domicilioPrd.save(domicilio).toPromise();
-            // this.preferenciasPrd.save(preferencias).toPromise();
-
-            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-              if (datos.resultado) {
-                let metodopago = {};
-
-                for (let item of this.arregloMetodosPago) {
-
-                  if (item.metodoPagoId == this.myForm.value.metodo_pago_id) {
-
-                    metodopago = item;
-                    break;
-                  }
-
-                }
-
-                let datosPersona = valorEmpleado.datos;
-                datosPersona.metodopago = metodopago;
-                datosPersona.contratoColaborador = datos.datos;
-
-                this.enviado.emit({ type: "empleo", datos: datosPersona });
-              }
-            });
 
 
           });
-
-        });
+        }
+      
 
 
 
@@ -402,6 +384,45 @@ export class EmpleoComponent implements OnInit {
       }
     });;
 
+  }
+
+
+  public guardarContratoColaborador(objEnviar:any,valorEmpleado:any){
+    this.colaboradorPrd.save(objEnviar).subscribe(datos => {
+              
+              
+      let domicilio = this.arregloEnviar[1];
+      //let preferencias = this.arregloEnviar[2];
+      domicilio.personaId.personaId = objEnviar.personaId.personaId;
+      // preferencias.personaId = valorEmpleado.personaId;
+
+      this.domicilioPrd.save(domicilio).toPromise();
+      // this.preferenciasPrd.save(preferencias).toPromise();
+
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+        if (datos.resultado) {
+          let metodopago = {};
+
+          for (let item of this.arregloMetodosPago) {
+
+            if (item.metodoPagoId == this.myForm.value.metodo_pago_id) {
+
+              metodopago = item;
+              break;
+            }
+
+          }
+
+          let datosPersona = valorEmpleado.datos;
+          datosPersona.metodopago = metodopago;
+          datosPersona.contratoColaborador = datos.datos;
+
+          this.enviado.emit({ type: "empleo", datos: datosPersona });
+        }
+      });
+
+
+    });
   }
 
   public get f() {

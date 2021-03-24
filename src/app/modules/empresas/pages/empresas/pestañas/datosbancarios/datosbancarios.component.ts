@@ -126,7 +126,8 @@ export class DatosbancariosComponent implements OnInit {
 }
 
 public verdetalle(obj:any){
-
+  debugger;
+  this.datosempresa.idModificar = obj;
   this.enviado.emit({
     type:"cuentas"
   }); 

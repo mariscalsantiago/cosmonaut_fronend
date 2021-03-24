@@ -31,6 +31,7 @@ export class DetallegruponominaComponent implements OnInit {
   public arregloPeriocidadPago:any = [];
   public arregloBasePeriodos:any = [];
   public arregloCatPeriodosAguinaldo:any = [];
+  
 
 
 
@@ -85,11 +86,11 @@ export class DetallegruponominaComponent implements OnInit {
     }
 
 
-    this.catalogosPrd.getEsquemaPago().subscribe(datos => this.arregloEsquemaPago = datos.datos);
-    this.catalogosPrd.getMonedas().subscribe(datos => this.arregloMonedas = datos.datos);
-    this.catalogosPrd.getPeriocidadPago().subscribe(datos => this.arregloPeriocidadPago = datos.datos);
-    this.catalogosPrd.getBasePeriodos().subscribe(datos => this.arregloBasePeriodos = datos.datos);
-    this.catalogosPrd.getCatPeriodoAguinaldo().subscribe(datos => this.arregloCatPeriodosAguinaldo = datos.datos);
+    this.catalogosPrd.getEsquemaPago(true).subscribe(datos => this.arregloEsquemaPago = datos.datos);
+    this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
+    this.catalogosPrd.getPeriocidadPago(true).subscribe(datos => this.arregloPeriocidadPago = datos.datos);
+    this.catalogosPrd.getBasePeriodos(true).subscribe(datos => this.arregloBasePeriodos = datos.datos);
+    this.catalogosPrd.getCatPeriodoAguinaldo(true).subscribe(datos => this.arregloCatPeriodosAguinaldo = datos.datos);
 
 
 

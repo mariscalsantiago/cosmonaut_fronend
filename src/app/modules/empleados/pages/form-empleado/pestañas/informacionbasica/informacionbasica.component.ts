@@ -40,7 +40,7 @@ export class InformacionbasicaComponent implements OnInit {
     console.log(this.datosPersona);
     this.myform = this.createForm(this.datosPersona[0]);
 
-    this.catalogosPrd.getNacinalidades().subscribe(datos => this.arreglonacionalidad = datos.datos);
+    this.catalogosPrd.getNacinalidades(true).subscribe(datos => this.arreglonacionalidad = datos.datos);
     this.catalogosPrd.getCatalogoParentezco(true).subscribe(datos => this.arregloParentezco = datos.datos);
 
   }

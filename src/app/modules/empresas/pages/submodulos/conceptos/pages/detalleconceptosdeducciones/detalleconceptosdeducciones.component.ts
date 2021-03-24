@@ -19,7 +19,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   public esInsert: boolean = false;
   public submitInvalido: boolean = false;
   public arregloTipoDeduccion: any = [];
-  public estatus: boolean = true;
+  
   public peticion: any = [];
 
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
@@ -29,7 +29,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   ngOnInit(): void {
 
     
-    this.catalogosPrd.getTipoDeduccion(this.estatus).subscribe(datos => this.arregloTipoDeduccion = datos.datos);
+    this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => this.arregloTipoDeduccion = datos.datos);
     console.log("deducciones",this.arregloTipoDeduccion);
 
     this.routerActive.params.subscribe(datos => {
