@@ -54,7 +54,11 @@ export class PersonalComponent implements OnInit {
         this.empleado = datos.datos;
 
         this.parsearInformacion();
-        this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datos =>this.domicilioArreglo = datos?.datos[0]);
+        this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datos =>{
+          this.domicilioArreglo = datos?.datos[0]
+          console.log(this.domicilioArreglo);
+        });
+        
         
 
         this.myForm = this.createForm(this.empleado);

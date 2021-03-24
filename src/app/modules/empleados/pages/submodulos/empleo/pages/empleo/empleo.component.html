@@ -237,7 +237,7 @@
                     <article *ngIf="editarcampos">
                         <select [ngClass]="{'is-invalid':f.jornadaId.errors && submitEnviado}"
                             formControlName="jornadaId" name="" id="" class="form-control">
-                            <option *ngFor="let item of arregloJornadas" [value]="item.jornadaId">{{item.descripcion}}
+                            <option *ngFor="let item of arregloJornadas" [value]="item.jornadaId">{{item.nombre}}
                             </option>
                         </select>
                         <div *ngIf="f.jornadaId.errors && submitEnviado" class="invalid-feedback">

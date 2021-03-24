@@ -232,7 +232,7 @@
                 <article class="titulo col">
                     Dirección
                     <article *ngIf="!editarcampos">
-                        {{domicilioArreglo?.calle}} # {{domicilioArreglo?.numExterior}}
+                        {{domicilioArreglo?.calle}} # {{domicilioArreglo?.numeroExterior}} Col. {{domicilioArreglo?.colonia}} {{domicilioArreglo?.entidadFederativa}}
                     </article>
 
                     <article *ngIf="editarcampos">

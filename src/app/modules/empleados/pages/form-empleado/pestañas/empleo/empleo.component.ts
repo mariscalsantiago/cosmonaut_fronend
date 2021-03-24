@@ -342,7 +342,7 @@ export class EmpleoComponent implements OnInit {
 
 
 
-        if(this.datosPersona.personaId.personaId === undefined){
+        if(this.datosPersona.personaId === undefined){
           this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado => {
 
             if (!valorEmpleado.resultado) {
@@ -350,7 +350,9 @@ export class EmpleoComponent implements OnInit {
               return;
             }
   
-            this.datosPersona.personaId.personaId  = valorEmpleado.datos.personaId;
+            this.datosPersona.personaId = {
+              personaId:  valorEmpleado.datos.personaId
+            }  
             objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
   
             this.guardarContratoColaborador(objEnviar,valorEmpleado);
