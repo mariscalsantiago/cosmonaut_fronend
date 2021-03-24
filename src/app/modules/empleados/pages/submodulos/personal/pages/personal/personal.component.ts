@@ -65,7 +65,7 @@ export class PersonalComponent implements OnInit {
 
 
 
-    this.arreglonacionalidad = this.catalogosPrd.getNacinalidades().toPromise();
+    this.arreglonacionalidad = this.catalogosPrd.getNacinalidades(true).toPromise();
 
 
   }

@@ -33,6 +33,8 @@ export class InformacionempresaComponent implements OnInit {
   public curpFinal: string = "";
   public idNivel: number = 5 ;
   public cargando: Boolean = false;
+  
+
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private empresaPrd: DatosempresaService,private routerPrd:Router) { }
@@ -173,17 +175,13 @@ export class InformacionempresaComponent implements OnInit {
       if(this.datosempresa.insertar){  
         this.cargando = true;
         this.empresaPrd.save(objenviar).subscribe(datos => {
-        let resultado = datos.resultado;
-        let mensaje = datos.mensaje;
-        if(resultado){
+          this.alerta.iconType = datos.resultado ? "success" : "error";
+          this.alerta.strTitulo = datos.mensaje;
+          this.alerta.modal = true;
 
+          if(datos.resultado){
           this.datosempresa.centrocClienteEmpresa = datos.datos.centrocClienteId;
         }
-        this.alerta.iconType = resultado ? "success" : "error";
-        this.alerta.strTitulo = mensaje;
-        //this.alerta.strsubtitulo = mensaje
-        this.alerta.modal = true;
-        this.cargando = false;
 
       });
 

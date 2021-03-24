@@ -26,7 +26,7 @@ export class PreferenciasComponent implements OnInit {
 
 
 
-    this.catalogosPrd.getPreferencias().subscribe(datos =>{
+    this.catalogosPrd.getPreferencias(true).subscribe(datos =>{
       let dd =   datos.datos;
 
       for(let item of dd){

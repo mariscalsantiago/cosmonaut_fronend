@@ -22,7 +22,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
   public cargando: Boolean = false;
   public submitEnviado: boolean = false;
-  public estatus: boolean = true;
+  
   public arregloMotivoBaja: any = [];
   public arregloTipoBaja: any = []; 
   public arregloempleados: any = [];
@@ -55,8 +55,8 @@ export class FormBajaEmpleadoComponent implements OnInit {
     this.idEmpresa=this.usuarioSistemaPrd.getIdEmpresa();
     this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos => this.arreglobaja = datos.datos);
     //this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
-    this.catalogosPrd.getMotivoBajaEmpleado(this.estatus).subscribe(datos => this.arregloMotivoBaja = datos.datos);
-    this.catalogosPrd.getTipoBajaEmpleado(this.estatus).subscribe(datos => this.arregloTipoBaja = datos.datos);
+    this.catalogosPrd.getMotivoBajaEmpleado(true).subscribe(datos => this.arregloMotivoBaja = datos.datos);
+    this.catalogosPrd.getTipoBajaEmpleado(true).subscribe(datos => this.arregloTipoBaja = datos.datos);
 
     
 

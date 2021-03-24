@@ -61,7 +61,7 @@ export class ListapuestosComponent implements OnInit {
 
         let columnas: Array<tabla> = [
           new tabla("nombreCorto", "Nombre"),
-          new tabla("razonSocial", "Empresa"),
+          new tabla("nombre", "Empresa"),
           new tabla("count", "Número de empleados")
         ];
 
@@ -184,7 +184,7 @@ export class ListapuestosComponent implements OnInit {
     this.puestosProd.filtrar(peticion).subscribe(datos => {
       let columnas: Array<tabla> = [
         new tabla("nombreCorto", "Nombre"),
-        new tabla("razonSocial", "Empresa"),
+        new tabla("nombre", "Empresa"),
         new tabla("count", "Número de empleados")
       ];
 

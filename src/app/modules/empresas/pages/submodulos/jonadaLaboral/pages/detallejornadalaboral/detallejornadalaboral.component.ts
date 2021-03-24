@@ -21,7 +21,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   public arreglotipojornadas:any = [];
   public peticion:any = [];
   public arreglosumahoras: any =[];
-  public estatus: boolean = true;
+  
 
 
 
@@ -43,8 +43,8 @@ export class DetallejornadalaboralComponent implements OnInit {
     this.myForm = this.crearForm((objdetrep));
 
 
-    this.catalogosPrd.getTipoJornadas(this.estatus).subscribe(datos => this.arreglotipojornadas = datos.datos);
-    this.catalogosPrd.getSumaHras(this.estatus).subscribe(datos => this.arreglosumahoras = datos.datos);
+    this.catalogosPrd.getTipoJornadas(true).subscribe(datos => this.arreglotipojornadas = datos.datos);
+    this.catalogosPrd.getSumaHras(true).subscribe(datos => this.arreglosumahoras = datos.datos);
   }
 
   ngAfterViewInit(): void{

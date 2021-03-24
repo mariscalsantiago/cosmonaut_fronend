@@ -87,14 +87,14 @@ export class EmpleoComponent implements OnInit {
     this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => this.arregloArea = datos.datos);
     this.politicasPrd.getPoliticasByEmpresa(this.id_empresa).subscribe(datos => this.arregloPoliticas = datos.datos);
     this.empleadosPrd.getEmpleadosCompania(this.id_empresa).subscribe(datos => this.arregloempleadosreporta = datos.datos);
-    this.catalogosPrd.getCompensacion().subscribe(datos => this.arregloCompensacion = datos.datos);
-    this.catalogosPrd.getAreasGeograficas().subscribe(datos => this.arregloareasgeograficas = datos.datos);
-    this.catalogosPrd.getTipoContratos().subscribe(datos => this.arregloTipoContrato = datos.datos);
+    this.catalogosPrd.getCompensacion(true).subscribe(datos => this.arregloCompensacion = datos.datos);
+    this.catalogosPrd.getAreasGeograficas(true).subscribe(datos => this.arregloareasgeograficas = datos.datos);
+    this.catalogosPrd.getTipoContratos(true).subscribe(datos => this.arregloTipoContrato = datos.datos);
     this.jornadaPrd.jornadasByEmpresa(this.id_empresa).subscribe(datos => this.arregloJornadas = datos.datos);
     this.sedesPrd.getsedeByEmpresa(this.id_empresa).subscribe(datos => this.arregloSedes = datos.datos);
-    this.catalogosPrd.getTipoRegimencontratacion().subscribe(datos => this.arregloRegimenContratacion = datos.datos);
-    this.catalogosPrd.getAllEstados().subscribe(datos => this.arregloEstados = datos.datos);
-    this.catalogosPrd.getAllMetodosPago().subscribe(datos => this.arregloMetodosPago = datos.datos);
+    this.catalogosPrd.getTipoRegimencontratacion(true).subscribe(datos => this.arregloRegimenContratacion = datos.datos);
+    this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
+    this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
 
 
 

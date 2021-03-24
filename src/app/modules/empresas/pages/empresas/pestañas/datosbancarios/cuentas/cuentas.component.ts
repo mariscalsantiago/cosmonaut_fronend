@@ -22,7 +22,7 @@ export class CuentasComponent implements OnInit {
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
   public id_empresa: number = 0;
-  public esInsert: boolean = false;
+  public esInsert: boolean = true;
   public cuenta: any;
   public cuentasBancarias: any;
   public objdsede: any = []; 
@@ -30,7 +30,7 @@ export class CuentasComponent implements OnInit {
   public obj: any = [];
   public habcontinuarSede: boolean = false;
   public insertarMof: boolean = false;
-  public esActivoMod: boolean = true;
+
  
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
     private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService,
@@ -38,21 +38,29 @@ export class CuentasComponent implements OnInit {
 
   ngOnInit(): void {
  
-    this.objdsede = history.state.data == undefined ? {} : history.state.data ;
-    
+ debugger;  
+    this.objdsede = this.datosempresa.idModificar;
     if(this.datosempresa.insertar){
       this.obj = { bancoId: { bancoId: 0 } };
+      this.myForm = this.createForm(this.obj);
     }
+    else if(!this.datosempresa.insertar && this.objdsede != undefined){
+      this.esInsert= false;
+      this.objdsede = this.datosempresa.idModificar;
+      this.myForm = this.createForm(this.objdsede);
+     
+    }else{
 
-    this.myForm = this.createForm(this.obj);
+    let obj : any = {};
+    this.myForm = this.createForm(obj);
 
+    }
+    
 
-    this.catalogosPrd.getCuentasBanco().subscribe(datos => {
+    this.catalogosPrd.getCuentasBanco(true).subscribe(datos => {
       this.cuentasBancarias = datos.datos;
       console.log("Cuentas",this.cuentasBancarias);
-      if(this.cuentasBancarias.cuentaBancoId == undefined){
-          this.esActivoMod = true;
-      }
+
     });
 
   }
@@ -68,8 +76,7 @@ debugger;
     num_informacion: [obj.numInformacion],
     clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
     num_sucursal: [obj.numSucursal],
-    //esActivoMod: [{ value: (this.esActivoMod) ? true : obj.esActivo, disabled: this.esActivoMod }, [Validators.required]]
-    esActivo: [(!this.esActivoMod) ? obj.esActivo : { value: "true", disabled: true }]
+    esActivo: [{ value: (this.esInsert) ? true : obj.esActivo, disabled: this.esInsert}, [Validators.required]]
     });
 
   }
@@ -121,7 +128,7 @@ public activarCancel(){
      this.enviarPeticion.enviarPeticion = false;
       let obj = this.myForm.value;
 
-      if(!this.datosempresa.insertar && obj.cuentaBancoId == undefined){
+      if(!this.datosempresa.insertar && this.objdsede == undefined){
         this.insertarMof = true;
       }
 
@@ -132,7 +139,7 @@ public activarCancel(){
             numInformacion: obj.num_informacion,
             clabe: obj.clabe,
             numSucursal: obj.num_sucursal,
-            esActivo: true,
+            esActivo: obj.esActivo,
             nclCentrocCliente: {
               centrocClienteId: this.datosempresa.centrocClienteEmpresa
             },
@@ -169,21 +176,16 @@ public activarCancel(){
         });
         }else{
       
-        this.peticion.cuentaBancoId = obj.cuentaBancoId;
+        this.peticion.cuentaBancoId = this.objdsede.cuentaBancoId;
          this.cuentasPrd.modificar(this.peticion).subscribe(datos =>{
            this.alerta.iconType = datos.resultado ? "success" : "error";
            this.alerta.strTitulo = datos.mensaje;
            this.alerta.modal = true;
-             //if(!this.modsinIdDom){
-               this.enviado.emit({
-               type:"cuentasCont"
-             });
-             if(datos.resultado){
-               //this.habcontinuar= true;
-               //this.habGuardar=false;
-               //this.modsinIdDom=false;
-             }
-           //}
+           if(datos.resultado){
+            this.enviado.emit({ 
+              type:"cuentasCont"
+            });
+            }
          });
      }
     }

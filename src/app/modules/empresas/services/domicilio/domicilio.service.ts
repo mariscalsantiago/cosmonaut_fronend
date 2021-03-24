@@ -50,4 +50,9 @@ export class DomicilioService {
 
   }
 
+  public eliminar(id:any):Observable<any>{
+
+    return this.http.post(`${direcciones.sedes}/eliminar/${id}`,{});
+  }
+
 }

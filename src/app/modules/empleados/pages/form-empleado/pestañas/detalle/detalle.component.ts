@@ -18,6 +18,7 @@ export class DetalleComponent implements OnInit {
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
+  
 
   public arreglobancos: any = [];
 
@@ -29,7 +30,7 @@ export class DetalleComponent implements OnInit {
     this.myForm = this.createForm({});
 
 
-    this.catalogosPrd.getCuentasBanco().subscribe(datos => this.arreglobancos = datos.datos);
+    this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arreglobancos = datos.datos);
 
   }
 

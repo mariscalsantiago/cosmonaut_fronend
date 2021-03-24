@@ -53,7 +53,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
     this.myForm = this.createForm(this.objCuenta);
 
 
-    this.catalogosPrd.getCuentasBanco().subscribe(datos => {
+    this.catalogosPrd.getCuentasBanco(true).subscribe(datos => {
       this.cuentasBancarias = datos.datos;
     });
 

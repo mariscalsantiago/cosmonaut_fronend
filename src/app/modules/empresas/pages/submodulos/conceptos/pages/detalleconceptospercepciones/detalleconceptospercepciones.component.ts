@@ -19,7 +19,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public esInsert: boolean = false;
   public submitInvalido: boolean = false;
   public arregloTipoPercepcion: any = [];
-  public estatus: boolean = true;
+  
   public peticion: any = [];
 
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
@@ -29,7 +29,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   ngOnInit(): void {
 
     debugger;
-    this.catalogosPrd.getTipoPercepcion(this.estatus).subscribe(datos => this.arregloTipoPercepcion = datos.datos);
+    this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => this.arregloTipoPercepcion = datos.datos);
  
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
@@ -51,6 +51,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
     if(obj.tipoPeriodicidad == "Ambos"){
       obj.tipoPeriodicidad= "A"
+    }
+    if(obj.gravaIsr == "S"){
+      obj.gravaIsr= true
+    }
+    if(obj.gravaIsr == "N"){
+      obj.gravaIsr= false
     }
     if (this.esInsert) {
       obj = {
@@ -118,7 +124,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
           }
           
    
-          let gravaIsr = obj.gravaIsr == "true"?"S":"N";
+          let gravaIsr = obj.gravaIsr == true ? "S":"N";
 
           this.peticion = {
   

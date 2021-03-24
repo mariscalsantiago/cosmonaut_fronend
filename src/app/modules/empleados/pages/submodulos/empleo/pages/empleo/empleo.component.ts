@@ -65,7 +65,7 @@ export class EmpleoComponent implements OnInit {
     this.areasPrd.getAreasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloArea = datos.datos);
     this.empleadosPrd.getEmpleadosCompania(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloempleadosreporta = datos.datos);
     this.sedesPrd.getsedeByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloSedes = datos.datos);
-    this.catalogosPrd.getAllEstados().subscribe(datos => this.arregloEstados = datos.datos);
+    this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
     this.jornadaPrd.jornadasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloJornadas = datos.datos);
     this.politicasPrd.getPoliticasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloPoliticas = datos.datos);
 

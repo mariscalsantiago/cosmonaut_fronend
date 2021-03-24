@@ -34,7 +34,7 @@ export class InformacionbasicaComponent implements OnInit {
   ngOnInit(): void {
     this.myform = this.createForm({});
 
-    this.catalogosPrd.getNacinalidades().subscribe(datos => this.arreglonacionalidad = datos.datos);
+    this.catalogosPrd.getNacinalidades(true).subscribe(datos => this.arreglonacionalidad = datos.datos);
     this.catalogosPrd.getCatalogoParentezco(true).subscribe(datos => this.arregloParentezco = datos.datos);
 
   }

@@ -55,7 +55,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
     }
 
     this.myFormrep = this.createFormrep((objdetrep));
-    this.catalogosPrd.getNacinalidades().subscribe(datos => this.arreglonacionalidad = datos.datos);
+    this.catalogosPrd.getNacinalidades(true).subscribe(datos => this.arreglonacionalidad = datos.datos);
 
   }
 
