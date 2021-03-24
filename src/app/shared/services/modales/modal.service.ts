@@ -9,6 +9,8 @@ export class ModalService {
   public success: string = "success";
   public warning: string = "warning";
   public error: string = "error";
+  public loading:string = "loading";
+  public loadingfinish:string = "finishloading";
 
   public subject?: Subject<any>;;
 
@@ -21,6 +23,12 @@ export class ModalService {
   constructor() { }
 
   public showMessageDialog(alerta: any, titulo?: string): Promise<any> {
+
+    if(alerta == this.loadingfinish){
+
+          this.modal.modal = false;
+          return new Promise((resultado)=>{resultado;});
+    }
 
     if(typeof(alerta) == "boolean"){
        alerta = alerta ? "success" : "error";
@@ -38,6 +46,9 @@ export class ModalService {
       case this.error:
         this.modal.strTitulo = titulo == "" ? "Campos obligatorios o inválidos" : titulo
         break;
+        case this.loading:
+          this.modal.strTitulo = "Cargando";
+          break;
     }
 
     this.subject = new Subject<any>();

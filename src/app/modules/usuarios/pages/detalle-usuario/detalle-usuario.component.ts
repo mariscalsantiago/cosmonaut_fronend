@@ -48,15 +48,19 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
 
+
     this.verificarCompaniasExista();
 
+    
 
     this.routerActivePrd.params.subscribe(parametros => {
+      
       let id = parametros["idusuario"];
       this.insertar = id == undefined;
       if (id != undefined) {
         
-        this.usuariosPrd.getById(id).subscribe(datosusuario => {
+
+        this.usuariosPrd.getById(id).subscribe(datosusuario => {          
           this.objusuario = datosusuario.datos;
           console.log(this.objusuario);
           let datePipe = new DatePipe("es-MX");
@@ -148,7 +152,10 @@ export class DetalleUsuarioComponent implements OnInit {
         }
 
         if (this.insertar) {
+
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosPrd.save(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => this.routerPrd.navigate(["/usuarios"]));
           });
 
@@ -156,7 +163,9 @@ export class DetalleUsuarioComponent implements OnInit {
           objEnviar.personaId = obj.personaId;
           objEnviar.centrocClienteId.centrocClienteId = this.objusuario.centrocClienteId.centrocClienteId;
 
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosPrd.modificar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => this.routerPrd.navigate(["/usuarios"]));
           });
         }

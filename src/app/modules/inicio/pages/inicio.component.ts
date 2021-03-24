@@ -16,7 +16,12 @@ export class InicioComponent implements OnInit {
 
   public alerta(){
 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,"Hola desde js");
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+
+    setTimeout(() => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    }, 3000);
 
   }
 

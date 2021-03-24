@@ -179,8 +179,6 @@ export class DetalleCompanyComponent implements OnInit {
         };
 
 
-        obj.imagen = this.imagen;
-
         
 
         if (this.insertar) {
