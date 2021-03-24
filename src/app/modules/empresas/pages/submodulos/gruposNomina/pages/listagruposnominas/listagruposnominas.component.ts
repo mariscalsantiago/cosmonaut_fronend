@@ -69,8 +69,18 @@ export class ListagruposnominasComponent implements OnInit {
       this.id_empresa = datos["id"];
 
       this.cargando = true;
+      let objEnviar = {
 
-      this.gruposnominaPrd.getAll(this.id_empresa).subscribe(datos => {
+        nombre: this.nombre,
+        centrocClienteId:{
+          centrocClienteId: this.id_empresa
+        },
+        periodicidadPagoId:{
+          periodicidadPagoId:this.periodonomina
+        }
+      }
+
+      this.gruposnominaPrd.filtrar(objEnviar).subscribe(datos => {
         if (datos.datos != undefined)
           for (let item of datos.datos) {
             item.seleccionado = false;
