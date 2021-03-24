@@ -106,24 +106,25 @@ export class DetallegruponominaComponent implements OnInit {
   }
 
   public crearForm(obj:any){
-
+    debugger;
     if(!this.esInsert){
       console.log("Este es el obj",obj);
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
     }else{
       obj.centrocClienteId.centrocClienteId = this.id_empresa;
+      obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio = "periodica";
     }
     
     return this.formbuilder.group({
 
       nombre:[obj.nombre,[Validators.required]],
-      esquemaPagoId:[obj.esquemaPagoId.esquemaPagoId,[Validators.required]],
-      monedaId:[obj.monedaId.monedaId,[Validators.required]],
-      centrocClienteId:[obj.centrocClienteId.centrocClienteId,[Validators.required]],
+      esquemaPagoId:[obj.esquemaPagoId?.esquemaPagoId,[Validators.required]],
+      monedaId:[obj.monedaId?.monedaId,[Validators.required]],
+      centrocClienteId:[obj.centrocClienteId?.centrocClienteId,[Validators.required]],
       clabe:[obj.clabe?.clabe,[Validators.required]],
-      periodicidadPagoId:[obj.periodicidadPagoId.periodicidadPagoId,[Validators.required]],
-      basePeriodoId:[obj.basePeriodoId.basePeriodoId,[Validators.required]],
-      periodoAguinaldoId:[obj.periodoAguinaldoId.periodoAguinaldoId,[Validators.required]],
+      periodicidadPagoId:[obj.periodicidadPagoId?.periodicidadPagoId,[Validators.required]],
+      basePeriodoId:[obj.basePeriodoId?.basePeriodoId,[Validators.required]],
+      periodoAguinaldoId:[obj.periodoAguinaldoId?.periodoAguinaldoId,[Validators.required]],
       isrAguinaldoReglamento:obj.isrAguinaldoReglamento,
       maneraCalcularSubsidio:[obj.maneraCalcularSubsidio,[Validators.required]],
       grupoNominaId:obj.grupoNominaId
@@ -133,9 +134,9 @@ export class DetallegruponominaComponent implements OnInit {
 
 
   public enviarPeticion(){
+    debugger;
 
-
-
+    this.submitInvalido = true;
     if (!this.myForm.valid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error);
