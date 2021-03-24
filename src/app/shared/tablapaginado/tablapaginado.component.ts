@@ -26,6 +26,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public editar: any;
   @Input() public eliminar: any;
   @Input() public desglosar: any;
+  @Input() public checkbox:any;
   @Input() public imagen: any;
   @Input() public porcentaje: boolean = false;
 
@@ -73,7 +74,9 @@ export class TablapaginadoComponent implements OnInit {
       this.arreglotemp = this.datos.filas;
 
 
-      console.log(this.arreglotemp);
+      for (let item of this.datos.filas) {
+        item.seleccionado = false;
+      }
 
       this.paginar();
 
@@ -159,7 +162,7 @@ export class TablapaginadoComponent implements OnInit {
       if (totalElementosPaginado >= elementosTotalArreglo) {
         this.activarSiguiente = false;
       }
-    }else{
+    } else {
       this.activarSiguiente = true;
     }
 
@@ -259,4 +262,20 @@ export class TablapaginadoComponent implements OnInit {
 
   }
 
+
+  public activar(obj1: any) {
+    obj1.seleccionado = !obj1.seleccionado;
+
+    let haySeleccionado:boolean = false;
+
+    for (let item of this.datos.filas) {
+       if(item.seleccionado){
+          haySeleccionado = true;
+          break;
+       }
+    }
+
+
+    this.salida.emit({type:"filaseleccionada",datos:haySeleccionado});
+  }
 }

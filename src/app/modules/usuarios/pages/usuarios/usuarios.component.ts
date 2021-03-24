@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioService } from '../../services/usuario.service';
@@ -16,22 +17,11 @@ export class UsuariosComponent implements OnInit {
 
 
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    event.target.innerWidth;
-
-
-    this.tamanio = event.target.innerWidth;
-  }
 
 
   public cargando: Boolean = false;
   public tipoguardad: boolean = false;
-  public multiseleccion: Boolean = false;
-  public multiseleccionloading: boolean = false;
-  public numeroitems: number = 5;
-  public arreglotemp: any = [];
-  public arreglopaginas: Array<any> = [];
+
 
 
 
@@ -66,6 +56,17 @@ export class UsuariosComponent implements OnInit {
   public tamanio = 0;
   public changeIconDown: boolean = false;
 
+
+
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
+  };
+
+
+  public activarMultiseleccion:boolean = false;
+
+
   constructor(private routerPrd: Router, private usuariosPrd: UsuarioService,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService) { }
 
@@ -84,19 +85,38 @@ export class UsuariosComponent implements OnInit {
 
 
     this.usuariosPrd.getAllUsers().subscribe(datos => {
-      this.arreglotemp = datos.datos;
-      
-      for (let item of this.arreglotemp) {
-        var datePipe = new DatePipe("es-MX");
-        item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-        item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y');
+
+
+
+      this.arreglo = datos.datos;
+      let columnas: Array<tabla> = [
+        new tabla("personaId", "ID"),
+        new tabla("nombre", "Nombre"),
+        new tabla("apellidoPaterno", "Apellido paterno"),
+        new tabla("apellidoMaterno", "Apellido materno"),
+        new tabla("centrocClientenombre", "Centro de costos"),
+        new tabla("emailCorporativo", "Correo empresarial"),
+        new tabla("fechaAlta", "Fecha de registro"),
+        new tabla("activo", "Estatus")
+      ]
+
+
+
+      if (this.arreglo !== undefined) {
+        for (let item of this.arreglo) {
+          var datePipe = new DatePipe("es-MX");
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y');
+
+          item["centrocClientenombre"] = item.centrocClienteId.nombre;
+
+        }
       }
+
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = this.arreglo;
       this.cargando = false;
 
-      if (this.arreglotemp === undefined)
-        this.arreglo == undefined;
-      else
-        this.paginar();
     });
 
     this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
@@ -123,29 +143,7 @@ export class UsuariosComponent implements OnInit {
   }
 
 
-  public activarMultiseleccion() {
-    this.multiseleccion = true;
 
-
-    let temp = [];
-
-
-    for (let item of this.arreglotemp) {
-      let obj: any = {};
-      for (let llave in item) {
-        obj[llave] = item[llave];
-      }
-      temp.push(obj);
-    }
-
-    this.arreglo = temp;
-
-
-
-
-
-
-  }
 
 
 
@@ -160,30 +158,35 @@ export class UsuariosComponent implements OnInit {
       if (valor) {
         let arregloUsuario: any = [];
 
-        for (let item of this.arreglotemp) {
+        for (let item of this.arreglo) {
 
-          if (item["esActivo"]) {
+          if (item["seleccionado"]) {
 
             arregloUsuario.push({ personaId: item["personaId"], activo: this.tipoguardad });
 
           }
         }
 
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
         this.usuariosPrd.modificarListaActivos(arregloUsuario).subscribe(datos => {
-
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-
-
-
-          for (let item of arregloUsuario) {
-            for (let item2 of this.arreglotemp) {
-              if (item2.personaId === item.personaId) {
-                item2["activo"] = item["activo"];
-                item2["esActivo"] = false;
-                break;
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(valor =>{
+            if(valor){
+              for (let item of arregloUsuario) {
+                for (let item2 of this.arreglo) {
+                  if (item2.personaId === item.personaId) {
+                    item2["activo"] = item["activo"];
+                    item2["seleccionado"] = false;
+                    break;
+                  }
+                }
               }
+
+              this.activarMultiseleccion = false;
             }
-          }
+          });
         });
       }
     });
@@ -193,11 +196,7 @@ export class UsuariosComponent implements OnInit {
   }
 
 
-  public cancelarMulti() {
-    this.multiseleccionloading = false;
-    this.multiseleccion = false;
-    this.paginar();
-  }
+
 
 
   public filtrar() {
@@ -248,9 +247,9 @@ export class UsuariosComponent implements OnInit {
 
 
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-      this.arreglotemp = datos.datos;
-      if (this.arreglotemp != undefined) {
-        for (let item of this.arreglotemp) {
+      this.arreglo = datos.datos;
+      if (this.arreglo != undefined) {
+        for (let item of this.arreglo) {
           item["centrocClienteId"] = {
             nombre: item["razonSocial"]
           }
@@ -258,98 +257,35 @@ export class UsuariosComponent implements OnInit {
 
           var datePipe = new DatePipe("es-MX");
 
-          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-           item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y');
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y');
         }
       } else {
         this.arreglo = undefined;
       }
-      this.paginar();
+
       this.cargando = false;
     });
 
-
-
-
-
-
-
-
   }
 
 
-
-  public paginar() {
-
-    this.arreglopaginas = [];
-
-    if (this.arreglotemp != undefined) {
-      let paginas = this.arreglotemp.length / Number(this.numeroitems);
+  public recibirTabla(obj: any) {
 
 
-      let primero = true;
-      paginas = Math.ceil(paginas);
-
-
-      for (let x = 1; x <= paginas; x++) {
-
-        this.arreglopaginas.push({ numeropagina: (x - 1) * Number(this.numeroitems), llavepagina: ((x - 1) * Number(this.numeroitems)) + Number(this.numeroitems), mostrar: x, activado: primero });
-        primero = false;
-      }
-
-      this.arreglo = this.arreglotemp.slice(0, Number(this.numeroitems));
-      
-
+    switch (obj.type) {
+      case "editar":
+        this.verdetalle(obj.datos);
+        break;
+      case "filaseleccionada":
+        this.activarMultiseleccion = obj.datos;
+        break;
     }
 
   }
 
 
-  public paginacambiar(item: any) {
-    this.arreglo = this.arreglotemp.slice(item.numeropagina, item.llavepagina);
-    for (let item of this.arreglopaginas) {
-      item.activado = false;
-    }
 
-    item.activado = true;
-
-
-  }
-
-  public cambia() {
-
-    this.paginar();
-
-  }
-
-
-  public seleccionarTodosBool(input: any) {
-    for (let item of this.arreglo)
-      item.esActivo = input.checked;
-  }
-
-
-  public verificaDisponibilidad() {
-
-    let variable: boolean = false;
-
-    if (this.arreglotemp !== undefined) {
-      for (let item of this.arreglotemp) {
-
-        if (item["esActivo"]) {
-
-          variable = true;
-          break;
-        }
-
-        variable = false;
-
-      }
-    }
-
-
-    return variable;
-  }
 }
 
 

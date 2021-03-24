@@ -121,8 +121,13 @@ export class DetalleContactoComponent implements OnInit {
         }
 
 
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+
         if (this.insertar) {
           this.companyPrd.savecont(objEnviar).subscribe(datos => {
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
               .then(() => {
@@ -146,6 +151,8 @@ export class DetalleContactoComponent implements OnInit {
           
 
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
               .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));

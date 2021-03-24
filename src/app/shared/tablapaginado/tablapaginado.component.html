@@ -19,6 +19,7 @@
   <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover  anchura ">
     <thead>
       <tr>
+        <th *ngIf="checkbox"></th>
         <th *ngIf="imagen"></th>
         <th scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
           {{item.nombre}}</th>
@@ -28,6 +29,13 @@
     </thead>
     <tbody>
       <tr class="fade-in-second" *ngFor="let item of arreglo; let indice = index;">
+        <td *ngIf="checkbox">
+          <label class="contenedorInputCheckRadio">
+            <input [ngModel]="item.seleccionado"  (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
+            <span class="checkmark"></span>
+          </label>  
+        </td>
+
         <td *ngIf="imagen" style="width: 44px;" scope="row">
           <img *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
           <img *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]"

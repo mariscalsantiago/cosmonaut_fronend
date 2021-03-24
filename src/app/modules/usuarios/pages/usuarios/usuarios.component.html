@@ -84,105 +84,24 @@
     <div class="col titulo">
       <label>RESULTADOS</label>
     </div>
-    <div *ngIf="!multiseleccion" class="col text-right">
+    <div  class="col text-right">
       <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
         <i class="fa fa-plus"></i>Agregar
       </button>
     </div>
   </div>
 
-  <div *ngIf="verificaDisponibilidad()" class="row text-right margin botonmultiseleccion">
+  <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
     <div class="col-12">
-      <button type="button" class="btn btn-primary button-outlet mr-2" (click)="guardarMultiseleccion(false)"
-      *ngIf="!multiseleccionloading">Desactivar</button>
+      <button type="button" class="btn btn-primary button-outlet mr-2" (click)="guardarMultiseleccion(false)">Desactivar</button>
     <button (click)="guardarMultiseleccion(true)" type="button" class="btn heartbeathand btn-primary button-fill agrandarloading"><span
-        *ngIf="!multiseleccionloading">Activar</span>
-
-      <div *ngIf="multiseleccionloading" role="status">
-        <span class="spinner-border"></span>
-      </div>
+        >Activar</span>
     </button>  
     </div>
 </div>
  
   <div class="row margen margen-tabla background-panel ">
-    <div *ngIf="multiseleccion" class="form-check ml-4 mt-4">
-      <input (change)="seleccionarTodosBool(valor)" #valor type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
-    </div>
-
-    <div *ngIf="!cargando && arreglo !== undefined && !multiseleccion" class="row  margen mt-3" style="margin-bottom: -25px;">
-      <div class="input-group mb-3 ">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
-        </div>
-        <select [(ngModel)]="numeroitems" class="custom-select" id="inputGroupSelect01" (change)="cambia()">
-          <option value="5" selected>5</option>
-          <option value="20" selected>20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-       
-      </div>
-      
-    </div>
-    
-    <table  *ngIf="!cargando && arreglo !== undefined"  class="table table-hover table-responsive">
-      <thead>
-        <tr>
-          <th scope="col"> <span *ngIf="multiseleccion">Activo</span> </th>
-          <th scope="col">ID</th>
-          <th scope="col">Nombre</th>
-          <th scope="col" *ngIf="tamanio >=600">Apellido paterno</th>
-          <th scope="col" *ngIf="tamanio >=600">Apellido materno</th>
-          <th scope="col" *ngIf="tamanio >=600">Centro de costos</th>
-          <th scope="col" *ngIf="tamanio >=600">Correo empresarial</th>
-          <th scope="col" *ngIf="tamanio >=600">Fecha de registro</th>
-          <th scope="col" *ngIf="tamanio >=600">Activo</th>
-          <th scope="col " *ngIf="!multiseleccion">Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr  *ngFor="let item of arreglo;">
-          <th scope="row"><input type="checkbox" name="inlineRadioOptions" id="radio1" value="option1" [(ngModel)]="item.esActivo"> </th>
-          <td>{{item.personaId}} </td>
-          <td>{{item.nombre}} </td>
-          <td *ngIf="tamanio >=600">{{item.apellidoPaterno}}</td>
-          <td *ngIf="tamanio >=600">{{item.apellidoMaterno }}</td>
-          <td *ngIf="tamanio >=600">{{item.centrocClienteId.nombre}}</td>
-          <td *ngIf="tamanio >=600">{{item.emailCorporativo}}</td>
-          <td *ngIf="tamanio >=600">{{item.fechaAlta }}</td>
-          <td *ngIf="tamanio >=600">{{(item.activo)?'Activo':'Inactivo'}}</td>
-          <td *ngIf="!multiseleccion" class="opciones">
-            <button ><i class="icon_ver primary-bg"></i></button>
-            <button (click)="verdetalle(item)" ><i class="icon_editar primary-bg"></i></button>
-          </td>
-        </tr>
-
-
-
-      </tbody>
-    </table>
-    <div *ngIf="!cargando && arreglo === undefined"   class="alert acol text-center">
-      <strong>En este momento no existen registros</strong>
-    </div>
-   <div  *ngIf="!cargando && arreglo !== undefined && !multiseleccion" class="row" style="width: 100%;">
-     <div class="col" > 
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
-          </li>
-          <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas" (click)="paginacambiar(item)"><a class="page-link" >{{item.mostrar}}</a></li>
-          <li class="page-item disabled">
-            <a class="page-link">Siguiente</a>
-          </li>
-        </ul>
-      </nav></div>
-   </div>   
-    <div *ngIf="cargando" class="col text-center mb-5">
-      <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-    </div>
+    <app-tablapaginado [datos]="arreglotabla" [editar]="true" [checkbox]="true"  [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
   </div>
 </div>
 </div>

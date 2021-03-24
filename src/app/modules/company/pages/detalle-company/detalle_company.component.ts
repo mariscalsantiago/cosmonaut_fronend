@@ -181,10 +181,14 @@ export class DetalleCompanyComponent implements OnInit {
 
         
 
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
         if (this.insertar) {
 
 
           this.companyPrd.save(obj).subscribe(datos => {
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
               .then(()=> {
@@ -204,6 +208,7 @@ export class DetalleCompanyComponent implements OnInit {
 
         } else {
           this.companyPrd.modificar(obj).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
             this.listcontacto = true;
             this.compania = false;
@@ -230,7 +235,16 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-    this.verdetallecont(obj.datos);
+    
+
+    switch(obj.type){
+      case "editar":
+        this.verdetallecont(obj.datos);
+      break;
+      case "filaseleccionada":
+          console.log(this.arreglo);
+        break;
+    }
   }
 
 
