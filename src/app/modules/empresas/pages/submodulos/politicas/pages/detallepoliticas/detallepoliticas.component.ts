@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Console } from 'console';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PoliticasService } from '../services/politicas.service';
 
@@ -20,6 +21,13 @@ export class DetallepoliticasComponent implements OnInit {
   public esInsert: boolean = false;
   public id_empresa: number = 0;
   public calculoAntiguedadx: number = 0;
+  public arregloTablaBeneficios: any = [];
+  public editField: string = "";
+  public mostrarBeneficios: boolean = false;
+
+  public beneficio: any =[];
+  public beneficiotab : any =[];
+
 
   constructor(private formBuilder: FormBuilder, private politicasPrd: PoliticasService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router,private modalPrd:ModalService) {
@@ -33,11 +41,21 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    debugger;
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
+
+  if(!this.insertar){
+    this.mostrarBeneficios = true;
+    this.politicasPrd.getdetalleBeneficio(objdetrep.politicaId,this.id_empresa).subscribe(datos => this.arregloTablaBeneficios = datos.datos);
     this.myFormpol = this.createFormrep((objdetrep));
+    
+  }else{
+    this.myFormpol = this.createFormrep((objdetrep));
+  }
+
 
   }
+
   ngAfterViewInit(): void{
 
     this.nombre.nativeElement.focus();
@@ -67,7 +85,21 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
 
+  public verdetalle(obj:any){
 
+  }
+
+  public updateList(id: number, property: string, event: any) {
+    debugger;
+    const editField = event.target.textContent;
+    this.arregloTablaBeneficios[id][property] = editField;
+  }
+
+
+  public changeValue(id: number, property: string, event: any) {
+    debugger;
+    this.editField = event.target.textContent;
+  }
 
   public enviarPeticion() {
 
@@ -126,7 +158,20 @@ export class DetallepoliticasComponent implements OnInit {
           });
 
         } else {
+          debugger;
+          for(let item of this.arregloTablaBeneficios){
+            this.beneficio = 
+              {
+                beneficioPolitica: item.beneficioPolitica,
+                aniosAntiguedad: item.aniosAntiguedad,
+                diasAguinaldo: item.diasAguinaldo,
+                diasVacaciones: item.diasVacaciones,
+                primaVacacional: item.primaVacacional
+              }
+              
+              this.beneficiotab.push(this.beneficio);
 
+          }
           
 
           let objEnviar: any = {
@@ -146,16 +191,9 @@ export class DetallepoliticasComponent implements OnInit {
             calculoAntiguedadId: {
               calculoAntiguedadxId: this.calculoAntiguedadx
             },
-            beneficiosXPolitica: [
-              {
-                beneficioXPolitica: 23,
-                aniosAntiguedad: 1,
-                diasAguinaldo: 15,
-                diasVacaciones: 10,
-                primaVacacional: 0.5
-              }
-            ]
+            beneficiosXPolitica: this.beneficiotab
           }
+          console.log("Objeto Modificar",objEnviar);
           this.politicasPrd.modificar(objEnviar).subscribe(datos => {
            
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{

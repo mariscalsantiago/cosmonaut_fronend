@@ -106,32 +106,80 @@ export class DetallejornadalaboralComponent implements OnInit {
         let obj = this.myForm.value;
 
         this.peticion = {
-
           tipoJornadaId: {
-              tipoJornadaId: obj.tipoJornadaId,
+            tipoJornadaId: obj.tipoJornadaId,
+          },
+          nombre: obj.nombre,
+          mismoHorario: false,
+          horarioComida: false,
+          sumaHorasJornadaId: {
+            sumaHorasJornadaId: 1
+          },
+          horaEntrada: obj.horaEntrada,
+          horaInicioComida: obj.horaInicioComida,
+          horaFinComida: obj.horaFinComida,
+          horaSalida: obj.horaSalida,
+          centrocClienteId: {
+            centrocClienteId: this.id_empresa
+          },
+          nclHorarioJornada: [
+            {
+              dia: 1,
+              horaEntrada: "00:00:00",
+              horaInicioComida: "13:00:00",
+              horaFinComida: "15:00:00",
+              horaSalida: "00:00:00"
+              
             },
-            nombre: obj.nombre,
-            mismoHorario: true,
-            horarioComida: false,
-            incidirAsistencias: true,
-            sumaHorasJornada: "J",
-            horaEntrada: obj.horaEntrada,
-            horaInicioComida: obj.horaInicioComida,
-            horaFinComida: obj.horaFinComida,
-            horaSalida: obj.horaSalida,
-            centrocClienteId: {
-              centrocClienteId: this.id_empresa
-              },
-            anMinutosTolerancia: 88,
-            anHayTolerancia: true,
-            registroPrimaDominicalAuto: true,
-            registroDescansoLaboralAuto: true,
-            anPermiteJustificarRetardo: true,
-            soloUnRegistroDia: "S",
-            paraDiasParcialmenteLaborados: "C",
-            heSolicitudHorasExtra: true,
-            heMinutos: 15
-          
+               {
+              dia: 2,
+              horaEntrada: "00:00:00",
+              horaInicioComida: "13:00:00",
+              horaFinComida: "15:00:00",
+              horaSalida: "00:00:00"
+            
+            },
+               {
+              dia: 3,
+              horaEntrada: "00:00:00",
+              horaInicioComida: "13:00:00",
+              horaFinComida: "15:00:00",
+              horaSalida: "00:00:00"
+              
+            },
+               {
+              dia: 4,
+              horaEntrada: "00:00:00",
+              horaInicioComida: "13:00:00",
+              horaFinComida: "15:00:00",
+              horaSalida: "00:00:00"
+             
+            },
+               {
+              dia: 5,
+              horaEntrada: "00:00:00",
+              horaInicioComida: "13:00:00",
+              horaFinComida: "15:00:00",
+              horaSalida: "00:00:00"
+              
+            },
+               {
+              dia: 6,
+              horaEntrada: "00:00:00",
+              horaInicioComida: "13:00:00",
+              horaFinComida: "15:00:00",
+              horaSalida: "00:00:00"
+        
+            },
+               {
+              dia: 7,
+              horaEntrada: "00:00:00",
+              horaInicioComida: "13:00:00",
+              horaFinComida: "15:00:00",
+              horaSalida: "00:00:00"
+             
+            }
+          ]
         };
 
         if (this.esInsert) {
