@@ -113,6 +113,12 @@ export class UsuariosComponent implements OnInit {
         }
       }
 
+
+      this.arreglotabla =  {
+        columnas: [],
+        filas: []
+      };
+
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;
       this.cargando = false;
@@ -233,7 +239,7 @@ export class UsuariosComponent implements OnInit {
       apellidoMaterno: this.apellidoMat,
       fechaAlta: fechar,
       emailCorporativo: this.correoempresarial,
-      activo: "",
+      esActivo: actboo,
       centrocClienteId: {
         centrocClienteId: (this.id_company) == 0 ? "" : this.id_company
       },
