@@ -31,6 +31,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public checkbox: any;
   @Input() public imagen: any;
   @Input() public porcentaje: boolean = false;
+  @Input() public tablabeneficios:boolean = false;
 
   @Input() public icondefault: string = "default";
 
@@ -76,7 +77,7 @@ export class TablapaginadoComponent implements OnInit {
 
 
     console.log("Si cambio la tabla vamos a ver", this.datos.filas);
-    debugger;
+    
 
     if (this.datos.filas !== undefined) {
 
@@ -300,5 +301,10 @@ export class TablapaginadoComponent implements OnInit {
 
 
     this.salida.emit({ type: "filaseleccionada", datos: haySeleccionado });
+  }
+
+
+  public verTablabeneficios(item:any,indice:number){
+    this.salida.emit({type:"tablabeneficio",datos:item,indice:indice});
   }
 }

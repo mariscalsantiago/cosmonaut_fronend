@@ -16,9 +16,9 @@ describe('verificando titulos',()=>{
 
     it('ingreso al sistema',async()=>{
         let elemento = element(by.id('usuariologin'));
-        elemento.sendKeys("santiagoantoniomariscal@gmail.com")
+        elemento.sendKeys("ojimenez@ontime.com")
 
-        element(by.id('loginpassword')).sendKeys("12345");
+        element(by.id('loginpassword')).sendKeys("ojimenez@ontime.com");
 
 
         let boton = element(by.css("button"));
