@@ -48,7 +48,12 @@ export class CompanyComponent implements OnInit {
   */
 
   public arreglo: any = [];
-  public arreglotabla: any = {
+  public arreglotabla:any = {
+    columnas: [],
+    filas: []
+  };
+
+  public arreglotablaDesglose:any = {
     columnas: [],
     filas: []
   };
@@ -82,6 +87,11 @@ export class CompanyComponent implements OnInit {
           item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
         }
       }
+
+     
+
+
+     
 
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;

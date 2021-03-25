@@ -15,7 +15,7 @@ exports.config = {
   capabilities: {
     browserName: 'chrome',
     'chromeOptions': {
-      'args': ['show-fps-counter=true',"--no-sandbox","--disable-dev-shm-usage"/*,'--headless'*/]
+      'args': ['show-fps-counter=true',"--no-sandbox","--disable-dev-shm-usage",'--headless']
     }
   },
   directConnect: true,

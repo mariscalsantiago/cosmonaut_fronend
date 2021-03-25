@@ -19,8 +19,11 @@ export class TablapaginadoComponent implements OnInit {
 
   @Input() public datos: any = {
     columnas: [],
-    filas: []
+    filas: [],
+    desglose:[]
   }
+
+  @Input() arreglotablaDesglose:any;
 
   @Input() public ver: any;
   @Input() public editar: any;
@@ -35,6 +38,7 @@ export class TablapaginadoComponent implements OnInit {
   @Output() public salida = new EventEmitter();
 
   public arreglotemp: any = [];
+
 
 
   public rutaimagenes: any = {
@@ -66,9 +70,10 @@ export class TablapaginadoComponent implements OnInit {
   }
 
 
+
+
+  
   ngOnChanges(changes: SimpleChanges) {
-
-
 
     if (this.datos.filas !== undefined) {
       this.arreglotemp = this.datos.filas;
@@ -76,6 +81,8 @@ export class TablapaginadoComponent implements OnInit {
 
       for (let item of this.datos.filas) {
         item.seleccionado = false;
+        item.desglosarDown = true;
+        item.cargandoDetalle = false;
       }
 
       this.paginar();
@@ -250,6 +257,8 @@ export class TablapaginadoComponent implements OnInit {
     this.salida.emit({ type: "ver", datos: item });
   }
   public btnDesglosar(item: any) {
+    item.desglosarDown = !item.desglosarDown;
+    item.cargandoDetalle = true;
     this.salida.emit({ type: "desglosar", datos: item });
   }
 

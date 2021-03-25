@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { element } from 'protractor';
+import { tabla } from 'src/app/core/data/tabla';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -36,6 +37,16 @@ export class ListagruposnominasComponent implements OnInit {
   public arreglodetalle: any = [];
   public arregloperiodo:any = [];
   public arregloRazonSocial:any = [];
+
+  public arreglotabla:any = {
+    columnas: [],
+    filas: []
+  };
+
+  public arreglotablaDesglose:any = {
+    columnas: [],
+    filas: []
+  };
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -81,6 +92,20 @@ export class ListagruposnominasComponent implements OnInit {
       }
 
       this.gruposnominaPrd.filtrar(objEnviar).subscribe(datos => {
+
+        this.arreglo = datos.datos;
+        let columnas: Array<tabla> = [
+          new tabla("nombre", "Nombre de grupo de nómina	"),
+          new tabla("razon", "Razón social"),
+          new tabla("periodo", "Período de nómina"),
+          new tabla("numero", "Número de empleados",true)
+        ];
+
+
+        this.arreglotabla.columnas = columnas;
+        this.arreglotabla.filas = this.arreglo;
+        this.cargando = false;
+
         if (datos.datos != undefined)
           for (let item of datos.datos) {
             item.seleccionado = false;
@@ -88,6 +113,7 @@ export class ListagruposnominasComponent implements OnInit {
           }
         this.arreglo = datos.datos;
         this.cargando = false;
+        console.log("Este es el grupo de nómina",datos.datos);
       });
 
 
@@ -272,5 +298,60 @@ export class ListagruposnominasComponent implements OnInit {
     });
 
   }
+
+
+  public recibirTabla(obj:any){
+
+
+    switch(obj.type){
+      case "editar":
+        break;
+      case "desglosar":
+        let item = obj.datos;
+
+        this.gruposnominaPrd.getGroupNomina(item.id).subscribe((datos) => {
+          let temp = datos.datos;
+          if (temp != undefined) {
+    
+            for (let llave in temp) {
+              item[llave] = temp[llave];
+            }
+    
+          }
+          
+          
+          let columnas: Array<tabla> = [
+            new tabla("nombre", "Nombre de grupo de nómina	"),
+            new tabla("esquemanombre", "Esquema para pago de nómina"),
+            new tabla("razon", " Razón social"),
+            new tabla("nombremoneda", "Moneda"),
+            new tabla("periodo", "Periodo de nómina"),
+            new tabla("nombremoneda", "Moneda"),
+            new tabla("baseperiododescripcion", "Calcular periodo de nómina con base a:"),
+            new tabla("periodoaguinaldodescripcion", "Periodo para pago de aguinaldo"),
+            new tabla("isrAguinaldoReglamentodescripcion", "Calcular ISR de aguinaldo aplicando reglamento:"),
+            new tabla("maneraCalcularSubsidiodescripcion", "Calcular subsidio al empleo de manera:"),
+            new tabla("nombremoneda", "Nómina automática")
+          ];
+
+          item.esquemanombre = item.esquemaPagoId?.descripcion;
+          item.nombremoneda = item.monedaId?.descripcion;
+          item.baseperiododescripcion = item.basePeriodoId?.basePeriodoId;
+          item.periodoaguinaldodescripcion = item.periodoAguinaldoId.descripcion;
+          item.isrAguinaldoReglamentodescripcion = item.isrAguinaldoReglamento ? "Si":"No";
+          item.maneraCalcularSubsidiodescripcion = (item.maneraCalcularSubsidio=='P')?'Periódica':'Diaria';
+
+
+          this.arreglotablaDesglose.columnas = columnas;
+    
+          item.cargandoDetalle = false;
+    
+        });
+        
+        break;
+    }
+
+  }
+
 
 }

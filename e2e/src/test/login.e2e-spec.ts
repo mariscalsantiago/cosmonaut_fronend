@@ -35,13 +35,6 @@ describe('verificando titulos',()=>{
 
       
   
-        let elementos = $$('button');
-
-        elementos.each((element,index) =>{
-            element?.getText().then(datos =>{
-              
-            });
-        });
 
 
 

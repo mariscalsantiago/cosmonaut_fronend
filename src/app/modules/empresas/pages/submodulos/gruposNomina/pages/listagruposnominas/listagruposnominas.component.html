@@ -198,7 +198,7 @@
               <article>{{item.isrAguinaldoReglamento ? "Si":"No"}}</article>
           </article>
           <article class="titulo   col" >
-            *Calcular subsidio al empleo de manera:
+            Calcular subsidio al empleo de manera:
               <article>{{(item.maneraCalcularSubsidio=='P')?'Periódica':'Diaria'}}</article>
           </article>
       
@@ -227,6 +227,10 @@
 
     </tbody>
   </table>
+
+
+  <app-tablapaginado [datos]="arreglotabla" [checkbox]="true" [arreglotablaDesglose]="arreglotablaDesglose"  [editar]="true" [eliminar]="true" [desglosar]="true"  [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+
   <div *ngIf="!cargando && arreglo === undefined" class="alert  col text-center">
     <strong>En este momento no existen registros</strong>
   </div>
