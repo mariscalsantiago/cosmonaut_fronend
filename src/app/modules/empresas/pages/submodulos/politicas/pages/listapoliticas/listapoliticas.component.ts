@@ -51,7 +51,7 @@ export class ListapoliticasComponent implements OnInit {
       this.id_empresa = datos["id"]
       this.politicasProd.getAllPol(this.id_empresa).subscribe(datos => {
       this.arreglo = datos.datos;
-      console.log(this.arreglo);
+      console.log("Lista Jornadas",this.arreglo);
       this.cargando = false;
 
     });

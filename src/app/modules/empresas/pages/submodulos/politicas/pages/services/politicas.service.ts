@@ -30,6 +30,11 @@ export class PoliticasService {
 
   }
 
+  public getdetalleBeneficio(id_politica:number,id_empresa:number):Observable<any>{
+    return this.http.get(`${this.url}/obtener/beneficio/idCliente/${id_politica}?idCliente=${id_empresa}`);
+
+  }
+
   public eliminar(obj:any):Observable<any>{
     
     const httpOptions={
