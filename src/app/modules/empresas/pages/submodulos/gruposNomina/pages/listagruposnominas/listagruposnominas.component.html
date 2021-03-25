@@ -3,239 +3,135 @@
 
 
 
-    <div class="col-11 col-lg-11">
-      <div id="accordionFiltro">
-  
-        <div id="accordion">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
-                  class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
-                  aria-expanded="true" aria-controls="collapseOne">
-                  <label class="titulo" style="    width: 80%;
+  <div class="col-11 col-lg-11" style="    z-index: 4;">
+    <div id="accordionFiltro">
+
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
+                class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                <label class="titulo" style="    width: 80%;
                   float: left;
                   text-align: left;">GRUPOS DE NÓMINA</label>
-                  <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                    class="fas fa-chevron-up "></i>
-                  <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                    class="fas fa-chevron-down "></i>
-  
-                </button>
-                <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
-                  <label class="titulo">GRUPOS DE NÓMINA</label>
-                </button>
-  
-              </h5>
-            </div>
-  
-            <div id="collapseOne" style="    margin: -36px;" class="collapse" [ngClass]="{'show':tamanio >600}"
-              aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="card-body">
-                <div class="form group row margen">
-                  <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre grupo de nómina">
-                  </div>
-                  <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <select [(ngModel)]="razonsocial" class="form-control">
-                      <option value="">Razón social</option>
-                      <option *ngFor="let item of arregloRazonSocial" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
-                    </select>
-                  </div>
-                  <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <select [(ngModel)]="periodonomina" class="form-control">
-                      <option value="" checked>Período de nómina</option>
-                      <option *ngFor="let item of arregloperiodo" [value]="item.periodicidadPagoId">{{item.descripcion}}</option>
-                    </select>
-                  </div>
-                  <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                    <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
-                  </div>
-  
+                <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
+                  class="fas fa-chevron-up "></i>
+                <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
+                  class="fas fa-chevron-down "></i>
+
+              </button>
+              <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                <label class="titulo">GRUPOS DE NÓMINA</label>
+              </button>
+
+            </h5>
+          </div>
+
+          <div id="collapseOne" style="    margin: -36px;" class="collapse" [ngClass]="{'show':tamanio >600}"
+            aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="form group row margen">
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre grupo de nómina">
                 </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <select [(ngModel)]="razonsocial" class="form-control">
+                    <option value="">Razón social</option>
+                    <option *ngFor="let item of arregloRazonSocial" [value]="item.centrocClienteId">{{item.razonSocial}}
+                    </option>
+                  </select>
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <select [(ngModel)]="periodonomina" class="form-control">
+                    <option value="" checked>Período de nómina</option>
+                    <option *ngFor="let item of arregloperiodo" [value]="item.periodicidadPagoId">{{item.descripcion}}
+                    </option>
+                  </select>
+                </div>
+                <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+                  <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">FILTRAR</button>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
-  
       </div>
-    </div>
-  
-    
-  
-<div class="col-10">
-<div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
-  <div class="adentro">
-    <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <div  class="header"><h5 class="titulo">GRUPO DE NÓMINA</h5>
-    
-      <!-- <p id="subtitulo"><strong>Grupo de nomina</strong>ASG coorporation</p> -->
-    </div>
-  <hr>
-  <div  class="body">
 
-
-    <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
-      <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-    </div>
-
-   <div *ngIf="!cargandodetallegrupo">
-    <table  class="table m-3 table-hober table-sm " style="width: 90%;">
-      <thead>
-        <tr>
-          <th scope="col">Nombre de empleado</th>
-          <th scope="col">Número de empleado</th>
-          <th scope="col">Empresa</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of arreglodetalle">
-          
-          <td>{{item.personaId.nombre}} {{item.personaId.apellidoPaterno}} {{item.personaId.apellidoMaterno}}</td>
-          <td>{{item.numEmpleado}}</td>
-          <td>{{item.centrocClienteId.razonSocial}}</td>
-        </tr>
-      </tbody>
-    </table>
-   </div>
-
-  </div>
-  <hr>
-  <div  class="footer">
-    <div class="row">
-      <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
     </div>
   </div>
 
-  </div>
-</div>
-</div>
-
-<div class="row" style="margin: 10px;"> 
-  <div class="col-12 col-lg-12 text-right">
-    <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-      <i class="fa fa-plus"></i> Agregar grupo de nómina
-    </button>
-  </div>
-</div>
 
 
-<div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
+  <div class="col-10">
+    <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
+      <div class="adentro">
+        <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="header">
+          <h5 class="titulo">GRUPO DE NÓMINA</h5>
 
-  <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover table-sm">
-    <thead>
-      <tr>
-        <th scope="col">Nombre de grupo de nómina</th>
-        <th scope="col">Razón social</th>
-        <th scope="col">Período de nómina</th>
-        <th scope="col">Número de empleados</th>
-        <th scope="col ">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let item of arreglo;let indice = index;">
-        <tr>
-          <td>{{item.nombre}} </td>
-          <td>{{item.razon}} </td>
-          <td>{{item.periodo}} </td>
-          <td (click)="traerModal(indice)" style="color:  #00DED4">{{item.numero}} </td>
-          <td class="opciones">
-            <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
-            <button (click)="eliminar(indice)"><i class="icon_eliminar danger-bg"></i></button>
-            <button (click)="apagando(indice); "><i *ngIf="!item.seleccionado" class="fas fa-chevron-down primary" style="font-size: 14px;
-                margin: 9px;"></i><i *ngIf="item.seleccionado" class="fas fa-chevron-up primary" style="font-size: 14px;
-                margin: 9px;"></i></button>
-
-          </td>
-        </tr>
-        <tr *ngIf="item.seleccionado && item.cargandoDetalle" class="slide-in-bck-center">
-          <td colspan="5"> <div  class="col text-center mb-5">
-            <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-          </div></td></tr>
-        <tr *ngIf="item.seleccionado && !item.cargandoDetalle" class="slide-in-bck-center">
-          <td colspan="5">
-            <div class="row mb-4">
-              <article class="titulo  col">
-                  Nombre de grupo de nomina
-                  <article>{{item.nombre}}</article>
-              </article>
-              <article class="titulo   col">
-                  Esquema para pago de nómina
-                  <article>{{item.esquemaPagoId.descripcion}}</article>
-              </article>
-              <article class="titulo   col" >
-                  Razón social
-                  <article>{{item.razon}}</article>
-              </article>
-          
-          </div>
-          <div class="row mb-4">
-            <article class="titulo  col">
-                Moneda
-                <article>{{item.monedaId.descripcion}}</article>
-            </article>
-            <article class="titulo   col">
-              Periodo de nómina
-                <article>{{item.periodo}}</article>
-            </article>
-            <article class="titulo   col" >
-              Calcular periodo de nómina con base a:
-                <article>{{item.basePeriodoId.basePeriodoId}}</article>
-            </article>
-        
+          <!-- <p id="subtitulo"><strong>Grupo de nomina</strong>ASG coorporation</p> -->
         </div>
-        <div class="row mb-4">
-          <article class="titulo  col">
-            Periodo para pago de aguinaldo
-              <article>{{item.periodoAguinaldoId.descripcion}}</article>
-          </article>
-          <article class="titulo   col">
-            Calcular ISR de aguinaldo aplicando reglamento:
-              <article>{{item.isrAguinaldoReglamento ? "Si":"No"}}</article>
-          </article>
-          <article class="titulo   col" >
-            Calcular subsidio al empleo de manera:
-              <article>{{(item.maneraCalcularSubsidio=='P')?'Periódica':'Diaria'}}</article>
-          </article>
-      
+        <hr>
+        <div class="body">
+
+
+          <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
+            <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+          </div>
+
+          <div *ngIf="!cargandodetallegrupo">
+            <table class="table m-3 table-hober table-sm " style="width: 90%;">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre de empleado</th>
+                  <th scope="col">Número de empleado</th>
+                  <th scope="col">Empresa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of arreglodetalle">
+
+                  <td>{{item.personaId.nombre}} {{item.personaId.apellidoPaterno}} {{item.personaId.apellidoMaterno}}
+                  </td>
+                  <td>{{item.numEmpleado}}</td>
+                  <td>{{item.centrocClienteId.razonSocial}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <hr>
+        <div class="footer">
+          <div class="row">
+            <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit"
+                class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+          </div>
+        </div>
+
       </div>
-      <div class="row mb-4">
-        <article class="titulo  col">
-          Nómina automática
-            <article>{{item.esAutomatica?"Si":"No"}}</article>
-        </article>
-        <article class="titulo   col">
-          Número de empleados asociados a este grupo:
-            <article>{{item.numero}}</article>
-        </article>
-        <article class="titulo   col">
-          
-            
-        </article>
-     
     </div>
-          </td>
-        </tr>
-
-         
-        </ng-container>
-  
-
-    </tbody>
-  </table>
-
-
-  <app-tablapaginado [datos]="arreglotabla" [checkbox]="true" [arreglotablaDesglose]="arreglotablaDesglose"  [editar]="true" [eliminar]="true" [desglosar]="true"  [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
-
-  <div *ngIf="!cargando && arreglo === undefined" class="alert  col text-center">
-    <strong>En este momento no existen registros</strong>
   </div>
-  <div *ngIf="cargando" class="col text-center mb-5">
-    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+
+  <div class="row" style="margin: 10px;">
+    <div class="col-12 col-lg-12 text-right">
+      <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+        <i class="fa fa-plus"></i> Agregar grupo de nómina
+      </button>
+    </div>
   </div>
-</div>
+
+
+  <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
+    <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="true"
+      [eliminar]="true" [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+  </div>
 </div>

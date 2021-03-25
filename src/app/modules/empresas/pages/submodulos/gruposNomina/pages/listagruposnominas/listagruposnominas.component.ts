@@ -17,7 +17,7 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public tamanio: number = 0;
-  public changeIconDown: boolean = false;
+
   public nombre: string = "";
   public razonsocial: number = -1;
   public periodonomina: string = "";
@@ -35,15 +35,15 @@ export class ListagruposnominasComponent implements OnInit {
 
   public arreglo: any = [];
   public arreglodetalle: any = [];
-  public arregloperiodo:any = [];
-  public arregloRazonSocial:any = [];
+  public arregloperiodo: any = [];
+  public arregloRazonSocial: any = [];
 
-  public arreglotabla:any = {
+  public arreglotabla: any = {
     columnas: [],
     filas: []
   };
 
-  public arreglotablaDesglose:any = {
+  public arreglotablaDesglose: any = {
     columnas: [],
     filas: []
   };
@@ -67,8 +67,8 @@ export class ListagruposnominasComponent implements OnInit {
 
   constructor(private gruposnominaPrd: GruponominasService, private routerPrd: Router,
     private routerActive: ActivatedRoute, private catalogosPrd: CatalogosService,
-    private empresasPrd:SharedCompaniaService,private usuariosSistemaPrd:UsuarioSistemaService,
-    private modalPrd:ModalService) { }
+    private empresasPrd: SharedCompaniaService, private usuariosSistemaPrd: UsuarioSistemaService,
+    private modalPrd: ModalService) { }
 
   ngOnInit(): void {
 
@@ -83,37 +83,17 @@ export class ListagruposnominasComponent implements OnInit {
       let objEnviar = {
 
         nombre: this.nombre,
-        centrocClienteId:{
+        centrocClienteId: {
           centrocClienteId: this.id_empresa
         },
-        periodicidadPagoId:{
-          periodicidadPagoId:this.periodonomina
+        periodicidadPagoId: {
+          periodicidadPagoId: this.periodonomina
         }
       }
 
       this.gruposnominaPrd.filtrar(objEnviar).subscribe(datos => {
 
-        this.arreglo = datos.datos;
-        let columnas: Array<tabla> = [
-          new tabla("nombre", "Nombre de grupo de nómina	"),
-          new tabla("razon", "Razón social"),
-          new tabla("periodo", "Período de nómina"),
-          new tabla("numero", "Número de empleados",true)
-        ];
-
-
-        this.arreglotabla.columnas = columnas;
-        this.arreglotabla.filas = this.arreglo;
-        this.cargando = false;
-
-        if (datos.datos != undefined)
-          for (let item of datos.datos) {
-            item.seleccionado = false;
-            item.cargandoDetalle = false;
-          }
-        this.arreglo = datos.datos;
-        this.cargando = false;
-        console.log("Este es el grupo de nómina",datos.datos);
+        this.preparandoTabla(datos);
       });
 
 
@@ -128,17 +108,46 @@ export class ListagruposnominasComponent implements OnInit {
 
   }
 
+  public preparandoTabla(datos: any) {
+    this.arreglo = datos.datos;
+    let columnas: Array<tabla> = [
+      new tabla("nombre", "Nombre de grupo de nómina	"),
+      new tabla("razon", "Razón social"),
+      new tabla("periodo", "Período de nómina"),
+      new tabla("numero", "Número de empleados", true, true)
+    ];
+
+
+    this.arreglotabla = {
+      columnas:[],
+      filas:[]
+    }
+
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = this.arreglo;
+    this.cargando = false;
+
+    if (datos.datos != undefined)
+      for (let item of datos.datos) {
+        item.seleccionado = false;
+        item.cargandoDetalle = false;
+      }
+    this.arreglo = datos.datos;
+
+    this.cargando = false;
+  }
+
   public filtrar() {
 
 
     let objEnviar = {
 
       nombre: this.nombre,
-      centrocClienteId:{
-        centrocClienteId:this.razonsocial
+      centrocClienteId: {
+        centrocClienteId: this.razonsocial
       },
-      periodicidadPagoId:{
-        periodicidadPagoId:this.periodonomina
+      periodicidadPagoId: {
+        periodicidadPagoId: this.periodonomina
       }
     }
 
@@ -146,16 +155,9 @@ export class ListagruposnominasComponent implements OnInit {
     this.cargando = true;
 
     this.gruposnominaPrd.filtrar(objEnviar).subscribe(datos => {
-
+      this.preparandoTabla(datos);
       this.cargando = false;
 
-      if (datos.datos != undefined)
-        for (let item of datos.datos) {
-          item.seleccionado = false;
-          item.cargandoDetalle = false;
-        }
-      this.arreglo = datos.datos;
-      this.cargando = false;
     });
 
 
@@ -163,28 +165,24 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public eliminar(indice: any) {
-
-    debugger;
     this.indexSeleccionado = indice;
 
-    
+
     const titulo = "¿Deseas eliminar el grupo de nómina?";
-  
-
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
-      if(valor){
 
 
-
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
+      if (valor) {
         let id = this.arreglo[this.indexSeleccionado].id;
         this.gruposnominaPrd.eliminar(id).subscribe(datos => {
 
-          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
 
 
           if (datos.resultado) {
 
             this.arreglo.splice(this.indexSeleccionado, 1);
+            this.preparandoTabla({datos:this.arreglo});
 
 
           }
@@ -300,11 +298,19 @@ export class ListagruposnominasComponent implements OnInit {
   }
 
 
-  public recibirTabla(obj:any){
+  public recibirTabla(obj: any) {
 
 
-    switch(obj.type){
+    switch (obj.type) {
+
+      case "columna":
+        this.traerModal(obj.indice)
+        break;
       case "editar":
+        this.verdetalle(obj.datos);
+        break;
+      case "eliminar":
+        this.eliminar(obj.indice);
         break;
       case "desglosar":
         let item = obj.datos;
@@ -312,14 +318,14 @@ export class ListagruposnominasComponent implements OnInit {
         this.gruposnominaPrd.getGroupNomina(item.id).subscribe((datos) => {
           let temp = datos.datos;
           if (temp != undefined) {
-    
+
             for (let llave in temp) {
               item[llave] = temp[llave];
             }
-    
+
           }
-          
-          
+
+
           let columnas: Array<tabla> = [
             new tabla("nombre", "Nombre de grupo de nómina	"),
             new tabla("esquemanombre", "Esquema para pago de nómina"),
@@ -338,16 +344,17 @@ export class ListagruposnominasComponent implements OnInit {
           item.nombremoneda = item.monedaId?.descripcion;
           item.baseperiododescripcion = item.basePeriodoId?.basePeriodoId;
           item.periodoaguinaldodescripcion = item.periodoAguinaldoId.descripcion;
-          item.isrAguinaldoReglamentodescripcion = item.isrAguinaldoReglamento ? "Si":"No";
-          item.maneraCalcularSubsidiodescripcion = (item.maneraCalcularSubsidio=='P')?'Periódica':'Diaria';
+          item.isrAguinaldoReglamentodescripcion = item.isrAguinaldoReglamento ? "Si" : "No";
+          item.maneraCalcularSubsidiodescripcion = (item.maneraCalcularSubsidio == 'P') ? 'Periódica' : 'Diaria';
 
 
           this.arreglotablaDesglose.columnas = columnas;
-    
+          this.arreglotablaDesglose.filas = item;
+
           item.cargandoDetalle = false;
-    
+
         });
-        
+
         break;
     }
 

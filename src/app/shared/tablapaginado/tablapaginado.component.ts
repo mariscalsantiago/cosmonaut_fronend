@@ -19,17 +19,16 @@ export class TablapaginadoComponent implements OnInit {
 
   @Input() public datos: any = {
     columnas: [],
-    filas: [],
-    desglose:[]
+    filas: []
   }
 
-  @Input() arreglotablaDesglose:any;
+  @Input() arreglotablaDesglose: any;
 
   @Input() public ver: any;
   @Input() public editar: any;
   @Input() public eliminar: any;
   @Input() public desglosar: any;
-  @Input() public checkbox:any;
+  @Input() public checkbox: any;
   @Input() public imagen: any;
   @Input() public porcentaje: boolean = false;
 
@@ -72,10 +71,15 @@ export class TablapaginadoComponent implements OnInit {
 
 
 
-  
+
   ngOnChanges(changes: SimpleChanges) {
 
+
+    console.log("Si cambio la tabla vamos a ver", this.datos.filas);
+    debugger;
+
     if (this.datos.filas !== undefined) {
+
       this.arreglotemp = this.datos.filas;
 
 
@@ -245,28 +249,38 @@ export class TablapaginadoComponent implements OnInit {
 
 
 
-  public btnEditar(item: any) {
-    this.salida.emit({ type: "editar", datos: item });
+  public btnEditar(item: any, indice: number) {
+    this.salida.emit({ type: "editar", datos: item, indice: indice });
   }
 
-  public btnEliminar(item: any) {
-    this.salida.emit({ type: "eliminar", datos: item });
+  public btnEliminar(item: any, indice: number) {
+    this.salida.emit({ type: "eliminar", datos: item, indice: indice });
   }
 
-  public btnVer(item: any) {
-    this.salida.emit({ type: "ver", datos: item });
+  public btnVer(item: any, indice: number) {
+    this.salida.emit({ type: "ver", datos: item, indice: indice });
   }
-  public btnDesglosar(item: any) {
-    item.desglosarDown = !item.desglosarDown;
+  public btnDesglosar(item: any, indice: number) {
+     
+   if(item.desglosarDown){
+    for (let item of this.datos.filas) {
+      item.desglosarDown = true;
+    item.cargandoDetalle = false;
+    }
+
+    item.desglosarDown = false;
     item.cargandoDetalle = true;
-    this.salida.emit({ type: "desglosar", datos: item });
+    this.salida.emit({ type: "desglosar", datos: item, indice: indice });
+   }else{
+    item.desglosarDown = true;
+   }
   }
 
 
-  public eventoclick(evento: tabla, item: any) {
+  public eventoclick(evento: tabla, item: any, indice: number) {
 
     if (evento.eventoclick) {
-      this.salida.emit({ type: "columna", datos: item });
+      this.salida.emit({ type: "columna", datos: item, indice: indice });
     }
 
   }
@@ -275,16 +289,16 @@ export class TablapaginadoComponent implements OnInit {
   public activar(obj1: any) {
     obj1.seleccionado = !obj1.seleccionado;
 
-    let haySeleccionado:boolean = false;
+    let haySeleccionado: boolean = false;
 
     for (let item of this.datos.filas) {
-       if(item.seleccionado){
-          haySeleccionado = true;
-          break;
-       }
+      if (item.seleccionado) {
+        haySeleccionado = true;
+        break;
+      }
     }
 
 
-    this.salida.emit({type:"filaseleccionada",datos:haySeleccionado});
+    this.salida.emit({ type: "filaseleccionada", datos: haySeleccionado });
   }
 }

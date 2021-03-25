@@ -137,15 +137,3 @@
 
   }
 
-  .icon_prueba{
-    $rutaimg : '../../assets/icons/ICCO_DOWNLD.svg';
-    @include icono-imagen($dark);
-    -webkit-mask: url('../../../../../../Descargas/pen\ \(1\).png') no-repeat center;
-    mask: url('../../../../../../Descargas/pen\ \(1\).png') no-repeat center;
-  }
-  .icon_prueba2{
-    $rutaimg : '../../assets/icons/ICCO_DOWNLD.svg';
-    @include icono-imagen($dark);
-    -webkit-mask: url('../../../../../../Descargas/pen\ \(2\).png') no-repeat center;
-    mask: url('../../../../../../Descargas/pen\ \(2\).png') no-repeat center;
-  }
