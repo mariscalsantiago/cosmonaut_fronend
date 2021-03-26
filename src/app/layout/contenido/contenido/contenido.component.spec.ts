@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { async, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 import { RouterOutlet } from "@angular/router";
@@ -12,7 +13,7 @@ describe('verificacion outlet en contenido',()=>{
         TestBed.configureTestingModule({
 
             declarations:[ContenidoComponent],
-            imports:[RouterTestingModule.withRoutes([])]
+            imports:[RouterTestingModule.withRoutes([]),HttpClientTestingModule]
 
         }).compileComponents();
     }));
