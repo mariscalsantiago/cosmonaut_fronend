@@ -15,7 +15,7 @@ exports.config = {
   capabilities: {
     browserName: 'chrome',
     'chromeOptions': {
-      'args': ['show-fps-counter=true',"--no-sandbox","--disable-dev-shm-usage",/*'--headless'*/]
+      'args': ['show-fps-counter=true',"--no-sandbox","--disable-dev-shm-usage",'--headless']
     }
   },
   directConnect: true,
@@ -24,7 +24,7 @@ exports.config = {
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000,
+    defaultTimeoutInterval: 60000,
     print: function() {}
   },
   onPrepare() {
