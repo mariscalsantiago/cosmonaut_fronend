@@ -46,6 +46,31 @@ export class ListasconceptospercepcionesComponent implements OnInit {
     }
   }
 
+  public arreglotablaPert: any = {
+    columnas: [],
+    filas: []
+  };
+
+  public arreglotablaDesgloseP:any = {
+    columnas:[],
+    filas:[]
+  }
+
+
+  public arreglotablaDedt: any = {
+    columnas: [],
+    filas: []
+  };
+
+  public arreglotablaDesgloseD:any = {
+    columnas:[],
+    filas:[]
+  }
+
+  public cargandoPer:boolean = false;
+  public cargandoDed:boolean = false;
+
+
   constructor(private conceptosPrd: ConceptosService, private routerPrd: Router,
     private routerActive: ActivatedRoute,private modalPrd:ModalService) { }
 
@@ -60,42 +85,101 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 
       this.cargando = true;
       
+      this.cargandoPer = true;
       this.conceptosPrd.getListaConceptoPercepcion(this.id_empresa).subscribe(datos => {
-        debugger;
-
-        if(datos.datos !== undefined){
-          datos.datos.forEach((part:any) => {
-            part.descripcion=part.tipoPercepcionId?.descripcion;
-            if(part.tipoConcepto == "O"){
-              part.tipoConcepto= "Ordinario"
-            }
-            if(part.tipoConcepto == "E"){
-              part.tipoConcepto= "Extraordinario"
-            }
-
-            if(part.tipoPeriodicidad == "P"){
-              part.tipoPeriodicidad= "Periodica"
-            }
-            if(part.tipoPeriodicidad == "E"){
-              part.tipoPeriodicidad= "Estandar"
-            }
-            if(part.tipoPeriodicidad == "A"){
-              part.tipoPeriodicidad= "Ambos"
-            }
-
-          });
-        }
-        this.arreglotablaPer = datos.datos;
-        this.cargando = false;
+          this.crearTablaPercepcion(datos);
       });
 
+      this.cargandoDed = true;
+
       this.conceptosPrd.getListaConceptoDeduccion(this.id_empresa).subscribe(datos => {
-        this.arreglotablaDed = datos.datos;
-        this.cargando = false;
+           this.crearTablaDeduccion(datos);
       });
 
     });
 
+  }
+
+
+  public crearTablaDeduccion(datos:any){
+    this.arreglotablaDed = datos.datos;
+
+    
+    let columnas: Array<tabla> = [
+      new tabla("nombre", "Nombre de la deducción"),
+      new tabla("tipoDeduccionIdDescripcion", "Descripción SAT"),
+      new tabla("esActivo", "Estatus"),
+    ];
+
+
+    this.arreglotablaDedt = {
+      columnas:[],
+      filas:[]
+    }
+
+
+    if(this.arreglotablaDed !== undefined){
+        for(let item of this.arreglotablaDed){
+          item.tipoDeduccionIdDescripcion =  item.tipoDeduccionId.descripcion;
+        }
+    }
+
+    this.arreglotablaDedt.columnas = columnas;
+    this.arreglotablaDedt.filas = this.arreglotablaDed;
+    this.cargandoDed = false;
+
+    this.cargando = false;
+  }
+
+
+  public crearTablaPercepcion(datos:any){
+    if(datos.datos !== undefined){
+      datos.datos.forEach((part:any) => {
+        part.descripcion=part.tipoPercepcionId?.descripcion;
+        if(part.tipoConcepto == "O"){
+          part.tipoConcepto= "Ordinario"
+        }
+        if(part.tipoConcepto == "E"){
+          part.tipoConcepto= "Extraordinario"
+        }
+
+        if(part.tipoPeriodicidad == "P"){
+          part.tipoPeriodicidad= "Periodica"
+        }
+        if(part.tipoPeriodicidad == "E"){
+          part.tipoPeriodicidad= "Estandar"
+        }
+        if(part.tipoPeriodicidad == "A"){
+          part.tipoPeriodicidad= "Ambos"
+        }
+
+      });
+    }
+    this.arreglotablaPer = datos.datos;
+
+    let columnas: Array<tabla> = [
+      new tabla("nombre", "Nombre de la percepción"),
+      new tabla("tipoConcepto", "Tipo de concepto"),
+      new tabla("descripciolnsat", "Descripción SAT"),
+      new tabla("esActivo", "Estatus")
+    ];
+
+
+    this.arreglotablaPert = {
+      columnas:[],
+      filas:[]
+    }
+
+
+    if(this.arreglotablaPer !== undefined){
+        for(let item of this.arreglotablaPer){
+          item.descripciolnsat =  item.tipoPercepcionId.descripcion;
+        }
+    }
+
+    this.arreglotablaPert.columnas = columnas;
+    this.arreglotablaPert.filas = this.arreglotablaPer;
+    this.cargandoPer = false;
   }
 
   public filtrar() {
@@ -125,30 +209,8 @@ export class ListasconceptospercepcionesComponent implements OnInit {
         
           if (datos.resultado) {
             this.conceptosPrd.getListaConceptoPercepcion(this.id_empresa).subscribe(datos => {
-
-              if(datos.datos !== undefined){
-                datos.datos.forEach((part:any) => {
-                  part.descripcion=part.tipoPercepcionId?.descripcion;
-                  if(part.tipoConcepto == "O"){
-                    part.tipoConcepto= "Ordinario"
-                  }
-                  if(part.tipoConcepto == "E"){
-                    part.tipoConcepto= "Extraordinario"
-                  }
-                  if(part.tipoPeriodicidad == "P"){
-                    part.tipoPeriodicidad= "Periodica"
-                  }
-                  if(part.tipoPeriodicidad == "E"){
-                    part.tipoPeriodicidad= "Estandar"
-                  }
-                  if(part.tipoPeriodicidad == "A"){
-                    part.tipoPeriodicidad= "Ambos"
-                  }
-      
-                });
-              }
-              this.arreglotablaPer = datos.datos;
-              this.cargando = false;
+                this.crearTablaPercepcion(datos);
+       
             });
 
         }
@@ -183,7 +245,7 @@ debugger;
         
           if (datos.resultado) {
             this.conceptosPrd.getListaConceptoDeduccion(this.id_empresa).subscribe(datos => {
-              this.arreglotablaDed = datos.datos;
+               this.crearTablaDeduccion(datos);
             });
 
         }
@@ -243,6 +305,63 @@ debugger;
 
     this.arreglotablaDed[indice].seleccionado = !this.arreglotablaDed[indice].seleccionado;
   
+  }
+
+
+
+  public recibirTablaPercepcion(obj:any){
+     switch(obj.type){
+        case "editar":
+          this.verdetallePer(obj.datos);
+        break;
+        case "eliminar":
+          this.eliminarPer(obj.datos);
+        break;
+        case "desglosar":
+          let item = obj.datos;
+
+          let columnas:Array<tabla> = [
+            new tabla("gravaIsrdescripcion","Grava ISR"),
+            new tabla("gravaIsndescripcion","Grava ISN"),
+            new tabla("cuentaContable","Cuenta contable"),
+            new tabla("tipoPeriodicidad","Tipo de percepción")
+          ];
+
+
+          item.gravaIsrdescripcion = (item.gravaIsr=='S')?'Si':'No';
+          item.gravaIsndescripcion = item.gravaIsn?"Si":"No";
+
+          this.arreglotablaDesgloseP.columnas = columnas;
+          this.arreglotablaDesgloseP.filas = item;
+
+
+          item.cargandoDetalle = false;
+          
+
+        break;
+     }
+  }
+
+
+
+  public recibirTablaDeduccion(obj:any){
+      switch(obj.type){
+        case "editar":
+          this.verdetalleDed(obj.datos);
+          break;
+          case "eliminar":
+            this.eliminarDed(obj.datos);
+          break;
+          case "desglosar":
+            let item = obj.datos;
+            let columnas:Array<tabla> = [
+              new tabla("cuentaContable","Cuenta contable")
+            ];
+            this.arreglotablaDesgloseD.columnas = columnas;
+            this.arreglotablaDesgloseD.filas = item;
+            item.cargandoDetalle = false;
+          break;
+      }
   }
 
 

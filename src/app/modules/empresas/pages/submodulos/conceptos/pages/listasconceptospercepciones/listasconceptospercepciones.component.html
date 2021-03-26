@@ -1,200 +1,73 @@
 <br><br>
 <div class="scrooll-designempresa">
-<div class="row">
+  <div class="row">
 
 
-  <div class="col-12 col-lg-12">
-    <div id="accordionFiltro">
+    <div class="col-12 col-lg-12">
+      <div id="accordionFiltro">
 
-      <div id="accordion">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
-                class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
-                <label class="titulo" style="    width: 80%;
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
+                  class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  <label class="titulo" style="    width: 80%;
                 float: left;
                 text-align: left;">RESULTADOS</label>
-                <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                  class="fas fa-chevron-up "></i>
-                <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                  class="fas fa-chevron-down "></i>
+                  <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
+                    class="fas fa-chevron-up "></i>
+                  <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
+                    class="fas fa-chevron-down "></i>
 
-              </button>
-              <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
-                <label class="titulo">RESULTADOS</label>
-              </button>
+                </button>
+                <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                  <label class="titulo">RESULTADOS</label>
+                </button>
 
-            </h5>
+              </h5>
+            </div>
+
           </div>
-
         </div>
-      </div>
 
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row" style="margin: 10px;">
+    <div class="col-12 col-lg-12 text-right">
+      <button type="button" class="btn btn-light button-outlet" (click)="verdetallePer(undefined)">
+        <i class="fa fa-plus"></i> Agregar percepción
+      </button>
     </div>
   </div>
 
-</div>
 
-<div class="row" style="margin: 10px;">
-  <div class="col-12 col-lg-12 text-right">
-    <button type="button" class="btn btn-light button-outlet" (click)="verdetallePer(undefined)">
-      <i class="fa fa-plus"></i> Agregar percepción
-    </button>
+  <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
+    <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesgloseP" [datos]="arreglotablaPert"
+      [editar]="true" [eliminar]="true" [cargando]="cargandoPer" (salida)="recibirTablaPercepcion($event)">
+    </app-tablapaginado>
   </div>
-</div>
-
-
-<div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
-
- <table *ngIf="!cargando && arreglotablaPer !== undefined" class="table table-hover table-sm">
-    <thead>
-      <tr>
-        <th scope="col">Nombre de la percepción</th>
-        <th scope="col">Tipo de concepto</th>
-        <th scope="col">Descripción SAT</th>
-        <th scope="col">Estatus</th>
-        <th scope="col ">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let item of arreglotablaPer;let indice = index;">
-        <tr>
-          <td>{{item.nombre}} </td>
-          <td>{{item.tipoConcepto}} </td>
-          <td>{{item.tipoPercepcionId.descripcion}} </td>
-          <td>{{item.esActivo?'Activo':'Inactivo'}} </td>
-          <td class="opciones">
-            <button (click)="verdetallePer(item)"><i class="icon_editar primary-bg"></i></button>
-            <button (click)="eliminarPer(item)"><i class="icon_eliminar danger-bg"></i></button>
-            <button (click)="apagandoPer(indice); "><i *ngIf="!item.seleccionado" class="fas fa-chevron-down primary" style="font-size: 14px;
-                margin: 9px;"></i><i *ngIf="item.seleccionado" class="fas fa-chevron-up primary" style="font-size: 14px;
-                margin: 9px;"></i></button>
-
-          </td>
-        </tr>
-        <tr *ngIf="item.seleccionado && item.cargandoDetalle" class="slide-in-bck-center">
-          <td colspan="5"> <div  class="col text-center mb-5">
-            <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-          </div></td></tr>
-        <tr *ngIf="item.seleccionado && !item.cargandoDetalle" class="slide-in-bck-center">
-          <td colspan="5">
-            <div class="row mb-4">
-              <article class="titulo  col">
-                  Grava ISR
-                  <article>{{(item.gravaIsr=='S')?'Si':'No'}}</article>
-
-              </article>
-              <article class="titulo   col">
-                  Grava ISN
-                  <article>{{item.gravaIsn?"Si":"No"}}</article>
-              </article>
-              <article class="titulo   col">
-                Cuenta contable
-                <article>{{item.cuentaContable}}</article>
-            </article>
-
-              <article class="titulo   col" >
-                Tipo de percepción
-                  <article>{{item.tipoPeriodicidad}}</article>
-              </article>
-
-            </div>
-
-          </td>
-        </tr>
-
-        </ng-container>
-  
-
-    </tbody>
-  </table>
-  <div *ngIf="!cargando && arreglotablaPer === undefined" class="alert  col text-center">
-    <strong>En este momento no existen registros</strong>
-  </div>
-  <div *ngIf="cargando" class="col text-center mb-5">
-    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-  </div>
-
-</div>
 
 </div>
 
 <br><br>
 <div class="scrooll-designempresa">
-
-<div class="row" style="margin: 10px;">
-  <div class="col-12 col-lg-12 text-right">
-    <button type="button" class="btn btn-light button-outlet" (click)="verdetalleDed(undefined)">
-      <i class="fa fa-plus"></i> Agregar deducción
-    </button>
+  <div class="row" style="margin: 10px;">
+    <div class="col-12 col-lg-12 text-right">
+      <button type="button" class="btn btn-light button-outlet" (click)="verdetalleDed(undefined)">
+        <i class="fa fa-plus"></i> Agregar deducción
+      </button>
+    </div>
   </div>
-</div>
-
-
-<div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
-
- <table *ngIf="!cargando && arreglotablaDed !== undefined" class="table table-hover table-sm">
-    <thead>
-      <tr>
-        <th scope="col">Nombre de la deducción</th>
-        <th scope="col">Descripción SAT</th>
-        <th scope="col">Estatus</th>
-        <th scope="col ">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let item of arreglotablaDed;let indice = index;">
-        <tr>
-          <td>{{item.nombre}} </td>
-          <td>{{item.tipoDeduccionId.descripcion}} </td>
-          <td>{{item.esActivo?'Activo':'Inactivo'}} </td>
-          <td class="opciones">
-            <button (click)="verdetalleDed(item)"><i class="icon_editar primary-bg"></i></button>
-            <button (click)="eliminarDed(item)"><i class="icon_eliminar danger-bg"></i></button>
-            <button (click)="apagandoDed(indice); "><i *ngIf="!item.seleccionado" class="fas fa-chevron-down primary" style="font-size: 14px;
-                margin: 9px;"></i><i *ngIf="item.seleccionado" class="fas fa-chevron-up primary" style="font-size: 14px;
-                margin: 9px;"></i></button>
-
-          </td>
-        </tr>
-        <tr *ngIf="item.seleccionado && item.cargandoDetalle" class="slide-in-bck-center">
-          <td colspan="5"> <div  class="col text-center mb-5">
-            <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-          </div></td></tr>
-        <tr *ngIf="item.seleccionado && !item.cargandoDetalle" class="slide-in-bck-center">
-          <td colspan="5">
-            <div class="row mb-4">
-                <article class="titulo   col">
-                  Cuenta contable
-                  <article>{{item.cuentaContable}}</article>
-                </article>
-                <!--<article class="titulo   col">
-                    Fecha de alta
-                    <article>{{item.tipoDeduccionId.fechaInicio}}</article>
-                </article>-->
-            </div>
-          
-
-          </td>
-        </tr>
-
-         
-        </ng-container>
-  
-
-    </tbody>
-  </table>
-  <div *ngIf="!cargando && arreglotablaDed === undefined" class="alert  col text-center">
-    <strong>En este momento no existen registros</strong>
+  <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
+    <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesgloseD" [datos]="arreglotablaDedt"
+      [editar]="true" [eliminar]="true" [cargando]="cargandoDed" (salida)="recibirTablaDeduccion($event)">
+    </app-tablapaginado>
   </div>
-  <div *ngIf="cargando" class="col text-center mb-5">
-    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-  </div>
-
-</div>
-
 </div>
