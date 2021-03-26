@@ -115,7 +115,7 @@ export class ListagruposnominasComponent implements OnInit {
       new tabla("nombre", "Nombre de grupo de nómina	"),
       new tabla("razon", "Razón social"),
       new tabla("periodo", "Período de nómina"),
-      new tabla("numero", "Número de empleados", true, true)
+      new tabla("numero", "Número de empleados", true, true,true)
     ];
 
 
@@ -344,7 +344,7 @@ export class ListagruposnominasComponent implements OnInit {
           item.esquemanombre = item.esquemaPagoId?.descripcion;
           item.nombremoneda = item.monedaId?.descripcion;
           item.baseperiododescripcion = item.basePeriodoId?.basePeriodoId;
-          item.periodoaguinaldodescripcion = item.periodoAguinaldoId.descripcion;
+          item.periodoaguinaldodescripcion = item.periodoAguinaldoId?.descripcion;
           item.isrAguinaldoReglamentodescripcion = item.isrAguinaldoReglamento ? "Si" : "No";
           item.maneraCalcularSubsidiodescripcion = (item.maneraCalcularSubsidio == 'P') ? 'Periódica' : 'Diaria';
 

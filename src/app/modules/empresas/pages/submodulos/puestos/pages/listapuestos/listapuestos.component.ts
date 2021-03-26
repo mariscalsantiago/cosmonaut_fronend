@@ -62,7 +62,7 @@ export class ListapuestosComponent implements OnInit {
         let columnas: Array<tabla> = [
           new tabla("nombreCorto", "Nombre"),
           new tabla("nombre", "Empresa"),
-          new tabla("count", "Número de empleados")
+          new tabla("count", "Número de empleados",false,false,true)
         ];
 
         this.arreglotabla.columnas = columnas;

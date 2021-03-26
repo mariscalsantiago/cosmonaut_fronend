@@ -74,39 +74,44 @@ export class ListarepresentantelegalComponent implements OnInit {
 
 
       this.representanteProd.getAllUsersRep(peticion).subscribe(datos => {
-        this.arreglo = datos.datos;
-
-        let columnas:Array<tabla> = [
-          new tabla("personaId","ID"),
-          new tabla("nombre","Nombre"),
-          new tabla("apellidoPaterno","Apellido paterno"),
-          new tabla("apellidoMaterno","Apellido materno"),
-          new tabla("curp","CURP"),
-          new tabla("emailCorporativo","Correo empresarial"),
-          //new tabla("fechaAlta","Fecha de registro"),
-          new tabla("activo","Estatus")
-        ];
-       
-
-        if(this.arreglo !== undefined){
-          for(let item of this.arreglo){
-            item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-            let datepipe = new DatePipe("es-MX");
-            item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
-            
-          
-          }
-        }
-        this.arreglotabla.columnas = columnas;
-        this.arreglotabla.filas = this.arreglo;
-        this.cargando = false;
-        this.cargando = false;
+          this.realizarTabla(datos);
       });
 
   
 
     });
 
+  }
+
+  public realizarTabla(datos:any){
+    console.log(datos)
+    this.arreglo = datos.datos;
+
+    
+    let columnas:Array<tabla> = [
+      new tabla("personaId","ID"),
+      new tabla("nombre","Nombre"),
+      new tabla("apellidoPaterno","Apellido paterno"),
+      new tabla("apellidoMaterno","Apellido materno"),
+      new tabla("curp","CURP"),
+      new tabla("emailCorporativo","Correo empresarial"),
+      //new tabla("fechaAlta","Fecha de registro"),
+      new tabla("activo","Estatus")
+    ];
+   
+
+    if(this.arreglo !== undefined){
+      for(let item of this.arreglo){
+        item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+        let datepipe = new DatePipe("es-MX");
+        item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
+        
+      
+      }
+    }
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = this.arreglo;
+    this.cargando = false;
   }
 
 
@@ -133,36 +138,10 @@ export class ListarepresentantelegalComponent implements OnInit {
       }
     }
 
+    this.cargando = true;
     this.representanteProd.filtrar(peticion).subscribe(datos => {
       
-      this.arreglo = datos.datos;
-      
-      let columnas:Array<tabla> = [
-        new tabla("personaId","ID",true),
-        new tabla("nombre","Nombre"),
-        new tabla("apellidoPaterno","Apellido paterno"),
-        new tabla("apellidoMaterno","Apellido materno"),
-        new tabla("curp","CURP"),
-        new tabla("emailCorporativo","Correo empresarial"),
-        new tabla("fechaAlta","Fecha de registro"),
-        new tabla("activo","Estatus")
-      ];
-     
-
-      if(this.arreglo !== undefined){
-        for(let item of this.arreglo){
-          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-          let datepipe = new DatePipe("es-MX");
-          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
-          
-        }
-      }
-
-      this.arreglotabla = {
-        columnas:columnas,
-        filas:this.arreglo
-      };
-      this.cargando = false;
+      this.realizarTabla(datos);
     });
 
   }

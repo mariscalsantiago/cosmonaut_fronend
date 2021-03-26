@@ -117,12 +117,12 @@ export class ListaempleadosComponent implements OnInit {
     this.empleadosPrd.filtrar(objenviar).subscribe(datos =>{
       let columnas: Array<tabla> = [
         new tabla("nombre", "Nombre", true, true),
-        new tabla("numeroEmpleado", "Número de empleado"),
+        new tabla("numeroEmpleado", "Número de empleado",false,false,true),
         new tabla("razonSocial", "Empresa"),
         new tabla("puesto", "Puesto"),
         new tabla("area", "Área"),
         new tabla("sede", "Sede"),
-        new tabla("estatus", "Estatus"),
+        new tabla("estatus", "Estatus",false,false,true),
         new tabla("porcentaje","Porcentaje de avance")
       ];
 

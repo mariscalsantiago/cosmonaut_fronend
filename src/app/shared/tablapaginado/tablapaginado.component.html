@@ -43,11 +43,11 @@
               class="tableimg">
           </td>
           <td *ngFor="let item2 of datos.columnas"
-            [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar}"
+            [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
             (click)="eventoclick(item2,item,indice)">{{(item2.nombre ==
             'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}</td>
           <td *ngIf="tablabeneficios" style="text-align: center;">
-            <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i class="icon_ver primary-bg"></i></button>
+            <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i class="icon_24ver primary-bg"></i></button>
           </td>
           <td *ngIf="porcentaje">
             <div class="progress">
@@ -56,9 +56,9 @@
             </div>
           </td>
           <td class="opciones" style="text-align: center;">
-            <button *ngIf="ver" (click)="btnVer(item,indice)"><i class="icon_ver primary-bg"></i></button>
-            <button *ngIf="editar" (click)="btnEditar(item,indice)"><i class="icon_editar primary-bg"></i></button>
-            <button *ngIf="eliminar" (click)="btnEliminar(item,indice)"><i class="icon_eliminar danger-bg"></i></button>
+            <button *ngIf="ver" (click)="btnVer(item,indice)"><i class="icon_24ver primary-bg"></i></button>
+            <button *ngIf="editar" (click)="btnEditar(item,indice)"><i class="icon_24editar primary-bg"></i></button>
+            <button *ngIf="eliminar" (click)="btnEliminar(item,indice)"><i class="icon_24eliminar danger-bg"></i></button>
             <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)"><i *ngIf="item.desglosarDown" class="fas fa-chevron-down primary" style="font-size: 14px;
                     margin: 9px;"></i>
                   
