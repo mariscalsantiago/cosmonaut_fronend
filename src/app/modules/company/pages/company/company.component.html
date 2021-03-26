@@ -52,7 +52,7 @@
                     <input type="text" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <input type="Date" [(ngModel)]="fechaAlta" class="form-control" placeholder="Fecha de registro">
+                    <input type="text" [(ngModel)]="fechaAlta" class="form-control" placeholder="Fecha de registro" onfocus="(this.type='date')" onblur="(this.type='date')">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
                     <select class="form-control" [(ngModel)]="esActivo" placeholder="Estatus">
