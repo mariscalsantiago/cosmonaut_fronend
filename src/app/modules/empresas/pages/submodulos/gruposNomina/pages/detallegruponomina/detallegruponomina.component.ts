@@ -43,7 +43,7 @@ export class DetallegruponominaComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+debugger;
     this.activeprd.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -56,9 +56,10 @@ export class DetallegruponominaComponent implements OnInit {
 
 
       this.cuentasBancariasPrd.getAllByEmpresa(this.id_empresa).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
+      console.log("Cuentas bancarias",this.arregloCuentasBancarias);
       this.companiaPrd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arreglocompany = datos.datos);
     });
-
+    
     let obj:any = {
       esquemaPagoId:{},
       monedaId:{},
@@ -73,6 +74,7 @@ export class DetallegruponominaComponent implements OnInit {
     
     if(!this.esInsert){
       obj = history.state.data;
+      console.log("hitorico",obj);
       if(obj == undefined){
         this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
           return;
@@ -163,11 +165,14 @@ export class DetallegruponominaComponent implements OnInit {
           esquemaPagoId:{esquemaPagoId:obj.esquemaPagoId},
           monedaId:{monedaId:obj.monedaId},
           centrocClienteId:{centrocClienteId:this.id_empresa},
-          clabe:{clabe:obj.clabe},
+          clabe:{clabe: "002588515415415415"},
           periodicidadPagoId:{periodicidadPagoId:obj.periodicidadPagoId},
           basePeriodoId:{basePeriodoId:obj.basePeriodoId},
           periodoAguinaldoId:{periodoAguinaldoId:obj.periodoAguinaldoId},
           isrAguinaldoReglamento:obj.isrAguinaldoReglamento,
+          cuentaBancoId:{
+            cuentaBancoId:obj.clabe
+          }
 
         };
 

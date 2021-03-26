@@ -23,9 +23,9 @@
         <label>Tipo de percepción *</label>
         <select formControlName="tipoPeriodicidad" name=""  class="form-control"
         [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitInvalido}">
-          <option value="P">Periodica</option>
-          <option value="E">Estandar</option>
-          <option value="A">Ambos</option>
+          <option value="P">Periódica</option>
+          <option value="E">Estándar</option>
+          <!--<option value="A">Ambos</option>-->
       </select>
         <div *ngIf="submitInvalido && f.tipoPeriodicidad.errors" class="invalid-feedback">
           Campo requerido

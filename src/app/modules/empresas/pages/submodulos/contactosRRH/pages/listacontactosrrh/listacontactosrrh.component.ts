@@ -70,7 +70,7 @@ export class ListacontactosrrhComponent implements OnInit {
           new tabla("apellidoMaterno", "Apellido materno"),
           new tabla("curp", "CURP"),
           new tabla("emailCorporativo", "Correo empresarial"),
-          new tabla("fechaAlta", "Fecha de registro"),
+          //new tabla("fechaAlta", "Fecha de registro"),
           new tabla("activo", "Estatus")
         ];
         if(datos.datos !== undefined){

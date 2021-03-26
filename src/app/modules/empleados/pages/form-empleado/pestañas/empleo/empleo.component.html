@@ -70,7 +70,11 @@
             <div class="form-group mt-3 row margen"><label class="titulo">PUESTO</label></div>
 
             <div class="row">
-                <div style="position: relative;" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-5">
+                <div class="col-12">
+                    <div class=" row">
+                        <div class="col-6">
+                            <div class=" row">
+                <div style="position: relative;" class="input-group-sm mb-4 col-12 col-sm-11 col-lg-11">
                     <label for="exampleFormControlSelect1">Área*</label>
                     <select (change)="cambiaArea($event)" formControlName="areaId" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.areaId.errors && submitEnviado}">
@@ -85,8 +89,11 @@
                         Campo requerido
                     </div>
                 </div>
-                <div class="col-1"></div>
-                <div style="position: relative;" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-5">
+                </div>
+            </div>
+                <div class="col-6">
+                    <div class=" row">
+                <div style="position: relative;" class="input-group-sm mb-4 col-12 col-sm-11 col-lg-11">
                     <label for="exampleFormControlSelect1">Puesto*</label>
                     <select formControlName="puestoId" name="" id="" class="form-control"
                         [ngClass]="{'is-invalid':f.puestoId.errors && submitEnviado}">
@@ -102,6 +109,10 @@
                         Campo requerido
                     </div>
                 </div>
+             </div>
+            </div>
+            </div>
+        </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Reporta a</label>
                     <input autocomplete="off" [ngClass]="{'is-invalid':f.puesto_id_reporta.errors}" (focusout)="salirReportaA()" list="empleadosreporta" class="form-control" formControlName="puesto_id_reporta"

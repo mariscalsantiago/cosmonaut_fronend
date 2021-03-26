@@ -49,9 +49,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     if(obj.tipoPeriodicidad == "Estandar"){
       obj.tipoPeriodicidad= "E"
     }
-    if(obj.tipoPeriodicidad == "Ambos"){
-      obj.tipoPeriodicidad= "A"
-    }
+
     if(obj.gravaIsr == "S"){
       obj.gravaIsr= true
     }
