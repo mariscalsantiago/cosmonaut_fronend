@@ -57,7 +57,7 @@ debugger;
       emClaveDelegacionalImss:[obj.emClaveDelegacionalImss,[Validators.required, Validators.pattern(/^\d{2}$/)]],
       emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
       emEnviarMovsImss:obj.emEnviarMovsImss,
-      calculoAutoPromedioVar: obj.calculoAutoPromedioVar
+      emCalculoAutoPromedioVar: obj.emCalculoAutoPromedioVar
     
     });
 
@@ -121,6 +121,7 @@ public activfiel(){
           emClaveDelegacionalImss: obj.emClaveDelegacionalImss,
           emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
           emEnviarMovsImss: obj.emEnviarMovsImss,
+          emCalculoAutoPromedioVar: obj.emCalculoAutoPromedioVar,
           centrocClienteId:{
               centrocClienteId: this.datosempresa.centrocClienteEmpresa
           }

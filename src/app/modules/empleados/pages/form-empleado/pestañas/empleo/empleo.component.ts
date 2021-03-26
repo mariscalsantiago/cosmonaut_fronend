@@ -223,7 +223,7 @@ export class EmpleoComponent implements OnInit {
       puestoId: [{ value: obj.puestoId, disabled: true }, [Validators.required]],
       puesto_id_reporta: [obj.puesto_id_reporta],
       sedeId: [obj.sedeId],
-      estadoId: [obj.estadoId],
+      estadoId: [obj.estadoId,[Validators.required]],
       politicaId: [obj.politicaId, [Validators.required]],
       personaId: [this.datosPersona.personaId, [Validators.required]],
       esSindicalizado: ['false'],

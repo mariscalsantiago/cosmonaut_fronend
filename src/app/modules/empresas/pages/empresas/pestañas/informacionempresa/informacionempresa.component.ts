@@ -163,9 +163,7 @@ export class InformacionempresaComponent implements OnInit {
             actividadEconomicaId: obj.actividadEconomicaId
            },
            imagen:this.imagen,
-           curp : this.curpFinal,
-           //horasExtrasAuto:obj.horasExtrasAuto,
-           //calculoAutoPromedioVar: obj.calculoAutoPromedioVar,
+           curp : this.curpFinal,        
            cer:obj.cer,
            key:obj.key,
            contrasenia:obj.contrasenia,
