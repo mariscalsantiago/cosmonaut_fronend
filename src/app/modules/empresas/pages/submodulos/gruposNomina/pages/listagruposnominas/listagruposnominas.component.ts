@@ -21,6 +21,7 @@ export class ListagruposnominasComponent implements OnInit {
   public nombre: string = "";
   public razonsocial: number = -1;
   public periodonomina: string = "";
+  public changeIconDown:boolean = false;
 
   public cargando: boolean = false;
   public id_empresa: number = -1;

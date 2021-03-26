@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { element } from 'protractor';
+import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { JornadalaboralService } from '../../services/jornadalaboral.service';
 
@@ -21,17 +22,27 @@ export class ListajornadalaboralComponent implements OnInit {
   public aparecemodalito: boolean = false;
   public scrolly: string = '5%';
   public modalWidth: string = "55%";
-  public cargandodetallegrupo:boolean = false;
+  public cargandodetallegrupo: boolean = false;
 
   public indexSeleccionado: number = 0;
 
 
 
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
+  };
+
+
+  public arreglotablaDesglose:any = {
+    columnas:[],
+    filas:[]
+  };
 
 
 
   public arreglo: any = [];
-  public arreglodetalle:any = [];
+  public arreglodetalle: any = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -51,7 +62,7 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
   constructor(private jornadaPrd: JornadalaboralService, private routerPrd: Router,
-    private routerActive: ActivatedRoute,private modalPrd:ModalService) { }
+    private routerActive: ActivatedRoute, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
 
@@ -65,14 +76,24 @@ export class ListajornadalaboralComponent implements OnInit {
       this.cargando = true;
 
       this.jornadaPrd.getAllJornada(this.id_empresa).subscribe(datos => {
-        if (datos.datos != undefined)
-          for (let item of datos.datos) {
-            item.seleccionado = false;
-            item.cargandoDetalle = false;
-          }
         this.arreglo = datos.datos;
+        let columnas: Array<tabla> = [
+          new tabla("nombre", "Nombre de jornada"),
+          new tabla("descripcion", "Tipo de jornada"),
+          new tabla("count", "Número de empleados",true,true,true)
+        ];
+    
+    
+        this.arreglotabla = {
+          columnas: [],
+          filas: []
+        };
+    
+        this.arreglotabla.columnas = columnas;
+        this.arreglotabla.filas = this.arreglo;
+    
         this.cargando = false;
-        console.log("Jornada",this.arreglo);
+    
       });
 
     });
@@ -93,18 +114,18 @@ export class ListajornadalaboralComponent implements OnInit {
       }
     }
 
-  
 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar la jornada laboral?").then(valor =>{
-      if(valor){
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas eliminar la jornada laboral?").then(valor => {
+      if (valor) {
 
 
         this.jornadaPrd.eliminar(this.objEnviar).subscribe(datos => {
-          
-          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
 
-          if(datos.resultado){
-            this.arreglo.splice(this.indexSeleccionado,1);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+
+          if (datos.resultado) {
+            this.arreglo.splice(this.indexSeleccionado, 1);
           }
 
 
@@ -126,22 +147,22 @@ export class ListajornadalaboralComponent implements OnInit {
 
   apagando(indice: number) {
 
-    
 
-    for(let x = 0;x < this.arreglo.length; x++){
-      if(x == indice)
-            continue;
+
+    for (let x = 0; x < this.arreglo.length; x++) {
+      if (x == indice)
+        continue;
 
       this.arreglo[x].seleccionado = false;
     }
 
 
     this.arreglo[indice].seleccionado = !this.arreglo[indice].seleccionado;
-  
+
   }
 
   public traerModal(indice: any) {
-    
+
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -172,20 +193,72 @@ export class ListajornadalaboralComponent implements OnInit {
 
 
     let jornadaitem = this.arreglo[indice];
-    
+
     this.cargandodetallegrupo = true;
-    this.jornadaPrd.getdetalleJornada(this.id_empresa,jornadaitem.jornadaId).subscribe(datos =>{
+    this.jornadaPrd.getdetalleJornada(this.id_empresa, jornadaitem.jornadaId).subscribe(datos => {
 
       this.cargandodetallegrupo = false;
 
 
-      this.arreglodetalle = datos.datos == undefined ? []:datos.datos;      
+      this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
 
     });
 
   }
 
+  public recibirTabla(obj: any) {
+    switch (obj.type) {
+      case "editar":
+        this.verdetalle(obj.datos);
+        break;
+      case "eliminar":
+        this.eliminar(obj.datos);
+        break;
+      case "columna":
+          this.traerModal(obj.indice);
+        break;
+      case "desglosar":
+        let item = obj.datos;
 
- 
+     
+
+        let columnas:Array<tabla>=[
+          new tabla("nombre","Nombre de jornada"),
+          new tabla("descripcion","Tipo de Jornada"),
+          new tabla("x","Suma de horas para jornada"),
+          new tabla("x","Hora de entrada"),
+          new tabla("x","Hora de salida"),
+          new tabla("x","Hora de inicio de comida"),
+          new tabla("x","Hora fin de comida"),
+          new tabla("x",""),
+          new tabla("x",""),
+          new tabla("x","Días de trabajo :"),
+          new tabla("x",""),
+          new tabla("x",""),
+          new tabla("lunesStr","Lunes"),
+          new tabla("martesStr","Martes"),
+          new tabla("miercolesStr","Miercoles"),
+          new tabla("juevesStr","Jueves"),
+          new tabla("viernesStr","Viernes"),
+          new tabla("sabadoStr","Sábado"),
+          new tabla("domingoStr","Domingo")];
+
+        item.lunesStr = item.lunes?"No":"Si";
+        item.martesStr = item.martes?"No":"Si";
+        item.miercolesStr = item.miercoles?"No":"Si";
+        item.juevesStr = item.jueves?"No":"Si";
+        item.viernesStr = item.viernes?"No":"Si";
+        item.sabadoStr = item.sabado?"No":"Si";
+        item.domingoStr = item.domingo?"No":"Si";
+
+        this.arreglotablaDesglose.columnas = columnas;
+        this.arreglotablaDesglose.filas = item;
+
+
+        item.cargandoDetalle = false;
+        break;
+    }
+  }
+
 
 }

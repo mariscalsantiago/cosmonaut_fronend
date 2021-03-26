@@ -9,7 +9,7 @@ import { datosTemporales } from 'src/app/shared/services/usuariosistema/usuario-
 })
 export class DetalleempresasComponent implements OnInit {
 
-  public titulo:string = `CONFIGURACIÓN EMPRESA ${datosTemporales.configuracionEmpresaNombreEmpresa}`;
+  public titulo:string = `CONFIGURACIÓN EMPRESA`;
 
   constructor(private routerPrd:Router) {
 
