@@ -69,6 +69,16 @@
                 </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label >Celular *</label>
+                <input appSolonumeros formControlName="celular" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.celular.errors && subbmitActive}"
+                    placeholder="">
+      
+                    <div *ngIf="f.celular.errors && subbmitActive" class="invalid-feedback">
+                        Campo requerido
+                      </div>
+      
+            </div>
+              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Extensión</label>
                 <input appSolonumeros maxlength="8" formControlName="ciExtension"  type="text" class="form-control"  placeholder="">
               </div>
