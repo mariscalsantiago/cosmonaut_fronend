@@ -55,10 +55,10 @@
                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{item.porcentaje}}%</div>
             </div>
           </td>
-          <td class="opciones" style="text-align: center;">
+          <td class="opciones" [ngClass]="{'centrar':item.nombre !== 'Politica Estandar'}">
             <button *ngIf="ver" (click)="btnVer(item,indice)"><i class="icon_24ver primary-bg"></i></button>
-            <button *ngIf="editar" (click)="btnEditar(item,indice)"><i class="icon_24editar primary-bg"></i></button>
-            <button *ngIf="eliminar" (click)="btnEliminar(item,indice)"><i class="icon_24eliminar danger-bg"></i></button>
+            <button *ngIf="editar && item.nombre !== 'Politica Estandar'" (click)="btnEditar(item,indice)"><i class="icon_24editar primary-bg"></i></button>
+            <button *ngIf="eliminar && item.nombre !== 'Politica Estandar'" (click)="btnEliminar(item,indice)"><i class="icon_24eliminar danger-bg"></i></button>
             <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)"><i *ngIf="item.desglosarDown" class="fas fa-chevron-down primary" style="font-size: 14px;
                     margin: 9px;"></i>
                   
