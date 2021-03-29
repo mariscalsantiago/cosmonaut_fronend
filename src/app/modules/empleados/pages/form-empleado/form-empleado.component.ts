@@ -10,11 +10,11 @@ import { ReportesService } from 'src/app/shared/services/reportes/reportes.servi
 export class FormEmpleadoComponent implements OnInit {
 
   public activado = [
-    { tab: false, form: true, disabled: false },
-    { tab: false, form: false, disabled: false },
-    { tab: false, form: false, disabled: false },
-    { tab: true, form: false, disabled: false },
-    { tab: false, form: false, disabled: false }];
+    { tab: true, form: true, disabled: false,seleccionado:true },
+    { tab: false, form: false, disabled: false ,seleccionado:false},
+    { tab: false, form: false, disabled: false ,seleccionado:false},
+    { tab: false, form: false, disabled: false,seleccionado:false },
+    { tab: false, form: false, disabled: false ,seleccionado:false}];
 
   public ocultarDetalleTransfrencia: boolean = true;
   public ocultarempleada: boolean = false;
@@ -43,15 +43,19 @@ export class FormEmpleadoComponent implements OnInit {
         this.datosPersona = elemento.datos;
         this.activado[1].tab = true;
         this.activado[1].form = true;
+        this.activado[1].seleccionado = true;
         this.activado[1].disabled = false;
         this.activado[0].form = false;
+        this.activado[0].seleccionado = false;
         this.tabsEnviar[0] = elemento.datos;
         break;
       case "domicilio":
         this.activado[3].tab = true;
         this.activado[3].form = true;
+        this.activado[3].seleccionado = true;
         this.activado[3].disabled = false;
         this.activado[1].form = false;
+        this.activado[1].seleccionado = false;
         this.tabsEnviar[1] = elemento.datos;
         break;
       case "preferencias":
@@ -72,6 +76,8 @@ export class FormEmpleadoComponent implements OnInit {
           this.activado[4].tab = true;
           this.activado[4].form = true;
           this.activado[4].disabled = false;
+          this.activado[4].seleccionado = true;
+          this.activado[3].seleccionado = false;
           this.activado[3].form = false;
         } else {
           this.routerPrd.navigate(['/empleados']);
@@ -144,10 +150,12 @@ export class FormEmpleadoComponent implements OnInit {
 
     for (let item of this.activado) {
       item.form = false;
+      item.seleccionado = false;
     }
 
     this.activado[numero].tab = true;
     this.activado[numero].form = true;
+    this.activado[numero].seleccionado = true;
 
   }
 
