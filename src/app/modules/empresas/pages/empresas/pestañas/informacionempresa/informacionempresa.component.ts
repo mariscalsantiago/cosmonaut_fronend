@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatosempresaService } from 'src/app/modules/empresas/services/datosempresa/datosempresa.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-informacionempresa',
@@ -37,7 +38,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private empresaPrd: DatosempresaService,private routerPrd:Router) { }
+    private empresaPrd: DatosempresaService,private routerPrd:Router, private modalPrd:ModalService) { }
 
   ngOnInit(): void {
     debugger;
@@ -71,7 +72,7 @@ export class InformacionempresaComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial,[Validators.required]],
       actividadEconomicaId: [obj.actividadEconomicaId?.actividadEconomicaId,[Validators.required]],
-      rfc: [obj.rfc,[Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
       curpInv: [obj.curp,[Validators.required,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
       curp: [obj.curp,Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
       regimenfiscalId: [obj.regimenfiscalId?.regimenfiscalId,[Validators.required]],
@@ -169,10 +170,11 @@ export class InformacionempresaComponent implements OnInit {
            contrasenia:obj.contrasenia,
            esActivo:obj.esActivo
         }
-
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
       if(this.datosempresa.insertar){  
         this.cargando = true;
         this.empresaPrd.save(objenviar).subscribe(datos => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.alerta.iconType = datos.resultado ? "success" : "error";
           this.alerta.strTitulo = datos.mensaje;
           this.alerta.modal = true;
@@ -189,6 +191,7 @@ export class InformacionempresaComponent implements OnInit {
         objenviar.centrocClienteId = obj.centrocClienteId;
 
         this.empresaPrd.modificar(objenviar).subscribe(datos =>{
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           let resultado = datos.resultado;
           let mensaje = datos.mensaje;
           this.alerta.iconType = resultado? "success":"error";

@@ -86,7 +86,8 @@ export class DetalleCompanyComponent implements OnInit {
       rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
       fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? "true" : obj.esActivo, disabled: this.insertar }, [Validators.required]],
-      centrocClienteId: obj.centrocClienteId
+      centrocClienteId: obj.centrocClienteId,
+      multiempresa: obj.multiempresa
 
     });
   }
@@ -184,7 +185,7 @@ export class DetalleCompanyComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
         if (this.insertar) {
-
+          debugger;
 
           this.companyPrd.save(obj).subscribe(datos => {
 

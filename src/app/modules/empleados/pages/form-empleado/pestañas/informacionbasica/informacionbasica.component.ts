@@ -61,7 +61,7 @@ export class InformacionbasicaComponent implements OnInit {
       fechaNacimiento: [(obj.fechaNacimiento!==undefined && obj.fechaNacimiento!=="")?pipe.transform(new Date(Number(obj.fechaNacimiento)),"yyyy-MM-dd"):obj.fechaNacimiento],
       tieneCurp: [true],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
-      emailCorporativo: [obj.emailCorporativo, [Validators.required]],
+      emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
       invitarEmpleado: obj.invitarEmpleado,
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
       estadoCivil: obj.estadoCivil,
