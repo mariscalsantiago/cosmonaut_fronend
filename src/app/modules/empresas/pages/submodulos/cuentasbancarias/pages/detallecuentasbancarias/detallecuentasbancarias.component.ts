@@ -22,6 +22,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
   public cuentasBancarias: any;
   public submitInvalido: boolean = false;
   public peticion: any = [];
+
  
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
     private routerActive: ActivatedRoute, private cuentasPrd: CuentasbancariasService,
@@ -64,6 +65,42 @@ export class DetallecuentasbancariasComponent implements OnInit {
     this.nombre.nativeElement.focus();
 
   }
+  public validarBanco(clabe:any){
+    debugger;
+    if(clabe != "" || clabe != null || clabe != undefined){
+    this.cuentasPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
+        if (datos.resultado) {
+          this.objCuenta = 
+            { 
+            bancoId: { bancoId: datos.datos.bancoId },
+            clabe: clabe
+            };
+          this.myForm = this.createForm(this.objCuenta);
+        }
+        else{
+          this.objCuenta = 
+          { 
+          bancoId: { bancoId: 0},
+          clabe: clabe
+          };
+          this.myForm = this.createForm(this.objCuenta);
+          
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+          .then(() => {});
+        }
+   
+    });
+  }else{
+    this.objCuenta = 
+    { 
+    bancoId: { bancoId: 0},
+    clabe: ""
+    };
+    this.myForm = this.createForm(this.objCuenta);
+
+  }
+
+  }
 
   public createForm(obj: any) {
 
@@ -76,7 +113,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
       idbanco: [obj.bancoId.bancoId, [Validators.required]],
       descripcion: [obj.descripcion],
       num_informacion: [obj.numInformacion],
-      clabe: [{ value: obj.clabe, disabled: !this.esInsert }, [Validators.required, Validators.pattern(/^\d{18}$/)]],
+      clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
       num_sucursal: [obj.numSucursal],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }]
 
@@ -87,8 +124,6 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
 
   public enviarPeticion() {
-
-
 
 
     this.submitInvalido = true;

@@ -21,6 +21,8 @@ export class DetallejornadalaboralComponent implements OnInit {
   public arreglotipojornadas:any = [];
   public peticion:any = [];
   public arreglosumahoras: any =[];
+  public arreglodetalleJornada: any =[];
+
   
 
 
@@ -38,10 +40,18 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   ngOnInit(): void {
     
-
+    debugger;
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
-    this.myForm = this.crearForm((objdetrep));
+    if(!this.esInsert){
+    this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa,objdetrep.jornadaId).subscribe(datos =>{  
+      this.arreglodetalleJornada = datos.datos
+      this.myForm = this.crearForm(this.arreglodetalleJornada);
 
+    });;
+    }else{
+
+          this.myForm = this.crearForm((objdetrep));
+    }
 
     this.catalogosPrd.getTipoJornadas(true).subscribe(datos => this.arreglotipojornadas = datos.datos);
     this.catalogosPrd.getSumaHras(true).subscribe(datos => this.arreglosumahoras = datos.datos);
@@ -54,12 +64,60 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public crearForm(obj: any) {
+      if(!this.esInsert){
+        if(obj.nclHorarioJornada[0].dia == 1 && obj.nclHorarioJornada[0].esActivo== true){
+          let splitHE = obj.nclHorarioJornada[0].horaEntrada.split(' ');
+          let horaHE = splitHE[1];
+          let splitFHE = horaHE.split('.');
+          obj.horaEntrada = splitFHE[0];
+          let splitHS = obj.nclHorarioJornada[0].horaSalida.split(' ');
+          let horaHS = splitHS[1];
+          let splitFHS = horaHS.split('.');
+          obj.horaSalida = splitFHS[0];
+          let splitHIC = obj.nclHorarioJornada[0].horaInicioComida.split(' ');
+          let horaHIC = splitHIC[1];
+          let splitFHIC = horaHIC.split('.');
+          obj.horaInicioComida = splitFHIC[0];
+          let splitHFC = obj.nclHorarioJornada[0].horaFinComida.split(' ');
+          let horaHFC = splitHFC[1];
+          let splitFHFC = horaHFC.split('.');
+          obj.horaFinComida = splitFHFC[0];
+          obj.lunes= true;
+          obj.horarioJornadaId1= obj.nclHorarioJornada[0].horarioJornadaId;
+        }
+        if(obj.nclHorarioJornada[1].dia == 2 && obj.nclHorarioJornada[1].esActivo== true){
+          obj.martes= true;
+          obj.horarioJornadaId2= obj.nclHorarioJornada[1].horarioJornadaId;
+        }
+        if(obj.nclHorarioJornada[2].dia == 3 && obj.nclHorarioJornada[2].esActivo== true){
+          obj.miercoles= true;
+          obj.horarioJornadaId3= obj.nclHorarioJornada[2].horarioJornadaId;
+        }
+        if(obj.nclHorarioJornada[3].dia == 4 && obj.nclHorarioJornada[3].esActivo== true){
+          obj.jueves= true;
+          obj.horarioJornadaId4= obj.nclHorarioJornada[3].horarioJornadaId;
+        }
+        if(obj.nclHorarioJornada[4].dia == 5 && obj.nclHorarioJornada[4].esActivo== true){
+          obj.viernes= true;
+          obj.horarioJornadaId5= obj.nclHorarioJornada[4].horarioJornadaId;
+        }
+        if(obj.nclHorarioJornada[5].dia == 6 && obj.nclHorarioJornada[5].esActivo== true){
+          obj.sabado= true;
+          obj.horarioJornadaId6= obj.nclHorarioJornada[5].horarioJornadaId;
+        }
+        if(obj.nclHorarioJornada[6].dia == 7 && obj.nclHorarioJornada[6].esActivo== true){
+          obj.domingo= true;
+          obj.horarioJornadaId7= obj.nclHorarioJornada[6].horarioJornadaId;
+        }
 
+      }else{
       obj.lunes= true;
       obj.martes= true;
       obj.miercoles= true;
       obj.jueves= true;
       obj.viernes= true;
+      }
+
     
     return this.formbuilder.group({
       nombre: [obj.nombre, [Validators.required]],
@@ -101,9 +159,16 @@ export class DetallejornadalaboralComponent implements OnInit {
     const titulo = this.esInsert ? "¿Deseas registrar la jornada laboral?" : "¿Deseas actualizar los datos de la jornada laboral?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
-
+        debugger;
 
         let obj = this.myForm.value;
+        if(!obj.lunes){obj.lunes = false}
+        if(!obj.martes){obj.martes = false}
+        if(!obj.miercoles){obj.miercoles = false}
+        if(!obj.jueves){obj.jueves = false}
+        if(!obj.viernes){obj.viernes = false}
+        if(!obj.sabado){obj.sabado = false}
+        if(!obj.domingo){obj.domingo = false}
 
         this.peticion = {
           tipoJornadaId: {
@@ -113,7 +178,7 @@ export class DetallejornadalaboralComponent implements OnInit {
           mismoHorario: false,
           horarioComida: false,
           sumaHorasJornadaId: {
-            sumaHorasJornadaId: 1
+            sumaHorasJornadaId: 1,
           },
           horaEntrada: obj.horaEntrada,
           horaInicioComida: obj.horaInicioComida,
@@ -121,69 +186,78 @@ export class DetallejornadalaboralComponent implements OnInit {
           horaSalida: obj.horaSalida,
           centrocClienteId: {
             centrocClienteId: this.id_empresa
-          },
+            
+            },
+         
           nclHorarioJornada: [
             {
               dia: 1,
-              horaEntrada: "00:00:00",
-              horaInicioComida: "13:00:00",
-              horaFinComida: "15:00:00",
-              horaSalida: "00:00:00"
+              horaEntrada: obj.horaEntrada,
+              horaInicioComida: obj.horaInicioComida,
+              horaFinComida: obj.horaFinComida,
+              horaSalida: obj.horaSalida,
+              esActivo: obj.lunes
               
             },
-               {
+             {
               dia: 2,
-              horaEntrada: "00:00:00",
-              horaInicioComida: "13:00:00",
-              horaFinComida: "15:00:00",
-              horaSalida: "00:00:00"
-            
+              horaEntrada: obj.horaEntrada,
+              horaInicioComida: obj.horaInicioComida,
+              horaFinComida: obj.horaFinComida,
+              horaSalida: obj.horaSalida,
+              esActivo: obj.martes
+              
             },
-               {
+             {
               dia: 3,
-              horaEntrada: "00:00:00",
-              horaInicioComida: "13:00:00",
-              horaFinComida: "15:00:00",
-              horaSalida: "00:00:00"
+              horaEntrada: obj.horaEntrada,
+              horaInicioComida: obj.horaInicioComida,
+              horaFinComida: obj.horaFinComida,
+              horaSalida: obj.horaSalida,
+              esActivo: obj.miercoles
               
             },
-               {
+             {
               dia: 4,
-              horaEntrada: "00:00:00",
-              horaInicioComida: "13:00:00",
-              horaFinComida: "15:00:00",
-              horaSalida: "00:00:00"
-             
-            },
-               {
-              dia: 5,
-              horaEntrada: "00:00:00",
-              horaInicioComida: "13:00:00",
-              horaFinComida: "15:00:00",
-              horaSalida: "00:00:00"
+              horaEntrada: obj.horaEntrada,
+              horaInicioComida: obj.horaInicioComida,
+              horaFinComida: obj.horaFinComida,
+              horaSalida: obj.horaSalida,
+              esActivo: obj.jueves
               
             },
-               {
-              dia: 6,
-              horaEntrada: "00:00:00",
-              horaInicioComida: "13:00:00",
-              horaFinComida: "15:00:00",
-              horaSalida: "00:00:00"
-        
+             {
+              dia: 5,
+              horaEntrada: obj.horaEntrada,
+              horaInicioComida: obj.horaInicioComida,
+              horaFinComida: obj.horaFinComida,
+              horaSalida: obj.horaSalida,
+              esActivo: obj.viernes
+              
             },
-               {
+             {
+              dia: 6,
+              horaEntrada: obj.horaEntrada,
+              horaInicioComida: obj.horaInicioComida,
+              horaFinComida: obj.horaFinComida,
+              horaSalida: obj.horaSalida,
+              esActivo: obj.sabado
+              
+            },
+             {
               dia: 7,
-              horaEntrada: "00:00:00",
-              horaInicioComida: "13:00:00",
-              horaFinComida: "15:00:00",
-              horaSalida: "00:00:00"
-             
+              horaEntrada: obj.horaEntrada,
+              horaInicioComida: obj.horaInicioComida,
+              horaFinComida: obj.horaFinComida,
+              horaSalida: obj.horaSalida,
+              esActivo: obj.domingo
+              
             }
           ]
         };
 
         if (this.esInsert) {
-
+          
           this.jornadaPrd.save(this.peticion).subscribe(datos => {
 
            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
@@ -194,8 +268,99 @@ export class DetallejornadalaboralComponent implements OnInit {
 
           });
         } else {
-
-          this.peticion.jornadaId = obj.jornadaId;
+          this.peticion = {
+            jornadaId: obj.jornadaId,
+            tipoJornadaId: {
+              tipoJornadaId: obj.tipoJornadaId,
+            },
+            nombre: obj.nombre,
+            mismoHorario: false,
+            horarioComida: false,
+            sumaHorasJornadaId: {
+              sumaHorasJornadaId: 1,
+            },
+            horaEntrada: obj.horaEntrada,
+            horaInicioComida: obj.horaInicioComida,
+            horaFinComida: obj.horaFinComida,
+            horaSalida: obj.horaSalida,
+            centrocClienteId: {
+              centrocClienteId: this.id_empresa
+              
+              },
+           
+            nclHorarioJornada: [
+              {
+                dia: 1,
+                horarioJornadaId: this.arreglodetalleJornada.horarioJornadaId1,
+                horaEntrada: obj.horaEntrada,
+                horaInicioComida: obj.horaInicioComida,
+                horaFinComida: obj.horaFinComida,
+                horaSalida: obj.horaSalida,
+                esActivo: obj.lunes
+                
+              },
+               {
+                dia: 2,
+                horarioJornadaId: this.arreglodetalleJornada.horarioJornadaId2,
+                horaEntrada: obj.horaEntrada,
+                horaInicioComida: obj.horaInicioComida,
+                horaFinComida: obj.horaFinComida,
+                horaSalida: obj.horaSalida,
+                esActivo: obj.martes
+                
+              },
+               {
+                dia: 3,
+                horarioJornadaId: this.arreglodetalleJornada.horarioJornadaId3,
+                horaEntrada: obj.horaEntrada,
+                horaInicioComida: obj.horaInicioComida,
+                horaFinComida: obj.horaFinComida,
+                horaSalida: obj.horaSalida,
+                esActivo: obj.miercoles
+                
+              },
+               {
+                dia: 4,
+                horarioJornadaId: this.arreglodetalleJornada.horarioJornadaId4,
+                horaEntrada: obj.horaEntrada,
+                horaInicioComida: obj.horaInicioComida,
+                horaFinComida: obj.horaFinComida,
+                horaSalida: obj.horaSalida,
+                esActivo: obj.jueves
+                
+              },
+               {
+                dia: 5,
+                horarioJornadaId: this.arreglodetalleJornada.horarioJornadaId5,
+                horaEntrada: obj.horaEntrada,
+                horaInicioComida: obj.horaInicioComida,
+                horaFinComida: obj.horaFinComida,
+                horaSalida: obj.horaSalida,
+                esActivo: obj.viernes
+                
+              },
+               {
+                dia: 6,
+                horarioJornadaId: this.arreglodetalleJornada.horarioJornadaId6,
+                horaEntrada: obj.horaEntrada,
+                horaInicioComida: obj.horaInicioComida,
+                horaFinComida: obj.horaFinComida,
+                horaSalida: obj.horaSalida,
+                esActivo: obj.sabado
+                
+              },
+               {
+                dia: 7,
+                horarioJornadaId: this.arreglodetalleJornada.horarioJornadaId7,
+                horaEntrada: obj.horaEntrada,
+                horaInicioComida: obj.horaInicioComida,
+                horaFinComida: obj.horaFinComida,
+                horaSalida: obj.horaSalida,
+                esActivo: obj.domingo
+                
+              }
+            ]
+          };
 
           this.jornadaPrd.modificar(this.peticion).subscribe(datos => {
 

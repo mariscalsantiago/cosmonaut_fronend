@@ -36,18 +36,17 @@
                 Campo requerido
               </div>
             </div>
-            <div class="input-group-sm mb-3 col-6">
-              <label>RFC *</label>
-              <input formControlName="rfc" maxlength="13" type="text" class="form-control"
-                [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}">
-              <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
-                Formato incorrecto (12 o 13 caracteres)
-              </div>
+            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+              <label >RFC *</label>
+              <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" type="text" class="form-control" name="" >
               <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
-                Campo requerido
+                  Campo requerido
               </div>
-
-            </div>
+              <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
+                  RFC inválido, favor de verificar
+              </div>
+              
+          </div>
             <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
               <label>Régimen fiscal </label>
               <select formControlName="regimenfiscalId" type="text" class="form-control"
