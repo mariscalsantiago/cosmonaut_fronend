@@ -1,0 +1,55 @@
+<div class="m-1">
+    <div class="row">
+
+        <div class="col-6">{{fecha | date:'MMMM' | uppercase}}</div>
+        <div class="col-3">Filtrar por</div>
+        <div class="col-3">Filtrar por</div>
+    
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <table>
+                <thead>
+                    <th>Dom</th>
+                    <th>Lun</th>
+                    <th>Mar</th>
+                    <th>Mie</th>
+                    <th>Jue</th>
+                    <th>Vie</th>
+                    <th>Sab</th>
+                </thead>
+                <tbody >
+                    <tr  *ngFor="let item of arregloArreglos">
+                        <td class="posicion" [ngClass]="{'noEsDia':!aux.mesActual,'tdActual':aux.mesActual && aux.diaActual}" *ngFor="let aux of item"><span class="absolutoClass" ><span [ngClass]="{'diaActual':aux.diaActual && aux.mesActual}">{{aux.dia}}</span></span>
+                        
+                            <div (click)="aparecerModalEvento(evento,$event)" *ngFor="let evento of aux.eventos" [ngClass]="{'aniversarios':evento.nombre == 'aniversario','cumpleanios':evento.nombre == 'cumpleaños','faltas':evento.nombre == 'faltas','diaseconomicos':evento.nombre == 'diaseconomicos','vacaciones':evento.nombre == 'vacaciones','horasextras':evento.nombre == 'horasextras','incapacidades':evento.nombre == 'incapacidades'}" class="evento">
+                                {{evento.nombre}}
+                            </div>
+                          
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    
+</div>
+
+
+<div *ngIf="aparecerModalita" [style.top]="top+'px'" [style.left]="left+'px'" class="modalita flip-in-hor-bottom ">
+    <button style="color:white" (click)="aparecerModalita = false" type="button" class="close btnclosemodal mr-2" data-dismiss="modal"
+    aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+   <div class="cuerpo">
+    <p style="color:white;font-size: small;">Aniversario</p>
+    <p style="    color: white;
+    font-size: large;
+">Santiago antono mariscal</p>
+   </div>
+</div>
+
+

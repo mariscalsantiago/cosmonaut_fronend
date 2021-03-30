@@ -26,7 +26,7 @@
                 </li>
             </ul>
         </nav>
-        <div id="contenido" class="content"  style="position: relative;">
+        <div id="contenido" class="content" [ngClass]="{'scrollhide':modal.modal}" style="position: relative;">
             <nav  class="navbar navbar-expand-lg navbar-light">
             
                 <div class="col-2 responsivo"><button (click)="mostrarmenu = true" >

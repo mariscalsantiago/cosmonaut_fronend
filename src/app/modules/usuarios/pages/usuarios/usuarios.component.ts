@@ -83,14 +83,7 @@ export class UsuariosComponent implements OnInit {
 
 
 
-
-    this.usuariosPrd.getAllUsers().subscribe(datos => {
-
-
-     this.procesarTabla(datos);
-      this.cargando = false;
-
-    });
+   this.filtrar();
 
     this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
 
@@ -100,18 +93,20 @@ export class UsuariosComponent implements OnInit {
 
     this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
-      new tabla("personaId", "ID"),
+      new tabla("personaId", "ID",false,false,true),
       new tabla("nombre", "Nombre"),
       new tabla("apellidoPaterno", "Apellido paterno"),
       new tabla("apellidoMaterno", "Apellido materno"),
       new tabla("centrocClientenombre", "Centro de costos"),
       new tabla("emailCorporativo", "Correo empresarial"),
       new tabla("fechaAlta", "Fecha de registro"),
-      new tabla("esActivo", "Estatus")
+      new tabla("activo", "Estatus")
     ]
 
 
 
+
+    console.log(this.arreglo);
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
         var datePipe = new DatePipe("es-MX");
@@ -188,6 +183,7 @@ export class UsuariosComponent implements OnInit {
                 for (let item2 of this.arreglo) {
                   if (item2.personaId === item.personaId) {
                     item2["esActivo"] = item["esActivo"];
+                    item2["activo"] = item["esActivo"];
                     item2["seleccionado"] = false;
                     break;
                   }
@@ -261,20 +257,8 @@ export class UsuariosComponent implements OnInit {
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
       console.log("Se va a filtrar",this.arreglo);
-      if (this.arreglo != undefined) {
-        for (let item of this.arreglo) {
-          item["centrocClienteId"] = {
-            nombre: item["razonSocial"]
-          }
-
-
-          
-          this.procesarTabla({datos:this.arreglo});
-          
-        }
-      } else {
-        this.arreglo = undefined;
-      }
+      
+      this.procesarTabla({datos:this.arreglo});
 
       this.cargando = false;
     });

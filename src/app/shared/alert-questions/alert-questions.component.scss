@@ -5,7 +5,7 @@
     position: absolute;
     
     left: 0;
-    z-index: 5;
+    z-index: 100;
 
     .bodymodal{
         background-color: white;
@@ -126,4 +126,8 @@
 
   .transparent{
         background-color: transparent!important;
+  }
+
+  .backgroundblack{
+    background-color: rgba(0, 0, 0, 0.829);
   }

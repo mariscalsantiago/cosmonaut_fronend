@@ -168,21 +168,21 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Nombre *</label>
-                    <input formControlName="contactoEmergenciaNombre" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}"  class="form-control">
+                    <input appMayusculas formControlName="contactoEmergenciaNombre" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaNombre.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Apellido paterno *</label>
-                    <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"  class="form-control">
+                    <input appMayusculas formControlName="contactoEmergenciaApellidoPaterno" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Apellido materno</label>
-                    <input formControlName="contactoEmergenciaApellidoMaterno" type="text" name=""  class="form-control">
+                    <input appMayusculas formControlName="contactoEmergenciaApellidoMaterno" type="text" name=""  class="form-control">
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Parentesco</label>

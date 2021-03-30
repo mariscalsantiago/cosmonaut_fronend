@@ -1,0 +1,104 @@
+<div class="row margen">
+    <div class="col titulo-outlet">
+        <label>Agregar evento</label>
+    </div>
+</div>
+
+
+<hr>
+
+<form [formGroup]="myForm" class="form-desing"  (ngSubmit)="enviarPeticion()">
+    <div class="background-panel margen background-ajustar" appTamanioVentana>
+        <div class="form-group row margen"><label class="titulo">Información de evento</label></div>
+        <div class="form-group row margen">
+            <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
+                <label for="exampleFormControlSelect1">Tipo de solicitud *</label>
+                <select  formControlName="tipoIncidenciaId" class="form-control" [ngClass]="{'is-invalid':f.tipoIncidenciaId.errors && submitEnviado}"
+                    id="exampleFormControlSelect1">
+                    <option *ngFor="let item of arregloIncidenciaTipo" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
+                </select>
+                <div *ngIf="f.tipoIncidenciaId.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Número de empleado *</label>
+                
+                <select [ngClass]="{'is-invalid':f.idPersona.errors && submitEnviado}" formControlName="idPersona" class="form-control">
+                    <option *ngFor="let item of arregloEmpleados" [value]="item.idPersona">{{item.nombre}} {{item.apellidoPaterno}}</option>
+                </select>
+
+                <div *ngIf="f.idPersona.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Días *</label>
+                
+                <input type="text" class="form-control">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Fecha</label>
+                
+                <input type="date" class="form-control">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Monto</label>
+                
+                <input type="text" class="form-control">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Fecha inicio</label>
+                
+                <input type="date" class="form-control">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Fecha fin</label>
+                
+                <input type="date" class="form-control">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Fecha de aplicación</label>
+                
+                <select  class="form-control">
+                    <option value="">No se</option>
+                </select>
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Tipo de incapacidad</label>
+                
+                <input type="date" class="form-control">
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Seleccionar archivo</label>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" >
+                  <div (click)="abrirArchivo()" class="input-group-append" style="cursor: pointer;">
+                    <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><img src="assets/Iconos24/upload.png" alt="" srcset=""></span>
+                  </div>
+                </div>
+              </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Número de folipo</label>
+                
+                <input type="text" class="form-control">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
+                <label>Comentarios</label>
+                
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+    </div>
+
+</form>

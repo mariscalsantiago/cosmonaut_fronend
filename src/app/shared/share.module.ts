@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MayusculasDirective } from './directivas/mayusculas.directive';
 import { SolonumerosDirective } from './directivas/solonumeros.directive';
 import { TamanioVentanaDirective } from './directivas/tamanio-ventana.directive';
+import { CalendarioComponent } from './calendario/calendario.component';
 
 
 @NgModule({
@@ -28,12 +29,14 @@ import { TamanioVentanaDirective } from './directivas/tamanio-ventana.directive'
     ManipularfilesDirective,
     MayusculasDirective,
     SolonumerosDirective,
-    TamanioVentanaDirective
+    TamanioVentanaDirective,
+    CalendarioComponent
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule
   ],
-  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent,MayusculasDirective,SolonumerosDirective,TamanioVentanaDirective]
+  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent,MayusculasDirective,SolonumerosDirective,TamanioVentanaDirective,
+    CalendarioComponent]
 })
 export class ShareModule { }

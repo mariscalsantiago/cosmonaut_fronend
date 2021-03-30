@@ -147,7 +147,7 @@ export class DetalleCompanyComponent implements OnInit {
           item.nombrecompleto = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? '':item.apellidoMaterno}`;
           item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
-          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y');
+          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
           
         }
       }

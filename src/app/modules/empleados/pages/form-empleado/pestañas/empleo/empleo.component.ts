@@ -332,9 +332,9 @@ export class EmpleoComponent implements OnInit {
           metodoPagoId: { metodoPagoId: obj.metodo_pago_id },
           porcentaje: obj.suPorcentaje,
           subcontratistaId: { subcontratistaId: obj.subcontratistaId },
-          puestoIdReporta: {
-            puestoIdReporta: obj.puestoIdReporta
-          }
+          jefeInmediatoId:{
+            personaId:obj.puestoIdReporta
+            }
         }
 
 

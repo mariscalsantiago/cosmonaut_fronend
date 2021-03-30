@@ -1,0 +1,54 @@
+
+.ventanaemergente{
+    z-index: 1;
+    display: block;
+    overflow: auto;
+    padding: 4%;
+    width: 50%;
+    border-radius: 5px;
+    border:1px solid rgb(102, 102, 102);
+    height: auto;
+    background-color: white !important;
+    -webkit-box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42); 
+box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42);
+left:5%;
+
+position: absolute;
+
+.btnclosemodal{
+    top: 0   !important;
+    position: absolute  !important;
+    right: 11px   !important;
+    
+
+    span{
+        color: #56dfd4;
+        font-size: x-large;
+    }
+}
+
+
+}
+
+
+.letramenos{
+    color: #6b6b6b !important;
+}
+
+.btneliminar{
+    float:left;
+    display: inline-flex;
+    color: rgb(0, 34, 34) !important;
+    background-color: #e6e6e6 !important;
+    border-color: #ffffff !important;
+}
+
+.btndespues{
+    float:right ;
+}
+
+.rechazarbtn{
+    background-color: white !important;
+    color:#022538 !important;
+    border-color: #022538 !important;
+}

@@ -1,22 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { datosTemporales } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+
+
+
+
 
 @Component({
   selector: 'app-detalleempresas',
   templateUrl: './detalleempresas.component.html',
   styleUrls: ['./detalleempresas.component.scss']
 })
+
+
+
+
 export class DetalleempresasComponent implements OnInit {
 
   public titulo:string = `CONFIGURACIÓN EMPRESA`;
 
-  constructor(private routerPrd:Router) {
+  constructor(private configPrd:ConfiguracionesService) {
 
     
    }
 
   ngOnInit(): void {
+    let mm:any = document.getElementById("navegadorTabs");
+    mm.scrollLeft = this.configPrd.getScrollCompany(mm.scrollLeft);
+    mm.addEventListener('scroll', ()=> {
+      console.log(mm.scrollLeft);
+      mm.scrollLeft = this.configPrd.getScrollCompany(mm.scrollLeft);
+    })
+  }
+
+  public getConfiguracion(){
+    
     
   }
 
