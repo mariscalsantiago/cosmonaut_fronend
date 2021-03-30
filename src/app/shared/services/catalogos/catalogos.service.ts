@@ -163,5 +163,9 @@ export class CatalogosService {
     return this.http.get(`${this.url}/catParentesco/listar/todosActivo/${status}`);
   }
 
+  public getTipoIncidencia(status:boolean):Observable<any>{
+    return this.http.get(`${this.url}/tipoIncidencia/listar/todosActivo/${status}`);
+  }
+
 
 }

@@ -1,0 +1,105 @@
+table{
+    width: 100%;
+    text-align: center;
+    color: rgb(141, 141, 141);
+    border:1px solid #e6e8e9;
+    
+    
+        th{
+         border:0px solid white;
+         background-color: white;
+         width: 100vw;
+        }
+    
+
+  td{
+      background-color: white;
+      border:1px solid #e6e8e9;
+      height: 140px;
+  }
+  td:hover{
+    background-color: rgb(245, 245, 245);
+}
+
+  .noEsDia{
+    background: #eeeeee !important;
+    color: rgb(161, 161, 161);
+  }
+
+  .diaActual{
+      border-radius: 50% ;
+      background-color:#00DED4 !important;
+      color:white !important;
+      padding: 10px;
+
+  }
+  .tdActual{
+    background-color: #00ded323  !important;
+  }
+
+  .posicion{
+      position:relative;
+  }
+
+  .absolutoClass{
+      position: absolute;
+      top:0;
+      left: 0;
+      right:0;
+      padding: 9px;
+  }
+
+  .evento{
+     
+      color:white;
+      border-radius: 25px;
+      font-size: 10px;
+      cursor: pointer;
+      margin-bottom: 2px;
+  }
+
+  .aniversarios{
+    background-color:#67bf89;
+  }
+  .cumpleanios{
+    background-color:#4cc1b0;
+  }
+  .diaseconomicos{
+    background-color: #5db2c9;
+  }
+  .faltas{
+      background-color: #7973ba;
+  }
+  .horasextras{
+      background-color: #deaa57;
+  }
+  .incapacidades{
+      background-color: #e17b5b;
+  }
+  .vacaciones{
+    background-color: #bec3cd;
+  }
+
+  .evento:hover{
+
+    background-color: rgb(76, 182, 81);
+}
+}
+
+
+.modalita{
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-color: #67bf89;
+    color:white;
+    border-radius: 25px;
+  .cuerpo{
+      margin: 20px;
+
+  }
+
+ 
+
+
+}

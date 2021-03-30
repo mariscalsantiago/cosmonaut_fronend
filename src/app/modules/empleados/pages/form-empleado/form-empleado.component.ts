@@ -10,11 +10,11 @@ import { ReportesService } from 'src/app/shared/services/reportes/reportes.servi
 export class FormEmpleadoComponent implements OnInit {
 
   public activado = [
-    { tab: true, form: true, disabled: false },
-    { tab: false, form: false, disabled: false },
-    { tab: false, form: false, disabled: false },
-    { tab: false, form: false, disabled: false },
-    { tab: false, form: false, disabled: false }];
+    { tab: true, form: true, disabled: false,seleccionado:true },
+    { tab: false, form: false, disabled: false ,seleccionado:false},
+    { tab: false, form: false, disabled: false ,seleccionado:false},
+    { tab: false, form: false, disabled: false,seleccionado:false },
+    { tab: false, form: false, disabled: false ,seleccionado:false}];
 
   public ocultarDetalleTransfrencia: boolean = true;
   public ocultarempleada: boolean = false;
