@@ -16,7 +16,8 @@ export class MenuService {
                                                                                 // {nombre:"DIRECTORIO",routerLink:[],rol:["ALL","ADMINEMPRESA"]}
                                                                               ]},
     { nombre: "EVENTOS", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[],submenu:[
-                                                                                {nombre:"EVENTO",routerLink:["/eventos/eventosxempleado"],rol:["ALL","ADMINEMPRESA"]}
+                                                                                {nombre:"EVENTO",routerLink:["/eventos/eventosxempleado"],rol:["ALL","ADMINEMPRESA"]},
+                                                                                {nombre:"CALENDARIO",routerLink:["/eventos/calendario"],rol:["ALL","ADMINEMPRESA"]}
     ]},
     { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"IDSE",routerLink:['imss','idse'],rol:["ALL","ADMINEMPRESA"]},
