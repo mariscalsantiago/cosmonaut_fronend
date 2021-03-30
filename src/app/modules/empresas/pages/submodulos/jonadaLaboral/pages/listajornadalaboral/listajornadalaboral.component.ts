@@ -162,7 +162,7 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
   public traerModal(indice: any) {
-
+    debugger;
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -195,18 +195,17 @@ export class ListajornadalaboralComponent implements OnInit {
     let jornadaitem = this.arreglo[indice];
 
     this.cargandodetallegrupo = true;
+
     this.jornadaPrd.getdetalleJornada(this.id_empresa, jornadaitem.jornadaId).subscribe(datos => {
-
+      debugger;
       this.cargandodetallegrupo = false;
-
-
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
-
     });
 
   }
 
   public recibirTabla(obj: any) {
+    debugger;
     switch (obj.type) {
       case "editar":
         this.verdetalle(obj.datos);
@@ -219,44 +218,90 @@ export class ListajornadalaboralComponent implements OnInit {
         break;
       case "desglosar":
         let item = obj.datos;
-
+        this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa, item.jornadaId).subscribe(datos => {
+          debugger;
+          this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
+          if(this.arreglodetalle.nclHorarioJornada[0].dia == 1 && this.arreglodetalle.nclHorarioJornada[0].esActivo== true){
+            let splitHE = this.arreglodetalle.nclHorarioJornada[0].horaEntrada.split(' ');
+            let horaHE = splitHE[1];
+            let splitFHE = horaHE.split('.');
+            this.arreglodetalle.horaEntrada = splitFHE[0];
+            let splitHS = this.arreglodetalle.nclHorarioJornada[0].horaSalida.split(' ');
+            let horaHS = splitHS[1];
+            let splitFHS = horaHS.split('.');
+            this.arreglodetalle.horaSalida = splitFHS[0];
+            let splitHIC = this.arreglodetalle.nclHorarioJornada[0].horaInicioComida.split(' ');
+            let horaHIC = splitHIC[1];
+            let splitFHIC = horaHIC.split('.');
+            this.arreglodetalle.horaInicioComida = splitFHIC[0];
+            let splitHFC = this.arreglodetalle.nclHorarioJornada[0].horaFinComida.split(' ');
+            let horaHFC = splitHFC[1];
+            let splitFHFC = horaHFC.split('.');
+            this.arreglodetalle.horaFinComida = splitFHFC[0];
+            this.arreglodetalle.lunes= true;
+          }
+          if(this.arreglodetalle.nclHorarioJornada[1].dia == 2 && this.arreglodetalle.nclHorarioJornada[1].esActivo== true){
+            this.arreglodetalle.martes= true;
+          }
+          if(this.arreglodetalle.nclHorarioJornada[2].dia == 3 && this.arreglodetalle.nclHorarioJornada[2].esActivo== true){
+            this.arreglodetalle.miercoles= true;
+          }
+          if(this.arreglodetalle.nclHorarioJornada[3].dia == 4 && this.arreglodetalle.nclHorarioJornada[3].esActivo== true){
+            this.arreglodetalle.jueves= true;
+          }
+          if(this.arreglodetalle.nclHorarioJornada[4].dia == 5 && this.arreglodetalle.nclHorarioJornada[4].esActivo== true){
+            this.arreglodetalle.viernes= true;
+          }
+          if(this.arreglodetalle.nclHorarioJornada[5].dia == 6 && this.arreglodetalle.nclHorarioJornada[5].esActivo== true){
+            this.arreglodetalle.sabado= true;
+          }
+          if(this.arreglodetalle.nclHorarioJornada[6].dia == 7 && this.arreglodetalle.nclHorarioJornada[6].esActivo== true){
+            this.arreglodetalle.domingo= true;
+          }
+          
+          
+          
+        
      
 
         let columnas:Array<tabla>=[
           new tabla("nombre","Nombre de jornada"),
-          new tabla("descripcion","Tipo de Jornada"),
+          new tabla("tipoJornada","Tipo de Jornada"),
           new tabla("x","Suma de horas para jornada"),
-          new tabla("x","Hora de entrada"),
-          new tabla("x","Hora de salida"),
-          new tabla("x","Hora de inicio de comida"),
-          new tabla("x","Hora fin de comida"),
+          new tabla("horaEntrada","Hora de entrada"),
+          new tabla("horaSalida","Hora de salida"),
+          new tabla("horaInicioComida","Hora de inicio de comida"),
+          new tabla("horaFinComida","Hora fin de comida"),
           new tabla("x",""),
           new tabla("x",""),
           new tabla("x","Días de trabajo :"),
           new tabla("x",""),
           new tabla("x",""),
-          new tabla("lunesStr","Lunes"),
-          new tabla("martesStr","Martes"),
-          new tabla("miercolesStr","Miercoles"),
-          new tabla("juevesStr","Jueves"),
-          new tabla("viernesStr","Viernes"),
-          new tabla("sabadoStr","Sábado"),
-          new tabla("domingoStr","Domingo")];
+          new tabla("lunes","Lunes"),
+          new tabla("martes","Martes"),
+          new tabla("miercoles","Miercoles"),
+          new tabla("jueves","Jueves"),
+          new tabla("viernes","Viernes"),
+          new tabla("sabado","Sábado"),
+          new tabla("domingo","Domingo")];
 
-        item.lunesStr = item.lunes?"No":"Si";
-        item.martesStr = item.martes?"No":"Si";
-        item.miercolesStr = item.miercoles?"No":"Si";
-        item.juevesStr = item.jueves?"No":"Si";
-        item.viernesStr = item.viernes?"No":"Si";
-        item.sabadoStr = item.sabado?"No":"Si";
-        item.domingoStr = item.domingo?"No":"Si";
+          this.arreglodetalle.lunes = this.arreglodetalle.lunes?"Si":"No";
+          this.arreglodetalle.martes = this.arreglodetalle.martes?"Si":"No";
+          this.arreglodetalle.miercoles = this.arreglodetalle.miercoles?"Si":"No";
+          this.arreglodetalle.jueves = this.arreglodetalle.jueves?"Si":"No";
+          this.arreglodetalle.viernes = this.arreglodetalle.viernes?"Si":"No";
+          this.arreglodetalle.sabado = this.arreglodetalle.sabado?"Si":"No";
+          this.arreglodetalle.domingo = this.arreglodetalle.domingo?"Si":"No";
+          this.arreglodetalle.tipoJornada = this.arreglodetalle.tipoJornadaId.descripcion;
 
         this.arreglotablaDesglose.columnas = columnas;
-        this.arreglotablaDesglose.filas = item;
+        this.arreglotablaDesglose.filas = this.arreglodetalle;
 
-
+        
         item.cargandoDetalle = false;
+        });
         break;
+        
     }
   }
 

@@ -67,7 +67,7 @@
 
 
 
-  <div class="col-10">
+  <div class="col-9">
     <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
       <div class="adentro">
         <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal"
@@ -91,9 +91,9 @@
             <table class="table m-3 table-hober table-sm " style="width: 90%;">
               <thead>
                 <tr>
-                  <th scope="col">Nombre de empleado</th>
-                  <th scope="col">Número de empleado</th>
-                  <th scope="col">Empresa</th>
+                  <th class="text-center" scope="col">Nombre de empleado</th>
+                  <th class="text-center" scope="col">Número de empleado</th>
+                  <th class="text-center" scope="col">Empresa</th>
                 </tr>
               </thead>
               <tbody>

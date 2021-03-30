@@ -17,14 +17,15 @@ export class CuentasbancariasService {
 
    }
 
-  public getListaCuentaBancaria():Observable<any>{
-       return this.http.get(`${this.url}/listar/todos`);
+  public getListaCuentaBancaria(cuenta:number):Observable<any>{
+       return this.http.get(`${this.url}/obtieneBanco/${cuenta}`);
+  }
+
+  public getobtieneBanco():Observable<any>{
+    return this.http.get(`${this.url}/listar/todos`);
   }
 
  
-
-
-
   public save(obj:any):Observable<any>{
 
 

@@ -67,7 +67,7 @@ export class DetallecontactosrrhComponent implements OnInit {
       ciEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       ciExtension: [obj.contactoInicialExtension],
-      fechaAlta: [{ value: ((this.esInsert) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
+      //fechaAlta: [{ value: ((this.esInsert) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
       personaId: [obj.personaId]
 
     });

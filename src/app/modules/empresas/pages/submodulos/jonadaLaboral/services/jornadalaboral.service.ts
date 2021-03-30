@@ -26,6 +26,11 @@ export class JornadalaboralService {
 
   }
 
+  public getdetalleJornadaHorario(id_empresa:number,id_jornada:number):Observable<any>{
+    return this.http.get(`${this.url}/listar/jornada/${id_empresa}/${id_jornada}`);
+
+  }
+
   public eliminar(obj:any):Observable<any>{
     
     const httpOptions={

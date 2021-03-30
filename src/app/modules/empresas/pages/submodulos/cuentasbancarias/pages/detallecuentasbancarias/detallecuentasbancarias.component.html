@@ -36,7 +36,18 @@
           Campo requerido
         </div>
       </div>
-
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+        <label>Cuenta CLABE *</label> 
+        <input #clabe (focusout)="validarBanco(clabe.value)" maxlength="18" formControlName="clabe" type="text" class="form-control" value=""
+          [ngClass]="{'is-invalid':(submitInvalido && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
+          placeholder="">
+        <div *ngIf="submitInvalido && f.clabe.errors?.required" class="invalid-feedback">
+          Campo requerido
+        </div>
+        <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
+          La CLABE no es válida
+        </div>
+      </div>
 
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
         <label for="exampleFormControlSelect1">Banco *</label>
@@ -55,18 +66,6 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
         <label>Número de información</label>
         <input appSolonumeros formControlName="num_informacion" type="text" class="form-control" placeholder="">
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label>Cuenta CLABE *</label>
-        <input maxlength="18" appSolonumeros formControlName="clabe" type="text" class="form-control"
-          [ngClass]="{'is-invalid':(submitInvalido && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
-          placeholder="">
-        <div *ngIf="submitInvalido && f.clabe.errors?.required" class="invalid-feedback">
-          Campo requerido
-        </div>
-        <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
-          La CLABE no es válida
-        </div>
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
         <label>Número de sucursal</label>
