@@ -191,8 +191,9 @@ debugger;
 
           });
         } else {
-
+          debugger;
           peticion.grupoNominaId = obj.grupoNominaId;
+          peticion.esActivo = true;
 
           this.grupoNominaPrd.modificar(peticion).subscribe(datos => {
 

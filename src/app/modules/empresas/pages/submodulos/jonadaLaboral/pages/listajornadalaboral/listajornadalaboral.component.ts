@@ -125,7 +125,7 @@ export class ListajornadalaboralComponent implements OnInit {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
 
           if (datos.resultado) {
-            this.arreglo.splice(this.indexSeleccionado, 1);
+            this.ngOnInit();
           }
 
 

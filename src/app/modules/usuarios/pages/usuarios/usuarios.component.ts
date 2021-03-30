@@ -82,22 +82,22 @@ export class UsuariosComponent implements OnInit {
     this.cargando = true;
 
 
-
+    debugger;
    this.filtrar();
 
     this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
 
   }
-
+  
   public procesarTabla(datos:any){
-
+    debugger;
     this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
       new tabla("personaId", "ID",false,false,true),
       new tabla("nombre", "Nombre"),
       new tabla("apellidoPaterno", "Apellido paterno"),
       new tabla("apellidoMaterno", "Apellido materno"),
-      new tabla("centrocClientenombre", "Centro de costos"),
+      new tabla("razonSocial", "Centro de costos"),
       new tabla("emailCorporativo", "Correo empresarial"),
       new tabla("fechaAlta", "Fecha de registro"),
       new tabla("activo", "Estatus")
