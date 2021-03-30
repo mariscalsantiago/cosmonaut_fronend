@@ -17,17 +17,30 @@ export class CalendarioComponent implements OnInit {
   public top:number = 0;
   public left:number = 0;
 
+  public mesauxActual:boolean = false;
+
+
   constructor() { }
 
   ngOnInit(): void {
 
+    
+     
+     this.ejecutarMes(new Date());
+
+  }
+
+
+  public ejecutarMes(fechaParam:Date){
+    this.arregloArreglos = [];
     const dateTransform = new DatePipe("es-MX");
 
-    this.fecha = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-    let dia = dateTransform.transform(this.fecha, "EEEE");
-    let diaActual = dateTransform.transform(new Date(), "dd");
+    this.fecha = new Date(fechaParam.getFullYear(), fechaParam.getMonth(), 1);
+    let dia = dateTransform.transform(fechaParam, "EEEE");
+    let diaActual = dateTransform.transform(fechaParam, "dd");
 
     const mesActual = dateTransform.transform(this.fecha, "MMM");
+    this.mesauxActual = dateTransform.transform(new Date(), "MMM") == mesActual;
 
     let restarDias = 0;
 
@@ -57,10 +70,10 @@ export class CalendarioComponent implements OnInit {
 
 
     
-    for (let x = 0; x < 5; x++) {
+    for (let x = 0; x <= 5; x++) {
       this.arregloArreglos.push([]);
         for(let y = 1; y <= 7; y++){
-            let fechaAux = new Date(new Date().getFullYear(), new Date().getMonth(), totalDias);
+            let fechaAux = new Date(fechaParam.getFullYear(), fechaParam.getMonth(), totalDias);
             let dia = dateTransform.transform(fechaAux,"dd");
             const mesAux =  dateTransform.transform(fechaAux,"MMM");
             let obj:any = {
@@ -93,8 +106,6 @@ export class CalendarioComponent implements OnInit {
         
     }
 
-    console.log("Estos son los dias",this.arregloArreglos);
-
   }
 
 
@@ -104,11 +115,34 @@ export class CalendarioComponent implements OnInit {
       
       this.aparecerModalita = true;
 
-      this.top = mouse.pageY;
-      this.left = mouse.pageX;
+      this.top = mouse.pageY -200;
+      this.left = mouse.pageX -200;
+  }
 
-;
+  public anteriorMes(){
+
+    let fechaEnviar:Date = new Date(this.fecha.getFullYear(),this.fecha.getMonth()-1,this.fecha.getDate());
+
+    const dateTransform = new DatePipe("es-MX");
+    const mesActual = dateTransform.transform(new Date(), "MMM");
+    const mesFechaEnviar = dateTransform.transform(fechaEnviar,"MMM");
+    
+
+    fechaEnviar = new Date(fechaEnviar.getFullYear(),fechaEnviar.getMonth(),(mesActual == mesFechaEnviar)?new Date().getDate():fechaEnviar.getDate());
+  
+     this.ejecutarMes(fechaEnviar);
 
   }
+
+  public siguienteMes(){
+    let fechaEnviar = new Date(this.fecha.getFullYear(),this.fecha.getMonth()+1,this.fecha.getDate());
+    const dateTransform = new DatePipe("es-MX");
+    const mesActual = dateTransform.transform(new Date(), "MMM");
+    const mesFechaEnviar = dateTransform.transform(fechaEnviar,"MMM");
+    fechaEnviar = new Date(fechaEnviar.getFullYear(),fechaEnviar.getMonth(),(mesActual == mesFechaEnviar)?new Date().getDate():fechaEnviar.getDate());
+    this.ejecutarMes(fechaEnviar);
+  }
+
+
 
 }

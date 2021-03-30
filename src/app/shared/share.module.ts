@@ -12,6 +12,10 @@ import { MayusculasDirective } from './directivas/mayusculas.directive';
 import { SolonumerosDirective } from './directivas/solonumeros.directive';
 import { TamanioVentanaDirective } from './directivas/tamanio-ventana.directive';
 import { CalendarioComponent } from './calendario/calendario.component';
+import { VentanaemergenteprincipalComponent } from './ventanasemergentes/ventanaemergenteprincipal/ventanaemergenteprincipal.component';
+import { VentanaSolicitudVacacionesComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-vacaciones/ventana-solicitud-vacaciones.component';
+import { VentanaSolicitudCargaMasivaEventosComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-carga-masiva-eventos/ventana-solicitud-carga-masiva-eventos.component';
+import { VentanaSolicitudIncapacidadComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-incapacidad/ventana-solicitud-incapacidad.component';
 
 
 @NgModule({
@@ -30,13 +34,17 @@ import { CalendarioComponent } from './calendario/calendario.component';
     MayusculasDirective,
     SolonumerosDirective,
     TamanioVentanaDirective,
-    CalendarioComponent
+    CalendarioComponent,
+    VentanaemergenteprincipalComponent,
+    VentanaSolicitudVacacionesComponent,
+    VentanaSolicitudCargaMasivaEventosComponent,
+    VentanaSolicitudIncapacidadComponent
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent,MayusculasDirective,SolonumerosDirective,TamanioVentanaDirective,
-    CalendarioComponent]
+    CalendarioComponent,VentanaemergenteprincipalComponent]
 })
 export class ShareModule { }

@@ -26,7 +26,7 @@
                 </li>
             </ul>
         </nav>
-        <div id="contenido" class="content" [ngClass]="{'scrollhide':modal.modal}" style="position: relative;">
+        <div id="contenido" class="content" [ngClass]="{'scrollhide':modal.modal || emergente.modal}" style="position: relative;">
             <nav  class="navbar navbar-expand-lg navbar-light">
             
                 <div class="col-2 responsivo"><button (click)="mostrarmenu = true" >
@@ -43,6 +43,7 @@
                 <router-outlet></router-outlet>
 
                 <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
+                <app-ventanaemergenteprincipal *ngIf="emergente.modal" [titulo]="emergente.titulo" [mostrar]="mostrar" (salida)="recibirEmergente($event)"></app-ventanaemergenteprincipal>
             </div>
 
 
