@@ -91,9 +91,9 @@
             <table class="table m-3 table-hober table-sm " style="width: 90%;">
               <thead>
                 <tr>
-                  <th class="text-center" scope="col">Nombre de empleado</th>
-                  <th class="text-center" scope="col">Número de empleado</th>
-                  <th class="text-center" scope="col">Empresa</th>
+                  <th scope="col">Nombre de empleado</th>
+                  <th scope="col">Número de empleado</th>
+                  <th scope="col">Empresa</th>
                 </tr>
               </thead>
               <tbody>
@@ -101,7 +101,7 @@
 
                   <td>{{item.personaId.nombre}} {{item.personaId.apellidoPaterno}} {{item.personaId.apellidoMaterno}}
                   </td>
-                  <td>{{item.numEmpleado}}</td>
+                  <td class="text-center">{{item.numEmpleado}}</td>
                   <td>{{item.centrocClienteId.razonSocial}}</td>
                 </tr>
               </tbody>

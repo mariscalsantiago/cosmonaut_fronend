@@ -22,15 +22,15 @@
         <table  class="table m-3 table-hober table-sm " style="width: 90%;">
           <thead>
             <tr>
-              <th class="text-center" scope="col">Nombre de empleado</th>
-              <th class="text-center" scope="col">Número de empleado</th>
-              <th class="text-center" scope="col">Puesto</th>
+              <th scope="col">Nombre de empleado</th>
+              <th scope="col">Número de empleado</th>
+              <th scope="col">Puesto</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of arreglodetalleemp">
               <td>{{item.nombre}} {{item.apellidoPat}} {{item.apellidoMat}}</td>
-              <td>{{item.numEmpleado}}</td>
+              <td class="text-center">{{item.numEmpleado}}</td>
               <td>{{item.puesto}}</td>
             </tr>
           </tbody>
@@ -70,19 +70,19 @@
     <table  class="table m-3 table-hober table-sm " style="width: 90%;">
       <thead>
         <tr>
-          <th class="text-center" scope="col">Años de antiguedad</th>
-          <th class="text-center" scope="col">Días de aguinaldo</th>
-          <th class="text-center" scope="col">Días de vacaciones</th>
-          <th class="text-center" scope="col">Prima vacacional</th>
+          <th scope="col">Años de antiguedad</th>
+          <th scope="col">Días de aguinaldo</th>
+          <th scope="col">Días de vacaciones</th>
+          <th scope="col">Prima vacacional</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of arreglodetalle">
           
-          <td>{{item.aniosAntiguedad}}</td>
-          <td>{{item.diasAguinaldo}}</td>
-          <td>{{item.diasVacaciones}}</td>
-          <td>{{item.primaVacacional}}</td>
+          <td class="text-center">{{item.aniosAntiguedad}}</td>
+          <td class="text-center">{{item.diasAguinaldo}}</td>
+          <td class="text-center">{{item.diasVacaciones}}</td>
+          <td class="text-center">{{item.primaVacacional}}</td>
         </tr>
       </tbody>
     </table>
