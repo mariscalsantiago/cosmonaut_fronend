@@ -125,8 +125,8 @@ export class DetallejornadalaboralComponent implements OnInit {
       sumaHorasJornadaId: [obj.sumaHorasJornadaId, [Validators.required]],
       horaEntrada: [obj.horaEntrada, [Validators.required]],
       horaSalida: [obj.horaSalida, [Validators.required]],
-      horaInicioComida: [obj.horaInicioComida, [Validators.required]],
-      horaFinComida: [obj.horaFinComida, [Validators.required]],
+      horaInicioComida: [obj.horaInicioComida],
+      horaFinComida: [obj.horaFinComida],
       lunes: obj.lunes,
       martes: obj.martes,
       miercoles: obj.miercoles,
@@ -176,7 +176,7 @@ export class DetallejornadalaboralComponent implements OnInit {
           },
           nombre: obj.nombre,
           mismoHorario: false,
-          horarioComida: false,
+          horarioComida: true,
           sumaHorasJornadaId: {
             sumaHorasJornadaId: 1,
           },
@@ -275,7 +275,7 @@ export class DetallejornadalaboralComponent implements OnInit {
             },
             nombre: obj.nombre,
             mismoHorario: false,
-            horarioComida: false,
+            horarioComida: true,
             sumaHorasJornadaId: {
               sumaHorasJornadaId: 1,
             },
