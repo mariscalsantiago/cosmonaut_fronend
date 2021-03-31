@@ -22,6 +22,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   public peticion:any = [];
   public arreglosumahoras: any =[];
   public arreglodetalleJornada: any =[];
+  public horarioComida: boolean = false;
 
   
 
@@ -74,14 +75,18 @@ export class DetallejornadalaboralComponent implements OnInit {
           let horaHS = splitHS[1];
           let splitFHS = horaHS.split('.');
           obj.horaSalida = splitFHS[0];
+          if(obj.nclHorarioJornada[0].horaInicioComida != undefined){
           let splitHIC = obj.nclHorarioJornada[0].horaInicioComida.split(' ');
           let horaHIC = splitHIC[1];
           let splitFHIC = horaHIC.split('.');
           obj.horaInicioComida = splitFHIC[0];
+          }
+          if(obj.nclHorarioJornada[0].horaFinComida != undefined){
           let splitHFC = obj.nclHorarioJornada[0].horaFinComida.split(' ');
           let horaHFC = splitHFC[1];
           let splitFHFC = horaHFC.split('.');
           obj.horaFinComida = splitFHFC[0];
+          }
           obj.lunes= true;
           obj.horarioJornadaId1= obj.nclHorarioJornada[0].horarioJornadaId;
         }
@@ -122,7 +127,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     return this.formbuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       tipoJornadaId: [obj.tipoJornadaId?.tipoJornadaId, [Validators.required]],
-      sumaHorasJornadaId: [obj.sumaHorasJornadaId, [Validators.required]],
+      sumaHorasJornadaId: [obj.sumaHorasJornadaId?.sumaHorasJornadaId, [Validators.required]],
       horaEntrada: [obj.horaEntrada, [Validators.required]],
       horaSalida: [obj.horaSalida, [Validators.required]],
       horaInicioComida: [obj.horaInicioComida],
@@ -169,6 +174,12 @@ export class DetallejornadalaboralComponent implements OnInit {
         if(!obj.viernes){obj.viernes = false}
         if(!obj.sabado){obj.sabado = false}
         if(!obj.domingo){obj.domingo = false}
+        if(obj.horaInicioComida != null)
+        {
+        this.horarioComida = true
+        }else{
+          this.horarioComida= false
+        }
 
         this.peticion = {
           tipoJornadaId: {
@@ -176,7 +187,7 @@ export class DetallejornadalaboralComponent implements OnInit {
           },
           nombre: obj.nombre,
           mismoHorario: false,
-          horarioComida: true,
+          horarioComida: this.horarioComida,
           sumaHorasJornadaId: {
             sumaHorasJornadaId: 1,
           },
@@ -275,7 +286,7 @@ export class DetallejornadalaboralComponent implements OnInit {
             },
             nombre: obj.nombre,
             mismoHorario: false,
-            horarioComida: true,
+            horarioComida: this.horarioComida,
             sumaHorasJornadaId: {
               sumaHorasJornadaId: 1,
             },

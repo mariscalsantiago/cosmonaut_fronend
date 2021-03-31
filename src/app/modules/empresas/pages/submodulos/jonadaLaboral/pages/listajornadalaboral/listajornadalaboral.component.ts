@@ -230,14 +230,18 @@ export class ListajornadalaboralComponent implements OnInit {
             let horaHS = splitHS[1];
             let splitFHS = horaHS.split('.');
             this.arreglodetalle.horaSalida = splitFHS[0];
+            if(this.arreglodetalle.nclHorarioJornada[0].horaInicioComida != undefined){
             let splitHIC = this.arreglodetalle.nclHorarioJornada[0].horaInicioComida.split(' ');
             let horaHIC = splitHIC[1];
             let splitFHIC = horaHIC.split('.');
             this.arreglodetalle.horaInicioComida = splitFHIC[0];
+            }
+            if(this.arreglodetalle.nclHorarioJornada[0].horaFinComida != undefined){
             let splitHFC = this.arreglodetalle.nclHorarioJornada[0].horaFinComida.split(' ');
             let horaHFC = splitHFC[1];
             let splitFHFC = horaHFC.split('.');
             this.arreglodetalle.horaFinComida = splitFHFC[0];
+            }
             this.arreglodetalle.lunes= true;
           }
           if(this.arreglodetalle.nclHorarioJornada[1].dia == 2 && this.arreglodetalle.nclHorarioJornada[1].esActivo== true){
@@ -267,7 +271,7 @@ export class ListajornadalaboralComponent implements OnInit {
         let columnas:Array<tabla>=[
           new tabla("nombre","Nombre de jornada"),
           new tabla("tipoJornada","Tipo de Jornada"),
-          new tabla("x","Suma de horas para jornada"),
+          new tabla("sumaHorasJornada","Suma de horas para jornada"),
           new tabla("horaEntrada","Hora de entrada"),
           new tabla("horaSalida","Hora de salida"),
           new tabla("horaInicioComida","Hora de inicio de comida"),
@@ -293,6 +297,8 @@ export class ListajornadalaboralComponent implements OnInit {
           this.arreglodetalle.sabado = this.arreglodetalle.sabado?"Si":"No";
           this.arreglodetalle.domingo = this.arreglodetalle.domingo?"Si":"No";
           this.arreglodetalle.tipoJornada = this.arreglodetalle.tipoJornadaId.descripcion;
+          this.arreglodetalle.sumaHorasJornada = this.arreglodetalle.sumaHorasJornadaId.descripcion; 
+
 
         this.arreglotablaDesglose.columnas = columnas;
         this.arreglotablaDesglose.filas = this.arreglodetalle;
