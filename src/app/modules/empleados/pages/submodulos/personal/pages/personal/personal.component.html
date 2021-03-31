@@ -59,7 +59,7 @@
             <div class="row">
                 <article *ngIf="editarcampos" class="titulo col">
                     <article>
-                        <input formControlName="fechaNacimiento" type="date" name="" id="fn1" class="form-control">
+                        <input #fechaNacimiento (focusout)="validarfechNacimiento(fechaNacimiento.value)" formControlName="fechaNacimiento" type="date" name="" id="fn1" class="form-control">
                     </article>
                 </article>
                 <article *ngIf="!editarcampos" class="titulo col">

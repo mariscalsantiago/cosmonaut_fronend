@@ -67,38 +67,54 @@ export class DetallecuentasbancariasComponent implements OnInit {
   }
   public validarBanco(clabe:any){
     debugger;
-    if(clabe != "" || clabe != null || clabe != undefined){
+    if(clabe == '' || clabe == null || clabe == undefined){
+      if(this.esInsert){
+        this.objCuenta = 
+        { 
+        bancoId: { bancoId: 0},
+        clabe: ""
+        };
+      }else{
+        this.objCuenta.bancoId.bancoId = 0;
+        this.objCuenta.clabe = clabe;
+      }
+      this.myForm = this.createForm(this.objCuenta);
+
+    }else{
     this.cuentasPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
-        if (datos.resultado) {
-          this.objCuenta = 
-            { 
-            bancoId: { bancoId: datos.datos.bancoId },
-            clabe: clabe
-            };
-          this.myForm = this.createForm(this.objCuenta);
+      if (datos.resultado) {
+        if(this.esInsert){
+        this.objCuenta = 
+          { 
+          bancoId: { bancoId: datos.datos.bancoId },
+          clabe: clabe
+          };
+        }else{
+          this.objCuenta.bancoId.bancoId = datos.datos.bancoId;
+          this.objCuenta.clabe = clabe;
         }
-        else{
+        this.myForm = this.createForm(this.objCuenta);
+      }
+      else{
+        if(this.esInsert){
           this.objCuenta = 
           { 
           bancoId: { bancoId: 0},
           clabe: clabe
           };
-          this.myForm = this.createForm(this.objCuenta);
-          
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-          .then(() => {});
-        }
-   
-    });
-  }else{
-    this.objCuenta = 
-    { 
-    bancoId: { bancoId: 0},
-    clabe: ""
-    };
-    this.myForm = this.createForm(this.objCuenta);
+        }else{
+          this.objCuenta.bancoId.bancoId = 0;
+          this.objCuenta.clabe = clabe;
 
-  }
+        }
+        this.myForm = this.createForm(this.objCuenta);
+        
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+      }
+ 
+  });
+
+    }
 
   }
 
