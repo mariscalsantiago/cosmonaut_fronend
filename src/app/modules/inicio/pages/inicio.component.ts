@@ -9,45 +9,48 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 })
 export class InicioComponent implements OnInit {
 
-  public valor:any;
+  public valor: any;
 
-  constructor(private modalPrd:ModalService,private ventana:VentanaemergenteService) { }
+  constructor(private modalPrd: ModalService, private ventana: VentanaemergenteService) { }
 
   ngOnInit(): void {
   }
 
 
-  public alerta(){
+  public alerta() {
 
-      this.modalPrd.showMessageDialog(this.modalPrd.loading);
-      setTimeout(() => {
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      }, 3000);
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    setTimeout(() => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    }, 3000);
 
   }
 
 
-  public cambiaValor(elemento:any){
+  public cambiaValor(elemento: any) {
 
 
     console.log(elemento.value);
 
-    switch(Number(elemento.value)){
+    switch (Number(elemento.value)) {
       case 1:
         this.ventana.showVentana(this.ventana.solicitudCargaMasiva);
         break;
-        case 2:
-          this.ventana.showVentana(this.ventana.solicitudVacaciones);
+      case 2:
+        this.ventana.showVentana(this.ventana.solicitudVacaciones);
         break;
-        case 3:
-          this.ventana.showVentana(this.ventana.solicitudIncapacidad);
+      case 3:
+        this.ventana.showVentana(this.ventana.solicitudIncapacidad);
         break;
-        case 4:
-          this.ventana.showVentana(this.ventana.solicitudHorasExtras);
+      case 4:
+        this.ventana.showVentana(this.ventana.solicitudHorasExtras);
         break;
-        case 5:
-          this.ventana.showVentana(this.ventana.solicitudDiasEconomicos);
-          break;
+      case 5:
+        this.ventana.showVentana(this.ventana.solicitudDiasEconomicos);
+        break;
+      case 6:
+        this.ventana.showVentana(this.ventana.registrofaltas);
+        break;
     }
   }
 
