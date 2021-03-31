@@ -12,6 +12,12 @@ import { MayusculasDirective } from './directivas/mayusculas.directive';
 import { SolonumerosDirective } from './directivas/solonumeros.directive';
 import { TamanioVentanaDirective } from './directivas/tamanio-ventana.directive';
 import { CalendarioComponent } from './calendario/calendario.component';
+import { VentanaemergenteprincipalComponent } from './ventanasemergentes/ventanaemergenteprincipal/ventanaemergenteprincipal.component';
+import { VentanaSolicitudVacacionesComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-vacaciones/ventana-solicitud-vacaciones.component';
+import { VentanaSolicitudCargaMasivaEventosComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-carga-masiva-eventos/ventana-solicitud-carga-masiva-eventos.component';
+import { VentanaSolicitudIncapacidadComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-incapacidad/ventana-solicitud-incapacidad.component';
+import { VentanaSolicitudHorasExtrasComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-horas-extras/ventana-solicitud-horas-extras.component';
+import { VentanaSolicitudDiasEconomicosComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-dias-economicos/ventana-solicitud-dias-economicos.component';
 
 
 @NgModule({
@@ -30,13 +36,19 @@ import { CalendarioComponent } from './calendario/calendario.component';
     MayusculasDirective,
     SolonumerosDirective,
     TamanioVentanaDirective,
-    CalendarioComponent
+    CalendarioComponent,
+    VentanaemergenteprincipalComponent,
+    VentanaSolicitudVacacionesComponent,
+    VentanaSolicitudCargaMasivaEventosComponent,
+    VentanaSolicitudIncapacidadComponent,
+    VentanaSolicitudHorasExtrasComponent,
+    VentanaSolicitudDiasEconomicosComponent
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent,MayusculasDirective,SolonumerosDirective,TamanioVentanaDirective,
-    CalendarioComponent]
+    CalendarioComponent,VentanaemergenteprincipalComponent]
 })
 export class ShareModule { }

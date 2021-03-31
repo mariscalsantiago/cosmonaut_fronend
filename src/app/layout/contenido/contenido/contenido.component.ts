@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../../core/services/menu.service';
-import { menuprincipal,submenu } from '../../../core/data/estructuramenu';
+import { menuprincipal, submenu } from '../../../core/data/estructuramenu';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 
 @Component({
   selector: 'app-contenido',
@@ -12,23 +13,39 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 export class ContenidoComponent implements OnInit {
 
   public arreglo!: Array<menuprincipal>;
-  public mostrarmenu:boolean = false;
+  public mostrarmenu: boolean = false;
+  public temporal: boolean = false;
 
-  
+
 
   public modal = {
-     strTitulo: "",
-     iconType : "",
-     modal : false
+    strTitulo: "",
+    iconType: "",
+    modal: false
   }
 
-  public rol!:string;
+  public mostrar = {
+    cargamasiva:false,
+    solicitudvacacaciones:false,
+    solicitudIncapacidad:false,
+    solicitudHorasExtras:false,
+    solicitudDiasEconomicos:false
+  }
+
+  public emergente = {
+    modal: false,
+    titulo:''
+  }
+
+  public rol!: string;
 
 
 
-  constructor(private menuPrd:MenuService,private modalPrd:ModalService,private sistemaUsuarioPrd:UsuarioSistemaService) {
+  constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
+    private ventana: VentanaemergenteService) {
     this.modalPrd.setModal(this.modal);
-   }
+    this.ventana.setModal(this.emergente, this.mostrar);
+  }
 
   ngOnInit(): void {
 
@@ -38,7 +55,7 @@ export class ContenidoComponent implements OnInit {
 
   }
 
-  public limpiando(){
+  public limpiando() {
     for (let item of this.arreglo)
       item.seleccionado = false;
   }
@@ -52,25 +69,30 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public seleccionarSubmenu(obj:any,obj2:any)  {
+  public seleccionarSubmenu(obj: any, obj2: any) {
     this.limpiando();
     obj.seleccionado = true;
 
-    
+
   }
 
 
-  public recibir(obj:any){
+  public recibir(obj: any) {
 
     this.modalPrd.recibiendomensajes(obj);
 
   }
 
-  public mostrarVentana(){
+  public mostrarVentana() {
     this.modalPrd.showMessageDialog(this.modalPrd.success).then();
   }
 
-  
+  public recibirEmergente($event: any) {
+    this.emergente.modal = false;
+    this.ventana.recibiendomensajes($event);
+  }
+
+
 
 }
 

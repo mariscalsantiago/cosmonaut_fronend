@@ -6,3 +6,26 @@
     position: absolute;
     background: #0000006b;
 }
+
+
+.bg_emergente{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: #0000006b;
+    
+        .bodymodal{
+            background-color: white;
+            max-width: 600px;
+            max-height: 452px;
+            
+            top:15%; 
+            position: relative;
+            margin-right:57px;
+            border-radius: 10px;
+        }
+    
+
+}
