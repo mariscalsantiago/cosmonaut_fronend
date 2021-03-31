@@ -16,6 +16,8 @@ import { VentanaemergenteprincipalComponent } from './ventanasemergentes/ventana
 import { VentanaSolicitudVacacionesComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-vacaciones/ventana-solicitud-vacaciones.component';
 import { VentanaSolicitudCargaMasivaEventosComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-carga-masiva-eventos/ventana-solicitud-carga-masiva-eventos.component';
 import { VentanaSolicitudIncapacidadComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-incapacidad/ventana-solicitud-incapacidad.component';
+import { VentanaSolicitudHorasExtrasComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-horas-extras/ventana-solicitud-horas-extras.component';
+import { VentanaSolicitudDiasEconomicosComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-dias-economicos/ventana-solicitud-dias-economicos.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { VentanaSolicitudIncapacidadComponent } from './ventanasemergentes/tipos
     VentanaemergenteprincipalComponent,
     VentanaSolicitudVacacionesComponent,
     VentanaSolicitudCargaMasivaEventosComponent,
-    VentanaSolicitudIncapacidadComponent
+    VentanaSolicitudIncapacidadComponent,
+    VentanaSolicitudHorasExtrasComponent,
+    VentanaSolicitudDiasEconomicosComponent
 
   ],
   imports: [

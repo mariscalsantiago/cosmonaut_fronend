@@ -8,19 +8,23 @@ export class VentanaemergenteService {
 
   public solicitudCargaMasiva: string = "solicitudcargamasiva";
   public solicitudVacaciones: string = "solicitudVacaciones";
-  public solicitudIncapacidad:string = "solicitudIncapacidad";
+  public solicitudIncapacidad: string = "solicitudIncapacidad";
+  public solicitudHorasExtras:string = "solicitudHorasExtras";
+  public solicitudDiasEconomicos:string = "solicitudDiasEconomicos";
 
   public subject?: Subject<any>;;
 
   public emergente = {
     modal: false,
-    titulo:''
+    titulo: ''
   }
 
   public mostrar: any = {
-    cargamasiva:false,
-    solicitudvacacaciones:false,
-    solicitudIncapacidad:false
+    cargamasiva: false,
+    solicitudvacacaciones: false,
+    solicitudIncapacidad: false,
+    solicitudHorasExtras: false,
+    solicitudDiasEconomicos:false
   }
 
   constructor() { }
@@ -33,7 +37,7 @@ export class VentanaemergenteService {
     }
 
 
-    console.log("Tipo de ventana",tipoVentana);
+    console.log("Tipo de ventana", tipoVentana);
     switch (tipoVentana) {
       case this.solicitudCargaMasiva:
         this.mostrar.cargamasiva = true;
@@ -43,9 +47,17 @@ export class VentanaemergenteService {
         this.mostrar.solicitudvacacaciones = true;
         this.emergente.titulo = "SOLICITUD DE VACACIONES";
         break;
-        case this.solicitudIncapacidad:
+      case this.solicitudIncapacidad:
         this.mostrar.solicitudIncapacidad = true;
         this.emergente.titulo = "SOLICITUD DE INCAPACIDAD";
+        break;
+      case this.solicitudHorasExtras:
+        this.mostrar.solicitudHorasExtras = true;
+        this.emergente.titulo = "SOLICITUD DE HORAS EXTRAS";
+        break;
+      case this.solicitudDiasEconomicos:
+        this.mostrar.solicitudDiasEconomicos = true;
+        this.emergente.titulo = "SOLICITUD DE DÍAS ECONÓMICOS";
         break;
     }
 

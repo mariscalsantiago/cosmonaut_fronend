@@ -23,7 +23,9 @@ export class VentanaemergenteprincipalComponent implements OnInit {
   @Input() public mostrar = {
     cargamasiva:false,
     solicitudvacacaciones:false,
-    solicitudIncapacidad:false
+    solicitudIncapacidad:false,
+    solicitudHorasExtras:false,
+    solicitudDiasEconomicos:false
   }
 
   @HostListener('window:resize', ['$event'])

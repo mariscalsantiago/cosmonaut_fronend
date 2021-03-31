@@ -17,4 +17,8 @@ export class VentanaSolicitudIncapacidadComponent implements OnInit {
     this.salida.emit({type:"cancelar"});
   }
 
+  public abrirArchivo(){
+    
+  }
+
 }

@@ -14,6 +14,8 @@
             <app-ventana-solicitud-carga-masiva-eventos *ngIf="mostrar.cargamasiva"></app-ventana-solicitud-carga-masiva-eventos>
             <app-ventana-solicitud-vacaciones *ngIf="mostrar.solicitudvacacaciones" (salida)="recibirEmergente($event)"></app-ventana-solicitud-vacaciones>
             <app-ventana-solicitud-incapacidad *ngIf="mostrar.solicitudIncapacidad" (salida)="recibirEmergente($event)"></app-ventana-solicitud-incapacidad>
+            <app-ventana-solicitud-horas-extras *ngIf="mostrar.solicitudHorasExtras" (salida)="recibirEmergente($event)"></app-ventana-solicitud-horas-extras>
+            <app-ventana-solicitud-dias-economicos  *ngIf="mostrar.solicitudDiasEconomicos" (salida)="recibirEmergente($event)"></app-ventana-solicitud-dias-economicos>
         </div>
     </div>
 

@@ -42,6 +42,12 @@ export class InicioComponent implements OnInit {
         case 3:
           this.ventana.showVentana(this.ventana.solicitudIncapacidad);
         break;
+        case 4:
+          this.ventana.showVentana(this.ventana.solicitudHorasExtras);
+        break;
+        case 5:
+          this.ventana.showVentana(this.ventana.solicitudDiasEconomicos);
+          break;
     }
   }
 
