@@ -111,7 +111,7 @@ export class UsuariosComponent implements OnInit {
       for (let item of this.arreglo) {
         var datePipe = new DatePipe("es-MX");
         item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-        item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y');
+        item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y')?.replace(".","");
 
         item["centrocClientenombre"] = item.centrocClienteId.nombre;
 
