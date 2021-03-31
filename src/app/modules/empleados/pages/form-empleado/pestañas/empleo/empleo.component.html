@@ -315,7 +315,7 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Fecha de antigüedad*</label>
-                    <input [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && submitEnviado}"
+                    <input #fechaAntiguedad (focusout)="validarfechAntiguedad(fechaAntiguedad.value)" [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && submitEnviado}"
                         formControlName="fechaAntiguedad" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaAntiguedad.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
@@ -323,7 +323,7 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Tipo de contrato*</label>
-                    <select [ngClass]="{'is-invalid':f.tipoContratoId.errors && submitEnviado}"
+                    <select #tipoContrato (focusout)="validartipoContrato(tipoContrato.value)" [ngClass]="{'is-invalid':f.tipoContratoId.errors && submitEnviado}"
                         formControlName="tipoContratoId" name="" id="" class="form-control">
                         <option *ngFor="let item of arregloTipoContrato" [value]="item.tipoContratoId">
                             {{item.descripcion}}</option>
@@ -338,15 +338,15 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Fecha inicio de contrato*</label>
-                    <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}"
+                    <input #fechaInicioCont (focusout)="validarfechaInicioCont(fechaInicioCont.value)" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}"
                         formControlName="fechaInicio" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
                 </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                <div *ngIf="activaFechaFin" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Fecha fin de contrato*</label>
-                    <input [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin"
+                    <input #fechaFinCont (focusout)="validarfechaFinCont(fechaFinCont.value)" [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin"
                         type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido

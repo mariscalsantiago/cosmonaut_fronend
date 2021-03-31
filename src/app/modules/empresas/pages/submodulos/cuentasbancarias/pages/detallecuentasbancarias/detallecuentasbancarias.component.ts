@@ -67,38 +67,34 @@ export class DetallecuentasbancariasComponent implements OnInit {
   }
   public validarBanco(clabe:any){
     debugger;
-    if(clabe != "" || clabe != null || clabe != undefined){
-    this.cuentasPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
-        if (datos.resultado) {
-          this.objCuenta = 
-            { 
-            bancoId: { bancoId: datos.datos.bancoId },
-            clabe: clabe
-            };
-          this.myForm = this.createForm(this.objCuenta);
-        }
-        else{
-          this.objCuenta = 
-          { 
-          bancoId: { bancoId: 0},
-          clabe: clabe
-          };
-          this.myForm = this.createForm(this.objCuenta);
-          
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-          .then(() => {});
-        }
-   
-    });
-  }else{
-    this.objCuenta = 
-    { 
-    bancoId: { bancoId: 0},
-    clabe: ""
-    };
-    this.myForm = this.createForm(this.objCuenta);
+    this.myForm.controls.idbanco.setValue("");
+    this.myForm.controls.clabe.setValue("");
 
-  }
+    if(this.myForm.controls.clabe.errors?.pattern === undefined ){
+
+
+    if(clabe == '' || clabe == null || clabe == undefined){
+ 
+      this.myForm.controls.idbanco.setValue("");
+      this.myForm.controls.clabe.setValue("");
+    }else{
+    this.cuentasPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
+      if (datos.resultado) {
+ 
+        this.myForm.controls.idbanco.setValue( datos.datos.bancoId);
+        this.myForm.controls.clabe.setValue( clabe);
+
+      }
+      else{
+     
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+      }
+ 
+  });
+
+    }
+  
+}
 
   }
 

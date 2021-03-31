@@ -122,6 +122,25 @@ export class PersonalComponent implements OnInit {
     }
   }
 
+  
+  public validarfechNacimiento(fecha:any){
+
+    debugger;
+
+      var x=new Date();
+      var fecha = fecha.split("-");
+      x.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
+      var today = new Date();
+ 
+      if (x > today){
+
+        this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la del día')
+        .then(()=> {
+          this.myForm.controls.fechaNacimiento.setValue("");
+        });
+      }
+  }
+
   public createForm(obj: any) {
 
 

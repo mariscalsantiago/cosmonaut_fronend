@@ -51,7 +51,7 @@
 
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
         <label for="exampleFormControlSelect1">Banco *</label>
-        <select formControlName="idbanco" class="form-control disabled"
+        <select formControlName="idbanco" class="form-control disabled bg-light"
           [ngClass]="{'is-invalid':f.idbanco.errors && submitInvalido}">
           <option *ngFor="let item of cuentasBancarias" [value]="item.bancoId">{{item.nombreCorto}}</option>
         </select>
