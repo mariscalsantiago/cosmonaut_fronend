@@ -57,6 +57,11 @@ export class EmpleoComponent implements OnInit {
   public arregloRegimenContratacion: any = [];
   public arregloEstados: any = [];
   public arregloMetodosPago: any = [];
+  public obj: any = [];
+  public fechaIC: Date = new Date();
+  public fechaAntiguedad: Date = new Date();
+  public fechaICorreta: boolean = false;
+  public activaFechaFin: boolean = true;
 
   public sueldoBruto: boolean = false;
   public sueldoNeto: boolean = false;
@@ -76,12 +81,12 @@ export class EmpleoComponent implements OnInit {
 
     this.id_empresa = this.usuarioSistemaPrd.getIdEmpresa();
 
-    let obj = {};
+    this.obj = {};
 
     if(this.tabsDatos[2]!==undefined){
       this.myForm = this.createForm(this.tabsDatos[2]);
     }else{
-      this.myForm = this.createForm(obj);
+      this.myForm = this.createForm(this.obj);
     }
     this.cambiarSueldoField();
 
@@ -126,6 +131,77 @@ export class EmpleoComponent implements OnInit {
     this.mensajeModalito = "Puesto";
     this.myFormArea = this.createFormArea(true, this.textoArea);
     this.aparecemodalito = true;
+  }
+
+  public validarfechAntiguedad(fecha:any){
+
+    debugger;
+      let fechaInicioContra = fecha;
+      var fecha = fecha.split("-");
+      this.fechaAntiguedad.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
+      var today = new Date();
+ 
+      if (this.fechaAntiguedad > today){
+        
+        this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la del día')
+        .then(()=> {
+          this.myForm.controls.fechaAntiguedad.setValue("");
+          this.myForm.controls.fechaInicio.setValue("");
+          this.fechaICorreta = true;
+        });
+
+      }else{
+        this.myForm.controls.fechaInicio.setValue(fechaInicioContra);
+      }
+  }
+
+  public validarfechaInicioCont(fecha:any){
+
+    debugger;
+      if(fecha != ""){
+      var fecha = fecha.split("-");
+      this.fechaIC.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
+ 
+      this.fechaICorreta = true;
+      
+      }
+  }
+
+  public validarfechaFinCont(fecha:any){
+
+    debugger;
+      var fechaFC=new Date();
+      var fecha = fecha.split("-");
+      fechaFC.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
+      if(this.fechaICorreta){
+          if (fechaFC < this.fechaIC){
+            
+            this.modalPrd.showMessageDialog(false, 'La fecha debe ser mayor a la fecha incio de contrato')
+            .then(()=> {
+              this.myForm.controls.fechaFin.setValue("");
+            });
+
+          }
+        }else{
+
+          this.modalPrd.showMessageDialog(false, 'Bebe colocar una fecha incio de contrato ')
+          .then(()=> {
+            this.myForm.controls.fechaFin.setValue("");
+          });
+        }
+  }
+
+  public validartipoContrato(idContrato: any){
+    debugger;
+    if(idContrato == 1){
+      this.activaFechaFin = false;
+    }
+    else if(idContrato == 10){
+      this.activaFechaFin = false;
+    }else{
+      this.activaFechaFin = true;
+    }
+
   }
 
   public get f2() {

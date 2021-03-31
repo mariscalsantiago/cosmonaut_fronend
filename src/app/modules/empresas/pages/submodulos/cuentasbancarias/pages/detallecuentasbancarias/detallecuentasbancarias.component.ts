@@ -67,54 +67,34 @@ export class DetallecuentasbancariasComponent implements OnInit {
   }
   public validarBanco(clabe:any){
     debugger;
-    if(clabe == '' || clabe == null || clabe == undefined){
-      if(this.esInsert){
-        this.objCuenta = 
-        { 
-        bancoId: { bancoId: 0},
-        clabe: ""
-        };
-      }else{
-        this.objCuenta.bancoId.bancoId = 0;
-        this.objCuenta.clabe = clabe;
-      }
-      this.myForm = this.createForm(this.objCuenta);
+    this.myForm.controls.idbanco.setValue("");
+    this.myForm.controls.clabe.setValue("");
 
+    if(this.myForm.controls.clabe.errors?.pattern === undefined ){
+
+
+    if(clabe == '' || clabe == null || clabe == undefined){
+ 
+      this.myForm.controls.idbanco.setValue("");
+      this.myForm.controls.clabe.setValue("");
     }else{
     this.cuentasPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
       if (datos.resultado) {
-        if(this.esInsert){
-        this.objCuenta = 
-          { 
-          bancoId: { bancoId: datos.datos.bancoId },
-          clabe: clabe
-          };
-        }else{
-          this.objCuenta.bancoId.bancoId = datos.datos.bancoId;
-          this.objCuenta.clabe = clabe;
-        }
-        this.myForm = this.createForm(this.objCuenta);
+ 
+        this.myForm.controls.idbanco.setValue( datos.datos.bancoId);
+        this.myForm.controls.clabe.setValue( clabe);
+
       }
       else{
-        if(this.esInsert){
-          this.objCuenta = 
-          { 
-          bancoId: { bancoId: 0},
-          clabe: clabe
-          };
-        }else{
-          this.objCuenta.bancoId.bancoId = 0;
-          this.objCuenta.clabe = clabe;
-
-        }
-        this.myForm = this.createForm(this.objCuenta);
-        
+     
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
       }
  
   });
 
     }
+  
+}
 
   }
 

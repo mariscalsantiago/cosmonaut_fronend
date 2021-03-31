@@ -100,7 +100,9 @@ export class InformacionbasicaComponent implements OnInit {
       if (x > today){
         
         this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la del día')
-        this.myform = this.createForm(this.datosPersona[0]);
+        .then(()=> {
+          this.myform.controls.fechaNacimiento.setValue("");
+        });
       }
   }
 
