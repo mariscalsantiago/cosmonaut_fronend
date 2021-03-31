@@ -16,7 +16,16 @@
 
         <div class="col-12">
             <button  class="btn btn-primary button-outlet mr-2">carga masiva</button>
-        <button  class="btn btn-primary button-fill">Gestionar evento</button>
+        <button (click)="apareceListadoEventos = !apareceListadoEventos" style="position:relative"  class="btn btn-primary button-fill">Gestionar evento
+           <div *ngIf="apareceListadoEventos" style="width: 100%; height: 200px; background-color: white;position: absolute;left: 0; z-index: 4;">
+            <div class="list-group" style="    color: #56dfd4; font-size: smaller;">
+                <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+                <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+                <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+                <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+              </div>
+        </div>
+        </button>
         </div>
         <hr>
 

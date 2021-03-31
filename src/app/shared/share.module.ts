@@ -18,6 +18,7 @@ import { VentanaSolicitudCargaMasivaEventosComponent } from './ventanasemergente
 import { VentanaSolicitudIncapacidadComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-incapacidad/ventana-solicitud-incapacidad.component';
 import { VentanaSolicitudHorasExtrasComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-horas-extras/ventana-solicitud-horas-extras.component';
 import { VentanaSolicitudDiasEconomicosComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-dias-economicos/ventana-solicitud-dias-economicos.component';
+import { VentanaRegistroFaltasComponent } from './ventanasemergentes/tiposventanas/ventana-registro-faltas/ventana-registro-faltas.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { VentanaSolicitudDiasEconomicosComponent } from './ventanasemergentes/ti
     VentanaSolicitudCargaMasivaEventosComponent,
     VentanaSolicitudIncapacidadComponent,
     VentanaSolicitudHorasExtrasComponent,
-    VentanaSolicitudDiasEconomicosComponent
+    VentanaSolicitudDiasEconomicosComponent,
+    VentanaRegistroFaltasComponent
 
   ],
   imports: [

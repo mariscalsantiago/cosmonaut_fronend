@@ -29,7 +29,8 @@ export class ContenidoComponent implements OnInit {
     solicitudvacacaciones:false,
     solicitudIncapacidad:false,
     solicitudHorasExtras:false,
-    solicitudDiasEconomicos:false
+    solicitudDiasEconomicos:false,
+    registrofaltas:false
   }
 
   public emergente = {

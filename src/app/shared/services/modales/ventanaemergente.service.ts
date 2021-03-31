@@ -11,6 +11,7 @@ export class VentanaemergenteService {
   public solicitudIncapacidad: string = "solicitudIncapacidad";
   public solicitudHorasExtras:string = "solicitudHorasExtras";
   public solicitudDiasEconomicos:string = "solicitudDiasEconomicos";
+  public registrofaltas:string = "registrofaltas";
 
   public subject?: Subject<any>;;
 
@@ -24,7 +25,8 @@ export class VentanaemergenteService {
     solicitudvacacaciones: false,
     solicitudIncapacidad: false,
     solicitudHorasExtras: false,
-    solicitudDiasEconomicos:false
+    solicitudDiasEconomicos:false,
+    registrofaltas:false
   }
 
   constructor() { }
@@ -59,6 +61,10 @@ export class VentanaemergenteService {
         this.mostrar.solicitudDiasEconomicos = true;
         this.emergente.titulo = "SOLICITUD DE DÍAS ECONÓMICOS";
         break;
+        case this.registrofaltas:
+          this.mostrar.registrofaltas = true;
+          this.emergente.titulo = "REGISTRO DE FALTAS";
+          break;
     }
 
 

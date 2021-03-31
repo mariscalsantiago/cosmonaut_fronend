@@ -1,9 +1,9 @@
 <div class="m-3">
-    <div class="row">
-        <div class="col titulo-outlet">
-            <label>DAR DE ALTA EMPLEADO</label>
-        </div>
+  <div class="row">
+    <div class="col titulo-outlet">
+      <label>DAR DE ALTA EMPLEADO</label>
     </div>
+  </div>
 </div>
 
 
@@ -11,86 +11,102 @@
 <div id="perfilEmpleada" *ngIf="ocultarempleada" class="row  slide-in-top m-3 background-panel scrooll">
 
 
-    <div class="col-5 col-sm-2 marginImage">
-      <img width="60px" height="60px"
-        src="assets/imgs/usuario.png" alt="..."
-        class="tableimg">
-    </div>
-    <div class="col-7 col-md-6" style="font-size: 12px;">
-      <div class="row mt-2">
-        <div class="col-12 col-lg-6 mt-2 mb-2">
-          <i style="    border: 1px solid black;
+  <div class="col-5 col-sm-2 marginImage">
+    <img width="60px" height="60px" src="assets/imgs/usuario.png" alt="..." class="tableimg">
+  </div>
+  <div class="col-7 col-md-6" style="font-size: 12px;">
+    <div class="row mt-2">
+      <div class="col-12 col-lg-6 mt-2 mb-2">
+        <i style="    border: 1px solid black;
           border-radius: 100%;
           padding: 2px;" class="fas fa-dollar-sign"></i>&nbsp;$ 0.00
-        </div>
-        <div class="col-12 col-lg-6 mt-2 mb-2">
-
-          <i class="far fa-envelope"></i>&nbsp;{{datosPersona.contactoInicialEmailPersonal}}
-
-        </div>
-        <div class="col-12 col-lg-6 mt-2 mb-2">
-
-
-          <i class="fas fa-birthday-cake"></i>&nbsp;fecha nacimiento {{(datosPersona.fechaNacimiento | date:'dd-MMM-yyyy')?.replace(".","")}}
-
-        </div>
-        <div class="col-12 col-lg-6 mt-2 mb-2">
-          <i class="fas fa-hourglass-half"></i>&nbsp;Antiguedad: 0 años y 0 meses
-        </div>
       </div>
+      <div class="col-12 col-lg-6 mt-2 mb-2">
 
+        <i class="far fa-envelope"></i>&nbsp;{{datosPersona.contactoInicialEmailPersonal}}
+
+      </div>
+      <div class="col-12 col-lg-6 mt-2 mb-2">
+
+
+        <i class="fas fa-birthday-cake"></i>&nbsp;fecha nacimiento {{(datosPersona.fechaNacimiento |
+        date:'dd-MMM-yyyy')?.replace(".","")}}
+
+      </div>
+      <div class="col-12 col-lg-6 mt-2 mb-2">
+        <i class="fas fa-hourglass-half"></i>&nbsp;Antiguedad: 0 años y 0 meses
+      </div>
     </div>
-    <div class="col"></div>
-    <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div>
-    <a (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
-      class="fas fa-download"></i> Descargar perfil</small>
-  <div *ngIf="cargandoIcon" class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</a>
 
   </div>
+  <div class="col"></div>
+  <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div>
+  <a (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+        class="fas fa-download"></i> Descargar perfil</small>
+    <div *ngIf="cargandoIcon" class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </a>
+
+</div>
 
 
 
-  <div class="form-desing mt-3">
+<div class="form-desing mt-3">
   <div class="row m-1 background-panel background-ajustar" appTamanioVentana [pixeles]="180">
 
-  
+
     <div class="col-12 margennav">
-  
-        <nav class="nav-inside">
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a (click)="backTab(0)" class="nav-item nav-link " [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab"  role="tab" aria-controls="nav-home" aria-selected="true">1. Información básica</a>
-              <a (click)="backTab(1)" class="nav-item nav-link " [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}" id="nav-profile-tab"  role="tab" aria-controls="nav-profile" aria-selected="false">2. Domicilio</a>
-              <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
-              <a (click)="backTab(3)" class="nav-item nav-link " [ngClass]="{'activado':activado[3].tab,'disabled':activado[3].disabled,'selecciona':activado[3].seleccionado}" id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">3. Información de empleo</a>
-              <a (click)="backTab(4)" class="nav-item nav-link " [ngClass]="{'activado':activado[4].tab,'disabled':activado[4].disabled,'ocultar':ocultarDetalleTransfrencia,'selecciona':activado[4].seleccionado}" id="nav-contact-tab"  role="tab" aria-controls="nav-detalle" aria-selected="false">4. Detalle de la cuenta</a>
-            </div>
-          </nav>
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <app-informacionbasica *ngIf="activado[0].form" (enviado)="recibir($event)" [datosPersona]="tabsEnviar"></app-informacionbasica>
-            </div>
-            <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <app-domicilio *ngIf="activado[1].form" (enviado)="recibir($event)"  [tabsDatos]="tabsEnviar"   [datosPersona]="datosPersona"></app-domicilio>
-            </div>
-            <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <app-preferencias *ngIf="activado[2].form" (enviado)="recibir($event)"   [datosPersona]="datosPersona"></app-preferencias>
-            </div>
-            <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel" aria-labelledby="nav-empleo-tab">
-                <app-empleo *ngIf="activado[3].form" (enviado)="recibir($event)"  [tabsDatos]="tabsEnviar"  [datosPersona]="datosPersona" [arregloEnviar]="tabsEnviar"></app-empleo>
-            </div>
-            <div class="tab-pane fade" [ngClass]="{'show active':activado[4].form}" id="nav-detalle" role="tabpanel" aria-labelledby="nav-detalle-tab">
-                <app-detalle *ngIf="activado[4].form" (enviado)="recibir($event)"   [datosPersona]="datosPersona"></app-detalle>
-            </div>
-          </div>
+
+      <nav class="nav-inside">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a (click)="backTab(0)" class="nav-item nav-link "
+            [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab" role="tab"
+            aria-controls="nav-home" aria-selected="true">1. Información básica</a>
+          <a (click)="backTab(1)" class="nav-item nav-link "
+            [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}"
+            id="nav-profile-tab" role="tab" aria-controls="nav-profile" aria-selected="false">2. Domicilio</a>
+          <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
+          <a (click)="backTab(3)" class="nav-item nav-link "
+            [ngClass]="{'activado':activado[3].tab,'disabled':activado[3].disabled,'selecciona':activado[3].seleccionado}"
+            id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">3. Información de
+            empleo</a>
+          <a (click)="backTab(4)" class="nav-item nav-link "
+            [ngClass]="{'activado':activado[4].tab,'disabled':activado[4].disabled,'ocultar':ocultarDetalleTransfrencia,'selecciona':activado[4].seleccionado}"
+            id="nav-contact-tab" role="tab" aria-controls="nav-detalle" aria-selected="false">4. Detalle de la
+            cuenta</a>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel"
+          aria-labelledby="nav-home-tab">
+          <app-informacionbasica *ngIf="activado[0].form" (enviado)="recibir($event)" [datosPersona]="tabsEnviar">
+          </app-informacionbasica>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel"
+          aria-labelledby="nav-profile-tab">
+          <app-domicilio *ngIf="activado[1].form" (enviado)="recibir($event)" [tabsDatos]="tabsEnviar"
+            [datosPersona]="datosPersona"></app-domicilio>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel"
+          aria-labelledby="nav-contact-tab">
+          <app-preferencias *ngIf="activado[2].form" (enviado)="recibir($event)" [datosPersona]="datosPersona">
+          </app-preferencias>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel"
+          aria-labelledby="nav-empleo-tab">
+          <app-empleo *ngIf="activado[3].form" (enviado)="recibir($event)" [tabsDatos]="tabsEnviar"
+            [datosPersona]="datosPersona" [arregloEnviar]="tabsEnviar"></app-empleo>
+        </div>
+        <div class="tab-pane fade" [ngClass]="{'show active':activado[4].form}" id="nav-detalle" role="tabpanel"
+          aria-labelledby="nav-detalle-tab">
+          <app-detalle *ngIf="activado[4].form" (enviado)="recibir($event)" [datosPersona]="datosPersona"></app-detalle>
+        </div>
+      </div>
     </div>
 
 
 
 
+  </div>
 </div>
-</div>
-
-
