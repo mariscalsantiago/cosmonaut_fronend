@@ -172,7 +172,6 @@ export class InformacionempresaComponent implements OnInit {
         }
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
       if(this.datosempresa.insertar){  
-        this.cargando = true;
         this.empresaPrd.save(objenviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.alerta.iconType = datos.resultado ? "success" : "error";
@@ -186,7 +185,6 @@ export class InformacionempresaComponent implements OnInit {
       });
 
     }else{
-      this.cargando = true;
 
         objenviar.centrocClienteId = obj.centrocClienteId;
 
@@ -198,7 +196,6 @@ export class InformacionempresaComponent implements OnInit {
           this.alerta.strTitulo = mensaje;
           //this.alerta.strsubtitulo = mensaje
           this.alerta.modal = true;
-          this.cargando = false;
 
         });
       }
