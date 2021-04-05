@@ -65,7 +65,7 @@ export class EmpresasComponent implements OnInit {
     activarForm: this.activarForm,
     activarList: this.activarList,
     activarGuardaMod : this.activarGuardaMod,
-    idModificar : this.objModificar,
+    idModificar : this.objModificar, 
     
     
   };

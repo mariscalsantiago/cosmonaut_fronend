@@ -143,7 +143,7 @@ export class EmpleoComponent implements OnInit {
  
       if (this.fechaAntiguedad > today){
         
-        this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la del día')
+        this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la fecha actual')
         .then(()=> {
           this.myForm.controls.fechaAntiguedad.setValue("");
           this.myForm.controls.fechaInicio.setValue("");
@@ -339,20 +339,33 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
-
-
-
+    
+debugger;
     this.submitEnviado = true;
+
+    let noesFecha: boolean = (this.myForm.controls.tipoContratoId.value == null || this.myForm.controls.tipoContratoId.value == 1 || this.myForm.controls.tipoContratoId.value == 10);
+
     if (this.myForm.invalid) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error);
-      return;
+      let invalido: boolean = true;
+      if (noesFecha) {
+        for (let item in this.myForm.controls) {
+
+          if (item == "fechaFin")
+            continue;
+
+          if (this.myForm.controls[item].invalid) {
+            invalido = true;
+            break;
+          }
+          invalido = false;
+        }
+      }
+
+      if (invalido) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error);
+        return;
+      }
     }
-
-
-
-
-
-
     const titulo = "¿Deseas guardar cambios?";
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
