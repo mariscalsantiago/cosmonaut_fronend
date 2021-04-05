@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { DomicilioService } from '../../services/domicilio.service';
 
 @Component({
   selector: 'app-form-empleado',
@@ -8,6 +9,8 @@ import { ReportesService } from 'src/app/shared/services/reportes/reportes.servi
   styleUrls: ['./form-empleado.component.scss']
 })
 export class FormEmpleadoComponent implements OnInit {
+
+  public titulo:string = "DAR DE ALTA EMPLEADO";
 
   public activado = [
     { tab: true, form: true, disabled: false,seleccionado:true },
@@ -31,9 +34,26 @@ export class FormEmpleadoComponent implements OnInit {
 
   public cambiaValor: boolean = false;
 
-  constructor(private routerPrd: Router, private reportesPrd: ReportesService) { }
+  constructor(private routerPrd: Router, private reportesPrd: ReportesService,
+    private domicilioPrd:DomicilioService) { }
 
   ngOnInit(): void {
+
+    let temp =  history.state.datos;
+    console.log("Esta es el temporal",temp);
+    if(temp !== undefined){
+      this.titulo = "ACOMPLETAR DATOS AL EMPLEADO";
+      this.datosPersona = temp;
+      this.tabsEnviar[0] = temp;
+      this.domicilioPrd.getDomicilioPorEmpleado(this.datosPersona.personaId).subscribe(datosdomicilio =>{
+          this.tabsEnviar[1] = datosdomicilio;
+      });
+
+      this.activado[0].tab = true;
+      this.activado[1].tab = true;
+      this.activado[3].tab = true;
+    }
+
   }
 
 

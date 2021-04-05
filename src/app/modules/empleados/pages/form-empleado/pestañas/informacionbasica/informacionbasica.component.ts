@@ -137,6 +137,8 @@ export class InformacionbasicaComponent implements OnInit {
         }
       }
 
+      console.log("Este es mi formulario final",this.myform);
+
       if (invalido) {
         this.modalPrd.showMessageDialog(this.modalPrd.error);
         return;

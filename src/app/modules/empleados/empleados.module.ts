@@ -13,10 +13,11 @@ import { PreferenciasComponent } from './pages/form-empleado/pestañas/preferenc
 import { EmpleoComponent } from './pages/form-empleado/pestañas/empleo/empleo.component';
 import { DetalleComponent } from './pages/form-empleado/pestañas/detalle/detalle.component';
 import { FormBajaEmpleadoComponent } from './pages/form-baja-empleado/form-baja-empleado.component';
+import { EmpleadosIncompletosComponent } from './pages/empleados-incompletos/empleados-incompletos.component';
 
 @NgModule({
     declarations: [ListaempleadosComponent, EmpleadoComponent, FormEmpleadoComponent, InformacionbasicaComponent, DomicilioComponent, PreferenciasComponent, EmpleoComponent,
-                   DetalleComponent, FormBajaEmpleadoComponent],
+                   DetalleComponent, FormBajaEmpleadoComponent, EmpleadosIncompletosComponent],
     imports: [
       CommonModule,
       empleadosRoutingModule,
