@@ -119,30 +119,12 @@ export class InformacionbasicaComponent implements OnInit {
 
     this.submitEnviado = true;
 
-    let noesRFC: boolean = (this.myform.controls.tieneCurp.value == null || this.myform.controls.tieneCurp.value == false);
 
     if (this.myform.invalid) {
-      let invalido: boolean = true;
-      if (noesRFC) {
-        for (let item in this.myform.controls) {
+      
 
-          if (item == "rfc" || item == "curp")
-            continue;
-
-          if (this.myform.controls[item].invalid) {
-            invalido = true;
-            break;
-          }
-          invalido = false;
-        }
-      }
-
-      console.log("Este es mi formulario final",this.myform);
-
-      if (invalido) {
         this.modalPrd.showMessageDialog(this.modalPrd.error);
         return;
-      }
     }
 
 

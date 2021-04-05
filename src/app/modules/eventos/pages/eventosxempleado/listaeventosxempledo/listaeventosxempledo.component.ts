@@ -1,6 +1,9 @@
+import { DatePipe } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { EventosService } from '../../../services/eventos.service';
 
 @Component({
   selector: 'app-listaeventosxempledo',
@@ -15,6 +18,8 @@ export class ListaeventosxempledoComponent implements OnInit {
   public tamanio: number = 0;
   public modalWidth: string = "75%";
   public cargandodetallegrupo:boolean = false;
+
+  public arreglo:any = [];
 
   public arreglotabla:any = {
     columnas:[],
@@ -38,24 +43,48 @@ export class ListaeventosxempledoComponent implements OnInit {
     }
   }
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,private eventosPrd:EventosService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
-    
-     let columnas:Array<tabla> = [
-       new tabla("x","Nombre del empleado"),
-       new tabla("x","Número de empleado",false,false,true),
-       new tabla("x","Fecha solicitada",false,false,true),
-       new tabla("x","Tiempo",false,false,true),
-       new tabla("x","Estatus")
-     ]
 
-     this.arreglotabla.columnas = columnas;
-     this.arreglotabla.filas = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
+
+    this.cargando = true;
+
+    this.eventosPrd.getByIdEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+
+      this.arreglo = datos.datos;
+      let columnas:Array<tabla> = [
+        new tabla("nombrecompleado","Nombre del empleado"),
+        new tabla("numeroEmpleado","Número de empleado",false,false,true),
+        new tabla("fechaInicio","Fecha solicitada",false,false,true),
+        new tabla("tiempo","Tiempo",false,false,true),
+        new tabla("esActivo","Estatus")
+      ];
+
+      this.arreglotabla = {
+        columnas:[],
+        filas:[]
+      }
+
+      if(this.arreglo !== undefined){
+          for(let item of this.arreglo){
+              item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
+              var datePipe = new DatePipe("es-MX");
+              item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
+              item.fechaInicio = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".","");
+          }
+      }
+ 
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = this.arreglo;
+
+      this.cargando = false;
+    });
+    
   }
 
   public recibirTabla(obj:any){

@@ -21,5 +21,6 @@ export const direcciones = {
     sedes:`${ip}/sede`,
 	reportes:`${ip}/reportes`,
     registroPatronal:`${ip}/registroPatronal`,
-    conceptos:`${ip}/percepcionDeduccion`
+    conceptos:`${ip}/percepcionDeduccion`,
+    incidencias:`${ip}/incidencias`
 };
