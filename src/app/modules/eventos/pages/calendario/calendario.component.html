@@ -11,18 +11,19 @@
 
 
 
-<div class="row   margen-tabla background-panel  " >
+<div class="row   margen-tabla background-panel  background-ajustar" appTamanioVentana [pixeles]="145">
     <div class="col-4 mt-2">
 
         <div class="col-12">
             <button  class="btn btn-primary button-outlet mr-2">carga masiva</button>
         <button (click)="apareceListadoEventos = !apareceListadoEventos" style="position:relative"  class="btn btn-primary button-fill">Gestionar evento
            <div *ngIf="apareceListadoEventos" style="width: 100%; height: 200px; background-color: white;position: absolute;left: 0; z-index: 4;">
-            <div class="list-group" style="    color: #56dfd4; font-size: smaller;">
-                <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+            <div class="list-group" style="    color: #40a39b; font-size: smaller; text-align: left;">
+                <a href="#"  (click)="agregarEvento(1)"  class="list-group-item list-group-item-action">Vacaciones</a>
+                <a href="#"  (click)="agregarEvento(2)" class="list-group-item list-group-item-action">Incapacidad</a>
+                <a href="#"  (click)="agregarEvento(3)" class="list-group-item list-group-item-action">Horas extras</a>
+                <a href="#"  (click)="agregarEvento(4)" class="list-group-item list-group-item-action">Días económicos</a>
+                <a href="#"  (click)="agregarEvento(5)" class="list-group-item list-group-item-action">Faltas</a>
               </div>
         </div>
         </button>
@@ -81,7 +82,14 @@
     <div class="col-8">
         <app-calendario></app-calendario>
     </div>
+    <div class="col-12">
+        <hr>
+        <app-tablapaginado [datos]="arreglotabla"></app-tablapaginado>
+
+    </div>
 </div>
+
+
     
 </div>
 
