@@ -21,14 +21,14 @@
                     Campo requerido
                 </div>
             </div>
-
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                 <label>Número de empleado *</label>
-                
-                <select [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}" formControlName="personaId" class="form-control">
-                    <option *ngFor="let item of arregloEmpleados" [value]="item.idPersona">{{item.nombre}} {{item.apellidoPaterno}}</option>
-                </select>
+                <input autocomplete="off" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}" (focusout)="salirPersonaid()" list="empleadosreporta" class="form-control" formControlName="personaId"
+                    name="browser" id="browser">
 
+                <datalist id="empleadosreporta">
+                    <option *ngFor="let item of arregloEmpleados" [value]="item.nombre+' '+item.apellidoPaterno"></option>
+                </datalist>
                 <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -36,7 +36,7 @@
             <div [ngClass]="{'ocultarCampo':verificar('dias')}"  class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Días *</label>
                 
-                <input [ngClass]="{'is-invalid':f.duracion.errors && submitEnviado}" formControlName="duracion" type="text" class="form-control">
+                <input (blur)="perderFoco()" appSolonumeros [ngClass]="{'is-invalid':f.duracion.errors && submitEnviado}" formControlName="duracion" type="text" class="form-control">
                 <div *ngIf="f.duracion.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -44,14 +44,14 @@
             <div [ngClass]="{'ocultarCampo':verificar('fecha')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha</label>
                 
-                <input formControlName="fechaInicio" type="date" class="form-control">
+                <input  formControlName="fechaInicio" type="date" class="form-control">
             </div>
             <div [ngClass]="{'ocultarCampo':verificar('monto')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Monto</label>
                 
                 <input formControlName="monto" type="text" class="form-control">
             </div>
-            <div [ngClass]="{'ocultarCampo':verificar('fechainicio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div (blur)="perderFoco()" [ngClass]="{'ocultarCampo':verificar('fechainicio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha inicio</label>
                 
                 <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
@@ -62,7 +62,7 @@
             <div [ngClass]="{'ocultarCampo':verificar('fechafin')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha fin</label>
                 
-                <input [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin" type="date" class="form-control">
+                <input  [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin" type="date" class="form-control">
                 <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
