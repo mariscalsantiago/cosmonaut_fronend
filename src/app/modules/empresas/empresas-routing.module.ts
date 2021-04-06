@@ -42,6 +42,10 @@ const routes: Routes = [{
     },
     {
       path: 'empresa/detalle/:id',
+      component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/apoderadoLegal/empresaapoderadoLegal.module").then(m => m.empresaApoderadoLegalModule)
+    },
+    {
+      path: 'empresa/detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/puestos/empresapuestos.module").then(m => m.empresapuestosModule)
     },
     {
