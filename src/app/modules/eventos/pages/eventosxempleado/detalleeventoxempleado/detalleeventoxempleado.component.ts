@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ContratocolaboradorService } from '../../../../empleados/services/contratocolaborador.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -23,8 +22,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloTipoIncapacidad: any = [];
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
-    private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService,
-    private contratoPrd:ContratocolaboradorService) { }
+    private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService) { }
 
   ngOnInit(): void {
 
@@ -59,7 +57,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       numeroFolio: ['', Validators.required],
       comentarios: [''],
       identificadorPersona: [''],
-      fechaContrato:['']
+      fechaContrato: ['']
 
     });
   }
@@ -71,6 +69,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public enviarPeticion() {
     this.submitEnviado = true;
+    console.log(this.myForm.controls);
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -94,50 +93,46 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public guardarEvento() {
 
+    
+
     let obj = this.myForm.getRawValue();
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-    this.contratoPrd.getContratoColaboradorById(obj.identificadorPersona).subscribe(contrato =>{
-      console.log(contrato);
-      alert("Si encontro el contrato");
-      if(contrato.resultado){
-        if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
-          obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-        }
-    
-        if (obj.fechaFin != undefined || obj.fechaFin != '') {
-          obj.fechaFin = new Date((new Date(obj.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-        }
-    
-        if (obj.fechaAplicacion != undefined || obj.fechaAplicacion != '') {
-          obj.fechaAplicacion = new Date((new Date(obj.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-        }
 
-        let objEnviar = {
-          ...obj,
-          tipoIncapacidadId: {
-            tipoIncapacidadId: obj.tipoIncapacidadId
-          },
-          tipoIncidenciaId: {
-            tipoIncidenciaId: obj.incidenciaId
-          },
-          personaId:obj.identificadorPersona,
-          clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
-          fechaContrato:contrato.datos.fechaContrato
-        }
+    if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
+      obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+    }
+
+    if (obj.fechaFin != undefined || obj.fechaFin != '') {
+      obj.fechaFin = new Date((new Date(obj.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+    }
+
+    if (obj.fechaAplicacion != undefined || obj.fechaAplicacion != '') {
+      obj.fechaAplicacion = new Date((new Date(obj.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+    }
+
+    let objEnviar = {
+      ...obj,
+      tipoIncapacidadId: {
+        tipoIncapacidadId: obj.tipoIncapacidadId
+      },
+      tipoIncidenciaId: {
+        tipoIncidenciaId: obj.incidenciaId
+      },
+      personaId: obj.identificadorPersona,
+      clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
+      fechaContrato: obj.fechaContrato
+    }
 
 
-        this.eventoPrd.save(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-            if (datos.resultado) {
-              this.router.navigate(['/eventos/eventosxempleado']);
-            }
-          });
-        })
-    
-      }
-    });
+    this.eventoPrd.save(objEnviar).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+        if (datos.resultado) {
+          this.router.navigate(['/eventos/eventosxempleado']);
+        }
+      });
+    })
 
   }
 
@@ -174,12 +169,31 @@ export class DetalleeventoxempleadoComponent implements OnInit {
             break;
         }
         break;
+      case "fecha":
+        switch (seleccionado) {
+          case 4:
+          case 8:
+          case 10:
+          case 11:
+            ocultar = false;
+            break;
+        }
+        break;
+      case "monto":
+        switch (seleccionado) {
+          case 4:
+          case 8:
+            ocultar = false;
+            break;
+        }
+        break;
       case "fechainicio":
 
         switch (seleccionado) {
           case 1:
           case 2:
           case 5:
+          case 3:
             ocultar = false;
             break;
         }
@@ -191,6 +205,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           case 1:
           case 2:
           case 5:
+          case 3:
             ocultar = false;
             break;
         }
@@ -203,6 +218,42 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           case 1:
           case 2:
           case 5:
+          case 4:
+          case 3:
+          case 8:
+          case 9:
+          case 10:
+          case 11:
+            ocultar = false;
+            break;
+        }
+        break;
+      case "incapacidad":
+        switch (seleccionado) {
+          case 3:
+            ocultar = false;
+            break;
+        }
+        break;
+      case "archivo":
+        switch (seleccionado) {
+          case 3:
+            ocultar = false;
+            break;
+        }
+        break;
+      case "folio":
+        switch (seleccionado) {
+          case 3:
+            ocultar = false;
+            break;
+        }
+        break;
+      case "monto2":
+        switch (seleccionado) {
+          case 10:
+          case 11:
+          case 9:
             ocultar = false;
             break;
         }
@@ -240,6 +291,59 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
       this.myForm.controls.fechaAplicacion.updateValueAndValidity();
     }
+    if (seleccionado == 4) {
+      this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+      this.myForm.controls.fechaInicio.updateValueAndValidity();
+      this.myForm.controls.monto.setValidators([Validators.required]);
+      this.myForm.controls.monto.updateValueAndValidity();
+      this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
+      this.myForm.controls.fechaAplicacion.updateValueAndValidity();
+    }
+
+    if (seleccionado == 3) {
+
+      this.myForm.controls.duracion.setValidators([Validators.required]);
+      this.myForm.controls.duracion.updateValueAndValidity();
+      this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+      this.myForm.controls.fechaInicio.updateValueAndValidity();
+      this.myForm.controls.fechaFin.setValidators([Validators.required]);
+      this.myForm.controls.fechaFin.updateValueAndValidity();
+      this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
+      this.myForm.controls.fechaAplicacion.updateValueAndValidity();
+      this.myForm.controls.tipoIncapacidadId.setValidators([Validators.required]);
+      this.myForm.controls.tipoIncapacidadId.updateValueAndValidity();
+      this.myForm.controls.numeroFolio.setValidators([Validators.required]);
+      this.myForm.controls.numeroFolio.updateValueAndValidity();
+    }
+
+    if (seleccionado == 8) {
+      this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+      this.myForm.controls.fechaInicio.updateValueAndValidity();
+      this.myForm.controls.monto.setValidators([Validators.required]);
+      this.myForm.controls.monto.updateValueAndValidity();
+      this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
+      this.myForm.controls.fechaAplicacion.updateValueAndValidity();
+    }
+
+    if (seleccionado == 9) {
+      this.myForm.controls.duracion.setValidators([Validators.required]);
+      this.myForm.controls.duracion.updateValueAndValidity();
+      this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
+      this.myForm.controls.fechaAplicacion.updateValueAndValidity();
+      this.myForm.controls.monto.setValidators([Validators.required]);
+      this.myForm.controls.monto.updateValueAndValidity();
+    }
+
+    if (seleccionado == 10 || seleccionado == 11) {
+      this.myForm.controls.duracion.setValidators([Validators.required]);
+      this.myForm.controls.duracion.updateValueAndValidity();
+      this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
+      this.myForm.controls.fechaAplicacion.updateValueAndValidity();
+      this.myForm.controls.monto.setValidators([Validators.required]);
+      this.myForm.controls.monto.updateValueAndValidity();
+      this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+      this.myForm.controls.fechaInicio.updateValueAndValidity();
+    }
   }
 
 
@@ -266,23 +370,35 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         let encontrado: boolean = false;
         for (let item of this.arregloEmpleados) {
           const nombreCompleto = item.nombre + " " + item.apellidoPaterno;
-          if (nombreCompleto.includes(nombreCapturado)) {
+          if (nombreCapturado.includes(nombreCompleto)) {
             encontrado = true;
             this.myForm.controls.identificadorPersona.setValue(item.idPersona);
             this.myForm.controls.fechaContrato.setValue(item.fechaContrato);
+
             break;
           }
         }
-        this.myForm.controls.personaId.setValidators([Validators.requiredTrue]);
+
+
+        this.myForm.controls.personaId.setValidators([Validators.required]);
         this.myForm.controls.personaId.updateValueAndValidity();
+        console.log("esto se encontro", encontrado);
         if (encontrado) {
           this.myForm.controls.personaId.clearValidators();
           this.myForm.controls.personaId.updateValueAndValidity();
+        } else {
+          console.log("Se va a limpiar");
+          this.myForm.controls.identificadorPersona.setValue('');
+          this.myForm.controls.fechaContrato.setValue('');
+          this.myForm.controls.personaId.setValue('');
         }
+      } else {
+        this.myForm.controls.personaId.setValidators([Validators.required]);
+        this.myForm.controls.personaId.updateValueAndValidity();
       }
     }
 
-    console.log("La persona elegida es ",this.myForm.value);
+    console.log("La persona elegida es ", this.myForm.value);
   }
 
 }

@@ -16,7 +16,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <div class="header">
-          <h5 class="titulo">Vacaciones</h5>
+          <h5 class="titulo">{{evento.incidenciaDescripcion}}</h5>
 
           <!-- <p id="subtitulo"><strong>Grupo de nomina</strong>ASG coorporation</p> -->
         </div>
@@ -33,23 +33,16 @@
                 <label>Días: <span class="letramenos">8</span></label> 
             </div>
             <div class=" col-12 ">
-                <label>Fecha de inicio: <span class="letramenos">10-Feb-2012</span></label> 
+                <label>Fecha de inicio: <span class="letramenos">{{evento.fechaInicio}}</span></label> 
             </div>
             <div class=" col-12 ">
-                <label>Fecha de termino: <span class="letramenos">10-Jul-2021</span></label> 
+                <label>Fecha de termino: <span class="letramenos">{{(evento.fechaFin | date:'dd-MMM-yyyy')?.replace(".","")}}</span></label> 
             </div>
             <div class=" col-12 ">
-                <label>Aprobada por: <span class="letramenos">Santiago antonio</span></label> 
+                <label>Política: <span class="letramenos">{{evento.politicaNombre}}</span></label> 
             </div>
             <div class=" col-12 ">
-                <label>Política: <span class="letramenos">Estándar</span></label> 
-            </div>
-            <div class=" col-12 ">
-                <label>Comentario del empleado: <span class="letramenos">Deseo solicitar vacaciones</span></label> 
-            </div>
-            <div class=" col-12 ">
-                <label>Comentario de RH: </label> 
-                <input type="text" class="form-control">
+                <label>Comentario del empleado: <span class="letramenos">{{evento.comentarios}}</span></label> 
             </div>
           </div>
 
@@ -60,11 +53,10 @@
         <div class="footer">
           <div class="row">
             <div class="col-12 text-center">
-                <button (click)="aparecemodalito = false" type="submit" class="btn btneliminar"><i class="icon_24eliminar danger-bg"></i><span>Eliminar</span></button>
-                <button (click)="aparecemodalito = false" type="submit"
-                class="btn btn-primary button-fill btndespues ml-1">Aprobar</button>
-                <button (click)="aparecemodalito = false" type="submit"
-                class="btn btn-primary button-fill btndespues rechazarbtn">Rechazar</button>
+                <button  (click)="aparecemodalito = false" type="submit"
+                class="btn btn-primary button-fill  ml-1">Cerrar</button>
+                <!-- <button disabled (click)="aparecemodalito = false" type="submit"
+                class="btn btn-primary button-fill btndespues rechazarbtn">Rechazar</button> -->
             
             </div>
           </div>
@@ -128,7 +120,7 @@
     
     
                       <div class="row   margen-tabla background-panel "  id="vetanaprincipaltabla">
-                        <app-tablapaginado [datos]="arreglotabla"  [cargando]="cargando" (salida)="recibirTabla($event)" [ver]="true" ></app-tablapaginado>
+                        <app-tablapaginado [datos]="arreglotabla"  [cargando]="cargando" (salida)="recibirTabla($event)" [eliminar]="true" [ver]="true" ></app-tablapaginado>
                       </div>
     
     

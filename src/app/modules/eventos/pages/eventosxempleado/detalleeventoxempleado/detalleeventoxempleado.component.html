@@ -9,7 +9,7 @@
 
 <form [formGroup]="myForm" class="form-desing"  (ngSubmit)="enviarPeticion()">
     <div class="background-panel margen background-ajustar" appTamanioVentana>
-        <div class="form-group row margen"><label class="titulo">Información de evento</label></div>
+        <div class="form-group row margen mt-2"><label class="titulo">EVENTO</label></div>
         <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
                 <label for="exampleFormControlSelect1">Tipo de solicitud *</label>
@@ -44,12 +44,18 @@
             <div [ngClass]="{'ocultarCampo':verificar('fecha')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha</label>
                 
-                <input  formControlName="fechaInicio" type="date" class="form-control">
+                <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
+                <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
             <div [ngClass]="{'ocultarCampo':verificar('monto')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Monto</label>
                 
-                <input formControlName="monto" type="text" class="form-control">
+                <input [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
+                <div *ngIf="f.monto.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
             <div (blur)="perderFoco()" [ngClass]="{'ocultarCampo':verificar('fechainicio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha inicio</label>
@@ -74,11 +80,22 @@
                     Campo requerido
                 </div>
             </div>
+            <div [ngClass]="{'ocultarCampo':verificar('monto2')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Monto</label>
+                
+                <input [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
+                <div *ngIf="f.monto.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
             <div [ngClass]="{'ocultarCampo':verificar('incapacidad')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Tipo de incapacidad</label>
-                <select formControlName="tipoIncapacidadId" class="form-control">
+                <select [ngClass]="{'is-invalid':f.tipoIncapacidadId.errors && submitEnviado}" formControlName="tipoIncapacidadId" class="form-control">
                     <option *ngFor="let item of arregloTipoIncapacidad" [value]="item.tipoIncapacidadId">{{item.descripcion}}</option>
                 </select>
+                <div *ngIf="f.tipoIncapacidadId.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
             <div [ngClass]="{'ocultarCampo':verificar('archivo')}" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Seleccionar archivo</label>
@@ -92,7 +109,10 @@
             <div [ngClass]="{'ocultarCampo':verificar('folio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Número de folio</label>
                 
-                <input formControlName="numeroFolio" type="text" class="form-control">
+                <input [ngClass]="{'is-invalid':f.numeroFolio.errors && submitEnviado}" formControlName="numeroFolio" type="text" class="form-control">
+                <div *ngIf="f.numeroFolio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
                 <label>Comentarios</label>

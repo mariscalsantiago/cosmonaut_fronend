@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from '../../../services/eventos.service';
 
@@ -26,6 +27,8 @@ export class ListaeventosxempledoComponent implements OnInit {
     filas:[]
   };
 
+  public evento:any;
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     event.target.innerWidth;
@@ -43,7 +46,8 @@ export class ListaeventosxempledoComponent implements OnInit {
     }
   }
 
-  constructor(private router:Router,private eventosPrd:EventosService,private usuariosSistemaPrd:UsuarioSistemaService) { }
+  constructor(private router:Router,private eventosPrd:EventosService,private usuariosSistemaPrd:UsuarioSistemaService,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -88,8 +92,35 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
+    console.log(obj.datos);
     
-      this.traerModal(obj.indice);
+      switch(obj.type){
+         case "eliminar":
+             this.eliminarIncidencia(obj.datos);
+           break;
+           case "ver":
+             this.evento = obj.datos;
+            this.traerModal(obj.indice);
+             break;
+      }
+  }
+
+
+  public eliminarIncidencia(obj:any){
+     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas inactivar el evento?").then((valor)=>{
+        if(valor){
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.eventosPrd.delete(obj.incidenciaId).subscribe(datos =>{
+            
+             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+               if(datos.resultado){
+                obj.esActivo = false;
+               }
+             });
+          });
+        }
+     });
   }
 
   public filtrar(){
