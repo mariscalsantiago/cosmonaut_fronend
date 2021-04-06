@@ -1,0 +1,93 @@
+
+.ventanaemergente{
+    z-index: 1;
+    display: block;
+    overflow: auto;
+    width: 50%;
+    border-radius: 5px;
+    border:1px solid rgb(102, 102, 102);
+    height: auto;
+    background-color: white !important;
+    -webkit-box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42); 
+box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42);
+
+position: absolute;
+
+top: 35%;
+right: 5%;
+
+.btnclosemodal{
+    top: 0   !important;
+    position: absolute  !important;
+    right: 11px   !important;
+    
+
+    span{
+        color: white;
+        font-size: x-large;
+    }
+}
+
+
+.dialogo{
+    background-color: #4cc1b0;
+    height: 70px;
+}
+
+.titulos{
+    float:left
+}
+
+.header,.body,.footer{
+    width: 100%;
+    padding: 10px;
+}
+
+.header{
+    color:white;
+}
+
+h5{
+    font-size: medium;
+}
+h6{
+    font-size: small;
+}
+
+
+.imagen{
+
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.chat{
+    height: 200px;
+    overflow: auto;
+    .enviado{
+        width: fit-content;
+        background: #b1eae3;
+        padding: 10px;
+        color: #7d7d7d;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        float: right;
+    }
+
+    .recibido{
+        width: fit-content;
+        background: #e0e0e0;
+        padding: 10px;
+        color: #7d7d7d;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        float: left;
+    }
+}
+
+
+}
+
