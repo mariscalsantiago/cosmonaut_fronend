@@ -44,6 +44,10 @@ export class CatalogosService {
   public getNacinalidades(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/nacionalidad/listar/todosActivo/${estatus}`);
   }
+  public getFacultadPoder(estatus:boolean): Observable<any> {
+    return this.http.get(`${this.url}/catFacultadPoder/listar/todosActivo/${estatus}`);
+  }
+
   public getNacinalidadById(idNacionalidad: number): Observable<any> {
     return this.http.get(`${this.url}/nacionalidad/obtener/id/${idNacionalidad}`);
   }

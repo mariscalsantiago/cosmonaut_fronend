@@ -35,12 +35,6 @@ export class ApoderadoLegalService {
       return this.http.get(`${this.url}/obtener/id/compania/${id_company}`);
   }
 
-  public getById(id_user:number):Observable<any>{
-    
-
-    return this.http.get(`${this.url}/obtener/id/${id_user}`);
-
-  }
 
   public filtrar(obj : any):Observable<any>{
     
@@ -70,7 +64,7 @@ export class ApoderadoLegalService {
     let json:string = JSON.stringify(obj);
     console.log("representante",json)
 
-    return this.http.put(`${this.url}/guardar/representanteLegal`,json,httpOptions);
+    return this.http.put(`${this.url}/guardar/apoderadoLegal`,json,httpOptions);
   }
 
   public modificar(obj:any):Observable<any>{
@@ -86,7 +80,7 @@ export class ApoderadoLegalService {
 
     let json:string = JSON.stringify(obj);
 
-    return this.http.post(`${this.url}/modificar/representanteLegal`,json,httpOptions);
+    return this.http.post(`${this.url}/modificar/apoderadoLegal`,json,httpOptions);
   }
 
 

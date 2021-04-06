@@ -68,10 +68,10 @@
             
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Poder notarial *</label>
-              <input formControlName="podernotarial" maxlength="100"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.podernotarial.errors && submitEnviado}"
+              <input formControlName="poderNotarial" maxlength="100"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.poderNotarial.errors && submitEnviado}"
                   placeholder="">
   
-                  <div *ngIf="f.podernotarial.errors && submitEnviado" class="invalid-feedback">
+                  <div *ngIf="f.poderNotarial.errors && submitEnviado" class="invalid-feedback">
                       Campo requerido
                     </div>
   
@@ -79,11 +79,11 @@
 
           <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
             <label >Facultad *</label>
-            <select formControlName="facultadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.facultadId.errors && f.facultadId.touched}">
+            <select formControlName="facultadPoderId" type="text" class="form-control" [ngClass]="{'is-invalid':f.facultadPoderId.errors && f.facultadPoderId.touched}">
                 <option value=""></option>
-                <option *ngFor="let item of arreglonacionalidad"  [value]="item.nacionalidadId">{{item.descripcion}}</option>
+                <option *ngFor="let item of arregloFacultadPoder"  [value]="item.facultadPoderId">{{item.descripcion}}</option>
             </select>
-            <div *ngIf="f.facultadId.errors && submitEnviado" class="invalid-feedback">
+            <div *ngIf="f.facultadPoderId.errors && submitEnviado" class="invalid-feedback">
                   Campo requerido
             </div>
         </div>
@@ -143,7 +143,7 @@
 
         <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
           <label for="exampleFormControlSelect1">Estatus de representante *</label>
-          <select  formControlName="activo" class="form-control">
+          <select  formControlName="esActivo" class="form-control">
             <option value="true" selected>ACTIVO</option>
             <option value="false">INACTIVO</option>
           </select>

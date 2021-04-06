@@ -66,7 +66,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
           centrocClienteId: this.id_empresa
         },
         tipoPersonaId: {
-          tipoPersonaId: 1
+          tipoPersonaId: 6
         }
       }
 
@@ -84,7 +84,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
   }
 
   public realizarTabla(datos:any){
-    console.log(datos)
+    console.log("Lista apoderados",datos)
     this.arreglo = datos.datos;
 
     
@@ -95,8 +95,8 @@ export class ListaapoderadoLegalComponent implements OnInit {
       new tabla("apellidoMaterno","Apellido materno"),
       new tabla("curp","CURP"),
       new tabla("emailCorporativo","Correo empresarial"),
-      //new tabla("fechaAlta","Fecha de registro"),
-      new tabla("activo","Estatus")
+      new tabla("poderNotarial","Poder notarial"),
+      new tabla("esActivo","Estatus")
     ];
    
 
@@ -134,7 +134,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
         centrocClienteId: (this.id_empresa) == 0 ? "" : this.id_empresa
       },
       tipoPersonaId: {
-        tipoPersonaId: 1
+        tipoPersonaId: 6
       }
     }
 
