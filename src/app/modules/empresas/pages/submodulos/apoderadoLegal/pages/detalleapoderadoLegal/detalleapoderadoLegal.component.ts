@@ -28,7 +28,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
   public centrocClienteId: number = 0;
   public tipoRepresentanteId: number = 1;
   public submitEnviado: boolean = false;
-
+  public arregloFacultadPoder: any = [];
 
 
   constructor(private formBuilder: FormBuilder, private apoderadoPrd: ApoderadoLegalService, private routerActivePrd: ActivatedRoute,
@@ -50,12 +50,14 @@ export class DetalleapoderadoLegalComponent implements OnInit {
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     if (this.insertar) {
       objdetrep = {
-        nacionalidadId: {}
+        nacionalidadId: {},
+        facultadPoderId:{}
       };
     }
 
     this.myFormrep = this.createFormrep((objdetrep));
     this.catalogosPrd.getNacinalidades(true).subscribe(datos => this.arreglonacionalidad = datos.datos);
+    this.catalogosPrd.getFacultadPoder(true).subscribe(datos => this.arregloFacultadPoder = datos.datos);
 
   }
 
@@ -67,6 +69,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
 
 
   public createFormrep(obj: any) {
+    debugger;
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
 
@@ -80,10 +83,10 @@ export class DetalleapoderadoLegalComponent implements OnInit {
       emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      podernotarial: [obj.podernotarial, [Validators.required]],
-      facultadId: [obj.facultadId, [Validators.required]],
+      poderNotarial: [obj.poderNotarial, [Validators.required]],
+      facultadPoderId: [obj.facultadPoderId?.facultadPoderId, [Validators.required]],
       //fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
-      activo: [{ value: (this.insertar) ? true : obj.activo, disabled: this.insertar }, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: obj.personaId
 
     });
@@ -121,7 +124,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
       return;
     }
 
-    const titulo = (this.insertar) ? "¿Desea registrar el representante legal" : "¿Desea actualizar los datos del representante legal?";
+    const titulo = (this.insertar) ? "¿Desea registrar al apoderado legal" : "¿Desea actualizar los datos del apoderado legal?";
     
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
@@ -139,7 +142,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
           contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
           rfc: obj.rfc,
           asActivo: obj.activo,
-          podernotarial: obj.podernotarial,
+          poderNotarial: obj.poderNotarial,
 
           contactoInicialTelefono: obj.contactoInicialTelefono,
           centrocClienteId: {
@@ -148,18 +151,18 @@ export class DetalleapoderadoLegalComponent implements OnInit {
           nacionalidadId: {
             nacionalidadId: obj.nacionalidadId
           },
-          tipoRepresentanteId: {
-            tipoRepresentanteId: this.tipoRepresentanteId
+          facultadPoderId:{
+            facultadPoderId:obj.facultadPoderId
           }
         }
 
         if (this.insertar) {
-
+          debugger;
           this.apoderadoPrd.save(objEnviar).subscribe(datos => {
 
            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
              if(datos.resultado){
-              this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/representantelegal"]);
+              this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/apoderadoLegal"]);
              }
            });
 
@@ -172,7 +175,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
           this.apoderadoPrd.modificar(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
-               this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/representantelegal"]);
+               this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/apoderadoLegal"]);
               }
             });
           });
@@ -185,7 +188,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
 
 
   public redirect(obj: any) {
-    this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/representantelegal"]);
+    this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/apoderadoLegal"]);
 
   }
   public recibirTabla(obj: any) {
