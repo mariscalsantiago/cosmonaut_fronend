@@ -6,7 +6,7 @@
             <span (click)="anteriorMes()" class="primary cursor">
                 <i class="fas fa-chevron-left" style="cursor: pointer;"></i>
             </span><span class="primary ml-5 mr-5">
-                {{fecha | date:'MMMM' | uppercase}} {{fecha | date:'yyyy'}}
+                {{(fecha | date:'MMM' | uppercase)?.replace('.','')}} {{fecha | date:'yyyy'}}
             </span><span (click)="siguienteMes()" class="primary cursor"><i class="fas fa-chevron-right "
                     style="cursor: pointer;"></i></span>
 
@@ -14,11 +14,13 @@
         <div class="col-3">
             <select name="" id="" class="form-control">
                 <option value="" selected>Filtrar por área</option>
+                <option *ngFor="let item of arregloAreas" [value]="item.areaId">{{item.descripcion}}</option>
             </select>
         </div>
         <div class="col-3">
             <select name="" id="" class="form-control">
                 <option value="" selected>Filtrar por evento</option>
+                <option *ngFor="let item of arregloEventos" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
             </select>
         </div>
 

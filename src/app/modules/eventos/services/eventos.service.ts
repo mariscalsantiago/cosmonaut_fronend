@@ -75,6 +75,17 @@ export class EventosService {
 
   }
 
+  public findByFechas(obj:any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };    
+    const json = JSON.stringify(obj);
+    return this.http.post(`${this.url}/lista/empresa/fechas`,json,httpOptions);
+
+  }
+
   
 
 

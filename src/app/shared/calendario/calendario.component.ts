@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-calendario',
@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calendario.component.scss']
 })
 export class CalendarioComponent implements OnInit {
+
+
+  @Input() public arregloEventos:any = [];
+  @Input() public arregloAreas:any = [];
 
   public fecha!: Date;
 
