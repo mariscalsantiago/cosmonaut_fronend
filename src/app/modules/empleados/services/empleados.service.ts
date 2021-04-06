@@ -108,6 +108,10 @@ export class EmpleadosService {
   }
 
 
+  public getEmpleadosIncompletos(idEmpresa:number):Observable<any>{
+    return this.http.get(`${direcciones.usuarios}/lista/empleado/incompleto/${idEmpresa}`);
+  }
+
 
 
 

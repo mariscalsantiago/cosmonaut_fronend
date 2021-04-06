@@ -13,81 +13,91 @@
         <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
                 <label for="exampleFormControlSelect1">Tipo de solicitud *</label>
-                <select  formControlName="tipoIncidenciaId" class="form-control" [ngClass]="{'is-invalid':f.tipoIncidenciaId.errors && submitEnviado}"
+                <select (change)="configurandoRestricciones()" formControlName="incidenciaId" class="form-control" [ngClass]="{'is-invalid':f.incidenciaId.errors && submitEnviado}"
                     id="exampleFormControlSelect1">
                     <option *ngFor="let item of arregloIncidenciaTipo" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
                 </select>
-                <div *ngIf="f.tipoIncidenciaId.errors && submitEnviado" class="invalid-feedback">
+                <div *ngIf="f.incidenciaId.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
             </div>
-
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                 <label>Número de empleado *</label>
-                
-                <select [ngClass]="{'is-invalid':f.idPersona.errors && submitEnviado}" formControlName="idPersona" class="form-control">
-                    <option *ngFor="let item of arregloEmpleados" [value]="item.idPersona">{{item.nombre}} {{item.apellidoPaterno}}</option>
-                </select>
+                <input autocomplete="off" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}" (focusout)="salirPersonaid()" list="empleadosreporta" class="form-control" formControlName="personaId"
+                    name="browser" id="browser">
 
-                <div *ngIf="f.idPersona.errors && submitEnviado" class="invalid-feedback">
+                <datalist id="empleadosreporta">
+                    <option *ngFor="let item of arregloEmpleados" [value]="item.nombre+' '+item.apellidoPaterno"></option>
+                </datalist>
+                <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
             </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div [ngClass]="{'ocultarCampo':verificar('dias')}"  class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Días *</label>
                 
-                <input type="text" class="form-control">
+                <input (blur)="perderFoco()" appSolonumeros [ngClass]="{'is-invalid':f.duracion.errors && submitEnviado}" formControlName="duracion" type="text" class="form-control">
+                <div *ngIf="f.duracion.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div [ngClass]="{'ocultarCampo':verificar('fecha')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha</label>
                 
-                <input type="date" class="form-control">
+                <input  formControlName="fechaInicio" type="date" class="form-control">
             </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div [ngClass]="{'ocultarCampo':verificar('monto')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Monto</label>
                 
-                <input type="text" class="form-control">
+                <input formControlName="monto" type="text" class="form-control">
             </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div (blur)="perderFoco()" [ngClass]="{'ocultarCampo':verificar('fechainicio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha inicio</label>
                 
-                <input type="date" class="form-control">
+                <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
+                <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div [ngClass]="{'ocultarCampo':verificar('fechafin')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha fin</label>
                 
-                <input type="date" class="form-control">
+                <input  [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin" type="date" class="form-control">
+                <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div [ngClass]="{'ocultarCampo':verificar('fechaaplicacion')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha de aplicación</label>
-                
-                <select  class="form-control">
-                    <option value="">No se</option>
+                <input [ngClass]="{'is-invalid':f.fechaAplicacion.errors && submitEnviado}" formControlName="fechaAplicacion" type="date" class="form-control">
+                <div *ngIf="f.fechaAplicacion.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div [ngClass]="{'ocultarCampo':verificar('incapacidad')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Tipo de incapacidad</label>
+                <select formControlName="tipoIncapacidadId" class="form-control">
+                    <option *ngFor="let item of arregloTipoIncapacidad" [value]="item.tipoIncapacidadId">{{item.descripcion}}</option>
                 </select>
             </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Tipo de incapacidad</label>
-                
-                <input type="date" class="form-control">
-            </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div [ngClass]="{'ocultarCampo':verificar('archivo')}" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Seleccionar archivo</label>
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control" >
+                  <input formControlName="urlArchivo" type="text" class="form-control" >
                   <div (click)="abrirArchivo()" class="input-group-append" style="cursor: pointer;">
                     <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><img src="assets/Iconos24/upload.png" alt="" srcset=""></span>
                   </div>
                 </div>
               </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Número de folipo</label>
+            <div [ngClass]="{'ocultarCampo':verificar('folio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Número de folio</label>
                 
-                <input type="text" class="form-control">
+                <input formControlName="numeroFolio" type="text" class="form-control">
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
                 <label>Comentarios</label>
                 
-                <input type="text" class="form-control">
+                <input formControlName="comentarios" type="text" class="form-control">
             </div>
         </div>
     </div>

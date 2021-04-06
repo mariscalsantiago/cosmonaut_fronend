@@ -41,7 +41,6 @@
       <feBlend result="blend" in2="SourceGraphic"/>
     </filter>
   </defs>
-  <text id="_Deseas_actualizar_los_datos_de_la_cuenta_bancaria_2" data-name="¿Deseas actualizar los datos de la cuenta bancaria?" class="cls-1" transform="translate(-134 190.203) scale(0.644)"><tspan x="0">¿Deseas actualizar los datos de la cuenta bancaria?</tspan></text>
   <g style="fill: #fff; filter: url(#filter)">
     <rect id="Rounded_Rectangle_2" data-name="Rounded Rectangle 2" class="cls-2" x="-32" y="280" width="245" height="46" rx="20" ry="20" style="stroke: inherit; filter: none; fill: inherit"/>
   </g>

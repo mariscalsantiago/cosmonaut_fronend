@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EmpleadoComponent } from './pages/empleado/empleado.component';
+import { EmpleadosIncompletosComponent } from './pages/empleados-incompletos/empleados-incompletos.component';
 import { FormBajaEmpleadoComponent } from './pages/form-baja-empleado/form-baja-empleado.component';
 import { FormEmpleadoComponent } from './pages/form-empleado/form-empleado.component';
 import { ListaempleadosComponent } from './pages/listaempleados/listaempleados.component';
@@ -10,6 +11,7 @@ import { ListaempleadosComponent } from './pages/listaempleados/listaempleados.c
 const routes: Routes = [{
   path:'',children:[
      {path:'empleados',component:ListaempleadosComponent},
+     {path:'empleados/empleadosincompletos',component:EmpleadosIncompletosComponent},
      {path:'empleados/empleado',component:FormEmpleadoComponent},
      {path:'empleados/bajaempleado',component:FormBajaEmpleadoComponent},
      {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/personal/empleados-personal.module').then(m => m.EmpleadosPersonalModule)},

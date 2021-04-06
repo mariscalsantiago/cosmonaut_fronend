@@ -135,7 +135,7 @@ export class EmpleoComponent implements OnInit {
 
   public validarfechAntiguedad(fecha:any){
 
-    debugger;
+    
       let fechaInicioContra = fecha;
       var fecha = fecha.split("-");
       this.fechaAntiguedad.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
@@ -157,7 +157,7 @@ export class EmpleoComponent implements OnInit {
 
   public validarfechaInicioCont(fecha:any){
 
-    debugger;
+    
       if(fecha != ""){
       var fecha = fecha.split("-");
       this.fechaIC.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
@@ -169,7 +169,7 @@ export class EmpleoComponent implements OnInit {
 
   public validarfechaFinCont(fecha:any){
 
-    debugger;
+    
       var fechaFC=new Date();
       var fecha = fecha.split("-");
       fechaFC.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
@@ -192,7 +192,7 @@ export class EmpleoComponent implements OnInit {
   }
 
   public validartipoContrato(idContrato: any){
-    debugger;
+    
     if(idContrato == 1){
       this.activaFechaFin = false;
     }

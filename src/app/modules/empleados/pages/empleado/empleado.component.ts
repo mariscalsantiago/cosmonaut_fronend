@@ -51,6 +51,8 @@ export class EmpleadoComponent implements OnInit {
 
       let fechacontrato = datos.datos?.fechaContrato;
       
+         
+
       
 
 

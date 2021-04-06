@@ -171,5 +171,9 @@ export class CatalogosService {
     return this.http.get(`${this.url}/tipoIncidencia/listar/todosActivo/${status}`);
   }
 
+  public getTipoIncapacidad(status:boolean):Observable<any>{
+      return this.http.get(`${this.url}/tipoIncapacidad/listar/todosActivo/${status}`);
+  }
+
 
 }
