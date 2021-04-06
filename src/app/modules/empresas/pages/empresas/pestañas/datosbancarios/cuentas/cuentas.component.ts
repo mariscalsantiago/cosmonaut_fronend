@@ -41,7 +41,10 @@ export class CuentasComponent implements OnInit {
  debugger;  
     this.objdsede = this.datosempresa.idModificar;
     if(this.datosempresa.insertar){
-      this.obj = { bancoId: { bancoId: 0 } };
+      this.obj = { 
+        bancoId: { bancoId: 0 },
+        funcionCuentaId: { funcionCuentaId: 0 }
+      };
       this.myForm = this.createForm(this.obj);
     }
     else if(!this.datosempresa.insertar && this.objdsede != undefined){
@@ -71,7 +74,8 @@ debugger;
 
     numeroCuenta: [obj.numeroCuenta, [Validators.required]],
     nombreCuenta: [obj.nombreCuenta, [Validators.required]],
-    bancoId: [obj.bancoId?.bancoId, [Validators.required]],
+    idbanco: [obj.bancoId?.bancoId, [Validators.required]],
+    funcionCuentaId: [obj.funcionCuentaId?.funcionCuentaId, [Validators.required]],
     descripcion: [obj.descripcion],
     num_informacion: [obj.numInformacion],
     clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
@@ -112,6 +116,40 @@ debugger;
  }
 }
 
+public validarBanco(clabe:any){
+  debugger;
+  this.myForm.controls.idbanco.setValue("");
+  this.myForm.controls.clabe.setValue("");
+
+  if(this.myForm.controls.clabe.errors?.pattern === undefined ){
+
+
+  if(clabe == '' || clabe == null || clabe == undefined){
+
+    this.myForm.controls.idbanco.setValue("");
+    this.myForm.controls.clabe.setValue("");
+  }else{
+  this.cuentasPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
+    if (datos.resultado) {
+
+      this.myForm.controls.idbanco.setValue( datos.datos.bancoId);
+      this.myForm.controls.clabe.setValue( clabe);
+
+    }
+    else{
+      this.alerta.modal = true;
+      this.alerta.iconType = datos.resultado? "success" : "error";
+      this.alerta.strTitulo = datos.mensaje;
+    }
+
+});
+
+  }
+
+}
+
+}
+
 public activarCancel(){
 
   this.habcontinuarSede = true;
@@ -139,14 +177,15 @@ public activarCancel(){
             numInformacion: obj.num_informacion,
             clabe: obj.clabe,
             numSucursal: obj.num_sucursal,
+            funcionCuentaId: obj.funcionCuentaId,
             esActivo: obj.esActivo,
             nclCentrocCliente: {
               centrocClienteId: this.datosempresa.centrocClienteEmpresa
             },
             bancoId: {
-              bancoId: obj.bancoId
+              bancoId: obj.idbanco
             }
-          }
+          };
     
           if(this.insertarMof){
             this.cuentasPrd.save(this.peticion).subscribe(datos =>{

@@ -96,7 +96,7 @@ export class ListarepresentantelegalComponent implements OnInit {
       new tabla("curp","CURP"),
       new tabla("emailCorporativo","Correo empresarial"),
       //new tabla("fechaAlta","Fecha de registro"),
-      new tabla("activo","Estatus")
+      new tabla("esActivo","Estatus")
     ];
    
 
