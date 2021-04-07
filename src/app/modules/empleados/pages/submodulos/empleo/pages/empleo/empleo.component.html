@@ -37,7 +37,7 @@
                 </article>
                 <article class="titulo   col">
                     Jefe inmediato
-                    <article *ngIf="!editarcampos">Por definir</article>
+                    <article *ngIf="!editarcampos">{{empleado.jefeInmediatoId?.personaId}}</article>
                     <article *ngIf="editarcampos">
 
                         <input list="empleadosreporta" class="form-control" formControlName="puesto_id_reporta"

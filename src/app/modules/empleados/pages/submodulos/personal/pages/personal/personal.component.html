@@ -121,7 +121,7 @@
                 <article class="titulo col">
                     Seguro Social
                     <article *ngIf="!editarcampos">
-                        {{empleado.nns}}
+                        {{empleado.nss}}
                     </article>
                     <article *ngIf="editarcampos">
                         <input formControlName="nss" type="text" name="" id="" class="form-control">
@@ -232,7 +232,7 @@
                 <article class="titulo col">
                     Dirección
                     <article *ngIf="!editarcampos">
-                        {{domicilioArreglo?.calle}} # {{domicilioArreglo?.numeroExterior}} Col. {{domicilioArreglo?.colonia}} {{domicilioArreglo?.entidadFederativa}}
+                        {{domicilioArreglo?.calle}} # {{domicilioArreglo?.numeroExterior}} Col. {{domicilioArreglo?.colonia}}, {{domicilioArreglo?.municipio}}, C.P. {{domicilioArreglo?.codigoPostal}} , {{domicilioArreglo?.entidadFederativa}}
                     </article>
 
                     <article *ngIf="editarcampos">

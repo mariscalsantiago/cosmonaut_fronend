@@ -68,6 +68,12 @@ export class InformacionempresaComponent implements OnInit {
   }
   public createForm(obj: any) {
     debugger;
+    if(!this.datosempresa.insertar){
+      
+      obj.certext='Certificado de sello digital cargado';
+      obj.keytext='Llave de certificado de sello digital cargado';
+
+    }
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial,[Validators.required]],
@@ -79,7 +85,9 @@ export class InformacionempresaComponent implements OnInit {
       centrocClienteId: obj.centrocClienteId,
       tieneCurp: [obj.tieneCurp],
       cer: [obj.cer, [Validators.required]],
+      certext: obj.certext,
       key: [obj.key, [Validators.required]],
+      keytext: obj.keytext,
       contrasenia: [obj.contrasenia, [Validators.required]],
       esActivo: [{ value: (this.datosempresa.insertar) ? true : obj.esActivo, disabled: this.datosempresa.insertar }, [Validators.required]],
  
@@ -206,6 +214,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public abrirCer(){
+    debugger;
     let input = document.createElement("input");
     input.type="file";
     input.accept = ".cer";
@@ -221,6 +230,7 @@ export class InformacionempresaComponent implements OnInit {
 
        archivo.arrayBuffer().then(datos => {
           this.myform.controls.cer.setValue(this.arrayBufferToBase64(datos));
+          console.log("CER",this.arrayBufferToBase64(datos))
        });
 
 

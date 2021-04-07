@@ -96,7 +96,7 @@
               <label>Certificado de sello digital *</label>
               <div class="input-group mb-3">
                 <input type="hidden" formControlName="cer" [ngClass]="{'is-invalid':f.cer.errors && submitEnviado}">
-                <input #cer type="text" class="form-control" [ngClass]="{'is-invalid':f.cer.errors && submitEnviado}" >
+                <input #cer type="text" formControlName="certext" class="form-control disabled bg-light" [ngClass]="{'is-invalid':f.cer.errors && submitEnviado}" >
                 <div (click)="abrirCer()" class="input-group-append" style="cursor: pointer;">
                   <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
                 </div>
@@ -109,7 +109,7 @@
               <label>Llave de certificado de sello digital *</label>
               <div class="input-group mb-3">
                 <input type="hidden" formControlName="key" [ngClass]="{'is-invalid':f.key.errors && submitEnviado}">
-                <input #key type="text" class=" form-control" [ngClass]="{'is-invalid':f.key.errors && submitEnviado}">
+                <input #key type="text" formControlName="keytext" class=" form-control disabled bg-light" [ngClass]="{'is-invalid':f.key.errors && submitEnviado}">
                 <input type="hidden" >
                 <div class="input-group-append" style="cursor: pointer;">
                   <span style="font-size: small;" (click)="abrirKey()"  class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>

@@ -85,7 +85,6 @@ export class EmpleoComponent implements OnInit {
     return this.formBuilder.group({
       areaId: [obj.areaId?.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
-      puesto_id_reporta: obj.puesto_id_reporta,
       sedeId: obj.sedeId?.sedeId,
       estadoId: obj.estadoId?.estadoId,
       fechaAntiguedad: [datePipe.transform(obj.fechaAntiguedad, 'yyyy-MM-dd'), [Validators.required]],
@@ -93,6 +92,7 @@ export class EmpleoComponent implements OnInit {
       fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd'), [Validators.required]],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
+      puesto_id_reporta: obj.jefeInmediatoId?.personaId,
       esSindicalizado: [`${obj.esSindicalizado}`]
     });
 
@@ -158,6 +158,7 @@ export class EmpleoComponent implements OnInit {
           jornadaId:{jornadaId:obj.jornadaId,tipoJornadaId:{tipoJornadaId:idTipoJornada}},
           tipoJornadaId:idTipoJornada,
           politicaId:{politicaId:obj.politicaId},
+          jefeInmediatoId:{personaId:obj.puesto_id_reporta},
           esSindicalizado:obj.esSindicalizado          
       }
 
