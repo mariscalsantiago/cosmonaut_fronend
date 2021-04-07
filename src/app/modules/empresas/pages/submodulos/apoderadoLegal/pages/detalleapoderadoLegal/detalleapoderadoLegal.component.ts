@@ -29,6 +29,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
   public tipoRepresentanteId: number = 1;
   public submitEnviado: boolean = false;
   public arregloFacultadPoder: any = [];
+  public objEnviar: any = [];
 
 
   constructor(private formBuilder: FormBuilder, private apoderadoPrd: ApoderadoLegalService, private routerActivePrd: ActivatedRoute,
@@ -130,9 +131,13 @@ export class DetalleapoderadoLegalComponent implements OnInit {
       if(valor){
 
         let obj = this.myFormrep.value;
+        if(obj.esActivo == 'Activo'){
+          obj.esActivo = 'true'
+         }else{
+          obj.esActivo = 'false'
+         }
 
-
-        let objEnviar: any = {
+        this.objEnviar = {
           nombre: obj.nombre,
           apellidoPaterno: obj.apellidoPaterno,
           apellidoMaterno: obj.apellidoMaterno,
@@ -141,7 +146,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
           emailCorporativo: obj.emailCorporativo,
           contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
           rfc: obj.rfc,
-          asActivo: obj.activo,
+          esActivo: obj.esActivo,
           poderNotarial: obj.poderNotarial,
 
           contactoInicialTelefono: obj.contactoInicialTelefono,
@@ -158,7 +163,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
 
         if (this.insertar) {
           debugger;
-          this.apoderadoPrd.save(objEnviar).subscribe(datos => {
+          this.apoderadoPrd.save(this.objEnviar).subscribe(datos => {
 
            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
              if(datos.resultado){
@@ -170,9 +175,9 @@ export class DetalleapoderadoLegalComponent implements OnInit {
 
         } else {
 
-          objEnviar.personaId = obj.personaId;
+          this.objEnviar.personaId = obj.personaId;
 
-          this.apoderadoPrd.modificar(objEnviar).subscribe(datos => {
+          this.apoderadoPrd.modificar(this.objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
                this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/apoderadoLegal"]);

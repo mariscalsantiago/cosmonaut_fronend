@@ -96,7 +96,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
       new tabla("curp","CURP"),
       new tabla("emailCorporativo","Correo empresarial"),
       new tabla("poderNotarial","Poder notarial"),
-      new tabla("esActivo","Estatus")
+      new tabla("esActivo","Estatus de apoderado")
     ];
    
 
@@ -105,7 +105,12 @@ export class ListaapoderadoLegalComponent implements OnInit {
         item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
-        
+        if(item.esActivo){
+         item.esActivo = 'Activo'
+        }
+        if(!item.esActivo){
+        item.esActivo = 'Inactivo'
+        }
       
       }
     }

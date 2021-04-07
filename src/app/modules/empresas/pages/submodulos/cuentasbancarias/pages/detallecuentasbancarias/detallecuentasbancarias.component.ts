@@ -42,7 +42,10 @@ export class DetallecuentasbancariasComponent implements OnInit {
     });
 
 
-    this.objCuenta = { bancoId: { bancoId: 0 } };
+    this.objCuenta = { 
+      bancoId: { bancoId: 0 },
+      funcionCuentaId: { funcionCuentaId: 0 }
+    };
 
     if (!this.esInsert) {//Solo cuando es modificar
       this.objCuenta = history.state.data;
@@ -106,7 +109,8 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
       numeroCuenta: [obj.numeroCuenta, [Validators.required]],
       nombreCuenta: [obj.nombreCuenta, [Validators.required]],
-      idbanco: [obj.bancoId.bancoId, [Validators.required]],
+      idbanco: [obj.bancoId?.bancoId, [Validators.required]],
+      funcionCuentaId: [obj.funcionCuentaId?.funcionCuentaId, [Validators.required]],
       descripcion: [obj.descripcion],
       num_informacion: [obj.numInformacion],
       clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
@@ -150,6 +154,7 @@ debugger;
             numInformacion: obj.num_informacion,
             clabe: obj.clabe,
             numSucursal: obj.num_sucursal,
+            funcionCuentaId: obj.funcionCuentaId,
             esActivo: obj.esActivo,
             nclCentrocCliente: {
               centrocClienteId: this.id_empresa

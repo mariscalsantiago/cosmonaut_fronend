@@ -72,6 +72,16 @@
         <input appSolonumeros formControlName="num_sucursal" type="text" class="form-control" placeholder="">
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+        <label for="exampleFormControlSelect1">Función de la cuenta *</label>
+        <select formControlName="funcionCuentaId" class="form-control"
+          [ngClass]="{'is-invalid':f.funcionCuentaId.errors && submitInvalido}">
+          <option *ngFor="let item of cuentasBancarias" [value]="item.bancoId">{{item.nombreCorto}}</option>
+        </select>
+        <div *ngIf="submitInvalido && f.funcionCuentaId.errors" class="invalid-feedback">
+          Campo requerido
+        </div>
+      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
         <label>Estatus</label>
         <select name="" id="" class="form-control" formControlName="esActivo">
           <option value="true">Activo</option>
