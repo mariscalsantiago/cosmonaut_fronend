@@ -52,11 +52,12 @@ export class PersonalComponent implements OnInit {
 
       this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datos => {
         this.empleado = datos.datos;
+        console.log("Empleado",this.empleado);
 
         this.parsearInformacion();
         this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datos =>{
           this.domicilioArreglo = datos?.datos[0]
-          console.log(this.domicilioArreglo);
+          console.log("Direccion",this.domicilioArreglo);
         });
         
         
@@ -165,7 +166,7 @@ export class PersonalComponent implements OnInit {
       }
 
     }
-
+    debugger;
 
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
