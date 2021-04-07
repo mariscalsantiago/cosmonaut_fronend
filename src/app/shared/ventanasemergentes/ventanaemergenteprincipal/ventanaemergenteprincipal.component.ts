@@ -26,7 +26,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     solicitudIncapacidad:false,
     solicitudHorasExtras:false,
     solicitudDiasEconomicos:false,
-    registrofaltas:false
+    registrofaltas:false,
+    nuevanomina:false
   }
 
   @HostListener('window:resize', ['$event'])

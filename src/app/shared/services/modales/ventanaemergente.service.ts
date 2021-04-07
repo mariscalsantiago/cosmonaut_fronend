@@ -9,9 +9,10 @@ export class VentanaemergenteService {
   public solicitudCargaMasiva: string = "solicitudcargamasiva";
   public solicitudVacaciones: string = "solicitudVacaciones";
   public solicitudIncapacidad: string = "solicitudIncapacidad";
-  public solicitudHorasExtras:string = "solicitudHorasExtras";
-  public solicitudDiasEconomicos:string = "solicitudDiasEconomicos";
-  public registrofaltas:string = "registrofaltas";
+  public solicitudHorasExtras: string = "solicitudHorasExtras";
+  public solicitudDiasEconomicos: string = "solicitudDiasEconomicos";
+  public registrofaltas: string = "registrofaltas";
+  public nuevanomina: string = "nuevanomina";
 
   public subject?: Subject<any>;;
 
@@ -25,8 +26,9 @@ export class VentanaemergenteService {
     solicitudvacacaciones: false,
     solicitudIncapacidad: false,
     solicitudHorasExtras: false,
-    solicitudDiasEconomicos:false,
-    registrofaltas:false
+    solicitudDiasEconomicos: false,
+    registrofaltas: false,
+    nuevanomina: false
   }
 
   constructor() { }
@@ -61,10 +63,14 @@ export class VentanaemergenteService {
         this.mostrar.solicitudDiasEconomicos = true;
         this.emergente.titulo = "SOLICITUD DE DÍAS ECONÓMICOS";
         break;
-        case this.registrofaltas:
-          this.mostrar.registrofaltas = true;
-          this.emergente.titulo = "REGISTRO DE FALTAS";
-          break;
+      case this.registrofaltas:
+        this.mostrar.registrofaltas = true;
+        this.emergente.titulo = "REGISTRO DE FALTAS";
+        break;
+      case this.nuevanomina:
+        this.mostrar.nuevanomina = true;
+        this.emergente.titulo = "NUEVA NÓMINA MANUAL";
+        break;
     }
 
 

@@ -32,7 +32,8 @@ export class ContenidoComponent implements OnInit {
     solicitudIncapacidad:false,
     solicitudHorasExtras:false,
     solicitudDiasEconomicos:false,
-    registrofaltas:false
+    registrofaltas:false,
+    nuevanomina:false
   }
 
   public emergente = {
@@ -93,6 +94,15 @@ export class ContenidoComponent implements OnInit {
   public recibirEmergente($event: any) {
     this.emergente.modal = false;
     this.ventana.recibiendomensajes($event);
+  }
+
+
+  public recibirchat(obj:any){
+      switch(obj.type){
+          case "exit":
+            this.ocultarchat = true;
+            break;
+      }
   }
 
 

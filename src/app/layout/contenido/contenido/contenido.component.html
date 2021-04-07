@@ -51,5 +51,5 @@
     <div class="chaticon">
         <img (click)="ocultarchat = !ocultarchat" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
     </div>
-    <app-chatboot class="swing-in-top-fwd" [ngClass]="{'ocultarchat':ocultarchat}"></app-chatboot>
+    <app-chatboot class="swing-in-top-fwd" [ngClass]="{'ocultarchat':ocultarchat}" (salida)="recibirchat($event)"></app-chatboot>
 </div>

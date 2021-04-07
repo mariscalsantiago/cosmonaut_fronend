@@ -20,6 +20,8 @@ import { VentanaSolicitudHorasExtrasComponent } from './ventanasemergentes/tipos
 import { VentanaSolicitudDiasEconomicosComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-dias-economicos/ventana-solicitud-dias-economicos.component';
 import { VentanaRegistroFaltasComponent } from './ventanasemergentes/tiposventanas/ventana-registro-faltas/ventana-registro-faltas.component';
 import { ChatbootComponent } from './chatboot/chatboot.component';
+import { VentanaNuevanominaComponent } from './ventanasemergentes/tiposventanas/ventana-nuevanomina/ventana-nuevanomina.component';
+import { AlfanumericoDirective } from './directivas/alfanumerico.directive';
 
 
 @NgModule({
@@ -46,13 +48,15 @@ import { ChatbootComponent } from './chatboot/chatboot.component';
     VentanaSolicitudHorasExtrasComponent,
     VentanaSolicitudDiasEconomicosComponent,
     VentanaRegistroFaltasComponent,
-    ChatbootComponent
+    ChatbootComponent,
+    VentanaNuevanominaComponent,
+    AlfanumericoDirective
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent,MayusculasDirective,SolonumerosDirective,TamanioVentanaDirective,
-    CalendarioComponent,VentanaemergenteprincipalComponent,ChatbootComponent]
+    CalendarioComponent,VentanaemergenteprincipalComponent,ChatbootComponent,AlfanumericoDirective]
 })
 export class ShareModule { }

@@ -1,4 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit,EventEmitter, Output } from '@angular/core';
+
 
 @Component({
   selector: 'app-chatboot',
@@ -9,6 +10,9 @@ export class ChatbootComponent implements OnInit {
   public scrolly: string = '250px';
   public tamanio: number = 0;
   public modalWidth: string = "350px";
+
+
+  @Output() salida = new EventEmitter();
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -34,6 +38,11 @@ export class ChatbootComponent implements OnInit {
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
+  }
+
+
+  public salir(){
+    this.salida.emit({type:"exit"});
   }
 
 }
