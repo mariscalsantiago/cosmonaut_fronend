@@ -16,7 +16,7 @@
 
 <div class="scrooll-design">
 
-    <div class="row   m-2 background-panel " *ngFor="let item of arreglo" >
+    <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo" >
         <div class="col-6 mt-3">
             <article>Nómina Quincenal Soulsoft
                 <article>Periodo 001/2020: 1 oct. - 15 oct. Incidencias: 1 oct. - 15 oct.</article>
@@ -80,7 +80,7 @@
     
         </div>
         <div class="col-3 text-right segundaseccion" style="    border-bottom-right-radius: 20px;">
-            <button  type="button" class="btn btn-primary button-outlet mr-2 mt-2">Calcular</button>
+            <button (click)="calcularNomina()" type="button" class="btn btn-primary button-outlet mr-2 mt-2">Calcular</button>
         </div>
         
     </div>
