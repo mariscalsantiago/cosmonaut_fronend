@@ -16,6 +16,8 @@ export class ContenidoComponent implements OnInit {
   public mostrarmenu: boolean = false;
   public temporal: boolean = false;
 
+  public ocultarchat:boolean = true;
+
 
 
   public modal = {

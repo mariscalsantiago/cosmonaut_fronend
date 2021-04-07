@@ -8,7 +8,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class ChatbootComponent implements OnInit {
   public scrolly: string = '250px';
   public tamanio: number = 0;
-  public modalWidth: string = "300px";
+  public modalWidth: string = "350px";
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -22,7 +22,7 @@ export class ChatbootComponent implements OnInit {
       this.modalWidth = "60%";
 
     } else {
-      this.modalWidth = "300px";
+      this.modalWidth = "350px";
 
     }
   }
