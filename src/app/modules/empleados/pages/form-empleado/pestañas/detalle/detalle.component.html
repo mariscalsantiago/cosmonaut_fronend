@@ -17,18 +17,21 @@
 
 
             </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>CLABE *</label>
-                <input appSolonumeros maxlength="18" [ngClass]="{'is-invalid':f.clabe.errors && submitEnviado}" formControlName="clabe" type="text" class="form-control" placeholder="">
-                <div *ngIf="f.clabe.errors && submitEnviado" class="invalid-feedback">
-                    Campo requerido
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Cuenta CLABE *</label> 
+                <input #clabe (focusout)="validarBanco(clabe.value)" maxlength="18" formControlName="clabe" type="text" class="form-control" value=""
+                  [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
+                  placeholder="">
+                <div *ngIf="submitEnviado && f.clabe.errors?.required" class="invalid-feedback">
+                  Campo requerido
                 </div>
-
-
-            </div>
+                <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
+                  La CLABE no es válida
+                </div>
+              </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Banco *</label>
-                <select [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}" formControlName="csBanco" class="form-control" name="" id="">
+                <select [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}" formControlName="csBanco" class="form-control disabled bg-light" name="" id="">
                     <option *ngFor="let item of arreglobancos" [value]="item.bancoId">{{item.nombreCorto}}</option>
                 </select>
                 <div *ngIf="f.csBanco.errors && submitEnviado" class="invalid-feedback">

@@ -57,6 +57,37 @@ export class DetalleComponent implements OnInit {
 
   }
 
+  public validarBanco(clabe:any){
+    debugger;
+    this.myForm.controls.csBanco.setValue("");
+    this.myForm.controls.clabe.setValue("");
+  
+    if(this.myForm.controls.clabe.errors?.pattern === undefined ){
+  
+  
+    if(clabe == '' || clabe == null || clabe == undefined){
+  
+      this.myForm.controls.csBanco.setValue("");
+      this.myForm.controls.clabe.setValue("");
+    }else{
+    this.bancosPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
+      if (datos.resultado) {
+  
+        this.myForm.controls.csBanco.setValue( datos.datos.bancoId);
+        this.myForm.controls.clabe.setValue( clabe);
+  
+      }
+      else{
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+      }
+  
+  });
+  
+    }
+  
+  }
+  
+  }
 
   public enviarFormulario() {
 

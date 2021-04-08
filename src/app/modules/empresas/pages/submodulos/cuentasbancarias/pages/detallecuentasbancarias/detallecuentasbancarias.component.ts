@@ -22,6 +22,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
   public cuentasBancarias: any;
   public submitInvalido: boolean = false;
   public peticion: any = [];
+  public funcionCuenta: any = [];
 
  
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
@@ -59,6 +60,10 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => {
       this.cuentasBancarias = datos.datos;
+    });
+
+    this.catalogosPrd.getFuncionCuenta(true).subscribe(datos => {
+      this.funcionCuenta = datos.datos;
     });
 
   }
@@ -154,7 +159,7 @@ debugger;
             numInformacion: obj.num_informacion,
             clabe: obj.clabe,
             numSucursal: obj.num_sucursal,
-            funcionCuentaId: obj.funcionCuentaId,
+            funcionCuentaId : { funcionCuentaId: obj.funcionCuentaId},
             esActivo: obj.esActivo,
             nclCentrocCliente: {
               centrocClienteId: this.id_empresa
