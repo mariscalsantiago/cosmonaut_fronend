@@ -72,7 +72,7 @@
                     Campo requerido
                 </div>
                 <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
-                    Correo empresarial inválido, Favor de verificar
+                    Correo empresarial inválido, favor de verificar
                 </div>
 
             </div>
@@ -85,7 +85,7 @@
                     Campo requerido
                 </div>
                 <div *ngIf="f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched" class="invalid-feedback">
-                    Correo personal inválido, Favor de verificar
+                    Correo personal inválido, favor de verificar
                 </div>
 
             </div>
@@ -100,7 +100,7 @@
 
             </div>
 
-            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label >Celular *</label>
                 <input appSolonumeros formControlName="celular" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.celular.errors && summitenviado}"
                     placeholder="">

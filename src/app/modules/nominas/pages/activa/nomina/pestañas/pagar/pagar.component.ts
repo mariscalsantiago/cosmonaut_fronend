@@ -10,6 +10,8 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 export class PagarComponent implements OnInit {
   @Output() salida = new EventEmitter();
 
+  public cargando:boolean = false;
+
   public arreglotabla:any = {
     columnas:[],
     filas:[]
@@ -60,6 +62,12 @@ export class PagarComponent implements OnInit {
          }, 2000);
       }
     });
+  }
+
+
+  public recibirTabla(obj:any){
+
+
   }
 
 }

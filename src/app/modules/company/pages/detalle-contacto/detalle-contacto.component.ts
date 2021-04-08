@@ -132,14 +132,18 @@ export class DetalleContactoComponent implements OnInit {
           this.companyPrd.savecont(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
-            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-              .then(() => {
-                if(this.esModificaEmpresa){
-                  this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } });
-                }else{
-                  this.routerPrd.navigate(['company'])
-                }
-              });
+              if(datos.resultado){
+                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+                .then(() => {
+                  if(this.esModificaEmpresa){
+                    this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } });
+                  }else{
+                    this.routerPrd.navigate(['company'])
+                  }
+                });
+              }else{
+                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+              }
 
             this.compania = false;
             this.contacto = true;
@@ -156,8 +160,14 @@ export class DetalleContactoComponent implements OnInit {
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
-            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+            
+            if(datos.resultado){
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
               .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
+            }else{
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+            }
+
             this.listcontacto = true;
             this.compania = false;
 
