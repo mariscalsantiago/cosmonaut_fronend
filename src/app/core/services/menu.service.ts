@@ -9,7 +9,15 @@ export class MenuService {
   public tipoinsert: string = 'nuevo';
   private arreglo: Array<menuprincipal> = [
     { nombre: "INICIO", icono: "icon_home", seleccionado: true,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"],routerLink:['/inicio'] },
-    { nombre: "NOMINAS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"]},
+    { nombre: "NOMINAS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
+                                                                                    {nombre:"ACTIVAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"HISTÓRICAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"EXTRAORDINARIAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"FINIQUITO/LIQUIDACIÓN",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"PTU",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"VIÁTICOS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"CALCULADORA",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]}
+                                                                                ]},
     { nombre: "EMPLEADOS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"LISTA Y ALTA DE EMPLEADOS",routerLink:['/empleados'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"BAJA DE EMPLEADOS",routerLink:['/empleados/bajaempleado'],rol:["ALL","ADMINEMPRESA"]},

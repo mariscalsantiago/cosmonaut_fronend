@@ -1,0 +1,136 @@
+
+
+.ventanaemergente{
+    z-index: 1;
+    display: block;
+    overflow: auto;
+    width: 50%;
+    border-radius: 5px;
+    border:1px solid rgb(102, 102, 102);
+    height: auto;
+    background-color: white !important;
+    -webkit-box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42); 
+box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42);
+
+position: absolute;
+
+top: 30%;
+right: 5%;
+
+
+
+.sendchat{
+    border:1px solid rgb(214, 214, 214);
+    height: 40px;
+    border-radius: 10px;
+    position: relative;
+    color: #949292;
+    .adjunto{
+        position: absolute;
+        right: 0;
+        top: 3px;
+        font-size: x-large;
+        cursor: pointer;
+    }
+    .adjunto2{
+        position: absolute;
+        left: 0;
+        top: 1px;
+        font-size: x-large;
+        cursor: pointer;
+    }
+    .limiteschat{
+        padding-left: 28px;
+        padding-right: 33px;
+    }
+}
+.btnclosemodal{
+    top: 0   !important;
+    position: absolute  !important;
+    right: 11px   !important;
+    
+
+    span{
+        color: white;
+        font-size: x-large;
+    }
+}
+
+
+.dialogo{
+    background-color: #4cc1b0;
+    height: 70px;
+}
+
+.titulos{
+    float:left
+}
+
+.header,.body,.footer{
+    width: 100%;
+    padding: 10px;
+    padding-right: 17px;
+padding-left: 23px;
+padding-bottom: 24px;
+}
+
+.header{
+    color:white;
+}
+
+h5{
+    font-size: medium;
+}
+h6{
+    font-size: small;
+}
+
+
+.imagen{
+
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.chat{
+    height: 250px;
+    overflow: auto;
+    .enviado{
+        width: fit-content;
+        background: #b1eae3;
+        padding: 10px;
+        color: #7d7d7d;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        float: right;
+        margin-left: 50%;
+        text-align: right;
+    }
+
+    .recibido{
+        width: fit-content;
+        background: #e0e0e0;
+        padding: 10px;
+        color: #7d7d7d;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        float: left;
+        margin-right: 50%;
+    }
+
+    .hora{
+        display: block;
+                      font-size: x-small;
+    }
+}
+
+
+}
+
+.a1{
+ fill:rgb(138, 138, 138) !important;
+}
+

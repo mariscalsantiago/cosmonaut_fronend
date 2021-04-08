@@ -43,13 +43,13 @@
                     <input type="number" [(ngModel)]="centrocClienteId" class="form-control" placeholder="Id compañía">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <input type="text" [(ngModel)]="rfc" class="form-control" placeholder="RFC">
+                    <input type="text" [appAlfanumerico]="'true'" [(ngModel)]="rfc" class="form-control" placeholder="RFC">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre compañía">
+                    <input type="text" appAlfanumerico [(ngModel)]="nombre" class="form-control" placeholder="Nombre compañía">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
-                    <input type="text" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
+                    <input type="text" [appAlfanumerico]="'true'" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                     <input type="text" [(ngModel)]="fechaAlta" class="form-control" placeholder="Fecha de registro" onfocus="(this.type='date')" onblur="(this.type='date')">
