@@ -25,11 +25,19 @@ export class NominasActivasComponent implements OnInit {
 
   public calcularNomina(){
 
-      this.modalPrd.showMessageDialog(this.modalPrd.loading);
-      setTimeout(() => {
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        this.router.navigate(['/nominas/nomina']);
-      }, 4000);
+
+    this.modalPrd.showMessageDialog(this.modalPrd.question,"Importante","No has calculado el promedio de variables para este bimestre. Si continuas, tomaremos el promedio del bimestre anterior.").then((valor)=>{
+       if(valor){
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        setTimeout(() => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.router.navigate(['/nominas/nomina']);
+        }, 4000);
+       }
+    });
+
+
+      
   }
 
 }

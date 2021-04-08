@@ -9,29 +9,31 @@ export class ModalService {
   public success: string = "success";
   public warning: string = "warning";
   public error: string = "error";
-  public loading:string = "loading";
-  public loadingfinish:string = "finishloading";
+  public loading: string = "loading";
+  public loadingfinish: string = "finishloading";
+  public question: string = "question";
 
   public subject?: Subject<any>;;
 
   public modal = {
     strTitulo: "",
     iconType: "",
-    modal: false
+    modal: false,
+    strSubtitulo: ""
   }
 
   constructor() { }
 
-  public showMessageDialog(alerta: any, titulo?: string): Promise<any> {
+  public showMessageDialog(alerta: any, titulo?: string,subtitulo?:string): Promise<any> {
 
-    if(alerta == this.loadingfinish){
+    if (alerta == this.loadingfinish) {
 
-          this.modal.modal = false;
-          return new Promise((resultado)=>{resultado;});
+      this.modal.modal = false;
+      return new Promise((resultado) => { resultado; });
     }
 
-    if(typeof(alerta) == "boolean"){
-       alerta = alerta ? "success" : "error";
+    if (typeof (alerta) == "boolean") {
+      alerta = alerta ? "success" : "error";
     }
 
 
@@ -42,13 +44,16 @@ export class ModalService {
     titulo = (titulo == undefined) ? "" : titulo;
     this.modal.strTitulo = titulo;
 
+    subtitulo = (subtitulo == undefined) ? "" : subtitulo;
+    this.modal.strSubtitulo = subtitulo;
+
     switch (alerta) {
       case this.error:
         this.modal.strTitulo = titulo == "" ? "Campos obligatorios o inválidos" : titulo
         break;
-        case this.loading:
-          this.modal.strTitulo = "Cargando";
-          break;
+      case this.loading:
+        this.modal.strTitulo = "Cargando";
+        break;
     }
 
     this.subject = new Subject<any>();

@@ -42,7 +42,7 @@
             <div class="container-fluid" >
                 <router-outlet></router-outlet>
 
-                <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
+                <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [subtitulo]="modal.strSubtitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
                 <app-ventanaemergenteprincipal *ngIf="emergente.modal" [titulo]="emergente.titulo" [mostrar]="mostrar" (salida)="recibirEmergente($event)"></app-ventanaemergenteprincipal>
                 
             </div>

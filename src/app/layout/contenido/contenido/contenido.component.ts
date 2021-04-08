@@ -23,7 +23,8 @@ export class ContenidoComponent implements OnInit {
   public modal = {
     strTitulo: "",
     iconType: "",
-    modal: false
+    modal: false,
+    strSubtitulo:""
   }
 
   public mostrar = {

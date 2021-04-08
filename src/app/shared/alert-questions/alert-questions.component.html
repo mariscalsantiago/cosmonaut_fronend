@@ -11,7 +11,7 @@
             <div *ngIf="iconType=='success'" class="containerimg">
                 <img src="assets/icons/ICO_success.svg" width="75px" height="75px" alt="" srcset="">
             </div>
-            <div *ngIf="iconType=='error'" class="containerimg">
+            <div *ngIf="iconType=='error' || iconType=='question'" class="containerimg">
                 <img src="assets/icons/ICO_error.svg" width="75px" height="75px" alt="" srcset="">
             </div>
             <div *ngIf="iconType=='loading'" class="modalLoading" [ngClass]="{'transparent':iconType==='loading'}">
