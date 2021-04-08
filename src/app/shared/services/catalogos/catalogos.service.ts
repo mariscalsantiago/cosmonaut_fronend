@@ -41,6 +41,11 @@ export class CatalogosService {
     return this.http.get(`${this.url}/csbanco/listar/todosActivo/${estatus}`);
   }
 
+  public getFuncionCuenta(estatus:boolean): Observable<any> {
+
+     return this.http.get(`${this.url}/catFuncionCuenta/listar/todosActivo/${estatus}`);
+  }
+
   public getNacinalidades(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/nacionalidad/listar/todosActivo/${estatus}`);
   }

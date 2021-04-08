@@ -30,6 +30,7 @@ export class CuentasComponent implements OnInit {
   public obj: any = [];
   public habcontinuarSede: boolean = false;
   public insertarMof: boolean = false;
+  public funcionCuenta: any = [];
 
  
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
@@ -62,8 +63,10 @@ export class CuentasComponent implements OnInit {
 
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => {
       this.cuentasBancarias = datos.datos;
-      console.log("Cuentas",this.cuentasBancarias);
+    });
 
+    this.catalogosPrd.getFuncionCuenta(true).subscribe(datos => {
+      this.funcionCuenta = datos.datos;
     });
 
   }
@@ -177,7 +180,7 @@ public activarCancel(){
             numInformacion: obj.num_informacion,
             clabe: obj.clabe,
             numSucursal: obj.num_sucursal,
-            funcionCuentaId: obj.funcionCuentaId,
+            funcionCuentaId : { funcionCuentaId: obj.funcionCuentaId},
             esActivo: obj.esActivo,
             nclCentrocCliente: {
               centrocClienteId: this.datosempresa.centrocClienteEmpresa

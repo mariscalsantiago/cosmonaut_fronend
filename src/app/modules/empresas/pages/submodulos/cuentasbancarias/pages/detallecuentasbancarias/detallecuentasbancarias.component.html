@@ -75,7 +75,7 @@
         <label for="exampleFormControlSelect1">Función de la cuenta *</label>
         <select formControlName="funcionCuentaId" class="form-control"
           [ngClass]="{'is-invalid':f.funcionCuentaId.errors && submitInvalido}">
-          <option *ngFor="let item of cuentasBancarias" [value]="item.bancoId">{{item.nombreCorto}}</option>
+          <option *ngFor="let item of funcionCuenta" [value]="item.funcionCuentaId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.funcionCuentaId.errors" class="invalid-feedback">
           Campo requerido
