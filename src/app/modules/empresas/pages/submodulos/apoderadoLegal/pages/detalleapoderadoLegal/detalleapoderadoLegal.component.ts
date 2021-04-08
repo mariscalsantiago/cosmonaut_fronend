@@ -72,6 +72,14 @@ export class DetalleapoderadoLegalComponent implements OnInit {
   public createFormrep(obj: any) {
     debugger;
     let datePipe = new DatePipe("en-MX");
+    if(!this.insertar){
+        if(obj.esActivo== 'Activo'){
+          obj.esActivo= true;
+        }else{
+          obj.esActivo= false;
+        }
+        
+    }
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -87,7 +95,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
       poderNotarial: [obj.poderNotarial, [Validators.required]],
       facultadPoderId: [obj.facultadPoderId?.facultadPoderId, [Validators.required]],
       //fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
-      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo,  disabled: this.insertar}, [Validators.required]],
       personaId: obj.personaId
 
     });

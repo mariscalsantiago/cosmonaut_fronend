@@ -13,6 +13,7 @@ import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.s
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { PreferenciasService } from 'src/app/modules/empleados/services/preferencias.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -69,7 +70,7 @@ export class EmpleoComponent implements OnInit {
 
   public id_empresa!: number;
 
-  constructor(private formBuilder: FormBuilder, private gruponominaPrd: GruponominasService,
+  constructor(private formBuilder: FormBuilder, private routerPrd: Router, private gruponominaPrd: GruponominasService,
     private areasPrd: SharedAreasService, private politicasPrd: SharedPoliticasService,
     private empleadosPrd: EmpleadosService, private catalogosPrd: CatalogosService,
     private colaboradorPrd: ContratocolaboradorService,
@@ -185,7 +186,7 @@ export class EmpleoComponent implements OnInit {
           }
         }else{
 
-          this.modalPrd.showMessageDialog(false, 'Bebe colocar una fecha incio de contrato ')
+          this.modalPrd.showMessageDialog(false, 'Debe colocar una fecha incio de contrato ')
           .then(()=> {
             this.myForm.controls.fechaFin.setValue("");
           });
@@ -295,6 +296,10 @@ export class EmpleoComponent implements OnInit {
   }
 
   public createForm(obj: any) {
+    debugger;
+    if(obj.areaGeograficaId == undefined){
+      obj.areaGeograficaId = 1;
+    }
     return this.formBuilder.group({
       areaId: [obj.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId, disabled: true }, [Validators.required]],
@@ -333,9 +338,7 @@ export class EmpleoComponent implements OnInit {
 
   public cancelar() {
 
-
-
-
+    this.routerPrd.navigate(['/empleados']);
   }
 
 
