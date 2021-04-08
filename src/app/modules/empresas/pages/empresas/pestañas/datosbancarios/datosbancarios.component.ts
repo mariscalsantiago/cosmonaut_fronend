@@ -51,20 +51,24 @@ export class DatosbancariosComponent implements OnInit {
    this.cargando = false;
 
   });
-
+  if(!this.datosempresa.insertar){
   this.cuentasPrd.getAllByDetCuentas(this.id_empresa).subscribe(datos => {
     this.obj = datos.datos;
     this.myForm = this.createForm(this.obj);
     this.cargando = false;
  
    });
+  }else{
     this.myForm = this.createForm(this.obj);
+  }
 
   }
 
   public createForm(obj: any) {
     if(!this.datosempresa.insertar && obj.usaStp){
       this.activar();
+      obj.usaStp= true;
+      
     }
     return this.formBuilder.group({
 
@@ -82,7 +86,7 @@ export class DatosbancariosComponent implements OnInit {
   }
 
   public activar(){
-     
+     debugger;
     if(!this.actguardar){
     this.habGuardar= true;
     this.actguardar= true;
