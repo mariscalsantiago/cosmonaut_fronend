@@ -20,3 +20,14 @@
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(226, 226, 226); 
   }
+
+
+  .bodymodal{
+    overflow: unset  !important;
+    max-height: unset !important;
+  }
+
+  .bg_emergente{
+    overflow: auto !important;
+    z-index: 100 !important;
+  }

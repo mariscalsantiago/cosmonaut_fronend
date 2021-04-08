@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { NominasService } from '../../../services/nominas.service';
 
 @Component({
   selector: 'app-nominas-activas',
@@ -11,16 +12,28 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 export class NominasActivasComponent implements OnInit {
 
 
-  public arreglo:any = [1,2,3,4,5,6,7,8,9,10]
+  private cargando:boolean = false;
+
+  public arreglo:any = [];
 
   constructor(private ventana:VentanaemergenteService,private router:Router,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService,private nominaPrd:NominasService) { }
 
   ngOnInit(): void {
+
+    this.cargando = true;
+
+      this.nominaPrd.getAllNominas().subscribe(datos =>{
+        this.cargando = false;
+        this.arreglo = datos;
+        console.log(this.arreglo.length,"este es el arreglo que se trae");
+      });
   }
 
   public agregar(){
-      this.ventana.showVentana(this.ventana.nuevanomina);
+      this.ventana.showVentana(this.ventana.nuevanomina).then(valor =>{
+        console.log("Esta es la respuesta de la ventana",valor);
+      });
   }
 
   public calcularNomina(){

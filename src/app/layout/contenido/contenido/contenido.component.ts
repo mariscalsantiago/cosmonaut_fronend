@@ -28,12 +28,6 @@ export class ContenidoComponent implements OnInit {
   }
 
   public mostrar = {
-    cargamasiva:false,
-    solicitudvacacaciones:false,
-    solicitudIncapacidad:false,
-    solicitudHorasExtras:false,
-    solicitudDiasEconomicos:false,
-    registrofaltas:false,
     nuevanomina:false
   }
 

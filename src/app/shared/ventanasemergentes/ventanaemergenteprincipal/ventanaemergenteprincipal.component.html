@@ -11,16 +11,12 @@
         <div class="col  m-3">
             <h4 class="primary">{{titulo}}</h4>
             <hr>
-            <app-ventana-solicitud-carga-masiva-eventos *ngIf="mostrar.cargamasiva"></app-ventana-solicitud-carga-masiva-eventos>
-            <app-ventana-solicitud-vacaciones *ngIf="mostrar.solicitudvacacaciones" (salida)="recibirEmergente($event)"></app-ventana-solicitud-vacaciones>
-            <app-ventana-solicitud-incapacidad *ngIf="mostrar.solicitudIncapacidad" (salida)="recibirEmergente($event)"></app-ventana-solicitud-incapacidad>
-            <app-ventana-solicitud-horas-extras *ngIf="mostrar.solicitudHorasExtras" (salida)="recibirEmergente($event)"></app-ventana-solicitud-horas-extras>
-            <app-ventana-solicitud-dias-economicos  *ngIf="mostrar.solicitudDiasEconomicos" (salida)="recibirEmergente($event)"></app-ventana-solicitud-dias-economicos>
-            <app-ventana-registro-faltas *ngIf="mostrar.registrofaltas" (salida)="recibirEmergente($event)"></app-ventana-registro-faltas>
             <app-ventana-nuevanomina *ngIf="mostrar.nuevanomina" (salida)="recibirEmergente($event)"></app-ventana-nuevanomina>
         </div>
     </div>
 
     </div>
+
+    <br><br><br><br><br><br><br>
     
 </div>

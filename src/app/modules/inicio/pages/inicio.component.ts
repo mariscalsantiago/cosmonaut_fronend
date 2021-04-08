@@ -27,32 +27,7 @@ export class InicioComponent implements OnInit {
   }
 
 
-  public cambiaValor(elemento: any) {
-
-
-    console.log(elemento.value);
-
-    switch (Number(elemento.value)) {
-      case 1:
-        this.ventana.showVentana(this.ventana.solicitudCargaMasiva);
-        break;
-      case 2:
-        this.ventana.showVentana(this.ventana.solicitudVacaciones);
-        break;
-      case 3:
-        this.ventana.showVentana(this.ventana.solicitudIncapacidad);
-        break;
-      case 4:
-        this.ventana.showVentana(this.ventana.solicitudHorasExtras);
-        break;
-      case 5:
-        this.ventana.showVentana(this.ventana.solicitudDiasEconomicos);
-        break;
-      case 6:
-        this.ventana.showVentana(this.ventana.registrofaltas);
-        break;
-    }
-  }
+  
 
 
 }

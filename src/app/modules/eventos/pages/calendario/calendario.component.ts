@@ -56,24 +56,6 @@ export class CalendarioComponent implements OnInit {
 
   }
 
-  public agregarEvento(indice: number) {
-    switch (indice) {
-      case 1:
-        this.ventana.showVentana(this.ventana.solicitudVacaciones);
-        break;
-      case 2:
-        this.ventana.showVentana(this.ventana.solicitudIncapacidad);
-        break;
-      case 3:
-        this.ventana.showVentana(this.ventana.solicitudHorasExtras);
-        break;
-      case 4:
-        this.ventana.showVentana(this.ventana.solicitudDiasEconomicos);
-        break;
-      case 5:
-        this.ventana.showVentana(this.ventana.registrofaltas);
-        break;
-    }
-  }
+  
 
 }

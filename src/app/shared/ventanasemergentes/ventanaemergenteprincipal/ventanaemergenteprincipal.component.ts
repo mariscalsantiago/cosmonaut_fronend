@@ -21,12 +21,6 @@ export class VentanaemergenteprincipalComponent implements OnInit {
   @Output() salida = new EventEmitter<any>();
 
   @Input() public mostrar = {
-    cargamasiva:false,
-    solicitudvacacaciones:false,
-    solicitudIncapacidad:false,
-    solicitudHorasExtras:false,
-    solicitudDiasEconomicos:false,
-    registrofaltas:false,
     nuevanomina:false
   }
 
@@ -77,6 +71,9 @@ export class VentanaemergenteprincipalComponent implements OnInit {
       switch($event.type){
           case "cancelar":
              this.cerrarModal();
+            break;
+          case "guardar":
+            this.salida.emit($event);
             break;
       }
   }

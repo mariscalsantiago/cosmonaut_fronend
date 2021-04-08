@@ -13,12 +13,6 @@ import { SolonumerosDirective } from './directivas/solonumeros.directive';
 import { TamanioVentanaDirective } from './directivas/tamanio-ventana.directive';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { VentanaemergenteprincipalComponent } from './ventanasemergentes/ventanaemergenteprincipal/ventanaemergenteprincipal.component';
-import { VentanaSolicitudVacacionesComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-vacaciones/ventana-solicitud-vacaciones.component';
-import { VentanaSolicitudCargaMasivaEventosComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-carga-masiva-eventos/ventana-solicitud-carga-masiva-eventos.component';
-import { VentanaSolicitudIncapacidadComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-incapacidad/ventana-solicitud-incapacidad.component';
-import { VentanaSolicitudHorasExtrasComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-horas-extras/ventana-solicitud-horas-extras.component';
-import { VentanaSolicitudDiasEconomicosComponent } from './ventanasemergentes/tiposventanas/ventana-solicitud-dias-economicos/ventana-solicitud-dias-economicos.component';
-import { VentanaRegistroFaltasComponent } from './ventanasemergentes/tiposventanas/ventana-registro-faltas/ventana-registro-faltas.component';
 import { ChatbootComponent } from './chatboot/chatboot.component';
 import { VentanaNuevanominaComponent } from './ventanasemergentes/tiposventanas/ventana-nuevanomina/ventana-nuevanomina.component';
 import { AlfanumericoDirective } from './directivas/alfanumerico.directive';
@@ -42,12 +36,6 @@ import { AlfanumericoDirective } from './directivas/alfanumerico.directive';
     TamanioVentanaDirective,
     CalendarioComponent,
     VentanaemergenteprincipalComponent,
-    VentanaSolicitudVacacionesComponent,
-    VentanaSolicitudCargaMasivaEventosComponent,
-    VentanaSolicitudIncapacidadComponent,
-    VentanaSolicitudHorasExtrasComponent,
-    VentanaSolicitudDiasEconomicosComponent,
-    VentanaRegistroFaltasComponent,
     ChatbootComponent,
     VentanaNuevanominaComponent,
     AlfanumericoDirective

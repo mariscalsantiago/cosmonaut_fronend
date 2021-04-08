@@ -6,12 +6,6 @@ import { Subject } from 'rxjs';
 })
 export class VentanaemergenteService {
 
-  public solicitudCargaMasiva: string = "solicitudcargamasiva";
-  public solicitudVacaciones: string = "solicitudVacaciones";
-  public solicitudIncapacidad: string = "solicitudIncapacidad";
-  public solicitudHorasExtras: string = "solicitudHorasExtras";
-  public solicitudDiasEconomicos: string = "solicitudDiasEconomicos";
-  public registrofaltas: string = "registrofaltas";
   public nuevanomina: string = "nuevanomina";
 
   public subject?: Subject<any>;;
@@ -22,12 +16,6 @@ export class VentanaemergenteService {
   }
 
   public mostrar: any = {
-    cargamasiva: false,
-    solicitudvacacaciones: false,
-    solicitudIncapacidad: false,
-    solicitudHorasExtras: false,
-    solicitudDiasEconomicos: false,
-    registrofaltas: false,
     nuevanomina: false
   }
 
@@ -41,32 +29,7 @@ export class VentanaemergenteService {
     }
 
 
-    console.log("Tipo de ventana", tipoVentana);
     switch (tipoVentana) {
-      case this.solicitudCargaMasiva:
-        this.mostrar.cargamasiva = true;
-        this.emergente.titulo = "CARGA MASIVA DE EVENTOS";
-        break;
-      case this.solicitudVacaciones:
-        this.mostrar.solicitudvacacaciones = true;
-        this.emergente.titulo = "SOLICITUD DE VACACIONES";
-        break;
-      case this.solicitudIncapacidad:
-        this.mostrar.solicitudIncapacidad = true;
-        this.emergente.titulo = "SOLICITUD DE INCAPACIDAD";
-        break;
-      case this.solicitudHorasExtras:
-        this.mostrar.solicitudHorasExtras = true;
-        this.emergente.titulo = "SOLICITUD DE HORAS EXTRAS";
-        break;
-      case this.solicitudDiasEconomicos:
-        this.mostrar.solicitudDiasEconomicos = true;
-        this.emergente.titulo = "SOLICITUD DE DÍAS ECONÓMICOS";
-        break;
-      case this.registrofaltas:
-        this.mostrar.registrofaltas = true;
-        this.emergente.titulo = "REGISTRO DE FALTAS";
-        break;
       case this.nuevanomina:
         this.mostrar.nuevanomina = true;
         this.emergente.titulo = "NUEVA NÓMINA MANUAL";
