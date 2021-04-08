@@ -62,6 +62,7 @@ export class EmpleoComponent implements OnInit {
   public fechaAntiguedad: Date = new Date();
   public fechaICorreta: boolean = false;
   public activaFechaFin: boolean = true;
+  public puestoIdReporta: number = 0;
 
   public sueldoBruto: boolean = false;
   public sueldoNeto: boolean = false;
@@ -422,7 +423,7 @@ debugger;
           porcentaje: obj.suPorcentaje,
           subcontratistaId: { subcontratistaId: obj.subcontratistaId },
           jefeInmediatoId:{
-            personaId:obj.puestoIdReporta
+            personaId: this.puestoIdReporta
             }
         }
 
@@ -582,7 +583,7 @@ debugger;
 
 
   public salirReportaA() {
-
+    debugger;
     this.myForm.controls.puesto_id_reporta.setErrors(null);
     this.myForm.value.puestoIdReporta = undefined;
     const nombreCapturado = this.myForm.value.puesto_id_reporta;
@@ -596,7 +597,7 @@ debugger;
           console.log("Este es el nombre capturado", nombreCapturado);
           if (nombreCompleto.includes(nombreCapturado)) {
             encontrado = true;
-            this.myForm.value.puestoIdReporta = item.personaId.personaId;
+            this.puestoIdReporta = item.personaId.personaId;
             break;
           }
         }

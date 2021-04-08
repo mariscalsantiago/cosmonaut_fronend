@@ -81,7 +81,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       //fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
-      activo: [{ value: (this.insertar) ? true : obj.activo, disabled: this.insertar }, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: obj.personaId,
       firma: obj.firma
 
@@ -137,6 +137,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
           emailCorporativo: obj.emailCorporativo,
           contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
           rfc: obj.rfc,
+          esActivo: obj.esActivo,
           contactoInicialTelefono: obj.contactoInicialTelefono,
           centrocClienteId: {
             centrocClienteId: this.centrocClienteId

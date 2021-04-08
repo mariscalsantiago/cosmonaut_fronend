@@ -61,5 +61,7 @@ export class CuentasbancariasService {
   }
 
 
- 
+  public getListaCuentaBancaria(cuenta:number):Observable<any>{
+    return this.http.get(`${this.url}/obtieneBanco/${cuenta}`);
+  }
 }

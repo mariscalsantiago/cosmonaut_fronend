@@ -144,7 +144,38 @@ export class PagosComponent implements OnInit {
     });
   }
 
+  public validarBanco(clabe:any){
+    debugger;
+    this.myFormMetodoPago.controls.csBanco.setValue("");
+    this.myFormMetodoPago.controls.clabe.setValue("");
+
+    if(this.myFormMetodoPago.controls.clabe.errors?.pattern === undefined ){
+
+
+    if(clabe == '' || clabe == null || clabe == undefined){
+ 
+      this.myFormMetodoPago.controls.csBanco.setValue("");
+      this.myFormMetodoPago.controls.clabe.setValue("");
+    }else{
+    this.bancosPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
+      if (datos.resultado) {
+ 
+        this.myFormMetodoPago.controls.csBanco.setValue( datos.datos.bancoId);
+        this.myFormMetodoPago.controls.clabe.setValue( clabe);
+
+      }
+      else{
+     
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+      }
+ 
+  });
+
+    }
   
+}
+
+  }
 
   public enviandoMetodoPago(){ //Método guardar transferencia bancaría...
     this.submitEnviado = true;

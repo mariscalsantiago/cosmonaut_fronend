@@ -52,25 +52,27 @@
                 
                 
                             </div>
-                            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                                <label>CLABE *</label>
-                                <input appSolonumeros formControlName="clabe" maxlength="18" [ngClass]="{'is-invalid':f.clabe.errors && submitEnviado}" type="text" class="form-control" placeholder="">
-                                <div *ngIf="f.clabe.errors && submitEnviado" class="invalid-feedback">
-                                    Campo requerido
-                                </div>
-                
-                
+                            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                              <label>Cuenta CLABE *</label> 
+                              <input #clabe (focusout)="validarBanco(clabe.value)" maxlength="18" formControlName="clabe" type="text" class="form-control" value=""
+                                [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
+                                placeholder="">
+                              <div *ngIf="submitEnviado && f.clabe.errors?.required" class="invalid-feedback">
+                                Campo requerido
+                              </div>
+                              <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
+                                La CLABE no es válida
+                              </div>
                             </div>
-                            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                                <label>Banco *</label>
-                                <select formControlName="csBanco" [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}" class="form-control" name="" id="">
-                                    <option *ngFor="let item of (arreglobancos | async)?.datos" [value]="item.bancoId">{{item.nombreCorto}}</option>
-                                </select>
-                                <div *ngIf="f.csBanco.errors && submitEnviado" class="invalid-feedback">
-                                    Campo requerido
-                                </div>
-                
-                
+                            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                              <label for="exampleFormControlSelect1">Banco *</label>
+                              <select formControlName="csBanco" class="form-control disabled bg-light"
+                                [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}">
+                                <option *ngFor="let item of (arreglobancos | async)?.datos" [value]="item.bancoId">{{item.nombreCorto}}</option>
+                              </select>
+                              <div *ngIf="submitEnviado && f.csBanco.errors" class="invalid-feedback">
+                                Campo requerido
+                              </div>
                             </div>
                             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                 <label>Número de ID cliente</label>
