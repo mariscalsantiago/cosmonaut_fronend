@@ -32,10 +32,8 @@ export class DatosimssComponent implements OnInit {
   constructor(private formBuilder:FormBuilder,private imssPrd: ImssService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-
     let obj = {};
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
-debugger;
 
 
    this.imssPrd.getAllByImss(this.id_empresa).subscribe(datos => {
