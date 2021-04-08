@@ -12,7 +12,7 @@ import { NominasService } from '../../../services/nominas.service';
 export class NominasActivasComponent implements OnInit {
 
 
-  private cargando:boolean = false;
+  public  cargando:boolean = false;
 
   public arreglo:any = [];
 
