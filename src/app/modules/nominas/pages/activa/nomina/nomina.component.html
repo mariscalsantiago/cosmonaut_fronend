@@ -8,10 +8,11 @@
 
     </div>
     <div class="col-3 mt-3  mb-3">
-      <button  type="button" class="btn btn-primary button-outlet mr-2 mt-2">Incidencias - Carga masiva</button>
+      <button type="button" class="btn btn-primary button-outlet mr-2 mt-2">Incidencias - Carga masiva</button>
 
     </div>
-    <div class="col-12 margennav background-ajustar" style="background-color:#f5f5f5;padding-top: 20px;" appTamanioVentana [pixeles]="230">
+    <div class="col-12 margennav background-ajustar" style="background-color:#f5f5f5;padding-top: 20px;"
+      appTamanioVentana [pixeles]="230">
 
       <nav class="nav-inside">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -20,14 +21,14 @@
             aria-controls="nav-home" aria-selected="true">1. Calcular</a>
           <a (click)="backTab(1)" class="nav-item nav-link "
             [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}"
-            id="nav-profile-tab" role="tab" aria-controls="nav-profile" aria-selected="false">2. Pagar</a>
+            id="nav-profile-tab" role="tab" aria-controls="nav-profile" aria-selected="false">2. Dispersar</a>
           <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
-          <a (click)="backTab(3)" class="nav-item nav-link "
-            [ngClass]="{'activado':activado[3].tab,'disabled':activado[3].disabled,'selecciona':activado[3].seleccionado}"
+          <a (click)="backTab(2)" class="nav-item nav-link "
+            [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled,'selecciona':activado[2].seleccionado}"
             id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">3. Timbrar
             empleo</a>
-          <a (click)="backTab(4)" class="nav-item nav-link "
-            [ngClass]="{'activado':activado[4].tab,'disabled':activado[4].disabled,'selecciona':activado[4].seleccionado}"
+          <a (click)="backTab(3)" class="nav-item nav-link "
+            [ngClass]="{'activado':activado[3].tab,'disabled':activado[3].disabled,'selecciona':activado[3].seleccionado}"
             id="nav-contact-tab" role="tab" aria-controls="nav-detalle" aria-selected="false">4. Completar
             cuenta</a>
         </div>
@@ -35,26 +36,22 @@
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel"
           aria-labelledby="nav-home-tab">
-          
+
           <app-calcular></app-calcular>
-          
+
 
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel"
           aria-labelledby="nav-profile-tab">
-
+          <app-pagar (salida)="recibirComponente($event)"></app-pagar>
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel"
           aria-labelledby="nav-contact-tab">
-
+          <app-timbrar></app-timbrar>
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel"
           aria-labelledby="nav-empleo-tab">
-
-        </div>
-        <div class="tab-pane fade" [ngClass]="{'show active':activado[4].form}" id="nav-detalle" role="tabpanel"
-          aria-labelledby="nav-detalle-tab">
-
+          <app-completar></app-completar>
         </div>
       </div>
     </div>

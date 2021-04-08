@@ -1,1 +1,19 @@
-<p>pagar works!</p>
+<div class="row mt-3">
+    <div class="col-12 text-right">
+        <button type="button" class="btn btn-primary button-outlet " >Descargar dispersión</button>
+        <button type="button" class="btn btn-primary button-outlet " >Descargar RFC's</button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+      <app-tablapaginado  [datos]="arreglotabla"  [cargando]="cargando" [checkbox]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
+    </div>
+</div>
+
+<div class="text-center margin" style="margin-bottom: 20px;">
+
+    <button (click)="guardar()" class="btn btn-primary button-outlet mr-2">Guardar</button>
+    <button (click)="continuar()"  class="btn btn-primary button-fill">Continuar</button>
+</div>

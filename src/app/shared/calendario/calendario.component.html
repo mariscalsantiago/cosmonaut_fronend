@@ -1,7 +1,7 @@
 <div class="m-1">
     <div class="row m-2">
 
-        <div class="col-6">
+        <div class="col-8">
 
             <span (click)="anteriorMes()" class="primary cursor">
                 <i class="fas fa-chevron-left" style="cursor: pointer;"></i>
@@ -11,19 +11,12 @@
                     style="cursor: pointer;"></i></span>
 
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <select name="" id="" class="form-control">
                 <option value="" selected>Filtrar por área</option>
                 <option *ngFor="let item of arregloAreas" [value]="item.areaId">{{item.descripcion}}</option>
             </select>
         </div>
-        <div class="col-3">
-            <select name="" id="" class="form-control">
-                <option value="" selected>Filtrar por evento</option>
-                <option *ngFor="let item of arregloEventos" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
-            </select>
-        </div>
-
     </div>
 
     <div class="row">
@@ -41,9 +34,9 @@
                 <tbody>
                     <tr *ngFor="let item of arregloArreglos">
                         <td class="posicion fade-in "
-                            [ngClass]="{'noEsDia':!aux.mesActual,'tdActual':mesauxActual && aux.diaActual}"
+                            [ngClass]="{'noEsDia':!aux.mesActual,'tdActual':aux.esDiaNow}"
                             *ngFor="let aux of item"><span class="absolutoClass"><span
-                                    [ngClass]="{'diaActual':aux.diaActual && mesauxActual}">{{aux.dia}}</span></span>
+                                    [ngClass]="{'diaActual':aux.esDiaNow}">{{aux.dia}}</span></span>
 
                             <div (click)="aparecerModalEvento(evento,$event)" *ngFor="let evento of aux.eventos"
                                 [ngClass]="{'aniversarios':evento.nombre == 'aniversario','cumpleanios':evento.nombre == 'cumpleaños','faltas':evento.nombre == 'faltas','diaseconomicos':evento.nombre == 'diaseconomicos','vacaciones':evento.nombre == 'vacaciones','horasextras':evento.nombre == 'horasextras','incapacidades':evento.nombre == 'incapacidades'}"
