@@ -12,6 +12,9 @@ export class ChatbootComponent implements OnInit {
   public modalWidth: string = "350px";
 
 
+  public fecha:Date = new Date();
+
+
   @Output() salida = new EventEmitter();
 
   @HostListener('window:resize', ['$event'])

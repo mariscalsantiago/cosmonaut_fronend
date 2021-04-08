@@ -12,7 +12,6 @@ export class NominaComponent implements OnInit {
     { tab: false, form: false, disabled: false, seleccionado: false },
     { tab: false, form: false, disabled: false, seleccionado: false }];
 
-  public arreglo: any = new Array(1000);
   constructor() { }
 
   ngOnInit(): void {

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
@@ -17,27 +18,44 @@ export class PagarComponent implements OnInit {
     filas:[]
   }
 
-  constructor(private modalPrd:ModalService) { }
+  public arreglo:any = [];
+
+  constructor(private modalPrd:ModalService,private nominasPrd:NominasService) { }
 
 
 
   ngOnInit(): void {
 
 
+  
+    this.arreglo = this.nominasPrd.arregloEmpleado;
+
+
     let columnas:Array<tabla> = [
-      new tabla("nombre","Empleados"),
-      new tabla("id","RFC",true,false,true),
-      new tabla("x","Banco"),
-      new tabla("x","Total"),
-      new tabla("x","Tipo de pago"),
+      new tabla("nombrecompleto","Empleados"),
+      new tabla("rfc","Número de empleado",true,false,true),
+      new tabla("diaslaborados","Banco",false,false,true),
+      new tabla("total","Total",false,false,true),
+      new tabla("tipo","Tipo de pago",false,false,true)
     ];
 
-    let filas:Array<any> = [{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"}];
+
+    for(let item of this.arreglo){
+        item["nombrecompleto"]=item.personaId.nombre+" "+item.personaId.apellidoPaterno;
+        item["rfc"]=item.personaId.rfc;
+        item["diaslaborados"]="BBVA Bancomer";
+        item["percepciones"]="$26,200.00";
+        item["tipo"]="Transferencia";
+        item["total"]="$25,700.00";
+    }
+
+    let filas:Array<any> = this.arreglo;
 
     this.arreglotabla = {
       columnas:columnas,
       filas:filas
     }
+
 
    
   }

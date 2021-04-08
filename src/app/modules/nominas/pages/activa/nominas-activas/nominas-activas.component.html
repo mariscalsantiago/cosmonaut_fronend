@@ -23,8 +23,8 @@
             </article>
     
         </div>
-        <div class="col-6 mt-2">
-            <table class="table table-hover table-responsive">
+        <div  class="col-6 mt-2">
+            <table *ngIf="!item.inicial" class="table table-hover table-responsive">
                 <thead>
                     <tr>
                         <th>Empleados</th>
@@ -36,16 +36,16 @@
     
                 <tbody>
                     <tr>
-                        <td>3</td>
-                        <td>$324.34</td>
-                        <td>$21354.34</td>
-                        <td>$5345.34</td>
+                        <td>{{arregloPersonas.length}}</td>
+                        <td>74,497.11</td>
+                        <td>$23,760.17</td>
+                        <td>$50,736.94</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-9 segundaseccion" style="    border-bottom-left-radius: 20px;">
-            <div class="col-12 margennav" >
+            <div *ngIf="!item.inicial" class="col-12 margennav" >
     
                 <nav class="nav-inside">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -57,7 +57,7 @@
                         <a class="nav-item nav-link " id="nav-contact-tab" role="tab" aria-controls="nav-empleo"
                             aria-selected="false">3. Timbrar</a>
                         <a class="nav-item nav-link " id="nav-contact-tab" role="tab" aria-controls="nav-detalle"
-                            aria-selected="false">4. Pagar</a>
+                            aria-selected="false">4. Completar</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -77,10 +77,14 @@
                     </div>
                 </div>
             </div>
+            <a style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle mt-3">
+                <i style="background-color: #56dfd4 !important;" class="icon_eliminar "></i>
+                Eliminar</a>
     
         </div>
         <div class="col-3 text-right segundaseccion" style="    border-bottom-right-radius: 20px;">
-            <button (click)="calcularNomina()" type="button" class="btn btn-primary button-outlet mr-2 mt-2">Calcular</button>
+            <button *ngIf="!item.inicial" (click)="continuar(item)"  class="btn btn-primary button-fill mr-2 mt-2">Continuar</button>
+            <button *ngIf="item.inicial" (click)="calcularNomina(item)" type="button" class="btn btn-primary button-outlet mr-2 mt-2">Calcular</button>
         </div>
         
     </div>

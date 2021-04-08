@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 export class NominasService {
 
   private arregloNomina:any = [];
+  public arregloEmpleado:any = [];
   private subject = new Subject();
 
   constructor() { }
@@ -23,6 +24,15 @@ export class NominasService {
         this.subject.next(this.arregloNomina);
         this.subject.complete();
       }, 2000);
+  }
+
+
+  public save(obj:any){
+      this.arregloNomina.push(obj);
+  }
+
+  public saveEmpleado(obj:any){
+    this.arregloEmpleado = obj;
   }
 
 

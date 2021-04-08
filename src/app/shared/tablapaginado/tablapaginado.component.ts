@@ -32,6 +32,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public imagen: any;
   @Input() public porcentaje: boolean = false;
   @Input() public tablabeneficios:boolean = false;
+  @Input() public timbrado:boolean = false;
 
   @Input() public icondefault: string = "default";
 

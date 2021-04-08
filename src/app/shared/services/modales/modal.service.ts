@@ -52,7 +52,7 @@ export class ModalService {
         this.modal.strTitulo = titulo == "" ? "Campos obligatorios o inválidos" : titulo
         break;
       case this.loading:
-        this.modal.strTitulo = "Cargando";
+        this.modal.strTitulo = titulo == ""?"Cargando":titulo;
         break;
     }
 

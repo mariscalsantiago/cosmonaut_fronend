@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
 
 @Component({
   selector: 'app-calcular',
@@ -19,20 +20,35 @@ export class CalcularComponent implements OnInit {
     filas:[]
   }
 
-  constructor() { }
+
+  public arreglo:any = [];
+
+  constructor(private nominasPrd:NominasService) { }
 
   ngOnInit(): void {
 
+    this.arreglo = this.nominasPrd.arregloEmpleado;
+
+
     let columnas:Array<tabla> = [
-      new tabla("nombre","Empleados"),
-      new tabla("id","Número de empleado",true,false,true),
-      new tabla("x","Días laborados"),
-      new tabla("x","Percepciones"),
-      new tabla("x","Deducciones"),
-      new tabla("total","Total")
+      new tabla("nombrecompleto","Empleados"),
+      new tabla("numEmpleado","Número de empleado",true,false,true),
+      new tabla("diaslaborados","Días laborados",false,false,true),
+      new tabla("percepciones","Percepciones",false,false,true),
+      new tabla("deducciones","Deducciones",false,false,true),
+      new tabla("total","Total",false,false,true)
     ];
 
-    let filas:Array<any> = [{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"},{nombre:'Santiago antonio',id:3,total:"$234.3"}];
+
+    for(let item of this.arreglo){
+        item["nombrecompleto"]=item.personaId.nombre+" "+item.personaId.apellidoPaterno;
+        item["diaslaborados"]=5;
+        item["percepciones"]="$26,200.00";
+        item["deducciones"]="$500.00";
+        item["total"]="$25,700.00";
+    }
+
+    let filas:Array<any> = this.arreglo;
 
     this.arreglotabla = {
       columnas:columnas,
@@ -45,6 +61,7 @@ export class CalcularComponent implements OnInit {
 
 
   public recibirTabla(obj:any){
+    console.log(obj);
     switch(obj.type){
         case "desglosar":
 

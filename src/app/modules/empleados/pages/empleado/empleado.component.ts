@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
@@ -30,11 +29,6 @@ export class EmpleadoComponent implements OnInit {
         this.empleado = datos.datos;
       });
     });
-
-
-
-
-
   }
 
 
@@ -50,10 +44,9 @@ export class EmpleadoComponent implements OnInit {
 
 
       let fechacontrato = datos.datos?.fechaContrato;
-      
-         
 
-      
+
+
 
 
       let objenviar = {
@@ -67,13 +60,11 @@ export class EmpleadoComponent implements OnInit {
 
       }
 
-      console.log(objenviar);
-
-      this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(datos => {
+      this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(archivo => {
         this.cargandoIcon = false;
-        const linkSource = 'data:application/pdf;base64,' + `${datos.datos}\n`;
+        const linkSource = 'data:application/pdf;base64,' + `${archivo.datos}\n`;
         const downloadLink = document.createElement("a");
-        const fileName = `${this.empleado.nombre}.pdf`;
+        const fileName = `${datos.datos.numEmpleado}-${this.empleado.nombre.toUpperCase()}_${this.empleado.apellidoPaterno.toUpperCase()}.pdf`;
 
         downloadLink.href = linkSource;
         downloadLink.download = fileName;
