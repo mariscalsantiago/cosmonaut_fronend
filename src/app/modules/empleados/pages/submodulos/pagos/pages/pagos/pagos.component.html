@@ -34,10 +34,42 @@
                           </select>
                         </td>
                       </tr>
+                      <tr>
+                        <td *ngIf="!metodopagobool" class="titulorow">DETALLE DE LA CUENTA</td>
+                      </tr>
+
+                      <div *ngIf="!metodopagobool" class="row mb-4 text-center">
+
+                        <article class="titulo  col">
+                              Número de cuenta
+                            <article >{{cuentaBanco?.numeroCuenta}}</article>
+                        </article>
+                          <article class="titulo  col">
+                              Cuenta CLABE
+                          <article >{{cuentaBanco?.clabe}}</article>
+                        </article>
+                        <article class="titulo  col">
+                              Banco
+                      <article >{{cuentaBanco?.bancoId?.nombreCorto}}</article>
+                    </article>
+
+                      </div> 
+                      <div *ngIf="!metodopagobool" class="row mb-4 text-center">
+
+                        <article class="titulo  col">
+                            Número de ID cliente
+                            <article >{{cuentaBanco?.numInformacion}}</article>
+                        </article>
+                        <article class="titulo  col"></article>
+                        <article class="titulo  col"></article>
+
+                      </div> 
+  
                     </tbody>
                   </table>
 
                   <form *ngIf="metodopagobool && esTransferencia" [formGroup]="myFormMetodoPago" (ngSubmit)="enviandoMetodoPago()">
+                    
                     <div class="form-group mt-3 row margen"><label class="titulo">DETALLE DE LA CUENTA</label></div>
                 <div class="row">
                     <div class="col-10">

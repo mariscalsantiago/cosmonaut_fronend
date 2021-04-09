@@ -29,6 +29,7 @@ export class PagosComponent implements OnInit {
   public arregloCompensacion!:Promise<any>;
   public arreglobancos!:Promise<any>;
   public idEmpleado:number = -1;
+  public cuentaBanco: any = [];
   public empleado:any = {};
   
 
@@ -60,9 +61,13 @@ export class PagosComponent implements OnInit {
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
       this.empleado = datos.datos;
     });;
-  });
 
+    this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos =>{
+      this.cuentaBanco = datos.datos;
+      console.log("cuentas",this.cuentaBanco);
+    });
 
+    });
 
   }
 
@@ -98,6 +103,7 @@ export class PagosComponent implements OnInit {
   }
 
   public editandoMetodoPago(obj:any){
+    debugger;
     this.myFormMetodoPago = this.createMyFormMetodoPago({});
     this.metodopagobool = true;
     if(obj == undefined){
@@ -111,7 +117,6 @@ export class PagosComponent implements OnInit {
 
         this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos =>{
           if(datos.resultado){
-              
               this.myFormMetodoPago = this.createMyFormMetodoPago(datos.datos);
           }
         });
