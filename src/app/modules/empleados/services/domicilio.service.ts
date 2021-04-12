@@ -30,6 +30,25 @@ export class DomicilioService {
   }
 
 
+  public update(obj:any):Observable<any>{
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+    let json = JSON.stringify(obj);
+
+    console.log(json);
+
+    return this.http.post(`${direcciones.domicilio}/modificar`,json,httpOptions);
+
+  }
+
+
+
   public getDomicilioPorEmpleado(idEmpleado:number):Observable<any>{
     return this.http.get(`${direcciones.domicilio}/obtener/id/persona/${idEmpleado}`);
   }

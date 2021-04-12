@@ -45,8 +45,6 @@ export class EmpleadosIncompletosComponent implements OnInit {
 
 
   public recibirTabla(obj:any){
-
-    console.log("Ants de entrar al obj",obj.datos);
     
     this.router.navigate(['empleados/empleado'],{state:{datos:obj.datos}});
 

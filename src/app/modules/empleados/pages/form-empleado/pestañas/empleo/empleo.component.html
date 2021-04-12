@@ -128,12 +128,14 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Sede</label>
                     <select formControlName="sedeId" name="" id="" class="form-control">
+                        <option value=""></option>
                         <option *ngFor="let item of arregloSedes" [value]="item.sedeId">{{item.sedeNombre}}</option>
                     </select>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Estado de la República*</label>
                     <select [ngClass]="{'is-invalid':f.estadoId.errors && submitEnviado}" formControlName="estadoId" name="" id="" class="form-control">
+                        
                         <option *ngFor="let item of arregloEstados" [value]="item.estadoId">{{item.estado}}</option>
                     </select>
                     <div *ngIf="f.estadoId.errors && submitEnviado" class="invalid-feedback">

@@ -59,11 +59,11 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >RFC *</label>
-                    <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" type="text" class="form-control" name="" >
+                    <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern )}" formControlName="rfc" type="text" class="form-control" name="" >
                     <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
-                    <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
+                    <div *ngIf="f.rfc.errors?.pattern" class="invalid-feedback">
                         RFC inválido, favor de verificar
                     </div>
                     

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
 
 @Component({
@@ -23,37 +24,44 @@ export class CalcularComponent implements OnInit {
 
   public arreglo:any = [];
 
-  constructor(private nominasPrd:NominasService) { }
+  constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService) { }
 
   ngOnInit(): void {
 
-    this.arreglo = this.nominasPrd.arregloEmpleado;
+
+    this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
+      this.arreglo = datos.datos;
+      
+      let columnas:Array<tabla> = [
+        new tabla("nombrecompleto","Nombre"),
+        new tabla("numEmpleado","Número de empleado",true,false,true),
+        new tabla("diaslaborados","Días laborados",false,false,true),
+        new tabla("percepciones","Percepciones",false,false,true),
+        new tabla("deducciones","Deducciones",false,false,true),
+        new tabla("total","Total",false,false,true)
+      ];
+  
+  
+      for(let item of this.arreglo){
+          item["nombrecompleto"]=item.personaId.nombre+" "+item.personaId.apellidoPaterno;
+          item["diaslaborados"]=5;
+          item["percepciones"]="$26,200.00";
+          item["deducciones"]="$500.00";
+          item["total"]="$25,700.00";
+      }
+  
+      let filas:Array<any> = this.arreglo;
+  
+      this.arreglotabla = {
+        columnas:columnas,
+        filas:filas
+      }
+    });
 
 
-    let columnas:Array<tabla> = [
-      new tabla("nombrecompleto","Empleados"),
-      new tabla("numEmpleado","Número de empleado",true,false,true),
-      new tabla("diaslaborados","Días laborados",false,false,true),
-      new tabla("percepciones","Percepciones",false,false,true),
-      new tabla("deducciones","Deducciones",false,false,true),
-      new tabla("total","Total",false,false,true)
-    ];
 
 
-    for(let item of this.arreglo){
-        item["nombrecompleto"]=item.personaId.nombre+" "+item.personaId.apellidoPaterno;
-        item["diaslaborados"]=5;
-        item["percepciones"]="$26,200.00";
-        item["deducciones"]="$500.00";
-        item["total"]="$25,700.00";
-    }
-
-    let filas:Array<any> = this.arreglo;
-
-    this.arreglotabla = {
-      columnas:columnas,
-      filas:filas
-    }
+ 
 
    
 

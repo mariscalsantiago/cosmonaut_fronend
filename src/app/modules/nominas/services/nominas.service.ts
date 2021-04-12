@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class NominasService {
 
-  private arregloNomina:any = [];
+  private arregloNomina:any = [{inicial:false}];
   public arregloEmpleado:any = [];
   private subject = new Subject();
 

@@ -16,6 +16,7 @@ import { VentanaemergenteprincipalComponent } from './ventanasemergentes/ventana
 import { ChatbootComponent } from './chatboot/chatboot.component';
 import { VentanaNuevanominaComponent } from './ventanasemergentes/tiposventanas/ventana-nuevanomina/ventana-nuevanomina.component';
 import { AlfanumericoDirective } from './directivas/alfanumerico.directive';
+import { NominaactivaFechatimbradoComponent } from './ventanasemergentes/tiposventanas/nominaactiva-fechatimbrado/nominaactiva-fechatimbrado.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { AlfanumericoDirective } from './directivas/alfanumerico.directive';
     VentanaemergenteprincipalComponent,
     ChatbootComponent,
     VentanaNuevanominaComponent,
-    AlfanumericoDirective
+    AlfanumericoDirective,
+    NominaactivaFechatimbradoComponent
 
   ],
   imports: [

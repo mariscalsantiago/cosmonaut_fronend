@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
+import { NominasService } from '../../../services/nominas.service';
 
 @Component({
   selector: 'app-nomina',
@@ -12,9 +14,14 @@ export class NominaComponent implements OnInit {
     { tab: false, form: false, disabled: false, seleccionado: false },
     { tab: false, form: false, disabled: false, seleccionado: false }];
 
-  constructor() { }
+  constructor(private empleadoPrd:EmpleadosService,private nominaPrd:NominasService) { }
 
   ngOnInit(): void {
+
+
+    this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
+      this.nominaPrd.saveEmpleado(datos.datos);
+    });
   }
 
 

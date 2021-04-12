@@ -22,7 +22,7 @@ export class FormEmpleadoComponent implements OnInit {
   public ocultarDetalleTransfrencia: boolean = true;
   public ocultarempleada: boolean = false;
   public cargandoIcon: boolean = false;
-  public tabsEnviar: any = [{}, undefined, {}];
+  public tabsEnviar: any = [{}, undefined, {},{}];
 
 
 
@@ -45,8 +45,11 @@ export class FormEmpleadoComponent implements OnInit {
       this.titulo = "ACOMPLETAR DATOS AL EMPLEADO";
       this.datosPersona = temp;
       this.tabsEnviar[0] = temp;
+
+      console.log("Este es el id a verificar",this.datosPersona.personaId);
       this.domicilioPrd.getDomicilioPorEmpleado(this.datosPersona.personaId).subscribe(datosdomicilio =>{
-          this.tabsEnviar[1] = datosdomicilio;
+        console.log("Este es el detalle",datosdomicilio.datos);
+          this.tabsEnviar[1] = datosdomicilio.datos;
       });
 
       this.activado[0].tab = true;
@@ -68,6 +71,9 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[0].form = false;
         this.activado[0].seleccionado = false;
         this.tabsEnviar[0] = elemento.datos;
+
+
+        console.log("Esta es la perosna",this.datosPersona);
         break;
       case "domicilio":
         this.activado[3].tab = true;
@@ -77,7 +83,6 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[1].form = false;
         this.activado[1].seleccionado = false;
         this.tabsEnviar[1] = elemento.datos;
-        this.datosPersona = elemento.datos;
         break;
       case "preferencias":
 
@@ -92,6 +97,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.ocultarDetalleTransfrencia = elemento.metodopago.metodoPagoId !== 4;
         this.datosPersona.contratoColaborador = elemento.datos;
         this.datosPersona.metodopago = elemento.metodopago;
+        this.tabsEnviar[3] = elemento.datos;
         
         if (!this.ocultarDetalleTransfrencia) {
           this.activado[4].tab = true;

@@ -9,6 +9,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
 
 
   @Input() public titulo:string = "";
+  @Input() public ventanaalerta:boolean = false;
+
   public tamanio:number = 0;
   public leftP:number = 200;
 
@@ -21,7 +23,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
   @Output() salida = new EventEmitter<any>();
 
   @Input() public mostrar = {
-    nuevanomina:false
+    nuevanomina:false,
+    timbrado:false
   }
 
   @HostListener('window:resize', ['$event'])

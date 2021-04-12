@@ -14,6 +14,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { PreferenciasService } from 'src/app/modules/empleados/services/preferencias.service';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -81,12 +82,14 @@ export class EmpleoComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+
     this.id_empresa = this.usuarioSistemaPrd.getIdEmpresa();
 
     this.obj = {};
 
-    if (this.tabsDatos[2] !== undefined) {
-      this.myForm = this.createForm(this.tabsDatos[2]);
+    if (this.tabsDatos[3] !== undefined) {
+      this.myForm = this.createForm(this.tabsDatos[3]);
     } else {
       this.myForm = this.createForm(this.obj);
     }
@@ -296,38 +299,44 @@ export class EmpleoComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    
+
     if (obj.areaGeograficaId == undefined) {
       obj.areaGeograficaId = 1;
     }
+
+
+    const pipe = new DatePipe("es-MX");
+
+
+
+
     return this.formBuilder.group({
-      areaId: [obj.areaId, [Validators.required]],
-      puestoId: [{ value: obj.puestoId, disabled: true }, [Validators.required]],
+      areaId: [obj.areaId?.areaId, [Validators.required]],
+      puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
       puesto_id_reporta: [obj.puesto_id_reporta],
-      sedeId: [obj.sedeId],
-      estadoId: [obj.estadoId, [Validators.required]],
-      politicaId: [obj.politicaId, [Validators.required]],
+      sedeId: [obj.sedeId?.sedeId],
+      estadoId: [obj.estadoId?.estadoId, [Validators.required]],
+      politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       personaId: [this.datosPersona.personaId, [Validators.required]],
-      esSindicalizado: ['false'],
-      fechaAntiguedad: [obj.fechaAntiguedad, [Validators.required]],
-      tipoContratoId: [obj.tipoContratoId, [Validators.required]],
-      fechaInicio: [obj.fechaInicio, Validators.required],
-      fechaFin: [{ value: obj.fechaFin, disabled: false }, [Validators.required]],
-      jornadaId: [obj.jornadaId, [Validators.required]],
-      grupoNominaId: [obj.grupoNominaId, [Validators.required]],
-      tipoCompensacionId: [obj.tipoCompensacionId, [Validators.required]],
+      esSindicalizado: [obj.esSindicalizado==undefined?'false':`${obj.esSindicalizado}`],
+      fechaAntiguedad: [(obj.fechaAntiguedad !== undefined && obj.fechaAntiguedad !== "") ? pipe.transform(new Date(Number(obj.fechaAntiguedad)), "yyyy-MM-dd") : obj.fechaAntiguedad, [Validators.required]],
+      tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
+      fechaInicio: [(obj.fechaInicio !== undefined && obj.fechaInicio !== "") ? pipe.transform(new Date(Number(obj.fechaInicio)), "yyyy-MM-dd") : obj.fechaInicio, Validators.required],
+      fechaFin: [{ value: (obj.fechaFin !== undefined && obj.fechaFin !== "") ? pipe.transform(new Date(Number(obj.fechaFin)), "yyyy-MM-dd") : obj.fechaFin, disabled: false }, [Validators.required]],
+      jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
+      grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
+      tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
       sueldoBrutoMensual: 0,
       sueldoNetoMensual: 0,
       salarioDiario: [0, [Validators.required]],
-      dias_vacaciones: [obj.dias_vacaciones, [Validators.required]],
-      metodo_pago_id: [obj.metodo_pago_id, [Validators.required]],
-      tipoRegimenContratacionId: [obj.tipoRegimenContratacionId, [Validators.required]],
-      areaGeograficaId: [obj.areaGeograficaId, [Validators.required]],
+      dias_vacaciones: [obj.diasVacaciones, [Validators.required]],
+      metodo_pago_id: [obj.metodoPagoId?.metodoPagoId, [Validators.required]],
+      tipoRegimenContratacionId: [obj.tipoRegimenContratacionId?.tipoRegimenContratacionId, [Validators.required]],
+      areaGeograficaId: [obj.areaGeograficaId?.areaGeograficaId, [Validators.required]],
       esSubcontratado: [obj.esSubcontratado],
-      suPorcentaje: [obj.suPorcentaje],
       tiposueldo: ['b', [Validators.required]],
       subcontratistaId: obj.subcontratistaId,
-      puestoIdReporta: obj.puestoIdReporta
+      puestoIdReporta: obj.jefeInmediatoId?.personaId
 
     });
 
@@ -344,7 +353,7 @@ export class EmpleoComponent implements OnInit {
 
   public enviarFormulario() {
 
-    
+
     this.submitEnviado = true;
 
     let noesFecha: boolean = (this.myForm.controls.tipoContratoId.value == null || this.myForm.controls.tipoContratoId.value == 1 || this.myForm.controls.tipoContratoId.value == 10);
@@ -417,24 +426,60 @@ export class EmpleoComponent implements OnInit {
           personaId: { personaId: this.datosPersona.personaId },
           centrocClienteId: { centrocClienteId: this.id_empresa },
           estadoId: { estadoId: obj.estadoId },
-          esSubcontratado: obj.esSubcontratado == null ? false : obj.esSubcontratado,
           sbc: obj.salarioDiario,
           sedeId: { sedeId: obj.sedeId },
           esSindicalizado: obj.esSindicalizado,
           diasVacaciones: obj.dias_vacaciones,
           metodoPagoId: { metodoPagoId: obj.metodo_pago_id },
-          porcentaje: obj.suPorcentaje,
-          subcontratistaId: { subcontratistaId: obj.subcontratistaId },
           jefeInmediatoId: {
             personaId: this.puestoIdReporta
           }
         }
 
-        this.guardarContratoColaborador(objEnviar);
+
+
+        
+        if (this.tabsDatos[3].fechaContrato == undefined) {
+          this.guardarContratoColaborador(objEnviar);
+        } else {
+          this.actualizarContratoColaborador(objEnviar);
+        }
 
       }
     });;
 
+  }
+
+
+  public actualizarContratoColaborador(objEnviar: any) {
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    objEnviar.fechaContrato = this.tabsDatos[3].fechaContrato;
+
+    this.colaboradorPrd.update(objEnviar).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+        if (datos.resultado) {
+          let metodopago = {};
+
+          for (let item of this.arregloMetodosPago) {
+
+            if (item.metodoPagoId == this.myForm.value.metodo_pago_id) {
+
+              metodopago = item;
+              break;
+            }
+
+          }
+
+
+          this.enviado.emit({ type: "empleo", datos: datos.datos, metodopago: metodopago });
+        }
+      });
+
+
+    });
   }
 
 
@@ -462,7 +507,7 @@ export class EmpleoComponent implements OnInit {
           }
 
 
-          this.enviado.emit({ type: "empleo", datos: datos.datos,metodopago:metodopago });
+          this.enviado.emit({ type: "empleo", datos: datos.datos, metodopago: metodopago });
         }
       });
 
@@ -536,7 +581,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public salirReportaA() {
-    
+
     this.myForm.controls.puesto_id_reporta.setErrors(null);
     this.myForm.value.puestoIdReporta = undefined;
     const nombreCapturado = this.myForm.value.puesto_id_reporta;

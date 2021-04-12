@@ -34,6 +34,12 @@ export class NominasActivasComponent implements OnInit {
 
       this.arregloPersonas = this.nominaPrd.arregloEmpleado;
 
+
+
+      this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
+        this.nominaPrd.saveEmpleado(datos.datos);
+      });
+
   }
 
   public agregar(){

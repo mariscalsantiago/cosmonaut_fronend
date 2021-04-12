@@ -28,12 +28,14 @@ export class ContenidoComponent implements OnInit {
   }
 
   public mostrar = {
-    nuevanomina:false
+    nuevanomina:false,
+    timbrado:false
   }
 
   public emergente = {
     modal: false,
-    titulo:''
+    titulo:'',
+    ventanaalerta:false
   }
 
   public rol!: string;

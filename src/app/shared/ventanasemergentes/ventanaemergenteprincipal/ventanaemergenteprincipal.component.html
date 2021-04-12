@@ -9,9 +9,10 @@
 
     <div class="row">
         <div class="col  m-3">
-            <h4 class="primary">{{titulo}}</h4>
-            <hr>
+            <h4 *ngIf="!ventanaalerta" class="primary">{{titulo}}</h4>
+            <hr *ngIf="!ventanaalerta">
             <app-ventana-nuevanomina *ngIf="mostrar.nuevanomina" (salida)="recibirEmergente($event)"></app-ventana-nuevanomina>
+            <app-nominaactiva-fechatimbrado  *ngIf="mostrar.timbrado" (salida)="recibirEmergente($event)"></app-nominaactiva-fechatimbrado>
         </div>
     </div>
 

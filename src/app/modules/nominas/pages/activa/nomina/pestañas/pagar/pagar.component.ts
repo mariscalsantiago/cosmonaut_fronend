@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
@@ -20,42 +21,47 @@ export class PagarComponent implements OnInit {
 
   public arreglo:any = [];
 
-  constructor(private modalPrd:ModalService,private nominasPrd:NominasService) { }
+  constructor(private modalPrd:ModalService,private nominasPrd:NominasService,private empleadoPrd:EmpleadosService) { }
 
 
 
   ngOnInit(): void {
 
 
+
+    this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
+      this.arreglo = datos.datos;
+
+
+      let columnas:Array<tabla> = [
+        new tabla("nombrecompleto","Nombre"),
+        new tabla("rfc","RFC",true,false,true),
+        new tabla("diaslaborados","Banco",false,false,true),
+        new tabla("total","Total",false,false,true),
+        new tabla("tipo","Tipo de pago",false,false,true)
+      ];
   
-    this.arreglo = this.nominasPrd.arregloEmpleado;
+  
+      for(let item of this.arreglo){
+          item["nombrecompleto"]=item.personaId.nombre+" "+item.personaId.apellidoPaterno;
+          item["rfc"]=item.personaId.rfc;
+          item["diaslaborados"]="BBVA Bancomer";
+          item["percepciones"]="$26,200.00";
+          item["tipo"]="Transferencia";
+          item["total"]="$25,700.00";
+      }
+  
+      let filas:Array<any> = this.arreglo;
+  
+      this.arreglotabla = {
+        columnas:columnas,
+        filas:filas
+      }
+  
 
-
-    let columnas:Array<tabla> = [
-      new tabla("nombrecompleto","Empleados"),
-      new tabla("rfc","Número de empleado",true,false,true),
-      new tabla("diaslaborados","Banco",false,false,true),
-      new tabla("total","Total",false,false,true),
-      new tabla("tipo","Tipo de pago",false,false,true)
-    ];
-
-
-    for(let item of this.arreglo){
-        item["nombrecompleto"]=item.personaId.nombre+" "+item.personaId.apellidoPaterno;
-        item["rfc"]=item.personaId.rfc;
-        item["diaslaborados"]="BBVA Bancomer";
-        item["percepciones"]="$26,200.00";
-        item["tipo"]="Transferencia";
-        item["total"]="$25,700.00";
-    }
-
-    let filas:Array<any> = this.arreglo;
-
-    this.arreglotabla = {
-      columnas:columnas,
-      filas:filas
-    }
-
+    });
+  
+  
 
    
   }

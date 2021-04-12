@@ -7,21 +7,24 @@ import { Subject } from 'rxjs';
 export class VentanaemergenteService {
 
   public nuevanomina: string = "nuevanomina";
+  public timbrado:string = "timbrado";
 
   public subject?: Subject<any>;;
 
   public emergente = {
     modal: false,
-    titulo: ''
+    titulo: '',
+    ventanaalerta:false
   }
 
   public mostrar: any = {
-    nuevanomina: false
+    nuevanomina: false,
+    timbrado:false
   }
 
   constructor() { }
 
-  public showVentana(tipoVentana: string): Promise<any> {
+  public showVentana(tipoVentana: string,configuracion?:configuracion): Promise<any> {
 
 
     for (let llave in this.mostrar) {
@@ -33,6 +36,10 @@ export class VentanaemergenteService {
       case this.nuevanomina:
         this.mostrar.nuevanomina = true;
         this.emergente.titulo = "NUEVA NÓMINA MANUAL";
+        break;
+        case this.timbrado:
+        this.mostrar.timbrado = true;
+        this.emergente.titulo = "";
         break;
     }
 
@@ -61,4 +68,9 @@ export class VentanaemergenteService {
 
   }
 
+}
+
+
+class configuracion{
+ public  ventanaalerta:boolean = false;
 }

@@ -32,8 +32,10 @@ export class DomicilioComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+    console.log("eSTE ES EL DATO DE SU DOMICILIO",this.tabsDatos);
     if(this.tabsDatos[1] !== undefined){
-      this.myForm = this.createForm(this.tabsDatos[1]);
+      this.myForm = this.createForm(this.tabsDatos[1][0]);
       this.buscar(undefined);
 
     }else{
@@ -81,7 +83,7 @@ export class DomicilioComponent implements OnInit {
       if(valor){
         let obj = this.myForm.value; 
   
-        let objenviar = 
+        let objenviar:any = 
           {
             codigo: obj.codigo,
             municipio: this.idMunicipio,
@@ -97,14 +99,30 @@ export class DomicilioComponent implements OnInit {
   
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.domicilioPrd.save(objenviar).subscribe(datos =>{
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-            if(datos.resultado){
-              this.enviado.emit({type:"domicilio",datos:datos.datos});
-            }
+       
+        if(this.tabsDatos[1][0] == undefined){
+          this.domicilioPrd.save(objenviar).subscribe(datos =>{
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.enviado.emit({type:"domicilio",datos:datos.datos});
+              }
+            });
           });
-        });
+        }else{
+
+
+          objenviar.domicilioId = this.tabsDatos[1][0].domicilioId;
+
+          this.domicilioPrd.update(objenviar).subscribe(datos =>{
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.enviado.emit({type:"domicilio",datos:datos.datos});
+              }
+            });
+          });
+        }
         
         
 

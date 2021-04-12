@@ -43,7 +43,7 @@
                 <router-outlet></router-outlet>
 
                 <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [subtitulo]="modal.strSubtitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
-                <app-ventanaemergenteprincipal *ngIf="emergente.modal" [titulo]="emergente.titulo" [mostrar]="mostrar" (salida)="recibirEmergente($event)"></app-ventanaemergenteprincipal>
+                <app-ventanaemergenteprincipal [ventanaalerta]="emergente.ventanaalerta" *ngIf="emergente.modal" [titulo]="emergente.titulo" [mostrar]="mostrar" (salida)="recibirEmergente($event)"></app-ventanaemergenteprincipal>
                 
             </div>
         </div>
@@ -51,5 +51,5 @@
     <div class="chaticon">
         <img (click)="ocultarchat = !ocultarchat" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
     </div>
-    <app-chatboot class="swing-in-top-fwd" [ngClass]="{'ocultarchat':ocultarchat}" (salida)="recibirchat($event)"></app-chatboot>
+    <app-chatboot class="swing-in-top-fwd" [ngClass]="{'ocultarchat':ocultarchat}"  (salida)="recibirchat($event)"></app-chatboot>
 </div>

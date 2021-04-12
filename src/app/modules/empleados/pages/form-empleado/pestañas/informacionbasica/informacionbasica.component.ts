@@ -36,8 +36,10 @@ export class InformacionbasicaComponent implements OnInit {
     private routerPrd: Router, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    console.log("Vuelve a iniciar");
-    console.log(this.datosPersona);
+  
+
+
+
     this.myform = this.createForm(this.datosPersona[0]);
 
     this.catalogosPrd.getNacinalidades(true).subscribe(datos => this.arreglonacionalidad = datos.datos);
@@ -150,7 +152,7 @@ export class InformacionbasicaComponent implements OnInit {
     }
 
 
-    let objenviar = {
+    let objenviar:any = {
       nombre: obj.nombre,
       apellidoPaterno: obj.apellidoPaterno,
       apellidoMaterno: obj.apellidoMaterno,
@@ -185,19 +187,37 @@ export class InformacionbasicaComponent implements OnInit {
       nss: obj.nss
     }
 
+
+    console.log(this.datosPersona[0].personaId,"ESTE ES EL ID");
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-    this.empleadosPrd.save(objenviar).subscribe(datos => {
+    if(this.datosPersona[0].personaId == undefined){
+      this.empleadosPrd.save(objenviar).subscribe(datos => {
 
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-
-      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-        if (datos.resultado) {
-          this.enviado.emit({ type: "informacion", datos: datos.datos });
-        }
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+  
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+          if (datos.resultado) {
+            this.enviado.emit({ type: "informacion", datos: datos.datos });
+          }
+        });
+  
       });
+    }else{
+      objenviar.personaId = this.datosPersona[0].personaId;
+      this.empleadosPrd.update(objenviar).subscribe(datos => {
 
-    });
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+  
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+          if (datos.resultado) {
+            this.enviado.emit({ type: "informacion", datos: datos.datos });
+          }
+        });
+  
+      });
+    }
 
   }
 
