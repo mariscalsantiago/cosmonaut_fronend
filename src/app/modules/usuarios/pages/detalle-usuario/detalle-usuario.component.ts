@@ -158,7 +158,13 @@ export class DetalleUsuarioComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosPrd.save(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => this.routerPrd.navigate(["/usuarios"]));
+            if(datos.resultado){
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+              .then(() => this.routerPrd.navigate(["/usuarios"]));
+            }else{
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+            }
+            
           });
 
         } else {
@@ -168,7 +174,13 @@ export class DetalleUsuarioComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosPrd.modificar(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => this.routerPrd.navigate(["/usuarios"]));
+            if(datos.resultado){
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+              .then(() => this.routerPrd.navigate(["/usuarios"]));
+            }else{
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+            }
+            
           });
         }
       }

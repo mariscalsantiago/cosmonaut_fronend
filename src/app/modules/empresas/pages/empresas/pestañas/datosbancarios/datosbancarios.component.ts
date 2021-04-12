@@ -32,6 +32,7 @@ export class DatosbancariosComponent implements OnInit {
   public obj: any =[];
   public objenviar: any = [];
   public insertarMof: boolean = false;
+  public mostrarSTP:boolean= false;
 
   constructor(private formBuilder: FormBuilder,private cuentasPrd:CuentasbancariasService,
     private routerPrd:Router) { }
@@ -51,7 +52,7 @@ export class DatosbancariosComponent implements OnInit {
    this.cargando = false;
 
   });
-  if(!this.datosempresa.insertar){
+  if(!this.datosempresa.insertar || this.mostrarSTP){
   this.cuentasPrd.getAllByDetCuentas(this.id_empresa).subscribe(datos => {
     this.obj = datos.datos;
     this.myForm = this.createForm(this.obj);
@@ -171,7 +172,9 @@ public verdetalle(obj:any){
           this.alerta.iconType = datos.resultado ? "success" : "error";
           this.alerta.strTitulo = datos.mensaje;
           this.alerta.modal = true;
+          
             if(datos.resultado){
+              this.mostrarSTP= true;
               this.enviado.emit({
                 type:"cuentasBancarias"
               });
@@ -185,6 +188,7 @@ public verdetalle(obj:any){
         this.alerta.strTitulo = datos.mensaje;
         this.alerta.modal = true;
         if(datos.resultado){
+        this.mostrarSTP= true;
         this.enviado.emit({
           type:"cuentasBancarias"
         });
@@ -200,6 +204,7 @@ public verdetalle(obj:any){
           this.alerta.strTitulo = datos.mensaje;
           this.alerta.modal = true;
           if(datos.resultado){
+          this.mostrarSTP= true;
           this.enviado.emit({
             type:"cuentasBancarias"
           });
