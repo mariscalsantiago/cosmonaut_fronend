@@ -122,8 +122,10 @@ export class DetalleComponent implements OnInit {
   
         };
   
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.bancosPrd.save(objEnviar).subscribe(datos => {
-  
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
             if(datos.resultado){
                 this.navigate.navigate(['/empleados']);

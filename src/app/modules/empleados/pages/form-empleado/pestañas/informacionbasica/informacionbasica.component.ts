@@ -16,7 +16,7 @@ import { validacionesForms } from 'src/app/shared/validaciones/validaciones';
 export class InformacionbasicaComponent implements OnInit {
 
   @Output() enviado = new EventEmitter();
-  @Input() datosPersona:any;
+  @Input() datosPersona: any;
 
 
 
@@ -28,7 +28,7 @@ export class InformacionbasicaComponent implements OnInit {
   public mostrarRfc: boolean = false;
   public arregloParentezco: any = [];
 
-  
+
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
@@ -45,7 +45,7 @@ export class InformacionbasicaComponent implements OnInit {
 
   }
 
-  
+
 
 
   public createForm(obj: any) {
@@ -58,7 +58,7 @@ export class InformacionbasicaComponent implements OnInit {
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: [obj.apellidoMaterno],
       genero: [obj.genero],
-      fechaNacimiento: [(obj.fechaNacimiento!==undefined && obj.fechaNacimiento!=="")?pipe.transform(new Date(Number(obj.fechaNacimiento)),"yyyy-MM-dd"):obj.fechaNacimiento],
+      fechaNacimiento: [(obj.fechaNacimiento !== undefined && obj.fechaNacimiento !== "") ? pipe.transform(new Date(Number(obj.fechaNacimiento)), "yyyy-MM-dd") : obj.fechaNacimiento],
       tieneCurp: [true],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
       emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
@@ -66,7 +66,7 @@ export class InformacionbasicaComponent implements OnInit {
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
       estadoCivil: obj.estadoCivil,
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      tieneHijos: obj.tieneHijos == undefined?"false":obj.tieneHijos,
+      tieneHijos: obj.tieneHijos == undefined ? "false" : `${obj.tieneHijos}`,
       numeroHijos: { value: obj.numeroHijos, disabled: true },
       url: obj.urlLinkedin,
       contactoEmergenciaNombre: [obj.contactoEmergenciaNombre, [Validators.required]],
@@ -88,22 +88,22 @@ export class InformacionbasicaComponent implements OnInit {
     this.enviado.emit({ type: "informacion", valor: true });
   }
 
-  public validarfechNacimiento(fecha:any){
+  public validarfechNacimiento(fecha: any) {
 
     debugger;
 
-      var x=new Date();
-      var fecha = fecha.split("-");
-      x.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
-      var today = new Date();
- 
-      if (x > today){
-        
-        this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la fecha actual')
-        .then(()=> {
+    var x = new Date();
+    var fecha = fecha.split("-");
+    x.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+    var today = new Date();
+
+    if (x > today) {
+
+      this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la fecha actual')
+        .then(() => {
           this.myform.controls.fechaNacimiento.setValue("");
         });
-      }
+    }
   }
 
   public cancelar() {
@@ -121,10 +121,10 @@ export class InformacionbasicaComponent implements OnInit {
 
 
     if (this.myform.invalid) {
-      
 
-        this.modalPrd.showMessageDialog(this.modalPrd.error);
-        return;
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
     }
 
 
@@ -185,10 +185,19 @@ export class InformacionbasicaComponent implements OnInit {
       nss: obj.nss
     }
 
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-    console.log("Parentezco y nss", JSON.stringify(objenviar));
+    this.empleadosPrd.save(objenviar).subscribe(datos => {
 
-    this.enviado.emit({ type: "informacion", datos: objenviar })
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+        if (datos.resultado) {
+          this.enviado.emit({ type: "informacion", datos: datos.datos });
+        }
+      });
+
+    });
 
   }
 

@@ -25,7 +25,7 @@ export class EmpleoComponent implements OnInit {
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;
   @Input() arregloEnviar: any;
-  @Input() tabsDatos:any;
+  @Input() tabsDatos: any;
 
 
   public aparecemodalito: boolean = false;
@@ -85,9 +85,9 @@ export class EmpleoComponent implements OnInit {
 
     this.obj = {};
 
-    if(this.tabsDatos[2]!==undefined){
+    if (this.tabsDatos[2] !== undefined) {
       this.myForm = this.createForm(this.tabsDatos[2]);
-    }else{
+    } else {
       this.myForm = this.createForm(this.obj);
     }
     this.cambiarSueldoField();
@@ -135,72 +135,72 @@ export class EmpleoComponent implements OnInit {
     this.aparecemodalito = true;
   }
 
-  public validarfechAntiguedad(fecha:any){
+  public validarfechAntiguedad(fecha: any) {
 
-    
-      let fechaInicioContra = fecha;
-      var fecha = fecha.split("-");
-      this.fechaAntiguedad.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
-      var today = new Date();
- 
-      if (this.fechaAntiguedad > today){
-        
-        this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la fecha actual')
-        .then(()=> {
+
+    let fechaInicioContra = fecha;
+    var fecha = fecha.split("-");
+    this.fechaAntiguedad.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+    var today = new Date();
+
+    if (this.fechaAntiguedad > today) {
+
+      this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la fecha actual')
+        .then(() => {
           this.myForm.controls.fechaAntiguedad.setValue("");
           this.myForm.controls.fechaInicio.setValue("");
           this.fechaICorreta = true;
         });
 
-      }else{
-        this.myForm.controls.fechaInicio.setValue(fechaInicioContra);
-      }
+    } else {
+      this.myForm.controls.fechaInicio.setValue(fechaInicioContra);
+    }
   }
 
-  public validarfechaInicioCont(fecha:any){
+  public validarfechaInicioCont(fecha: any) {
 
-    
-      if(fecha != ""){
+
+    if (fecha != "") {
       var fecha = fecha.split("-");
-      this.fechaIC.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
- 
+      this.fechaIC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+
       this.fechaICorreta = true;
-      
-      }
+
+    }
   }
 
-  public validarfechaFinCont(fecha:any){
+  public validarfechaFinCont(fecha: any) {
 
-    
-      var fechaFC=new Date();
-      var fecha = fecha.split("-");
-      fechaFC.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
-      if(this.fechaICorreta){
-          if (fechaFC < this.fechaIC){
-            
-            this.modalPrd.showMessageDialog(false, 'La fecha debe ser mayor a la fecha incio de contrato')
-            .then(()=> {
-              this.myForm.controls.fechaFin.setValue("");
-            });
 
-          }
-        }else{
+    var fechaFC = new Date();
+    var fecha = fecha.split("-");
+    fechaFC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+    if (this.fechaICorreta) {
+      if (fechaFC < this.fechaIC) {
 
-          this.modalPrd.showMessageDialog(false, 'Debe colocar una fecha incio de contrato ')
-          .then(()=> {
+        this.modalPrd.showMessageDialog(false, 'La fecha debe ser mayor a la fecha incio de contrato')
+          .then(() => {
             this.myForm.controls.fechaFin.setValue("");
           });
-        }
+
+      }
+    } else {
+
+      this.modalPrd.showMessageDialog(false, 'Debe colocar una fecha incio de contrato ')
+        .then(() => {
+          this.myForm.controls.fechaFin.setValue("");
+        });
+    }
   }
 
-  public validartipoContrato(idContrato: any){
-    
-    if(idContrato == 1){
+  public validartipoContrato(idContrato: any) {
+
+    if (idContrato == 1) {
       this.activaFechaFin = false;
     }
-    else if(idContrato == 10){
+    else if (idContrato == 10) {
       this.activaFechaFin = false;
-    }else{
+    } else {
       this.activaFechaFin = true;
     }
 
@@ -296,8 +296,8 @@ export class EmpleoComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    debugger;
-    if(obj.areaGeograficaId == undefined){
+    
+    if (obj.areaGeograficaId == undefined) {
       obj.areaGeograficaId = 1;
     }
     return this.formBuilder.group({
@@ -305,7 +305,7 @@ export class EmpleoComponent implements OnInit {
       puestoId: [{ value: obj.puestoId, disabled: true }, [Validators.required]],
       puesto_id_reporta: [obj.puesto_id_reporta],
       sedeId: [obj.sedeId],
-      estadoId: [obj.estadoId,[Validators.required]],
+      estadoId: [obj.estadoId, [Validators.required]],
       politicaId: [obj.politicaId, [Validators.required]],
       personaId: [this.datosPersona.personaId, [Validators.required]],
       esSindicalizado: ['false'],
@@ -327,7 +327,7 @@ export class EmpleoComponent implements OnInit {
       suPorcentaje: [obj.suPorcentaje],
       tiposueldo: ['b', [Validators.required]],
       subcontratistaId: obj.subcontratistaId,
-      puestoIdReporta:obj.puestoIdReporta
+      puestoIdReporta: obj.puestoIdReporta
 
     });
 
@@ -343,8 +343,8 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
+
     
-debugger;
     this.submitEnviado = true;
 
     let noesFecha: boolean = (this.myForm.controls.tipoContratoId.value == null || this.myForm.controls.tipoContratoId.value == 1 || this.myForm.controls.tipoContratoId.value == 10);
@@ -386,14 +386,14 @@ debugger;
         //******************************************* */
 
 
-        if(obj.fechaAntiguedad != undefined || obj.fechaAntiguedad != ''){
+        if (obj.fechaAntiguedad != undefined || obj.fechaAntiguedad != '') {
           obj.fechaAntiguedad = new Date((new Date(obj.fechaAntiguedad).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
         }
 
-        if(obj.fechaInicio != undefined || obj.fechaInicio != ''){
+        if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
           obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
         }
-        if(obj.fechaFin != undefined || obj.fechaFin != ''){
+        if (obj.fechaFin != undefined || obj.fechaFin != '') {
           obj.fechaFin = new Date((new Date(obj.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
         }
 
@@ -425,56 +425,12 @@ debugger;
           metodoPagoId: { metodoPagoId: obj.metodo_pago_id },
           porcentaje: obj.suPorcentaje,
           subcontratistaId: { subcontratistaId: obj.subcontratistaId },
-          jefeInmediatoId:{
+          jefeInmediatoId: {
             personaId: this.puestoIdReporta
-            }
+          }
         }
 
-
-        console.log("Esto se manda como persona", this.arregloEnviar[0]);
-
-
-
-        if(this.datosPersona.personaId === undefined){
-          this.empleadosPrd.save(this.arregloEnviar[0]).subscribe(valorEmpleado => {
-
-            if (!valorEmpleado.resultado) {
-              this.modalPrd.showMessageDialog(valorEmpleado.resultado, valorEmpleado.mensaje);
-              return;
-            }
-  
-            this.datosPersona.personaId = {
-              personaId:  valorEmpleado.datos.personaId
-            }  
-            objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
-  
-            this.guardarContratoColaborador(objEnviar,valorEmpleado);
-  
-          });
-        }else{
-          this.empleadosPrd.update(this.datosPersona).subscribe(valorEmpleado =>{
-
-            if (!valorEmpleado.resultado) {
-              this.modalPrd.showMessageDialog(valorEmpleado.resultado, valorEmpleado.mensaje);
-              return;
-            }
-
-            this.datosPersona.personaId.personaId  = valorEmpleado.datos.personaId;
-            objEnviar.personaId.personaId = valorEmpleado.datos.personaId;
-  
-            this.guardarContratoColaborador(objEnviar,valorEmpleado);
-
-
-
-          });
-        }
-      
-
-
-
-
-
-
+        this.guardarContratoColaborador(objEnviar);
 
       }
     });;
@@ -482,17 +438,14 @@ debugger;
   }
 
 
-  public guardarContratoColaborador(objEnviar:any,valorEmpleado:any){
-    this.colaboradorPrd.save(objEnviar).subscribe(datos => {
-              
-              
-      let domicilio = this.arregloEnviar[1];
-      //let preferencias = this.arregloEnviar[2];
-      domicilio.personaId.personaId = objEnviar.personaId.personaId;
-      // preferencias.personaId = valorEmpleado.personaId;
+  public guardarContratoColaborador(objEnviar: any) {
 
-      this.domicilioPrd.save(domicilio).toPromise();
-      // this.preferenciasPrd.save(preferencias).toPromise();
+
+
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    this.colaboradorPrd.save(objEnviar).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
         if (datos.resultado) {
@@ -508,11 +461,8 @@ debugger;
 
           }
 
-          let datosPersona = valorEmpleado.datos;
-          datosPersona.metodopago = metodopago;
-          datosPersona.contratoColaborador = datos.datos;
 
-          this.enviado.emit({ type: "empleo", datos: datosPersona });
+          this.enviado.emit({ type: "empleo", datos: datos.datos,metodopago:metodopago });
         }
       });
 
@@ -586,7 +536,7 @@ debugger;
 
 
   public salirReportaA() {
-    debugger;
+    
     this.myForm.controls.puesto_id_reporta.setErrors(null);
     this.myForm.value.puestoIdReporta = undefined;
     const nombreCapturado = this.myForm.value.puesto_id_reporta;
@@ -596,8 +546,6 @@ debugger;
         for (let item of this.arregloempleadosreporta) {
           console.log(item);
           const nombreCompleto = item.personaId.nombre + " " + item.personaId.apellidoPaterno;
-          console.log("Este es el nombre completo", nombreCompleto);
-          console.log("Este es el nombre capturado", nombreCapturado);
           if (nombreCompleto.includes(nombreCapturado)) {
             encontrado = true;
             this.puestoIdReporta = item.personaId.personaId;

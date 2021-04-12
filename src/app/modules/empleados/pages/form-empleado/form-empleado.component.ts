@@ -77,6 +77,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[1].form = false;
         this.activado[1].seleccionado = false;
         this.tabsEnviar[1] = elemento.datos;
+        this.datosPersona = elemento.datos;
         break;
       case "preferencias":
 
@@ -87,11 +88,11 @@ export class FormEmpleadoComponent implements OnInit {
         this.tabsEnviar[2] = elemento.datos;
         break;
       case "empleo":
-        debugger;
         this.ocultarempleada = true;
-        this.datosPersona = elemento.datos;
-        this.ocultarDetalleTransfrencia = this.datosPersona.metodopago.metodoPagoId !== 4;
-
+        this.ocultarDetalleTransfrencia = elemento.metodopago.metodoPagoId !== 4;
+        this.datosPersona.contratoColaborador = elemento.datos;
+        this.datosPersona.metodopago = elemento.metodopago;
+        
         if (!this.ocultarDetalleTransfrencia) {
           this.activado[4].tab = true;
           this.activado[4].form = true;

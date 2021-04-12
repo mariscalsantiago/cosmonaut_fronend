@@ -96,7 +96,15 @@ export class DomicilioComponent implements OnInit {
         }
   
 
-        this.enviado.emit({type:"domicilio",datos:objenviar});
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.domicilioPrd.save(objenviar).subscribe(datos =>{
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+            if(datos.resultado){
+              this.enviado.emit({type:"domicilio",datos:datos.datos});
+            }
+          });
+        });
         
         
 
