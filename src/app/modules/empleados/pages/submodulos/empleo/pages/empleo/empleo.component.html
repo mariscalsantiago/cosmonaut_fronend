@@ -1,6 +1,6 @@
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
     <div class="row">
-        <div class="col-12" [ngClass]="{'col-lg-5':!editarcampos}">
+        <div class="col-12" >
             <div class="row"><label class="titulo">DETALLE DE EMPLEO</label><i *ngIf="!editarcampos"
                     class="fas fa-pencil-alt primary" (click)="editarcampos = true;"
                     style="width: 10%;text-align: right; cursor: pointer;"></i></div>
@@ -248,7 +248,7 @@
             </div>
 
         </div>
-        <div class="col-12 col-lg-7" *ngIf="!editarcampos">
+        <!-- <div class="col-12 col-lg-7" *ngIf="!editarcampos">
 
             <div class="row"><label class="titulo">HISTORIAL DE EMPLEO</label></div>
             <div class="row" style="margin-right: 10%;">
@@ -272,7 +272,7 @@
                 </table>
             </div>
 
-        </div>
+        </div> -->
     </div>
 
     <div class="row" *ngIf="editarcampos">

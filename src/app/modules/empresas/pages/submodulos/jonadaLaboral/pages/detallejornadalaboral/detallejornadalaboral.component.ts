@@ -268,9 +268,9 @@ export class DetallejornadalaboralComponent implements OnInit {
         };
 
         if (this.esInsert) {
-          
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.jornadaPrd.save(this.peticion).subscribe(datos => {
-
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
              if(datos.resultado){
               this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);
@@ -373,8 +373,10 @@ export class DetallejornadalaboralComponent implements OnInit {
             ]
           };
 
-          this.jornadaPrd.modificar(this.peticion).subscribe(datos => {
 
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.jornadaPrd.modificar(this.peticion).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
                this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'jornadalaboral']);

@@ -175,8 +175,9 @@ export class DetallepuestosareaComponent implements OnInit {
         }
 
         if (this.insertar) {
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.puestosPrd.savepuest(objEnviar).subscribe(datos => {
-
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
                 this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area/modifica"], { state: { datos: this.areas} });
@@ -200,8 +201,9 @@ export class DetallepuestosareaComponent implements OnInit {
                 centrocClienteId: this.id_empresa,
               }]
           }
-
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.puestosPrd.modificar(objEnviarMod).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
                 this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area/modifica"], { state: { datos: this.areas} });

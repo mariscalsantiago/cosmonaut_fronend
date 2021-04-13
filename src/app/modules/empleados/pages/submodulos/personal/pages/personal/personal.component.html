@@ -1,6 +1,6 @@
 <form [formGroup]="myForm" (ngSubmit)="enviandoFormulario()">
     <div class="row">
-        <div class="col-12 col-lg-6 col-xl-4 mb-3 mt-3 ">
+        <div class="col-12 col-lg-6 col-xl-6 mb-3 mt-3 ">
             <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i *ngIf="!editarcampos"
                     class="fas fa-pencil-alt primary" (click)="editarcampos = true;accionarMostrar()"
                     style="width: 10%;text-align: right; cursor: pointer;"></i></div>
@@ -168,7 +168,7 @@
             </div>
 
         </div>
-        <div class="col-12 col-lg-6 col-xl-4  mb-3 mt-3">
+        <div class="col-12 col-lg-6 col-xl-6  mb-3 mt-3">
             <div class="row"><label class="titulo">INFORMACIÓN ADICIONAL</label></div>
 
             <div class="row mb-2">

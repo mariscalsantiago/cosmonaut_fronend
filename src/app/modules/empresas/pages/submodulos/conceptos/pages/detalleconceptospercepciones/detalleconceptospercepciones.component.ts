@@ -19,7 +19,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public esInsert: boolean = false;
   public submitInvalido: boolean = false;
   public arregloTipoPercepcion: any = [];
-  
+
   public peticion: any = [];
 
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
@@ -30,7 +30,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     debugger;
     this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => this.arregloTipoPercepcion = datos.datos);
- 
+
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -43,18 +43,18 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     let obj = history.state.data == undefined ? {} : history.state.data;
 
-    if(obj.tipoPeriodicidad == "Periodica"){
-      obj.tipoPeriodicidad= "P"
+    if (obj.tipoPeriodicidad == "Periodica") {
+      obj.tipoPeriodicidad = "P"
     }
-    if(obj.tipoPeriodicidad == "Estandar"){
-      obj.tipoPeriodicidad= "E"
+    if (obj.tipoPeriodicidad == "Estandar") {
+      obj.tipoPeriodicidad = "E"
     }
 
-    if(obj.gravaIsr == "S"){
-      obj.gravaIsr= true
+    if (obj.gravaIsr == "S") {
+      obj.gravaIsr = true
     }
-    if(obj.gravaIsr == "N"){
-      obj.gravaIsr= false
+    if (obj.gravaIsr == "N") {
+      obj.gravaIsr = false
     }
     if (this.esInsert) {
       obj = {
@@ -108,38 +108,38 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
-    debugger;
+        debugger;
 
         if (valor) {
 
           let obj = this.myForm.value;
 
-          if(obj.tipoConcepto == "Ordinario"){
+          if (obj.tipoConcepto == "Ordinario") {
             obj.tipoConcepto = "O"
           }
-          if(obj.tipoConcepto == "Extraordinario"){
+          if (obj.tipoConcepto == "Extraordinario") {
             obj.tipoConcepto = "E"
           }
-          
-   
-          let gravaIsr = obj.gravaIsr == true ? "S":"N";
+
+
+          let gravaIsr = obj.gravaIsr == true ? "S" : "N";
 
           this.peticion = {
-  
+
             nombre: obj.nombre,
             tipoPercepcionId: {
               tipoPercepcionId: obj.tipoPercepcionId
-              },
-          
+            },
+
             tipoPeriodicidad: obj.tipoPeriodicidad,
             cuentaContable: obj.cuentaContable,
-            tipoConcepto:  obj.tipoConcepto,
+            tipoConcepto: obj.tipoConcepto,
             gravaIsn: obj.gravaIsn,
             esActivo: obj.esActivo,
             gravaIsr: gravaIsr,
             centrocClienteId: {
               centrocClienteId: this.id_empresa
-              }
+            }
 
           };
 
@@ -149,8 +149,10 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
           if (this.esInsert) {
 
-            this.conceptosPrd.savePer(this.peticion).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
+            this.conceptosPrd.savePer(this.peticion).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
                   if (datos.resultado) {
@@ -163,9 +165,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
           } else {
 
             this.peticion.conceptoPercepcionId = obj.conceptoPercepcionId;
-
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.conceptosPrd.modificarPer(this.peticion).subscribe(datos => {
-
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
                   if (datos.resultado) {
@@ -196,8 +198,8 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
 
-  
-  
+
+
 
 
 }

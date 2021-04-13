@@ -113,8 +113,12 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
            if (this.esInsert) {
 
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
             this.conceptosPrd.saveDed(this.peticion).subscribe(datos => {
 
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
                   if (datos.resultado) {
@@ -128,8 +132,11 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
             this.peticion.conceptoDeduccionId = obj.conceptoDeduccionId;
 
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.conceptosPrd.modificarDed(this.peticion).subscribe(datos => {
 
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
                   if (datos.resultado) {

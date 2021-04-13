@@ -224,8 +224,10 @@ export class DetallepuestosComponent implements OnInit {
         }
 
         if (this.insertar) {
-          this.puestosPrd.save(objEnviar).subscribe(datos => {
 
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.puestosPrd.save(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
              if(datos.resultado){
               this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area"]);
@@ -246,7 +248,10 @@ export class DetallepuestosComponent implements OnInit {
 
               ]
           }
+
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.puestosPrd.modificar(objEnviarMod).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
                this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/area"]);

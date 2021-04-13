@@ -78,11 +78,8 @@
             </div>
             <div class="row">
                 <div class="input-group-sm mb-4 col-8">
-                    <label >Correo personal *</label>
+                    <label >Correo personal </label>
                     <input appMayusculas [minusculas]="true" formControlName="contactoInicialEmailPersonal" type="email" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" class="form-control" name="" >
-                    <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                         Correo personal inválido
                     </div>
@@ -129,11 +126,8 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-4 col-lg-4">
-                    <label > Celular *</label>
-                    <input appSolonumeros formControlName="celular" type="text" maxlength="10"  class="form-control" [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}">
-                    <div *ngIf="f.celular.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
+                    <label > Celular </label>
+                    <input appSolonumeros formControlName="celular" type="text" maxlength="10"  class="form-control">
                 </div>
 
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">

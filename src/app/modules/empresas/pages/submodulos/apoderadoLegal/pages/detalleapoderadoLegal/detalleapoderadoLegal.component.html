@@ -34,7 +34,7 @@
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Nacionalidad *</label>
-              <select formControlName="nacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.nacionalidadId.errors && f.nacionalidadId.touched}">
+              <select formControlName="nacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}">
                   <option value=""></option>
                   <option *ngFor="let item of arreglonacionalidad"  [value]="item.nacionalidadId">{{item.descripcion}}</option>
               </select>
@@ -101,13 +101,9 @@
             </div>
             
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Correo personal *</label>
-              <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase"  [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
+              <label >Correo personal</label>
+              <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase"  [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
                   placeholder="">
-
-                  <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
-                      Campo requerido
-                    </div>
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                       Correo personal inválido
                     </div>
@@ -124,13 +120,9 @@
 
         </div>
         <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-          <label >Celular *</label>
-          <input appSolonumeros formControlName="celular" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}"
+          <label >Celular</label>
+          <input appSolonumeros formControlName="celular" maxlength="10"  type="text" class="form-control"  
               placeholder="">
-
-              <div *ngIf="f.celular.errors && submitEnviado" class="invalid-feedback">
-                  Campo requerido
-                </div>
 
       </div>
 

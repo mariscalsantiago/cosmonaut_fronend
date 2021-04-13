@@ -175,7 +175,12 @@ debugger;
 
           if (this.esInsert) {
 
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
             this.cuentasPrd.save(this.peticion).subscribe(datos => {
+
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
@@ -189,7 +194,11 @@ debugger;
             
             this.peticion.clabe = this.myForm.controls.clabe.value;
             this.peticion.cuentaBancoId = this.objCuenta.cuentaBancoId;
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.cuentasPrd.modificar(this.peticion).subscribe(datos => {
+
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {

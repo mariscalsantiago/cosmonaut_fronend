@@ -52,7 +52,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
     if (this.insertar) {
       objdetrep = {
         nacionalidadId: {},
-        facultadPoderId:{}
+        facultadPoderId: {}
       };
     }
 
@@ -72,30 +72,30 @@ export class DetalleapoderadoLegalComponent implements OnInit {
   public createFormrep(obj: any) {
     debugger;
     let datePipe = new DatePipe("en-MX");
-    if(!this.insertar){
-        if(obj.esActivo== 'Activo'){
-          obj.esActivo= true;
-        }else{
-          obj.esActivo= false;
-        }
-        
+    if (!this.insertar) {
+      if (obj.esActivo == 'Activo') {
+        obj.esActivo = true;
+      } else {
+        obj.esActivo = false;
+      }
+
     }
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
-      celular: [obj.celular, [Validators.required]],
+      celular: [obj.celular, []],
       apellidoMaterno: [obj.apellidoMaterno],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
       emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
-      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
+      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       poderNotarial: [obj.poderNotarial, [Validators.required]],
       facultadPoderId: [obj.facultadPoderId?.facultadPoderId, [Validators.required]],
       //fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
-      esActivo: [{ value: (this.insertar) ? true : obj.esActivo,  disabled: this.insertar}, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: obj.personaId
 
     });
@@ -134,16 +134,16 @@ export class DetalleapoderadoLegalComponent implements OnInit {
     }
 
     const titulo = (this.insertar) ? "¿Desea registrar al apoderado legal" : "¿Desea actualizar los datos del apoderado legal?";
-    
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
-      if(valor){
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
+      if (valor) {
 
         let obj = this.myFormrep.value;
-        if(obj.esActivo == 'Activo'){
+        if (obj.esActivo == 'Activo') {
           obj.esActivo = 'true'
-         }else{
+        } else {
           obj.esActivo = 'false'
-         }
+        }
 
         this.objEnviar = {
           nombre: obj.nombre,
@@ -164,20 +164,21 @@ export class DetalleapoderadoLegalComponent implements OnInit {
           nacionalidadId: {
             nacionalidadId: obj.nacionalidadId
           },
-          facultadPoderId:{
-            facultadPoderId:obj.facultadPoderId
+          facultadPoderId: {
+            facultadPoderId: obj.facultadPoderId
           }
         }
 
         if (this.insertar) {
-          debugger;
-          this.apoderadoPrd.save(this.objEnviar).subscribe(datos => {
 
-           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-             if(datos.resultado){
-              this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/apoderadoLegal"]);
-             }
-           });
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.apoderadoPrd.save(this.objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/apoderadoLegal"]);
+              }
+            });
 
           });
 
@@ -186,9 +187,9 @@ export class DetalleapoderadoLegalComponent implements OnInit {
           this.objEnviar.personaId = obj.personaId;
 
           this.apoderadoPrd.modificar(this.objEnviar).subscribe(datos => {
-            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-              if(datos.resultado){
-               this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/apoderadoLegal"]);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/apoderadoLegal"]);
               }
             });
           });

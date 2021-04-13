@@ -61,10 +61,10 @@ export class DetallecontactosrrhComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       apellidoPat: [obj.apellidoPaterno, [Validators.required]],
       apellidoMat: [obj.apellidoMaterno],
-      celular: [obj.celular, [Validators.required]],
+      celular: [obj.celular, []],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
       emailCorp: [obj.emailCorporativo, [Validators.required, Validators.email]],
-      ciEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
+      ciEmailPersonal: [obj.contactoInicialEmailPersonal, [ Validators.email]],
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       ciExtension: [obj.contactoInicialExtension],
       //fechaAlta: [{ value: ((this.esInsert) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
@@ -119,7 +119,10 @@ export class DetallecontactosrrhComponent implements OnInit {
 
         if (this.esInsert) {
 
+
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosPrd.save(peticion).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
               .then(() => this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']));
           });

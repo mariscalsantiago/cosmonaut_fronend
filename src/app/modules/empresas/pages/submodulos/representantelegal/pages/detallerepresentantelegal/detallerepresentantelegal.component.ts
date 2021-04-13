@@ -72,13 +72,13 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
-      celular: [obj.celular, [Validators.required]],
+      celular: [obj.celular],
       apellidoMaterno: [obj.apellidoMaterno],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
       nacionalidadId: [obj.nacionalidadId.nacionalidadId, [Validators.required]],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
       emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
-      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
+      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [ Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       //fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
@@ -152,7 +152,11 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
         if (this.insertar) {
 
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
           this.representantePrd.save(objEnviar).subscribe(datos => {
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
              if(datos.resultado){

@@ -202,7 +202,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
 
-
+        
         this.conceptosPrd.eliminarPer(this.objEnviar).subscribe(datos => {
           this.cargando = false;        
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);

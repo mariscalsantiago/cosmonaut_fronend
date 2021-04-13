@@ -181,7 +181,9 @@ debugger;
        
         if (this.esInsert) {
 
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.grupoNominaPrd.save(peticion).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
@@ -195,7 +197,9 @@ debugger;
           peticion.grupoNominaId = obj.grupoNominaId;
           peticion.esActivo = true;
 
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.grupoNominaPrd.modificar(peticion).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
