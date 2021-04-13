@@ -11,6 +11,21 @@
         display: none;
     }
 }
+
+
+#listanavegadora{
+  height: calc(100% - 188px);
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+
+#salirbtn{
+  // position: sticky;
+  // bottom: 0;
+  background-color: white;
+}
 .responsivo{
 
     display: none;
@@ -132,3 +147,8 @@
 
 
 
+#salir{
+  list-style: none;
+    padding-left: 2px;
+   
+}

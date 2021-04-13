@@ -4,6 +4,7 @@ import { menuprincipal, submenu } from '../../../core/data/estructuramenu';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contenido',
@@ -43,7 +44,7 @@ export class ContenidoComponent implements OnInit {
 
 
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
-    private ventana: VentanaemergenteService) {
+    private ventana: VentanaemergenteService,private navigate:Router) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
   }
@@ -100,6 +101,15 @@ export class ContenidoComponent implements OnInit {
             this.ocultarchat = true;
             break;
       }
+  }
+
+
+  public cerrarSesion(){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Estás seguro de cerrar la sesión?").then(valor=>{
+      if(valor){
+          this.navigate.navigate(["/"]);
+      }
+    });
   }
 
 

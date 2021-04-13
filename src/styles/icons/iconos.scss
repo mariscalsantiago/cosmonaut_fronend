@@ -137,3 +137,11 @@
 
   }
 
+  .icon_cerrarsesion{
+    $rutaimg : '../../assets/icons/ICO_cerrar_sesion.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
+

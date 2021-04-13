@@ -1,7 +1,7 @@
 <div *ngIf="!cargando && arreglo !== undefined " class="row  margen mt-3" style="margin-bottom: -25px;">
   <div class="input-group mb-3 mostrarelementos ">
     <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
+      <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
     </div>
     <select [(ngModel)]="numeroitems" class="custom-select" id="inputGroupSelect01" (change)="cambia()">
       <option value="5" selected>5</option>
