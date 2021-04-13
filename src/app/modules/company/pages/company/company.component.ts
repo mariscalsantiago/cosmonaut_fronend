@@ -73,11 +73,11 @@ export class CompanyComponent implements OnInit {
 
       let columnas: Array<tabla> = [
         new tabla("url", "imagen"),
-        new tabla("centrocClienteId", "ID empresa"),
+        new tabla("centrocClienteId", "ID cliente"),
         new tabla("razonSocial", "Razón social	"),
         new tabla("nombre", "Nombre de compañía"),
         new tabla("rfc", "RFC"),
-        new tabla("fechaAlta", "Fecha registro"),
+        new tabla("fechaAlta", "Fecha de registro en el sistema"),
         new tabla("esActivo", "Estatus")
       ]
       if (this.arreglo !== undefined) {
@@ -143,8 +143,8 @@ export class CompanyComponent implements OnInit {
       fechaAlta: fechar,
       esActivo: "",
     }
-
-
+    console.log("peticion",peticion)
+    debugger;
     this.companyProd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
 
@@ -154,11 +154,11 @@ export class CompanyComponent implements OnInit {
 
       let columnas: Array<tabla> = [
         new tabla("url", "imagen"),
-        new tabla("centrocClienteId", "ID empresa"),
+        new tabla("centrocClienteId", "ID cliente"),
         new tabla("razonSocial", "Razón social	"),
         new tabla("nombre", "Nombre de compañía"),
         new tabla("rfc", "RFC"),
-        new tabla("fechaAlta", "Fecha registro"),
+        new tabla("fechaAlta", "Fecha de registro en el sistema"),
         new tabla("esActivo", "Estatus")
       ];
 
