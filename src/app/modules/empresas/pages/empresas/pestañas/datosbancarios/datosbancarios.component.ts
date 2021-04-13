@@ -42,8 +42,8 @@ export class DatosbancariosComponent implements OnInit {
     
     this.datosempresa.activarGuardaMod= true;
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
-    this.listaCuentaModificar = this.datosempresa.activarList;
-    this.listaCuentaNuevo = this.datosempresa.activarForm;
+    //this.listaCuentaModificar = this.datosempresa.activarList;
+    //this.listaCuentaNuevo = this.datosempresa.activarForm;
 
 
    this.cargando = true;
