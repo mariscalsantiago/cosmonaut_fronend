@@ -1,7 +1,7 @@
 <div class="bg_emergente fade-in-second"  [style.top]="scrollTop+'px'">
-    <div style="overflow: auto;"  class="bodymodal slide-in-top" id="bodyemergente"  [style.left]="leftP+'px'">
+    <div style="overflow: auto;" [ngClass]="{'disenioextra':ventanaalerta}" class="bodymodal slide-in-top" id="bodyemergente"  [style.left]="leftP+'px'">
 
-        <button (click)="cerrarModal()" style="color:rgb(0, 0, 0)"  type="button" class="close btnclosemodal mr-2"
+        <button *ngIf="!ventanaalerta" (click)="cerrarModal()" style="color:rgb(0, 0, 0)"  type="button" class="close btnclosemodal mr-2"
         data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         

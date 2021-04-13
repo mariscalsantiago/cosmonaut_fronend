@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 
 @Component({
   selector: 'app-timbrar',
@@ -20,7 +21,7 @@ export class TimbrarComponent implements OnInit {
     filas:[]
   };
 
-  constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService) { }
+  constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,private ventana:VentanaemergenteService) { }
 
   ngOnInit(): void {
 
@@ -67,6 +68,10 @@ export class TimbrarComponent implements OnInit {
 
   public recibirTabla(obj:any){
 
+  }
+
+  public definirFecha(){
+    this.ventana.showVentana(this.ventana.timbrado,{ventanaalerta:true});
   }
 
 }

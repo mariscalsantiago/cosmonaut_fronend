@@ -3,6 +3,7 @@ import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 
 @Component({
   selector: 'app-pagar',
@@ -21,7 +22,8 @@ export class PagarComponent implements OnInit {
 
   public arreglo:any = [];
 
-  constructor(private modalPrd:ModalService,private nominasPrd:NominasService,private empleadoPrd:EmpleadosService) { }
+  constructor(private modalPrd:ModalService,private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,
+    private ventana:VentanaemergenteService) { }
 
 
 
@@ -79,11 +81,19 @@ export class PagarComponent implements OnInit {
   public guardar(){
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas disperar la nómina?").then(valor =>{
       if(valor){
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-         setTimeout(() => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.salida.emit({type:"dispersar"});
-         }, 2000);
+
+        this.ventana.showVentana(this.ventana.timbrado,{ventanaalerta:true}).then(dd =>{
+          
+         if(dd.datos){
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          setTimeout(() => {
+           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+           this.salida.emit({type:"dispersar"});
+          }, 2000);
+         }
+        });
+
+       
       }
     });
   }

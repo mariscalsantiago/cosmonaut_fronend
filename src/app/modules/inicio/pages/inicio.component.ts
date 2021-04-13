@@ -31,6 +31,10 @@ export class InicioComponent implements OnInit {
     this.ventana.showVentana(this.ventana.timbrado,{ventanaalerta:true});
   }
 
+  public vermodal2(){
+    this.ventana.showVentana(this.ventana.timbrado);
+  }
+
 
   
 

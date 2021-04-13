@@ -1,7 +1,23 @@
-<div  style="height: 100px;width: 100%; background-color: #00C1AF;"
+<div  style="height: 100px; background-color: #00C1AF;"
     class="text-center">
 
     <div class="containerimg">
-        <img src="assets/icons/ICO_alerta.svg" width="75px" height="75px" alt="" srcset="">
+        <img src="assets/icons/ICO_Alert.svg" width="75px" height="75px" alt="" srcset="">
     </div>
+</div>
+<div  style="background-color: #ffffff;     padding-top: 49px;"
+    class="text-center m-2">
+
+   <h5 class="titulo">Define la fecha de pago que aparecerá en el timbrado</h5>
+   <span class="letrasmenores">Esta fecha únicamente aplica para los pagos que no hemos podido validar la fecha.</span>
+   <br>
+   <span class="letrasmenores">Escribe la fecha que quieres establecer</span><br>
+   <input type="date" class="form-control"> <br>
+   <span class="letrasmenores"><strong>NOTA:</strong> Recuerda que puedes modificar la fecha en cualquier momento.</span>
+</div>
+
+<div class="text-center margin" style="margin-bottom: 20px;">
+
+    <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+    <button (click)="aceptar()"  class="btn btn-primary button-fill">Guardar</button>
 </div>

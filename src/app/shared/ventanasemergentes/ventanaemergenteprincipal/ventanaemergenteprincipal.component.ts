@@ -1,12 +1,14 @@
-import { Component, HostListener, Input, OnInit, Output ,EventEmitter} from '@angular/core';
+import { Component, HostListener, Input, OnInit, Output ,EventEmitter, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'app-ventanaemergenteprincipal',
   templateUrl: './ventanaemergenteprincipal.component.html',
-  styleUrls: ['./ventanaemergenteprincipal.component.scss']
+  styleUrls: ['./ventanaemergenteprincipal.component.scss'],
+  encapsulation:ViewEncapsulation.None
 })
 export class VentanaemergenteprincipalComponent implements OnInit {
 
+  
 
   @Input() public titulo:string = "";
   @Input() public ventanaalerta:boolean = false;
@@ -58,10 +60,15 @@ export class VentanaemergenteprincipalComponent implements OnInit {
 
     this.tamanio = this.content.scrollWidth;
     
-    this.tamanioVentanaEmergente =  this.bodymodal.scrollWidth / 2;
+   
+
+    this.tamanioVentanaEmergente =  (this.ventanaalerta?350:this.bodymodal.scrollWidth) / 2;
     this.leftP = (this.tamanio / 2) - this.tamanioVentanaEmergente;
 
     this.content.style.overflow = "hidden";
+
+
+    console.log("Este es el valor del boolean",this.ventanaalerta);
   }
 
 

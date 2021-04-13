@@ -9,15 +9,15 @@ export class VentanaemergenteService {
   public nuevanomina: string = "nuevanomina";
   public timbrado:string = "timbrado";
 
-  public subject?: Subject<any>;;
+  private subject?: Subject<any>;;
 
-  public emergente = {
+  private emergente:any = {
     modal: false,
     titulo: '',
     ventanaalerta:false
   }
 
-  public mostrar: any = {
+  private mostrar: any = {
     nuevanomina: false,
     timbrado:false
   }
@@ -48,6 +48,8 @@ export class VentanaemergenteService {
 
 
     this.emergente.modal = true;
+
+    this.emergente.ventanaalerta = configuracion?.ventanaalerta;
 
     return this.subject.toPromise();
 
