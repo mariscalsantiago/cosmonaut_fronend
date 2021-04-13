@@ -23,14 +23,15 @@ export class FormEmpleadoComponent implements OnInit {
   public ocultarempleada: boolean = false;
   public cargandoIcon: boolean = false;
   public tabsEnviar: any = [{}, undefined, {}];
+  public insertar: boolean = true;
 
 
 
   public mostrarDetalleTransferencia: boolean = false;
 
   public datosPersona: any = {
+    insertar: this.insertar
   };
-
 
   public cambiaValor: boolean = false;
 
@@ -38,12 +39,13 @@ export class FormEmpleadoComponent implements OnInit {
     private domicilioPrd:DomicilioService) { }
 
   ngOnInit(): void {
-
+    debugger;
     let temp =  history.state.datos;
     console.log("Esta es el temporal",temp);
     if(temp !== undefined){
       this.titulo = "ACOMPLETAR DATOS AL EMPLEADO";
       this.datosPersona = temp;
+      this.datosPersona.insertar = history.state.insertar;
       this.tabsEnviar[0] = temp;
       this.domicilioPrd.getDomicilioPorEmpleado(this.datosPersona.personaId).subscribe(datosdomicilio =>{
           this.tabsEnviar[1] = datosdomicilio;
@@ -115,6 +117,7 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   public recibiendoUserInsertado(evento: any) {
+    debugger;
     this.datosPersona = evento;
   }
 

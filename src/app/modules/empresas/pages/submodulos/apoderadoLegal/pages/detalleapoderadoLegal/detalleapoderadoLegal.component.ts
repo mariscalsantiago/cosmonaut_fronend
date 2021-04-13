@@ -30,6 +30,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
   public submitEnviado: boolean = false;
   public arregloFacultadPoder: any = [];
   public objEnviar: any = [];
+  public constNacionalidad: number = 1;
 
 
   constructor(private formBuilder: FormBuilder, private apoderadoPrd: ApoderadoLegalService, private routerActivePrd: ActivatedRoute,
@@ -73,13 +74,17 @@ export class DetalleapoderadoLegalComponent implements OnInit {
     debugger;
     let datePipe = new DatePipe("en-MX");
     if(!this.insertar){
+
         if(obj.esActivo== 'Activo'){
           obj.esActivo= true;
         }else{
           obj.esActivo= false;
         }
         
+    }else{
+      obj.nacionalidadId.nacionalidadId = this.constNacionalidad;
     }
+
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
