@@ -6,6 +6,8 @@ import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodul
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { tabla } from 'src/app/core/data/tabla';
+import { DatePipe } from '@angular/common';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
@@ -31,25 +33,37 @@ export class PagosComponent implements OnInit {
   public idEmpleado:number = -1;
   public cuentaBanco: any = [];
   public empleado:any = {};
+  public cargando: Boolean = false;
   
 
   public myFormMetodoPago!:FormGroup;
+
+  public arreglo: any = [];
+  public arreglotabla:any = {
+    columnas: [],
+    filas: []
+  };
+
+  public arreglotablaDesglose:any = {
+    columnas: [],
+    filas: []
+  };
 
   
 
   constructor(private modalPrd:ModalService,private catalogosPrd:CatalogosService,
     private gruponominaPrd: GruponominasService,private usuariosSistemaPrd:UsuarioSistemaService,
-    private formbuilder:FormBuilder,private router:ActivatedRoute,private contratoColaboradorPrd:ContratocolaboradorService,
+    private formbuilder:FormBuilder,private router:ActivatedRoute, private routerPrd: Router, private contratoColaboradorPrd:ContratocolaboradorService,
     private bancosPrd: CuentasbancariasService) {
 
      }
 
   ngOnInit(): void {
 
-    this.myFormMetodoPago = this.formbuilder.group({});
-    this.myFormCompensacion = this.formbuilder.group({});
+   this.myFormMetodoPago = this.formbuilder.group({});
+   this.myFormCompensacion = this.formbuilder.group({});
 
-    this.arregloMetodosPago =  this.catalogosPrd.getAllMetodosPago(true).toPromise();    
+   this.arregloMetodosPago =  this.catalogosPrd.getAllMetodosPago(true).toPromise();    
    this.arreglogrupoNomina = this.gruponominaPrd.getAll(this.usuariosSistemaPrd.getIdEmpresa()).toPromise();
    this.arregloCompensacion = this.catalogosPrd.getCompensacion(true).toPromise();
    this.arreglobancos = this.catalogosPrd.getCuentasBanco(true).toPromise();
@@ -60,6 +74,7 @@ export class PagosComponent implements OnInit {
 
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
       this.empleado = datos.datos;
+
     });;
 
     this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos =>{
@@ -67,6 +82,35 @@ export class PagosComponent implements OnInit {
       console.log("cuentas",this.cuentaBanco);
     });
 
+    });
+
+    this.cargando = true;
+
+    this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado,this.empleado).subscribe(datos => {
+      this.arreglo = datos.datos;
+
+      let columnas: Array<tabla> = [
+        new tabla("url", "Nombre de la deducción"),
+        new tabla("centrocClienteId", "Fecha de inicio de descuento"),
+        new tabla("razonSocial", "Monto"),
+        new tabla("nombre", "Estatus")
+      ]
+      if (this.arreglo !== undefined) {
+        for (let item of this.arreglo) {
+          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          let datepipe = new DatePipe("es-MX");
+          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
+        }
+      }
+
+     
+
+
+     
+
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = this.arreglo;
+      this.cargando = false;
     });
 
   }
@@ -112,17 +156,24 @@ export class PagosComponent implements OnInit {
     this.esTransferencia = this.indexMetodoSeleccionado  == 4;   
 
     if(this.esTransferencia){   
-
-      
-
         this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos =>{
           if(datos.resultado){
               this.myFormMetodoPago = this.createMyFormMetodoPago(datos.datos);
-          }
+                        }
         });
         
     }
 
+  }
+
+  public verdetallecom(obj: any) {
+    this.routerPrd.navigate(['company', 'detalle_company', 'nuevo'], { state: { datos: undefined } });
+  } 
+
+  public recibirTabla(obj: any) {
+    if (obj.type == "editar") {
+      this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
+    }
   }
 
   public guardandometodoPago(){//Solo guarda el método de pago metodopagoid
@@ -253,6 +304,8 @@ export class PagosComponent implements OnInit {
                   console.log(requestContrato);
                   this.cancelar();
                 });
+
+                this.ngOnInit();
   
               }
             });

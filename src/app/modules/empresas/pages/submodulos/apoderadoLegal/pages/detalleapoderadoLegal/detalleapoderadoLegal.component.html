@@ -68,7 +68,7 @@
             
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <label >Poder notarial *</label>
-              <input formControlName="poderNotarial" maxlength="100"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.poderNotarial.errors && submitEnviado}"
+              <input formControlName="poderNotarial" maxlength="30"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.poderNotarial.errors && submitEnviado}"
                   placeholder="">
   
                   <div *ngIf="f.poderNotarial.errors && submitEnviado" class="invalid-feedback">
