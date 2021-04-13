@@ -28,6 +28,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
   public centrocClienteId: number = 0;
   public tipoRepresentanteId: number = 1;
   public submitEnviado: boolean = false;
+  public constNacionalidad: number = 1;
 
 
 
@@ -68,6 +69,10 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
   public createFormrep(obj: any) {
     let datePipe = new DatePipe("en-MX");
+    if(this.insertar){
+    obj.nacionalidadId.nacionalidadId = this.constNacionalidad;
+    }
+    
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],

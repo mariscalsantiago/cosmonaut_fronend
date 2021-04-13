@@ -27,6 +27,7 @@ export class InformacionbasicaComponent implements OnInit {
   public arreglonacionalidad: any = [];
   public mostrarRfc: boolean = false;
   public arregloParentezco: any = [];
+  public constNacionalidad: number = 1;
 
 
 
@@ -36,11 +37,18 @@ export class InformacionbasicaComponent implements OnInit {
     private routerPrd: Router, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-  
-
-
+    debugger;
+    console.log("Vuelve a iniciar");
+    console.log(this.datosPersona);
+    if(this.datosPersona[0].insertar === undefined){
+     let obj = {
+        nacionalidadId: {}
+      };
+      this.myform = this.createForm(obj);
+    }else{
 
     this.myform = this.createForm(this.datosPersona[0]);
+    }
 
     this.catalogosPrd.getNacinalidades(true).subscribe(datos => this.arreglonacionalidad = datos.datos);
     this.catalogosPrd.getCatalogoParentezco(true).subscribe(datos => this.arregloParentezco = datos.datos);
@@ -51,8 +59,12 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public createForm(obj: any) {
-
+    debugger;
     const pipe = new DatePipe("es-MX");
+
+    if(obj.nacionalidadId.nacionalidadId === undefined){
+      obj.nacionalidadId.nacionalidadId = this.constNacionalidad;
+      }
 
 
     return this.formBuilder.group({

@@ -21,6 +21,10 @@ export class CuentasbancariasService {
        return this.http.get(`${this.url}/obtieneBanco/${cuenta}`);
   }
 
+  public getListaPercepcionesEmpleado(id_persona:number,id_empresa:number):Observable<any>{
+    return this.http.get(`${direcciones.conceptos}/obtienePercepcionEmpleado/${id_persona}/${id_empresa}`);
+}
+
   public getobtieneBanco():Observable<any>{
     return this.http.get(`${this.url}/listar/todos`);
   }
