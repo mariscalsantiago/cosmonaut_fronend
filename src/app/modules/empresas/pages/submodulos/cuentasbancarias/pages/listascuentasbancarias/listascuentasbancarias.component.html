@@ -12,8 +12,8 @@
     </div>
   </div>
   <div class="row margen margen-tabla background-panel scrooll">
-    <app-tablapaginado [datos]="arreglotabla" [editar]="true" [ver]="true" [cargando]="cargando" (salida)="recibirTabla($event)">
-    </app-tablapaginado>
+    <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="true"
+      [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
   </div>
 </div>
 

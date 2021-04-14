@@ -108,7 +108,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
   public createForm(obj: any) {
 
-
+debugger;
 
     return this.formBuild.group({
 
