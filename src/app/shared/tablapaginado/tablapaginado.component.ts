@@ -38,7 +38,7 @@ export class TablapaginadoComponent implements OnInit {
 
   @Output() public salida = new EventEmitter();
 
-  public arreglotemp:any = [];
+  public arreglotemp: any = [];
 
 
 
@@ -312,48 +312,28 @@ export class TablapaginadoComponent implements OnInit {
 
   public ordenar(item: any) {
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
-
-    
-    
-    let a = this.ordenacionMetodoShell(this.arreglotemp, item.id);
-
-
-    console.log("Esto es lo que se trae",a);
-
-    
+    this.ordInsercion(this.arreglotemp,item.id,item.acomodar);
+    this.paginar();
   }
 
-  public ordenacionMetodoShell(a: [], llave: string) {
-    let intervalo, i, j, k: any;
-    let n = a.length;
-    intervalo = n / 2;
-    intervalo = Math.floor(intervalo);
-    while (intervalo > 0) {
-      for (i = intervalo; i < n; i++) {
-        j = i - intervalo;
-        while (j >= 0) {
-          k = j + intervalo;
-
-
-          console.log("Este es lo que trae",a[Math.floor(k)],"Este es valor de k",Math.floor(k));
-          console.log("Este es valor de j",Math.floor(j));
-
-          if (a[Math.floor(j)]["nombre"] <= a[Math.floor(k)]["nombre"])
-            j = -1;
-          else {
-            this.intercambiar(a, j, j + 1);
-            j -= intervalo;
-          }
-        }
+  public  ordInsercion(a:any,llave:string,tipoAcomodo:boolean) {
+    let i, j;
+    let aux;
+    for (i = 1; i < a.length; i++) {
+      j = i;
+      aux = a[i];
+     if(tipoAcomodo){
+      while (j > 0 && (aux[llave]==undefined?" ":aux[llave])?.toUpperCase() < (a[j - 1][llave] == undefined?" ":a[j - 1][llave])?.toUpperCase()) {
+        a[j] = a[j - 1];
+        j--;
       }
-      intervalo = intervalo / 2;
+     }else{
+      while (j > 0 && (aux[llave]==undefined?" ":aux[llave])?.toUpperCase() > (a[j - 1][llave] == undefined?" ":a[j - 1][llave])?.toUpperCase()) {
+        a[j] = a[j - 1];
+        j--;
+      }
+     }
+      a[j] = aux;
     }
-    return a;
-  }
-
-  public intercambiar(a: any, i: any, j: any) {
-    let aux: any = a[i];
-    a[i] = a[j];
-    a[j] = aux;
   }
 }
