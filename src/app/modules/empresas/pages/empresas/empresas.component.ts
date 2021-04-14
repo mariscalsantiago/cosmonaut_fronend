@@ -6,6 +6,7 @@ import { Console } from 'console';
 import { EmpresasService } from '../../services/empresas.service';
 import { element } from 'protractor';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-empresas',

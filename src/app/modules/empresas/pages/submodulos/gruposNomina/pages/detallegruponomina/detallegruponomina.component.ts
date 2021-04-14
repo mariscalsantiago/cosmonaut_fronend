@@ -88,7 +88,7 @@ debugger;
     }
 
 
-    this.catalogosPrd.getEsquemaPago(true).subscribe(datos => this.arregloEsquemaPago = datos.datos);
+    //this.catalogosPrd.getEsquemaPago(true).subscribe(datos => this.arregloEsquemaPago = datos.datos);
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
     this.catalogosPrd.getPeriocidadPago(true).subscribe(datos => this.arregloPeriocidadPago = datos.datos);
     this.catalogosPrd.getBasePeriodos(true).subscribe(datos => this.arregloBasePeriodos = datos.datos);
@@ -120,7 +120,7 @@ debugger;
     return this.formbuilder.group({
 
       nombre:[obj.nombre,[Validators.required]],
-      esquemaPagoId:[obj.esquemaPagoId?.esquemaPagoId,[Validators.required]],
+      //esquemaPagoId:[obj.esquemaPagoId?.esquemaPagoId,[Validators.required]],
       monedaId:[obj.monedaId?.monedaId,[Validators.required]],
       centrocClienteId:[obj.centrocClienteId?.centrocClienteId,[Validators.required]],
       clabe:[obj.cuentaBancoId?.cuentaBancoId,[Validators.required]],
@@ -129,6 +129,7 @@ debugger;
       periodoAguinaldoId:[obj.periodoAguinaldoId?.periodoAguinaldoId,[Validators.required]],
       isrAguinaldoReglamento:obj.isrAguinaldoReglamento,
       maneraCalcularSubsidio:[obj.maneraCalcularSubsidio,[Validators.required]],
+      pagoComplementario: [obj.pagoComplementario],
       grupoNominaId:obj.grupoNominaId
 
     });
@@ -162,8 +163,9 @@ debugger;
           nombre:obj.nombre,
           esAutomatica:obj.esAutomatica,
           maneraCalcularSubsidio:subsidio,
-          esquemaPagoId:{esquemaPagoId:obj.esquemaPagoId},
+          //esquemaPagoId:{esquemaPagoId:obj.esquemaPagoId},
           monedaId:{monedaId:obj.monedaId},
+          pagoComplementario: obj.pagoComplementario,
           centrocClienteId:{centrocClienteId:this.id_empresa},
           periodicidadPagoId:{periodicidadPagoId:obj.periodicidadPagoId},
           basePeriodoId:{basePeriodoId:obj.basePeriodoId},

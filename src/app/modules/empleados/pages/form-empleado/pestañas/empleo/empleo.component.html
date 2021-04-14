@@ -339,7 +339,7 @@
 
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Fecha inicio de contrato*</label>
+                    <label for="exampleFormControlSelect1">Fecha de ingreso*</label>
                     <input #fechaInicioCont (focusout)="validarfechaInicioCont(fechaInicioCont.value)" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}"
                         formControlName="fechaInicio" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">

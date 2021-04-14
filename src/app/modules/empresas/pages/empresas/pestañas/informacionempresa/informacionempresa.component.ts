@@ -30,9 +30,11 @@ export class InformacionempresaComponent implements OnInit {
   public submitEnviado: boolean = false;
   public arregloregimen: any = [];
   public arregloactividad: any = [];
+  public arregloactividad2: any = [];
   public imagen:any = undefined;
   public curpFinal: string = "";
   public idNivel: number = 1 ;
+  public idNivel2: number = 2 ;
   public cargando: Boolean = false;
   
 
@@ -53,6 +55,7 @@ export class InformacionempresaComponent implements OnInit {
     this.myform = this.createForm(this.obj);
     this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
     this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
+    this.catalogosPrd.getActividadEconomica(this.idNivel2).subscribe(datos => this.arregloactividad2 = datos.datos);
 
   }
 
@@ -178,17 +181,18 @@ export class InformacionempresaComponent implements OnInit {
            contrasenia:obj.contrasenia,
            esActivo:obj.esActivo
         }
+
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-      if(this.datosempresa.insertar){  
+        if(this.datosempresa.insertar){  
         this.empresaPrd.save(objenviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.alerta.iconType = datos.resultado ? "success" : "error";
-          this.alerta.strTitulo = datos.mensaje;
-          this.alerta.modal = true;
-
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
+          .then(()=> {
           if(datos.resultado){
           this.datosempresa.centrocClienteEmpresa = datos.datos.centrocClienteId;
         }
+
+      });
 
       });
 

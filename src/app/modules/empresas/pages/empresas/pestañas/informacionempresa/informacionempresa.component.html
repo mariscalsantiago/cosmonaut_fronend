@@ -25,7 +25,7 @@
               </div>
             </div>
             <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
-              <label>Actividad económica *</label>
+              <label>Actividad económica nivel 1 *</label>
               <select formControlName="actividadEconomicaId" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.actividadEconomicaId.errors && submitEnviado}">
                 <option value=""></option>
@@ -35,8 +35,21 @@
               <div *ngIf="f.actividadEconomicaId.errors " class="invalid-feedback">
                 Campo requerido
               </div>
+              
             </div>
-            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+            <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
+              <label>Actividad económica nivel 2 *</label>
+              <select formControlName="actividadEconomicaId" type="text" class="form-control"
+              [ngClass]="{'is-invalid':f.actividadEconomicaId.errors && submitEnviado}">
+              <option value=""></option>
+              <option *ngFor="let item of arregloactividad2" [value]="item.actividadEconomicaId">{{item.descripcion}}
+              </option>
+            </select>
+            <div *ngIf="f.actividadEconomicaId.errors " class="invalid-feedback">
+              Campo requerido
+            </div>
+            </div>
+            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
               <label >RFC *</label>
               <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" type="text" class="form-control" name="" >
               <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">

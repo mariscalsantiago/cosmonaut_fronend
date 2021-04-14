@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+      <!--<div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Esquema para pago de nómina *</label>
         <select formControlName = "esquemaPagoId" [ngClass]="{'is-invalid':f.esquemaPagoId.errors && submitInvalido}"  class="form-control">
           <option *ngFor="let item of arregloEsquemaPago" [value]="item.esquemaPagoId">{{item.descripcion}} </option>
@@ -27,7 +27,7 @@
         <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
           Campo requerido
         </div>
-      </div>
+      </div>-->
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Razón social *</label>
         <select formControlName="centrocClienteId" [ngClass]="{'is-invalid':f.centrocClienteId.errors && submitInvalido}" class="form-control disabled">
@@ -102,12 +102,6 @@
           Campo requerido
         </div>
       </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
-          <input formControlName="isrAguinaldoReglamento" id="irsaguinaldo" type="checkbox">
-          <span class="checkmark"></span>
-        </label>      
-      </div>
       <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Calcular subsidio al empleo de manera :</label><br>
         <label class="contenedorInputCheckRadio">Periódica
@@ -122,6 +116,19 @@
           Campo requerido
         </div>
       </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label class="contenedorInputCheckRadio">Pago complementario
+          <input formControlName="pagoComplementario" id="pagoComplementario" type="checkbox">
+          <span class="checkmark"></span>
+        </label>      
+      </div>
+      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
+          <input formControlName="isrAguinaldoReglamento" id="irsaguinaldo" type="checkbox">
+          <span class="checkmark"></span>
+        </label>      
+      </div>
+
     </div>
 
 
