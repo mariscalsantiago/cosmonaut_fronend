@@ -39,7 +39,7 @@ export class CuentasComponent implements OnInit {
 
   ngOnInit(): void {
  
- debugger;  
+   
     this.objdsede = this.datosempresa.idModificar;
     if(this.datosempresa.insertar){
       this.obj = { 
@@ -72,7 +72,7 @@ export class CuentasComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-debugger;
+
    return this.formBuild.group({
 
     numeroCuenta: [obj.numeroCuenta, [Validators.required]],
@@ -91,7 +91,7 @@ debugger;
 
 
   public enviarFormulario() {
-    debugger;
+    
    
    if(!this.habcontinuarSede){
     this.submitEnviado = true;
@@ -120,7 +120,7 @@ debugger;
 }
 
 public validarBanco(clabe:any){
-  debugger;
+  
   this.myForm.controls.idbanco.setValue("");
   this.myForm.controls.clabe.setValue("");
 
@@ -164,7 +164,7 @@ public activarCancel(){
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    debugger;
+    
    if (this.enviarPeticion.enviarPeticion) {
      this.enviarPeticion.enviarPeticion = false;
       let obj = this.myForm.value;

@@ -92,7 +92,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
-    debugger;
+    
 
         if (valor) {
 

@@ -103,7 +103,7 @@ public activfiel(){
 
 
   ngOnChanges(changes: SimpleChanges) {
-     debugger;
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       

@@ -91,8 +91,8 @@ export class ListaapoderadoLegalComponent implements OnInit {
     let columnas:Array<tabla> = [
       new tabla("personaId","ID"),
       new tabla("nombre","Nombre"),
-      new tabla("apellidoPaterno","Apellido paterno"),
-      new tabla("apellidoMaterno","Apellido materno"),
+      new tabla("apellidoPaterno","Primer apellido"),
+      new tabla("apellidoMaterno","Segundo apellido"),
       new tabla("curp","CURP"),
       new tabla("emailCorporativo","Correo empresarial"),
       new tabla("poderNotarial","Poder notarial"),

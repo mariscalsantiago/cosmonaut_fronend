@@ -49,7 +49,7 @@ export class DomicilioComponent implements OnInit {
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    debugger;
+    
     let obj:any = {};
     if(!this.datosempresa.insertar){
       this.habContinua=false;
@@ -69,7 +69,7 @@ export class DomicilioComponent implements OnInit {
 
 
     if(!this.datosempresa.insertar){
-      debugger;
+      
         this.cargando = true;
         this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
         this.arregloListaSede = datos.datos;
@@ -168,7 +168,7 @@ export class DomicilioComponent implements OnInit {
   }
 
   public eliminar(indice: any){
-    debugger;
+    
      
    this.indexSeleccionado = indice.sedeId;
    this.eliminarSede = true;
@@ -219,7 +219,7 @@ export class DomicilioComponent implements OnInit {
 }
 
   public verdetalle(obj:any){
-  debugger;
+  
 
         this.datosempresa.idModificar = obj;
         this.enviado.emit({
@@ -334,7 +334,7 @@ export class DomicilioComponent implements OnInit {
   }
 
   public buscar(obj:any){
-    debugger;
+    
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
 

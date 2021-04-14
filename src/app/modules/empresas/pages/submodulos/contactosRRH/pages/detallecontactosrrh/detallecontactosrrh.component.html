@@ -20,14 +20,14 @@
                   </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Apellido paterno *</label>
+                <label>Primer apellido *</label>
                 <input formControlName="apellidoPat" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPat.errors && subbmitActive}"  placeholder="">
                 <div *ngIf="f.apellidoPat.errors && subbmitActive" class="invalid-feedback">
                   Campo requerido
                   </div>
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Apellido materno</label>
+                <label>Segundo apellido</label>
                 <input formControlName="apellidoMat" appMayusculas type="text" class="form-control"  placeholder="">
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">

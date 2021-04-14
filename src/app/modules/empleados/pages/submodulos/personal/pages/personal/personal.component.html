@@ -17,7 +17,7 @@
                     </article>
                 </article>
                 <article class="titulo   col">
-                    Apellido paterno
+                    Primer apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoPaterno}}</article>
                     <article *ngIf="editarcampos">
                         <input [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
@@ -29,7 +29,7 @@
                     </article>
                 </article>
                 <article class="titulo   col">
-                    Apellido materno
+                    Segundo apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
                         <input formControlName="apellidoMaterno" type="text" name=""  id=""
@@ -274,7 +274,7 @@
                     </article>
                 </article>
                 <article *ngIf="editarcampos" class="titulo col">
-                    Apellido paterno
+                    Primer apellido
                     <article>
                         <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name=""
                             [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"
@@ -286,7 +286,7 @@
                     </article>
                 </article>
                 <article *ngIf="editarcampos" class="titulo col">
-                    Apellido materno
+                    Segundo apellido
                     <article>
                         <input formControlName="contactoEmergenciaApellidoMaterno" type="text" name=""
                             class="form-control">

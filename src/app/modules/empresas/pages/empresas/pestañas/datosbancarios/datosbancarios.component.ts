@@ -50,7 +50,7 @@ export class DatosbancariosComponent implements OnInit {
     private routerPrd:Router) { }
 
   ngOnInit(): void {
-    debugger;
+    
     
     this.datosempresa.activarGuardaMod= true;
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
@@ -119,7 +119,7 @@ export class DatosbancariosComponent implements OnInit {
   }
 
   public activar(){
-     debugger;
+     
     if(!this.actguardar){
     this.habGuardar= true;
     this.actguardar= true;
@@ -160,7 +160,7 @@ export class DatosbancariosComponent implements OnInit {
                 new tabla("numInformacion", "Número de información"),
                 new tabla("numSucursal", "Número de sucursal")
               ];
-              debugger;
+              
               item.funcionCuenta = item.funcionCuentaId?.descripcion;
     
     
@@ -206,7 +206,7 @@ export class DatosbancariosComponent implements OnInit {
 }
 
 public verdetalle(obj:any){
-  debugger;
+  
   this.datosempresa.idModificar = obj;
   this.enviado.emit({
     type:"cuentas"
@@ -220,7 +220,7 @@ public verdetalle(obj:any){
 
 
   ngOnChanges(changes: SimpleChanges) {
-     debugger;
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       

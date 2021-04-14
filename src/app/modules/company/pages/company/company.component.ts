@@ -144,7 +144,7 @@ export class CompanyComponent implements OnInit {
       esActivo: "",
     }
     console.log("peticion",peticion)
-    debugger;
+    
     this.companyProd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
 

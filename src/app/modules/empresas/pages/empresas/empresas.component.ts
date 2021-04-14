@@ -92,7 +92,7 @@ export class EmpresasComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    debugger;
+    
     
     this.objdetrep = history.state.data == undefined ? {} : history.state.data ;
     this.datosempresamod.datosempresaObj= this.objdetrep; 
@@ -225,7 +225,7 @@ export class EmpresasComponent implements OnInit {
 
 public recibir(elemento: any) {
    
-debugger;
+
   switch (elemento.type) {
     case "informacion":
 
@@ -305,7 +305,7 @@ debugger;
 }
 
   public recibirAlerta(obj: any) {
-    debugger;
+    
      
     this.cambiaValor = !this.cambiaValor;
      

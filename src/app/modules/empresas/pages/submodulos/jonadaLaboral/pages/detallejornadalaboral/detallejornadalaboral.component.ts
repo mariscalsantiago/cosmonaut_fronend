@@ -41,7 +41,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   ngOnInit(): void {
     
-    debugger;
+    
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     if(!this.esInsert){
     this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa,objdetrep.jornadaId).subscribe(datos =>{  
@@ -164,7 +164,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     const titulo = this.esInsert ? "¿Deseas registrar la jornada laboral?" : "¿Deseas actualizar los datos de la jornada laboral?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
-        debugger;
+        
 
         let obj = this.myForm.value;
         if(!obj.lunes){obj.lunes = false}

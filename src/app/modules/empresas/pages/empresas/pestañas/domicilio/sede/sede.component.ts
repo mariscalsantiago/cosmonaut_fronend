@@ -43,7 +43,7 @@ export class SedeComponent implements OnInit {
   }
     
   ngOnInit(): void {
-    debugger;
+    
     this.objMod = this.datosempresa.idModificar
     
     if(!this.datosempresa.insertar && this.objMod != undefined){
@@ -88,7 +88,7 @@ export class SedeComponent implements OnInit {
   }
 
   public enviarFormulario() {
-    debugger;
+    
    
    if(!this.habcontinuardom){
     this.submitEnviado = true;
@@ -122,7 +122,7 @@ public activarCancel(){
 }
 
   ngOnChanges(changes: SimpleChanges) {
-     debugger;
+     
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
        let obj = this.myForm.value;
@@ -211,7 +211,7 @@ public activarCancel(){
    
   public buscar(obj:any){
     
-    debugger;
+    
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
 

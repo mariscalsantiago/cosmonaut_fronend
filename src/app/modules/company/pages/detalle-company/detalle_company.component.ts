@@ -38,16 +38,25 @@ export class DetalleCompanyComponent implements OnInit {
   };
 
 
+  public cargandoImg:boolean = false;
+
+
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
 
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.compania = true;
 
-    this.companyPrd.getEmpresaById(this.objCompany.centrocClienteId).subscribe(datos => this.imagen = datos.datos?.imagen);
+    this.cargandoImg = true;
+
+    this.companyPrd.getEmpresaById(this.objCompany.centrocClienteId).subscribe(datos => {
+      this.cargandoImg = false;
+      this.imagen = datos.datos?.imagen;
+      
+    });
 
     
 
@@ -134,7 +143,7 @@ export class DetalleCompanyComponent implements OnInit {
         new tabla("nombrecompleto", "Nombre contacto"),
         new tabla("emailCorporativo", "Correo empresarial"),
         new tabla("contactoInicialTelefono", "Teléfono"),
-        new tabla("fechaAlta", "Fecha registro")
+        new tabla("fechaAlta", "Fecha de registro en el sistema")
       ]
 
 
@@ -185,7 +194,7 @@ export class DetalleCompanyComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
         if (this.insertar) {
-          debugger;
+          
 
           this.companyPrd.save(obj).subscribe(datos => {
 

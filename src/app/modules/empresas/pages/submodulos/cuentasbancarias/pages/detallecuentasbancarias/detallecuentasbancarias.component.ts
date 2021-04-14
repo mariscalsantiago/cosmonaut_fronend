@@ -30,7 +30,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
     private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -74,7 +74,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
   }
   public validarBanco(clabe:any){
-    debugger;
+    
     this.myForm.controls.idbanco.setValue("");
     this.myForm.controls.clabe.setValue("");
 
@@ -108,7 +108,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
   public createForm(obj: any) {
 
-debugger;
+
 
     return this.formBuild.group({
 
@@ -145,7 +145,7 @@ debugger;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
-debugger;
+
 
         if (valor) {
 

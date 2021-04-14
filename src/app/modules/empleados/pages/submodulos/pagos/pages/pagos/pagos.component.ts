@@ -147,7 +147,7 @@ export class PagosComponent implements OnInit {
   }
 
   public editandoMetodoPago(obj:any){
-    debugger;
+    
     this.myFormMetodoPago = this.createMyFormMetodoPago({});
     this.metodopagobool = true;
     if(obj == undefined){
@@ -201,7 +201,7 @@ export class PagosComponent implements OnInit {
   }
 
   public validarBanco(clabe:any){
-    debugger;
+    
     this.myFormMetodoPago.controls.csBanco.setValue("");
     this.myFormMetodoPago.controls.clabe.setValue("");
 

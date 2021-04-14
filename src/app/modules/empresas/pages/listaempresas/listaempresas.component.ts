@@ -62,7 +62,7 @@ export class ListaEmpresasComponent implements OnInit {
         new tabla("razonSocial", "Razón social	", true, true),
         new tabla("nombre", "Nombre de la empresa	"),
         new tabla("rfc", "RFC"),
-        new tabla("fechaAlta", "Fecha registro"),
+        new tabla("fechaAlta", "Fecha de registro en el sistema"),
         new tabla("esActivo", "Estatus")
       ];
       if(this.arreglo !== undefined){
