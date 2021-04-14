@@ -45,3 +45,21 @@ border-radius: 50% !important;
    background-color: transparent !important;
    border: 0 !important;
 }
+
+.flechaarriba{
+   position: absolute;
+   right: 0 ;
+   top:calc(50% - 10px)  ;
+   color:#b7b7b7 ;
+}
+
+.flechaabajo{
+   position: absolute ;
+   right: 0 ;
+    bottom: calc(50% - 10px) ;
+    color:#b7b7b7 ;
+}
+
+.colorear{
+   color:#53d2bf !important;
+}

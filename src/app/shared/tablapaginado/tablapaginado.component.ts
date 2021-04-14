@@ -31,14 +31,14 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public checkbox: any;
   @Input() public imagen: any;
   @Input() public porcentaje: boolean = false;
-  @Input() public tablabeneficios:boolean = false;
-  @Input() public timbrado:boolean = false;
+  @Input() public tablabeneficios: boolean = false;
+  @Input() public timbrado: boolean = false;
 
   @Input() public icondefault: string = "default";
 
   @Output() public salida = new EventEmitter();
 
-  public arreglotemp: any = [];
+  public arreglotemp:any = [];
 
 
 
@@ -78,7 +78,7 @@ export class TablapaginadoComponent implements OnInit {
 
 
     console.log("Si cambio la tabla vamos a ver", this.datos.filas);
-    
+
 
     if (this.datos.filas !== undefined) {
 
@@ -263,19 +263,19 @@ export class TablapaginadoComponent implements OnInit {
     this.salida.emit({ type: "ver", datos: item, indice: indice });
   }
   public btnDesglosar(item: any, indice: number) {
-     
-   if(item.desglosarDown){
-    for (let item of this.datos.filas) {
-      item.desglosarDown = true;
-    item.cargandoDetalle = false;
-    }
 
-    item.desglosarDown = false;
-    item.cargandoDetalle = true;
-    this.salida.emit({ type: "desglosar", datos: item, indice: indice });
-   }else{
-    item.desglosarDown = true;
-   }
+    if (item.desglosarDown) {
+      for (let item of this.datos.filas) {
+        item.desglosarDown = true;
+        item.cargandoDetalle = false;
+      }
+
+      item.desglosarDown = false;
+      item.cargandoDetalle = true;
+      this.salida.emit({ type: "desglosar", datos: item, indice: indice });
+    } else {
+      item.desglosarDown = true;
+    }
   }
 
 
@@ -305,7 +305,55 @@ export class TablapaginadoComponent implements OnInit {
   }
 
 
-  public verTablabeneficios(item:any,indice:number){
-    this.salida.emit({type:"tablabeneficio",datos:item,indice:indice});
+  public verTablabeneficios(item: any, indice: number) {
+    this.salida.emit({ type: "tablabeneficio", datos: item, indice: indice });
+  }
+
+
+  public ordenar(item: any) {
+    item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
+
+    
+    
+    let a = this.ordenacionMetodoShell(this.arreglotemp, item.id);
+
+
+    console.log("Esto es lo que se trae",a);
+
+    
+  }
+
+  public ordenacionMetodoShell(a: [], llave: string) {
+    let intervalo, i, j, k: any;
+    let n = a.length;
+    intervalo = n / 2;
+    intervalo = Math.floor(intervalo);
+    while (intervalo > 0) {
+      for (i = intervalo; i < n; i++) {
+        j = i - intervalo;
+        while (j >= 0) {
+          k = j + intervalo;
+
+
+          console.log("Este es lo que trae",a[Math.floor(k)],"Este es valor de k",Math.floor(k));
+          console.log("Este es valor de j",Math.floor(j));
+
+          if (a[Math.floor(j)]["nombre"] <= a[Math.floor(k)]["nombre"])
+            j = -1;
+          else {
+            this.intercambiar(a, j, j + 1);
+            j -= intervalo;
+          }
+        }
+      }
+      intervalo = intervalo / 2;
+    }
+    return a;
+  }
+
+  public intercambiar(a: any, i: any, j: any) {
+    let aux: any = a[i];
+    a[i] = a[j];
+    a[j] = aux;
   }
 }

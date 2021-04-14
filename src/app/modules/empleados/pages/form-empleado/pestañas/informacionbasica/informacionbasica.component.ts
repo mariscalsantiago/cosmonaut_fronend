@@ -37,7 +37,7 @@ export class InformacionbasicaComponent implements OnInit {
     private routerPrd: Router, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     console.log("Vuelve a iniciar");
     console.log(this.datosPersona);
     if(this.datosPersona[0].insertar === undefined){
@@ -59,7 +59,7 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    debugger;
+    
     const pipe = new DatePipe("es-MX");
 
     if(obj.nacionalidadId.nacionalidadId === undefined){
@@ -104,7 +104,7 @@ export class InformacionbasicaComponent implements OnInit {
 
   public validarfechNacimiento(fecha: any) {
 
-    debugger;
+    
 
     var x = new Date();
     var fecha = fecha.split("-");
