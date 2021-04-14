@@ -254,7 +254,7 @@ export class ListapoliticasComponent implements OnInit {
         item.descuentaIncapacidadesdescripcion = ((item.descuentaIncapacidades)?'Si':'No');
         item.costoValesRestaurantedescripcion = (item.costoValesRestaurante)?'Si':'No';
         item.descuentoPropDiadescripcion = (item.descuentoPropDia)?'Si':'No';
-        item.calculoAntiguedadxdescripcion = (item.calculoAntiguedadx=='C')?'Fecha de inicio de contrato':'Fecha de antigüedad';
+        item.calculoAntiguedadxdescripcion = (item.calculoAntiguedadx=='C')?'Fecha de ingreso':'Fecha de antigüedad';
 
 
        

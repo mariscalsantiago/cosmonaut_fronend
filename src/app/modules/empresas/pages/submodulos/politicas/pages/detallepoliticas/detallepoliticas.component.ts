@@ -68,16 +68,19 @@ export class DetallepoliticasComponent implements OnInit {
     if(!this.insertar){
       obj.calculoAntiguedadx = obj.calculoAntiguedadx == "C"?"contrato":"antiguedad";
 
+    }else{
+      obj.primaVacacional = obj.primaVacacional = "TRUE";
     }
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
       diasEconomicos: [obj.diasEconomicos, [Validators.required]],
-      primaAniversario: [obj.primaAniversario],
+      //primaAniversario: [obj.primaAniversario],
       descuentaFaltas: [obj.descuentaFaltas],
       descuentaIncapacidades: [obj.descuentaIncapacidades],
       costoValesRestaurante: [obj.costoValesRestaurante],
       descuentoPropDia: [obj.descuentoPropDia],
+      primaVacacional: [obj.primaVacacional],
       politicaId: obj.politicaId,
       calculoAntiguedadx:[obj.calculoAntiguedadx]
 
@@ -128,7 +131,7 @@ export class DetallepoliticasComponent implements OnInit {
         let objEnviar: any = {
           nombre: obj.nombre,
           diasEconomicos: obj.diasEconomicos,
-          primaAniversario: obj.primaAniversario,
+          //primaAniversario: obj.primaAniversario,
           descuentaFaltas: obj.descuentaFaltas,
           descuentaIncapacidades: obj.descuentaIncapacidades,
           costoValesRestaurante: obj.costoValesRestaurante,

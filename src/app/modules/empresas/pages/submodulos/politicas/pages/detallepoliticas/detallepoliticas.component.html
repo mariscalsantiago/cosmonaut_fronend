@@ -25,12 +25,12 @@
                     </div>
     
             </div>
-          <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+          <!--<div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label class="contenedorInputCheckRadio">Prima vacacional al aniversario
               <input formControlName="primaAniversario" type="checkbox" name="" id="primaAniversario">
               <span class="checkmark"></span>
             </label>
-          </div>
+          </div>-->
 
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label class="contenedorInputCheckRadio">Se descuentan faltas
@@ -56,6 +56,21 @@
               <span class="checkmark"></span>
             </label>
           </div>
+          <!--<div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>-->
+          <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <label>Prima vacacional: *</label><br>
+            <label class="contenedorInputCheckRadio">Al aniversario
+              <input name="primaVacacional" formControlName="primaVacacional" type="radio" value="TRUE" [ngClass]="{'is-invalid':f.primaVacacional.errors && submitEnviado}" >
+              <span class="radiomark"></span>
+            </label>   
+            <label class="contenedorInputCheckRadio">Por evento
+              <input name="primaVacacional" formControlName="primaVacacional" type="radio" value="FALSE"   [ngClass]="{'is-invalid':f.primaVacacional.errors && submitEnviado}" >
+              <span class="radiomark"></span>
+            </label>
+            <div *ngIf="submitEnviado && f.primaVacacional.errors" class="invalid-feedback">
+              Campo requerido
+            </div>
+          </div>
           <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Cálculo con base en :</label><br>
 
@@ -64,12 +79,13 @@
               <span class="radiomark"></span>
             </label>
 
-            <label class="contenedorInputCheckRadio"> Fecha de inicio de contrato
+            <label class="contenedorInputCheckRadio"> Fecha de ingreso
               <input value="contrato" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id="">
               <span class="radiomark"></span>
             </label>
             
           </div>
+
   
         </div>
     

@@ -329,7 +329,7 @@ export class ListagruposnominasComponent implements OnInit {
 
           let columnas: Array<tabla> = [
             new tabla("nombre", "Nombre de grupo de nómina	"),
-            new tabla("esquemanombre", "Esquema para pago de nómina"),
+            //new tabla("esquemanombre", "Esquema para pago de nómina"),
             new tabla("razon", " Razón social"),
             new tabla("nombremoneda", "Moneda"),
             new tabla("periodo", "Periodo de nómina"),
@@ -340,10 +340,10 @@ export class ListagruposnominasComponent implements OnInit {
             new tabla("maneraCalcularSubsidiodescripcion", "Calcular subsidio al empleo de manera:"),
             new tabla("nombremoneda", "Nómina automática")
           ];
-          
-          item.esquemanombre = item.esquemaPagoId?.descripcion;
+          debugger;
+          //item.esquemanombre = item.esquemaPagoId?.descripcion;
           item.nombremoneda = item.monedaId?.descripcion;
-          item.baseperiododescripcion = item.basePeriodoId?.basePeriodoId;
+          item.baseperiododescripcion = item.basePeriodoId?.nombreCorto;
           item.periodoaguinaldodescripcion = item.periodoAguinaldoId?.descripcion;
           item.isrAguinaldoReglamentodescripcion = item.isrAguinaldoReglamento ? "Si" : "No";
           item.maneraCalcularSubsidiodescripcion = (item.maneraCalcularSubsidio == 'P') ? 'Periódica' : 'Diaria';
