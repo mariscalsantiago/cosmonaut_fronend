@@ -22,7 +22,10 @@ export class ListascuentasbancariasComponent implements OnInit {
   };
 
 
-
+  public arreglotablaDesglose: any = {
+    columnas: [],
+    filas: []
+  };
 
   public id_empresa: number = 0;
   public arreglo: any = [];
@@ -116,9 +119,42 @@ export class ListascuentasbancariasComponent implements OnInit {
       case "editar":
         this.verdetalle(obj.datos);
         break;
-        case "eliminar":
+      case "eliminar":
           //eliminar método
           break;
+      case "desglosar":
+            let item = obj.datos;
+
+            this.cuentasPrd.getCuentaBancariaByEmpresa(this.id_empresa).subscribe(datos => {
+              let temp = datos.datos;
+              console.log("DAtos Banco",temp);
+              if (temp != undefined) {
+    
+                for (let llave in temp) {
+                  item[llave] = temp[llave];
+                }
+    
+              }
+    
+    
+              let columnas: Array<tabla> = [
+                new tabla("descripcion", "Descripcion"),
+                new tabla("funcionCuenta", "Función de la cuenta "),
+                new tabla("numInformacion", "Número de información"),
+                new tabla("numSucursal", "Número de sucursal")
+              ];
+              debugger;
+              item.funcionCuenta = item.funcionCuentaId?.descripcion;
+    
+    
+              this.arreglotablaDesglose.columnas = columnas;
+              this.arreglotablaDesglose.filas = item;
+    
+              item.cargandoDetalle = false;
+    
+            });
+    
+            break;
 
     }
   }
