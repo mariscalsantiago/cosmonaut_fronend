@@ -39,7 +39,7 @@ export class FormEmpleadoComponent implements OnInit {
     private domicilioPrd:DomicilioService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     let temp =  history.state.datos;
     console.log("Esta es el temporal",temp);
     if(temp !== undefined){
@@ -124,7 +124,7 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   public recibiendoUserInsertado(evento: any) {
-    debugger;
+    
     this.datosPersona = evento;
   }
 

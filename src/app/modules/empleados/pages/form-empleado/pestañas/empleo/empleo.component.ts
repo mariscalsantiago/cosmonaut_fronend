@@ -439,7 +439,7 @@ export class EmpleoComponent implements OnInit {
 
 
         
-        if (this.tabsDatos[3].fechaContrato == undefined) {
+        if (this.tabsDatos[3]?.fechaContrato == undefined) {
           this.guardarContratoColaborador(objEnviar);
         } else {
           this.actualizarContratoColaborador(objEnviar);

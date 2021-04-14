@@ -36,7 +36,7 @@ export class DetallecontactosrrhComponent implements OnInit {
         this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
       }
     });
-    debugger;
+    
 
     let obj = {};
 

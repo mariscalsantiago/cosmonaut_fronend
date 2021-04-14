@@ -16,7 +16,7 @@
                 </div>
     
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
-                    <label>Apellido paterno *</label>
+                    <label>Primer apellido *</label>
                     <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control"  [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido  
@@ -25,12 +25,22 @@
     
                 </div>
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
-                    <label>Apellido materno</label>
+                    <label>Segundo apellido</label>
                     <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control"  placeholder="">   
-                </div>
-              
+                </div>              
             </div>
             <div class="row">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label >CURP *</label>
+                    <input (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
+                    <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
+                        CURP inválido, favor de verificar
+                    </div>
+                 
+                </div>
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-4 col-xl-4">
                     <label>Género</label>
                     <select formControlName="genero" class="form-control">
@@ -46,17 +56,7 @@
             
             </div>
             <div *ngIf="f.tieneCurp.value" class="row">
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >CURP *</label>
-                    <input [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
-                    <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-                    <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
-                        CURP inválido, favor de verificar
-                    </div>
-                 
-                </div>
+               
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >RFC *</label>
                     <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern )}" formControlName="rfc" type="text" class="form-control" name="" >
@@ -69,21 +69,17 @@
                     
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >Seguro social</label>
-                    <input [ngClass]="{'is-invalid': f.nss.errors && f.nss.touched}" formControlName="nss" maxlength="11" type="text" class="form-control" name="" >
-                    <div *ngIf="f.nss.errors && f.nss.touched" class="invalid-feedback">
+                    <label >Seguro social *</label>
+                    <input [ngClass]="{'is-invalid': (f.nss.errors?.required && submitEnviado)  || (f.nss.errors && f.nss.touched)}" formControlName="nss" maxlength="11" type="text" class="form-control" name="" >
+                    <div *ngIf="(f.nss.errors?.required && submitEnviado)" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="(f.nss.errors && f.nss.touched)" class="invalid-feedback">
                         Número de seguro social invalido.
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="input-group-sm mb-4 col-8">
-                    <label >Correo personal </label>
-                    <input appMayusculas [minusculas]="true" formControlName="contactoInicialEmailPersonal" type="email" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" class="form-control" name="" >
-                    <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
-                        Correo personal inválido
-                    </div>
-                </div>
                 <div class="input-group-sm mb-4 col-8">
                     <label >Correo empresarial *</label>
                     <input appMayusculas [minusculas]="true" formControlName="emailCorporativo" type="email" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched)}" class="form-control" name="" >
@@ -92,6 +88,13 @@
                     </div>
                     <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
                         Correo empresarial inválido
+                    </div>
+                </div>
+                <div class="input-group-sm mb-4 col-8">
+                    <label >Correo personal </label>
+                    <input appMayusculas [minusculas]="true" formControlName="contactoInicialEmailPersonal" type="email" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" class="form-control" name="" >
+                    <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
+                        Correo personal inválido
                     </div>
                 </div>
             </div>
@@ -161,21 +164,21 @@
             <div class="form-group mt-3 row margen"><label class="titulo">CONTACTO DE EMERGENCIA</label></div>
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >Nombre *</label>
+                    <label >Nombre </label>
                     <input appMayusculas formControlName="contactoEmergenciaNombre" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaNombre.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >Apellido paterno *</label>
+                    <label >Primer apellido </label>
                     <input appMayusculas formControlName="contactoEmergenciaApellidoPaterno" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"  class="form-control">
                     <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label >Apellido materno</label>
+                    <label >Segundo apellido</label>
                     <input appMayusculas formControlName="contactoEmergenciaApellidoMaterno" type="text" name=""  class="form-control">
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
@@ -193,7 +196,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-4 col-lg-4">
-                    <label > Celular *</label>
+                    <label > Celular </label>
                     <input appSolonumeros formControlName="contactoEmergenciaTelefono" type="text" maxlength="10"  class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaTelefono.errors && submitEnviado}">
                     <div *ngIf="f.contactoEmergenciaTelefono.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido

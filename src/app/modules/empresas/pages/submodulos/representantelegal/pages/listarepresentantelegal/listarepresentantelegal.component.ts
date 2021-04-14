@@ -91,11 +91,11 @@ export class ListarepresentantelegalComponent implements OnInit {
     let columnas:Array<tabla> = [
       new tabla("personaId","ID"),
       new tabla("nombre","Nombre"),
-      new tabla("apellidoPaterno","Apellido paterno"),
-      new tabla("apellidoMaterno","Apellido materno"),
+      new tabla("apellidoPaterno","Primer apellido"),
+      new tabla("apellidoMaterno","Segundo apellido"),
       new tabla("curp","CURP"),
       new tabla("emailCorporativo","Correo empresarial"),
-      //new tabla("fechaAlta","Fecha de registro"),
+      //new tabla("fechaAlta","Fecha de registro en el sistema"),
       new tabla("esActivo","Estatus")
     ];
    

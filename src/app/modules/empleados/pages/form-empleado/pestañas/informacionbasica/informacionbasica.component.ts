@@ -71,8 +71,8 @@ export class InformacionbasicaComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: [obj.apellidoMaterno],
-      genero: [obj.genero],
-      fechaNacimiento: [(obj.fechaNacimiento !== undefined && obj.fechaNacimiento !== "") ? pipe.transform(new Date(Number(obj.fechaNacimiento)), "yyyy-MM-dd") : obj.fechaNacimiento],
+      genero: [{value:obj.genero,disabled:true}],
+      fechaNacimiento: [{value:(obj.fechaNacimiento !== undefined && obj.fechaNacimiento !== "") ? pipe.transform(new Date(Number(obj.fechaNacimiento)), "yyyy-MM-dd") : obj.fechaNacimiento,disabled:true}],
       tieneCurp: [true],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [ Validators.email]],
       emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
@@ -83,14 +83,14 @@ export class InformacionbasicaComponent implements OnInit {
       tieneHijos: obj.tieneHijos == undefined ? "false" : `${obj.tieneHijos}`,
       numeroHijos: { value: obj.numeroHijos, disabled: true },
       url: obj.urlLinkedin,
-      contactoEmergenciaNombre: [obj.contactoEmergenciaNombre, [Validators.required]],
-      contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno, [Validators.required]],
+      contactoEmergenciaNombre: [obj.contactoEmergenciaNombre],
+      contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno],
       contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
       contactoEmergenciaParentesco: obj.parentescoId?.parentescoId,
       celular: [obj.celular, []],
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail, [Validators.email]],
-      contactoEmergenciaTelefono: [obj.contactoEmergenciaTelefono, [Validators.required]],
-      nss: [obj.nss, [validacionesForms.nssValido]],
+      contactoEmergenciaTelefono: [obj.contactoEmergenciaTelefono, []],
+      nss: [obj.nss, [validacionesForms.nssValido,Validators.required]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]]
     });
@@ -153,7 +153,7 @@ export class InformacionbasicaComponent implements OnInit {
   }
 
   public guardarCambios() {
-    let obj = this.myform.value;
+    let obj = this.myform.getRawValue();
 
     let fechanacimiento = '';
 
@@ -247,4 +247,27 @@ export class InformacionbasicaComponent implements OnInit {
   }
 
 
+  public cambiaCurp(){
+    if(this.myform.controls.curp.valid){
+        let genero = this.myform.value.curp.slice(10,11);
+        this.myform.controls.genero.setValue(genero=="M"?"F":"M");
+
+        let anio:number = this.myform.value.curp.slice(4,6);
+        let mes:number = this.myform.value.curp.slice(6,8);
+        let dia:number = this.myform.value.curp.slice(8,10);
+
+        const anioNacimiento:Date = new Date(anio,mes,dia);
+
+        const datePipe = new DatePipe("es-MX");
+        this.myform.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"yyyy-MM-dd"));
+
+
+    }else{
+      this.myform.controls.genero.setValue("");
+      this.myform.controls.fechaNacimiento.setValue("");
+    }
+  }
+
+
 }
+

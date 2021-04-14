@@ -41,7 +41,7 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
 
   if(!this.insertar){
@@ -90,14 +90,14 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    debugger;
+    
     const editField = event.target.textContent;
     this.arregloTablaBeneficios[id][property] = editField;
   }
 
 
   public changeValue(id: number, property: string, event: any) {
-    debugger;
+    
     this.editField = event.target.textContent;
   }
 
@@ -158,7 +158,7 @@ export class DetallepoliticasComponent implements OnInit {
           });
 
         } else {
-          debugger;
+          
           for(let item of this.arregloTablaBeneficios){
             this.beneficio = 
               {

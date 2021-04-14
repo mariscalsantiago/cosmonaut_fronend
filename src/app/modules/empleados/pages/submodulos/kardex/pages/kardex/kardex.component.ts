@@ -40,7 +40,7 @@ export class KardexComponent implements OnInit {
             new tabla("razonSocial","Razón social	"),
             new tabla("nombre","Nombre de la empresa	"),
             new tabla("rfc","RFC"),
-            new tabla("fechaAlta","Fecha registro"),
+            new tabla("fechaAlta","Fecha de registro en el sistema"),
             new tabla("esActivo","Estatus")
           ]
           this.arreglotabla.columnas = columnas;

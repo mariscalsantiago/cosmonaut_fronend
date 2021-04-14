@@ -188,7 +188,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 
 
   public eliminarPer(obj: any) {
-    debugger;
+    
     this.objEnviar = {
       conceptoPercepcionId: obj.conceptoPercepcionId,
       tipoPercepcionId: {
@@ -224,7 +224,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
   }
 
   public eliminarDed(obj: any) {
-debugger;
+
     this.objEnviar = {
       conceptoDeduccionId: obj.conceptoDeduccionId,
       tipoDeduccionId: {
@@ -259,7 +259,7 @@ debugger;
   }
 
   public verdetallePer(obj: any) {
-    debugger;
+    
         if(obj == undefined){
           this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'conceptosPercepciones', 'nuevo']);
         }else{
@@ -267,7 +267,7 @@ debugger;
         }
       }
       public verdetalleDed(obj: any) {
-    debugger;
+    
         if(obj == undefined){
           this.routerPrd.navigate(['empresa/detalle', this.id_empresa, 'conceptosDeducciones', 'nuevo']);
         }else{

@@ -126,7 +126,7 @@ export class PersonalComponent implements OnInit {
   
   public validarfechNacimiento(fecha:any){
 
-    debugger;
+    
 
       var x=new Date();
       var fecha = fecha.split("-");
@@ -166,7 +166,7 @@ export class PersonalComponent implements OnInit {
       }
 
     }
-    debugger;
+    
 
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],

@@ -1,11 +1,11 @@
-import { Component, OnInit, Output,EventEmitter, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter, Input, HostListener, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-alert-questions',
   templateUrl: './alert-questions.component.html',
   styleUrls: ['./alert-questions.component.scss']
 })
-export class AlertQuestionsComponent implements OnInit {
+export class AlertQuestionsComponent implements OnInit,OnChanges {
 
   public scrollTop:any;
   public content:any;
@@ -28,6 +28,18 @@ export class AlertQuestionsComponent implements OnInit {
 
     if(this.tamanio >= 600)
        this.leftP -= 150;
+  }
+
+
+
+  ngOnChanges(changes: SimpleChanges): void{
+
+    if(this.iconType == "success"){
+        setTimeout(() => {
+          this.aceptar();
+        }, 2000);
+    }
+
   }
 
 
@@ -58,6 +70,8 @@ export class AlertQuestionsComponent implements OnInit {
     
 
   }
+
+  
 
 
   public cancelar(){

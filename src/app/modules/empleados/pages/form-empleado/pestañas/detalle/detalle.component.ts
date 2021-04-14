@@ -58,7 +58,7 @@ export class DetalleComponent implements OnInit {
   }
 
   public validarBanco(clabe:any){
-    debugger;
+    
     this.myForm.controls.csBanco.setValue("");
     this.myForm.controls.clabe.setValue("");
   

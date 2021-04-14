@@ -18,7 +18,7 @@
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Apellido paterno *</label>
+              <label >Primer apellido *</label>
               <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
                   placeholder="">
                   <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
@@ -27,7 +27,7 @@
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                <label >Apellido materno</label>
+                <label >Segundo apellido</label>
                 <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control" id="apellidoMaterno" aria-describedby="apellidoMaterno"
                     placeholder="">
 

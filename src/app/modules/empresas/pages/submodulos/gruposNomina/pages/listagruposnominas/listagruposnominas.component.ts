@@ -340,7 +340,7 @@ export class ListagruposnominasComponent implements OnInit {
             new tabla("maneraCalcularSubsidiodescripcion", "Calcular subsidio al empleo de manera:"),
             new tabla("nombremoneda", "Nómina automática")
           ];
-          debugger;
+          
           item.esquemanombre = item.esquemaPagoId?.descripcion;
           item.nombremoneda = item.monedaId?.descripcion;
           item.baseperiododescripcion = item.basePeriodoId?.basePeriodoId;

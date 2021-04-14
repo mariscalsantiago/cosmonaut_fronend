@@ -43,7 +43,7 @@ export class DetallegruponominaComponent implements OnInit {
 
   ngOnInit(): void {
 
-debugger;
+
     this.activeprd.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -108,7 +108,7 @@ debugger;
   }
 
   public crearForm(obj:any){
-    debugger;
+    
     if(!this.esInsert){
       console.log("Este es el obj",obj);
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
@@ -136,7 +136,7 @@ debugger;
 
 
   public enviarPeticion(){
-    debugger;
+    
 
     this.submitInvalido = true;
     if (!this.myForm.valid) {
@@ -193,7 +193,7 @@ debugger;
 
           });
         } else {
-          debugger;
+          
           peticion.grupoNominaId = obj.grupoNominaId;
           peticion.esActivo = true;
 

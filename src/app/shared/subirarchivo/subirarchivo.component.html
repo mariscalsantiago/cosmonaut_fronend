@@ -1,6 +1,7 @@
 <div class="logocaja anulartop"  [ngClass]="{'errorimagen':errorimagen,'seleccionado':seleccionado}" appManipularfiles (fromManipularFiles)="recibir($event)">
 
-    <p *ngIf="buffer == undefined && !mostrarImagenUrl" style="margin-top:3em" class="titulo">Arrastra o sube aquí el archivo</p>
+    <div *ngIf="!cargando">
+        <p *ngIf="buffer == undefined && !mostrarImagenUrl" style="margin-top:3em" class="titulo">Arrastra o sube aquí el archivo</p>
     <p *ngIf="buffer == undefined && !mostrarImagenUrl" class="mostrar"></p>
     <p *ngIf="buffer == undefined && !mostrarImagenUrl" class="mostrar2">Archivo seleccionado no es una imagen.</p>
     <div *ngIf="buffer == undefined && !mostrarImagenUrl" class="col-12 text-right">
@@ -13,5 +14,11 @@
         
         <i (click)="eliminarImagen()" class="far fa-times-circle" id="closeid"></i>
     </div>
+    </div>
+
+    <div style="    margin-left: calc(50% - 1rem);
+    margin-top: calc(50% - 3.5rem);" *ngIf="cargando" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
 
 </div>

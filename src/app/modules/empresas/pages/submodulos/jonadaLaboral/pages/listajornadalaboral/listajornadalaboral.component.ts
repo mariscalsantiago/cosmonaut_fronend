@@ -162,7 +162,7 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
   public traerModal(indice: any) {
-    debugger;
+    
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -197,7 +197,7 @@ export class ListajornadalaboralComponent implements OnInit {
     this.cargandodetallegrupo = true;
 
     this.jornadaPrd.getdetalleJornada(this.id_empresa, jornadaitem.jornadaId).subscribe(datos => {
-      debugger;
+      
       this.cargandodetallegrupo = false;
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
     });
@@ -205,7 +205,7 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    debugger;
+    
     switch (obj.type) {
       case "editar":
         this.verdetalle(obj.datos);
@@ -219,7 +219,7 @@ export class ListajornadalaboralComponent implements OnInit {
       case "desglosar":
         let item = obj.datos;
         this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa, item.jornadaId).subscribe(datos => {
-          debugger;
+          
           this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
           if(this.arreglodetalle.nclHorarioJornada[0].dia == 1 && this.arreglodetalle.nclHorarioJornada[0].esActivo== true){
             let splitHE = this.arreglodetalle.nclHorarioJornada[0].horaEntrada.split(' ');

@@ -143,7 +143,7 @@ export class ListascuentasbancariasComponent implements OnInit {
                 new tabla("numInformacion", "Número de información"),
                 new tabla("numSucursal", "Número de sucursal")
               ];
-              debugger;
+              
               item.funcionCuenta = item.funcionCuentaId?.descripcion;
     
     

@@ -71,7 +71,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
 
 
   public createFormrep(obj: any) {
-    debugger;
+    
     let datePipe = new DatePipe("en-MX");
     if(!this.insertar){
 
@@ -128,7 +128,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
 
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
 
     if (this.myFormrep.invalid) {

@@ -28,7 +28,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
       const columnas:Array<tabla> = [
         new tabla("rfc","RFC"),
         new tabla("nombre","Nombre"),
-        new tabla("apellidoPaterno","Apellido paterno"),
+        new tabla("apellidoPaterno","Primer apellido"),
         new tabla("esActivo","Estatus")
       ]; 
 
@@ -46,7 +46,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
 
   public recibirTabla(obj:any){
 
-    debugger;
+    
     console.log("Ants de entrar al obj",obj.datos);
     let isInsertar = false;
 

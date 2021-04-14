@@ -28,7 +28,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => this.arregloTipoPercepcion = datos.datos);
 
     this.routerActive.params.subscribe(datos => {
@@ -73,7 +73,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    debugger;
+    
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -108,7 +108,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
-        debugger;
+        
 
         if (valor) {
 
