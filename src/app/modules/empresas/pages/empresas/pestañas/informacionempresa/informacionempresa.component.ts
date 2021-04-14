@@ -32,7 +32,7 @@ export class InformacionempresaComponent implements OnInit {
   public arregloactividad: any = [];
   public imagen:any = undefined;
   public curpFinal: string = "";
-  public idNivel: number = 5 ;
+  public idNivel: number = 1 ;
   public cargando: Boolean = false;
   
 
@@ -51,7 +51,7 @@ export class InformacionempresaComponent implements OnInit {
     }
    
     this.myform = this.createForm(this.obj);
-    this.catalogosPrd.getRegimenFiscal().subscribe(datos => this.arregloregimen = datos.datos);
+    this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
     this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
 
   }

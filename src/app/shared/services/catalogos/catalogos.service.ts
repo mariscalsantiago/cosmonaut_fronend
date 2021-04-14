@@ -106,9 +106,9 @@ export class CatalogosService {
     return this.http.get(`${this.url}/csActividadEconomica/obtener/todos/true/${idNivel}`);
 
   }
-  public getRegimenFiscal():Observable<any>{
+  public getRegimenFiscal(estatus:boolean):Observable<any>{
 
-    return this.http.get(`${this.url}/csRegimenFiscal/listar/todos`);
+    return this.http.get(`${this.url}/csRegimenFiscal/listar/todosActivo/${estatus}`);
 
   }
 
