@@ -113,8 +113,7 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public validarActividad2(actividad:any){
-    debugger;
-    if(actividad != ""){
+     if(actividad != ""){
      this.catalogosPrd.getActividadEconomica2(this.idNivel2,actividad).subscribe(datos => this.arregloactividad2 = datos.datos);
     }
   }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomicilioService } from 'src/app/modules/empresas/services/domicilio/domicilio.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { tabla } from 'src/app/core/data/tabla';
 
 @Component({
   selector: 'app-domicilio',
@@ -36,7 +37,7 @@ export class DomicilioComponent implements OnInit {
   public arreglo: any=[];
   public arregloListaSede: any = [] ;
   public modsinIdDom: boolean = false;
-  public listaSedeNuevo: boolean = true;
+  //public listaSedeNuevo: boolean = true;
   public listaSedeModificar: boolean = false;
   public cargando: Boolean = false;
   public arregloCons: any = [];
@@ -44,39 +45,61 @@ export class DomicilioComponent implements OnInit {
   public indexSeleccionado: number = 0;
   public eliminarSede: boolean = false;
 
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
+  };
+
+
+  public arreglotablaDesglose: any = {
+    columnas: [],
+    filas: []
+  };
+
 
   constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    
+    debugger;
     let obj:any = {};
     if(!this.datosempresa.insertar){
       this.habContinua=false;
       
     }
     this.datosempresa.activarGuardaMod= true;
-    this.listaSedeModificar = this.datosempresa.activarList;
-    this.listaSedeNuevo = this.datosempresa.activarForm;
-
     this.id_empresa = this.datosempresa.centrocClienteEmpresa;
+    //this.listaSedeModificar = this.datosempresa.activarList;
+    //this.listaSedeNuevo = this.datosempresa.activarForm;
+
+    
     this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {this.arregloCons = datos.datos
 
       if(this.arregloCons != undefined){
         this.cargaDom =true;
       }
 
+      this.cargando = true;
+      this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
+       this.arregloListaSede = datos.datos;
+       let columnas: Array<tabla> = [
+         new tabla("sedeNombre", "Nombre de la sede"),
+         new tabla("codigoPostal", "Código postal"),
+         new tabla("municipio", "Municipio o alcadía"),
+         new tabla("entidadFederativa", "Entidad Federativa"),
+       ];
+   
+  
+   
+       this.arreglotabla.columnas = columnas;
+       this.arreglotabla.filas = this.arregloListaSede;
+       this.cargando = false;
+       
+     });
 
 
-    if(!this.datosempresa.insertar){
+    if(!this.datosempresa.insertar && this.cargaDom){
       
-        this.cargando = true;
-        this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
-        this.arregloListaSede = datos.datos;
-        console.log(this.arregloListaSede);
-        this.cargando = false;
-
-      });
       this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
         obj = datos.datos[0];
         obj.asentamientoCpCons = obj.asentamientoId
@@ -167,9 +190,20 @@ export class DomicilioComponent implements OnInit {
     this.habcontinuar = true;
   }
 
+  public recibirTabla(obj:any){
+    debugger;
+    switch(obj.type){
+       case "editar":
+         this.verdetalle(obj.datos);
+       break;
+       case "eliminar":
+         this.eliminar(obj.datos);
+       break;
+    }
+ }
+
   public eliminar(indice: any){
-    
-     
+    debugger; 
    this.indexSeleccionado = indice.sedeId;
    this.eliminarSede = true;
    
@@ -261,7 +295,7 @@ export class DomicilioComponent implements OnInit {
           }
       }
       if(this.eliminarSede){
-
+        debugger;
         this.domicilioPrd.eliminar(this.indexSeleccionado).subscribe(datos => {
           this.alerta.iconType = datos.resultado ? "success" : "error";
           this.alerta.strTitulo = datos.mensaje;
@@ -271,14 +305,7 @@ export class DomicilioComponent implements OnInit {
             this.enviado.emit({
               type:"domicilioSede"
             });
-
-            this.cargando = true;
-            this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
-            this.arregloListaSede = datos.datos;
-            console.log(this.arregloListaSede);
-            this.cargando = false;
-    
-          });
+            this.ngOnInit();
             
           }
   
@@ -324,8 +351,11 @@ export class DomicilioComponent implements OnInit {
         this.domicilioPrd.modificar(objenviar).subscribe(datos =>{
           this.alerta.iconType = datos.resultado? "success":"error";
           this.alerta.strTitulo = datos.mensaje;
-          //this.alerta.strsubtitulo = datos.mensaje
           this.alerta.modal = true;
+
+          this.enviado.emit({
+            type:"domicilioSede"
+          });
 
         });
       }
