@@ -239,7 +239,7 @@ export class ListapoliticasComponent implements OnInit {
       case "desglosar":
         let columnas: Array<tabla> = [
           new tabla("diasEconomicos", "Días económicos"),
-          new tabla("primaAniversariodescripcion", "Prima vacacional al aniversario"),
+          new tabla("primaAniversariodescripcion", "Prima vacacional"),
           new tabla("descuentaFaltasDescripcion", "Se descuentan faltas"),
           new tabla("descuentaIncapacidadesdescripcion", "Se descuentan incapacidades"),
           new tabla("costoValesRestaurantedescripcion", "Costo vales de restaurante"),
@@ -249,7 +249,7 @@ export class ListapoliticasComponent implements OnInit {
 
 
         let item = obj.datos;
-        item.primaAniversariodescripcion= (item.primaAniversario)?'Si':'No';
+        item.primaAniversariodescripcion= (item.primaAniversario)?'Al aniversario':'Por evento';
         item.descuentaFaltasDescripcion = (item.descuentaFaltas)?'Si':'No';
         item.descuentaIncapacidadesdescripcion = ((item.descuentaIncapacidades)?'Si':'No');
         item.costoValesRestaurantedescripcion = (item.costoValesRestaurante)?'Si':'No';

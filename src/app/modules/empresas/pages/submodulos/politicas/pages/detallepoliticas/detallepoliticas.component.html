@@ -60,14 +60,14 @@
           <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Prima vacacional: *</label><br>
             <label class="contenedorInputCheckRadio">Al aniversario
-              <input name="primaVacacional" formControlName="primaVacacional" type="radio" value="TRUE" [ngClass]="{'is-invalid':f.primaVacacional.errors && submitEnviado}" >
+              <input name="primaAniversario" formControlName="primaAniversario" type="radio" value="Aniversario" [ngClass]="{'is-invalid':f.primaAniversario.errors && submitEnviado}" >
               <span class="radiomark"></span>
             </label>   
             <label class="contenedorInputCheckRadio">Por evento
-              <input name="primaVacacional" formControlName="primaVacacional" type="radio" value="FALSE"   [ngClass]="{'is-invalid':f.primaVacacional.errors && submitEnviado}" >
+              <input name="primaAniversario" formControlName="primaAniversario" type="radio" value="Evento"   [ngClass]="{'is-invalid':f.primaAniversario.errors && submitEnviado}" >
               <span class="radiomark"></span>
             </label>
-            <div *ngIf="submitEnviado && f.primaVacacional.errors" class="invalid-feedback">
+            <div *ngIf="submitEnviado && f.primaAniversario.errors" class="invalid-feedback">
               Campo requerido
             </div>
           </div>
