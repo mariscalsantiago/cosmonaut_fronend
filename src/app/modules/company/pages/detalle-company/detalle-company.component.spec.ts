@@ -18,7 +18,7 @@ class routerFake {
 }
 
 
-describe('componente-compañíadetalle INSERTAR COMPAÑÍA', () => {
+describe('componente-clientedetalle INSERTAR CLIENTE', () => {
     let componenteDetalle: DetalleCompanyComponent;
     let fixed: ComponentFixture<DetalleCompanyComponent>;
     let router: Router;
@@ -55,7 +55,7 @@ describe('componente-compañíadetalle INSERTAR COMPAÑÍA', () => {
 //         expect(componenteDetalle).toBeTruthy();
 //     });
 
-//     it('Campos necesarios para insertar compañía', () => {
+//     it('Campos necesarios para insertar cliente', () => {
 
 //         expect(componenteDetalle.myFormcomp.contains("nombre")).toBeTruthy();
 //         expect(componenteDetalle.myFormcomp.contains("razonSocial")).toBeTruthy();
@@ -65,7 +65,7 @@ describe('componente-compañíadetalle INSERTAR COMPAÑÍA', () => {
 
 //     });
 
-//     it('validación de campos necesarios al insertar compañía',()=>{
+//     it('validación de campos necesarios al insertar cliente',()=>{
 //         let myFormcomp = componenteDetalle.myFormcomp;
 
 //         let nombre = myFormcomp.get("nombre");
@@ -87,7 +87,7 @@ describe('componente-compañíadetalle INSERTAR COMPAÑÍA', () => {
 
 //     });
 
-//     /*it('redireccionamineto_cancelarCompañía', () => {
+//     /*it('redireccionamineto_cancelarCliente', () => {
 
 //         const router = TestBed.get(Router);
 
@@ -98,7 +98,7 @@ describe('componente-compañíadetalle INSERTAR COMPAÑÍA', () => {
 //     });*/
 
 
-//     it('Enviando undefined una compañía nueva', () => {
+//     it('Enviando undefined una cliente nueva', () => {
 
 //         expect(componenteDetalle.objCompany).toEqual({});
 
@@ -114,7 +114,7 @@ describe('componente-compañíadetalle INSERTAR COMPAÑÍA', () => {
 // });
 
 
-// describe('componente-compañíadetalle ACTUALIZAR COMPAÑÍA',()=>{
+// describe('componente-clientedetalle ACTUALIZAR cliente',()=>{
 
 
 //     let componenteDetalle:DetalleCompanyComponent;
@@ -154,20 +154,20 @@ describe('componente-compañíadetalle INSERTAR COMPAÑÍA', () => {
 //     });
 
 
-//     it('Se visualiza formulario para editar compañía', () => {
+//     it('Se visualiza formulario para editar cliente', () => {
 
 //         let mensaje: string = componenteDetalle.strTitulo;
 
         
 //         let insertar: boolean = componenteDetalle.insertar;
 
-//         expect(mensaje).toBe("¿Deseas actualizar la compañía?");
+//         expect(mensaje).toBe("¿Deseas actualizar la cliente?");
 //         expect(insertar).not.toBeTruthy();
 
 //     });  
 
 
-//     /*it('verificacion de objeto enviado al formulario del detalle de una compañía',()=>{
+//     /*it('verificacion de objeto enviado al formulario del detalle de una cliente',()=>{
 //           expect(componenteDetalle.objCompany).toEqual(objenviar);
 //     });*/
 

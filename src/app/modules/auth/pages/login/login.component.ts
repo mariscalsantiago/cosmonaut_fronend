@@ -146,7 +146,7 @@ export class LoginComponent implements OnInit {
 
   public finalizadoSeleccion(){
     if(this.empresaSeleccionada== undefined && this.companiaSeleccionada == undefined){
-        alert("no se ha seleccionado compañia o empresa");
+        alert("no se ha seleccionado el cliente");
         return;
     }
     $('#modalshare').modal('hide');

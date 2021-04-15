@@ -2,7 +2,7 @@
 
   <div class="row margen titulosfijos">
     <div class="col titulo-outlet">
-      <label>LISTA DE COMPAÑÍAS</label>
+      <label>LISTA DE CLIENTES</label>
     </div>
   </div>
 
@@ -40,13 +40,13 @@
               <div class="card-body">
                 <div class="form group row margen">
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <input type="number" [(ngModel)]="centrocClienteId" class="form-control" placeholder="Id compañía">
+                    <input type="number" [(ngModel)]="centrocClienteId" class="form-control" placeholder="Id cliente">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                     <input type="text" [appAlfanumerico]="'true'" [(ngModel)]="rfc" class="form-control" placeholder="RFC">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <input type="text" appAlfanumerico [(ngModel)]="nombre" class="form-control" placeholder="Nombre compañía">
+                    <input type="text" appAlfanumerico [(ngModel)]="nombre" class="form-control" placeholder="Nombre cliente">
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
                     <input type="text" [appAlfanumerico]="'true'" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
@@ -83,7 +83,7 @@
       </div>
       <div class="col text-right">
         <button type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
-          <i class="fa fa-plus"></i>Agregar compañÍa
+          <i class="fa fa-plus"></i>Agregar cliente
         </button>
       </div>
     </div>

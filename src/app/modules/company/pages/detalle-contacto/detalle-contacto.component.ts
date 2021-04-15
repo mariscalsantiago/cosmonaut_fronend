@@ -82,7 +82,8 @@ export class DetalleContactoComponent implements OnInit {
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [ Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : datePipe.transform(new Date(), 'dd-MMM-y')), disabled: true }, [Validators.required]],
-      personaId: obj.personaId
+      personaId: obj.personaId,
+      contactoInicialPuesto:obj.contactoInicialPuesto
 
     });
   }
@@ -119,7 +120,8 @@ export class DetalleContactoComponent implements OnInit {
           contactoInicialTelefono: obj.contactoInicialTelefono,
           centrocClienteId: {
             centrocClienteId: this.datosEmpresa.centrocClienteId
-          }
+          },
+          contactoInicialPuesto:obj.contactoInicialPuesto
         }
 
 

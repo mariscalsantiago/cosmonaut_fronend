@@ -36,7 +36,7 @@ export class MenuService {
     { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[] },
     { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[]},
     { nombre: 'CONFIGURACIÓN', icono: "icon_admoncos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA"],submenu:[
-                                                                                {nombre:"COMPAÑIA",routerLink:['/company'],rol:["ALL","ADMINCOMPANIA"]},
+                                                                                {nombre:"CLIENTES",routerLink:['/company'],rol:["ALL","ADMINCOMPANIA"]},
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios'],rol:["ALL","ADMINCOMPANIA"]},
                                                                               ]},
     { nombre: "ADMINISTRACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"],submenu:[

@@ -177,7 +177,7 @@ export class DetalleCompanyComponent implements OnInit {
       return;
     }
 
-    let mensaje = this.insertar ? "¿Deseas registrar la compañía?" : "¿Deseas actualizar los datos de la compañía?";
+    let mensaje = this.insertar ? "¿Deseas registrar el cliente?" : "¿Deseas actualizar los datos del cliente?";
     
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
 

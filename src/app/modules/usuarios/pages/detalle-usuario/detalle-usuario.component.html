@@ -16,7 +16,7 @@
         <div class="form-group row margen"><label class="titulo">Información de Usuario</label></div>
         <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
-                <label for="exampleFormControlSelect1">Compañia *</label>
+                <label for="exampleFormControlSelect1">Cliente *</label>
                 <select #centroCliente [disabled]="!insertar" formControlName="centrocClienteId" class="form-control" [ngClass]="{'is-invalid':f.centrocClienteId.errors && summitenviado}"
                     id="exampleFormControlSelect1">
                     <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>

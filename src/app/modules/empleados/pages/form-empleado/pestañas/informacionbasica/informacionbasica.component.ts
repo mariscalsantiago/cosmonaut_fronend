@@ -256,7 +256,7 @@ export class InformacionbasicaComponent implements OnInit {
         let mes:number = this.myform.value.curp.slice(6,8);
         let dia:number = this.myform.value.curp.slice(8,10);
 
-        const anioNacimiento:Date = new Date(anio,mes,dia);
+        const anioNacimiento:Date = new Date(anio,mes-1,dia);
 
         const datePipe = new DatePipe("es-MX");
         this.myform.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"yyyy-MM-dd"));
