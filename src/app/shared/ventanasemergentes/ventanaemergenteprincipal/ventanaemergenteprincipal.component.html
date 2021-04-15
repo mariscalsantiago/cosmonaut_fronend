@@ -13,6 +13,7 @@
             <hr *ngIf="!ventanaalerta">
             <app-ventana-nuevanomina *ngIf="mostrar.nuevanomina" (salida)="recibirEmergente($event)"></app-ventana-nuevanomina>
             <app-nominaactiva-fechatimbrado  *ngIf="mostrar.timbrado" (salida)="recibirEmergente($event)"></app-nominaactiva-fechatimbrado>
+            <app-nominaactiva-timbrar  *ngIf="mostrar.timbrar" (salida)="recibirEmergente($event)"></app-nominaactiva-timbrar>
         </div>
     </div>
 

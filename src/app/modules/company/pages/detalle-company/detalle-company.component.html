@@ -1,7 +1,7 @@
 <div class="row margen">
   <div class="col titulo-outlet">
     <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/company"></i>CONFIGURACIÓN DE
-      COMPAÑÍA</label>
+      CLIENTE</label>
   </div>
 </div>
 
@@ -15,14 +15,14 @@
 
   <div class="background-panel margen background-ajustar" appTamanioVentana>
     <div class="form-group row margen">
-      <label class="titulo">INFORMACIÓN DE COMPAÑÍA</label>
+      <label class="titulo">INFORMACIÓN DEL CLIENTE</label>
     </div>
     <div class="form-group row margen">
 
         <div class="col-12 col-md-12 col-xl-9">
           <div class="row">
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4  ">
-              <label>Nombre de la compañía *</label>
+              <label>Nombre del cliente *</label>
               <input #nombre formControlName="nombre" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
               <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">

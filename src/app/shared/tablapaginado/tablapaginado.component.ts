@@ -323,12 +323,12 @@ export class TablapaginadoComponent implements OnInit {
       j = i;
       aux = a[i];
      if(tipoAcomodo){
-      while (j > 0 && (aux[llave]==undefined?" ":aux[llave])?.toUpperCase() < (a[j - 1][llave] == undefined?" ":a[j - 1][llave])?.toUpperCase()) {
+      while (j > 0 && (aux[llave]==undefined?" ":`${aux[llave]}`)?.toUpperCase() < (a[j - 1][llave] == undefined?" ":`${a[j - 1][llave]}`)?.toUpperCase()) {
         a[j] = a[j - 1];
         j--;
       }
      }else{
-      while (j > 0 && (aux[llave]==undefined?" ":aux[llave])?.toUpperCase() > (a[j - 1][llave] == undefined?" ":a[j - 1][llave])?.toUpperCase()) {
+      while (j > 0 && (aux[llave]==undefined?" ":`${aux[llave]}`)?.toUpperCase() > (a[j - 1][llave] == undefined?" ":`${a[j - 1][llave]}`)?.toUpperCase()) {
         a[j] = a[j - 1];
         j--;
       }

@@ -1,0 +1,24 @@
+.imagenestimbraado{
+    display: inline-block;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 2px solid #4cc1b0;
+    padding: 8px;
+    margin: 19px;
+    position: relative;
+    img{
+        width: 37px;
+    height: 37px;
+    }
+    span{
+        color: #4cc1b0;
+        position: absolute;
+        top: 55px;
+        font-size: xx-small;
+        font-weight: bold;
+        width: 100px;
+        left: -28px;
+        margin-top: 10px;
+    }
+}

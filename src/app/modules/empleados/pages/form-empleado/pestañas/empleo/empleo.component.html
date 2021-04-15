@@ -133,7 +133,7 @@
                     </select>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Estado de la República*</label>
+                    <label for="exampleFormControlSelect1">Entidad federativa*</label>
                     <select [ngClass]="{'is-invalid':f.estadoId.errors && submitEnviado}" formControlName="estadoId" name="" id="" class="form-control">
                         
                         <option *ngFor="let item of arregloEstados" [value]="item.estadoId">{{item.estado}}</option>

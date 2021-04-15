@@ -75,7 +75,7 @@ export class CompanyComponent implements OnInit {
         new tabla("url", "imagen"),
         new tabla("centrocClienteId", "ID cliente"),
         new tabla("razonSocial", "Razón social	"),
-        new tabla("nombre", "Nombre de compañía"),
+        new tabla("nombre", "Nombre de cliente"),
         new tabla("rfc", "RFC"),
         new tabla("fechaAlta", "Fecha de registro en el sistema"),
         new tabla("esActivo", "Estatus")
@@ -156,7 +156,7 @@ export class CompanyComponent implements OnInit {
         new tabla("url", "imagen"),
         new tabla("centrocClienteId", "ID cliente"),
         new tabla("razonSocial", "Razón social	"),
-        new tabla("nombre", "Nombre de compañía"),
+        new tabla("nombre", "Nombre de cliente"),
         new tabla("rfc", "RFC"),
         new tabla("fechaAlta", "Fecha de registro en el sistema"),
         new tabla("esActivo", "Estatus")

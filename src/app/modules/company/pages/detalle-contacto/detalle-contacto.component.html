@@ -1,6 +1,6 @@
 <div class="row margen">
   <div class="col titulo-outlet">
-      <label >CONFIGURACIÓN DE COMPAÑÍA</label>
+      <label >CONFIGURACIÓN DEL CLIENTE</label>
   </div>
 </div>
 
@@ -46,6 +46,12 @@
                 <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
                     CURP inválida, favor de verificar
                   </div>
+
+          </div>
+          <div class=" input-group-sm mb-3 col-4">
+            <label >Puesto</label>
+            <input formControlName="contactoInicialPuesto" maxlength="18" type="text" class="form-control" 
+                placeholder="">
 
           </div>
           <div class="input-group-sm mb-3 col-4">
