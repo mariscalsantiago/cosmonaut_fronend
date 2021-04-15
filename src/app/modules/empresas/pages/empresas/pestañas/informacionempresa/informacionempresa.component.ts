@@ -64,7 +64,10 @@ export class InformacionempresaComponent implements OnInit {
     this.myform = this.createForm(this.obj);
     this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
     this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
-    this.catalogosPrd.getActividadEconomica(this.idNivel2).subscribe(datos => this.arregloactividad2 = datos.datos);
+    if (!this.datosempresa.insertar) {
+      this.catalogosPrd.getActividadEconomica(this.idNivel2).subscribe(datos => this.arregloactividad2 = datos.datos);      
+    }
+    
 
   }
 
@@ -84,12 +87,13 @@ export class InformacionempresaComponent implements OnInit {
 
       obj.certext = 'Certificado de sello digital cargado';
       obj.keytext = 'Llave de certificado de sello digital cargado';
-
+      
     }
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial, [Validators.required]],
-      actividadEconomicaId: [obj.actividadEconomicaId?.actividadEconomicaId, [Validators.required]],
+      actividadEconomicaId: [obj.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId, [Validators.required]],
+      actividadEconomicaId2: [obj.actividadEconomicaId?.actividadEconomicaId, [Validators.required]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
       curpInv: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
       curp: [obj.curp, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
@@ -106,7 +110,11 @@ export class InformacionempresaComponent implements OnInit {
     });
   }
 
-
+  public validarActividad2(actividad:any){
+    debugger;
+     this.catalogosPrd.getActividadEconomica2(this.idNivel2,actividad).subscribe(datos => this.arregloactividad2 = datos.datos);
+  
+  }
 
   public cancelar() {
     this.routerPrd.navigate(['/listaempresas']);
@@ -181,7 +189,7 @@ export class InformacionempresaComponent implements OnInit {
             centrocClienteId: this.datosempresa.centrocClienteId
            },
            actividadEconomicaId: {
-            actividadEconomicaId: obj.actividadEconomicaId
+            actividadEconomicaId: obj.actividadEconomicaId2
            },
            imagen:this.imagen,
            curp : this.curpFinal,        

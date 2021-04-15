@@ -67,20 +67,27 @@ export class DetallepoliticasComponent implements OnInit {
     
     if(!this.insertar){
       obj.calculoAntiguedadx = obj.calculoAntiguedadx == "C"?"contrato":"antiguedad";
+      if(obj.primaAniversario){
+
+        obj.primaAniversario = obj.primaAniversario = "Aniversario";
+      }else{
+        obj.primaAniversario = obj.primaAniversario = "Evento";
+
+      }
+
 
     }else{
-      obj.primaVacacional = obj.primaVacacional = "TRUE";
+      obj.primaAniversario = obj.primaAniversario = "Aniversario";
     }
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
       diasEconomicos: [obj.diasEconomicos, [Validators.required]],
-      //primaAniversario: [obj.primaAniversario],
+      primaAniversario: [obj.primaAniversario],
       descuentaFaltas: [obj.descuentaFaltas],
       descuentaIncapacidades: [obj.descuentaIncapacidades],
       costoValesRestaurante: [obj.costoValesRestaurante],
       descuentoPropDia: [obj.descuentoPropDia],
-      primaVacacional: [obj.primaVacacional],
       politicaId: obj.politicaId,
       calculoAntiguedadx:[obj.calculoAntiguedadx]
 
@@ -119,7 +126,7 @@ export class DetallepoliticasComponent implements OnInit {
     const titulo = (this.insertar) ? "¿Deseas registrar la política" : "¿Deseas actualizar los datos de la política?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
-
+        debugger;
         let obj = this.myFormpol.value;
         let antiguedad = obj.calculoAntiguedadx == "contrato"?"C":"A";
         if(antiguedad == "C"){
@@ -128,10 +135,16 @@ export class DetallepoliticasComponent implements OnInit {
           this.calculoAntiguedadx = 1;
         }
 
+        if(obj.primaAniversario == "Aniversario"){
+          obj.primaAniversario = true;
+        }else{
+          obj.primaAniversario = false;
+        }
+
         let objEnviar: any = {
           nombre: obj.nombre,
           diasEconomicos: obj.diasEconomicos,
-          //primaAniversario: obj.primaAniversario,
+          primaAniversario: obj.primaAniversario,
           descuentaFaltas: obj.descuentaFaltas,
           descuentaIncapacidades: obj.descuentaIncapacidades,
           costoValesRestaurante: obj.costoValesRestaurante,
@@ -145,7 +158,7 @@ export class DetallepoliticasComponent implements OnInit {
           },
 
         }
-
+        debugger;
         if (this.insertar) {
           
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
