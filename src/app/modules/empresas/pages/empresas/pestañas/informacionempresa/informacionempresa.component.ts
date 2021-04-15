@@ -50,22 +50,24 @@ export class InformacionempresaComponent implements OnInit {
     if (this.datosempresa.insertar) {
       this.obj = {
         regimenfiscalId: {},
-        actividadEconomicaId: {}
+        actividadEconomicaId: {},
+        actividadEconomicaId2:{}
       };
     }
-    this.cargandoImg = true;
-    this.companyPrd.getEmpresaById(this.datosempresa.centrocClienteEmpresa).subscribe(datos => {
 
-      this.cargandoImg = false;
-      this.imagen = datos.datos?.imagen;
-      console.log("Si trae la imagen al final", this.imagen);
-    });
 
     this.myform = this.createForm(this.obj);
     this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
     this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
     if (!this.datosempresa.insertar) {
       this.catalogosPrd.getActividadEconomica(this.idNivel2).subscribe(datos => this.arregloactividad2 = datos.datos);      
+      this.cargandoImg = true;
+      this.companyPrd.getEmpresaById(this.datosempresa.centrocClienteEmpresa).subscribe(datos => {
+  
+        this.cargandoImg = false;
+        this.imagen = datos.datos?.imagen;
+        console.log("Si trae la imagen al final", this.imagen);
+      });
     }
     
 
@@ -112,8 +114,9 @@ export class InformacionempresaComponent implements OnInit {
 
   public validarActividad2(actividad:any){
     debugger;
+    if(actividad != ""){
      this.catalogosPrd.getActividadEconomica2(this.idNivel2,actividad).subscribe(datos => this.arregloactividad2 = datos.datos);
-  
+    }
   }
 
   public cancelar() {
