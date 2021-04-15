@@ -26,7 +26,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
 
   @Input() public mostrar = {
     nuevanomina:false,
-    timbrado:false
+    timbrado:false,
+    timbrar:false
   }
 
   @HostListener('window:resize', ['$event'])

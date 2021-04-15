@@ -8,7 +8,7 @@
 
     </div>
     <div class="col-3 mt-3  mb-3">
-      <button type="button" class="btn btn-primary button-outlet mr-2 mt-2">Incidencias - Carga masiva</button>
+      <button type="button" style="width: inherit;" class="btn btn-primary button-outlet mr-2 mt-2">Incidencias - Carga masiva</button>
 
     </div>
     <div class="col-12 margennav background-ajustar" style="background-color:#f5f5f5;padding-top: 20px;"
@@ -47,7 +47,7 @@
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel"
           aria-labelledby="nav-contact-tab">
-          <app-timbrar></app-timbrar>
+          <app-timbrar (salida)="recibirComponente($event)"></app-timbrar>
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel"
           aria-labelledby="nav-empleo-tab">

@@ -51,6 +51,11 @@ export class NominaComponent implements OnInit {
         this.activado[2].form = true;
         this.activado[2].seleccionado = true;
         break;
+        case "timbrar":
+        this.activado[3].tab = true;
+        this.activado[3].form = true;
+        this.activado[3].seleccionado = true;
+        break;
     }
   }
 

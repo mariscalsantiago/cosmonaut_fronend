@@ -1,8 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 
 @Component({
@@ -11,8 +12,7 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
   styleUrls: ['./timbrar.component.scss']
 })
 export class TimbrarComponent implements OnInit {
-
-
+  @Output() salida = new EventEmitter();
   public cargando:boolean = false;
 
   public arreglo:any = [];
@@ -21,7 +21,8 @@ export class TimbrarComponent implements OnInit {
     filas:[]
   };
 
-  constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,private ventana:VentanaemergenteService) { }
+  constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,private ventana:VentanaemergenteService,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -72,6 +73,23 @@ export class TimbrarComponent implements OnInit {
 
   public definirFecha(){
     this.ventana.showVentana(this.ventana.timbrado,{ventanaalerta:true});
+  }
+
+
+  public guardar(){
+      this.ventana.showVentana(this.ventana.timbrar,{ventanaalerta:true}).then(datos =>{
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        setTimeout(() => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.salida.emit({type:"timbrar"});
+        }, 2000);
+
+      });;
+  }
+
+  public continuar(){
+      this.guardar();
   }
 
 }
