@@ -27,7 +27,7 @@ export class DatosimssComponent implements OnInit {
   public arregloImss: any = [];
   public objenviar: any = [];
   public insertarMof: boolean = false;
-
+  public resultado: boolean = false;
 
   constructor(private formBuilder:FormBuilder,private imssPrd: ImssService,private routerPrd:Router) { }
 
@@ -143,16 +143,23 @@ public activfiel(){
         this.alerta.iconType = datos.resultado ? "success" : "error";
         this.alerta.strTitulo = datos.mensaje;
         this.alerta.modal = true;
-      });
+
+        if(datos.resultado){
+          this.routerPrd.navigate(["/listaempresas"]);
+        }
+        });
 
       }else{
 
       this.objenviar.registroPatronalId = this.arregloImss.registroPatronalId;
       this.imssPrd.modificar(this.objenviar).subscribe(datos => {
+        this.resultado = datos.resultado;
         this.alerta.iconType = datos.resultado ? "success" : "error";
         this.alerta.strTitulo = datos.mensaje;
         this.alerta.modal = true;
+
       });
+
     }
     }
   }

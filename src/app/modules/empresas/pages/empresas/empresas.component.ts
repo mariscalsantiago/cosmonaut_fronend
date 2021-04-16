@@ -76,7 +76,7 @@ export class EmpresasComponent implements OnInit {
   };
 
 
-  constructor(private usuarioSistemaPrd:UsuarioSistemaService,  private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService) {
+  constructor(private usuarioSistemaPrd:UsuarioSistemaService, private routerPrd: Router, private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService) {
     
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -322,6 +322,7 @@ debugger;
         this.continuarDom = false;
 
       }
+      debugger;
       if(this.continuarSede && obj){
         
         this.recibir({ type: "sedeDom", valor: true });
@@ -365,13 +366,20 @@ debugger;
           }
         }
 
+        if(indexSeleccionado==3 ){
+          indexSeleccionado=6;
+         }
+
         if(indexSeleccionado==1 && this.guardarDom){
            indexSeleccionado=3;
         }
+        
 
         if(indexSeleccionado==2 && this.cuentaBanco){
           indexSeleccionado=3;
        }
+
+
 
         switch (indexSeleccionado) {
           case 0:
@@ -393,6 +401,9 @@ debugger;
           break;
           case 5:
             this.recibir({ type: "cuentaDatosBancarios", valor: true });
+          break;
+          case 6:
+            this.routerPrd.navigate(["/listaempresas"]);
           break;
 
         }

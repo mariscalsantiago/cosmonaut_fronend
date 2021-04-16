@@ -240,6 +240,7 @@ export class DomicilioComponent implements OnInit {
     this.alerta.modal = true;
     this.alerta.strTitulo = (this.datosempresa.insertar) ? "¿Deseas registrar el domicilio" : "¿Deseas actualizar el domicilio?";
     this.alerta.iconType = "warning";
+    this.datosempresa.activarGuardaMod = true;
 
   }else{
     this.enviado.emit({
@@ -277,7 +278,7 @@ export class DomicilioComponent implements OnInit {
       let obj = this.myForm.value;
        if(obj.domicilioId == null && !this.datosempresa.insertar){
         this.datosempresa.insertar = true;
-        this.modsinIdDom = true;
+        //this.modsinIdDom = true;
        }
 
 
@@ -320,15 +321,15 @@ export class DomicilioComponent implements OnInit {
         this.alerta.strTitulo = datos.mensaje;
         //this.alerta.strsubtitulo = datos.mensaje
         this.alerta.modal = true;
-        if(!this.modsinIdDom){
-        this.enviado.emit({
-          type:"domicilioSede"
-        });
+       
         if(datos.resultado){
-          this.habGuardar=false;
-          this.modsinIdDom=false;
+
+          this.enviado.emit({
+            type:"domicilioSede"
+          });
+          //this.habGuardar=false;
+          //this.modsinIdDom=false;
         }
-      }
       });
       }else{
        
