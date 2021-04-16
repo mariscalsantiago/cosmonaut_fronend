@@ -113,7 +113,8 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public validarActividad2(actividad:any){
-     if(actividad != ""){
+    debugger;
+    if(actividad != ""){
      this.catalogosPrd.getActividadEconomica2(this.idNivel2,actividad).subscribe(datos => this.arregloactividad2 = datos.datos);
     }
   }
@@ -170,7 +171,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-
+    debugger;
 
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
@@ -205,13 +206,16 @@ export class InformacionempresaComponent implements OnInit {
         if(this.datosempresa.insertar){  
         this.empresaPrd.save(objenviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
-          .then(()=> {
-          if(datos.resultado){
+
+        let resultado = datos.resultado;
+        let mensaje = datos.mensaje;
+        this.alerta.iconType = resultado ? "success" : "error";
+        this.alerta.strTitulo = mensaje;
+        this.alerta.modal = true;
+
+        if(resultado){
           this.datosempresa.centrocClienteEmpresa = datos.datos.centrocClienteId;
         }
-
-        });
 
       });
 
@@ -225,7 +229,6 @@ export class InformacionempresaComponent implements OnInit {
           let mensaje = datos.mensaje;
           this.alerta.iconType = resultado ? "success" : "error";
           this.alerta.strTitulo = mensaje;
-          //this.alerta.strsubtitulo = mensaje
           this.alerta.modal = true;
 
         });

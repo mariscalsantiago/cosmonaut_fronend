@@ -31,6 +31,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   public fechaUltimo: string = "";
   public idEmpresa: number = 0;
   public estatusBaj: boolean = false;
+  public liquidacion: boolean = false; 
   
 
 
@@ -101,6 +102,15 @@ export class FormBajaEmpleadoComponent implements OnInit {
   public subirarchivos() {
 
   }
+
+  public validarTipoCalculo(calculo:any){
+    debugger;
+    if(calculo != ""){
+      if(calculo == 1){
+        this.liquidacion = true;
+      }
+   }
+ }
 
 
   public enviarPeticion() {
