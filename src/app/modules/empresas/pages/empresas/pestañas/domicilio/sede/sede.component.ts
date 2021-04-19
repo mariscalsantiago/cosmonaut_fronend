@@ -155,11 +155,11 @@ public activarCancel(){
           this.alerta.iconType = datos.resultado ? "success" : "error";
           this.alerta.strTitulo = datos.mensaje;
           this.alerta.modal = true;
-            if(datos.resultado){
+            /*if(datos.resultado){
               this.enviado.emit({
                 type:"sedeCont"
               });
-            }
+            }*/
         });
       }
       else if(this.datosempresa.insertar){
@@ -168,11 +168,11 @@ public activarCancel(){
           this.alerta.iconType = datos.resultado ? "success" : "error";
           this.alerta.strTitulo = datos.mensaje;
           this.alerta.modal = true;
-          if(datos.resultado){
+          /*if(datos.resultado){
               this.enviado.emit({
                 type:"sedeCont"
               });
-            }
+            }*/
         });
       }else{
 
@@ -198,11 +198,11 @@ public activarCancel(){
             this.alerta.iconType = datos.resultado ? "success" : "error";
             this.alerta.strTitulo = datos.mensaje;
             this.alerta.modal = true;
-            if(datos.resultado){
+            /*if(datos.resultado){
               this.enviado.emit({
                 type:"sedeCont"
               });
-            }
+            }*/
           });
       }
      }
