@@ -104,7 +104,7 @@ public activfiel(){
 
   ngOnChanges(changes: SimpleChanges) {
     debugger;
-     
+    this.datosempresa.activarGuardaMod= true;
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       
