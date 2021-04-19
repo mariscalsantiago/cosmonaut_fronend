@@ -11,7 +11,7 @@ export class MenuService {
     { nombre: "INICIO", icono: "icon_home", seleccionado: true,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"],routerLink:['/inicio'] },
     { nombre: "NOMINAS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                     {nombre:"ACTIVAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"HISTÓRICAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"HISTÓRICAS",routerLink:['/nominas/historicas'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"EXTRAORDINARIAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"FINIQUITO/LIQUIDACIÓN",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"PTU",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},

@@ -10,9 +10,10 @@ import { CalcularComponent } from './pages/activa/nomina/pestañas/calcular/calc
 import { PagarComponent } from './pages/activa/nomina/pestañas/pagar/pagar.component';
 import { TimbrarComponent } from './pages/activa/nomina/pestañas/timbrar/timbrar.component';
 import { CompletarComponent } from './pages/activa/nomina/pestañas/completar/completar.component';
+import { NominaHistoricasComponent } from './pages/nomina-historicas/nomina-historicas.component';
 
 @NgModule({
-    declarations:[NominasActivasComponent, NominaComponent, CalcularComponent, PagarComponent, TimbrarComponent, CompletarComponent],
+    declarations:[NominasActivasComponent, NominaComponent, CalcularComponent, PagarComponent, TimbrarComponent, CompletarComponent, NominaHistoricasComponent],
     imports:[CommonModule,ReactiveFormsModule,FormsModule,HttpClientModule,nominasRoutingModule,ShareModule]
 })
 export class nominasModule{
