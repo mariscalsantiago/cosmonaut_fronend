@@ -186,7 +186,7 @@
             <div  class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Grupo de nómina*</label>
-                    <select formControlName="grupoNominaId" class="form-control"
+                    <select (change)="cambiarGrupoNomina()" formControlName="grupoNominaId" class="form-control"
                         [ngClass]="{'is-invalid':f.grupoNominaId.errors && submitEnviado}">
                         <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
                     </select>
@@ -237,21 +237,34 @@
 
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Salario diario</label>
-                    <input disabled  type="text" name="" id="" class="form-control">
+                    <label for="exampleFormControlSelect1">Salario diario *</label>
+                    <input [ngClass]="{'is-invalid':f.salarioDiario.errors && submitEnviado}" formControlName="salarioDiario"  type="text" name="" id="" class="form-control">
+                    <div *ngIf="f.salarioDiario.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
                 </div>                   
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Salario base de cotización*</label>
-                    <input disabled  type="text" name="" id="" class="form-control">
+                <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Salario diario integrado *</label>
+                    <input [ngClass]="{'is-invalid':f.salarioDiarioIntegrado.errors && submitEnviado}" formControlName="salarioDiarioIntegrado"  type="text" name="" id="" class="form-control">
+                    <div *ngIf="f.salarioDiarioIntegrado.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
                 </div>  
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Pago IMSS*</label>
+                <div *ngIf="!grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Salario base cotización *</label>
+                    <input [ngClass]="{'is-invalid':f.sbc.errors && submitEnviado}" formControlName="sbc"  type="text" name="" id="" class="form-control">
+                    <div *ngIf="f.sbc.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>  
+                <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Pago IMSS *</label>
                     <input disabled  type="text" name="" id="" class="form-control">
-                </div>    
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">ISR*</label>
-                    <input disabled type="text" name="" id="" class="form-control">
-                </div>    
+                </div> 
+                <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Pago complementario *</label>
+                    <input disabled  type="text" name="" id="" class="form-control">
+                </div>      
                 <div *ngIf="f.tiposueldo.value == 'b'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Salario neto mensual*</label>
                     <input formControlName="sueldoNetoMensual" type="text" name="" id="" class="form-control"

@@ -37,6 +37,9 @@ export class EmpleoComponent implements OnInit {
   public textoArea: string = "";
   public mensajeModalito: string = "";
   public desabilitarinput: boolean = false;
+  public grupoNominaSeleccionado: any = {
+    pagoComplementario: false
+  };
 
 
   public aparecerTemp: boolean = true;
@@ -215,6 +218,9 @@ export class EmpleoComponent implements OnInit {
 
   public enviarPeticinoArea() {
 
+
+
+
     this.enviadoSubmitArea = true;
     if (this.myFormArea.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -325,9 +331,9 @@ export class EmpleoComponent implements OnInit {
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
-      sueldoBrutoMensual: 0,
+      sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
       sueldoNetoMensual: 0,
-      salarioDiario: [0, [Validators.required]],
+      salarioDiario: [{ value: obj.salarioDiario, disabled: true }, [Validators.required]],
       dias_vacaciones: [obj.diasVacaciones, [Validators.required]],
       metodo_pago_id: [obj.metodoPagoId?.metodoPagoId, [Validators.required]],
       tipoRegimenContratacionId: [obj.tipoRegimenContratacionId?.tipoRegimenContratacionId, [Validators.required]],
@@ -336,8 +342,9 @@ export class EmpleoComponent implements OnInit {
       tiposueldo: ['b', [Validators.required]],
       subcontratistaId: obj.subcontratistaId,
       puestoIdReporta: obj.jefeInmediatoId?.personaId,
-      fechaAltaImss: [(obj.fechaAltaImss !== undefined && obj.fechaAltaImss !== "") ? pipe.transform(new Date(Number(obj.fechaAltaImss)), "yyyy-MM-dd") : obj.fechaAltaImss]
-
+      fechaAltaImss: [(obj.fechaAltaImss !== undefined && obj.fechaAltaImss !== "") ? pipe.transform(new Date(Number(obj.fechaAltaImss)), "yyyy-MM-dd") : obj.fechaAltaImss],
+      sbc: [{ value: obj.sbc, disabled: true }],
+      salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, [Validators.required]]
     });
 
   }
@@ -352,6 +359,8 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
+
+
 
 
     this.submitEnviado = true;
@@ -432,7 +441,7 @@ export class EmpleoComponent implements OnInit {
           personaId: { personaId: this.datosPersona.personaId },
           centrocClienteId: { centrocClienteId: this.id_empresa },
           estadoId: { estadoId: obj.estadoId },
-          sbc: obj.salarioDiario,
+          sbc: obj.sbc,
           sedeId: { sedeId: obj.sedeId },
           esSindicalizado: obj.esSindicalizado,
           diasVacaciones: obj.dias_vacaciones,
@@ -553,20 +562,23 @@ export class EmpleoComponent implements OnInit {
     this.sueldoBruto = this.myForm.controls.tiposueldo.value == 'b';
     this.sueldoNeto = this.myForm.controls.tiposueldo.value == 'n';
 
-    this.myForm.controls.sueldoBrutoMensual.setErrors(null);
-    this.myForm.controls.sueldoNetoMensual.setErrors(null);
+    this.myForm.controls.sueldoNetoMensual.setValidators([]);
+    this.myForm.controls.sueldoNetoMensual.updateValueAndValidity();
+    this.myForm.controls.sueldoBrutoMensual.setValidators([]);
+    this.myForm.controls.sueldoBrutoMensual.updateValueAndValidity();
 
     if (this.sueldoNeto) {
 
 
-      this.myForm.controls.sueldoNetoMensual.setErrors({ required: true });
+      this.myForm.controls.sueldoNetoMensual.setValidators([Validators.required]);
+      this.myForm.controls.sueldoNetoMensual.updateValueAndValidity();
+
 
     }
 
     if (this.sueldoBruto) {
-      this.myForm.controls.sueldoBrutoMensual.setErrors({ required: true });
-
-
+      this.myForm.controls.sueldoBrutoMensual.setValidators([Validators.required]);
+      this.myForm.controls.sueldoBrutoMensual.updateValueAndValidity();
     }
 
     console.log();
@@ -634,5 +646,44 @@ export class EmpleoComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar la fecha de antigüedad");
       }
     }
+  }
+
+  public cambiarGrupoNomina() {
+    const gruponominaId = this.myForm.controls.grupoNominaId.value;
+
+    let aux;
+
+    for (let item of this.arreglogruponominas) {
+      if (item.id == gruponominaId) {
+        aux = item;
+        break;
+      }
+
+      aux = {
+        pagoComplementario: false
+      };
+    }
+
+    this.grupoNominaSeleccionado = aux;
+    //this.grupoNominaSeleccionado.pagoComplementario = true;
+
+    if (this.grupoNominaSeleccionado.pagoComplementario) {
+
+
+      this.myForm.controls.tiposueldo.disable();
+      this.myForm.controls.tiposueldo.setValue('n');
+
+      this.myForm.controls.tipoCompensacionId.disable();
+      this.myForm.controls.tipoCompensacionId.setValue(1);
+
+
+      this.myForm.controls.salarioDiario.enable();
+
+      this.cambiarSueldoField();
+    }
+
+    console.log(this.grupoNominaSeleccionado);
+
+
   }
 }
