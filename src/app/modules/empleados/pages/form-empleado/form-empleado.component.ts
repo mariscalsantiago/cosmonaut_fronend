@@ -22,7 +22,7 @@ export class FormEmpleadoComponent implements OnInit {
   public ocultarDetalleTransfrencia: boolean = true;
   public ocultarempleada: boolean = false;
   public cargandoIcon: boolean = false;
-  public tabsEnviar: any = [{}, undefined, {}];
+  public tabsEnviar: any = [{}, [{}], {}];
   public insertar: boolean = true;
 
 

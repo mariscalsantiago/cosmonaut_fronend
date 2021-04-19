@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >CURP *</label>
-                    <input (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
+                    <input maxlength="18" (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
                     <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>

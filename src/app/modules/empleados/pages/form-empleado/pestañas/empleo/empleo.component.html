@@ -354,6 +354,11 @@
                         Campo requerido
                     </div>
                 </div>
+                <div  class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                    <label for="exampleFormControlSelect1">Fecha de alta IMSS</label>
+                    <input (focusout)="validarFechaImss()" formControlName="fechaAltaImss"
+                        type="date" name="" id="" class="form-control">
+                </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Nombre de jornada*</label>
                     <select [ngClass]="{'is-invalid':f.jornadaId.errors && submitEnviado}" formControlName="jornadaId"

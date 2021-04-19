@@ -34,7 +34,7 @@ export class DomicilioComponent implements OnInit {
 
 
     console.log("eSTE ES EL DATO DE SU DOMICILIO",this.tabsDatos);
-    if(this.tabsDatos[1] !== undefined){
+    if(this.tabsDatos[1][0].domicilioId !== undefined){
       this.myForm = this.createForm(this.tabsDatos[1][0]);
       this.buscar(undefined);
 
@@ -100,7 +100,7 @@ export class DomicilioComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
        
-        if(this.tabsDatos[1][0] == undefined){
+        if(this.tabsDatos[1][0].domicilioId == undefined){
           this.domicilioPrd.save(objenviar).subscribe(datos =>{
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{

@@ -21,4 +21,8 @@ export class NominaHistoricasComponent implements OnInit {
   public btnDesglosar(){
       this.desglosarDown = !this.desglosarDown;
   }
+
+  public definirFecha(){
+    
+  }
 }
