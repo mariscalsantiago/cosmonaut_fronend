@@ -27,12 +27,13 @@ export class DatosimssComponent implements OnInit {
   public arregloImss: any = [];
   public objenviar: any = [];
   public insertarMof: boolean = false;
-
+  public resultado: boolean = false;
 
   constructor(private formBuilder:FormBuilder,private imssPrd: ImssService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    let obj = {};
+    debugger;
+
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
 
 
@@ -54,7 +55,6 @@ export class DatosimssComponent implements OnInit {
       emPrimaRiesgo:[obj.emPrimaRiesgo,[Validators.required, Validators.pattern(/[0-9]{1}(\.[0-9])/)]],
       emClaveDelegacionalImss:[obj.emClaveDelegacionalImss,[Validators.required, Validators.pattern(/^\d{2}$/)]],
       emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
-      emEnviarMovsImss:obj.emEnviarMovsImss,
       emCalculoAutoPromedioVar: obj.emCalculoAutoPromedioVar
     
     });
@@ -103,6 +103,7 @@ public activfiel(){
 
 
   ngOnChanges(changes: SimpleChanges) {
+    debugger;
      
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
@@ -118,7 +119,6 @@ public activfiel(){
           emPrimaRiesgo: obj.emPrimaRiesgo,
           emClaveDelegacionalImss: obj.emClaveDelegacionalImss,
           emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
-          emEnviarMovsImss: obj.emEnviarMovsImss,
           emCalculoAutoPromedioVar: obj.emCalculoAutoPromedioVar,
           centrocClienteId:{
               centrocClienteId: this.datosempresa.centrocClienteEmpresa
@@ -143,25 +143,25 @@ public activfiel(){
         this.alerta.iconType = datos.resultado ? "success" : "error";
         this.alerta.strTitulo = datos.mensaje;
         this.alerta.modal = true;
-      });
+
+        if(datos.resultado){
+          this.routerPrd.navigate(["/listaempresas"]);
+        }
+        });
 
       }else{
 
       this.objenviar.registroPatronalId = this.arregloImss.registroPatronalId;
       this.imssPrd.modificar(this.objenviar).subscribe(datos => {
+        this.resultado = datos.resultado;
         this.alerta.iconType = datos.resultado ? "success" : "error";
         this.alerta.strTitulo = datos.mensaje;
         this.alerta.modal = true;
-      });
-    }
-    }else{
-      if(this.alerta.iconType == "success"){
-        this.routerPrd.navigate(["/listaempresas"]);
-    }
-   
-    this.alerta.modal = false;
-    }
 
+      });
+
+    }
+    }
   }
 }
 

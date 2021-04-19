@@ -41,8 +41,8 @@
                     </datalist>
                 </div>-->
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                    <label>Tipo de baja *</label>
-                    <select formControlName="tipoBajaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoBajaId.errors && submitEnviado}">
+                    <label>Tipo de cálculo *</label>
+                    <select #calculo (focusout)="validarTipoCalculo(calculo.value)" formControlName="tipoBajaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoBajaId.errors && submitEnviado}">
                         <option value=""></option>
                         <option *ngFor="let item of arregloTipoBaja"  [value]="item.tipoBajaId">{{item.descripcion}}</option>
                     </select>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                    <label>Último día de baja*</label>
+                    <label>Fecha de baja*</label>
                    <input formControlName="ultimoDia" type="date" [ngClass]="{'is-invalid':f.ultimoDia.errors && submitEnviado}" class="form-control">
                    <div *ngIf="f.ultimoDia.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -73,23 +73,7 @@
                    <textarea formControlName="notas" type="textarea" maxlength="512" class="form-control">
                    </textarea>
                 </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label>Pagos que se harán por liquidación:</label>
 
-                    <label class="contenedorInputCheckRadio">Prima de antigüedad *
-                        <input value="1" formControlName="pagosXliquidacionId" type="radio" name="pagosXliquidacionId" id="">
-                        <span class="checkmark"></span>
-                      </label>
-                    <label class="contenedorInputCheckRadio">Indemnización 90 días *
-                            <input value="2" formControlName="pagosXliquidacionId" type="radio" name="pagosXliquidacionId" id="">
-                            <span class="checkmark"></span>
-                        </label>
-                    <label class="contenedorInputCheckRadio">Indemnización 20 días por año *
-                                <input value="3" formControlName="pagosXliquidacionId" type="radio" name="pagosXliquidacionId" id="">
-                                <span class="checkmark"></span>
-                        </label>
-    
-                </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label >Fecha para cálculo</label>
                     <label class="contenedorInputCheckRadio"> Fecha de antigüedad *
@@ -102,6 +86,24 @@
                         <span class="radiomark"></span>
                       </label>
                 </div>
+
+                <div *ngIf="liquidacion" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                  <label>Pagos que se harán por liquidación:</label>
+
+                  <label class="contenedorInputCheckRadio">Prima de antigüedad *
+                      <input  formControlName="pagosXliquidacionId" type="checkbox" name="pagosXliquidacionId" id="">
+                      <span class="checkmark"></span>
+                    </label>
+                  <label class="contenedorInputCheckRadio">Indemnización 20 días por año *
+                              <input formControlName="pagosXliquidacionId" type="checkbox" name="pagosXliquidacionId" id="">
+                              <span class="checkmark"></span>
+                      </label>
+                  <label class="contenedorInputCheckRadio">Indemnización 90 días *
+                        <input formControlName="pagosXliquidacionId" type="checkbox" name="pagosXliquidacionId" id="">
+                        <span class="checkmark"></span>
+                    </label>
+  
+              </div>
               
 
             </div>

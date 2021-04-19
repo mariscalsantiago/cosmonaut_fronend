@@ -76,7 +76,7 @@ export class EmpresasComponent implements OnInit {
   };
 
 
-  constructor(private usuarioSistemaPrd:UsuarioSistemaService,  private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService) {
+  constructor(private usuarioSistemaPrd:UsuarioSistemaService, private routerPrd: Router, private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService) {
     
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -152,7 +152,7 @@ export class EmpresasComponent implements OnInit {
 
   public recibirTabs(elemento: any) {
     
- 
+  debugger;
    switch (elemento.type) {
      case "informacion":
  
@@ -225,7 +225,7 @@ export class EmpresasComponent implements OnInit {
 
 public recibir(elemento: any) {
    
-
+debugger;
   switch (elemento.type) {
     case "informacion":
 
@@ -306,7 +306,7 @@ public recibir(elemento: any) {
 
   public recibirAlerta(obj: any) {
     
-     
+     debugger;
     this.cambiaValor = !this.cambiaValor;
      
 
@@ -322,6 +322,7 @@ public recibir(elemento: any) {
         this.continuarDom = false;
 
       }
+      debugger;
       if(this.continuarSede && obj){
         
         this.recibir({ type: "sedeDom", valor: true });
@@ -365,13 +366,20 @@ public recibir(elemento: any) {
           }
         }
 
+        if(indexSeleccionado==3 ){
+          indexSeleccionado=6;
+         }
+
         if(indexSeleccionado==1 && this.guardarDom){
            indexSeleccionado=3;
         }
+        
 
         if(indexSeleccionado==2 && this.cuentaBanco){
           indexSeleccionado=3;
        }
+
+
 
         switch (indexSeleccionado) {
           case 0:
@@ -387,6 +395,15 @@ public recibir(elemento: any) {
           case 3:
             this.guardarDom = false;
             this.cuentaBanco = false;
+          break;
+          case 4:
+            this.recibir({ type: "sedeDom", valor: true });
+          break;
+          case 5:
+            this.recibir({ type: "cuentaDatosBancarios", valor: true });
+          break;
+          case 6:
+            this.routerPrd.navigate(["/listaempresas"]);
           break;
 
         }

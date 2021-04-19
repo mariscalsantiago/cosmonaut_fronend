@@ -329,19 +329,19 @@ export class ListagruposnominasComponent implements OnInit {
 
           let columnas: Array<tabla> = [
             new tabla("nombre", "Nombre de grupo de nómina	"),
-            //new tabla("esquemanombre", "Esquema para pago de nómina"),
             new tabla("razon", " Razón social"),
+            new tabla("nombrecuenta", " Cuenta bancaria"),
             new tabla("nombremoneda", "Moneda"),
             new tabla("periodo", "Periodo de nómina"),
-            new tabla("nombremoneda", "Moneda"),
             new tabla("baseperiododescripcion", "Calcular periodo de nómina con base a:"),
             new tabla("periodoaguinaldodescripcion", "Periodo para pago de aguinaldo"),
             new tabla("isrAguinaldoReglamentodescripcion", "Calcular ISR de aguinaldo aplicando reglamento:"),
             new tabla("maneraCalcularSubsidiodescripcion", "Calcular subsidio al empleo de manera:"),
-            new tabla("nombremoneda", "Nómina automática")
+            new tabla("pagoComplementarioDes", "Pago complementario")
+            
           ];
-          debugger;
-          //item.esquemanombre = item.esquemaPagoId?.descripcion;
+          item.pagoComplementarioDes = item.pagoComplementario ? "Si" : "No";
+          item.nombrecuenta = item.cuentaBancoId?.nombreCuenta;
           item.nombremoneda = item.monedaId?.descripcion;
           item.baseperiododescripcion = item.basePeriodoId?.nombreCorto;
           item.periodoaguinaldodescripcion = item.periodoAguinaldoId?.descripcion;

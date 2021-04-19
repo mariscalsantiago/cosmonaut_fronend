@@ -94,7 +94,7 @@
     </div>
 </form>
 
-<table *ngIf="listaSedeNuevo" class="table table-hover table-sm">
+<!--<table *ngIf="listaSedeNuevo" class="table table-hover table-sm">
 
     <thead>
       <tr>
@@ -107,9 +107,30 @@
         </th>
       </tr>
     </thead> 
-  </table>
+  </table>-->
 
-  <div *ngIf="listaSedeModificar" class="scrooll-designempresa">
+  <div class="scrooll-designempresa">
+
+    <div class="mt-3">
+      <div class="row margen">
+        <div class="col titulo">
+          <label>RESULTADOS</label>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+            <i class="fa fa-plus"></i> Agregar sede
+          </button>
+        </div>
+      </div>
+      <div class="row margen margen-tabla background-panel scrooll">
+        <app-tablapaginado [datos]="arreglotabla" [editar]="true" [eliminar]="true" 
+        [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+      </div>
+    </div>
+    
+    
+    </div>
+  <!--<div *ngIf="listaSedeModificar" class="scrooll-designempresa">
 
     <div class="mt-3">
       <div class="row margen">
@@ -163,5 +184,5 @@
     </div>
     
     
-    </div>
+    </div>-->
   
