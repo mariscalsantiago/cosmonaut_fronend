@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +23,7 @@ import { InterceptorService } from './core/interceptores/interceptor.service';
 import localeEn from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeEn, 'es-MX');
+
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ registerLocaleData(localeEn, 'es-MX');
     },
     {
       provide:LOCALE_ID,useValue:'es-MX'
-    }],
+    },{provide: DEFAULT_CURRENCY_CODE,useValue:''}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
