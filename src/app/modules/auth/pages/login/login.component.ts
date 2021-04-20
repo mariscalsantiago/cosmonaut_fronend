@@ -44,11 +44,11 @@ export class LoginComponent implements OnInit {
 
 
     this.cargandoEmpresa = true;
-    this.companiaPrd.getAllCompany().subscribe(datos => {
-      this.cargandoEmpresa = false;
-      console.log(datos.datos);
-      this.arregloCompanias = datos.datos;
-    });
+    // this.companiaPrd.getAllCompany().subscribe(datos => {
+    //   this.cargandoEmpresa = false;
+    //   console.log(datos.datos);
+    //   this.arregloCompanias = datos.datos;
+    // });
 
   }
 
