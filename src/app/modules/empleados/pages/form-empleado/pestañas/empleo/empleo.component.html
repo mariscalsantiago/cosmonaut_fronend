@@ -119,7 +119,7 @@
                         name="browser" id="browser">
 
                     <datalist id="empleadosreporta">
-                        <option *ngFor="let item of arregloempleadosreporta" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno"></option>
+                        <option *ngFor="let item of arregloempleadosreporta" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno+' '+((item.personaId?.apellidoMaterno == undefined)?'':item.personaId?.apellidoMaterno)"></option>
                     </datalist>
                     <div *ngIf="f.puesto_id_reporta.errors" class="invalid-feedback">
                         No existe la persona seleccionada

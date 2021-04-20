@@ -77,7 +77,7 @@
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Correo personal *</label>
+                <label>Correo personal</label>
                 <input appMayusculas  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [minusculas]="true" formControlName="ciEmailPersonal" type="email" class="form-control text-lowercase"
                     [ngClass]="{'is-invalid':(f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched) || (f.ciEmailPersonal.errors?.required && summitenviado)}" placeholder="">
 
@@ -101,7 +101,7 @@
             </div>
 
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label >Celular *</label>
+                <label >Celular</label>
                 <input appSolonumeros formControlName="celular" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.celular.errors && summitenviado}"
                     placeholder="">
       

@@ -63,7 +63,10 @@ export class EmpleoComponent implements OnInit {
 
 
     this.areasPrd.getAreasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloArea = datos.datos);
-    this.empleadosPrd.getEmpleadosCompania(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloempleadosreporta = datos.datos);
+    this.empleadosPrd.getEmpleadosCompania(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.arregloempleadosreporta = datos.datos
+      console.log("reporta ",this.arregloempleadosreporta);
+    });
     this.sedesPrd.getsedeByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloSedes = datos.datos);
     this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
     this.jornadaPrd.jornadasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloJornadas = datos.datos);
@@ -93,7 +96,8 @@ export class EmpleoComponent implements OnInit {
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       puesto_id_reporta: obj.jefeInmediatoId?.personaId,
-      esSindicalizado: [`${obj.esSindicalizado}`]
+      esSindicalizado: [`${obj.esSindicalizado}`],
+      fechaAltaImss:obj.fechaAltaImss
     });
 
 
@@ -143,6 +147,11 @@ export class EmpleoComponent implements OnInit {
           const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
           obj.fechaFin = `${new Date(fecha1).getTime()}`;
         }
+
+        if (obj.fechaAltaImss != null && obj.fechaAltaImss != '') {
+          const fecha1 = new Date(obj.fechaAltaImss).toUTCString().replace("GMT", "");
+          obj.fechaAltaImss = `${new Date(fecha1).getTime()}`;
+        }
     
     
   
@@ -159,15 +168,16 @@ export class EmpleoComponent implements OnInit {
           tipoJornadaId:idTipoJornada,
           politicaId:{politicaId:obj.politicaId},
           jefeInmediatoId:{personaId:obj.puesto_id_reporta},
-          esSindicalizado:obj.esSindicalizado          
+          esSindicalizado:obj.esSindicalizado,
+          fechaAltaImss:obj.fechaAltaImss        
       }
 
     
-      
+      this.modalPrd.showMessageDialog(this.modalPrd.loading);
       this.contratoColaboradorPrd.update(objEnviar).subscribe(datos =>{
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
           if(datos.resultado){
-            console.log(datos);
             this.empleado = datos.datos;
             this.myForm = this.createForm(this.empleado);           
             this.editarcampos = false;
