@@ -39,7 +39,7 @@ export class CuentasComponent implements OnInit {
 
   ngOnInit(): void {
  
-   
+    this.datosempresa.activarGuardaMod= true;
     this.objdsede = this.datosempresa.idModificar;
     if(this.datosempresa.insertar){
       this.obj = { 
@@ -195,11 +195,11 @@ public activarCancel(){
               this.alerta.iconType = datos.resultado ? "success" : "error";
               this.alerta.strTitulo = datos.mensaje;
               this.alerta.modal = true;
-              if(datos.resultado){
+              /*if(datos.resultado){
                   this.enviado.emit({
                     type:"cuentasCont"
                   });
-                }
+                }*/
     
             });
           }
@@ -209,11 +209,11 @@ public activarCancel(){
           this.alerta.iconType = datos.resultado ? "success" : "error";
           this.alerta.strTitulo = datos.mensaje;
           this.alerta.modal = true;
-          if(datos.resultado){
+          /*if(datos.resultado){
           this.enviado.emit({ 
             type:"cuentasCont"
           });
-          }
+          }*/
 
         });
         }else{
@@ -223,11 +223,11 @@ public activarCancel(){
            this.alerta.iconType = datos.resultado ? "success" : "error";
            this.alerta.strTitulo = datos.mensaje;
            this.alerta.modal = true;
-           if(datos.resultado){
+           /*if(datos.resultado){
             this.enviado.emit({ 
               type:"cuentasCont"
             });
-            }
+            }*/
          });
      }
     }
