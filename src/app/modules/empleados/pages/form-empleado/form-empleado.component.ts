@@ -13,10 +13,10 @@ export class FormEmpleadoComponent implements OnInit {
   public titulo:string = "DAR DE ALTA EMPLEADO";
 
   public activado = [
-    { tab: true, form: false, disabled: false,seleccionado:true },
+    { tab: true, form: true, disabled: false,seleccionado:true },
     { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false ,seleccionado:false},
-    { tab: false, form: true, disabled: false,seleccionado:false },
+    { tab: false, form: false, disabled: false,seleccionado:false },
     { tab: false, form: false, disabled: false ,seleccionado:false}];
 
   public ocultarDetalleTransfrencia: boolean = true;
@@ -47,8 +47,6 @@ export class FormEmpleadoComponent implements OnInit {
       this.datosPersona = temp;
       this.datosPersona.insertar = history.state.insertar;
       this.tabsEnviar[0] = temp;
-
-      console.log("Este es el id a verificar",this.datosPersona.personaId);
       this.domicilioPrd.getDomicilioPorEmpleado(this.datosPersona.personaId).subscribe(datosdomicilio =>{
         console.log("Este es el detalle",datosdomicilio.datos);
           this.tabsEnviar[1] = datosdomicilio.datos;

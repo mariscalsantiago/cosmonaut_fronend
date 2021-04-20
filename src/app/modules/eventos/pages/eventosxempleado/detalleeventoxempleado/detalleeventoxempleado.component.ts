@@ -348,11 +348,12 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public perderFoco() {
+    
     const totalDias = this.myForm.controls.duracion.value;
     if (totalDias !== undefined || totalDias !== null) {
       var datePipe = new DatePipe("es-MX");
-      const fechaActual = new Date((new Date(this.myForm.controls.fechaInicio.value)).toUTCString().replace("GMT", ""));
-      const fechaFin = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + Number(totalDias));
+      let fechaActual = new Date((new Date(this.myForm.controls.fechaInicio.value)).toUTCString().replace("GMT", ""));
+      let fechaFin:Date = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + (Number(totalDias)<=0?0:Number(totalDias)-1));
 
       this.myForm.controls.fechaFin.setValue(datePipe.transform(fechaFin, "yyyy-MM-dd"));
     }

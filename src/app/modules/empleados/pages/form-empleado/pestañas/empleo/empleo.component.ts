@@ -333,7 +333,7 @@ export class EmpleoComponent implements OnInit {
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
       sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
       sueldoNetoMensual: 0,
-      salarioDiario: [{ value: obj.salarioDiario, disabled: true }, [Validators.required]],
+      salarioDiario: [{ value: obj.salarioDiario, disabled: true }, []],
       dias_vacaciones: [obj.diasVacaciones, [Validators.required]],
       metodo_pago_id: [obj.metodoPagoId?.metodoPagoId, [Validators.required]],
       tipoRegimenContratacionId: [obj.tipoRegimenContratacionId?.tipoRegimenContratacionId, [Validators.required]],
@@ -344,7 +344,7 @@ export class EmpleoComponent implements OnInit {
       puestoIdReporta: obj.jefeInmediatoId?.personaId,
       fechaAltaImss: [(obj.fechaAltaImss !== undefined && obj.fechaAltaImss !== "") ? pipe.transform(new Date(Number(obj.fechaAltaImss)), "yyyy-MM-dd") : obj.fechaAltaImss],
       sbc: [{ value: obj.sbc, disabled: true }],
-      salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, [Validators.required]]
+      salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []]
     });
 
   }
@@ -679,7 +679,17 @@ export class EmpleoComponent implements OnInit {
 
       this.myForm.controls.salarioDiario.enable();
 
+      this.myForm.controls.salarioDiario.setValidators([Validators.required]);
+      this.myForm.controls.salarioDiario.updateValueAndValidity();
+      this.myForm.controls.salarioDiarioIntegrado.setValidators([Validators.required]);
+      this.myForm.controls.salarioDiarioIntegrado.updateValueAndValidity();
+
       this.cambiarSueldoField();
+    }else{
+      this.myForm.controls.salarioDiario.setValidators([]);
+      this.myForm.controls.salarioDiario.updateValueAndValidity();
+      this.myForm.controls.salarioDiarioIntegrado.setValidators([]);
+      this.myForm.controls.salarioDiarioIntegrado.updateValueAndValidity();
     }
 
     console.log(this.grupoNominaSeleccionado);
