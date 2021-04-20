@@ -11,7 +11,7 @@ export class MenuService {
     { nombre: "INICIO", icono: "icon_home", seleccionado: true,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"],routerLink:['/inicio'] },
     { nombre: "NOMINAS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                     {nombre:"ACTIVAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"HISTÓRICAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"HISTÓRICAS",routerLink:['/nominas/historicas'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"EXTRAORDINARIAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"FINIQUITO/LIQUIDACIÓN",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"PTU",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
@@ -21,7 +21,8 @@ export class MenuService {
     { nombre: "EMPLEADOS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"LISTA Y ALTA DE EMPLEADOS",routerLink:['/empleados'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"BAJA DE EMPLEADOS",routerLink:['/empleados/bajaempleado'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                {nombre:"EMPLEADOS INCOMPLETOS",routerLink:['/empleados/empleadosincompletos'],rol:["ALL","ADMINEMPRESA"]}
+                                                                                {nombre:"EMPLEADOS INCOMPLETOS",routerLink:['/empleados/empleadosincompletos'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                {nombre:"CARGA MASIVA",routerLink:['/empleados/empleadosincompletos'],rol:["ALL","ADMINEMPRESA"]}
                                                                                 // {nombre:"DIRECTORIO",routerLink:[],rol:["ALL","ADMINEMPRESA"]}
                                                                               ]},
     { nombre: "EVENTOS", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[],submenu:[

@@ -17,7 +17,8 @@ export class PersonalComponent implements OnInit {
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
 
-
+  public domicilioCodigoPostal: any = [];
+  public insertarDomicilio: boolean = false;
 
 
 
@@ -33,13 +34,17 @@ export class PersonalComponent implements OnInit {
   public idEmpleado: number = -1;
 
   public arreglonacionalidad?: Promise<any>;
-  public arregloParenteesco?:Promise<any>;
-  public domicilioArreglo:any = [];
+  public arregloParenteesco?: Promise<any>;
+  public domicilioArreglo: any = [{}];
+  public nombreEstado: string = "";
+  public idEstado: number = 0;
+  public nombreMunicipio: string = "";
+  public idMunicipio: number = 0;
 
   constructor(private formBuilder: FormBuilder,
     private navparams: ActivatedRoute, private empleadoPrd: EmpleadosService,
     private catalogosPrd: CatalogosService, private usuarioSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService,private domicilioPrd:DomicilioService) { }
+    private modalPrd: ModalService, private domicilioPrd: DomicilioService) { }
 
   ngOnInit(): void {
     this.myForm = this.createForm({});
@@ -50,19 +55,37 @@ export class PersonalComponent implements OnInit {
 
 
 
-      this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datos => {
-        this.empleado = datos.datos;
-        console.log("Empleado",this.empleado);
-
+      this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datoscontrato => {
+        this.empleado = datoscontrato.datos;
         this.parsearInformacion();
-        this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datos =>{
-          this.domicilioArreglo = datos?.datos[0]
-          console.log("Direccion",this.domicilioArreglo);
+        this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
+          this.domicilioArreglo = datosnativo?.datos[0];
         });
-        
-        
 
-        this.myForm = this.createForm(this.empleado);
+        this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datosdomicilio => {
+
+          if (datosdomicilio.datos !== undefined) {
+
+            this.domicilioArreglo = datosdomicilio.datos[0];
+            for (let llave in datosdomicilio.datos[0]) {
+              this.empleado[llave] = datosdomicilio.datos[0][llave];
+
+
+            }
+            this.myForm = this.createForm(this.empleado);
+            this.buscar(undefined);
+
+            console.log("Este es el empleado fina", this.empleado);
+          } else {
+            this.createForm(this.empleado);
+          }
+
+          this.insertarDomicilio = datosdomicilio.datos == undefined;
+        });
+
+
+
+
 
       });
 
@@ -80,14 +103,69 @@ export class PersonalComponent implements OnInit {
 
 
 
+
+
+  public buscar(obj: any) {
+
+    this.myForm.controls.estado.setValue("");
+    this.myForm.controls.municipio.setValue("");
+
+    let valor: string = this.myForm.controls.codigo.value;
+
+    if (this.myForm.controls.codigo.errors?.pattern === undefined && valor !== null) {
+      if (valor.trim() !== "") {
+
+        this.catalogosPrd.getAsentamientoByCodigoPostal(valor).subscribe(datos => {
+
+          if (datos.resultado) {
+            this.domicilioCodigoPostal = datos.datos;
+
+            for (let item of datos.datos) {
+
+              this.nombreEstado = item.dedo;
+              this.nombreMunicipio = item.dmnpio;
+              this.idEstado = item.edo.estadoId;
+              this.idMunicipio = item.catmnpio.cmnpio;
+
+              this.myForm.controls.municipio.setValue(this.nombreMunicipio);
+              this.myForm.controls.estado.setValue(this.nombreEstado);
+
+
+            }
+
+
+            this.myForm.controls.asentamientoId.enable();
+            this.myForm.controls.numExterior.enable();
+            this.myForm.controls.numInterior.enable();
+            this.myForm.controls.calle.enable();
+          } else {
+            this.myForm.controls.asentamientoId.disable();
+            this.myForm.controls.numExterior.disable();
+            this.myForm.controls.numInterior.disable();
+            this.myForm.controls.calle.disable();
+            this.nombreEstado = "";
+            this.nombreMunicipio = "";
+            this.idEstado = -1;
+            this.idMunicipio = -1;
+            this.domicilioCodigoPostal = []
+
+          }
+        });
+
+      }
+    }
+  }
+
+
+
   public parsearInformacion() {
     if (this.empleado?.fechaNacimiento != null || this.empleado?.fechaNacimiento != undefined) {
 
-      if(Number.isInteger(this.empleado.fechaNacimiento)){
+      if (Number.isInteger(this.empleado.fechaNacimiento)) {
 
         let date: Date = new Date(this.empleado.fechaNacimiento);
         let dia = (date.getDate() < 10) ? `0${date.getDate()}` : `${date.getDate()}`;
-        let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`;
+        let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
         let anio = date.getFullYear();
         this.empleado.fechaNacimiento = `${dia}/${mes}/${anio}`;
 
@@ -105,41 +183,41 @@ export class PersonalComponent implements OnInit {
 
       }
 
-      switch(this.empleado.estadoCivil){
-          case "S":
-              this.empleado.estadoCivilDescripcion = "Soltero(a)";
-            break;
-            case "C":
-              this.empleado.estadoCivilDescripcion = "Casado(a)";
-            break;
-            case "D":
-              this.empleado.estadoCivilDescripcion = "Divorciado(a)";
-            break;
-            case "V":
-              this.empleado.estadoCivilDescripcion = "Viudo(a)";
-            break;
+      switch (this.empleado.estadoCivil) {
+        case "S":
+          this.empleado.estadoCivilDescripcion = "Soltero(a)";
+          break;
+        case "C":
+          this.empleado.estadoCivilDescripcion = "Casado(a)";
+          break;
+        case "D":
+          this.empleado.estadoCivilDescripcion = "Divorciado(a)";
+          break;
+        case "V":
+          this.empleado.estadoCivilDescripcion = "Viudo(a)";
+          break;
       }
 
     }
   }
 
-  
-  public validarfechNacimiento(fecha:any){
 
-    
+  public validarfechNacimiento(fecha: any) {
 
-      var x=new Date();
-      var fecha = fecha.split("-");
-      x.setFullYear(fecha[0],fecha[1]-1,fecha[2]);
-      var today = new Date();
- 
-      if (x > today){
 
-        this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la fecha actual')
-        .then(()=> {
+
+    var x = new Date();
+    var fecha = fecha.split("-");
+    x.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+    var today = new Date();
+
+    if (x > today) {
+
+      this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la fecha actual')
+        .then(() => {
           this.myForm.controls.fechaNacimiento.setValue("");
         });
-      }
+    }
   }
 
   public createForm(obj: any) {
@@ -166,8 +244,9 @@ export class PersonalComponent implements OnInit {
       }
 
     }
-    
 
+
+    console.log("Este es el código", obj.codigo);
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
@@ -189,7 +268,15 @@ export class PersonalComponent implements OnInit {
       contactoEmergenciaApellidoMaterno: [obj.contactoEmergenciaApellidoMaterno],
       contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail, [Validators.email]],
-      contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono
+      contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
+      codigo: [obj.codigo, [Validators.required, Validators.pattern('[0-9]+')]],
+      estado: [{ value: obj.estado, disabled: true }, [Validators.required]],
+      municipio: [{ value: obj.municipio, disabled: true }, [Validators.required]],
+      asentamientoId: [{ value: obj.asentamientoId, disabled: true }, [Validators.required]],
+      calle: [{ value: obj.calle, disabled: true }, [Validators.required]],
+      numExterior: [{ value: obj.numExterior, disabled: true }, [Validators.required]],
+      numInterior: { value: obj.numInterior, disabled: true }
+
     });
   }
 
@@ -202,12 +289,12 @@ export class PersonalComponent implements OnInit {
 
 
     if (this.myForm.invalid) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error);     
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas modificar los datos el empleado?").then(valor =>{
-      if(valor){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas modificar los datos el empleado?").then(valor => {
+      if (valor) {
 
         this.realizarOperacion();
 
@@ -216,7 +303,7 @@ export class PersonalComponent implements OnInit {
   }
 
 
-  public realizarOperacion(){
+  public realizarOperacion() {
 
     let obj = this.myForm.value;
 
@@ -224,8 +311,8 @@ export class PersonalComponent implements OnInit {
 
     if (this.myForm.controls?.fechaNacimiento.value != null && this.myForm.controls?.fechaNacimiento.value != '') {
       const date: String = new Date(`${obj.fechaNacimiento}`).toUTCString();
-      let aux = new Date(date.replace("GMT",""));
-      fechanacimiento = `${aux.getTime()}`;  
+      let aux = new Date(date.replace("GMT", ""));
+      fechanacimiento = `${aux.getTime()}`;
     }
 
 
@@ -273,21 +360,73 @@ export class PersonalComponent implements OnInit {
 
 
 
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.empleadoPrd.update(objenviar).subscribe(datos => {
 
+      if (datos.resultado) {
 
-      this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-        if(datos.resultado){
 
-          this.empleado = datos.datos;
-          this.parsearInformacion();
-          this.myForm = this.createForm(this.empleado);
-         
-          this.editarcampos = false;
 
-        }
-      });
+        this.empleado = datos.datos;
+        this.parsearInformacion();
+        this.actualizarDomicilio();
+        this.editarcampos = false;
+      }
+
     });
+  }
+
+  public actualizarDomicilio() {
+
+
+    let obj = this.myForm.value;
+
+    let objenviar: any =
+    {
+      codigo: obj.codigo,
+      municipio: this.idMunicipio,
+      estado: this.idEstado,
+      asentamientoId: obj.asentamientoId,
+      calle: obj.calle,
+      numExterior: obj.numExterior,
+      numInterior: obj.numInterior,
+      personaId: {
+        personaId: this.idEmpleado
+      }
+    }
+
+    console.log("Esto ando mandando", objenviar);
+
+    if (this.insertarDomicilio) {
+      this.domicilioPrd.save(objenviar).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        this.myForm = this.createForm(this.empleado);
+        this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
+          this.domicilioArreglo = datosnativo?.datos[0];
+        });
+
+      });
+    } else {
+
+
+      console.log(this.domicilioArreglo);
+      objenviar.domicilioId = this.domicilioArreglo.domicilioId;
+
+      this.domicilioPrd.update(objenviar).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        this.myForm = this.createForm(this.empleado);
+        this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
+          this.domicilioArreglo = datosnativo?.datos[0];
+        });
+
+      });
+    }
+
+
+
+
   }
 
   public cancelarOperacion() {

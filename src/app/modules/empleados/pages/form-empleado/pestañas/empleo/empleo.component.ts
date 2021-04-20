@@ -37,6 +37,9 @@ export class EmpleoComponent implements OnInit {
   public textoArea: string = "";
   public mensajeModalito: string = "";
   public desabilitarinput: boolean = false;
+  public grupoNominaSeleccionado: any = {
+    pagoComplementario: false
+  };
 
 
   public aparecerTemp: boolean = true;
@@ -166,7 +169,6 @@ export class EmpleoComponent implements OnInit {
     if (fecha != "") {
       var fecha = fecha.split("-");
       this.fechaIC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
-
       this.fechaICorreta = true;
 
     }
@@ -215,6 +217,9 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarPeticinoArea() {
+
+
+
 
     this.enviadoSubmitArea = true;
     if (this.myFormArea.invalid) {
@@ -318,7 +323,7 @@ export class EmpleoComponent implements OnInit {
       estadoId: [obj.estadoId?.estadoId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       personaId: [this.datosPersona.personaId, [Validators.required]],
-      esSindicalizado: [obj.esSindicalizado==undefined?'false':`${obj.esSindicalizado}`],
+      esSindicalizado: [obj.esSindicalizado == undefined ? 'false' : `${obj.esSindicalizado}`],
       fechaAntiguedad: [(obj.fechaAntiguedad !== undefined && obj.fechaAntiguedad !== "") ? pipe.transform(new Date(Number(obj.fechaAntiguedad)), "yyyy-MM-dd") : obj.fechaAntiguedad, [Validators.required]],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
       fechaInicio: [(obj.fechaInicio !== undefined && obj.fechaInicio !== "") ? pipe.transform(new Date(Number(obj.fechaInicio)), "yyyy-MM-dd") : obj.fechaInicio, Validators.required],
@@ -326,9 +331,9 @@ export class EmpleoComponent implements OnInit {
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
-      sueldoBrutoMensual: 0,
+      sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
       sueldoNetoMensual: 0,
-      salarioDiario: [0, [Validators.required]],
+      salarioDiario: [{ value: obj.salarioDiario, disabled: true }, []],
       dias_vacaciones: [obj.diasVacaciones, [Validators.required]],
       metodo_pago_id: [obj.metodoPagoId?.metodoPagoId, [Validators.required]],
       tipoRegimenContratacionId: [obj.tipoRegimenContratacionId?.tipoRegimenContratacionId, [Validators.required]],
@@ -336,8 +341,10 @@ export class EmpleoComponent implements OnInit {
       esSubcontratado: [obj.esSubcontratado],
       tiposueldo: ['b', [Validators.required]],
       subcontratistaId: obj.subcontratistaId,
-      puestoIdReporta: obj.jefeInmediatoId?.personaId
-
+      puestoIdReporta: obj.jefeInmediatoId?.personaId,
+      fechaAltaImss: [(obj.fechaAltaImss !== undefined && obj.fechaAltaImss !== "") ? pipe.transform(new Date(Number(obj.fechaAltaImss)), "yyyy-MM-dd") : obj.fechaAltaImss],
+      sbc: [{ value: obj.sbc, disabled: true }],
+      salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []]
     });
 
   }
@@ -352,6 +359,8 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
+
+
 
 
     this.submitEnviado = true;
@@ -395,16 +404,22 @@ export class EmpleoComponent implements OnInit {
         //******************************************* */
 
 
-        if (obj.fechaAntiguedad != undefined || obj.fechaAntiguedad != '') {
+        if (obj.fechaAntiguedad != undefined && obj.fechaAntiguedad != '') {
           obj.fechaAntiguedad = new Date((new Date(obj.fechaAntiguedad).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
         }
 
-        if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
+        if (obj.fechaInicio != undefined && obj.fechaInicio != '') {
           obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
         }
-        if (obj.fechaFin != undefined || obj.fechaFin != '') {
+        if (obj.fechaFin != undefined && obj.fechaFin != '') {
           obj.fechaFin = new Date((new Date(obj.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
         }
+
+        if (obj.fechaAltaImss != undefined && obj.fechaAltaImss != '') {
+          obj.fechaAltaImss = new Date((new Date(obj.fechaAltaImss).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+        }
+
+
 
         let objEnviar = {
           areaId: { areaId: obj.areaId },
@@ -426,19 +441,20 @@ export class EmpleoComponent implements OnInit {
           personaId: { personaId: this.datosPersona.personaId },
           centrocClienteId: { centrocClienteId: this.id_empresa },
           estadoId: { estadoId: obj.estadoId },
-          sbc: obj.salarioDiario,
+          sbc: obj.sbc,
           sedeId: { sedeId: obj.sedeId },
           esSindicalizado: obj.esSindicalizado,
           diasVacaciones: obj.dias_vacaciones,
           metodoPagoId: { metodoPagoId: obj.metodo_pago_id },
           jefeInmediatoId: {
-            personaId: this.puestoIdReporta
-          }
+            personaId: this.puestoIdReporta == 0 ? null : this.puestoIdReporta
+          },
+          fechaAltaImss: obj.fechaAltaImss
         }
 
 
 
-        
+
         if (this.tabsDatos[3]?.fechaContrato == undefined) {
           this.guardarContratoColaborador(objEnviar);
         } else {
@@ -546,20 +562,23 @@ export class EmpleoComponent implements OnInit {
     this.sueldoBruto = this.myForm.controls.tiposueldo.value == 'b';
     this.sueldoNeto = this.myForm.controls.tiposueldo.value == 'n';
 
-    this.myForm.controls.sueldoBrutoMensual.setErrors(null);
-    this.myForm.controls.sueldoNetoMensual.setErrors(null);
+    this.myForm.controls.sueldoNetoMensual.setValidators([]);
+    this.myForm.controls.sueldoNetoMensual.updateValueAndValidity();
+    this.myForm.controls.sueldoBrutoMensual.setValidators([]);
+    this.myForm.controls.sueldoBrutoMensual.updateValueAndValidity();
 
     if (this.sueldoNeto) {
 
 
-      this.myForm.controls.sueldoNetoMensual.setErrors({ required: true });
+      this.myForm.controls.sueldoNetoMensual.setValidators([Validators.required]);
+      this.myForm.controls.sueldoNetoMensual.updateValueAndValidity();
+
 
     }
 
     if (this.sueldoBruto) {
-      this.myForm.controls.sueldoBrutoMensual.setErrors({ required: true });
-
-
+      this.myForm.controls.sueldoBrutoMensual.setValidators([Validators.required]);
+      this.myForm.controls.sueldoBrutoMensual.updateValueAndValidity();
     }
 
     console.log();
@@ -586,7 +605,7 @@ export class EmpleoComponent implements OnInit {
     this.myForm.value.puestoIdReporta = undefined;
     const nombreCapturado = this.myForm.value.puesto_id_reporta;
     if (nombreCapturado !== undefined) {
-      if (nombreCapturado.trim() !== "") {
+      if (nombreCapturado?.trim() !== "") {
         let encontrado: boolean = false;
         for (let item of this.arregloempleadosreporta) {
           console.log(item);
@@ -603,5 +622,78 @@ export class EmpleoComponent implements OnInit {
         }
       }
     }
+  }
+
+
+  public validarFechaImss() {
+    debugger;
+    let fecha = this.myForm.controls.fechaAltaImss.value;
+    if (fecha != undefined && fecha != '') {
+      let fechaaux: Date = new Date((new Date(fecha).toUTCString()).replace(" 00:00:00 GMT", ""));
+      try {
+
+
+
+        if (!(this.myForm.controls.fechaAntiguedad.value !== '' && this.myForm.controls.fechaAntiguedad.value !== null)) {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar la fecha de antigüedad");
+        }
+        let fechaAntiguedad: Date = new Date((new Date(this.myForm.controls.fechaAntiguedad.value).toUTCString()).replace(" 00:00:00 GMT", ""));
+
+        if (!(fechaaux >= fechaAntiguedad)) {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha del imss no puede ser menor a la fecha de antigüedad del empleado");
+        }
+      } catch {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar la fecha de antigüedad");
+      }
+    }
+  }
+
+  public cambiarGrupoNomina() {
+    const gruponominaId = this.myForm.controls.grupoNominaId.value;
+
+    let aux;
+
+    for (let item of this.arreglogruponominas) {
+      if (item.id == gruponominaId) {
+        aux = item;
+        break;
+      }
+
+      aux = {
+        pagoComplementario: false
+      };
+    }
+
+    this.grupoNominaSeleccionado = aux;
+    //this.grupoNominaSeleccionado.pagoComplementario = true;
+
+    if (this.grupoNominaSeleccionado.pagoComplementario) {
+
+
+      this.myForm.controls.tiposueldo.disable();
+      this.myForm.controls.tiposueldo.setValue('n');
+
+      this.myForm.controls.tipoCompensacionId.disable();
+      this.myForm.controls.tipoCompensacionId.setValue(1);
+
+
+      this.myForm.controls.salarioDiario.enable();
+
+      this.myForm.controls.salarioDiario.setValidators([Validators.required]);
+      this.myForm.controls.salarioDiario.updateValueAndValidity();
+      this.myForm.controls.salarioDiarioIntegrado.setValidators([Validators.required]);
+      this.myForm.controls.salarioDiarioIntegrado.updateValueAndValidity();
+
+      this.cambiarSueldoField();
+    }else{
+      this.myForm.controls.salarioDiario.setValidators([]);
+      this.myForm.controls.salarioDiario.updateValueAndValidity();
+      this.myForm.controls.salarioDiarioIntegrado.setValidators([]);
+      this.myForm.controls.salarioDiarioIntegrado.updateValueAndValidity();
+    }
+
+    console.log(this.grupoNominaSeleccionado);
+
+
   }
 }

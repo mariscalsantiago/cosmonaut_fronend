@@ -113,6 +113,11 @@ export class EmpleadosService {
   }
 
 
+  public getPorcentajeavance(idEmpleado:number):Observable<any>{
+      return this.http.get(`${direcciones.usuarios}/validacion/captura/empleado/${idEmpleado}`);
+  }
+
+
 
 
 

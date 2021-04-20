@@ -88,3 +88,19 @@
     margin-left: 25px;
 }
 
+.alinear{
+    float:left;
+}
+
+
+.contenedorflex{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin-left: 25px;
+    margin-top:15px;
+}
+
+.elementoitem{
+    width: 50%;
+}

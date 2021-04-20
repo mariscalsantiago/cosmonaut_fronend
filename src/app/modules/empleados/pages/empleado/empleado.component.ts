@@ -17,6 +17,7 @@ export class EmpleadoComponent implements OnInit {
 
   public empleado: any = {};
   public idEmpleado: number = -1;
+  public porcentaje:any={porcentaje:0};
 
   constructor(private routerCan: ActivatedRoute,
     private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
@@ -25,8 +26,16 @@ export class EmpleadoComponent implements OnInit {
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
       this.idEmpleado = params["id"];
-      this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos => {
+      this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
+
         this.empleado = datos.datos;
+        console.log(this.empleado);
+
+      });
+
+      this.empleadosPrd.getPorcentajeavance(this.idEmpleado).subscribe(datos => {
+        this.porcentaje = datos;
+        console.log("Este es el %",this.porcentaje);
       });
     });
   }

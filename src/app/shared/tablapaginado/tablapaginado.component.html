@@ -26,7 +26,7 @@
             Tabla de beneficios	
           </th>
         <th *ngIf="porcentaje">Porcentaje de avance</th>
-        <th *ngIf="timbrado">Timbrado</th>
+        <th *ngIf="timbrado">Timbrar</th>
         <th *ngIf="ver || editar || eliminar || desglosar">Acciones</th>
       </tr>
     </thead>
@@ -58,6 +58,14 @@
                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{item.porcentaje}}%</div>
             </div>
           </td>
+          <th *ngIf="timbrado">
+
+            <label class="contenedorInputCheckRadio" style="text-align: center;    margin-left: 22px;">
+              <input [ngModel]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
+              <span class="checkmark"></span>
+            </label>
+
+          </th>
           <td class="opciones" [ngClass]="{'centrar':item.nombre !== 'Politica Estandar'}">
             <button *ngIf="ver" (click)="btnVer(item,indice)"><i class="icon_24ver primary-bg"></i></button>
             <button *ngIf="editar && item.nombre !== 'Politica Estandar'" (click)="btnEditar(item,indice)"><i class="icon_24editar primary-bg"></i></button>

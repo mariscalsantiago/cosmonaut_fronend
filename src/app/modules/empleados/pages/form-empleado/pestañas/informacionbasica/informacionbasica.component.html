@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >CURP *</label>
-                    <input (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
+                    <input maxlength="18" (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="" >
                     <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -115,9 +115,9 @@
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label >Estado civil</label>
                     <select formControlName="estadoCivil" name=""  class="form-control">
-                        <option value="S">Soltero(a)</option>
                         <option value="C">Casado(a)</option>
                         <option value="D">Divorciado(a)</option>
+                        <option value="S">Soltero(a)</option>                        
                         <option value="V">Viudo(a)</option>
                     </select>
                 </div>
