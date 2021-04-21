@@ -52,25 +52,33 @@ export class DetalleCompanyComponent implements OnInit {
 
     this.cargandoImg = true;
 
-    this.companyPrd.getEmpresaById(this.objCompany.centrocClienteId).subscribe(datos => {
-      this.cargandoImg = false;
-      this.imagen = datos.datos?.imagen;
-      
-    });
 
-    
+    console.log(this.objCompany,"el obj de compana");
+
+   
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       if (!this.insertar) {
+        this.companyPrd.getEmpresaById(this.objCompany.centrocClienteId).subscribe(datos => {
+          this.cargandoImg = false;
+          this.imagen = datos.datos?.imagen;
+          
+        });
         this.listaContacto();
         this.listcontacto = true;
+      }else{
+        this.cargandoImg = false;
       }
 
 
       
 
       this.myFormcomp = this.createFormcomp((this.objCompany));
+      if(this.objCompany.multiempresa){
+            this.myFormcomp.controls.rfc.setValidators([]);
+            this.myFormcomp.controls.rfc.updateValueAndValidity();
+      }
     });
 
 
@@ -259,6 +267,7 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public cambiarMultiempresa(){
+    this.objCompany.multiempresa = this.myFormcomp.controls.multiempresa.value;
     if(this.myFormcomp.controls.multiempresa.value){
       
       this.myFormcomp.controls.rfc.clearValidators();

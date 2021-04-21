@@ -40,11 +40,11 @@
                     <article *ngIf="!editarcampos">{{empleado.jefeInmediatoId?.nombre}} {{empleado.jefeInmediatoId?.apellidoPaterno}} {{empleado.jefeInmediatoId?.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
 
-                        <input list="empleadosreporta" class="form-control" formControlName="puesto_id_reporta"
+                        <input autocomplete="off" list="empleadosreporta" class="form-control" cache formControlName="puesto_id_reporta"
                             name="browser" id="browser">
 
                         <datalist id="empleadosreporta">
-                            <option *ngFor="let item of arregloempleadosreporta" [value]="item.nombre"></option>
+                            <option *ngFor="let item of arregloempleadosreporta" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno+' '+((item.personaId?.apellidoMaterno == undefined)?'':item.personaId?.apellidoMaterno)"></option>
                         </datalist>
 
                     </article>
@@ -245,6 +245,46 @@
                         </div>
                     </article>
                 </article>
+            </div>
+            <div class="row">
+                <article class="titulo  col">
+                    Fecha de IMSS
+                    <article></article>
+                </article>
+            </div>
+            <div class="row mb-4">
+                <article *ngIf="editarcampos" class="titulo col">
+                    Elegir fecha
+                    <article>
+                        <input [ngClass]="{'is-invalid':f.fechaAltaImss.errors && submitEnviado}" formControlName="fechaAltaImss"
+                            type="date" name="" id="" class="form-control">
+                        <div *ngIf="f.fechaAltaImss.errors && submitEnviado" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article>
+                <article *ngIf="!editarcampos" class="titulo  col">
+                    Año
+                    <article>
+                        {{empleado.fechaAltaImss | date:'yyyy'}}
+                    </article>
+                </article>
+                <article *ngIf="!editarcampos" class="titulo  col">
+                    Mes
+                    <article>
+                        {{empleado.fechaAltaImss | date:'MMMM'}}
+                    </article>
+                </article>
+                <article *ngIf="!editarcampos" class="titulo  col">
+                    Día
+                    <article>
+                        {{empleado.fechaAltaImss | date:'dd'}}
+                    </article>
+                </article>
+                <article class="titulo  col-12 col-lg">
+                </article>
+                <article class="titulo aparece-desktop  col">
+                    </article>
             </div>
 
         </div>

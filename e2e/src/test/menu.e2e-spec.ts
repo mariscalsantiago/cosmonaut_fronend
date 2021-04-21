@@ -2,7 +2,7 @@ import { $$, browser, by, element } from "protractor";
 
 describe("menu principal", () => {
     beforeAll(() => {
-        browser.get("http://localhost:4200/inicio");
+        
     });
 
 
@@ -18,6 +18,7 @@ describe("menu principal", () => {
         //     let element1 = elemento?.all(by.css("a"));
         //     element1?.click();
         // });
+        
     });
 
     it("Verificando administracion", () => {
@@ -34,10 +35,12 @@ describe("menu principal", () => {
         //         element1?.click();
         //     }
         // });
+      
+        
     });
 
 
-    it("Verificando empleados", async () => {
+    it("Verificando empleados", () => {
         // let menuflotante = element(by.id("listanavegadora"));
 
         // let buttons = menuflotante.all(by.css("li"));
