@@ -59,25 +59,29 @@ table{
   }
 
   .aniversarios{
-    background-color:#67bf89;
+    background-color:#67bf89 !important; 
   }
   .cumpleanios{
-    background-color:#4cc1b0;
+    background-color:#4cc1b0 !important;
   }
   .diaseconomicos{
-    background-color: #5db2c9;
+    background-color: #5db2c9 !important;
   }
   .faltas{
-      background-color: #7973ba;
+      background-color: #7973ba !important;
   }
   .horasextras{
-      background-color: #deaa57;
+      background-color: #deaa57 !important;
   }
   .incapacidades{
-      background-color: #e17b5b;
+      background-color: #e17b5b !important;
   }
   .vacaciones{
-    background-color: #bec3cd;
+    background-color: #bec3cd !important;
+  }
+
+  .otros{
+    background-color: #a31616;
   }
 
   .evento:hover{
@@ -91,7 +95,7 @@ table{
     position: fixed;
     width: 250px;
     height: 250px;
-    background-color: #67bf89;
+    
     color:white;
     border-radius: 25px;
   .cuerpo{

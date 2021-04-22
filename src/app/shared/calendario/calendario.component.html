@@ -38,9 +38,9 @@
                             *ngFor="let aux of item"><span class="absolutoClass"><span
                                     [ngClass]="{'diaActual':aux.esDiaNow}">{{aux.dia}}</span></span>
 
-                            <div (click)="aparecerModalEvento(evento,$event)" *ngFor="let evento of aux.eventos"
-                                [ngClass]="{'aniversarios':evento.nombre == 'aniversario','cumpleanios':evento.nombre == 'cumpleaños','faltas':evento.nombre == 'faltas','diaseconomicos':evento.nombre == 'diaseconomicos','vacaciones':evento.nombre == 'vacaciones','horasextras':evento.nombre == 'horasextras','incapacidades':evento.nombre == 'incapacidades'}"
-                                class="evento">
+                            <div (click)="aparecerModalEvento(evento,$event)" *ngFor="let evento of aux.eventos"  class="evento otros"
+                                [ngClass]="{'aniversarios':evento.tipoIncidenciaId == 'aniversario','cumpleanios':evento.tipoIncidenciaId == 8,'faltas':evento.tipoIncidenciaId == 5,'diaseconomicos':evento.tipoIncidenciaId == 2,'vacaciones':evento.tipoIncidenciaId == 1,'horasextras':evento.tipoIncidenciaId == 13 || evento.nombre == 14,'incapacidades':evento.tipoIncidenciaId == 3}"
+                               >
                                 {{evento.nombre}}
                             </div>
 
@@ -56,19 +56,19 @@
 </div>
 
 
-<div *ngIf="aparecerModalita" [style.top]="top+'px'" [style.left]="left+'px'" class="modalita flip-in-hor-bottom ">
+<div *ngIf="aparecerModalita" [style.top]="top+'px'"  [style.background-color]="eventoActual.color" [style.left]="left+'px'" class="modalita flip-in-hor-bottom " >
     <button style="color:white" (click)="aparecerModalita = false" type="button" class="close btnclosemodal mr-2"
         data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="cuerpo">
-        <span style="color:white;font-size: small;">Aniversario</span> <br>
+        <span style="color:white;font-size: small;">{{eventoActual.incidenciaDescripcion}}</span> <br>
         <span style="    color: white;
     font-size: large;
-">Santiago antono mariscal</span> <br> <br>
+">{{eventoActual.nombre}}</span> <br> <br>
 
-<span style="color:white;font-size: small;"><i class="fas fa-hourglass-half"></i>  &nbsp;Aniversario número: 18</span> <br>
-<span style="color:white;font-size: small;">Ingreso: 18 Sept 2012</span>
+<span style="color:white;font-size: small;"><i class="fas fa-hourglass-half"></i>  &nbsp;Número de empleado: {{eventoActual.numeroEmpleado}}</span> <br>
+<span style="color:white;font-size: small;">Ingreso: {{eventoActual.fechaContrato | date:'yyyy MMM dd'}}</span>
 <br><br><br>
 <div style="width: 100%; text-align: center;">
     <button style="background-color: white; color:black"  class="btn btn-primary button-outlet mr-2">Enviar informe</button>

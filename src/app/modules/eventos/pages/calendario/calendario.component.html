@@ -12,7 +12,7 @@
 
 
 <div class="row   margen-tabla background-panel  background-ajustar" appTamanioVentana [pixeles]="145">
-    <div class="col-4 mt-2">
+    <div class="col-2 mt-2">
         <div class="col-12">
             <label class="primary">GESTIONAR EVENTOS</label>
             <div>
@@ -22,7 +22,7 @@
                   </label>     
             </div>
             <div>
-                <label class="contenedorInputCheckRadio cumpleanios">Cumpleaños
+                <label class="contenedorInputCheckRadio cumpleanios">Retardos
                     <input  checked type="checkbox" name="" id="">
                     <span class="checkmark cumpleanios"></span>
                   </label>     
@@ -62,8 +62,33 @@
         
 
     </div>
-    <div class="col-8">
-        <app-calendario [arregloEventos]="arregloEventos" [arregloAreas]="arregloAreas"></app-calendario>
+    <div class="col-10">
+
+        
+        <div id="accordion" class="acordion_desplegable">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Calendario
+                  </button>
+                </h5>
+              </div>
+          
+              <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <app-calendario [eventos]="eventos" [arregloEventos]="arregloEventos" [arregloAreas]="arregloAreas"  (salida)="recibirTabla($event)"></app-calendario>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+    </div>
+    
+    <div class="col-12">
+
+        <app-tablapaginado [datos]="arreglotabla"  [cargando]="cargando" (salida)="recibirTabla($event)" ></app-tablapaginado>
+                      
     </div>
 </div>
 
