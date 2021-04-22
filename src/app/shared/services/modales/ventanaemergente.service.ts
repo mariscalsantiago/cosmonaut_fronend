@@ -9,6 +9,7 @@ export class VentanaemergenteService {
   public nuevanomina: string = "nuevanomina";
   public timbrado: string = "timbrado";
   public timbrar: string = "timbrar";
+  public fotoperfil:string = "fotoperfil";
   public percepciones: string = "percepciones";
   
 
@@ -24,6 +25,7 @@ export class VentanaemergenteService {
     nuevanomina: false,
     timbrado: false,
     timbrar: false,
+    fotoperfil:false,
     percepciones: false
   }
 
@@ -55,6 +57,10 @@ export class VentanaemergenteService {
           this.mostrar.percepciones = true;
           this.emergente.titulo = "Agregar percepciónes";
       break;
+      case this.fotoperfil:
+          this.mostrar.fotoperfil = true;
+          this.emergente.titulo = "Elegir foto de perfil";
+          break;
     }
 
 

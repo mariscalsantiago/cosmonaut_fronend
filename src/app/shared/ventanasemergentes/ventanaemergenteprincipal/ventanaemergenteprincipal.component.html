@@ -14,6 +14,7 @@
             <app-ventana-nuevanomina *ngIf="mostrar.nuevanomina" (salida)="recibirEmergente($event)"></app-ventana-nuevanomina>
             <app-nominaactiva-fechatimbrado  *ngIf="mostrar.timbrado" (salida)="recibirEmergente($event)"></app-nominaactiva-fechatimbrado>
             <app-nominaactiva-timbrar  *ngIf="mostrar.timbrar" (salida)="recibirEmergente($event)"></app-nominaactiva-timbrar>
+            <app-subir-foto-perfil *ngIf="mostrar.fotoperfil" (salida)="recibirEmergente($event)"></app-subir-foto-perfil>
             <app-ventana-percepciones *ngIf="mostrar.percepciones" (salida)="recibirEmergente($event)"></app-ventana-percepciones>
         </div>
     </div>

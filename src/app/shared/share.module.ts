@@ -18,6 +18,8 @@ import { VentanaNuevanominaComponent } from './ventanasemergentes/tiposventanas/
 import { AlfanumericoDirective } from './directivas/alfanumerico.directive';
 import { NominaactivaFechatimbradoComponent } from './ventanasemergentes/tiposventanas/nominaactiva-fechatimbrado/nominaactiva-fechatimbrado.component';
 import { NominaactivaTimbrarComponent } from './ventanasemergentes/tiposventanas/nominaactiva-timbrar/nominaactiva-timbrar.component';
+import { SubirFotoPerfilComponent } from './ventanasemergentes/tiposventanas/subir-foto-perfil/subir-foto-perfil.component';
+
 import { VentanaPercepcionesComponent } from './ventanasemergentes/tiposventanas/ventana-percepciones/ventana-percepciones.component';
 
 @NgModule({
@@ -43,6 +45,7 @@ import { VentanaPercepcionesComponent } from './ventanasemergentes/tiposventanas
     AlfanumericoDirective,
     NominaactivaFechatimbradoComponent,
     NominaactivaTimbrarComponent,
+    SubirFotoPerfilComponent,
     VentanaPercepcionesComponent
 
   ],

@@ -77,7 +77,7 @@ export class TablapaginadoComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
 
 
-    console.log("Si cambio la tabla vamos a ver", this.datos.filas);
+    
 
 
     if (this.datos.filas !== undefined) {
