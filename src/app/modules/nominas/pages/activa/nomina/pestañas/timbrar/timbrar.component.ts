@@ -27,26 +27,26 @@ export class TimbrarComponent implements OnInit {
   ngOnInit(): void {
 
     this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-      this.arreglo = datos.datos;
+      this.arreglo = [datos.datos[0]];
 
 
       let columnas:Array<tabla> = [
         new tabla("nombrecompleto","Empleados"),
-        new tabla("tipo","Tipo de pago",false,false,true),
+        new tabla("tipo","Método de pago",false,false,true),
         new tabla("total","Total neto",false,false,true),
         new tabla("fecha","Fecha de pago de timbrado",false,false,true),
-        new tabla("status","Estatus",false,false,true)
+        new tabla("status","Estatus ",false,false,true)
   
       ];
   
   
       for(let item of this.arreglo){
-          item["nombrecompleto"]=item.personaId.nombre+" "+item.personaId.apellidoPaterno;
-          item["rfc"]=item.personaId.rfc;
+          item["nombrecompleto"]="Santiago Dario Ocampo";
+          item["rfc"]="OCSA8809087Z7";
           item["diaslaborados"]="BBVA Bancomer";
-          item["percepciones"]="$26,200.00";
+          item["percepciones"]="$16,499.96";
           item["tipo"]="Transferencia";
-          item["total"]="$25,700.00";
+          item["total"]="$13,271.36";
           item["status"]="Sin timbrar";
           item["fecha"]=new DatePipe("es-MX").transform(new Date(),"dd-MMM-yy")?.replace(".","");
       }

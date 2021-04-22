@@ -29,10 +29,15 @@ export class EmpleadoComponent implements OnInit {
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
       this.idEmpleado = params["id"];
+
+      this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos =>{
+         console.log("Este el el perfil del EMPLEADO",datos.datos);
+      });
+
       this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
 
         this.empleado = datos.datos;
-        console.log(this.empleado);
+       
 
       });
 

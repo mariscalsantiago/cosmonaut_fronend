@@ -37,6 +37,8 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public icondefault: string = "default";
 
   @Output() public salida = new EventEmitter();
+  @Input() public nominacalculo:boolean = false;
+  @Input() public nominatimbrar:boolean = false;
 
   public arreglotemp: any = [];
 

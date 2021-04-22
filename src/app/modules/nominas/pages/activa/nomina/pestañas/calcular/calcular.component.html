@@ -10,14 +10,18 @@
                   <input appAlfanumerico type="text" class="form-control"  placeholder="Primer apellido">
               </div>
               <div class=" input-group-sm mb-3 col-3 ">
-                  <select class="form-control" >
-                      <option value="">Seleccionar área</option>
-                  </select>
+                 <input type="text" name="" placeholder="RFC" id="" class="form-control">
               </div>
               <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
                   <button type="button" class="btn btn-primary button-outlet " >FILTRAR</button>
                 </div>
 
+
+                    <div class="col-12 text-right">
+                        <button type="button" class="btn btn-primary button-outlet mr-3" >Descargar</button>
+                        <button type="button" class="btn btn-primary button-outlet " >Descargar RFC's</button>
+                    </div>
+              
               
           </div>
 
@@ -29,23 +33,31 @@
               </div>
               <div class="col-2">
                 <article>Percepciones
-                    <article>$234.43</article>
+                    <article>$16,499.96</article>
                   </article>
             </div>
             <div class="col-2">
                 <article>Deducciones
-                    <article>$234.43</article>
+                    <article>$3,380.60</article>
                   </article>
             </div>
             <div class="col-2">
                 <article>Total
-                    <article>$234.43</article>
+                    <article>$13,271.36</article>
                   </article>
             </div>
           </div>
 
           <div class="row">
               <div class="col">
-                <app-tablapaginado [arreglotablaDesglose]="arreglotablaDesglose" [datos]="arreglotabla"  [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
+                <app-tablapaginado [nominacalculo]="true" [arreglotablaDesglose]="arreglotablaDesglose" [datos]="arreglotabla"  [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col">
+                <a style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle mt-3">
+                    <i style="background-color: #56dfd4 !important;" class="icon_eliminar "></i>
+                    Eliminar nómina</a>
               </div>
           </div>

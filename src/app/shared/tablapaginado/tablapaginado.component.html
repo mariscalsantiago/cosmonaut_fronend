@@ -12,6 +12,7 @@
   </div>
 </div>
 <div style="margin: 10px;overflow: auto;">
+ 
   <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover  anchura ">
     <thead>
       <tr>
@@ -32,7 +33,7 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let item of arreglo; let indice = index;">
-        <tr class="fade-in-second">
+        <tr class="fade-in-second" >
           <td *ngIf="checkbox">
             <label class="contenedorInputCheckRadio">
               <input [ngModel]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
@@ -82,7 +83,7 @@
           <td colspan="5"> <div  class="col text-center mb-5">
             <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
           </div></td></tr>
-        <tr *ngIf="!item.desglosarDown && !item.cargandoDetalle" class="slide-in-bck-center">
+        <tr *ngIf="!item.desglosarDown && !item.cargandoDetalle && !nominacalculo" class="slide-in-bck-center">
           <td colspan="90%">
             <div class="row mb-4">
               <article *ngFor="let item of arreglotablaDesglose?.columnas;let indice = index;"   class="titulo  col-4 mb-3">
@@ -91,6 +92,80 @@
               </article>  
             </div>
           </td>
+        </tr>
+        <tr *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominacalculo" class="slide-in-bck-center">
+          <td >
+          
+              <article   class="titulo  col-12 mb-3">
+                 Salario diario
+                <article>$1,084.93</article>
+              </article>  
+            
+          </td>
+          <td>
+       
+          </td>
+          <td >
+         
+              <article   class="titulo  col-12 mb-3">
+                 Días del período
+                <article>15.2</article>
+              </article>  
+       
+          </td>
+          <td >
+       
+              <article   class="titulo  col-12 mb-3">
+                 sueldo
+                <article>$16,499.96</article>
+              </article>  
+    
+          </td>
+          <td >
+       
+            <article   class="titulo  col-12 mb-3">
+               ISR
+              <article>$2,917.75</article>
+            </article>  
+  
+        </td>
+        </tr>
+        <tr *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominacalculo" class="slide-in-bck-center">
+          <td >
+          
+              <article   class="titulo  col-12 mb-3">
+                 
+                <article></article>
+              </article>  
+            
+          </td>
+          <td>
+       
+          </td>
+          <td >
+         
+              <article   class="titulo  col-12 mb-3">
+                 
+                <article></article>
+              </article>  
+       
+          </td>
+          <td >
+       
+              <article   class="titulo  col-12 mb-3">
+                 
+                <article></article>
+              </article>  
+    
+          </td>
+          <td >
+       
+            <article   class="titulo  col-12 mb-3">
+               IMSS
+              <article>$462.85</article>
+            </article>  
+  
+        </td>
         </tr>
       </ng-container>
     </tbody>
