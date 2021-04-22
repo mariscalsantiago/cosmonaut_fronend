@@ -55,7 +55,7 @@ export class DetallegruponominaComponent implements OnInit {
       }
 
 
-      this.cuentasBancariasPrd.getAllByEmpresa(this.id_empresa).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
+      this.cuentasBancariasPrd.getCuentaFuncion(this.id_empresa).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
       console.log("Cuentas bancarias",this.arregloCuentasBancarias);
       this.companiaPrd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arreglocompany = datos.datos);
     });

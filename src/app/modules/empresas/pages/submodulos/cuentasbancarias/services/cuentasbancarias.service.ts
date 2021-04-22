@@ -45,6 +45,19 @@ export class CuentasbancariasService {
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
+  public savePercepcionEmpleado(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    console.log(`guardar`);
+    console.log(json);
+    return this.http.put(`${direcciones.conceptos}/guardaPercepcionEmpleado`,json,httpOptions);
+  }
+
 
 
   public  modificar(obj:any):Observable<any>{
@@ -84,6 +97,14 @@ export class CuentasbancariasService {
 
   public getByEmpleado(idEmpleado:number):Observable<any>{
     return  this.http.get(`${direcciones.cuentasbancarias}/obtener/persona/${idEmpleado}`);
+  }
+
+  public getObtenerMontoPercepcion(montoTotal:number,numeroPeriodos:number):Observable<any>{
+    return  this.http.get(`${direcciones.conceptos}/obtener/monto/percepcion/${montoTotal}/${numeroPeriodos}`);
+  }
+
+  public getObtenerPeriodicidad(id_empresa:number,tipoPeriodicidad:string):Observable<any>{
+    return  this.http.get(`${direcciones.conceptos}/obtener/percepcion/periodicidad/${id_empresa}/${tipoPeriodicidad}`);
   }
 
 }

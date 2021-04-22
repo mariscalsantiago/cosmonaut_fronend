@@ -28,7 +28,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     nuevanomina:false,
     timbrado:false,
     timbrar:false,
-    fotoperfil:false
+    fotoperfil:false,
+    percepciones:false
   }
 
   @HostListener('window:resize', ['$event'])
