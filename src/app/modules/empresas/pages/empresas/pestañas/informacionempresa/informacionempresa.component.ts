@@ -84,11 +84,12 @@ export class InformacionempresaComponent implements OnInit {
     this.imagen = imagen;
   }
   public createForm(obj: any) {
-
+    debugger;
     if (!this.datosempresa.insertar) {
 
       obj.certext = 'Certificado de sello digital cargado';
       obj.keytext = 'Llave de certificado de sello digital cargado';
+      obj.contrasenia = '123456789';
       
     }
     return this.formBuilder.group({
@@ -126,7 +127,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-
+    debugger
     this.submitEnviado = true;
     let noesRFC: boolean = (this.myform.controls.regimenfiscalId.value == null || this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
 
@@ -134,10 +135,18 @@ export class InformacionempresaComponent implements OnInit {
       let invalido: boolean = true;
       if (!noesRFC) {
         for (let item in this.myform.controls) {
+          if(this.obj.cerKeyConstrasenia){
+            this.myform.controls.cer.setValidators([]);
+            this.myform.controls.cer.updateValueAndValidity();
+            this.myform.controls.key.setValidators([]);
+            this.myform.controls.key.updateValueAndValidity();
 
+          if (item == "cer"  || item == "key" || item == "contrasenia" || item == "curpInv")
+            continue;
+          }else{
           if (item == "curpInv")
             continue;
-
+          }
           if (this.myform.controls[item].invalid) {
             invalido = true;
             break;
@@ -145,7 +154,6 @@ export class InformacionempresaComponent implements OnInit {
           invalido = false;
         }
       }
-
       if (invalido) {
         this.mostrarMessage();
         return;
@@ -181,9 +189,13 @@ export class InformacionempresaComponent implements OnInit {
       } else {
         this.curpFinal = obj.curp
       }
+      if (obj.cer != null && obj.key != null) {
+        this.obj.cerKeyConstrasenia = false;
+      }
       let objenviar:any = {
            nombre : obj.nombre,
            razonSocial : obj.razonSocial,
+           cerKeyConstrasenia: this.obj.cerKeyConstrasenia,
            rfc : obj.rfc ,
            regimenfiscalId:{
             regimenfiscalId: obj.regimenfiscalId
