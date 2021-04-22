@@ -35,7 +35,8 @@ export class PagosComponent implements OnInit {
   public idEmpleado:number = -1;
   public cuentaBanco: any = [];
   public empleado:any = {};
-  public cargando: Boolean = false;
+  public cargando: boolean = false;
+  public detalleCuenta: boolean = false;
   
 
   public myFormMetodoPago!:FormGroup;
@@ -75,11 +76,18 @@ export class PagosComponent implements OnInit {
     this.idEmpleado = params["id"];
 
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-      this.empleado = datos.datos;
 
+      debugger;
+      this.empleado = datos.datos;
+      if(this.empleado.metodoPagoId.metodoPagoId == 4){
+      this.detalleCuenta = true;
+      }else{
+        this.detalleCuenta = false;
+      }
     });;
 
     this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos =>{
+      debugger;
       this.cuentaBanco = datos.datos;
       console.log("cuentas",this.cuentaBanco);
     });
@@ -150,7 +158,7 @@ export class PagosComponent implements OnInit {
   }
 
   public editandoMetodoPago(obj:any){
-    
+    this.detalleCuenta= false;    
     this.myFormMetodoPago = this.createMyFormMetodoPago({});
     this.metodopagobool = true;
     if(obj == undefined){
