@@ -32,7 +32,7 @@ export class ContenidoComponent implements OnInit {
     nuevanomina:false,
     timbrado:false,
     timbrar:false,
-    fotoperfil:false
+    fotoperfil:false,
     percepciones: false
   }
 

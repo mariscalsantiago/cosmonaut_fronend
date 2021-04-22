@@ -187,14 +187,8 @@ public agregarNuevaPercepción(obj:any){
   this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
   this.bancosPrd.savePercepcionEmpleado(obj).subscribe(datos => {
-    setTimeout(() => {
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-    }, 1000);
-    this.modalPrd.showMessageDialog(datos.resultados,datos.mensaje).then(()=>{
-      /*if(datos.resultado){
-          this.cancelar();
-      }*/
-    });
+    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
   });
 
 
