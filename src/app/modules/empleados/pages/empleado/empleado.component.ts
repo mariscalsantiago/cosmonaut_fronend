@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ContratocolaboradorService } from '../../services/contratocolaborador.service';
 import { EmpleadosService } from '../../services/empleados.service';
@@ -21,7 +23,8 @@ export class EmpleadoComponent implements OnInit {
 
   constructor(private routerCan: ActivatedRoute,
     private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
-    private empledoContratoPrd: ContratocolaboradorService) { }
+    private empledoContratoPrd: ContratocolaboradorService,private ventana:VentanaemergenteService,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
@@ -88,6 +91,24 @@ export class EmpleadoComponent implements OnInit {
   }
 
 
+  public subirFotoperfil(){
+    this.ventana.showVentana(this.ventana.fotoperfil,{ventanaalerta:true}).then(valor =>{
+      if(valor.datos != "" && valor.datos != undefined){
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos =>{
+            let objEnviar = {
+              ...datos.datos,
+              imagen:valor.datos
+            }
+
+            this.empleadosPrd.update(objEnviar).subscribe(actualizado =>{
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(actualizado.resultado,actualizado.message);
+            });
+          });
+      }
+    });
+  }
 
 
 }
