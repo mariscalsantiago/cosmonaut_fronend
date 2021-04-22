@@ -15,18 +15,17 @@
           <a (click)="backTab(0)" class="nav-item nav-link "
             [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab" role="tab"
             aria-controls="nav-home" aria-selected="true">1. Calcular</a>
-          <a (click)="backTab(1)" class="nav-item nav-link "
+            <a (click)="backTab(1)" class="nav-item nav-link "
             [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}"
             id="nav-profile-tab" role="tab" aria-controls="nav-profile" aria-selected="false">2. Dispersar</a>
           <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
           <a (click)="backTab(2)" class="nav-item nav-link "
             [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled,'selecciona':activado[2].seleccionado}"
-            id="nav-contact-tab" role="tab" ∫aria-controls="nav-empleo" aria-selected="false">3. Timbrar
+            id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">3. Timbrar
             empleo</a>
-          <a (click)="backTab(3)" class="nav-item nav-link "
+            <a (click)="backTab(3)" class="nav-item nav-link "
             [ngClass]="{'activado':activado[3].tab,'disabled':activado[3].disabled,'selecciona':activado[3].seleccionado}"
-            id="nav-contact-tab" role="tab" aria-controls="nav-detalle" aria-selected="false">4. Concluirs
-            cuenta</a>
+            id="nav-contact-tab" role="tab" aria-controls="nav-detalle" aria-selected="false">4. Concluir</a>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
