@@ -607,9 +607,11 @@ export class EmpleoComponent implements OnInit {
     if (nombreCapturado !== undefined) {
       if (nombreCapturado?.trim() !== "") {
         let encontrado: boolean = false;
+        let nombreCompleto = "";
         for (let item of this.arregloempleadosreporta) {
           console.log(item);
-          const nombreCompleto = item.personaId.nombre + " " + item.personaId.apellidoPaterno;
+         nombreCompleto = item.personaId.nombre + " " + item.personaId.apellidoPaterno+" "+(item.personaId.apellidoMaterno == undefined ? "":item.personaId.apellidoMaterno);
+          
           if (nombreCompleto.includes(nombreCapturado)) {
             encontrado = true;
             this.puestoIdReporta = item.personaId.personaId;
@@ -619,6 +621,7 @@ export class EmpleoComponent implements OnInit {
         this.myForm.controls.puesto_id_reporta.setErrors({ require: true });
         if (encontrado) {
           this.myForm.controls.puesto_id_reporta.setErrors(null);
+          this.myForm.controls.puesto_id_reporta.setValue(nombreCompleto);
         }
       }
     }
