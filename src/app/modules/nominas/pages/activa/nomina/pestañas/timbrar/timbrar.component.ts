@@ -69,6 +69,12 @@ export class TimbrarComponent implements OnInit {
 
   public recibirTabla(obj:any){
 
+    let datos = obj.datos;
+       switch(obj.type){
+          case "desglosar":
+              datos.cargandoDetalle = false;
+            break;
+       }
   }
 
   public definirFecha(){

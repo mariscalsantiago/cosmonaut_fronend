@@ -12,7 +12,7 @@
         <div class="form-group row margen mt-2"><label class="titulo">EVENTO</label></div>
         <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
-                <label for="exampleFormControlSelect1">Tipo de solicitud *</label>
+                <label for="exampleFormControlSelect1">Tipo de evento *</label>
                 <select (change)="configurandoRestricciones()" formControlName="incidenciaId" class="form-control" [ngClass]="{'is-invalid':f.incidenciaId.errors && submitEnviado}"
                     id="exampleFormControlSelect1">
                     <option *ngFor="let item of arregloIncidenciaTipo" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
@@ -22,12 +22,12 @@
                 </div>
             </div>
             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                <label>Número de empleado *</label>
+                <label>Empleado *</label>
                 <input autocomplete="off" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}" (focusout)="salirPersonaid()" list="empleadosreporta" class="form-control" formControlName="personaId"
                     name="browser" id="browser">
 
                 <datalist id="empleadosreporta">
-                    <option *ngFor="let item of arregloEmpleados" [value]="item.nombre+' '+item.apellidoPaterno"></option>
+                    <option *ngFor="let item of arregloEmpleados" [value]="item.nombre+' '+item.apellidoPaterno + ' ' + ((item.apellidoMaterno == undefined) ? '':item.apellidoMaterno)"></option>
                 </datalist>
                 <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div [ngClass]="{'ocultarCampo':verificar('fecha')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Fecha</label>
+                <label>Fecha *</label>
                 
                 <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div [ngClass]="{'ocultarCampo':verificar('monto')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Monto</label>
+                <label>Monto *</label>
                 
                 <input [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
                 <div *ngIf="f.monto.errors && submitEnviado" class="invalid-feedback">
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div (blur)="perderFoco()" [ngClass]="{'ocultarCampo':verificar('fechainicio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Fecha inicio</label>
+                <label>Fecha inicio *</label>
                 
                 <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
@@ -74,14 +74,14 @@
                 </div>
             </div>
             <div [ngClass]="{'ocultarCampo':verificar('fechaaplicacion')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Fecha de aplicación</label>
+                <label>Fecha de aplicación *</label>
                 <input [ngClass]="{'is-invalid':f.fechaAplicacion.errors && submitEnviado}" formControlName="fechaAplicacion" type="date" class="form-control">
                 <div *ngIf="f.fechaAplicacion.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
             </div>
             <div [ngClass]="{'ocultarCampo':verificar('monto2')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Monto</label>
+                <label>Monto *</label>
                 
                 <input [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
                 <div *ngIf="f.monto.errors && submitEnviado" class="invalid-feedback">
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div [ngClass]="{'ocultarCampo':verificar('incapacidad')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Tipo de incapacidad</label>
+                <label>Tipo de incapacidad *</label>
                 <select [ngClass]="{'is-invalid':f.tipoIncapacidadId.errors && submitEnviado}" formControlName="tipoIncapacidadId" class="form-control">
                     <option *ngFor="let item of arregloTipoIncapacidad" [value]="item.tipoIncapacidadId">{{item.descripcion}}</option>
                 </select>
@@ -107,9 +107,9 @@
                 </div>
               </div>
             <div [ngClass]="{'ocultarCampo':verificar('folio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Número de folio</label>
+                <label>Número de folio *</label>
                 
-                <input [ngClass]="{'is-invalid':f.numeroFolio.errors && submitEnviado}" formControlName="numeroFolio" type="text" class="form-control">
+                <input [ngClass]="{'is-invalid':f.numeroFolio.errors && submitEnviado}" maxlength="8" formControlName="numeroFolio" type="text" class="form-control">
                 <div *ngIf="f.numeroFolio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>

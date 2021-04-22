@@ -435,7 +435,7 @@ export class EmpleoComponent implements OnInit {
           tipoCompensacionId: { tipoCompensacionId: obj.tipoCompensacionId },
           tipoRegimenContratacionId: { tipoRegimenContratacionId: obj.tipoRegimenContratacionId },
           sueldoBrutoMensual: obj.sueldoBrutoMensual,
-          salarioDiario: obj.salarioDiario,
+          salarioDiario: 0,
           jornadaId: { jornadaId: obj.jornadaId },
           tipoJornadaId: idTipoJornada,
           personaId: { personaId: this.datosPersona.personaId },

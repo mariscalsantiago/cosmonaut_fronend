@@ -338,4 +338,8 @@ export class TablapaginadoComponent implements OnInit {
       a[j] = aux;
     }
   }
+
+  public descargar(){
+    
+  }
 }
