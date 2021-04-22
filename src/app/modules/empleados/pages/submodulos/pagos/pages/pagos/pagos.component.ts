@@ -37,12 +37,14 @@ export class PagosComponent implements OnInit {
   public empleado:any = {};
   public cargando: boolean = false;
   public detalleCuenta: boolean = false;
+  public cargandoPer: boolean = false;
   
 
   public myFormMetodoPago!:FormGroup;
 
-  public arreglo: any = [];
-  public arreglotabla:any = {
+  public arreglotablaDed: any = [];
+  public arreglotablaPer: any = [];
+  public arreglotablaPert:any = {
     columnas: [],
     filas: []
   };
@@ -94,36 +96,54 @@ export class PagosComponent implements OnInit {
 
     });
 
-    this.cargando = true;
-
+    this.cargandoPer = true;
     //this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      this.bancosPrd.getListaPercepcionesEmpleado(585,112).subscribe(datos => {
-      this.arreglo = datos.datos;
-
-      let columnas: Array<tabla> = [
-        new tabla("url", "Nombre de la deducción"),
-        new tabla("centrocClienteId", "Fecha de inicio de descuento"),
-        new tabla("razonSocial", "Monto"),
-        new tabla("nombre", "Estatus")
-      ]
-      if (this.arreglo !== undefined) {
-        for (let item of this.arreglo) {
-          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-          let datepipe = new DatePipe("es-MX");
-          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
-        }
-      }
-
-     
-
-
-     
-
-      this.arreglotabla.columnas = columnas;
-      this.arreglotabla.filas = this.arreglo;
-      this.cargando = false;
+    this.bancosPrd.getListaPercepcionesEmpleado(585,112).subscribe(datos => {
+        this.crearTablaPercepcion(datos);
     });
 
+    
+  }
+
+  
+  public crearTablaPercepcion(datos:any){
+  
+  this.arreglotablaPer = datos.datos;
+
+  let columnas: Array<tabla> = [
+    new tabla("nombre", "Nombre de percepción"),
+    new tabla("fechaInicio", "Fecha inicio de percepción"),
+    new tabla("montoTotal", "Monto total de percepción"),
+    new tabla("numeroPeriodos", "Número de periodos"),
+    new tabla("montoPorPeriodo", "Monto por periodo"),
+    //new tabla("esActivo", "Estatus")
+  ]
+
+  
+  this.arreglotablaPert = {
+    columnas:[],
+    filas:[]
+  }
+  if(this.arreglotablaPer !== undefined){
+    for(let item of this.arreglotablaPer){
+      item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
+      let datepipe = new DatePipe("es-MX");
+      item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
+
+      item.nombre = item.conceptoPercepcionId?.nombre;
+      if(item.esActivo){
+        item.esActivo = 'Activo'
+       }
+       if(!item.esActivo){
+       item.esActivo = 'Inactivo'
+       }
+    }
+  }
+ 
+
+  this.arreglotablaPert.columnas = columnas;
+  this.arreglotablaPert.filas = this.arreglotablaPer;
+  this.cargandoPer = false;
   }
 
 
@@ -204,7 +224,7 @@ public agregarNuevaPercepción(obj:any){
 
   public recibirTabla(obj: any) {
     if (obj.type == "editar") {
-      this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
+      //this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
     }
   }
 
