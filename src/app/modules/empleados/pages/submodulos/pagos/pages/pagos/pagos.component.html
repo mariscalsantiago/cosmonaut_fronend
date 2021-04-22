@@ -20,7 +20,7 @@
           <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago" data-parent="#accordion">
             <div class="card-body">
               <div class="row">
-                <div class="col">
+                <div class="col-6">
 
                   <table class="table table-striped">
                     <tbody>
@@ -35,10 +35,10 @@
                         </td>
                       </tr>
                       <tr>
-                        <td *ngIf="!metodopagobool" class="titulorow">DETALLE DE LA CUENTA</td>
+                        <td *ngIf="detalleCuenta" class="titulorow text-left">DETALLE DE LA CUENTA</td>
                       </tr>
 
-                      <div *ngIf="!metodopagobool" class="row mb-4 text-center">
+                      <div *ngIf="detalleCuenta" class="row mb-4 text-left">
 
                         <article class="titulo  col">
                               Número de cuenta
@@ -48,20 +48,16 @@
                               Cuenta CLABE
                           <article >{{cuentaBanco?.clabe}}</article>
                         </article>
-                        <article class="titulo  col">
-                              Banco
-                      <article >{{cuentaBanco?.bancoId?.nombreCorto}}</article>
-                    </article>
-
                       </div> 
-                      <div *ngIf="!metodopagobool" class="row mb-4 text-center">
-
+                      <div *ngIf="detalleCuenta" class="row mb-4 text-left">
+                        <article class="titulo  col">
+                          Banco
+                        <article >{{cuentaBanco?.bancoId?.nombreCorto}}</article>
+                        </article>
                         <article class="titulo  col">
                             Número de ID cliente
                             <article >{{cuentaBanco?.numInformacion}}</article>
                         </article>
-                        <article class="titulo  col"></article>
-                        <article class="titulo  col"></article>
 
                       </div> 
   
@@ -260,7 +256,7 @@
             <h5 class="mb-0">
               <button (click)="cambiarStatus(3)" class="btn btn-link collapsed" data-toggle="collapse"
                 data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
-                Deducciones específicas
+                Deducciones
                 <i *ngIf="!arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                 <i *ngIf="arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
