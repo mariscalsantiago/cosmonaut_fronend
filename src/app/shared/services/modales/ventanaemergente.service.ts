@@ -38,7 +38,7 @@ export class VentanaemergenteService {
       this.mostrar[llave] = false;
     }
 
-    debugger;
+   
     switch (tipoVentana) {
       
       case this.nuevanomina:
