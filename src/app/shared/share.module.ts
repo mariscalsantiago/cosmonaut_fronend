@@ -18,7 +18,7 @@ import { VentanaNuevanominaComponent } from './ventanasemergentes/tiposventanas/
 import { AlfanumericoDirective } from './directivas/alfanumerico.directive';
 import { NominaactivaFechatimbradoComponent } from './ventanasemergentes/tiposventanas/nominaactiva-fechatimbrado/nominaactiva-fechatimbrado.component';
 import { NominaactivaTimbrarComponent } from './ventanasemergentes/tiposventanas/nominaactiva-timbrar/nominaactiva-timbrar.component';
-
+import { VentanaPercepcionesComponent } from './ventanasemergentes/tiposventanas/ventana-percepciones/ventana-percepciones.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,8 @@ import { NominaactivaTimbrarComponent } from './ventanasemergentes/tiposventanas
     VentanaNuevanominaComponent,
     AlfanumericoDirective,
     NominaactivaFechatimbradoComponent,
-    NominaactivaTimbrarComponent
+    NominaactivaTimbrarComponent,
+    VentanaPercepcionesComponent
 
   ],
   imports: [

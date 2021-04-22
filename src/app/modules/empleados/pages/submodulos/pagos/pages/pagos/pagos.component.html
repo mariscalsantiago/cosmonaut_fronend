@@ -222,7 +222,7 @@
             <h5 class="mb-0">
               <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse"
                 data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
-                Percepciones específicas
+                Percepciones
                 <i *ngIf="!arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                 <i *ngIf="arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
@@ -240,7 +240,7 @@
                       <label>RESULTADOS</label>
                     </div>
                     <div class="col text-right">
-                      <button type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
+                      <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
                         <i class="fa fa-plus"></i>Agregar percepción
                       </button>
                     </div>

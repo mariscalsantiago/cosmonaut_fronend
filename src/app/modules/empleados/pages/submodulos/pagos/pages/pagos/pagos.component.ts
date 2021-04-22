@@ -9,6 +9,8 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { tabla } from 'src/app/core/data/tabla';
 import { DatePipe } from '@angular/common';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { truncateSync } from 'fs';
 
 @Component({
   selector: 'app-pagos',
@@ -51,7 +53,7 @@ export class PagosComponent implements OnInit {
 
   
 
-  constructor(private modalPrd:ModalService,private catalogosPrd:CatalogosService,
+  constructor(private modalPrd:ModalService,private catalogosPrd:CatalogosService, private ventana:VentanaemergenteService,
     private gruponominaPrd: GruponominasService,private usuariosSistemaPrd:UsuarioSistemaService,
     private formbuilder:FormBuilder,private router:ActivatedRoute, private routerPrd: Router, private contratoColaboradorPrd:ContratocolaboradorService,
     private bancosPrd: CuentasbancariasService) {
@@ -59,7 +61,7 @@ export class PagosComponent implements OnInit {
      }
 
   ngOnInit(): void {
-
+   debugger;
    this.myFormMetodoPago = this.formbuilder.group({});
    this.myFormCompensacion = this.formbuilder.group({});
 
@@ -86,7 +88,8 @@ export class PagosComponent implements OnInit {
 
     this.cargando = true;
 
-    this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado,this.empleado).subscribe(datos => {
+    //this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.bancosPrd.getListaPercepcionesEmpleado(585,112).subscribe(datos => {
       this.arreglo = datos.datos;
 
       let columnas: Array<tabla> = [
@@ -169,6 +172,33 @@ export class PagosComponent implements OnInit {
   public verdetallecom(obj: any) {
     this.routerPrd.navigate(['company', 'detalle_company', 'nuevo'], { state: { datos: undefined } });
   } 
+
+  public agregar(){
+    this.ventana.showVentana(this.ventana.percepciones).then(valor =>{
+      if(valor.datos){
+        debugger;
+          this.agregarNuevaPercepción(valor.datos);
+      }
+    });
+}
+
+public agregarNuevaPercepción(obj:any){
+  debugger;
+  this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+  this.bancosPrd.savePercepcionEmpleado(obj).subscribe(datos => {
+    setTimeout(() => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    }, 1000);
+    this.modalPrd.showMessageDialog(datos.resultados,datos.mensaje).then(()=>{
+      /*if(datos.resultado){
+          this.cancelar();
+      }*/
+    });
+  });
+
+
+}
 
   public recibirTabla(obj: any) {
     if (obj.type == "editar") {

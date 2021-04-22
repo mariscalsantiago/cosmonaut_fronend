@@ -31,7 +31,8 @@ export class ContenidoComponent implements OnInit {
   public mostrar = {
     nuevanomina:false,
     timbrado:false,
-    timbrar:false
+    timbrar:false,
+    percepciones: false
   }
 
   public emergente = {

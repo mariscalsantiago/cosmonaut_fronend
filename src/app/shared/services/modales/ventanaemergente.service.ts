@@ -9,6 +9,8 @@ export class VentanaemergenteService {
   public nuevanomina: string = "nuevanomina";
   public timbrado: string = "timbrado";
   public timbrar: string = "timbrar";
+  public percepciones: string = "percepciones";
+  
 
   private subject?: Subject<any>;;
 
@@ -21,7 +23,8 @@ export class VentanaemergenteService {
   private mostrar: any = {
     nuevanomina: false,
     timbrado: false,
-    timbrar: false
+    timbrar: false,
+    percepciones: false
   }
 
   constructor() { }
@@ -33,8 +36,9 @@ export class VentanaemergenteService {
       this.mostrar[llave] = false;
     }
 
-
+    debugger;
     switch (tipoVentana) {
+      
       case this.nuevanomina:
         this.mostrar.nuevanomina = true;
         this.emergente.titulo = "NUEVA NÓMINA MANUAL";
@@ -47,6 +51,10 @@ export class VentanaemergenteService {
         this.mostrar.timbrar = true;
         this.emergente.titulo = "";
         break;
+      case this.percepciones:
+          this.mostrar.percepciones = true;
+          this.emergente.titulo = "Agregar percepciónes";
+      break;
     }
 
 
