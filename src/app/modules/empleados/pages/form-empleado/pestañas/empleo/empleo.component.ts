@@ -392,7 +392,7 @@ export class EmpleoComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
       if (valor) {
-        let obj = this.myForm.value;
+        let obj = this.myForm.getRawValue();
         //Se verifica que tipo de jornada se selecciono
         let idTipoJornada = -1;
         for (let item of this.arregloJornadas) {
@@ -434,7 +434,7 @@ export class EmpleoComponent implements OnInit {
           grupoNominaId: { grupoNominaId: obj.grupoNominaId },
           tipoCompensacionId: { tipoCompensacionId: obj.tipoCompensacionId },
           tipoRegimenContratacionId: { tipoRegimenContratacionId: obj.tipoRegimenContratacionId },
-          sueldoBrutoMensual: obj.sueldoBrutoMensual,
+          sueldoBrutoMensual: 0,
           salarioDiario: 0,
           jornadaId: { jornadaId: obj.jornadaId },
           tipoJornadaId: idTipoJornada,
@@ -693,6 +693,12 @@ export class EmpleoComponent implements OnInit {
       this.myForm.controls.salarioDiario.updateValueAndValidity();
       this.myForm.controls.salarioDiarioIntegrado.setValidators([]);
       this.myForm.controls.salarioDiarioIntegrado.updateValueAndValidity();
+
+
+      this.myForm.controls.tiposueldo.enable();
+      this.myForm.controls.tipoCompensacionId.enable();
+      this.myForm.controls.salarioDiario.disable();
+      
     }
 
     console.log(this.grupoNominaSeleccionado);
