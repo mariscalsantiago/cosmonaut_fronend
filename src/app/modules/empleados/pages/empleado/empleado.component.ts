@@ -21,6 +21,10 @@ export class EmpleadoComponent implements OnInit {
   public idEmpleado: number = -1;
   public porcentaje:any={porcentaje:0};
 
+  public elEmpleado:any = {
+    url:"assets/imgs/usuario.png"
+  };
+
   constructor(private routerCan: ActivatedRoute,
     private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
     private empledoContratoPrd: ContratocolaboradorService,private ventana:VentanaemergenteService,
@@ -29,10 +33,20 @@ export class EmpleadoComponent implements OnInit {
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
       this.idEmpleado = params["id"];
+
+      this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos =>{
+         console.log("Este el el perfil del EMPLEADO",datos.datos);
+         if(datos.datos?.url !== undefined){
+           console.log("si se guarda los datos",datos.datos.url);
+          this.elEmpleado.url = datos.datos?.url;
+         }
+
+      });
+
       this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
 
         this.empleado = datos.datos;
-        console.log(this.empleado);
+       
 
       });
 
@@ -103,7 +117,8 @@ export class EmpleadoComponent implements OnInit {
 
             this.empleadosPrd.update(objEnviar).subscribe(actualizado =>{
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-              this.modalPrd.showMessageDialog(actualizado.resultado,actualizado.message);
+              this.modalPrd.showMessageDialog(actualizado.resultado,actualizado.mensaje);
+              console.log("Esto se esta actualizando",actualizado);
             });
           });
       }

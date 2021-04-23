@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { table } from 'console';
 import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -62,11 +63,11 @@ export class ListaeventosxempledoComponent implements OnInit {
 
       this.arreglo = datos.datos;
       let columnas:Array<tabla> = [
+        new tabla("incidenciaDescripcion","Tipo de evento"),
         new tabla("nombrecompleado","Nombre del empleado"),
         new tabla("numeroEmpleado","Número de empleado",false,false,true),
-        new tabla("fechaInicio","Fecha solicitada",false,false,true),
-        new tabla("tiempo","Tiempo",false,false,true),
-        new tabla("esActivo","Estatus")
+        new tabla("fechaInicio","Fecha de inicio",false,false,true),
+        new tabla("tiempo","Tiempo",false,false,true)
       ];
 
       this.arreglotabla = {
@@ -101,6 +102,7 @@ export class ListaeventosxempledoComponent implements OnInit {
            case "ver":
              this.evento = obj.datos;
             this.traerModal(obj.indice);
+            console.log(this.evento);
              break;
       }
   }

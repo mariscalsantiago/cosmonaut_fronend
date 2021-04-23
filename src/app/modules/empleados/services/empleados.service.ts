@@ -62,6 +62,7 @@ export class EmpleadosService {
 
  
   public getEmpleadoById(idEmpleado: number): Observable<any> {
+    console.log("RUTA",`${direcciones.usuarios}/obtener/id/${idEmpleado}`);
     return this.http.get(`${direcciones.usuarios}/obtener/id/${idEmpleado}`);
   }
 

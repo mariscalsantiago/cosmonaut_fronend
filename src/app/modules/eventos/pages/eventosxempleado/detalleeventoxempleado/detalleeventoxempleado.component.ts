@@ -47,9 +47,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     return this.formbuilder.group({
       incidenciaId: ['', [Validators.required]],
       personaId: ['', [Validators.required]],
-      duracion: [0, Validators.required],
+      duracion: ['', Validators.required],
       fechaInicio: [datePipe.transform(new Date(), "yyyy-MM-dd"), Validators.required],
-      monto: [0, [Validators.required]],
+      monto: ['', [Validators.required]],
       fechaFin: [{ value: datePipe.transform(new Date(), "yyyy-MM-dd"), disabled: true }, Validators.required],
       fechaAplicacion: ['', Validators.required],
       tipoIncapacidadId: ['', Validators.required],

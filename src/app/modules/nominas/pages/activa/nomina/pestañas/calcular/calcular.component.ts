@@ -30,11 +30,11 @@ export class CalcularComponent implements OnInit {
 
 
     this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-      this.arreglo = datos.datos;
+      this.arreglo = [datos.datos[0]];
       
       let columnas:Array<tabla> = [
         new tabla("nombrecompleto","Nombre"),
-        new tabla("numEmpleado","Número de empleado",true,false,true),
+        new tabla("numEmpleado","Número de empleado",false,false,true),
         new tabla("diaslaborados","Días laborados",false,false,true),
         new tabla("percepciones","Percepciones",false,false,true),
         new tabla("deducciones","Deducciones",false,false,true),
@@ -43,11 +43,11 @@ export class CalcularComponent implements OnInit {
   
   
       for(let item of this.arreglo){
-          item["nombrecompleto"]=item.personaId.nombre+" "+item.personaId.apellidoPaterno;
-          item["diaslaborados"]=5;
-          item["percepciones"]="$26,200.00";
-          item["deducciones"]="$500.00";
-          item["total"]="$25,700.00";
+          item["nombrecompleto"]="Santiago Dario Ocampo";
+          item["diaslaborados"]=15.2;
+          item["percepciones"]="$16,499.96";
+          item["deducciones"]="$3,380.60";
+          item["total"]="$13,271.36";
       }
   
       let filas:Array<any> = this.arreglo;

@@ -64,7 +64,7 @@ export class CalendarioComponent implements OnInit {
         new tabla("incidenciaDescripcion","Tipo de evento"),
         new tabla("nombrecompleado","Empleado"),
         new tabla("fechaInicio","Fecha inicio",false,false,true),
-        new tabla("fechaInicio","Fecha fin",false,false,true),
+        new tabla("fechaFin","Fecha fin",false,false,true),
         new tabla("duracion","Duraciòn",false,false,true)
       ];
 

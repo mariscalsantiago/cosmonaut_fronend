@@ -10,12 +10,10 @@
         <input appAlfanumerico type="text" class="form-control" placeholder="Primer apellido">
     </div>
     <div class=" input-group-sm mb-3 col-3 ">
-        <select class="form-control">
-            <option value="">Seleccionar área</option>
-        </select>
-    </div>
+        <input type="text" name="" placeholder="RFC" id="" class="form-control">
+     </div>
     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-        <button type="button" class="btn btn-primary button-outlet ">FILTRAR</button>
+        <button type="button" class="btn btn-primary button-outlet mr-3 ">FILTRAR</button>
         <button class="btn btn-primary button-fill">Descargar</button>
     </div>
 </div>
@@ -27,7 +25,7 @@
 
     <div class="row">
         <div class="col">
-          <app-tablapaginado  [datos]="arreglotabla"  [cargando]="cargando" [timbrado]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
+          <app-tablapaginado [nominatimbrar]="true" [desglosar]="true" [datos]="arreglotabla"  [cargando]="cargando" [timbrado]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
         </div>
     </div>
 

@@ -32,25 +32,27 @@ export class PagarComponent implements OnInit {
 
 
     this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-      this.arreglo = datos.datos;
+      this.arreglo = [datos.datos[0]];
 
 
       let columnas:Array<tabla> = [
         new tabla("nombrecompleto","Nombre"),
-        new tabla("rfc","RFC",true,false,true),
+        new tabla("rfc","RFC",false,false,true),
         new tabla("diaslaborados","Banco",false,false,true),
         new tabla("total","Total",false,false,true),
-        new tabla("tipo","Tipo de pago",false,false,true)
+        new tabla("tipo","Tipo de pago",false,false,true),
+        new tabla("status","Estatus ",false,false,true)
       ];
   
   
       for(let item of this.arreglo){
-          item["nombrecompleto"]=item.personaId.nombre+" "+item.personaId.apellidoPaterno;
-          item["rfc"]=item.personaId.rfc;
+          item["nombrecompleto"]="Santiago Dario Ocampo";
+          item["rfc"]="OCSA8809087Z7";
           item["diaslaborados"]="BBVA Bancomer";
-          item["percepciones"]="$26,200.00";
+          item["percepciones"]="$16,499.96";
           item["tipo"]="Transferencia";
-          item["total"]="$25,700.00";
+          item["total"]="$13,271.36";
+          item["status"] = "No pagado";
       }
   
       let filas:Array<any> = this.arreglo;
@@ -79,19 +81,10 @@ export class PagarComponent implements OnInit {
   }
 
   public guardar(){
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas disperar la nómina?").then(valor =>{
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas dispersar la nómina?").then(valor =>{
       if(valor){
 
-        this.ventana.showVentana(this.ventana.timbrado,{ventanaalerta:true}).then(dd =>{
-          
-         if(dd.datos){
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          setTimeout(() => {
-           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-           this.salida.emit({type:"dispersar"});
-          }, 2000);
-         }
-        });
+        this.salida.emit({type:"dispersar"});
 
        
       }
