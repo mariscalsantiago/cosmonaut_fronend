@@ -10,7 +10,7 @@ import { NominasService } from '../../../services/nominas.service';
 export class NominaComponent implements OnInit {
   public activado = [
     { tab: true, form: true, disabled: false, seleccionado: true },
-    { tab: true, form: false, disabled: false, seleccionado: false },
+    { tab: false, form: false, disabled: false, seleccionado: false },
     { tab: false, form: false, disabled: false, seleccionado: false },
     { tab: false, form: false, disabled: false, seleccionado: false }];
 
@@ -45,7 +45,15 @@ export class NominaComponent implements OnInit {
       item.form = false;
     }
 
+
+
+    debugger;
     switch (obj.type) {
+      case "calcular":
+        this.activado[1].tab = true;
+        this.activado[1].form = true;
+        this.activado[1].seleccionado = true;
+        break;
       case "dispersar":
         this.activado[2].tab = true;
         this.activado[2].form = true;

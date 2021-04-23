@@ -34,7 +34,9 @@ export class ContenidoComponent implements OnInit {
     timbrar:false,
     fotoperfil:false,
     percepciones: false,
-    deducciones: false
+    deducciones: false,
+    ndispersion:false,
+    ntimbrado:false
   }
 
   public emergente = {

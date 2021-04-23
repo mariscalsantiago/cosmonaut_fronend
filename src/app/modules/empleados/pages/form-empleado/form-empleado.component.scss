@@ -101,3 +101,35 @@
     border-color: #1EC1AF;
     background: #1EC1AF34;
 }
+
+
+.marginImage{
+    margin-top: 12px;
+    margin-left: 25px;
+    margin-top:0px;
+}
+
+.alinear{
+    float:left;
+}
+
+
+.contenedorflex{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin-left: 25px;
+    margin-top:15px;
+}
+
+.elementoitem{
+    width: 50%;
+}
+
+.estilolink{
+    font-size: 10px;
+    color:#4cc1b0 ;
+    text-decoration: underline;
+    margin-left: -16px;
+    cursor:pointer;
+}

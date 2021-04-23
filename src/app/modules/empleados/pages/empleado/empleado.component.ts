@@ -90,7 +90,7 @@ export class EmpleadoComponent implements OnInit {
         this.cargandoIcon = false;
         const linkSource = 'data:application/pdf;base64,' + `${archivo.datos}\n`;
         const downloadLink = document.createElement("a");
-        const fileName = `${datos.datos.numEmpleado}-${this.empleado.nombre.toUpperCase()}_${this.empleado.apellidoPaterno.toUpperCase()}.pdf`;
+        const fileName = `${datos.datos.numEmpleado}-${this.empleado.personaId.nombre.toUpperCase()}_${this.empleado.personaId.apellidoPaterno.toUpperCase()}.pdf`;
 
         downloadLink.href = linkSource;
         downloadLink.download = fileName;

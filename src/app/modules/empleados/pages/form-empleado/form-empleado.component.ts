@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { ContratocolaboradorService } from '../../services/contratocolaborador.service';
 import { DomicilioService } from '../../services/domicilio.service';
+import { EmpleadosService } from '../../services/empleados.service';
 
 @Component({
   selector: 'app-form-empleado',
@@ -25,6 +29,11 @@ export class FormEmpleadoComponent implements OnInit {
   public tabsEnviar: any = [{}, [{}], {}];
   public insertar: boolean = true;
 
+  public elEmpleado:any = {
+    url:"assets/imgs/usuario.png"
+  };
+  public porcentaje:any={porcentaje:0};
+
 
 
   public mostrarDetalleTransferencia: boolean = false;
@@ -36,7 +45,8 @@ export class FormEmpleadoComponent implements OnInit {
   public cambiaValor: boolean = false;
 
   constructor(private routerPrd: Router, private reportesPrd: ReportesService,
-    private domicilioPrd:DomicilioService) { }
+    private domicilioPrd:DomicilioService,private empleadosPrd: EmpleadosService,private empledoContratoPrd:ContratocolaboradorService,
+    private ventana:VentanaemergenteService,private modalPrd:ModalService) { }
 
   ngOnInit(): void {
     
@@ -93,11 +103,21 @@ export class FormEmpleadoComponent implements OnInit {
         this.tabsEnviar[2] = elemento.datos;
         break;
       case "empleo":
-        this.ocultarempleada = true;
+       
         this.ocultarDetalleTransfrencia = elemento.metodopago.metodoPagoId !== 4;
         this.datosPersona.contratoColaborador = elemento.datos;
         this.datosPersona.metodopago = elemento.metodopago;
         this.tabsEnviar[3] = elemento.datos;
+
+
+
+        this.empleadosPrd.getPorcentajeavance(this.datosPersona.personaId).subscribe(datos => {
+          this.porcentaje = datos;
+          
+        });
+
+        this.ocultarempleada = true;
+        console.log("Este es el contrato colaborador",this.datosPersona.contratoColaborador);
         
         if (!this.ocultarDetalleTransfrencia) {
           this.activado[4].tab = true;
@@ -127,45 +147,46 @@ export class FormEmpleadoComponent implements OnInit {
   }
 
 
+  
+
   public iniciarDescarga() {
-
-
     this.cargandoIcon = true;
 
 
 
-
-    let fechacontrato = this.datosPersona.contratoColaborador?.fechaContrato;
-
+    this.empledoContratoPrd.getContratoColaboradorById(this.tabsEnviar[0].idEmpleado).subscribe(datos => {
 
 
+      let fechacontrato = datos.datos?.fechaContrato;
 
-    let objenviar = {
-      fechaContrato: fechacontrato,
-      "centrocClienteId": {
-        "centrocClienteId": this.datosPersona.contratoColaborador.centrocClienteId.centrocClienteId
-      },
-      "personaId": {
-        "personaId": this.datosPersona.contratoColaborador.personaId.personaId
+
+
+
+
+      let objenviar = {
+        fechaContrato: fechacontrato,
+        "centrocClienteId": {
+          "centrocClienteId": datos.datos.centrocClienteId.centrocClienteId
+        },
+        "personaId": {
+          "personaId": datos.datos.personaId.personaId
+        }
+
       }
 
-    }
+      this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(archivo => {
+        this.cargandoIcon = false;
+        const linkSource = 'data:application/pdf;base64,' + `${archivo.datos}\n`;
+        const downloadLink = document.createElement("a");
+        const fileName = `${datos.datos.numEmpleado}-${this.tabsEnviar[0].personaId.nombre.toUpperCase()}_${this.tabsEnviar[0].personaId.apellidoPaterno.toUpperCase()}.pdf`;
 
-    console.log(objenviar);
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      });
 
-    this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(datos => {
-      this.cargandoIcon = false;
-      const linkSource = 'data:application/pdf;base64,' + `${datos.datos}\n`;
-      const downloadLink = document.createElement("a");
-      const fileName = `${this.datosPersona.nombre}.pdf`;
 
-      downloadLink.href = linkSource;
-      downloadLink.download = fileName;
-      downloadLink.click();
     });
-
-
-
 
 
 
@@ -187,7 +208,25 @@ export class FormEmpleadoComponent implements OnInit {
 
   }
 
+  public subirFotoperfil(){
+    this.ventana.showVentana(this.ventana.fotoperfil,{ventanaalerta:true}).then(valor =>{
+      if(valor.datos != "" && valor.datos != undefined){
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.empleadosPrd.getEmpleadoById(this.tabsEnviar[0].personaId).subscribe(datos =>{
+            let objEnviar = {
+              ...datos.datos,
+              imagen:valor.datos
+            }
 
+            this.empleadosPrd.update(objEnviar).subscribe(actualizado =>{
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(actualizado.resultado,actualizado.mensaje);
+              console.log("Esto se esta actualizando",actualizado);
+            });
+          });
+      }
+    });
+  }
 
 
 }
