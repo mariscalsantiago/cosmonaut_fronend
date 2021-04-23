@@ -29,7 +29,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     timbrado:false,
     timbrar:false,
     fotoperfil:false,
-    percepciones:false
+    percepciones:false,
+    deducciones: false
   }
 
   @HostListener('window:resize', ['$event'])
@@ -56,7 +57,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    debugger;
     this.content = document.getElementById("contenido");
     this.bodymodal = document.getElementById("bodyemergente");
     this.scrollTop = this.content.scrollTop;

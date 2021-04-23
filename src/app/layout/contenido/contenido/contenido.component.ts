@@ -33,7 +33,8 @@ export class ContenidoComponent implements OnInit {
     timbrado:false,
     timbrar:false,
     fotoperfil:false,
-    percepciones: false
+    percepciones: false,
+    deducciones: false
   }
 
   public emergente = {

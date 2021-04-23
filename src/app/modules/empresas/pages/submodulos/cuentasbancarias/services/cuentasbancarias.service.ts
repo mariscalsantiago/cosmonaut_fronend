@@ -25,6 +25,10 @@ export class CuentasbancariasService {
     return this.http.get(`${direcciones.conceptos}/obtienePercepcionEmpleado/${id_persona}/${id_empresa}`);
 }
 
+public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observable<any>{
+  return this.http.get(`${direcciones.conceptos}/obtieneDeduccionEmpleado/${id_persona}/${id_empresa}`);
+}
+
   public getobtieneBanco():Observable<any>{
     return this.http.get(`${this.url}/listar/todos`);
   }
@@ -56,6 +60,19 @@ export class CuentasbancariasService {
     console.log(`guardar`);
     console.log(json);
     return this.http.put(`${direcciones.conceptos}/guardaPercepcionEmpleado`,json,httpOptions);
+  }
+
+  public saveDeduccionEmpleado(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    console.log(`guardar`);
+    console.log(json);
+    return this.http.put(`${direcciones.conceptos}/guardaDeduccionEmpleado`,json,httpOptions);
   }
 
 
@@ -107,4 +124,7 @@ export class CuentasbancariasService {
     return  this.http.get(`${direcciones.conceptos}/obtener/percepcion/periodicidad/${id_empresa}/${tipoPeriodicidad}`);
   }
 
+  public getObtenerDeduccion(id_empresa:number):Observable<any>{
+    return  this.http.get(`${direcciones.conceptos}/obtener/deduccion/${id_empresa}`);
+  }
 }

@@ -11,6 +11,7 @@ export class VentanaemergenteService {
   public timbrar: string = "timbrar";
   public fotoperfil:string = "fotoperfil";
   public percepciones: string = "percepciones";
+  public deducciones: string = "deducciones";
   
 
   private subject?: Subject<any>;;
@@ -22,18 +23,20 @@ export class VentanaemergenteService {
   }
 
   private mostrar: any = {
+    
     nuevanomina: false,
     timbrado: false,
     timbrar: false,
     fotoperfil:false,
-    percepciones: false
+    percepciones: false,
+    deducciones: false
   }
 
   constructor() { }
 
   public showVentana(tipoVentana: string, configuracion?: configuracion): Promise<any> {
 
-
+    debugger;
     for (let llave in this.mostrar) {
       this.mostrar[llave] = false;
     }
@@ -61,6 +64,10 @@ export class VentanaemergenteService {
           this.mostrar.fotoperfil = true;
           this.emergente.titulo = "Elegir foto de perfil";
           break;
+      case this.deducciones:
+          this.mostrar.deducciones = true;
+          this.emergente.titulo = "Agregar deducciónes";
+      break;
     }
 
 

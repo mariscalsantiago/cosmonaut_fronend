@@ -1,0 +1,59 @@
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+    <input type="hidden">
+<div class="form-group row">
+
+    <div class="input-group-sm mb-3 col-4">
+        <label for="exampleFormControlSelect1">Nombre de deducción *</label>
+        <select #conceptoDeduccionId (focusout)="validarConceptoDeduccion(conceptoDeduccionId.value)" 
+        formControlName="nomDeduccion" type="text" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let item of obtenerPercepcion"  [value]="item.tipoDeduccionId?.tipoDeduccionId">{{item.nombre}}</option>
+        </select>
+    </div>
+    <div class="input-group-sm mb-3 col-4">
+        <label>Fecha inicio de descuento*</label>
+        <input formControlName="fechaInicioDescto" type="date" class="form-control">
+
+    </div>
+    <div class="input-group-sm mb-3 col-12"></div> 
+    <div class=" input-group-sm mb-3 col-4">
+        <label for="exampleFormControlSelect1">Tipo de descuento *</label>
+        <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
+        </select>
+    </div>
+
+    <div class="  input-group-sm mb-3 col-4">
+        <label *ngIf="porcentual" >Porcentaje *</label>
+        <label *ngIf="fijo" >Monto *</label>
+        <input formControlName="porcentaje" type="text" class="form-control">
+
+    </div>
+
+
+    <!--<div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
+        <label >Monto por periodo *</label>
+        <input formControlName="montoPorPeriodo" type="text" class="form-control disabled bg-light">
+    </div>
+    <div  *ngIf="periodica" class="  input-group-sm mb-3 col-4">
+        <label >Referencia *</label>
+        <input formControlName="referencia" type="text" class="form-control" >
+
+    </div>-->
+    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+        <label>Estatus *</label>
+        <select name="" id="" class="form-control" formControlName="esActivo">
+          <option value="true">Activo</option>
+          <option value="false">Inactivo</option>
+        </select>
+      </div>
+</div>
+<div class="text-right margin" style="margin-bottom: 20px;">
+
+    <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+    
+    <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+</div>
+
+</form>

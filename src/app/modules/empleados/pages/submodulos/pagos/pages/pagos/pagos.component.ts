@@ -38,6 +38,7 @@ export class PagosComponent implements OnInit {
   public cargando: boolean = false;
   public detalleCuenta: boolean = false;
   public cargandoPer: boolean = false;
+  public cargandoDed: boolean = false;
   
 
   public myFormMetodoPago!:FormGroup;
@@ -49,11 +50,11 @@ export class PagosComponent implements OnInit {
     filas: []
   };
 
-  public arreglotablaDesglose:any = {
+ 
+  public arreglotablaDedt: any = {
     columnas: [],
     filas: []
   };
-
   
 
   constructor(private modalPrd:ModalService,private catalogosPrd:CatalogosService, private ventana:VentanaemergenteService,
@@ -78,15 +79,13 @@ export class PagosComponent implements OnInit {
     this.idEmpleado = params["id"];
 
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-
-      debugger;
       this.empleado = datos.datos;
       if(this.empleado.metodoPagoId.metodoPagoId == 4){
       this.detalleCuenta = true;
       }else{
         this.detalleCuenta = false;
       }
-    });;
+    });
 
     this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos =>{
       debugger;
@@ -94,12 +93,21 @@ export class PagosComponent implements OnInit {
       console.log("cuentas",this.cuentaBanco);
     });
 
-    });
+
 
     this.cargandoPer = true;
     //this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
     this.bancosPrd.getListaPercepcionesEmpleado(585,112).subscribe(datos => {
         this.crearTablaPercepcion(datos);
+    });
+
+    
+    this.cargandoDed = true;
+
+    this.bancosPrd.getListaDeduccionesEmpleado(585,112).subscribe(datos => {
+         this.crearTablaDeduccion(datos);
+    });
+
     });
 
     
@@ -144,6 +152,47 @@ export class PagosComponent implements OnInit {
   this.arreglotablaPert.columnas = columnas;
   this.arreglotablaPert.filas = this.arreglotablaPer;
   this.cargandoPer = false;
+  }
+
+  public crearTablaDeduccion(datos:any){
+    this.arreglotablaDed = datos.datos;
+
+    
+    let columnas: Array<tabla> = [
+      new tabla("nombre", "Nombre de deducción"),
+      new tabla("fechaInicioDescto", "Fecha inicio de deducción"),
+      new tabla("montoTotal", "Monto total de deducción"),
+      new tabla("numeroCuotas", "Número de cuotas"),
+      new tabla("interesPorcentaje", "Interes por porcentaje"),
+      //new tabla("esActivo", "Estatus")
+    ]
+
+
+    this.arreglotablaDedt = {
+      columnas:[],
+      filas:[]
+    }
+
+
+    if(this.arreglotablaDed !== undefined){
+      for(let item of this.arreglotablaDed){
+        item.fechaInicioDescto = (new Date(item.fechaInicioDescto).toUTCString()).replace(" 00:00:00 GMT", "");
+        let datepipe = new DatePipe("es-MX");
+        item.fechaInicioDescto = datepipe.transform(item.fechaInicioDescto , 'dd-MMM-y')?.replace(".","");
+  
+        item.nombre = item.conceptoDeduccionId?.nombre;
+        if(item.esActivo){
+          item.esActivo = 'Activo'
+         }
+         if(!item.esActivo){
+         item.esActivo = 'Inactivo'
+         }
+      }
+    }
+
+    this.arreglotablaDedt.columnas = columnas;
+    this.arreglotablaDedt.filas = this.arreglotablaDed;
+    this.cargandoDed = false;
   }
 
 
@@ -201,7 +250,7 @@ export class PagosComponent implements OnInit {
     this.routerPrd.navigate(['company', 'detalle_company', 'nuevo'], { state: { datos: undefined } });
   } 
 
-  public agregar(){
+  public agregarPer(){
     this.ventana.showVentana(this.ventana.percepciones).then(valor =>{
       if(valor.datos){
         debugger;
@@ -209,12 +258,32 @@ export class PagosComponent implements OnInit {
       }
     });
 }
+public agregarDed(){
+  this.ventana.showVentana(this.ventana.deducciones).then(valor =>{
+    if(valor.datos){
+      debugger;
+        this.agregarNuevaDeduccion(valor.datos);
+    }
+  });
+}
 
 public agregarNuevaPercepción(obj:any){
   debugger;
   this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
   this.bancosPrd.savePercepcionEmpleado(obj).subscribe(datos => {
+    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+  });
+
+
+}
+
+public agregarNuevaDeduccion(obj:any){
+  debugger;
+  this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+  this.bancosPrd.saveDeduccionEmpleado(obj).subscribe(datos => {
     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
   });

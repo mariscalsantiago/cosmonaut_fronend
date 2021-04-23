@@ -109,13 +109,13 @@ export class VentanaPercepcionesComponent implements OnInit {
 
    public validarNomMonto(tipomonto:any){
     debugger;
-      if(tipomonto == 2){
-        this.porcentual = true;
-        this.fijo = false;
-      }else{
-        this.porcentual = false;
-        this.fijo = true;
-      }
+    if(tipomonto == 2){
+      this.porcentual = false;
+      this.fijo = true;
+    }else{
+      this.porcentual = true;
+      this.fijo = false;
+    }
 
    }
 
