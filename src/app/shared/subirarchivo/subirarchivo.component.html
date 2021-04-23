@@ -5,7 +5,10 @@
     <p *ngIf="buffer == undefined && !mostrarImagenUrl" class="mostrar"></p>
     <p *ngIf="buffer == undefined && !mostrarImagenUrl" class="mostrar2">Archivo seleccionado no es una imagen.</p>
     <div *ngIf="buffer == undefined && !mostrarImagenUrl" class="col-12 text-right">
-        <button (click)="abrirArchivo()" type="button" class="botonestilos "><small><i class="fas fa-upload"></i>&nbsp;Subir archivo</small></button>
+        <button (click)="abrirArchivo()" type="button" class="botonestilos "><small style="    display: block;
+            width: max-content;    margin: auto;
+
+        "><i class="fas fa-upload"></i>&nbsp;Subir archivo</small></button>
     </div>
     <div *ngIf="buffer != undefined || mostrarImagenUrl" class="col-12">
         <img *ngIf="!mostrarImagenUrl"  [src]="sanitize('data:image/jpg;base64, ' + arrayBufferToBase64(buffer))"  alt="" srcset="">
