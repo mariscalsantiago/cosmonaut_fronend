@@ -11,16 +11,24 @@
         </select>
     </div>
     <div class="input-group-sm mb-3 col-4">
-        <label>Fecha inicio de descuento*</label>
+        <label>Fecha inicio de descuento *</label>
         <input formControlName="fechaInicioDescto" type="date" class="form-control">
 
     </div>
 
     <div *ngIf="infonavit" class="input-group-sm mb-3 col-4">
-        <label>Fecha fin de descuento*</label>
+        <label>Fecha fin de descuento *</label>
         <input formControlName="fechaFinDescuento" type="date" class="form-control">
 
     </div>
+    <div *ngIf="prestamo" class=" input-group-sm mb-3 col-4">
+        <label for="exampleFormControlSelect1">Tipo de descuento *</label>
+        <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
+        </select>
+    </div>
+
     <div class="input-group-sm mb-3 col-12"></div> 
     <div *ngIf="normalDeduccion" class=" input-group-sm mb-3 col-4">
         <label for="exampleFormControlSelect1">Tipo de descuento *</label>
@@ -31,35 +39,56 @@
     </div>
     <div *ngIf="infonavit" class=" input-group-sm mb-3 col-4">
         <label for="exampleFormControlSelect1">Tipo de descuento INFONAVIT *</label>
-        <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
+        <select #tipoMonto (focusout)="validarNomMontoInfonavit(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
             <option value=""></option>
-            <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
+            <option value="1">Fijo</option>
+            <option value="2">Porcentual</option>
+            <option value="3">Valor de descuento</option>
         </select>
     </div>
+    <div *ngIf="prestamo"  class="  input-group-sm mb-3 col-4">
+        <label>Monto *</label>
+        <input #monto (focusout)="validarMontoTotal(monto.value)"  formControlName="montoTotal" type="text" class="form-control">
 
-    <div class="  input-group-sm mb-3 col-4">
+    </div>
+
+    <div  *ngIf="prestamo" class="  input-group-sm mb-3 col-4">
+        <label >Número de cuotas *</label>
+        <input #numero (focusout)="validarNumeroCuotas(numero.value)" formControlName="numeroCuotas" type="text" class="form-control" >
+
+    </div>
+    <div *ngIf="valor" class="  input-group-sm mb-3 col-4">
         <label *ngIf="porcentual" >Porcentaje *</label>
         <label *ngIf="fijo" >Monto *</label>
-        <input formControlName="porcentaje" type="text" class="form-control">
+        <label *ngIf="montopago" >Monto de cada pago *</label>
+        <input formControlName="valor" type="text" class="form-control">
 
     </div>
 
+    <div *ngIf="valorDescuento" class="  input-group-sm mb-3 col-4">
+        <label>Valor de descuento *</label>
+        <input formControlName="interesPorcentaje" type="text" class="form-control">
 
-    <!--<div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
-        <label >Monto por periodo *</label>
-        <input formControlName="montoPorPeriodo" type="text" class="form-control disabled bg-light">
     </div>
--->
-    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+ 
+
+    <div class="input-group-sm mb-3 col-4">
         <label>Estatus *</label>
         <select name="" id="" class="form-control" formControlName="esActivo">
           <option value="true">Activo</option>
           <option value="false">Inactivo</option>
         </select>
       </div>
-
+      <div *ngIf="prestamo" class="input-group-sm mb-3 col-6"></div>
+      <div *ngIf="infonacot" class="input-group-sm mb-3 col-4"></div>
       <div *ngIf="submenu"  class="form-group mt-3 row margen"><label class="titulo">Detalle de la deducción</label></div>
-      <div *ngIf="infonavit" class="input-group-sm mb-3 col-6"></div>
+      <div class="input-group-sm mb-3 col-6"></div>
+
+      <div *ngIf="prestamo" class="input-group-sm mb-3 col-6">
+        <label>Fecha de otorgamiento del préstamo *</label>
+        <input formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control">
+
+    </div>
 
       <div *ngIf="pensionAlimenticia" class="input-group-sm mb-3 col-6">
         <label>Fecha de demanda *</label>
@@ -73,9 +102,25 @@
 
     </div>
 
-    <div  *ngIf="numFolio" class="  input-group-sm mb-3 col-6">
-        <label >Número de credito *</label>
+    <div *ngIf="numFolio" class="  input-group-sm mb-3 col-6">
+        <label *ngIf="credito">Número de crédito *</label>
+        <label *ngIf="referencia">Referencia *</label>
         <input formControlName="numeroFolio" type="text" class="form-control" >
+
+    </div>
+    <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">
+        <label>Número de crédito *</label>
+        <input formControlName="numeroFolio" type="text" class="form-control" >
+
+    </div>
+    <div *ngIf="infonacot"  class="  input-group-sm mb-3 col-4">
+        <label>Monto del crédito *</label>
+        <input formControlName="montoTotal" type="text" class="form-control">
+
+    </div>
+    <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">
+        <label >Monto por periodo *</label>
+        <input formControlName="valor" type="text" class="form-control">
 
     </div>
     <div  *ngIf="infonavit" class="  input-group-sm mb-3 col-6">
@@ -85,7 +130,7 @@
     </div>
     <div *ngIf="infonavit" class="input-group-sm mb-3 col-6">
         <label>Aviso de retención </label>
-        <div class="input-group mb-3">
+        <div class="input-group mb-2">
           <input type="hidden" >
           <input #cer type="text" class="form-control disabled bg-light" >
           <div class="input-group-append" style="cursor: pointer;">
@@ -101,7 +146,7 @@
 
     <div *ngIf="infonavit" class="input-group-sm mb-3 col-6">
         <label>Aviso de suspensión </label>
-        <div class="input-group mb-3">
+        <div class="input-group mb-2">
           <input type="hidden" >
           <input #cer type="text" class="form-control disabled bg-light" >
           <div class="input-group-append" style="cursor: pointer;">

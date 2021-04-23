@@ -30,6 +30,13 @@ export class VentanaDeduccionesComponent implements OnInit {
   public normalDeduccion: boolean = true;
   public submenu: boolean = false;
   public numFolio: boolean = false;
+  public prestamo: boolean = false;
+  public montopago: boolean = false;
+  public credito: boolean = false;
+  public referencia: boolean = false;
+  public infonacot: boolean = false;
+  public valor: boolean = true;
+  public valorDescuento: boolean = false;
 
   @Output() salida = new EventEmitter<any>();
 
@@ -62,10 +69,13 @@ export class VentanaDeduccionesComponent implements OnInit {
       fechaRecepcionAvisoRetencion: [obj.fechaRecepcionAvisoRetencion],
       baseCalculoId:[obj.baseCalculoId],
       folioAvisoSuspension: [obj.folioAvisoSuspension],
+      interesPorcentaje: [obj.interesPorcentaje],
+      montoTotal: [obj.montoTotal],
+      numeroCuotas: [obj.numeroCuotas],
       fechaRecepcionAvisoSuspension: [obj.fechaRecepcionAvisoSuspension],
       folioAvisoRetencion: [obj.folioAvisoRetencion],
       tipoPercepcionId: [obj.tipoPercepcionId],
-      porcentaje: [obj.porcentaje],
+      valor: [obj.valor],
       montoPorPeriodo: [obj.montoPorPeriodo],
       numeroFolio: [obj.numeroFolio],
       fechaInicioDescto: [obj.fechaInicioDescto],
@@ -90,6 +100,21 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.numFolio = true;
       this.normalDeduccion = false;
       this.porcentual = false;
+      this.montopago = false;
+      this.prestamo = false;
+      this.credito = true;
+      this.referencia = false;
+      this.infonacot = false;
+      this.pensionAlimenticia = false;
+      this.valor= true;
+      this.valorDescuento = false;
+
+      this.myForm.controls.baseCalculoId.enable();
+      this.myForm.controls.baseCalculoId.setValue(""); 
+      this.myForm.controls.valor.setValue("");
+      this.myForm.controls.valor.enable();
+      this.myForm.controls.montoTotal.setValue(""); 
+      this.myForm.controls.numeroCuotas.setValue(""); 
     }
     else if(concepto=='007'){
       this.submenu = true;
@@ -97,18 +122,108 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.normalDeduccion = true;
       this.numFolio = true;
       this.infonavit = false;
-      
-      
-    }else{
+      this.prestamo = false;
+      this.credito = true;
+      this.referencia = false;
+      this.infonacot = false;
+      this.valor = true;
+      this.valorDescuento = false;
+
+      this.myForm.controls.valor.setValue("");
+      this.myForm.controls.valor.enable();
+      this.myForm.controls.montoTotal.setValue(""); 
+      this.myForm.controls.numeroCuotas.setValue(""); 
+
+    }    
+    else if(concepto=='004'){
+      this.submenu = true;
+      this.prestamo = true;
+      this.normalDeduccion = false;
+      this.numFolio = true;
+      this.montopago = true;
       this.infonavit = false;
+      this.pensionAlimenticia = false;
+      this.fijo = false;
+      this.porcentual = false;
+      this.credito = false;
+      this.referencia = true;
+      this.infonacot = false;
+      this.valor = true;
+      this.valorDescuento = false;
+
+      this.myForm.controls.baseCalculoId.disable();
+      this.myForm.controls.baseCalculoId.setValue(2);
+      this.myForm.controls.valor.setValue("");
+      this.myForm.controls.valor.disable();
+      this.myForm.controls.montoTotal.setValue(""); 
+      this.myForm.controls.numeroCuotas.setValue(""); 
+    }
+    else if(concepto=='011'){
+      this.submenu = true;
+      this.infonacot = true;
+      this.normalDeduccion = true;
+      this.numFolio = false;
+      this.infonavit = false;
+      this.pensionAlimenticia = false;
+      this.prestamo = false;
+      this.valor = false;
+      this.valorDescuento = false;
+
+      this.myForm.controls.baseCalculoId.disable();
+      this.myForm.controls.baseCalculoId.setValue(2);
+      this.myForm.controls.valor.setValue("");
+      this.myForm.controls.valor.enable();
+      this.myForm.controls.montoTotal.setValue(""); 
+      this.myForm.controls.numeroCuotas.setValue(""); 
+    }
+    else{
+      this.infonavit = false;
+      this.pensionAlimenticia = false;
       this.submenu = false;
       this.numFolio = false;
       this.normalDeduccion = true;
+      this.valor = true;
+      this.infonacot = false;
+      this.prestamo = false;
+      this.montopago = false;
+      this.porcentual = true;
+      this.fijo = false;
+      this.valorDescuento = false;
+      this.myForm.controls.valor.setValue("");
+      this.myForm.controls.valor.enable();
+      this.myForm.controls.baseCalculoId.enable();
+      this.myForm.controls.baseCalculoId.setValue("");
+      this.myForm.controls.montoTotal.setValue(""); 
+      this.myForm.controls.numeroCuotas.setValue(""); 
     }
     for(let item of this.obtenerPercepcion){
       if(concepto == item.tipoDeduccionId.tipoDeduccionId){
           this.conceptodeduccion= item.conceptoDeduccionId;
       }
+    }
+   }
+
+   public validarMontoTotal(monto:any){
+    debugger;
+      this.monto = monto;
+      if(this.monto != null && this.numPeriodo != null){
+        this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
+          this.montoPercepcion = datos.datos;
+          this.myForm.controls.valor.setValue(this.montoPercepcion);
+        });
+
+      }
+   }
+
+   public validarNumeroCuotas(cuotas:any){
+    debugger;
+    this.numPeriodo = cuotas;
+    if(this.monto != null && this.numPeriodo != null){
+      this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
+        this.montoPercepcion = datos.datos;
+        this.myForm.controls.valor.setValue(this.montoPercepcion);
+      });
+        
     }
    }
 
@@ -120,6 +235,28 @@ export class VentanaDeduccionesComponent implements OnInit {
       }else{
         this.porcentual = true;
         this.fijo = false;
+      }
+
+   }
+
+   public validarNomMontoInfonavit(tipomonto:any){
+    debugger;
+      if(tipomonto == 1){
+        this.porcentual = false;
+        this.fijo = true;
+        this.valorDescuento = false;
+        this.valor = true;
+
+      }
+      else if(tipomonto == 2){
+        this.porcentual = true;
+        this.fijo = false;
+        this.valorDescuento = false;
+        this.valor = true;
+      }
+      else{
+        this.valorDescuento = true;
+        this.valor = false;
       }
 
    }
@@ -159,13 +296,12 @@ export class VentanaDeduccionesComponent implements OnInit {
             baseCalculoId: {
               baseCalculoId: obj.baseCalculoId
             },
+            valor: obj.valor,
             fechaInicioDescto: obj.fechaInicioDescto,
             numeroFolio: obj.numeroFolio,
             montoTotal: obj.porcentaje,
-            //fechaDemanda: "",
-            //fechaOtorgamiento: "",
-            //numeroCuotas: 60,
-            //interesPorcentaje: 1.12,
+            numeroCuotas: obj.numeroCuotas,
+            interesPorcentaje: obj.interesPorcentaje,
             fechaFinDescuento: obj.fechaFinDescuento,
             folioAvisoRetencion: obj.folioAvisoRetencion,
             fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
