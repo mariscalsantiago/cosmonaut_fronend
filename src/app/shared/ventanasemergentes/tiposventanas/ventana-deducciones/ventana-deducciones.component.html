@@ -15,9 +15,22 @@
         <input formControlName="fechaInicioDescto" type="date" class="form-control">
 
     </div>
+
+    <div *ngIf="infonavit" class="input-group-sm mb-3 col-4">
+        <label>Fecha fin de descuento*</label>
+        <input formControlName="fechaFinDescuento" type="date" class="form-control">
+
+    </div>
     <div class="input-group-sm mb-3 col-12"></div> 
-    <div class=" input-group-sm mb-3 col-4">
+    <div *ngIf="normalDeduccion" class=" input-group-sm mb-3 col-4">
         <label for="exampleFormControlSelect1">Tipo de descuento *</label>
+        <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
+        </select>
+    </div>
+    <div *ngIf="infonavit" class=" input-group-sm mb-3 col-4">
+        <label for="exampleFormControlSelect1">Tipo de descuento INFONAVIT *</label>
         <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
             <option value=""></option>
             <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
@@ -36,11 +49,7 @@
         <label >Monto por periodo *</label>
         <input formControlName="montoPorPeriodo" type="text" class="form-control disabled bg-light">
     </div>
-    <div  *ngIf="periodica" class="  input-group-sm mb-3 col-4">
-        <label >Referencia *</label>
-        <input formControlName="referencia" type="text" class="form-control" >
-
-    </div>-->
+-->
     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
         <label>Estatus *</label>
         <select name="" id="" class="form-control" formControlName="esActivo">
@@ -48,6 +57,64 @@
           <option value="false">Inactivo</option>
         </select>
       </div>
+
+      <div *ngIf="submenu"  class="form-group mt-3 row margen"><label class="titulo">Detalle de la deducción</label></div>
+      <div *ngIf="infonavit" class="input-group-sm mb-3 col-6"></div>
+
+      <div *ngIf="pensionAlimenticia" class="input-group-sm mb-3 col-6">
+        <label>Fecha de demanda *</label>
+        <input formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control">
+
+    </div>
+
+      <div *ngIf="infonavit" class="input-group-sm mb-3 col-6">
+        <label>Fecha fin de recepción del aviso de retención *</label>
+        <input formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control">
+
+    </div>
+
+    <div  *ngIf="numFolio" class="  input-group-sm mb-3 col-6">
+        <label >Número de credito *</label>
+        <input formControlName="numeroFolio" type="text" class="form-control" >
+
+    </div>
+    <div  *ngIf="infonavit" class="  input-group-sm mb-3 col-6">
+        <label >Número de folio del aviso de retención *</label>
+        <input formControlName="folioAvisoRetencion" type="text" class="form-control" >
+
+    </div>
+    <div *ngIf="infonavit" class="input-group-sm mb-3 col-6">
+        <label>Aviso de retención </label>
+        <div class="input-group mb-3">
+          <input type="hidden" >
+          <input #cer type="text" class="form-control disabled bg-light" >
+          <div class="input-group-append" style="cursor: pointer;">
+            <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
+          </div>
+        </div>
+      </div>
+      <div  *ngIf="infonavit" class="  input-group-sm mb-3 col-6">
+        <label >Número de folio del aviso de suspensión *</label>
+        <input formControlName="folioAvisoSuspension" type="text" class="form-control" >
+
+    </div>
+
+    <div *ngIf="infonavit" class="input-group-sm mb-3 col-6">
+        <label>Aviso de suspensión </label>
+        <div class="input-group mb-3">
+          <input type="hidden" >
+          <input #cer type="text" class="form-control disabled bg-light" >
+          <div class="input-group-append" style="cursor: pointer;">
+            <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="infonavit" class="input-group-sm mb-3 col-6">
+        <label>Fecha fin de recepción del aviso de suspensión *</label>
+        <input formControlName="fechaRecepcionAvisoSuspension" type="date" class="form-control">
+
+    </div>
+
 </div>
 <div class="text-right margin" style="margin-bottom: 20px;">
 
