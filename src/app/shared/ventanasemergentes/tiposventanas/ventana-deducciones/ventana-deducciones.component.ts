@@ -25,7 +25,11 @@ export class VentanaDeduccionesComponent implements OnInit {
   public fijo: boolean = false;
   public porcentual: boolean = true;
   public conceptodeduccion: number = 0;
-
+  public infonavit: boolean = false;
+  public pensionAlimenticia: boolean = false;
+  public normalDeduccion: boolean = true;
+  public submenu: boolean = false;
+  public numFolio: boolean = false;
 
   @Output() salida = new EventEmitter<any>();
 
@@ -54,10 +58,16 @@ export class VentanaDeduccionesComponent implements OnInit {
     return this.formBuild.group({
 
       nomDeduccion: [obj.nomDeduccion],
+      fechaFinDescuento: [obj.fechaFinDescuento],
+      fechaRecepcionAvisoRetencion: [obj.fechaRecepcionAvisoRetencion],
       baseCalculoId:[obj.baseCalculoId],
+      folioAvisoSuspension: [obj.folioAvisoSuspension],
+      fechaRecepcionAvisoSuspension: [obj.fechaRecepcionAvisoSuspension],
+      folioAvisoRetencion: [obj.folioAvisoRetencion],
       tipoPercepcionId: [obj.tipoPercepcionId],
       porcentaje: [obj.porcentaje],
       montoPorPeriodo: [obj.montoPorPeriodo],
+      numeroFolio: [obj.numeroFolio],
       fechaInicioDescto: [obj.fechaInicioDescto],
       montoPercepcion: [obj.montoPercepcion],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }]
@@ -73,6 +83,28 @@ export class VentanaDeduccionesComponent implements OnInit {
 
    public validarConceptoDeduccion(concepto:any){
     debugger;
+    if(concepto=='010'){
+      this.infonavit = true;
+      this.fijo = true;
+      this.submenu = true;
+      this.numFolio = true;
+      this.normalDeduccion = false;
+      this.porcentual = false;
+    }
+    else if(concepto=='007'){
+      this.submenu = true;
+      this.pensionAlimenticia = true;
+      this.normalDeduccion = true;
+      this.numFolio = true;
+      this.infonavit = false;
+      
+      
+    }else{
+      this.infonavit = false;
+      this.submenu = false;
+      this.numFolio = false;
+      this.normalDeduccion = true;
+    }
     for(let item of this.obtenerPercepcion){
       if(concepto == item.tipoDeduccionId.tipoDeduccionId){
           this.conceptodeduccion= item.conceptoDeduccionId;
@@ -128,18 +160,17 @@ export class VentanaDeduccionesComponent implements OnInit {
               baseCalculoId: obj.baseCalculoId
             },
             fechaInicioDescto: obj.fechaInicioDescto,
-            //numeroFolio: "",
+            numeroFolio: obj.numeroFolio,
             montoTotal: obj.porcentaje,
             //fechaDemanda: "",
             //fechaOtorgamiento: "",
             //numeroCuotas: 60,
             //interesPorcentaje: 1.12,
-           
-            //fechaFinDescuento: "",
-            //folioAvisoRetencion: "",
-            //fechaRecepcionAvisoRetencion: "",
-            //folioAvisoSuspension: "",
-            //fechaRecepcionAvisoSuspension: "",
+            fechaFinDescuento: obj.fechaFinDescuento,
+            folioAvisoRetencion: obj.folioAvisoRetencion,
+            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
+            folioAvisoSuspension: obj.folioAvisoSuspension,
+            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
              //tipoDescuentoInfonavitId: {
              // tipoDescuentoInfonavitId: 0
             //}
