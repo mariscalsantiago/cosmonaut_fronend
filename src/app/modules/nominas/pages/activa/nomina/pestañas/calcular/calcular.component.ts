@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-calcular',
@@ -9,7 +11,7 @@ import { NominasService } from 'src/app/modules/nominas/services/nominas.service
   styleUrls: ['./calcular.component.scss']
 })
 export class CalcularComponent implements OnInit {
-
+  @Output() salida = new EventEmitter();
   public cargando:boolean = false;
   public arreglotabla:any = {
     columnas:[],
@@ -22,9 +24,13 @@ export class CalcularComponent implements OnInit {
   }
 
 
+  public cargandoIcon:boolean = false;
+
+
   public arreglo:any = [];
 
-  constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService) { }
+  constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,private navigate:Router,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -90,6 +96,14 @@ export class CalcularComponent implements OnInit {
           item.cargandoDetalle = false;
           break;
     }
+  }
+
+  public regresar(){
+      this.navigate.navigate(["/nominas/activas"]);
+  }
+
+  public continuar(){
+    this.salida.emit({type:"calcular"});
   }
 
 }

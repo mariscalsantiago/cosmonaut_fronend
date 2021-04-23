@@ -9,10 +9,12 @@ export class VentanaemergenteService {
   public nuevanomina: string = "nuevanomina";
   public timbrado: string = "timbrado";
   public timbrar: string = "timbrar";
-  public fotoperfil:string = "fotoperfil";
+  public fotoperfil: string = "fotoperfil";
   public percepciones: string = "percepciones";
   public deducciones: string = "deducciones";
-  
+  public ndispersion: string = "ndispersion";
+  public ntimbrado: string = "ntimbrado";
+
 
   private subject?: Subject<any>;;
 
@@ -23,13 +25,15 @@ export class VentanaemergenteService {
   }
 
   private mostrar: any = {
-    
+
     nuevanomina: false,
     timbrado: false,
     timbrar: false,
-    fotoperfil:false,
+    fotoperfil: false,
     percepciones: false,
-    deducciones: false
+    deducciones: false,
+    ndispersion: false,
+    ntimbrado: false
   }
 
   constructor() { }
@@ -41,9 +45,9 @@ export class VentanaemergenteService {
       this.mostrar[llave] = false;
     }
 
-   
+
     switch (tipoVentana) {
-      
+
       case this.nuevanomina:
         this.mostrar.nuevanomina = true;
         this.emergente.titulo = "NUEVA NÓMINA MANUAL";
@@ -57,17 +61,25 @@ export class VentanaemergenteService {
         this.emergente.titulo = "";
         break;
       case this.percepciones:
-          this.mostrar.percepciones = true;
-          this.emergente.titulo = "Agregar percepciónes";
-      break;
+        this.mostrar.percepciones = true;
+        this.emergente.titulo = "Agregar percepciónes";
+        break;
       case this.fotoperfil:
-          this.mostrar.fotoperfil = true;
-          this.emergente.titulo = "Elegir foto de perfil";
-          break;
+        this.mostrar.fotoperfil = true;
+        this.emergente.titulo = "Elegir foto de perfil";
+        break;
       case this.deducciones:
-          this.mostrar.deducciones = true;
-          this.emergente.titulo = "Agregar deducciónes";
-      break;
+        this.mostrar.deducciones = true;
+        this.emergente.titulo = "Agregar deducciónes";
+        break;
+      case this.ndispersion:
+        this.mostrar.ndispersion = true;
+        this.emergente.titulo = "Resumen de la dispersión";
+        break;
+      case this.ntimbrado:
+        this.mostrar.ntimbrado = true;
+        this.emergente.titulo = "Resumen del timbrado";
+        break;
     }
 
 

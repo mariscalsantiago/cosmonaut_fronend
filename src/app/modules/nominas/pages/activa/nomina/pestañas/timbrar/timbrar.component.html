@@ -13,15 +13,48 @@
         <input type="text" name="" placeholder="RFC" id="" class="form-control">
      </div>
     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-        <button type="button" class="btn btn-primary button-outlet mr-3 ">FILTRAR</button>
-        <button class="btn btn-primary button-fill">Descargar</button>
+        <button type="button" class="btn btn-primary button-outlet mr-3 ">Filtrar</button>
+    
     </div>
 </div>
 
-<a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle">
-    <i style="background-color: #56dfd4 !important;" class="icon_eventos "></i>
-    Definir fecha de pago del timbrado</a>
 
+
+
+
+    <div class="row">
+        <div class="col-12 text-right">
+            <a class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+                        class="fas fa-download"></i> Descargar nómina</small>
+                <div *ngIf="cargandoIcon" class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </a>
+        </div>
+    </div>  
+
+    <div class="row especialrow">
+        <div class="col-6">
+            <article>Empleados
+                <article style="margin-left: 32px;">{{arreglo.length}}</article>
+            </article>
+        </div>
+        <div class="col-2">
+            <article>Percepciones
+                <article>$16,499.96</article>
+            </article>
+        </div>
+        <div class="col-2">
+            <article>Deducciones
+                <article>$3,380.60</article>
+            </article>
+        </div>
+        <div class="col-2">
+            <article>Total
+                <article>$13,271.36</article>
+            </article>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col">
@@ -32,7 +65,7 @@
 
     <div class="text-center margin" style="margin-bottom: 20px;">
 
-        <button (click)="guardar()" class="btn btn-primary button-outlet mr-2">Guardar</button>
-        <button (click)="continuar()"  class="btn btn-primary button-fill">Continuar</button>
+        <button (click)="regresar()" class="btn btn-primary button-outlet mr-2">Regresar</button>
+        <button (click)="timbrar()"  class="btn btn-primary button-fill">Timbrar</button>
     </div>
     

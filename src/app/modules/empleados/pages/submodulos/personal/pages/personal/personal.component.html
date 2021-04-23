@@ -385,7 +385,7 @@
                     </article>
                     <article *ngIf="editarcampos">
                         <select formControlName="contactoEmergenciaParentesco" name=""  class="form-control">
-                            <option *ngFor="let item of (arregloParenteesco | async)?.datos" [value]="item.parentescoId">{{item.descripcion}}}</option>
+                            <option *ngFor="let item of (arregloParenteesco | async)?.datos" [value]="item.parentescoId">{{item.descripcion}}</option>
                         </select>
                     </article>
                 </article>

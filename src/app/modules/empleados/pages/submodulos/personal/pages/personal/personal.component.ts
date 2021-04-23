@@ -371,6 +371,9 @@ export class PersonalComponent implements OnInit {
         this.parsearInformacion();
         this.actualizarDomicilio();
         this.editarcampos = false;
+      }else{
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
       }
 
     });

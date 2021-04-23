@@ -14,6 +14,7 @@ export class PagarComponent implements OnInit {
   @Output() salida = new EventEmitter();
 
   public cargando:boolean = false;
+  public cargandoIcon:boolean = false;
 
   public arreglotabla:any = {
     columnas:[],
@@ -80,21 +81,31 @@ export class PagarComponent implements OnInit {
     });
   }
 
-  public guardar(){
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas dispersar la nómina?").then(valor =>{
-      if(valor){
-
-        this.salida.emit({type:"dispersar"});
-
-       
-      }
-    });
-  }
-
+ 
 
   public recibirTabla(obj:any){
 
 
+  }
+
+  public regresar(){
+     
+  }
+
+  public dispersar(){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas dispersar la nómina?").then(valor =>{
+      if(valor){
+
+
+        this.ventana.showVentana(this.ventana.ndispersion).then(valor =>{
+          this.salida.emit({type:"dispersar"});
+        });;
+
+        
+
+       
+      }
+    });
   }
 
 }

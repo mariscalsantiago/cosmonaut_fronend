@@ -14,7 +14,7 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 export class TimbrarComponent implements OnInit {
   @Output() salida = new EventEmitter();
   public cargando:boolean = false;
-
+  public cargandoIcon:boolean = false;
   public arreglo:any = [];
   public arreglotabla:any = {
     columnas:[],
@@ -82,20 +82,22 @@ export class TimbrarComponent implements OnInit {
   }
 
 
-  public guardar(){
+  public timbrar(){
       this.ventana.showVentana(this.ventana.timbrar,{ventanaalerta:true}).then(datos =>{
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         setTimeout(() => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.salida.emit({type:"timbrar"});
+          this.ventana.showVentana(this.ventana.ntimbrado).then(()=>{
+            this.salida.emit({type:"timbrar"});
+          });;
         }, 2000);
 
       });;
   }
 
-  public continuar(){
-      this.guardar();
+  public regresar(){
+      
   }
 
 }

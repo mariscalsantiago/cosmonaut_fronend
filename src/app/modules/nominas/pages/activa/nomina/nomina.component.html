@@ -3,7 +3,10 @@
 
     <div class="col-9 mt-3  mb-3 ">
       <article>Nómina Quincenal Soulsoft
-        <article>Periodo 001/2020: 1 oct. - 15 oct. Incidencias: 1 oct. - 15 oct.</article>
+          <article>Período 001/2020</article>
+          <article>De 1 oct. hasta 15 oct.</article>
+          <article>Incidencias consideradas de 1 oct. hasta 15 oct.</article>
+    
       </article>
 
     </div>
@@ -31,7 +34,7 @@
         <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel"
           aria-labelledby="nav-home-tab">
 
-          <app-calcular></app-calcular>
+          <app-calcular (salida)="recibirComponente($event)"></app-calcular>
 
 
         </div>
