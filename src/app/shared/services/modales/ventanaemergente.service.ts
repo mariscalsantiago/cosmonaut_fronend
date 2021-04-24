@@ -62,7 +62,7 @@ export class VentanaemergenteService {
         break;
       case this.percepciones:
         this.mostrar.percepciones = true;
-        this.emergente.titulo = "Agregar percepciónes";
+        this.emergente.titulo = "Agregar percepciones";
         break;
       case this.fotoperfil:
         this.mostrar.fotoperfil = true;
@@ -70,7 +70,7 @@ export class VentanaemergenteService {
         break;
       case this.deducciones:
         this.mostrar.deducciones = true;
-        this.emergente.titulo = "Agregar deducciónes";
+        this.emergente.titulo = "Agregar deducciones";
         break;
       case this.ndispersion:
         this.mostrar.ndispersion = true;

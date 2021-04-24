@@ -8,7 +8,7 @@
               <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse"
                 data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
 
-                Detalle Pago
+                Detalle pago
                 <i *ngIf="!arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                 <i *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
@@ -144,7 +144,7 @@
             <h5 class="mb-0">
               <button (click)="cambiarStatus(1)" class="btn btn-link collapsed" data-toggle="collapse"
                 data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Detalle de Compensación
+                Detalle de compensación
                 <i *ngIf="!arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                 <i *ngIf="arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
@@ -218,7 +218,7 @@
             <h5 class="mb-0">
               <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse"
                 data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
-                Percepciones
+                Percepciones específicas
                 <i *ngIf="!arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                 <i *ngIf="arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
@@ -257,7 +257,7 @@
             <h5 class="mb-0">
               <button (click)="cambiarStatus(3)" class="btn btn-link collapsed" data-toggle="collapse"
                 data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
-                Deducciones
+                Deducciones específicas
                 <i *ngIf="!arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                 <i *ngIf="arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
@@ -267,7 +267,7 @@
           </div>
           <div id="collapseFive" class="collapse" aria-labelledby="deducciones" data-parent="#accordion">
             <div class="card-body">
-              <table class="table table-borderless">
+              <!--<table class="table table-borderless">
                 <tbody>
 
                   <tr>
@@ -286,7 +286,7 @@
                   </tr>
 
                 </tbody>
-              </table>
+              </table>-->
               
               <!--<div class="container">
                 <div class="row">
@@ -602,12 +602,12 @@
             </div>
           </div>
         </div>
-        <div class="card" [ngClass]="{'cardselected':arreglopintar[4]}">
+        <!--<div class="card" [ngClass]="{'cardselected':arreglopintar[4]}">
           <div class="card-header" id="recibospago">
             <h5 class="mb-0">
               <button (click)="cambiarStatus(4)" class="btn btn-link collapsed" data-toggle="collapse"
                 data-target="#collapseSix" aria-expanded="false" aria-controls="collapseThree">
-                Recibos de Pago
+                Recibos de pago
                 <i *ngIf="!arreglopintar[4]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                 <i *ngIf="arreglopintar[4]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
@@ -652,7 +652,7 @@
 
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>

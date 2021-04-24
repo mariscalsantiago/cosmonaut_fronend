@@ -42,18 +42,18 @@
         <input #monto (focusout)="validarMonto(monto.value)" formControlName="montoPercepcion" type="text" class="form-control" >
     </div>
     <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
-        <label >Número de periodos *</label>
+        <label >Número de períodos *</label>
         <input #numPeriodos (focusout)="validarNumPeriodo(numPeriodos.value)" formControlName="numeroPeriodos" type="text" class="form-control"
         placeholder="">
 
     </div>
     <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
-        <label >Monto por periodo *</label>
+        <label >Monto por período *</label>
         <input formControlName="montoPorPeriodo" type="text" class="form-control disabled bg-light">
     </div>
     <div  *ngIf="periodica" class="  input-group-sm mb-3 col-4">
         <label >Referencia *</label>
-        <input formControlName="referencia" type="text" class="form-control" >
+        <input formControlName="referencia" maxlength="50" type="text" class="form-control" >
 
     </div>
     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
