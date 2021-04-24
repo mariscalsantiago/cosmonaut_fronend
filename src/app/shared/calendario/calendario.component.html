@@ -6,7 +6,7 @@
             <span (click)="anteriorMes()" class="primary cursor">
                 <i class="fas fa-chevron-left" style="cursor: pointer;"></i>
             </span><span class="primary ml-5 mr-5">
-                {{(fecha | date:'MMM' | uppercase)?.replace('.','')}} {{fecha | date:'yyyy'}}
+                {{(fecha | date:'MMMM' | uppercase)?.replace('.','')}} {{fecha | date:'yyyy'}}
             </span><span (click)="siguienteMes()" class="primary cursor"><i class="fas fa-chevron-right "
                     style="cursor: pointer;"></i></span>
 

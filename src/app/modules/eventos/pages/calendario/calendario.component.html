@@ -12,72 +12,74 @@
 
 
 <div class="row   margen-tabla background-panel  background-ajustar" appTamanioVentana [pixeles]="145">
-    <div class="col-2 mt-2">
-        <div class="col-12">
-            <label class="primary">GESTIONAR EVENTOS</label>
-            <div>
-                <label class="contenedorInputCheckRadio aniversarios">Aniversarios
-                    <input  checked type="checkbox" name="" id="">
-                    <span class="checkmark aniversarios"></span>
-                  </label>     
-            </div>
-            <div>
-                <label class="contenedorInputCheckRadio cumpleanios">Retardos
-                    <input  checked type="checkbox" name="" id="">
-                    <span class="checkmark cumpleanios"></span>
-                  </label>     
-            </div>
-            <div>
-                <label class="contenedorInputCheckRadio diaseconomicos">Días economicos
-                    <input  checked type="checkbox" name="" id="">
-                    <span class="checkmark diaseconomicos"></span>
-                  </label>     
-            </div>
-            <div>
-                <label class="contenedorInputCheckRadio faltas">Faltas
-                    <input checked  type="checkbox" name="" id="">
-                    <span class="checkmark faltas"></span>
-                  </label>     
-            </div>
-            <div>
-                <label class="contenedorInputCheckRadio horasextras">Horas extras
-                    <input  checked type="checkbox" name="" id="">
-                    <span class="checkmark horasextras"></span>
-                  </label>     
-            </div>
-            <div>
-                <label class="contenedorInputCheckRadio incapacidades">Incapacidades
-                    <input checked  type="checkbox" name="" id="">
-                    <span class="checkmark incapacidades"></span>
-                  </label>     
-            </div>
-            <div>
-                <label class="contenedorInputCheckRadio vacaciones">Vacaciones
-                    <input  checked type="checkbox" name="" id="">
-                    <span class="checkmark vacaciones"></span>
-                  </label>     
-            </div>
-        </div>
-        
-        
-
-    </div>
-    <div class="col-10">
+    <div class="col-12">
 
         
         <div id="accordion" class="acordion_desplegable">
             <div class="card">
               <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  <button style="width: 90%;" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                     Calendario
                   </button>
+                  <i style="float: right; color:#00C1AF" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                 </h5>
               </div>
           
-              <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+              <div id="collapseOne" class="collapse show " aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-                    <app-calendario [eventos]="eventos" [arregloEventos]="arregloEventos" [arregloAreas]="arregloAreas"  (salida)="recibirTabla($event)"></app-calendario>
+
+                  <div class="row">
+                    <div class="col-2">
+                      <label class="primary">GESTIONAR EVENTOS</label>
+                      <div>
+                          <label class="contenedorInputCheckRadio aniversarios">Aniversarios
+                              <input  checked type="checkbox" name="" id="">
+                              <span class="checkmark aniversarios"></span>
+                            </label>     
+                      </div>
+                      <div>
+                          <label class="contenedorInputCheckRadio cumpleanios">Retardos
+                              <input  checked type="checkbox" name="" id="">
+                              <span class="checkmark cumpleanios"></span>
+                            </label>     
+                      </div>
+                      <div>
+                          <label class="contenedorInputCheckRadio diaseconomicos">Días economicos
+                              <input  checked type="checkbox" name="" id="">
+                              <span class="checkmark diaseconomicos"></span>
+                            </label>     
+                      </div>
+                      <div>
+                          <label class="contenedorInputCheckRadio faltas">Faltas
+                              <input checked  type="checkbox" name="" id="">
+                              <span class="checkmark faltas"></span>
+                            </label>     
+                      </div>
+                      <div>
+                          <label class="contenedorInputCheckRadio horasextras">Horas extras
+                              <input  checked type="checkbox" name="" id="">
+                              <span class="checkmark horasextras"></span>
+                            </label>     
+                      </div>
+                      <div>
+                          <label class="contenedorInputCheckRadio incapacidades">Incapacidades
+                              <input checked  type="checkbox" name="" id="">
+                              <span class="checkmark incapacidades"></span>
+                            </label>     
+                      </div>
+                      <div>
+                          <label class="contenedorInputCheckRadio vacaciones">Vacaciones
+                              <input  checked type="checkbox" name="" id="">
+                              <span class="checkmark vacaciones"></span>
+                            </label>     
+                      </div>
+                  </div>
+                      <div class="col-10">
+                        <app-calendario [eventos]="eventos" [arregloEventos]="arregloEventos" [arregloAreas]="arregloAreas"  (salida)="recibirTabla($event)"></app-calendario>
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>

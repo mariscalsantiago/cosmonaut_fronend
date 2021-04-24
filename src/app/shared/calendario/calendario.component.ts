@@ -178,10 +178,10 @@ export class CalendarioComponent implements OnInit, OnChanges {
     this.left = mouse.pageX - 200;
     
 
-
+   console.log("el evento",evento);
     switch(evento.tipoIncidenciaId){
       case 8:
-        this.eventoActual.color = "#4cc1b0";
+        this.eventoActual.color = "#67bf89";
         break;
       case 5:
         this.eventoActual.color = "#7973ba";
@@ -190,7 +190,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
         this.eventoActual.color = "#5db2c9";
         break;
       case 1:
-        this.eventoActual.color = "#bec3cd";
+        this.eventoActual.color = "#67bf89";
         break;
       case 13:
       case 14:
