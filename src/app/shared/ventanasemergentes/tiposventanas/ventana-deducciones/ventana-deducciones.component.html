@@ -37,13 +37,12 @@
             <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
         </select>
     </div>
+    
     <div *ngIf="infonavit" class=" input-group-sm mb-3 col-4">
         <label for="exampleFormControlSelect1">Tipo de descuento INFONAVIT *</label>
-        <select #tipoMonto (focusout)="validarNomMontoInfonavit(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
+        <select #tipoMonto (focusout)="validarNomMontoInfonavit(tipoMonto.value)" formControlName="tipoDescuentoInfonavitId" type="text" class="form-control">
             <option value=""></option>
-            <option value="1">Fijo</option>
-            <option value="2">Porcentual</option>
-            <option value="3">Valor de descuento</option>
+            <option *ngFor="let item of arregloDescuentoInfonavit"  [value]="item.tipoDescuentoInfonavitId">{{item.descripcion}}</option>
         </select>
     </div>
     <div *ngIf="prestamo"  class="  input-group-sm mb-3 col-4">
@@ -75,7 +74,7 @@
     <div class="input-group-sm mb-3 col-4">
         <label>Estatus *</label>
         <select name="" id="" class="form-control" formControlName="esActivo">
-          <option value="true">Activo</option>
+          <option value="true" >Activo</option>
           <option value="false">Inactivo</option>
         </select>
       </div>

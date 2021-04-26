@@ -1,9 +1,9 @@
-import { Component, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
-import { debug } from 'console';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-ventana-deducciones',
@@ -37,8 +37,12 @@ export class VentanaDeduccionesComponent implements OnInit {
   public infonacot: boolean = false;
   public valor: boolean = true;
   public valorDescuento: boolean = false;
+  public empresa: number = 0;
+  public empleado: number = 0;
+  public arregloDescuentoInfonavit: any = [];
 
   @Output() salida = new EventEmitter<any>();
+  @Input() public datos:any;
 
 
   constructor(private modalPrd:ModalService, private formBuild: FormBuilder, private catalogosPrd:CatalogosService,
@@ -46,43 +50,61 @@ export class VentanaDeduccionesComponent implements OnInit {
 
   ngOnInit(): void {
     debugger;
-    /*if (!this.esInsert) {//Solo cuando es modificar
-      this.obj = history.state.data;
-      
+    if(this.datos.idEmpleado != undefined){
+      this.empresa = this.datos.idEmpresa;
+      this.empleado = this.datos.idEmpleado;
     }else{
-      this.obj= {};
-    }*/
-    this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
-    this.bancosPrd.getObtenerDeduccion(112).subscribe(datos => this.obtenerPercepcion = datos.datos);
+      this.empresa = this.datos.centrocClienteId?.centrocClienteId;
+      this.empleado = this.datos.personaId?.personaId;
+    }
 
-    this.obj = {};
-    this.myForm = this.createForm(this.obj);
+    this.catalogosPrd.getTipoDescuentoInfonavit(true).subscribe(datos => this.arregloDescuentoInfonavit = datos.datos);
+    this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
+    this.bancosPrd.getObtenerDeduccion(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
+
+    debugger;
+    if(this.datos.idEmpleado != undefined){
+      this.datos = {};
+      this.esInsert = true;
+      this.myForm = this.createForm(this.datos);
+
+    }else{
+      this.esInsert = false;
+      this.myForm = this.createForm(this.datos);
+      this.validarConceptoDeduccion(this.datos.tipoDeduccionId?.tipoDeduccionId);
+    }
+    
+    
   }
 
   public createForm(obj: any) {
     debugger;
-    this.esInsert = true;
+    let datePipe = new DatePipe("en-MX");
+
     return this.formBuild.group({
 
-      nomDeduccion: [obj.nomDeduccion],
-      fechaFinDescuento: [obj.fechaFinDescuento],
-      fechaRecepcionAvisoRetencion: [obj.fechaRecepcionAvisoRetencion],
-      baseCalculoId:[obj.baseCalculoId],
+      nomDeduccion: [obj.tipoDeduccionId?.tipoDeduccionId],
+      fechaFinDescuento: [datePipe.transform(obj.fechaFinDescuento, 'yyyy-MM-dd')],
+      fechaRecepcionAvisoRetencion: [datePipe.transform(obj.fechaRecepcionAvisoRetencion, 'yyyy-MM-dd')],
+      baseCalculoId:[obj.baseCalculoId?.baseCalculoId],
       folioAvisoSuspension: [obj.folioAvisoSuspension],
       interesPorcentaje: [obj.interesPorcentaje],
       montoTotal: [obj.montoTotal],
       numeroCuotas: [obj.numeroCuotas],
-      fechaRecepcionAvisoSuspension: [obj.fechaRecepcionAvisoSuspension],
+      fechaRecepcionAvisoSuspension: [datePipe.transform(obj.fechaRecepcionAvisoSuspension, 'yyyy-MM-dd')],
       folioAvisoRetencion: [obj.folioAvisoRetencion],
       tipoPercepcionId: [obj.tipoPercepcionId],
       valor: [obj.valor],
+      tipoDescuentoInfonavitId:[obj.tipoDescuentoInfonavitId?.tipoDescuentoInfonavitId],
       montoPorPeriodo: [obj.montoPorPeriodo],
       numeroFolio: [obj.numeroFolio],
-      fechaInicioDescto: [obj.fechaInicioDescto],
+      fechaInicioDescto: [datePipe.transform(obj.fechaInicioDescto, 'yyyy-MM-dd')],
       montoPercepcion: [obj.montoPercepcion],
-      esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }]
+      esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true" , disabled: true }]
 
     });
+
+    
 
   }
 
@@ -109,12 +131,17 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.valor= true;
       this.valorDescuento = false;
 
+
       this.myForm.controls.baseCalculoId.enable();
-      this.myForm.controls.baseCalculoId.setValue(""); 
-      this.myForm.controls.valor.setValue("");
       this.myForm.controls.valor.enable();
+
+      if(this.esInsert){
       this.myForm.controls.montoTotal.setValue(""); 
       this.myForm.controls.numeroCuotas.setValue(""); 
+      this.myForm.controls.baseCalculoId.setValue(""); 
+      this.myForm.controls.valor.setValue("");
+      }
+
     }
     else if(concepto=='007'){
       this.submenu = true;
@@ -129,10 +156,13 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.valor = true;
       this.valorDescuento = false;
 
-      this.myForm.controls.valor.setValue("");
       this.myForm.controls.valor.enable();
+
+      if(this.esInsert){
       this.myForm.controls.montoTotal.setValue(""); 
-      this.myForm.controls.numeroCuotas.setValue(""); 
+      this.myForm.controls.numeroCuotas.setValue("");
+      this.myForm.controls.valor.setValue("");
+      } 
 
     }    
     else if(concepto=='004'){
@@ -151,12 +181,18 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.valor = true;
       this.valorDescuento = false;
 
+
       this.myForm.controls.baseCalculoId.disable();
       this.myForm.controls.baseCalculoId.setValue(2);
-      this.myForm.controls.valor.setValue("");
       this.myForm.controls.valor.disable();
+
+      if(this.esInsert){
       this.myForm.controls.montoTotal.setValue(""); 
       this.myForm.controls.numeroCuotas.setValue(""); 
+      this.myForm.controls.valor.setValue("");
+      }
+
+      
     }
     else if(concepto=='011'){
       this.submenu = true;
@@ -171,10 +207,14 @@ export class VentanaDeduccionesComponent implements OnInit {
 
       this.myForm.controls.baseCalculoId.disable();
       this.myForm.controls.baseCalculoId.setValue(2);
-      this.myForm.controls.valor.setValue("");
       this.myForm.controls.valor.enable();
+
+      if(this.esInsert){
+      this.myForm.controls.valor.setValue("");
       this.myForm.controls.montoTotal.setValue(""); 
-      this.myForm.controls.numeroCuotas.setValue(""); 
+      this.myForm.controls.numeroCuotas.setValue("");
+      }
+      
     }
     else{
       this.infonavit = false;
@@ -189,18 +229,25 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.porcentual = true;
       this.fijo = false;
       this.valorDescuento = false;
-      this.myForm.controls.valor.setValue("");
+    
       this.myForm.controls.valor.enable();
       this.myForm.controls.baseCalculoId.enable();
+
+      if(this.esInsert){
       this.myForm.controls.baseCalculoId.setValue("");
       this.myForm.controls.montoTotal.setValue(""); 
       this.myForm.controls.numeroCuotas.setValue(""); 
+      this.myForm.controls.valor.setValue("");
+      }
+      
     }
+
     for(let item of this.obtenerPercepcion){
       if(concepto == item.tipoDeduccionId.tipoDeduccionId){
           this.conceptodeduccion= item.conceptoDeduccionId;
       }
     }
+    
    }
 
    public validarMontoTotal(monto:any){
@@ -274,9 +321,12 @@ export class VentanaDeduccionesComponent implements OnInit {
       return;
 
     }*/
-      this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas registrar la percepción?").then(valor =>{
+    let mensaje = this.esInsert ? "¿Deseas registrar la percepción" : "¿Deseas actualizar la percepción?";
+    
+      this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
           let  obj = this.myForm.getRawValue();
+          
           let objEnviar:any = {
             tipoDeduccionId: {
               tipoDeduccionId: obj.nomDeduccion
@@ -285,12 +335,12 @@ export class VentanaDeduccionesComponent implements OnInit {
               conceptoDeduccionId: this.conceptodeduccion
             },
             personaId: {
-              personaId: 585
+              personaId: this.empleado
               
               },
                  
             centrocClienteId: {
-              centrocClienteId: 112
+              centrocClienteId: this.empresa
               },
               
             baseCalculoId: {
@@ -299,7 +349,7 @@ export class VentanaDeduccionesComponent implements OnInit {
             valor: obj.valor,
             fechaInicioDescto: obj.fechaInicioDescto,
             numeroFolio: obj.numeroFolio,
-            montoTotal: obj.porcentaje,
+            montoTotal: obj.montoTotal,
             numeroCuotas: obj.numeroCuotas,
             interesPorcentaje: obj.interesPorcentaje,
             fechaFinDescuento: obj.fechaFinDescuento,
@@ -307,9 +357,9 @@ export class VentanaDeduccionesComponent implements OnInit {
             fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
-             //tipoDescuentoInfonavitId: {
-             // tipoDescuentoInfonavitId: 0
-            //}
+            tipoDescuentoInfonavitId: {
+             tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
+            }
           };
           debugger;
           this.salida.emit({type:"guardar",datos:objEnviar});

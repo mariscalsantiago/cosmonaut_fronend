@@ -242,11 +242,9 @@
                     </div>
                   </div>
                   <div class="row margen margen-tabla background-panel">
-                    <app-tablapaginado [datos]="arreglotablaPert" [editar]="true" [cargando]="cargandoPer" (salida)="recibirTabla($event)">
+                    <app-tablapaginado [datos]="arreglotablaPert" [editar]="true" [cargando]="cargandoPer" (salida)="recibirTablaPer($event)">
                     </app-tablapaginado>
                   </div>
-
-
                 </div>
               </div>
             </div>
@@ -588,8 +586,7 @@
                     </div>
                   </div>
                   <div class="row margen margen-tabla background-panel">
-                    <app-tablapaginado [datos]="arreglotablaDedt"
-                    [editar]="true" [cargando]="cargandoDed" (salida)="recibirTabla($event)">
+                    <app-tablapaginado [datos]="arreglotablaDedt" [editar]="true" [cargando]="cargandoDed" (salida)="recibirTablaDed($event)">
                   </app-tablapaginado>
                   </div>
 

@@ -79,6 +79,7 @@ export class PagosComponent implements OnInit {
     this.idEmpleado = params["id"];
 
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
+      debugger;
       this.empleado = datos.datos;
       if(this.empleado.metodoPagoId.metodoPagoId == 4){
       this.detalleCuenta = true;
@@ -96,15 +97,13 @@ export class PagosComponent implements OnInit {
 
 
     this.cargandoPer = true;
-    //this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-    this.bancosPrd.getListaPercepcionesEmpleado(585,112).subscribe(datos => {
+    this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
         this.crearTablaPercepcion(datos);
     });
 
     
     this.cargandoDed = true;
-
-    this.bancosPrd.getListaDeduccionesEmpleado(585,112).subscribe(datos => {
+    this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
          this.crearTablaDeduccion(datos);
     });
 
@@ -124,7 +123,7 @@ export class PagosComponent implements OnInit {
     new tabla("montoTotal", "Monto total de percepción"),
     new tabla("numeroPeriodos", "Número de periodos"),
     new tabla("montoPorPeriodo", "Monto por periodo"),
-    //new tabla("esActivo", "Estatus")
+    new tabla("esActivo", "Estatus")
   ]
 
   
@@ -140,10 +139,10 @@ export class PagosComponent implements OnInit {
 
       item.nombre = item.conceptoPercepcionId?.nombre;
       if(item.esActivo){
-        item.esActivo = 'Activo'
+        item.esActivo = true;
        }
        if(!item.esActivo){
-       item.esActivo = 'Inactivo'
+       item.esActivo = false;
        }
     }
   }
@@ -155,16 +154,16 @@ export class PagosComponent implements OnInit {
   }
 
   public crearTablaDeduccion(datos:any){
+    debugger;
     this.arreglotablaDed = datos.datos;
 
     
     let columnas: Array<tabla> = [
       new tabla("nombre", "Nombre de deducción"),
-      new tabla("fechaInicioDescto", "Fecha inicio de deducción"),
-      new tabla("montoTotal", "Monto total de deducción"),
-      new tabla("numeroCuotas", "Número de cuotas"),
-      new tabla("interesPorcentaje", "Interes por porcentaje"),
-      //new tabla("esActivo", "Estatus")
+      new tabla("fechaInicioDesctoDed", "Fecha inicio de descuento"),
+      //new tabla("", "Tipo de descuento"),
+      new tabla("valor", "Valor(porcentaje/monto)"),
+      new tabla("esActivo", "Estatus")
     ]
 
 
@@ -178,14 +177,15 @@ export class PagosComponent implements OnInit {
       for(let item of this.arreglotablaDed){
         item.fechaInicioDescto = (new Date(item.fechaInicioDescto).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
-        item.fechaInicioDescto = datepipe.transform(item.fechaInicioDescto , 'dd-MMM-y')?.replace(".","");
+        item.fechaInicioDesctoDed = datepipe.transform(item.fechaInicioDescto , 'dd-MMM-y')?.replace(".","");
   
         item.nombre = item.conceptoDeduccionId?.nombre;
+
         if(item.esActivo){
-          item.esActivo = 'Activo'
+          item.esActivo = true
          }
          if(!item.esActivo){
-         item.esActivo = 'Inactivo'
+         item.esActivo = false
          }
       }
     }
@@ -252,16 +252,23 @@ export class PagosComponent implements OnInit {
 
   public agregarPer(){
 
-    
-    this.ventana.showVentana(this.ventana.percepciones).then(valor =>{
+    let datosPer : any = {
+      idEmpleado: this.idEmpleado,
+      idEmpresa: this.usuariosSistemaPrd.getIdEmpresa()
+    };
+    this.ventana.showVentana(this.ventana.percepciones,{datos:datosPer}).then(valor =>{
       if(valor.datos){
         debugger;
-          this.agregarNuevaPercepción(valor.datos);
+          this.agregarNuevaPercepcion(valor.datos);
       }
     });
 }
 public agregarDed(){
-  this.ventana.showVentana(this.ventana.deducciones).then(valor =>{
+  let datosDed : any = {
+    idEmpleado: this.idEmpleado,
+    idEmpresa: this.usuariosSistemaPrd.getIdEmpresa()
+  };
+  this.ventana.showVentana(this.ventana.deducciones,{datos:datosDed}).then(valor =>{
     if(valor.datos){
       debugger;
         this.agregarNuevaDeduccion(valor.datos);
@@ -269,7 +276,7 @@ public agregarDed(){
   });
 }
 
-public agregarNuevaPercepción(obj:any){
+public agregarNuevaPercepcion(obj:any){
   debugger;
   this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
@@ -277,8 +284,16 @@ public agregarNuevaPercepción(obj:any){
     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
   });
+}
 
+public modificarPercepcion(obj:any){
+  debugger;
+  this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
+  this.bancosPrd.modificarPercepcionEmpleado(obj).subscribe(datos => {
+    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+  });
 }
 
 public agregarNuevaDeduccion(obj:any){
@@ -289,21 +304,43 @@ public agregarNuevaDeduccion(obj:any){
     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
   });
-
-
 }
 
-  public recibirTabla(obj: any) {
+public modificarDeduccion(obj:any){
+  debugger;
+  this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+  this.bancosPrd.modificarDeduccionEmpleado(obj).subscribe(datos => {
+    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+  });
+}
+
+  public recibirTablaPer(obj: any) {
+    debugger;
     if (obj.type == "editar") {
-      let mm = {numeroPeriodos:5}
-      this.ventana.showVentana(this.ventana.percepciones,{datos:mm}).then(valor =>{
+      let datosPer = obj.datos;
+      this.ventana.showVentana(this.ventana.percepciones,{datos:datosPer}).then(valor =>{
         if(valor.datos){
           debugger;
-            this.agregarNuevaPercepción(valor.datos);
+            this.modificarPercepcion(valor.datos);
         }
       });
-      //this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
+      
     }
+  }
+
+  public recibirTablaDed(obj: any) {
+    debugger;
+    if (obj.type == "editar") {
+      let datosDed = obj.datos;
+      this.ventana.showVentana(this.ventana.deducciones,{datos:datosDed}).then(valor =>{
+        if(valor.datos){
+          debugger;
+            this.modificarDeduccion(valor.datos);
+        }
+      });
+     }
   }
 
   public guardandometodoPago(){//Solo guarda el método de pago metodopagoid

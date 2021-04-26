@@ -62,6 +62,19 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     return this.http.put(`${direcciones.conceptos}/guardaPercepcionEmpleado`,json,httpOptions);
   }
 
+  public modificarPercepcionEmpleado(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    console.log(`guardar`);
+    console.log(json);
+    return this.http.put(`${direcciones.conceptos}/modificaPercepcionEmpleado`,json,httpOptions);
+  }
+
   public saveDeduccionEmpleado(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
@@ -75,7 +88,18 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     return this.http.put(`${direcciones.conceptos}/guardaDeduccionEmpleado`,json,httpOptions);
   }
 
+  public modificarDeduccionEmpleado(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
+    let json: string = JSON.stringify(obj);
+    console.log(`guardar`);
+    console.log(json);
+    return this.http.put(`${direcciones.conceptos}/modificaDeduccionEmpleado`,json,httpOptions);
+  }
 
   public  modificar(obj:any):Observable<any>{
 
