@@ -15,7 +15,7 @@
             <app-nominaactiva-fechatimbrado  *ngIf="mostrar.timbrado" (salida)="recibirEmergente($event)"></app-nominaactiva-fechatimbrado>
             <app-nominaactiva-timbrar  *ngIf="mostrar.timbrar" (salida)="recibirEmergente($event)"></app-nominaactiva-timbrar>
             <app-subir-foto-perfil *ngIf="mostrar.fotoperfil" (salida)="recibirEmergente($event)"></app-subir-foto-perfil>
-            <app-ventana-percepciones *ngIf="mostrar.percepciones" (salida)="recibirEmergente($event)"></app-ventana-percepciones>
+            <app-ventana-percepciones *ngIf="mostrar.percepciones" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-percepciones>
             <app-ventana-deducciones *ngIf="mostrar.deducciones" (salida)="recibirEmergente($event)"></app-ventana-deducciones>
             <app-ventana-resumen-dispersion  *ngIf="mostrar.ndispersion" (salida)="recibirEmergente($event)"></app-ventana-resumen-dispersion>
             <app-ventana-resumen-timbrado  *ngIf="mostrar.ntimbrado" (salida)="recibirEmergente($event)"></app-ventana-resumen-timbrado>

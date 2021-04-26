@@ -1,4 +1,4 @@
-import { Component, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -25,6 +25,8 @@ export class VentanaPercepcionesComponent implements OnInit {
   public fijo: boolean = false;
   public porcentual: boolean = true;
 
+  @Input() public datos:any;
+
 
   @Output() salida = new EventEmitter<any>();
 
@@ -43,7 +45,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
 
     this.obj = {};
-    this.myForm = this.createForm(this.obj);
+    this.myForm = this.createForm(this.datos);
   }
 
   public createForm(obj: any) {

@@ -12,6 +12,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
 
   @Input() public titulo:string = "";
   @Input() public ventanaalerta:boolean = false;
+  @Input() public datos:any;
 
   public tamanio:number = 0;
   public leftP:number = 200;

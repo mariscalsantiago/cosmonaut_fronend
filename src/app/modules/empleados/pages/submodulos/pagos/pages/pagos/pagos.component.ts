@@ -251,6 +251,8 @@ export class PagosComponent implements OnInit {
   } 
 
   public agregarPer(){
+
+    
     this.ventana.showVentana(this.ventana.percepciones).then(valor =>{
       if(valor.datos){
         debugger;
@@ -293,6 +295,13 @@ public agregarNuevaDeduccion(obj:any){
 
   public recibirTabla(obj: any) {
     if (obj.type == "editar") {
+      let mm = {numeroPeriodos:5}
+      this.ventana.showVentana(this.ventana.percepciones,{datos:mm}).then(valor =>{
+        if(valor.datos){
+          debugger;
+            this.agregarNuevaPercepción(valor.datos);
+        }
+      });
       //this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
     }
   }

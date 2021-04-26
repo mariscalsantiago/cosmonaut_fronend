@@ -42,7 +42,8 @@ export class ContenidoComponent implements OnInit {
   public emergente = {
     modal: false,
     titulo:'',
-    ventanaalerta:false
+    ventanaalerta:false,
+    datos:undefined
   }
 
   public rol!: string;

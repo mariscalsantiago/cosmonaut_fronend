@@ -21,7 +21,8 @@ export class VentanaemergenteService {
   private emergente: any = {
     modal: false,
     titulo: '',
-    ventanaalerta: false
+    ventanaalerta: false,
+    datos:undefined
   }
 
   private mostrar: any = {
@@ -44,6 +45,10 @@ export class VentanaemergenteService {
     for (let llave in this.mostrar) {
       this.mostrar[llave] = false;
     }
+
+
+
+    this.emergente.datos = configuracion?.datos;
 
 
     switch (tipoVentana) {
@@ -113,5 +118,6 @@ export class VentanaemergenteService {
 
 
 class configuracion {
-  public ventanaalerta: boolean = false;
+  public ventanaalerta?: boolean = false;
+  public datos?:any = undefined;
 }
