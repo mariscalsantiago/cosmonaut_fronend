@@ -26,7 +26,7 @@ export class NominasActivasComponent implements OnInit {
     this.cargando = true;
 
       this.nominaPrd.getAllNominas().subscribe(datos =>{
-        this.cargando = false;
+      //  this.cargando = false;
         this.arreglo = datos;
         console.log(this.arreglo.length,"este es el arreglo que se trae");
       });
