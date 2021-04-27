@@ -10,9 +10,9 @@
 
                 Detalle pago
                 <i *ngIf="!arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
-                <i *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-down "></i>
+                <i *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
               </button>
             </h5>
           </div>
@@ -20,7 +20,7 @@
           <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago" data-parent="#accordion">
             <div class="card-body">
               <div class="row">
-                <div class="col-6">
+                <div class="col-12">
 
                   <table class="table table-striped">
                     <tbody>
@@ -37,8 +37,8 @@
                       <tr>
                         <td *ngIf="detalleCuenta" class="titulorow text-left">DETALLE DE LA CUENTA</td>
                       </tr>
-
-                      <div *ngIf="detalleCuenta" class="row mb-4 text-left">
+                      
+                      <div *ngIf="detalleCuenta" class="row mb-4 text-center">
 
                         <article class="titulo  col">
                               Número de cuenta
@@ -48,19 +48,16 @@
                               Cuenta CLABE
                           <article >{{cuentaBanco?.clabe}}</article>
                         </article>
-                      </div> 
-                      <div *ngIf="detalleCuenta" class="row mb-4 text-left">
                         <article class="titulo  col">
                           Banco
                         <article >{{cuentaBanco?.bancoId?.nombreCorto}}</article>
                         </article>
+                      
                         <article class="titulo  col">
                             Número de ID cliente
                             <article >{{cuentaBanco?.numInformacion}}</article>
                         </article>
-
                       </div> 
-  
                     </tbody>
                   </table>
 
@@ -126,7 +123,8 @@
 
                 </div>
                 <div *ngIf="!metodopagobool" class="col-2"></div>
-                <div class="col-4 text-right">
+                
+                <div class="col-12 text-right">
                   <button *ngIf="!metodopagobool" (click)="editandoMetodoPago(undefined)"
                     class="btn btn-primary button-fill">Editar</button>
                   <button *ngIf="metodopagobool && !esTransferencia" (click)="cancelar()"
@@ -146,16 +144,16 @@
                 data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 Detalle de compensación
                 <i *ngIf="!arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
-                <i *ngIf="arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-down "></i>
+                <i *ngIf="arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
               </button>
             </h5>
           </div>
           <div id="collapseTwo" class="collapse" aria-labelledby="compensacion" data-parent="#accordion">
             <div class="card-body">
               <div class="row">
-                <div class="col-6">
+                <div class="col-12">
                   <form [formGroup]="myFormCompensacion" (ngSubmit)="enviarCompensacio()"></form>
                   <table class="table table-striped table-borderless">
                     <tbody>
@@ -183,14 +181,14 @@
                       </tr>
                       <tr>
                         <td class="titulorow">Sueldo bruto mensual</td>
-                        <td *ngIf="!detallecompensacionbool">{{empleado.sueldoBrutoMensual | currency}}</td>
+                        <td *ngIf="!detallecompensacionbool">{{empleado.sueldoBrutoMensual | currency:'$'}}</td>
                         <td *ngIf="detallecompensacionbool">
                           <input formControlName="sueldoBrutoMensual"  type="text" class="form-control">
                         </td>
                       </tr>
                       <tr>
                         <td class="titulorow">Salario Base de Cotización</td>
-                        <td *ngIf="!detallecompensacionbool">{{empleado.sbc | currency}}</td>
+                        <td *ngIf="!detallecompensacionbool">{{empleado.sbc | currency:'$'}}</td>
                         <td *ngIf="detallecompensacionbool">
                           <input formControlName="sbc" type="text" class="form-control">
                         </td>
@@ -199,8 +197,8 @@
                   </table>
 
                 </div>
-                <div class="col-2"></div>
-                <div class="col-4 text-right">
+
+                <div class="col-12 text-right">
                   <button *ngIf="!detallecompensacionbool" (click)="verDetalleCompensacion()"
                     class="btn btn-primary button-fill">Editar</button>
                   <button *ngIf="detallecompensacionbool" (click)="cancelar()"
@@ -220,9 +218,9 @@
                 data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
                 Percepciones específicas
                 <i *ngIf="!arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
-                <i *ngIf="arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-down "></i>
+                <i *ngIf="arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
               </button>
             </h5>
           </div>
@@ -257,9 +255,9 @@
                 data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
                 Deducciones específicas
                 <i *ngIf="!arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
-                <i *ngIf="arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-down "></i>
+                <i *ngIf="arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
               </button>
             </h5>
           </div>

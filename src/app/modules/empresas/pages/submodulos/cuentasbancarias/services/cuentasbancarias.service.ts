@@ -72,7 +72,7 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     let json: string = JSON.stringify(obj);
     console.log(`guardar`);
     console.log(json);
-    return this.http.put(`${direcciones.conceptos}/modificaPercepcionEmpleado`,json,httpOptions);
+    return this.http.post(`${direcciones.conceptos}/modificaPercepcionEmpleado`,json,httpOptions);
   }
 
   public saveDeduccionEmpleado(obj:any):Observable<any>{
@@ -98,7 +98,7 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     let json: string = JSON.stringify(obj);
     console.log(`guardar`);
     console.log(json);
-    return this.http.put(`${direcciones.conceptos}/modificaDeduccionEmpleado`,json,httpOptions);
+    return this.http.post(`${direcciones.conceptos}/modificaDeduccionEmpleado`,json,httpOptions);
   }
 
   public  modificar(obj:any):Observable<any>{

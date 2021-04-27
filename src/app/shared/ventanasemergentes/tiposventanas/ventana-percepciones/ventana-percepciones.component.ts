@@ -3,7 +3,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
-import { debug } from 'console';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-ventana-percepciones',
@@ -24,6 +24,10 @@ export class VentanaPercepcionesComponent implements OnInit {
   public nombrePercepcion: any = [];
   public fijo: boolean = false;
   public porcentual: boolean = true;
+  public empresa: number = 0;
+  public empleado: number = 0;
+  public conceptoPercepcionId: number = 0;
+  public objEnviar: any = [];
 
   @Input() public datos:any;
 
@@ -36,31 +40,49 @@ export class VentanaPercepcionesComponent implements OnInit {
 
   ngOnInit(): void {
     debugger;
-    /*if (!this.esInsert) {//Solo cuando es modificar
-      this.obj = history.state.data;
-      
+    if(this.datos.idEmpleado != undefined){
+      this.empresa = this.datos.idEmpresa;
+      this.empleado = this.datos.idEmpleado;
     }else{
-      this.obj= {};
-    }*/
+      this.empresa = this.datos.centrocClienteId?.centrocClienteId;
+      this.empleado = this.datos.personaId?.personaId;
+    }
+
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
 
-    this.obj = {};
-    this.myForm = this.createForm(this.datos);
+    if(this.datos.idEmpleado != undefined){
+      this.datos = {};
+      this.esInsert = true;
+      this.myForm = this.createForm(this.datos);
+
+    }else{
+      debugger;
+      this.esInsert = false;
+      this.myForm = this.createForm(this.datos);
+      let tipo = (this.datos.conceptoPercepcionId?.tipoPeriodicidad == 'P') ? '1' : '2'
+      this.validarTipoPercepcion(tipo);
+
+    }
+
   }
 
   public createForm(obj: any) {
     debugger;
-    this.esInsert = true;
+    let datePipe = new DatePipe("en-MX");
+    if(!this.esInsert){
+      obj.tipoPeriodicidadId = (obj.conceptoPercepcionId?.tipoPeriodicidad == 'P') ? '1' : '2';
+    }
+
     return this.formBuild.group({
 
       numeroPeriodos: [obj.numeroPeriodos],
-      baseCalculoId:[obj.baseCalculoId],
-      tipoPercepcionId: [obj.tipoPercepcionId],
-      porcentaje: [obj.porcentaje],
+      tipoPeriodicidadId: [obj.tipoPeriodicidadId],
+      baseCalculoId:[obj.baseCalculoId?.baseCalculoId],
+      porcentaje: [obj.valor],
       montoPorPeriodo: [obj.montoPorPeriodo],
-      fechaInicio: [obj.fechaInicio],
-      montoPercepcion: [obj.montoPercepcion],
-      nomPercepcion: [obj.nomPercepcion],
+      fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd')],
+      montoPercepcion: [obj.montoTotal],
+      nomPercepcion: [obj.tipoPercepcionId?.tipoPercepcionId],
       referencia:[obj.referencia],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }]
 
@@ -72,6 +94,17 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.salida.emit({type:"cancelar"});
   }
 
+  public validarPercepcion(tipo:any){
+    debugger;
+    for(let item of this.nombrePercepcion){
+      if(item.tipoPercepcionId?.tipoPercepcionId == tipo){
+        this.conceptoPercepcionId = item.conceptoPercepcionId;
+      }
+    }
+    
+  
+  }
+
   public validarTipoPercepcion(tipo:any){
     debugger;
     if(tipo != ""){
@@ -81,16 +114,22 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.estandar= false;
         this.myForm.controls.baseCalculoId.disable();
         this.myForm.controls.baseCalculoId.setValue(2);
-        this.bancosPrd.getObtenerPeriodicidad(112, nombrePer).subscribe(datos =>{
+        this.bancosPrd.getObtenerPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
           this.nombrePercepcion = datos.datos;
         });
       }else{
         let nombrePer = "E";
         this.myForm.controls.baseCalculoId.enable();
+        if(!this.esInsert){
+          let tipoMonto = this.datos.baseCalculoId?.baseCalculoId;
+          this.myForm.controls.baseCalculoId.setValue(tipoMonto);
+          this.validarNomMonto(tipoMonto);
+        }else{
         this.myForm.controls.baseCalculoId.setValue("");
+        }
         this.periodica = false;
         this.estandar= true;
-        this.bancosPrd.getObtenerPeriodicidad(112, nombrePer).subscribe(datos =>{
+        this.bancosPrd.getObtenerPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
           this.nombrePercepcion = datos.datos;
         });
         }
@@ -146,21 +185,27 @@ export class VentanaPercepcionesComponent implements OnInit {
       return;
 
     }*/
-      this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas registrar la percepción?").then(valor =>{
+    let mensaje = this.esInsert ? "¿Deseas registrar la percepción" : "¿Deseas actualizar la percepción?";
+    
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
+      
         if(valor){
+          
           let  obj = this.myForm.getRawValue();
-          let objEnviar:any = {
+          
+          if(this.esInsert){
+            this.objEnviar = {
             tipoPercepcionId: {
               tipoPercepcionId: obj.nomPercepcion
             },
             conceptoPercepcionId: {
-              conceptoPercepcionId: obj.tipoPercepcionId
+              conceptoPercepcionId: this.conceptoPercepcionId
             },
             personaId: {
-              personaId: 585 
+              personaId: this.empleado
             },
             centrocClienteId: {
-                centrocClienteId: 112
+                centrocClienteId: this.empresa
             },
             valor: obj.porcentaje,
             baseCalculoId:{
@@ -174,8 +219,42 @@ export class VentanaPercepcionesComponent implements OnInit {
             montoPorPeriodo: obj.montoPorPeriodo
           
           };
+        }else{
+          for(let item of this.nombrePercepcion){
+            if(item.tipoPercepcionId?.tipoPercepcionId == obj.nomPercepcion){
+              this.conceptoPercepcionId = item.conceptoPercepcionId;
+            }
+          }
+          this.objEnviar = {
+            configuraPercepcionId: this.datos.configuraPercepcionId,
+            tipoPercepcionId: {
+              tipoPercepcionId: obj.nomPercepcion
+            },
+            conceptoPercepcionId: {
+              conceptoPercepcionId: this.conceptoPercepcionId
+            },
+            personaId: {
+              personaId: this.empleado
+            },
+            centrocClienteId: {
+                centrocClienteId: this.empresa
+            },
+            valor: obj.porcentaje,
+            baseCalculoId:{
+              baseCalculoId: obj.baseCalculoId
+            },
+            esActivo: obj.esActivo,
+            referencia: obj.referencia,
+            fechaInicio: obj.fechaInicio,
+            montoTotal: obj.montoPercepcion,
+            numeroPeriodos: obj.numeroPeriodos,
+            montoPorPeriodo: obj.montoPorPeriodo
+          
+          };
+
+        }
           debugger;
-          this.salida.emit({type:"guardar",datos:objEnviar});
+          this.salida.emit({type:"guardar",datos:this.objEnviar});
         }
       });
   }

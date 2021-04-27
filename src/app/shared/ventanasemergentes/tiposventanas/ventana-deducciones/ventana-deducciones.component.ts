@@ -40,6 +40,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   public empresa: number = 0;
   public empleado: number = 0;
   public arregloDescuentoInfonavit: any = [];
+  public objEnviar : any = [];
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -241,13 +242,15 @@ export class VentanaDeduccionesComponent implements OnInit {
       }
       
     }
-
+    if(this.esInsert){
     for(let item of this.obtenerPercepcion){
       if(concepto == item.tipoDeduccionId.tipoDeduccionId){
           this.conceptodeduccion= item.conceptoDeduccionId;
       }
     }
-    
+    }else{
+      this.conceptodeduccion = this.datos.conceptoDeduccionId?.conceptoDeduccionId;
+    }
    }
 
    public validarMontoTotal(monto:any){
@@ -321,13 +324,14 @@ export class VentanaDeduccionesComponent implements OnInit {
       return;
 
     }*/
-    let mensaje = this.esInsert ? "¿Deseas registrar la percepción" : "¿Deseas actualizar la percepción?";
+    let mensaje = this.esInsert ? "¿Deseas registrar la deducción" : "¿Deseas actualizar la deducción?";
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
           let  obj = this.myForm.getRawValue();
-          
-          let objEnviar:any = {
+
+          if(this.esInsert){
+          this.objEnviar = {
             tipoDeduccionId: {
               tipoDeduccionId: obj.nomDeduccion
             },
@@ -361,8 +365,54 @@ export class VentanaDeduccionesComponent implements OnInit {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
           };
+        }else{
+          if(obj.baseCalculoId == null){
+            obj.baseCalculoId = obj.tipoDescuentoInfonavitId;
+          }
+          if(obj.tipoDescuentoInfonavitId == null){
+            obj.tipoDescuentoInfonavitId = obj.baseCalculoId;
+          }
+          
+          this.objEnviar = {
+            configuraDeduccionId: this.datos.configuraDeduccionId,
+            tipoDeduccionId: {
+              tipoDeduccionId: obj.nomDeduccion
+            },
+            conceptoDeduccionId: {
+              conceptoDeduccionId: this.conceptodeduccion
+            },
+            personaId: {
+              personaId: this.empleado
+              
+              },
+                 
+            centrocClienteId: {
+              centrocClienteId: this.empresa
+              },
+              
+            baseCalculoId: {
+              baseCalculoId: obj.baseCalculoId
+            },
+            valor: obj.valor,
+            fechaInicioDescto: obj.fechaInicioDescto,
+            numeroFolio: obj.numeroFolio,
+            montoTotal: obj.montoTotal,
+            numeroCuotas: obj.numeroCuotas,
+            interesPorcentaje: obj.interesPorcentaje,
+            fechaFinDescuento: obj.fechaFinDescuento,
+            folioAvisoRetencion: obj.folioAvisoRetencion,
+            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
+            folioAvisoSuspension: obj.folioAvisoSuspension,
+            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
+            tipoDescuentoInfonavitId: {
+             tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
+            }
+          };
+          
+
+        }
           debugger;
-          this.salida.emit({type:"guardar",datos:objEnviar});
+          this.salida.emit({type:"guardar",datos:this.objEnviar});
         }
       });
   }
