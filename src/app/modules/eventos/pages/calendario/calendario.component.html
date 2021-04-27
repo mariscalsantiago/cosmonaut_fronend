@@ -19,11 +19,13 @@
             <div class="card">
               <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
-                  <button style="width: 90%;" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  <button (click)="colapsarmtd()" style="width: 90%;" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                     Calendario
                   </button>
-                  <i style="float: right; color:#00C1AF" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  <i (click)="colapsarmtd()" *ngIf="colapsar == false" style="float: right; color:#00C1AF;margin-top: 7px;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
+                  <i (click)="colapsarmtd()" *ngIf="colapsar == true" style="float: right; color:#00C1AF;margin-top: 7px;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" class="fas fa-chevron-down "></i>
                 </h5>
               </div>
           
