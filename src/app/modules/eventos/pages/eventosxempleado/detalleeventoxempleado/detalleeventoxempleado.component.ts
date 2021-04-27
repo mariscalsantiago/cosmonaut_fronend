@@ -93,7 +93,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public guardarEvento() {
 
-    
+
 
     let obj = this.myForm.getRawValue();
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
@@ -165,6 +165,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           case 9:
           case 10:
           case 11:
+          case 16:
             ocultar = false;
             break;
         }
@@ -175,6 +176,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           case 8:
           case 10:
           case 11:
+          case 13:
+          case 14:
+          case 16:
             ocultar = false;
             break;
         }
@@ -183,6 +187,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         switch (seleccionado) {
           case 4:
           case 8:
+          case 13:
+          case 14:
             ocultar = false;
             break;
         }
@@ -224,6 +230,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           case 9:
           case 10:
           case 11:
+          case 16:
+          case 13:
+          case 14:
             ocultar = false;
             break;
         }
@@ -253,6 +262,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         switch (seleccionado) {
           case 10:
           case 11:
+          case 16:
           case 9:
             ocultar = false;
             break;
@@ -316,7 +326,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.numeroFolio.updateValueAndValidity();
     }
 
-    if (seleccionado == 8) {
+    if (seleccionado == 8 || seleccionado == 13 || seleccionado == 14) {
       this.myForm.controls.fechaInicio.setValidators([Validators.required]);
       this.myForm.controls.fechaInicio.updateValueAndValidity();
       this.myForm.controls.monto.setValidators([Validators.required]);
@@ -334,7 +344,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.monto.updateValueAndValidity();
     }
 
-    if (seleccionado == 10 || seleccionado == 11) {
+    if (seleccionado == 10 || seleccionado == 11 || seleccionado == 16) {
       this.myForm.controls.duracion.setValidators([Validators.required]);
       this.myForm.controls.duracion.updateValueAndValidity();
       this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
@@ -348,12 +358,12 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public perderFoco() {
-    
+
     const totalDias = this.myForm.controls.duracion.value;
     if (totalDias !== undefined || totalDias !== null) {
       var datePipe = new DatePipe("es-MX");
       let fechaActual = new Date((new Date(this.myForm.controls.fechaInicio.value)).toUTCString().replace("GMT", ""));
-      let fechaFin:Date = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + (Number(totalDias)<=0?0:Number(totalDias)-1));
+      let fechaFin: Date = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + (Number(totalDias) <= 0 ? 0 : Number(totalDias) - 1));
 
       this.myForm.controls.fechaFin.setValue(datePipe.transform(fechaFin, "yyyy-MM-dd"));
     }
