@@ -39,6 +39,12 @@
                 <label>Fecha de termino: <span class="letramenos">{{(evento.fechaFin | date:'dd-MMM-yyyy')?.replace(".","")}}</span></label> 
             </div>
             <div class=" col-12 ">
+              <label>Fecha de aplicación: <span class="letramenos">{{evento.fechaAplicacion | date:'dd-MMM-yyyy'}}</span></label> 
+          </div>
+          <div class=" col-12 ">
+            <label>Fecha de monto: <span class="letramenos">{{evento.monto}}</span></label> 
+        </div>
+            <div class=" col-12 ">
                 <label>Política: <span class="letramenos">{{evento.politicaNombre}}</span></label> 
             </div>
             <div class=" col-12 ">

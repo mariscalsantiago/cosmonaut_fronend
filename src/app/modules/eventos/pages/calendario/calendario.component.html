@@ -19,11 +19,13 @@
             <div class="card">
               <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
-                  <button style="width: 90%;" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  <button (click)="colapsarmtd()" style="width: 90%;" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                     Calendario
                   </button>
-                  <i style="float: right; color:#00C1AF" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  <i (click)="colapsarmtd()" *ngIf="colapsar == false" style="float: right; color:#00C1AF;margin-top: 7px;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
+                  <i (click)="colapsarmtd()" *ngIf="colapsar == true" style="float: right; color:#00C1AF;margin-top: 7px;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne" class="fas fa-chevron-down "></i>
                 </h5>
               </div>
           
@@ -35,43 +37,43 @@
                       <label class="primary">GESTIONAR EVENTOS</label>
                       <div>
                           <label class="contenedorInputCheckRadio aniversarios">Aniversarios
-                              <input  checked type="checkbox" name="" id="">
+                              <input  (change)="cambiaValor()" checked type="checkbox" name="" id="">
                               <span class="checkmark aniversarios"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio cumpleanios">Retardos
-                              <input  checked type="checkbox" name="" id="">
+                              <input  (change)="cambiaValor()" checked type="checkbox" name="" id="">
                               <span class="checkmark cumpleanios"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio diaseconomicos">Días economicos
-                              <input  checked type="checkbox" name="" id="">
+                              <input  (change)="cambiaValor()" checked type="checkbox" name="" id="">
                               <span class="checkmark diaseconomicos"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio faltas">Faltas
-                              <input checked  type="checkbox" name="" id="">
+                              <input  (change)="cambiaValor()"checked  type="checkbox" name="" id="">
                               <span class="checkmark faltas"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio horasextras">Horas extras
-                              <input  checked type="checkbox" name="" id="">
+                              <input  (change)="cambiaValor()" checked type="checkbox" name="" id="">
                               <span class="checkmark horasextras"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio incapacidades">Incapacidades
-                              <input checked  type="checkbox" name="" id="">
+                              <input (change)="cambiaValor()" checked  type="checkbox" name="" id="">
                               <span class="checkmark incapacidades"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio vacaciones">Vacaciones
-                              <input  checked type="checkbox" name="" id="">
+                              <input (change)="cambiaValor()" checked type="checkbox" name="" id="">
                               <span class="checkmark vacaciones"></span>
                             </label>     
                       </div>

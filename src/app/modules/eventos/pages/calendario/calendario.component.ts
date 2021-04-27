@@ -25,6 +25,7 @@ export class CalendarioComponent implements OnInit {
   public arregloAreas: any = [];
   public cargando:boolean = false;
   public eventos:any;
+  public colapsar:boolean = false;
 
 
   public arreglo:any = [];
@@ -119,6 +120,16 @@ export class CalendarioComponent implements OnInit {
           break;
     }
 
+  }
+
+
+  public cambiaValor(){
+
+  }
+
+  public colapsarmtd(){
+    this.colapsar = !this.colapsar;
+    
   }
 
   
