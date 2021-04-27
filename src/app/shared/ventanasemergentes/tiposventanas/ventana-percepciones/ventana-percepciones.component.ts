@@ -219,6 +219,7 @@ export class VentanaPercepcionesComponent implements OnInit {
             montoPorPeriodo: obj.montoPorPeriodo
           
           };
+          
         }else{
           for(let item of this.nombrePercepcion){
             if(item.tipoPercepcionId?.tipoPercepcionId == obj.nomPercepcion){
