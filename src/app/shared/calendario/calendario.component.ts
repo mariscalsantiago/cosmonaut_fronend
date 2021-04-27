@@ -39,7 +39,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     
-
+   let datepipe = new DatePipe("es-MX");
     for (let x = 0; x <= 5; x++) {
       for (let y = 0; y <= 6; y++) {
         this.arregloArreglos[x][y].eventos = [];
@@ -47,7 +47,8 @@ export class CalendarioComponent implements OnInit, OnChanges {
           for (let item of this.eventos) {
             let fechaEvento: Date = new Date(item.fechaInicio);
 
-            if (fechaEvento.getDate() == Number(this.arregloArreglos[x][y].dia) ) {
+            let mes = datepipe.transform(fechaEvento,"MM");
+            if (fechaEvento.getDate() == Number(this.arregloArreglos[x][y].dia) && mes == this.arregloArreglos[x][y].mes) {
               
               this.arregloArreglos[x][y].eventos.push({
                 ...item,
@@ -131,10 +132,12 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
         let dia = dateTransform.transform(fechaAux, "dd");
         const mesAux = dateTransform.transform(fechaAux, "MMM");
+
+        
         let obj: any = {
           dia: dia,
           mesActual: mesAux == mesActual,
-          mes:mesActual,
+          mes:dateTransform.transform(fechaAux,"MM"),
           diaActual: dia == diaActual,
           eventos: [],
           aparecerModal: false,
