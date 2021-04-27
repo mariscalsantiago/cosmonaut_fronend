@@ -119,10 +119,9 @@ export class PagosComponent implements OnInit {
 
   let columnas: Array<tabla> = [
     new tabla("nombre", "Nombre de percepción"),
-    new tabla("fechaInicio", "Fecha inicio de percepción"),
-    new tabla("montoTotal", "Monto total de percepción"),
-    new tabla("numeroPeriodos", "Número de periodos"),
-    new tabla("montoPorPeriodo", "Monto por periodo"),
+    new tabla("fechaInicioPer", "Fecha inicio de percepción"),
+    new tabla("tipoMonto", "Tipo de monto"),
+    new tabla("valor", "Valor(porcentaje/monto)"),
     new tabla("esActivo", "Estatus")
   ]
 
@@ -135,9 +134,12 @@ export class PagosComponent implements OnInit {
     for(let item of this.arreglotablaPer){
       item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
       let datepipe = new DatePipe("es-MX");
-      item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
+      item.fechaInicioPer = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
 
       item.nombre = item.conceptoPercepcionId?.nombre;
+      
+      item.tipoMonto = (item.baseCalculoId?.baseCalculoId == '1') ? 'Porcentual' : 'Fijo';
+      
       if(item.esActivo){
         item.esActivo = true;
        }
@@ -283,6 +285,10 @@ public agregarNuevaPercepcion(obj:any){
   this.bancosPrd.savePercepcionEmpleado(obj).subscribe(datos => {
     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+    this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.crearTablaPercepcion(datos);
+  });
+    
   });
 }
 
@@ -293,6 +299,9 @@ public modificarPercepcion(obj:any){
   this.bancosPrd.modificarPercepcionEmpleado(obj).subscribe(datos => {
     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+    this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.crearTablaPercepcion(datos);
+  });
   });
 }
 
@@ -303,6 +312,9 @@ public agregarNuevaDeduccion(obj:any){
   this.bancosPrd.saveDeduccionEmpleado(obj).subscribe(datos => {
     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+    this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.crearTablaDeduccion(datos);
+ });
   });
 }
 
@@ -313,6 +325,9 @@ public modificarDeduccion(obj:any){
   this.bancosPrd.modificarDeduccionEmpleado(obj).subscribe(datos => {
     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+    this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.crearTablaDeduccion(datos);
+ });
   });
 }
 
