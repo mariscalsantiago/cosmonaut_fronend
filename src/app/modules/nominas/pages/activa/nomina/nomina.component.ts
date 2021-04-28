@@ -47,7 +47,7 @@ export class NominaComponent implements OnInit {
 
 
 
-    debugger;
+    
     switch (obj.type) {
       case "calcular":
         this.activado[1].tab = true;

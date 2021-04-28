@@ -65,7 +65,7 @@ export class PagosComponent implements OnInit {
      }
 
   ngOnInit(): void {
-   debugger;
+   
    this.myFormMetodoPago = this.formbuilder.group({});
    this.myFormCompensacion = this.formbuilder.group({});
 
@@ -79,7 +79,7 @@ export class PagosComponent implements OnInit {
     this.idEmpleado = params["id"];
 
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-      debugger;
+      
       this.empleado = datos.datos;
       if(this.empleado.metodoPagoId.metodoPagoId == 4){
       this.detalleCuenta = true;
@@ -89,7 +89,7 @@ export class PagosComponent implements OnInit {
     });
 
     this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos =>{
-      debugger;
+      
       this.cuentaBanco = datos.datos;
       console.log("cuentas",this.cuentaBanco);
     });
@@ -156,7 +156,7 @@ export class PagosComponent implements OnInit {
   }
 
   public crearTablaDeduccion(datos:any){
-    debugger;
+    
     this.arreglotablaDed = datos.datos;
 
     
@@ -260,7 +260,7 @@ export class PagosComponent implements OnInit {
     };
     this.ventana.showVentana(this.ventana.percepciones,{datos:datosPer}).then(valor =>{
       if(valor.datos){
-        debugger;
+        
           this.agregarNuevaPercepcion(valor.datos);
       }
     });
@@ -272,14 +272,14 @@ public agregarDed(){
   };
   this.ventana.showVentana(this.ventana.deducciones,{datos:datosDed}).then(valor =>{
     if(valor.datos){
-      debugger;
+      
         this.agregarNuevaDeduccion(valor.datos);
     }
   });
 }
 
 public agregarNuevaPercepcion(obj:any){
-  debugger;
+  
   this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
   this.bancosPrd.savePercepcionEmpleado(obj).subscribe(datos => {
@@ -293,7 +293,7 @@ public agregarNuevaPercepcion(obj:any){
 }
 
 public modificarPercepcion(obj:any){
-  debugger;
+  
   this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
   this.bancosPrd.modificarPercepcionEmpleado(obj).subscribe(datos => {
@@ -306,7 +306,7 @@ public modificarPercepcion(obj:any){
 }
 
 public agregarNuevaDeduccion(obj:any){
-  debugger;
+  
   this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
   this.bancosPrd.saveDeduccionEmpleado(obj).subscribe(datos => {
@@ -319,7 +319,7 @@ public agregarNuevaDeduccion(obj:any){
 }
 
 public modificarDeduccion(obj:any){
-  debugger;
+  
   this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
   this.bancosPrd.modificarDeduccionEmpleado(obj).subscribe(datos => {
@@ -332,12 +332,12 @@ public modificarDeduccion(obj:any){
 }
 
   public recibirTablaPer(obj: any) {
-    debugger;
+    
     if (obj.type == "editar") {
       let datosPer = obj.datos;
       this.ventana.showVentana(this.ventana.percepciones,{datos:datosPer}).then(valor =>{
         if(valor.datos){
-          debugger;
+          
             this.modificarPercepcion(valor.datos);
         }
       });
@@ -346,12 +346,12 @@ public modificarDeduccion(obj:any){
   }
 
   public recibirTablaDed(obj: any) {
-    debugger;
+    
     if (obj.type == "editar") {
       let datosDed = obj.datos;
       this.ventana.showVentana(this.ventana.deducciones,{datos:datosDed}).then(valor =>{
         if(valor.datos){
-          debugger;
+          
             this.modificarDeduccion(valor.datos);
         }
       });

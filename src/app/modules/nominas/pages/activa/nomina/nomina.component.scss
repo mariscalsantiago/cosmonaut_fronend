@@ -24,7 +24,7 @@ article{
 
 
 #nav-tabContent{
-    height: calc(100vh - 329px);
+    height: calc(100vh - 270px);
     overflow-y: auto;
     overflow-x: hidden;
     &::-webkit-scrollbar {
@@ -47,4 +47,17 @@ article{
       &::-webkit-scrollbar-thumb:hover {
         background: #00c4ba; 
       }
+}
+
+
+.titulonomina{
+    article,span{
+        float:left;
+    }
+
+    article:last-child(){
+        float:right;
+    }
+
+   
 }

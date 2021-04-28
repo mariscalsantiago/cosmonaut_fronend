@@ -44,6 +44,7 @@ export class NominasActivasComponent implements OnInit {
 
   public agregar(){
       this.ventana.showVentana(this.ventana.nuevanomina).then(valor =>{
+        console.log("lado del clienteISDJFIDSJFIJFDJSIFJSDIFJ",valor);
         if(valor.datos){
             this.agregarNuevaNomina();
         }

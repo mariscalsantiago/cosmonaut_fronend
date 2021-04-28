@@ -61,7 +61,7 @@ export class DomicilioComponent implements OnInit {
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    debugger;
+    
     let obj:any = {};
     if(!this.datosempresa.insertar){
       this.habContinua=false;
@@ -191,7 +191,7 @@ export class DomicilioComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    debugger;
+    
     switch(obj.type){
        case "editar":
          this.verdetalle(obj.datos);
@@ -203,7 +203,7 @@ export class DomicilioComponent implements OnInit {
  }
 
   public eliminar(indice: any){
-    debugger; 
+     
    this.indexSeleccionado = indice.sedeId;
    this.eliminarSede = true;
    
@@ -296,7 +296,7 @@ export class DomicilioComponent implements OnInit {
           }
       }
       if(this.eliminarSede){
-        debugger;
+        
         this.domicilioPrd.eliminar(this.indexSeleccionado).subscribe(datos => {
           this.alerta.iconType = datos.resultado ? "success" : "error";
           this.alerta.strTitulo = datos.mensaje;

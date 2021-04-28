@@ -11,10 +11,9 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { SharedPoliticasService } from 'src/app/shared/services/politicas/shared-politicas.service';
 import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
-import { PreferenciasService } from 'src/app/modules/empleados/services/preferencias.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { CalculosService } from 'src/app/shared/services/calculos.service';
 
 
 @Component({
@@ -81,7 +80,7 @@ export class EmpleoComponent implements OnInit {
     private usuarioSistemaPrd: UsuarioSistemaService,
     private jornadaPrd: JornadalaboralService, private sedesPrd: SharedSedesService,
     private modalPrd: ModalService, private puestosPrd: PuestosService,
-    private domicilioPrd: DomicilioService, private preferenciasPrd: PreferenciasService) { }
+    private calculoPrd:CalculosService) { }
 
   ngOnInit(): void {
 
@@ -116,8 +115,15 @@ export class EmpleoComponent implements OnInit {
 
 
 
+   this.suscripciones();
+
+  }
 
 
+  public suscripciones(){
+        this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor =>{
+            console.log("Este es lo ultimo que cambia",valor);
+        });
   }
 
 
@@ -629,7 +635,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public validarFechaImss() {
-    debugger;
+    
     let fecha = this.myForm.controls.fechaAltaImss.value;
     if (fecha != undefined && fecha != '') {
       let fechaaux: Date = new Date((new Date(fecha).toUTCString()).replace(" 00:00:00 GMT", ""));
@@ -703,6 +709,63 @@ export class EmpleoComponent implements OnInit {
 
     console.log(this.grupoNominaSeleccionado);
 
+
+  }
+
+
+  public cambiasueldobruto(){
+
+    if(this.myForm.controls.sueldoBrutoMensual.invalid){
+      return;
+    }
+
+    if(this.myForm.controls.politicaId.invalid){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar una política");
+      return;
+    }
+    if(this.myForm.controls.grupoNominaId.invalid){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar un grupo de  nómina");
+      return;
+    }
+    if(this.myForm.controls.tipoCompensacionId.invalid){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar la compensación");
+      return;
+    }
+    if(this.myForm.controls.fechaAntiguedad.invalid){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar la fecha de antigüedad");
+      return;
+    }
+    if(this.myForm.controls.fechaInicio.invalid){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar la de inicio de contrato");
+      return;
+    }
+
+
+   let objenviar =  {
+      clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
+      politicaId: this.myForm.controls.politicaId.value,
+      grupoNomina: this.myForm.controls.grupoNominaId.value,
+      tipoCompensacion: this.myForm.controls.tipoCompensacionId.value,
+      sbmImss: this.myForm.controls.sueldoBrutoMensual.value,
+      fechaAntiguedad: this.myForm.controls.fechaAntiguedad.value,
+      fecIniPeriodo: this.myForm.controls.fechaInicio.value
+    }
+
+   
+
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading,"Calculando");
+
+
+    this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos =>{
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      console.log("Datos regresados",datos);
+    });
 
   }
 }

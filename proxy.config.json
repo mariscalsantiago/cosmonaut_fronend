@@ -22,6 +22,15 @@
             "^/catalogos": ""
           },
          "changeOrigin": true
+    },
+    "/calculos/*":{
+        "target":"http://1bc86661ba57.ngrok.io",
+        "secure":false,
+        "pathRewrite": {
+            "^/calculos": ""
+          },
+         "changeOrigin": true
     }
+
 
 }

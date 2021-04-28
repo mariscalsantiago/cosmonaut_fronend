@@ -152,7 +152,7 @@ export class EmpresasComponent implements OnInit {
 
   public recibirTabs(elemento: any) {
     
-  debugger;
+  
    switch (elemento.type) {
      case "informacion":
  
@@ -225,7 +225,7 @@ export class EmpresasComponent implements OnInit {
 
 public recibir(elemento: any) {
    
-debugger;
+
   switch (elemento.type) {
     case "informacion":
 
@@ -306,7 +306,7 @@ debugger;
 
   public recibirAlerta(obj: any) {
     
-     debugger;
+     
     this.cambiaValor = !this.cambiaValor;
      
 
@@ -322,7 +322,7 @@ debugger;
         this.continuarDom = false;
 
       }
-      debugger;
+      
       if(this.continuarSede && obj){
         
         this.recibir({ type: "sedeDom", valor: true });

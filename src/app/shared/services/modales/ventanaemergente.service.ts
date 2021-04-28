@@ -41,7 +41,7 @@ export class VentanaemergenteService {
 
   public showVentana(tipoVentana: string, configuracion?: configuracion): Promise<any> {
 
-    debugger;
+    
     for (let llave in this.mostrar) {
       this.mostrar[llave] = false;
     }

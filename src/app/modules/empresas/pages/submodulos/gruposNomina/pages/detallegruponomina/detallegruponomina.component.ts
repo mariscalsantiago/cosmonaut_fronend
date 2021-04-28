@@ -195,7 +195,7 @@ export class DetallegruponominaComponent implements OnInit {
 
           });
         } else {
-          debugger;        
+                  
           peticion.grupoNominaId = obj.grupoNominaId;
           peticion.esActivo = true;
 

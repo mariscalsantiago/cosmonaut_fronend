@@ -57,7 +57,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
         tipoPersonaId: 5
       }
     }
-    debugger;
+    
     this.idEmpresa=this.usuarioSistemaPrd.getIdEmpresa();
     this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos => this.arreglobaja = datos.datos);
     this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
@@ -88,7 +88,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
 
   public createFormcomp(obj: any) {
-    debugger;
+    
       obj.calculoAntiguedadx = "antiguedad";
       obj.pagosXliquidacionIdPrima = true;
 
@@ -113,7 +113,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public validarTipoCalculo(calculo:any){
-    debugger;
+    
     if(calculo != ""){
       if(calculo == 1){
         this.liquidacion = true;
@@ -146,7 +146,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
 
     if (this.myFormcomp.invalid) {
@@ -176,7 +176,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
 
       if(valor){
-        debugger;
+        
         let obj = this.myFormcomp.value;
 
         let fechar = "";
