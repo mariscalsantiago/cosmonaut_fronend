@@ -21,3 +21,30 @@ article{
     background: #1EC1AF34;
     
 }
+
+
+#nav-tabContent{
+    height: calc(100vh - 329px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+        cursor: pointer;
+      }
+
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #00ded4; 
+        border-radius: 3px;
+      }
+
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #00c4ba; 
+      }
+}

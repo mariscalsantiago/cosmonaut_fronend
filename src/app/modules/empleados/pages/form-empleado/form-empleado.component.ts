@@ -53,7 +53,7 @@ export class FormEmpleadoComponent implements OnInit {
     let temp =  history.state.datos;
     console.log("Esta es el temporal",temp);
     if(temp !== undefined){
-      this.titulo = "ACOMPLETAR DATOS AL EMPLEADO";
+      this.titulo = "COMPLETAR DATOS DEL EMPLEADO";
       this.datosPersona = temp;
       this.datosPersona.insertar = history.state.insertar;
       this.tabsEnviar[0] = temp;
