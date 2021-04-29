@@ -3,6 +3,8 @@ import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { CompanyComponent } from "./company.component";
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ShareModule } from "src/app/shared/share.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 
@@ -35,7 +37,7 @@ describe("Lista de clientes",()=>{
 
         TestBed.configureTestingModule({
             declarations:[CompanyComponent],
-            imports:[HttpClientTestingModule,RouterTestingModule.withRoutes([])],
+            imports:[HttpClientTestingModule,RouterTestingModule.withRoutes([]),FormsModule, ReactiveFormsModule,ShareModule],
             providers:[{provide:Router,useClass:routerMokup}]
 
         }).compileComponents();

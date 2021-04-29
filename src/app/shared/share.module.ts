@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlertasComponent } from './alertas/alertas.component';
 import { LoadingComponent } from './loading/loading.component';
@@ -59,9 +59,10 @@ import { VentanaNominanuevaextraordinariaComponent } from './ventanasemergentes/
 
   ],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule
+    CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule
   ],
-  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent,MayusculasDirective,SolonumerosDirective,TamanioVentanaDirective,
-    CalendarioComponent,VentanaemergenteprincipalComponent,ChatbootComponent,AlfanumericoDirective]
+  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent, MayusculasDirective, SolonumerosDirective, TamanioVentanaDirective,
+    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ShareModule { }

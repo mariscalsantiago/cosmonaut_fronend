@@ -7,6 +7,8 @@ import { UsuarioService } from "../../services/usuario.service";
 import { of } from "rxjs";
 import * as Rx from 'rxjs';
 import { delay } from "rxjs/operators";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ShareModule } from "src/app/shared/share.module";
 
 
 
@@ -50,7 +52,7 @@ describe("Lista de usuarios", () => {
 
         TestBed.configureTestingModule({
             declarations: [UsuariosComponent],
-            imports: [RouterTestingModule.withRoutes([]), HttpClientTestingModule],
+            imports: [RouterTestingModule.withRoutes([]), HttpClientTestingModule,FormsModule, ReactiveFormsModule,ShareModule],
             providers: [{ provide: Router, useClass: routerMokup }, {
                 provider: UsuarioService, useValue: {
                     getAllUsers: () => {

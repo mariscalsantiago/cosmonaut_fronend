@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 
 import { of } from "rxjs";
+import { ShareModule } from "src/app/shared/share.module";
 
 
 class routerFake {
@@ -31,7 +32,7 @@ describe('componente-clientedetalle INSERTAR CLIENTE', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [DetalleCompanyComponent],
-            imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterTestingModule.withRoutes([])],
+            imports: [FormsModule, ReactiveFormsModule, HttpClientModule, RouterTestingModule.withRoutes([]),ShareModule],
             providers: [CompanyService, { provider: Router, useClass: routerFake }, {
                 provide: ActivatedRoute,
                 useValue: {
