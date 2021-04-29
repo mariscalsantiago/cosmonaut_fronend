@@ -100,12 +100,50 @@ export class ListarepresentantelegalComponent implements OnInit {
     ];
    
 
-    if(this.arreglo !== undefined){
+    /*if(this.arreglo !== undefined){
       for(let item of this.arreglo){
         item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
         
+      
+      }
+    }*/
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = this.arreglo;
+    this.cargando = false;
+  }
+
+  public realizarTablaFiltro(datos:any){
+    console.log(datos)
+    this.arreglo = datos.datos;
+
+    
+    let columnas:Array<tabla> = [
+      new tabla("personaId","ID"),
+      new tabla("nombre","Nombre"),
+      new tabla("apellidoPaterno","Primer apellido"),
+      new tabla("apellidoMaterno","Segundo apellido"),
+      new tabla("curp","CURP"),
+      new tabla("emailCorporativo","Correo empresarial"),
+      new tabla("esActivo","Estatus")
+    ];
+   
+
+    if(this.arreglo !== undefined){
+      for(let item of this.arreglo){
+        /*item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+        let datepipe = new DatePipe("es-MX");
+        item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");*/
+        
+        item.esActivo = item.activo;
+
+        if(item.esActivo){
+          item.esActivo = true
+         }
+         if(!item.esActivo){
+         item.esActivo = false
+         }
       
       }
     }
@@ -114,13 +152,12 @@ export class ListarepresentantelegalComponent implements OnInit {
     this.cargando = false;
   }
 
-
   public verdetalle(obj:any){
     this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal', 'nuevo'],{state:{data:obj}});
   }
 
   public filtrar() {
-    
+    debugger;
     this.cargando = true;
 
     let peticion = {
@@ -141,7 +178,7 @@ export class ListarepresentantelegalComponent implements OnInit {
     this.cargando = true;
     this.representanteProd.filtrar(peticion).subscribe(datos => {
       
-      this.realizarTabla(datos);
+      this.realizarTablaFiltro(datos);
     });
 
   }

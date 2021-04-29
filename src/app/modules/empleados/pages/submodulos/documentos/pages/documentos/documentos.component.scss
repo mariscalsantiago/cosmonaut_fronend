@@ -1,26 +1,19 @@
-.btnPersonalizado{
-    background-color: transparent;
-    i{
-        background-color: #00c1af !important;
-    }
+.botonestilos{
+    bottom: 5px;
+    right: 10px;
+    color:#022538;
+    background-color: white;
+    border: 1px solid #022538;
+    width: 100px;
+    margin:auto;
 }
 
 
-
-table{
-    border-radius: 10px;
-}
-
-.margen-tabla table{
-    margin:15px;
+.table tr {
+    border-bottom: 0px solid #9ca4a5 !important;
 }
 
 
-td{
-    color:rgb(49, 49, 49);
-
-    button{
-        border: 0px solid black;
-        margin-left: 2px;
-    }
+input,select{
+    font-size: small;
 }

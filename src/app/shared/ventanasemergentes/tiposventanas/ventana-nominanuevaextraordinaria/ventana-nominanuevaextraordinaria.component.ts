@@ -11,13 +11,13 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
   styleUrls: ['./ventana-nominanuevaextraordinaria.component.scss']
 })
 export class VentanaNominanuevaextraordinariaComponent implements OnInit {
-
+  public myForm!: FormGroup;
   @Output() salida = new EventEmitter<any>();
   @ViewChild("fechafin") fechafin!: ElementRef;
 
   
 
-  public myForm!: FormGroup;
+  
 
   constructor(private modalPrd: ModalService, private grupoNominaPrd: GruponominasService,
     private usuariosPrd: UsuarioSistemaService, private formbuilder: FormBuilder,
@@ -74,7 +74,6 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
       }
     });
   }
-
 
 
   public enviarPeticion() {

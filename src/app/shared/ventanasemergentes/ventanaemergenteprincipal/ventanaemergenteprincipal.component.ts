@@ -34,6 +34,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     deducciones: false,
     ndispersion:false,
     ntimbrado:false,
+    subirdocumento: false,
     nuevanominaextraordinaria:false
   }
 
@@ -61,7 +62,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    debugger;
     this.content = document.getElementById("contenido");
     this.bodymodal = document.getElementById("bodyemergente");
     this.scrollTop = this.content.scrollTop;

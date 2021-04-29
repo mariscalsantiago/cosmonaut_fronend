@@ -130,7 +130,17 @@ export class ListacontactosrrhComponent implements OnInit {
         for(let item of datos.datos){
           item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
-          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
+          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");
+
+          item.esActivo = item.activo;
+
+          if(item.esActivo){
+          item.esActivo = true
+          }
+          if(!item.esActivo){
+          item.esActivo = false
+          }
+
         }
       }
 

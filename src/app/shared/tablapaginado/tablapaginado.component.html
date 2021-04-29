@@ -28,7 +28,7 @@
         </th>
         <th *ngIf="porcentaje">Porcentaje de avance</th>
         <th *ngIf="timbrado">Timbrar</th>
-        <th *ngIf="ver || editar || eliminar || desglosar">Acciones</th>
+        <th *ngIf="ver || editar || eliminar || desglosar || descargar">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -69,6 +69,8 @@
 
           </th>
           <td class="opciones" [ngClass]="{'centrar':item.nombre !== 'Politica Estandar'}">
+            <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i
+              class="icon_24descargar primary-bg"></i></button>
             <button *ngIf="ver" (click)="btnVer(item,indice)"><i class="icon_24ver primary-bg"></i></button>
             <button *ngIf="editar && item.nombre !== 'Politica Estandar'" (click)="btnEditar(item,indice)"><i
                 class="icon_24editar primary-bg"></i></button>
