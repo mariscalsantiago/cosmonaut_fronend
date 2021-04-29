@@ -2,65 +2,42 @@
 
 <div class="row">
     <div class="row"><label class="titulo">DOCUMENTOS</label></div>
-
-    <div id="accordionFiltro">
-
-      <div id="accordion">
-        <div class="card">
-  
-          <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-              <div class="form group row margen">
-                <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
-                  <input type="text"  class="form-control" 
-                  placeholder="Tipo de movimiento">
-                </div>
-                <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                  <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
-                </div>
-  
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-    </div>
 </div>
 
+<div class="row">
+
+  <div class="form group row margen">
+    <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
+      <input type="text"  class="form-control" 
+      placeholder="Tipo de documento">
+    </div>
+    <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+      <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+    </div>
+
+  </div>
+
+
+</div>
+
+
 <div class="row ">
+
     <div class="col">
 
-        <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Nombre</th>
-                <th></th>
-                <th scope="col" >Fecha</th>
-                <th scope="col" >Tipo</th>
-                <th scope="col" >Autor</th>
-              
-                <th scope="col " ></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>acta_de_nacimiento.pdf  </td>
-                <td class="opciones"><button ><i class="fas fa-pen primary"></i></button></td>
-                <td >12-ene.-2021</td>
-                <td >Otros </td>
-                <td >Admin RH</td>
-                <td class="opciones">
-                  <button ><i class="far fa-eye primary"></i></button>
-                  
-                  <button ><i class="far fa-trash-alt danger"></i></button>
-                </td>
-              </tr>
-      
-      
-      
-            </tbody>
-          </table>
+      <div class="row margen">
+        <div class="col titulo">
+          <label>RESULTADOS</label>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
+             Subir documento
+          </button>
+        </div>
+      </div>
+      <div class="row margen margen-tabla background-panel">
+        <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [editar]="true" [eliminar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+      </div>
 
     </div>
 </div>

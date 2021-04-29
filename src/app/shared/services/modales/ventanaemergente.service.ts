@@ -14,6 +14,7 @@ export class VentanaemergenteService {
   public deducciones: string = "deducciones";
   public ndispersion: string = "ndispersion";
   public ntimbrado: string = "ntimbrado";
+  public subirdocumento: string = "subirdocumento";
 
 
   private subject?: Subject<any>;;
@@ -34,7 +35,8 @@ export class VentanaemergenteService {
     percepciones: false,
     deducciones: false,
     ndispersion: false,
-    ntimbrado: false
+    ntimbrado: false,
+    subirdocumento: false
   }
 
   constructor() { }
@@ -84,6 +86,10 @@ export class VentanaemergenteService {
       case this.ntimbrado:
         this.mostrar.ntimbrado = true;
         this.emergente.titulo = "Resumen del timbrado";
+        break;
+      case this.subirdocumento:
+        this.mostrar.subirdocumento = true;
+        this.emergente.titulo = "Subir documento";
         break;
     }
 

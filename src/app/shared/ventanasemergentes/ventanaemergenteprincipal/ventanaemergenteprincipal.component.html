@@ -11,6 +11,7 @@
         <div class="col  m-3">
             <h4 *ngIf="!ventanaalerta" class="primary">{{titulo}}</h4>
             <hr *ngIf="!ventanaalerta">
+            
             <app-ventana-nuevanomina *ngIf="mostrar.nuevanomina" (salida)="recibirEmergente($event)"></app-ventana-nuevanomina>
             <app-nominaactiva-fechatimbrado  *ngIf="mostrar.timbrado" (salida)="recibirEmergente($event)"></app-nominaactiva-fechatimbrado>
             <app-nominaactiva-timbrar  *ngIf="mostrar.timbrar" (salida)="recibirEmergente($event)"></app-nominaactiva-timbrar>
@@ -19,6 +20,7 @@
             <app-ventana-deducciones *ngIf="mostrar.deducciones" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-deducciones>
             <app-ventana-resumen-dispersion  *ngIf="mostrar.ndispersion" (salida)="recibirEmergente($event)"></app-ventana-resumen-dispersion>
             <app-ventana-resumen-timbrado  *ngIf="mostrar.ntimbrado" (salida)="recibirEmergente($event)"></app-ventana-resumen-timbrado>
+            <app-ventana-subirdocumento  *ngIf="mostrar.subirdocumento" (salida)="recibirEmergente($event)"></app-ventana-subirdocumento>
         </div>
     </div>
 
