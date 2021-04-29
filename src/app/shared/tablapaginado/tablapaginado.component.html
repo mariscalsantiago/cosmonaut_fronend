@@ -36,7 +36,7 @@
         <tr class="fade-in-second">
           <td *ngIf="checkbox">
             <label class="contenedorInputCheckRadio">
-              <input [ngModel]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
+              <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
               <span class="checkmark"></span>
             </label>
           </td>
@@ -63,7 +63,7 @@
           <th *ngIf="timbrado">
 
             <label class="contenedorInputCheckRadio" style="text-align: center;    margin-left: 22px;">
-              <input [ngModel]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
+              <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
               <span class="checkmark"></span>
             </label>
 
