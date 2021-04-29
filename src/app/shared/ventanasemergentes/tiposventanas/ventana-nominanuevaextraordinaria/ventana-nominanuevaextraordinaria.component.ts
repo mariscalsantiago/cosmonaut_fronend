@@ -76,7 +76,6 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   }
 
 
-
   public enviarPeticion() {
     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach(control => {
