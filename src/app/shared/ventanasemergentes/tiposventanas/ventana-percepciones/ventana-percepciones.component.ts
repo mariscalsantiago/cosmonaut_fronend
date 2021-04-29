@@ -39,7 +39,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     if(this.datos.idEmpleado != undefined){
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;
@@ -56,7 +56,7 @@ export class VentanaPercepcionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
 
     }else{
-      debugger;
+      
       this.esInsert = false;
       this.myForm = this.createForm(this.datos);
       let tipo = (this.datos.conceptoPercepcionId?.tipoPeriodicidad == 'P') ? '1' : '2'
@@ -67,7 +67,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    debugger;
+    
     let datePipe = new DatePipe("en-MX");
     if(!this.esInsert){
       obj.tipoPeriodicidadId = (obj.conceptoPercepcionId?.tipoPeriodicidad == 'P') ? '1' : '2';
@@ -95,7 +95,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarPercepcion(tipo:any){
-    debugger;
+    
     for(let item of this.nombrePercepcion){
       if(item.tipoPercepcionId?.tipoPercepcionId == tipo){
         this.conceptoPercepcionId = item.conceptoPercepcionId;
@@ -106,7 +106,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo:any){
-    debugger;
+    
     if(tipo != ""){
       if(tipo == 1){
         let nombrePer = "P";
@@ -137,7 +137,7 @@ export class VentanaPercepcionesComponent implements OnInit {
    }
 
    public validarMonto(monto:any){
-    debugger;
+    
       this.monto = monto;
       if(this.monto != null && this.numPeriodo != null){
         this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
@@ -149,7 +149,7 @@ export class VentanaPercepcionesComponent implements OnInit {
    }
 
    public validarNomMonto(tipomonto:any){
-    debugger;
+    
     if(tipomonto == 2){
       this.porcentual = false;
       this.fijo = true;
@@ -161,7 +161,7 @@ export class VentanaPercepcionesComponent implements OnInit {
    }
 
    public validarNumPeriodo(periodo:any){
-    debugger;
+    
     this.numPeriodo = periodo;
     if(this.monto != null && this.numPeriodo != null){
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
@@ -176,7 +176,7 @@ export class VentanaPercepcionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-    debugger;
+    
     /*this.submitEnviado = true;
     if (this.myForm.invalid) {
 
@@ -254,7 +254,7 @@ export class VentanaPercepcionesComponent implements OnInit {
           };
 
         }
-          debugger;
+          
           this.salida.emit({type:"guardar",datos:this.objEnviar});
         }
       });

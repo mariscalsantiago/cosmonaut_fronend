@@ -15,6 +15,7 @@ export class VentanaemergenteService {
   public ndispersion: string = "ndispersion";
   public ntimbrado: string = "ntimbrado";
   public subirdocumento: string = "subirdocumento";
+  public nuevanominaextraordinaria:string = "nuevanominaextraordinaria";
 
 
   private subject?: Subject<any>;;
@@ -35,15 +36,14 @@ export class VentanaemergenteService {
     percepciones: false,
     deducciones: false,
     ndispersion: false,
-    ntimbrado: false,
-    subirdocumento: false
+    ntimbrado: false
   }
 
   constructor() { }
 
   public showVentana(tipoVentana: string, configuracion?: configuracion): Promise<any> {
 
-    debugger;
+    
     for (let llave in this.mostrar) {
       this.mostrar[llave] = false;
     }
@@ -86,10 +86,6 @@ export class VentanaemergenteService {
       case this.ntimbrado:
         this.mostrar.ntimbrado = true;
         this.emergente.titulo = "Resumen del timbrado";
-        break;
-      case this.subirdocumento:
-        this.mostrar.subirdocumento = true;
-        this.emergente.titulo = "Subir documento";
         break;
     }
 

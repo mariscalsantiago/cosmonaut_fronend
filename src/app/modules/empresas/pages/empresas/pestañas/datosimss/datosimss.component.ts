@@ -32,7 +32,7 @@ export class DatosimssComponent implements OnInit {
   constructor(private formBuilder:FormBuilder,private imssPrd: ImssService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.id_empresa = this.datosempresa.centrocClienteEmpresa
 
@@ -103,7 +103,7 @@ public activfiel(){
 
 
   ngOnChanges(changes: SimpleChanges) {
-    debugger;
+    
     this.datosempresa.activarGuardaMod= true;
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;

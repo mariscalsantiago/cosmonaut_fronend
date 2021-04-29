@@ -6,12 +6,11 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 import { NominasService } from '../../../services/nominas.service';
 
 @Component({
-  selector: 'app-nominas-activas',
-  templateUrl: './nominas-activas.component.html',
-  styleUrls: ['./nominas-activas.component.scss']
+  selector: 'app-nomina-extraordinaria',
+  templateUrl: './nomina-extraordinaria.component.html',
+  styleUrls: ['./nomina-extraordinaria.component.scss']
 })
-export class NominasActivasComponent implements OnInit {
-
+export class NominaExtraordinariaComponent implements OnInit {
 
   public  cargando:boolean = false;
 
@@ -43,7 +42,7 @@ export class NominasActivasComponent implements OnInit {
   }
 
   public agregar(){
-      this.ventana.showVentana(this.ventana.nuevanomina).then(valor =>{
+      this.ventana.showVentana(this.ventana.nuevanominaextraordinaria).then(valor =>{
         console.log("lado del clienteISDJFIDSJFIJFDJSIFJSDIFJ",valor);
         if(valor.datos){
             this.agregarNuevaNomina();
@@ -93,5 +92,4 @@ export class NominasActivasComponent implements OnInit {
 
     
   }
-
 }

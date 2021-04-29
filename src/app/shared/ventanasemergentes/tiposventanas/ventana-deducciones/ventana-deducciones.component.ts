@@ -50,7 +50,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     if(this.datos.idEmpleado != undefined){
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;
@@ -63,7 +63,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
     this.bancosPrd.getObtenerDeduccion(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
 
-    debugger;
+    
     if(this.datos.idEmpleado != undefined){
       this.datos = {};
       this.esInsert = true;
@@ -79,7 +79,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    debugger;
+    
     let datePipe = new DatePipe("en-MX");
 
     return this.formBuild.group({
@@ -115,7 +115,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    debugger;
+    
     if(concepto=='010'){
       this.infonavit = true;
       this.fijo = true;
@@ -254,7 +254,7 @@ export class VentanaDeduccionesComponent implements OnInit {
    }
 
    public validarMontoTotal(monto:any){
-    debugger;
+    
       this.monto = monto;
       if(this.monto != null && this.numPeriodo != null){
         this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
@@ -266,7 +266,7 @@ export class VentanaDeduccionesComponent implements OnInit {
    }
 
    public validarNumeroCuotas(cuotas:any){
-    debugger;
+    
     this.numPeriodo = cuotas;
     if(this.monto != null && this.numPeriodo != null){
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
@@ -278,7 +278,7 @@ export class VentanaDeduccionesComponent implements OnInit {
    }
 
    public validarNomMonto(tipomonto:any){
-    debugger;
+    
       if(tipomonto == 2){
         this.porcentual = false;
         this.fijo = true;
@@ -290,7 +290,7 @@ export class VentanaDeduccionesComponent implements OnInit {
    }
 
    public validarNomMontoInfonavit(tipomonto:any){
-    debugger;
+    
       if(tipomonto == 1){
         this.porcentual = false;
         this.fijo = true;
@@ -315,7 +315,7 @@ export class VentanaDeduccionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-    debugger;
+    
     /*this.submitEnviado = true;
     if (this.myForm.invalid) {
 
@@ -411,7 +411,7 @@ export class VentanaDeduccionesComponent implements OnInit {
           
 
         }
-          debugger;
+          
           this.salida.emit({type:"guardar",datos:this.objEnviar});
         }
       });

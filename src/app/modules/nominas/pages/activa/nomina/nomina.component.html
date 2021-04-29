@@ -1,17 +1,17 @@
 <div class="form-desing mt-3">
   <div class="row m-1 background-panel ">
 
-    <div class="col-9 mt-3  mb-3 ">
-      <article>Nómina Quincenal Soulsoft
-          <article>Período 001/2020</article>
-          <article>De 1 oct. hasta 15 oct.</article>
-          <article>Incidencias consideradas de 1 oct. hasta 15 oct.</article>
+    <div class="col-12 mt-3  mb-3 ">
+      <article class="titulonomina mr-1"><span>Nómina Quincenal Soulsoft</span>&nbsp;&nbsp;
+          <article style="    margin-left: 10px;
+          margin-top: 2px;">Período 001/2020</article>
+          <article style="float:right">De 1 oct. hasta 15 oct.</article>
     
       </article>
 
     </div>
-    <div class="col-12 margennav background-ajustar" style="background-color:#f5f5f5;padding-top: 20px;"
-      appTamanioVentana [pixeles]="230">
+    <div class="col-12 margennav " style="background-color:#f5f5f5;padding-top: 20px;   overflow: hidden; height: calc(100% - 266px);"
+      >
 
       <nav class="nav-inside">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -30,7 +30,7 @@
             id="nav-contact-tab" role="tab" aria-controls="nav-detalle" aria-selected="false">4. Concluir</a>
         </div>
       </nav>
-      <div class="tab-content" id="nav-tabContent">
+      <div class="tab-content" id="nav-tabContent" >
         <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel"
           aria-labelledby="nav-home-tab">
 

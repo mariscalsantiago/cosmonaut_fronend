@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
 import { CalculosService } from 'src/app/shared/services/calculos.service';
@@ -6,16 +6,16 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
-  selector: 'app-ventana-nuevanomina',
-  templateUrl: './ventana-nuevanomina.component.html',
-  styleUrls: ['./ventana-nuevanomina.component.scss']
+  selector: 'app-ventana-nominanuevaextraordinaria',
+  templateUrl: './ventana-nominanuevaextraordinaria.component.html',
+  styleUrls: ['./ventana-nominanuevaextraordinaria.component.scss']
 })
-export class VentanaNuevanominaComponent implements OnInit {
+export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   @Output() salida = new EventEmitter<any>();
   @ViewChild("fechafin") fechafin!: ElementRef;
 
-  public arreglogruposnomina: any = [];
+  
 
   public myForm!: FormGroup;
 
@@ -24,7 +24,6 @@ export class VentanaNuevanominaComponent implements OnInit {
     private usuarioSistemaPrd: UsuarioSistemaService, private calculoPrd: CalculosService) { }
 
   ngOnInit(): void {
-    this.grupoNominaPrd.getAll(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.arreglogruposnomina = datos.datos);
     this.myForm = this.creandoForm();
 
     this.suscripciones();

@@ -84,7 +84,7 @@ export class InformacionempresaComponent implements OnInit {
     this.imagen = imagen;
   }
   public createForm(obj: any) {
-    debugger;
+    
     if (!this.datosempresa.insertar) {
 
       obj.certext = 'Certificado de sello digital cargado';
@@ -114,7 +114,7 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public validarActividad2(actividad:any){
-    debugger;
+    
     if(actividad != ""){
      this.catalogosPrd.getActividadEconomica2(this.idNivel2,actividad).subscribe(datos => this.arregloactividad2 = datos.datos);
     }
@@ -179,7 +179,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    debugger;
+    
 
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;

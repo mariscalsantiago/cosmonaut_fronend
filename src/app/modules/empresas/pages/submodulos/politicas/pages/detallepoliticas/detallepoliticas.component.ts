@@ -126,7 +126,7 @@ export class DetallepoliticasComponent implements OnInit {
     const titulo = (this.insertar) ? "¿Deseas registrar la política" : "¿Deseas actualizar los datos de la política?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
-        debugger;
+        
         let obj = this.myFormpol.value;
         let antiguedad = obj.calculoAntiguedadx == "contrato"?"C":"A";
         if(antiguedad == "C"){
@@ -158,7 +158,7 @@ export class DetallepoliticasComponent implements OnInit {
           },
 
         }
-        debugger;
+        
         if (this.insertar) {
           
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
