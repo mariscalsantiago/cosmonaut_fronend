@@ -34,7 +34,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     deducciones: false,
     ndispersion:false,
     ntimbrado:false,
-    subirdocumento: false
+    subirdocumento: false,
     nuevanominaextraordinaria:false
   }
 
