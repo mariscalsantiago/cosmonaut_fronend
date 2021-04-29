@@ -23,6 +23,7 @@ import { VentanaPercepcionesComponent } from './ventanasemergentes/tiposventanas
 import { VentanaDeduccionesComponent } from './ventanasemergentes/tiposventanas/ventana-deducciones/ventana-deducciones.component';
 import { VentanaResumenDispersionComponent } from './ventanasemergentes/tiposventanas/ventana-resumen-dispersion/ventana-resumen-dispersion.component';
 import { VentanaResumenTimbradoComponent } from './ventanasemergentes/tiposventanas/ventana-resumen-timbrado/ventana-resumen-timbrado.component';
+import { VentanaNominanuevaextraordinariaComponent } from './ventanasemergentes/tiposventanas/ventana-nominanuevaextraordinaria/ventana-nominanuevaextraordinaria.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { VentanaResumenTimbradoComponent } from './ventanasemergentes/tiposventa
     VentanaPercepcionesComponent,
     VentanaDeduccionesComponent,
     VentanaResumenDispersionComponent,
-    VentanaResumenTimbradoComponent
+    VentanaResumenTimbradoComponent,
+    VentanaNominanuevaextraordinariaComponent
 
   ],
   imports: [

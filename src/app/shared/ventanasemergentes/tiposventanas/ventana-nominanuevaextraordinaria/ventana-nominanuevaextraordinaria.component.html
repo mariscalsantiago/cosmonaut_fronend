@@ -1,0 +1,94 @@
+<form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
+    <div class="form-group row">
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Nombre de la nómina *</label>
+            <input formControlName="nombreNomina"  [class.is-invalid]="f.nombreNomina.errors && f.nombreNomina.touched" type="text" name="" id="" class="form-control">
+            <div *ngIf="f.nombreNomina.errors && f.nombreNomina.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Tipo de nómina *</label>
+            <select class="form-control">
+                <option value="">
+                    Tipos de nòmina
+                </option>
+            </select>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Razón social *</label>
+            <select class="form-control">
+                <option value="">
+                    Razón social
+                </option>
+            </select>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Cuenta bancaria *</label>
+            <select class="form-control">
+                <option value="">
+                   cuenta bancaria
+                </option>
+            </select>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <div>
+                <label>Selecciona empleados *</label>
+                <div >
+
+                    <label class="contenedorInputCheckRadio">Incluir todos los empleados
+                        <input 
+                             name="areaGeograficaId" type="radio"
+                           value = "todos">
+                        <span class="radiomark"></span>
+                    </label>
+
+                
+                    <label class="contenedorInputCheckRadio">Incluir algunos empleados
+                        <input 
+                             name="areaGeograficaId" type="radio"
+                           value = "algunos">
+                        <span class="radiomark"></span>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Seleccionar los usuarios que estaran en la nómina *</label>
+            <select class="form-control">
+                <option value="">
+                     Usuarios
+                </option>
+            </select>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Fecha de inicio *</label>
+            <input [class.is-invalid]="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" formControlName="fechaIniPeriodo"  type="date" name="" id="" class="form-control">
+            <div *ngIf="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Fecha de fin *</label>
+            <input formControlName="fechaFinPeriodo" #fechafin [class.is-invalid]="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" type="date" name="" id="" class="form-control">
+            <div *ngIf="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Moneda *</label>
+            <select class="form-control">
+                <option value="">
+                    Tipos de moneda
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="text-right margin" style="margin-bottom: 20px;">
+    
+        <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button type="submit"  class="btn btn-primary button-fill">Guardar</button>
+    </div>
+    
+</form>

@@ -14,6 +14,7 @@ export class VentanaemergenteService {
   public deducciones: string = "deducciones";
   public ndispersion: string = "ndispersion";
   public ntimbrado: string = "ntimbrado";
+  public nuevanominaextraordinaria:string = "nuevanominaextraordinaria";
 
 
   private subject?: Subject<any>;;
@@ -34,7 +35,8 @@ export class VentanaemergenteService {
     percepciones: false,
     deducciones: false,
     ndispersion: false,
-    ntimbrado: false
+    ntimbrado: false,
+    nuevanominaextraordinaria:false
   }
 
   constructor() { }
@@ -84,6 +86,10 @@ export class VentanaemergenteService {
       case this.ntimbrado:
         this.mostrar.ntimbrado = true;
         this.emergente.titulo = "Resumen del timbrado";
+        break;
+        case this.nuevanominaextraordinaria:
+        this.mostrar.nuevanominaextraordinaria = true;
+        this.emergente.titulo = "Nueva nómina extrordinaria";
         break;
     }
 
