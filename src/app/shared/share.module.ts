@@ -53,7 +53,9 @@ import { VentanaNominanuevaextraordinariaComponent } from './ventanasemergentes/
     VentanaPercepcionesComponent,
     VentanaDeduccionesComponent,
     VentanaResumenDispersionComponent,
-    VentanaResumenTimbradoComponent
+    VentanaResumenTimbradoComponent,
+    VentanaSubirDocumentoComponent,
+    VentanaNominanuevaextraordinariaComponent
 
   ],
   imports: [

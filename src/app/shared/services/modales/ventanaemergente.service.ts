@@ -36,7 +36,8 @@ export class VentanaemergenteService {
     percepciones: false,
     deducciones: false,
     ndispersion: false,
-    ntimbrado: false
+    ntimbrado: false,
+    subirdocumento: false
   }
 
   constructor() { }
@@ -47,7 +48,7 @@ export class VentanaemergenteService {
     for (let llave in this.mostrar) {
       this.mostrar[llave] = false;
     }
-
+    debugger;
 
 
     this.emergente.datos = configuracion?.datos;
@@ -83,9 +84,9 @@ export class VentanaemergenteService {
         this.mostrar.ndispersion = true;
         this.emergente.titulo = "Resumen de la dispersión";
         break;
-      case this.ntimbrado:
-        this.mostrar.ntimbrado = true;
-        this.emergente.titulo = "Resumen del timbrado";
+      case this.subirdocumento:
+        this.mostrar.subirdocumento = true;
+        this.emergente.titulo = "Subir documento";
         break;
     }
 

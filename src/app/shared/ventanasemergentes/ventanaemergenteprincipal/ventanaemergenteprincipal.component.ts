@@ -62,7 +62,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    debugger;
     this.content = document.getElementById("contenido");
     this.bodymodal = document.getElementById("bodyemergente");
     this.scrollTop = this.content.scrollTop;
