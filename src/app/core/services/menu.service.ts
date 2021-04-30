@@ -14,9 +14,8 @@ export class MenuService {
                                                                                     {nombre:"HISTÓRICAS",routerLink:['/nominas/historicas'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"EXTRAORDINARIAS",routerLink:['/nominas/nomina_extraordinaria'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"FINIQUITO/LIQUIDACIÓN",routerLink:['/nominas/finiquito_liquidacion'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"PTU",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"VIÁTICOS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"CALCULADORA",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]}
+                                                                                    {nombre:"PTU",routerLink:['/nominas/ptu'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"CALCULADORA",routerLink:['/nominas/calculadora'],rol:["ALL","ADMINEMPRESA"]}
                                                                                 ]},
     { nombre: "EMPLEADOS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"LISTA Y ALTA DE EMPLEADOS",routerLink:['/empleados'],rol:["ALL","ADMINEMPRESA"]},

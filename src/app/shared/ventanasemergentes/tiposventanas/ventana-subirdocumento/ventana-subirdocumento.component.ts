@@ -16,11 +16,11 @@ export class VentanaSubirDocumentoComponent implements OnInit {
   constructor(private modalPrd:ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
   }
 
   public validarTipoDocumento(idDocumento:any){
-    debugger;
+    
     if(idDocumento=='6'){
 
       this.nomDocumento = true;

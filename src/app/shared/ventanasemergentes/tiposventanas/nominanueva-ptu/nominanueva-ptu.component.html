@@ -1,0 +1,166 @@
+<div class="form-desing mt-3">
+    <div class="row m-1 background-panel background-ajustar" appTamanioVentana [pixeles]="280">
+
+
+        <div class="col-12 margennav">
+
+            <nav class="nav-inside">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a (click)="backTab(0)" class="nav-item nav-link "
+                        [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab"
+                        role="tab" aria-controls="nav-home" aria-selected="true">1. Crear nòmina</a>
+                    <a (click)="backTab(1)" class="nav-item nav-link "
+                        [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}"
+                        id="nav-profile-tab" role="tab" aria-controls="nav-profile" aria-selected="false">2. Seleccionar
+                        empleados</a>
+                    <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
+                    <a (click)="backTab(3)" class="nav-item nav-link "
+                        [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled,'selecciona':activado[2].seleccionado}"
+                        id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">3. Descargar
+                        formato</a>
+
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel"
+                    aria-labelledby="nav-home-tab">
+
+
+                    <form [formGroup]="myForm" (ngSubmit)="enviarEtapa1()">
+                        <div class="row">
+                            <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
+                                <label for="nombre">Nombre de la nómina *</label>
+                                <input id="nombre" formControlName="nombre"
+                                    [class.is-invalid]="f.nombre.errors && f.nombre.touched" type="text"
+                                    class="form-control">
+                                <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+                            </div>
+                            <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
+                                <label for="cuenta">Cuenta bancaria *</label>
+                                <input id="cuenta" formControlName="bancoId"
+                                    [class.is-invalid]="f.bancoId.errors && f.bancoId.touched" type="text"
+                                    class="form-control">
+                                <div *ngIf="f.bancoId.errors && f.bancoId.touched" class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+                            </div>
+                            <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
+                                <label for="moneda">Moneda *</label>
+                                <input id="moneda" formControlName="monedaId"
+                                    [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" type="text"
+                                    class="form-control">
+                                <div *ngIf="f.monedaId.errors && f.monedaId.touched" class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="text-right margin" style="margin-bottom: 20px;">
+
+                            <button type="button" (click)="cancelar()"
+                                class="btn btn-primary button-outlet mr-2">Cancelar</button>
+
+                            <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel"
+                    aria-labelledby="nav-profile-tab">
+
+
+                    <div class="row">
+                        <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
+                            <label for="moneda">Seleccionar los empleados a incluir en el formato</label>
+                            <label class="contenedorInputCheckRadio">Todos los empleados
+                                <input [(ngModel)]="valor" name="seleccion" type="radio" value="1">
+                                <span class="radiomark"></span>
+                            </label>
+                            <label class="contenedorInputCheckRadio">Filtrar por área
+                                <input [(ngModel)]="valor" name="seleccion" type="radio" value="2">
+                                <span class="radiomark"></span>
+                            </label>
+                            <div *ngIf="valor == '2'">
+                                <select name="" id="" class="form-control">
+                                    <option value="">Ârea</option>
+                                </select>
+
+                            </div>
+                            <label class="contenedorInputCheckRadio">Filtrar por empleados especificos
+                                <input [(ngModel)]="valor" name="seleccion" type="radio" value="3">
+                                <span class="radiomark"></span>
+                            </label>
+                            <div *ngIf="valor == '3'">
+                                <select name="" id="" class="form-control">
+                                    <option value="">Empleado</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="text-right margin" style="margin-bottom: 20px;">
+
+                        <button type="button" (click)="cancelar()"
+                            class="btn btn-primary button-outlet mr-2">Cancelar</button>
+
+                        <button (click)="seleccionarItem()" type="button"
+                            class="btn btn-primary button-fill">Guardar</button>
+                    </div>
+
+
+                </div>
+                <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel"
+                    aria-labelledby="nav-contact-tab">
+
+
+                    <div class="row">
+                        <div class="input-group-sm mb-4 mt-3 col-12 col-sm-12 col-lg-12">
+                            <label >Descargar el formato, llénalo y ve al siguiente paso. Recuerda llenar todos los campos obligatorios.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-left">
+                            <a class="botonestilo  estiloextralink"><small *ngIf="!cargandoIcon"><i
+                                        class="fas fa-download"></i> Descargar formaato</small>
+                                <div *ngIf="cargandoIcon" class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group-sm mb-3 col-12 col-sm-7 col-lg-7">
+                            <label>Sube el formato con los datos modificados</label>
+                            <div class="input-group mb-3">
+                              <input type="hidden" >
+                              <input type="text" class="form-control disabled bg-light" >
+                              <div (click)="abrirArchivo()" class="input-group-append" style="cursor: pointer;">
+                                <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="text-right margin" style="margin-bottom: 20px;">
+
+                        <button type="button" (click)="cancelar()"
+                            class="btn btn-primary button-outlet mr-2">Cancelar</button>
+
+                        <button (click)="seleccionarItem()" type="button"
+                            class="btn btn-primary button-fill">Guardar</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>

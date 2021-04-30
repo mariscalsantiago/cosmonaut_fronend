@@ -13,9 +13,11 @@ import { CompletarComponent } from './pages/activa/nomina/pestañas/completar/co
 import { NominaHistoricasComponent } from './pages/nomina-historicas/nomina-historicas.component';
 import { NominaExtraordinariaComponent } from './pages/nomina-extraordinaria/nominas-extraordinarias-activas/nomina-extraordinaria.component';
 import { NominaDFiniquitoliquidacionActivasComponent } from './pages/nomina-finiquitoliquidacion/nomina-dfiniquitoliquidacion-activas/nomina-dfiniquitoliquidacion-activas.component';
+import { NominaCalculadoraComponent } from './pages/nomina-calculadora/nomina-calculadora.component';
+import { NominaPTUComponent } from './pages/nomina-ptu/nominas-ptu-activas/nomina-ptu.component';
 
 @NgModule({
-    declarations:[NominasActivasComponent, NominaComponent, CalcularComponent, PagarComponent, TimbrarComponent, CompletarComponent, NominaHistoricasComponent, NominaExtraordinariaComponent, NominaDFiniquitoliquidacionActivasComponent],
+    declarations:[NominasActivasComponent, NominaComponent, CalcularComponent, PagarComponent, TimbrarComponent, CompletarComponent, NominaHistoricasComponent, NominaExtraordinariaComponent, NominaDFiniquitoliquidacionActivasComponent, NominaCalculadoraComponent, NominaPTUComponent],
     imports:[CommonModule,ReactiveFormsModule,FormsModule,HttpClientModule,nominasRoutingModule,ShareModule]
 })
 export class nominasModule{

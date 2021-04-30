@@ -68,7 +68,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
 
   public createFormrep(obj: any) {
-    debugger;
+    
     let datePipe = new DatePipe("en-MX");
     if(this.insertar){
     obj.nacionalidadId.nacionalidadId = this.constNacionalidad;

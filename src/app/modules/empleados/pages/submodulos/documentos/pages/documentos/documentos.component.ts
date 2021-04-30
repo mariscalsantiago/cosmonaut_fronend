@@ -38,10 +38,10 @@ export class DocumentosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.cargando = true;
     this.bancosPrd.getListaDeduccionesEmpleado(636,112).subscribe(datos => {
-      debugger;
+      
         this.crearTabla(datos);
     });
 
@@ -50,7 +50,7 @@ export class DocumentosComponent implements OnInit {
 
 
   public crearTabla(datos:any){
-    debugger;
+    
     this.arreglo = datos.datos;
 
     
@@ -141,7 +141,7 @@ export class DocumentosComponent implements OnInit {
 
     this.ventana.showVentana(this.ventana.subirdocumento).then(valor =>{
       if(valor.datos){
-        debugger;
+        
           //this.agregarNuevaDeduccion(valor.datos);
       }
     });

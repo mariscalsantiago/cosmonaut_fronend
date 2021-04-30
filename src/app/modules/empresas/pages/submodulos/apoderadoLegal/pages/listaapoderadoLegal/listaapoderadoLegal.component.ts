@@ -187,7 +187,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    debugger;
+    
     if(obj.type == "editar"){
       this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'apoderadoLegal', 'modifica'],{state:{data:obj.datos}});
     }
