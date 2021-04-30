@@ -172,14 +172,13 @@ export class ListapuestosComponent implements OnInit {
 
 
     this.cargando = true;
+    debugger;
+    let peticion = 
 
-    let peticion = {
-
-      nombreCorto: this.nombreCorto,
-      nclCentrocCliente: {
-        nombre: ""
+      { 
+        nombreCorto: this.nombreCorto,
+        nclCentrocCliente:{ centrocClienteId: this.id_empresa}
       }
-    }
 
     this.puestosProd.filtrar(peticion).subscribe(datos => {
       let columnas: Array<tabla> = [

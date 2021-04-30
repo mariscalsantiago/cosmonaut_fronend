@@ -63,6 +63,10 @@ const routes: Routes = [{
     {
       path: 'empresa/detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/conceptos/empresasconceptos.module").then(m => m.empresasConceptosModule)
+    },
+    {
+      path: 'empresa/detalle/:id',
+      component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/tablavalores/empresastablavalores.module").then(m => m.empresasTablaValoresModule)
     }
 
     
