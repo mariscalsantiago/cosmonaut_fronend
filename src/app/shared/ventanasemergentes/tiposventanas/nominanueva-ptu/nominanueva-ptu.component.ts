@@ -20,7 +20,7 @@ export class NominanuevaPtuComponent implements OnInit {
 
   public myForm!: FormGroup;
   constructor(private formbuilder: FormBuilder, private modal: ModalService) { }
-
+ 
   ngOnInit(): void {
     this.myForm = this.createEtapa1();
   }
