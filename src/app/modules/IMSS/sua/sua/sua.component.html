@@ -1,0 +1,83 @@
+<div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
+    <div class="col titulo-outlet">
+        <label>MOVIMIENTOS SUA</label>
+    </div>
+</div>
+
+<div class="scrooll-design" style="margin-top: -22px;">
+    <div class="margen ">
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
+    
+                <div class="mt-2">
+    
+                    <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
+                    <div class="form group row margen">
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input type="text" class="form-control" placeholder="Desde">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input type="text" class="form-control" placeholder="Hasta">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input type="text" class="form-control" placeholder="Número de empleado">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input  type="text" class="form-control"   placeholder="Nombre">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input  type="text" class="form-control"  placeholder="Primer apellido">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input  type="text" class="form-control"   placeholder="Segundo apellido">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input  type="text" class="form-control"   placeholder="Filtrar por fecha de movimiento">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input  type="text" class="form-control"   placeholder="Filtrar por movimiento">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <select class="form-control" [(ngModel)]="empresa">
+                                <option value="">Seleccionar empresa</option>
+                                <option *ngFor="let item of arregloEmpresa" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
+                            </select>
+                        </div>
+                      
+                        <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                            <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                          </div>
+    
+                        
+                    </div>
+    
+    
+                    <div class="row margen">
+                        <div class="col titulo">
+                          <label>RESULTADOS</label>
+                        </div>
+                        <div class="col text-right">
+                            <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
+                              <i class="fa fa-plus"></i> Agregar 
+                            </button>
+                          </div>
+                      </div>
+    
+    
+                      <div class="row   margen-tabla background-panel ">
+                        <app-tablapaginado [checkbox]="true" [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
+                      </div>
+    
+    
+    
+    
+                </div>
+    
+            </div>
+    
+        </div>
+    
+    
+    </div>
+</div>
