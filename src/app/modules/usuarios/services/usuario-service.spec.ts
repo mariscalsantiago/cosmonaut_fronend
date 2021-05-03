@@ -29,7 +29,6 @@ describe('Validando services usuarioPrd peticiones http', () => {
     let servicio:UsuarioService;
 
     beforeEach(()=>{
-        servicio = TestBed.get(UsuarioService);
     });
 
 
