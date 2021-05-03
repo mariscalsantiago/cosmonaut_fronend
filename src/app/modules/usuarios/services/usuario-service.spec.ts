@@ -29,6 +29,7 @@ describe('Validando services usuarioPrd peticiones http', () => {
     let servicio:UsuarioService;
 
     beforeEach(()=>{
+        servicio = TestBed.inject(UsuarioService);
     });
 
 
