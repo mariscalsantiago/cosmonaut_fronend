@@ -58,7 +58,7 @@ export class DocumentosComponent implements OnInit {
 
 
   public crearTabla(datos:any){
-    debugger;
+    
     this.arreglo = datos.datos;
 
     
@@ -155,7 +155,7 @@ export class DocumentosComponent implements OnInit {
     this.ventana.showVentana(this.ventana.subirdocumento,{datos:datos}).then(valor =>{
       if(valor.datos){
         debugger;
-          this.agregarDocumento(valor.datos);
+          //this.agregarNuevaDeduccion(valor.datos);
       }
     });
   }

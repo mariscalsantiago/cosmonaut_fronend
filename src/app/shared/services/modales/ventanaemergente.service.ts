@@ -16,6 +16,7 @@ export class VentanaemergenteService {
   public ntimbrado: string = "ntimbrado";
   public subirdocumento: string = "subirdocumento";
   public nuevanominaextraordinaria:string = "nuevanominaextraordinaria";
+  public nuevanominaptu:string = "nuevanominaptu";
 
 
   private subject?: Subject<any>;;
@@ -37,7 +38,8 @@ export class VentanaemergenteService {
     deducciones: false,
     ndispersion: false,
     ntimbrado: false,
-    subirdocumento: false
+    subirdocumento: false,
+    nuevanominaptu:false
   }
 
   constructor() { }
@@ -48,7 +50,7 @@ export class VentanaemergenteService {
     for (let llave in this.mostrar) {
       this.mostrar[llave] = false;
     }
-    debugger;
+    
 
 
     this.emergente.datos = configuracion?.datos;
@@ -87,6 +89,10 @@ export class VentanaemergenteService {
       case this.subirdocumento:
         this.mostrar.subirdocumento = true;
         this.emergente.titulo = "Subir documento";
+        break;
+        case this.nuevanominaptu:
+        this.mostrar.nuevanominaptu = true;
+        this.emergente.titulo = "Nómina de PTU";
         break;
     }
 

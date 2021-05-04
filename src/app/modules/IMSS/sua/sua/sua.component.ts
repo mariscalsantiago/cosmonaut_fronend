@@ -5,11 +5,11 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
-  selector: 'app-idse',
-  templateUrl: './idse.component.html',
-  styleUrls: ['./idse.component.scss']
+  selector: 'app-sua',
+  templateUrl: './sua.component.html',
+  styleUrls: ['./sua.component.scss']
 })
-export class IDSEComponent implements OnInit {
+export class SuaComponent implements OnInit {
 
   public empresa: any;
   public arregloEmpresa: any = [];
@@ -100,4 +100,5 @@ export class IDSEComponent implements OnInit {
     }
 
   }
+
 }

@@ -1,7 +1,8 @@
 <div class="bg_emergente fade-in-second"  [style.top]="scrollTop+'px'">
     <div style="overflow: auto;" [ngClass]="{'disenioextra':ventanaalerta}" class="bodymodal slide-in-top" id="bodyemergente"  [style.left]="leftP+'px'">
 
-        <button *ngIf="!ventanaalerta" (click)="cerrarModal()" style="color:rgb(0, 0, 0)"  type="button" class="close btnclosemodal mr-2"
+        <button *ngIf="!ventanaalerta" (click)="cerrarModal()" style="color:rgb(0, 0, 0);    position: absolute;
+        right: 0;z-index: 1;"  type="button" class="close btnclosemodal mr-2"
         data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         
@@ -22,6 +23,7 @@
             <app-ventana-resumen-timbrado  *ngIf="mostrar.ntimbrado" (salida)="recibirEmergente($event)"></app-ventana-resumen-timbrado>
             <app-ventana-subirdocumento  *ngIf="mostrar.subirdocumento" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-subirdocumento>
             <app-ventana-nominanuevaextraordinaria  *ngIf="mostrar.nuevanominaextraordinaria" (salida)="recibirEmergente($event)"></app-ventana-nominanuevaextraordinaria>
+            <app-nominanueva-ptu *ngIf="mostrar.nuevanominaptu" (salida)="recibirEmergente($event)"></app-nominanueva-ptu>
         </div>
     </div>
 

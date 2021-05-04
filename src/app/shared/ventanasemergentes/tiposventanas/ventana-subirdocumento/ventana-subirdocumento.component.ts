@@ -54,7 +54,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
   }
 
   public validarTipoDocumento(idDocumento:any){
-    debugger;
+    
     if(idDocumento=='6'){
 
       this.nomDocumento = true;

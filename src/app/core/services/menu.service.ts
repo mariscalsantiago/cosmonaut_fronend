@@ -14,9 +14,8 @@ export class MenuService {
                                                                                     {nombre:"HISTÓRICAS",routerLink:['/nominas/historicas'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"EXTRAORDINARIAS",routerLink:['/nominas/nomina_extraordinaria'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"FINIQUITO/LIQUIDACIÓN",routerLink:['/nominas/finiquito_liquidacion'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"PTU",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"VIÁTICOS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"CALCULADORA",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]}
+                                                                                    {nombre:"PTU",routerLink:['/nominas/ptu'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"CALCULADORA",routerLink:['/nominas/calculadora'],rol:["ALL","ADMINEMPRESA"]}
                                                                                 ]},
     { nombre: "EMPLEADOS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"LISTA Y ALTA DE EMPLEADOS",routerLink:['/empleados'],rol:["ALL","ADMINEMPRESA"]},
@@ -32,6 +31,7 @@ export class MenuService {
     ]},
     { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"IDSE",routerLink:['imss','idse'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                {nombre:"SUA",routerLink:['imss','sua'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"MOVIMIENTOS",routerLink:[],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"VARIABILIDAD",routerLink:[],rol:["ALL","ADMINEMPRESA"]}] },
     { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[] },
