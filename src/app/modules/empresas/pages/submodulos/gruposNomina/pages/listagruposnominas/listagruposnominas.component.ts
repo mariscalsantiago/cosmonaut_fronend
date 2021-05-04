@@ -315,7 +315,7 @@ export class ListagruposnominasComponent implements OnInit {
         break;
       case "desglosar":
         let item = obj.datos;
-
+        debugger;
         this.gruposnominaPrd.getGroupNomina(item.id).subscribe((datos) => {
           let temp = datos.datos;
           if (temp != undefined) {
@@ -336,6 +336,7 @@ export class ListagruposnominasComponent implements OnInit {
             new tabla("baseperiododescripcion", "Calcular periodo de nómina con base a:"),
             new tabla("periodoaguinaldodescripcion", "Periodo para pago de aguinaldo"),
             new tabla("isrAguinaldoReglamentodescripcion", "Calcular ISR de aguinaldo aplicando reglamento:"),
+            new tabla("ajustarBaseGravableFaltantesISR", "Ajustar base gravable del mes de periodos ordinarios faltantes"),
             new tabla("maneraCalcularSubsidiodescripcion", "Calcular subsidio al empleo de manera:"),
             new tabla("pagoComplementarioDes", "Pago complementario")
             
@@ -344,8 +345,9 @@ export class ListagruposnominasComponent implements OnInit {
           item.nombrecuenta = item.cuentaBancoId?.nombreCuenta;
           item.nombremoneda = item.monedaId?.descripcion;
           item.baseperiododescripcion = item.basePeriodoId?.nombreCorto;
+          item.ajustarBaseGravableFaltantesISR = item.ajustarBaseGravableFaltantes;
           item.periodoaguinaldodescripcion = item.periodoAguinaldoId?.descripcion;
-          item.isrAguinaldoReglamentodescripcion = item.isrAguinaldoReglamento ? "Si" : "No";
+          item.isrAguinaldoReglamentodescripcion = item.esIsrAguinaldoReglamento ? "Si" : "No";
           item.maneraCalcularSubsidiodescripcion = (item.maneraCalcularSubsidio == 'P') ? 'Periódica' : 'Diaria';
 
 

@@ -65,7 +65,7 @@ export class DocumentosComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("nombreArchivo", "Nombre"),
       new tabla("fechaCargaDocumento", "Fecha"),
-      new tabla("tipoDocumentoId", "Tipo de documento")
+      new tabla("tipoDocumento", "Tipo de documento")
     ]
 
 
@@ -81,6 +81,7 @@ export class DocumentosComponent implements OnInit {
         let datepipe = new DatePipe("es-MX");
         item.fechaCargaDocumento = datepipe.transform(item.fechaCarga , 'dd-MMM-y')?.replace(".","");
 
+        item.tipoDocumento= item.tipoDocumento?.nombre;
       }
     }
 
@@ -155,13 +156,13 @@ export class DocumentosComponent implements OnInit {
     this.ventana.showVentana(this.ventana.subirdocumento,{datos:datos}).then(valor =>{
       if(valor.datos){
         debugger;
-          //this.agregarNuevaDeduccion(valor.datos);
+          this.agregarDocumento(valor.datos);
       }
     });
   }
 
   public agregarDocumento(obj:any){
-  
+  debugger;
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
   
     this.documentosPrd.save(obj).subscribe(datos => {

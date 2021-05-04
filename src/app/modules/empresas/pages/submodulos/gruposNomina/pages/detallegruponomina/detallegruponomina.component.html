@@ -66,23 +66,23 @@
       </div>
       <div *ngIf="periodopago.value == '04'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label class="contenedorInputCheckRadio">Ajuste de ISR
-          <input  #ajusteisr (click)="activar(ajusteisr)" type="checkbox" name="" id="ajusteirs">
+          <input formControlName="ajustedeisr" #ajusteisr (click)="activar(ajusteisr)" id="ajustedeisr" type="checkbox">
           <span class="checkmark"></span>
         </label>      
-       
-      </div>
+        
+     </div>
       <div *ngIf="activadoISR"  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
         <label >Ajustar base gravable del mes de periodos ordinarios faltantes.</label>
         <label class="contenedorInputCheckRadio">Sí
-          <input checked type="radio" name="grupo1" id="sibasegravable">
+          <input value="si" formControlName="ajustarBaseGravableFaltantes" checked type="radio" name="ajustarBaseGravableFaltantes" id="">
           <span class="radiomark"></span>
         </label>
         <label class="contenedorInputCheckRadio">No
-          <input  type="radio" name="grupo1" id="sibasegravable">
+          <input value="no" formControlName="ajustarBaseGravableFaltantes" type="radio" name="ajustarBaseGravableFaltantes" id="">
           <span class="radiomark"></span>
         </label>
         
-        
+         
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Calcular periodo de nómina con base a *</label>
@@ -124,7 +124,7 @@
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
-          <input formControlName="isrAguinaldoReglamento" id="irsaguinaldo" type="checkbox">
+          <input formControlName="esIsrAguinaldoReglamento" id="esIsrAguinaldoReglamento" type="checkbox">
           <span class="checkmark"></span>
         </label>      
       </div>
