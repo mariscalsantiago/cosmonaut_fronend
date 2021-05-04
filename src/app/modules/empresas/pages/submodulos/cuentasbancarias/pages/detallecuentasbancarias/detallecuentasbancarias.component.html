@@ -72,12 +72,13 @@
         <input appSolonumeros formControlName="num_sucursal" type="text" class="form-control" placeholder="">
       </div>
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-        <label for="exampleFormControlSelect1">Función de la cuenta *</label>
-        <select formControlName="funcionCuentaId" class="form-control"
+        <label>Función de la cuenta *</label>
+        <select formControlName="funcionCuentaId" type="text" class="form-control"
           [ngClass]="{'is-invalid':f.funcionCuentaId.errors && submitInvalido}">
+          <option value=""></option>
           <option *ngFor="let item of funcionCuenta" [value]="item.funcionCuentaId">{{item.descripcion}}</option>
         </select>
-        <div *ngIf="submitInvalido && f.funcionCuentaId.errors" class="invalid-feedback">
+        <div *ngIf="f.funcionCuentaId.errors && submitInvalido" class="invalid-feedback">
           Campo requerido
         </div>
       </div>
