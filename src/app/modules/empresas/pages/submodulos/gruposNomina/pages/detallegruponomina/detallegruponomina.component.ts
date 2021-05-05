@@ -112,6 +112,7 @@ export class DetallegruponominaComponent implements OnInit {
     if(!this.esInsert){
       console.log("Este es el obj",obj);
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
+      obj.ajustarBaseGravableFaltantes = obj.ajustarBaseGravableFaltantes ? "true" : "false";
       if(obj.periodicidadPagoId?.periodicidadPagoId == "04"){
         this.ajustedeisr = true;
         this.activarISR();
@@ -119,7 +120,7 @@ export class DetallegruponominaComponent implements OnInit {
     }else{
       obj.centrocClienteId.centrocClienteId = this.id_empresa;
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio = "periodica";
-      obj.ajustarBaseGravableFaltantes = "si";
+      obj.ajustarBaseGravableFaltantes = "true";
 
     }
     

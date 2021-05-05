@@ -345,7 +345,7 @@ export class ListagruposnominasComponent implements OnInit {
           item.nombrecuenta = item.cuentaBancoId?.nombreCuenta;
           item.nombremoneda = item.monedaId?.descripcion;
           item.baseperiododescripcion = item.basePeriodoId?.nombreCorto;
-          item.ajustarBaseGravableFaltantesISR = item.ajustarBaseGravableFaltantes;
+          item.ajustarBaseGravableFaltantesISR = item.ajustarBaseGravableFaltantes ? "Si" : "No";
           item.periodoaguinaldodescripcion = item.periodoAguinaldoId?.descripcion;
           item.isrAguinaldoReglamentodescripcion = item.esIsrAguinaldoReglamento ? "Si" : "No";
           item.maneraCalcularSubsidiodescripcion = (item.maneraCalcularSubsidio == 'P') ? 'Periódica' : 'Diaria';
