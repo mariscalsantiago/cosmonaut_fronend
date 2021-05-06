@@ -31,7 +31,7 @@ export class DetallegruponominaComponent implements OnInit {
   public arregloPeriocidadPago:any = [];
   public arregloBasePeriodos:any = [];
   public arregloCatPeriodosAguinaldo:any = [];
-  
+  public ajustedeisr:boolean = false;
 
 
 
@@ -108,26 +108,35 @@ export class DetallegruponominaComponent implements OnInit {
   }
 
   public crearForm(obj:any){
-    
+    debugger;
     if(!this.esInsert){
       console.log("Este es el obj",obj);
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
+      obj.ajustarBaseGravableFaltantes = obj.ajustarBaseGravableFaltantes ? "true" : "false";
+      if(obj.periodicidadPagoId?.periodicidadPagoId == "04"){
+        this.ajustedeisr = true;
+        this.activarISR();
+      }
     }else{
       obj.centrocClienteId.centrocClienteId = this.id_empresa;
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio = "periodica";
+      obj.ajustarBaseGravableFaltantes = "true";
+
     }
     
     return this.formbuilder.group({
 
       nombre:[obj.nombre,[Validators.required]],
       //esquemaPagoId:[obj.esquemaPagoId?.esquemaPagoId,[Validators.required]],
+      ajustarBaseGravableFaltantes: [obj.ajustarBaseGravableFaltantes],
       monedaId:[obj.monedaId?.monedaId,[Validators.required]],
+      ajustedeisr: [this.ajustedeisr],
       centrocClienteId:[obj.centrocClienteId?.centrocClienteId,[Validators.required]],
       clabe:[obj.cuentaBancoId?.cuentaBancoId,[Validators.required]],
       periodicidadPagoId:[obj.periodicidadPagoId?.periodicidadPagoId,[Validators.required]],
       basePeriodoId:[obj.basePeriodoId?.basePeriodoId,[Validators.required]],
       periodoAguinaldoId:[obj.periodoAguinaldoId?.periodoAguinaldoId,[Validators.required]],
-      isrAguinaldoReglamento:obj.isrAguinaldoReglamento,
+      esIsrAguinaldoReglamento:obj.esIsrAguinaldoReglamento,
       maneraCalcularSubsidio:[obj.maneraCalcularSubsidio,[Validators.required]],
       pagoComplementario: [obj.pagoComplementario],
       grupoNominaId:obj.grupoNominaId
@@ -163,14 +172,14 @@ export class DetallegruponominaComponent implements OnInit {
           nombre:obj.nombre,
           esAutomatica:obj.esAutomatica,
           maneraCalcularSubsidio:subsidio,
-          //esquemaPagoId:{esquemaPagoId:obj.esquemaPagoId},
+          ajustarBaseGravableFaltantes: obj.ajustarBaseGravableFaltantes,
           monedaId:{monedaId:obj.monedaId},
           pagoComplementario: obj.pagoComplementario,
           centrocClienteId:{centrocClienteId:this.id_empresa},
           periodicidadPagoId:{periodicidadPagoId:obj.periodicidadPagoId},
           basePeriodoId:{basePeriodoId:obj.basePeriodoId},
           periodoAguinaldoId:{periodoAguinaldoId:obj.periodoAguinaldoId},
-          isrAguinaldoReglamento:obj.isrAguinaldoReglamento,
+          esIsrAguinaldoReglamento:obj.esIsrAguinaldoReglamento,
           cuentaBancoId:{
             cuentaBancoId:obj.clabe
           }
@@ -178,11 +187,9 @@ export class DetallegruponominaComponent implements OnInit {
         };
 
     
-
-
        
         if (this.esInsert) {
-
+          debugger;
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.grupoNominaPrd.save(peticion).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -231,7 +238,13 @@ export class DetallegruponominaComponent implements OnInit {
 
 
   public activar(obj:any){
+    debugger;
         this.activadoISR = obj.checked;
+  }
+
+  public activarISR(){
+    debugger;
+        this.activadoISR = true;
   }
 
 }

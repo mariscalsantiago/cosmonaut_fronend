@@ -1,11 +1,12 @@
 import { Component, HostListener, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
+import { DocumentosService } from 'src/app/modules/empleados/services/documentos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { tabla } from 'src/app/core/data/tabla';
 import { DatePipe } from '@angular/common';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { truncateSync } from 'fs';
 
 @Component({
@@ -19,6 +20,8 @@ export class DocumentosComponent implements OnInit {
   public cargando : Boolean = false;
   public arreglo: any = [];
   public cargandoIcon: boolean= false;
+  public idEmpleado: number = 0;
+  public idEmpresa: number = 0;
 
   
   public arreglotabla:any = {
@@ -34,14 +37,19 @@ export class DocumentosComponent implements OnInit {
 
 
 
-  constructor(private routerPrd: Router, private bancosPrd: CuentasbancariasService, private ventana:VentanaemergenteService) { }
+  constructor(private routerPrd: Router, private documentosPrd: DocumentosService,private modalPrd:ModalService, 
+    private router:ActivatedRoute, private ventana:VentanaemergenteService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
-    
+    debugger;
+
+    this.router.params.subscribe(params => {
+      this.idEmpleado = params["id"];
+    });
+  
     this.cargando = true;
-    this.bancosPrd.getListaDeduccionesEmpleado(636,112).subscribe(datos => {
-      
+    this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
         this.crearTabla(datos);
     });
 
@@ -55,9 +63,9 @@ export class DocumentosComponent implements OnInit {
 
     
     let columnas: Array<tabla> = [
-      new tabla("nombre", "Nombre"),
-      new tabla("fechaInicioDesctoDed", "Fecha"),
-      new tabla("valor", "Tipo de documento")
+      new tabla("nombreArchivo", "Nombre"),
+      new tabla("fechaCargaDocumento", "Fecha"),
+      new tabla("tipoDocumento", "Tipo de documento")
     ]
 
 
@@ -69,19 +77,11 @@ export class DocumentosComponent implements OnInit {
 
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
-        item.fechaInicioDescto = (new Date(item.fechaInicioDescto).toUTCString()).replace(" 00:00:00 GMT", "");
+        item.fechaCarga = (new Date(item.fechaCarga).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
-        item.fechaInicioDesctoDed = datepipe.transform(item.fechaInicioDescto , 'dd-MMM-y')?.replace(".","");
-  
-        item.nombre = "IFE";
-        item.valor = "Identificación oficial"
+        item.fechaCargaDocumento = datepipe.transform(item.fechaCarga , 'dd-MMM-y')?.replace(".","");
 
-        if(item.esActivo){
-          item.esActivo = true
-         }
-         if(!item.esActivo){
-         item.esActivo = false
-         }
+        item.tipoDocumento= item.tipoDocumento?.nombre;
       }
     }
 
@@ -92,11 +92,13 @@ export class DocumentosComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
+    debugger;
     if (obj.type == "editar") {
       //this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
     }
     if (obj.type == "descargar") {
-      //this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
+      this.iniciarDescarga(obj.datos);
+      
     }
   }
 
@@ -104,46 +106,72 @@ export class DocumentosComponent implements OnInit {
 
   }
 
-  public iniciarDescarga() {
-    this.cargandoIcon = true;
+  public iniciarDescarga(obj:any) {
+    debugger;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-    //this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-    //let fechacontrato = datos.datos?.fechaContrato;
-
-
-      /*let objenviar = {
-        fechaContrato: fechacontrato,
-        "centrocClienteId": {
-          "centrocClienteId": datos.datos.centrocClienteId.centrocClienteId
-        },
-        "personaId": {
-          "personaId": datos.datos.personaId.personaId
+      this.documentosPrd.getDescargaDocEmpleado(obj.cmsArchivoId).subscribe(archivo => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        let linkSource: string = "";
+        if(archivo.tipoMM?.extension == "jpg"){
+            linkSource = 'data:application/jpg;base64,' + `${archivo.datos.contenido}\n`;
         }
-
-      }*/
-
-      /*this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(archivo => {
-        this.cargandoIcon = false;
-        const linkSource = 'data:application/pdf;base64,' + `${archivo.datos}\n`;
+        else if(archivo.tipoMM?.extension == "docx"){
+          linkSource = 'data:application/docx;base64,' + `${archivo.datos.contenido}\n`;
+        }
+        else if(archivo.tipoMM?.extension == "png"){
+          linkSource = 'data:application/png;base64,' + `${archivo.datos.contenido}\n`;
+        }
+        else if(archivo.tipoMM?.extension == "pdf"){
+          linkSource = 'data:application/pdf;base64,' + `${archivo.datos.contenido}\n`;
+        }
+        else if(archivo.tipoMM?.extension == "doc"){
+          linkSource = 'data:application/doc;base64,' + `${archivo.datos.contenido}\n`;
+        }
+        else if(archivo.tipoMM?.extension == "jpg"){
+        linkSource = 'data:application/jpg;base64,' + `${archivo.datos.contenido}\n`;
+        }
+        else{
+        linkSource = 'data:application/txt;base64,' + `${archivo.datos.contenido}\n`;
+        }
         const downloadLink = document.createElement("a");
-        const fileName = `${datos.datos.numEmpleado}-${this.empleado.personaId.nombre.toUpperCase()}_${this.empleado.personaId.apellidoPaterno.toUpperCase()}.pdf`;
-
+        const fileName = `${archivo.datos.nombre}`;
+ 
         downloadLink.href = linkSource;
         downloadLink.download = fileName;
         downloadLink.click();
-      });*/
-    //});
+      });
+    
 
 
   }
 
   public agregar(){
+    debugger;
+    let datos : any = {
+      idEmpleado: this.idEmpleado,
+      idEmpresa: this.usuariosSistemaPrd.getIdEmpresa()
+    };
 
-    this.ventana.showVentana(this.ventana.subirdocumento).then(valor =>{
+    this.ventana.showVentana(this.ventana.subirdocumento,{datos:datos}).then(valor =>{
       if(valor.datos){
-        
-          //this.agregarNuevaDeduccion(valor.datos);
+        debugger;
+          this.agregarDocumento(valor.datos);
       }
+    });
+  }
+
+  public agregarDocumento(obj:any){
+  debugger;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+  
+    this.documentosPrd.save(obj).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+      this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
+        this.crearTabla(datos);
+      });
+      
     });
   }
 

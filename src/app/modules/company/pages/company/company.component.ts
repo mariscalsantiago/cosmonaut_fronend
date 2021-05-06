@@ -141,7 +141,7 @@ export class CompanyComponent implements OnInit {
       nombre: this.nombre,
       razonSocial: this.razonSocial,
       fechaAlta: fechar,
-      esActivo: "",
+      esActivo: actboo,
     }
     console.log("peticion",peticion)
     

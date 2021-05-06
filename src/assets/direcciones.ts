@@ -24,5 +24,6 @@ export const direcciones = {
     registroPatronal:`${ip}/registroPatronal`,
     conceptos:`${ip}/percepcionDeduccion`,
     incidencias:`${ip}/incidencias`,
-    orquestador:`${ipCalculos}/orquestador`
+    orquestador:`${ipCalculos}/orquestador`,
+    documentos:`${ip}/documentos`
 };

@@ -21,7 +21,7 @@
             <app-ventana-deducciones *ngIf="mostrar.deducciones" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-deducciones>
             <app-ventana-resumen-dispersion  *ngIf="mostrar.ndispersion" (salida)="recibirEmergente($event)"></app-ventana-resumen-dispersion>
             <app-ventana-resumen-timbrado  *ngIf="mostrar.ntimbrado" (salida)="recibirEmergente($event)"></app-ventana-resumen-timbrado>
-            <app-ventana-subirdocumento  *ngIf="mostrar.subirdocumento" (salida)="recibirEmergente($event)"></app-ventana-subirdocumento>
+            <app-ventana-subirdocumento  *ngIf="mostrar.subirdocumento" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-subirdocumento>
             <app-ventana-nominanuevaextraordinaria  *ngIf="mostrar.nuevanominaextraordinaria" (salida)="recibirEmergente($event)"></app-ventana-nominanuevaextraordinaria>
             <app-nominanueva-ptu *ngIf="mostrar.nuevanominaptu" (salida)="recibirEmergente($event)"></app-nominanueva-ptu>
         </div>

@@ -114,7 +114,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
       numeroCuenta: [obj.numeroCuenta, [Validators.required]],
       nombreCuenta: [obj.nombreCuenta, [Validators.required]],
-      idbanco: [obj.bancoId?.bancoId, [Validators.required]],
+      idbanco: [obj.bancoId?.bancoId],
       funcionCuentaId: [obj.funcionCuentaId?.funcionCuentaId, [Validators.required]],
       descripcion: [obj.descripcion],
       num_informacion: [obj.numInformacion],
