@@ -98,7 +98,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.calculoPrd.crearNomina(this.myForm.value).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      console.log("Despues de guardar la nómina", datos);
+      
       this.salida.emit({
         type: "guardar", datos: datos
       });

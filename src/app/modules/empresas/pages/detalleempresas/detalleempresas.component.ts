@@ -27,7 +27,7 @@ export class DetalleempresasComponent implements OnInit {
     let mm:any = document.getElementById("navegadorTabs");
     mm.scrollLeft = this.configPrd.getScrollCompany(mm.scrollLeft);
     mm.addEventListener('scroll', ()=> {
-      console.log(mm.scrollLeft);
+      
       mm.scrollLeft = this.configPrd.getScrollCompany(mm.scrollLeft);
     })
   }

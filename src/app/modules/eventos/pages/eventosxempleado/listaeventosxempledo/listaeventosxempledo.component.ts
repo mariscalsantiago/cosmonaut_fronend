@@ -93,7 +93,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    console.log(obj.datos);
+    
     
       switch(obj.type){
          case "eliminar":
@@ -102,7 +102,7 @@ export class ListaeventosxempledoComponent implements OnInit {
            case "ver":
              this.evento = obj.datos;
             this.traerModal(obj.indice);
-            console.log(this.evento);
+            
              break;
       }
   }
@@ -140,7 +140,7 @@ export class ListaeventosxempledoComponent implements OnInit {
     this.aparecemodalito = true;
 
 
-    console.log("La modal",elemento.getBoundingClientRect().y);
+    
 
     if (elemento.getBoundingClientRect().y < -40) {
       let numero = elemento.getBoundingClientRect().y;

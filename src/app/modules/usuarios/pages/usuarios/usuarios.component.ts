@@ -7,6 +7,12 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioService } from '../../services/usuario.service';
 
 
+//Importamos para el lenguaje en mis fechas (SAMV)
+import localeEn from '@angular/common/locales/es-MX';
+import { registerLocaleData } from '@angular/common';
+import { Console } from 'console';
+registerLocaleData(localeEn, 'es-MX');
+
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -64,7 +70,7 @@ export class UsuariosComponent implements OnInit {
   };
 
 
-  public activarMultiseleccion:boolean = false;
+  public activarMultiseleccion: boolean = false;
 
 
   constructor(private routerPrd: Router, private usuariosPrd: UsuarioService,
@@ -75,25 +81,17 @@ export class UsuariosComponent implements OnInit {
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
-
-
-
-
     this.cargando = true;
-
-
-    
-   this.filtrar();
+    this.filtrar();
 
     this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
 
   }
-  
-  public procesarTabla(datos:any){
-    
+
+  public procesarTabla(datos: any) {
     this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
-      new tabla("personaId", "ID",false,false,true),
+      new tabla("personaId", "ID", false, false, true),
       new tabla("nombre", "Nombre"),
       new tabla("apellidoPaterno", "Primer apellido"),
       new tabla("apellidoMaterno", "Segundo apellido"),
@@ -106,12 +104,12 @@ export class UsuariosComponent implements OnInit {
 
 
 
-    console.log(this.arreglo);
+
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
         var datePipe = new DatePipe("es-MX");
         item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-        item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y')?.replace(".","");
+        item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y')?.replace(".", "");
 
         item["centrocClientenombre"] = item.centrocClienteId.nombre;
 
@@ -119,7 +117,7 @@ export class UsuariosComponent implements OnInit {
     }
 
 
-    this.arreglotabla =  {
+    this.arreglotabla = {
       columnas: [],
       filas: []
     };
@@ -133,18 +131,11 @@ export class UsuariosComponent implements OnInit {
 
 
   public verdetalle(obj: any) {
-
-
     if (obj == undefined) {
-
       this.routerPrd.navigate(['usuarios', 'detalle_usuario', "agregar"], { state: { company: this.arregloCompany } });
-
     } else {
-
       this.routerPrd.navigate(['usuarios', 'detalle_usuario', "actualizar", obj.personaId], { state: { company: this.arregloCompany } });
     }
-
-
   }
 
 
@@ -177,8 +168,8 @@ export class UsuariosComponent implements OnInit {
 
         this.usuariosPrd.modificarListaActivos(arregloUsuario).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(valor =>{
-            if(valor){
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(valor => {
+            if (valor) {
               for (let item of arregloUsuario) {
                 for (let item2 of this.arreglo) {
                   if (item2.personaId === item.personaId) {
@@ -207,19 +198,20 @@ export class UsuariosComponent implements OnInit {
 
   public filtrar() {
 
-
-
-
     this.cargando = true;
 
     let fechar = "";
 
     if (this.fechaRegistro != undefined || this.fechaRegistro != null) {
 
+
       if (this.fechaRegistro != "") {
         const fecha1 = new Date(this.fechaRegistro).toUTCString().replace("GMT", "");
         fechar = `${new Date(fecha1).getTime()}`;
       }
+
+
+
 
     }
 
@@ -256,9 +248,8 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
-      console.log("Se va a filtrar",this.arreglo);
-      
-      this.procesarTabla({datos:this.arreglo});
+
+      this.procesarTabla({ datos: this.arreglo });
 
       this.cargando = false;
     });

@@ -53,7 +53,7 @@ export class EmpleoComponent implements OnInit {
         this.empleado = datos.datos;
         this.myForm = this.createForm(this.empleado);
         this.cambiaArea();
-        console.log(this.empleado);
+        
       });;
     });
 
@@ -65,7 +65,7 @@ export class EmpleoComponent implements OnInit {
     this.areasPrd.getAreasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloArea = datos.datos);
     this.empleadosPrd.getEmpleadosCompania(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.arregloempleadosreporta = datos.datos
-      console.log("reporta ",this.arregloempleadosreporta);
+      
     });
     this.sedesPrd.getsedeByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloSedes = datos.datos);
     this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
@@ -109,7 +109,7 @@ export class EmpleoComponent implements OnInit {
   public enviarFormulario() {
     this.submitEnviado = true;
 
-    console.log(this.myForm.value);
+    
 
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);

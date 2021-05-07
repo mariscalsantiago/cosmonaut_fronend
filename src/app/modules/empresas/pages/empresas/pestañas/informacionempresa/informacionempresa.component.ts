@@ -66,7 +66,7 @@ export class InformacionempresaComponent implements OnInit {
   
         this.cargandoImg = false;
         this.imagen = datos.datos?.imagen;
-        console.log("Si trae la imagen al final", this.imagen);
+        
       });
     }
     
@@ -268,7 +268,7 @@ export class InformacionempresaComponent implements OnInit {
 
         archivo.arrayBuffer().then(datos => {
           this.myform.controls.cer.setValue(this.arrayBufferToBase64(datos));
-          console.log("CER", this.arrayBufferToBase64(datos))
+          
         });
 
 

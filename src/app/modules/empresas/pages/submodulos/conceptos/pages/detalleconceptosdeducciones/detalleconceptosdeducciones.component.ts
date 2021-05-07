@@ -30,7 +30,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
     
     this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => this.arregloTipoDeduccion = datos.datos);
-    console.log("deducciones",this.arregloTipoDeduccion);
+    
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];

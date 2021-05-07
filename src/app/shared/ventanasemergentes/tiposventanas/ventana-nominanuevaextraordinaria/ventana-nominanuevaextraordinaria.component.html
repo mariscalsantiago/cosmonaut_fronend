@@ -2,7 +2,7 @@
     <div class="form-group row">
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Nombre de la nómina *</label>
-            <input formControlName="nombreNomina"  [class.is-invalid]="f.nombreNomina.errors && f.nombreNomina.touched" type="text" name="" id="" class="form-control">
+            <input formControlName="nombreNomina"  [class.is-invalid]="f.nombreNomina.errors && f.nombreNomina.touched" type="text" name=""  class="form-control">
             <div *ngIf="f.nombreNomina.errors && f.nombreNomina.touched" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -64,14 +64,14 @@
         </div>
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Fecha de inicio *</label>
-            <input [class.is-invalid]="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" formControlName="fechaIniPeriodo"  type="date" name="" id="" class="form-control">
+            <input [class.is-invalid]="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" formControlName="fechaIniPeriodo"  type="date" name=""  class="form-control">
             <div *ngIf="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" class="invalid-feedback">
                 Campo requerido
             </div>
         </div>
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Fecha de fin *</label>
-            <input formControlName="fechaFinPeriodo" #fechafin [class.is-invalid]="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" type="date" name="" id="" class="form-control">
+            <input formControlName="fechaFinPeriodo" #fechafin [class.is-invalid]="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" type="date" name=""  class="form-control">
             <div *ngIf="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" class="invalid-feedback">
                 Campo requerido
             </div>

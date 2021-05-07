@@ -67,7 +67,7 @@ export class ListapuestosComponent implements OnInit {
 
         this.arreglotabla.columnas = columnas;
         this.arreglotabla.filas = datos.datos;
-        console.log('empresa', this.arreglotabla.filas);
+        
 
 
         this.cargando = false;
@@ -172,7 +172,7 @@ export class ListapuestosComponent implements OnInit {
 
 
     this.cargando = true;
-    debugger;
+    
     let peticion = 
 
       { 

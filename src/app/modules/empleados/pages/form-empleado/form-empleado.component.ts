@@ -20,7 +20,7 @@ export class FormEmpleadoComponent implements OnInit {
     { tab: true, form: true, disabled: false,seleccionado:true },
     { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false ,seleccionado:false},
-    { tab: false, form: false, disabled: false,seleccionado:false },
+    { tab: false, form: false, disabled: false,seleccionado:false },   
     { tab: false, form: false, disabled: false ,seleccionado:false}];
 
   public ocultarDetalleTransfrencia: boolean = true;
@@ -51,14 +51,14 @@ export class FormEmpleadoComponent implements OnInit {
   ngOnInit(): void {
     debugger;
     let temp =  history.state.datos;
-    console.log("Esta es el temporal",temp);
+    
     if(temp !== undefined){
       this.titulo = "COMPLETAR DATOS DEL EMPLEADO";
       this.datosPersona = temp;
       this.datosPersona.insertar = history.state.insertar;
       this.tabsEnviar[0] = temp;
       this.domicilioPrd.getDomicilioPorEmpleado(this.datosPersona.personaId).subscribe(datosdomicilio =>{
-        console.log("Este es el detalle",datosdomicilio.datos);
+        
           this.tabsEnviar[1] = datosdomicilio.datos;
       });
 
@@ -83,7 +83,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.tabsEnviar[0] = elemento.datos;
 
 
-        console.log("Esta es la perosna",this.datosPersona);
+        
         break;
       case "domicilio":
         this.activado[3].tab = true;
@@ -118,7 +118,7 @@ export class FormEmpleadoComponent implements OnInit {
         });
 
         this.ocultarempleada = true;
-        console.log("Este es el contrato colaborador",this.datosPersona.contratoColaborador);
+        
         
         if (!this.ocultarDetalleTransfrencia) {
           this.activado[4].tab = true;
@@ -222,7 +222,7 @@ export class FormEmpleadoComponent implements OnInit {
             this.empleadosPrd.update(objEnviar).subscribe(actualizado =>{
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(actualizado.resultado,actualizado.mensaje);
-              console.log("Esto se esta actualizando",actualizado);
+              
             });
           });
       }

@@ -14,7 +14,7 @@ export class TamanioVentanaDirective implements OnChanges {
     event.target.innerWidth;
     this.tamanio = event.target.innerHeight;
     this.elemento.nativeElement.style.height = `${this.tamanio - this.pixeles}px`;
-    console.log(this.elemento.nativeElement.style.height);
+    
 
   }
 
@@ -22,7 +22,7 @@ export class TamanioVentanaDirective implements OnChanges {
     let documento: any = document.defaultView;
     this.tamanio = documento.innerHeight;
     this.elemento.nativeElement.style.height = `${this.tamanio - this.pixeles}px`;
-    console.log("inicia con",this.pixeles);
+    
    
     
    }

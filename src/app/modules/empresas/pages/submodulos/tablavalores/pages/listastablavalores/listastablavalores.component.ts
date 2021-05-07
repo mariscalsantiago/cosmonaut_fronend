@@ -89,7 +89,7 @@ export class ListasTablaValoresComponent implements OnInit {
       });
 
       this.cargandoNomina = true;
-      debugger;
+      
       this.tablavaloresProd.getListaInpuestoNomina().subscribe(datos => {
           this.crearTablaNomina(datos);
       });
@@ -100,7 +100,7 @@ export class ListasTablaValoresComponent implements OnInit {
 
 
   public crearTablaReferencia(datos:any){
-    debugger;
+    
      
     this.arregloRef = datos.datos;
     
@@ -136,7 +136,7 @@ export class ListasTablaValoresComponent implements OnInit {
   }
 
   public crearTablaISR(datos:any){
-    debugger;
+    
      
     this.arregloISR = datos.datos;
     let columnas: Array<tabla> = [
@@ -157,7 +157,7 @@ export class ListasTablaValoresComponent implements OnInit {
   }
 
   public crearTablaSubcidio(datos:any){
-    debugger;
+    
      
     this.arregloSubsidio = datos.datos;
     let columnas: Array<tabla> = [
@@ -177,7 +177,7 @@ export class ListasTablaValoresComponent implements OnInit {
   }
 
   public crearTablaNomina(datos:any){
-    debugger;
+    
      
     this.arregloNomina = datos.datos;
     
@@ -220,14 +220,14 @@ export class ListasTablaValoresComponent implements OnInit {
   }
 
     public recibirTablaISR(obj:any){
-    debugger;
+    
     let datosDed = obj.datos;
     this.ventana.showVentana(this.ventana.tablaisr,{datos:datosDed}).then(valor =>{
     });
   }
 
   public recibirTablaSubcidio(obj:any){
-    debugger;
+    
     let datosDed = obj.datos;
     this.ventana.showVentana(this.ventana.subcidio,{datos:datosDed}).then(valor =>{
     });

@@ -16,6 +16,7 @@ export class UsuarioService {
 
 
   public getAllUsers(): Observable<any> {
+    
     return this.http.get(this.url+"/lista/todo/3");
   }
 
@@ -52,8 +53,8 @@ export class UsuarioService {
 
 
     let json: string = JSON.stringify(obj);
-    console.log("peticion filtro dinamico");
-    console.log(json);
+    
+    
     return this.http.post(`${this.url}/lista/dinamica`, json, httpOptions);
   }
 
@@ -71,8 +72,8 @@ export class UsuarioService {
     let json: string = JSON.stringify(obj);
 
 
-    console.log(`${this.url}/guardar/usuario`);
-    console.log(json);
+    
+    
     return this.http.put(`${this.url}/guardar/usuario`, json, httpOptions);
   }
 
@@ -91,7 +92,7 @@ export class UsuarioService {
 
     let json: string = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.post(`${this.url}/modificar/usuario`, json, httpOptions);
   }
@@ -116,5 +117,9 @@ export class UsuarioService {
   }
 
 
+
+  public getPrueba(): Observable<any> {
+    return this.http.get("empresas/people/?search=r2");
+  }
 
 }

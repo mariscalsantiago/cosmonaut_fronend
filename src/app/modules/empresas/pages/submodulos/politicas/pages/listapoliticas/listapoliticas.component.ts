@@ -65,7 +65,7 @@ export class ListapoliticasComponent implements OnInit {
 
       this.id_empresa = datos["id"]
       this.politicasProd.getAllPol(this.id_empresa).subscribe(datos => {
-        console.log("pliticas",datos)
+        
         this.traerdatosTabla(datos);
       });
 
@@ -237,6 +237,7 @@ export class ListapoliticasComponent implements OnInit {
         this.eliminar(obj.datos);
         break;
       case "desglosar":
+        console.log("El arreglo es ",obj);
         let columnas: Array<tabla> = [
           new tabla("diasEconomicos", "Días económicos"),
           new tabla("primaAniversariodescripcion", "Prima vacacional"),
@@ -254,13 +255,14 @@ export class ListapoliticasComponent implements OnInit {
         item.descuentaIncapacidadesdescripcion = ((item.descuentaIncapacidades)?'Si':'No');
         item.costoValesRestaurantedescripcion = (item.costoValesRestaurante)?'Si':'No';
         item.descuentoPropDiadescripcion = (item.descuentoPropDia)?'Si':'No';
-        item.calculoAntiguedadxdescripcion = (item.calculoAntiguedadx=='C')?'Fecha de ingreso':'Fecha de antigüedad';
+        item.calculoAntiguedadxdescripcion = (item.calculoAntiguedadId==2)?'Fecha de ingreso':'Fecha de antigüedad';
 
-
+          
        
         this.arreglotablaDesglose.columnas = columnas;
         this.arreglotablaDesglose.filas = item;
         item.cargandoDetalle = false;
+        
         break;
       case "tablabeneficio":
         this.traerModal(obj.indice);

@@ -54,8 +54,8 @@ export class UsuariocontactorrhService {
 
 
     let json: string = JSON.stringify(obj);
-    console.log(`peticion filtro dinamico`);
-    console.log(json);
+    
+    
     return this.http.post(`${this.url}/lista/dinamica`, json, httpOptions);
   }
 

@@ -14,7 +14,7 @@ describe("menu principal", () => {
 
         // buttons.each(async (elemento, index) => {
         //     let texto = await elemento?.getText();
-        //     console.log(texto);
+        
         //     let element1 = elemento?.all(by.css("a"));
         //     element1?.click();
         // });

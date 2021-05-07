@@ -56,7 +56,7 @@ export class DetallegruponominaComponent implements OnInit {
 
 
       this.cuentasBancariasPrd.getCuentaFuncion(this.id_empresa).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
-      console.log("Cuentas bancarias",this.arregloCuentasBancarias);
+      
       this.companiaPrd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arreglocompany = datos.datos);
     });
     
@@ -74,7 +74,7 @@ export class DetallegruponominaComponent implements OnInit {
     
     if(!this.esInsert){
       obj = history.state.data;
-      console.log("hitorico",obj);
+      
       if(obj == undefined){
         this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
           return;
@@ -108,9 +108,9 @@ export class DetallegruponominaComponent implements OnInit {
   }
 
   public crearForm(obj:any){
-    debugger;
+    
     if(!this.esInsert){
-      console.log("Este es el obj",obj);
+      
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
       obj.ajustarBaseGravableFaltantes = obj.ajustarBaseGravableFaltantes ? "true" : "false";
       if(obj.periodicidadPagoId?.periodicidadPagoId == "04"){
@@ -189,7 +189,7 @@ export class DetallegruponominaComponent implements OnInit {
     
        
         if (this.esInsert) {
-          debugger;
+          
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.grupoNominaPrd.save(peticion).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -238,12 +238,12 @@ export class DetallegruponominaComponent implements OnInit {
 
 
   public activar(obj:any){
-    debugger;
+    
         this.activadoISR = obj.checked;
   }
 
   public activarISR(){
-    debugger;
+    
         this.activadoISR = true;
   }
 

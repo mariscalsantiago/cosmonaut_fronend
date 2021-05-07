@@ -98,9 +98,16 @@ export class VentanaNuevanominaComponent implements OnInit {
 
   public guardarNomina() {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    this.calculoPrd.crearNomina(this.myForm.value).subscribe(datos => {
+
+    let objEnviar = {
+      ...this.myForm.value,
+      fechaIniIncidencia: this.myForm.value.fechaIniPeriodo,
+      fechaFinIncidencia: this.myForm.value.fechaFinPeriodo
+    }
+
+    this.calculoPrd.crearNomina(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      console.log("Despues de guardar la nómina", datos);
+
       this.salida.emit({
         type: "guardar", datos: datos
       });

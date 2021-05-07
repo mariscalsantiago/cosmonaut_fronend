@@ -69,7 +69,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public enviarPeticion() {
     this.submitEnviado = true;
-    console.log(this.myForm.controls);
+    
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -393,12 +393,12 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
         this.myForm.controls.personaId.setValidators([Validators.required]);
         this.myForm.controls.personaId.updateValueAndValidity();
-        console.log("esto se encontro", encontrado);
+        
         if (encontrado) {
           this.myForm.controls.personaId.clearValidators();
           this.myForm.controls.personaId.updateValueAndValidity();
         } else {
-          console.log("Se va a limpiar");
+          
           this.myForm.controls.identificadorPersona.setValue('');
           this.myForm.controls.fechaContrato.setValue('');
           this.myForm.controls.personaId.setValue('');
@@ -409,7 +409,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       }
     }
 
-    console.log("La persona elegida es ", this.myForm.value);
+    
   }
 
 }

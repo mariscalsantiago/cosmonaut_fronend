@@ -96,7 +96,7 @@ export class SubirarchivoComponent implements OnInit, OnChanges {
 
 
   public eliminarImagen() {
-    console.log("Se elimina la imagen del logos");
+    
     this.emiteimagen.emit(undefined);
     this.errorimagen = false;
     this.seleccionado = false;

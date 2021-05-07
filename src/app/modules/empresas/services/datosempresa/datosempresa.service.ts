@@ -24,7 +24,7 @@ export class DatosempresaService {
       })
     };
     let json:string = JSON.stringify(obj);
-    console.log("empresa",json);
+    
     return this.http.put(`${this.url}/guardar/empresa`,json,httpOptions);
   }
 

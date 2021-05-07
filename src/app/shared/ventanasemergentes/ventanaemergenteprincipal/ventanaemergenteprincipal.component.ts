@@ -80,7 +80,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     this.content.style.overflow = "hidden";
 
 
-    console.log("Este es el valor del boolean",this.ventanaalerta);
+    
   }
 
 

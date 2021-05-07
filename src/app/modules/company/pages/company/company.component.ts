@@ -143,7 +143,7 @@ export class CompanyComponent implements OnInit {
       fechaAlta: fechar,
       esActivo: actboo,
     }
-    console.log("peticion",peticion)
+    
     
     this.companyProd.filtrar(peticion).subscribe(datos => {
       this.arreglo = datos.datos;

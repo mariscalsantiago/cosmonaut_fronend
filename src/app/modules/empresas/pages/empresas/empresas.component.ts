@@ -98,7 +98,7 @@ export class EmpresasComponent implements OnInit {
     this.datosempresamod.datosempresaObj= this.objdetrep; 
     if(!this.insertar){
     this.empresasProd.getActivos(this.objdetrep.centrocClienteId).subscribe(datos => {this.arreglo = datos
-      console.log("datos", datos);
+      
       this.activos ={
         informacion: datos.empresa,
         domicilio: datos.domicilio,

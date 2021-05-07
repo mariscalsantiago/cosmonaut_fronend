@@ -53,7 +53,7 @@ export class PuestosService {
       })
     };
     let json:string = JSON.stringify(obj);
-    console.log(json);
+    
 
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
@@ -65,7 +65,7 @@ export class PuestosService {
       })
     };
     let json:string = JSON.stringify(obj);
-    console.log(json);
+    
 
     return this.http.put(`${this.url}/agregarPuesto`,json,httpOptions);
   }
@@ -90,7 +90,7 @@ export class PuestosService {
       })
     };
     let json:string = JSON.stringify(obj);
-    console.log("JSonpuesto", json)
+    
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 

@@ -32,13 +32,13 @@ export class VentanaTablaISRComponent implements OnInit {
     private tablasISRPrd: TablaValoresService) { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.empresa = this.datos.centrocClienteId?.centrocClienteId;
     this.empleado = this.datos.personaId?.personaId;
 
     this.cargando = true;
-    debugger;
+    
     this.tablasISRPrd.getListaTarifaISR(this.datos.periodo).subscribe(datos => {
         this.crearTablaISR(datos);
     });
@@ -47,7 +47,7 @@ export class VentanaTablaISRComponent implements OnInit {
   }
 
   public crearTablaISR(datos:any){
-    debugger;
+    
      
     this.arreglotarifaISR = datos.datos;
     let columnas: Array<tabla> = [

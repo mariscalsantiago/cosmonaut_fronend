@@ -24,7 +24,7 @@
          "changeOrigin": true
     },
     "/calculos/*":{
-        "target":"http://c5f8d32b57a5.ngrok.io",
+        "target":"http://15060089ba3e.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/calculos": ""

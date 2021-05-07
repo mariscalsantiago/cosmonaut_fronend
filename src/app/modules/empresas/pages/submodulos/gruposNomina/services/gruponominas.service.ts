@@ -16,7 +16,7 @@ export class GruponominasService {
   }
 
   public getAll(id_compania:number):Observable<any>{
-    console.log(`${this.url}/lista/id/compania/`+id_compania);
+    
     return this.http.get(`${this.url}/lista/id/compania/`+id_compania);
   }
 
@@ -36,8 +36,8 @@ export class GruponominasService {
     
 
     let json = JSON.stringify(obj);
-    console.log("Esto mando");
-    console.log(json);
+    
+    
     
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
@@ -54,7 +54,7 @@ export class GruponominasService {
 
     let json = JSON.stringify(obj);
 
-    console.log("json de modificar grupo de nomina",json);
+    
 
 
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
@@ -86,7 +86,7 @@ export class GruponominasService {
 
 
     let json = JSON.stringify(obj);
-    console.log("dato enviado grupo de nomina filtrado",json);
+    
 
     return this.http.post(`${this.url}/lista/dinamica`,json,httpOptions);
 

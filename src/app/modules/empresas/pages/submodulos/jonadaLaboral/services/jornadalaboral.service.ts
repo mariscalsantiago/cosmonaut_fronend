@@ -40,7 +40,7 @@ export class JornadalaboralService {
     };
 
     let json:string = JSON.stringify(obj);
-    console.log("eliminar",json)
+    
     return this.http.post(`${this.url}/eliminar`,json,httpOptions);
   }
 
@@ -53,7 +53,7 @@ export class JornadalaboralService {
     };
 
     let json:string = JSON.stringify(obj);
-    console.log(json);
+    
 
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
@@ -67,13 +67,13 @@ export class JornadalaboralService {
     };
 
     let json:string = JSON.stringify(obj);
-    console.log("Modificar",json);
+    
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
   public jornadasByEmpresa(idEmpresa:number):Observable<any>{
 
-    console.log(`${this.url}/listar/jornada/${idEmpresa}`);
+    
 
     return this.http.get(`${this.url}/listar/jornada/${idEmpresa}`);
 

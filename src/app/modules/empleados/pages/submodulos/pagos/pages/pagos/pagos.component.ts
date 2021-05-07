@@ -91,7 +91,7 @@ export class PagosComponent implements OnInit {
     this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos =>{
       
       this.cuentaBanco = datos.datos;
-      console.log("cuentas",this.cuentaBanco);
+      
     });
 
 
@@ -444,7 +444,7 @@ public modificarDeduccion(obj:any){
 
       
         if(obj.cuentaBancoId == undefined){
-          console.log("Se va a insertar");
+          
           this.bancosPrd.save(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
@@ -456,7 +456,7 @@ public modificarDeduccion(obj:any){
                 }
                 this.contratoColaboradorPrd.update(objEnviar).subscribe((respContrato) =>{
                   this.empleado = respContrato.datos;
-                  console.log(this.empleado);
+                  
                   this.cancelar();
                 });
   
@@ -465,12 +465,12 @@ public modificarDeduccion(obj:any){
   
           });
         }else{
-          console.log("Se va a modificar");
+          
         
           objEnviar.cuentaBancoId=obj.cuentaBancoId;
           objEnviar.esActivo=true;
           this.bancosPrd.modificar(objEnviar).subscribe(datos => {
-            console.log("se modifica el cliente cuentas bancarias",datos.datos);
+            
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
                 let objEnviar = {
@@ -480,10 +480,10 @@ public modificarDeduccion(obj:any){
                   }
                 }
 
-                console.log("Esto se va a mandar",objEnviar);
+                
                 this.contratoColaboradorPrd.update(objEnviar).subscribe((requestContrato) =>{
                   this.empleado = requestContrato.datos;
-                  console.log(requestContrato);
+                  
                   this.cancelar();
                 });
 

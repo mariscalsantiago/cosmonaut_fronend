@@ -43,8 +43,8 @@ export class CompanyService {
     let json:string = JSON.stringify(obj);
 
 
-    console.log("lo que mando ");
-    console.log(json);
+    
+    
 
     return this.http.put(`${this.url}/guardar/compania`,json,httpOptions);
   }
@@ -82,7 +82,7 @@ export class CompanyService {
 
 
     let json:string = JSON.stringify(obj);
-    console.log("Esto si manda en contacto inicial",json);
+    
 
     return this.http.post(`${direcciones.usuarios}/modificar/contacto/inicial`,json,httpOptions);
   }
@@ -97,7 +97,7 @@ export class CompanyService {
     };
 
     let json: string = JSON.stringify(obj);
-    console.log("peticion filtro dinamico",json);
+    
     return this.http.post(`${this.url}/lista/dinamica`, json, httpOptions);
   }
 

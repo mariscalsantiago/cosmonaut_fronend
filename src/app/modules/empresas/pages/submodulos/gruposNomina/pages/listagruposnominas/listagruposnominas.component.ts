@@ -227,7 +227,7 @@ export class ListagruposnominasComponent implements OnInit {
 
       }
 
-      console.log(this.arreglo[indice]);
+      
 
 
 
@@ -291,7 +291,7 @@ export class ListagruposnominasComponent implements OnInit {
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
 
 
-      console.log(datos);
+      
 
 
     });
@@ -315,7 +315,7 @@ export class ListagruposnominasComponent implements OnInit {
         break;
       case "desglosar":
         let item = obj.datos;
-        debugger;
+        
         this.gruposnominaPrd.getGroupNomina(item.id).subscribe((datos) => {
           let temp = datos.datos;
           if (temp != undefined) {

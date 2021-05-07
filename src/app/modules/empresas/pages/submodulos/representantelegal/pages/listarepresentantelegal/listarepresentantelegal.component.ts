@@ -84,7 +84,7 @@ export class ListarepresentantelegalComponent implements OnInit {
   }
 
   public realizarTabla(datos:any){
-    console.log(datos)
+    
     this.arreglo = datos.datos;
 
     
@@ -115,7 +115,7 @@ export class ListarepresentantelegalComponent implements OnInit {
   }
 
   public realizarTablaFiltro(datos:any){
-    console.log(datos)
+    
     this.arreglo = datos.datos;
 
     

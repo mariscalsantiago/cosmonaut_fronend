@@ -50,9 +50,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       obj.tipoPeriodicidad = "E"
     }
 
+
+    obj.gravaIsr = false;
     if (obj.gravaIsr == "S") {
       obj.gravaIsr = true
     }
+
     if (obj.gravaIsr == "N") {
       obj.gravaIsr = false
     }
@@ -83,7 +86,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       tipoPercepcionId: [obj.tipoPercepcionId.tipoPercepcionId, [Validators.required]],
       tipoPeriodicidad: [obj.tipoPeriodicidad, [Validators.required]],
       gravaIsr: obj.gravaIsr,
-      gravaIsn: obj.gravaIsn,
+      gravaIsn: obj.gravaIsn == undefined?false:obj.gravaIsn,
       cuentaContable: obj.cuentaContable,
       tipoConcepto: [obj.tipoConcepto],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],

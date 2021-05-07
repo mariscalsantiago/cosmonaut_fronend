@@ -33,7 +33,7 @@ export class DomicilioComponent implements OnInit {
   ngOnInit(): void {
 
 
-    console.log("eSTE ES EL DATO DE SU DOMICILIO",this.tabsDatos);
+    
     if(this.tabsDatos[1][0].domicilioId !== undefined){
       this.myForm = this.createForm(this.tabsDatos[1][0]);
       this.buscar(undefined);

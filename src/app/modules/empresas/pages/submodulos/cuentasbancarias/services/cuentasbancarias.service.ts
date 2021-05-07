@@ -44,8 +44,8 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     };
 
     let json: string = JSON.stringify(obj);
-    console.log(`guardar`);
-    console.log(json);
+    
+    
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
@@ -57,8 +57,8 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     };
 
     let json: string = JSON.stringify(obj);
-    console.log(`guardar`);
-    console.log(json);
+    
+    
     return this.http.put(`${direcciones.conceptos}/guardaPercepcionEmpleado`,json,httpOptions);
   }
 
@@ -70,8 +70,8 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     };
 
     let json: string = JSON.stringify(obj);
-    console.log(`guardar`);
-    console.log(json);
+    
+    
     return this.http.post(`${direcciones.conceptos}/modificaPercepcionEmpleado`,json,httpOptions);
   }
 
@@ -83,8 +83,8 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     };
 
     let json: string = JSON.stringify(obj);
-    console.log(`guardar`);
-    console.log(json);
+    
+    
     return this.http.put(`${direcciones.conceptos}/guardaDeduccionEmpleado`,json,httpOptions);
   }
 
@@ -96,8 +96,8 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     };
 
     let json: string = JSON.stringify(obj);
-    console.log(`guardar`);
-    console.log(json);
+    
+    
     return this.http.post(`${direcciones.conceptos}/modificaDeduccionEmpleado`,json,httpOptions);
   }
 
@@ -112,7 +112,7 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
 
     let json: string = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }

@@ -26,7 +26,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
   { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     if(this.datos.esInsert){
       this.empresa = this.datos.idEmpresa;
@@ -49,7 +49,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    debugger;
+    
 
     return this.formBuild.group({
 
@@ -77,7 +77,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
   }
   
   public abrirDoc() {
-    debugger;
+    
 
     let input = document.createElement("input");
     input.type = "file";

@@ -31,7 +31,7 @@
               </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Banco *</label>
-                <select [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}" formControlName="csBanco" class="form-control disabled bg-light" name="" id="">
+                <select [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}" formControlName="csBanco" class="form-control disabled bg-light" name="" >
                     <option *ngFor="let item of arreglobancos" [value]="item.bancoId">{{item.nombreCorto}}</option>
                 </select>
                 <div *ngIf="f.csBanco.errors && submitEnviado" class="invalid-feedback">
