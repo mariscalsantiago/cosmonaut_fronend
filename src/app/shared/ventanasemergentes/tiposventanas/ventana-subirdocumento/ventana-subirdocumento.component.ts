@@ -28,9 +28,17 @@ export class VentanaSubirDocumentoComponent implements OnInit {
   ngOnInit(): void {
     debugger;
 
+    if(this.datos.esInsert){
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;
     
+    }else{
+
+      this.empresa = this.datos.centrocClienteId;
+      this.empleado = this.datos.personaId;
+    }
+
+
       this.documentosPrd.getDocumentosEmpleado().subscribe(datos =>{
         this.arregloDocumentos = datos.datos;
       console.log("Documentos",this.arregloDocumentos);
@@ -41,11 +49,11 @@ export class VentanaSubirDocumentoComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    
+    debugger;
 
     return this.formBuild.group({
 
-      idTipoDocumento: [obj.tipoDocto?.id],
+      idTipoDocumento: [obj.tipoDocumentoId],
       nombre: [obj.nombre],
       documento:[obj.documento]
 
@@ -112,9 +120,10 @@ export class VentanaSubirDocumentoComponent implements OnInit {
       });
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
+
     }
 
-    let mensaje = this.esInsert ? "¿Deseas guardar el documento" : "¿Deseas actualizar el documento?";
+    let mensaje = this.datos.esInsert? "¿Deseas guardar el documento" : "¿Deseas actualizar el documento?";
     
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
       
@@ -122,7 +131,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
           
           let  obj = this.myForm.getRawValue();
           
-          if(this.esInsert){
+          if(this.datos.esInsert){
             this.objEnviar = {
             centrocClienteId: this.empresa,
             personaId: this.empleado,
@@ -135,11 +144,12 @@ export class VentanaSubirDocumentoComponent implements OnInit {
         }else{
 
             this.objEnviar = {
-            centrocClienteId: this.empresa,
-            personaId: this.empleado,
-            usuarioId: this.empleado,
-            tipoDocumentoId: obj.idTipoDocumento,
-            nombreArchivo: obj.nombre,
+            //cmsArchivoId: this.datos.cmsArchivoId,
+            //centrocClienteId: this.empresa,
+            //personaId: this.empleado,
+            //usuarioId: this.empleado,
+            documentosEmpleadoId: obj.idTipoDocumento,
+            //nombreArchivo: obj.nombre,
             documento: obj.documento
             };
 

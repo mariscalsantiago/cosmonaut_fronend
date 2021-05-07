@@ -30,6 +30,14 @@
             "^/calculos": ""
           },
          "changeOrigin": true
+    },
+    "/tablas/*":{
+        "target":"http://1a1f95a24aac.ngrok.io",
+        "secure":false,
+        "pathRewrite": {
+            "^/tablas": ""
+          },
+         "changeOrigin": true
     }
 
 

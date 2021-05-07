@@ -94,10 +94,30 @@ export class DocumentosComponent implements OnInit {
   public recibirTabla(obj: any) {
     debugger;
     if (obj.type == "editar") {
-      //this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
+      let datos = obj.datos;
+      this.ventana.showVentana(this.ventana.subirdocumento,{datos:datos}).then(valor =>{
+        if(valor.datos){
+          debugger;
+            this.modificarDocumento(valor.datos);
+        }
+      });
     }
     if (obj.type == "descargar") {
       this.iniciarDescarga(obj.datos);
+      
+    }
+    if (obj.type == "eliminar") {
+      let idDocuemnto = obj.datos.tipoDocumentoId;
+      this.modalPrd.showMessageDialog(this.modalPrd.loading);
+  
+      this.documentosPrd.eliminar(idDocuemnto).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+        this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
+          this.crearTabla(datos);
+        });
+        
+      });
       
     }
   }
@@ -150,7 +170,8 @@ export class DocumentosComponent implements OnInit {
     debugger;
     let datos : any = {
       idEmpleado: this.idEmpleado,
-      idEmpresa: this.usuariosSistemaPrd.getIdEmpresa()
+      idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
+      esInsert: true
     };
 
     this.ventana.showVentana(this.ventana.subirdocumento,{datos:datos}).then(valor =>{
@@ -174,5 +195,19 @@ export class DocumentosComponent implements OnInit {
       
     });
   }
+
+  public modificarDocumento(obj:any){
+    debugger;
+      this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    
+      this.documentosPrd.modificar(obj).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+        this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
+          this.crearTabla(datos);
+        });
+        
+      });
+    }
 
 }
