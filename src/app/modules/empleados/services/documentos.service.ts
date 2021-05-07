@@ -29,6 +29,24 @@ export class DocumentosService {
 
   }
 
+  public modificar(obj:any):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json:string = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.documentos}/remplazar`,json,httpOptions);
+  }
+
+  public eliminar(id:any):Observable<any>{
+
+    return this.http.delete(`${direcciones.documentos}/eliminar/documentos/${id}`,{});
+  }
+
+
   public getDocumentosEmpleado():Observable<any>{
     return this.http.get(`${direcciones.documentos}/obtener/tipo/documentos`);
   }

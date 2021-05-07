@@ -36,7 +36,9 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     ntimbrado:false,
     subirdocumento: false,
     nuevanominaextraordinaria:false,
-    nuevanominaptu:false
+    nuevanominaptu:false,
+    tablaisr: false,
+    subcidio: false
   }
 
   @HostListener('window:resize', ['$event'])

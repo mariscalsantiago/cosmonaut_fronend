@@ -1,6 +1,5 @@
 <div class="container">
   <br><br>
-
   <div class="row">
     <div class="col-12 mr-3">
       <div id="accordion" class="acordion_desplegable">
@@ -20,35 +19,31 @@
           </div>
 
           <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago" data-parent="#accordion">
+                  
             <div class="card-body">
+
+             
               <div class="row">
                 <div class="col-12">
 
-                  <div id="collapsefour" class="collapse" aria-labelledby="percepciones" data-parent="#accordion">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-12">
-        
-                          <div class="row margen">
-                            <div class="col titulo">
-                              <label>RESULTADOS</label>
-                            </div>
-                            <div class="col text-right">
-
-                            </div>
-                          </div>
-        
-                          <!--<div class="row margen margen-tabla background-panel">
-                            <app-tablapaginado [datos]="arreglotablaPert" [editar]="true" [cargando]="cargandoPer" (salida)="recibirTablaPer($event)">
-                            </app-tablapaginado>
-                          </div>-->
-                        </div>
-                      </div>
+                  <div class="row margen">
+                    <div class="col titulo">
+                      <label>RESULTADOS</label>
+                    </div>
+                    <div class="col text-right">
                     </div>
                   </div>
+                  <div class="row margen margen-tabla background-panel">
+                    <app-tablapaginado [datos]="arreglotablaRef" [cargando]="cargandoRef" (salida)="recibirTabla($event)">
+                    </app-tablapaginado>
+                  </div>
+
+
                 </div>
-               
-               </div>
+              </div>
+
+
+
             </div>
           </div>
         </div>
@@ -67,34 +62,27 @@
           </div>
           <div id="collapseTwo" class="collapse" aria-labelledby="compensacion" data-parent="#accordion">
             <div class="card-body">
-              <div class="row">
+                <div class="row">
                 <div class="col-12">
-                  <div id="collapsefour" class="collapse" aria-labelledby="percepciones" data-parent="#accordion">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-12">
-        
-                          <div class="row margen">
-                            <div class="col titulo">
-                              <label>RESULTADOS</label>
-                            </div>
-                            <div class="col text-right">
 
-                            </div>
-                          </div>
-        
-                          <!--<div class="row margen margen-tabla background-panel">
-                            <app-tablapaginado [datos]="arreglotablaPert" [editar]="true" [cargando]="cargandoPer" (salida)="recibirTablaPer($event)">
-                            </app-tablapaginado>
-                          </div>-->
-                        </div>
-                      </div>
+                  <div class="row margen">
+                    <div class="col titulo">
+                      <label>RESULTADOS</label>
+                    </div>
+                    <div class="col text-right">
                     </div>
                   </div>
+                  <div id="vetanaprincipaltablaISR"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
+                    <app-tablapaginado [datos]="arreglotablaISR" [ver]="true"  [cargando]="cargandoISR" (salida)="recibirTablaISR($event)">
+                    </app-tablapaginado>
+                  </div>
+
 
                 </div>
-
               </div>
+
+
+
             </div>
           </div>
         </div>
@@ -121,16 +109,19 @@
                       <label>RESULTADOS</label>
                     </div>
                     <div class="col text-right">
-
                     </div>
                   </div>
-
-                  <!--<div class="row margen margen-tabla background-panel">
-                    <app-tablapaginado [datos]="arreglotablaPert" [editar]="true" [cargando]="cargandoPer" (salida)="recibirTablaPer($event)">
+                  <div class="row margen margen-tabla background-panel">
+                    <app-tablapaginado [datos]="arreglotablaSubcidio" [ver]="true"  [cargando]="cargandoSubcidio" (salida)="recibirTablaSubcidio($event)">
                     </app-tablapaginado>
-                  </div>-->
+                  </div>
+
+
                 </div>
               </div>
+
+
+
             </div>
           </div>
         </div>
@@ -159,10 +150,10 @@
                     <div class="col text-right">
                     </div>
                   </div>
-                  <!--<div class="row margen margen-tabla background-panel">
-                    <app-tablapaginado [datos]="arreglotablaDedt" [editar]="true" [cargando]="cargandoDed" (salida)="recibirTablaDed($event)">
-                  </app-tablapaginado>
-                  </div>-->
+                  <div class="row margen margen-tabla background-panel">
+                    <app-tablapaginado [datos]="arreglotablaNomina" [cargando]="cargandoNomina" >
+                    </app-tablapaginado>
+                  </div>
 
 
                 </div>
@@ -171,6 +162,7 @@
 
 
             </div>
+
           </div>
         </div>
         

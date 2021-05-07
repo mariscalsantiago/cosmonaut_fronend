@@ -3,6 +3,7 @@ import {environment} from './../environments/environment';
 const ip:string = environment.rutaEmpresa;
 const ip3:string = environment.rutaCatalogos;
 const ipCalculos:string = environment.rutaCalculos;
+const ipValores: string = environment.rutaTablaValores;
 
 export const direcciones = {
 
@@ -25,5 +26,6 @@ export const direcciones = {
     conceptos:`${ip}/percepcionDeduccion`,
     incidencias:`${ip}/incidencias`,
     orquestador:`${ipCalculos}/orquestador`,
-    documentos:`${ip}/documentos`
+    documentos:`${ip}/documentos`,
+    tablasValores: `${ipValores}/TablasValores`
 };

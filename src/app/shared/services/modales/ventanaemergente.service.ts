@@ -17,7 +17,9 @@ export class VentanaemergenteService {
   public subirdocumento: string = "subirdocumento";
   public nuevanominaextraordinaria:string = "nuevanominaextraordinaria";
   public nuevanominaptu:string = "nuevanominaptu";
-
+  public tablaisr:string = "tablaisr";
+  public subcidio:string = "subcidio";
+  
 
   private subject?: Subject<any>;;
 
@@ -39,7 +41,9 @@ export class VentanaemergenteService {
     ndispersion: false,
     ntimbrado: false,
     subirdocumento: false,
-    nuevanominaptu:false
+    nuevanominaptu:false,
+    tablaisr:false,
+    subcidio:false
   }
 
   constructor() { }
@@ -94,8 +98,16 @@ export class VentanaemergenteService {
         this.mostrar.nuevanominaptu = true;
         this.emergente.titulo = "Nómina de PTU";
         break;
+        case this.tablaisr:
+        this.mostrar.tablaisr = true;
+        this.emergente.titulo = "";
+        break;
+        case this.subcidio:
+        this.mostrar.subcidio = true;
+        this.emergente.titulo = "";
+        break;
     }
-
+    
 
     this.subject = new Subject<any>();
 
