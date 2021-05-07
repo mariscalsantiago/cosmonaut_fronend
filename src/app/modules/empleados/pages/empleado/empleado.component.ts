@@ -62,7 +62,7 @@ export class EmpleadoComponent implements OnInit {
 
 
   public iniciarDescarga() {
-    debugger;
+    
     this.cargandoIcon = true;
 
 

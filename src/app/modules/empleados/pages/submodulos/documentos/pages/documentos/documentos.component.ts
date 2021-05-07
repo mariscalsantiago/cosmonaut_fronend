@@ -42,7 +42,7 @@ export class DocumentosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
 
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
@@ -92,12 +92,12 @@ export class DocumentosComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-    debugger;
+    
     if (obj.type == "editar") {
       let datos = obj.datos;
       this.ventana.showVentana(this.ventana.subirdocumento,{datos:datos}).then(valor =>{
         if(valor.datos){
-          debugger;
+          
             this.modificarDocumento(valor.datos);
         }
       });
@@ -127,7 +127,7 @@ export class DocumentosComponent implements OnInit {
   }
 
   public iniciarDescarga(obj:any) {
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
       this.documentosPrd.getDescargaDocEmpleado(obj.cmsArchivoId).subscribe(archivo => {
@@ -167,7 +167,7 @@ export class DocumentosComponent implements OnInit {
   }
 
   public agregar(){
-    debugger;
+    
     let datos : any = {
       idEmpleado: this.idEmpleado,
       idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
@@ -176,14 +176,14 @@ export class DocumentosComponent implements OnInit {
 
     this.ventana.showVentana(this.ventana.subirdocumento,{datos:datos}).then(valor =>{
       if(valor.datos){
-        debugger;
+        
           this.agregarDocumento(valor.datos);
       }
     });
   }
 
   public agregarDocumento(obj:any){
-  debugger;
+  
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
   
     this.documentosPrd.save(obj).subscribe(datos => {
@@ -197,7 +197,7 @@ export class DocumentosComponent implements OnInit {
   }
 
   public modificarDocumento(obj:any){
-    debugger;
+    
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
     
       this.documentosPrd.modificar(obj).subscribe(datos => {

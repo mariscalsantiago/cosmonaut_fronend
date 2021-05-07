@@ -32,13 +32,13 @@ export class VentanaSubcidioComponent implements OnInit {
     private tablasISRPrd: TablaValoresService) { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.empresa = this.datos.centrocClienteId?.centrocClienteId;
     this.empleado = this.datos.personaId?.personaId;
 
     this.cargando = true;
-    debugger;
+    
     this.tablasISRPrd.getListaSubcidioISR(this.datos.periodo).subscribe(datos => {
         this.crearTablaSubcidio(datos);
     });
@@ -47,7 +47,7 @@ export class VentanaSubcidioComponent implements OnInit {
   }
 
   public crearTablaSubcidio(datos:any){
-    debugger;
+    
      
     this.arregloSubcidioISR = datos.datos;
     let columnas: Array<tabla> = [

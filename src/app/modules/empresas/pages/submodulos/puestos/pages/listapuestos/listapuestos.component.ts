@@ -172,7 +172,7 @@ export class ListapuestosComponent implements OnInit {
 
 
     this.cargando = true;
-    debugger;
+    
     let peticion = 
 
       { 

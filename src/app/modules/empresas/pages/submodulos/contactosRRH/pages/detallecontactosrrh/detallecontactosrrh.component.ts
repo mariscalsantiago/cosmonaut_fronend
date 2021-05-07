@@ -121,7 +121,7 @@ export class DetallecontactosrrhComponent implements OnInit {
 
 
         if (this.esInsert) {
-          debugger;
+          
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosPrd.save(peticion).subscribe(datos => {

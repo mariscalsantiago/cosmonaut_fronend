@@ -315,7 +315,7 @@ export class ListagruposnominasComponent implements OnInit {
         break;
       case "desglosar":
         let item = obj.datos;
-        debugger;
+        
         this.gruposnominaPrd.getGroupNomina(item.id).subscribe((datos) => {
           let temp = datos.datos;
           if (temp != undefined) {

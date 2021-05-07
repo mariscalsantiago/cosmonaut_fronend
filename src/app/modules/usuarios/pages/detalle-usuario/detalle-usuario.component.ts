@@ -47,7 +47,6 @@ export class DetalleUsuarioComponent implements OnInit {
   ngOnInit(): void {
 
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
-    console.log("ESte es el arreglo",this.arregloCompany);
     this.verificarCompaniasExista();
 
     
@@ -55,6 +54,7 @@ export class DetalleUsuarioComponent implements OnInit {
     this.routerActivePrd.params.subscribe(parametros => {
       
       let id = parametros["idusuario"];
+      console.log("ESTO ES LA URTA RECIBIDA",parametros);
       this.insertar = id == undefined;
       if (id != undefined) {
         
@@ -93,6 +93,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public verificarCompaniasExista() {
     console.log("Se verifica que las COMPAÑIAS EXISTAN");
+    console.log(this.arregloCompany.length,"longitud del arreglo");
       if (this.arregloCompany.length == 0){
         this.cancelar();
       }
@@ -196,6 +197,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public cancelar() {
+    console.log("YA SE CANCELO");
     this.routerPrd.navigate(['/usuarios']);
   }
 

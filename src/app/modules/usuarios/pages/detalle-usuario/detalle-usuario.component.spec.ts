@@ -5,6 +5,7 @@ import { UsuarioService } from "../../services/usuario.service";
 import { DetalleUsuarioComponent } from "./detalle-usuario.component";
 import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from '../../usuarios-routing.module';
+import { LISTACOMPANY,LISTAUSUARIOS } from '../../../../core/data/datosmock';
 
 
 
@@ -21,14 +22,24 @@ class routerFake {
 }
 
 
+let clonar = (datos:any)=>{
+    let json = JSON.stringify(datos);
+    return JSON.parse(json);
+}
+
 describe('componente-usuariodetalle INSERTAR USUARIOS', () => {
     let componenteDetalle: DetalleUsuarioComponent;
     let fixed: ComponentFixture<DetalleUsuarioComponent>;
     let router: Router;
     let objenviar: any;
+    let routerActivePrd: ActivatedRoute;
 
 
     let  usuariosPrd:UsuarioService;
+
+
+    let listaCompanias:any;
+    let listausuarios:any;
 
 
   
@@ -40,7 +51,7 @@ describe('componente-usuariodetalle INSERTAR USUARIOS', () => {
             providers: [UsuarioService, { provider: Router, useClass: routerFake }, {
                 provide: ActivatedRoute,
                 useValue: {
-                    params: of({ tipoinsert: 'new' }),
+                    params: of({ idUsuario: '743' }),
                 }
             },{
                 provide: LOCALE_ID, useValue: 'es-MX'
@@ -50,7 +61,11 @@ describe('componente-usuariodetalle INSERTAR USUARIOS', () => {
             componenteDetalle = fixed.componentInstance;
             usuariosPrd =  TestBed.inject(UsuarioService);
             router = TestBed.inject(Router);
+            listaCompanias = clonar(LISTACOMPANY);
+            listausuarios = clonar(LISTAUSUARIOS);
+            routerActivePrd = TestBed.inject(ActivatedRoute);
         });
+
 
        
     }));
@@ -59,24 +74,26 @@ describe('componente-usuariodetalle INSERTAR USUARIOS', () => {
         expect(componenteDetalle).toBeTruthy();
     });
 
-    it('Inicializaciòn del componte alta de usuarios', fakeAsync(() => {
+    it('Inicializaciòn del componte alta de usuarios sin lista de compañías', fakeAsync(() => {
         
         history.pushState({data:objenviar,company:undefined},"data");
-        let metodo1 = spyOn(componenteDetalle,"verificarCompaniasExista");
-       
-        let metodo2 = spyOn(componenteDetalle,"cancelar");
-        componenteDetalle.ngOnInit();
+        let metodo1 = spyOn(componenteDetalle,"verificarCompaniasExista").and.callThrough();
+        let metodo2 = spyOn(componenteDetalle,"cancelar").and.callThrough();
         fixed.detectChanges();
-        
-       
-        expect(true).toBe(true);
         expect(metodo1).toHaveBeenCalled();
-       // expect(metodo2).toHaveBeenCalled();
+        expect(metodo2).toHaveBeenCalled();
+   
+    }));
+    it('Inicializaciòn del componte alta de usuarios con lista de compañías', fakeAsync(() => {
         
-       
+        // history.pushState({data:objenviar,company:listaCompanias.datos},"data");
+        // let metodo1 = spyOn(componenteDetalle,"verificarCompaniasExista").and.callThrough();
+        // let metodo2 = spyOn(usuariosPrd,"getById");
+        // fixed.detectChanges();
+        // expect(metodo1).toHaveBeenCalled();
+        // expect(metodo2).toHaveBeenCalled();
         
-        
-
+   
     }));
 
 //     it('validación de campos necesarios al insertar usuario',()=>{
@@ -250,4 +267,11 @@ describe('componente-usuariodetalle INSERTAR USUARIOS', () => {
 
 //     });
 
+
+
+
+
 })
+
+
+

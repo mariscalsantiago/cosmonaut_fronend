@@ -108,7 +108,7 @@ export class DetallegruponominaComponent implements OnInit {
   }
 
   public crearForm(obj:any){
-    debugger;
+    
     if(!this.esInsert){
       
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
@@ -189,7 +189,7 @@ export class DetallegruponominaComponent implements OnInit {
     
        
         if (this.esInsert) {
-          debugger;
+          
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.grupoNominaPrd.save(peticion).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -238,12 +238,12 @@ export class DetallegruponominaComponent implements OnInit {
 
 
   public activar(obj:any){
-    debugger;
+    
         this.activadoISR = obj.checked;
   }
 
   public activarISR(){
-    debugger;
+    
         this.activadoISR = true;
   }
 
