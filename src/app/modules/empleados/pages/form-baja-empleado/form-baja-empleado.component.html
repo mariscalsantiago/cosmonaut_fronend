@@ -81,12 +81,12 @@
           <label >Fecha para cálculo *</label>
 
           <label class="contenedorInputCheckRadio"> Fecha de antigüedad 
-            <input  value="antiguedad" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" id="">
+            <input  value="antiguedad" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" >
             <span class="radiomark"></span>
           </label>
     
           <label class="contenedorInputCheckRadio"> Fecha de ingreso 
-            <input value="contrato" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" id="">
+            <input value="contrato" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" >
             <span class="radiomark"></span>
           </label>
         </div>
@@ -110,13 +110,13 @@
               </div>
               <div *ngIf="liquidacion" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                   <label class="contenedorInputCheckRadio"> Indemnización 90 días
-                    <input (click)="diasOcultar()" value="2" formControlName="pagosXliquidacionId90"  type="radio" name="pagosXliquidacionId90" id="">
+                    <input (click)="diasOcultar()" value="2" formControlName="pagosXliquidacionId90"  type="radio" name="pagosXliquidacionId90" >
                     <span class="radiomark"></span>
                   </label>
               </div>
               <div *ngIf="liquidacion" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
                 <label class="contenedorInputCheckRadio"> Otro
-                  <input (click)="dias()" value="4" formControlName="pagosXliquidacionId90"  type="radio" name="pagosXliquidacionId90" id="">
+                  <input (click)="dias()" value="4" formControlName="pagosXliquidacionId90"  type="radio" name="pagosXliquidacionId90" >
                   <span class="radiomark"></span>
                 </label>
               </div>

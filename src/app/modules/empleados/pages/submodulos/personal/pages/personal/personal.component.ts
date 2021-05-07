@@ -75,7 +75,7 @@ export class PersonalComponent implements OnInit {
             this.myForm = this.createForm(this.empleado);
             this.buscar(undefined);
 
-            console.log("Este es el empleado fina", this.empleado);
+            
           } else {
             this.createForm(this.empleado);
           }
@@ -246,7 +246,7 @@ export class PersonalComponent implements OnInit {
     }
 
 
-    console.log("Este es el código", obj.codigo);
+    
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
@@ -398,7 +398,7 @@ export class PersonalComponent implements OnInit {
       }
     }
 
-    console.log("Esto ando mandando", objenviar);
+    
 
     if (this.insertarDomicilio) {
       this.domicilioPrd.save(objenviar).subscribe(datos => {
@@ -413,7 +413,7 @@ export class PersonalComponent implements OnInit {
     } else {
 
 
-      console.log(this.domicilioArreglo);
+      
       objenviar.domicilioId = this.domicilioArreglo.domicilioId;
 
       this.domicilioPrd.update(objenviar).subscribe(datos => {

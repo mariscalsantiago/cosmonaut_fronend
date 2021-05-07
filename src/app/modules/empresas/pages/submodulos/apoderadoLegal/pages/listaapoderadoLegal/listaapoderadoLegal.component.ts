@@ -84,7 +84,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
   }
 
   public realizarTabla(datos:any){
-    console.log("Lista apoderados",datos)
+    
     this.arreglo = datos.datos;
 
     

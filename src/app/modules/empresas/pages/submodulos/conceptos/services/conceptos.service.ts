@@ -38,7 +38,7 @@ export class ConceptosService {
     };
 
     let json: string = JSON.stringify(obj);
-    console.log(`guardar percepcion`,json);
+    
     return this.http.put(`${this.url}/guardarPercepcion`,json,httpOptions);
   }
   public saveDed(obj:any):Observable<any>{
@@ -51,7 +51,7 @@ export class ConceptosService {
     };
 
     let json: string = JSON.stringify(obj);
-    console.log(`guardar percepcion`,json);
+    
     return this.http.put(`${this.url}/guardarDeduccion`,json,httpOptions);
   }
 
@@ -68,7 +68,7 @@ export class ConceptosService {
 
     let json: string = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.post(`${this.url}/modificarPercepcion`,json,httpOptions);
   }
@@ -84,7 +84,7 @@ export class ConceptosService {
 
     let json: string = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.post(`${this.url}/modificarDeduccion`,json,httpOptions);
   }

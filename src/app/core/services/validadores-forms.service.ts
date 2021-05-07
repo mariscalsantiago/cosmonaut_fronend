@@ -18,7 +18,7 @@ export class ValidadoresFormsService {
   };
 
   public prueba(){
-     console.log("si funciona");
+     
 
   }
 

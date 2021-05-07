@@ -91,7 +91,7 @@ export class DetalleContactoComponent implements OnInit {
   public enviarPeticioncont() {
 
     this.submitEnviado = true;
-    console.log(this.myFormcont.value);
+    
 
     if (this.myFormcont.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -156,7 +156,7 @@ export class DetalleContactoComponent implements OnInit {
           objEnviar.personaId = obj.personaId;
 
 
-          console.log(objEnviar);
+          
           
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {

@@ -44,7 +44,7 @@ export class PoliticasService {
     };
 
     let json:string = JSON.stringify(obj);
-    console.log("eliminar",json)
+    
     return this.http.post(`${this.url}/eliminar`,json,httpOptions);
   }
 
@@ -57,7 +57,7 @@ export class PoliticasService {
     };
 
     let json:string = JSON.stringify(obj);
-    console.log(json);
+    
 
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }

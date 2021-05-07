@@ -48,7 +48,7 @@ export class ManipularfilesDirective {
 
     }
     this.configuracionnoaparecerventana( event );
-    console.log(false);
+    
 
   }
 

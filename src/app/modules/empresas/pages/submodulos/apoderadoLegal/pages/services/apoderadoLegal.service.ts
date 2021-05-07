@@ -26,8 +26,8 @@ export class ApoderadoLegalService {
     };
 
     let json:string = JSON.stringify(obj);
-    console.log("json representante legal");
-    console.log(json);
+    
+    
      return this.http.post(`${this.url}/lista/compania/tipoPersona`,json,httpOptions);
   }
 
@@ -45,8 +45,8 @@ export class ApoderadoLegalService {
     };
 
     let json:string = JSON.stringify(obj);
-    console.log("json representante legal");
-    console.log(json);
+    
+    
      return this.http.post(`${this.url}/lista/dinamica`,json,httpOptions);
   }
 
@@ -62,7 +62,7 @@ export class ApoderadoLegalService {
 
 
     let json:string = JSON.stringify(obj);
-    console.log("representante",json)
+    
 
     return this.http.put(`${this.url}/guardar/apoderadoLegal`,json,httpOptions);
   }

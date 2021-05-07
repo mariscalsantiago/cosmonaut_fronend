@@ -22,7 +22,7 @@ export class PreferenciasService {
 
     let json = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.put(`${direcciones.preferencias}/guardar`,json,httpOptions);
 

@@ -61,7 +61,7 @@ export class ListasTablaValoresComponent implements OnInit {
           new tabla("esActivo", "Estatus")
         ];
 
-        console.log("datos de cuentas",datos);
+        
 
         if(datos.datos !== undefined){
           datos.datos.forEach((part:any) => {
@@ -143,7 +143,7 @@ export class ListasTablaValoresComponent implements OnInit {
 
             /*this.cuentasPrd.getCuentaBancariaByEmpresa(this.id_empresa).subscribe(datos => {
               let temp = datos.datos;
-              console.log("DAtos Banco",temp);
+              
               if (temp != undefined) {
     
                 for (let llave in temp) {

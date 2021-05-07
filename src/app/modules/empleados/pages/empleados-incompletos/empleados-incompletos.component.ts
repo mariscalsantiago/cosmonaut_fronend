@@ -47,7 +47,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
   public recibirTabla(obj:any){
 
     
-    console.log("Ants de entrar al obj",obj.datos);
+    
     let isInsertar = false;
 
     

@@ -24,7 +24,7 @@ export class EmpleadosService {
 
     let json = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.put(`${direcciones.usuarios}/guardar/empleado`, json, httpOptions);
 
@@ -41,7 +41,7 @@ export class EmpleadosService {
 
     let json = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.post(`${direcciones.contratoColaborador}/guardar/baja`, json, httpOptions);
 
@@ -62,7 +62,7 @@ export class EmpleadosService {
 
  
   public getEmpleadoById(idEmpleado: number): Observable<any> {
-    console.log("RUTA",`${direcciones.usuarios}/obtener/id/${idEmpleado}`);
+    
     return this.http.get(`${direcciones.usuarios}/obtener/id/${idEmpleado}`);
   }
 
@@ -77,7 +77,7 @@ export class EmpleadosService {
 
     let json = JSON.stringify(obj);
 
-    console.log("json enviado",json);
+    
 
     return this.http.post(`${direcciones.usuarios}/modificar/empleado`, json, httpOptions);
   }
@@ -103,7 +103,7 @@ export class EmpleadosService {
 
     let json = JSON.stringify(obj);
 
-    console.log("json enviado",json);
+    
 
     return this.http.post(`${direcciones.contratoColaborador}/lista/dinamica`, json, httpOptions);
   }

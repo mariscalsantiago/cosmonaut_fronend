@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     this.cargandoEmpresa = true;
     // this.companiaPrd.getAllCompany().subscribe(datos => {
     //   this.cargandoEmpresa = false;
-    //   console.log(datos.datos);
+    
     //   this.arregloCompanias = datos.datos;
     // });
 
@@ -76,8 +76,7 @@ export class LoginComponent implements OnInit {
               if(!this.myForm.value.email.includes(this.myForm.value.password)){
 
                 alert("Contraseña invalida");
-                console.log(this.myForm.value.password);
-                console.log(this.myForm.value.email);
+               
                 this.cargando = false;
                 this.correcto = false;
   
@@ -123,7 +122,7 @@ export class LoginComponent implements OnInit {
     this.cargandoEmpresaCompania = true;
 
     this.companiaPrd.getAllEmp(elemento.centrocClienteId).subscribe(datos => {
-      console.log("Datos de mi empresa", datos.datos);
+      
       this.arregloEmpresas = datos.datos;
       this.cargandoEmpresaCompania = false;
     });
@@ -137,7 +136,7 @@ export class LoginComponent implements OnInit {
 
     elemento.seleccionado = true;
 
-    console.log("mi empresa es",elemento);
+    
 
     this.empresaSeleccionada = elemento;
 

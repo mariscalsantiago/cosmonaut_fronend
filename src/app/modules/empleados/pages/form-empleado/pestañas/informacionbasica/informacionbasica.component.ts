@@ -38,8 +38,6 @@ export class InformacionbasicaComponent implements OnInit {
 
   ngOnInit(): void {
     
-    console.log("Vuelve a iniciar");
-    console.log(this.datosPersona);
     if(this.datosPersona[0].insertar === undefined){
      let obj = {
         nacionalidadId: {}
@@ -200,7 +198,7 @@ export class InformacionbasicaComponent implements OnInit {
     }
 
 
-    console.log(this.datosPersona[0].personaId,"ESTE ES EL ID");
+    
     
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 

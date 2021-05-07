@@ -44,7 +44,7 @@
             <div class="form group row margen">
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Colonia *</label>
-                    <select formControlName="asentamientoId" name="" id=""
+                    <select formControlName="asentamientoId" name="" 
                         [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
                         <option *ngFor="let item of domicilioCodigoPostal" [value]="item.asentamientoCpCons">{{item.asentamiento}}</option>
                     </select>
@@ -65,7 +65,7 @@
             <div class="form group row margen">
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Número exterior *</label>
-                    <input formControlName="numExterior" type="text" name="" id=""
+                    <input formControlName="numExterior" type="text" name="" 
                         [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
                     <div *ngIf="f.numExterior.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido

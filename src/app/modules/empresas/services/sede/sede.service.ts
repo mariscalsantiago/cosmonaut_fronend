@@ -23,7 +23,7 @@ export class SedeService {
 
     let json = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.put(`${direcciones.domicilio}/guardar/sede/domicilio`,json,httpOptions);
 
@@ -39,7 +39,7 @@ export class SedeService {
 
     let json = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.post(`${direcciones.sedes}/modificar`,json,httpOptions);
 

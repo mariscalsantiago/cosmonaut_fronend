@@ -23,7 +23,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     this.tamanio = event.target.innerHeight;
-    console.log(this.tamanio);
+    
   }
 
 
@@ -47,8 +47,7 @@ export class DetalleUsuarioComponent implements OnInit {
   ngOnInit(): void {
 
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
-
-
+    console.log("ESte es el arreglo",this.arregloCompany);
     this.verificarCompaniasExista();
 
     
@@ -62,7 +61,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
         this.usuariosPrd.getById(id).subscribe(datosusuario => {          
           this.objusuario = datosusuario.datos;
-          console.log(this.objusuario);
+          
           let datePipe = new DatePipe("es-MX");
           this.objusuario.fechaAlta = (new Date(this.objusuario.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
           this.objusuario.fechaAlta = datePipe.transform(this.objusuario.fechaAlta,"dd-MMM-y")?.replace(".","");
@@ -93,11 +92,10 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public verificarCompaniasExista() {
-    if ((this.arregloCompany == undefined))
-      this.cancelar();
-    else
-      if (this.arregloCompany.length == 0)
+    console.log("Se verifica que las COMPAÑIAS EXISTAN");
+      if (this.arregloCompany.length == 0){
         this.cancelar();
+      }
   }
 
 

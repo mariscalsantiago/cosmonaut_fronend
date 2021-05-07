@@ -65,7 +65,7 @@ export class ListapoliticasComponent implements OnInit {
 
       this.id_empresa = datos["id"]
       this.politicasProd.getAllPol(this.id_empresa).subscribe(datos => {
-        console.log("pliticas",datos)
+        
         this.traerdatosTabla(datos);
       });
 

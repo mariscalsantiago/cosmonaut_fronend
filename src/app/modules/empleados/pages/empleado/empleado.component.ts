@@ -35,9 +35,9 @@ export class EmpleadoComponent implements OnInit {
       this.idEmpleado = params["id"];
 
       this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos =>{
-         console.log("Este el el perfil del EMPLEADO",datos.datos);
+         
          if(datos.datos?.url !== undefined){
-           console.log("si se guarda los datos",datos.datos.url);
+           
           this.elEmpleado.url = datos.datos?.url;
          }
 
@@ -52,7 +52,7 @@ export class EmpleadoComponent implements OnInit {
 
       this.empleadosPrd.getPorcentajeavance(this.idEmpleado).subscribe(datos => {
         this.porcentaje = datos;
-        console.log("Este es el %",this.porcentaje);
+        
       });
     });
   }
@@ -119,7 +119,7 @@ export class EmpleadoComponent implements OnInit {
             this.empleadosPrd.update(objEnviar).subscribe(actualizado =>{
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(actualizado.resultado,actualizado.mensaje);
-              console.log("Esto se esta actualizando",actualizado);
+              
             });
           });
       }

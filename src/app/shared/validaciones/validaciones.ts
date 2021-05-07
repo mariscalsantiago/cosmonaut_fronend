@@ -6,7 +6,7 @@ export class validacionesForms{
         let nss = control.value;
 
         let noaplica = null;
-        console.log(nss);
+        
 
         if(nss == null){
             return noaplica;
@@ -36,7 +36,7 @@ export class validacionesForms{
         }
         
         let resultado = validacionesForms.luhn(nss);
-        console.log("Es valido el numero",resultado);
+        
 
         
 

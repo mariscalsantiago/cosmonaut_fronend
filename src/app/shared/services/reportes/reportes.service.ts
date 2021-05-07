@@ -20,7 +20,7 @@ export class ReportesService {
 
     let json = JSON.stringify(obj);
 
-    console.log(json);
+    
     return this.http.post(`${direcciones.reportes}/perfil/personal`,json,httpOptions);
   }
 }

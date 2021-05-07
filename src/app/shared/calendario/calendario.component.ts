@@ -66,7 +66,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
       }
     }
 
-    console.log(this.arregloArreglos);
+    
   }
 
   ngOnInit(): void {
@@ -80,7 +80,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
 
   public ejecutarMes(fechaParam: Date) {
-    console.log("Se ejecuto 1 vez");
+    
     this.arregloArreglos = [];
     const dateTransform = new DatePipe("es-MX");
 
@@ -181,7 +181,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
     this.left = mouse.pageX - 200;
     
 
-   console.log("el evento",evento);
+   
     switch(evento.tipoIncidenciaId){
       case 8:
         this.eventoActual.color = "#67bf89";
@@ -206,7 +206,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
         this.eventoActual.color = "#a31616";
     }
 
-    console.log("Este es el evento actual",this.eventoActual)
+    
   }
 
   public anteriorMes() {

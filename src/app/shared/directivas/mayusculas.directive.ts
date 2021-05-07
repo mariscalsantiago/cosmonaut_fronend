@@ -38,7 +38,7 @@ export class MayusculasDirective {
             cadena += dato.substring(0,1).toUpperCase() +
              dato.substring(1,dato.length).toLowerCase() +  es;
           }
-          console.log(cadena);
+          
         });
         this.render.setProperty(this.el.nativeElement, 'value', cadena);
       }else{

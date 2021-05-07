@@ -11,7 +11,7 @@ export class ConfiguracionesService {
   constructor() { }
 
   public getScrollCompany(scroll:number){
-    console.log("Este es el scroll",scroll);
+    
       if(scroll !== 0){
           this.scrollCompany = scroll;
       }

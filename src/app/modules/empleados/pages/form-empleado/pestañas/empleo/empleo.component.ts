@@ -122,7 +122,7 @@ export class EmpleoComponent implements OnInit {
 
   public suscripciones(){
         this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor =>{
-            console.log("Este es lo ultimo que cambia",valor);
+            
         });
   }
 
@@ -261,7 +261,7 @@ export class EmpleoComponent implements OnInit {
 
           this.puestosPrd.save(objEnviar).subscribe(datos => {
 
-            console.log("Este es el area", datos.datos);
+            
 
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
@@ -281,7 +281,7 @@ export class EmpleoComponent implements OnInit {
 
           this.puestosPrd.savepuest(objEnviar).subscribe(datos => {
 
-            console.log("Este es el pusto", datos.datos);
+            
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
 
@@ -338,7 +338,7 @@ export class EmpleoComponent implements OnInit {
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
       sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
-      sueldoNetoMensual: 0,
+      sueldoNetoMensual: obj.sueldoNetoMensual,
       salarioDiario: [{ value: obj.salarioDiario, disabled: true }, []],
       dias_vacaciones: [obj.diasVacaciones, [Validators.required]],
       metodo_pago_id: [obj.metodoPagoId?.metodoPagoId, [Validators.required]],
@@ -440,8 +440,8 @@ export class EmpleoComponent implements OnInit {
           grupoNominaId: { grupoNominaId: obj.grupoNominaId },
           tipoCompensacionId: { tipoCompensacionId: obj.tipoCompensacionId },
           tipoRegimenContratacionId: { tipoRegimenContratacionId: obj.tipoRegimenContratacionId },
-          sueldoBrutoMensual: 0,
-          salarioDiario: 0,
+          sueldoBrutoMensual: obj.sueldoBrutoMensual,
+          salarioDiario: obj.salarioDiario,
           jornadaId: { jornadaId: obj.jornadaId },
           tipoJornadaId: idTipoJornada,
           personaId: { personaId: this.datosPersona.personaId },
@@ -455,7 +455,8 @@ export class EmpleoComponent implements OnInit {
           jefeInmediatoId: {
             personaId: this.puestoIdReporta == 0 ? null : this.puestoIdReporta
           },
-          fechaAltaImss: obj.fechaAltaImss
+          fechaAltaImss: obj.fechaAltaImss,
+          sueldoNetoMensual:obj.sueldoNetoMensual
         }
 
 
@@ -547,7 +548,7 @@ export class EmpleoComponent implements OnInit {
 
 
     this.apareceplusPuesto = true;
-    console.log(this.myForm.controls.areaId.value);
+    
     this.textoArea = $event.target.options[$event.target.options.selectedIndex].text;
 
 
@@ -587,7 +588,7 @@ export class EmpleoComponent implements OnInit {
       this.myForm.controls.sueldoBrutoMensual.updateValueAndValidity();
     }
 
-    console.log();
+    
   }
 
 
@@ -615,7 +616,7 @@ export class EmpleoComponent implements OnInit {
         let encontrado: boolean = false;
         let nombreCompleto = "";
         for (let item of this.arregloempleadosreporta) {
-          console.log(item);
+          
          nombreCompleto = item.personaId.nombre + " " + item.personaId.apellidoPaterno+" "+(item.personaId.apellidoMaterno == undefined ? "":item.personaId.apellidoMaterno);
           
           if (nombreCompleto.includes(nombreCapturado)) {
@@ -707,13 +708,17 @@ export class EmpleoComponent implements OnInit {
       
     }
 
-    console.log(this.grupoNominaSeleccionado);
 
 
   }
 
 
   public cambiasueldobruto(){
+    
+
+  
+
+
 
     if(this.myForm.controls.sueldoBrutoMensual.invalid){
       return;
@@ -761,10 +766,17 @@ export class EmpleoComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading,"Calculando");
 
-
     this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos =>{
+
+      let aux = datos.datos;
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      console.log("Datos regresados",datos);
+      if(datos.datos !== undefined){
+    
+        
+          this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
+          this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
+          this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
+      }
     });
 
   }

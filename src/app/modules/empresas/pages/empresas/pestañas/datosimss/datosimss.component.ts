@@ -39,7 +39,7 @@ export class DatosimssComponent implements OnInit {
 
    this.imssPrd.getAllByImss(this.id_empresa).subscribe(datos => {
    this.arregloImss = datos.datos;
-   console.log(this.arregloImss);
+   
 
    this.myForm = this.createForm(this.arregloImss);
   });

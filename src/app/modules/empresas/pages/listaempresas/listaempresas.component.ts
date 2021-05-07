@@ -105,7 +105,7 @@ export class ListaEmpresasComponent implements OnInit {
       this.routerPrd.navigate(['listaempresas', 'empresas', 'modifica'], { state: { data: obj.datos } });
     } else if (obj.type == "columna") {
       datosTemporales.configuracionEmpresaNombreEmpresa = obj.datos.razonSocial;
-      console.log("DATOS DE LA EMPRESA",obj);
+      
       this.routerPrd.navigate(['/empresa', 'detalle', obj.datos.centrocClienteId, 'representantelegal']);
     }
 
@@ -115,7 +115,7 @@ export class ListaEmpresasComponent implements OnInit {
 
 
     this.indexSeleccionado = indice.centrocClienteId;
-    console.log("La empresa modificada",indice);
+    
 
 
 

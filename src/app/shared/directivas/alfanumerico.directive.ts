@@ -21,7 +21,7 @@ export class AlfanumericoDirective {
           event.preventDefault();
         }
       }else{
-        console.log("confinua alfanumerico")
+        
       }
   }
 

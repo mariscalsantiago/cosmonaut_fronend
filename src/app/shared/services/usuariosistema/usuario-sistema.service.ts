@@ -13,7 +13,7 @@ export class UsuarioSistemaService {
   constructor(private http: HttpClient) {
 
     this.usuario = new usuarioClass(112, 1);
-    console.log("Se inicializa mi usuario de sistema");
+    
 
   }
 
@@ -38,7 +38,7 @@ export class UsuarioSistemaService {
   public getRol(): string {
     let rol: string = "ADMIN|EMPRESA|COMPANIA|OTRO";
     let idTipoPersona = this.usuario.getUsuario()?.tipoPersonaId?.tipoPersonaId;
-    console.log("Esto son los datos del usuari rol",this.usuario.getUsuario());
+    
     switch (idTipoPersona) {
       case 3:
         rol = "ADMINCOMPANIA";
@@ -60,7 +60,7 @@ export class UsuarioSistemaService {
         break;
     }
 
-    console.log("Este es el rol",rol);
+    
 
 
     return rol;

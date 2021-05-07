@@ -75,7 +75,7 @@ export class CalcularComponent implements OnInit {
 
 
   public recibirTabla(obj:any){
-    console.log(obj);
+    
     switch(obj.type){
         case "desglosar":
 

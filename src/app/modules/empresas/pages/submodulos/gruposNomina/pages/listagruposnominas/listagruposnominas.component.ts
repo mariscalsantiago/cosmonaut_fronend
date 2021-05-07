@@ -227,7 +227,7 @@ export class ListagruposnominasComponent implements OnInit {
 
       }
 
-      console.log(this.arreglo[indice]);
+      
 
 
 
@@ -291,7 +291,7 @@ export class ListagruposnominasComponent implements OnInit {
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
 
 
-      console.log(datos);
+      
 
 
     });

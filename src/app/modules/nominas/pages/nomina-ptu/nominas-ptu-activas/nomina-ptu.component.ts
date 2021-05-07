@@ -27,7 +27,7 @@ export class NominaPTUComponent implements OnInit {
       this.nominaPrd.getAllNominas().subscribe(datos =>{
         this.cargando = false;
         this.arreglo = datos;
-        console.log(this.arreglo.length,"este es el arreglo que se trae");
+        
       });
 
 
@@ -43,7 +43,7 @@ export class NominaPTUComponent implements OnInit {
 
   public agregar(){
       this.ventana.showVentana(this.ventana.nuevanominaptu).then(valor =>{
-        console.log("lado del clienteISDJFIDSJFIJFDJSIFJSDIFJ",valor);
+        
         if(valor.datos){
             this.agregarNuevaNomina();
         }

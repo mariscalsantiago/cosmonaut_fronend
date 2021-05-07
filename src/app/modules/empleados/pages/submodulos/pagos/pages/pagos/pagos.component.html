@@ -162,7 +162,7 @@
                         <td *ngIf="!detallecompensacionbool">{{empleado?.grupoNominaId?.nombre}}</td>
                         <td *ngIf="detallecompensacionbool">
 
-                          <select formControlName="grupoNominaId" name="" id="" class="form-control">
+                          <select formControlName="grupoNominaId" name=""  class="form-control">
                             <option *ngFor="let item of (arreglogrupoNomina | async)?.datos" [value]="item.id">
                               {{item.nombre}}</option>
                           </select>
@@ -173,7 +173,7 @@
                         <td class="titulorow">Tipo de compensación</td>
                         <td *ngIf="!detallecompensacionbool">{{empleado.tipoCompensacionId?.descripcion}}</td>
                         <td *ngIf="detallecompensacionbool">
-                          <select formControlName="tipoCompensacionId" name="" id="" class="form-control">
+                          <select formControlName="tipoCompensacionId" name=""  class="form-control">
                             <option *ngFor="let item of (arregloCompensacion | async)?.datos"
                               [value]="item.tipoCompensacionId">{{item.descripcion}}</option>
                           </select>

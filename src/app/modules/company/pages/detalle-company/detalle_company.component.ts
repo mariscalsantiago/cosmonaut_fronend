@@ -53,7 +53,7 @@ export class DetalleCompanyComponent implements OnInit {
     this.cargandoImg = true;
 
 
-    console.log(this.objCompany,"el obj de compana");
+    
 
    
 
@@ -260,7 +260,7 @@ export class DetalleCompanyComponent implements OnInit {
         this.verdetallecont(obj.datos);
       break;
       case "filaseleccionada":
-          console.log(this.arreglo);
+          
         break;
     }
   }

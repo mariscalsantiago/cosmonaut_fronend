@@ -4,7 +4,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { DetalleUsuarioComponent  } from './pages/detalle-usuario/detalle-usuario.component';
 
 
-const routes: Routes = [
+export const routes: Routes = [
  
 {
   path: '',

@@ -36,7 +36,7 @@ export class CalculosService {
 
 
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/crear/nomina`, json, httpOptions);
+    return this.http.post(`${direcciones.orquestador}/guardar/nomina`, json, httpOptions);
   }
 
 

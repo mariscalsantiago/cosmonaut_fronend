@@ -10,7 +10,7 @@
                     Área
                     <article *ngIf="!editarcampos">{{empleado.areaId?.descripcion}}</article>
                     <article *ngIf="editarcampos">
-                        <select (change)="cambiaArea()" formControlName="areaId" name="" id="" class="form-control"
+                        <select (change)="cambiaArea()" formControlName="areaId" name=""  class="form-control"
                             [ngClass]="{'is-invalid':f.areaId.errors && submitEnviado}">
                             <option *ngFor="let item of arregloArea" [value]="item.areaId">{{item.descripcion}}</option>
                         </select>
@@ -24,7 +24,7 @@
                     <article *ngIf="!editarcampos">{{empleado.puestoId?.descripcion}}</article>
                     <article *ngIf="editarcampos">
 
-                        <select formControlName="puestoId" name="" id="" class="form-control"
+                        <select formControlName="puestoId" name=""  class="form-control"
                             [ngClass]="{'is-invalid':f.puestoId.errors && submitEnviado}">
                             <option *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}
                             </option>
@@ -58,7 +58,7 @@
                     <article *ngIf="!editarcampos">{{empleado.sedeId?.descripcion}}</article>
                     <article *ngIf="editarcampos">
 
-                        <select formControlName="sedeId" name="" id="" class="form-control">
+                        <select formControlName="sedeId" name=""  class="form-control">
                             <option *ngFor="let item of arregloSedes" [value]="item.sedeId">{{item.sedeNombre}}
                             </option>
                         </select>
@@ -71,7 +71,7 @@
                     Entidad federativa
                     <article *ngIf="!editarcampos">{{empleado.estadoId?.estado}}</article>
                     <article *ngIf="editarcampos">
-                        <select formControlName="estadoId" name="" id="" class="form-control">
+                        <select formControlName="estadoId" name=""  class="form-control">
                             <option *ngFor="let item of arregloEstados" [value]="item.estadoId">{{item.estado}}</option>
                         </select>
                     </article>
@@ -91,7 +91,7 @@
                     Elegir fecha
                     <article>
                         <input id="fechaantiguedad" [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && submitEnviado}"
-                            formControlName="fechaAntiguedad" type="date" name="" id="" class="form-control">
+                            formControlName="fechaAntiguedad" type="date" name=""  class="form-control">
                         <div *ngIf="f.fechaAntiguedad.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -125,7 +125,7 @@
                         {{empleado.politicaId?.nombre}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <select formControlName="politicaId" name="" id="" class="form-control"
+                        <select formControlName="politicaId" name=""  class="form-control"
                             [ngClass]="{'is-invalid':f.politicaId.errors && submitEnviado}">
                             <option *ngFor="let item of arregloPoliticas" [value]="item.politicaId">{{item.nombre}}
                             </option>
@@ -147,7 +147,7 @@
                     Elegir fecha
                     <article>
                         <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}"
-                            formControlName="fechaInicio" type="date" name="" id="" class="form-control">
+                            formControlName="fechaInicio" type="date" name=""  class="form-control">
                         <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -203,7 +203,7 @@
                     Elegir fecha
                     <article>
                         <input [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin"
-                            type="date" name="" id="" class="form-control">
+                            type="date" name=""  class="form-control">
                         <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -236,7 +236,7 @@
                     </article>
                     <article *ngIf="editarcampos">
                         <select [ngClass]="{'is-invalid':f.jornadaId.errors && submitEnviado}"
-                            formControlName="jornadaId" name="" id="" class="form-control">
+                            formControlName="jornadaId" name=""  class="form-control">
                             <option *ngFor="let item of arregloJornadas" [value]="item.jornadaId">{{item.nombre}}
                             </option>
                         </select>
@@ -257,7 +257,7 @@
                     Elegir fecha
                     <article>
                         <input [ngClass]="{'is-invalid':f.fechaAltaImss.errors && submitEnviado}" formControlName="fechaAltaImss"
-                            type="date" name="" id="" class="form-control">
+                            type="date" name=""  class="form-control">
                         <div *ngIf="f.fechaAltaImss.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>

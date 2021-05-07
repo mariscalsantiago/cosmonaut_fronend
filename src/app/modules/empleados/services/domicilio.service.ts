@@ -23,7 +23,7 @@ export class DomicilioService {
 
     let json = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.put(`${direcciones.domicilio}/guardar`,json,httpOptions);
 
@@ -41,7 +41,7 @@ export class DomicilioService {
 
     let json = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.post(`${direcciones.domicilio}/modificar`,json,httpOptions);
 
