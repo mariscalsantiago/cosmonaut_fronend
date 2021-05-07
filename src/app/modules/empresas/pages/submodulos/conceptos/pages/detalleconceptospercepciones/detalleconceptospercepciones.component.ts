@@ -73,6 +73,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
+
+
+    
     
     return this.formBuild.group({
 
@@ -121,7 +124,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
             obj.tipoConcepto = "E"
           }
 
-
+          if (obj.gravaIsn == null){
+            obj.gravaIsn = false;
+          }
           let gravaIsr = obj.gravaIsr == true ? "S" : "N";
 
           this.peticion = {
@@ -148,7 +153,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
           if (this.esInsert) {
-
+            debugger;
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
             this.conceptosPrd.savePer(this.peticion).subscribe(datos => {

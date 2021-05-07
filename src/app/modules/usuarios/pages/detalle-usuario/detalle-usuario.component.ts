@@ -45,7 +45,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    debugger;
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
 
 
@@ -103,7 +103,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public createForm(obj: any) {
 
-
+    debugger;
     return this.formBuilder.group({
 
 
@@ -118,7 +118,7 @@ export class DetalleUsuarioComponent implements OnInit {
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
       centrocClienteId: [{ value: obj.centrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
-      esActivo: [{ value: (this.insertar) ? true : obj.activo, disabled: this.insertar }, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: obj.personaId
 
 
@@ -145,6 +145,7 @@ export class DetalleUsuarioComponent implements OnInit {
           apellidoMaterno: obj.apellidoMat,
           curp: obj.curp,
           celular: obj.celular,
+          esActivo: obj.esActivo,
           emailCorporativo: obj.emailCorp,
           contactoInicialEmailPersonal: obj.ciEmailPersonal,
           contactoInicialTelefono: obj.ciTelefono,
