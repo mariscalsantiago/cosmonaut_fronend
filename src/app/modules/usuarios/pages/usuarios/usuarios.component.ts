@@ -267,8 +267,24 @@ export class UsuariosComponent implements OnInit {
       case "filaseleccionada":
         this.activarMultiseleccion = obj.datos;
         break;
+        case "llave":
+         this.generarllave(obj.datos);
+          break;
     }
 
+  }
+
+
+  public generarllave(obj:any){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas resetear y reenviar la clave de este usuario?").then((valor)=>{
+      if(valor){
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        setTimeout(() => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        }, 2000);
+
+      }
+    });
   }
 
 
