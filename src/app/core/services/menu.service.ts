@@ -39,6 +39,7 @@ export class MenuService {
     { nombre: 'CONFIGURACIÓN', icono: "icon_admoncos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA"],submenu:[
                                                                                 {nombre:"CLIENTES",routerLink:['/company'],rol:["ALL","ADMINCOMPANIA"]},
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios'],rol:["ALL","ADMINCOMPANIA"]},
+                                                                                {nombre:"USUARIOS DEL SISTEMA",routerLink:['/admin/users'],rol:["ALL","ADMINCOMPANIA"]}
                                                                               ]},
     { nombre: "ADMINISTRACIÓN", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"CONFIGURACIÓN EMPRESA",routerLink:['/listaempresas'],rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"]},

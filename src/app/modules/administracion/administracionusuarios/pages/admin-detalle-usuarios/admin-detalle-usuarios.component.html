@@ -1,1 +1,105 @@
-<p>admin-detalle-usuarios works!</p>
+<div class="row margen">
+    <div class="col titulo-outlet">
+
+        <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/usuarios"></i>INFORMACIÓN
+            BÁSICA</label>
+    </div>
+</div>
+
+
+<hr>
+
+<form [formGroup]="myForm" class="form-desing"  (ngSubmit)="enviarPeticion()">
+
+    <input type="hidden" formControlName="personaId">
+    <div class="background-panel margen background-ajustar" appTamanioVentana>
+        <div class="form-group row margen"><label class="titulo">Información de Usuario</label></div>
+       
+        <div class="form-group row margen">
+
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>ID usuario *</label>
+                <input  formControlName="personaId" type="text" class="form-control">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Nombre *</label>
+                <input #nombre  appMayusculas formControlName="nombre" type="text" class="form-control"
+                    [ngClass]="{'is-invalid':f.nombre.errors && summitenviado}" placeholder="">
+                <div *ngIf="f.nombre.errors && summitenviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Primer apellido *</label>
+                <input formControlName="apellidoPat" appMayusculas type="text" class="form-control"
+                    [ngClass]="{'is-invalid':f.apellidoPat.errors && summitenviado}" placeholder="">
+                <div *ngIf="f.apellidoPat.errors && summitenviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Segundo apellido</label>
+                <input formControlName="apellidoMat" appMayusculas type="text" class="form-control" placeholder="">
+
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Correo electrónico *</label>
+                <input appMayusculas [minusculas]="true" formControlName="emailCorp"  type="email" class="form-control"
+                    [ngClass]="{'is-invalid':(f.emailCorp.errors?.email && f.emailCorp.touched) || (f.emailCorp.errors?.required && summitenviado) }" placeholder="">
+                <div *ngIf="f.emailCorp.errors?.required && summitenviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+                <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
+                    Correo empresarial inválido, favor de verificar
+                </div>
+
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Fecha de registro en el sistema</label>
+                <input formControlName="fechaAlta" type="text" class="form-control" placeholder="">
+
+            </div>
+            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                <label for="exampleFormControlSelect1">Estatus</label>
+                <select formControlName="esActivo" class="form-control">
+                    <option value="true" selected>ACTIVO</option>
+                    <option value="false">INACTIVO</option>
+                </select>
+            </div>
+
+            <div style="padding-top: 35px;" class="input-group-sm  col-12 col-sm-12 col-md-4 col-lg-4">
+                <label class="contenedorInputCheckRadio">Usuario multicliente
+                  <input (change)="cambiarMulticliente()" formControlName="©" type="checkbox" name="" id="multiempresa">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+
+
+              <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Clientes *</label>
+                <input  type="text" class="form-control" placeholder="">
+
+            </div>
+
+              <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                <label for="exampleFormControlSelect1">Rol *</label>
+                <select class="form-control">
+                    <option value="true" selected>Adminitrador</option>
+                    <option value="false">No admin</option>
+                </select>
+            </div>
+           
+        </div>
+    </div>
+
+
+
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+    </div>
+
+</form>
