@@ -28,6 +28,7 @@ export class ModalService {
 
     if (alerta == this.loadingfinish) {
 
+      this.modal.iconType = "";
       this.modal.modal = false;
       return new Promise((resultado) => { resultado; });
     }
@@ -52,7 +53,7 @@ export class ModalService {
         this.modal.strTitulo = titulo == "" ? "Campos obligatorios o inválidos" : titulo
         break;
       case this.loading:
-        this.modal.strTitulo = titulo == ""?"Cargando":titulo;
+        this.modal.strTitulo = titulo == ""?"":titulo;
         break;
     }
 

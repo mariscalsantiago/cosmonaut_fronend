@@ -21,7 +21,7 @@ export class InicioComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     setTimeout(() => {
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     }, 3000);
 
   }

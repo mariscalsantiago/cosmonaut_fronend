@@ -24,7 +24,7 @@
          "changeOrigin": true
     },
     "/calculos/*":{
-        "target":"http://15060089ba3e.ngrok.io",
+        "target":"https://34.75.54.120/nomina",
         "secure":false,
         "pathRewrite": {
             "^/calculos": ""
