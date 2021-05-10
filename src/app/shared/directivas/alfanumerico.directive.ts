@@ -11,6 +11,7 @@ export class AlfanumericoDirective {
 
   @HostListener("keydown", ["$event"])
   onKeyDown(event: KeyboardEvent) {
+    console.log(event.code);
     if (event.code != 'Backspace' && event.code  !== 'Tab')
       if (!((event.key >= 'A' && event.key <= 'Z') || (event.key >= 'a' && event.key <= 'z'))) {
         if(this.appAlfanumerico == 'true'){
