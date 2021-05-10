@@ -16,7 +16,6 @@ export const routes: Routes = [
   { path: 'imss', component: ContenidoComponent, canActivate: [AutenticacionService], loadChildren: () => import('./modules/IMSS/imss.module').then(m => m.imssModule) },
   { path: 'eventos', component: ContenidoComponent, canActivate: [AutenticacionService], loadChildren: () => import('./modules/eventos/eventos.module').then(m => m.eventosModule) },
   { path: 'nominas', component: ContenidoComponent, canActivate: [AutenticacionService], loadChildren: () => import('./modules/nominas/nominas.module').then(m => m.nominasModule) },
-  { path: 'admin', component: ContenidoComponent, canActivate: [AutenticacionService], loadChildren: () => import('./modules/administracion/administracionusuarios.module').then(m => m.administracionUsuariosModule) },
   { path: 'auth', component: AuthComponent, loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
   { path: '**', redirectTo: '/auth/login', pathMatch: 'full' }
 ]

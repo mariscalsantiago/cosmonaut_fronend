@@ -51,9 +51,10 @@ export class ListaEmpresasComponent implements OnInit {
     this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
       this.arreglo = datos.datos;
+      console.log(this.arreglo,"ESTOE S EL SHOW DEL ARREGLO");
 
       if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
-          this.arreglo = [this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId]
+          this.arreglo = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
       }
 
       let columnas: Array<tabla> = [
@@ -67,7 +68,6 @@ export class ListaEmpresasComponent implements OnInit {
       ];
       if(this.arreglo !== undefined){
         for(let item of this.arreglo){
-
           item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
           item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
@@ -144,6 +144,14 @@ export class ListaEmpresasComponent implements OnInit {
       });
 
 
+     
+
+
+  }
+
+
+  public clonar(obj:any){
+     return JSON.parse(JSON.stringify(obj));
   }
 
 }
