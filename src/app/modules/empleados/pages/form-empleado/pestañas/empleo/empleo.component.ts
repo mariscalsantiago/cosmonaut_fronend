@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
@@ -22,6 +22,9 @@ import { CalculosService } from 'src/app/shared/services/calculos.service';
   styleUrls: ['./empleo.component.scss']
 })
 export class EmpleoComponent implements OnInit {
+  @ViewChild("fechaAntiguedad") fechaAntiguedadElemento!:ElementRef;
+  @ViewChild("fechaInicioCont") fechaInicioCont!:ElementRef;
+  @ViewChild("fechaFinCont") fechaFinCont!:ElementRef;
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;
   @Input() arregloEnviar: any;
@@ -64,7 +67,6 @@ export class EmpleoComponent implements OnInit {
   public obj: any = [];
   public fechaIC: Date = new Date();
   public fechaAntiguedad: Date = new Date();
-  public fechaICorreta: boolean = false;
   public activaFechaFin: boolean = true;
   public puestoIdReporta: number = 0;
 
@@ -85,6 +87,9 @@ export class EmpleoComponent implements OnInit {
   ngOnInit(): void {
 
 
+
+   
+    
 
     this.id_empresa = this.usuarioSistemaPrd.getIdEmpresa();
 
@@ -114,9 +119,18 @@ export class EmpleoComponent implements OnInit {
     this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
 
 
-
    this.suscripciones();
 
+  }
+
+
+  ngAfterViewInit(): void {
+
+   const datepipe = new DatePipe("es-MX");
+   let diamaximo = datepipe.transform(new Date,"yyyy-MM-dd")
+   this.fechaAntiguedadElemento.nativeElement.max = diamaximo;
+   
+   
   }
 
 
@@ -124,6 +138,18 @@ export class EmpleoComponent implements OnInit {
         this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor =>{
             
         });
+
+
+        this.myForm.controls.fechaAntiguedad.valueChanges.subscribe(valor =>{
+              this.fechaInicioCont.nativeElement.min = valor;
+            });
+
+        this.myForm.controls.fechaInicio.valueChanges.subscribe(valor =>{
+          this.fechaFinCont.nativeElement.min = valor;
+        });
+
+
+      
   }
 
 
@@ -157,11 +183,10 @@ export class EmpleoComponent implements OnInit {
 
     if (this.fechaAntiguedad > today) {
 
-      this.modalPrd.showMessageDialog(false, 'La fecha debe ser igual o menor a la fecha actual')
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha debe ser igual o menor a la fecha actual')
         .then(() => {
           this.myForm.controls.fechaAntiguedad.setValue("");
           this.myForm.controls.fechaInicio.setValue("");
-          this.fechaICorreta = true;
         });
 
     } else {
@@ -171,12 +196,19 @@ export class EmpleoComponent implements OnInit {
 
   public validarfechaInicioCont(fecha: any) {
 
+    
 
     if (fecha != "") {
+     if(`${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "" && `${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "null" ){
       var fecha = fecha.split("-");
       this.fechaIC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
-      this.fechaICorreta = true;
-
+     }else{
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'Debes seleccionar la fecha de antigüedad')
+      .then(() => {
+        this.myForm.controls.fechaInicio.setValue("");
+        this.myForm.controls.fechaFin.setValue("");
+      });
+    }
     }
   }
 
@@ -186,7 +218,7 @@ export class EmpleoComponent implements OnInit {
     var fechaFC = new Date();
     var fecha = fecha.split("-");
     fechaFC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
-    if (this.fechaICorreta) {
+    if (`${this.myForm.controls.fechaInicio.value}`.trim() !== "null" &&  `${this.myForm.controls.fechaInicio.value}`.trim() !== "") {
       if (fechaFC < this.fechaIC) {
 
         this.modalPrd.showMessageDialog(false, 'La fecha debe ser mayor a la fecha incio de contrato')

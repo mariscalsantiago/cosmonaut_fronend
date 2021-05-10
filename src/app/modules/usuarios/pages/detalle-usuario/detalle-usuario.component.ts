@@ -43,7 +43,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
     this.verificarCompaniasExista();
 
@@ -98,7 +98,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public createForm(obj: any) {
 
-    debugger;
+    
     return this.formBuilder.group({
 
 
