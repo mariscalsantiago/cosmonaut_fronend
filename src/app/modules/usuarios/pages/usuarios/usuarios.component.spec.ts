@@ -142,7 +142,7 @@ describe("Componente Lista de usuarios", () => {
     navegador.and.callThrough();
     rows.forEach(elemento =>{
         let botones:DebugElement[] = elemento.query(By.css(".opciones")).queryAll(By.css("button"));
-        expect(botones.length).toBe(1);
+        expect(botones.length).toBe(2);
         let botonEditar = botones[0];
         botonEditar.triggerEventHandler("click", null);
         expect(navegador).toHaveBeenCalled();
