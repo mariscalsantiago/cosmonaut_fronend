@@ -23,6 +23,15 @@
 
 }
 
+
+.icon_24llave{
+  $rutaimg:'../../assets/Iconos24/llave.svg';
+  @include icono-imagen($dark);
+  -webkit-mask: url($rutaimg) no-repeat center;
+  mask: url($rutaimg) no-repeat center;
+
+}
+
 .icon_24empleados{
   $rutaimg:'../../assets/Iconos24/empleados.svg';
   @include icono-imagen($dark);
