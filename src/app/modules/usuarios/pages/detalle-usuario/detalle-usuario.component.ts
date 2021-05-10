@@ -43,7 +43,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    debugger;
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
     this.verificarCompaniasExista();
 
@@ -98,7 +98,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public createForm(obj: any) {
 
-
+    debugger;
     return this.formBuilder.group({
 
 
@@ -138,6 +138,7 @@ export class DetalleUsuarioComponent implements OnInit {
           apellidoMaterno: obj.apellidoMat,
           curp: obj.curp,
           celular: obj.celular,
+          esActivo: obj.esActivo,
           emailCorporativo: obj.emailCorp,
           contactoInicialEmailPersonal: obj.ciEmailPersonal,
           contactoInicialTelefono: obj.ciTelefono,
