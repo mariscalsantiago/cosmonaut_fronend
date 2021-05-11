@@ -1,7 +1,11 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
+import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
 import { CalculosService } from 'src/app/shared/services/calculos.service';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
@@ -15,18 +19,46 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   @Output() salida = new EventEmitter<any>();
   @ViewChild("fechafin") fechafin!: ElementRef;
 
+  public arregloTipoNominas:any = [];
+  public arregloCuentasBancarias:any =  [];
+  public arregloCompanias:any = [];
+  public arregloEmpleados:any = [];
+
+  public mostrarAlgunosEmpleados:boolean = false;
+  public seleccionarUsuariosCheck:boolean = false;
+  
+
+
   
 
   
 
   constructor(private modalPrd: ModalService, private grupoNominaPrd: GruponominasService,
     private usuariosPrd: UsuarioSistemaService, private formbuilder: FormBuilder,
-    private usuarioSistemaPrd: UsuarioSistemaService, private calculoPrd: CalculosService) { }
+    private usuarioSistemaPrd: UsuarioSistemaService, private calculoPrd: CalculosService,
+    private catalogosPrd:CatalogosService,private cuentasBancariasPrd:CuentasbancariasService,
+    private companiasPrd:SharedCompaniaService,private empleadosPrd:EmpleadosService) { }
 
   ngOnInit(): void {
+    console.log("ESTO ES COMPAÑIA",this.arregloCompanias);
     this.myForm = this.creandoForm();
 
     this.suscripciones();
+
+
+    this.catalogosPrd.getTiposNomina(true).subscribe(datos => this.arregloTipoNominas = datos.datos);
+    this.cuentasBancariasPrd.getCuentaBancariaByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCuentasBancarias = datos.datos)
+    this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+
+      this.arregloCompanias = datos.datos;
+
+      if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
+          this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
+      }});
+
+
+      this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloEmpleados = datos.datos);
+    
   }
 
   public suscripciones() {
@@ -40,7 +72,18 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
         this.f.fechaFinPeriodo.disable();
         this.f.fechaFinPeriodo.setValue("");
       }
-    })
+    });
+
+
+    this.f.tipoNominaId.valueChanges.subscribe(valor =>{
+     this.seleccionarUsuariosCheck = valor == 2;
+     this.mostrarAlgunosEmpleados = valor == 7 || valor == 4;
+    });
+
+
+    this.f.seleccionarempleados.valueChanges.subscribe(valor =>{
+      this.mostrarAlgunosEmpleados = valor == "2";
+    });
 
 
 
@@ -55,8 +98,13 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
         grupoNomina: [, [Validators.required]],
         usuarioId: this.usuarioSistemaPrd.getUsuario().idUsuario,
         fechaIniPeriodo: [, [Validators.required]],
-        fechaFinPeriodo: [{ value: '', disabled: true }, [Validators.required]],
-        nombreNomina: [, [Validators.required]]
+        fechaFinPeriodo: [{ value: '', disabled: false }, [Validators.required]],
+        nombreNomina: [, [Validators.required]],
+        tipoNominaId:[,[Validators.required]],
+        centrocClienteId:[,[Validators.required]],
+        clabe:[,[Validators.required]],
+        seleccionarempleados:["1"],
+        personaId:[]
       }
     );
   }
@@ -109,6 +157,10 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   public get f() {
     return this.myForm.controls;
+  }
+
+  public clonar(obj:any){
+    return JSON.parse(JSON.stringify(obj));
   }
 
 }

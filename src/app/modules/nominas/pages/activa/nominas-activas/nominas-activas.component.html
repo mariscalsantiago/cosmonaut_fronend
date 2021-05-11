@@ -18,9 +18,9 @@
 
     <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo" >
         <div class="col-6 mt-3">
-            <article>Nómina Quincenal Soulsoft
-                <article>Período 001/2020</article>
-                <article>De 1 oct. hasta 15 oct.</article>
+            <article>{{item.nominaOrdinaria?.nombreNomina}}
+                <article>Período {{item.nominaOrdinaria?.clavePeriodo}}</article>
+                <article>De {{item.nominaOrdinaria?.fechaInicio | date:'dd MMM'}} hasta {{item.nominaOrdinaria?.fechaFin | date:'dd MMM'}}</article>
             </article>
     
         </div>
@@ -53,12 +53,12 @@
                         <a class="nav-item nav-link " id="nav-home-tab" role="tab" aria-controls="nav-home"
                             aria-selected="true">1. Calcular</a>
                         <a class="nav-item nav-link " id="nav-profile-tab" role="tab" aria-controls="nav-profile"
-                            aria-selected="false">2. Pagar</a>
+                            aria-selected="false">2. Dispersar</a>
                         <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
                         <a class="nav-item nav-link " id="nav-contact-tab" role="tab" aria-controls="nav-empleo"
                             aria-selected="false">3. Timbrar</a>
                         <a class="nav-item nav-link " id="nav-contact-tab" role="tab" aria-controls="nav-detalle"
-                            aria-selected="false">4. Completar</a>
+                            aria-selected="false">4. Concluir</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -89,8 +89,8 @@
         </div>
         
     </div>
-    <div class="row   m-2 background-panel "  >
-        <div *ngIf="cargando" class="col text-center mb-5">
+    <div  class="row   m-2 background-panel "  >
+        <div *ngIf="cargando"  class="col text-center mb-5">
             <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
           </div>
           <div *ngIf="!cargando && arreglo.length == 0" class="alert  col text-center">

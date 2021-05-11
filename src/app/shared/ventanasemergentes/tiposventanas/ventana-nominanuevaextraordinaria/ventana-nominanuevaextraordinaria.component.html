@@ -9,56 +9,67 @@
         </div>
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Tipo de nómina *</label>
-            <select class="form-control">
-                <option value="">
-                    Tipos de nòmina
+            <select  [class.is-invalid]="f.tipoNominaId.errors && f.tipoNominaId.touched" formControlName="tipoNominaId" class="form-control">
+                <option *ngFor="let item of arregloTipoNominas" [value]="item.tipoNominaId">
+                    {{item.descripcion}}
                 </option>
             </select>
+            <div *ngIf="f.tipoNominaId.errors && f.tipoNominaId.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Razón social *</label>
-            <select class="form-control">
-                <option value="">
-                    Razón social
+            <select [class.is-invalid]="f.centrocClienteId.errors && f.centrocClienteId.touched" formControlName="centrocClienteId" class="form-control">
+                <option *ngFor="let item of arregloCompanias" [value]="item.centrocClienteId">
+                    {{item.nombre}}
                 </option>
             </select>
+            <div *ngIf="f.centrocClienteId.errors && f.centrocClienteId.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Cuenta bancaria *</label>
-            <select class="form-control">
-                <option value="">
-                   cuenta bancaria
+            <select [class.is-invalid]="f.clabe.errors && f.clabe.touched" formControlName="clabe" class="form-control">
+                <option *ngFor="let item of arregloCuentasBancarias" [value]="item.clabe">
+                   {{item.descripcion}}
                 </option>
             </select>
+            <div *ngIf="f.clabe.errors && f.clabe.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
-        <div class="input-group-sm mb-3 col-6">
+        <div *ngIf="seleccionarUsuariosCheck" class="input-group-sm mb-3 col-6">
             <div>
                 <label>Selecciona empleados *</label>
                 <div >
 
                     <label class="contenedorInputCheckRadio">Incluir todos los empleados
-                        <input 
-                             name="areaGeograficaId" type="radio"
-                           value = "todos">
+                        <input formControlName="seleccionarempleados"
+                             name="seleccionarempleados" type="radio"
+                           value = "1">
+                        <span class="radiomark"></span>
+                    </label>
+
+                    <label class="contenedorInputCheckRadio">Incluir algunos empleados
+                        <input formControlName="seleccionarempleados"
+                             name="seleccionarempleados" type="radio"
+                           value = "2">
                         <span class="radiomark"></span>
                     </label>
 
                 
-                    <label class="contenedorInputCheckRadio">Incluir algunos empleados
-                        <input 
-                             name="areaGeograficaId" type="radio"
-                           value = "algunos">
-                        <span class="radiomark"></span>
-                    </label>
+                 
                 </div>
 
             </div>
         </div>
-        <div class="input-group-sm mb-3 col-6">
-            <label for="exampleFormControlSelect1">Seleccionar los usuarios que estaran en la nómina *</label>
-            <select class="form-control">
-                <option value="">
-                     Usuarios
+        <div *ngIf="mostrarAlgunosEmpleados" class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Empleados *</label>
+            <select formControlName="personaId" class="form-control">
+                <option *ngFor="let item of arregloEmpleados" [value]="item.personaId">
+                     {{item.nombre}} {{item.apellidoPaterno}}
                 </option>
             </select>
         </div>

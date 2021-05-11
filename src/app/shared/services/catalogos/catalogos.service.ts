@@ -199,4 +199,9 @@ export class CatalogosService {
   }
 
 
+  public getTiposNomina(status:boolean):Observable<any>{
+      return this.http.get(`${this.url}/tipoNomina/listar/todosActivo/${status}`);
+  }
+
+
 }

@@ -40,4 +40,15 @@ export class CalculosService {
   }
 
 
+  public getNominasByEmp(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.orquestador}/consulta/nominas/activas`, json, httpOptions);
+  }
+
+
 }
