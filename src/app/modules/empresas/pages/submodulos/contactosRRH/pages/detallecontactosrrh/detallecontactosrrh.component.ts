@@ -63,7 +63,7 @@ export class DetallecontactosrrhComponent implements OnInit {
       apellidoMat: [obj.apellidoMaterno],
       celular: [obj.celular, []],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
-      rfc: [obj.rfc, [Validators.required]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
       emailCorp: [obj.emailCorporativo, [Validators.required, Validators.email]],
       ciEmailPersonal: [obj.contactoInicialEmailPersonal, [ Validators.email]],
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],

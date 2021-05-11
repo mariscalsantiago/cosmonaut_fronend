@@ -43,10 +43,15 @@
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>RFC *</label>
-                <input #rfc formControlName="rfc" type="text" class="form-control" [ngClass]="{'is-invalid':f.rfc.errors && subbmitActive}"  placeholder="">
-                <div *ngIf="f.rfc.errors && subbmitActive" class="invalid-feedback">
-                    Campo requerido
-                  </div>
+                  <input #rfc formControlName="rfc" maxlength="13" type="text" class="form-control"
+                  [ngClass]="{'is-invalid':f.rfc.errors && subbmitActive}">
+                <div *ngIf="f.rfc.errors?.required && subbmitActive" class="invalid-feedback">
+                  Campo requerido
+                </div>
+                <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
+                  Formato de RFC inválido, favor de verificar.
+                </div>
+
               </div>
               <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Correo empresarial *</label>

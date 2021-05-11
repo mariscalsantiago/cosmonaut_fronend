@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 
 @Component({
   selector: 'app-nominanueva-ptu',
@@ -17,11 +18,18 @@ export class NominanuevaPtuComponent implements OnInit {
 
   public valor:string = "1";
   public cargandoIcon:boolean = false;
+  public arregloMonedas: any = [];
+  public cuentasBancarias: any = [];
 
   public myForm!: FormGroup;
-  constructor(private formbuilder: FormBuilder, private modal: ModalService) { }
+  constructor(private formbuilder: FormBuilder, private modal: ModalService, private catalogosPrd:CatalogosService) { }
  
   ngOnInit(): void {
+
+    this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
+    
+    this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.cuentasBancarias = datos.datos);
+
     this.myForm = this.createEtapa1();
   }
 
@@ -34,6 +42,37 @@ export class NominanuevaPtuComponent implements OnInit {
   }
 
   public backTab(index: number) {
+    debugger;
+    switch(index){
+      case 0:
+        this.activado[0].form = true;
+        this.activado[0].seleccionado = true;
+        this.activado[0].tab = true;
+        this.activado[1].tab = false;
+        this.activado[2].tab = false;
+        this.activado[1].form = false;
+        this.activado[2].form = false;
+        break;
+        case 1:
+          this.activado[1].form = true;
+          this.activado[1].seleccionado = true;
+          this.activado[1].tab = true;
+          this.activado[0].tab = false;
+          this.activado[2].tab = false;
+          this.activado[0].form = false;
+          this.activado[2].form = false;
+
+        break;
+        case 3:
+          this.activado[2].form = true;
+          this.activado[2].seleccionado = true;
+          this.activado[2].tab = true;
+          this.activado[0].tab = false;
+          this.activado[1].tab = false;
+          this.activado[0].form = false;
+          this.activado[1].form = false;
+        break;
+    }
 
   }
 
@@ -63,10 +102,11 @@ export class NominanuevaPtuComponent implements OnInit {
   }
 
   public cancelar(){
-
+    this.salida.emit({type:"cancelar"});
   }
 
   public cambiarTab(obj:any){
+    debugger;
     for(let item of this.activado){
         item.form = false;
         item.seleccionado = false;
@@ -79,12 +119,14 @@ export class NominanuevaPtuComponent implements OnInit {
         this.activado[1].form = true;
         this.activado[1].seleccionado = true;
         this.activado[1].tab = true;
+        this.activado[0].seleccionado = true;
         break;
         case "etapa2":
           this.activado[2].form = true;
           this.activado[2].seleccionado = true;
           this.activado[2].tab = true;
-          break;
+          this.activado[1].tab = true;
+        break;
     }
   }
 
