@@ -24,15 +24,19 @@ export class LoginComponent implements OnInit {
   public ventanapass: boolean = false;
   public aparecerCheck: boolean = false;
   public aparecerListaempresas:boolean = false;
+  public cargandoLogin:boolean = false;
 
 
   public cargandoEmpresa: boolean = false;
   public cargandoEmpresaCompania:boolean = false;
-  public arregloCompanias: any = [];
+  public arregloCompanias: any = [{seleccionado:false},{seleccionado:false},{seleccionado:false},{seleccionado:false},{seleccionado:false},{seleccionado:false}];
   public arregloEmpresas: any = [];
 
   public empresaSeleccionada:any;
   public companiaSeleccionada:any;
+
+  public login:boolean = true;
+  public multiempresa:boolean = false;
 
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
     private companiaPrd: SharedCompaniaService,private usuarioSistemaPrd:UsuarioSistemaService,
@@ -54,6 +58,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.cargandoLogin = false;
+    setTimeout(() => {
+     this.cargandoLogin = false;
+    }, 5500);
     //$('#modalshare').modal('show');
   }
 
@@ -164,6 +172,16 @@ export class LoginComponent implements OnInit {
 
     this.usuarioSistemaPrd.setUsuario(usuario);
 
+  }
+
+
+  public seleccionadoCompania(item:any){
+
+    for(let item of this.arregloCompanias){
+       item.seleccionado = false;  
+    } 
+
+    item.seleccionado = true;
   }
 
 
