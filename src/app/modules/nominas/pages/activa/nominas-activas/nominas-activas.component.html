@@ -37,10 +37,10 @@
     
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>$16,499.96</td>
-                        <td>$3,380.60</td>
-                        <td>$13,271.36</td>
+                        <td>{{item.nominaOrdinaria?.empleados}}</td>
+                        <td>$0.00</td>
+                        <td>$0.00</td>
+                        <td>$0.00</td>
                     </tr>
                 </tbody>
             </table>
@@ -93,7 +93,7 @@
         <div *ngIf="cargando"  class="col text-center mb-5">
             <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
           </div>
-          <div *ngIf="!cargando && arreglo.length == 0" class="alert  col text-center">
+          <div *ngIf="!cargando && arreglo == undefined" class="alert  col text-center">
             <strong>En este momento no existen nóminas activas</strong>
           </div>
     </div>

@@ -65,7 +65,7 @@ export class NominasActivasComponent implements OnInit {
         
         if(valor.datos){
 
-          this.arreglo.push(valor.datos.datos);
+          this.arreglo.push({nominaOrdinaria:{...valor.datos.datos}});
            //this.agregarNuevaNomina();
         }
       });
