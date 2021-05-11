@@ -33,7 +33,7 @@
             <label for="exampleFormControlSelect1">Cuenta bancaria *</label>
             <select [class.is-invalid]="f.clabe.errors && f.clabe.touched" formControlName="clabe" class="form-control">
                 <option *ngFor="let item of arregloCuentasBancarias" [value]="item.clabe">
-                   {{item.descripcion}}
+                   {{item.nombreCuenta}}
                 </option>
             </select>
             <div *ngIf="f.clabe.errors && f.clabe.touched" class="invalid-feedback">
@@ -68,8 +68,8 @@
         <div *ngIf="mostrarAlgunosEmpleados" class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Empleados *</label>
             <select formControlName="personaId" class="form-control">
-                <option *ngFor="let item of arregloEmpleados" [value]="item.personaId">
-                     {{item.nombre}} {{item.apellidoPaterno}}
+                <option *ngFor="let item of arregloEmpleados" [value]="item.personaId.personaId">
+                     {{item.personaId.nombre}} {{item.personaId.apellidoPaterno}}
                 </option>
             </select>
         </div>
@@ -90,8 +90,8 @@
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Moneda *</label>
             <select class="form-control">
-                <option value="">
-                    Tipos de moneda
+                <option *ngFor="let item of arregloMonedas " [value]="item.monedaId">
+                    {{item.descripcion}}
                 </option>
             </select>
         </div>

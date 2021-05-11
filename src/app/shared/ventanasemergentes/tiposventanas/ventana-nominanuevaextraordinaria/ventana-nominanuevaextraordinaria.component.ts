@@ -23,6 +23,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   public arregloCuentasBancarias:any =  [];
   public arregloCompanias:any = [];
   public arregloEmpleados:any = [];
+  public arregloMonedas:any = [];
 
   public mostrarAlgunosEmpleados:boolean = false;
   public seleccionarUsuariosCheck:boolean = false;
@@ -48,6 +49,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
     this.catalogosPrd.getTiposNomina(true).subscribe(datos => this.arregloTipoNominas = datos.datos);
     this.cuentasBancariasPrd.getCuentaBancariaByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCuentasBancarias = datos.datos)
+    this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos );
     this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
       this.arregloCompanias = datos.datos;
