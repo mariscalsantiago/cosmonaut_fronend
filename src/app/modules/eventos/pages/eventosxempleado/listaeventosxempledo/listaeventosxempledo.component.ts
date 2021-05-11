@@ -101,6 +101,7 @@ export class ListaeventosxempledoComponent implements OnInit {
            break;
            case "ver":
              this.evento = obj.datos;
+             console.log(obj.datos);
             this.traerModal(obj.indice);
             
              break;

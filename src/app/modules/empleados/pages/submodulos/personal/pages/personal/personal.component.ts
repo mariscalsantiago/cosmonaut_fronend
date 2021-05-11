@@ -56,7 +56,7 @@ export class PersonalComponent implements OnInit {
 
 
       this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datoscontrato => {
-        debugger;
+        
         this.empleado = datoscontrato.datos;
         this.parsearInformacion();
         this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {

@@ -43,7 +43,8 @@ export class VentanaemergenteService {
     subirdocumento: false,
     nuevanominaptu:false,
     tablaisr:false,
-    subcidio:false
+    subcidio:false,
+    nuevanominaextraordinaria:false
   }
 
   constructor() { }
@@ -106,6 +107,10 @@ export class VentanaemergenteService {
         this.mostrar.subcidio = true;
         this.emergente.titulo = "";
         break;
+        case this.nuevanominaextraordinaria:
+          this.mostrar.nuevanominaextraordinaria = true;
+          this.emergente.titulo = "Nueva nómina extraordinaria";
+          break;
     }
     
 

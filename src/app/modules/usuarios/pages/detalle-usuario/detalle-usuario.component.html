@@ -14,16 +14,11 @@
     <input type="hidden" formControlName="personaId">
     <div class="background-panel margen background-ajustar" appTamanioVentana>
         <div class="form-group row margen"><label class="titulo">Información de Usuario</label></div>
+      
         <div class="form-group row margen">
-            <div class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
-                <label for="exampleFormControlSelect1">Cliente *</label>
-                <select #centroCliente  formControlName="centrocClienteId" class="form-control" [ngClass]="{'is-invalid':f.centrocClienteId.errors && summitenviado}"
-                    id="exampleFormControlSelect1">
-                    <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}</option>
-                </select>
-                <div *ngIf="f.centrocClienteId.errors && summitenviado" class="invalid-feedback">
-                    Campo requerido
-                </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>ID persona</label>
+                <input formControlName="personaId" type="text" class="form-control">
             </div>
         </div>
         <div class="form-group row margen">
@@ -38,82 +33,33 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Primer apellido *</label>
-                <input formControlName="apellidoPat" appMayusculas type="text" class="form-control"
-                    [ngClass]="{'is-invalid':f.apellidoPat.errors && summitenviado}" placeholder="">
-                <div *ngIf="f.apellidoPat.errors && summitenviado" class="invalid-feedback">
+                <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control"
+                    [ngClass]="{'is-invalid':f.apellidoPaterno.errors && summitenviado}" placeholder="">
+                <div *ngIf="f.apellidoPaterno.errors && summitenviado" class="invalid-feedback">
                     Campo requerido
                 </div>
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Segundo apellido</label>
-                <input formControlName="apellidoMat" appMayusculas type="text" class="form-control" placeholder="">
+                <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control" placeholder="">
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>CURP</label>
-                <input formControlName="curp" maxlength="18" type="text" class="form-control"
-                    [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}" placeholder="">
-                <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
-                    CURP inválida, favor de verificar
-                </div>
-
-            </div>
-        </div>
-        <hr>
-        <div class="form-group row margen"><label class="titulo">Contacto</label></div>
-        <div class="form group row margen">
-
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Correo empresarial *</label>
-                <input appMayusculas [minusculas]="true" formControlName="emailCorp"  type="email" class="form-control"
-                    [ngClass]="{'is-invalid':(f.emailCorp.errors?.email && f.emailCorp.touched) || (f.emailCorp.errors?.required && summitenviado) }" placeholder="">
-                <div *ngIf="f.emailCorp.errors?.required && summitenviado" class="invalid-feedback">
+                <label>Correo electrónico *</label>
+                <input appMayusculas [minusculas]="true" formControlName="correoelectronico"  type="email" class="form-control"
+                    [ngClass]="{'is-invalid':(f.correoelectronico.errors?.email && f.correoelectronico.touched) || (f.correoelectronico.errors?.required && summitenviado) }" placeholder="">
+                <div *ngIf="f.correoelectronico.errors?.required && summitenviado" class="invalid-feedback">
                     Campo requerido
                 </div>
-                <div *ngIf="f.emailCorp.errors?.email && f.emailCorp.touched" class="invalid-feedback">
+                <div *ngIf="f.correoelectronico.errors?.email && f.correoelectronico.touched" class="invalid-feedback">
                     Correo empresarial inválido, favor de verificar
                 </div>
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Correo personal</label>
-                <input appMayusculas  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [minusculas]="true" formControlName="ciEmailPersonal" type="email" class="form-control text-lowercase"
-                    [ngClass]="{'is-invalid':(f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched) || (f.ciEmailPersonal.errors?.required && summitenviado)}" placeholder="">
-
-                <div *ngIf="f.ciEmailPersonal.errors?.required && summitenviado" class="invalid-feedback">
-                    Campo requerido
-                </div>
-                <div *ngIf="f.ciEmailPersonal.errors?.email && f.ciEmailPersonal.touched" class="invalid-feedback">
-                    Correo personal inválido, favor de verificar
-                </div>
-
-            </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Teléfono *</label>
-                <input appSolonumeros formControlName="ciTelefono" maxlength="10" type="text" class="form-control"
-                    [ngClass]="{'is-invalid':f.ciTelefono.errors && summitenviado}" placeholder="">
-
-                <div *ngIf="f.ciTelefono.errors && summitenviado" class="invalid-feedback">
-                    Campo requerido
-                </div>
-
-            </div>
-
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label >Celular</label>
-                <input appSolonumeros formControlName="celular" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.celular.errors && summitenviado}"
-                    placeholder="">
-      
-                    <div *ngIf="f.celular.errors && summitenviado" class="invalid-feedback">
-                        Campo requerido
-                      </div>
-      
-            </div>
-            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha de registro en el sistema</label>
                 <input formControlName="fechaAlta" type="text" class="form-control" placeholder="">
-
             </div>
             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Estatus</label>
@@ -122,7 +68,25 @@
                     <option value="false">INACTIVO</option>
                 </select>
             </div>
-        </div>
+            <div style="padding-top: 35px;" class="input-group-sm  col-12 col-sm-12 col-md-4 col-lg-4">
+                <label class="contenedorInputCheckRadio">Usuario multicliente
+                  <input (change)="cambiarMultiempresa()" formControlName="multicliente" type="checkbox" name="" id="multiempresa">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+
+              <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Clientes *</label>
+                <input  type="text" class="form-control" placeholder="">
+            </div>
+            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                <label for="exampleFormControlSelect1">Rol *</label>
+                <select formControlName="rol" class="form-control">
+                    <option value="true" selected>Super admín</option>
+                    <option value="false">No administra</option>
+                </select>
+            </div>
+        </div>        
     </div>
 
 

@@ -49,7 +49,7 @@ export class FormEmpleadoComponent implements OnInit {
     private ventana:VentanaemergenteService,private modalPrd:ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     let temp =  history.state.datos;
     
     if(temp !== undefined){
@@ -66,6 +66,10 @@ export class FormEmpleadoComponent implements OnInit {
       this.activado[1].tab = true;
       this.activado[3].tab = true;
     }
+
+
+
+    
 
   }
 
@@ -112,7 +116,7 @@ export class FormEmpleadoComponent implements OnInit {
 
 
         this.empleadosPrd.getPorcentajeavance(this.datosPersona.personaId).subscribe(datos => {
-          debugger;
+          
           this.porcentaje = datos;
           
         });

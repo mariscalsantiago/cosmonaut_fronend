@@ -13,8 +13,6 @@ import { UsuarioService } from '../../services/usuario.service';
 export class DetalleUsuarioComponent implements OnInit {
 
   public tamanio:number= 0;
-
-  @ViewChild("centroCliente") public centrocliente!: ElementRef;
   @ViewChild("nombre") public nombre!: ElementRef;
 
   @HostListener('window:resize', ['$event'])
@@ -45,7 +43,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
     this.verificarCompaniasExista();
 
@@ -54,7 +52,6 @@ export class DetalleUsuarioComponent implements OnInit {
     this.routerActivePrd.params.subscribe(parametros => {
       
       let id = parametros["idusuario"];
-      console.log("ESTO ES LA URTA RECIBIDA",parametros);
       this.insertar = id == undefined;
       if (id != undefined) {
         
@@ -86,8 +83,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
     if (!this.insertar)
       this.nombre.nativeElement.focus();
-    else
-      this.centrocliente.nativeElement.focus();
+   
   }
 
 
@@ -102,23 +98,21 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public createForm(obj: any) {
 
-    debugger;
+    
     return this.formBuilder.group({
 
 
 
       nombre: [obj.nombre, [Validators.required]],
-      apellidoPat: [obj.apellidoPaterno, [Validators.required]],
-      apellidoMat: [obj.apellidoMaterno],
-      celular: [obj.celular, []],
-      curp: [obj.curp, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
-      emailCorp: [obj.emailCorporativo, [Validators.required, Validators.email]],
-      ciEmailPersonal: [obj.contactoInicialEmailPersonal, [ Validators.email]],
-      ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
+      apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
+      apellidoMaterno: [obj.apellidoMaterno],
+      correoelectronico: [obj.emailCorporativo, [Validators.required, Validators.email]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
       centrocClienteId: [{ value: obj.centrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
-      personaId: obj.personaId
+      personaId: [{value:obj.personaId,disabled:true}],
+      multicliente:obj.multicliente,
+      rol:obj.rol
 
 
     });
@@ -200,6 +194,12 @@ export class DetalleUsuarioComponent implements OnInit {
   public cancelar() {
     console.log("YA SE CANCELO");
     this.routerPrd.navigate(['/usuarios']);
+  }
+
+
+  public cambiarMultiempresa(){
+
+
   }
 
 

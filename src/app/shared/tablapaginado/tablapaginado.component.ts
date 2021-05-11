@@ -34,6 +34,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public porcentaje: boolean = false;
   @Input() public tablabeneficios: boolean = false;
   @Input() public timbrado: boolean = false;
+  @Input() public llave:boolean = false;
 
   @Input() public icondefault: string = "default";
 
@@ -267,6 +268,9 @@ export class TablapaginadoComponent implements OnInit {
   public btnVer(item: any, indice: number) {
     this.salida.emit({ type: "ver", datos: item, indice: indice });
   }
+  public btnLlave(item: any, indice: number) {
+    this.salida.emit({ type: "llave", datos: item, indice: indice });
+  }
   public btnDesglosar(item: any, indice: number) {
 
     if (item.desglosarDown) {
@@ -341,6 +345,8 @@ export class TablapaginadoComponent implements OnInit {
       a[j] = aux;
     }
   }
+
+  
 
 
 }

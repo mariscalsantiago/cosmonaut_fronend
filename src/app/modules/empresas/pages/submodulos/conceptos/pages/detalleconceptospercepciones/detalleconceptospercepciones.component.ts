@@ -156,6 +156,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
           if (this.esInsert) {
+            debugger;
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
             this.conceptosPrd.savePer(this.peticion).subscribe(datos => {

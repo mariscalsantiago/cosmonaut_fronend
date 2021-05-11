@@ -247,6 +247,7 @@ export class InformacionbasicaComponent implements OnInit {
 
   public cambiaCurp(){
     if(this.myform.controls.curp.valid){
+      const datePipe = new DatePipe("es-MX");
         let genero = this.myform.value.curp.slice(10,11);
         this.myform.controls.genero.setValue(genero=="M"?"F":"M");
 
@@ -254,9 +255,15 @@ export class InformacionbasicaComponent implements OnInit {
         let mes:number = this.myform.value.curp.slice(6,8);
         let dia:number = this.myform.value.curp.slice(8,10);
 
-        const anioNacimiento:Date = new Date(anio,mes-1,dia);
+        let anioactual = new Date();
+        let anioCalculado = new Date(anioactual.getFullYear()-70,anioactual.getMonth(),anioactual.getDate());
+        let anioCalculado_year:number = Number(datePipe.transform(anioCalculado,"yy"))
+        
 
-        const datePipe = new DatePipe("es-MX");
+
+        const anioNacimiento:Date = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
+
+        
         this.myform.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"yyyy-MM-dd"));
 
 
