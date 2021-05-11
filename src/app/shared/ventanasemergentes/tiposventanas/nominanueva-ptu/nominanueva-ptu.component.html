@@ -39,21 +39,24 @@
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
                                 <label for="cuenta">Cuenta bancaria *</label>
-                                <input id="cuenta" formControlName="bancoId"
+                                <select formControlName="bancoId" class="form-control"
                                     [class.is-invalid]="f.bancoId.errors && f.bancoId.touched" type="text"
                                     class="form-control">
-                                <div *ngIf="f.bancoId.errors && f.bancoId.touched" class="invalid-feedback">
-                                    Campo requerido
-                                </div>
+                                <option *ngFor="let item of cuentasBancarias" [value]="item.bancoId">{{item.nombreCorto}}</option>
+                              </select>
+                              <div *ngIf="f.bancoId.errors && f.bancoId.touched" class="invalid-feedback">
+                                Campo requerido
+                              </div>
+                                
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
                                 <label for="moneda">Moneda *</label>
-                                <input id="moneda" formControlName="monedaId"
-                                    [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" type="text"
-                                    class="form-control">
-                                <div *ngIf="f.monedaId.errors && f.monedaId.touched" class="invalid-feedback">
+                                <select formControlName="monedaId" [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" type= "text" class="form-control">
+                                    <option *ngFor="let item of arregloMonedas" [value]="item.monedaId">{{item.descripcion}}</option>
+                                  </select>
+                                  <div *ngIf="f.monedaId.errors && f.monedaId.touched" class="invalid-feedback">
                                     Campo requerido
-                                </div>
+                                  </div>
                             </div>
                         </div>
 
