@@ -467,6 +467,7 @@ export class EmpleoComponent implements OnInit {
           fechaAntiguedad: obj.fechaAntiguedad,
           tipoContratoId: { tipoContratoId: obj.tipoContratoId },
           fechaInicio: obj.fechaInicio,
+          fechaContrato: obj.fechaInicio,
           fechaFin: obj.fechaFin,
           areaGeograficaId: { areaGeograficaId: obj.areaGeograficaId },
           grupoNominaId: { grupoNominaId: obj.grupoNominaId },
