@@ -51,7 +51,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
 
 
-    obj.gravaIsr = false;
+   // obj.gravaIsr = false;
     if (obj.gravaIsr == "S") {
       obj.gravaIsr = true
     }
@@ -156,7 +156,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
           if (this.esInsert) {
-            
+            debugger;
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
             this.conceptosPrd.savePer(this.peticion).subscribe(datos => {

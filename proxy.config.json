@@ -32,7 +32,7 @@
          "changeOrigin": true
     },
     "/tablas/*":{
-        "target":"http://1a1f95a24aac.ngrok.io",
+        "target":"https://34.75.54.120/admin",
         "secure":false,
         "pathRewrite": {
             "^/tablas": ""
