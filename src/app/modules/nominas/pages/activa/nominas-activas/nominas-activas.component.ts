@@ -34,6 +34,10 @@ export class NominasActivasComponent implements OnInit {
     this.calculoPrd.getNominasByEmp(objenviar).subscribe(datos => {
       this.cargando = false;
       this.arreglo = datos.datos;
+
+      for(let item of this.arreglo){
+          item["inicial"] = item.nominaOrdinaria.total == undefined;
+      }
     })
 
       // this.nominaPrd.getAllNominas().subscribe(datos =>{
@@ -72,16 +76,24 @@ export class NominasActivasComponent implements OnInit {
   }
 
   public calcularNomina(item:any){
+    
 
+    console.log("Esto es",item);
 
     this.modalPrd.showMessageDialog(this.modalPrd.question,"Importante","No has calculado el promedio de variables para este bimestre. Si continuas, tomaremos el promedio del bimestre anterior.").then((valor)=>{
        if(valor){
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        setTimeout(() => {
-          item.inicial = false;
+        let objEnviar = {
+          nominaXperiodoId: item.nominaOrdinaria.nominaXperiodoId,
+          clienteId: this.usuariSistemaPrd.getIdEmpresa(),
+          usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
+        }
+        this.calculoPrd.calcularNomina(objEnviar).subscribe(datos =>{
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.router.navigate(['/nominas/nomina']);
-        }, 4000);
+        });
+
+
        }
     });
 

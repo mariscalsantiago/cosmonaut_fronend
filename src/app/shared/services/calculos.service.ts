@@ -8,10 +8,10 @@ import { direcciones } from '../../../assets/direcciones';
 })
 export class CalculosService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 
-  public calculoSueldoBruto(obj:any):Observable<any>{
+  public calculoSueldoBruto(obj: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ export class CalculosService {
     return this.http.post(`${direcciones.orquestador}/calcula/salario/bruto/mensual`, json, httpOptions);
   }
 
-  public crearNomina(obj:any):Observable<any>{
+  public crearNomina(obj: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export class CalculosService {
   }
 
 
-  public getNominasByEmp(obj:any):Observable<any>{
+  public getNominasByEmp(obj: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -48,6 +48,20 @@ export class CalculosService {
     };
     let json: string = JSON.stringify(obj);
     return this.http.post(`${direcciones.orquestador}/consulta/nominas/activas`, json, httpOptions);
+  }
+
+  public calcularNomina(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.orquestador}/calcula/nomina/periodo`, json, httpOptions);
+
+
+
   }
 
 
