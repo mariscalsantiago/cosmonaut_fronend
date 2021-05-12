@@ -16,6 +16,8 @@ import { DatePipe } from '@angular/common';
 import { CalculosService } from 'src/app/shared/services/calculos.service';
 
 
+
+
 @Component({
   selector: 'app-empleo',
   templateUrl: './empleo.component.html',
@@ -739,7 +741,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public cambiasueldobruto(){
-    
+         
 
   
 
