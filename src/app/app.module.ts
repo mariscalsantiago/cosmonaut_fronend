@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,6 +49,8 @@ registerLocaleData(localeEn, 'es-MX');
     },
     {
       provide:LOCALE_ID,useValue:'es-MX'
+    },{
+      provide:DEFAULT_CURRENCY_CODE,useValue:'MXN'
     }],
   bootstrap: [AppComponent]
 })
