@@ -4,6 +4,8 @@ import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.s
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominasService } from '../../../services/nominas.service';
+import { CalculosService } from 'src/app/shared/services/calculos.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-nomina-extraordinaria',
@@ -18,17 +20,24 @@ export class NominaExtraordinariaComponent implements OnInit {
   public arregloPersonas:any = [];
 
   constructor(private ventana:VentanaemergenteService,private router:Router,
-    private modalPrd:ModalService,private nominaPrd:NominasService,private empleadoPrd:EmpleadosService) { }
+    private modalPrd:ModalService,private nominaPrd:NominasService,
+    private empleadoPrd:EmpleadosService, private calculoPrd:CalculosService, private usuariSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
     this.cargando = true;
+    let objenviar = 
+    {
+      clienteId: this.usuariSistemaPrd.getIdEmpresa()
+    }
+    this.calculoPrd.getConsultaNominaExtraordinaria(objenviar).subscribe(datos => {
+      this.cargando = false;
+      this.arreglo = datos.datos;
 
-      this.nominaPrd.getAllNominas().subscribe(datos =>{
-        this.cargando = false;
-        this.arreglo = datos;
-        
-      });
+      for(let item of this.arreglo){
+          item["inicial"] = item.nominaExtraordinaria.total == undefined;
+      }
+    })
 
 
       this.arregloPersonas = this.nominaPrd.arregloEmpleado;

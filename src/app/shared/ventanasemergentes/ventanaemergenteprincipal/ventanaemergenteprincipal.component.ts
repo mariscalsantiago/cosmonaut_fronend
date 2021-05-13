@@ -38,7 +38,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     nuevanominaextraordinaria:false,
     nuevanominaptu:false,
     tablaisr: false,
-    subcidio: false
+    subcidio: false,
+    nuevanominafiniquitoliquidacion: false
   }
 
   @HostListener('window:resize', ['$event'])

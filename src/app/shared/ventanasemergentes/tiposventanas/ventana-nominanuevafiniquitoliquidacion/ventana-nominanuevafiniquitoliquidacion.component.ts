@@ -9,18 +9,15 @@ import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-c
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
-
 @Component({
-  selector: 'app-ventana-nominanuevaextraordinaria',
-  templateUrl: './ventana-nominanuevaextraordinaria.component.html',
-  styleUrls: ['./ventana-nominanuevaextraordinaria.component.scss']
+  selector: 'app-ventana-nominanuevafiniquitoliquidacion',
+  templateUrl: './ventana-nominanuevafiniquitoliquidacion.component.html',
+  styleUrls: ['./ventana-nominanuevafiniquitoliquidacion.component.scss']
 })
-export class VentanaNominanuevaextraordinariaComponent implements OnInit {
-
+export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   public myForm!: FormGroup;
   @Output() salida = new EventEmitter<any>();
   @ViewChild("fechafin") fechafin!: ElementRef;
-
 
   public arregloTipoNominas:any = [];
   public arregloCuentasBancarias:any =  [];
@@ -93,7 +90,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   }
 
   public validarEmpleados(id:any){
-    debugger;
+
      if (id == 2){
       this.mostrarAlgunosEmpleados= true;
      }else{
@@ -109,12 +106,12 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
       {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
         usuarioId: this.usuarioSistemaPrd.getUsuario().idUsuario,
-        //fechaIniPeriodo: [, [Validators.required]],
+        fechaIniPeriodo: [, [Validators.required]],
         //fechaFinPeriodo: [{ value: '', disabled: false }, [Validators.required]],
         nombreNomina: [, [Validators.required]],
         monedaId: [],
         centrocClienteId: [],
-        tipoNominaId:[,[Validators.required]],
+        //tipoNominaId:[,[Validators.required]],
         clabe:[,[Validators.required]],
         seleccionarempleados:["1"],
         personaId:[]
@@ -155,14 +152,13 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
             usuarioId: obj.usuarioId,
             nombreNomina: obj.nombreNomina,
             cuentaBancoId: obj.clabe,
-            tipoNominaId: obj.tipoNominaId,
-            todos: false,
+            todos: true,
             monedaId: obj.monedaId,
             empleados: {
                 colaborador: {
-                    fecha_contrato: null,
-                    persona_id: null,
-                    cliente_id: null
+                    fecha_contrato: obj.fechaIniPeriodo,
+                    persona_id: 788,
+                    cliente_id: obj.clienteId
                 }
             }
           };

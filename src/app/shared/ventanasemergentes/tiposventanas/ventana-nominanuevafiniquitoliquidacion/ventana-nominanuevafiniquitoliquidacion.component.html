@@ -7,7 +7,8 @@
                 Campo requerido
             </div>
         </div>
-        <div class="input-group-sm mb-3 col-6">
+        <div class="input-group-sm mb-3 col-6"></div>
+        <!--<div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Tipo de nómina *</label>
             <select  [class.is-invalid]="f.tipoNominaId.errors && f.tipoNominaId.touched" formControlName="tipoNominaId" class="form-control">
                 <option *ngFor="let item of arregloTipoNominas" [value]="item.tipoNominaId">
@@ -17,7 +18,7 @@
             <div *ngIf="f.tipoNominaId.errors && f.tipoNominaId.touched" class="invalid-feedback">
                 Campo requerido
             </div>
-        </div>
+        </div>-->
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Razón social *</label>
             <select [class.is-invalid]="f.centrocClienteId.errors && f.centrocClienteId.touched" formControlName="centrocClienteId" class="form-control">
@@ -46,14 +47,15 @@
                 <div >
 
                     <label class="contenedorInputCheckRadio">Incluir todos los empleados
-                        <input formControlName="seleccionarempleados" #tipouno (click)="validarEmpleados(tipouno.value)" 
+                        <input formControlName="seleccionarempleados"
                              name="seleccionarempleados" type="radio"
                            value = "1">
                         <span class="radiomark"></span>
                     </label>
                     
+
                     <label class="contenedorInputCheckRadio">Incluir algunos empleados
-                        <input formControlName="seleccionarempleados" #tipodos (click)="validarEmpleados(tipodos.value)" 
+                        <input formControlName="seleccionarempleados" #tipo (focusout)="validarEmpleados(tipo.value)" 
                              name="seleccionarempleados" type="radio"
                            value = "2">
                         <span class="radiomark"></span>
@@ -73,16 +75,14 @@
                 </option>
             </select>
         </div>
-
-
-        <!--<div class="input-group-sm mb-3 col-6">
+        <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Fecha de la nómina *</label>
             <input [class.is-invalid]="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" formControlName="fechaIniPeriodo"  type="date" name=""  class="form-control">
             <div *ngIf="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" class="invalid-feedback">
                 Campo requerido
             </div>
         </div>
-        <div class="input-group-sm mb-3 col-6">
+        <!--<div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Fecha de fin *</label>
             <input formControlName="fechaFinPeriodo" #fechafin [class.is-invalid]="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" type="date" name=""  class="form-control">
             <div *ngIf="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" class="invalid-feedback">

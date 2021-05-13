@@ -98,8 +98,7 @@ export class NominasActivasComponent implements OnInit {
        }
     });
 
-
-      
+     
   }
 
   public continuar(item:any){

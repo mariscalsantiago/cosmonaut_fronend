@@ -19,6 +19,8 @@ export class VentanaemergenteService {
   public nuevanominaptu:string = "nuevanominaptu";
   public tablaisr:string = "tablaisr";
   public subcidio:string = "subcidio";
+  public nuevanominafiniquitoliquidacion: string = "nuevanominafiniquitoliquidacion";
+
   
 
   private subject?: Subject<any>;;
@@ -44,7 +46,8 @@ export class VentanaemergenteService {
     nuevanominaptu:false,
     tablaisr:false,
     subcidio:false,
-    nuevanominaextraordinaria:false
+    nuevanominaextraordinaria:false,
+    nuevanominafiniquitoliquidacion: false
   }
 
   constructor() { }
@@ -108,9 +111,15 @@ export class VentanaemergenteService {
         this.emergente.titulo = "";
         break;
         case this.nuevanominaextraordinaria:
-          this.mostrar.nuevanominaextraordinaria = true;
-          this.emergente.titulo = "Nueva nómina finiquito/liquidación";
-          break;
+        this.mostrar.nuevanominaextraordinaria = true;
+        this.emergente.titulo = "Nueva nómina extraordinaria";
+        break;
+        case this.nuevanominafiniquitoliquidacion:
+        this.mostrar.nuevanominafiniquitoliquidacion = true;
+        this.emergente.titulo = "Nueva nómina finiquito/liquidación";
+        break;
+
+          
     }
     
 
