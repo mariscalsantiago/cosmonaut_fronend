@@ -1,7 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
+import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 
@@ -12,6 +14,7 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 })
 export class PagarComponent implements OnInit {
   @Output() salida = new EventEmitter();
+  @Input() nominaSeleccionada:any;
 
   public cargando:boolean = false;
   public cargandoIcon:boolean = false;
@@ -24,48 +27,56 @@ export class PagarComponent implements OnInit {
   public arreglo:any = [];
 
   constructor(private modalPrd:ModalService,private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,
-    private ventana:VentanaemergenteService) { }
+    private ventana:VentanaemergenteService,private calculoPrd:CalculosService,private cp:CurrencyPipe) { }
 
 
 
   ngOnInit(): void {
 
 
+    let objEnviar = {
+      nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
+  }
+  
 
-    this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-      this.arreglo = [datos.datos[0]];
 
+
+  this.cargando = true;
+  this.calculoPrd.getTotalEmpleadoConPagoNeto(objEnviar).subscribe(datos =>{
+      this.arreglo = datos.datos;
 
       let columnas:Array<tabla> = [
         new tabla("nombrecompleto","Nombre"),
         new tabla("rfc","RFC",false,false,true),
-        new tabla("diaslaborados","Banco",false,false,true),
+        new tabla("banco","Banco",false,false,true),
         new tabla("total","Total",false,false,true),
-        new tabla("tipo","Tipo de pago",false,false,true),
+        new tabla("tipopago","Tipo de pago",false,false,true),
         new tabla("status","Estatus ",false,false,true)
       ];
-  
-  
+
+
       for(let item of this.arreglo){
-          item["nombrecompleto"]="Santiago Dario Ocampo";
-          item["rfc"]="OCSA8809087Z7";
-          item["diaslaborados"]="BBVA Bancomer";
-          item["percepciones"]="$16,499.96";
-          item["tipo"]="Transferencia";
-          item["total"]="$13,271.36";
-          item["status"] = "No pagado";
-      }
+        item["nombrecompleto"]=item.empleadoApago.nombreEmpleado+" "+item.empleadoApago.apellidoPatEmpleado+" "+(item.empleadoApago.apellidoMatEmpleado == undefined)?"":item.empleadoApago.apellidoMatEmpleado;
+        item["rfc"]="falta";
+        item["banco"]=item.empleadoApago.banco;
+        item["tipopago"]=item.empleadoApago.tipoPago;
+        item["total"]=this.cp.transform(item.empleadoApago.totalNetoEndinero);
+        item["status"] = item.empleadoApago.status;
+    }
+
+    let filas:Array<any> = this.arreglo;
+
+    this.arreglotabla = {
+      columnas:columnas,
+      filas:filas
+    }
+
+    this.cargando = false;
   
-      let filas:Array<any> = this.arreglo;
-  
-      this.arreglotabla = {
-        columnas:columnas,
-        filas:filas
-      }
+  });
   
 
-    });
-  
+   
   
 
    

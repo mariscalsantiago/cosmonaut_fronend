@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
@@ -14,6 +14,8 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { CalculosService } from 'src/app/shared/services/calculos.service';
+
+
 
 
 @Component({
@@ -136,10 +138,7 @@ export class EmpleoComponent implements OnInit {
 
   public suscripciones(){
         this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor =>{
-            
         });
-
-
         this.myForm.controls.fechaAntiguedad.valueChanges.subscribe(valor =>{
               this.fechaInicioCont.nativeElement.min = valor;
             });
@@ -346,12 +345,7 @@ export class EmpleoComponent implements OnInit {
     if (obj.areaGeograficaId == undefined) {
       obj.areaGeograficaId = 1;
     }
-
-
     const pipe = new DatePipe("es-MX");
-
-
-
 
     return this.formBuilder.group({
       areaId: [obj.areaId?.areaId, [Validators.required]],
@@ -747,10 +741,12 @@ export class EmpleoComponent implements OnInit {
 
 
   public cambiasueldobruto(){
-    
+         
 
   
 
+
+    
 
 
     if(this.myForm.controls.sueldoBrutoMensual.invalid){
@@ -797,6 +793,7 @@ export class EmpleoComponent implements OnInit {
    debugger;
 
 
+    console.log("Esto es lo que se manda al back en sueldo",objenviar);
     this.modalPrd.showMessageDialog(this.modalPrd.loading,"Calculando");
 
     this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos =>{

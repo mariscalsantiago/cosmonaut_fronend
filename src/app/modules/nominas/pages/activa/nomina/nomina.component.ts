@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
+import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { NominasService } from '../../../services/nominas.service';
 
 @Component({
@@ -14,14 +15,17 @@ export class NominaComponent implements OnInit {
     { tab: false, form: false, disabled: false, seleccionado: false },
     { tab: false, form: false, disabled: false, seleccionado: false }];
 
-  constructor(private empleadoPrd:EmpleadosService,private nominaPrd:NominasService) { }
+    public nominaSeleccionada:any;
+    public arreglo:any = [];
+
+  constructor(private nominaPrd:NominasService,private calculoPrd:CalculosService) { }
 
   ngOnInit(): void {
 
+    this.nominaSeleccionada = history.state.datos == undefined ? {} : history.state.datos;
 
-    this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-      this.nominaPrd.saveEmpleado(datos.datos);
-    });
+
+   
   }
 
 

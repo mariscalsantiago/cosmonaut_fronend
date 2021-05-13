@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule, CurrencyPipe } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -18,7 +18,8 @@ import { NominaPTUComponent } from './pages/nomina-ptu/nominas-ptu-activas/nomin
 
 @NgModule({
     declarations:[NominasActivasComponent, NominaComponent, CalcularComponent, PagarComponent, TimbrarComponent, CompletarComponent, NominaHistoricasComponent, NominaExtraordinariaComponent, NominaDFiniquitoliquidacionActivasComponent, NominaCalculadoraComponent, NominaPTUComponent],
-    imports:[CommonModule,ReactiveFormsModule,FormsModule,HttpClientModule,nominasRoutingModule,ShareModule]
+    imports:[CommonModule,ReactiveFormsModule,FormsModule,HttpClientModule,nominasRoutingModule,ShareModule],
+    providers:[CurrencyPipe]
 })
 export class nominasModule{
 
