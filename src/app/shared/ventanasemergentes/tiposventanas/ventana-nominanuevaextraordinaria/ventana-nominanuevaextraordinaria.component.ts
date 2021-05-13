@@ -27,10 +27,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   public mostrarAlgunosEmpleados:boolean = false;
   public seleccionarUsuariosCheck:boolean = false;
-  
-
-
-  
+  public objEnviar: any = []; 
 
   
 
@@ -41,6 +38,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     private companiasPrd:SharedCompaniaService,private empleadosPrd:EmpleadosService) { }
 
   ngOnInit(): void {
+    debugger;
     console.log("ESTO ES COMPAÑIA",this.arregloCompanias);
     this.myForm = this.creandoForm();
 
@@ -64,9 +62,9 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   }
 
   public suscripciones() {
+    debugger;
 
-
-    this.f.fechaIniPeriodo.valueChanges.subscribe(valor => {
+    /*this.f.fechaIniPeriodo.valueChanges.subscribe(valor => {
       if (this.f.fechaIniPeriodo.valid) {
         this.f.fechaFinPeriodo.enable();
         this.fechafin.nativeElement.min = valor;
@@ -74,10 +72,10 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
         this.f.fechaFinPeriodo.disable();
         this.f.fechaFinPeriodo.setValue("");
       }
-    });
+    });*/
 
 
-    this.f.tipoNominaId.valueChanges.subscribe(valor =>{
+    /*this.f.tipoNominaId.valueChanges.subscribe(valor =>{
      this.seleccionarUsuariosCheck = valor == 2;
      this.mostrarAlgunosEmpleados = valor == 7 || valor == 4;
     });
@@ -85,7 +83,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
     this.f.seleccionarempleados.valueChanges.subscribe(valor =>{
       this.mostrarAlgunosEmpleados = valor == "2";
-    });
+    });*/
 
 
 
@@ -97,13 +95,13 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     return this.formbuilder.group(
       {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
-        grupoNomina: [, [Validators.required]],
         usuarioId: this.usuarioSistemaPrd.getUsuario().idUsuario,
         fechaIniPeriodo: [, [Validators.required]],
-        fechaFinPeriodo: [{ value: '', disabled: false }, [Validators.required]],
+        //fechaFinPeriodo: [{ value: '', disabled: false }, [Validators.required]],
         nombreNomina: [, [Validators.required]],
-        tipoNominaId:[,[Validators.required]],
-        centrocClienteId:[,[Validators.required]],
+        monedaId: [],
+        centrocClienteId: [],
+        //tipoNominaId:[,[Validators.required]],
         clabe:[,[Validators.required]],
         seleccionarempleados:["1"],
         personaId:[]
@@ -137,6 +135,23 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas crear la  nómina?").then(valor => {
       if (valor) {
+        let  obj = this.myForm.getRawValue();
+        debugger;
+          this.objEnviar = {
+            clienteId: obj.clienteId,
+            usuarioId: obj.usuarioId,
+            nombreNomina: obj.nombreNomina,
+            cuentaBancoId: obj.clabe,
+            todos: true,
+            monedaId: obj.monedaId,
+            empleados: {
+                colaborador: {
+                    fecha_contrato: obj.fechaIniPeriodo,
+                    persona_id: 788,
+                    cliente_id: obj.clienteId
+                }
+            }
+          };
         this.guardarNomina();
       }
 
@@ -146,7 +161,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   public guardarNomina() {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    this.calculoPrd.crearNomina(this.myForm.value).subscribe(datos => {
+    this.calculoPrd.crearNominaExtraordinria(this.objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       
       this.salida.emit({

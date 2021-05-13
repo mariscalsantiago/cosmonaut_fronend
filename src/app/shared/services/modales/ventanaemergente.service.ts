@@ -109,7 +109,7 @@ export class VentanaemergenteService {
         break;
         case this.nuevanominaextraordinaria:
           this.mostrar.nuevanominaextraordinaria = true;
-          this.emergente.titulo = "Nueva nómina extraordinaria";
+          this.emergente.titulo = "Nueva nómina finiquito/liquidación";
           break;
     }
     

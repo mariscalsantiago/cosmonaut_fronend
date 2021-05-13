@@ -7,7 +7,8 @@
                 Campo requerido
             </div>
         </div>
-        <div class="input-group-sm mb-3 col-6">
+        <div class="input-group-sm mb-3 col-6"></div>
+        <!--<div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Tipo de nómina *</label>
             <select  [class.is-invalid]="f.tipoNominaId.errors && f.tipoNominaId.touched" formControlName="tipoNominaId" class="form-control">
                 <option *ngFor="let item of arregloTipoNominas" [value]="item.tipoNominaId">
@@ -17,7 +18,7 @@
             <div *ngIf="f.tipoNominaId.errors && f.tipoNominaId.touched" class="invalid-feedback">
                 Campo requerido
             </div>
-        </div>
+        </div>-->
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Razón social *</label>
             <select [class.is-invalid]="f.centrocClienteId.errors && f.centrocClienteId.touched" formControlName="centrocClienteId" class="form-control">
@@ -32,7 +33,7 @@
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Cuenta bancaria *</label>
             <select [class.is-invalid]="f.clabe.errors && f.clabe.touched" formControlName="clabe" class="form-control">
-                <option *ngFor="let item of arregloCuentasBancarias" [value]="item.clabe">
+                <option *ngFor="let item of arregloCuentasBancarias" [value]="item.bancoId.bancoId">
                    {{item.nombreCuenta}}
                 </option>
             </select>
@@ -40,7 +41,7 @@
                 Campo requerido
             </div>
         </div>
-        <div *ngIf="seleccionarUsuariosCheck" class="input-group-sm mb-3 col-6">
+        <div class="input-group-sm mb-3 col-6">
             <div>
                 <label>Selecciona empleados *</label>
                 <div >
@@ -74,22 +75,22 @@
             </select>
         </div>
         <div class="input-group-sm mb-3 col-6">
-            <label for="exampleFormControlSelect1">Fecha de inicio *</label>
+            <label for="exampleFormControlSelect1">Fecha de la nómina *</label>
             <input [class.is-invalid]="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" formControlName="fechaIniPeriodo"  type="date" name=""  class="form-control">
             <div *ngIf="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" class="invalid-feedback">
                 Campo requerido
             </div>
         </div>
-        <div class="input-group-sm mb-3 col-6">
+        <!--<div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Fecha de fin *</label>
             <input formControlName="fechaFinPeriodo" #fechafin [class.is-invalid]="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" type="date" name=""  class="form-control">
             <div *ngIf="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" class="invalid-feedback">
                 Campo requerido
             </div>
-        </div>
+        </div>-->
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Moneda *</label>
-            <select class="form-control">
+            <select formControlName="monedaId" class="form-control">
                 <option *ngFor="let item of arregloMonedas " [value]="item.monedaId">
                     {{item.descripcion}}
                 </option>
