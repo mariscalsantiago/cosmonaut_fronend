@@ -45,6 +45,8 @@ export class PagarComponent implements OnInit {
   this.calculoPrd.getTotalEmpleadoConPagoNeto(objEnviar).subscribe(datos =>{
       this.arreglo = datos.datos;
 
+      console.log("dispesion empleado",this.arreglo);
+
       let columnas:Array<tabla> = [
         new tabla("nombrecompleto","Nombre"),
         new tabla("rfc","RFC",false,false,true),
@@ -56,7 +58,10 @@ export class PagarComponent implements OnInit {
 
 
       for(let item of this.arreglo){
-        item["nombrecompleto"]=item.empleadoApago.nombreEmpleado+" "+item.empleadoApago.apellidoPatEmpleado+" "+(item.empleadoApago.apellidoMatEmpleado == undefined)?"":item.empleadoApago.apellidoMatEmpleado;
+        console.log("Este es el nombre",item.empleadoApago.nombreEmpleado+" "+item.empleadoApago.apellidoPatEmpleado+" ");
+        
+        item["nombrecompleto"]=item.empleadoApago.nombreEmpleado+" "+item.empleadoApago.apellidoPatEmpleado+" ";
+        item["nombrecompleto"] += (item.empleadoApago.apellidoMatEmpleado == undefined)?"":item.empleadoApago.apellidoMatEmpleado;
         item["rfc"]="falta";
         item["banco"]=item.empleadoApago.banco;
         item["tipopago"]=item.empleadoApago.tipoPago;

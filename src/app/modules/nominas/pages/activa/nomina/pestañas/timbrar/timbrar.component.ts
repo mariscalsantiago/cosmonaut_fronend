@@ -23,6 +23,9 @@ export class TimbrarComponent implements OnInit {
   };
 
 
+  public datosExtras:any = {datos:undefined};
+
+
   @Input() nominaSeleccionada:any;
 
   constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,private ventana:VentanaemergenteService,
@@ -50,11 +53,12 @@ export class TimbrarComponent implements OnInit {
   
   
       for(let item of this.arreglo){
-          item["nombrecompleto"]=item.reciboATimbrar.nombreEmpleado+" "+item.reciboATimbrar.apellidoPatEmpleado+" "+(item.reciboATimbrar.apellidoMatEmpleado == undefined)?"":item.reciboATimbrar.apellidoMatEmpleado;
+          item["nombrecompleto"]=item.reciboATimbrar.nombreEmpleado+" "+item.reciboATimbrar.apellidoPatEmpleado+" ";
+          item["nombrecompleto"] += +(item.reciboATimbrar.apellidoMatEmpleado == undefined)?"":item.reciboATimbrar.apellidoMatEmpleado;
           item["tipo"]=item.reciboATimbrar.tipoPago;
           item["total"]=this.cp.transform(item.reciboATimbrar.totalNeto);
-          item["fecha"]=item.reciboATimbrar.fechaPagoTimbrado;
-          item["status"]=item.status;
+          item["fecha"]=new DatePipe("es-MX").transform(item.reciboATimbrar.fechaPagoTimbrado,"dd/MM/yyyy");
+          item["status"]=item.reciboATimbrar.status;
 
       }
       let filas:Array<any> = this.arreglo;
@@ -85,10 +89,24 @@ export class TimbrarComponent implements OnInit {
 
   public recibirTabla(obj:any){
 
-    let datos = obj.datos;
+    
        switch(obj.type){
           case "desglosar":
-              datos.cargandoDetalle = false;
+            let item = obj.datos;
+            let objEnviar = {
+              nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId,
+              fechaContrato: item.fechaContrato,
+              personaId: item.personaId,
+              clienteId: item.centrocClienteId
+            }
+
+            this.calculoPrd.getTotalEmpleadoConPagoTimbradoDetalle(objEnviar).subscribe(datos=>{
+              let xmlPreliminar = datos.datos[0].xmlPreliminar;
+              console.log(xmlPreliminar);
+              this.datosExtras.datos = xmlPreliminar;
+              item.cargandoDetalle = false;
+            });
+            
             break;
        }
   }

@@ -52,7 +52,7 @@
 
 <div class="row">
     <div class="col">
-        <app-tablapaginado [nominacalculo]="true" [arreglotablaDesglose]="arreglotablaDesglose" [datos]="arreglotabla"
+        <app-tablapaginado [nominacalculo]="true" [datosExtras]="datosDetalleEmpleadoNomina" [datos]="arreglotabla"
             [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
 </div>

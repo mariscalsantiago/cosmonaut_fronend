@@ -9,6 +9,7 @@ import { tabla } from 'src/app/core/data/tabla';
 export class TablapaginadoComponent implements OnInit {
 
   @Input() public cargando: any = false;
+  @Input() public datosExtras:any;
   public arreglo: any = [];
   public numeroitems: number = 5;
 
@@ -23,6 +24,7 @@ export class TablapaginadoComponent implements OnInit {
   }
 
   @Input() arreglotablaDesglose: any;
+  
 
   @Input() public ver: any;
   @Input() public editar: any;
@@ -41,6 +43,8 @@ export class TablapaginadoComponent implements OnInit {
   @Output() public salida = new EventEmitter();
   @Input() public nominacalculo:boolean = false;
   @Input() public nominatimbrar:boolean = false;
+
+  
 
   public arreglotemp: any = [];
 
@@ -81,6 +85,7 @@ export class TablapaginadoComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
 
 
+
     
 
 
@@ -95,6 +100,7 @@ export class TablapaginadoComponent implements OnInit {
         item.cargandoDetalle = false;
       }
 
+      console.log("Va a poaginar");
       this.paginar();
 
     } else {
