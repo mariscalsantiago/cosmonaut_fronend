@@ -31,6 +31,7 @@ export class DetalleUsuarioComponent implements OnInit {
   public objusuario: any = {};
   public arregloCompany: any;
   public summitenviado: boolean = false;
+  public companiasenviar = [];
 
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
@@ -200,6 +201,11 @@ export class DetalleUsuarioComponent implements OnInit {
   public cambiarMultiempresa(){
 
 
+  }
+
+
+  public recibirEtiquetas(evento:any){
+     this.companiasenviar = evento;
   }
 
 

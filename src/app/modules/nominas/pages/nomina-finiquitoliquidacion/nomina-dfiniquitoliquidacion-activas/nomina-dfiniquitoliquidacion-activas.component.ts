@@ -25,7 +25,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
     private empleadoPrd:EmpleadosService, private calculoPrd:CalculosService,private usuariSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.cargando = true;
     let objenviar = 
     {

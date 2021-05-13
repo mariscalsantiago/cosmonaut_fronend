@@ -1,0 +1,21 @@
+<div class="contenedor" [class.invalido]="errorSeleccionado" (click)="seleccionado()">
+    <span *ngFor="let item of arregloEtiquetas;let indice=index;" class="badge badge-dark" style="position: relative;margin-right: 10px;">
+        {{item[llave]}}
+        <span (click)="cerrarTag(indice)" style="background: transparent;" aria-hidden="true">&times;</span>
+    </span>
+
+
+    <input [(ngModel)]="elementoSeleccionado" style="font-size: 12px;" (keydown)="evento($event)" class="form-control" autocomplete="off"  #inputprincipal list="buscar" >
+
+    <datalist id="buscar">
+        <option *ngFor="let item of datos" [value]="item[llave]">
+    </datalist>
+
+   
+
+
+</div>
+
+<div *ngIf="errorSeleccionado" class="invalid-feedback">
+    Elemento no encontrado
+</div>

@@ -42,17 +42,17 @@
         </div>
         <div class="input-group-sm mb-3 col-6">
             <div>
-                <label>Selecciona empleados *</label>
+                <label>Seleccionar *</label>
                 <div >
 
-                    <label class="contenedorInputCheckRadio">Incluir todos los empleados
+                    <label class="contenedorInputCheckRadio">Todos los empleados
                         <input formControlName="seleccionarempleados" #tipouno (click)="validarEmpleados(tipouno.value)" 
                              name="seleccionarempleados" type="radio"
                            value = "1">
                         <span class="radiomark"></span>
                     </label>
                     
-                    <label class="contenedorInputCheckRadio">Incluir algunos empleados
+                    <label class="contenedorInputCheckRadio">Por empleados
                         <input formControlName="seleccionarempleados" #tipodos (click)="validarEmpleados(tipodos.value)" 
                              name="seleccionarempleados" type="radio"
                            value = "2">
@@ -67,12 +67,9 @@
         </div>
         <div *ngIf="mostrarAlgunosEmpleados" class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Empleados *</label>
-            <select formControlName="personaId" class="form-control">
-                <option *ngFor="let item of arregloEmpleados" [value]="item.personaId.personaId">
-                     {{item.personaId.nombre}} {{item.personaId.apellidoPaterno}}
-                </option>
-            </select>
+            <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
         </div>
+      
 
 
         <!--<div class="input-group-sm mb-3 col-6">

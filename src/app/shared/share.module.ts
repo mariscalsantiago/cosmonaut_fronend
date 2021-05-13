@@ -28,6 +28,7 @@ import { VentanaNominanuevaextraordinariaComponent } from './ventanasemergentes/
 import { NominanuevaPtuComponent } from './ventanasemergentes/tiposventanas/nominanueva-ptu/nominanueva-ptu.component';
 import { VentanaTablaISRComponent } from './ventanasemergentes/tiposventanas/ventana-tablaisr/ventana-tablaisr.component';
 import { VentanaSubcidioComponent } from './ventanasemergentes/tiposventanas/ventana-subcidio/ventana-subcidio.component';
+import { TagComponent } from './tag/tag.component';
 import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemergentes/tiposventanas/ventana-nominanuevafiniquitoliquidacion/ventana-nominanuevafiniquitoliquidacion.component';
 
 
@@ -64,6 +65,7 @@ import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemerg
     NominanuevaPtuComponent,
     VentanaTablaISRComponent,
     VentanaSubcidioComponent,
+    TagComponent,
     VentanaNominaNuevaFiniquitoLiquidacionComponent
 
   ],
@@ -71,7 +73,7 @@ import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemerg
     CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent, MayusculasDirective, SolonumerosDirective, TamanioVentanaDirective,
-    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective],
+    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective,TagComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ShareModule { }

@@ -73,13 +73,13 @@
         <div class="contenedor">
           <div (click)="seleccionadoCompania(item)" [class.seleccionado]="item.seleccionado" *ngFor="let item of arregloCompanias" class="caja">
             <span>Titulo de empresa</span>
-            <img src="../../../../../assets/imgs/logo2.png" alt="" srcset="">
+            <img src="assets/imgs/logo2.png" alt="" srcset="">
           </div>
         </div>
 
         <br id="#lugar"><br><br>
         <div class="boton" *ngIf="!ventanapass">
-          <button type="submit" class="btn btn-info heartbeat"><span>INGRESAR</span>
+          <button [disabled]="empresaSeleccionadaBool" type="submit" class="btn btn-info heartbeat"><span>INGRESAR</span>
             <div *ngIf="cargando" class="spinner-border" role="status">
               <span class="sr-only">Loading...</span>
             </div>
@@ -93,68 +93,3 @@
   </div>
 </div>
 
-
-
-<!-- <div class="modal fade" id="modalshare" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title primary" id="exampleModalLabel" >Seleccionar cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-               <div  *ngIf="!cargandoEmpresa" class="row">
-                 <div   (click)="seleccionarEmpresa(item)" [ngClass]="{'seleccionado':item.seleccionado}" *ngFor="let item of arregloCompanias" class="col-3" style="padding: 10px;text-align: center;cursor: pointer;">
-                      <img src="../../../../../assets/imgs/empresa_03.png" alt="" srcset="">
-                      <p>{{item.nombre}}</p>
-                 </div>
-               </div>
-               <div class="row">
-                <div  *ngIf="cargandoEmpresa" class="col text-center mb-5">
-                  <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-                </div>
-               </div>
-               <div *ngIf="aparecerCheck" class="row">
-                 <div class="col">
-                  <label class="contenedorInputCheckRadio">Seleccionar empresa
-                    <input [(ngModel)]="aparecerListaempresas"  type="checkbox">
-                    <span class="checkmark"></span>
-                  </label>
-                 </div>
-               </div>
-              <div *ngIf="aparecerListaempresas">
-                <hr>
-                <div class="row">
-                  <div class="col primary">
-                       Seleccionar empresa
-                  </div>
-                </div>
-                <div *ngIf="!cargandoEmpresaCompania && arregloEmpresas !== undefined" class="row">
-                 <div (click)="seleccionarempresaCompania(item)" [ngClass]="{'seleccionado':item.seleccionado}" *ngFor="let item of arregloEmpresas" class="col-3" style="padding: 10px;text-align: center;cursor: pointer;">
-                      <img src="../../../../../assets/imgs/empresa_03.png" alt="" srcset="">
-                      <p>{{item.nombre}}</p>
-                 </div>
-               </div>
-               <div *ngIf="!cargandoEmpresaCompania && arregloEmpresas == undefined" class="row">
-                 <div class="col">
-                  <div  class="alert  col text-center">
-                    <strong>El cliente seleccionada no contiene empresas asociadas</strong>
-                  </div>
-                 </div>
-               </div>
-               <div class="row">
-                <div  *ngIf="cargandoEmpresaCompania" class="col text-center mb-5">
-                  <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-                </div>
-               </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-                <button (click)="finalizadoSeleccion()"  type="button" class="btn btn-primary button-fill">Seleccionar</button>
-            </div>
-        </div>
-    </div>
-</div> -->

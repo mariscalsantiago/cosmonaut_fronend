@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit {
   public login:boolean = true;
   public multiempresa:boolean = false;
 
+  public empresaSeleccionadaBool:boolean = true;
+
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
     private companiaPrd: SharedCompaniaService,private usuarioSistemaPrd:UsuarioSistemaService,
     private modalPrd:ModalService) {
@@ -182,6 +184,8 @@ export class LoginComponent implements OnInit {
     } 
 
     item.seleccionado = true;
+
+    this.empresaSeleccionadaBool = false;
   }
 
 

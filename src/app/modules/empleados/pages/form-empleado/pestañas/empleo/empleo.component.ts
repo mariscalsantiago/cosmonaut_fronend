@@ -790,7 +790,7 @@ export class EmpleoComponent implements OnInit {
       FecIniPeriodo: new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd")    
     }
 
-   debugger;
+   
 
 
     console.log("Esto es lo que se manda al back en sueldo",objenviar);

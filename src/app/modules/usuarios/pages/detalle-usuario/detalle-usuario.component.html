@@ -77,7 +77,7 @@
 
               <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Clientes *</label>
-                <input  type="text" class="form-control" placeholder="">
+                <app-tag [datos]="arregloCompany" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
             </div>
             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Rol *</label>

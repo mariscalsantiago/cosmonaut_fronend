@@ -35,6 +35,8 @@ export class NominasActivasComponent implements OnInit {
       this.cargando = false;
       this.arreglo = datos.datos;
 
+      console.log(this.arreglo,"Esto son las nominas");
+
       for(let item of this.arreglo){
           item["inicial"] = item.nominaOrdinaria.total == undefined;
       }

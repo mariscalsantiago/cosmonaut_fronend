@@ -11,6 +11,7 @@ export class SubirarchivoComponent implements OnInit, OnChanges {
   @Output() emiteimagen = new EventEmitter();
   @Input() cargando:boolean = false;
 
+
   public errorimagen: boolean = false;
   public seleccionado: boolean = false;
   public imagen!: File;

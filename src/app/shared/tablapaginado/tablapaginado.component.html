@@ -33,7 +33,7 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let item of arreglo; let indice = index;">
-        <tr class="fade-in-second">
+        <tr  class="fade-in-second">
           <td *ngIf="checkbox">
             <label class="contenedorInputCheckRadio">
               <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
@@ -89,7 +89,7 @@
           </td>
         </tr>
         <tr *ngIf="!item.desglosarDown && item.cargandoDetalle" class="slide-in-bck-center">
-          <td colspan="5">
+          <td colspan="100%">
             <div class="col text-center mb-5">
               <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
             </div>
@@ -118,21 +118,21 @@
                       <th>Percepciones</th>
                       <th>Monto</th>
                       <th>Gravado</th>
-                      <th>Evento</th>
+                      <th>Exento</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Sueldo</td>
-                      <td>$16,499.96</td>
-                      <td>$16,499.96</td>
-                      <td>$0.00</td>
+                    <tr *ngFor="let item of datosExtras.datos.percepcion">
+                      <td>{{item.percepciones}}</td>
+                      <td>{{item.monto | currency}}</td>
+                      <td>{{item.gravado | currency}}</td>
+                      <td>{{item.exento | currency}}</td>
                     </tr>
                     <tr class="totalesTimbrado">
                       <th>Total</th>
-                      <th>$16,499.96</th>
-                      <th>$16,499.96</th>
-                      <th>$0.00</th>
+                      <th>{{datosExtras.datos.totalMontoPercepciones | currency}}</th>
+                      <th>{{datosExtras.datos.totalGravado | currency}}</th>
+                      <th>{{datosExtras.datos.totalExento | currency}}</th>
                     </tr>
                   </tbody>
                 </table>
@@ -148,25 +148,21 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>IMSS</td>
-                      <td>$462.85</td>
-                    </tr>
-                    <tr>
-                      <td>ISR</td>
-                      <td>$2,917.75</td>
+                    <tr *ngFor="let item of datosExtras.datos.deduccion">
+                      <td>{{item.deducciones}}</td>
+                      <td>{{item.monto | currency}}</td>
                     </tr>
                     <tr class="totalesTimbrado">
                       <th>Total</th>
-                      <th>$3,870.60</th>
+                      <th>{{datosExtras.datos.totalMontoDeducciones | currency}}</th>
                     </tr>
                   </tbody>
                 </table>
 
             </td>
             <td span="7">
-              <a (click)="descargar()" style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle">
-              <i style="background-color: #56dfd4 !important;" class="icon_eventos "></i>
+              <a (click)="descargar()" style="color:#b8b8b8;text-decoration: underline;cursor: not-allowed;"  class="dropdown-toggle">
+              <i style="background-color: #b8b8b8 !important;" class="icon_eventos "></i>
               Vista preliminar de recibo de pago
 
 </a>
@@ -174,74 +170,39 @@
           </tr>
         </ng-container>
         <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominacalculo">
-          <tr class="slide-in-bck-center">
+          <tr style="background-color: white;" class="slide-in-bck-center">
             <td colspan="2">
 
-              <article class="titulo  col-12 mb-3">
-                Salario diario
-                <article>$1,084.93</article>
+              <article  *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
+                {{item.valor}}
+                <article>{{item.dato | currency}}</article>
               </article>
+            
+              
 
             </td>
             
             <td>
 
-              <article class="titulo  col-12 mb-3">
-                Días del período
-                <article>15.2</article>
+              <article *ngFor="let item of datosExtras[1]" class="titulo  col-12 mb-3">
+                {{item.valor}}
+                <article>{{item.dato}}</article>
               </article>
 
             </td>
             <td>
 
-              <article class="titulo  col-12 mb-3">
-                Sueldo
-                <article>$16,499.96</article>
+              <article *ngFor="let item of datosExtras[2]" class="titulo  col-12 mb-3">
+                {{item.concepto}}
+                <article> {{item.montoTotal | currency}}</article>
               </article>
 
             </td>
-            <td>
+            <td colspan="3">
 
-              <article class="titulo  col-12 mb-3">
-                ISR
-                <article>$2,917.75</article>
-              </article>
-
-            </td>
-          </tr>
-          <tr class="slide-in-bck-center">
-            <td>
-
-              <article class="titulo  col-12 mb-3">
-
-                <article></article>
-              </article>
-
-            </td>
-            <td>
-
-            </td>
-            <td>
-
-              <article class="titulo  col-12 mb-3">
-
-                <article></article>
-              </article>
-
-            </td>
-            <td>
-
-              <article class="titulo  col-12 mb-3">
-
-                <article></article>
-              </article>
-
-            </td>
-            <td>
-
-              <article class="titulo  col-12 mb-3">
-                IMSS
-                <article>$462.85</article>
+              <article *ngFor="let item of datosExtras[3]" class="titulo  col-12 mb-3">
+                {{item.concepto}}
+                <article> {{item.montoCuota | currency}}</article>
               </article>
 
             </td>
