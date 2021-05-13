@@ -62,7 +62,7 @@ export class CalculosService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/consulta/nomina/extraordinaria/`, json, httpOptions);
+    return this.http.post(`${direcciones.orquestador}/consulta/nomina/extraordinaria`, json, httpOptions);
   }
 
   public calcularNomina(obj: any): Observable<any> {
@@ -87,7 +87,7 @@ export class CalculosService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/calcula/nomina/periodo`, json, httpOptions);
+    return this.http.post(`${direcciones.orquestador}/calcula/nomina/liquidacion`, json, httpOptions);
 
 
 

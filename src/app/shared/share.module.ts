@@ -28,6 +28,7 @@ import { VentanaNominanuevaextraordinariaComponent } from './ventanasemergentes/
 import { NominanuevaPtuComponent } from './ventanasemergentes/tiposventanas/nominanueva-ptu/nominanueva-ptu.component';
 import { VentanaTablaISRComponent } from './ventanasemergentes/tiposventanas/ventana-tablaisr/ventana-tablaisr.component';
 import { VentanaSubcidioComponent } from './ventanasemergentes/tiposventanas/ventana-subcidio/ventana-subcidio.component';
+import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemergentes/tiposventanas/ventana-nominanuevafiniquitoliquidacion/ventana-nominanuevafiniquitoliquidacion.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { VentanaSubcidioComponent } from './ventanasemergentes/tiposventanas/ven
     VentanaNominanuevaextraordinariaComponent,
     NominanuevaPtuComponent,
     VentanaTablaISRComponent,
-    VentanaSubcidioComponent
+    VentanaSubcidioComponent,
+    VentanaNominaNuevaFiniquitoLiquidacionComponent
 
   ],
   imports: [

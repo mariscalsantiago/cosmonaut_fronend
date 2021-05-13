@@ -36,7 +36,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
       this.arreglo = datos.datos;
 
       for(let item of this.arreglo){
-          item["inicial"] = item.nominaOrdinaria.total == undefined;
+          item["inicial"] = item.nominaExtraordinaria.total == undefined;
       }
     })
 
@@ -51,7 +51,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
   }
 
   public agregar(){
-      this.ventana.showVentana(this.ventana.nuevanominaextraordinaria).then(valor =>{
+      this.ventana.showVentana(this.ventana.nuevanominafiniquitoliquidacion).then(valor =>{
         
         if(valor.datos){
             this.agregarNuevaNomina();

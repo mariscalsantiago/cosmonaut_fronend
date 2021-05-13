@@ -41,7 +41,8 @@ export class ContenidoComponent implements OnInit {
     nuevanominaextraordinaria:false,
     nuevanominaptu:false,
     tablaisr:false,
-    subcidio: false
+    subcidio: false,
+    nuevanominafiniquitoliquidacion: false
   }
 
   public emergente = {
