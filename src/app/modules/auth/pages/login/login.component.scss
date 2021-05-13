@@ -11,21 +11,27 @@
  display: flex;   
  flex-wrap: wrap;
  align-content:space-between;
+ padding: 10px 197px;
 
  .caja:hover{
-    width: 130px;
-    height: 130px;
+   
     img{
         width: 100px;
         height: 100px;
     }
+   
+
+
+      //  background: #fffdea;
  }
  
  .caja{
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     margin-bottom: 15px;
     cursor: pointer;
+    
+    
 
    *{
        display: block;
@@ -39,7 +45,7 @@
    }
 
    span{
-       margin-top: 10px;
+       margin-top: 7px;
        text-align: center;
        font-size: small;
        font-weight: 600;
