@@ -31,14 +31,20 @@ export class CalculosService {
         'Content-Type': 'application/json'
       })
     };
-
-
-
-
     let json: string = JSON.stringify(obj);
     return this.http.post(`${direcciones.orquestador}/guardar/nomina`, json, httpOptions);
   }
 
+  public crearNominaExtraordinria(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.orquestador}/guardar/nomina/extraordinaria`, json, httpOptions);
+  }
 
   public getNominasByEmp(obj: any): Observable<any> {
     const httpOptions = {

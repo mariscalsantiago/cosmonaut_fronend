@@ -51,6 +51,7 @@
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
                                 <label for="moneda">Moneda *</label>
+                                
                                 <select formControlName="monedaId" [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" type= "text" class="form-control">
                                     <option *ngFor="let item of arregloMonedas" [value]="item.monedaId">{{item.descripcion}}</option>
                                   </select>
