@@ -176,7 +176,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
 
       if(valor){
-        debugger;
+        
         let obj = this.myFormcomp.value;
 
         let fechar = "";
@@ -289,7 +289,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
           ultimoDia: fechar,
           fechaParaCalculo: antiguedad
       }
-          debugger;
+          
           
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
 

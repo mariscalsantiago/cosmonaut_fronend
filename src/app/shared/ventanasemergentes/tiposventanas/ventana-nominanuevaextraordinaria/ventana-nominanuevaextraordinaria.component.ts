@@ -32,6 +32,8 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   public seleccionarUsuariosCheck:boolean = false;
   public objEnviar: any = []; 
 
+  public empleadoEnviar:any = [];
+
   
 
   constructor(private modalPrd: ModalService, private grupoNominaPrd: GruponominasService,
@@ -41,7 +43,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     private companiasPrd:SharedCompaniaService,private empleadosPrd:EmpleadosService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     console.log("ESTO ES COMPAÑIA",this.arregloCompanias);
     this.myForm = this.creandoForm();
 
@@ -60,12 +62,18 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
       }});
 
 
-      this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloEmpleados = datos.datos);
+      this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        this.arregloEmpleados = datos.datos
+        for(let item of this.arregloEmpleados){
+          item["nombre"] = item.personaId?.nombre + " "+item.personaId?.apellidoPaterno;
+      }
+      
+      });
     
   }
 
   public suscripciones() {
-    debugger;
+    
 
     /*this.f.fechaIniPeriodo.valueChanges.subscribe(valor => {
       if (this.f.fechaIniPeriodo.valid) {
@@ -93,7 +101,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   }
 
   public validarEmpleados(id:any){
-    debugger;
+    
      if (id == 2){
       this.mostrarAlgunosEmpleados= true;
      }else{
@@ -149,7 +157,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas crear la  nómina?").then(valor => {
       if (valor) {
         let  obj = this.myForm.getRawValue();
-        debugger;
+        
           this.objEnviar = {
             clienteId: obj.clienteId,
             usuarioId: obj.usuarioId,
@@ -192,6 +200,12 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   public clonar(obj:any){
     return JSON.parse(JSON.stringify(obj));
+  }
+
+
+  public recibirEtiquetas(evento:any){
+      this.empleadoEnviar = evento;
+      console.log(this.empleadoEnviar);
   }
 
 }

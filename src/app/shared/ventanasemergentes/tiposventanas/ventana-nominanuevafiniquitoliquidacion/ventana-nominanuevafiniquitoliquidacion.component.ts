@@ -38,7 +38,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
     private companiasPrd:SharedCompaniaService,private empleadosPrd:EmpleadosService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     console.log("ESTO ES COMPAÑIA",this.arregloCompanias);
     this.myForm = this.creandoForm();
 
@@ -62,7 +62,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   }
 
   public suscripciones() {
-    debugger;
+    
 
     /*this.f.fechaIniPeriodo.valueChanges.subscribe(valor => {
       if (this.f.fechaIniPeriodo.valid) {
@@ -146,7 +146,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas crear la  nómina?").then(valor => {
       if (valor) {
         let  obj = this.myForm.getRawValue();
-        debugger;
+        
           this.objEnviar = {
             clienteId: obj.clienteId,
             usuarioId: obj.usuarioId,

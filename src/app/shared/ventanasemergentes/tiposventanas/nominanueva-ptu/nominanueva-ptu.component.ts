@@ -42,7 +42,7 @@ export class NominanuevaPtuComponent implements OnInit {
   }
 
   public backTab(index: number) {
-    debugger;
+    
     switch(index){
       case 0:
         this.activado[0].form = true;
@@ -106,7 +106,7 @@ export class NominanuevaPtuComponent implements OnInit {
   }
 
   public cambiarTab(obj:any){
-    debugger;
+    
     for(let item of this.activado){
         item.form = false;
         item.seleccionado = false;
