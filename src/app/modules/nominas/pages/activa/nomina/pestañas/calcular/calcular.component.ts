@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
+import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
@@ -12,6 +14,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 })
 export class CalcularComponent implements OnInit {
   @Output() salida = new EventEmitter();
+  @Input() nominaSeleccionada:any;
   public cargando:boolean = false;
   public arreglotabla:any = {
     columnas:[],
@@ -29,15 +32,22 @@ export class CalcularComponent implements OnInit {
 
   public arreglo:any = [];
 
-  constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,private navigate:Router,
-    private modalPrd:ModalService) { }
+  constructor(private nominasPrd:NominasService,private navigate:Router,
+    private modalPrd:ModalService,private calculoPrd:CalculosService,private cp: CurrencyPipe) { }
 
   ngOnInit(): void {
 
 
-    this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-      this.arreglo = [datos.datos[0]];
-      
+
+    this.cargando = true;
+    let objenviar = {
+      nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
+  }
+  
+    this.calculoPrd.getEmpleadosByNomina(objenviar).subscribe(datos => {
+      this.cargando = false;
+      this.arreglo = datos.datos
+       
       let columnas:Array<tabla> = [
         new tabla("nombrecompleto","Nombre"),
         new tabla("numEmpleado","Número de empleado",false,false,true),
@@ -49,11 +59,11 @@ export class CalcularComponent implements OnInit {
   
   
       for(let item of this.arreglo){
-          item["nombrecompleto"]="Santiago Dario Ocampo";
-          item["diaslaborados"]=15.2;
-          item["percepciones"]="$16,499.96";
-          item["deducciones"]="$3,380.60";
-          item["total"]="$13,271.36";
+          item["nombrecompleto"]=item.calculoEmpleado.empleado;
+          item["diaslaborados"]=item.calculoEmpleado.diasLaborados;
+          item["percepciones"]=this.cp.transform(item.calculoEmpleado.percepciones);
+          item["deducciones"]=this.cp.transform(item.calculoEmpleado.deducciones);
+          item["total"]=this.cp.transform(item.calculoEmpleado.total);
       }
   
       let filas:Array<any> = this.arreglo;
@@ -63,7 +73,10 @@ export class CalcularComponent implements OnInit {
         filas:filas
       }
     });
+   
 
+
+   
 
 
 
@@ -79,6 +92,10 @@ export class CalcularComponent implements OnInit {
     switch(obj.type){
         case "desglosar":
 
+     
+          
+          
+
           let columnas: Array<tabla> = [
             new tabla("nombre", "Salarío diarío"),
             new tabla("id", "Dias del periodo"),
@@ -88,7 +105,17 @@ export class CalcularComponent implements OnInit {
   
   
           let item = obj.datos;
-  
+          let objEnviar = {
+            nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId,
+            fechaContrato: item.fechaContrato,
+            personaId: item.personaId,
+            clienteId: item.centrocClienteId
+        }
+
+         this.calculoPrd.getEmpleadosByNominaDetalle(objEnviar).subscribe(datosItem =>{
+           
+          item.cargandoDetalle = false;
+        });
   
          
           this.arreglotablaDesglose.columnas = columnas;

@@ -78,7 +78,6 @@ export class NominasActivasComponent implements OnInit {
   public calcularNomina(item:any){
     
 
-    console.log("Esto es",item);
 
     this.modalPrd.showMessageDialog(this.modalPrd.question,"Importante","No has calculado el promedio de variables para este bimestre. Si continuas, tomaremos el promedio del bimestre anterior.").then((valor)=>{
        if(valor){
@@ -90,7 +89,7 @@ export class NominasActivasComponent implements OnInit {
         }
         this.calculoPrd.calcularNomina(objEnviar).subscribe(datos =>{
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.router.navigate(['/nominas/nomina']);
+          this.router.navigate(['/nominas/nomina'],{ state: { datos: datos } });
         });
 
 
@@ -102,29 +101,10 @@ export class NominasActivasComponent implements OnInit {
   }
 
   public continuar(item:any){
-    this.modalPrd.showMessageDialog(this.modalPrd.loading,"Recalculando la nómina");
-    setTimeout(() => {
-      item.inicial = false;
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      this.router.navigate(['/nominas/nomina']);
-    }, 4000);
+    this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
   }
 
 
-  public agregarNuevaNomina(){
-      
-
-      this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-
-        setTimeout(() => {
-          //this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          let objEnviar = {inicial:true};
-          this.nominaPrd.save(objEnviar);
-          this.nominaPrd.saveEmpleado(datos.datos);
-        }, 2000);
-      });
-
-    
-  }
+  
 
 }

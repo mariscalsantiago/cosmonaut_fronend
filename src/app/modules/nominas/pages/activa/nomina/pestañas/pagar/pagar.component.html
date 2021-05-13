@@ -18,26 +18,25 @@
 <div class="row especialrow">
     <div class="col-6">
         <article>Empleados
-            <article style="margin-left: 32px;">{{arreglo.length}}</article>
+            <article style="margin-left: 32px;">{{nominaSeleccionada.nominaOrdinaria?.empleados}}</article>
         </article>
     </div>
     <div class="col-2">
         <article>Percepciones
-            <article>$16,499.96</article>
+            <article>{{nominaSeleccionada.nominaOrdinaria?.percepciones | currency}}</article>
         </article>
     </div>
     <div class="col-2">
         <article>Deducciones
-            <article>$3,380.60</article>
+            <article>{{nominaSeleccionada.nominaOrdinaria?.deducciones | currency}}</article>
         </article>
     </div>
     <div class="col-2">
         <article>Total
-            <article>$13,271.36</article>
+            <article>{{nominaSeleccionada.nominaOrdinaria?.total | currency}}</article>
         </article>
     </div>
 </div>
-
 <div class="row">
     <div class="col">
         <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando" [checkbox]="true"

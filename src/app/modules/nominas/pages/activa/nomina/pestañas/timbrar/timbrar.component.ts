@@ -1,8 +1,9 @@
-import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
+import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 
@@ -21,14 +22,22 @@ export class TimbrarComponent implements OnInit {
     filas:[]
   };
 
+
+  @Input() nominaSeleccionada:any;
+
   constructor(private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,private ventana:VentanaemergenteService,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService,private calculoPrd:CalculosService,private cp:CurrencyPipe) { }
 
   ngOnInit(): void {
 
-    this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-      this.arreglo = [datos.datos[0]];
 
+    this.cargando = true;
+   let objEnviar =  {
+      nominaXperiodoId: 229
+  }
+    this.calculoPrd.getTotalEmpleadoConPagoTimbrado(objEnviar).subscribe(datos =>{
+
+      this.arreglo = datos.datos;
 
       let columnas:Array<tabla> = [
         new tabla("nombrecompleto","Empleados"),
@@ -41,14 +50,12 @@ export class TimbrarComponent implements OnInit {
   
   
       for(let item of this.arreglo){
-          item["nombrecompleto"]="Santiago Dario Ocampo";
-          item["rfc"]="OCSA8809087Z7";
-          item["diaslaborados"]="BBVA Bancomer";
-          item["percepciones"]="$16,499.96";
-          item["tipo"]="Transferencia";
-          item["total"]="$13,271.36";
-          item["status"]="Sin timbrar";
-          item["fecha"]=new DatePipe("es-MX").transform(new Date(),"dd-MMM-yy")?.replace(".","");
+          item["nombrecompleto"]=item.reciboATimbrar.nombreEmpleado+" "+item.reciboATimbrar.apellidoPatEmpleado+" "+(item.reciboATimbrar.apellidoMatEmpleado == undefined)?"":item.reciboATimbrar.apellidoMatEmpleado;
+          item["tipo"]=item.reciboATimbrar.tipoPago;
+          item["total"]=this.cp.transform(item.reciboATimbrar.totalNeto);
+          item["fecha"]=item.reciboATimbrar.fechaPagoTimbrado;
+          item["status"]=item.status;
+
       }
       let filas:Array<any> = this.arreglo;
   
@@ -57,6 +64,15 @@ export class TimbrarComponent implements OnInit {
         filas:filas
       }
 
+
+      this.cargando = false;
+    });
+
+    this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
+      this.arreglo = [datos.datos[0]];
+
+
+      
 
     });
 
