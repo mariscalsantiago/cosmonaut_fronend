@@ -16,6 +16,9 @@ export class CalcularComponent implements OnInit {
   @Output() salida = new EventEmitter();
   @Input() nominaSeleccionada:any;
   public cargando:boolean = false;
+  public nominaOrdinaria: boolean = false;
+  public nominaExtraordinaria: boolean = false;
+  public objEnviar: any = [];
   public arreglotabla:any = {
     columnas:[],
     filas:[]
@@ -37,14 +40,30 @@ export class CalcularComponent implements OnInit {
 
   ngOnInit(): void {
 
+debugger;
 
+if(this.nominaSeleccionada.nominaOrdinaria){
+  this.nominaOrdinaria= true;
 
-    this.cargando = true;
-    let objenviar = {
-      nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
-  }
+  this.cargando = true;
+  this.objEnviar = {
+    nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
+}
+
+}else if (this.nominaSeleccionada.nominaExtraordinaria){
+  this.nominaOrdinaria= true;
+  this.cargando = true;
+  this.objEnviar = {
+    nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
+}
+
   
-    this.calculoPrd.getEmpleadosByNomina(objenviar).subscribe(datos => {
+}
+
+
+
+  
+    this.calculoPrd.getEmpleadosByNomina(this.objEnviar).subscribe(datos => {
       this.cargando = false;
       this.arreglo = datos.datos
        
@@ -125,9 +144,13 @@ export class CalcularComponent implements OnInit {
     }
   }
 
-  public regresar(){
+  public regresarOrdinaria(){
       this.navigate.navigate(["/nominas/activas"]);
   }
+
+  public regresarExtraordinaria(){
+    this.navigate.navigate(["/nominas/nomina_extraordinaria"]);
+}
 
   public continuar(){
     this.salida.emit({type:"calcular"});

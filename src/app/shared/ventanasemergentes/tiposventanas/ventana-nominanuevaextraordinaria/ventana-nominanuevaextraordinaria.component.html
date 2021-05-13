@@ -9,7 +9,7 @@
         </div>
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Tipo de nómina *</label>
-            <select  [class.is-invalid]="f.tipoNominaId.errors && f.tipoNominaId.touched" formControlName="tipoNominaId" class="form-control">
+            <select  [class.is-invalid]="f.tipoNominaId.errors && f.tipoNominaId.touched" formControlName="tipoNominaId" class="form-control disabled bg-light">
                 <option *ngFor="let item of arregloTipoNominas" [value]="item.tipoNominaId">
                     {{item.descripcion}}
                 </option>

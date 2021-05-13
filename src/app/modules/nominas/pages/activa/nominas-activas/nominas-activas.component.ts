@@ -100,6 +100,7 @@ export class NominasActivasComponent implements OnInit {
   }
 
   public continuar(item:any){
+    debugger;
     this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
   }
 

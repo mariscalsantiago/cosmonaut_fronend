@@ -60,30 +60,37 @@ export class NominaExtraordinariaComponent implements OnInit {
   }
 
   public calcularNomina(item:any){
-
-
+  
     this.modalPrd.showMessageDialog(this.modalPrd.question,"Importante","No has calculado el promedio de variables para este bimestre. Si continuas, tomaremos el promedio del bimestre anterior.").then((valor)=>{
        if(valor){
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        setTimeout(() => {
-          item.inicial = false;
+        let objEnviar = {
+          nominaXperiodoId: item.nominaOrdinaria.nominaXperiodoId,
+          clienteId: this.usuariSistemaPrd.getIdEmpresa(),
+          usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
+        }
+        this.calculoPrd.calcularNominaExtraordinariaAguinaldo(objEnviar).subscribe(datos =>{
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.router.navigate(['/nominas/nomina']);
-        }, 4000);
+          this.router.navigate(['/nominas/nomina'],{ state: { datos: datos } });
+        });
+
+
        }
     });
-
-
       
   }
 
-  public continuar(item:any){
+  /*public continuar(item:any){
     this.modalPrd.showMessageDialog(this.modalPrd.loading,"Recalculando la nómina");
     setTimeout(() => {
       item.inicial = false;
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.router.navigate(['/nominas/nomina']);
     }, 4000);
+  }*/
+
+  public continuar(item:any){
+    this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
   }
 
 

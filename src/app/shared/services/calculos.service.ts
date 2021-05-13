@@ -79,7 +79,7 @@ export class CalculosService {
 
   }
 
-  public calcularNominaExtraordinaria(obj: any): Observable<any> {
+  public calcularNominaExtraordinariaAguinaldo(obj: any): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -87,7 +87,7 @@ export class CalculosService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/calcula/nomina/liquidacion`, json, httpOptions);
+    return this.http.post(`${direcciones.orquestador}/calculo/nomina/extraordinaria/aguinaldo`, json, httpOptions);
 
 
 

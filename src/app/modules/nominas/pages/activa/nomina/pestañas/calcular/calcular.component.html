@@ -59,10 +59,11 @@
 
 <div class="text-center margin" style="margin-bottom: 20px;">
 
-    <button (click)="regresar()" class="btn btn-primary button-outlet mr-2">Regresar</button>
+    <button *ngIf="nominaOrdinaria" (click)="regresarOrdinaria()" class="btn btn-primary button-outlet mr-2">Regresar</button>
+    <button *ngIf="nominaExtraordinaria" (click)="regresarExtraordinaria()" class="btn btn-primary button-outlet mr-2">Regresar</button>
     <button (click)="continuar()" class="btn btn-primary button-fill">Continuar</button>
 </div>
-
+ 
 <div class="row">
     <div class="col">
         <a style="color:#56dfd4;text-decoration: underline;" class="dropdown-toggle mt-3">

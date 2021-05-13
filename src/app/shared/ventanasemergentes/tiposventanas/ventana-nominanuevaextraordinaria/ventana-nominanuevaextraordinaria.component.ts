@@ -31,6 +31,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   public mostrarAlgunosEmpleados:boolean = false;
   public seleccionarUsuariosCheck:boolean = false;
   public objEnviar: any = []; 
+  public tiponomina: number = 0;
 
   
 
@@ -45,10 +46,20 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     console.log("ESTO ES COMPAÑIA",this.arregloCompanias);
     this.myForm = this.creandoForm();
 
-    this.suscripciones();
+    
 
 
-    this.catalogosPrd.getTiposNomina(true).subscribe(datos => this.arregloTipoNominas = datos.datos);
+    this.catalogosPrd.getTiposNomina(true).subscribe(datos => {
+      this.arregloTipoNominas = datos.datos
+      for(let item of this.arregloTipoNominas){
+        if(item.tipoNominaId == 2){
+          this.tiponomina = item.tipoNominaId;
+          
+        }
+      }
+      this.myForm = this.creandoForm();
+
+    });
     this.cuentasBancariasPrd.getCuentaBancariaByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCuentasBancarias = datos.datos)
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos );
     this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
@@ -58,7 +69,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
       if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
           this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
       }});
-
+      this.suscripciones();
 
       this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloEmpleados = datos.datos);
     
@@ -66,6 +77,9 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   public suscripciones() {
     debugger;
+
+
+  
 
     /*this.f.fechaIniPeriodo.valueChanges.subscribe(valor => {
       if (this.f.fechaIniPeriodo.valid) {
@@ -114,7 +128,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
         nombreNomina: [, [Validators.required]],
         monedaId: [],
         centrocClienteId: [],
-        tipoNominaId:[,[Validators.required]],
+        tipoNominaId:[this.tiponomina,[Validators.required]],
         clabe:[,[Validators.required]],
         seleccionarempleados:["1"],
         personaId:[]
@@ -155,16 +169,10 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
             usuarioId: obj.usuarioId,
             nombreNomina: obj.nombreNomina,
             cuentaBancoId: obj.clabe,
-            tipoNominaId: obj.tipoNominaId,
-            todos: false,
+            //tipoNominaId: obj.tipoNominaId,
+            todos: true,
             monedaId: obj.monedaId,
-            empleados: {
-                colaborador: {
-                    fecha_contrato: null,
-                    persona_id: null,
-                    cliente_id: null
-                }
-            }
+            empleados: null
           };
         this.guardarNomina();
       }

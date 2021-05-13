@@ -21,7 +21,7 @@ export class NominaComponent implements OnInit {
   constructor(private nominaPrd:NominasService,private calculoPrd:CalculosService) { }
 
   ngOnInit(): void {
-
+    debugger;
     this.nominaSeleccionada = history.state.datos == undefined ? {} : history.state.datos;
 
 

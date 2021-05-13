@@ -70,7 +70,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
           clienteId: this.usuariSistemaPrd.getIdEmpresa(),
           //usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
         }
-        this.calculoPrd.calcularNominaExtraordinaria(objEnviar).subscribe(datos =>{
+        this.calculoPrd.calcularNominaExtraordinariaAguinaldo(objEnviar).subscribe(datos =>{
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.router.navigate(['/nominas/nomina'],{ state: { datos: datos } });
         });
