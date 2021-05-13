@@ -1,0 +1,43 @@
+.elemento1{
+ 
+    border-radius:5px;
+   border:1px solid black;
+     min-height:50px;
+   padding:3px;
+       width: fit-content;
+
+
+       input{
+        border:0;
+       }
+ }
+ 
+ 
+ .elemento1 .etiqueta{
+   border:1px solid black;
+   display:inline;
+   border-radius:10px;
+   
+ 
+   font-size:15px;
+   width:10px;
+   margin-right:10px;
+ 
+ 
+ }
+ .elemento1 .etiqueta span{
+  padding:20px;
+ 
+   
+   display:inline-block;
+ 
+   
+ }
+ 
+ .elemento1 .etiqueta span .close{
+  position:absolute;
+   right:0;
+   top:0;
+     cursor:pointer;
+ 
+ }
