@@ -18,6 +18,9 @@ export class PagarComponent implements OnInit {
 
   public cargando:boolean = false;
   public cargandoIcon:boolean = false;
+  public objEnviar: any = [];
+  public nominaOrdinaria: boolean = false;
+  public nominaExtraordinaria: boolean = false;
 
   public arreglotabla:any = {
     columnas:[],
@@ -33,60 +36,117 @@ export class PagarComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    let objEnviar = {
-      nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
-  }
+  debugger;
+  if(this.nominaSeleccionada.nominaOrdinaria){
+    this.nominaOrdinaria= true;
   
-
-
-
-  this.cargando = true;
-  this.calculoPrd.getTotalEmpleadoConPagoNeto(objEnviar).subscribe(datos =>{
-      this.arreglo = datos.datos;
-
-      console.log("dispesion empleado",this.arreglo);
-
-      let columnas:Array<tabla> = [
-        new tabla("nombrecompleto","Nombre"),
-        new tabla("rfc","RFC",false,false,true),
-        new tabla("banco","Banco",false,false,true),
-        new tabla("total","Total",false,false,true),
-        new tabla("tipopago","Tipo de pago",false,false,true),
-        new tabla("status","Estatus ",false,false,true)
-      ];
-
-
-      for(let item of this.arreglo){
-        console.log("Este es el nombre",item.empleadoApago.nombreEmpleado+" "+item.empleadoApago.apellidoPatEmpleado+" ");
-        
-        item["nombrecompleto"]=item.empleadoApago.nombreEmpleado+" "+item.empleadoApago.apellidoPatEmpleado+" ";
-        item["nombrecompleto"] += (item.empleadoApago.apellidoMatEmpleado == undefined)?"":item.empleadoApago.apellidoMatEmpleado;
-        item["rfc"]="falta";
-        item["banco"]=item.empleadoApago.banco;
-        item["tipopago"]=item.empleadoApago.tipoPago;
-        item["total"]=this.cp.transform(item.empleadoApago.totalNetoEndinero);
-        item["status"] = item.empleadoApago.status;
+      this.cargando = true;
+      this.objEnviar = {
+        nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
     }
-
-    let filas:Array<any> = this.arreglo;
-
-    this.arreglotabla = {
-      columnas:columnas,
-      filas:filas
+  
+    this.cargando = true;
+    this.calculoPrd.getTotalEmpleadoConPagoNeto(this.objEnviar).subscribe(datos =>{
+      this.tablaNminaOrdinaria(datos);
+    });
+ 
+  }else if(this.nominaSeleccionada.nominaExtraordinaria){
+    debugger;
+    this.nominaExtraordinaria= true;
+  
+      this.cargando = true;
+      this.objEnviar = {
+        nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
     }
-
-    this.cargando = false;
   
-  });
-  
+    
+    this.cargando = true;
+    this.calculoPrd.listaEmpleadoPagoExtraordinariaAguinaldo(this.objEnviar).subscribe(datos =>{
+      this.tablaNminaExtraordinaria(datos);
+    });
 
-   
-  
-
-   
+    
   }
 
+
+
+ 
+  }
+
+
+  public tablaNminaExtraordinaria(datos:any){
+    this.arreglo = datos.datos;
+  
+ 
+    let columnas:Array<tabla> = [
+      new tabla("nombrecompleto","Nombre"),
+      new tabla("rfc","RFC",false,false,true),
+      new tabla("banco","Banco",false,false,true),
+      new tabla("total","Total",false,false,true),
+      new tabla("tipopago","Tipo de pago",false,false,true),
+      new tabla("status","Estatus ",false,false,true)
+    ];
+  
+  
+    for(let item of this.arreglo){
+
+      item["nombrecompleto"]=item.empleadoApagoAguinaldo.nombreEmpleado+" "+item.empleadoApagoAguinaldo.apellidoPatEmpleado+" ";
+      item["nombrecompleto"] += (item.empleadoApagoAguinaldo.apellidoMatEmpleado == undefined)?"":item.empleadoApagoAguinaldo.apellidoMatEmpleado;
+      item["rfc"]="falta";
+      item["banco"]=item.empleadoApagoAguinaldo.banco;
+      item["tipopago"]=item.empleadoApagoAguinaldo.tipoPago;
+      item["total"]=this.cp.transform(item.empleadoApagoAguinaldo.totalNetoEndinero);
+      item["status"] = item.empleadoApagoAguinaldo.status;
+  }
+  
+  let filas:Array<any> = this.arreglo;
+  
+  this.arreglotabla = {
+    columnas:columnas,
+    filas:filas
+  }
+  
+  this.cargando = false;
+  
+  }
+
+  public tablaNminaOrdinaria(datos:any){
+  this.arreglo = datos.datos;
+
+  console.log("dispesion empleado",this.arreglo);
+
+  let columnas:Array<tabla> = [
+    new tabla("nombrecompleto","Nombre"),
+    new tabla("rfc","RFC",false,false,true),
+    new tabla("banco","Banco",false,false,true),
+    new tabla("total","Total",false,false,true),
+    new tabla("tipopago","Tipo de pago",false,false,true),
+    new tabla("status","Estatus ",false,false,true)
+  ];
+
+
+  for(let item of this.arreglo){
+    console.log("Este es el nombre",item.empleadoApago.nombreEmpleado+" "+item.empleadoApago.apellidoPatEmpleado+" ");
+    
+    item["nombrecompleto"]=item.empleadoApago.nombreEmpleado+" "+item.empleadoApago.apellidoPatEmpleado+" ";
+    item["nombrecompleto"] += (item.empleadoApago.apellidoMatEmpleado == undefined)?"":item.empleadoApago.apellidoMatEmpleado;
+    item["rfc"]="falta";
+    item["banco"]=item.empleadoApago.banco;
+    item["tipopago"]=item.empleadoApago.tipoPago;
+    item["total"]=this.cp.transform(item.empleadoApago.totalNetoEndinero);
+    item["status"] = item.empleadoApago.status;
+}
+
+let filas:Array<any> = this.arreglo;
+
+this.arreglotabla = {
+  columnas:columnas,
+  filas:filas
+}
+
+this.cargando = false;
+
+}
 
   public continuar(){
 
