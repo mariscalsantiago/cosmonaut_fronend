@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
-import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class VentanaNuevanominaComponent implements OnInit {
 
   constructor(private modalPrd: ModalService, private grupoNominaPrd: GruponominasService,
     private usuariosPrd: UsuarioSistemaService, private formbuilder: FormBuilder,
-    private usuarioSistemaPrd: UsuarioSistemaService, private calculoPrd: CalculosService) { }
+    private usuarioSistemaPrd: UsuarioSistemaService, private nominaOrdinariaPrd: NominaordinariaService) { }
 
   ngOnInit(): void {
     this.grupoNominaPrd.getAll(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.arreglogruposnomina = datos.datos);
@@ -105,7 +105,7 @@ export class VentanaNuevanominaComponent implements OnInit {
       fechaFinIncidencia: this.myForm.value.fechaFinPeriodo
     }
 
-    this.calculoPrd.crearNomina(objEnviar).subscribe(datos => {
+    this.nominaOrdinariaPrd.crearNomina(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
       this.salida.emit({

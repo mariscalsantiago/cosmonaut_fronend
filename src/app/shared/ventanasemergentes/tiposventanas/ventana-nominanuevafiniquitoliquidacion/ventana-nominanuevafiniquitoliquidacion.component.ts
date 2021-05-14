@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
-import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
@@ -35,7 +36,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
 
   constructor(private modalPrd: ModalService, private grupoNominaPrd: GruponominasService,
     private usuariosPrd: UsuarioSistemaService, private formbuilder: FormBuilder,
-    private usuarioSistemaPrd: UsuarioSistemaService, private calculoPrd: CalculosService,
+    private usuarioSistemaPrd: UsuarioSistemaService, private nominafiniquitoPrd: NominafiniquitoliquidacionService,
     private catalogosPrd:CatalogosService,private cuentasBancariasPrd:CuentasbancariasService,
     private companiasPrd:SharedCompaniaService,private empleadosPrd:EmpleadosService) { }
 
@@ -158,7 +159,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   public guardarNomina() {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     console.log(this.objEnviar);
-    this.calculoPrd.crearNominaFiniquitoLiquidacion(this.objEnviar).subscribe(datos => {
+    this.nominafiniquitoPrd.crearNomina(this.objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       
       this.salida.emit({
