@@ -46,20 +46,30 @@ if(this.nominaSeleccionada.nominaOrdinaria){
     this.objEnviar = {
       nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
   }
+
+  this.calculoPrd.getEmpleadosByNomina(this.objEnviar).subscribe(datos => {
+    this.cargando = false;
+    this.arreglo = datos.datos;
+    this.rellenandoTablas();
+  });
+
 }else if(this.nominaSeleccionada.nominaExtraordinaria){
-  this.nominaOrdinaria= true;
+  debugger;
+  this.nominaExtraordinaria= true;
 
     this.cargando = true;
     this.objEnviar = {
       nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
   }
-}
-    this.calculoPrd.getEmpleadosByNomina(this.objEnviar).subscribe(datos => {
-      this.cargando = false;
-      this.arreglo = datos.datos;
-      this.rellenandoTablas();
-    });
 
+  this.calculoPrd.ListaEmpleadoAguinaldo(this.objEnviar).subscribe(datos => {
+    this.cargando = false;
+    this.arreglo = datos.datos;
+    this.rellenandoTablas();
+  });
+
+}
+   
   
 
   }

@@ -44,11 +44,9 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     private companiasPrd:SharedCompaniaService,private empleadosPrd:EmpleadosService) { }
 
   ngOnInit(): void {
-    
+    debugger;
     console.log("ESTO ES COMPAÑIA",this.arregloCompanias);
-    this.myForm = this.creandoForm();
-
-    
+  
 
 
     this.catalogosPrd.getTiposNomina(true).subscribe(datos => {
@@ -136,7 +134,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
         nombreNomina: [, [Validators.required]],
         monedaId: [],
         centrocClienteId: [],
-        tipoNominaId:[this.tiponomina,[Validators.required]],
+        tipoNominaId:[this.tiponomina],
         clabe:[,[Validators.required]],
         seleccionarempleados:["1"],
         personaId:[]

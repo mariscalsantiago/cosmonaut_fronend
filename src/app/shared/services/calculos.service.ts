@@ -93,6 +93,21 @@ export class CalculosService {
 
   }
 
+  public ListaEmpleadoAguinaldo(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.orquestador}/lista/empleado/aguinaldo`, json, httpOptions);
+
+
+
+  }
+
+
 
   public getEmpleadosByNomina(obj:any):Observable<any>{
 
