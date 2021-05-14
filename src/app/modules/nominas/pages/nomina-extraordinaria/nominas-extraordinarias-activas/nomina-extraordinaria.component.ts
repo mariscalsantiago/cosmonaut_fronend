@@ -4,8 +4,8 @@ import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.s
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominasService } from '../../../services/nominas.service';
-import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
 
 @Component({
   selector: 'app-nomina-extraordinaria',
@@ -21,7 +21,7 @@ export class NominaExtraordinariaComponent implements OnInit {
 
   constructor(private ventana:VentanaemergenteService,private router:Router,
     private modalPrd:ModalService,private nominaPrd:NominasService,
-    private empleadoPrd:EmpleadosService, private calculoPrd:CalculosService, private usuariSistemaPrd:UsuarioSistemaService) { }
+    private empleadoPrd:EmpleadosService, private nominaAguinaldoPrd:NominaaguinaldoService, private usuariSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
     
@@ -30,7 +30,7 @@ export class NominaExtraordinariaComponent implements OnInit {
     {
       clienteId: this.usuariSistemaPrd.getIdEmpresa()
     }
-    this.calculoPrd.getConsultaNominaExtraordinaria(objenviar).subscribe(datos => {
+    this.nominaAguinaldoPrd.getListaNominas(objenviar).subscribe(datos => {
       this.cargando = false;
       this.arreglo = datos.datos;
 
@@ -69,7 +69,7 @@ export class NominaExtraordinariaComponent implements OnInit {
           clienteId: this.usuariSistemaPrd.getIdEmpresa(),
           usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
         }
-        this.calculoPrd.calcularNominaExtraordinariaAguinaldo(objEnviar).subscribe(datos =>{
+        this.nominaAguinaldoPrd.calcularNomina(objEnviar).subscribe(datos =>{
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.router.navigate(['/nominas/nomina'],{ state: { datos: datos } });
         });

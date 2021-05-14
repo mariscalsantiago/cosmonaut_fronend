@@ -18,8 +18,8 @@
 
     <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo" >
         <div class="col-6 mt-3">
-            <article>{{item.nominaExtraordinaria?.nombreNomina}}
-                <article>Período De {{item.nominaExtraordinaria?.fechaInicio | date:'dd MMM'}} hasta {{item.nominaExtraordinaria?.fechaFin | date:'dd MMM'}}</article>
+            <article>{{item.nominaLiquidacion?.nombreNomina}}
+                <article>Período De {{item.nominaLiquidacion?.fechaInicio | date:'dd MMM'}} hasta {{item.nominaLiquidacion?.fechaFin | date:'dd MMM'}}</article>
             </article>
     
         </div>
@@ -36,10 +36,10 @@
     
                 <tbody>
                     <tr>
-                        <td>{{item.nominaExtraordinaria?.empleados}}</td>
-                        <td>{{item.nominaExtraordinaria?.percepciones | currency}}</td>
-                        <td>{{item.nominaExtraordinaria?.deducciones | currency}}</td>
-                        <td>{{item.nominaExtraordinaria?.total | currency}}</td>
+                        <td>{{item.nominaLiquidacion?.empleados}}</td>
+                        <td>{{item.nominaLiquidacion?.percepciones | currency}}</td>
+                        <td>{{item.nominaLiquidacion?.deducciones | currency}}</td>
+                        <td>{{item.nominaLiquidacion?.total | currency}}</td>
                     </tr>
                 </tbody>
             </table>

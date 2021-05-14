@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
-import { CalculosService } from 'src/app/shared/services/calculos.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { NominasService } from '../../../services/nominas.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class NominaComponent implements OnInit {
 
     public llave:string = "";
 
-  constructor(private nominaPrd:NominasService,private calculoPrd:CalculosService) { }
+  constructor(private nominaPrd:NominasService,private calculoPrd:NominaordinariaService) { }
 
   ngOnInit(): void {
 

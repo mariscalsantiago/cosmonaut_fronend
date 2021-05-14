@@ -5,8 +5,9 @@ import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { DatosimssComponent } from 'src/app/modules/empresas/pages/empresas/pestañas/datosimss/datosimss.component';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
-import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 
 @Component({
   selector: 'app-calcular',
@@ -35,7 +36,8 @@ export class CalcularComponent implements OnInit {
   public arreglo: any = [];
 
   constructor(private nominasPrd: NominasService, private navigate: Router,
-    private modalPrd: ModalService, private calculoPrd: CalculosService, private cp: CurrencyPipe) { }
+    private modalPrd: ModalService, private nominaOrdinariaPrd:NominaordinariaService,
+    private nominaAguinaldoPrd:NominaaguinaldoService, private cp: CurrencyPipe) { }
 
   ngOnInit(): void {
 
@@ -50,7 +52,7 @@ if(this.nominaSeleccionada.nominaOrdinaria){
       nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
   }
 
-  this.calculoPrd.getEmpleadosByNomina(this.objEnviar).subscribe(datos => {
+  this.nominaOrdinariaPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
     this.cargando = false;
     this.arreglo = datos.datos;
     this.rellenandoTablas("calculoEmpleado");
@@ -67,7 +69,7 @@ if(this.nominaSeleccionada.nominaOrdinaria){
       nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
   }
 
-  this.calculoPrd.ListaEmpleadoAguinaldo(this.objEnviar).subscribe(datos => {
+  this.nominaAguinaldoPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
     console.log("SI ES EXTRAORDINARIA");
     this.cargando = false;
@@ -125,12 +127,12 @@ if(this.nominaSeleccionada.nominaOrdinaria){
 
         if(this.nominaSeleccionada.nominaOrdinaria){
 
-          this.calculoPrd.getEmpleadosByNominaDetalle(objEnviar).subscribe(datosItem => {
+          this.nominaOrdinariaPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
               this.rellenandoDesglose("detalleNominaEmpleado",datosItem,item);
           });
 
           }else if(this.nominaSeleccionada.nominaExtraordinaria){
-            this.calculoPrd.getEmpleadosByNominaDetalleExtraordinaria(objEnviar).subscribe(datosItem => {
+            this.nominaAguinaldoPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
               this.rellenandoDesglose("detalleNominaEmpleadoAguinaldo",datosItem,item);
           });
           }

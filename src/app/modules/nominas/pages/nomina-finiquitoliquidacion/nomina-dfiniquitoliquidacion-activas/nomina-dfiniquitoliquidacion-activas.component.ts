@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { NominasService } from '../../../services/nominas.service';
-import { CalculosService } from 'src/app/shared/services/calculos.service';
+
 
 
 @Component({
@@ -22,31 +23,22 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
 
   constructor(private ventana:VentanaemergenteService,private router:Router,
     private modalPrd:ModalService,private nominaPrd:NominasService,
-    private empleadoPrd:EmpleadosService, private calculoPrd:CalculosService,private usuariSistemaPrd:UsuarioSistemaService) { }
+    private empleadoPrd:EmpleadosService, private nominaFiniquitoPrd:NominafiniquitoliquidacionService,private usuariSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
-    
     this.cargando = true;
     let objenviar = 
     {
       clienteId: this.usuariSistemaPrd.getIdEmpresa()
     }
-    this.calculoPrd.getConsultaNominaExtraordinaria(objenviar).subscribe(datos => {
+    this.nominaFiniquitoPrd.getListaNominas(objenviar).subscribe(datos => {
       this.cargando = false;
       this.arreglo = datos.datos;
-
       for(let item of this.arreglo){
-          item["inicial"] = item.nominaExtraordinaria.total == undefined;
+          item["inicial"] = item.nominaOrdinaria.total == undefined;
       }
-    })
-
-      this.arregloPersonas = this.nominaPrd.arregloEmpleado;
-
-
-
-      this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-        this.nominaPrd.saveEmpleado(datos.datos);
-      });
+    });
+      this.arregloPersonas = this.nominaPrd.arregloEmpleado;     
 
   }
 
@@ -54,7 +46,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
       this.ventana.showVentana(this.ventana.nuevanominafiniquitoliquidacion).then(valor =>{
         
         if(valor.datos){
-            this.agregarNuevaNomina();
+           // this.agregarNuevaNomina();
         }
       });
   }
@@ -70,7 +62,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
           clienteId: this.usuariSistemaPrd.getIdEmpresa(),
           //usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
         }
-        this.calculoPrd.calcularNominaExtraordinariaAguinaldo(objEnviar).subscribe(datos =>{
+        this.nominaFiniquitoPrd.calcularNomina(objEnviar).subscribe(datos =>{
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.router.navigate(['/nominas/nomina'],{ state: { datos: datos } });
         });
@@ -91,19 +83,6 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
   }
 
 
-  public agregarNuevaNomina(){
-      this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
-      this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-        setTimeout(() => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          let objEnviar = {inicial:true};
-          this.nominaPrd.save(objEnviar);
-          this.nominaPrd.saveEmpleado(datos.datos);
-        }, 2000);
-      });
-
-    
-  }
+  
 
 }

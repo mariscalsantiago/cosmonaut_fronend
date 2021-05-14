@@ -3,9 +3,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
-import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 
 @Component({
   selector: 'app-pagar',
@@ -31,7 +32,8 @@ export class PagarComponent implements OnInit {
   public arreglo:any = [];
 
   constructor(private modalPrd:ModalService,private nominasPrd:NominasService,private empleadoPrd:EmpleadosService,
-    private ventana:VentanaemergenteService,private calculoPrd:CalculosService,private cp:CurrencyPipe) { }
+    private ventana:VentanaemergenteService,private nominaOrdinariaPrd:NominaordinariaService,
+    private nominaAguinaldoPrd:NominaaguinaldoService,private cp:CurrencyPipe) { }
 
 
 
@@ -48,7 +50,7 @@ export class PagarComponent implements OnInit {
     }
   
     this.cargando = true;
-    this.calculoPrd.getTotalEmpleadoConPagoNeto(this.objEnviar).subscribe(datos =>{
+    this.nominaOrdinariaPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos =>{
       this.tablaNminaOrdinaria(datos);
     });
  
@@ -64,7 +66,7 @@ export class PagarComponent implements OnInit {
   
     
     this.cargando = true;
-    this.calculoPrd.listaEmpleadoPagoExtraordinariaAguinaldo(this.objEnviar).subscribe(datos =>{
+    this.nominaAguinaldoPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos =>{
       this.tablaNminaExtraordinaria(datos);
     });
 

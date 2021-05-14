@@ -3,9 +3,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
-import { CalculosService } from 'src/app/shared/services/calculos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 
 @Component({
   selector: 'app-timbrar',
@@ -32,7 +33,8 @@ export class TimbrarComponent implements OnInit {
   @Input() nominaSeleccionada: any;
 
   constructor(private nominasPrd: NominasService, private empleadoPrd: EmpleadosService, private ventana: VentanaemergenteService,
-    private modalPrd: ModalService, private calculoPrd: CalculosService, private cp: CurrencyPipe) { }
+    private modalPrd: ModalService, private nominaOrdinariaPrd:NominaordinariaService,
+    private nominaAguinaldoPrd:NominaaguinaldoService, private cp: CurrencyPipe) { }
 
   ngOnInit(): void {
 
@@ -72,7 +74,7 @@ export class TimbrarComponent implements OnInit {
 
   public initOrdinaria(objEnviar: any) {
 
-    this.calculoPrd.getTotalEmpleadoConPagoTimbrado(objEnviar).subscribe(datos => {
+    this.nominaOrdinariaPrd.getUsuariosTimbrado(objEnviar).subscribe(datos => {
 
       this.rellenarTablas(datos);
 
@@ -83,7 +85,7 @@ export class TimbrarComponent implements OnInit {
   public initExtraordinaria(objEnviar: any) {
 
 
-    this.calculoPrd.getTotalEmpleadoConPagoTimbradoExtraordinaria(objEnviar).subscribe(datos => {
+    this.nominaAguinaldoPrd.getUsuariosTimbrado(objEnviar).subscribe(datos => {
 
       this.rellenarTablas(datos);
 
@@ -109,7 +111,7 @@ export class TimbrarComponent implements OnInit {
 
         if (this.nominaSeleccionada.nominaOrdinaria) {
 
-          this.calculoPrd.getTotalEmpleadoConPagoTimbradoDetalle(objEnviar).subscribe(datos => {
+          this.nominaOrdinariaPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminar = datos.datos[0].xmlPreliminar;
             console.log(xmlPreliminar);
             this.datosExtras.datos = xmlPreliminar;
@@ -118,7 +120,7 @@ export class TimbrarComponent implements OnInit {
          
         } else if (this.nominaSeleccionada.nominaExtraordinaria) {
         
-          this.calculoPrd.getTotalEmpleadoConPagoTimbradoDetalleExtraordinaria(objEnviar).subscribe(datos => {
+          this.nominaAguinaldoPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminarAguinaldo = datos.datos[0].xmlPreliminarAguinaldo;
             console.log(xmlPreliminarAguinaldo,"ESTE ES LA EXTRAORDINARIA");
             this.datosExtras.datos = xmlPreliminarAguinaldo;

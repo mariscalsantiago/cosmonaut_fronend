@@ -13,7 +13,7 @@ import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.s
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { CalculosService } from 'src/app/shared/services/calculos.service';
+import { CalculosService } from 'src/app/shared/services/nominas/calculos.service';
 
 
 
