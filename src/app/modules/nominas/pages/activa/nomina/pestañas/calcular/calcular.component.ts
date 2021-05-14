@@ -111,6 +111,8 @@ export class CalcularComponent implements OnInit {
 
 
     for (let item of this.arreglo) {
+      console.log("Este es el imtem",item);
+
       item["nombrecompleto"] = item[llave].empleado;
       item["diaslaborados"] = item[llave].diasLaborados;
       item["percepciones"] = this.cp.transform(item[llave].percepciones);

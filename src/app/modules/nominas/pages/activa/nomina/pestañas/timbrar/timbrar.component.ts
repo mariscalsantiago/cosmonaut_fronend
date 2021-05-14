@@ -61,7 +61,7 @@ export class TimbrarComponent implements OnInit {
       console.log("ESTE ES LA EXTRAORDINARIA TIMBRADO");
     }else if(this.nominaSeleccionada.nominaLiquidacion){
       objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId;
-      this.initExtraordinaria(objEnviar);
+      this.initLiquidacion(objEnviar);
       this.llave = "reciboATimbrarLiquidacion";
       this.llave2 = "nominaLiquidacion";
       console.log("ESTE ES LA finiquito");

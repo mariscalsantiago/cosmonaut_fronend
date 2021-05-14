@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
-import { finiquitoCalculo, finiquitoListaActivos } from './datos';
+import { finiquitoCalculo, finiquitoListaActivos, finiquitoUsuariosCalculados, finiquitoUsuariosCalculadosDetalle, finiquitoUsuariosDispersion, finiquitoUsuariosTimbrado, finiquitoUsuariosTimbradoDetalle } from './datos';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +51,7 @@ export class NominafiniquitoliquidacionService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(finiquitoListaActivos);
+    return this.creandoObservable(finiquitoUsuariosCalculados);
    // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
@@ -64,7 +64,7 @@ export class NominafiniquitoliquidacionService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(finiquitoListaActivos);
+    return this.creandoObservable(finiquitoUsuariosCalculadosDetalle);
    // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
@@ -77,7 +77,7 @@ export class NominafiniquitoliquidacionService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(finiquitoListaActivos);
+    return this.creandoObservable(finiquitoUsuariosDispersion);
    // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
@@ -91,7 +91,7 @@ export class NominafiniquitoliquidacionService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(finiquitoListaActivos);
+    return this.creandoObservable(finiquitoUsuariosTimbrado);
    // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
@@ -103,7 +103,7 @@ export class NominafiniquitoliquidacionService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(finiquitoListaActivos);
+    return this.creandoObservable(finiquitoUsuariosTimbradoDetalle);
    // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
@@ -111,7 +111,7 @@ export class NominafiniquitoliquidacionService {
   public creandoObservable(obj: any): Subject<any> {
     let subject = new Subject();
     setTimeout(() => {
-      subject.next(obj);
+      subject.next(JSON.parse(JSON.stringify(obj)));
       subject.complete();
     }, 2000);
     return subject;

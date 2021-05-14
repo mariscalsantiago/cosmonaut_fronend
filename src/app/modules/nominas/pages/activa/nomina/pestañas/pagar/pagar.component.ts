@@ -88,13 +88,13 @@ export class PagarComponent implements OnInit {
       new tabla("status", "Estatus ", false, false, true)
     ];
     for (let item of this.arreglo) {
-      item["nombrecompleto"] = item.empleadoApago.nombreEmpleado + " " + item.empleadoApago.apellidoPatEmpleado + " ";
-      item["nombrecompleto"] += (item.empleadoApago.apellidoMatEmpleado == undefined) ? "" : item.empleadoApago.apellidoMatEmpleado;
+      item["nombrecompleto"] = item[llave].nombreEmpleado + " " + item[llave].apellidoPatEmpleado + " ";
+      item["nombrecompleto"] += (item[llave].apellidoMatEmpleado == undefined) ? "" : item[llave].apellidoMatEmpleado;
       item["rfc"] = "falta";
-      item["banco"] = item.empleadoApago.banco;
-      item["tipopago"] = item.empleadoApago.tipoPago;
-      item["total"] = this.cp.transform(item.empleadoApago.totalNetoEndinero);
-      item["status"] = item.empleadoApago.status;
+      item["banco"] = item[llave].banco;
+      item["tipopago"] = item[llave].tipoPago;
+      item["total"] = this.cp.transform(item[llave].totalNetoEndinero);
+      item["status"] = item[llave].status;
     }
     let filas: Array<any> = this.arreglo;
     this.arreglotabla = {

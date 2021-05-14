@@ -75,6 +75,7 @@ export class NominaaguinaldoService {
       })
     };
     let json: string = JSON.stringify(obj);
+    
     return this.creandoObservable(aguinaldoUsuariosDispersion);
    // return this.http.post(`${direcciones.orquestador}/lista/empleado/pago/neto/nomina/extraordinaria`, json, httpOptions);
   }
@@ -109,7 +110,7 @@ export class NominaaguinaldoService {
   public creandoObservable(obj:any):Subject<any>{
     let subject = new Subject();
     setTimeout(() => {
-      subject.next(obj);
+      subject.next(JSON.parse(JSON.stringify(obj)));
       subject.complete();
     }, 2000);
     return subject;

@@ -134,7 +134,7 @@ export class NominaordinariaService {
   public creandoObservable(obj:any):Subject<any>{
     let subject = new Subject();
     setTimeout(() => {
-      subject.next(obj);
+      subject.next(JSON.parse(JSON.stringify(obj)));
       subject.complete();
     }, 2000);
     return subject;

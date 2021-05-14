@@ -676,7 +676,7 @@ export const finiquitoUsuariosTimbradoDetalle = {
             "exento": 0.00
           },
           {
-            "percepciones": "Gratificación Anual (Aguinaldo)",
+            "percepciones": "Gratificación Anual (Aguinaldo finiquito)",
             "monto": 4133.04,
             "gravado": 1444.44,
             "exento": 2688.60

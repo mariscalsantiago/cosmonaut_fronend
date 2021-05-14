@@ -33,7 +33,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
       this.cargando = false;
       this.arreglo = datos.datos;
       for(let item of this.arreglo){
-          item["inicial"] = item.nominaOrdinaria.total == undefined;
+          item["inicial"] = item.nominaLiquidacion.total == undefined;
       }
     });   
 
@@ -55,7 +55,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
         let objEnviar = {
-          nominaXperiodoId: item.nominaOrdinaria.nominaXperiodoId,
+          nominaXperiodoId: item.nominaLiquidacion.nominaXperiodoId,
           clienteId: this.usuariSistemaPrd.getIdEmpresa()
         }
         this.nominaFiniquitoPrd.calcularNomina(objEnviar).subscribe(datos =>{
@@ -70,12 +70,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
   }
 
   public continuar(item:any){
-    this.modalPrd.showMessageDialog(this.modalPrd.loading,"Recalculando la nómina");
-    setTimeout(() => {
-      item.inicial = false;
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      this.router.navigate(['/nominas/nomina']);
-    }, 4000);
+    this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
   }
 
 
