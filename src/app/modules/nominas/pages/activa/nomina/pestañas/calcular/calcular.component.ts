@@ -43,17 +43,27 @@ if(this.nominaSeleccionada.nominaOrdinaria){
   this.nominaOrdinaria= true;
 
     this.cargando = true;
-    let objenviar = {
+    this.objEnviar = {
       nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
   }
-  
-    this.calculoPrd.getEmpleadosByNomina(objenviar).subscribe(datos => {
+}else if(this.nominaSeleccionada.nominaExtraordinaria){
+  this.nominaOrdinaria= true;
+
+    this.cargando = true;
+    this.objEnviar = {
+      nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
+  }
+}
+    this.calculoPrd.getEmpleadosByNomina(this.objEnviar).subscribe(datos => {
       this.cargando = false;
       this.arreglo = datos.datos;
       this.rellenandoTablas();
     });
 
+  
+
   }
+
 
   public rellenandoTablas() {
     let columnas: Array<tabla> = [
