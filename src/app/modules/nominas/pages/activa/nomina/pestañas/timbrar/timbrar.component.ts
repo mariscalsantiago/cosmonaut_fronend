@@ -2,10 +2,10 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
-import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
+import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 
 @Component({
@@ -32,44 +32,40 @@ export class TimbrarComponent implements OnInit {
 
   @Input() nominaSeleccionada: any;
 
-  constructor(private nominasPrd: NominasService, private empleadoPrd: EmpleadosService, private ventana: VentanaemergenteService,
+  constructor(private empleadoPrd: EmpleadosService, private ventana: VentanaemergenteService,
     private modalPrd: ModalService, private nominaOrdinariaPrd:NominaordinariaService,
-    private nominaAguinaldoPrd:NominaaguinaldoService, private cp: CurrencyPipe) { }
+    private nominaAguinaldoPrd:NominaaguinaldoService,private nominaLiquidacionPrd:NominafiniquitoliquidacionService, private cp: CurrencyPipe) { }
 
   ngOnInit(): void {
 
 
     this.cargando = true;
     let objEnviar = {
-      nominaXperiodoId: 229
+      nominaXperiodoId: 0
     }
 
 
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
+      objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId;
       this.initOrdinaria(objEnviar);
       this.llave = "reciboATimbrar";
       this.llave2 = "nominaOrdinaria";
       console.log("ESTE ES LA NOMINA ORDINARIA TIMBRADO");
     } else if (this.nominaSeleccionada.nominaExtraordinaria) {
+      objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId;
       this.initExtraordinaria(objEnviar);
       this.llave = "reciboATimbrarAguinaldo";
       this.llave2 = "nominaExtraordinaria";
 
       console.log("ESTE ES LA EXTRAORDINARIA TIMBRADO");
+    }else if(this.nominaSeleccionada.nominaLiquidacion){
+      objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId;
+      this.initExtraordinaria(objEnviar);
+      this.llave = "reciboATimbrarLiquidacion";
+      this.llave2 = "nominaLiquidacion";
+      console.log("ESTE ES LA finiquito");
     }
-
-
-
-
-    this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos => {
-      this.arreglo = [datos.datos[0]];
-    });
-
-
-
-
-
   }
 
   public initOrdinaria(objEnviar: any) {
@@ -92,6 +88,14 @@ export class TimbrarComponent implements OnInit {
     });
 
 
+  }
+
+  public initLiquidacion(objEnviar:any){
+    this.nominaLiquidacionPrd.getUsuariosTimbrado(objEnviar).subscribe(datos => {
+
+      this.rellenarTablas(datos);
+
+    });
   }
 
 
@@ -128,7 +132,18 @@ export class TimbrarComponent implements OnInit {
           });
 
 
+        }else if (this.nominaSeleccionada.nominaLiquidacion) {
+        
+          this.nominaLiquidacionPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
+            let xmlPreliminarLiquidacion = datos.datos[0].xmlPreliminarLiquidacion;
+            console.log(xmlPreliminarLiquidacion,"ESTE ES LA EXTRAORDINARIA");
+            this.datosExtras.datos = xmlPreliminarLiquidacion;
+            item.cargandoDetalle = false;
+          });
+
+
         }
+
 
        
 

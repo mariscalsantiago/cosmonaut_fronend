@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
-import { finiquitoListaActivos } from './datos';
+import { finiquitoCalculo, finiquitoListaActivos } from './datos';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,8 @@ export class NominafiniquitoliquidacionService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
+    return this.creandoObservable(finiquitoCalculo);
+   // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
 
@@ -43,27 +44,67 @@ export class NominafiniquitoliquidacionService {
 
   }
 
-  public getUsuariosCalculados() {
+  public getUsuariosCalculados(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.creandoObservable(finiquitoListaActivos);
+   // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
 
 
-  public getUsuariosCalculadosDetalle() {
+  public getUsuariosCalculadosDetalle(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.creandoObservable(finiquitoListaActivos);
+   // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
 
-  public getUsuariosDispersion() {
+  public getUsuariosDispersion(obj:any):Observable<any> {
 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.creandoObservable(finiquitoListaActivos);
+   // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
 
 
-  public getUsuariosTimbrado() {
+  public getUsuariosTimbrado(obj:any):Observable<any> {
 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.creandoObservable(finiquitoListaActivos);
+   // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
 
-  public getUsuariosTimbradoDetalle() {
+  public getUsuariosTimbradoDetalle(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.creandoObservable(finiquitoListaActivos);
+   // return this.http.post(`${direcciones.orquestador}/guardar/pordefinir/finiquito-liquidacion`, json, httpOptions);
 
   }
 

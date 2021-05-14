@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
-import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
-import { NominasService } from '../../../services/nominas.service';
+
+
 
 @Component({
   selector: 'app-nomina',
@@ -20,7 +19,7 @@ export class NominaComponent implements OnInit {
 
     public llave:string = "";
 
-  constructor(private nominaPrd:NominasService,private calculoPrd:NominaordinariaService) { }
+  constructor() { }
 
   ngOnInit(): void {
 
@@ -32,12 +31,12 @@ export class NominaComponent implements OnInit {
     console.log(temp);
 
     if(temp.nominaOrdinaria){
-      console.log("entra");
       this.llave = "nominaOrdinaria";
      }else if(temp.nominaExtraordinaria){
-       console.log("extra  ");
        this.llave = "nominaExtraordinaria";
-     }
+     }else if(temp.nominaLiquidacion){
+      this.llave = "nominaLiquidacion";
+    }
 
      this.nominaSeleccionada = temp;
    

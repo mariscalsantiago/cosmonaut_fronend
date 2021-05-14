@@ -5,7 +5,6 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { NominasService } from '../../../services/nominas.service';
 
 @Component({
   selector: 'app-nominas-activas',
@@ -21,7 +20,7 @@ export class NominasActivasComponent implements OnInit {
   public arregloPersonas:any = [];
 
   constructor(private ventana:VentanaemergenteService,private router:Router,
-    private modalPrd:ModalService,private nominaPrd:NominasService,private usuariSistemaPrd:UsuarioSistemaService,
+    private modalPrd:ModalService,private usuariSistemaPrd:UsuarioSistemaService,
     private nominaOrdinariaPrd:NominaordinariaService) { }
 
   ngOnInit(): void {
@@ -37,7 +36,7 @@ export class NominasActivasComponent implements OnInit {
           item["inicial"] = item.nominaOrdinaria.total == undefined;
       }
     });
-      this.arregloPersonas = this.nominaPrd.arregloEmpleado;     
+          
   }
 
   public agregar(){

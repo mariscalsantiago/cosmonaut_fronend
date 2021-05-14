@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.cargandoLogin = false;
+    this.cargandoLogin = true;
     setTimeout(() => {
      this.cargandoLogin = false;
     }, 5500);

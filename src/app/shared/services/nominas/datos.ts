@@ -532,122 +532,17 @@ export const finiquitoListaActivos = {
   datos: [
     {
       "nominaLiquidacion": {
-        "nombreNomina": "Finquito/liquidacion Mayo 1",
-        "periodo": "EFL8/2021",
-        "fechaInicio": "2021-05-13",
-        "fechaFin": "2021-05-13",
-        "fechaInicio_incidencias": null,
-        "fechaFinIncidencias": null,
-        "empleados": 2,
-        "percepciones": 225284.15,
-        "deducciones": 23490.75,
-        "total": 201793.40,
-        "nominaXperiodoId": 273
-      }
-    },
-    {
-      "nominaLiquidacion": {
-        "nombreNomina": "Finquito Mayo 3",
-        "periodo": "EFL7/2021",
-        "fechaInicio": "2021-05-13",
-        "fechaFin": "2021-05-13",
-        "fechaInicio_incidencias": null,
-        "fechaFinIncidencias": null,
-        "empleados": 1,
-        "percepciones": 14421.37,
-        "deducciones": 1121.67,
-        "total": 13299.70,
-        "nominaXperiodoId": 272
-      }
-    },
-    {
-      "nominaLiquidacion": {
-        "nombreNomina": "Finquito Mayo 2",
-        "periodo": "EFL6/2021",
-        "fechaInicio": "2021-05-13",
-        "fechaFin": "2021-05-13",
-        "fechaInicio_incidencias": null,
-        "fechaFinIncidencias": null,
-        "empleados": 1,
-        "percepciones": 182076.63,
-        "deducciones": 41473.71,
-        "total": 140602.92,
-        "nominaXperiodoId": 271
-      }
-    },
-    {
-      "nominaLiquidacion": {
-        "nombreNomina": "Prueba finquito Integracion Mayo 1",
-        "periodo": "EFL5/2021",
-        "fechaInicio": "2021-05-13",
-        "fechaFin": "2021-05-13",
-        "fechaInicio_incidencias": null,
-        "fechaFinIncidencias": null,
-        "empleados": 0,
-        "percepciones": 0.00,
-        "deducciones": 0.00,
-        "total": 0.00,
-        "nominaXperiodoId": 263
-      }
-    },
-    {
-      "nominaLiquidacion": {
-        "nombreNomina": "Prueba finquito Integracion Mayo 1",
-        "periodo": "EFL4/2021",
-        "fechaInicio": "2021-05-13",
-        "fechaFin": "2021-05-13",
-        "fechaInicio_incidencias": null,
-        "fechaFinIncidencias": null,
-        "empleados": 0,
-        "percepciones": 0.00,
-        "deducciones": 0.00,
-        "total": 0.00,
-        "nominaXperiodoId": 261
-      }
-    },
-    {
-      "nominaLiquidacion": {
-        "nombreNomina": "Prueba finquito Integracion Mayo 1",
-        "periodo": "EFL3/2021",
-        "fechaInicio": "2021-05-13",
-        "fechaFin": "2021-05-13",
-        "fechaInicio_incidencias": null,
-        "fechaFinIncidencias": null,
-        "empleados": 0,
-        "percepciones": 0.00,
-        "deducciones": 0.00,
-        "total": 0.00,
-        "nominaXperiodoId": 260
-      }
-    },
-    {
-      "nominaLiquidacion": {
-        "nombreNomina": "Prueba finquito Mayo 1",
-        "periodo": "EFL2/2021",
-        "fechaInicio": "2021-05-13",
-        "fechaFin": "2021-05-13",
-        "fechaInicio_incidencias": null,
-        "fechaFinIncidencias": null,
-        "empleados": 0,
-        "percepciones": 10923.29,
-        "deducciones": 621.96,
-        "total": 10301.33,
-        "nominaXperiodoId": 259
-      }
-    },
-    {
-      "nominaLiquidacion": {
-        "nombreNomina": "PRueba fin/liq NEW CALC",
+        "nombreNomina": "Finquito/Liquidacion Mayo 1 14-05",
         "periodo": "EFL1/2021",
-        "fechaInicio": "2021-05-13",
-        "fechaFin": "2021-05-13",
-        "fechaInicio_incidencias": null,
-        "fechaFinIncidencias": null,
-        "empleados": 0,
-        "percepciones": 206253.32,
-        "deducciones": 54904.96,
-        "total": 151348.36,
-        "nominaXperiodoId": 258
+        "fechaInicio": "2021-05-14",
+        "fechaFin": "2021-05-14",
+        "fechaInicioIncidencias": null,
+        "fechaFin_incidencias": null,
+        "empleados": 2,
+        "percepciones": 170867.58,
+        "deducciones": 35208.57,
+        "total": 135659.01,
+        "nominaXperiodoId": 314
       }
     }
   ]
@@ -657,72 +552,165 @@ export const finiquitoListaActivos = {
 export const finiquitoUsuariosCalculados = {
   datos: [
     {
-      "calculoEmpleadoFiniquito": {
-        "empleado": "Ricardo Hernández Basurto",
-        "id": "805",
-        "diasLaborados": 11.00,
-        "percepciones": 69436.40,
-        "deducciones": 5129.80,
-        "total": 64306.60,
-        "areaId": 184,
-        "nominaXperiodoId": 273,
-        "fechaContrato": "2020-08-06",
-        "personaId": 805,
-        "centrocClienteId": 464
+      "calculoEmpleadoLiquidacion": {
+        "empleado": "Julián Hernández Franz",
+        "id": "821",
+        "diasLaborados": 13.00,
+        "percepciones": 160329.34,
+        "deducciones": 34582.95,
+        "total": 125746.39,
+        "areaId": 189,
+        "nominaXperiodoId": 314,
+        "fechaContrato": "2017-07-02",
+        "personaId": 821,
+        "centrocClienteId": 466
       }
     },
     {
-      "calculoEmpleadoFiniquito": {
-        "empleado": "Juan López Garza",
-        "id": "804",
-        "diasLaborados": 30.00,
-        "percepciones": 155847.75,
-        "deducciones": 18360.95,
-        "total": 137486.80,
-        "areaId": 184,
-        "nominaXperiodoId": 273,
-        "fechaContrato": "2021-01-01",
-        "personaId": 804,
-        "centrocClienteId": 464
+      "calculoEmpleadoLiquidacion": {
+        "empleado": "Karla Salinas Sánchez",
+        "id": "819",
+        "diasLaborados": 20.00,
+        "percepciones": 10538.24,
+        "deducciones": 625.62,
+        "total": 9912.62,
+        "areaId": 189,
+        "nominaXperiodoId": 314,
+        "fechaContrato": "2018-10-10",
+        "personaId": 819,
+        "centrocClienteId": 466
       }
     }
   ]
 }
 
-export const finiquitoUsuariosCalculadosDetalle = {datos:[
-  {
-      "calculoEmpleadoFiniquito": {
-          "empleado": "Ricardo Hernández Basurto",
-          "id": "805",
-          "diasLaborados": 11.00,
-          "percepciones": 69436.40,
-          "deducciones": 5129.80,
-          "total": 64306.60,
-          "areaId": 184,
-          "nominaXperiodoId": 273,
-          "fechaContrato": "2020-08-06",
-          "personaId": 805,
-          "centrocClienteId": 464
+export const finiquitoUsuariosCalculadosDetalle = {
+  datos: [
+    {
+      "detalleNominaEmpleadoLiquidacion": {
+        "salarioDiario": 580.65,
+        "salarioBaseCotizacion": 609.28,
+        "impuestoNomina": 69.93,
+        "provisionVacaciones": 0,
+        "imssPatronal": 0,
+        "provisionPrimaVacacional": 0,
+        "provisionAguinaldo": 0,
+        "diasLaborados": 1,
+        "diasFestivoLabor": 0,
+        "diasDescansoLabor": 0,
+        "diasDescansoLaborDom": 0,
+        "horasExtraDoble": 0,
+        "horasExtraTriple": 0,
+        "percepciones": [
+          {
+            "concepto": "Sueldos",
+            "montoTotal": 609.28
+          },
+          {
+            "concepto": "Gratificación Anual (Aguinaldo)",
+            "montoTotal": 2887.34
+          },
+          {
+            "concepto": "Indemnización 20 días",
+            "montoTotal": 47707.46
+          },
+          {
+            "concepto": "Indemnización 20 días",
+            "montoTotal": 155049.24
+          }
+        ],
+        "deducciones": [
+          {
+            "concepto": "ISR",
+            "montoCuota": 54882.12
+          },
+          {
+            "concepto": "ISR",
+            "montoCuota": 22.84
+          }
+        ]
       }
-  },
-  {
-      "calculoEmpleadoFiniquito": {
-          "empleado": "Juan López Garza",
-          "id": "804",
-          "diasLaborados": 30.00,
-          "percepciones": 155847.75,
-          "deducciones": 18360.95,
-          "total": 137486.80,
-          "areaId": 184,
-          "nominaXperiodoId": 273,
-          "fechaContrato": "2021-01-01",
-          "personaId": 804,
-          "centrocClienteId": 464
-      }
-  }
-]}
+    }
+  ]
+}
 
-export const finiquitoUsuariosDispersion = {}
-export const finiquitoUsuariosTimbrado = {}
-export const finiquitoUsuariosTimbradoDetalle = {}
+export const finiquitoUsuariosDispersion = {
+  datos: [
+    {
+      "empleadoApagoLiquidacion": {
+        "nombreEmpleado": "Tania",
+        "apellidoPatEmpleado": "Gaytán",
+        "apellidoMatEmpleado": "Lomas",
+        "banco": "BBVA BANCOMER",
+        "totalNetoEndinero": 151348.36,
+        "tipoPago": "Transferencia",
+        "status": "ESTATUS_PAGO"
+      }
+    }
+  ]
+}
+export const finiquitoUsuariosTimbrado = {
+  datos: [
+    {
+        "reciboATimbrarLiquidacion": {
+            "nombreEmpleado": "Fernando",
+            "apellidoPatEmpleado": "Rodríguez",
+            "apellidoMatEmpleado": "Gamboa",
+            "tipoPago": "Transferencia",
+            "totalNeto": 140602.92,
+            "fechaPagoTimbrado": "2021-05-14T22:01:51.882006+00:00",
+            "status": "Sin Timbrar"
+        }
+    }
+]
+}
+export const finiquitoUsuariosTimbradoDetalle = {
+  datos: [
+    {
+      "xmlPreliminarLiquidacion": {
+        "percepcion": [
+          {
+            "percepciones": "Sueldos",
+            "monto": 10288.33,
+            "gravado": 10288.33,
+            "exento": 0.00
+          },
+          {
+            "percepciones": "Gratificación Anual (Aguinaldo)",
+            "monto": 4133.04,
+            "gravado": 1444.44,
+            "exento": 2688.60
+          }
+        ],
+        "deduccion": [
+          {
+            "deducciones": "ISR",
+            "monto": 1121.67
+          }
+        ],
+        "totalMontoPercepciones": 14421.37,
+        "totalGravado": 11732.77,
+        "totalExento": 2688.6,
+        "totalMontoDeducciones": 1121.67
+      }
+    }
+  ]
+}
+
+export const finiquitoCalculo = {
+  datos: {
+    "nominaXperiodoId": 259,
+    "cantidadEmpleados": "0",
+    "nombreNomina": "Prueba finquito Mayo 1",
+    "clavePeriodo": "EFL2/2021",
+    "fechaInicio": "2021-05-01",
+    "fechaFin": "2021-05-10",
+    "fechaInicio_incidencias": "2021-05-01",
+    "fechaFinIncidencias": "2021-05-10",
+    "totalPercepcion": 21846.58,
+    "totalDeduccion": 1243.92,
+    "total": 20602.66,
+    "estadoNominaIdActual": "2"
+  },
+}
 

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
-import { NominasService } from '../../../services/nominas.service';
 
 @Component({
   selector: 'app-nomina-ptu',
@@ -18,34 +17,20 @@ export class NominaPTUComponent implements OnInit {
   public arregloPersonas:any = [];
 
   constructor(private ventana:VentanaemergenteService,private router:Router,
-    private modalPrd:ModalService,private nominaPrd:NominasService,private empleadoPrd:EmpleadosService) { }
+    private modalPrd:ModalService,private empleadoPrd:EmpleadosService) { }
 
   ngOnInit(): void {
 
     this.cargando = true;
 
-      this.nominaPrd.getAllNominas().subscribe(datos =>{
-        this.cargando = false;
-        this.arreglo = datos;
-        
-      });
-
-
-      this.arregloPersonas = this.nominaPrd.arregloEmpleado;
-
-
-
-      this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-        this.nominaPrd.saveEmpleado(datos.datos);
-      });
-
+   
   }
 
   public agregar(){
       this.ventana.showVentana(this.ventana.nuevanominaptu).then(valor =>{
         
         if(valor.datos){
-            this.agregarNuevaNomina();
+            
         }
       });
   }
@@ -78,18 +63,5 @@ export class NominaPTUComponent implements OnInit {
   }
 
 
-  public agregarNuevaNomina(){
-      this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
-      this.empleadoPrd.getEmpleadosCompania(112).subscribe(datos =>{
-        setTimeout(() => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          let objEnviar = {inicial:true};
-          this.nominaPrd.save(objEnviar);
-          this.nominaPrd.saveEmpleado(datos.datos);
-        }, 2000);
-      });
-
-    
-  }
+  
 }

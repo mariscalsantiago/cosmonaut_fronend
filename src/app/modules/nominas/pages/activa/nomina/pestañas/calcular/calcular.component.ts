@@ -2,11 +2,9 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
-import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
-import { DatosimssComponent } from 'src/app/modules/empresas/pages/empresas/pestañas/datosimss/datosimss.component';
-import { NominasService } from 'src/app/modules/nominas/services/nominas.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
+import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 
 @Component({
@@ -16,17 +14,18 @@ import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaor
 })
 export class CalcularComponent implements OnInit {
   @Output() salida = new EventEmitter();
-  @Input() nominaSeleccionada:any;
-  public cargando:boolean = false;
+  @Input() nominaSeleccionada: any;
+  public cargando: boolean = false;
   public nominaOrdinaria: boolean = false;
   public nominaExtraordinaria: boolean = false;
+  public nominaLiquidacion:boolean = false;
   public objEnviar: any = [];
-  public arreglotabla:any = {
-    columnas:[],
-    filas:[]
+  public arreglotabla: any = {
+    columnas: [],
+    filas: []
   }
 
-  public llave:string = "";
+  public llave: string = "";
 
   public datosDetalleEmpleadoNomina: any = [];
 
@@ -35,56 +34,72 @@ export class CalcularComponent implements OnInit {
 
   public arreglo: any = [];
 
-  constructor(private nominasPrd: NominasService, private navigate: Router,
-    private modalPrd: ModalService, private nominaOrdinariaPrd:NominaordinariaService,
-    private nominaAguinaldoPrd:NominaaguinaldoService, private cp: CurrencyPipe) { }
+  constructor(private navigate: Router,
+    private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
+    private nominaAguinaldoPrd: NominaaguinaldoService,private nominaFiniquito:NominafiniquitoliquidacionService, private cp: CurrencyPipe) { }
 
   ngOnInit(): void {
 
 
 
-if(this.nominaSeleccionada.nominaOrdinaria){
-  this.llave = "nominaOrdinaria";
-  this.nominaOrdinaria= true;
+    if (this.nominaSeleccionada.nominaOrdinaria) {
+      this.llave = "nominaOrdinaria";
+      this.nominaOrdinaria = true;
 
-    this.cargando = true;
-    this.objEnviar = {
-      nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
+      this.cargando = true;
+      this.objEnviar = {
+        nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
+      }
+
+      this.nominaOrdinariaPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenandoTablas("calculoEmpleado");
+      });
+
+    } else if (this.nominaSeleccionada.nominaExtraordinaria) {
+
+      this.llave = "nominaExtraordinaria";
+
+      this.nominaExtraordinaria = true;
+
+      this.cargando = true;
+      this.objEnviar = {
+        nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
+      }
+
+      this.nominaAguinaldoPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
+
+        console.log("SI ES EXTRAORDINARIA");
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenandoTablas("calculoEmpleadoAguinaldo");
+      });
+
+    } else if (this.nominaSeleccionada.nominaLiquidacion) {
+      this.llave = "nominaLiquidacion";
+      this.nominaLiquidacion = true;
+
+      this.cargando = true;
+      this.objEnviar = {
+        nominaXperiodoId: this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId
+      }
+
+      this.nominaFiniquito.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
+
+        console.log("SI ES FINIQUITO");
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenandoTablas("calculoEmpleadoLiquidacion");
+      });
+    }
+
+
+
   }
 
-  this.nominaOrdinariaPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
-    this.cargando = false;
-    this.arreglo = datos.datos;
-    this.rellenandoTablas("calculoEmpleado");
-  });
 
-}else if(this.nominaSeleccionada.nominaExtraordinaria){
-
-  this.llave = "nominaExtraordinaria";
-  
-  this.nominaExtraordinaria= true;
-
-    this.cargando = true;
-    this.objEnviar = {
-      nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
-  }
-
-  this.nominaAguinaldoPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
-
-    console.log("SI ES EXTRAORDINARIA");
-    this.cargando = false;
-    this.arreglo = datos.datos;
-    this.rellenandoTablas("calculoEmpleadoAguinaldo");
-  });
-
-}
-   
-  
-
-  }
-
-
-  public rellenandoTablas(llave:string) {
+  public rellenandoTablas(llave: string) {
     let columnas: Array<tabla> = [
       new tabla("nombrecompleto", "Nombre"),
       new tabla("numEmpleado", "Número de empleado", false, false, true),
@@ -125,49 +140,53 @@ if(this.nominaSeleccionada.nominaOrdinaria){
           clienteId: item.centrocClienteId
         }
 
-        if(this.nominaSeleccionada.nominaOrdinaria){
+        if (this.nominaSeleccionada.nominaOrdinaria) {
 
           this.nominaOrdinariaPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
-              this.rellenandoDesglose("detalleNominaEmpleado",datosItem,item);
+            this.rellenandoDesglose("detalleNominaEmpleado", datosItem, item);
           });
 
-          }else if(this.nominaSeleccionada.nominaExtraordinaria){
-            this.nominaAguinaldoPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
-              this.rellenandoDesglose("detalleNominaEmpleadoAguinaldo",datosItem,item);
+        } else if (this.nominaSeleccionada.nominaExtraordinaria) {
+          this.nominaAguinaldoPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
+            this.rellenandoDesglose("detalleNominaEmpleadoAguinaldo", datosItem, item);
           });
-          }
-        
+        }else if(this.nominaSeleccionada.nominaLiquidacion){
+          this.nominaFiniquito.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
+            this.rellenandoDesglose("detalleNominaEmpleadoLiquidacion", datosItem, item);
+          });
+        }
+
         break;
     }
   }
 
-  public regresarOrdinaria(){
-    
-      this.navigate.navigate(["/nominas/activas"]);
+  public regresarOrdinaria() {
+
+    this.navigate.navigate(["/nominas/activas"]);
   }
-  public regresarExtraordinaria(){
-    
+  public regresarExtraordinaria() {
+
     this.navigate.navigate(["/nominas/nomina_extraordinaria"]);
-}
+  }
 
-  public continuar(){
-    this.salida.emit({type:"calcular"});
+  public continuar() {
+    this.salida.emit({ type: "calcular" });
   }
 
 
-  public clonar(obj:any){
+  public clonar(obj: any) {
     return JSON.parse(JSON.stringify(obj));
   }
 
-  public rellenandoDesglose(llave2:string,datosItem:any,item:any){
-      
+  public rellenandoDesglose(llave2: string, datosItem: any, item: any) {
+
     let aux: any = this.clonar(datosItem.datos[0][llave2]);
     let deducciones = aux.deducciones;
     let percepciones = aux.percepciones;
-    let dias:any = [];
-    let otros:any = [];
+    let dias: any = [];
+    let otros: any = [];
     for (let llave in aux) {
-      if(llave.includes("percepciones") || llave.includes("deducciones")) continue;
+      if (llave.includes("percepciones") || llave.includes("deducciones")) continue;
       if (llave.includes("dias")) {
         dias.push({ valor: llave.replace(/([A-Z])/g, ' $1'), dato: aux[llave] });
       } else {

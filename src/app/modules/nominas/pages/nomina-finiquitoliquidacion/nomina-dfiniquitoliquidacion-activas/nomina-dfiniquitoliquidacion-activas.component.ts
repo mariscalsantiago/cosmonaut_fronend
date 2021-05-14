@@ -5,7 +5,6 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { NominasService } from '../../../services/nominas.service';
 
 
 
@@ -22,8 +21,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
   public arregloPersonas:any = [];
 
   constructor(private ventana:VentanaemergenteService,private router:Router,
-    private modalPrd:ModalService,private nominaPrd:NominasService,
-    private empleadoPrd:EmpleadosService, private nominaFiniquitoPrd:NominafiniquitoliquidacionService,private usuariSistemaPrd:UsuarioSistemaService) { }
+    private modalPrd:ModalService, private nominaFiniquitoPrd:NominafiniquitoliquidacionService,private usuariSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
     this.cargando = true;
@@ -37,8 +35,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
       for(let item of this.arreglo){
           item["inicial"] = item.nominaOrdinaria.total == undefined;
       }
-    });
-      this.arregloPersonas = this.nominaPrd.arregloEmpleado;     
+    });   
 
   }
 
@@ -46,7 +43,6 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
       this.ventana.showVentana(this.ventana.nuevanominafiniquitoliquidacion).then(valor =>{
         
         if(valor.datos){
-           // this.agregarNuevaNomina();
         }
       });
   }
@@ -57,10 +53,10 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.question,"Importante","No has calculado el promedio de variables para este bimestre. Si continuas, tomaremos el promedio del bimestre anterior.").then((valor)=>{
        if(valor){
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
         let objEnviar = {
           nominaXperiodoId: item.nominaOrdinaria.nominaXperiodoId,
-          clienteId: this.usuariSistemaPrd.getIdEmpresa(),
-          //usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
+          clienteId: this.usuariSistemaPrd.getIdEmpresa()
         }
         this.nominaFiniquitoPrd.calcularNomina(objEnviar).subscribe(datos =>{
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
