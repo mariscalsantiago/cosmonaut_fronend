@@ -86,8 +86,8 @@ export class CalculosService {
       subject.next(jsonobj);
       subject.complete();
     }, 2000);
-    return subject;
-    //return this.http.post(`${direcciones.orquestador}/consulta/nomina/extraordinaria`, json, httpOptions);
+    //return subject;
+    return this.http.post(`${direcciones.orquestador}/consulta/nomina/extraordinaria`, json, httpOptions);
   }
 
   public calcularNomina(obj: any): Observable<any> {
@@ -136,36 +136,51 @@ export class CalculosService {
 
     let objjson = {datos:[
       {
-        "calculoEmpleado": {
-          "empleado": "Georgina López Luna",
-          "numeroEmpleado": "STB101",
-          "diasLaborados": 15.21,
-          "percepciones": 12036.00,
-          "deducciones": 2058.66,
-          "total": 9977.34,
-          "areaId": 184,
-          "nominaXperiodoId": 229,
-          "fechaContrato": "2020-04-01",
-          "personaId": 802,
-          "centrocClienteId": 464
-        }
+          "calculoEmpleadoAguinaldo": {
+              "empleado": "Rosalba Gómez Gill",
+              "id": "STB102",
+              "diasLaborados": 365.00,
+              "percepciones": 12328.80,
+              "deducciones": 776.18,
+              "total": 11552.62,
+              "areaId": 184,
+              "nominaXperiodoId": 242,
+              "fechaContrato": "2020-02-01",
+              "personaId": 803,
+              "centrocClienteId": 464
+          }
       },
       {
-        "calculoEmpleado": {
-          "empleado": "Rosalba Gómez Gill",
-          "numeroEmpleado": "STB102",
-          "diasLaborados": 15.21,
-          "percepciones": 13082.48,
-          "deducciones": 2300.90,
-          "total": 10781.58,
-          "areaId": 184,
-          "nominaXperiodoId": 229,
-          "fechaContrato": "2020-02-01",
-          "personaId": 803,
-          "centrocClienteId": 464
-        }
+          "calculoEmpleadoAguinaldo": {
+              "empleado": "Fernando Rodríguez Gamboa",
+              "id": "STB100",
+              "diasLaborados": 365.00,
+              "percepciones": 10645.20,
+              "deducciones": 591.70,
+              "total": 10053.50,
+              "areaId": 184,
+              "nominaXperiodoId": 242,
+              "fechaContrato": "2018-10-03",
+              "personaId": 801,
+              "centrocClienteId": 464
+          }
+      },
+      {
+          "calculoEmpleadoAguinaldo": {
+              "empleado": "Georgina López Luna",
+              "id": "STB101",
+              "diasLaborados": 365.00,
+              "percepciones": 11342.55,
+              "deducciones": 667.57,
+              "total": 10674.98,
+              "areaId": 184,
+              "nominaXperiodoId": 242,
+              "fechaContrato": "2020-04-01",
+              "personaId": 802,
+              "centrocClienteId": 464
+          }
       }
-    ]};
+  ]};
 
 
     
@@ -306,6 +321,56 @@ export class CalculosService {
     // return this.http.post(`${direcciones.orquestador}/detalle/nomina/empleado`,json,httpOptions);
   }
 
+  public getEmpleadosByNominaDetalleExtraordinaria(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    let objjson = {datos:[
+      {
+          "detalleNominaEmpleadoAguinaldo": {
+              "salarioDiario": 821.92,
+              "salarioBaseCotizacion": 860.22,
+              "impuestoNomina": 369.86,
+              "provisionVacaciones": 0,
+              "imssPatronal": 0,
+              "provisionPrimaVacacional": 0,
+              "provisionAguinaldo": 0,
+              "diasLaborados": 365,
+              "diasFestivoLabor": 0,
+              "diasDescansoLabor": 0,
+              "diasDescansoLaborDom": 0,
+              "horasExtraDoble": 0,
+              "horasExtraTriple": 0,
+              "percepciones": [
+                  {
+                      "concepto": "Gratificación Anual (Aguinaldo)",
+                      "montoTotal": 12328.80
+                  }
+              ],
+              "deducciones": [
+                  {
+                      "concepto": "ISR",
+                      "montoCuota": 776.18
+                  }
+              ]
+          }
+      }
+  ]
+    };
+
+   let observable = new Subject();
+   setTimeout(() => {
+      observable.next((objjson));
+      observable.complete();
+   }, 2000);
+   return observable;
+    // return this.http.post(`${direcciones.orquestador}/detalle/nomina/empleado/aguinaldo`,json,httpOptions);
+  }
+
+
   public getTotalEmpleadoConPagoNeto(obj:any):Observable<any>{
 
 
@@ -347,7 +412,7 @@ export class CalculosService {
     }, 2000);
     return subject;
 
-     //return this.http.post(`${direcciones.orquestador}/detalle/nomina/empleado`,json,httpOptions);
+     //return this.http.post(`${direcciones.orquestador}/lista/empleado/total/pago/neto`,json,httpOptions);
  
   }
 

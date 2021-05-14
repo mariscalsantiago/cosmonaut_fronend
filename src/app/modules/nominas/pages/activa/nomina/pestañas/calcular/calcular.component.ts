@@ -25,6 +25,8 @@ export class CalcularComponent implements OnInit {
     filas:[]
   }
 
+  public llave:string = "";
+
   public datosDetalleEmpleadoNomina: any = [];
 
   public cargandoIcon: boolean = false;
@@ -40,6 +42,7 @@ export class CalcularComponent implements OnInit {
 
 
 if(this.nominaSeleccionada.nominaOrdinaria){
+  this.llave = "nominaOrdinaria";
   this.nominaOrdinaria= true;
 
     this.cargando = true;
@@ -50,10 +53,12 @@ if(this.nominaSeleccionada.nominaOrdinaria){
   this.calculoPrd.getEmpleadosByNomina(this.objEnviar).subscribe(datos => {
     this.cargando = false;
     this.arreglo = datos.datos;
-    this.rellenandoTablas();
+    this.rellenandoTablas("calculoEmpleado");
   });
 
 }else if(this.nominaSeleccionada.nominaExtraordinaria){
+
+  this.llave = "nominaExtraordinaria";
   
   this.nominaExtraordinaria= true;
 
@@ -67,7 +72,7 @@ if(this.nominaSeleccionada.nominaOrdinaria){
     console.log("SI ES EXTRAORDINARIA");
     this.cargando = false;
     this.arreglo = datos.datos;
-    this.rellenandoTablas();
+    this.rellenandoTablas("calculoEmpleadoAguinaldo");
   });
 
 }
@@ -77,7 +82,7 @@ if(this.nominaSeleccionada.nominaOrdinaria){
   }
 
 
-  public rellenandoTablas() {
+  public rellenandoTablas(llave:string) {
     let columnas: Array<tabla> = [
       new tabla("nombrecompleto", "Nombre"),
       new tabla("numEmpleado", "Número de empleado", false, false, true),
@@ -89,11 +94,11 @@ if(this.nominaSeleccionada.nominaOrdinaria){
 
 
     for (let item of this.arreglo) {
-      item["nombrecompleto"] = item.calculoEmpleado.empleado;
-      item["diaslaborados"] = item.calculoEmpleado.diasLaborados;
-      item["percepciones"] = this.cp.transform(item.calculoEmpleado.percepciones);
-      item["deducciones"] = this.cp.transform(item.calculoEmpleado.deducciones);
-      item["total"] = this.cp.transform(item.calculoEmpleado.total);
+      item["nombrecompleto"] = item[llave].empleado;
+      item["diaslaborados"] = item[llave].diasLaborados;
+      item["percepciones"] = this.cp.transform(item[llave].percepciones);
+      item["deducciones"] = this.cp.transform(item[llave].deducciones);
+      item["total"] = this.cp.transform(item[llave].total);
     }
 
     let filas: Array<any> = this.arreglo;
@@ -112,37 +117,24 @@ if(this.nominaSeleccionada.nominaOrdinaria){
 
         let item = obj.datos;
         let objEnviar = {
-          nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId,
+          nominaXperiodoId: this.nominaSeleccionada[this.llave]?.nominaXperiodoId,
           fechaContrato: item.fechaContrato,
           personaId: item.personaId,
           clienteId: item.centrocClienteId
         }
 
-        this.calculoPrd.getEmpleadosByNominaDetalle(objEnviar).subscribe(datosItem => {
+        if(this.nominaSeleccionada.nominaOrdinaria){
 
-          
-          let aux: any = this.clonar(datosItem.datos[0].detalleNominaEmpleado);
-          let deducciones = aux.deducciones;
-          let percepciones = aux.percepciones;
-          let dias:any = [];
-          let otros:any = [];
-          for (let llave in aux) {
-            if(llave.includes("percepciones") || llave.includes("deducciones")) continue;
-            if (llave.includes("dias")) {
-              dias.push({ valor: llave.replace(/([A-Z])/g, ' $1'), dato: aux[llave] });
-            } else {
-              otros.push({ valor: llave.replace(/([A-Z])/g, ' $1'), dato: aux[llave] });
-            }
+          this.calculoPrd.getEmpleadosByNominaDetalle(objEnviar).subscribe(datosItem => {
+              this.rellenandoDesglose("detalleNominaEmpleado",datosItem,item);
+          });
 
+          }else if(this.nominaSeleccionada.nominaExtraordinaria){
+            this.calculoPrd.getEmpleadosByNominaDetalleExtraordinaria(objEnviar).subscribe(datosItem => {
+              this.rellenandoDesglose("detalleNominaEmpleadoAguinaldo",datosItem,item);
+          });
           }
-
-          this.datosDetalleEmpleadoNomina.push(otros);
-          this.datosDetalleEmpleadoNomina.push(dias);
-          this.datosDetalleEmpleadoNomina.push(percepciones);
-          this.datosDetalleEmpleadoNomina.push(deducciones);
-          console.log(this.datosDetalleEmpleadoNomina);
-          item.cargandoDetalle = false;
-        });
+        
         break;
     }
   }
@@ -163,6 +155,30 @@ if(this.nominaSeleccionada.nominaOrdinaria){
 
   public clonar(obj:any){
     return JSON.parse(JSON.stringify(obj));
+  }
+
+  public rellenandoDesglose(llave2:string,datosItem:any,item:any){
+      
+    let aux: any = this.clonar(datosItem.datos[0][llave2]);
+    let deducciones = aux.deducciones;
+    let percepciones = aux.percepciones;
+    let dias:any = [];
+    let otros:any = [];
+    for (let llave in aux) {
+      if(llave.includes("percepciones") || llave.includes("deducciones")) continue;
+      if (llave.includes("dias")) {
+        dias.push({ valor: llave.replace(/([A-Z])/g, ' $1'), dato: aux[llave] });
+      } else {
+        otros.push({ valor: llave.replace(/([A-Z])/g, ' $1'), dato: aux[llave] });
+      }
+
+    }
+
+    this.datosDetalleEmpleadoNomina.push(otros);
+    this.datosDetalleEmpleadoNomina.push(dias);
+    this.datosDetalleEmpleadoNomina.push(percepciones);
+    this.datosDetalleEmpleadoNomina.push(deducciones);
+    item.cargandoDetalle = false;
   }
 
 }

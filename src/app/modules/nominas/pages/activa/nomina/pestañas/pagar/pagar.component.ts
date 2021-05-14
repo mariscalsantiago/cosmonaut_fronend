@@ -21,6 +21,7 @@ export class PagarComponent implements OnInit {
   public objEnviar: any = [];
   public nominaOrdinaria: boolean = false;
   public nominaExtraordinaria: boolean = false;
+  public llave:string = "";
 
   public arreglotabla:any = {
     columnas:[],
@@ -36,8 +37,9 @@ export class PagarComponent implements OnInit {
 
   ngOnInit(): void {
 
-  debugger;
+  
   if(this.nominaSeleccionada.nominaOrdinaria){
+    this.llave = "nominaOrdinaria";
     this.nominaOrdinaria= true;
   
       this.cargando = true;
@@ -51,7 +53,8 @@ export class PagarComponent implements OnInit {
     });
  
   }else if(this.nominaSeleccionada.nominaExtraordinaria){
-    debugger;
+    this.llave = "nominaExtraordinaria";
+    
     this.nominaExtraordinaria= true;
   
       this.cargando = true;
