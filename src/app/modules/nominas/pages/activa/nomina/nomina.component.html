@@ -2,10 +2,10 @@
   <div class="row m-1 background-panel ">
 
     <div class="col-12 mt-3  mb-3 ">
-      <article class="titulonomina mr-1"><span>{{nominaSeleccionada.nominaOrdinaria?.nombreNomina}}</span>&nbsp;&nbsp;
+      <article class="titulonomina mr-1"><span>{{nominaSeleccionada[llave].nombreNomina}}</span>&nbsp;&nbsp;
           <article style="    margin-left: 10px;
-          margin-top: 2px;">{{nominaSeleccionada.nominaOrdinaria?.periodo}}</article>
-          <article style="float:right">De {{nominaSeleccionada.nominaOrdinaria?.fechaInicio | date:'dd MMM'}} hasta {{nominaSeleccionada.nominaOrdinaria?.fechaFin | date:'dd MMM'}}</article>
+          margin-top: 2px;"></article>
+          <article style="float:right">Periodo de {{nominaSeleccionada[llave].fechaInicio | date:'dd MMM'}} hasta {{nominaSeleccionada[llave].fechaFin | date:'dd MMM'}}</article>
     
       </article>
 

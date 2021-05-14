@@ -44,7 +44,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     private companiasPrd:SharedCompaniaService,private empleadosPrd:EmpleadosService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     console.log("ESTO ES COMPAÑIA",this.arregloCompanias);
   
 
