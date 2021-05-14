@@ -407,6 +407,58 @@ export class CalculosService {
     // return this.http.post(`${direcciones.orquestador}/detalle/empleado/total/pago/neto/detalle/monto/timbrado`,json,httpOptions);
   }
 
+
+  public getTotalEmpleadoConPagoTimbradoDetalleExtraordinaria(obj:any):Observable<any>{
+
+    let objjson = {
+      "datos": [
+        {
+          "xmlPreliminarAguinaldo": {
+            "percepcion": [
+              {
+                "percepciones": "Gratificación Anual (Aguinaldo)",
+                "monto": 12328.8,
+                "gravado": 9640.2,
+                "exento": 2688.6
+              }
+            ],
+            "deduccion": [
+              {
+                "deducciones": "ISR",
+                "monto": 776.18
+              }
+            ],
+            "totalMontoPercepciones": 12328.8,
+            "totalGravado": 9640.2,
+            "totalExento": 2688.6,
+            "totalMontoDeducciones": 776.18
+          }
+        }
+      ],
+      "resultado": true,
+      "mensaje": "Operación realizada con éxito"
+    }
+
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+
+
+    let subject = new Subject();
+    setTimeout(() => {
+      subject.next(objjson);
+      subject.complete();
+    }, 2000);
+
+    return subject;
+
+    // return this.http.post(`${direcciones.orquestador}/detalle/empleado/total/pago/neto/montos/nomina/extraordinaria`,json,httpOptions);
+  }
+
   
 
 
@@ -441,6 +493,48 @@ export class CalculosService {
     let json: string = JSON.stringify(obj);
      return this.http.post(`${direcciones.orquestador}/descarga/dispercion/`,json,httpOptions);
   
+  }
+
+
+
+  //Calculo de nómina extraordinaria
+
+  public getTotalEmpleadoConPagoTimbradoExtraordinaria(obj:any):Observable<any>{
+    let jsonobj = {
+      "datos": [
+        {
+          "reciboATimbrarAguinaldo": {
+            "nombreEmpleado": "Karla",
+            "apellidoPatEmpleado": "Salinas",
+            "apellidoMatEmpleado": "Sánchez",
+            "tipoPago": "Efectivo",
+            "fechaPagoTimbrado": "2021-05-14T03:21:54.723047+00:00",
+            "status": "Sin Timbrar",
+            "fechaContrato": "2018-10-10",
+            "personaId": 819,
+            "centrocClienteId": 466
+          }
+        }
+      ],
+      "resultado": true,
+      "mensaje": "Operación realizada con éxito"
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+
+    let subject = new Subject();
+    setTimeout(() => {
+      subject.next(jsonobj);
+      subject.complete();
+    }, 2000);
+
+    return subject;
+
+     // return this.http.post(`${direcciones.orquestador}/lista/empleado/total/pago/neto/nomina/extraordinaria/aguinaldo/timbrado`,json,httpOptions); 
   }
 
 

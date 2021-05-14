@@ -37,7 +37,7 @@ export class CalcularComponent implements OnInit {
 
   ngOnInit(): void {
 
-debugger;
+
 
 if(this.nominaSeleccionada.nominaOrdinaria){
   this.nominaOrdinaria= true;
@@ -54,7 +54,7 @@ if(this.nominaSeleccionada.nominaOrdinaria){
   });
 
 }else if(this.nominaSeleccionada.nominaExtraordinaria){
-  debugger;
+  
   this.nominaExtraordinaria= true;
 
     this.cargando = true;
@@ -63,6 +63,8 @@ if(this.nominaSeleccionada.nominaOrdinaria){
   }
 
   this.calculoPrd.ListaEmpleadoAguinaldo(this.objEnviar).subscribe(datos => {
+
+    console.log("SI ES EXTRAORDINARIA");
     this.cargando = false;
     this.arreglo = datos.datos;
     this.rellenandoTablas();
@@ -146,11 +148,11 @@ if(this.nominaSeleccionada.nominaOrdinaria){
   }
 
   public regresarOrdinaria(){
-    debugger;
+    
       this.navigate.navigate(["/nominas/activas"]);
   }
   public regresarExtraordinaria(){
-    debugger;
+    
     this.navigate.navigate(["/nominas/nomina_extraordinaria"]);
 }
 

@@ -18,11 +18,29 @@ export class NominaComponent implements OnInit {
     public nominaSeleccionada:any;
     public arreglo:any = [];
 
+    public llave:string = "";
+
   constructor(private nominaPrd:NominasService,private calculoPrd:CalculosService) { }
 
   ngOnInit(): void {
-    debugger;
-    this.nominaSeleccionada = history.state.datos == undefined ? {} : history.state.datos;
+
+   
+
+    let temp = history.state.datos == undefined ? {} : history.state.datos;
+
+
+    console.log(temp);
+
+    if(temp.nominaOrdinaria){
+      console.log("entra");
+      this.llave = "nominaOrdinaria";
+     }else if(temp.nominaExtraordinaria){
+       console.log("extra  ");
+       this.llave = "nominaExtraordinaria";
+     }
+
+     this.nominaSeleccionada = temp;
+   
 
 
    
