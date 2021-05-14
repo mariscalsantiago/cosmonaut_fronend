@@ -29,6 +29,8 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   public seleccionarUsuariosCheck:boolean = false;
   public objEnviar: any = []; 
 
+  public arregloempleadosSeleccionados:any = null;
+
   
 
   constructor(private modalPrd: ModalService, private grupoNominaPrd: GruponominasService,
@@ -46,44 +48,37 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
 
 
     this.catalogosPrd.getTiposNomina(true).subscribe(datos => this.arregloTipoNominas = datos.datos);
-    this.cuentasBancariasPrd.getCuentaBancariaByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCuentasBancarias = datos.datos)
+    this.cuentasBancariasPrd.getCuentaBancariaByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos );
     this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
+
+      console.log(datos,"Esto es lo que es");
       this.arregloCompanias = datos.datos;
 
       if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
+        console.log("Esto esta genial");
           this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
       }});
 
 
-      this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloEmpleados = datos.datos);
+      this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        this.arregloEmpleados = datos.datos;
+        for(let item of this.arregloEmpleados){
+            item["nombre"] = item.personaId?.nombre+" "+item.personaId.apellidoPaterno; 
+        }
+      });
     
   }
 
   public suscripciones() {
-    
 
-    /*this.f.fechaIniPeriodo.valueChanges.subscribe(valor => {
-      if (this.f.fechaIniPeriodo.valid) {
-        this.f.fechaFinPeriodo.enable();
-        this.fechafin.nativeElement.min = valor;
-      } else {
-        this.f.fechaFinPeriodo.disable();
-        this.f.fechaFinPeriodo.setValue("");
-      }
-    });*/
+   
 
 
-    /*this.f.tipoNominaId.valueChanges.subscribe(valor =>{
-     this.seleccionarUsuariosCheck = valor == 2;
-     this.mostrarAlgunosEmpleados = valor == 7 || valor == 4;
-    });
-
-
-    this.f.seleccionarempleados.valueChanges.subscribe(valor =>{
+    this.f.todos.valueChanges.subscribe(valor =>{
       this.mostrarAlgunosEmpleados = valor == "2";
-    });*/
+    });
 
 
 
@@ -102,18 +97,19 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
 
   public creandoForm() {
 
+   
     return this.formbuilder.group(
       {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
         usuarioId: this.usuarioSistemaPrd.getUsuario().idUsuario,
-        fechaIniPeriodo: [, [Validators.required]],
-        //fechaFinPeriodo: [{ value: '', disabled: false }, [Validators.required]],
+        fecXReportes: [, [Validators.required]],
+        
         nombreNomina: [, [Validators.required]],
         monedaId: [],
         centrocClienteId: [],
         //tipoNominaId:[,[Validators.required]],
-        clabe:[,[Validators.required]],
-        seleccionarempleados:["1"],
+        cuentaBancoId:[,[Validators.required]],
+        todos:[true],
         personaId:[]
       }
     );
@@ -125,13 +121,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   }
 
 
-  public guardar() {
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas registrar la nómina?").then(valor => {
-      if (valor) {
-        this.salida.emit({ type: "guardar", datos: valor });
-      }
-    });
-  }
+  
 
 
   public enviarPeticion() {
@@ -151,15 +141,11 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
             clienteId: obj.clienteId,
             usuarioId: obj.usuarioId,
             nombreNomina: obj.nombreNomina,
-            cuentaBancoId: obj.clabe,
+            cuentaBancoId: obj.cuentaBancoId,
             todos: true,
             monedaId: obj.monedaId,
             empleados: {
-                colaborador: {
-                    fecha_contrato: obj.fechaIniPeriodo,
-                    persona_id: 788,
-                    cliente_id: obj.clienteId
-                }
+                colaborador: this.arregloempleadosSeleccionados
             }
           };
         this.guardarNomina();
@@ -171,7 +157,8 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
 
   public guardarNomina() {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    this.calculoPrd.crearNominaExtraordinria(this.objEnviar).subscribe(datos => {
+    console.log(this.objEnviar);
+    this.calculoPrd.crearNominaFiniquitoLiquidacion(this.objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       
       this.salida.emit({
@@ -189,5 +176,12 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   public clonar(obj:any){
     return JSON.parse(JSON.stringify(obj));
   }
+
+
+  public recibirEtiquetas(obj:any){
+
+    this.arregloempleadosSeleccionados = obj;
+
+    }
 
 }

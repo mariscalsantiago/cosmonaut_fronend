@@ -56,13 +56,38 @@ export class CalculosService {
     return this.http.post(`${direcciones.orquestador}/consulta/nominas/activas`, json, httpOptions);
   }
   public getConsultaNominaExtraordinaria(obj: any): Observable<any> {
+
+    let jsonobj = {datos:[
+      {
+          "nominaExtraordinaria": {
+              "nombreNomina": "PRueba fin/liq NEW CALC",
+              "periodo": "EFL19/2021",
+              "fechaInicio": "2021-05-08",
+              "fechaFin": "2021-05-08",
+              "fechaInicioIncidencias": null,
+              "fechaFin_incidencias": null,
+              "empleados": 1,
+              "percepciones": 0.00,
+              "deducciones": 0.00,
+              "total": 0.00,
+              "nominaXperiodoId": 300
+          }
+      }]};
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/consulta/nomina/extraordinaria`, json, httpOptions);
+
+    let subject = new Subject();
+    setTimeout(() => {
+      subject.next(jsonobj);
+      subject.complete();
+    }, 2000);
+    return subject;
+    //return this.http.post(`${direcciones.orquestador}/consulta/nomina/extraordinaria`, json, httpOptions);
   }
 
   public calcularNomina(obj: any): Observable<any> {
@@ -357,6 +382,23 @@ export class CalculosService {
     };
     let json: string = JSON.stringify(obj);
      return this.http.post(`${direcciones.orquestador}/descarga/dispercion/`,json,httpOptions);
+  
+  }
+
+
+
+
+
+  //Nómina de finiquito
+
+  public crearNominaFiniquitoLiquidacion(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+     return this.http.post(`${direcciones.orquestador}/guardar/nomina/finiquito-liquidacion`,json,httpOptions);
   
   }
 

@@ -12,7 +12,7 @@ export class MenuService {
     { nombre: "NOMINAS", icono: "icon_nominas", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                     {nombre:"ACTIVAS",routerLink:['/nominas/activas'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"HISTÓRICAS",routerLink:['/nominas/historicas'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"EXTRAORDINARIAS",routerLink:['/nominas/nomina_extraordinaria'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"AGUINALDO",routerLink:['/nominas/nomina_extraordinaria'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"FINIQUITO/LIQUIDACIÓN",routerLink:['/nominas/finiquito_liquidacion'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"PTU",routerLink:['/nominas/ptu'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"CALCULADORA",routerLink:['/nominas/calculadora'],rol:["ALL","ADMINEMPRESA"]}
