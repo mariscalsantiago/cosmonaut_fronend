@@ -93,6 +93,20 @@ export class CalculosService {
 
   }
 
+  public listaEmpleadoPagoExtraordinariaAguinaldo(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.orquestador}/lista/empleado/pago/neto/nomina/extraordinaria`, json, httpOptions);
+
+
+
+  }
+
   public ListaEmpleadoAguinaldo(obj: any): Observable<any> {
 
     let objjson = {datos:[
