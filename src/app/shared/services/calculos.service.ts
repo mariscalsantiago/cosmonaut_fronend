@@ -95,13 +95,56 @@ export class CalculosService {
 
   public ListaEmpleadoAguinaldo(obj: any): Observable<any> {
 
+    let objjson = {datos:[
+      {
+        "calculoEmpleado": {
+          "empleado": "Georgina López Luna",
+          "numeroEmpleado": "STB101",
+          "diasLaborados": 15.21,
+          "percepciones": 12036.00,
+          "deducciones": 2058.66,
+          "total": 9977.34,
+          "areaId": 184,
+          "nominaXperiodoId": 229,
+          "fechaContrato": "2020-04-01",
+          "personaId": 802,
+          "centrocClienteId": 464
+        }
+      },
+      {
+        "calculoEmpleado": {
+          "empleado": "Rosalba Gómez Gill",
+          "numeroEmpleado": "STB102",
+          "diasLaborados": 15.21,
+          "percepciones": 13082.48,
+          "deducciones": 2300.90,
+          "total": 10781.58,
+          "areaId": 184,
+          "nominaXperiodoId": 229,
+          "fechaContrato": "2020-02-01",
+          "personaId": 803,
+          "centrocClienteId": 464
+        }
+      }
+    ]};
+
+
+    
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/lista/empleado/aguinaldo`, json, httpOptions);
+
+    let subject = new Subject();
+    setTimeout(() => {
+      subject.next(objjson);
+      subject.complete();
+    }, 2000);
+
+    return subject;
+    //return this.http.post(`${direcciones.orquestador}/lista/empleado/aguinaldo`, json, httpOptions);
 
 
 
