@@ -135,9 +135,14 @@ if(this.nominaSeleccionada.nominaOrdinaria){
     }
   }
 
-  public regresar(){
+  public regresarOrdinaria(){
+    debugger;
       this.navigate.navigate(["/nominas/activas"]);
   }
+  public regresarExtraordinaria(){
+    debugger;
+    this.navigate.navigate(["/nominas/nomina_extraordinaria"]);
+}
 
   public continuar(){
     this.salida.emit({type:"calcular"});
