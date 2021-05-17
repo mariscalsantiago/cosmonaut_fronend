@@ -1,64 +1,40 @@
 <div class="container">
 
-<div class="row">
-    <div><label class="titulo">MOVIMIENTOS DEL EMPLEADO</label></div>
-
-  <div id="accordionFiltro">
-
-    <div id="accordion">
-      <div class="card">
-
-        <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
-          <div class="card-body">
-            <div class="form group row margen">
-              <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
-                <input type="text"  class="form-control" 
-                placeholder="Tipo de movimiento">
-              </div>
-              <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
-              </div>
-
-            </div>
+  <div class="row">
+      <div class="row"><label class="titulo">MOVIMIENTOS DEL EMPLEADO</label></div>
+  </div>
+  
+  <div class="row">
+  
+    <div class="form group row margen">
+      <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
+        <input type="text"  class="form-control" 
+        placeholder="Tipo de documento">
+      </div>
+      <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+      </div>
+  
+    </div>
+  
+  
+  </div>
+  
+  
+  <div class="row ">
+  
+      <div class="col">
+  
+        <div class="row margen">
+          <div class="col titulo">
+            <label>RESULTADOS</label>
           </div>
         </div>
+        
+        <div class="row margen margen-tabla background-panel">
+          <app-tablapaginado [datos]="arreglotabla"  [arreglotablaDesglose]="arreglotablaDesglose" [desglosar]="true" [cargando]="cargando" ></app-tablapaginado>
+        </div>
+  
       </div>
-    </div>
-
   </div>
-</div>
-
-<div class="row ">
-    <div class="col">
-
-        <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col" >Fecha de movimiento</th>
-                <th scope="col" >Fecha IMSS</th>
-                <th scope="col" >Registro patronal</th>
-                <th scope="col" >Tipo de movimiento</th>
-                             
-                <th scope="col " ></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td >12-feb.-2020</td>
-                <td >12-feb.-2020</td>
-                <td >4312567820</td>
-                <td >Alta de empleado</td>
-                <td class="opciones">
-                  <button ><i class="far fa-eye primary"></i></button>
-                  <button ><i class="fas fa-pen primary"></i></button>
-                </td>
-              </tr>
-      
-      
-      
-            </tbody>
-          </table>
-
-    </div>
-</div>
-</div>
+  </div>
