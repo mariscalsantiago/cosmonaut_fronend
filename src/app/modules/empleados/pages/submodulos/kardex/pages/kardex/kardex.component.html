@@ -9,7 +9,7 @@
     <div class="form group row margen">
       <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
         <input type="text"  class="form-control" 
-        placeholder="Tipo de documento">
+        placeholder="Tipo de movimiento">
       </div>
       <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
         <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
@@ -30,9 +30,9 @@
             <label>RESULTADOS</label>
           </div>
         </div>
-        
+
         <div class="row margen margen-tabla background-panel">
-          <app-tablapaginado [datos]="arreglotabla"  [arreglotablaDesglose]="arreglotablaDesglose" [desglosar]="true" [cargando]="cargando" ></app-tablapaginado>
+          <!--<app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)"></app-tablapaginado>-->
         </div>
   
       </div>
