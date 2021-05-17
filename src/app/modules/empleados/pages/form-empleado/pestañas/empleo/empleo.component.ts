@@ -790,10 +790,6 @@ export class EmpleoComponent implements OnInit {
       fecIniPeriodo: new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd")    
     }
 
-   
-
-
-    console.log("Esto es lo que se manda al back en sueldo",objenviar);
     this.modalPrd.showMessageDialog(this.modalPrd.loading,"Calculando");
 
     this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos =>{
