@@ -7,7 +7,7 @@ import { ContratocolaboradorService } from '../../services/contratocolaborador.s
 import { EmpleadosService } from '../../services/empleados.service';
 
 
-@Component({
+@Component({   
   selector: 'app-empleado',
   templateUrl: './empleado.component.html',
   styleUrls: ['./empleado.component.scss']
