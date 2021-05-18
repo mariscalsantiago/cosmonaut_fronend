@@ -787,13 +787,9 @@ export class EmpleoComponent implements OnInit {
       tipoCompensacion: this.myForm.controls.tipoCompensacionId.value,
       sbmImss: this.myForm.controls.sueldoBrutoMensual.value,
       fechaAntiguedad: this.myForm.controls.fechaAntiguedad.value,
-      FecIniPeriodo: new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd")    
+      fecIniPeriodo: new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd")    
     }
 
-   
-
-
-    console.log("Esto es lo que se manda al back en sueldo",objenviar);
     this.modalPrd.showMessageDialog(this.modalPrd.loading,"Calculando");
 
     this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos =>{
