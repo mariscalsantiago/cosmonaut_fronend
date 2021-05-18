@@ -9,10 +9,12 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
   templateUrl: './idse.component.html',
   styleUrls: ['./idse.component.scss']
 })
+
 export class IDSEComponent implements OnInit {
 
   public empresa: any;
   public arregloEmpresa: any = [];
+  public cargandoIcon: boolean = false;
   public cargando: boolean = false;
   public arreglotabla: any = {
     columnas: [],
@@ -39,15 +41,20 @@ export class IDSEComponent implements OnInit {
 
   public traerTabla() {
     const columna: Array<tabla> = [
-      new tabla("n", "Nombre completo del empleado"),
-      new tabla("", "SBC"),
-      new tabla("", "Movimiento"),
-      new tabla("", "Fecha de movimiento")
+      new tabla("nombre", "Nombre completo del empleado"),
+      new tabla("sbc", "SBC"),
+      new tabla("movimiento", "Movimiento"),
+      new tabla("fecha", "Fecha de movimiento")
     ];
 
 
     this.arreglotabla.columnas = columna;
-    this.arreglotabla.filas = [{}, {}, {}, {}, {}, {}, {}, {}];
+    this.arreglotabla.filas = [{
+      nombre : "Mayte Delacrúz Nieto",
+      sbc : "$323.91",
+      movimiento : "Modificación",
+      fecha : "18/05/2021"
+    }];
   }
 
 
@@ -79,17 +86,23 @@ export class IDSEComponent implements OnInit {
 
 
         let columnas: Array<tabla> = [
-          new tabla("nombre", "Política"),
-          new tabla("razon", "Percepciones variables"),
-          new tabla("nombrecuenta", "Registro patronal"),
-          new tabla("nombremoneda", "Estatus de empleado"),
-          new tabla("periodo", "Salario diario"),
-          new tabla("baseperiododescripcion", "Salario diario integrado"),
-          new tabla("periodoaguinaldodescripcion", "SBC")
+          new tabla("politica", "Política"),
+          new tabla("percepciones", "Percepciones variables"),
+          new tabla("patronal", "Registro patronal"),
+          new tabla("estatusEmpleado", "Estatus de empleado"),
+          new tabla("salario", "Salario diario"),
+          new tabla("salarioIntegrado", "Salario diario integrado"),
+
           
         ];
        
 
+        item.politica = "Estándar";
+        item.percepciones = "0",
+        item.patronal = "Y23542",
+        item.estatusEmpleado = "Activo",
+        item.salario = "72",
+        item.salarioIntegrado = "762.79"
 
         this.arreglotablaDesglose.columnas = columnas;
         this.arreglotablaDesglose.filas = item;
@@ -100,4 +113,5 @@ export class IDSEComponent implements OnInit {
     }
 
   }
+
 }

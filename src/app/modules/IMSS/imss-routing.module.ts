@@ -1,19 +1,21 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { IdseDetalleComponent } from "./IDSE/idse-detalle/idse-detalle.component";
-import { IDSEComponent } from "./IDSE/idse/idse.component";
-import { SuaComponent } from "./sua/sua/sua.component";
+import { IDSEComponent } from "src/app/modules/imss/idse/idse/idse.component";
+import { SuaComponent } from 'src/app/modules/imss/sua/sua/sua.component';
 
 
 const rutas: Routes = [
     {
-        path: '', children: [
-            { path: 'idse', component: IDSEComponent },
-            { path: 'sua', component: SuaComponent },
-            { path: 'idse/:id/detalle', component: IdseDetalleComponent }
+        path: '',
+        children: [
+            { path: 'idse', 
+            component: IDSEComponent },
+            { path: 'sua', 
+            component: SuaComponent }
         ]
     }
 ];
+
 
 @NgModule({
     imports: [RouterModule.forChild(rutas)]

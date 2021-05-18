@@ -30,8 +30,8 @@ export class MenuService {
                                                                                 {nombre:"CARGA MASIVA",routerLink:[""],rol:["ALL","ADMINEMPRESA"]}
     ]},
     { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
-                                                                                {nombre:"IDSE",routerLink:['imss','idse'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                {nombre:"SUA",routerLink:['imss','sua'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                {nombre:"IDSE",routerLink:['/imss/idse'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                {nombre:"SUA",routerLink:['/imss/sua'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"MOVIMIENTOS",routerLink:[],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"VARIABILIDAD",routerLink:[],rol:["ALL","ADMINEMPRESA"]}] },
     { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[] },

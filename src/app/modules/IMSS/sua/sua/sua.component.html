@@ -14,12 +14,26 @@
     
                     <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
                     <div class="form group row margen">
+                    <div class=" input-group-sm mb-3 col-3 ">
+                        <select class="form-control" [(ngModel)]="empresa">
+                            <option value="">Seleccionar empresa</option>
+                            <option *ngFor="let item of arregloEmpresa" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="form-group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" placeholder="Desde">
+                            <label style="color:white" >Desde</label>
+                            <input  type="date" placeholder="desde" class="form-control">
                         </div>
+                        
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" placeholder="Hasta">
+                            <label style="color:white" for="">Hasta</label>
+                            <input type="date" class="form-control" placeholder="Hasta">
                         </div>
+                    </div>
+                    <div class="form group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
                             <input type="text" class="form-control" placeholder="Número de empleado">
                         </div>
@@ -33,16 +47,7 @@
                             <input  type="text" class="form-control"   placeholder="Segundo apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input  type="text" class="form-control"   placeholder="Filtrar por fecha de movimiento">
-                        </div>
-                        <div class=" input-group-sm mb-3 col-3 ">
                             <input  type="text" class="form-control"   placeholder="Filtrar por movimiento">
-                        </div>
-                        <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" [(ngModel)]="empresa">
-                                <option value="">Seleccionar empresa</option>
-                                <option *ngFor="let item of arregloEmpresa" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
-                            </select>
                         </div>
                       
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
@@ -52,21 +57,45 @@
                         
                     </div>
     
-    
+                    
                     <div class="row margen">
                         <div class="col titulo">
                           <label>RESULTADOS</label>
                         </div>
-                        <div class="col text-right">
+                        <!--<div class="col text-right">
                             <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
                               <i class="fa fa-plus"></i> Agregar 
                             </button>
-                          </div>
+                          </div>-->
+
                       </div>
     
     
-                      <div class="row   margen-tabla background-panel ">
-                        <app-tablapaginado [checkbox]="true" [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
+                      <div class="   margen-tabla background-panel ">
+                        <br>
+                        <div class="row mt-3">
+                            <div class="col-7 text-right"></div>
+                            <div class="col-2 text-right">
+                                <a class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+                                            class="fas fa-download"></i> DESCARGAR ASEG.TXT</small>
+                                    <div *ngIf="cargandoIcon" class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-2 text-right">
+                                <a class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+                                            class="fas fa-download"></i> DESCARGAR MOVTOS.TXT</small>
+                                    <div *ngIf="cargandoIcon" class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-1 text-right"></div>
+                        
+                        </div>
+                        <app-tablapaginado [checkbox]="true" [datos]="arreglotabla"  [cargando]="cargando" (salida)="recibirTabla($event)" ></app-tablapaginado>
                       </div>
     
     

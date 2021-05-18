@@ -14,6 +14,7 @@ export class SuaComponent implements OnInit {
   public empresa: any;
   public arregloEmpresa: any = [];
   public cargando: boolean = false;
+  public cargandoIcon: boolean = false;
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -33,22 +34,26 @@ export class SuaComponent implements OnInit {
       this.arregloEmpresa = datos.datos;
     });
 
-
     this.traerTabla();
   }
 
-  public traerTabla() {
-    const columna: Array<tabla> = [
-      new tabla("n", "Nombre"),
-      new tabla("", "SBC"),
-      new tabla("", "Movimiento"),
-      new tabla("", "Fecha de movimiento")
-    ];
-
-
-    this.arreglotabla.columnas = columna;
-    this.arreglotabla.filas = [{}, {}, {}, {}, {}, {}, {}, {}];
-  }
+    public traerTabla() {
+      const columna: Array<tabla> = [
+        new tabla("nombre", "Nombre completo del empleado"),
+        new tabla("sbc", "SBC"),
+        new tabla("movimiento", "Movimiento"),
+        new tabla("fecha", "Fecha de movimiento")
+      ];
+  
+  
+      this.arreglotabla.columnas = columna;
+      this.arreglotabla.filas = [{
+        nombre : "Mayte Delacrúz Nieto",
+        sbc : "$323.91",
+        movimiento : "Modificación",
+        fecha : "18/05/2021"
+      }];
+    }
 
 
   public filtrar() {
@@ -100,5 +105,4 @@ export class SuaComponent implements OnInit {
     }
 
   }
-
 }
