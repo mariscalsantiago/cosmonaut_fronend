@@ -112,8 +112,8 @@ export class DetalleUsuarioComponent implements OnInit {
       centrocClienteId: [{ value: obj.centrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: [{value:obj.personaId,disabled:true}],
-      multicliente:obj.multicliente,
-      rol:obj.rol
+      multicliente:{value:obj.multicliente,disabled:true},
+      rol:{value:obj.rol,disabled:true}
 
 
     });
@@ -124,8 +124,10 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     this.summitenviado = true;
+    console.log(this.myForm.controls);
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
+
       return;
     }
 
@@ -135,18 +137,16 @@ export class DetalleUsuarioComponent implements OnInit {
         let obj = this.myForm.value;
         let objEnviar: any = {
           nombre: obj.nombre,
-          apellidoPaterno: obj.apellidoPat,
-          apellidoMaterno: obj.apellidoMat,
-          curp: obj.curp,
-          celular: obj.celular,
+          apellidoPaterno: obj.apellidoPaterno,
+          apellidoMaterno: obj.apellidoMaterno,
           esActivo: obj.esActivo,
-          emailCorporativo: obj.emailCorp,
-          contactoInicialEmailPersonal: obj.ciEmailPersonal,
-          contactoInicialTelefono: obj.ciTelefono,
+          emailCorporativo: obj.correoelectronico,
           centrocClienteId: {
             centrocClienteId: obj.centrocClienteId
           }
         }
+
+        
 
         if (this.insertar) {
 
@@ -205,7 +205,9 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public recibirEtiquetas(evento:any){
+     this.myForm.controls.centrocClienteId.setValue(evento[0].centrocClienteId);
      this.companiasenviar = evento;
+     
   }
 
 
