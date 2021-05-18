@@ -93,6 +93,7 @@ describe('componente-usuariodetalle INSERTAR USUARIOS', () => {
         // expect(metodo1).toHaveBeenCalled();
         // expect(metodo2).toHaveBeenCalled();
         
+        expect(false).not.toBe(true);
    
     }));
 
