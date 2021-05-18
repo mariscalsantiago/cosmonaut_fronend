@@ -42,7 +42,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
 
   ngOnInit(): void {
     
-    console.log("ESTO ES COMPAÑIA",this.arregloCompanias);
+    
     this.myForm = this.creandoForm();
 
     this.suscripciones();
@@ -54,11 +54,11 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
     this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
 
-      console.log(datos,"Esto es lo que es");
+      
       this.arregloCompanias = datos.datos;
 
       if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
-        console.log("Esto esta genial");
+        
           this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
       }});
 
@@ -158,7 +158,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
 
   public guardarNomina() {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    console.log(this.objEnviar);
+    
     this.nominafiniquitoPrd.crearNomina(this.objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       

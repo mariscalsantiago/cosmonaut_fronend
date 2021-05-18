@@ -23,7 +23,7 @@ export class DocumentosService {
 
     let json = JSON.stringify(obj);
 
-    console.log(json);
+    
 
     return this.http.put(`${direcciones.documentos}/guardar`, json, httpOptions);
 

@@ -89,8 +89,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public verificarCompaniasExista() {
-    console.log("Se verifica que las COMPAÑIAS EXISTAN");
-    console.log(this.arregloCompany.length,"longitud del arreglo");
+    
+    
       if (this.arregloCompany.length == 0){
         this.cancelar();
       }
@@ -124,7 +124,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     this.summitenviado = true;
-    console.log(this.myForm.controls);
+    
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
 
@@ -193,7 +193,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public cancelar() {
-    console.log("YA SE CANCELO");
+    
     this.routerPrd.navigate(['/usuarios']);
   }
 

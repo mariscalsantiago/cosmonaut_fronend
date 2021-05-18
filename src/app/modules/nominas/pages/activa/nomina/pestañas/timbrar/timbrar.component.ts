@@ -51,20 +51,20 @@ export class TimbrarComponent implements OnInit {
       this.initOrdinaria(objEnviar);
       this.llave = "reciboATimbrar";
       this.llave2 = "nominaOrdinaria";
-      console.log("ESTE ES LA NOMINA ORDINARIA TIMBRADO");
+      
     } else if (this.nominaSeleccionada.nominaExtraordinaria) {
       objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId;
       this.initExtraordinaria(objEnviar);
       this.llave = "reciboATimbrarAguinaldo";
       this.llave2 = "nominaExtraordinaria";
 
-      console.log("ESTE ES LA EXTRAORDINARIA TIMBRADO");
+      
     }else if(this.nominaSeleccionada.nominaLiquidacion){
       objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId;
       this.initLiquidacion(objEnviar);
       this.llave = "reciboATimbrarLiquidacion";
       this.llave2 = "nominaLiquidacion";
-      console.log("ESTE ES LA finiquito");
+      
     }
   }
 
@@ -117,7 +117,7 @@ export class TimbrarComponent implements OnInit {
 
           this.nominaOrdinariaPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminar = datos.datos[0].xmlPreliminar;
-            console.log(xmlPreliminar);
+            
             this.datosExtras.datos = xmlPreliminar;
             item.cargandoDetalle = false;
           });
@@ -126,7 +126,7 @@ export class TimbrarComponent implements OnInit {
         
           this.nominaAguinaldoPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminarAguinaldo = datos.datos[0].xmlPreliminarAguinaldo;
-            console.log(xmlPreliminarAguinaldo,"ESTE ES LA EXTRAORDINARIA");
+            
             this.datosExtras.datos = xmlPreliminarAguinaldo;
             item.cargandoDetalle = false;
           });
@@ -136,7 +136,7 @@ export class TimbrarComponent implements OnInit {
         
           this.nominaLiquidacionPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminarLiquidacion = datos.datos[0].xmlPreliminarLiquidacion;
-            console.log(xmlPreliminarLiquidacion,"ESTE ES LA EXTRAORDINARIA");
+            
             this.datosExtras.datos = xmlPreliminarLiquidacion;
             item.cargandoDetalle = false;
           });

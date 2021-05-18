@@ -237,7 +237,7 @@ export class ListapoliticasComponent implements OnInit {
         this.eliminar(obj.datos);
         break;
       case "desglosar":
-        console.log("El arreglo es ",obj);
+        
         let columnas: Array<tabla> = [
           new tabla("diasEconomicos", "Días económicos"),
           new tabla("primaAniversariodescripcion", "Prima vacacional"),

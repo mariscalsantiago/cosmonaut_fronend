@@ -41,7 +41,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
 
       this.documentosPrd.getDocumentosEmpleado().subscribe(datos =>{
         this.arregloDocumentos = datos.datos;
-      console.log("Documentos",this.arregloDocumentos);
+      
     });
 
     this.myForm = this.createForm(this.datos);

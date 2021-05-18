@@ -45,7 +45,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   ngOnInit(): void {
     
-    console.log("ESTO ES COMPAÑIA",this.arregloCompanias);
+    
   
 
 
@@ -211,7 +211,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   public recibirEtiquetas(evento:any){
       this.empleadoEnviar = evento;
-      console.log(this.empleadoEnviar);
+      
   }
 
 }

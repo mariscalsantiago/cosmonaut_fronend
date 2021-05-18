@@ -51,7 +51,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
       this.arreglo = datos.datos;
-      console.log(this.arreglo,"ESTOE S EL SHOW DEL ARREGLO");
+      
 
       if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
           this.arreglo = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]

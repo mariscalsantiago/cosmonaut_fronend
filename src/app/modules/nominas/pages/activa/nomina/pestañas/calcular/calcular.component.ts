@@ -70,7 +70,7 @@ export class CalcularComponent implements OnInit {
 
       this.nominaAguinaldoPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
-        console.log("SI ES EXTRAORDINARIA");
+        
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenandoTablas("calculoEmpleadoAguinaldo");
@@ -87,7 +87,7 @@ export class CalcularComponent implements OnInit {
 
       this.nominaFiniquito.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
-        console.log("SI ES FINIQUITO");
+        
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenandoTablas("calculoEmpleadoLiquidacion");
@@ -111,7 +111,7 @@ export class CalcularComponent implements OnInit {
 
 
     for (let item of this.arreglo) {
-      console.log("Este es el imtem",item);
+      
 
       item["nombrecompleto"] = item[llave].empleado;
       item["diaslaborados"] = item[llave].diasLaborados;

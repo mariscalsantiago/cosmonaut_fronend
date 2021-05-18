@@ -100,7 +100,7 @@ export class TablapaginadoComponent implements OnInit {
         item.cargandoDetalle = false;
       }
 
-      console.log("Va a poaginar");
+      
       this.paginar();
 
     } else {

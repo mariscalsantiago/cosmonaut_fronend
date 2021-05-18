@@ -28,7 +28,7 @@ export class NominaComponent implements OnInit {
     let temp = history.state.datos == undefined ? {} : history.state.datos;
 
 
-    console.log(temp);
+    
 
     if(temp.nominaOrdinaria){
       this.llave = "nominaOrdinaria";
