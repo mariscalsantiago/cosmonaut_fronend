@@ -1,12 +1,13 @@
 import { Component, HostListener, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { KardexService } from 'src/app/modules/empleados/services/kardex.service';
+import { DocumentosService } from 'src/app/modules/empleados/services/documentos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { tabla } from 'src/app/core/data/tabla';
 import { DatePipe } from '@angular/common';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-
+import { truncateSync } from 'fs';
 
 @Component({
   selector: 'app-kardex',
@@ -41,35 +42,35 @@ export class KardexComponent implements OnInit {
 
 
 
-  constructor(private routerPrd: Router, private kardexPrd: KardexService,private modalPrd:ModalService, 
-    private router:ActivatedRoute,private usuariosSistemaPrd:UsuarioSistemaService) { }
+  constructor(private routerPrd: Router, private documentosPrd: DocumentosService,private modalPrd:ModalService, 
+    private router:ActivatedRoute, private ventana:VentanaemergenteService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
     
-    debugger;
+
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
     });
   
     this.cargando = true;
-    this.kardexPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
-        this.crearTabla(datos);
+    this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
+        //this.crearTabla(datos);
     });
 
-
+    this.crearTabla();
   }
 
 
-  public crearTabla(datos:any){
+  public crearTabla(){
     
-    this.arreglo = datos.datos;
+    //this.arreglo = datos.datos;
 
     
     let columnas: Array<tabla> = [
-      new tabla("nombreArchivo", "Tipo de movimiento"),
-      new tabla("fechaCargaDocumento", "Fecha de movimiento"),
-      new tabla("tipoDocumento", "Registro patronal")
+      new tabla("tipoMovimiento", "Tipo de movimiento"),
+      new tabla("fechaMovimiento", "Fecha de movimiento"),
+      new tabla("registroPatronal", "Registro Patronal")
     ]
 
 
@@ -78,8 +79,15 @@ export class KardexComponent implements OnInit {
       filas:[]
     }
 
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = [{
+      tipoMovimiento : "Alta de empleado",
+      fechaMovimiento : "18/05/2021",
+      registroPatronal : "EF23456",
 
-    if(this.arreglo !== undefined){
+    }];
+
+    /*if(this.arreglo !== undefined){
       for(let item of this.arreglo){
         item.fechaCarga = (new Date(item.fechaCarga).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
@@ -87,53 +95,48 @@ export class KardexComponent implements OnInit {
 
         item.tipoDocumento= item.tipoDocumento?.nombre;
       }
-    }
+    }*/
 
-    this.arreglotabla.columnas = columnas;
-    this.arreglotabla.filas = this.arreglo;
     this.cargando = false;
   }
 
-  
 
-  public recibirTabla(obj:any){
-    if (obj.type == "editar") {
-      let datos = obj.datos;
-    }
-    if (obj.type == "descargar") {
-    }
+  public recibirTabla(obj: any) {
+    
     if (obj.type == "desglosar") {
+      let datos = obj.datos;
 
-            let item = obj.datos;
-
-   
-    
-              let columnas: Array<tabla> = [
-                new tabla("descripcion", "Política"),
-                new tabla("funcionCuenta", "Salario diario"),
-                new tabla("numInformacion", "Salario diario integrado"),
-                new tabla("numInformacion", "Salario base de cotización"),
-                new tabla("numSucursal", "Eatatus Empleado")
-              ];
+      let item = obj.datos;
+       
+      let columnas: Array<tabla> = [
+       new tabla("politica", "Política"),
+       new tabla("salarioDiario", "Salario Diario"),
+       new tabla("salarioIntegrado", "Salario diario integrado"),
+       new tabla("salarioCotización", "Salario base de cotización"),
+       new tabla("estatusEmpleado", "Estatus de empleado"),
               
-              item.funcionCuenta = item.funcionCuentaId?.descripcion;
+     ];
     
-    
-              this.arreglotablaDesglose.columnas = columnas;
-              this.arreglotablaDesglose.filas = item;
-    
-              item.cargandoDetalle = false;
-    
-            }
+
+     item.politica = "Estándar";
+     item.salarioDiario = "1084.93",
+     item.salarioIntegrado = "1135.49",
+     item.salarioCotización = "1135.49",
+     item.estatusEmpleado = "Activo"
+
+     this.arreglotablaDesglose.columnas = columnas;
+     this.arreglotablaDesglose.filas = item;
+
+     item.cargandoDetalle = false;
+     
+    }
+
 
   }
-
 
   public filtrar(){
 
   }
-
-
 
 
 

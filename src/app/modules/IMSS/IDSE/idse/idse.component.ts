@@ -83,9 +83,7 @@ export class IDSEComponent implements OnInit {
       case "desglosar":
         let item = obj.datos;
        
-
-
-        let columnas: Array<tabla> = [
+         let columnas: Array<tabla> = [
           new tabla("politica", "Política"),
           new tabla("percepciones", "Percepciones variables"),
           new tabla("patronal", "Registro patronal"),
