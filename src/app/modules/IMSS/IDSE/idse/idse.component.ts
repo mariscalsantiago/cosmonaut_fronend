@@ -39,7 +39,7 @@ export class IDSEComponent implements OnInit {
 
   public traerTabla() {
     const columna: Array<tabla> = [
-      new tabla("n", "Nombre"),
+      new tabla("n", "Nombre completo del empleado"),
       new tabla("", "SBC"),
       new tabla("", "Movimiento"),
       new tabla("", "Fecha de movimiento")
