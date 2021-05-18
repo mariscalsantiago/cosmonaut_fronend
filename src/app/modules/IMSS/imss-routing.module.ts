@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { IDSEComponent } from "src/app/modules/imss/idse/idse/idse.component";
+import { IDSEComponent } from "../IMSS/IDSE/idse/idse.component";
 import { SuaComponent } from "./sua/sua/sua.component";
 
 
