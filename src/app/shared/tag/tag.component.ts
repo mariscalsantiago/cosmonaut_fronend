@@ -26,7 +26,7 @@ export class TagComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.datos,"desde el tag");
+    
   }
 
   public seleccionado(){
@@ -39,50 +39,58 @@ export class TagComponent implements OnInit {
   }
 
   public evento(evento:any){
-
     this.errorSeleccionado = false;
+    
+    if (evento.which==13 ) {
+      this.eventoSeleccionando();
+    
+      evento.preventDefault()
+    }else if(evento.which == undefined){
+        setTimeout(() => {
+            this.eventoSeleccionando();
+        }, 20);
+    }
+  }
 
-    if (evento.which==13) {
+  public eventoSeleccionando(){
 
-      if(this.elementoSeleccionado.trim() !== ""){
+    if(this.elementoSeleccionado.trim() !== ""){
 
-        let encontrado:boolean = false;
-        let elementoencontrado;
-        for(let item of this.datos){
-            if(item[this.llave].trim() == this.elementoSeleccionado.trim()){
-              encontrado = true;
-              elementoencontrado = item;
-                  break;
-            }
-        }
-
-        if(encontrado){
-
-          let repetido:boolean = false;
-          for(let item of this.arregloEtiquetas){
-            if(item[this.llave].trim() == this.elementoSeleccionado.trim()){
-              repetido = true;
-                  break;
-            }
+      let encontrado:boolean = false;
+      let elementoencontrado;
+      for(let item of this.datos){
+          if(item[this.llave].trim() == this.elementoSeleccionado.trim()){
+            encontrado = true;
+            elementoencontrado = item;
+                break;
           }
-
-          
-
-        if(!repetido)   this.arregloEtiquetas.push(elementoencontrado);
-          
-          this.elementoSeleccionado = "";
-        }else{
-          this.errorSeleccionado = true;
-        }
-
-       
       }
 
-      
+      if(encontrado){
+
+        let repetido:boolean = false;
+        for(let item of this.arregloEtiquetas){
+          if(item[this.llave].trim() == this.elementoSeleccionado.trim()){
+            repetido = true;
+                break;
+          }
+        }
+
+        
+
+      if(!repetido)   this.arregloEtiquetas.push(elementoencontrado);
+        
+        this.elementoSeleccionado = "";
+      }else{
+        this.errorSeleccionado = true;
+      }
       this.salida.emit(this.arregloEtiquetas);
-      evento.preventDefault()
-    };
+     
+    }
+
+   
   }
+
 
 
   

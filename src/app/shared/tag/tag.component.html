@@ -7,8 +7,8 @@
 
     <input [(ngModel)]="elementoSeleccionado" style="font-size: 12px;" (keydown)="evento($event)" class="form-control" autocomplete="off"  #inputprincipal list="buscar" >
 
-    <datalist id="buscar">
-        <option *ngFor="let item of datos" [value]="item[llave]">
+    <datalist  id="buscar">
+        <option  *ngFor="let item of datos" [value]="item[llave]">
     </datalist>
 
    
