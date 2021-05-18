@@ -34,8 +34,8 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(ordinariaCalculo);
-    //return this.http.post(`${direcciones.orquestador}/calcula/nomina/periodo`, json, httpOptions);
+    //return this.creandoObservable(ordinariaCalculo);
+    return this.http.post(`${direcciones.orquestador}/calcula/nomina/periodo`, json, httpOptions);
 
   }
 
@@ -46,8 +46,8 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(ordinariaListaActivos);
-    //return this.http.post(`${direcciones.orquestador}/consulta/nominas/activas`, json, httpOptions);
+    //return this.creandoObservable(ordinariaListaActivos);
+    return this.http.post(`${direcciones.orquestador}/consulta/nominas/activas`, json, httpOptions);
   }
 
   public getUsuariosCalculados(obj:any):Observable<any> {
@@ -57,8 +57,8 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-     return this.creandoObservable(ordinariaUsuariosCalculados);
-    //return this.http.post(`${direcciones.orquestador}/lista/empleado/calculo/percepciones/deducciones`, json, httpOptions);
+     //return this.creandoObservable(ordinariaUsuariosCalculados);
+    return this.http.post(`${direcciones.orquestador}/lista/empleado/calculo/percepciones/deducciones`, json, httpOptions);
   }
 
 
@@ -69,8 +69,8 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(ordinariaUsuariosCalculadosDetalle);
-    // return this.http.post(`${direcciones.orquestador}/detalle/nomina/empleado`,json,httpOptions);
+    //return this.creandoObservable(ordinariaUsuariosCalculadosDetalle);
+     return this.http.post(`${direcciones.orquestador}/detalle/nomina/empleado`,json,httpOptions);
   
   }
 
@@ -81,8 +81,8 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(ordinariaUsuariosDispersion);
-    //return this.http.post(`${direcciones.orquestador}/lista/empleado/total/pago/neto`,json,httpOptions);
+    //return this.creandoObservable(ordinariaUsuariosDispersion);
+    return this.http.post(`${direcciones.orquestador}/lista/empleado/total/pago/neto`,json,httpOptions);
  }
 
 
@@ -93,8 +93,8 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-   return this.creandoObservable(ordinariaUsuariosTimbrado);
-   // return this.http.post(`${direcciones.orquestador}/listado/empleado/total/pago/neto/fecha/timbrado`, json, httpOptions);
+   //return this.creandoObservable(ordinariaUsuariosTimbrado);
+   return this.http.post(`${direcciones.orquestador}/listado/empleado/total/pago/neto/fecha/timbrado`, json, httpOptions);
   }
 
   public getUsuariosTimbradoDetalle(obj:any):Observable<any> {
@@ -104,8 +104,8 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.creandoObservable(ordinariaUsuariosTimbradoDetalle);
-    // return this.http.post(`${direcciones.orquestador}/detalle/empleado/total/pago/neto/detalle/monto/timbrado`,json,httpOptions);
+    //return this.creandoObservable(ordinariaUsuariosTimbradoDetalle);
+    return this.http.post(`${direcciones.orquestador}/detalle/empleado/total/pago/neto/detalle/monto/timbrado`,json,httpOptions);
   }
 
   public descargaRecibos(obj: any): Observable<any> {
