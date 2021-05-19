@@ -61,7 +61,7 @@ export class DomicilioComponent implements OnInit {
     private catalogosPrd:CatalogosService,private routerPrd:Router) { }
 
   ngOnInit(): void {
-    
+    debugger;
     let obj:any = {};
     if(!this.datosempresa.insertar){
       this.habContinua=false;
@@ -365,7 +365,7 @@ export class DomicilioComponent implements OnInit {
   }
 
   public buscar(obj:any){
-    
+    debugger;
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
 
