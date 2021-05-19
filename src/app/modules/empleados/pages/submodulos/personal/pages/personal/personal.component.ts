@@ -56,6 +56,8 @@ export class PersonalComponent implements OnInit {
 
 
       this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datoscontrato => {
+
+        console.log(datoscontrato);
         
         this.empleado = datoscontrato.datos;
         this.parsearInformacion();
@@ -263,7 +265,7 @@ export class PersonalComponent implements OnInit {
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       estadoCivil: obj.estadoCivil,
       numeroHijos: obj.numeroHijos,
-      url: obj.medioContacto?.url,
+      url: obj.urlLinkedin,
       contactoEmergenciaNombre: [obj.contactoEmergenciaNombre, [Validators.required]],
       contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno, [Validators.required]],
       contactoEmergenciaApellidoMaterno: [obj.contactoEmergenciaApellidoMaterno],
@@ -341,9 +343,7 @@ export class PersonalComponent implements OnInit {
       contactoInicialTelefono: obj.contactoInicialTelefono,
       tieneHijos: false,
       numeroHijos: obj.numeroHijos,
-      medioContacto: {
-        url: obj.url
-      },
+      urlLinkedin: obj.url,
       contactoEmergenciaNombre: obj.contactoEmergenciaNombre,
       contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
       contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,

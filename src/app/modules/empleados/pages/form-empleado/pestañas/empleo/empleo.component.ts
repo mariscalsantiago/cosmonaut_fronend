@@ -710,8 +710,8 @@ export class EmpleoComponent implements OnInit {
       this.myForm.controls.tiposueldo.disable();
       this.myForm.controls.tiposueldo.setValue('n');
 
-      this.myForm.controls.tipoCompensacionId.disable();
-      this.myForm.controls.tipoCompensacionId.setValue(1);
+      
+      this.myForm.controls.tipoCompensacionId.setValue(2);
 
 
       this.myForm.controls.salarioDiario.enable();
@@ -720,6 +720,7 @@ export class EmpleoComponent implements OnInit {
       this.myForm.controls.salarioDiario.updateValueAndValidity();
       this.myForm.controls.salarioDiarioIntegrado.setValidators([Validators.required]);
       this.myForm.controls.salarioDiarioIntegrado.updateValueAndValidity();
+      this.myForm.controls.salarioDiarioIntegrado.disable();
 
       this.cambiarSueldoField();
     }else{
@@ -730,7 +731,6 @@ export class EmpleoComponent implements OnInit {
 
 
       this.myForm.controls.tiposueldo.enable();
-      this.myForm.controls.tipoCompensacionId.enable();
       this.myForm.controls.salarioDiario.disable();
       
     }
