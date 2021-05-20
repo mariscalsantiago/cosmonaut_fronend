@@ -26,6 +26,7 @@ export class CalcularComponent implements OnInit {
   }
 
   public llave: string = "";
+  public llave2:string = "";
 
   public datosDetalleEmpleadoNomina: any = [];
 
@@ -44,6 +45,7 @@ export class CalcularComponent implements OnInit {
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
       this.llave = "nominaOrdinaria";
+      this.llave2 = "calculoEmpleado";
       this.nominaOrdinaria = true;
 
       this.cargando = true;
@@ -60,6 +62,7 @@ export class CalcularComponent implements OnInit {
     } else if (this.nominaSeleccionada.nominaExtraordinaria) {
 
       this.llave = "nominaExtraordinaria";
+      this.llave2 = "calculoEmpleadoAguinaldo";
 
       this.nominaExtraordinaria = true;
 
@@ -78,6 +81,7 @@ export class CalcularComponent implements OnInit {
 
     } else if (this.nominaSeleccionada.nominaLiquidacion) {
       this.llave = "nominaLiquidacion";
+      this.llave2 = "calculoEmpleadoLiquidacion";
       this.nominaLiquidacion = true;
 
       this.cargando = true;
@@ -137,14 +141,15 @@ export class CalcularComponent implements OnInit {
         let item = obj.datos;
         let objEnviar = {
           nominaXperiodoId: this.nominaSeleccionada[this.llave]?.nominaXperiodoId,
-          fechaContrato: item.fechaContrato,
-          personaId: item.personaId,
-          clienteId: item.centrocClienteId
+          fechaContrato: item[this.llave2].fechaContrato,
+          personaId: item[this.llave2].personaId,
+          clienteId: item[this.llave2].centrocClienteId
         }
 
         if (this.nominaSeleccionada.nominaOrdinaria) {
 
           this.nominaOrdinariaPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
+            console.log("Esto es la nomina ordinaria",datosItem);
             this.rellenandoDesglose("detalleNominaEmpleado", datosItem, item);
           });
 

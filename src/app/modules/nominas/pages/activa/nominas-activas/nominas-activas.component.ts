@@ -74,7 +74,7 @@ export class NominasActivasComponent implements OnInit {
         }
         this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.router.navigate(['/nominas/nomina'], { state: { datos: datos } });
+          this.router.navigate(['/nominas/nomina'], { state: { datos: {nominaOrdinaria:datos.datos} } });
         });
 
 
