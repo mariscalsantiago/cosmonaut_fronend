@@ -4,6 +4,7 @@ const ip:string = environment.rutaEmpresa;
 const ip3:string = environment.rutaCatalogos;
 const ipCalculos:string = environment.rutaCalculos;
 const ipValores: string = environment.rutaTablaValores;
+const ipReportes:string = environment.rutaReportes;
 
 export const direcciones = {
 
@@ -21,7 +22,7 @@ export const direcciones = {
     contratoColaborador:`${ip}/contratoColaborador`,
     nclPolitica:`${ip}/Politica`,
     sedes:`${ip}/sede`,
-	reportes:`${ip}/reportes`,
+	reportes:`${ipReportes}`,
     registroPatronal:`${ip}/registroPatronal`,
     conceptos:`${ip}/percepcionDeduccion`,
     incidencias:`${ip}/incidencias`,

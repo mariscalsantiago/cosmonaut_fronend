@@ -102,14 +102,16 @@ export class TimbrarComponent implements OnInit {
   public recibirTabla(obj: any) {
 
 
+console.log(obj);
+    
     switch (obj.type) {
       case "desglosar":
         let item = obj.datos;
         let objEnviar = {
           nominaXperiodoId: this.nominaSeleccionada[this.llave2]?.nominaXperiodoId,
-          fechaContrato: item.fechaContrato,
-          personaId: item.personaId,
-          clienteId: item.centrocClienteId
+          fechaContrato: item[this.llave].fechaContrato,
+          personaId: item[this.llave].personaId,
+          clienteId: item[this.llave].centrocClienteId
         }
 
 
