@@ -12,7 +12,7 @@ export class UsuarioSistemaService {
 
   constructor(private http: HttpClient) {
 
-    this.usuario = new usuarioClass(464, 1);
+    this.usuario = new usuarioClass(339, 1);
     
 
   }

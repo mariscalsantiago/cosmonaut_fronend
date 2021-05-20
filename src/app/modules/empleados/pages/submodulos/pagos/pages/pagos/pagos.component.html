@@ -190,7 +190,7 @@
                               <option *ngFor="let item of arregloCompensacion" [value]="item.tipoCompensacionId">
                                 {{item.descripcion}}</option>
                             </select>
-                            <div *ngIf="fc.tipoCompensacionId.errors && c.tipoCompensacionId.touched"
+                            <div *ngIf="fc.tipoCompensacionId.errors && fc.tipoCompensacionId.touched"
                               class="invalid-feedback">
                               Campo requerido
                             </div>
