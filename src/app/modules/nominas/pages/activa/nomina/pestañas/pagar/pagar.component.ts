@@ -6,6 +6,7 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 
 @Component({
   selector: 'app-pagar',
@@ -18,6 +19,7 @@ export class PagarComponent implements OnInit {
 
   public cargando: boolean = false;
   public cargandoIcon: boolean = false;
+  public cargandoIconDispersion:boolean = false;
   public objEnviar: any = [];
   public nominaOrdinaria: boolean = false;
   public nominaExtraordinaria: boolean = false;
@@ -33,7 +35,8 @@ export class PagarComponent implements OnInit {
 
   constructor(private modalPrd: ModalService,
     private ventana: VentanaemergenteService, private nominaOrdinariaPrd: NominaordinariaService,
-    private nominaAguinaldoPrd: NominaaguinaldoService, private nominaLiquidacionPrd: NominafiniquitoliquidacionService, private cp: CurrencyPipe) { }
+    private nominaAguinaldoPrd: NominaaguinaldoService, private nominaLiquidacionPrd: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
+    private reportes:ReportesService) { }
 
 
 
@@ -129,6 +132,25 @@ export class PagarComponent implements OnInit {
         });
       }
     });
+  }
+
+
+  public descargarDispersion(){
+      this.cargandoIconDispersion = true;
+      let obj = {
+      nominaPeriodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
+        esVistaPrevia: true
+      }
+      this.reportes.getlayoutDispersionNomina(obj).subscribe(datos =>{
+        this.cargandoIconDispersion = false;
+        const linkSource = 'data:application/pdf;base64,' + `${datos.datos}\n`;
+        const downloadLink = document.createElement("a");
+        const fileName = `Archivo_dispersion_${this.nominaSeleccionada[this.llave].nombreNomina.replace(" ",".")}.xlsx`;
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      });
   }
 
 }

@@ -21,6 +21,33 @@ export class ReportesService {
     let json = JSON.stringify(obj);
 
     
-    return this.http.post(`${direcciones.reportes}/perfil/personal`,json,httpOptions);
+    return this.http.post(`${direcciones.reportes}/empleado/perfil/personal`,json,httpOptions);
+  }
+
+
+  public getComprobanteFiscal(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+
+    
+    return this.http.post(`${direcciones.reportes}/empleado/perfil/personal`,json,httpOptions);
+
+  }
+
+  public getlayoutDispersionNomina(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+
+    
+    return this.http.post(`${direcciones.reportes}/nominaDispersion/layoutDispersionNomina`,json,httpOptions);
+
   }
 }

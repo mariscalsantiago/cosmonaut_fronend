@@ -39,6 +39,15 @@
           },
          "changeOrigin": true
     }
+    ,
+    "/reportes/*":{
+        "target":"https://34.75.54.120/reportes",
+        "secure":false,
+        "pathRewrite": {
+            "^/reportes": ""
+          },
+         "changeOrigin": true
+    }
 
 
 }

@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     this.cargandoLogin = true;
     setTimeout(() => {
      this.cargandoLogin = false;
-    }, 5500);
+    }, 4000);
     //$('#modalshare').modal('show');
   }
 
