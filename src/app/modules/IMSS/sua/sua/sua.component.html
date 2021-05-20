@@ -16,7 +16,7 @@
                     <div class="form group row margen">
                     <div class=" input-group-sm mb-3 col-3 ">
                         <select class="form-control" [(ngModel)]="empresa">
-                            <option value="">Seleccionar empresa</option>
+                            <option value="0" selected>Seleccionar empresa</option>
                             <option *ngFor="let item of arregloEmpresa" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
                         </select>
                     </div>

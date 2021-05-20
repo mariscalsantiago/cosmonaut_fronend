@@ -38,7 +38,8 @@ export class MenuService {
     { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[]},
     { nombre: 'ADMINISTRACIÓN COSMONAUT', icono: "icon_admoncos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA"],submenu:[
                                                                                 {nombre:"CLIENTES",routerLink:['/company'],rol:["ALL","ADMINCOMPANIA"]},
-                                                                                {nombre:"USUARIOS",routerLink:['/usuarios'],rol:["ALL","ADMINCOMPANIA"]}
+                                                                                {nombre:"USUARIOS",routerLink:['/usuarios'],rol:["ALL","ADMINCOMPANIA"]},
+                                                                                {nombre:"ADMINISTRACIÓN DE CATÁTALOGOS",routerLink:['/admincatalogos'],rol:["ALL","ADMINCOMPANIA"]}
                                                                               ]},
     { nombre: "ADMINISTRACIÓN DE EMPRESA", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"CONFIGURACIÓN EMPRESA",routerLink:['/listaempresas'],rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"]},

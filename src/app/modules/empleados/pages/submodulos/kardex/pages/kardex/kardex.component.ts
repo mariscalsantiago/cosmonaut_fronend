@@ -104,7 +104,7 @@ export class KardexComponent implements OnInit {
   public recibirTabla(obj: any) {
     
     if (obj.type == "desglosar") {
-      let datos = obj.datos;
+      //let datos = obj.datos;
 
       let item = obj.datos;
        
