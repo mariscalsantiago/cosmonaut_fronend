@@ -38,11 +38,14 @@
         </div>
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Moneda *</label>
-            <select formControlName="monedaId" class="form-control">
+            <select [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" formControlName="monedaId" class="form-control">
                 <option *ngFor="let item of arregloMonedas " [value]="item.monedaId">
                     {{item.descripcion}}
                 </option>
             </select>
+            <div *ngIf="f.monedaId.errors && f.monedaId.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
         <div class="input-group-sm mb-3 col-6">
             <div>
@@ -52,7 +55,7 @@
                     <label class="contenedorInputCheckRadio">Incluir todos los empleados
                         <input formControlName="todos"
                              name="todos" type="radio"
-                           value = "1">
+                           value = "true">
                         <span class="radiomark"></span>
                     </label>
                     
@@ -60,7 +63,7 @@
                     <label class="contenedorInputCheckRadio">Incluir algunos empleados
                         <input formControlName="todos" #tipo 
                              name="todos" type="radio"
-                           value = "2">
+                           value = "false">
                         <span class="radiomark"></span>
                     </label>
 

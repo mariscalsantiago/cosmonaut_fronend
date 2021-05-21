@@ -93,7 +93,7 @@ export class PagarComponent implements OnInit {
     for (let item of this.arreglo) {
       item["nombrecompleto"] = item[llave].nombreEmpleado + " " + item[llave].apellidoPatEmpleado + " ";
       item["nombrecompleto"] += (item[llave].apellidoMatEmpleado == undefined) ? "" : item[llave].apellidoMatEmpleado;
-      item["rfc"] = "falta";
+      item["rfc"] = item[llave].rfc;
       item["banco"] = item[llave].banco;
       item["tipopago"] = item[llave].tipoPago;
       item["total"] = this.cp.transform(item[llave].totalNetoEndinero);

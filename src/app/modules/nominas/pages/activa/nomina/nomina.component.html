@@ -34,17 +34,17 @@
         <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel"
           aria-labelledby="nav-home-tab">
 
-          <app-calcular [nominaSeleccionada]="nominaSeleccionada" (salida)="recibirComponente($event)"></app-calcular>
+          <app-calcular *ngIf="activado[0].tab" [nominaSeleccionada]="nominaSeleccionada" (salida)="recibirComponente($event)"></app-calcular>
 
 
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel"
           aria-labelledby="nav-profile-tab">
-          <app-pagar [nominaSeleccionada]="nominaSeleccionada" (salida)="recibirComponente($event)"></app-pagar>
+          <app-pagar *ngIf="activado[1].tab" [nominaSeleccionada]="nominaSeleccionada" (salida)="recibirComponente($event)"></app-pagar>
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel"
           aria-labelledby="nav-contact-tab">
-          <app-timbrar [nominaSeleccionada]="nominaSeleccionada" (salida)="recibirComponente($event)"></app-timbrar>
+          <app-timbrar *ngIf="activado[2].tab" [nominaSeleccionada]="nominaSeleccionada" (salida)="recibirComponente($event)"></app-timbrar>
         </div>
         <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel"
           aria-labelledby="nav-empleo-tab">

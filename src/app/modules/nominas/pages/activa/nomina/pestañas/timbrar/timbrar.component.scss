@@ -11,3 +11,15 @@
     text-decoration: underline !important;
     
 }
+
+
+article{
+    font-size: medium;
+    font-weight: bold;
+    article{
+        font-size: smaller;
+        font-weight: normal;
+        color:gray;
+        
+    }
+}

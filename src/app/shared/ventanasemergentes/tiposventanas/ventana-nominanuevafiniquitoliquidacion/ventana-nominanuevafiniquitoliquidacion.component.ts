@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
@@ -20,29 +21,29 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   @Output() salida = new EventEmitter<any>();
   @ViewChild("fechafin") fechafin!: ElementRef;
 
-  public arregloTipoNominas:any = [];
-  public arregloCuentasBancarias:any =  [];
-  public arregloCompanias:any = [];
-  public arregloEmpleados:any = [];
-  public arregloMonedas:any = [];
+  public arregloTipoNominas: any = [];
+  public arregloCuentasBancarias: any = [];
+  public arregloCompanias: any = [];
+  public arregloEmpleados: any = [];
+  public arregloMonedas: any = [];
 
-  public mostrarAlgunosEmpleados:boolean = false;
-  public seleccionarUsuariosCheck:boolean = false;
-  public objEnviar: any = []; 
+  public mostrarAlgunosEmpleados: boolean = false;
+  public seleccionarUsuariosCheck: boolean = false;
+  public objEnviar: any = [];
 
-  public arregloempleadosSeleccionados:any = null;
+  public arregloempleadosSeleccionados: any = null;
 
-  
+
 
   constructor(private modalPrd: ModalService, private grupoNominaPrd: GruponominasService,
     private usuariosPrd: UsuarioSistemaService, private formbuilder: FormBuilder,
     private usuarioSistemaPrd: UsuarioSistemaService, private nominafiniquitoPrd: NominafiniquitoliquidacionService,
-    private catalogosPrd:CatalogosService,private cuentasBancariasPrd:CuentasbancariasService,
-    private companiasPrd:SharedCompaniaService,private empleadosPrd:EmpleadosService) { }
+    private catalogosPrd: CatalogosService, private cuentasBancariasPrd: CuentasbancariasService,
+    private companiasPrd: SharedCompaniaService, private empleadosPrd: EmpleadosService) { }
 
   ngOnInit(): void {
-    
-    
+
+
     this.myForm = this.creandoForm();
 
     this.suscripciones();
@@ -50,68 +51,49 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
 
     this.catalogosPrd.getTiposNomina(true).subscribe(datos => this.arregloTipoNominas = datos.datos);
     this.cuentasBancariasPrd.getCuentaBancariaByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
-    this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos );
+    this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
     this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
 
-      
+
       this.arregloCompanias = datos.datos;
 
-      if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
-        
-          this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
-      }});
+      if (this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA") {
 
-
-      this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-        this.arregloEmpleados = datos.datos;
-        for(let item of this.arregloEmpleados){
-            item["nombre"] = item.personaId?.nombre+" "+item.personaId.apellidoPaterno; 
-        }
-      });
-    
-  }
-
-  public suscripciones() {
-
-   
-
-
-    this.f.todos.valueChanges.subscribe(valor =>{
-      this.mostrarAlgunosEmpleados = valor == "2";
+        this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
+      }
     });
 
 
+    this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.arregloEmpleados = datos.datos;
+      for (let item of this.arregloEmpleados) {
+        item["nombre"] = item.personaId?.nombre + " " + item.personaId.apellidoPaterno;
+      }
+    });
 
   }
 
-  public validarEmpleados(id:any){
-
-     if (id == 2){
-      this.mostrarAlgunosEmpleados= true;
-     }else{
-      this.mostrarAlgunosEmpleados= false;
-
-     }
+  public suscripciones() {
+    this.f.todos.valueChanges.subscribe(valor => {
+      this.mostrarAlgunosEmpleados = valor == "false";
+    });
   }
-
 
   public creandoForm() {
 
-   
+
     return this.formbuilder.group(
       {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
         usuarioId: this.usuarioSistemaPrd.getUsuario().idUsuario,
         fecXReportes: [, [Validators.required]],
-        
         nombreNomina: [, [Validators.required]],
         monedaId: [],
-        centrocClienteId: [],
-        //tipoNominaId:[,[Validators.required]],
-        cuentaBancoId:[,[Validators.required]],
-        todos:[true],
-        personaId:[]
+        centrocClienteId: [, Validators.required],
+        cuentaBancoId: [, [Validators.required]],
+        todos: ["true", Validators.required],
+        personaId: []
       }
     );
   }
@@ -122,7 +104,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   }
 
 
-  
+
 
 
   public enviarPeticion() {
@@ -136,19 +118,33 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas crear la  nómina?").then(valor => {
       if (valor) {
-        let  obj = this.myForm.getRawValue();
-        
-          this.objEnviar = {
-            clienteId: obj.clienteId,
-            usuarioId: obj.usuarioId,
-            nombreNomina: obj.nombreNomina,
-            cuentaBancoId: obj.cuentaBancoId,
-            todos: true,
-            monedaId: obj.monedaId,
-            empleados: {
-                colaborador: this.arregloempleadosSeleccionados
-            }
-          };
+        let obj = this.myForm.getRawValue();
+        let temp = null;
+        console.log("Esto trae esto",temp);
+        if (obj.todos == "false") {
+          temp = [];
+          for (let item of this.arregloempleadosSeleccionados) {
+            temp.push({
+              colaborador: {
+                fechaContrato: new DatePipe("es-MX").transform(item.fechaContrato, "yyyy-MM-dd"),
+                persona_id: item.personaId.personaId,
+                cliente_id: this.usuarioSistemaPrd.getIdEmpresa()
+              }
+            });
+          }
+        }
+
+        this.objEnviar = {
+          clienteId: obj.clienteId,
+          usuarioId: obj.usuarioId,
+          nombreNomina: obj.nombreNomina,
+          cuentaBancoId: obj.cuentaBancoId,
+          todos: obj.todos == "true",
+          monedaId: obj.monedaId,
+          empleados: temp,
+          fecXReportes:obj.fecXReportes
+        };
+
         this.guardarNomina();
       }
 
@@ -158,12 +154,18 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
 
   public guardarNomina() {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    
+
     this.nominafiniquitoPrd.crearNomina(this.objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      
+
       this.salida.emit({
         type: "guardar", datos: datos
+      });
+    }, err => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+      this.salida.emit({
+        type: "guardar", datos: "bueno"
       });
     });
 
@@ -174,15 +176,16 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
     return this.myForm.controls;
   }
 
-  public clonar(obj:any){
+  public clonar(obj: any) {
     return JSON.parse(JSON.stringify(obj));
   }
 
 
-  public recibirEtiquetas(obj:any){
+  public recibirEtiquetas(obj: any) {
 
     this.arregloempleadosSeleccionados = obj;
+    console.log(this.arregloempleadosSeleccionados);
 
-    }
+  }
 
 }
