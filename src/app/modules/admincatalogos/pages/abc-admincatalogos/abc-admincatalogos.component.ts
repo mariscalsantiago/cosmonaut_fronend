@@ -7,14 +7,12 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { AdminCatalogosService } from '../../services/admincatalogos.service';
 
 
-
 @Component({
-  selector: 'app-admincatalogos',
-  templateUrl: './admincatalogos.component.html',
-  styleUrls: ['./admincatalogos.component.scss']
+  selector: 'app-abc-admincatalogos',
+  templateUrl: './abc-admincatalogos.component.html',
+  styleUrls: ['./abc-admincatalogos.component.scss']
 })
-export class AdminCatalogosComponent implements OnInit {
-
+export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public cargando: Boolean = false;
@@ -27,7 +25,7 @@ export class AdminCatalogosComponent implements OnInit {
   */
 
 
-  public id_company: number = 0;
+  public id_compania: number = 0;
   public idUsuario: any = "";
   public nombre: string = "";
   public apellidoPat: string = "";
@@ -69,14 +67,15 @@ export class AdminCatalogosComponent implements OnInit {
 
     this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
 
-    this.procesarTabla();
+    this.crearTabla();
 
   }
 
-  public procesarTabla() {
+  public crearTabla() {
     //this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
-      new tabla("descripcion", "Catálogo")
+      new tabla("descripcion", "Descripción"),
+      new tabla("clave", "Clave")
     ]
 
 
@@ -88,7 +87,12 @@ export class AdminCatalogosComponent implements OnInit {
 
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = [{
-      descripcion : "Nacionalidad"
+      descripcion : "ALBANESA",
+      clave : "22"
+    },
+    {
+      descripcion : "ALEMANA",
+      clave : "21"
     }];
     //this.arreglotabla.columnas = columnas;
     //this.arreglotabla.filas = this.arreglo;
@@ -102,8 +106,13 @@ export class AdminCatalogosComponent implements OnInit {
 
   public verdetalle(obj: any) {
 
-      this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', "detalle"], { state: { company: this.arregloCompany } });
+      this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', "modificar"], { state: { company: this.arregloCompany } });
 
+  }
+
+  public cancelar() {
+    
+    this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle']);
   }
 
 
@@ -140,7 +149,7 @@ export class AdminCatalogosComponent implements OnInit {
       emailCorporativo: this.correoempresarial,
       esActivo: actboo,
       centrocClienteId: {
-        centrocClienteId: (this.id_company) == 0 ? "" : this.id_company
+        centrocClienteId: (this.id_compania) == 0 ? "" : this.id_compania
       },
       tipoPersonaId: {
         tipoPersonaId: 3
@@ -172,11 +181,4 @@ export class AdminCatalogosComponent implements OnInit {
 
 
 }
-
-
-
-
-
-
-
 

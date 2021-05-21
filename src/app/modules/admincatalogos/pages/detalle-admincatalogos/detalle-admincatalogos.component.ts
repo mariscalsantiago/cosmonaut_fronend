@@ -103,7 +103,10 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     this.cargando = false;
   }
 
-
+  public cancelar() {
+    
+    this.routerPrd.navigate(['/admincatalogos']);
+  }
 
 
 
