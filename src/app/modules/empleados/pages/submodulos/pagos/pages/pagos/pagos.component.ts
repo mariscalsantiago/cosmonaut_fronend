@@ -570,6 +570,9 @@ export class PagosComponent implements OnInit {
 
   public enviarCompensacio() {
     if (this.myFormCompensacion.invalid) {
+      Object.values(this.myFormCompensacion.controls).forEach(control =>{
+        control.markAsTouched();
+      });
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
