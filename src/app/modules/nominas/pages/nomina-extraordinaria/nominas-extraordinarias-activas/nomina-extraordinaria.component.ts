@@ -24,6 +24,11 @@ export class NominaExtraordinariaComponent implements OnInit {
 
   ngOnInit(): void {
 
+   this.traerListaNomina();
+
+  }
+
+  public traerListaNomina(){
     this.cargando = true;
     let objenviar =
     {
@@ -39,15 +44,15 @@ export class NominaExtraordinariaComponent implements OnInit {
         }
       }
     })
-
   }
 
   public agregar() {
     this.ventana.showVentana(this.ventana.nuevanominaextraordinaria).then(valor => {
 
       if (valor.datos) {
-        this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
-        this.arreglo.push({ nominaExtraordinaria: { ...valor.datos.datos }, inicial: true });
+       // this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
+        //this.arreglo.push({ nominaExtraordinaria: { ...valor.datos.datos }, inicial: true });
+        this.traerListaNomina();
       }
     });
   }

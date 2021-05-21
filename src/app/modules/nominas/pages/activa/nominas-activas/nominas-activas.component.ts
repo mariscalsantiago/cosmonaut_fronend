@@ -50,10 +50,11 @@ export class NominasActivasComponent implements OnInit {
     this.ventana.showVentana(this.ventana.nuevanomina).then(valor => {
 
       if (valor.datos) {
-        this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
+        //this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
         
-        this.arreglo.push({ nominaOrdinaria: { ...valor.datos.datos },inicial:true });
+      //  this.arreglo.push({ nominaOrdinaria: { ...valor.datos.datos },inicial:true });
         
+      this.traerListaNomina();
         
       }
     });
