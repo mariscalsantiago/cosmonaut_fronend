@@ -128,6 +128,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
         let temp = null;
         if(obj.seleccionarempleados == "false"){
           temp = [];
+          console.log("si entra",obj);
             for(let item of this.empleadoEnviar){
                 temp.push({colaborador:{
                   fechaContrato:new DatePipe("es-MX").transform(item.fechaContrato,"yyyy-MM-dd"),
@@ -143,9 +144,8 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
           cuentaBancoId: obj.clabe,
           todos: obj.seleccionarempleados == "true",
           monedaId: obj.monedaId,
-          empleados: obj.seleccionarempleados == "true"?null:temp
+          empleados: temp
         };
-
         this.guardarNomina();
       }
 
