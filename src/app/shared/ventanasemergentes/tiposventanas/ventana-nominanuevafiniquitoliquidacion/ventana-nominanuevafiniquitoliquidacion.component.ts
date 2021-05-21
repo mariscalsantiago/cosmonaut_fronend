@@ -165,6 +165,12 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
       this.salida.emit({
         type: "guardar", datos: datos
       });
+    },err =>{
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+      this.salida.emit({
+        type: "guardar", datos: "bueno"
+      });
     });
 
   }

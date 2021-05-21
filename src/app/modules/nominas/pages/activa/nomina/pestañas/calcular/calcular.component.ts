@@ -106,7 +106,7 @@ export class CalcularComponent implements OnInit {
   public rellenandoTablas(llave: string) {
     let columnas: Array<tabla> = [
       new tabla("nombrecompleto", "Nombre"),
-      new tabla("numEmpleado", "Número de empleado", false, false, true),
+      new tabla("numeroEmpleado", "Número de empleado", false, false, true),
       new tabla("diaslaborados", "Días laborados", false, false, true),
       new tabla("percepciones", "Percepciones", false, false, true),
       new tabla("deducciones", "Deducciones", false, false, true),
@@ -118,6 +118,7 @@ export class CalcularComponent implements OnInit {
       
 
       item["nombrecompleto"] = item[llave].empleado;
+      item["numeroEmpleado"] = item[llave].numeroEmpleado;
       item["diaslaborados"] = item[llave].diasLaborados;
       item["percepciones"] = this.cp.transform(item[llave].percepciones);
       item["deducciones"] = this.cp.transform(item[llave].deducciones);

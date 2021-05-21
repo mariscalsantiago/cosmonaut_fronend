@@ -46,16 +46,16 @@
                 <div >
 
                     <label class="contenedorInputCheckRadio">Todos los empleados
-                        <input formControlName="seleccionarempleados" #tipouno (click)="validarEmpleados(tipouno.value)" 
+                        <input formControlName="seleccionarempleados" #tipouno 
                              name="seleccionarempleados" type="radio"
-                           value = "1">
+                           value = "true">
                         <span class="radiomark"></span>
                     </label>
                     
                     <label class="contenedorInputCheckRadio">Por empleados
-                        <input formControlName="seleccionarempleados" #tipodos (click)="validarEmpleados(tipodos.value)" 
+                        <input formControlName="seleccionarempleados" #tipodos
                              name="seleccionarempleados" type="radio"
-                           value = "2">
+                           value = "false">
                         <span class="radiomark"></span>
                     </label>
 
@@ -69,30 +69,16 @@
             <label for="exampleFormControlSelect1">Empleados *</label>
             <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
         </div>
-      
-
-
-        <!--<div class="input-group-sm mb-3 col-6">
-            <label for="exampleFormControlSelect1">Fecha de la nómina *</label>
-            <input [class.is-invalid]="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" formControlName="fechaIniPeriodo"  type="date" name=""  class="form-control">
-            <div *ngIf="f.fechaIniPeriodo.errors && f.fechaIniPeriodo.touched" class="invalid-feedback">
-                Campo requerido
-            </div>
-        </div>
-        <div class="input-group-sm mb-3 col-6">
-            <label for="exampleFormControlSelect1">Fecha de fin *</label>
-            <input formControlName="fechaFinPeriodo" #fechafin [class.is-invalid]="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" type="date" name=""  class="form-control">
-            <div *ngIf="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" class="invalid-feedback">
-                Campo requerido
-            </div>
-        </div>-->
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Moneda *</label>
-            <select formControlName="monedaId" class="form-control">
+            <select [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" formControlName="monedaId" class="form-control">
                 <option *ngFor="let item of arregloMonedas " [value]="item.monedaId">
                     {{item.descripcion}}
                 </option>
             </select>
+           <div *ngIf="f.monedaId.errors && f.monedaId.touched" class="invalid-feedback">
+               Campo obligatorio
+           </div>
         </div>
     </div>
     <div class="text-right margin" style="margin-bottom: 20px;">

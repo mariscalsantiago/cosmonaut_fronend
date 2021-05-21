@@ -43,6 +43,8 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
       this.ventana.showVentana(this.ventana.nuevanominafiniquitoliquidacion).then(valor =>{
         
         if(valor.datos){
+          this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
+          this.arreglo.push({ nominaLiquidacion: { ...valor.datos.datos },inicial:true });
         }
       });
   }
@@ -60,7 +62,10 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
         }
         this.nominaFiniquitoPrd.calcularNomina(objEnviar).subscribe(datos =>{
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.router.navigate(['/nominas/nomina'],{ state: { datos: {nominaLiquidacion:datos.datos} } });
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+          if(datos.resultado){
+            this.router.navigate(['/nominas/nomina'],{ state: { datos: {nominaLiquidacion:datos.datos} } });
+          }
         });
 
 

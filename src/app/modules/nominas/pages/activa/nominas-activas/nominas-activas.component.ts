@@ -50,12 +50,11 @@ export class NominasActivasComponent implements OnInit {
     this.ventana.showVentana(this.ventana.nuevanomina).then(valor => {
 
       if (valor.datos) {
-        console.log(valor);
-        console.log(valor.datos.datos);
+        this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
         
-        //this.arreglo.push({ nominaOrdinaria: { ...valor.datos.datos },inicial:true });
-        //this.agregarNuevaNomina();
-        this.traerListaNomina();
+        this.arreglo.push({ nominaOrdinaria: { ...valor.datos.datos },inicial:true });
+        
+        
       }
     });
   }
@@ -74,7 +73,10 @@ export class NominasActivasComponent implements OnInit {
         }
         this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.router.navigate(['/nominas/nomina'], { state: { datos: {nominaOrdinaria:datos.datos} } });
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+          if(datos.resultado){
+            this.router.navigate(['/nominas/nomina'], { state: { datos: {nominaOrdinaria:datos.datos} } });
+          }
         });
 
 
