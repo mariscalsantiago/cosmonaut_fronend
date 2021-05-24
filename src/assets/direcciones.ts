@@ -28,5 +28,6 @@ export const direcciones = {
     incidencias:`${ip}/incidencias`,
     orquestador:`${ipCalculos}/orquestador`,
     documentos:`${ip}/documentos`,
+    kardex:`${ip}/kardex`,
     tablasValores: `${ipValores}/TablasValores`
 };
