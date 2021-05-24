@@ -79,23 +79,19 @@ export class KardexComponent implements OnInit {
       filas:[]
     }
 
-    this.arreglotabla.columnas = columnas;
-    this.arreglotabla.filas = [{
-      tipoMovimiento : "Alta de empleado",
-      fechaMovimiento : "18/05/2021",
-      registroPatronal : "EF23456",
 
-    }];
-
-    /*if(this.arreglo !== undefined){
+    if(this.arreglo !== undefined){
       for(let item of this.arreglo){
-        item.fechaCarga = (new Date(item.fechaCarga).toUTCString()).replace(" 00:00:00 GMT", "");
+        item.fechaMovimiento = (new Date(item.fechaMovimiento).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
-        item.fechaCargaDocumento = datepipe.transform(item.fechaCarga , 'dd-MMM-y')?.replace(".","");
+        item.fechaMovimiento = datepipe.transform(item.fechaMovimiento , 'dd-MMM-y')?.replace(".","");
 
         item.tipoDocumento= item.tipoDocumento?.nombre;
       }
-    }*/
+    }
+
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = this.arreglo;
 
     this.cargando = false;
   }

@@ -58,7 +58,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.empresa = this.datos.centrocClienteId?.centrocClienteId;
       this.empleado = this.datos.personaId?.personaId;
     }
-
+    debugger;
     this.catalogosPrd.getTipoDescuentoInfonavit(true).subscribe(datos => this.arregloDescuentoInfonavit = datos.datos);
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
     this.bancosPrd.getObtenerDeduccion(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
@@ -115,7 +115,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    
+    debugger;
     if(concepto=='010'){
       this.infonavit = true;
       this.fijo = true;
