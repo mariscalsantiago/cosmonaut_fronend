@@ -183,7 +183,7 @@ export class DocumentosComponent implements OnInit {
   }
 
   public agregarDocumento(obj:any){
-  
+  debugger;
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
   
     this.documentosPrd.save(obj).subscribe(datos => {

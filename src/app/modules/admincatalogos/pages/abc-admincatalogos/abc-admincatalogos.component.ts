@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -17,7 +18,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
   public cargando: Boolean = false;
   public tipoguardad: boolean = false;
-
+  public myForm!: FormGroup;
 
 
   /*
@@ -179,6 +180,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
   }
 
+  public enviarPeticion(){
 
+
+  }
 }
 

@@ -13,7 +13,11 @@ export class KardexService {
   constructor(private http:HttpClient) { }
 
   
-  public getListaDocumentosEmpleado(idEmpresa:number,idEmpleado:number):Observable<any>{
-    return this.http.get(`${direcciones.documentos}/lista/${idEmpresa}/${idEmpleado}`);
+  public getListaMovimientos(idEmpresa:number,idEmpleado:number):Observable<any>{
+    return this.http.get(`${direcciones.kardex}/listar/${idEmpresa}/${idEmpleado}`);
+  }
+
+  public getListaPorIdMovimiento(idEmpresa:number,idEmpleado:number,idMovimiento:number):Observable<any>{
+    return this.http.get(`${direcciones.kardex}/listar/${idEmpresa}/${idEmpleado}/${idMovimiento}`);
   }
 }

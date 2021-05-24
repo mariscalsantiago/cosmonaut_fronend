@@ -1,7 +1,7 @@
 import { Component, HostListener, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DocumentosService } from 'src/app/modules/empleados/services/documentos.service';
+import { KardexService } from 'src/app/modules/empleados/services/kardex.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { tabla } from 'src/app/core/data/tabla';
 import { DatePipe } from '@angular/common';
@@ -42,7 +42,7 @@ export class KardexComponent implements OnInit {
 
 
 
-  constructor(private routerPrd: Router, private documentosPrd: DocumentosService,private modalPrd:ModalService, 
+  constructor(private routerPrd: Router, private kardexPrd: KardexService,private modalPrd:ModalService, 
     private router:ActivatedRoute, private ventana:VentanaemergenteService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
@@ -54,17 +54,17 @@ export class KardexComponent implements OnInit {
     });
   
     this.cargando = true;
-    this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
-        //this.crearTabla(datos);
+    debugger;
+    this.kardexPrd.getListaMovimientos(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
+        this.crearTabla(datos);
     });
 
-    this.crearTabla();
   }
 
 
-  public crearTabla(){
+  public crearTabla(datos:any){
     
-    //this.arreglo = datos.datos;
+    this.arreglo = datos.datos;
 
     
     let columnas: Array<tabla> = [
