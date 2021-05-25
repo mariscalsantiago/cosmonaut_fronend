@@ -58,7 +58,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.empresa = this.datos.centrocClienteId?.centrocClienteId;
       this.empleado = this.datos.personaId?.personaId;
     }
-
+    debugger;
     this.catalogosPrd.getTipoDescuentoInfonavit(true).subscribe(datos => this.arregloDescuentoInfonavit = datos.datos);
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
     this.bancosPrd.getObtenerDeduccion(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
@@ -115,7 +115,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    
+    debugger;
     if(concepto=='010'){
       this.infonavit = true;
       this.fijo = true;
@@ -259,7 +259,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       if(this.monto != null && this.numPeriodo != null){
         this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
           this.montoPercepcion = datos.datos;
-          this.myForm.controls.valor.setValue(this.montoPercepcion);
+          var monto = this.montoPercepcion.toFixed(4); 
+          this.myForm.controls.valor.setValue(monto);
         });
 
       }
@@ -271,7 +272,8 @@ export class VentanaDeduccionesComponent implements OnInit {
     if(this.monto != null && this.numPeriodo != null){
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
         this.montoPercepcion = datos.datos;
-        this.myForm.controls.valor.setValue(this.montoPercepcion);
+        var monto = this.montoPercepcion.toFixed(4); 
+        this.myForm.controls.valor.setValue(monto);
       });
         
     }

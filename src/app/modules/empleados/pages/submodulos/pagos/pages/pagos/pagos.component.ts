@@ -118,7 +118,7 @@ export class PagosComponent implements OnInit {
 
 
   public crearTablaPercepcion(datos: any) {
-
+debugger;
     this.arreglotablaPer = datos.datos;
 
     let columnas: Array<tabla> = [
@@ -136,9 +136,11 @@ export class PagosComponent implements OnInit {
     }
     if (this.arreglotablaPer !== undefined) {
       for (let item of this.arreglotablaPer) {
+        if(item.fechaInicio !== undefined ){
         item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fechaInicioPer = datepipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".", "");
+        }
 
         item.nombre = item.conceptoPercepcionId?.nombre;
 
@@ -160,6 +162,7 @@ export class PagosComponent implements OnInit {
   }
 
   public crearTablaDeduccion(datos: any) {
+    debugger;
 
     this.arreglotablaDed = datos.datos;
 
@@ -181,10 +184,11 @@ export class PagosComponent implements OnInit {
 
     if (this.arreglotablaDed !== undefined) {
       for (let item of this.arreglotablaDed) {
+        if(item.fechaInicioDescto !== undefined ){
         item.fechaInicioDescto = (new Date(item.fechaInicioDescto).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fechaInicioDesctoDed = datepipe.transform(item.fechaInicioDescto, 'dd-MMM-y')?.replace(".", "");
-
+        }
         item.nombre = item.conceptoDeduccionId?.nombre;
 
         if (item.esActivo) {
