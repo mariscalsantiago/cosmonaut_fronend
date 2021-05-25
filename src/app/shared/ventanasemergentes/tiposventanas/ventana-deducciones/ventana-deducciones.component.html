@@ -47,7 +47,7 @@
     </div>
     <div *ngIf="prestamo"  class="  input-group-sm mb-3 col-4">
         <label>Monto *</label>
-        <input #monto (focusout)="validarMontoTotal(monto.value)"  formControlName="montoTotal" type="text" class="form-control">
+        <input #monto (focusout)="validarMontoTotal(monto.value)" formatos [moneda]="true" [control]="f.montoTotal"    formControlName="montoTotal" type="text" class="form-control">
 
     </div>
 
