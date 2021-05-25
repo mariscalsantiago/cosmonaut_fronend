@@ -34,7 +34,7 @@
     <tbody>
       <ng-container *ngFor="let item of arreglo; let indice = index;">
         <tr  class="fade-in-second">
-          <td *ngIf="checkbox && !item.tipopago === 'transferencia'">
+          <td *ngIf="checkbox">
             <label class="contenedorInputCheckRadio">
               <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
               <span class="checkmark"></span>
