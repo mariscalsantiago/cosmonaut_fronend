@@ -265,7 +265,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           case 10:
           case 11:
           case 16:
-          case 9:
             ocultar = false;
             break;
         }
@@ -367,8 +366,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.duracion.updateValueAndValidity();
       this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
       this.myForm.controls.fechaAplicacion.updateValueAndValidity();
-      this.myForm.controls.monto.setValidators([Validators.required]);
-      this.myForm.controls.monto.updateValueAndValidity();
     }
 
     if (seleccionado == 10 || seleccionado == 11 || seleccionado == 16) {
