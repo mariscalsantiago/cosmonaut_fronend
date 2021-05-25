@@ -11,19 +11,12 @@ export class AlfanumericoDirective {
 
   @HostListener("keydown", ["$event"])
   onKeyDown(event: KeyboardEvent) {
-    
-    if (event.code != 'Backspace' && event.code  !== 'Tab')
-      if (!((event.key >= 'A' && event.key <= 'Z') || (event.key >= 'a' && event.key <= 'z'))) {
-        if(this.appAlfanumerico == 'true'){
-            if(!(event.key >= '0' && event.key <= '9')){
-              event.preventDefault();
-            }
-        }else{
-          event.preventDefault();
-        }
-      }else{
-        
-      }
+    let expresionRegular = /^[a-zA-Z ]+$/i;
+    const regex = new RegExp(expresionRegular);
+    if(!regex.test(event.key)){
+        event.preventDefault();
+    }
+      
   }
 
 }

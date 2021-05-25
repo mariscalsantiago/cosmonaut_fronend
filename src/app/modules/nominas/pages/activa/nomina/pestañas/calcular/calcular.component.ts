@@ -150,7 +150,7 @@ export class CalcularComponent implements OnInit {
         if (this.nominaSeleccionada.nominaOrdinaria) {
 
           this.nominaOrdinariaPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
-            console.log("Esto es la nomina ordinaria",datosItem);
+            
             this.rellenandoDesglose("detalleNominaEmpleado", datosItem, item);
           });
 

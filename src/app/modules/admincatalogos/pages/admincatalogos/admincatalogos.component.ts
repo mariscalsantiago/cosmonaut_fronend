@@ -61,7 +61,7 @@ export class AdminCatalogosComponent implements OnInit {
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -108,7 +108,7 @@ export class AdminCatalogosComponent implements OnInit {
 
 
   public filtrar() {
-    debugger;
+    
     this.cargando = true;
 
     let fechar = "";

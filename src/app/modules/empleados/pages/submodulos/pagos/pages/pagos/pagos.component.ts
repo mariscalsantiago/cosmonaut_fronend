@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
@@ -10,7 +10,6 @@ import { tabla } from 'src/app/core/data/tabla';
 import { DatePipe } from '@angular/common';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
-import { truncateSync } from 'fs';
 import { CalculosService } from 'src/app/shared/services/nominas/calculos.service';
 
 @Component({
@@ -82,7 +81,7 @@ export class PagosComponent implements OnInit {
       this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
 
 
-        console.log(datos, "Este es el contrato");
+        
 
 
         this.empleado = datos.datos;
@@ -543,6 +542,9 @@ export class PagosComponent implements OnInit {
       sbc: [{ value: obj.sbc, disabled: true }],
       salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []],
       tiposueldo: ['b', [Validators.required]],
+      politicaId:[],
+      fechaAntiguedad: [],
+      fecIniPeriodo:[]
     });
   }
 
@@ -607,6 +609,12 @@ export class PagosComponent implements OnInit {
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
     this.detallecompensacionbool = true
     this.suscribirseCompensacion();
+
+
+    setTimeout(() => {
+      this.myFormCompensacion.controls.sueldoBrutoMensual.setValue(2342.34);
+      
+    }, 3000);
   }
 
 
@@ -679,7 +687,7 @@ export class PagosComponent implements OnInit {
     this.sueldoNeto = this.myFormCompensacion.controls.tiposueldo.value == 'n';
 
     
-    console.log("ENTRA EN ESTE LADO");
+    
 
     this.myFormCompensacion.controls.sueldoNetoMensual.setValidators([]);
     this.myFormCompensacion.controls.sueldoNetoMensual.updateValueAndValidity();
@@ -731,6 +739,10 @@ export class PagosComponent implements OnInit {
     });
 
   }
+
+
+ 
+  
 
   //*******************************Termina detalle compensación */
 

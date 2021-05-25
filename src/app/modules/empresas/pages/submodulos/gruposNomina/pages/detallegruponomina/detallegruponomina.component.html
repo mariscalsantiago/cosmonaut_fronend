@@ -19,15 +19,7 @@
         </div>
       </div>
 
-      <!--<div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Esquema para pago de nómina *</label>
-        <select formControlName = "esquemaPagoId" [ngClass]="{'is-invalid':f.esquemaPagoId.errors && submitInvalido}"  class="form-control">
-          <option *ngFor="let item of arregloEsquemaPago" [value]="item.esquemaPagoId">{{item.descripcion}} </option>
-        </select>
-        <div *ngIf="submitInvalido && f.esquemaPagoId.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>-->
+    
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Razón social *</label>
         <select formControlName="centrocClienteId" [ngClass]="{'is-invalid':f.centrocClienteId.errors && submitInvalido}" class="form-control disabled">
@@ -87,7 +79,7 @@
       <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
         <label>Calcular periodo de nómina con base a *</label>
         <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
-          <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.nombreCorto}}</option>
+          <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.basePeriodoId.errors" class="invalid-feedback">
           Campo requerido

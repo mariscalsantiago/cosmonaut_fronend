@@ -57,7 +57,7 @@ export class PersonalComponent implements OnInit {
 
       this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datoscontrato => {
 
-        console.log(datoscontrato);
+        
         
         this.empleado = datoscontrato.datos;
         this.parsearInformacion();

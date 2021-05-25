@@ -71,7 +71,7 @@ export class NominaExtraordinariaComponent implements OnInit {
           usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
         }
 
-        console.log("Se va a calcular la nómina", objEnviar);
+        
         this.nominaAguinaldoPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);

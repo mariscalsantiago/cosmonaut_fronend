@@ -105,7 +105,7 @@ export class NominaordinariaService {
     };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosTimbradoDetalle);
-    console.log(`${direcciones.orquestador}/detalle/empleado/total/pago/neto/detalle/monto/timbrado`);
+    
     return this.http.post(`${direcciones.orquestador}/detalle/empleado/total/pago/neto/detalle/monto/timbrado`,json,httpOptions);
   }
 

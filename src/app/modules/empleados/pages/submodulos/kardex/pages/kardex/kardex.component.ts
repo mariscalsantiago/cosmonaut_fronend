@@ -54,7 +54,7 @@ export class KardexComponent implements OnInit {
     });
   
     this.cargando = true;
-    debugger;
+    
     this.kardexPrd.getListaMovimientos(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
         this.crearTabla(datos);
     });

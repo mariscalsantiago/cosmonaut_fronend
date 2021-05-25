@@ -113,8 +113,8 @@ export class TimbrarComponent implements OnInit {
 
 
 
-        console.log(obj.datos,"samv");
-        console.log(this.llave,"Este es la llave");
+        
+        
         if (this.nominaSeleccionada.nominaOrdinaria) {
 
           this.nominaOrdinariaPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {

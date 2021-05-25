@@ -120,7 +120,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
       if (valor) {
         let obj = this.myForm.getRawValue();
         let temp = null;
-        console.log("Esto trae esto",temp);
+        
         if (obj.todos == "false") {
           temp = [];
           for (let item of this.arregloempleadosSeleccionados) {
@@ -184,7 +184,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   public recibirEtiquetas(obj: any) {
 
     this.arregloempleadosSeleccionados = obj;
-    console.log(this.arregloempleadosSeleccionados);
+    
 
   }
 

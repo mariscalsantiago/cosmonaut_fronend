@@ -13,9 +13,12 @@ export class MayusculasDirective {
 
   @HostListener("input", ["$event"])
   onKeyDown(event: KeyboardEvent) {    
+
     if(this.minusculas){
       this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
     }
+
+    this.onFocusout(null);
 
   }
 
@@ -23,6 +26,7 @@ export class MayusculasDirective {
   @HostListener('focusout', ['$event.target'])
     onFocusout(target: any) {
 
+      
       if(!this.minusculas){
         const valorCampo:string = this.el.nativeElement.value;
         const valorDividido:string[] = valorCampo.split(' ');

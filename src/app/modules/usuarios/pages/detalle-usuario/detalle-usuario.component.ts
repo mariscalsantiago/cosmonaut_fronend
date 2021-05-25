@@ -123,6 +123,8 @@ export class DetalleUsuarioComponent implements OnInit {
   public enviarPeticion() {
 
 
+     
+
     this.summitenviado = true;
     
     if (this.myForm.invalid) {

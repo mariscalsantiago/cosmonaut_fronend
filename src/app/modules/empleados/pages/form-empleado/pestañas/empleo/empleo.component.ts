@@ -395,6 +395,8 @@ export class EmpleoComponent implements OnInit {
 
 
 
+
+    
     this.submitEnviado = true;
 
     let noesFecha: boolean = (this.myForm.controls.tipoContratoId.value == null || this.myForm.controls.tipoContratoId.value == 1 || this.myForm.controls.tipoContratoId.value == 10);

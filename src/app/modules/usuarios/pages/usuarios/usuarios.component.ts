@@ -197,7 +197,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public filtrar() {
-    debugger;
+    
     this.cargando = true;
 
     let fechar = "";

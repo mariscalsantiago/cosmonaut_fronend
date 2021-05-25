@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { AlertasComponent } from './alertas/alertas.component';
 import { LoadingComponent } from './loading/loading.component';
 import { AlertQuestionsComponent } from './alert-questions/alert-questions.component';
@@ -30,6 +30,7 @@ import { VentanaTablaISRComponent } from './ventanasemergentes/tiposventanas/ven
 import { VentanaSubcidioComponent } from './ventanasemergentes/tiposventanas/ventana-subcidio/ventana-subcidio.component';
 import { TagComponent } from './tag/tag.component';
 import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemergentes/tiposventanas/ventana-nominanuevafiniquitoliquidacion/ventana-nominanuevafiniquitoliquidacion.component';
+import { FormatosDirective } from './directivas/formatos.directive';
 
 
 @NgModule({
@@ -66,14 +67,16 @@ import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemerg
     VentanaTablaISRComponent,
     VentanaSubcidioComponent,
     TagComponent,
-    VentanaNominaNuevaFiniquitoLiquidacionComponent
+    VentanaNominaNuevaFiniquitoLiquidacionComponent,
+    FormatosDirective
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent, MayusculasDirective, SolonumerosDirective, TamanioVentanaDirective,
-    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective,TagComponent],
+    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective,TagComponent,FormatosDirective],
+  providers:[CurrencyPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ShareModule { }
