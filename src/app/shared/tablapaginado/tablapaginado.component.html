@@ -34,8 +34,15 @@
     <tbody>
       <ng-container *ngFor="let item of arreglo; let indice = index;">
         <tr  class="fade-in-second">
-          <td *ngIf="checkbox">
-            <label class="contenedorInputCheckRadio">
+          <td *ngIf="checkbox && !esnomina">
+            <label   class="contenedorInputCheckRadio">
+              <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
+              <span class="checkmark"></span>
+            </label>
+          </td>
+
+          <td *ngIf="checkbox && esnomina">
+            <label *ngIf="item.tipopago === 'Transferencia'"   class="contenedorInputCheckRadio">
               <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
               <span class="checkmark"></span>
             </label>
