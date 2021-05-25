@@ -441,7 +441,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public recibirEtiquetas(obj: any) {
-    console.log(obj);
+    
   }
 
 }

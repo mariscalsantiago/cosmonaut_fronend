@@ -26,7 +26,7 @@ export class FormatosDirective implements OnInit {
   @HostListener("keydown", ["$event"])
   onkeyDown(event: KeyboardEvent) {
 
-    console.log(this.numeros);
+    
     this.desactivarSuscribir = true;
     if (this.moneda) {
       const regex = /[\d.\/]/g;
@@ -47,7 +47,7 @@ export class FormatosDirective implements OnInit {
         }
       }
     }else if(this.numeros){
-      console.log("Hola estoy en nuymeros");
+      
       const regex = /[\d.\/]/g;
       
       if (!regex.test(event.key) && (event.key !== "Backspace" && event.key !== "Tab")) {

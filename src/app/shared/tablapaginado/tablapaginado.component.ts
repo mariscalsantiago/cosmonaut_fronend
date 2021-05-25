@@ -111,7 +111,7 @@ export class TablapaginadoComponent implements OnInit {
     }
 
 
-    console.log("Este es el arreglo",this.arreglo);
+    
   }
 
 

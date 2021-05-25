@@ -10,8 +10,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 export class CalendarioComponent implements OnInit, OnChanges {
 
 
-  @Input() public arregloEventos: any = [];
-  @Input() public arregloAreas: any = [];
+  
 
   @Input() public eventos: any = [];
 
@@ -89,7 +88,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
       }
     }
 
-    console.log("Este es el arreglo resagado",this.arregloArreglos);
+    
   }
 
   ngOnInit(): void {
