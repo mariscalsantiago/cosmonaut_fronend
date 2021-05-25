@@ -118,7 +118,7 @@ export class PagosComponent implements OnInit {
 
 
   public crearTablaPercepcion(datos: any) {
-debugger;
+
     this.arreglotablaPer = datos.datos;
 
     let columnas: Array<tabla> = [
@@ -162,7 +162,7 @@ debugger;
   }
 
   public crearTablaDeduccion(datos: any) {
-    debugger;
+    
 
     this.arreglotablaDed = datos.datos;
 

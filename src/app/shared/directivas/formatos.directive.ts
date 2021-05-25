@@ -1,6 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
-import { Directive, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Directive({
@@ -16,7 +16,7 @@ export class FormatosDirective implements OnInit {
   @Input() public alfanumericos: boolean = false;
   @Input() public letras: boolean = false;
   @Input() public numeros: boolean = false;
-  @Input() public control!: FormControl;
+  @Input() public control!: AbstractControl;
 
   @HostListener("input", ["$event"])
   onInput(event: KeyboardEvent) {

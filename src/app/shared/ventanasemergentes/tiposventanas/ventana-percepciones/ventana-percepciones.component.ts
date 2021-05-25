@@ -137,8 +137,9 @@ export class VentanaPercepcionesComponent implements OnInit {
    }
 
    public validarMonto(monto:any){
-    debugger;
-      this.monto = monto;
+    
+      this.monto = this.myForm.value.montoPercepcion;
+      console.log(this.monto);
       if(this.monto != null && this.numPeriodo != null){
         this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
           this.montoPercepcion = datos.datos;
@@ -162,7 +163,7 @@ export class VentanaPercepcionesComponent implements OnInit {
    }
 
    public validarNumPeriodo(periodo:any){
-    debugger;
+    
     this.numPeriodo = periodo;
     if(this.monto != null && this.numPeriodo != null){
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
