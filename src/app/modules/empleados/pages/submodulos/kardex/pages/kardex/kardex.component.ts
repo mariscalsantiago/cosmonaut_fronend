@@ -7,6 +7,7 @@ import { tabla } from 'src/app/core/data/tabla';
 import { DatePipe } from '@angular/common';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 import { truncateSync } from 'fs';
 
 @Component({
@@ -22,6 +23,10 @@ export class KardexComponent implements OnInit {
   public cargandoIcon: boolean= false;
   public idEmpleado: number = 0;
   public idEmpresa: number = 0;
+  public empleado: any = [];
+  public peticion: any = [];
+  public tipoMovimineto: string = "";
+  public idMovimiento: number = 0;
 
   
   public arreglotabla:any = {
@@ -43,21 +48,41 @@ export class KardexComponent implements OnInit {
 
 
   constructor(private routerPrd: Router, private kardexPrd: KardexService,private modalPrd:ModalService, 
-    private router:ActivatedRoute, private ventana:VentanaemergenteService,private usuariosSistemaPrd:UsuarioSistemaService) { }
+    private router:ActivatedRoute, private ventana:VentanaemergenteService,
+    private usuariosSistemaPrd:UsuarioSistemaService,  private contratoColaboradorPrd: ContratocolaboradorService) { }
 
   ngOnInit(): void {
 
-    
+    debugger;
 
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
     });
-  
-    this.cargando = true;
+
     
-    this.kardexPrd.getListaMovimientos(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
-        this.crearTabla(datos);
-    });
+    this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
+      this.empleado = datos.datos;
+
+      this.peticion = {
+        fechaContrato: this.empleado.fechaContrato,
+        personaId: {
+            personaId: this.idEmpleado
+        },
+        centrocClienteId: {
+            centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
+        }
+      }
+
+      this.cargando = true;
+    
+      this.kardexPrd.getListaMovimientos(this.peticion).subscribe(datos => {
+          this.crearTabla(datos);
+      });
+   
+    });;
+    
+
+
 
   }
 
@@ -86,7 +111,8 @@ export class KardexComponent implements OnInit {
         let datepipe = new DatePipe("es-MX");
         item.fechaMovimiento = datepipe.transform(item.fechaMovimiento , 'dd-MMM-y')?.replace(".","");
 
-        item.tipoDocumento= item.tipoDocumento?.nombre;
+        item.tipoMovimiento= item.movimiento;
+        item.registroPatronal= item.registroDescripcion;
       }
     }
 
@@ -100,7 +126,6 @@ export class KardexComponent implements OnInit {
   public recibirTabla(obj: any) {
     
     if (obj.type == "desglosar") {
-      //let datos = obj.datos;
 
       let item = obj.datos;
        
@@ -114,11 +139,11 @@ export class KardexComponent implements OnInit {
      ];
     
 
-     item.politica = "Estándar";
-     item.salarioDiario = "1084.93",
-     item.salarioIntegrado = "1135.49",
-     item.salarioCotización = "1135.49",
-     item.estatusEmpleado = "Activo"
+     item.politica = item.politicaDescripcion;
+     item.salarioDiario = item.salarioDiario;
+     item.salarioIntegrado = item.salarioDiarioIntegrado;
+     item.salarioCotización = item.salarioBaseCotizacion;
+     item.estatusEmpleado = item.esActivo? "Activo":"Inactivo";
 
      this.arreglotablaDesglose.columnas = columnas;
      this.arreglotablaDesglose.filas = item;
@@ -131,6 +156,34 @@ export class KardexComponent implements OnInit {
   }
 
   public filtrar(){
+    debugger;
+    if(this.tipoMovimineto !== ""){
+    for(let item of this.arreglo){
+      if(item.movimiento == this.tipoMovimineto)
+      this.idMovimiento =  item.movimientoId;
+    }
+
+    let peticionid = {
+      fechaContrato: "1546322400000",
+      movimientoImssId: this.idMovimiento,
+      personaId: {
+          personaId: this.idEmpleado
+      },
+      centrocClienteId: {
+          centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
+      }
+    }
+    
+      this.cargando = true;
+    
+      this.kardexPrd.getListaPorIdMovimiento(peticionid).subscribe(datos => {
+          this.crearTabla(datos);
+      });
+    }else{
+      this.kardexPrd.getListaMovimientos(this.peticion).subscribe(datos => {
+        this.crearTabla(datos);
+    });
+    }
 
   }
 
