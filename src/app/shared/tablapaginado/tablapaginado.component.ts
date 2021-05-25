@@ -44,6 +44,8 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public nominacalculo:boolean = false;
   @Input() public nominatimbrar:boolean = false;
 
+  @Input() public esnomina:boolean = false;
+
   
 
   public arreglotemp: any = [];
@@ -108,6 +110,8 @@ export class TablapaginadoComponent implements OnInit {
       this.arreglotemp = undefined;
     }
 
+
+    
   }
 
 

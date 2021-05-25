@@ -1,5 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { of } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -21,10 +23,10 @@ export class CalendarioComponent implements OnInit {
   }
 
 
-  public arregloEventos: any = [];
-  public arregloAreas: any = [];
+
   public cargando:boolean = false;
   public eventos:any;
+  public eventosCopia:any;
   public colapsar:boolean = false;
 
 
@@ -36,16 +38,7 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.catalogos.getTipoIncidencia(true).subscribe(datos => {
-      this.arregloEventos = datos.datos;
-      
-    });
-
-    this.areasPrd.getAreasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      this.arregloAreas = datos.datos;
-      
-    });
-
+    
 
     let fechaActual = new Date();
     
@@ -109,6 +102,9 @@ export class CalendarioComponent implements OnInit {
 
     this.eventoPrd.filtro(obj).subscribe(datos =>{
       this.eventos = datos.datos;
+      this.eventosCopia = datos.datos;
+
+      this.filtrandoEventos();
     });
   }
 
@@ -124,7 +120,7 @@ export class CalendarioComponent implements OnInit {
 
 
   public cambiaValor(){
-
+    this.filtrandoEventos();
   }
 
   public colapsarmtd(){
@@ -133,7 +129,33 @@ export class CalendarioComponent implements OnInit {
   }
 
   
+ public filtrandoEventos(){
+   let hijosEventos:any = document.getElementById("eventoscheckbox")?.getElementsByTagName("input");
 
+   let arrayFiltrado:any[] = [];
+   for(let item of hijosEventos){
+      if(item.checked){
+        let mm = `${item.id}`.replace("e","");
+        if(mm.includes("-")){
+          arrayFiltrado.push(Number(mm.split("-")[0]));
+          arrayFiltrado.push(Number(mm.split("-")[1]));
+          continue;
+        }
+        
+        arrayFiltrado.push(Number(mm));
+      }
+  }
+
+
+  console.log(arrayFiltrado);
+   this.eventos = [];
+   Object.values(this.eventosCopia).forEach((valor:any) =>{
+     if(arrayFiltrado.includes(valor.tipoIncidenciaId)){
+        this.eventos.push(valor);
+     }
+   });
+
+ }
   
 
 }

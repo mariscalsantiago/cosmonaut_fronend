@@ -10,8 +10,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 export class CalendarioComponent implements OnInit, OnChanges {
 
 
-  @Input() public arregloEventos: any = [];
-  @Input() public arregloAreas: any = [];
+  
 
   @Input() public eventos: any = [];
 
@@ -37,7 +36,8 @@ export class CalendarioComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-
+    let arregloResagado = [];
+    let primerapasada:boolean = false;
     
    let datepipe = new DatePipe("es-MX");
     for (let x = 0; x <= 5; x++) {
@@ -48,21 +48,43 @@ export class CalendarioComponent implements OnInit, OnChanges {
             let fechaEvento: Date = new Date(item.fechaInicio);
 
             let mes = datepipe.transform(fechaEvento,"MM");
+            
             if (fechaEvento.getDate() == Number(this.arregloArreglos[x][y].dia) && mes == this.arregloArreglos[x][y].mes) {
+              
+              let inicio:Date = new Date(item.fechaInicio);
+              let fin:Date = new Date(item.fechaFin);
+             // let diascalendario = (fin.getTime()-inicio.getTime())/(1000 * 3600 * 24);
+              let diascalendario = 4;
               
               this.arregloArreglos[x][y].eventos.push({
                 ...item,
-                nombre: `${item.nombre} ${item.apellidoPaterno}`
-              });
-            }
-          }
-        } else {
-          
+                nombre: `${item.nombre} ${item.apellidoPaterno}`,
+                diascalendario: diascalendario
 
+              });
+
+              // if(diascalendario !== 0){
+              //   arregloResagado.push({
+              //     ...item,
+              //     nombre: `${item.nombre} ${item.apellidoPaterno}`,
+              //     diascalendario: diascalendario,
+              //     inicio:true
+              //     });
+              // }
+            }            
+          }
         }
 
+        // for(let itemR of arregloResagado){
+        //     itemR.diascalendario -= itemR.diascalendario;
+            
+        //     this.arregloArreglos[x][y].eventos.push({
+        //       ...itemR,
+        //       nombre: ``
+        //     });
+        // }
 
-
+        
       }
     }
 

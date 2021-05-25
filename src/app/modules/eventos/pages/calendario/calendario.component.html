@@ -33,53 +33,53 @@
                 <div class="card-body">
 
                   <div class="row">
-                    <div class="col-2">
+                    <div id="eventoscheckbox" class="col-2">
                       <label class="primary">GESTIONAR EVENTOS</label>
                       <div>
                           <label class="contenedorInputCheckRadio aniversarios">Aniversarios
-                              <input  (change)="cambiaValor()" checked type="checkbox" name="" >
+                              <input id="e7"  (change)="cambiaValor()" checked type="checkbox" name="" >
                               <span class="checkmark aniversarios"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio cumpleanios">Retardos
-                              <input  (change)="cambiaValor()" checked type="checkbox" name="" >
+                              <input id="e8"   (change)="cambiaValor()" checked type="checkbox" name="" >
                               <span class="checkmark cumpleanios"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio diaseconomicos">Días economicos
-                              <input  (change)="cambiaValor()" checked type="checkbox" name="" >
+                              <input id="e2"  (change)="cambiaValor()" checked type="checkbox" name="" >
                               <span class="checkmark diaseconomicos"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio faltas">Faltas
-                              <input  (change)="cambiaValor()"checked  type="checkbox" name="" >
+                              <input  id="e5"  (change)="cambiaValor()"checked  type="checkbox" name="" >
                               <span class="checkmark faltas"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio horasextras">Horas extras
-                              <input  (change)="cambiaValor()" checked type="checkbox" name="" >
+                              <input id="e13-14"   (change)="cambiaValor()" checked type="checkbox" name="" >
                               <span class="checkmark horasextras"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio incapacidades">Incapacidades
-                              <input (change)="cambiaValor()" checked  type="checkbox" name="" >
+                              <input id="e3"  (change)="cambiaValor()" checked  type="checkbox" name="" >
                               <span class="checkmark incapacidades"></span>
                             </label>     
                       </div>
                       <div>
                           <label class="contenedorInputCheckRadio vacaciones">Vacaciones
-                              <input (change)="cambiaValor()" checked type="checkbox" name="" >
+                              <input id="e1"  (change)="cambiaValor()" checked type="checkbox" name="" >
                               <span class="checkmark vacaciones"></span>
                             </label>     
                       </div>
                   </div>
                       <div class="col-10">
-                        <app-calendario [eventos]="eventos" [arregloEventos]="arregloEventos" [arregloAreas]="arregloAreas"  (salida)="recibirTabla($event)"></app-calendario>
+                        <app-calendario [eventos]="eventos"  (salida)="recibirTabla($event)"></app-calendario>
                       </div>
                   </div>
                 </div>

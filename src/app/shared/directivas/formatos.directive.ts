@@ -25,8 +25,29 @@ export class FormatosDirective implements OnInit {
 
   @HostListener("keydown", ["$event"])
   onkeyDown(event: KeyboardEvent) {
+
+    
     this.desactivarSuscribir = true;
     if (this.moneda) {
+      const regex = /[\d.\/]/g;
+      
+      if (!regex.test(event.key) && (event.key !== "Backspace" && event.key !== "Tab")) {
+        event.preventDefault();
+      } else {
+        if (event.key == ".") {
+          if (this.el.nativeElement.value.split(".").length > 1) {
+            event.preventDefault();
+          }
+        }
+
+        if (event.key === "Backspace" || event.key === "Tab") return;
+        if (this.el.nativeElement.value.split(".")[1]?.length >= 2) {
+
+          event.preventDefault();
+        }
+      }
+    }else if(this.numeros){
+      
       const regex = /[\d.\/]/g;
       
       if (!regex.test(event.key) && (event.key !== "Backspace" && event.key !== "Tab")) {

@@ -33,10 +33,28 @@
                     Campo requerido
                 </div>
             </div>
+            <div [ngClass]="{'ocultarCampo':verificar('unidad')}"  class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Unidad de medida *</label>
+                
+                <select [ngClass]="{'is-invalid':f.unidadmedida.errors && submitEnviado}" formControlName="unidadmedida" class="form-control">
+                    <option *ngFor="let item of arregloUnidadMedida" [value]="item.unidadMedidaId">{{item.descripcion}}</option>
+                </select>
+                <div *ngIf="f.unidadmedida.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div [ngClass]="{'ocultarCampo':verificar('horas')}"  class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Número de horas *</label>
+                
+                <input formatos [numeros]="true" [ngClass]="{'is-invalid':f.numerohoras.errors && submitEnviado}" formControlName="numerohoras" type="text" class="form-control">
+                <div *ngIf="f.numerohoras.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
             <div [ngClass]="{'ocultarCampo':verificar('dias')}"  class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Días *</label>
                 
-                <input (blur)="perderFoco()" appSolonumeros [ngClass]="{'is-invalid':f.duracion.errors && submitEnviado}" formControlName="duracion" type="text" class="form-control">
+                <input #numerodias (blur)="perderFoco()" formatos [numeros]="true" [ngClass]="{'is-invalid':f.duracion.errors && submitEnviado}" formControlName="duracion" type="text" class="form-control">
                 <div *ngIf="f.duracion.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -44,7 +62,8 @@
             <div [ngClass]="{'ocultarCampo':verificar('fecha')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha *</label>
                 
-                <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
+                <input *ngIf="!tagcomponente" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
+                <app-tag *ngIf="tagcomponente" [calendario]="true" [dias]="numerodias.value" (salida)="recibirEtiquetas($event)"></app-tag>
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
