@@ -363,6 +363,7 @@ export class VentanaDeduccionesComponent implements OnInit {
             fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
+            esActivo: obj.esActivo,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
@@ -406,6 +407,7 @@ export class VentanaDeduccionesComponent implements OnInit {
             fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
+            esActivo: obj.esActivo,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
