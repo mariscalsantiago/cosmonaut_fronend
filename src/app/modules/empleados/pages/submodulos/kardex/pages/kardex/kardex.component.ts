@@ -164,7 +164,7 @@ export class KardexComponent implements OnInit {
     }
 
     let peticionid = {
-      fechaContrato: "1546322400000",
+      fechaContrato: this.empleado.fechaContrato,
       movimientoImssId: this.idMovimiento,
       personaId: {
           personaId: this.idEmpleado
