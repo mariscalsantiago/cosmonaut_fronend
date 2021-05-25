@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Output, ViewChild,EventEmitter } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Output, ViewChild,EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 
 @Component({
@@ -6,7 +6,7 @@ import { Component, ElementRef, Input, OnInit, Output, ViewChild,EventEmitter } 
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss']
 })
-export class TagComponent implements OnInit {
+export class TagComponent implements OnInit,OnChanges {
 
   @ViewChild("inputprincipal") elemento!:ElementRef;
   @Output() salida = new EventEmitter();
@@ -19,6 +19,13 @@ export class TagComponent implements OnInit {
   public arregloEtiquetas:any = [];
 
 
+  @Input()
+  public calendario:boolean = false;
+
+  @Input()
+  public dias:string = "";
+
+
   public elementoSeleccionado:string = "";
   public errorSeleccionado:boolean = false;
 
@@ -29,8 +36,19 @@ export class TagComponent implements OnInit {
     
   }
 
+  public  ngOnChanges(changes: SimpleChanges): void{
+
+    if(this.calendario){
+        if(this.dias == undefined || this.dias == ""){
+          this.arregloEtiquetas = [];
+        }
+    }
+  }
+
   public seleccionado(){
-      this.elemento.nativeElement.focus();
+      if(!this.calendario){
+        this.elemento.nativeElement.focus();
+      }
   }
 
   public cerrarTag(indice:number){
@@ -40,52 +58,60 @@ export class TagComponent implements OnInit {
 
   public evento(evento:any){
     this.errorSeleccionado = false;
-    
-    if (evento.which==13 ) {
-      this.eventoSeleccionando();
-    
-      evento.preventDefault()
-    }else if(evento.which == undefined){
-        setTimeout(() => {
-            this.eventoSeleccionando();
-        }, 20);
-    }
+      if (evento.which==13 ) {
+        this.eventoSeleccionando();
+      
+        evento.preventDefault()
+      }else if(evento.which == undefined){
+          setTimeout(() => {
+              this.eventoSeleccionando();
+          }, 20);
+      }  
   }
 
   public eventoSeleccionando(){
 
-    if(this.elementoSeleccionado.trim() !== ""){
+    if(!this.calendario){
+      if(this.elementoSeleccionado.trim() !== ""){
 
-      let encontrado:boolean = false;
-      let elementoencontrado;
-      for(let item of this.datos){
-          if(item[this.llave].trim() == this.elementoSeleccionado.trim()){
-            encontrado = true;
-            elementoencontrado = item;
-                break;
-          }
-      }
-
-      if(encontrado){
-
-        let repetido:boolean = false;
-        for(let item of this.arregloEtiquetas){
-          if(item[this.llave].trim() == this.elementoSeleccionado.trim()){
-            repetido = true;
-                break;
-          }
+        let encontrado:boolean = false;
+        let elementoencontrado;
+        for(let item of this.datos){
+            if(item[this.llave].trim() == this.elementoSeleccionado.trim()){
+              encontrado = true;
+              elementoencontrado = item;
+                  break;
+            }
         }
-
-        
-
-      if(!repetido)   this.arregloEtiquetas.push(elementoencontrado);
-        
-        this.elementoSeleccionado = "";
-      }else{
-        this.errorSeleccionado = true;
+  
+        if(encontrado){
+  
+          let repetido:boolean = false;
+          for(let item of this.arregloEtiquetas){
+            if(item[this.llave].trim() == this.elementoSeleccionado.trim()){
+              repetido = true;
+                  break;
+            }
+          }
+  
+          
+  
+        if(!repetido)   this.arregloEtiquetas.push(elementoencontrado);
+          
+          this.elementoSeleccionado = "";
+        }else{
+          this.errorSeleccionado = true;
+        }
+        this.salida.emit(this.arregloEtiquetas);
+       
       }
-      this.salida.emit(this.arregloEtiquetas);
-     
+    }else{
+
+      if(this.arregloEtiquetas.length >= Number(this.dias)){
+          return;
+      }
+      this.arregloEtiquetas.push(this.elementoSeleccionado);
+      this.elementoSeleccionado = "";
     }
 
    

@@ -20,6 +20,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloIncidenciaTipo: any = [];
   public arregloEmpleados: any = [];
   public arregloTipoIncapacidad: any = [];
+  public tagcomponente: boolean = false;
+  public arregloUnidadMedida:any = [];
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService) { }
@@ -31,6 +33,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     this.myForm = this.createForms({});
     this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => this.arregloIncidenciaTipo = datos.datos);
     this.catalogosPrd.getTipoIncapacidad(true).subscribe(datos => this.arregloTipoIncapacidad = datos.datos);
+    this.catalogosPrd.getUnidadMedida(true).subscribe(datos => this.arregloUnidadMedida = datos.datos);
     let objenviar = {
       centrocClienteId: {
         centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
@@ -57,7 +60,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       numeroFolio: ['', Validators.required],
       comentarios: [''],
       identificadorPersona: [''],
-      fechaContrato: ['']
+      fechaContrato: [''],
+      unidadmedida:[],
+      numerohoras:[]
 
     });
   }
@@ -69,7 +74,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public enviarPeticion() {
     this.submitEnviado = true;
-    
+
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -179,6 +184,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           case 13:
           case 14:
           case 16:
+          case 1:
+          case 2:
+          case 5:
             ocultar = false;
             break;
         }
@@ -196,9 +204,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       case "fechainicio":
 
         switch (seleccionado) {
-          case 1:
-          case 2:
-          case 5:
           case 3:
             ocultar = false;
             break;
@@ -208,9 +213,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       case "fechafin":
 
         switch (seleccionado) {
-          case 1:
-          case 2:
-          case 5:
           case 3:
             ocultar = false;
             break;
@@ -268,6 +270,22 @@ export class DetalleeventoxempleadoComponent implements OnInit {
             break;
         }
         break;
+      case "unidad":
+        switch (seleccionado) {
+          case 13:
+          case 14:
+            ocultar = false;
+            break;
+        }
+        break;
+      case "horas":
+        switch (seleccionado) {
+          case 13:
+          case 14:
+            ocultar = false;
+            break;
+        }
+        break;
     }
 
 
@@ -287,6 +305,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     }
 
 
+
+    this.tagcomponente = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5);
 
 
 
@@ -333,6 +353,13 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.monto.updateValueAndValidity();
       this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
       this.myForm.controls.fechaAplicacion.updateValueAndValidity();
+    }
+
+    if ( seleccionado == 13 || seleccionado == 14) {
+      this.myForm.controls.unidadmedida.setValidators([Validators.required]);
+      this.myForm.controls.unidadmedida.updateValueAndValidity();
+      this.myForm.controls.numerohoras.setValidators([Validators.required]);
+      this.myForm.controls.numerohoras.updateValueAndValidity();
     }
 
     if (seleccionado == 9) {
@@ -393,12 +420,12 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
         this.myForm.controls.personaId.setValidators([Validators.required]);
         this.myForm.controls.personaId.updateValueAndValidity();
-        
+
         if (encontrado) {
           this.myForm.controls.personaId.clearValidators();
           this.myForm.controls.personaId.updateValueAndValidity();
         } else {
-          
+
           this.myForm.controls.identificadorPersona.setValue('');
           this.myForm.controls.fechaContrato.setValue('');
           this.myForm.controls.personaId.setValue('');
@@ -409,7 +436,12 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       }
     }
 
-    
+
+  }
+
+
+  public recibirEtiquetas(obj: any) {
+    console.log(obj);
   }
 
 }

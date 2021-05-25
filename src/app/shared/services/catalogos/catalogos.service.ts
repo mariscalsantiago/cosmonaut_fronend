@@ -202,6 +202,9 @@ export class CatalogosService {
   public getTiposNomina(status:boolean):Observable<any>{
       return this.http.get(`${this.url}/tipoNomina/aguinaldo/listar/todosActivo/${status}`);
   }
+  public getUnidadMedida(status:boolean):Observable<any>{
+    return this.http.get(`${this.url}/unidad/listar/todosActivo/${status}`);
+}
 
 
 
