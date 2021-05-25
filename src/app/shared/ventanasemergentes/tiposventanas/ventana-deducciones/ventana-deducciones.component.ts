@@ -259,7 +259,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       if(this.monto != null && this.numPeriodo != null){
         this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
           this.montoPercepcion = datos.datos;
-          this.myForm.controls.valor.setValue(this.montoPercepcion);
+          var monto = this.montoPercepcion.toFixed(4); 
+          this.myForm.controls.valor.setValue(monto);
         });
 
       }
@@ -271,7 +272,8 @@ export class VentanaDeduccionesComponent implements OnInit {
     if(this.monto != null && this.numPeriodo != null){
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
         this.montoPercepcion = datos.datos;
-        this.myForm.controls.valor.setValue(this.montoPercepcion);
+        var monto = this.montoPercepcion.toFixed(4); 
+        this.myForm.controls.valor.setValue(monto);
       });
         
     }

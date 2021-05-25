@@ -137,12 +137,13 @@ export class VentanaPercepcionesComponent implements OnInit {
    }
 
    public validarMonto(monto:any){
-    
+    debugger;
       this.monto = monto;
       if(this.monto != null && this.numPeriodo != null){
         this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
           this.montoPercepcion = datos.datos;
-          this.myForm.controls.montoPorPeriodo.setValue(this.montoPercepcion);
+          var monto = this.montoPercepcion.toFixed(4); 
+          this.myForm.controls.montoPorPeriodo.setValue(monto);
         });
 
       }
@@ -161,12 +162,13 @@ export class VentanaPercepcionesComponent implements OnInit {
    }
 
    public validarNumPeriodo(periodo:any){
-    
+    debugger;
     this.numPeriodo = periodo;
     if(this.monto != null && this.numPeriodo != null){
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
         this.montoPercepcion = datos.datos;
-        this.myForm.controls.montoPorPeriodo.setValue(this.montoPercepcion);
+        var monto = this.montoPercepcion.toFixed(4); 
+        this.myForm.controls.montoPorPeriodo.setValue(monto);
       });
         
     }
