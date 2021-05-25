@@ -417,4 +417,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       });
   }
 
+  public get f(){
+    return this.myForm.controls;
+  }
+
 }

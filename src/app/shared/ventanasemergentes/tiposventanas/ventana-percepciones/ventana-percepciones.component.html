@@ -34,12 +34,13 @@
     <div *ngIf="estandar" class="  input-group-sm mb-3 col-4">
         <label *ngIf="porcentual" >Porcentaje *</label>
         <label *ngIf="fijo" >Monto *</label>
-        <input formControlName="porcentaje" type="text" class="form-control">
+        <input *ngIf="porcentual" formControlName="porcentaje" type="text" class="form-control">
+        <input *ngIf="fijo"  formControlName="porcentaje" formatos [moneda]="true" [control]="f.porcentaje" type="text" class="form-control">
 
     </div>
     <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
         <label >Monto total de percepción *</label>
-        <input #monto (focusout)="validarMonto(monto.value)" formControlName="montoPercepcion" type="text" class="form-control" >
+        <input  #monto (focusout)="validarMonto(monto.value)" formatos [moneda]="true" [control]="f.montoPercepcion" formControlName="montoPercepcion"  type="text" class="form-control" >
     </div>
     <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
         <label >Número de períodos *</label>
@@ -49,7 +50,7 @@
     </div>
     <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
         <label >Monto por período *</label>
-        <input formControlName="montoPorPeriodo" type="text" class="form-control disabled bg-light">
+        <input formatos [moneda]="true" [control]="f.montoPorPeriodo" formControlName="montoPorPeriodo" type="text" class="form-control disabled bg-light">
     </div>
     <div  *ngIf="periodica" class="  input-group-sm mb-3 col-4">
         <label >Referencia </label>

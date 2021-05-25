@@ -52,7 +52,7 @@
             <div [ngClass]="{'ocultarCampo':verificar('monto')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Monto *</label>
                 
-                <input appSolonumeros [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
+                <input formato [moneda]="true" [control]="f.monto" [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
                 <div *ngIf="f.monto.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -83,7 +83,7 @@
             <div [ngClass]="{'ocultarCampo':verificar('monto2')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Monto *</label>
                 
-                <input appSolonumeros [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
+                <input formato [moneda]="true" [control]="f.monto" [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
                 <div *ngIf="f.monto.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>

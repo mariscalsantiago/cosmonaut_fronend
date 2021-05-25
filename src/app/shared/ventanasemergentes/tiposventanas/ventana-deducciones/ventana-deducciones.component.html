@@ -60,7 +60,10 @@
         <label *ngIf="porcentual" >Porcentaje *</label>
         <label *ngIf="fijo" >Monto *</label>
         <label *ngIf="montopago" >Monto de cada pago *</label>
-        <input formControlName="valor" type="text" class="form-control">
+        <input *ngIf="porcentual" formatos [moneda]="true" [control]="f.valor" formControlName="valor" type="text" class="form-control">
+        <input *ngIf="fijo || montopago" formatos [moneda]="true" [control]="f.valor" formControlName="valor" type="text" class="form-control">
+
+    
 
     </div>
 
@@ -114,12 +117,12 @@
     </div>
     <div *ngIf="infonacot"  class="  input-group-sm mb-3 col-4">
         <label>Monto del crédito *</label>
-        <input formControlName="montoTotal" type="text" class="form-control">
+        <input formatos [moneda]="true" [control]="f.montoTotal" formControlName="montoTotal" type="text" class="form-control">
 
     </div>
     <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">
         <label >Monto por período *</label>
-        <input formControlName="valor" type="text" class="form-control">
+        <input formatos [moneda]="true" [control]="f.valor" formControlName="valor" type="text" class="form-control">
 
     </div>
     <div  *ngIf="infonavit" class="  input-group-sm mb-3 col-6">
