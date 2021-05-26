@@ -76,9 +76,9 @@ export class DetalleapoderadoLegalComponent implements OnInit {
     if(!this.insertar){
 
         if(obj.esActivo== 'Activo'){
-          obj.esActivo= true;
+          obj.esActivo= 'true';
         }else{
-          obj.esActivo= false;
+          obj.esActivo= 'false';
         }
         
     }else{
@@ -144,7 +144,8 @@ export class DetalleapoderadoLegalComponent implements OnInit {
       if (valor) {
 
         let obj = this.myFormrep.value;
-        if (obj.esActivo == 'Activo') {
+        debugger;
+        if (obj.esActivo == 'true') {
           obj.esActivo = 'true'
         } else {
           obj.esActivo = 'false'
@@ -188,7 +189,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
           });
 
         } else {
-
+          debugger;
           this.objEnviar.personaId = obj.personaId;
 
           this.apoderadoPrd.modificar(this.objEnviar).subscribe(datos => {

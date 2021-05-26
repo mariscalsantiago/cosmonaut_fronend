@@ -120,7 +120,7 @@ export class DetallegruponominaComponent implements OnInit {
     }else{
       obj.centrocClienteId.centrocClienteId = this.id_empresa;
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio = "periodica";
-      obj.ajustarBaseGravableFaltantes = "true";
+      obj.ajustarBaseGravableFaltantes = "false";
 
     }
     
