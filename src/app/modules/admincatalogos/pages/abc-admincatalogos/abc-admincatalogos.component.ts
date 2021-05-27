@@ -1,9 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { tabla } from 'src/app/core/data/tabla';
-import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { AdminCatalogosService } from '../../services/admincatalogos.service';
 
@@ -20,33 +18,15 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public tipoguardad: boolean = false;
   public myForm!: FormGroup;
 
-
-  /*
-    Directivas de filtros
-  */
-
-
-  public id_compania: number = 0;
-  public idUsuario: any = "";
-  public nombre: string = "";
-  public apellidoPat: string = "";
-  public apellidoMat: string = "";
-  public fechaRegistro: any = null;
-  public correoempresarial: string = "";
-  public activo: number = 0;
-
-
-  /*
-  
-    Resultados desplegados en un array
-
-  */
-
   public arreglo: any = [];
   public arregloCompany: any = [];
   public tamanio = 0;
   public changeIconDown: boolean = false;
-
+  public insertar: boolean= false;
+  public detCatalogos: any = [];
+  public activaClave : boolean= false;
+  public inactivaClave : boolean= false;
+  public submitEnviado:boolean = false;
 
 
   public arreglotabla: any = {
@@ -57,132 +37,124 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   constructor(private routerPrd: Router, private adminCatalogosPrd: AdminCatalogosService,
-    private companiPrd: SharedCompaniaService, private modalPrd: ModalService) { }
+    private routerActivePrd: ActivatedRoute, private modalPrd: ModalService, private formBuilder: FormBuilder) { 
+
+      this.routerActivePrd.params.subscribe(datos => {
+        this.insertar = (datos["tipoinsert"] == 'nuevo');
+  
+      });
+    }
 
   ngOnInit(): void {
-    
+    debugger;
+
+    this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
+    let objdetrep = history.state.data == undefined ? {} : history.state.data;
+
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
-    this.cargando = true;
 
-    this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
+    this.clave();
+    this.myForm = this.createForm((objdetrep));
 
-    this.crearTabla();
 
   }
 
-  public crearTabla() {
-    //this.arreglo = datos.datos;
-    let columnas: Array<tabla> = [
-      new tabla("descripcion", "Descripción"),
-      new tabla("clave", "Clave")
-    ]
 
-
-
-    this.arreglotabla = {
-      columnas: [],
-      filas: []
-    };
-
-    this.arreglotabla.columnas = columnas;
-    this.arreglotabla.filas = [{
-      descripcion : "ALBANESA",
-      clave : "22"
-    },
-    {
-      descripcion : "ALEMANA",
-      clave : "21"
-    }];
-    //this.arreglotabla.columnas = columnas;
-    //this.arreglotabla.filas = this.arreglo;
-
-    this.cargando = false;
-  }
-
-
-
-
-
-  public verdetalle(obj: any) {
-
-      this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', "modificar"], { state: { company: this.arregloCompany } });
-
-  }
-
-  public cancelar() {
+  public createForm(obj: any) {
     
-    this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle']);
+    return this.formBuilder.group({
+
+      codBanco: [obj.codBanco],
+      nombreCorto: [obj.nombreCorto, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
+
+
+    });
+  }
+
+  public clave(){
+    if(this.insertar){
+      this.activaClave = true;
+    }else{
+      this.inactivaClave = true;
+
+    }
+
+  }
+
+  public redirect(obj: any) {
+    this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
   }
 
 
-  public filtrar() {
-    
-    this.cargando = true;
+  public enviarPeticion() {
 
-    let fechar = "";
+    this.submitEnviado = true;
+    if (this.myForm.invalid) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
 
-    if (this.fechaRegistro != undefined || this.fechaRegistro != null) {
+    }
+    const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catalogo?";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(valor){
 
+        let obj = this.myForm.value;
 
-      if (this.fechaRegistro != "") {
-        const fecha1 = new Date(this.fechaRegistro).toUTCString().replace("GMT", "");
-        fechar = `${new Date(fecha1).getTime()}`;
+        let objEnviar: any = {
+          areaId: obj.areaId,
+          centrocClienteId: "",
+          nclPuestoDto: [
+            {
+              descripcion: obj.puesto,
+              nombreCorto: obj.puesto,
+              centrocClienteId: ""
+            }
+          ]
+        }
+
+        if (this.insertar) {
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.adminCatalogosPrd.save(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+              }
+            });
+
+          });
+
+        } else {
+
+          let objEnviarMod: any = {
+            areaId: obj.areaId,
+            descripcion: "",
+            nombreCorto: "",
+            centrocClienteId: "",
+            nclPuestoDto:
+              [{
+                puestoId: "",
+                descripcion: obj.puesto,
+                nombreCorto: obj.puesto,
+                centrocClienteId: "",
+              }]
+          }
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.adminCatalogosPrd.modificar(objEnviarMod).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+              }
+            });
+
+          });
+        }
       }
-    }
-
-    let actboo: string = "";
-
-    if (this.activo == 1) {
-      actboo = "true";
-    } else if (this.activo == 2) {
-      actboo = "false";
-    }
-
-
-    let peticion = {
-      personaId: this.idUsuario,
-      nombre: this.nombre,
-      apellidoPaterno: this.apellidoPat,
-      apellidoMaterno: this.apellidoMat,
-      fechaAlta: fechar,
-      emailCorporativo: this.correoempresarial,
-      esActivo: actboo,
-      centrocClienteId: {
-        centrocClienteId: (this.id_compania) == 0 ? "" : this.id_compania
-      },
-      tipoPersonaId: {
-        tipoPersonaId: 3
-      }
-    }
-
-    this.cargando = true;
-
-    /*this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-      this.arreglo = datos.datos;
-
-      this.procesarTabla({ datos: this.arreglo });
-
-      this.cargando = false;
-    });*/
-
-  }
-
-
-  public recibirTabla(obj: any) {
-
-    switch (obj.type) {
-      case "editar":
-        this.verdetalle(obj.datos);
-        break;
-    }
-
-  }
-
-  public enviarPeticion(){
-
-
+    });
   }
 }
 

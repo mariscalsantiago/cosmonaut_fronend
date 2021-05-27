@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
-import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { AdminCatalogosService } from '../../services/admincatalogos.service';
 
@@ -58,23 +57,26 @@ export class AdminCatalogosComponent implements OnInit {
 
 
   constructor(private routerPrd: Router, private adminCatalogosPrd: AdminCatalogosService,
-    private companiPrd: SharedCompaniaService, private modalPrd: ModalService) { }
+     private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    
+  
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
     this.cargando = true;
+    debugger;
+      this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => {
+      this.procesarTabla(datos);
+    });
 
-    this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
-
-    this.procesarTabla();
+    
 
   }
 
-  public procesarTabla() {
-    //this.arreglo = datos.datos;
+  public procesarTabla(obj:any) {
+    this.arreglo = obj.datos;
+    
     let columnas: Array<tabla> = [
       new tabla("descripcion", "Catálogo")
     ]
@@ -86,12 +88,12 @@ export class AdminCatalogosComponent implements OnInit {
       filas: []
     };
 
+    for(let item of this.arreglo){
+      item.descripcion = item.nombreCatalogo;
+    }
+
     this.arreglotabla.columnas = columnas;
-    this.arreglotabla.filas = [{
-      descripcion : "Nacionalidad"
-    }];
-    //this.arreglotabla.columnas = columnas;
-    //this.arreglotabla.filas = this.arreglo;
+    this.arreglotabla.filas = this.arreglo;
 
     this.cargando = false;
   }
@@ -101,9 +103,8 @@ export class AdminCatalogosComponent implements OnInit {
 
 
   public verdetalle(obj: any) {
-
-      this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', "detalle"], { state: { company: this.arregloCompany } });
-
+      debugger;
+      this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', "detalle"],{state:{data:obj}});
   }
 
 
@@ -140,7 +141,7 @@ export class AdminCatalogosComponent implements OnInit {
       emailCorporativo: this.correoempresarial,
       esActivo: actboo,
       centrocClienteId: {
-        centrocClienteId: (this.id_company) == 0 ? "" : this.id_company
+        centrocClienteId: ""
       },
       tipoPersonaId: {
         tipoPersonaId: 3

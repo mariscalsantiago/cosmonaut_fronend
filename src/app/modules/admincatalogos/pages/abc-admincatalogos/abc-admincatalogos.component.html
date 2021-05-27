@@ -9,9 +9,7 @@
 
 <hr>
 
-<form [formGroup]="myForm" class="form-desing"  (ngSubmit)="enviarPeticion()">
-
-  <input type="hidden" formControlName="catalogoId">
+<form [formGroup]="myForm"   (ngSubmit)="enviarPeticion()">
 
   <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
     <br>
@@ -19,22 +17,26 @@
         <label class="titulo">INFORMACIÓN DE CATÁLOGO</label></div>
 
       <div class="form-group row margen">
-          <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+          <div *ngIf="activaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label>Clave *</label>
-              <input formControlName="" type="text" class="form-control">
+              <input formControlName="codBanco" type="text" class="form-control">
+          </div>
+
+          <div *ngIf="inactivaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <label>Clave *</label>
+            <input formControlName="codBanco" type="text" class="form-control disabled bg-light">
           </div>
 
          <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label>Descripción *</label>
-              <input appMayusculas formControlName="" type="text" class="form-control"
-                   placeholder="">
-              <!--<div *ngIf="f.nombre.errors && summitenviado" class="invalid-feedback">
-                  Campo requerido
-              </div>-->
+              <input appMayusculas formControlName="nombreCorto" type="text" class="form-control"
+                   placeholder="" >
+
           </div>
+
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Estatus</label>
-            <select name=""  class="form-control" formControlName="">
+            <select name=""  class="form-control" formControlName="esActivo">
               <option value="true">Activo</option>
               <option value="false">Inactivo</option>
             </select>
@@ -48,7 +50,7 @@
 
   <div class="text-center margin" style="margin-bottom: 20px;">
 
-      <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+      <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
       <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
   </div>
 

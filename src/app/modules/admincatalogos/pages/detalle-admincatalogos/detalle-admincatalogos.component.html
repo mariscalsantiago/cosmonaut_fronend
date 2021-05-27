@@ -43,9 +43,9 @@
                 <div class="card-body">
                   <div class="form group row margen">
                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                      <select name="" class="form-control disabled bg-light" [(ngModel)]="id_compania">
+                      <select name="" class="form-control disabled bg-light" [(ngModel)]="id_catalogo">
                         <option value="0" selected>Seleccionar catalogo</option>
-                        <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}
+                        <option *ngFor="let item of arregloListaCatalogos" [value]="item.listaCatalogosId">{{item.nombreCatalogo}}
                         </option>
                       </select>
                     </div>
@@ -69,6 +69,13 @@
         <div class="col titulo">
           <label>RESULTADOS</label>
         </div>
+        <div class="row" style="margin: 10px;">
+          <div class="col-12 col-lg-12 text-right">
+            <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+              <i class="fa fa-plus"></i> Agregar
+            </button>
+          </div>
+        </div>
       </div>
   
       <div class="row margen margen-tabla background-panel ">
@@ -77,7 +84,7 @@
           (salida)="recibirTabla($event)"></app-tablapaginado>
       </div>
 
-      <div class="text-center margin" style="margin-bottom: 20px;">
+      <div class="text-right margin" style="margin-bottom: 20px;">
         <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
     </div>
     </div>

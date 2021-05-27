@@ -31,11 +31,11 @@
           },
          "changeOrigin": true
     },
-    "/tablas/*":{
+    "/admin/*":{
         "target":"https://34.75.54.120/admin",
         "secure":false,
         "pathRewrite": {
-            "^/tablas": ""
+            "^/admin": ""
           },
          "changeOrigin": true
     }

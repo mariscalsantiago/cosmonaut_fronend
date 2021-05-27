@@ -28,7 +28,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   */
 
 
-  public id_compania: number = 0;
+  public id_catalogo: number = 0;
   public idUsuario: any = "";
   public nombre: string = "";
   public apellidoPat: string = "";
@@ -45,9 +45,10 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   */
 
   public arreglo: any = [];
-  public arregloCompany: any = [];
+  public arregloListaCatalogos: any = [];
   public tamanio = 0;
   public changeIconDown: boolean = false;
+  public objdetcat: any = [];
 
 
 
@@ -62,20 +63,143 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
+    debugger;
+
+    this.objdetcat = history.state.data == undefined ? {} : history.state.data;
+    this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => this.arregloListaCatalogos = datos.datos);
     
+    if(this.objdetcat.listaCatalogosId == 1){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaBanco(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+
+    else if(this.objdetcat.listaCatalogosId == 13){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaFacultad(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 9){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaMotivoBaja(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 12){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaParentesco(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 8){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaRegimenContratacion(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 6){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaRegimenFiscal(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 17){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTarifaPeriodicaISR(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 18){
+      debugger;
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTarifaPeriodicaSubsidio(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 19){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTasaAplicableISN(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 7){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTipoContrato(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 5){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTipoDeduccion(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 10){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTipoIncapacidad(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 4){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTipoPercepcion(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 15){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTipoDeduccion(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 5){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTipoDeduccion(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
-    this.cargando = true;
-
-    this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
-
-    this.crearTabla();
 
   }
 
-  public crearTabla() {
-    //this.arreglo = datos.datos;
+  public crearTabla(obj:any) {
+    this.arreglo = obj.datos;
+
     let columnas: Array<tabla> = [
       new tabla("descripcion", "Descripción"),
       new tabla("clave", "Clave")
@@ -88,17 +212,14 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       filas: []
     };
 
+    for(let item of this.arreglo){
+        item.descripcion = item.nombreCorto;
+        item.clave = item.codBanco;
+    }
+
+
     this.arreglotabla.columnas = columnas;
-    this.arreglotabla.filas = [{
-      descripcion : "ALBANESA",
-      clave : "22"
-    },
-    {
-      descripcion : "ALEMANA",
-      clave : "21"
-    }];
-    //this.arreglotabla.columnas = columnas;
-    //this.arreglotabla.filas = this.arreglo;
+    this.arreglotabla.filas = this.arreglo;
 
     this.cargando = false;
   }
@@ -112,8 +233,10 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
   public verdetalle(obj: any) {
 
-      this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', "modificar"], { state: { company: this.arregloCompany } });
-
+    this.cargando = true;
+    let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
+    this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', tipoinsert], { state: { datos: this.objdetcat, data: obj } });
+    this.cargando = false;
   }
 
 
@@ -150,7 +273,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       emailCorporativo: this.correoempresarial,
       esActivo: actboo,
       centrocClienteId: {
-        centrocClienteId: (this.id_compania) == 0 ? "" : this.id_compania
+        centrocClienteId: ""
       },
       tipoPersonaId: {
         tipoPersonaId: 3
