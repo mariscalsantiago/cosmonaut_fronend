@@ -104,15 +104,15 @@ export class ABCAdminCatalogosComponent implements OnInit {
         let obj = this.myForm.value;
 
         let objEnviar: any = {
-          areaId: obj.areaId,
-          centrocClienteId: "",
-          nclPuestoDto: [
-            {
-              descripcion: obj.puesto,
-              nombreCorto: obj.puesto,
-              centrocClienteId: ""
-            }
-          ]
+          bancoId: 0,
+          codBanco: "string",
+          nombreCorto: "string",
+          convenio: "string",
+          razonSocial: "string",
+          fechaInicio: "2021-05-26T23:49:11.290Z",
+          esActivo: true,
+          fechaAlta: "2021-05-26T23:49:11.290Z",
+          fechaFin: "2021-05-26T23:49:11.290Z"
         }
 
         if (this.insertar) {

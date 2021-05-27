@@ -120,7 +120,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     else if(this.objdetcat.listaCatalogosId == 17){
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
-        this.adminCatalogosPrd.getListaTarifaPeriodicaISR(true).subscribe(datos => {
+        this.adminCatalogosPrd.getListatablasPeriodicasISR().subscribe(datos => {
         this.crearTabla(datos);
        });
 
@@ -129,7 +129,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       debugger;
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
-        this.adminCatalogosPrd.getListaTarifaPeriodicaSubsidio(true).subscribe(datos => {
+        this.adminCatalogosPrd.getListaTablasSubsidioISR().subscribe(datos => {
         this.crearTabla(datos);
        });
 
@@ -198,11 +198,12 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
 
   public crearTabla(obj:any) {
+    debugger;
     this.arreglo = obj.datos;
 
     let columnas: Array<tabla> = [
       new tabla("descripcion", "Descripción"),
-      new tabla("clave", "Clave")
+      new tabla("clave", "Clave/Id")
     ]
 
 
@@ -213,10 +214,57 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     };
 
     for(let item of this.arreglo){
+      if(item.referenciaMarcoJuridico !== undefined){
+        item.descripcion = item.referenciaMarcoJuridico;
+      }
+      else if(item.tabla !== undefined){
+        item.descripcion = item.tabla;
+      }
+      else if(item.descripcion !== undefined){
+        item.descripcion = item.descripcion;
+      }else {
         item.descripcion = item.nombreCorto;
-        item.clave = item.codBanco;
-    }
+      
+      }
 
+      if(item.codBanco !== undefined){
+        item.clave = item.codBanco;
+      }
+      else if(item.regimenfiscalId !== undefined){
+        item.clave = item.regimenfiscalId;
+      }
+      else if(item.facultadPoderId !== undefined){
+        item.clave = item.facultadPoderId;
+      }
+      else if(item.motivoBajaId !== undefined){
+        item.clave = item.motivoBajaId;
+      }
+      else if(item.tipoRegimenContratacionId !== undefined){
+        item.clave = item.tipoRegimenContratacionId;
+      }
+      else if(item.tipoContratoId !== undefined){
+        item.clave = item.tipoContratoId;
+      }
+      else if(item.tipoDeduccionId !== undefined){
+        item.clave = item.tipoDeduccionId;
+      }
+      else if(item.tipoIncapacidadId !== undefined){
+        item.clave = item.tipoIncapacidadId;
+      }
+      else if(item.tipoPercepcionId !== undefined){
+        item.clave = item.tipoPercepcionId;
+      }
+      else if(item.tipoDeduccionId !== undefined){
+        item.clave = item.tipoDeduccionId;
+      }
+      else if(item.periodo !== undefined){
+        item.clave = item.periodo;
+      }
+      else if(item.tasaAplicableIsnId !== undefined){
+        item.clave = item.tasaAplicableIsnId;
+      }
+    }
+    
 
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
@@ -246,10 +294,10 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     let fechar = "";
 
-    if (this.fechaRegistro != undefined || this.fechaRegistro != null) {
+    if (this.fechaRegistro !== undefined || this.fechaRegistro !== null) {
 
 
-      if (this.fechaRegistro != "") {
+      if (this.fechaRegistro !== "") {
         const fecha1 = new Date(this.fechaRegistro).toUTCString().replace("GMT", "");
         fechar = `${new Date(fecha1).getTime()}`;
       }

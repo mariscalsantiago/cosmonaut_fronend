@@ -37,8 +37,14 @@ export class AdminCatalogosService {
   public getListaTarifaPeriodicaISR(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTarifaPeriodicaIsr/listar/todosActivo/${estatus}`);
   }
+  public getListatablasPeriodicasISR():Observable<any>{
+    return this.http.get(`${direcciones.tablasValores}/listar/tablasPeriodicasISR`);
+  }
   public getListaTarifaPeriodicaSubsidio(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTarifaPeriodicaSubsidio/listar/todosActivo/${estatus}`);
+  }
+  public getListaTablasSubsidioISR():Observable<any>{
+    return this.http.get(`${direcciones.tablasValores}/listar/tablasSubsidioISR`);
   }
   public getListaTasaAplicableISN(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catTasaAplicableIsn/listar/todosActivo/${estatus}`);
