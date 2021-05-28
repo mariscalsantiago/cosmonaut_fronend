@@ -68,6 +68,10 @@ export class AdminCatalogosService {
   public getListaTipoPercepcion(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTipoPercepcion/listar/todosActivo/${estatus}`);
   }
+  public getListaTipoEvento(estatus:boolean): Observable<any> {
+    return this.http.get(`${this.url}/tipoIncidencia/listar/todosActivo/${estatus}`);
+  }
+  
   public getListaValorReferencia(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/valorReferencia/listar/todosActivo/${estatus}`);
   }

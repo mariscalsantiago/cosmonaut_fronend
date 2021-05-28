@@ -174,6 +174,14 @@ export class DetalleAdminCatalogosComponent implements OnInit {
        });
 
     }
+    else if(this.objdetcat.listaCatalogosId == 11){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTipoEvento(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
     else if(this.objdetcat.listaCatalogosId == 15){
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
@@ -252,9 +260,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       else if(item.tipoPercepcionId !== undefined){
         item.clave = item.tipoPercepcionId;
       }
-      //else if(item.periodo !== undefined){
-        //item.clave = item.periodo;
-      //}
+      else if(item.tipoIncidenciaId !== undefined){
+        item.clave = item.tipoIncidenciaId;
+      }
       else if(item.tipoValorReferenciaId?.tipoValorReferenciaId !== undefined){
         item.clave = item.tipoValorReferenciaId?.tipoValorReferenciaId;
       }

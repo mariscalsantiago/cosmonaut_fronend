@@ -93,6 +93,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.descripcion = objdetrep.descripcion;
       this.clave();
     }
+    else if(this.detCatalogos.listaCatalogosId == 11){
+      debugger;
+      this.idCatalogo = objdetrep.clave;
+      this.descripcion = objdetrep.descripcion;
+      this.clave();
+    }
     else if(this.detCatalogos.listaCatalogosId == 8){
       this.idCatalogo = objdetrep.tipoRegimenContratacionId;
       this.descripcion = objdetrep.descripcion;
