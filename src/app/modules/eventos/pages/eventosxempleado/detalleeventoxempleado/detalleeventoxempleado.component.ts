@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -14,6 +14,7 @@ import { EventosService } from '../../../services/eventos.service';
   styleUrls: ['./detalleeventoxempleado.component.scss']
 })
 export class DetalleeventoxempleadoComponent implements OnInit {
+  @ViewChild("inputFile") public inputFile!:ElementRef;
 
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
@@ -207,7 +208,37 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   }
 
   public abrirArchivo() {
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".pdf";
 
+    input.click();
+
+    input.onchange = () => {
+      let imagenInput: any = input.files;
+      this.inputFile.nativeElement.value = imagenInput![0].name;
+      for (let item in Object.getOwnPropertyNames(imagenInput)) {
+
+        let archivo: File = imagenInput[item];
+
+        archivo.arrayBuffer().then(datos => {
+          this.myForm.controls.urlArchivo.setValue(this.arrayBufferToBase64(datos));
+        });
+
+
+      }
+
+    }
+  }
+
+  public arrayBufferToBase64(buffer: any) {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 
 
