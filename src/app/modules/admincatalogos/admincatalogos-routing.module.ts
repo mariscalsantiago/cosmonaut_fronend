@@ -18,7 +18,7 @@ export const routes: Routes = [
         component: DetalleAdminCatalogosComponent
       }
       ,{
-        path: 'admincatalogos/detalle_admincatalogos/modificar',
+        path: 'admincatalogos/detalle_admincatalogos/:tipoinsert',
         component: ABCAdminCatalogosComponent
       }
   ]

@@ -9,9 +9,7 @@
 
 <hr>
 
-<form [formGroup]="myForm" class="form-desing"  (ngSubmit)="enviarPeticion()">
-
-  <input type="hidden" formControlName="catalogoId">
+<form [formGroup]="myForm"   (ngSubmit)="enviarPeticion()">
 
   <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
     <br>
@@ -19,25 +17,122 @@
         <label class="titulo">INFORMACIÓN DE CATÁLOGO</label></div>
 
       <div class="form-group row margen">
-          <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+          <div *ngIf="activaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
               <label>Clave *</label>
-              <input formControlName="" type="text" class="form-control">
+              <input formControlName="clave" type="text" class="form-control">
           </div>
 
-         <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-              <label>Descripción *</label>
-              <input appMayusculas formControlName="" type="text" class="form-control"
-                   placeholder="">
-              <!--<div *ngIf="f.nombre.errors && summitenviado" class="invalid-feedback">
-                  Campo requerido
-              </div>-->
+          <div *ngIf="inactivaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <label>Clave *</label>
+            <input formControlName="clave" type="text" class="form-control disabled bg-light">
           </div>
+
+          <div *ngIf="banco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <label>Codigo *</label>
+            <input formControlName="codBanco" type="text" class="form-control disabled bg-light">
+          </div>
+          <div *ngIf="habilitarbanco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <label>Codigo *</label>
+            <input formControlName="codBanco" type="text" class="form-control ">
+          </div>
+
+         <div *ngIf="descripcionGeneral" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+              <label>Descripción *</label>
+              <input appMayusculas formControlName="nombreCorto" type="text" class="form-control"
+                   placeholder="" >
+
+          </div>
+
+          <div *ngIf="razonBanco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <label>Razón social *</label>
+            <input appMayusculas formControlName="razonSocial" type="text" class="form-control"
+                 placeholder="" >
+
+        </div>
+        <div *ngIf="regimen" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label>Fecha inicio de vigencia *</label>
+        <input formControlName="fecInicio" type="date" class="form-control">
+
+      </div>
+      <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+        <label for="exampleFormControlSelect1">Tipo de concepto *</label>
+        <select formControlName="tipoConcepto" class="form-control">
+            <option value=""></option>
+            <option value="O">Ordinaria</option>
+            <option value="E">Extraordinaria</option>
+        </select>
+    </div>
+    <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+      <label for="exampleFormControlSelect1">Tipo de periodicidad *</label>
+      <select formControlName="tipoPeriodicidad" class="form-control">
+          <option value=""></option>
+          <option value="P">Periódica</option>
+          <option value="E">Estándar</option>
+          <option value="A">Ambas</option>
+      </select>
+  </div>
+
+  <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label for="exampleFormControlSelect1">Tipo de valor de referancia *</label>
+    <select formControlName="valorReferencia" class="form-control">
+        <option value="A"></option>
+    </select>
+  </div>
+  <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Valor *</label>
+    <input appMayusculas formControlName="valor" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Fecha inicio *</label>
+    <input formControlName="fechaInicio" type="date" class="form-control">
+
+  </div>
+  <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Fecha fin *</label>
+    <input formControlName="fechaFin" type="date" class="form-control">
+
+  </div>
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Estatus</label>
-            <select name=""  class="form-control" formControlName="">
+            <select name=""  class="form-control" formControlName="esActivo">
               <option value="true">Activo</option>
               <option value="false">Inactivo</option>
             </select>
+          </div>
+          <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6"> </div>
+          <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-4 col-lg-4">      
+            <label class="contenedorInputCheckRadio"> Integra SDI
+              <input formControlName="integraSdi" id="integraSdi" type="checkbox">
+              <span class="checkmark"></span>
+            </label>  
+          </div>
+          <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-4 col-lg-4">      
+            <label class="contenedorInputCheckRadio"> Integra ISR
+              <input formControlName="integraIsr" id="integraIsr" type="checkbox">
+              <span class="checkmark"></span>
+            </label>  
+          </div>
+          <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-4 col-lg-4">      
+            <label class="contenedorInputCheckRadio"> Integra ISN
+              <input formControlName="integraIsn" id="integraIsn" type="checkbox">
+              <span class="checkmark"></span>
+            </label>  
+          </div>
+
+          <div *ngIf="regimen" class="input-group-sm mb-3 col-12 col-sm-12 col-md-12 col-lg-12">
+            <label >Persona *</label>
+  
+            <label class="contenedorInputCheckRadio"> Fisica
+              <input  value="indPersonaFisica" formControlName="tipoPersona"  type="radio" name="tipoPersona" >
+              <span class="radiomark"></span>
+            </label>
+      
+            <label class="contenedorInputCheckRadio"> Moral
+              <input value="indPersonaMoral" formControlName="tipoPersona" type="radio" name="tipoPersona" >
+              <span class="radiomark"></span>
+            </label>
           </div>
 
       </div>        
@@ -48,7 +143,7 @@
 
   <div class="text-center margin" style="margin-bottom: 20px;">
 
-      <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+      <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
       <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
   </div>
 

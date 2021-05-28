@@ -7,7 +7,7 @@ export const environment = {
   rutaEmpresa:'/empresas',
   rutaCatalogos:'/catalogos',
   rutaCalculos:'/calculos',
-  rutaTablaValores: '/tablas',
+  rutaAdmin: '/admin',
   rutaReportes:'/reportes'
 };
 

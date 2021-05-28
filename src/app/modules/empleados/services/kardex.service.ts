@@ -13,11 +13,27 @@ export class KardexService {
   constructor(private http:HttpClient) { }
 
   
-  public getListaMovimientos(idEmpresa:number,idEmpleado:number):Observable<any>{
-    return this.http.get(`${direcciones.kardex}/listar/${idEmpresa}/${idEmpleado}`);
+
+  public getListaMovimientos(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.kardex}/listar`, json, httpOptions);
   }
 
-  public getListaPorIdMovimiento(idEmpresa:number,idEmpleado:number,idMovimiento:number):Observable<any>{
-    return this.http.get(`${direcciones.kardex}/listar/${idEmpresa}/${idEmpleado}/${idMovimiento}`);
+  public getListaPorIdMovimiento(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.kardex}/listar/tipo-movimiento`, json, httpOptions);
   }
+
 }

@@ -14,6 +14,7 @@ export class VentanaSubcidioComponent implements OnInit {
   public myForm!: FormGroup;
   public arregloSubcidioISR: any = [];
   public empresa: number = 0;
+  
   public empleado: number = 0;
   public cargando: boolean = false;
 
