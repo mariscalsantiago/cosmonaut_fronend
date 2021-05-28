@@ -21,7 +21,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloEmpleados: any = [];
   public arregloTipoIncapacidad: any = [];
   public tagcomponente: boolean = false;
-  public arregloUnidadMedida:any = [];
+  public arregloUnidadMedida: any = [];
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService) { }
@@ -61,8 +61,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       comentarios: [''],
       identificadorPersona: [''],
       fechaContrato: [''],
-      unidadmedida:[],
-      numerohoras:[]
+      unidadmedida: [],
+      numerohoras: []
 
     });
   }
@@ -74,8 +74,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public enviarPeticion() {
     this.submitEnviado = true;
-
-    console.log(this.myForm.value);
 
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -136,20 +134,61 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
-    switch(seleccionado){
-       case 1:
+    switch (seleccionado) {
+      case 1:
+      case 2:
+      case 5:
         delete objEnviar.fechaFin;
         delete objEnviar.monto;
         delete objEnviar.urlArchivo;
         delete objEnviar.numeroFolio;
         delete objEnviar.unidadmedida;
+        delete objEnviar.numerohoras;
+        delete objEnviar.tipoIncapacidadId;
+        break;
+      case 11:
+      case 16:
+        delete objEnviar.numeroFolio;
+        delete objEnviar.numerohoras;
         delete objEnviar.unidadmedida;
-        
-         break;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.fechaFin;
+        delete objEnviar.tipoIncapacidadId;
+        break;
+      case 13:
+      case 14:
+        delete objEnviar.duracion;
+        delete objEnviar.numeroFolio;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.fechaFin;
+        delete objEnviar.tipoIncapacidadId;
+        break;
+      case 3:
+        delete objEnviar.monto;
+        delete objEnviar.numerohoras;
+        break;
+      case 9:
+        delete objEnviar.tipoIncapacidadId;
+        delete objEnviar.fechaInicio;
+        delete objEnviar.monto;
+        delete objEnviar.numeroFolio;
+        delete objEnviar.numerohoras;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.fechaFin;
+        break;
+      case 8:
+        delete objEnviar.tipoIncapacidadId;
+        delete objEnviar.fechaFin;
+        delete objEnviar.duracion;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.numeroFolio;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.numerohoras;
+        break;
     }
 
     delete objEnviar.incidenciaId;
-
 
     this.eventoPrd.save(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -375,7 +414,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.fechaAplicacion.updateValueAndValidity();
     }
 
-    if ( seleccionado == 13 || seleccionado == 14) {
+    if (seleccionado == 13 || seleccionado == 14) {
       this.myForm.controls.unidadmedida.setValidators([Validators.required]);
       this.myForm.controls.unidadmedida.updateValueAndValidity();
       this.myForm.controls.numerohoras.setValidators([Validators.required]);
@@ -459,7 +498,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public recibirEtiquetas(obj: any) {
-    let fecha = obj.lenght == 0 ? "":obj[0];
+    let fecha = obj.lenght == 0 ? "" : obj[0];
     this.myForm.controls.fechaInicio.setValue(fecha);
   }
 
