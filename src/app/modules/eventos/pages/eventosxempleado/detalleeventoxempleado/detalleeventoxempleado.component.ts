@@ -75,6 +75,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public enviarPeticion() {
     this.submitEnviado = true;
 
+    console.log(this.myForm.value);
+
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -116,6 +118,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       obj.fechaAplicacion = new Date((new Date(obj.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
     }
 
+
+
+
     let objEnviar = {
       ...obj,
       tipoIncapacidadId: {
@@ -128,6 +133,22 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
       fechaContrato: obj.fechaContrato
     }
+
+
+    let seleccionado = Number(this.myForm.controls.incidenciaId.value);
+    switch(seleccionado){
+       case 1:
+        delete objEnviar.fechaFin;
+        delete objEnviar.monto;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.numeroFolio;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.unidadmedida;
+        
+         break;
+    }
+
+    delete objEnviar.incidenciaId;
 
 
     this.eventoPrd.save(objEnviar).subscribe(datos => {
@@ -438,7 +459,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public recibirEtiquetas(obj: any) {
-    
+    let fecha = obj.lenght == 0 ? "":obj[0];
+    this.myForm.controls.fechaInicio.setValue(fecha);
   }
 
 }

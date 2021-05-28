@@ -112,6 +112,8 @@ export class TagComponent implements OnInit,OnChanges {
       }
       this.arregloEtiquetas.push(this.elementoSeleccionado);
       this.elementoSeleccionado = "";
+      this.salida.emit(this.arregloEtiquetas);
+      
     }
 
    
