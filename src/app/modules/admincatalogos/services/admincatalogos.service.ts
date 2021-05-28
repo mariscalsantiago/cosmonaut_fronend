@@ -58,6 +58,10 @@ export class AdminCatalogosService {
   public getListaTipoDeduccion(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTipoDeduccion/listar/todosActivo/${estatus}`);
   }
+
+  public getListaReferencia(anio:number):Observable<any>{
+    return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia/true/${anio}`);
+  }
   public getListaTipoIncapacidad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/tipoIncapacidad/listar/todosActivo/${estatus}`);
   }

@@ -177,19 +177,14 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     else if(this.objdetcat.listaCatalogosId == 15){
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
-        this.adminCatalogosPrd.getListaTipoDeduccion(true).subscribe(datos => {
+      let fecha = new Date();
+      let anio = fecha.getFullYear();
+        this.adminCatalogosPrd.getListaReferencia(anio).subscribe(datos => {
         this.crearTabla(datos);
        });
 
     }
-    else if(this.objdetcat.listaCatalogosId == 5){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-        this.adminCatalogosPrd.getListaTipoDeduccion(true).subscribe(datos => {
-        this.crearTabla(datos);
-       });
 
-    }
 
     let documento: any = document.defaultView;
 
@@ -213,9 +208,12 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       filas: []
     };
 
-    for(let item of this.arreglo){
-      if(item.referenciaMarcoJuridico !== undefined){
-        item.descripcion = item.referenciaMarcoJuridico;
+    for(let item of this.arreglo){ 
+      if(item.tipoValorReferenciaId?.descripcion !== undefined){
+        item.descripcion = item.tipoValorReferenciaId?.descripcion;
+      }
+      else if(item.urlMarcoJuridico !== undefined){
+        item.descripcion = item.urlMarcoJuridico;
       }
       else if(item.tabla !== undefined){
         item.descripcion = item.tabla;
@@ -254,12 +252,13 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       else if(item.tipoPercepcionId !== undefined){
         item.clave = item.tipoPercepcionId;
       }
-      else if(item.tipoDeduccionId !== undefined){
-        item.clave = item.tipoDeduccionId;
+      //else if(item.periodo !== undefined){
+        //item.clave = item.periodo;
+      //}
+      else if(item.tipoValorReferenciaId?.tipoValorReferenciaId !== undefined){
+        item.clave = item.tipoValorReferenciaId?.tipoValorReferenciaId;
       }
-      else if(item.periodo !== undefined){
-        item.clave = item.periodo;
-      }
+      
       else if(item.tasaAplicableIsnId !== undefined){
         item.clave = item.tasaAplicableIsnId;
       }
