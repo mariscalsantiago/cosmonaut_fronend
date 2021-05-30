@@ -33,16 +33,16 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let item of arreglo; let indice = index;">
-        <tr  class="fade-in-second">
+        <tr class="fade-in-second">
           <td *ngIf="checkbox && !esnomina">
-            <label   class="contenedorInputCheckRadio">
+            <label class="contenedorInputCheckRadio">
               <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
               <span class="checkmark"></span>
             </label>
           </td>
 
           <td *ngIf="checkbox && esnomina">
-            <label *ngIf="item.tipopago === 'Transferencia'"   class="contenedorInputCheckRadio">
+            <label *ngIf="item.tipopago === 'Transferencia'" class="contenedorInputCheckRadio">
               <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
               <span class="checkmark"></span>
             </label>
@@ -77,15 +77,15 @@
           </th>
           <td class="opciones" [ngClass]="{'centrar':item.nombre !== 'Politica Estandar'}">
             <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i
-              class="icon_24descargar primary-bg"></i></button>
+                class="icon_24descargar primary-bg"></i></button>
             <button *ngIf="ver" (click)="btnVer(item,indice)"><i class="icon_24ver primary-bg"></i></button>
             <button *ngIf="editar && item.nombre !== 'Politica Estandar'" (click)="btnEditar(item,indice)"><i
                 class="icon_24editar primary-bg"></i></button>
             <button *ngIf="eliminar && item.nombre !== 'Politica Estandar'" (click)="btnEliminar(item,indice)"><i
                 class="icon_24eliminar danger-bg"></i></button>
-                <button *ngIf="llave " (click)="btnLlave(item,indice)">
-                  <i class="icon_24llave primary-bg"></i>
-                </button>
+            <button *ngIf="llave " (click)="btnLlave(item,indice)">
+              <i class="icon_24llave primary-bg"></i>
+            </button>
             <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)"><i *ngIf="item.desglosarDown"
                 class="fas fa-chevron-down primary" style="font-size: 14px;
                     margin: 9px;"></i>
@@ -114,65 +114,66 @@
             </div>
           </td>
         </tr>
-        <ng-container  *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominatimbrar">
-          
+        <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominatimbrar">
+
           <tr style="background-color: white;">
             <td colspan="4" style="    border-right: 1px dashed #c5c5c5;">
 
-                <table class="tablaTimbrado">
-                  <thead>
-                    <tr>
-                      <th>Percepciones</th>
-                      <th>Monto</th>
-                      <th>Gravado</th>
-                      <th>Exento</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of datosExtras.datos.percepcion">
-                      <td>{{item.percepciones}}</td>
-                      <td>{{item.monto | currency}}</td>
-                      <td>{{item.gravado | currency}}</td>
-                      <td>{{item.exento | currency}}</td>
-                    </tr>
-                    <tr class="totalesTimbrado">
-                      <th>Total</th>
-                      <th>{{datosExtras.datos.totalMontoPercepciones | currency}}</th>
-                      <th>{{datosExtras.datos.totalGravado | currency}}</th>
-                      <th>{{datosExtras.datos.totalExento | currency}}</th>
-                    </tr>
-                  </tbody>
-                </table>
+              <table class="tablaTimbrado">
+                <thead>
+                  <tr>
+                    <th>Percepciones</th>
+                    <th>Monto</th>
+                    <th>Gravado</th>
+                    <th>Exento</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of datosExtras.datos.percepcion">
+                    <td>{{item.percepciones}}</td>
+                    <td>{{item.monto | currency}}</td>
+                    <td>{{item.gravado | currency}}</td>
+                    <td>{{item.exento | currency}}</td>
+                  </tr>
+                  <tr class="totalesTimbrado">
+                    <th>Total</th>
+                    <th>{{datosExtras.datos.totalMontoPercepciones | currency}}</th>
+                    <th>{{datosExtras.datos.totalGravado | currency}}</th>
+                    <th>{{datosExtras.datos.totalExento | currency}}</th>
+                  </tr>
+                </tbody>
+              </table>
 
             </td>
             <td colspan="2" style="    border-right: 1px dashed #c5c5c5;">
 
-                <table class="tablaTimbrado">
-                  <thead>
-                    <tr>
-                      <th>Deducciones</th>
-                      <th>Monto</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of datosExtras.datos.deduccion">
-                      <td>{{item.deducciones}}</td>
-                      <td>{{item.monto | currency}}</td>
-                    </tr>
-                    <tr class="totalesTimbrado">
-                      <th>Total</th>
-                      <th>{{datosExtras.datos.totalMontoDeducciones | currency}}</th>
-                    </tr>
-                  </tbody>
-                </table>
+              <table class="tablaTimbrado">
+                <thead>
+                  <tr>
+                    <th>Deducciones</th>
+                    <th>Monto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of datosExtras.datos.deduccion">
+                    <td>{{item.deducciones}}</td>
+                    <td>{{item.monto | currency}}</td>
+                  </tr>
+                  <tr class="totalesTimbrado">
+                    <th>Total</th>
+                    <th>{{datosExtras.datos.totalMontoDeducciones | currency}}</th>
+                  </tr>
+                </tbody>
+              </table>
 
             </td>
             <td span="7">
-              <a (click)="descargar()" style="color:#b8b8b8;text-decoration: underline;cursor: not-allowed;"  class="dropdown-toggle">
-              <i style="background-color: #b8b8b8 !important;" class="icon_eventos "></i>
-              Vista preliminar de recibo de pago
+              <a (click)="descargar()" style="color:#b8b8b8;text-decoration: underline;cursor: not-allowed;"
+                class="dropdown-toggle">
+                <i style="background-color: #b8b8b8 !important;" class="icon_eventos "></i>
+                Vista preliminar de recibo de pago
 
-</a>
+              </a>
             </td>
           </tr>
         </ng-container>
@@ -180,15 +181,15 @@
           <tr style="background-color: white;" class="slide-in-bck-center">
             <td colspan="2">
 
-              <article  *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
+              <article *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
                 {{item.valor}}
                 <article>{{item.dato | currency}}</article>
               </article>
-            
-              
+
+
 
             </td>
-            
+
             <td>
 
               <article *ngFor="let item of datosExtras[1]" class="titulo  col-12 mb-3">

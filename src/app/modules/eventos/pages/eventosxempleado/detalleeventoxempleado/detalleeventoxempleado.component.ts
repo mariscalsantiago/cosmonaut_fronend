@@ -23,6 +23,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloTipoIncapacidad: any = [];
   public tagcomponente: boolean = false;
   public arregloUnidadMedida: any = [];
+  public arregloFechas:any = [];
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService) { }
@@ -57,7 +58,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       fechaFin: [{ value: datePipe.transform(new Date(), "yyyy-MM-dd"), disabled: true }, Validators.required],
       fechaAplicacion: ['', Validators.required],
       tipoIncapacidadId: ['', Validators.required],
-      urlArchivo: [''],
+      archivo: [''],
       numeroFolio: ['', Validators.required],
       comentarios: [''],
       identificadorPersona: [''],
@@ -135,6 +136,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
+    let multifechas:boolean = seleccionado == 1 || seleccionado == 2 || seleccionado == 5;
     switch (seleccionado) {
       case 1:
       case 2:
@@ -146,6 +148,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.unidadmedida;
         delete objEnviar.numerohoras;
         delete objEnviar.tipoIncapacidadId;
+        multifechas = true;
         break;
       case 11:
       case 16:
@@ -191,7 +194,31 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
     delete objEnviar.incidenciaId;
 
-    this.eventoPrd.save(objEnviar).subscribe(datos => {
+    let objEnviarArray:Array<any>;
+
+    console.log("Este es el arreglo",this.arregloFechas);
+    console.log("Este es lo enviar",objEnviar);
+
+    if(multifechas){
+      objEnviarArray = [];
+        for(let item of this.arregloFechas){
+            let aux = JSON.parse(JSON.stringify(objEnviar));
+            
+            aux.fechaInicio = new Date((new Date(item).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+            objEnviarArray.push(aux);
+        }
+    }else{
+      objEnviarArray = [objEnviar]
+    }
+
+
+
+    console.log(objEnviarArray);
+
+
+  //  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    //return;
+    this.eventoPrd.save(objEnviarArray).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
         if (datos.resultado) {
@@ -385,6 +412,11 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public configurandoRestricciones() {
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
+
+    let multifechas:boolean = seleccionado == 1 || seleccionado == 2 || seleccionado == 5;
+    if(multifechas){
+          this.myForm.controls.fechaInicio.setValue("");
+    }
     for (let llave in this.myForm.controls) {
       if (llave == "incidenciaId" || llave == "personaId")
         continue;
@@ -474,13 +506,17 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public perderFoco() {
 
+    console.log("verifica");
     const totalDias = this.myForm.controls.duracion.value;
-    if (totalDias !== undefined || totalDias !== null) {
-      var datePipe = new DatePipe("es-MX");
-      let fechaActual = new Date((new Date(this.myForm.controls.fechaInicio.value)).toUTCString().replace("GMT", ""));
-      let fechaFin: Date = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + (Number(totalDias) <= 0 ? 0 : Number(totalDias) - 1));
-
-      this.myForm.controls.fechaFin.setValue(datePipe.transform(fechaFin, "yyyy-MM-dd"));
+    if (totalDias) {
+      if(this.myForm.controls.fechaInicio.value){
+        var datePipe = new DatePipe("es-MX");
+        let fechaActual = new Date((new Date(this.myForm.controls.fechaInicio.value)).toUTCString().replace("GMT", ""));
+        let fechaFin: Date = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + (Number(totalDias) <= 0 ? 0 : Number(totalDias) - 1));
+  
+        this.myForm.controls.fechaFin.setValue(datePipe.transform(fechaFin, "yyyy-MM-dd"));
+      }
+    
     }
   }
 
@@ -531,6 +567,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public recibirEtiquetas(obj: any) {
     let fecha = obj.lenght == 0 ? "" : obj[0];
     this.myForm.controls.fechaInicio.setValue(fecha);
+    this.arregloFechas = obj;
   }
 
 }
