@@ -68,7 +68,7 @@ export class VentanaemergenteService {
 
       case this.nuevanomina:
         this.mostrar.nuevanomina = true;
-        this.emergente.titulo = "NUEVA NÓMINA MANUAL";
+        this.emergente.titulo = "NUEVA NÓMINA ";
         break;
       case this.timbrado:
         this.mostrar.timbrado = true;

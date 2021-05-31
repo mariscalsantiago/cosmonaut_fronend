@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -14,6 +14,7 @@ import { EventosService } from '../../../services/eventos.service';
   styleUrls: ['./detalleeventoxempleado.component.scss']
 })
 export class DetalleeventoxempleadoComponent implements OnInit {
+  @ViewChild("inputFile") public inputFile!:ElementRef;
 
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
@@ -21,7 +22,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloEmpleados: any = [];
   public arregloTipoIncapacidad: any = [];
   public tagcomponente: boolean = false;
-  public arregloUnidadMedida:any = [];
+  public arregloUnidadMedida: any = [];
+  public arregloFechas:any = [];
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService) { }
@@ -56,13 +58,13 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       fechaFin: [{ value: datePipe.transform(new Date(), "yyyy-MM-dd"), disabled: true }, Validators.required],
       fechaAplicacion: ['', Validators.required],
       tipoIncapacidadId: ['', Validators.required],
-      urlArchivo: [''],
+      archivo: [''],
       numeroFolio: ['', Validators.required],
       comentarios: [''],
       identificadorPersona: [''],
       fechaContrato: [''],
-      unidadmedida:[],
-      numerohoras:[]
+      unidadmedida: [],
+      numerohoras: []
 
     });
   }
@@ -116,6 +118,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       obj.fechaAplicacion = new Date((new Date(obj.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
     }
 
+
+
+
     let objEnviar = {
       ...obj,
       tipoIncapacidadId: {
@@ -130,7 +135,90 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     }
 
 
-    this.eventoPrd.save(objEnviar).subscribe(datos => {
+    let seleccionado = Number(this.myForm.controls.incidenciaId.value);
+    let multifechas:boolean = seleccionado == 1 || seleccionado == 2 || seleccionado == 5;
+    switch (seleccionado) {
+      case 1:
+      case 2:
+      case 5:
+        delete objEnviar.fechaFin;
+        delete objEnviar.monto;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.numeroFolio;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.numerohoras;
+        delete objEnviar.tipoIncapacidadId;
+        multifechas = true;
+        break;
+      case 11:
+      case 16:
+        delete objEnviar.numeroFolio;
+        delete objEnviar.numerohoras;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.fechaFin;
+        delete objEnviar.tipoIncapacidadId;
+        break;
+      case 13:
+      case 14:
+        delete objEnviar.duracion;
+        delete objEnviar.numeroFolio;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.fechaFin;
+        delete objEnviar.tipoIncapacidadId;
+        break;
+      case 3:
+        delete objEnviar.monto;
+        delete objEnviar.numerohoras;
+        break;
+      case 9:
+        delete objEnviar.tipoIncapacidadId;
+        delete objEnviar.fechaInicio;
+        delete objEnviar.monto;
+        delete objEnviar.numeroFolio;
+        delete objEnviar.numerohoras;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.fechaFin;
+        break;
+      case 8:
+        delete objEnviar.tipoIncapacidadId;
+        delete objEnviar.fechaFin;
+        delete objEnviar.duracion;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.numeroFolio;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.numerohoras;
+        break;
+    }
+
+    delete objEnviar.incidenciaId;
+
+    let objEnviarArray:Array<any>;
+
+    console.log("Este es el arreglo",this.arregloFechas);
+    console.log("Este es lo enviar",objEnviar);
+
+    if(multifechas){
+      objEnviarArray = [];
+        for(let item of this.arregloFechas){
+            let aux = JSON.parse(JSON.stringify(objEnviar));
+            
+            aux.fechaInicio = new Date((new Date(item).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+            objEnviarArray.push(aux);
+        }
+    }else{
+      objEnviarArray = [objEnviar]
+    }
+
+
+
+    console.log(objEnviarArray);
+
+
+  //  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    //return;
+    this.eventoPrd.save(objEnviarArray).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
         if (datos.resultado) {
@@ -147,7 +235,37 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   }
 
   public abrirArchivo() {
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".pdf";
 
+    input.click();
+
+    input.onchange = () => {
+      let imagenInput: any = input.files;
+      this.inputFile.nativeElement.value = imagenInput![0].name;
+      for (let item in Object.getOwnPropertyNames(imagenInput)) {
+
+        let archivo: File = imagenInput[item];
+
+        archivo.arrayBuffer().then(datos => {
+          this.myForm.controls.urlArchivo.setValue(this.arrayBufferToBase64(datos));
+        });
+
+
+      }
+
+    }
+  }
+
+  public arrayBufferToBase64(buffer: any) {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 
 
@@ -294,6 +412,11 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public configurandoRestricciones() {
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
+
+    let multifechas:boolean = seleccionado == 1 || seleccionado == 2 || seleccionado == 5;
+    if(multifechas){
+          this.myForm.controls.fechaInicio.setValue("");
+    }
     for (let llave in this.myForm.controls) {
       if (llave == "incidenciaId" || llave == "personaId")
         continue;
@@ -354,7 +477,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.fechaAplicacion.updateValueAndValidity();
     }
 
-    if ( seleccionado == 13 || seleccionado == 14) {
+    if (seleccionado == 13 || seleccionado == 14) {
       this.myForm.controls.unidadmedida.setValidators([Validators.required]);
       this.myForm.controls.unidadmedida.updateValueAndValidity();
       this.myForm.controls.numerohoras.setValidators([Validators.required]);
@@ -383,13 +506,17 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public perderFoco() {
 
+    console.log("verifica");
     const totalDias = this.myForm.controls.duracion.value;
-    if (totalDias !== undefined || totalDias !== null) {
-      var datePipe = new DatePipe("es-MX");
-      let fechaActual = new Date((new Date(this.myForm.controls.fechaInicio.value)).toUTCString().replace("GMT", ""));
-      let fechaFin: Date = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + (Number(totalDias) <= 0 ? 0 : Number(totalDias) - 1));
-
-      this.myForm.controls.fechaFin.setValue(datePipe.transform(fechaFin, "yyyy-MM-dd"));
+    if (totalDias) {
+      if(this.myForm.controls.fechaInicio.value){
+        var datePipe = new DatePipe("es-MX");
+        let fechaActual = new Date((new Date(this.myForm.controls.fechaInicio.value)).toUTCString().replace("GMT", ""));
+        let fechaFin: Date = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + (Number(totalDias) <= 0 ? 0 : Number(totalDias) - 1));
+  
+        this.myForm.controls.fechaFin.setValue(datePipe.transform(fechaFin, "yyyy-MM-dd"));
+      }
+    
     }
   }
 
@@ -438,7 +565,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public recibirEtiquetas(obj: any) {
-    
+    let fecha = obj.lenght == 0 ? "" : obj[0];
+    this.myForm.controls.fechaInicio.setValue(fecha);
+    this.arregloFechas = obj;
   }
 
 }

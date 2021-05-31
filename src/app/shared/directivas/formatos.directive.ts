@@ -20,7 +20,7 @@ export class FormatosDirective implements OnInit {
 
   @HostListener("input", ["$event"])
   onInput(event: KeyboardEvent) {
-    
+       this.el.nativeElement.value = this.el.nativeElement.value.replace("$","").replace(",","");
   }
 
   @HostListener("keydown", ["$event"])
@@ -31,7 +31,8 @@ export class FormatosDirective implements OnInit {
     if (this.moneda) {
       const regex = /[\d.\/]/g;
       
-      if (!regex.test(event.key) && (event.key !== "Backspace" && event.key !== "Tab")) {
+      console.log(event.key);
+      if (!regex.test(event.key) && (event.key !== "Backspace" && event.key !== "Tab" && event.key !== "ArrowLeft" && event.key !== "ArrowRight")) {
         event.preventDefault();
       } else {
         if (event.key == ".") {
@@ -41,7 +42,7 @@ export class FormatosDirective implements OnInit {
         }
 
         if (event.key === "Backspace" || event.key === "Tab") return;
-        if (this.el.nativeElement.value.split(".")[1]?.length >= 2) {
+        if (this.el.nativeElement.value.split(".")[1]?.length > 2) {
 
           event.preventDefault();
         }

@@ -63,7 +63,7 @@
                 <label>Fecha *</label>
                 
                 <input *ngIf="!tagcomponente" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
-                <app-tag *ngIf="tagcomponente" [calendario]="true" [dias]="numerodias.value" (salida)="recibirEtiquetas($event)"></app-tag>
+                <app-tag [class.is-invalid]="f.fechaInicio.errors && submitEnviado"  *ngIf="tagcomponente" [calendario]="true" [dias]="numerodias.value" (salida)="recibirEtiquetas($event)"></app-tag>
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -76,10 +76,10 @@
                     Campo requerido
                 </div>
             </div>
-            <div (blur)="perderFoco()" [ngClass]="{'ocultarCampo':verificar('fechainicio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div  [ngClass]="{'ocultarCampo':verificar('fechainicio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha inicio *</label>
                 
-                <input [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
+                <input (change)="perderFoco()" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -119,7 +119,7 @@
             <div [ngClass]="{'ocultarCampo':verificar('archivo')}" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Seleccionar archivo</label>
                 <div class="input-group mb-3">
-                  <input formControlName="urlArchivo" type="text" class="form-control" >
+                  <input #inputFile formControlName="archivo" type="text" class="form-control" >
                   <div (click)="abrirArchivo()" class="input-group-append" style="cursor: pointer;">
                     <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><img src="assets/Iconos24/upload.png" alt="" srcset=""></span>
                   </div>

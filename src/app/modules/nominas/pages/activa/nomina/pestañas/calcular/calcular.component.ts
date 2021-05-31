@@ -28,7 +28,7 @@ export class CalcularComponent implements OnInit {
   public llave: string = "";
   public llave2:string = "";
 
-  public datosDetalleEmpleadoNomina: any = [];
+  public datosDetalleEmpleadoNomina:any = [];
 
   public cargandoIcon: boolean = false;
 
@@ -203,10 +203,14 @@ export class CalcularComponent implements OnInit {
 
     }
 
-    this.datosDetalleEmpleadoNomina.push(otros);
-    this.datosDetalleEmpleadoNomina.push(dias);
-    this.datosDetalleEmpleadoNomina.push(percepciones);
-    this.datosDetalleEmpleadoNomina.push(deducciones);
+    
+
+    
+    
+    this.datosDetalleEmpleadoNomina[0]=otros;
+    this.datosDetalleEmpleadoNomina[1]= dias;
+    this.datosDetalleEmpleadoNomina[2]=percepciones;
+    this.datosDetalleEmpleadoNomina[3]= deducciones;
     item.cargandoDetalle = false;
   }
 
