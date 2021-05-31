@@ -25,7 +25,7 @@
           title="Dar click para información"></i> -->
 
       </label>
-      <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="10" class="form-control"
+      <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="19" class="form-control"
         [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}" placeholder="">
       <div *ngIf="submitEnviado && f.numeroCuenta.errors" class="invalid-feedback">
         Campo requerido

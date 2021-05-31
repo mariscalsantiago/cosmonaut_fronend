@@ -193,6 +193,46 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
 
+    else if(this.objdetcat.listaCatalogosId == 14){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaFuncionCuenta(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 20){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaMetodoPago(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 3){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaMoneda(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 2){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaNacionalidad(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 16){
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
 
     let documento: any = document.defaultView;
 
@@ -269,6 +309,21 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       
       else if(item.tasaAplicableIsnId !== undefined){
         item.clave = item.tasaAplicableIsnId;
+      }
+      else if(item.funcionCuentaId !== undefined){
+        item.clave = item.funcionCuentaId;
+      }
+      else if(item.metodoPagoId !== undefined){
+        item.clave = item.metodoPagoId;
+      }
+      else if(item.monedaId !== undefined){
+        item.clave = item.monedaId;
+      }
+      else if(item.nacionalidadId !== undefined){
+        item.clave = item.nacionalidadId;
+      }
+      else if(item.tipoValorReferenciaId !== undefined){
+        item.clave = item.tipoValorReferenciaId;
       }
     }
     

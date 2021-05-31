@@ -9,7 +9,8 @@
 
 <hr>
 
-<form [formGroup]="myForm"   (ngSubmit)="enviarPeticion()">
+
+<form *ngIf="formGeneral" [formGroup]="myForm"   (ngSubmit)="enviarPeticion()">
 
   <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
     <br>
@@ -148,3 +149,96 @@
   </div>
 
 </form>
+<div *ngIf="tablaISR" >
+<div class="card margen margen-tabla background-panel ">
+  <div class="form-group row margen">
+    <label class="titulo">TABLA ISR</label></div>
+  <div class="card-body">
+  <div id="table" class="table-editable ">
+
+    <table  *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
+      <tr>
+        <th class="text-center" scope="col">Límite inferior</th>
+        <th class="text-center" scope="col">Límite superior</th>
+        <th class="text-center" scope="col">Cuota fija</th>
+        <th class="text-center" scope="col">Excedente %</th>
+      </tr>
+      <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaIsrId = index">
+        <td>
+          <span (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
+        </td>
+        <td>
+          <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+        </td>
+        <td>
+          <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'cuotaFija', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
+        </td>
+        <td>
+          <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)">{{valores.porcExcedenteLimInf}}</span>
+        </td>
+
+      </tr>
+
+    </table>
+    <div *ngIf="!cargando && arregloTablaValores === undefined" class="alert col text-center">
+      <strong>En este momento no existen registros</strong>
+    </div>
+    <div *ngIf="cargando" class="col text-center mb-5">
+      <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="text-center margin" style="margin-bottom: 20px;">
+
+  <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+  <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+</div>
+
+</div>
+
+<div *ngIf="subsidioISR" >
+  <div class="card margen margen-tabla background-panel ">
+    <div class="form-group row margen">
+      <label class="titulo">TABLA SUBSIDIO ISR</label></div>
+    <div class="card-body">
+    <div id="table" class="table-editable ">
+  
+      <table  *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
+        <tr>
+          <th class="text-center" scope="col">Para ingresos de</th>
+          <th class="text-center" scope="col">Hasta ingresos de</th>
+          <th class="text-center" scope="col">Cantidad de subsidio para el empleo</th>
+        </tr>
+        <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaIsrId = index">
+          <td>
+            <span (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
+          </td>
+  
+        </tr>
+  
+      </table>
+      <div *ngIf="!cargando && arregloTablaValores === undefined" class="alert col text-center">
+        <strong>En este momento no existen registros</strong>
+      </div>
+      <div *ngIf="cargando" class="col text-center mb-5">
+        <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <div class="text-center margin" style="margin-bottom: 20px;">
+  
+    <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+    <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+  </div>
+  
+  </div>

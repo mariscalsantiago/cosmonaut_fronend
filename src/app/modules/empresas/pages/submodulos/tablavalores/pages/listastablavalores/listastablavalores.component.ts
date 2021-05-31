@@ -72,9 +72,10 @@ export class ListasTablaValoresComponent implements OnInit {
     this.activateRouter.params.subscribe(datos => {
 
       this.id_empresa = datos["id"];
-
+      let fecha = new Date();
+      let anio = fecha.getFullYear();
       this.cargandoRef = true;
-      this.tablavaloresProd.getListaReferencia(2021).subscribe(datos => {
+      this.tablavaloresProd.getListaReferencia(anio).subscribe(datos => {
           this.crearTablaReferencia(datos);
       });
 

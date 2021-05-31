@@ -16,7 +16,7 @@ export class AdminCatalogosService {
 
 
   public getListaCatalgos(estatus:boolean): Observable<any> {
-       return this.http.get(`${this.url}/listaCatalogos/listar/todosActivos/${estatus}`);
+       return this.http.get(`${this.url}/listaCatalogos/listar/todosActivo/${estatus}`);
   }
 
   public getListaBanco(estatus:boolean): Observable<any> {
@@ -46,6 +46,12 @@ export class AdminCatalogosService {
   public getListaTablasSubsidioISR():Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/tablasSubsidioISR`);
   }
+  public getListaTarifaISR(periodicidad:number):Observable<any>{
+    return this.http.get(`${direcciones.tablasValores}/listar/tarifaISR/true/${periodicidad}`);
+  }
+  public getListaSubcidioISR(periodicidad:number):Observable<any>{
+    return this.http.get(`${direcciones.tablasValores}/listar/tablaSubsidioIsr/true/${periodicidad}`);
+  }
   public getListaTasaAplicableISN(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catTasaAplicableIsn/listar/todosActivo/${estatus}`);
   }
@@ -64,6 +70,21 @@ export class AdminCatalogosService {
   }
   public getListaTipoIncapacidad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/tipoIncapacidad/listar/todosActivo/${estatus}`);
+  }
+  public getListaFuncionCuenta(estatus:boolean): Observable<any> {
+    return this.http.get(`${this.url}/catFuncionCuenta/listar/todosActivo/${estatus}`);
+  }
+  public getListaMetodoPago(estatus:boolean): Observable<any> {
+    return this.http.get(`${this.url}/catMetodoPago/listar/todosActivo/${estatus}`);
+  }
+  public getListaMoneda(estatus:boolean): Observable<any> {
+    return this.http.get(`${this.url}/moneda/listar/todosActivo/${estatus}`);
+  }
+  public getListaNacionalidad(estatus:boolean): Observable<any> {
+    return this.http.get(`${this.url}/nacionalidad/listar/todosActivo/${estatus}`);
+  }
+  public getListaTipoValorReferencia(estatus:boolean): Observable<any> {
+    return this.http.get(`${this.url}/catTipoValorReferencia/listar/todosActivo/${estatus}`);
   }
   public getListaTipoPercepcion(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTipoPercepcion/listar/todosActivo/${estatus}`);

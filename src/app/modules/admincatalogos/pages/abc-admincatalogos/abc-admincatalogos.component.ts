@@ -37,6 +37,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public percepcion: boolean = false;
   public descripcionGeneral:boolean= true;
   public referencia: boolean = false;
+  public arregloTablaValores: any = [];
+  public editField: string = "";
+  public tablaISR: boolean = false;
+  public formGeneral: boolean = true;
+  public subsidioISR: boolean = false;
 
   public arreglotabla: any = {
     columnas: [],
@@ -139,8 +144,19 @@ export class ABCAdminCatalogosComponent implements OnInit {
     else if(this.detCatalogos.listaCatalogosId == 15){
       this.idCatalogo = objdetrep.clave;
       this.descripcion = objdetrep.tipoValorReferenciaId?.descripcion;
-      
       this.clave();
+    }
+    else if(this.detCatalogos.listaCatalogosId == 17){
+      debugger;
+      this.clave();
+      this.adminCatalogosPrd.getListaTarifaISR(objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
+     
+    }
+    else if(this.detCatalogos.listaCatalogosId == 18){
+      debugger;
+      this.clave();
+      this.adminCatalogosPrd.getListaSubcidioISR(objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
+     
     }
 
 
@@ -180,6 +196,18 @@ export class ABCAdminCatalogosComponent implements OnInit {
     });
   }
 
+  public updateList(id: number, property: string, event: any) {
+    
+    const editField = event.target.textContent;
+    this.arregloTablaValores[id][property] = editField;
+  }
+
+
+  public changeValue(id: number, property: string, event: any) {
+    
+    this.editField = event.target.textContent;
+  }
+
   public clave(){
     if(this.insertar){
       if(this.detCatalogos.listaCatalogosId == 6){
@@ -193,6 +221,16 @@ export class ABCAdminCatalogosComponent implements OnInit {
       else if(this.detCatalogos.listaCatalogosId == 15){
         this.referencia = true;
         this.descripcionGeneral = false;
+      }
+      else if(this.detCatalogos.listaCatalogosId == 17){
+        this.descripcionGeneral = false;
+        this.formGeneral = false;
+
+      }
+      else if(this.detCatalogos.listaCatalogosId == 18){
+        this.descripcionGeneral = false;
+        this.formGeneral = false;
+
       }
       else{
         this.activaClave = true;
@@ -210,6 +248,17 @@ export class ABCAdminCatalogosComponent implements OnInit {
       else if(this.detCatalogos.listaCatalogosId == 15){
         this.referencia = true;
         this.descripcionGeneral = false;
+      }
+      else if(this.detCatalogos.listaCatalogosId == 17){
+        this.descripcionGeneral = false;
+        this.formGeneral = false;
+        this.tablaISR = true;
+        
+      }
+      else if(this.detCatalogos.listaCatalogosId == 18){
+        this.descripcionGeneral = false;
+        this.formGeneral = false;
+        this.subsidioISR = true;
       }
       else{
         this.inactivaClave = true;
