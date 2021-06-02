@@ -1,0 +1,93 @@
+<div class="row margen">
+    <div class="col titulo-outlet">
+
+        <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/usuarios"></i>ADMINISTRACIÓN DE
+            ROLES</label>
+    </div>
+</div>
+
+
+<hr>
+
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+    <div class="background-panel margen background-ajustar" appTamanioVentana>
+        <div class="form-group row margen mt-3"><label class="titulo">Administración de roles</label></div>
+        <div class="form-group row margen">
+
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Nombre del rol *</label>
+                <input [class.is-invalid]="f.nombre.errors && f.nombre.touched" formControlName="nombre" type="text" class="form-control">
+                <div class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mr-2 ml-2">
+            <div class="col-12">
+                <div *ngIf="cargando" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                  </div>
+                <div *ngIf="!cargando" id="accordion" class="acordion_desplegable">
+                    <div *ngFor="let item of arreglo;let indice = index " class="card" [ngClass]="{'cardselected':arreglo[indice].seleccionado}">
+                        <div [ngClass]="{'fondoblanco':arreglo[indice].seleccionado}" class="card-header" id="detallepago">
+
+                            <h5 class="mb-0">
+                                <label style="top: 8px;" class="contenedorInputCheckRadio">
+                                    <input id="primercheck" type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <button type="button" style="margin-left: 10px;" (click)="cambiarStatus(indice)" class="btn btn-link"
+                                    data-toggle="collapse" data-target="#detallepagocolapsar" aria-expanded="false"
+                                    aria-controls="detallepago">
+
+                                    {{item.nombreModulo}}
+                                    <i *ngIf="!arreglo[indice].seleccionado" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne"
+                                        class="fas fa-chevron-down "></i>
+                                    <i *ngIf="arreglo[indice].seleccionado" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne" class="fas fa-chevron-up "></i>
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago"
+                            data-parent="#accordion">
+                            <div class="card-body">
+
+                                <div *ngFor="let auxitem of item.submodulos;let indice2 = index;" class="row">
+                                    <div class="col-4">
+                                        <label style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)" class="contenedorInputCheckRadio">{{auxitem.nombreSubmodulo}}
+                                            <input  id="primercheck" type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <ul>
+                                            <li *ngFor="let permiso of auxitem.permisos;let indice3 = index;"> <label style="top: 8px;" class="contenedorInputCheckRadio"> {{permiso.descripcion}}
+                                                    <input id="primercheck" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label> </li>
+                                        </ul>
+                                    </div>
+                                 
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+    </div>
+
+</form>
