@@ -51,6 +51,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public valores: any = [];
   public valorestab : any =[];
   public nuevatablaISR : boolean = false;
+  public arregloPeriodicidad : any = [];
   
   public arreglotabla: any = {
     columnas: [],
@@ -157,8 +158,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
       debugger;
-      this.clave();
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
+      this.adminCatalogosPrd.getListatablasPeriodicasISR().subscribe(datos => this.arregloPeriodicidad = datos.datos);
+      this.clave();
      
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
@@ -222,6 +224,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       limiteInferior:[obj.limiteInferior],
       limiteSuperior:[obj.limiteSuperior],
       cuotaFija:[obj.cuotaFija],
+      PeriodicidadPago:[],
       porcExcedenteLimInf:[obj.porcExcedenteLimInf],
       valorReferencia: [this.objdetrep.tipoValorReferenciaId?.tipoValorReferenciaId],
       tipoPersona: [obj.tipoPersona],
@@ -1089,22 +1092,37 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 17){
           debugger;
-          for(let item of this.arregloTablaValores){
-            this.valores = 
-              {
-                tarifaPeriodicaIsrId: item.tarifaPeriodicaIsrId,
-                limiteInferior: item.limiteInferior,
-                limiteSuperior: item.limiteSuperior,
-                cuotaFija: item.cuotaFija,
-                porcExcedenteLimInf: item.porcExcedenteLimInf
-              }
-              this.valorestab.push(this.valores);
-
+          let fechainicio = "";
+          let fechafin = "";
+          if (obj.fechaFin != undefined || obj.fechaFin != null) {
+      
+            if (obj.fechaFin != "") {
+              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
+              fechafin = `${new Date(fecha1).getTime()}`;
             }
-          this.objEnviar = {
-              descripcion: obj.nombreCorto,
-              esActivo: obj.esActivo,
           }
+          
+          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
+      
+            if (obj.fechaInicio != "") {
+              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
+              fechainicio = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          this.objEnviar = {
+          
+            limiteInferior: obj.limiteInferior,
+            limiteSuperior: obj.limiteSuperior,
+            cuotaFija: obj.cuotaFija,
+            porcExcedenteLimInf: obj.porcExcedenteLimInf,
+            periodicidadPagoId: {
+             periodicidadPagoId: obj.PeriodicidadPago,
+           },
+           esActivo: obj.esActivo,
+           fechaInicio: fechainicio,
+           fechaFin: fechainicio
+         }
+          
           if (this.insertar) {
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.saveValorReferencia(this.objEnviar).subscribe(datos => {
@@ -1118,6 +1136,19 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
+
+            for(let item of this.arregloTablaValores){
+              this.valores = 
+                {
+                  tarifaPeriodicaIsrId: item.tarifaPeriodicaIsrId,
+                  limiteInferior: item.limiteInferior,
+                  limiteSuperior: item.limiteSuperior,
+                  cuotaFija: item.cuotaFija,
+                  porcExcedenteLimInf: item.porcExcedenteLimInf
+                }
+                this.valorestab.push(this.valores);
+  
+              }
             this.objEnviar = {
 
               valoresTablaPeriodicaISR: this.valorestab
