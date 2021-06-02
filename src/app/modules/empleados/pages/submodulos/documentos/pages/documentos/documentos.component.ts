@@ -22,7 +22,9 @@ export class DocumentosComponent implements OnInit {
   public cargandoIcon: boolean= false;
   public idEmpleado: number = 0;
   public idEmpresa: number = 0;
-
+  public fileName: string = "";
+  public arregloDocumentos: any = [];
+  public idTipoDocumento : number = 0;
   
   public arreglotabla:any = {
     columnas:[],
@@ -47,7 +49,9 @@ export class DocumentosComponent implements OnInit {
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
     });
-  
+
+    this.documentosPrd.getDocumentosEmpleado().subscribe(datos => this.arregloDocumentos = datos.datos);
+    debugger;
     this.cargando = true;
     this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
         this.crearTabla(datos);
@@ -107,7 +111,10 @@ export class DocumentosComponent implements OnInit {
       
     }
     if (obj.type == "eliminar") {
-      let idDocuemnto = obj.datos.tipoDocumentoId;
+      debugger;
+      let mensaje = "¿Estás seguro de eliminar el documento? Al eliminarlo no podrá ser recuperado posteriormente";
+      this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
+      let idDocuemnto = obj.datos.documentosEmpleadoId;
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
   
       this.documentosPrd.eliminar(idDocuemnto).subscribe(datos => {
@@ -118,47 +125,82 @@ export class DocumentosComponent implements OnInit {
         });
         
       });
+
+    });
       
     }
+  
   }
 
   public filtrar(){
+    debugger;
+    if(this.idTipoDocumento != 0){
+    
+      this.cargando = true;
+    
+      this.documentosPrd.getListaTipoDocumento(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado,this.idTipoDocumento).subscribe(datos => {
+          this.crearTabla(datos);
+      });
+    }else{
+    this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
+        this.crearTabla(datos);
+    });
+    }
 
   }
 
   public iniciarDescarga(obj:any) {
-    
+    debugger;
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
       this.documentosPrd.getDescargaDocEmpleado(obj.cmsArchivoId).subscribe(archivo => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         let linkSource: string = "";
-        if(archivo.tipoMM?.extension == "jpg"){
+        if(archivo.datos.tipoMM?.extension == "jpg"){
             linkSource = 'data:application/jpg;base64,' + `${archivo.datos.contenido}\n`;
+            this.fileName = `${archivo.datos.nombre}.jpg`;
         }
-        else if(archivo.tipoMM?.extension == "docx"){
+        else if(archivo.datos.tipoMM?.extension == "docx"){
           linkSource = 'data:application/docx;base64,' + `${archivo.datos.contenido}\n`;
+            this.fileName = `${archivo.datos.nombre}.docx`;
         }
-        else if(archivo.tipoMM?.extension == "png"){
+        else if(archivo.datos.tipoMM?.extension == "png"){
           linkSource = 'data:application/png;base64,' + `${archivo.datos.contenido}\n`;
+          this.fileName = `${archivo.datos.nombre}.png`;
         }
-        else if(archivo.tipoMM?.extension == "pdf"){
+        else if(archivo.datos.tipoMM?.extension == "zip"){
+          linkSource = 'data:application/zip;base64,' + `${archivo.datos.contenido}\n`;
+          this.fileName = `${archivo.datos.nombre}.zip`;
+        }
+        else if(archivo.datos.tipoMM?.extension == "rar"){
+          linkSource = 'data:application/rar;base64,' + `${archivo.datos.contenido}\n`;
+          this.fileName = `${archivo.datos.nombre}.rar`;
+        }
+        else if(archivo.datos.tipoMM?.extension == "xlsx"){
+          linkSource = 'data:application/xlsx;base64,' + `${archivo.datos.contenido}\n`;
+          this.fileName = `${archivo.datos.nombre}.xlsx`;
+        }
+        else if(archivo.datos.tipoMM?.extension == "pdf"){
           linkSource = 'data:application/pdf;base64,' + `${archivo.datos.contenido}\n`;
+          this.fileName = `${archivo.datos.nombre}.pdf`;
         }
-        else if(archivo.tipoMM?.extension == "doc"){
+        else if(archivo.datos.tipoMM?.extension == "doc"){
           linkSource = 'data:application/doc;base64,' + `${archivo.datos.contenido}\n`;
+          this.fileName = `${archivo.datos.nombre}.doc`;
         }
-        else if(archivo.tipoMM?.extension == "jpg"){
+        else if(archivo.datos.tipoMM?.extension == "jpg"){
         linkSource = 'data:application/jpg;base64,' + `${archivo.datos.contenido}\n`;
+        this.fileName = `${archivo.datos.nombre}.jpg`;
         }
         else{
         linkSource = 'data:application/txt;base64,' + `${archivo.datos.contenido}\n`;
+        this.fileName = `${archivo.datos.nombre}.txt`;
         }
         const downloadLink = document.createElement("a");
-        const fileName = `${archivo.datos.nombre}`;
+        
  
         downloadLink.href = linkSource;
-        downloadLink.download = fileName;
+        downloadLink.download = this.fileName;
         downloadLink.click();
       });
     

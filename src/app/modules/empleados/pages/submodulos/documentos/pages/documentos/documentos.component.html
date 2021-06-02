@@ -8,8 +8,11 @@
 
   <div class="form group row margen">
     <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
-      <input type="text"  class="form-control" 
-      placeholder="Tipo de documento">
+      <select placeholder="Tipo de documento" name="" class="form-control" [(ngModel)]="idTipoDocumento">
+        <option value="0" selected>Selecciona tipo documento</option>
+        <option *ngFor="let item of arregloDocumentos"  [value]="item.id">{{item.nombre}}
+        </option>
+      </select>
     </div>
     <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
       <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>

@@ -82,7 +82,7 @@
   </div>
   <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
     <label>Valor *</label>
-    <input appMayusculas formControlName="valor" type="text" class="form-control"
+    <input formControlName="valor" type="text" class="form-control"
          placeholder="" >
 
   </div>
@@ -96,6 +96,7 @@
     <input formControlName="fechaFin" type="date" class="form-control">
 
   </div>
+  
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Estatus</label>
             <select name=""  class="form-control" formControlName="esActivo">
@@ -194,7 +195,7 @@
 <div class="text-center margin" style="margin-bottom: 20px;">
 
   <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-  <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+  <button  class="btn btn-primary button-fill">Guardar</button>
 </div>
 
 </div>
@@ -239,7 +240,7 @@
   <div class="text-center margin" style="margin-bottom: 20px;">
   
     <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-    <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+    <button  class="btn btn-primary button-fill">Guardar</button>
   </div>
   
   </div>

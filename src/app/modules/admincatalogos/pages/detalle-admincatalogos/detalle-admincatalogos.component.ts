@@ -342,7 +342,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
 
   public verdetalle(obj: any) {
-
+    debugger;
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
     this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', tipoinsert], { state: { datos: this.objdetcat, data: obj } });

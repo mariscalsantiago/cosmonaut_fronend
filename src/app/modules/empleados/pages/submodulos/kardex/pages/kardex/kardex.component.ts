@@ -72,7 +72,7 @@ export class KardexComponent implements OnInit {
             centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
         }
       }
-
+      
       this.cargando = true;
     
       this.kardexPrd.getListaMovimientos(this.peticion).subscribe(datos => {

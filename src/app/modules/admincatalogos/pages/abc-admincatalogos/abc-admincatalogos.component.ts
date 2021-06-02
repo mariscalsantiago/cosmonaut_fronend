@@ -49,7 +49,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public arregloValoresReferencia: any = [];
   public valores: any = [];
   public valorestab : any =[];
-
+  public nuevatablaISR : boolean = false;
+  
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -255,6 +256,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       else if(this.detCatalogos.listaCatalogosId == 17){
         this.descripcionGeneral = false;
         this.formGeneral = false;
+        this.nuevatablaISR = true;
 
       }
       else if(this.detCatalogos.listaCatalogosId == 18){
@@ -312,6 +314,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public redirect(obj: any) {
+    debugger;
     this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
   }
 
@@ -504,7 +507,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
           debugger;
           this.objEnviar = {
-            tipoRegimenContratacionId: obj.clave,
+            //tipoRegimenContratacionId: obj.clave,
             descripcion: obj.nombreCorto,
             esActivo: obj.esActivo,
           }

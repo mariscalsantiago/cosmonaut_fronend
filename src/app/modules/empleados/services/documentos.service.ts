@@ -58,4 +58,8 @@ export class DocumentosService {
   public getListaDocumentosEmpleado(idEmpresa:number,idEmpleado:number):Observable<any>{
     return this.http.get(`${direcciones.documentos}/lista/${idEmpresa}/${idEmpleado}`);
   }
+
+  public getListaTipoDocumento(idEmpresa:number,idEmpleado:number,idTipoDocumento:number):Observable<any>{
+    return this.http.get(`${direcciones.documentos}/lista/tipo-documento/${idEmpresa}/${idEmpleado}/${idTipoDocumento}`);
+  }
 }
