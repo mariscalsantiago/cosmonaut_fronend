@@ -209,6 +209,7 @@ export class DetallepoliticasComponent implements OnInit {
             },
             beneficiosXPolitica: this.beneficiotab
           }
+          debugger;
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.politicasPrd.modificar(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

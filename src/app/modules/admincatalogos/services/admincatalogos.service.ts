@@ -129,68 +129,367 @@ export class AdminCatalogosService {
     return this.http.post(`${this.url}/lista/dinamica`, json, httpOptions);
   }
 
-  public save(obj: any): Observable<any> {
+  public saveBanco(obj: any): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-
-
-
-
     let json: string = JSON.stringify(obj);
-
-
-    
-    
-    return this.http.put(`${this.url}/guardar/usuario`, json, httpOptions);
+    return this.http.put(`${this.url}/csbanco/guardar`, json, httpOptions);
   }
-
-  public modificar(obj: any): Observable<any> {
+  public saveFacultad(obj: any): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-
-
-
-
-
-
     let json: string = JSON.stringify(obj);
-
-    
-
-    return this.http.post(`${this.url}/modificar/usuario`, json, httpOptions);
+    return this.http.put(`${this.url}/catFacultadPoder/guardar`, json, httpOptions);
   }
+  public saveFuncionCuenta(obj: any): Observable<any> {
 
-
- 
-
-  public modificarListaActivos(obj: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-
-
-
-
-
-
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${this.url}/modificar/lista`, json, httpOptions);
+    return this.http.put(`${this.url}/catFuncionCuenta/guardar`, json, httpOptions);
+  }
+  public saveTipoContrato(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/csTipoContrato/guardar`, json, httpOptions);
   }
 
+  public saveRegimenContratacion(obj: any): Observable<any> {
 
-
-  public getPrueba(): Observable<any> {
-    return this.http.get("empresas/people/?search=r2");
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/csTipoRegimenContratacion/guardar`, json, httpOptions);
   }
+
+  public saveMoneda(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/moneda/guardar`, json, httpOptions);
+  }
+
+  public saveParentesco(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/catParentesco/guardar`, json, httpOptions);
+  }
+  public saveTipoIncidencia(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/tipoIncidencia/guardar`, json, httpOptions);
+  }
+  public saveMetodoPago(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/catMetodoPago/guardar`, json, httpOptions);
+  }
+  public saveValorReferencia(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/catTipoValorReferencia/guardar`, json, httpOptions);
+  }
+  public saveTipoIncapacidad(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/tipoIncapacidad/guardar`, json, httpOptions);
+  }
+
+  public saveReferencia(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/valorReferencia/guardar`, json, httpOptions);
+  }
+
+  public saveMotivoBaja(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/catMotivoBaja/guardar`, json, httpOptions);
+  }
+
+  public saveTipoDeduccion(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/csTipoDeduccion/guardar`, json, httpOptions);
+  }
+
+  public saveRegimenFiscal(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/csRegimenFiscal/guardar`, json, httpOptions);
+  }
+  public saveNacionalidad(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/nacionalidad/guardar`, json, httpOptions);
+  }
+
+  public saveTipoPercepcion(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/csTipoPercepcion/guardar`, json, httpOptions);
+  }
+  public modificarBanco(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csbanco/modificar`, json, httpOptions);
+  }
+
+  public modificarFacultad(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catFacultadPoder/modificar`, json, httpOptions);
+  }
+
+  public modificarFuncionCuenta(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catFuncionCuenta/modificar`, json, httpOptions);
+  }
+  public modificarTipoContrato(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTipoContrato/modificar`, json, httpOptions);
+  }
+
+  public modificarRegimenContratacion(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTipoRegimenContratacion/modificar`, json, httpOptions);
+  }
+
+  public modificarMoneda(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/moneda/modificar`, json, httpOptions);
+  }
+
+  public modificarParentesco(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catParentesco/modificar`, json, httpOptions);
+  }
+  public modificarTipoIncidencia(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/tipoIncidencia/modificar`, json, httpOptions);
+  }
+  public modificarMetodoPago(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catMetodoPago/modificar`, json, httpOptions);
+  }
+  public modificarValorReferencia(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catTipoValorReferencia/modificar`, json, httpOptions);
+  }
+  public modificarTipoIncapacidad(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/tipoIncapacidad/modificar`, json, httpOptions);
+  }
+  public modificarReferencia(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/valorReferencia/modificar`, json, httpOptions);
+  }
+  public modificarMotivoBaja(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catMotivoBaja/modificar`, json, httpOptions);
+  }
+  public modificarRegimenFiscal(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csRegimenFiscal/modificar`, json, httpOptions);
+  }
+
+  public modificarNacionalidad(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/nacionalidad/modificar`, json, httpOptions);
+  }
+
+  public modificarTipoPercepcion(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTipoPercepcion/modificar`, json, httpOptions);
+  }
+
 
 }
