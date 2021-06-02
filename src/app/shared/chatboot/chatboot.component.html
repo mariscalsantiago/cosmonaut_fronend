@@ -1,4 +1,4 @@
-<div class="ventanaemergente" [style.width]="modalWidth" style="    z-index: 4;">
+<div class="ventanaemergente swing-in-bottom-fwd" [style.width]="modalWidth" style="    z-index: 4;">
   <div [style.top]="scrolly">
     <div class="dialogo">
 
@@ -25,9 +25,20 @@
             <div class="recibido">Hola ¿En qué podemos ayudarle?
               <span class="hora">{{fecha | date:'HH:mm'}}</span>
             </div>
-            <div class="enviado">¿Me pueden ayudar con... ?
+           <div class="ladoderecho"> <div class="enviado">¿Me pueden ayudar con... ?
+            <span class="hora">{{fecha | date:'HH:mm'}}</span>
+          </div></div>
+           <div class="ladoderecho">
+            <div class="enviado">¿Me  ?
               <span class="hora">{{fecha | date:'HH:mm'}}</span>
             </div>
+           </div>
+           <div class="ladoderechoIzquierdo">
+            <div class="recibido">¿Me  ?
+              <span class="hora">{{fecha | date:'HH:mm'}}</span>
+            </div>
+           </div>
+           
           </div>
         </div>
       </div>

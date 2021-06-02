@@ -196,8 +196,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
     let objEnviarArray:Array<any>;
 
-    console.log("Este es el arreglo",this.arregloFechas);
-    console.log("Este es lo enviar",objEnviar);
+    
+    
 
     if(multifechas){
       objEnviarArray = [];
@@ -213,7 +213,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
 
-    console.log(objEnviarArray);
+    
 
 
   //  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -506,7 +506,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public perderFoco() {
 
-    console.log("verifica");
+    
     const totalDias = this.myForm.controls.duracion.value;
     if (totalDias) {
       if(this.myForm.controls.fechaInicio.value){

@@ -31,7 +31,7 @@ export class FormatosDirective implements OnInit {
     if (this.moneda) {
       const regex = /[\d.\/]/g;
       
-      console.log(event.key);
+      
       if (!regex.test(event.key) && (event.key !== "Backspace" && event.key !== "Tab" && event.key !== "ArrowLeft" && event.key !== "ArrowRight")) {
         event.preventDefault();
       } else {

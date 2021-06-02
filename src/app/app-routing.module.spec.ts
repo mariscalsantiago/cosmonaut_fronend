@@ -1,5 +1,4 @@
 import { routes } from './app-routing.module';
-import { AutenticacionService } from './core/auth/autenticacion.service';
 import { AuthComponent } from './layout/autentificacion/auth/auth.component';
 import { ContenidoComponent } from './layout/contenido/contenido/contenido.component';
 
