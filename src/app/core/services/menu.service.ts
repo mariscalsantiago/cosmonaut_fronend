@@ -29,6 +29,7 @@ export class MenuService {
                                                                                 {nombre:"CALENDARIO",routerLink:["/eventos/calendario"],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"CARGA MASIVA",routerLink:[""],rol:["ALL","ADMINEMPRESA"]}
     ]},
+    { nombre: "CHAT", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[]},
     { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"IDSE",routerLink:['/imss/idse'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"SUA",routerLink:['/imss/sua'],rol:["ALL","ADMINEMPRESA"]},
@@ -39,7 +40,8 @@ export class MenuService {
     { nombre: 'ADMINISTRACIÓN COSMONAUT', icono: "icon_admoncos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA"],submenu:[
                                                                                 {nombre:"CLIENTES",routerLink:['/company'],rol:["ALL","ADMINCOMPANIA"]},
                                                                                 {nombre:"USUARIOS",routerLink:['/usuarios'],rol:["ALL","ADMINCOMPANIA"]},
-                                                                                {nombre:"ADMINISTRACIÓN DE CATÁLOGOS",routerLink:['/admincatalogos'],rol:["ALL","ADMINCOMPANIA"]}
+                                                                                {nombre:"CATÁLOGOS",routerLink:['/admincatalogos'],rol:["ALL","ADMINCOMPANIA"]},
+                                                                                {nombre:"ROLES Y PERMISOS",routerLink:['/rolesypermisos/lista'],rol:["ALL","ADMINCOMPANIA"]},
                                                                               ]},
     { nombre: "ADMINISTRACIÓN DE EMPRESA", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"CONFIGURACIÓN EMPRESA",routerLink:['/listaempresas'],rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"]},

@@ -1,0 +1,21 @@
+<div class="row margen titulosfijos">
+    <div class="col titulo-outlet">
+      <label>ADMINISTRACIÓN DE ROLES</label>
+    </div>
+  </div>
+
+
+  <div class="scrooll-design">
+    <div class="row margen">
+    
+      <div class="col text-right">
+        <button type="button" class="btn btn-light button-outlet" (click)="detalle(undefined)">
+          <i class="fa fa-plus"></i>Agregar rol
+        </button>
+      </div>
+    </div>
+    <div class="row margen margen-tabla background-panel">
+      <app-tablapaginado [datos]="arreglotabla"   [editar]="true"  [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+    </div>
+  </div>
+

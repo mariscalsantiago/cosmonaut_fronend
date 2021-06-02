@@ -1,0 +1,11 @@
+ul::before{
+    content:attr(aria-label);
+    font-size:70%;
+    font-weight:bold;
+    margin-left:-15px;
+}
+
+
+    ul {
+        list-style-type: none;
+    }

@@ -1,0 +1,114 @@
+<div class="row margen">
+    <div class="col titulo-outlet">
+
+        <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/usuarios"></i>ADMINISTRACIÓN DE
+            ROLES</label>
+    </div>
+</div>
+
+
+<hr>
+
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+    <div class="background-panel margen background-ajustar" appTamanioVentana>
+        <div class="form-group row margen"><label class="titulo">Creación de roles</label></div>
+        <div class="form-group row margen">
+
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Nombre del rol *</label>
+                <input type="text" class="form-control">
+            </div>
+
+        </div>
+
+        <div class="row mr-2 ml-2">
+            <div class="col-12">
+                <div id="accordion" class="acordion_desplegable">
+                    <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
+                        <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
+
+                            <h5 class="mb-0">
+                                <label style="top: 8px;" class="contenedorInputCheckRadio">
+                                    <input id="primercheck" type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <button style="margin-left: 10px;" (click)="cambiarStatus(0)" class="btn btn-link"
+                                    data-toggle="collapse" data-target="#detallepagocolapsar" aria-expanded="false"
+                                    aria-controls="detallepago">
+
+                                    Administración
+                                    <i *ngIf="!arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne"
+                                        class="fas fa-chevron-down "></i>
+                                    <i *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne" class="fas fa-chevron-up "></i>
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago"
+                            data-parent="#accordion">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label style="top: 15px;" class="contenedorInputCheckRadio">
+                                            <input  id="primercheck" type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <ul aria-label="Registro de empresas">
+                                            <li> <label style="top: 8px;" class="contenedorInputCheckRadio"> Registrar
+                                                    <input id="primercheck" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label> </li>
+                                            <li> <label style="top: 8px;" class="contenedorInputCheckRadio"> Editar
+                                                    <input id="primercheck" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label> </li>
+                                            <li> <label style="top: 8px;" class="contenedorInputCheckRadio">Consultar
+                                                    <input id="primercheck" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label> </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-4">
+                                        <label style="top: 15px;" class="contenedorInputCheckRadio">
+                                            <input id="primercheck" type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <ul aria-label="Configuración de empresa">
+                                            <li> <label style="top: 8px;" class="contenedorInputCheckRadio"> Registrar
+                                                    <input id="primercheck" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label> </li>
+                                            <li> <label style="top: 8px;" class="contenedorInputCheckRadio"> Editar
+                                                    <input id="primercheck" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label> </li>
+                                            <li> <label style="top: 8px;" class="contenedorInputCheckRadio">Consultar
+                                                    <input id="primercheck" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+    </div>
+
+</form>

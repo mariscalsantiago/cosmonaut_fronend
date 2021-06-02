@@ -19,11 +19,23 @@ export class InicioComponent implements OnInit {
 
   public alerta() {
 
-    this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    setTimeout(() => {
-     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-    }, 3000);
+    // fetch("https://firebasestorage.googleapis.com/v0/b/cuentas-ffc8b.appspot.com/o/comprobantes%2Fpdf.1619461041452?alt=media&token=7bfb671f-8179-46b4-aedf-f881533f2d38",
+    // {mode:"no-cors"}).then((dato)=>{
 
+    //   let aux = dato;
+    //   console.log(dato);
+    //   aux.blob().then((b)=>{
+    //     console.log(b);
+
+    //     let elemento = document.createElement("a")
+    //     elemento.href = URL.createObjectURL(b);
+    //     elemento.setAttribute("download", "archivo.pdf");
+    //     elemento.click()
+
+    //   })
+
+    // })
+   
   }
 
 
