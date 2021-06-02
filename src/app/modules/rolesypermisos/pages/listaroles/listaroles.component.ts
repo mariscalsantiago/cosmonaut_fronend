@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
+import { RolesService } from '../../services/roles.service';
 
 @Component({
   selector: 'app-listaroles',
@@ -15,10 +17,24 @@ export class ListarolesComponent implements OnInit {
 
   public cargando:boolean = false;
 
-  constructor(private routerPrd:Router) { }
+  public arreglo:any = [];
+
+  constructor(private routerPrd:Router,private rolesPrd:RolesService) { }
 
   ngOnInit(): void {
-    console.log("Componente llamado");
+
+    this.cargando = true;
+    this.rolesPrd.getListaTodosSistema().subscribe(datos =>{
+      this.arreglo = datos.datos;
+      let columnas:Array<tabla> = [new tabla("nombreRol","Rol"),
+      new tabla("","Número de usuarios"),
+      new tabla("esActivo","Estatus")]
+      this.arreglotabla = {
+        columnas: columnas,
+        filas: this.arreglo
+      };
+      this.cargando = false;
+    });
   }
 
 
