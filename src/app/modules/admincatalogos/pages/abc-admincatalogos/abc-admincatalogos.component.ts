@@ -42,6 +42,13 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public tablaISR: boolean = false;
   public formGeneral: boolean = true;
   public subsidioISR: boolean = false;
+  public objEnviar: any = [];
+  public objdetrep: any = [];
+  public indPersonaFisica: boolean = false;
+  public indPersonaMoral: boolean = false;
+  public arregloValoresReferencia: any = [];
+  public valores: any = [];
+  public valorestab : any =[];
 
   public arreglotabla: any = {
     columnas: [],
@@ -63,109 +70,132 @@ export class ABCAdminCatalogosComponent implements OnInit {
     debugger;
 
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
-    let objdetrep = history.state.data == undefined ? {} : history.state.data;
+    this.objdetrep = history.state.data == undefined ? {} : history.state.data;
 
-    objdetrep = {
-      ...objdetrep,
+    this.objdetrep = {
+      ...this.objdetrep,
       //clave: this.idCatalogo,
       //nombreCorto: this.descripcion,
-      esActivo: objdetrep.esActivo,
-      tipoPersona: objdetrep.indPersonaFisica,
-      valorReferencia: "A"
+      esActivo: this.objdetrep.esActivo,
+      tipoPersona: this.objdetrep.indPersonaFisica
     };
         
     if(this.detCatalogos.listaCatalogosId == 1){
         this.catBanco();
-        this.idCatalogo = objdetrep.codBanco;
-        this.descripcion = objdetrep.nombreCorto;
+        this.idCatalogo = this.objdetrep.codBanco;
+        this.descripcion = this.objdetrep.nombreCorto;
         
     }
 
     else if(this.detCatalogos.listaCatalogosId == 13){
       debugger;
-      this.idCatalogo = objdetrep.facultadPoderId;
-      this.descripcion = objdetrep.descripcion;
+      this.idCatalogo = this.objdetrep.facultadPoderId;
+      this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 9){
-      this.idCatalogo = objdetrep.motivoBajaId;
-      this.descripcion = objdetrep.descripcion;
+      this.idCatalogo = this.objdetrep.motivoBajaId;
+      this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 12){
       debugger;
-      this.idCatalogo = objdetrep.clave;
-      this.descripcion = objdetrep.descripcion;
+      this.idCatalogo = this.objdetrep.clave;
+      this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 11){
       debugger;
-      this.idCatalogo = objdetrep.clave;
-      this.descripcion = objdetrep.descripcion;
+      this.idCatalogo = this.objdetrep.clave;
+      this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 8){
-      this.idCatalogo = objdetrep.tipoRegimenContratacionId;
-      this.descripcion = objdetrep.descripcion;
+      this.idCatalogo = this.objdetrep.tipoRegimenContratacionId;
+      this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 6){
       debugger;
-      this.idCatalogo = objdetrep.clave;
-      this.descripcion = objdetrep.descripcion;
-      objdetrep.tipoPersona = objdetrep.indPersonaFisica == true  ?"indPersonaFisica":"indPersonaMoral";
-      objdetrep.esActivo = objdetrep.activo;
+      this.idCatalogo = this.objdetrep.clave;
+      this.descripcion = this.objdetrep.descripcion;
+      this.objdetrep.tipoPersona = this.objdetrep.indPersonaFisica == true  ?"indPersonaFisica":"indPersonaMoral";
+      this.objdetrep.esActivo = this.objdetrep.activo;
 
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 7){
-      this.idCatalogo = objdetrep.tipoContratoId;
-      this.descripcion = objdetrep.descripcion;
+      this.idCatalogo = this.objdetrep.tipoContratoId;
+      this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 5){
-      this.idCatalogo = objdetrep.tipoDeduccionId;
-      this.descripcion = objdetrep.descripcion;
+      this.idCatalogo = this.objdetrep.tipoDeduccionId;
+      this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 10){
-      this.idCatalogo = objdetrep.tipoIncapacidadId;
-      this.descripcion = objdetrep.descripcion;
+      this.idCatalogo = this.objdetrep.tipoIncapacidadId;
+      this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 4){
-      objdetrep.integraSdi = objdetrep.integraSdi == "S"  ? true : false;
-      objdetrep.integraIsr = objdetrep.integraIsr == "S"  ? true : false;
-      objdetrep.integraIsn = objdetrep.integraIsn == "S"  ? true : false;
-      this.idCatalogo = objdetrep.tipoPercepcionId;
-      this.descripcion = objdetrep.descripcion;
+      this.objdetrep.integraSdi = this.objdetrep.integraSdi == "S"  ? true : false;
+      this.objdetrep.integraIsr = this.objdetrep.integraIsr == "S"  ? true : false;
+      this.objdetrep.integraIsn = this.objdetrep.integraIsn == "S"  ? true : false;
+      this.idCatalogo = this.objdetrep.tipoPercepcionId;
+      this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 15){
-      this.idCatalogo = objdetrep.clave;
-      this.descripcion = objdetrep.tipoValorReferenciaId?.descripcion;
+      this.idCatalogo = this.objdetrep.clave;
+      this.descripcion = this.objdetrep.tipoValorReferenciaId?.descripcion;
+      this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => this.arregloValoresReferencia = datos.datos);
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
       debugger;
       this.clave();
-      this.adminCatalogosPrd.getListaTarifaISR(objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
+      this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
      
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
       debugger;
       this.clave();
-      this.adminCatalogosPrd.getListaSubcidioISR(objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
+      this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
      
     }
-
-
+    else if(this.detCatalogos.listaCatalogosId == 2){
+      this.idCatalogo = this.objdetrep.clave;
+      this.descripcion = this.objdetrep.descripcion;
+      this.clave();
+    }
+    else if(this.detCatalogos.listaCatalogosId == 14){
+      this.idCatalogo = this.objdetrep.clave;
+      this.descripcion = this.objdetrep.descripcion;
+      this.clave();
+    }
+    else if(this.detCatalogos.listaCatalogosId == 20){
+      this.idCatalogo = this.objdetrep.clave;
+      this.descripcion = this.objdetrep.descripcion;
+      this.clave();
+    }
+    else if(this.detCatalogos.listaCatalogosId == 3){
+      this.idCatalogo = this.objdetrep.clave;
+      this.descripcion = this.objdetrep.descripcion;
+      this.clave();
+    }
+    else if(this.detCatalogos.listaCatalogosId == 16){
+      this.idCatalogo = this.objdetrep.clave;
+      this.descripcion = this.objdetrep.descripcion;
+      this.clave();
+    }
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
 
 
-    this.myForm = this.createForm((objdetrep));
+    this.myForm = this.createForm((this.objdetrep));
 
 
   }
@@ -187,10 +217,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
       tipoConcepto: [obj.tipoConcepto],
       tipoPeriodicidad: [obj.tipoPeriodicidad],
       razonSocial: [obj.razonSocial],
-      valorReferencia: [obj.valorReferencia],
+      valorReferencia: [this.objdetrep.tipoValorReferenciaId?.tipoValorReferenciaId],
       tipoPersona: [obj.tipoPersona],
       nombreCorto: [this.descripcion],
-      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
+      esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }],
 
 
     });
@@ -230,6 +260,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
       else if(this.detCatalogos.listaCatalogosId == 18){
         this.descripcionGeneral = false;
         this.formGeneral = false;
+
+      }
+      else if(this.detCatalogos.listaCatalogosId == 13 || this.detCatalogos.listaCatalogosId == 2 || this.detCatalogos.listaCatalogosId == 11 || this.detCatalogos.listaCatalogosId == 10 || this.detCatalogos.listaCatalogosId == 16){
 
       }
       else{
@@ -284,7 +317,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public enviarPeticion() {
-
+    debugger;
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -295,23 +328,20 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
 
-        let obj = this.myForm.value;
-
-        let objEnviar: any = {
-          bancoId: 0,
-          codBanco: "string",
-          nombreCorto: "string",
-          convenio: "string",
-          razonSocial: "string",
-          fechaInicio: "2021-05-26T23:49:11.290Z",
-          esActivo: true,
-          fechaAlta: "2021-05-26T23:49:11.290Z",
-          fechaFin: "2021-05-26T23:49:11.290Z"
-        }
+        let obj = this.myForm.getRawValue();
+        if(this.detCatalogos.listaCatalogosId == 1){
+          this.objEnviar = {
+            codBanco: obj.codBanco,
+            nombreCorto: obj.nombreCorto,
+            razonSocial: obj.razonSocial,
+            fechaInicio: this.objdetrep.fechaInicio,
+            esActivo: obj.esActivo,
+            fechaAlta: this.objdetrep.fechaAlta
+          }
 
         if (this.insertar) {
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          this.adminCatalogosPrd.save(objEnviar).subscribe(datos => {
+          this.adminCatalogosPrd.saveBanco(this.objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
@@ -323,21 +353,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
         } else {
 
-          let objEnviarMod: any = {
-            areaId: obj.areaId,
-            descripcion: "",
-            nombreCorto: "",
-            centrocClienteId: "",
-            nclPuestoDto:
-              [{
-                puestoId: "",
-                descripcion: obj.puesto,
-                nombreCorto: obj.puesto,
-                centrocClienteId: "",
-              }]
-          }
+          this.objEnviar.bancoId = this.objdetrep.bancoId;
+
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          this.adminCatalogosPrd.modificar(objEnviarMod).subscribe(datos => {
+          this.adminCatalogosPrd.modificarBanco(this.objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
@@ -347,6 +366,774 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
           });
         }
+          
+        
+        }
+    
+        else if(this.detCatalogos.listaCatalogosId == 13){
+          debugger;
+          this.objEnviar = {
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveFacultad(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              facultadPoderId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo
+            }
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarFacultad(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 12){
+                   
+          debugger;
+          this.objEnviar = {
+            clave: obj.clave,
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveParentesco(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              parentescoId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarParentesco(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 11){
+
+          debugger;
+          this.objEnviar = {
+
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+            esIncidencia: true
+
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveTipoIncidencia(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              tipoIncidenciaId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esIncidencia: true,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarTipoIncidencia(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 8){
+
+          debugger;
+          this.objEnviar = {
+            tipoRegimenContratacionId: obj.clave,
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveRegimenContratacion(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              tipoRegimenContratacionId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarRegimenContratacion(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 6){
+          debugger;
+          let fechar = "";
+          if (obj.fecInicio != undefined || obj.fecInicio != null) {
+      
+            if (obj.fecInicio != "") {
+      
+              const fecha1 = new Date(obj.fecInicio).toUTCString().replace("GMT", "");
+              fechar = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          if(obj.tipoPersona == "indPersonaMoral"){this.indPersonaMoral = true}
+          if(obj.tipoPersona == "indPersonaFisica"){this.indPersonaFisica = true}
+
+          this.objEnviar = {
+            regimenfiscalId: obj.clave,
+            descripcion: obj.nombreCorto,
+            indPersonaFisica: this.indPersonaFisica,
+            indPersonaMoral: this.indPersonaMoral,
+            fecInicio: fechar,
+            activo: obj.esActivo
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveRegimenFiscal(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+  
+ 
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarRegimenFiscal(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+    
+        }
+
+        else if(this.detCatalogos.listaCatalogosId == 14){
+
+          debugger;
+          this.objEnviar = {
+            funcionCuentaId: obj.clave,
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveFuncionCuenta(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              funcionCuentaId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarFuncionCuenta(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+    
+        }
+        else if (this.detCatalogos.listaCatalogosId == 3){
+         
+          debugger;
+          this.objEnviar = {
+            monedaId: obj.clave,
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveMoneda(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              monedaId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarMoneda(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+
+
+        }
+        else if(this.detCatalogos.listaCatalogosId == 7){
+          
+          debugger;
+          this.objEnviar = {
+            
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveTipoContrato(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              tipoContratoId: obj.clave,
+              descripcion: obj.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarTipoContrato(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 5){
+          debugger;
+          this.objEnviar = {
+            tipoDeduccionId: obj.clave,
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveTipoDeduccion(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+              descripcion: obj.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarMotivoBaja(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+
+        }
+        else if(this.detCatalogos.listaCatalogosId == 9){
+          debugger;
+          this.objEnviar = {
+            motivoBajaId: obj.clave,
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveMotivoBaja(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              motivoBajaId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarMotivoBaja(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 20){
+
+          debugger;
+          this.objEnviar = {
+            metodoPagoId: obj.clave,
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveMetodoPago(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              metodoPagoId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarMetodoPago(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+        
+        }
+
+        else if(this.detCatalogos.listaCatalogosId == 2){
+          debugger;
+          this.objEnviar = {
+
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveNacionalidad(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              nacionalidadId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+
+ 
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarNacionalidad(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+        }
+        else if(this.detCatalogos.listaCatalogosId == 10){
+          debugger;
+          this.objEnviar = {
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+            esIncidencia: true
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveTipoIncapacidad(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              tipoIncapacidadId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo,
+              esIncidencia : true
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarTipoIncapacidad(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 4){
+          debugger;
+          if(obj.integraSdi == true){obj.integraSdi= "S"}else{obj.integraSdi= "N"}
+          if(obj.integraIsr == true){obj.integraIsr= "S"}else{obj.integraIsr= "N"}
+          if(obj.integraIsn == true){obj.integraIsn= "S"}else{obj.integraIsn= "N"}
+          this.objEnviar = {
+              tipoPercepcionId: obj.clave,
+              descripcion: obj.nombreCorto,
+              fechaInicio: this.objdetrep.fechaInicio,
+              esActivo: obj.esActivo,
+              tipoConcepto: obj.tipoConcepto,
+              integraSdi: obj.integraSdi,
+              tipoPeriodicidad: obj.tipoPeriodicidad,
+              integraIsr: obj.integraIsr,
+              integraIsn: obj.integraIsn
+            }
+          
+        if (this.insertar) {
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.adminCatalogosPrd.saveTipoPercepcion(this.objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+              }
+            });
+
+          });
+
+        } else {
+
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.adminCatalogosPrd.modificarTipoPercepcion(this.objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+              }
+            });
+
+          });
+        }
+        }
+        else if(this.detCatalogos.listaCatalogosId == 16){
+          debugger;
+          this.objEnviar = {
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveValorReferencia(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              tipoValorReferenciaId: obj.clave,
+              descripcion: obj.nombreCorto,
+              nombreCorto: this.objdetrep.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarValorReferencia(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 15){
+          debugger;
+          let fecha = new Date();
+          let anio = fecha.getFullYear();
+          let fechainicio = "";
+          let fechafin = "";
+          if (obj.fechaFin != undefined || obj.fechaFin != null) {
+      
+            if (obj.fechaFin != "") {
+              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
+              fechafin = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          
+          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
+      
+            if (obj.fechaInicio != "") {
+              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
+              fechainicio = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          this.objEnviar = {
+            valor: obj.valor,
+            fechaFin: fechafin,
+            fechaInicio: fechainicio,
+            esActivo: obj.esActivo,
+            tipoValorReferenciaId: {
+              tipoValorReferenciaId: obj.valorReferencia,
+            },
+            anioLey: {
+              anioLey: anio,
+            },
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveReferencia(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+
+            this.objEnviar.valorReferenciaId = obj.clave;
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarReferencia(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 17){
+          debugger;
+          for(let item of this.arregloTablaValores){
+            this.valores = 
+              {
+                tarifaPeriodicaIsrId: item.tarifaPeriodicaIsrId,
+                limiteInferior: item.limiteInferior,
+                limiteSuperior: item.limiteSuperior,
+                cuotaFija: item.cuotaFija,
+                porcExcedenteLimInf: item.porcExcedenteLimInf
+              }
+              this.valorestab.push(this.valores);
+
+            }
+          this.objEnviar = {
+              descripcion: obj.nombreCorto,
+              esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveValorReferencia(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              valoresTablaPeriodicaISR: this.valorestab
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarValorReferencia(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+
+    
+        }
+        else if(this.detCatalogos.listaCatalogosId == 18){
+    
+        }
+
       }
     });
   }

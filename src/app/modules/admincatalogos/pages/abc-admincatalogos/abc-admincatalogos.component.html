@@ -76,8 +76,9 @@
   <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
     <label for="exampleFormControlSelect1">Tipo de valor de referancia *</label>
     <select formControlName="valorReferencia" class="form-control">
-        <option value="A"></option>
-    </select>
+      <option value=""></option>
+      <option *ngFor="let item of arregloValoresReferencia"  [value]="item.tipoValorReferenciaId">{{item.descripcion}}</option>
+  </select>
   </div>
   <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
     <label>Valor *</label>
@@ -193,7 +194,7 @@
 <div class="text-center margin" style="margin-bottom: 20px;">
 
   <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-  <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+  <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
 </div>
 
 </div>
@@ -238,7 +239,7 @@
   <div class="text-center margin" style="margin-bottom: 20px;">
   
     <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-    <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+    <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
   </div>
   
   </div>
