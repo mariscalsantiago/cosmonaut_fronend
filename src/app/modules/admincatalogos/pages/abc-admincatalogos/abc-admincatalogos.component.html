@@ -96,7 +96,48 @@
 
   </div>
 
- 
+  <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label for="exampleFormControlSelect1">Periodicidad pago *</label>
+    <select formControlName="PeriodicidadPago" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let item of arregloTablaValores"  [value]="item.periodicidadPagoId.periodicidadPagoId">{{item.descripcion}}</option>
+  </select>
+  </div>
+  <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Límite inferior *</label>
+    <input formControlName="limiteInferior" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Límite superior *</label>
+    <input formControlName="limiteSuperior" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Couta fija *</label>
+    <input formControlName="cuotaFija" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Porcentaje Excedente *</label>
+    <input formControlName="porcExcedenteLimInf" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  
+  <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Fecha inicio *</label>
+    <input formControlName="fechaInicio" type="date" class="form-control">
+
+  </div>
+  <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Fecha fin *</label>
+    <input formControlName="fechaFin" type="date" class="form-control">
+
+  </div>
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Estatus</label>
             <select name=""  class="form-control" formControlName="esActivo">

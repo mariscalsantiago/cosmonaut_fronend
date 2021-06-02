@@ -50,7 +50,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public arregloValoresReferencia: any = [];
   public valores: any = [];
   public valorestab : any =[];
-  //public nuevatablaISR : boolean = false;
+  public nuevatablaISR : boolean = false;
   
   public arreglotabla: any = {
     columnas: [],
@@ -261,7 +261,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       else if(this.detCatalogos.listaCatalogosId == 17){
         this.descripcionGeneral = false;
         this.formGeneral = true;
-        //this.nuevatablaISR = true;
+        this.nuevatablaISR = true;
 
       }
       else if(this.detCatalogos.listaCatalogosId == 18){
