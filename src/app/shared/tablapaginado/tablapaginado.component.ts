@@ -91,11 +91,11 @@ export class TablapaginadoComponent implements OnInit {
     
 
 
-      console.log("Esto son los extra",this.datosExtras);
-      console.log("Esto son los extra",this.arreglo);
+      
+      
       
     if (this.datos.filas !== undefined) {
-console.log("datos dilas");
+
 
       this.arreglotemp = this.datos.filas;
 
@@ -290,7 +290,7 @@ console.log("datos dilas");
   public btnDesglosar(item: any, indice: number) {
 
     if (item.desglosarDown) {
-      console.log("Esta desglosando",item);
+      
       for (let item of this.datos.filas) {
         item.desglosarDown = true;
         item.cargandoDetalle = false;

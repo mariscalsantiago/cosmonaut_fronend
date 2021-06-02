@@ -29,7 +29,7 @@ export class DetalleRolesComponent implements OnInit {
       this.cargando = false;
       this.arreglo = datos;
       this.arreglo.forEach(valor => { valor.seleccionado = false });
-      console.log("Este es el arreglo", this.arreglo);
+      
     });
   }
 

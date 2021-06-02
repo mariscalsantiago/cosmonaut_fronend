@@ -52,6 +52,7 @@ export class ListaEmpresasComponent implements OnInit {
 
       this.arreglo = datos.datos;
       
+      console.log("entra una vez a empresa");
 
       if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
           this.arreglo = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]

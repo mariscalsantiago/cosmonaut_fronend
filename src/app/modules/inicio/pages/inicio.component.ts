@@ -23,9 +23,9 @@ export class InicioComponent implements OnInit {
     // {mode:"no-cors"}).then((dato)=>{
 
     //   let aux = dato;
-    //   console.log(dato);
+    //   
     //   aux.blob().then((b)=>{
-    //     console.log(b);
+    //     
 
     //     let elemento = document.createElement("a")
     //     elemento.href = URL.createObjectURL(b);

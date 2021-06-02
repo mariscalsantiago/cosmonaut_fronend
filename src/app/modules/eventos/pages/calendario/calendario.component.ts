@@ -147,7 +147,7 @@ export class CalendarioComponent implements OnInit {
   }
 
 
-  console.log(arrayFiltrado);
+  
    this.eventos = [];
    Object.values(this.eventosCopia).forEach((valor:any) =>{
      if(arrayFiltrado.includes(valor.tipoIncidenciaId)){
