@@ -24,6 +24,9 @@ export class ReportesService {
     return this.http.post(`${direcciones.reportes}/empleado/perfil/personal`,json,httpOptions);
   }
 
+  public getDescargaListaEmpleados(id_empresa:number):Observable<any>{
+    return this.http.get(`${direcciones.reportes}/cargaMasiva/layoutListaEmpleado/${id_empresa}`);
+ }
 
   public getComprobanteFiscal(obj:any):Observable<any>{
     const httpOptions = {

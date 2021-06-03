@@ -63,12 +63,12 @@ export class VentanaSubirDocumentoComponent implements OnInit {
 
   public validarTipoDocumento(idDocumento:any){
     
-    if(idDocumento=='9'){
+    /*if(idDocumento=='9'){
 
       this.nomDocumento = true;
     }else{
       this.nomDocumento = false;
-    }
+    }*/
   }
 
 
