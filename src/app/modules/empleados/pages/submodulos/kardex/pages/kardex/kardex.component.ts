@@ -53,7 +53,7 @@ export class KardexComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
 
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
@@ -156,7 +156,7 @@ export class KardexComponent implements OnInit {
   }
 
   public filtrar(){
-    debugger;
+    
     if(this.tipoMovimineto !== ""){
     for(let item of this.arreglo){
       if(item.movimiento == this.tipoMovimineto)

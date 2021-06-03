@@ -33,9 +33,22 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
     this.myForm = this.createForms({});
+
+    this.suscribirse();
     this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => this.arregloIncidenciaTipo = datos.datos);
     this.catalogosPrd.getTipoIncapacidad(true).subscribe(datos => this.arregloTipoIncapacidad = datos.datos);
-    this.catalogosPrd.getUnidadMedida(true).subscribe(datos => this.arregloUnidadMedida = datos.datos);
+    this.catalogosPrd.getUnidadMedida(true).subscribe(datos => {
+      this.arregloUnidadMedida = [];
+      if(datos.datos){        
+        for(let item of datos.datos){
+            if(item.unidadMedidaId == 2){
+              continue;
+            }
+            this.arregloUnidadMedida.push(item);
+          }
+      }
+
+    });
     let objenviar = {
       centrocClienteId: {
         centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
@@ -47,6 +60,28 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   }
 
+
+  public suscribirse(){
+    this.myForm.controls.unidadmedida.valueChanges.subscribe(valor =>{
+      
+      switch(valor){
+          case "1":
+              this.myForm.controls.numerohoras.setValidators([Validators.required]);
+              this.myForm.controls.numerohoras.updateValueAndValidity();
+
+              this.myForm.controls.monto.clearValidators();
+            this.myForm.controls.monto.updateValueAndValidity();
+            break;
+          case "3":
+
+            this.myForm.controls.numerohoras.clearValidators();
+            this.myForm.controls.numerohoras.updateValueAndValidity();
+            this.myForm.controls.monto.setValidators([Validators.required]);
+            this.myForm.controls.monto.updateValueAndValidity();
+            break;
+      }
+    });
+  }
   public createForms(obj: any) {
     var datePipe = new DatePipe("es-MX");
     return this.formbuilder.group({
@@ -144,6 +179,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.fechaFin;
         delete objEnviar.monto;
         delete objEnviar.urlArchivo;
+        delete objEnviar.archivo;
         delete objEnviar.numeroFolio;
         delete objEnviar.unidadmedida;
         delete objEnviar.numerohoras;
@@ -156,6 +192,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.numerohoras;
         delete objEnviar.unidadmedida;
         delete objEnviar.urlArchivo;
+        delete objEnviar.archivo;
         delete objEnviar.fechaFin;
         delete objEnviar.tipoIncapacidadId;
         break;
@@ -164,6 +201,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.duracion;
         delete objEnviar.numeroFolio;
         delete objEnviar.urlArchivo;
+        delete objEnviar.archivo;
         delete objEnviar.fechaFin;
         delete objEnviar.tipoIncapacidadId;
         break;
@@ -179,13 +217,22 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.numerohoras;
         delete objEnviar.unidadmedida;
         delete objEnviar.urlArchivo;
+        delete objEnviar.archivo;
         delete objEnviar.fechaFin;
+
+        objEnviar.unidadMedidaId = {
+          unidadMedidaId:obj.unidadmedida
+        }
+
+        objEnviar.heTiempo = obj.numerohoras;
+
         break;
       case 8:
         delete objEnviar.tipoIncapacidadId;
         delete objEnviar.fechaFin;
         delete objEnviar.duracion;
         delete objEnviar.urlArchivo;
+        delete objEnviar.archivo;
         delete objEnviar.numeroFolio;
         delete objEnviar.unidadmedida;
         delete objEnviar.numerohoras;

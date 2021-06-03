@@ -144,7 +144,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
       if (valor) {
 
         let obj = this.myFormrep.value;
-        debugger;
+        
         if (obj.esActivo == 'true') {
           obj.esActivo = 'true'
         } else {
@@ -189,7 +189,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
           });
 
         } else {
-          debugger;
+          
           this.objEnviar.personaId = obj.personaId;
 
           this.apoderadoPrd.modificar(this.objEnviar).subscribe(datos => {
