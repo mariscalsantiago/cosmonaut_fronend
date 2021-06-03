@@ -69,7 +69,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data;
@@ -90,7 +90,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
     else if(this.detCatalogos.listaCatalogosId == 13){
-      debugger;
+      
       this.idCatalogo = this.objdetrep.facultadPoderId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
@@ -101,13 +101,13 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 12){
-      debugger;
+      
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 11){
-      debugger;
+      
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
@@ -118,7 +118,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 6){
-      debugger;
+      
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.objdetrep.tipoPersona = this.objdetrep.indPersonaFisica == true  ?"indPersonaFisica":"indPersonaMoral";
@@ -156,13 +156,13 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
-      debugger;
+      
       this.clave();
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
      
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
-      debugger;
+      
       this.clave();
       this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
      
@@ -319,13 +319,13 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public redirect(obj: any) {
-    debugger;
+    
     this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
   }
 
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -379,7 +379,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
     
         else if(this.detCatalogos.listaCatalogosId == 13){
-          debugger;
+          
           this.objEnviar = {
             descripcion: obj.nombreCorto,
             esActivo: obj.esActivo,
@@ -420,7 +420,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 12){
                    
-          debugger;
+          
           this.objEnviar = {
             clave: obj.clave,
             descripcion: obj.nombreCorto,
@@ -464,7 +464,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 11){
 
-          debugger;
+          
           this.objEnviar = {
 
             descripcion: obj.nombreCorto,
@@ -510,7 +510,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 8){
 
-          debugger;
+          
           this.objEnviar = {
             //tipoRegimenContratacionId: obj.clave,
             descripcion: obj.nombreCorto,
@@ -552,7 +552,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 6){
-          debugger;
+          
           let fechar = "";
           if (obj.fecInicio != undefined || obj.fecInicio != null) {
       
@@ -604,7 +604,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
         else if(this.detCatalogos.listaCatalogosId == 14){
 
-          debugger;
+          
           this.objEnviar = {
             funcionCuentaId: obj.clave,
             descripcion: obj.nombreCorto,
@@ -647,7 +647,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if (this.detCatalogos.listaCatalogosId == 3){
          
-          debugger;
+          
           this.objEnviar = {
             monedaId: obj.clave,
             descripcion: obj.nombreCorto,
@@ -691,7 +691,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 7){
           
-          debugger;
+          
           this.objEnviar = {
             
             descripcion: obj.nombreCorto,
@@ -733,7 +733,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 5){
-          debugger;
+          
           this.objEnviar = {
             tipoDeduccionId: obj.clave,
             descripcion: obj.nombreCorto,
@@ -772,7 +772,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
         }
         else if(this.detCatalogos.listaCatalogosId == 9){
-          debugger;
+          
           this.objEnviar = {
             motivoBajaId: obj.clave,
             descripcion: obj.nombreCorto,
@@ -815,7 +815,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 20){
 
-          debugger;
+          
           this.objEnviar = {
             metodoPagoId: obj.clave,
             descripcion: obj.nombreCorto,
@@ -858,7 +858,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
 
         else if(this.detCatalogos.listaCatalogosId == 2){
-          debugger;
+          
           this.objEnviar = {
 
             descripcion: obj.nombreCorto,
@@ -899,7 +899,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
           }
         }
         else if(this.detCatalogos.listaCatalogosId == 10){
-          debugger;
+          
           this.objEnviar = {
             descripcion: obj.nombreCorto,
             esActivo: obj.esActivo,
@@ -942,7 +942,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 4){
-          debugger;
+          
           if(obj.integraSdi == true){obj.integraSdi= "S"}else{obj.integraSdi= "N"}
           if(obj.integraIsr == true){obj.integraIsr= "S"}else{obj.integraIsr= "N"}
           if(obj.integraIsn == true){obj.integraIsn= "S"}else{obj.integraIsn= "N"}
@@ -985,7 +985,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         }
         else if(this.detCatalogos.listaCatalogosId == 16){
-          debugger;
+          
           this.objEnviar = {
             descripcion: obj.nombreCorto,
             esActivo: obj.esActivo,
@@ -1026,7 +1026,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 15){
-          debugger;
+          
           let fecha = new Date();
           let anio = fecha.getFullYear();
           let fechainicio = "";
@@ -1088,7 +1088,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 17){
-          debugger;
+          
           for(let item of this.arregloTablaValores){
             this.valores = 
               {

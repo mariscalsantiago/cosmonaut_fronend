@@ -51,7 +51,7 @@ export class DocumentosComponent implements OnInit {
     });
 
     this.documentosPrd.getDocumentosEmpleado().subscribe(datos => this.arregloDocumentos = datos.datos);
-    debugger;
+    
     this.cargando = true;
     this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
         this.crearTabla(datos);
@@ -111,7 +111,7 @@ export class DocumentosComponent implements OnInit {
       
     }
     if (obj.type == "eliminar") {
-      debugger;
+      
       let mensaje = "¿Estás seguro de eliminar el documento? Al eliminarlo no podrá ser recuperado posteriormente";
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
       let idDocuemnto = obj.datos.documentosEmpleadoId;
@@ -133,7 +133,7 @@ export class DocumentosComponent implements OnInit {
   }
 
   public filtrar(){
-    debugger;
+    
     if(this.idTipoDocumento != 0){
     
       this.cargando = true;
@@ -150,7 +150,7 @@ export class DocumentosComponent implements OnInit {
   }
 
   public iniciarDescarga(obj:any) {
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
       this.documentosPrd.getDescargaDocEmpleado(obj.cmsArchivoId).subscribe(archivo => {

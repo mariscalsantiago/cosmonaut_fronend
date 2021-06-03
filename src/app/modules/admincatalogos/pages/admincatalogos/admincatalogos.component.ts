@@ -65,7 +65,7 @@ export class AdminCatalogosComponent implements OnInit {
 
     this.tamanio = documento.innerWidth;
     this.cargando = true;
-    debugger;
+    
       this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => {
       this.procesarTabla(datos);
     });
@@ -103,7 +103,7 @@ export class AdminCatalogosComponent implements OnInit {
 
 
   public verdetalle(obj: any) {
-      debugger;
+      
       this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', "detalle"],{state:{data:obj}});
   }
 
