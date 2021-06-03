@@ -31,6 +31,7 @@ import { VentanaSubcidioComponent } from './ventanasemergentes/tiposventanas/ven
 import { TagComponent } from './tag/tag.component';
 import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemergentes/tiposventanas/ventana-nominanuevafiniquitoliquidacion/ventana-nominanuevafiniquitoliquidacion.component';
 import { FormatosDirective } from './directivas/formatos.directive';
+import { EditarmensajeChatComponent } from './ventanasemergentes/tiposventanas/editarmensaje-chat/editarmensaje-chat.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { FormatosDirective } from './directivas/formatos.directive';
     VentanaSubcidioComponent,
     TagComponent,
     VentanaNominaNuevaFiniquitoLiquidacionComponent,
-    FormatosDirective
+    FormatosDirective,
+    EditarmensajeChatComponent
 
   ],
   imports: [

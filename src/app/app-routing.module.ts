@@ -18,6 +18,7 @@ export const routes: Routes = [
   { path: 'eventos', component: ContenidoComponent, canActivate: [ProteccionRutasService], loadChildren: () => import('./modules/eventos/eventos.module').then(m => m.eventosModule) },
   { path: 'nominas', component: ContenidoComponent, canActivate: [ProteccionRutasService], loadChildren: () => import('./modules/nominas/nominas.module').then(m => m.nominasModule) },
   { path: 'rolesypermisos', component: ContenidoComponent, canActivate: [ProteccionRutasService], loadChildren: () => import('./modules/rolesypermisos/rolesypermisos.module').then(m => m.RolesypermisosModule) },
+  { path: 'chat', component: ContenidoComponent, canActivate: [ProteccionRutasService], loadChildren: () => import('./modules/chat/chats.module').then(m => m.ChatsModule) },
   { path: 'auth', component: AuthComponent, loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
   { path: '**', redirectTo: '/auth/login', pathMatch: 'full' }
 ]

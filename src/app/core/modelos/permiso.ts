@@ -1,5 +1,6 @@
 export interface permiso {
     permisoId?: number,
     descripcion?: string,
-    esActivo?: boolean
+    esActivo?: boolean,
+    checked?:boolean
 }

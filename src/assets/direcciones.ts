@@ -32,5 +32,7 @@ export const direcciones = {
     tablasValores: `${ipAdmin}/TablasValores`,
     adminCatalogo: `${ipAdmin}/adminCatalogo`,
     roles: `${ipAdmin}/rol`,
-    modulos: `${ipAdmin}/modulos`
+    modulos: `${ipAdmin}/modulos`,
+    permisos: `${ipAdmin}/permisos`,
+    chat: `${ip}/chat`
 };

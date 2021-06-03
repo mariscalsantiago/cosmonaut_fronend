@@ -20,6 +20,7 @@ export class VentanaemergenteService {
   public tablaisr:string = "tablaisr";
   public subcidio:string = "subcidio";
   public nuevanominafiniquitoliquidacion: string = "nuevanominafiniquitoliquidacion";
+  public mensajechat:string = "mensajechat";
 
   
 
@@ -47,7 +48,8 @@ export class VentanaemergenteService {
     tablaisr:false,
     subcidio:false,
     nuevanominaextraordinaria:false,
-    nuevanominafiniquitoliquidacion: false
+    nuevanominafiniquitoliquidacion: false,
+    mensajechat:false
   }
 
   constructor() { }
@@ -118,6 +120,11 @@ export class VentanaemergenteService {
         this.mostrar.nuevanominafiniquitoliquidacion = true;
         this.emergente.titulo = "Nueva nómina finiquito/liquidación";
         break;
+        case this.mensajechat:
+
+          this.mostrar.mensajechat = true;
+        this.emergente.titulo = "Editar mensaje";
+          break;
 
           
     }

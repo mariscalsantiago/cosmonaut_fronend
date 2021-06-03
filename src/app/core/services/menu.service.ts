@@ -29,7 +29,7 @@ export class MenuService {
                                                                                 {nombre:"CALENDARIO",routerLink:["/eventos/calendario"],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"CARGA MASIVA",routerLink:[""],rol:["ALL","ADMINEMPRESA"]}
     ]},
-    { nombre: "CHAT", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[]},
+    { nombre: "CHAT", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:['/chat/bandeja']},
     { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"IDSE",routerLink:['/imss/idse'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"SUA",routerLink:['/imss/sua'],rol:["ALL","ADMINEMPRESA"]},

@@ -37,6 +37,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public tablabeneficios: boolean = false;
   @Input() public timbrado: boolean = false;
   @Input() public llave:boolean = false;
+  @Input() public chat:boolean = false;
 
   @Input() public icondefault: string = "default";
 
