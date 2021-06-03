@@ -138,6 +138,87 @@
     <input formControlName="fechaFin" type="date" class="form-control">
 
   </div>
+
+  <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label for="exampleFormControlSelect1">Periodicidad pago *</label>
+    <select formControlName="PeriodicidadPago" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let item of arregloPeriodicidad"  [value]="item.periodo">{{item.tabla}}</option>
+  </select>
+  </div>
+  <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Límite inferior *</label>
+    <input formControlName="limiteInferior" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Límite superior *</label>
+    <input formControlName="limiteSuperior" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Monto subsidio *</label>
+    <input formControlName="montoSubsidio" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  
+  <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Fecha inicio *</label>
+    <input formControlName="fechaInicio" type="date" class="form-control">
+
+  </div>
+  <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Fecha fin *</label>
+    <input formControlName="fechaFin" type="date" class="form-control">
+
+  </div>
+ 
+  <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label for="exampleFormControlSelect1">Entidad federativa *</label>
+    <select formControlName="PeriodicidadPago" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let item of arregloPeriodicidad"  [value]="item.estadoId">{{item.estado}}</option>
+  </select>
+  </div>
+  <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Límite inferior *</label>
+    <input formControlName="limiteInferior" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Límite superior *</label>
+    <input formControlName="limiteSuperior" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Cuota Fija *</label>
+    <input formControlName="cuotaFija" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+    <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Tasa *</label>
+    <input formControlName="tasa" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+      <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Marco jurídico *</label>
+    <input formControlName="referenciaMarcoJuridico" type="text" class="form-control"
+         placeholder="" >
+
+  </div>
+  
+  <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+    <label>Fecha inicio *</label>
+    <input formControlName="fechaInicio" type="date" class="form-control">
+
+  </div>
  
           <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label>Estatus</label>
@@ -242,30 +323,34 @@
 
 </div>
 
-<div *ngIf="subsidioISR" >
+<div *ngIf="aplicableISN" >
   <div class="card margen margen-tabla background-panel ">
     <div class="form-group row margen">
-      <label class="titulo">TABLA SUBSIDIO ISR</label></div>
+      <label class="titulo">IMPUESTO SOBRE NOMINA</label></div>
     <div class="card-body">
     <div id="table" class="table-editable ">
   
       <table  *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
         <tr>
-          <th class="text-center" scope="col">Para ingresos de</th>
-          <th class="text-center" scope="col">Hasta ingresos de</th>
-          <th class="text-center" scope="col">Cantidad de subsidio para el empleo</th>
+          <th class="text-center" scope="col">Límite inferior</th>
+          <th class="text-center" scope="col">Límite superior</th>
+          <th class="text-center" scope="col">Cuota fija</th>
+          <th class="text-center" scope="col">Excedente %</th>
         </tr>
-        <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaIsrId = index">
+
+        <tr *ngFor="let valores of arregloTablaValores; let tasaAplicableIsnId = index">
           <td>
-            <span (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
+            <span (keyup)="changeValue(tasaAplicableIsnId, 'limiteInferior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
           </td>
           <td>
-            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'limiteSuperior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
           </td>
           <td>
-            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
+            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'cuotaFija', $event)" (blur)="updateList(tasaAplicableIsnId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
           </td>
-  
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'tasa', $event)" (blur)="updateList(tasaAplicableIsnId, 'tasa', $event)">{{valores.tasa}}</span>
+          </td>
         </tr>
   
       </table>
@@ -286,3 +371,48 @@
   </div>
   
   </div>
+
+  <div *ngIf="subsidioISR" >
+    <div class="card margen margen-tabla background-panel ">
+      <div class="form-group row margen">
+        <label class="titulo">TABLA SUBSIDIO ISR</label></div>
+      <div class="card-body">
+      <div id="table" class="table-editable ">
+    
+        <table  *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
+          <tr>
+            <th class="text-center" scope="col">Límite inferior</th>
+            <th class="text-center" scope="col">Límite superior</th>
+            <th class="text-center" scope="col">Cantidad de subsidio para el empleo</th>
+          </tr>
+          <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaSubsidioId = index">
+            <td>
+              <span (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
+            </td>
+    
+          </tr>
+    
+        </table>
+        <div *ngIf="!cargando && arregloTablaValores === undefined" class="alert col text-center">
+          <strong>En este momento no existen registros</strong>
+        </div>
+        <div *ngIf="cargando" class="col text-center mb-5">
+          <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    <div class="text-center margin" style="margin-bottom: 20px;">
+    
+      <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+      <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+    </div>
+    
+    </div>

@@ -52,7 +52,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public valorestab : any =[];
   public nuevatablaISR : boolean = false;
   public arregloPeriodicidad : any = [];
-  
+  public nuevatablaSubsidio : boolean = false;
+  public aplicableISN : boolean = false;
+  public nuevoaplicableISN : boolean = false;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -165,9 +168,16 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
       debugger;
-      this.clave();
       this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
-     
+      this.adminCatalogosPrd.getListaTablasSubsidioISR().subscribe(datos => this.arregloPeriodicidad = datos.datos);
+      this.clave();
+    }
+    else if(this.detCatalogos.listaCatalogosId == 19){
+      debugger;
+      this.descripcion = this.objdetrep.estado;
+      this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => this.arregloTablaValores = datos.datos);
+      this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => this.arregloPeriodicidad = datos.datos);
+      this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 2){
       this.idCatalogo = this.objdetrep.clave;
@@ -225,6 +235,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
       limiteSuperior:[obj.limiteSuperior],
       cuotaFija:[obj.cuotaFija],
       PeriodicidadPago:[],
+      montoSubsidio:[],
+      tasa:[],
+      referenciaMarcoJuridico:[],
       porcExcedenteLimInf:[obj.porcExcedenteLimInf],
       valorReferencia: [this.objdetrep.tipoValorReferenciaId?.tipoValorReferenciaId],
       tipoPersona: [obj.tipoPersona],
@@ -269,7 +282,14 @@ export class ABCAdminCatalogosComponent implements OnInit {
       }
       else if(this.detCatalogos.listaCatalogosId == 18){
         this.descripcionGeneral = false;
-        this.formGeneral = false;
+        this.formGeneral = true;
+        this.nuevatablaSubsidio = true;
+
+      }
+      else if(this.detCatalogos.listaCatalogosId == 19){
+        this.descripcionGeneral = false;
+        this.formGeneral = true;
+        this.nuevoaplicableISN = true;
 
       }
       else if(this.detCatalogos.listaCatalogosId == 13 || this.detCatalogos.listaCatalogosId == 2 || this.detCatalogos.listaCatalogosId == 11 || this.detCatalogos.listaCatalogosId == 10 || this.detCatalogos.listaCatalogosId == 16){
@@ -302,6 +322,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.descripcionGeneral = false;
         this.formGeneral = false;
         this.subsidioISR = true;
+      }
+      else if(this.detCatalogos.listaCatalogosId == 19){
+        this.descripcionGeneral = false;
+        this.formGeneral = false;
+        this.aplicableISN = true;
       }
       else{
         this.inactivaClave = true;
@@ -515,7 +540,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
           debugger;
           this.objEnviar = {
-            //tipoRegimenContratacionId: obj.clave,
+            tipoRegimenContratacionId: obj.clave,
             descripcion: obj.nombreCorto,
             esActivo: obj.esActivo,
           }
@@ -696,7 +721,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
           
           debugger;
           this.objEnviar = {
-            
+            tipoContratoId: obj.clave,
             descripcion: obj.nombreCorto,
             esActivo: obj.esActivo,
           }
@@ -1110,7 +1135,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
             }
           }
           this.objEnviar = {
-          
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
             cuotaFija: obj.cuotaFija,
@@ -1120,12 +1144,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
            },
            esActivo: obj.esActivo,
            fechaInicio: fechainicio,
-           fechaFin: fechainicio
+           fechaFin: fechafin
          }
           
           if (this.insertar) {
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.adminCatalogosPrd.saveValorReferencia(this.objEnviar).subscribe(datos => {
+            this.adminCatalogosPrd.saveTarifaPeriodicaISR(this.objEnviar).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                 if(datos.resultado){
@@ -1144,19 +1168,25 @@ export class ABCAdminCatalogosComponent implements OnInit {
                   limiteInferior: item.limiteInferior,
                   limiteSuperior: item.limiteSuperior,
                   cuotaFija: item.cuotaFija,
-                  porcExcedenteLimInf: item.porcExcedenteLimInf
+                  porcExcedenteLimInf: item.porcExcedenteLimInf,
+                  periodicidadPagoId: item.periodicidadPagoId,
+                  esActivo: item.esActivo,
+                  fechaInicio: item.fechaInicio,
+                  fechaFin: item.fechaFin
+
                 }
                 this.valorestab.push(this.valores);
   
               }
             this.objEnviar = {
 
-              valoresTablaPeriodicaISR: this.valorestab
+              valoresTablaPeriodicaISR: this.valorestab,
+
             }
   
   
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.adminCatalogosPrd.modificarValorReferencia(this.objEnviar).subscribe(datos => {
+            this.adminCatalogosPrd.modificarTarifaPeriodicaISR(this.objEnviar).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                 if(datos.resultado){
@@ -1169,7 +1199,171 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     
         }
+        else if(this.detCatalogos.listaCatalogosId == 19){
+
+          debugger;
+          let fechainicio = "";
+          let fechafin = "";
+          if (obj.fechaFin != undefined || obj.fechaFin != null) {
+      
+            if (obj.fechaFin != "") {
+              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
+              fechafin = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          
+          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
+      
+            if (obj.fechaInicio != "") {
+              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
+              fechainicio = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          this.objEnviar = {
+            limiteInferior: obj.limiteInferior,
+            limiteSuperior: obj.limiteSuperior,
+            cuotaFija: obj.cuotaFija,
+            tasa: obj.tasa,
+            referenciaMarcoJuridico: obj.referenciaMarcoJuridico,
+            cestado: {
+                estadoId: obj.PeriodicidadPago,
+            },
+           esActivo: obj.esActivo,
+           fechaInicio: fechainicio,
+
+         }
+          
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveAplicableISN(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+
+            for(let item of this.arregloTablaValores){
+              this.valores = 
+                {
+                  tasaAplicableIsnId: item.tasaAplicableIsnId,
+                  limiteInferior: item.limiteInferior,
+                  limiteSuperior: item.limiteSuperior,
+                  cuotaFija: item.cuotaFija,
+                  tasa: item.tasa,
+                  referenciaMarcoJuridico: item.referenciaMarcoJuridico,
+                  cestado: item.cestado,
+                  esActivo: item.esActivo,
+                  fechaInicio: item.fechaInicio,
+                  fechaFin: item.fechaFin
+
+                }
+                this.valorestab.push(this.valores);
+  
+              }
+            this.objEnviar = {
+
+              valoresTablaPeriodicaISR: this.valorestab,
+
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarAplicableISN(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+
+        }
         else if(this.detCatalogos.listaCatalogosId == 18){
+          debugger;
+          let fechainicio = "";
+          let fechafin = "";
+          if (obj.fechaFin != undefined || obj.fechaFin != null) {
+      
+            if (obj.fechaFin != "") {
+              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
+              fechafin = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          
+          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
+      
+            if (obj.fechaInicio != "") {
+              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
+              fechainicio = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          this.objEnviar = {
+            limiteInferior: obj.limiteInferior,
+            limiteSuperior: obj.limiteSuperior,
+            montoSubsidio: obj.montoSubsidio,
+            periodicidadPagoId: {
+             periodicidadPagoId: obj.PeriodicidadPago,
+           },
+           esActivo: obj.esActivo,
+           fechaInicio: fechainicio,
+           fechaFin: fechafin
+         }
+          
+          if (this.insertar) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveTarifaPeriodicaSubsidio(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+
+            for(let item of this.arregloTablaValores){
+              this.valores = 
+                {
+                  tarifaPeriodicaSubsidioId: item.tarifaPeriodicaSubsidioId,
+                  limiteInferior: item.limiteInferior,
+                  limiteSuperior: item.limiteSuperior,
+                  montoSubsidio: item.montoSubsidio,
+                  periodicidadPagoId: item.periodicidadPagoId,
+                  esActivo: item.esActivo,
+                  fechaInicio: item.fechaInicio,
+                  fechaFin: item.fechaFin
+
+                }
+                this.valorestab.push(this.valores);
+  
+              }
+            this.objEnviar = {
+
+              valoresTablaPeriodicaISR: this.valorestab,
+
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarTarifaPeriodicaSubsidio(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
     
         }
 
