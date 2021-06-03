@@ -332,6 +332,44 @@ export class VentanaDeduccionesComponent implements OnInit {
         if(valor){
           let  obj = this.myForm.getRawValue();
 
+
+          let fechaIniDesc = "";
+          if (obj.fechaInicioDescto != undefined || obj.fechaInicioDescto != null) {
+      
+            if (obj.fechaInicioDescto != "") {
+      
+              const fecha1 = new Date(obj.fechaInicioDescto).toUTCString().replace("GMT", "");
+              fechaIniDesc = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          let fechaFinDesc = "";
+          if (obj.fechaFinDescuento != undefined || obj.fechaFinDescuento != null) {
+      
+            if (obj.fechaFinDescuento != "") {
+      
+              const fecha1 = new Date(obj.fechaFinDescuento).toUTCString().replace("GMT", "");
+              fechaFinDesc = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          let fechaRecepAviRetencion = "";
+          if (obj.fechaRecepcionAvisoRetencion != undefined || obj.fechaRecepcionAvisoRetencion != null) {
+      
+            if (obj.fechaRecepcionAvisoRetencion != "") {
+      
+              const fecha1 = new Date(obj.fechaRecepcionAvisoRetencion).toUTCString().replace("GMT", "");
+              fechaRecepAviRetencion = `${new Date(fecha1).getTime()}`;
+            }
+          }
+          let fechaRecAviSuspension = "";
+          if (obj.fechaRecepcionAvisoSuspension != undefined || obj.fechaRecepcionAvisoSuspension != null) {
+      
+            if (obj.fechaRecepcionAvisoSuspension != "") {
+      
+              const fecha1 = new Date(obj.fechaRecepcionAvisoSuspension).toUTCString().replace("GMT", "");
+              fechaRecAviSuspension = `${new Date(fecha1).getTime()}`;
+            }
+          }
+
           if(this.esInsert){
           this.objEnviar = {
             tipoDeduccionId: {
@@ -353,16 +391,16 @@ export class VentanaDeduccionesComponent implements OnInit {
               baseCalculoId: obj.baseCalculoId
             },
             valor: obj.valor,
-            fechaInicioDescto: obj.fechaInicioDescto,
+            fechaInicioDescto: fechaIniDesc,
             numeroFolio: obj.numeroFolio,
             montoTotal: obj.montoTotal,
             numeroCuotas: obj.numeroCuotas,
             interesPorcentaje: obj.interesPorcentaje,
-            fechaFinDescuento: obj.fechaFinDescuento,
+            fechaFinDescuento: fechaFinDesc,
             folioAvisoRetencion: obj.folioAvisoRetencion,
-            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
+            fechaRecepcionAvisoRetencion: fechaRecepAviRetencion,
             folioAvisoSuspension: obj.folioAvisoSuspension,
-            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
+            fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
@@ -397,16 +435,16 @@ export class VentanaDeduccionesComponent implements OnInit {
               baseCalculoId: obj.baseCalculoId
             },
             valor: obj.valor,
-            fechaInicioDescto: obj.fechaInicioDescto,
+            fechaInicioDescto: fechaIniDesc,
             numeroFolio: obj.numeroFolio,
             montoTotal: obj.montoTotal,
             numeroCuotas: obj.numeroCuotas,
             interesPorcentaje: obj.interesPorcentaje,
-            fechaFinDescuento: obj.fechaFinDescuento,
+            fechaFinDescuento: fechaFinDesc,
             folioAvisoRetencion: obj.folioAvisoRetencion,
-            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
+            fechaRecepcionAvisoRetencion: fechaRecepAviRetencion,
             folioAvisoSuspension: obj.folioAvisoSuspension,
-            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
+            fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
