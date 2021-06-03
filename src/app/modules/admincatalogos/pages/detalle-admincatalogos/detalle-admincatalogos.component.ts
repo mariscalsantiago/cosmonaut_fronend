@@ -137,7 +137,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     else if(this.objdetcat.listaCatalogosId == 19){
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
-        this.adminCatalogosPrd.getListaTasaAplicableISN(true).subscribe(datos => {
+        this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => {
         this.crearTabla(datos);
        });
 
@@ -266,6 +266,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       else if(item.tabla !== undefined){
         item.descripcion = item.tabla;
       }
+      else if(item.estado !== undefined){
+        item.descripcion = item.estado;
+      }
       else if(item.descripcion !== undefined){
         item.descripcion = item.descripcion;
       }else {
@@ -324,6 +327,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       }
       else if(item.tipoValorReferenciaId !== undefined){
         item.clave = item.tipoValorReferenciaId;
+      }
+      else if(item.estadoId !== undefined){
+        item.clave = item.estadoId;
       }
     }
     

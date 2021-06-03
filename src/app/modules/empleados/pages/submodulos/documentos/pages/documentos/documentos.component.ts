@@ -114,6 +114,7 @@ export class DocumentosComponent implements OnInit {
       
       let mensaje = "¿Estás seguro de eliminar el documento? Al eliminarlo no podrá ser recuperado posteriormente";
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
+      if(valor){
       let idDocuemnto = obj.datos.documentosEmpleadoId;
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
   
@@ -125,6 +126,7 @@ export class DocumentosComponent implements OnInit {
         });
         
       });
+    }
 
     });
       

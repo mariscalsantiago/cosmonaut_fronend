@@ -46,11 +46,17 @@ export class AdminCatalogosService {
   public getListaTablasSubsidioISR():Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/tablasSubsidioISR`);
   }
+  public getListaEstadosISN(): Observable<any> {
+    return this.http.get(`${direcciones.tablasValores}/listar/estadosISN`);
+  }
   public getListaTarifaISR(periodicidad:number):Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/tarifaISR/true/${periodicidad}`);
   }
   public getListaSubcidioISR(periodicidad:number):Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/tablaSubsidioIsr/true/${periodicidad}`);
+  }
+  public getListaAplicableISN(estado:number):Observable<any>{
+    return this.http.get(`${direcciones.tablasValores}/listar/tasaAplicableISN/true/${estado}`);
   }
   public getListaTasaAplicableISN(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catTasaAplicableIsn/listar/todosActivo/${estatus}`);
@@ -231,6 +237,36 @@ export class AdminCatalogosService {
     };
     let json: string = JSON.stringify(obj);
     return this.http.put(`${this.url}/catTipoValorReferencia/guardar`, json, httpOptions);
+  }
+  public saveTarifaPeriodicaISR(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/csTarifaPeriodicaIsr/guardar`, json, httpOptions);
+  }
+  public saveAplicableISN(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/catTasaAplicableIsn/guardar`, json, httpOptions);
+  }
+  public saveTarifaPeriodicaSubsidio(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${this.url}/csTarifaPeriodicaSubsidio/guardar`, json, httpOptions);
   }
   public saveTipoIncapacidad(obj: any): Observable<any> {
 
@@ -421,6 +457,41 @@ export class AdminCatalogosService {
     let json: string = JSON.stringify(obj);
   
     return this.http.post(`${this.url}/catTipoValorReferencia/modificar`, json, httpOptions);
+  }
+  public modificarTarifaPeriodicaISR(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTarifaPeriodicaIsr/modificar/multiple`, json, httpOptions);
+  }
+
+  public modificarAplicableISN(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catTasaAplicableIsn/modificar/multiple`, json, httpOptions);
+  }
+
+  public modificarTarifaPeriodicaSubsidio(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTarifaPeriodicaSubsidio/modificar/multiple`, json, httpOptions);
   }
   public modificarTipoIncapacidad(obj: any): Observable<any> {
 
