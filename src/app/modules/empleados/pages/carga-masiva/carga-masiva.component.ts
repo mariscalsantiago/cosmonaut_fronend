@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { EmpleadosService } from '../../services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { truncate } from 'fs';
 
 @Component({
@@ -22,6 +23,7 @@ export class CargaMasivaComponent implements OnInit {
   public submitEnviado: boolean = false;
   public cargandoIcon: boolean = false;
   public idEmpresa: number = 0;
+  public fileName: string = "";
   
   public obj: any = [];
 
@@ -30,7 +32,7 @@ export class CargaMasivaComponent implements OnInit {
   @Output() salida = new EventEmitter<any>();
 
 
-  constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute,
+  constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute, private reportesPrd: ReportesService,
     private routerPrd: Router,private modalPrd:ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
     private catalogosPrd:CatalogosService, private EmpleadosService:EmpleadosService) {
   }
@@ -63,8 +65,40 @@ export class CargaMasivaComponent implements OnInit {
   public iniciarDescarga(){
     debugger;
     let obj = this.myForm.value;
-    if(obj.empleadoId == null){
+    if(obj.tipoCargaId == '0' || obj.tipoCargaId == undefined){
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Debe seleccionar un formato a cargar");
+    }else{
+
+        debugger;
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+          let objEnviar : any = {
+            
+              idEmpresa: this.idEmpresa,
+              tipoCargaId: obj.tipoCargaId
+            
+
+          }
+          
+            this.reportesPrd.getTipoFormatoEmpleado(objEnviar).subscribe(archivo => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
+              const downloadLink = document.createElement("a");
+              if(obj.tipoCargaId == 1){
+                this.fileName = `${"Formato carga masiva Empleados"}.xlsx`;
+              }
+              else if(obj.tipoCargaId == 2){
+                this.fileName = `${"Formato carga masiva Ex-empleados"}.xlsx`;
+              }
+              else if(obj.tipoCargaId == 3){
+                this.fileName = `${"Formato carga masiva Empleados con pago complementario"}.xlsx`;
+              }
+      
+              downloadLink.href = linkSource;
+              downloadLink.download = this.fileName;
+              downloadLink.click();
+            });
+
     }
 
   }
@@ -150,7 +184,8 @@ export class CargaMasivaComponent implements OnInit {
                     });
                   }   
                   });
-              });       
+              });     
+
           }
         });
 

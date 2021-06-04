@@ -24,6 +24,16 @@ export class ReportesService {
     return this.http.post(`${direcciones.reportes}/empleado/perfil/personal`,json,httpOptions);
   }
 
+  public getTipoFormatoEmpleado(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.reportes}/cargaMasiva/layoutEmpleado/`,json,httpOptions);
+  }
+
   public getDescargaListaEmpleados(id_empresa:number):Observable<any>{
     return this.http.get(`${direcciones.reportes}/cargaMasiva/layoutListaEmpleado/${id_empresa}`);
  }

@@ -8,6 +8,7 @@ const ipReportes:string = environment.rutaReportes;
 
 export const direcciones = {
 
+    
     usuarios:`${ip}/persona`,
     empleado:`${ip}/empleado`,
     centroCostosCliente: `${ip}/centroCostosCliente`,

@@ -46,6 +46,7 @@ export class MenuService {
     { nombre: "ADMINISTRACIÓN DE EMPRESA", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"CONFIGURACIÓN EMPRESA",routerLink:['/listaempresas'],rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"]},
                                                                                 {nombre:"EMPRESA",routerLink:['listaempresas', 'empresas', this.tipoinsert],rol:["ALL","ADMINCOMPANIA"]},
+                                                                                {nombre:"MOVIMIENTOS",routerLink:['/movimientosbitacora'],rol:["ALL","ADMINCOMPANIA"]},
                                                                               ]},
   ];
 

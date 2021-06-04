@@ -62,7 +62,6 @@ export class EmpleadosService {
   }
   public getEmpleadosBaja(id: number,status: boolean): Observable<any> {
 
-
     return this.http.get(`${direcciones.contratoColaborador}/lista/empleado/baja/${id}/${status}`);
 
   }
