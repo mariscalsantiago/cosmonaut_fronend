@@ -5,6 +5,7 @@ const ip3:string = environment.rutaCatalogos;
 const ipCalculos:string = environment.rutaCalculos;
 const ipAdmin: string = environment.rutaAdmin;
 const ipReportes:string = environment.rutaReportes;
+const ipSocket:string = environment.rutaSocket;
 
 export const direcciones = {
 
@@ -34,5 +35,8 @@ export const direcciones = {
     tablasValores: `${ipAdmin}/TablasValores`,
     adminCatalogo: `${ipAdmin}/adminCatalogo`,
     roles: `${ipAdmin}/rol`,
-    modulos: `${ipAdmin}/modulos`
+    modulos: `${ipAdmin}/modulos`,
+    permisos: `${ipAdmin}/permisos`,
+    chat: `${ip}/chat`,
+    socket: `${ipSocket}/websocket`,
 };

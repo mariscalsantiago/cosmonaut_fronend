@@ -37,6 +37,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public tablabeneficios: boolean = false;
   @Input() public timbrado: boolean = false;
   @Input() public llave:boolean = false;
+  @Input() public chat:boolean = false;
 
   @Input() public icondefault: string = "default";
 
@@ -286,6 +287,13 @@ export class TablapaginadoComponent implements OnInit {
   }
   public btnLlave(item: any, indice: number) {
     this.salida.emit({ type: "llave", datos: item, indice: indice });
+  }
+
+  public btnresponder(item:any,indice:number){
+    this.salida.emit({ type: "responder", datos: item, indice: indice });
+  }
+  public btnDefault(item:any,indice:number){
+    this.salida.emit({ type: "default", datos: item, indice: indice });
   }
   public btnDesglosar(item: any, indice: number) {
 

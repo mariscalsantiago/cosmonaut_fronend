@@ -5,5 +5,7 @@ export interface submodulo {
     nombreSubmodulo?: string,
     fechaAlta?: Date,
     esActivo?: boolean,
-    permisos?:Array<permiso>
+    permisos?:Array<permiso>,
+    checked?:boolean,
+    previo?:boolean
 }

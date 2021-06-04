@@ -35,7 +35,7 @@
 
                             <h5 class="mb-0">
                                 <label style="top: 8px;" class="contenedorInputCheckRadio">
-                                    <input id="primercheck" type="checkbox">
+                                    <input [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"  type="checkbox">
                                     <span class="checkmark"></span>
                                 </label>
                                 <button type="button" style="margin-left: 10px;" (click)="cambiarStatus(indice)" class="btn btn-link"
@@ -52,19 +52,19 @@
                             </h5>
                         </div>
 
-                        <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago"
+                        <div id="detallepagocolapsar" *ngIf="item.checked" class="collapse" aria-labelledby="detallepago"
                             data-parent="#accordion">
                             <div class="card-body">
 
-                                <div *ngFor="let auxitem of item.submodulos;let indice2 = index;" class="row">
-                                    <div class="col-4">
-                                        <label style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)" class="contenedorInputCheckRadio">{{auxitem.nombreSubmodulo}}
-                                            <input  id="primercheck" type="checkbox">
+                                <div class="row">
+                                    <div class="col-4" *ngFor="let auxitem of item.submodulos;let indice2 = index;" >
+                                        <label  style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)" class="contenedorInputCheckRadio">{{auxitem.nombreSubmodulo}}
+                                            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="auxitem.checked"   type="checkbox">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <ul>
+                                        <ul *ngIf="auxitem.checked">
                                             <li *ngFor="let permiso of auxitem.permisos;let indice3 = index;"> <label style="top: 8px;" class="contenedorInputCheckRadio"> {{permiso.descripcion}}
-                                                    <input id="primercheck" type="checkbox">
+                                                    <input  [ngModelOptions]="{standalone: true}" [(ngModel)]="permiso.checked" type="checkbox">
                                                     <span class="checkmark"></span>
                                                 </label> </li>
                                         </ul>
@@ -86,7 +86,7 @@
 
     <div class="text-center margin" style="margin-bottom: 20px;">
 
-        <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
         <button type="submit" class="btn btn-primary button-fill">Guardar</button>
     </div>
 

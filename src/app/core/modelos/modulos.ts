@@ -6,5 +6,7 @@ export interface modulos {
     fechaAlta?: string,
     esActivo?: boolean,
     submodulos?:Array<submodulo>,
-    seleccionado?:boolean
+    seleccionado?:boolean,
+    checked?:boolean,
+    previo?:boolean
 }
