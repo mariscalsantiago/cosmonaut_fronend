@@ -7,5 +7,6 @@ export interface modulos {
     esActivo?: boolean,
     submodulos?:Array<submodulo>,
     seleccionado?:boolean,
-    checked?:boolean
+    checked?:boolean,
+    previo?:boolean
 }

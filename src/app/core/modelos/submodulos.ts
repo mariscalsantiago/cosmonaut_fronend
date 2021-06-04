@@ -6,5 +6,6 @@ export interface submodulo {
     fechaAlta?: Date,
     esActivo?: boolean,
     permisos?:Array<permiso>,
-    checked?:boolean
+    checked?:boolean,
+    previo?:boolean
 }

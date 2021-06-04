@@ -41,6 +41,19 @@ export class RolesService {
     return this.http.put(`${direcciones.roles}/guardar`, json, httpOptions);
   }
 
+  public modificarRol(obj: any):Observable<any>{
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.roles}/modificar`, json, httpOptions);
+  }
+
   public guardarPermisoxModulo(obj: any):Observable<any>{
 
     const httpOptions = {
@@ -54,19 +67,28 @@ export class RolesService {
     return this.http.put(`${direcciones.permisos}/agregar`, json, httpOptions);
   }
 
-  public getRol() {
 
+
+  public quitarPermisoxModulo(obj: any):Observable<any>{
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.permisos}/quitar`, json, httpOptions);
   }
 
-  public agregar() {
-
+ 
+  public getPermisosxRol(idRol:number,activo:boolean):Observable<any>{
+      return this.http.get(`${direcciones.permisos}/rol/${idRol}/listar/todosActivo/${activo}`);
   }
 
-  public modificar() {
-
+  public eliminarRol(id:number):Observable<any>{
+      return this.http.delete(`${direcciones.roles}/eliminar/${id}`);
   }
 
-  public eliminar() {
-
-  }
 }

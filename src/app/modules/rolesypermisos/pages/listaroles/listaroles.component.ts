@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { RolesService } from '../../services/roles.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class ListarolesComponent implements OnInit {
 
   public arreglo:any = [];
 
-  constructor(private routerPrd:Router,private rolesPrd:RolesService) { }
+  constructor(private routerPrd:Router,private rolesPrd:RolesService,private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -43,8 +44,39 @@ export class ListarolesComponent implements OnInit {
     this.routerPrd.navigate(['rolesypermisos', 'lista', 'rol'], { state: { datos: obj } });
   }
 
-  public recibirTabla(obj:any){
+  public eliminar(obj:any,indice:number){
+      this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar el rol?").then((valor)=>{
+        if(valor){
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.rolesPrd.eliminarRol(obj.rolId).subscribe(datos =>{
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                    this.arreglo.splice(indice,1);
 
+                    let columnas:Array<tabla> = [new tabla("nombreRol","Rol"),
+                    new tabla("","Número de usuarios"),
+                    new tabla("esActivo","Estatus")]
+                    this.arreglotabla = {
+                      columnas: columnas,
+                      filas: this.arreglo
+                    };
+                }
+              });  
+          });
+        }  
+      });
+  }
+
+  public recibirTabla(obj:any){
+      switch(obj.type){
+        case "editar":
+          this.detalle(obj.datos);
+          break;
+        case "eliminar":
+          this.eliminar(obj.datos,obj.indice);
+          break;
+        }
   }
 
 }
