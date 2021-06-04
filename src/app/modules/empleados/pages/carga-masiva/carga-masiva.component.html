@@ -25,10 +25,8 @@
             <label>Selecciona y descarga el formato que requieras cargar llénalo y sube el archivo. Recuerda llenar todos los campos obligatorios</label>
             <select formControlName="tipoCargaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoCargaId.errors && submitEnviado}">
                 <option value="0" selected ></option>
-                <option value="1">Empleados</option>
-                <option value="2">Ex empleados</option>
-                <option value="3">Empleados con pago complementario</option>
-            </select>
+                <option *ngFor="let item of arregloTipoCarga"  [value]="item.tipoCargaId">{{item.descripcion}}</option>
+              </select>
             <div *ngIf="f.tipoCargaId.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
               </div>

@@ -24,6 +24,7 @@ export class CargaMasivaComponent implements OnInit {
   public cargandoIcon: boolean = false;
   public idEmpresa: number = 0;
   public fileName: string = "";
+  public arregloTipoCarga: any  = [];
   
   public obj: any = [];
 
@@ -43,7 +44,8 @@ export class CargaMasivaComponent implements OnInit {
     this.obj = history.state.datos == undefined ? {} : history.state.datos;
 
       
-
+    this.catalogosPrd.getTipoCarga(true).subscribe(datos => this.arregloTipoCarga = datos.datos);
+    
       this.myForm = this.createFormcomp((this.obj));
 
 

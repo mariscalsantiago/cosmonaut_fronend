@@ -40,6 +40,10 @@ export class CatalogosService {
      
     return this.http.get(`${this.url}/csbanco/listar/todosActivo/${estatus}`);
   }
+  public getTipoCarga(estatus:boolean): Observable<any> {
+
+     return this.http.get(`${this.url}/tipoCarga/listar/todosActivo/${estatus}`);
+  }
 
   public getFuncionCuenta(estatus:boolean): Observable<any> {
 
