@@ -5,6 +5,8 @@ import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpleadosService } from '../../services/empleados.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-listaempleados',
@@ -47,8 +49,8 @@ export class ListaempleadosComponent implements OnInit {
 
   public tamanio: number = 0;
 
-  constructor(private routerPrd: Router, private empleadosPrd: EmpleadosService,
-    private usuarioSistemaPrd: UsuarioSistemaService, private empresasPrd: SharedCompaniaService,
+  constructor(private routerPrd: Router, private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
+    private usuarioSistemaPrd: UsuarioSistemaService,private modalPrd:ModalService, private empresasPrd: SharedCompaniaService,
     private areasPrd: SharedAreasService) { }
 
   ngOnInit(): void {
@@ -93,6 +95,24 @@ export class ListaempleadosComponent implements OnInit {
     this.routerPrd.navigate(['empleados', 'bajaempleado']);
   }
 
+  public descargarEmpleados(){
+    debugger;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+  
+        this.reportesPrd.getDescargaListaEmpleados(this.idEmpresa).subscribe(archivo => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
+          const downloadLink = document.createElement("a");
+          const fileName = `${"Empleados"}.xlsx`;
+  
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
+        });
+  
+  }
+
   public filtrar() {
    let objenviar =  {
       areaId: {
@@ -112,6 +132,8 @@ export class ListaempleadosComponent implements OnInit {
       esActivo:this.estatus,
       numEmpleado:this.personaId
   }
+
+
 
     this.cargando = true;
     this.empleadosPrd.filtrar(objenviar).subscribe(datos =>{

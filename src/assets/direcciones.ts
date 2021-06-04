@@ -10,6 +10,7 @@ const ipSocket:string = environment.rutaSocket;
 export const direcciones = {
 
     usuarios:`${ip}/persona`,
+    empleado:`${ip}/empleado`,
     centroCostosCliente: `${ip}/centroCostosCliente`,
     area: `${ip}/area`,
     politica: `${ip}/Politica`,

@@ -179,7 +179,7 @@ export class VentanaPercepcionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-    
+  debugger;
     /*this.submitEnviado = true;
     if (this.myForm.invalid) {
 
@@ -195,6 +195,16 @@ export class VentanaPercepcionesComponent implements OnInit {
         if(valor){
           
           let  obj = this.myForm.getRawValue();
+
+          let fechar = "";
+          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
+      
+            if (obj.fechaInicio != "") {
+      
+              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
+              fechar = `${new Date(fecha1).getTime()}`;
+            }
+          }
           
           if(this.esInsert){
             this.objEnviar = {
@@ -216,7 +226,7 @@ export class VentanaPercepcionesComponent implements OnInit {
             },
             esActivo: obj.esActivo,
             referencia: obj.referencia,
-            fechaInicio: obj.fechaInicio,
+            fechaInicio: fechar,
             montoTotal: obj.montoPercepcion,
             numeroPeriodos: obj.numeroPeriodos,
             montoPorPeriodo: obj.montoPorPeriodo
@@ -249,7 +259,7 @@ export class VentanaPercepcionesComponent implements OnInit {
             },
             esActivo: obj.esActivo,
             referencia: obj.referencia,
-            fechaInicio: obj.fechaInicio,
+            fechaInicio: fechar,
             montoTotal: obj.montoPercepcion,
             numeroPeriodos: obj.numeroPeriodos,
             montoPorPeriodo: obj.montoPorPeriodo

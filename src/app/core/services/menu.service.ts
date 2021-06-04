@@ -21,7 +21,7 @@ export class MenuService {
                                                                                 {nombre:"LISTA Y ALTA DE EMPLEADOS",routerLink:['/empleados'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"BAJA DE EMPLEADOS",routerLink:['/empleados/bajaempleado'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"EMPLEADOS INCOMPLETOS",routerLink:['/empleados/empleadosincompletos'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                {nombre:"CARGA MASIVA",routerLink:['/empleados/empleadosincompletos'],rol:["ALL","ADMINEMPRESA"]}
+                                                                                {nombre:"CARGA MASIVA",routerLink:['/empleados/cargamasiva'],rol:["ALL","ADMINEMPRESA"]}
                                                                                 // {nombre:"DIRECTORIO",routerLink:[],rol:["ALL","ADMINEMPRESA"]}
                                                                               ]},
     { nombre: "EVENTOS", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[],submenu:[
