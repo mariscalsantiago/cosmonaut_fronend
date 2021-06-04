@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { Router } from '@angular/router';
+import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
 
 @Component({
   selector: 'app-contenido',
@@ -56,9 +57,17 @@ export class ContenidoComponent implements OnInit {
   public rol!: string;
 
 
+  public chat:any = {
+    ocultar:true,
+    datos:{
+      nombre:"Santiago antonio"
+    }
+  }
+
 
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
-    private ventana: VentanaemergenteService,private navigate:Router) {
+    private ventana: VentanaemergenteService,private navigate:Router,
+    private chatPrd:ChatSocketService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
   }
@@ -68,6 +77,9 @@ export class ContenidoComponent implements OnInit {
     this.rol = this.sistemaUsuarioPrd.getRol();
 
     this.arreglo = this.menuPrd.getMenu();
+
+
+    this.chatPrd.setChatDatos(this.chat);
 
   }
 
@@ -112,7 +124,7 @@ export class ContenidoComponent implements OnInit {
   public recibirchat(obj:any){
       switch(obj.type){
           case "exit":
-            this.ocultarchat = true;
+            this.chat.ocultar = true;
             break;
       }
   }

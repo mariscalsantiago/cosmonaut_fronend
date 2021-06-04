@@ -8,7 +8,8 @@ export const environment = {
   rutaCatalogos:'/catalogos',
   rutaCalculos:'/calculos',
   rutaAdmin: '/admin',
-  rutaReportes:'/reportes'
+  rutaReportes:'/reportes',
+  rutaSocket:'wss://34.75.54.120/empresa'
 };
 
 /*

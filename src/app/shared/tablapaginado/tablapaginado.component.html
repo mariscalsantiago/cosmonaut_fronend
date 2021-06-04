@@ -95,10 +95,10 @@
             </button>
           </td>
           <td *ngIf="chat" class="text-right" >
-            <button class="btn btn-primary button-fill" >
+            <button (click)="btnresponder(item,indice)" class="btn btn-primary button-fill" >
               Responder
             </button>
-            <button style="background: white;
+            <button  (click)="btnDefault(item,indice)"style="background: white;
             border: 1px solid;" class="btn btn-primary button-outlet" >
               Enviar mensaje generico
             </button>

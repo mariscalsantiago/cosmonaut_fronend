@@ -1,4 +1,7 @@
-import { Component, HostListener, OnInit,EventEmitter, Output } from '@angular/core';
+import { Component, HostListener, OnInit,EventEmitter, Output, ViewChild, ElementRef, Input } from '@angular/core';
+import { ChatService } from 'src/app/modules/chat/services/chat.service';
+import { ChatSocketService } from '../services/chat/ChatSocket.service';
+import { UsuarioSistemaService } from '../services/usuariosistema/usuario-sistema.service';
 
 
 @Component({
@@ -7,12 +10,24 @@ import { Component, HostListener, OnInit,EventEmitter, Output } from '@angular/c
   styleUrls: ['./chatboot.component.scss']
 })
 export class ChatbootComponent implements OnInit {
+  @ViewChild("ventanaprincipal") ventana!:ElementRef;
   public scrolly: string = '250px';
   public tamanio: number = 0;
   public modalWidth: string = "350px";
 
+  public arreglomensajes:any = [];
+
 
   public fecha:Date = new Date();
+
+  public mensaje:string = "";
+
+
+ @Input() 
+  public datos:any={
+    nombre:"",
+    socket:""
+  }
 
 
   @Output() salida = new EventEmitter();
@@ -34,18 +49,55 @@ export class ChatbootComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(private chatPrd:ChatSocketService,private usuarioSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
+
+    this.chatPrd.conectarSocket(this.usuarioSistemaPrd.getIdEmpresa(),this.usuarioSistemaPrd.getUsuario().idUsuario)
+    this.chatPrd.recibiendoMensajeServer().subscribe(datos =>{
+      console.log(datos.data)
+      let objEnviado = {
+        enviado:false,
+        mensaje:datos.data,
+        fecha:new Date()
+      };
+
+      this.arreglomensajes.push(objEnviado);
+      this.acomodandoVentanaChat();
+    });
+    
+  }
+
+
+  ngAfterViewInit(){
+    this.acomodandoVentanaChat();
   }
 
 
   public salir(){
     this.salida.emit({type:"exit"});
+  }
+
+  public enviarMensaje(){
+    let objEnviado = {
+      enviado:true,
+      mensaje:this.mensaje,
+      fecha:new Date()
+    };
+
+    this.arreglomensajes.push(objEnviado);
+    this.chatPrd.enviarMensaje(this.mensaje);
+    this.mensaje = "";
+    this.acomodandoVentanaChat();
+  }
+
+  public acomodandoVentanaChat(){
+
+    this.ventana.nativeElement.scroll({top:6000,behavior:'smooth'});
   }
 
 }

@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
+import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { ChatService } from '../../services/chat.service';
 
 @Component({
@@ -16,9 +19,12 @@ export class ListachatsActivosComponent implements OnInit {
     filas: []
   }
 
+  
+
 
   public cargando: boolean = false;
-  constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService) { }
+  constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
+    private usuariossistemaPrd:UsuarioSistemaService,private socket:ChatSocketService) { }
 
   ngOnInit(): void {
 
@@ -29,6 +35,9 @@ export class ListachatsActivosComponent implements OnInit {
       
         this.construirTabla(datos.datos);
     });
+
+
+    
 
   }
 
@@ -64,11 +73,22 @@ export class ListachatsActivosComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-
+   switch(obj.type){
+     case "responder":
+        console.log("Responder",obj.datos);
+        this.socket.getChatDatos().datos.nombre = obj.datos.nombreempleado;
+        this.socket.getChatDatos().ocultar = false;
+        console.log(this.socket.getChatDatos());
+       break;
+      case "default":
+        break;
+   }
   }
 
   public editarMensaje() {
+    
     this.ventanaPrd.showVentana(this.ventanaPrd.mensajechat)
+    
   }
 
 }
