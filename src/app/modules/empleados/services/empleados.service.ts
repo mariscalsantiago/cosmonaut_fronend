@@ -37,13 +37,20 @@ export class EmpleadosService {
         'Content-Type': 'application/json'
       })
     };
-
-
     let json = JSON.stringify(obj);
-
-    
-
     return this.http.post(`${direcciones.contratoColaborador}/guardar/baja`, json, httpOptions);
+
+  }
+
+  public saveCargaMasiva(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.usuarios}/carga/masiva/empleados`, json, httpOptions);
 
   }
 
@@ -57,6 +64,13 @@ export class EmpleadosService {
 
 
     return this.http.get(`${direcciones.contratoColaborador}/lista/empleado/baja/${id}/${status}`);
+
+  }
+
+  public getListaErroresCargaMasiva(idEmpresa: number): Observable<any> {
+
+
+    return this.http.get(`${direcciones.empleado}/lista/empleados/erroneos/${idEmpresa}`);
 
   }
 

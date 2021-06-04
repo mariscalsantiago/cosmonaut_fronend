@@ -1,0 +1,115 @@
+.bordeEmpleada{
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: 12px;
+    width: 94px;
+}
+
+.button-outlet{
+
+    color:#022538 !important;
+    border-color: #022538 !important;
+
+}
+
+
+#perfilEmpleada{
+    position: relative;
+}
+
+.botonestilo{
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    width: 115px;
+    color:#022538;
+    background-color: white;
+    border: 1px solid #022538;
+    width: 150px;
+    display: block;
+    @media only screen and (max-width : 800px)
+    {
+
+        small{
+            font-size: 10px;
+        }
+        width: 100px;
+
+    }
+    @media only screen and (max-width : 683px)
+    {
+
+        small{
+            font-size: 9px;
+        }
+        width: 80px;
+
+    }
+    @media only screen and (max-width : 600px)
+    {
+
+        small{
+            font-size: 10px;
+        }
+        width: 100px;
+        right: auto;
+        left: 20px;
+
+    }
+  
+}
+
+
+.scrooll{
+    overflow: auto;
+}
+
+
+.estiloExtra{
+    height: 10%;
+}
+
+
+.estiloextralink{
+    border: 0 !important;
+    background: transparent !important;
+    color: #4cc1b0 !important;
+    text-decoration: underline !important;
+    max-width: 112px !important;
+    text-align: center;
+}
+
+
+.marginImage{
+    margin-top: 12px;
+    margin-left: 25px;
+    margin-top:0px;
+}
+
+.alinear{
+    float:left;
+}
+
+
+.contenedorflex{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin-left: 25px;
+    margin-top:15px;
+}
+
+.elementoitem{
+    width: 50%;
+}
+
+.estilolink{
+    //font-size: 10px;
+    color:#4cc1b0 ;
+    //text-decoration: underline;
+    //margin-left: -16px;
+    //cursor:pointer;
+}
