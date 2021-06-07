@@ -38,4 +38,6 @@ export const direcciones = {
     permisos: `${ipAdmin}/permisos`,
     chat: `${ip}/chat`,
     socket: `${ipSocket}/websocket`,
+    usuariosAuth:`${ipAdmin}/usuarios`,
+    versiones:`${ipAdmin}/version`
 };

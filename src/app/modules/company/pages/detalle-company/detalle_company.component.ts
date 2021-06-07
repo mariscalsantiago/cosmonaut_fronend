@@ -6,6 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { UsuarioService } from 'src/app/modules/usuarios/services/usuario.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { VersionesService } from 'src/app/shared/services/versiones/versiones.service';
 import { CompanyService } from '../../services/company.service';
 
 @Component({
@@ -40,9 +43,12 @@ export class DetalleCompanyComponent implements OnInit {
 
   public cargandoImg:boolean = false;
 
+  public arregloVersiones:any = [];
+
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService) {
+    private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService,private versionesPrd:VersionesService,
+    private authUsuariosPrd:UsuariosauthService,private usuariosSistemaPrd:UsuarioSistemaService) {
   }
 
   ngOnInit(): void {  
@@ -55,6 +61,8 @@ export class DetalleCompanyComponent implements OnInit {
 
     
 
+
+    this.versionesPrd.getVersiones(true).subscribe(datos => this.arregloVersiones = datos.datos);
    
 
     this.routerActivePrd.params.subscribe(datos => {
@@ -104,7 +112,8 @@ export class DetalleCompanyComponent implements OnInit {
       fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? "true" : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       centrocClienteId: obj.centrocClienteId,
-      multiempresa: obj.multiempresa
+      multiempresa: obj.multiempresa,
+      versioncosmonaut:['',Validators.required]
 
     });
   }
@@ -207,6 +216,19 @@ export class DetalleCompanyComponent implements OnInit {
           this.companyPrd.save(obj).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+            if(datos.resultado){
+              
+            let objVersionEnviar = {
+              centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),
+              versionId:obj.versioncosmonaut
+            };
+            this.authUsuariosPrd.guardarVersionsistema(objVersionEnviar).subscribe(datosVersion =>{
+              if(!datosVersion.resultado){
+                    this.modalPrd.showMessageDialog(datosVersion.resultado,datosVersion.mensaje);
+              }
+            });
+            }
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
               .then(()=> {
