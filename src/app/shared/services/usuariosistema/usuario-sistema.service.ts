@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { direcciones } from 'src/assets/direcciones';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,7 @@ import { direcciones } from 'src/assets/direcciones';
 export class UsuarioSistemaService {
 
   public usuario!: usuarioClass;
+  public introActivado:boolean = true;
 
   constructor(private http: HttpClient) {
 
@@ -18,10 +21,7 @@ export class UsuarioSistemaService {
   }
 
 
-  public login(obj: any): Observable<any> {
-    return this.http.get(`${direcciones.centroCostosCliente}/login/${obj.email}`);
-  }
-
+  
 
   public getUsuario() {
     return this.usuario;
@@ -69,6 +69,21 @@ export class UsuarioSistemaService {
   public getDatosUsuario(){
     return this.usuario.getUsuario();
   }
+
+  public getInformacionAdicionalUser(userName:string):Observable<any>{
+    return this.http.get(`${direcciones.usuariosAuth}/obtener/username/${userName}`);
+  } 
+
+
+  public obtenerInfo( correo: any): Observable<any> {
+    return this.http.get(`${direcciones.centroCostosCliente}/login/${correo}`);
+  }
+
+  public logout():Observable<any>{
+    return this.http.get(`${environment.rutaAdmin}/auth/logout`);
+  }
+
+  
 }
 
 

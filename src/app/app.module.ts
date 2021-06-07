@@ -22,6 +22,7 @@ import { InterceptorService } from './core/interceptores/interceptor.service';
 //Importamos para el lenguaje en mis fechas (SAMV)
 import localeEn from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
+import { TokenInterceptorService } from './core/auth/token-interceptor.service';
 registerLocaleData(localeEn, 'es-MX');
 
 
@@ -46,6 +47,10 @@ registerLocaleData(localeEn, 'es-MX');
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService, multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService, multi: true
     },
     {
       provide:LOCALE_ID,useValue:'es-MX'

@@ -10,17 +10,23 @@
 
       <div id="formulario" *ngIf="login" class="formblock mt-5 fade-in ">
         <label *ngIf="!ventanapass" class="text-center letra títulos_roboto-—-25pt ">BIENVENIDO, INGRESA TUS DATOS
+          
         </label>
+      
         <label *ngIf="ventanapass" class="text-center letra títulos_roboto-—-25pt ">¿OLVIDASTE TU CONTRASEÑA?
         </label>
-        <div *ngIf="!ventanapass && error" class="alert alert-danger" role="alert">
+       
+
+        <div *ngIf="incorrectoback" style="width: fit-content;" class="alert alert-danger" role="alert">
           Email y/o contraseña inválidos
         </div>
+
         <form class="form" [formGroup]="myForm" (ngSubmit)="enviarformulario()">
+        
           <div class="form-group">
             <label class="text-light" for="usuariologin"><small *ngIf="!ventanapass">Email</small><small
                 *ngIf="ventanapass">Ingresa tu email y te enviaremos un link para restablecerla</small></label>
-            <input *ngIf="!ventanapass" formControlName="email" type="email" class="form-control " id="usuariologin"
+            <input *ngIf="!ventanapass" formControlName="username" type="email" class="form-control " id="usuariologin"
               aria-describedby="emailHelp">
 
           </div>

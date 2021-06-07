@@ -59,7 +59,6 @@ export class ChatbootComponent implements OnInit {
 
     this.chatPrd.conectarSocket(this.usuarioSistemaPrd.getIdEmpresa(),this.usuarioSistemaPrd.getUsuario().idUsuario)
     this.chatPrd.recibiendoMensajeServer().subscribe(datos =>{
-      console.log(datos.data)
       let objEnviado = {
         enviado:false,
         mensaje:datos.data,

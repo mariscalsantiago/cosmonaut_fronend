@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProteccionRutasService } from './core/auth/proteccion-rutas.service';
+import { ProteccionRutasLoginService } from './core/auth/subdiviciones/login-rutas.service';
 import { AuthComponent } from './layout/autentificacion/auth/auth.component';
 import { ContenidoComponent } from './layout/contenido/contenido/contenido.component';
 
@@ -19,7 +20,7 @@ export const routes: Routes = [
   { path: 'nominas', component: ContenidoComponent, canActivate: [ProteccionRutasService], loadChildren: () => import('./modules/nominas/nominas.module').then(m => m.nominasModule) },
   { path: 'rolesypermisos', component: ContenidoComponent, canActivate: [ProteccionRutasService], loadChildren: () => import('./modules/rolesypermisos/rolesypermisos.module').then(m => m.RolesypermisosModule) },
   { path: 'chat', component: ContenidoComponent, canActivate: [ProteccionRutasService], loadChildren: () => import('./modules/chat/chats.module').then(m => m.ChatsModule) },
-  { path: 'auth', component: AuthComponent, loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
+  { path: 'auth', component: AuthComponent,canActivate:[ProteccionRutasLoginService], loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
   { path: '**', redirectTo: '/auth/login', pathMatch: 'full' }
 ]
 @NgModule({

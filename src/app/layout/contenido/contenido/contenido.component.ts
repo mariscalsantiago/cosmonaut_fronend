@@ -6,6 +6,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { Router } from '@angular/router';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-contenido',
@@ -67,7 +68,7 @@ export class ContenidoComponent implements OnInit {
 
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
     private ventana: VentanaemergenteService,private navigate:Router,
-    private chatPrd:ChatSocketService) {
+    private chatPrd:ChatSocketService,private authPrd:AuthService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
   }
@@ -133,7 +134,13 @@ export class ContenidoComponent implements OnInit {
   public cerrarSesion(){
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Estás seguro de cerrar la sesión?").then(valor=>{
       if(valor){
-          this.navigate.navigate(["/"]);
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.sistemaUsuarioPrd.logout().subscribe(datos =>{
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.authPrd.eliminarTokens();
+            console.log(datos,"Esto es cuando se deslogea");
+            this.navigate.navigateByUrl('/auth/login');
+          });
       }
     });
   }
