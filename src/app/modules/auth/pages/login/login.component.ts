@@ -18,6 +18,7 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
   public myForm: FormGroup;
+  public myFormPassword!:FormGroup;
 
   public error: boolean = false;
   public cargando: boolean = false;
@@ -43,6 +44,10 @@ export class LoginComponent implements OnInit {
 
   public empresaSeleccionadaBool: boolean = true;
 
+  public cambiarPassword:boolean = false;
+
+  public invalidapassword:boolean = false;
+
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
     private companiaPrd: SharedCompaniaService, private usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService) {
     let obj = {};
@@ -62,6 +67,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.myFormPassword = this.createFormPassword();
+    this.suscribirse();
     
     this.cargandoLogin = this.usuarioSistemaPrd.introActivado;
     setTimeout(() => {
@@ -73,6 +80,13 @@ export class LoginComponent implements OnInit {
 
   }
 
+  public createFormPassword(){
+    return this.formBuilder.group({
+      password1:['',[Validators.required]],
+      password2:['',[Validators.required]]
+    });
+  }
+
   public createMyForm(obj: any) {
     return this.formBuilder.group({
       username: ['', [Validators.required, Validators.email]],
@@ -80,6 +94,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
+  public suscribirse(){
+    this.myFormPassword.controls.password1.valueChanges.subscribe(valor =>{
+        this.invalidapassword = valor !== this.f.password2.value;
+    });
+
+    this.myFormPassword.controls.password2.valueChanges.subscribe(valor =>{
+      this.invalidapassword = valor !== this.f.password1.value;
+  });
+  }
 
   public enviarformulario() {
 
@@ -89,15 +113,21 @@ export class LoginComponent implements OnInit {
         console.log("valorusuario", valorusuario);
         this.cargando = false;
         this.correcto = true;
-        this.usuarioSistemaPrd.obtenerInfo(username).subscribe(valorfinal => {
-          let objRecibido = valorfinal.datos[0];
-          const usuario: usuarioClass = new usuarioClass(objRecibido.centrocClienteId.centrocClienteId, objRecibido.personaId);
-          usuario.setDatosEmpleado(objRecibido);
-          this.usuarioSistemaPrd.setUsuario(usuario);
-          setTimeout(() => {
-            this.routerPrd.navigate(['/inicio']);
-          }, 2000);
-        });
+        if(valorusuario.passwordProvisional){
+            this.cambiarPassword = true;
+            this.incorrectoback = false;
+        }else{
+          this.usuarioSistemaPrd.obtenerInfo(username).subscribe(valorfinal => {
+            let objRecibido = valorfinal.datos[0];
+            const usuario: usuarioClass = new usuarioClass(objRecibido.centrocClienteId.centrocClienteId, objRecibido.personaId);
+            usuario.setDatosEmpleado(objRecibido);
+            this.usuarioSistemaPrd.setUsuario(usuario);
+            setTimeout(() => {
+              this.routerPrd.navigate(['/inicio']);
+            }, 2000);
+          });
+        }
+     
 
       });
 
@@ -186,6 +216,33 @@ export class LoginComponent implements OnInit {
     item.seleccionado = true;
 
     this.empresaSeleccionadaBool = false;
+  }
+
+
+  public cambiarContrasenias(){
+  
+    if(this.myFormPassword.invalid || this.invalidapassword ){
+      Object.values(this.myFormPassword.controls).forEach(control =>{
+        control.markAsTouched();
+      });
+      return;
+    }
+
+    
+    this.restablecerContraseña();
+
+
+  }
+
+  public restablecerContraseña(){
+    let obj = this.myFormPassword.value;
+    let objEnviar={
+      
+    };
+  }
+
+  public get f(){
+    return this.myFormPassword.controls;
   }
 
 

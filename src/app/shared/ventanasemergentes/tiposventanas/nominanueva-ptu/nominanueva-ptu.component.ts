@@ -2,6 +2,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { CuentasbancariasService } from 'src/app/modules/empresas/services/cuentasbancarias/cuentasbancarias.service';
+import { UsuarioService } from 'src/app/modules/usuarios/services/usuario.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
+import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
+import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
 
 @Component({
   selector: 'app-nominanueva-ptu',
@@ -20,15 +27,41 @@ export class NominanuevaPtuComponent implements OnInit {
   public cargandoIcon:boolean = false;
   public arregloMonedas: any = [];
   public cuentasBancarias: any = [];
+  public arregloCompanias:any = [];
+  public arregloareas:any = [];
+
+  public arregloEmpleados:any = [];
 
   public myForm!: FormGroup;
-  constructor(private formbuilder: FormBuilder, private modal: ModalService, private catalogosPrd:CatalogosService) { }
+  constructor(private formbuilder: FormBuilder, private modal: ModalService, private cuentasBancariasPrd:CuentasbancariasService,
+    private catalogosPrd:CatalogosService,private usuariosPrd:UsuarioSistemaService,
+    private companiasPrd: SharedCompaniaService,private areasPrd:SharedAreasService,
+    private empleadosPrd: EmpleadosService,private nominaPrd:NominaptuService) { }
  
   ngOnInit(): void {
 
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
-    
-    this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.cuentasBancarias = datos.datos);
+    this.cuentasBancariasPrd.getAllByEmpresa(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.cuentasBancarias = datos.datos);
+
+    this.companiasPrd.getAllEmp(this.usuariosPrd.getIdEmpresa()).subscribe(datos => {
+
+      this.arregloCompanias = datos.datos;
+
+      if (this.usuariosPrd.getRol() == "ADMINEMPRESA") {
+        this.arregloCompanias = [(this.usuariosPrd.getDatosUsuario().centrocClienteId)]
+      }
+    });
+
+
+
+    this.areasPrd.getAreasByEmpresa(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.arregloareas = datos.datos);
+
+    this.empleadosPrd.getEmpleadosCompania(this.usuariosPrd.getIdEmpresa()).subscribe(datos => {
+      this.arregloEmpleados = datos.datos
+      for (let item of this.arregloEmpleados) {
+        item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
+      }
+    });
 
     this.myForm = this.createEtapa1();
   }
@@ -37,7 +70,10 @@ export class NominanuevaPtuComponent implements OnInit {
     return this.formbuilder.group({
       nombre: ['', Validators.required],
       bancoId:['',Validators.required],
-      monedaId:['',Validators.required]
+      monedaId:['',Validators.required],
+      centrocClienteId:['',Validators.required],
+      fechaInicio:['',Validators.required],
+      fechaFin:['',Validators.required],
     });
   }
 
@@ -91,7 +127,27 @@ export class NominanuevaPtuComponent implements OnInit {
 
     this.modal.showMessageDialog(this.modal.warning,"¿Deseas guardar la nòmina?").then(valor =>{
       if(valor){
+
+        let obj = this.myForm.value;
+
+        let objEnviar = {
+          clienteId: this.usuariosPrd.getIdEmpresa(),
+          usuarioId: this.usuariosPrd.getUsuario().idUsuario,
+          nombreNomina: obj.nombre,
+          cuentaBancoId: obj.bancoId,
+          monedaId: obj.monedaId,
+          fecIniPeriodo: obj.fechaInicio,
+          fecFinPeriodo: obj.fechaFin
+        };
+
+
+        this.modal.showMessageDialog(this.modal.loading);
+        this.nominaPrd.crearNomina(objEnviar).subscribe(datos =>{
+          this.modal.showMessageDialog(this.modal.loadingfinish);
           this.cambiarTab({type:"etapa1",datos:true});
+        });
+
+          
       }
     });
 
@@ -140,5 +196,11 @@ export class NominanuevaPtuComponent implements OnInit {
 
 
   }
+
+  public recibirEtiquetas(obj:any){
+
+  }
+
+  
 
 }

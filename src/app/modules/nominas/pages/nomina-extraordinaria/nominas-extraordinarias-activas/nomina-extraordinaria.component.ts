@@ -76,7 +76,7 @@ export class NominaExtraordinariaComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
-            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaExtraordinaria: datos.datos } } });
+            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaExtraordinaria: item.nominaExtraordinaria } } });
           }
         });
 
