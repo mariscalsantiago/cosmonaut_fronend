@@ -38,6 +38,10 @@ export class ReportesService {
     return this.http.get(`${direcciones.reportes}/cargaMasiva/layoutListaEmpleado/${id_empresa}`);
  }
 
+ public getDescargaListaEmpleadosErroneos(id_empresa:number):Observable<any>{
+  return this.http.get(`${direcciones.reportes}/empleado/lista/empleados/erroneos/${id_empresa}`);
+}
+
   public getComprobanteFiscal(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({

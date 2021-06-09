@@ -1,14 +1,12 @@
 <div class="row margen">
   <div class="col titulo-outlet">
-    <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/company"></i>CARGA MASIVA DE EMPLEADOS</label>
+    <label><i class="fas fa-chevron-left aparece-movil-inline-block" ></i>CARGA MASIVA DE EMPLEADOS</label>
   </div>
 </div>
 
-
 <hr>
 
-
-<form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
+<form [formGroup]="myForm" (ngSubmit)="enviarPeticion()" *ngIf="fromEmpleado">
 
   <input type="hidden" >
   <div class="row">
@@ -23,14 +21,10 @@
 
           <div class=" input-group-sm mb-3 col-12 col-sm-10 col-lg-10">
             <label>Selecciona y descarga el formato que requieras cargar llénalo y sube el archivo. Recuerda llenar todos los campos obligatorios</label>
-            <select formControlName="tipoCargaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoCargaId.errors && submitEnviado}">
+            <select formControlName="tipoCargaId" type="text" class="form-control">
                 <option value="0" selected ></option>
                 <option *ngFor="let item of arregloTipoCarga"  [value]="item.tipoCargaId">{{item.descripcion}}</option>
               </select>
-            <div *ngIf="f.tipoCargaId.errors && submitEnviado" class="invalid-feedback">
-                Campo requerido
-              </div>
-
               <br> 
 
               <nav>
@@ -50,6 +44,9 @@
             <input #documento type="text" class="form-control disabled bg-light" >
             <div (click)="abrirDoc()" class="input-group-append" style="cursor: pointer;">
               <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
+            </div>
+            <div *ngIf="f.documento.errors && submitEnviado" class="invalid-feedback">
+              Campo requerido
             </div>
           </div>
         </div>
@@ -72,4 +69,59 @@
 
 </form>
 
+
+<div class="container" *ngIf="listaErrores">
+  
+  <div class="row">
+    <div class="form group row margen">
+      <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
+        <select placeholder="Estatus" name="" class="form-control" [(ngModel)]="idEmpleado">
+          <option value="0" selected>Estatus</option>
+          <option value="1" selected>Exitoso</option>
+          <option value="2" selected>Error</option>
+        </select>
+
+      </div>
+      <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+      </div>
+  
+    </div>
+  
+  
+  </div>
+  
+  
+  <div class="row ">
+  
+      <div class="col">
+  
+        <div class="row margen">
+          <div class="col titulo">
+            <label>RESULTADOS</label>
+          </div>
+          
+          <div class="col text-right">
+            <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
+
+               Carga masiva de empleados
+            </button>
+          </div>
+        </div>
+        <div class="margen-tabla background-panel ">
+          <br>
+          <div class="row mt-3">
+              
+              <div class="col-12 text-left form-group  margen">
+                  <a class="botonestilo aparece-desktop estiloextralink" (click)="descargarEmpleados()"><i
+                    class="fas fa-download"></i> Descargar Archivos con errores
+                  </a>
+              </div>
+          </div>
+          <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando"></app-tablapaginado>
+        </div>
+  
+      </div>
+  </div>
+  </div>
 

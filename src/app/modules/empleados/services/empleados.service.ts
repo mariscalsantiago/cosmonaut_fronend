@@ -66,10 +66,17 @@ export class EmpleadosService {
 
   }
 
-  public getListaErroresCargaMasiva(idEmpresa: number): Observable<any> {
+  public getFiltroCargaMasiva(idEmpresa: number,esCorrecto: boolean): Observable<any> {
 
 
-    return this.http.get(`${direcciones.empleado}/lista/empleados/erroneos/${idEmpresa}`);
+    return this.http.get(`${direcciones.usuarios}/lista/carga/masiva/empleados/estatus/${idEmpresa}/${esCorrecto}`);
+
+  }
+
+  public getListaCargaMasiva(idEmpresa: number): Observable<any> {
+
+
+    return this.http.get(`${direcciones.usuarios}/lista/carga/masiva/empleados/${idEmpresa}`);
 
   }
 
