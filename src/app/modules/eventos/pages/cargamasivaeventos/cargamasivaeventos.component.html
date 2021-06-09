@@ -86,12 +86,11 @@
                     </div>
                     <div class="row">
                         <div class="col-12 text-left">
-                            <a class="botonestilo  estiloextralink"><small *ngIf="!cargandoIcon"><i
-                                        class="fas fa-download"></i> Descargar formaato</small>
-                                <div *ngIf="cargandoIcon" class="spinner-border" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            </a>
+                          <nav>
+                            <a class="botonestilo  estiloextralink" (click)="iniciarDescarga()" ><i
+                               class="fas fa-download"></i> Descargar formato
+                             </a>
+                        </nav>
                         </div>
                     </div>
                     <br>
