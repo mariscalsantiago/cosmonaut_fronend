@@ -2,6 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+
 
 @Component({
   selector: 'app-cargamasivaeventos',
@@ -22,6 +25,7 @@ export class CargaMasivaEventosComponent implements OnInit {
   public cuentasBancarias: any = [];
   public listaErrores: boolean = false;
   public idEmpleado: number = 0;
+  public idEmpresa : number = 0;
 
   public arreglotabla:any = {
     columnas:[],
@@ -29,9 +33,13 @@ export class CargaMasivaEventosComponent implements OnInit {
   };
 
   public myForm!: FormGroup;
-  constructor(private formbuilder: FormBuilder, private modal: ModalService, private catalogosPrd:CatalogosService) { }
+  constructor(private formbuilder: FormBuilder, private modalPrd: ModalService, 
+    private catalogosPrd:CatalogosService, private usuarioSistemaPrd:UsuarioSistemaService,
+    private reportesPrd: ReportesService) { }
  
   ngOnInit(): void {
+
+    this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
 
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
     
@@ -71,7 +79,39 @@ export class CargaMasivaEventosComponent implements OnInit {
 
   }
 
+  public iniciarDescarga(){
+    debugger;
+    let obj = this.myForm.value;
+    if(obj.tipoCargaId == '0' || obj.tipoCargaId == undefined){
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Debe seleccionar un formato a cargar");
+    }else{
 
+        debugger;
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+          let objEnviar : any = {
+            
+              idEmpresa: this.idEmpresa,
+              tipoCargaId: obj.tipoCargaId
+            
+
+          }
+          
+            this.reportesPrd.getTipoFormatoEmpleado(objEnviar).subscribe(archivo => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
+              const downloadLink = document.createElement("a");
+              let fileName = `${"Formato carga masiva Empleados"}.xlsx`;
+              
+     
+              downloadLink.href = linkSource;
+              downloadLink.download = fileName;
+              downloadLink.click();
+            });
+
+    }
+
+  }
  
   public get f(){
     return this.myForm.controls;
