@@ -20,7 +20,7 @@
     <div class="form-group row margen">
 
           <div class=" input-group-sm mb-3 col-12 col-sm-10 col-lg-10">
-            <label>Selecciona y descarga el formato que requieras cargar llénalo y sube el archivo. Recuerda llenar todos los campos obligatorios</label>
+            <label>Selecciona y descarga el formato que requieras cargar llénalo y sube el archivo. Recuerda llenar todos los campos obligatorios *</label>
             <select formControlName="tipoCargaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoCargaId.errors && submitEnviado}">
                 <option value="0" selected ></option>
                 <option *ngFor="let item of arregloTipoCarga"  [value]="item.tipoCargaId">{{item.descripcion}}</option>
@@ -31,7 +31,7 @@
               <br> 
 
               <nav>
-                   <a class="botonestilo  estiloextralink" (click)="iniciarDescarga()" ><i
+                    <a (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i
                       class="fas fa-download"></i> Descargar formato
                     </a>
                </nav>
@@ -40,7 +40,7 @@
 
 
         <div class="input-group-sm mb-3 col-12 col-sm-10 col-lg-10">
-         <label>Sube el formato de carga masiva con los datos modificados</label>
+         <label>Sube el formato de carga masiva con los datos modificados *</label>
           <div class="input-group mb-3">
             <input type="hidden" formControlName="documento" [ngClass]="{'is-invalid':f.documento.errors && submitEnviado}">
             <input #documento type="text" class="form-control disabled bg-light" [ngClass]="{'is-invalid':f.documento.errors && submitEnviado}">
@@ -57,7 +57,7 @@
 
     <div class="text-right margen" style="margin-bottom: 20px;">
       <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
-        (click)="cancelarcomp()">Cancelar</button>
+        (click)="cancelar()">Cancelar</button>
       <button type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
     </div>
     <br>
@@ -76,8 +76,8 @@
       <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
         <select placeholder="Estatus" name="" class="form-control" [(ngModel)]="idEmpleado">
           <option value="0" selected>Estatus</option>
-          <option value="1" selected>Exitoso</option>
-          <option value="2" selected>Error</option>
+          <option value="1" >Exitoso</option>
+          <option value="2" >Error</option>
         </select>
 
       </div>
@@ -113,7 +113,7 @@
               
               <div class="col-12 text-left form-group  margen">
                   <a class="botonestilo aparece-desktop estiloextralink" (click)="descargarEmpleados()"><i
-                    class="fas fa-download"></i> Descargar Archivos con errores
+                    class="fas fa-download"></i> Descargar archivo con errores
                   </a>
               </div>
           </div>

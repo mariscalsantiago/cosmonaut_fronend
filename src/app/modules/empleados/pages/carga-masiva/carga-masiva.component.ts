@@ -263,7 +263,7 @@ export class CargaMasivaComponent implements OnInit {
     
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
-                this.modalPrd.showMessageDialog(datos.resultado,datos.datos)
+                this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
                   .then(()=> {
                      if (!datos.resultado) {
                       debugger;
@@ -293,7 +293,7 @@ export class CargaMasivaComponent implements OnInit {
   }
 
 
-  public cancelarcomp() {
+  public cancelar() {
     this.routerPrd.navigate(['/empleados']);
   }
 

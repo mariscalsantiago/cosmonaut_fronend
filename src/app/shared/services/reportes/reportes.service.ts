@@ -34,12 +34,35 @@ export class ReportesService {
     return this.http.post(`${direcciones.reportes}/cargaMasiva/layoutEmpleado/`,json,httpOptions);
   }
 
+  public getTipoFormatoEventos(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.reportes}/cargaMasiva/layoutEventosIncidencias/`,json,httpOptions);
+  }
+  
   public getDescargaListaEmpleados(id_empresa:number):Observable<any>{
     return this.http.get(`${direcciones.reportes}/cargaMasiva/layoutListaEmpleado/${id_empresa}`);
  }
 
  public getDescargaListaEmpleadosErroneos(id_empresa:number,Id_tipoCarga: number):Observable<any>{
   return this.http.get(`${direcciones.reportes}/empleado/lista/empleados/erroneos/${id_empresa}/${Id_tipoCarga}`);
+}
+
+public getDescargaListaEventosErroneos(obj:any):Observable<any>{
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+  let json = JSON.stringify(obj);
+
+  
+  return this.http.post(`${direcciones.reportes}/incidencias/lista/erroneas/`,json,httpOptions);
+
 }
 
   public getComprobanteFiscal(obj:any):Observable<any>{
