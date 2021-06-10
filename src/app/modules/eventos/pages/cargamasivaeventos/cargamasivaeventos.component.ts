@@ -95,18 +95,14 @@ export class CargaMasivaEventosComponent implements OnInit {
         this.activado[0].seleccionado = true;
         this.activado[0].tab = true;
         this.activado[1].tab = false;
-        this.activado[2].tab = false;
         this.activado[1].form = false;
-        this.activado[2].form = false;
         break;
         case 1:
           this.activado[1].form = true;
           this.activado[1].seleccionado = true;
           this.activado[1].tab = true;
           this.activado[0].tab = false;
-          this.activado[2].tab = false;
           this.activado[0].form = false;
-          this.activado[2].form = false;
 
         break;
 
@@ -323,13 +319,15 @@ export class CargaMasivaEventosComponent implements OnInit {
                 centrocClienteId: this.idEmpresa,
                 archivo: obj.documento
             };
+
+           
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
                 this.EmpleadosService.saveCargaMasivaEventos(objEnviar).subscribe(datos => {
     
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
-                this.modalPrd.showMessageDialog(datos.resultado,datos.datos)
+                this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
                   .then(()=> {
                      if (!datos.resultado) {
                       debugger;
