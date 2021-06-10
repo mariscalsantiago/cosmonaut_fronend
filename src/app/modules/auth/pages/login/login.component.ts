@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { ValidarPasswordService } from 'src/app/shared/services/configuracion/validar-password.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService, usuarioClass } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
@@ -16,9 +17,12 @@ declare var $: any;
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild("emailrestablecer") correo!:ElementRef;
+
+
 
   public myForm: FormGroup;
-  public myFormPassword!:FormGroup;
+  public myFormPassword!: FormGroup;
 
   public error: boolean = false;
   public cargando: boolean = false;
@@ -27,6 +31,9 @@ export class LoginComponent implements OnInit {
   public aparecerCheck: boolean = false;
   public aparecerListaempresas: boolean = false;
   public cargandoLogin: boolean = false;
+  public mensajeSucess:string = "Contraseña actualizada correctamente";
+
+  public usuarioObj: any;
 
   public incorrectoback: boolean = false;
 
@@ -44,9 +51,12 @@ export class LoginComponent implements OnInit {
 
   public empresaSeleccionadaBool: boolean = true;
 
-  public cambiarPassword:boolean = false;
+  public cambiarPassword: boolean = false;
 
-  public invalidapassword:boolean = false;
+  public invalidapassword: boolean = false;
+  public mensajesuccess: boolean = false;
+  public mensajeerror:boolean = false;
+  public mensajeDanger:string = "";
 
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
     private companiaPrd: SharedCompaniaService, private usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService) {
@@ -69,7 +79,7 @@ export class LoginComponent implements OnInit {
 
     this.myFormPassword = this.createFormPassword();
     this.suscribirse();
-    
+
     this.cargandoLogin = this.usuarioSistemaPrd.introActivado;
     setTimeout(() => {
       this.cargandoLogin = false;
@@ -80,10 +90,11 @@ export class LoginComponent implements OnInit {
 
   }
 
-  public createFormPassword(){
+  public createFormPassword() {
     return this.formBuilder.group({
-      password1:['',[Validators.required]],
-      password2:['',[Validators.required]]
+      password1: ['', [Validators.required, ValidarPasswordService.validarPassword, Validators.minLength(8)]],
+      password2: ['', [Validators.required]],
+      oldpassword: ['', Validators.required]
     });
   }
 
@@ -95,14 +106,14 @@ export class LoginComponent implements OnInit {
   }
 
 
-  public suscribirse(){
-    this.myFormPassword.controls.password1.valueChanges.subscribe(valor =>{
-        this.invalidapassword = valor !== this.f.password2.value;
+  public suscribirse() {
+    this.myFormPassword.controls.password1.valueChanges.subscribe(valor => {
+      this.invalidapassword = valor !== this.f.password2.value;
     });
 
-    this.myFormPassword.controls.password2.valueChanges.subscribe(valor =>{
+    this.myFormPassword.controls.password2.valueChanges.subscribe(valor => {
       this.invalidapassword = valor !== this.f.password1.value;
-  });
+    });
   }
 
   public enviarformulario() {
@@ -110,24 +121,24 @@ export class LoginComponent implements OnInit {
     this.authPrd.login(this.myForm.value).subscribe(datos => {
       let username = datos.username;
       this.usuarioSistemaPrd.getInformacionAdicionalUser(username).subscribe(valorusuario => {
-        console.log("valorusuario", valorusuario);
         this.cargando = false;
         this.correcto = true;
-        if(valorusuario.passwordProvisional){
-            this.cambiarPassword = true;
-            this.incorrectoback = false;
-        }else{
-          this.usuarioSistemaPrd.obtenerInfo(username).subscribe(valorfinal => {
-            let objRecibido = valorfinal.datos[0];
-            const usuario: usuarioClass = new usuarioClass(objRecibido.centrocClienteId.centrocClienteId, objRecibido.personaId);
-            usuario.setDatosEmpleado(objRecibido);
-            this.usuarioSistemaPrd.setUsuario(usuario);
-            setTimeout(() => {
-              this.routerPrd.navigate(['/inicio']);
-            }, 2000);
-          });
+        this.mensajesuccess = false;
+        this.mensajeerror = false;
+        this.usuarioObj = valorusuario.datos;
+        let objRecibido = valorusuario.datos.personas[0];
+        const usuario: usuarioClass = new usuarioClass(objRecibido.centrocClienteId.centrocClienteId, objRecibido.personaId);
+        usuario.setDatosEmpleado(objRecibido);
+        this.usuarioSistemaPrd.setUsuario(usuario);
+        if (valorusuario.datos.usuario.passwordProvisional) {
+          this.cambiarPassword = true;
+          this.incorrectoback = false;
+        } else {
+          setTimeout(() => {
+            this.routerPrd.navigate(['/inicio']);
+          }, 2000);
         }
-     
+
 
       });
 
@@ -137,6 +148,8 @@ export class LoginComponent implements OnInit {
       this.cargando = false
 
       this.incorrectoback = err.status == 401;
+      this.mensajesuccess = false;
+      this.mensajeerror = false;
 
     });
 
@@ -219,30 +232,102 @@ export class LoginComponent implements OnInit {
   }
 
 
-  public cambiarContrasenias(){
-  
-    if(this.myFormPassword.invalid || this.invalidapassword ){
-      Object.values(this.myFormPassword.controls).forEach(control =>{
+  public cambiarContrasenias() {
+
+    if (this.myFormPassword.invalid || this.invalidapassword) {
+      Object.values(this.myFormPassword.controls).forEach(control => {
         control.markAsTouched();
       });
       return;
     }
 
-    
+
     this.restablecerContraseña();
 
 
   }
 
-  public restablecerContraseña(){
+  public restablecerContraseña() {
+
+
     let obj = this.myFormPassword.value;
-    let objEnviar={
-      
-    };
+    let objEnviar = {
+      usuarioId: this.usuarioObj.usuario.usuarioId,
+      oldPwd: obj.oldpassword,
+      newPwd: obj.password1
+    }
+
+    this.cargando = true;
+    this.usuarioSistemaPrd.resetPasword(objEnviar).subscribe(datos => {
+
+      if(datos.resultado){
+        this.usuarioSistemaPrd.logout().subscribe(() => {
+          this.regresar();
+          this.cargando = false;
+          this.mensajesuccess = true;
+          this.authPrd.eliminarTokens();
+          this.mensajeerror = false;
+          this.correcto = false;
+          this.myForm.controls.username.setValue("");
+          this.myForm.controls.password.setValue("");
+          this.mensajeSucess = "Contraseña actualizada correctamente"
+          
+        });
+      }else{
+        this.mensajeDanger = datos.mensaje;
+        this.mensajeerror = true;
+        this.cargando = false;
+      }
+     
+    });
+
+
+
+
+
   }
 
-  public get f(){
+  public get f() {
     return this.myFormPassword.controls;
+  }
+
+  public regresar() {
+    this.cargando = false;
+    this.mensajesuccess = false;
+    this.cambiarPassword = false;
+    this.ventanapass = false;
+    this.login = true;
+
+
+  }
+
+  public olvidastetupassword(){
+     if(this.correo.nativeElement.value){
+        let objenviar = {
+          username:this.correo.nativeElement.value
+        }
+
+        this.cargando = true;
+        this.usuarioSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos =>{
+          this.cargando = false;
+          if(datos.resultado){
+            this.regresar();
+            this.correo.nativeElement.value = "";
+          this.mensajeSucess = "Se ha enviado un correo electrónico con su contraseña de recuperación";
+          
+          this.mensajesuccess = true;
+          this.mensajeerror = false;
+          this.correcto = false;
+          this.myForm.controls.username.setValue("");
+          this.myForm.controls.password.setValue("");
+          }else{
+            this.mensajesuccess = false;
+            this.mensajeerror = true;
+            this.mensajeDanger = datos.mensaje;
+            
+          }
+        })
+     }
   }
 
 

@@ -127,6 +127,29 @@ export class NominaptuService {
   }
 
 
+  public descargarArchivo(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.reportes}/cargaMasiva/layoutPTU`, json, httpOptions);
+
+  }
+
+  public subirArchivo(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.ptu}/carga/masiva`, json, httpOptions);
+
+  }
+
+
   public creandoObservable(obj:any):Subject<any>{
     let subject = new Subject();
     setTimeout(() => {

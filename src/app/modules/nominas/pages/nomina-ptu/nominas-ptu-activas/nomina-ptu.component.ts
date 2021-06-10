@@ -79,7 +79,19 @@ export class NominaPTUComponent implements OnInit {
                 
                 this.router.navigate(['/nominas/nomina'], { state: { datos: {nominaPtu:item.nominaPtu} } });
               }else{
-                this.agregar();
+
+                console.log("visualizar ventana emergente");
+                this.ventana.showVentana(this.ventana.nuevanominaptu,{datos:{editar:true,datos:item.nominaPtu}}).then(valor => {
+  
+                  if (valor.datos) {
+                    //this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
+                    
+                  //  this.arreglo.push({ nominaPtu: { ...valor.datos.datos },inicial:true });
+                    
+                  this.traerListaNomina();
+                    
+                  }
+                });
               }
             });
             

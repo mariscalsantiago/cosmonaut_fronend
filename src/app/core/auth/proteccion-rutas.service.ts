@@ -10,7 +10,6 @@ export class ProteccionRutasService implements CanActivate {
   constructor(private autPrd:AuthService,private routerPrd:Router,
     private usuarioSistemaPrd:UsuarioSistemaService) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    
     if(!this.autPrd.isAuthenticated()){
       return this.routerPrd.parseUrl('/auth/login');
     }else{

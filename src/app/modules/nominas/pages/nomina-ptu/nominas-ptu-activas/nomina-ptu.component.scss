@@ -1,0 +1,27 @@
+article{
+    font-size: medium;
+    font-weight: bold;
+    article{
+        font-size: smaller;
+        font-weight: normal;
+        color:gray;
+        
+    }
+}
+
+.background-panel{
+    background-color: white;
+}
+
+
+.segundaseccion{
+    padding-bottom: 30px;
+    padding-top: 10px;
+    background-color: #f5f5f5;
+}
+
+table{
+    td,tr{
+        text-align: center;
+    }
+}

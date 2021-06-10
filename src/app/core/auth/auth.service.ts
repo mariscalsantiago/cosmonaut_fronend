@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { direcciones } from 'src/assets/direcciones';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -41,6 +42,11 @@ export class AuthService {
     let accessToken = JSON.parse(obj)?.access_token;
     return accessToken;
   }
+  getRefreshToken():string{
+    let obj = localStorage.getItem(this.JWT_TOKEN) as string;
+    let refreshToken = JSON.parse(obj)?.refresh_token;
+    return refreshToken;
+  }
 
   private guardarToken(respuesta: any): void {
 
@@ -51,6 +57,19 @@ export class AuthService {
   eliminarTokens(): void {
     localStorage.removeItem(this.JWT_TOKEN);
   }
+
+  public refreshToken(tokenRefresh:string):Observable<any>{
+    const httpOptions = {
+      headers:new HttpHeaders({
+        'Content-type':'x-www-form-urlencoded'   
+      })
+    }
+    let cuerpo = `grant_type=refresh_token&refresh_token=${tokenRefresh}`;
+    return this.http.post(`${direcciones.oauth}/access_token`,cuerpo,httpOptions).
+                pipe(tap(tokens => this.guardarToken(tokens)));;
+  }
+
+  
 
   
 }

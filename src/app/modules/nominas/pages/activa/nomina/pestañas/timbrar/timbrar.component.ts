@@ -7,6 +7,7 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
+import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
 
 @Component({
   selector: 'app-timbrar',
@@ -34,7 +35,8 @@ export class TimbrarComponent implements OnInit {
 
   constructor(private empleadoPrd: EmpleadosService, private ventana: VentanaemergenteService,
     private modalPrd: ModalService, private nominaOrdinariaPrd:NominaordinariaService,
-    private nominaAguinaldoPrd:NominaaguinaldoService,private nominaLiquidacionPrd:NominafiniquitoliquidacionService, private cp: CurrencyPipe) { }
+    private nominaAguinaldoPrd:NominaaguinaldoService,private nominaLiquidacionPrd:NominafiniquitoliquidacionService, private cp: CurrencyPipe,
+    private nominaPtuPrd:NominaptuService) { }
 
   ngOnInit(): void {
 
@@ -64,6 +66,12 @@ export class TimbrarComponent implements OnInit {
       this.initLiquidacion(objEnviar);
       this.llave = "reciboATimbrarLiquidacion";
       this.llave2 = "nominaLiquidacion";
+      
+    }else if(this.nominaSeleccionada.nominaPtu){
+      objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaPtu?.nominaXperiodoId;
+      this.initPtu(objEnviar);
+      this.llave = "reciboATimbrarPtu";
+      this.llave2 = "nominaPtu";
       
     }
   }
@@ -98,9 +106,17 @@ export class TimbrarComponent implements OnInit {
     });
   }
 
+  public initPtu(objEnviar:any){
+    this.nominaPtuPrd.getUsuariosTimbrado(objEnviar).subscribe(datos => {
+
+      this.rellenarTablas(datos);
+
+    });
+  }
+
 
   public recibirTabla(obj: any) {
-    
+   
     switch (obj.type) {
       case "desglosar":
         let item = obj.datos;
@@ -110,11 +126,7 @@ export class TimbrarComponent implements OnInit {
           personaId: item[this.llave].personaId,
           clienteId: item[this.llave].centrocClienteId
         }
-
-
-
-        
-        
+         
         if (this.nominaSeleccionada.nominaOrdinaria) {
 
           this.nominaOrdinariaPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
@@ -140,6 +152,18 @@ export class TimbrarComponent implements OnInit {
             let xmlPreliminarLiquidacion = datos.datos[0].xmlPreliminarLiquidacion;
             
             this.datosExtras.datos = xmlPreliminarLiquidacion;
+            item.cargandoDetalle = false;
+          });
+
+
+        }else if (this.nominaSeleccionada.nominaPtu) {
+        
+          console.log(objEnviar);
+          this.nominaPtuPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
+            console.log("el detalle es esto",datos);
+            let xmlPreliminarPtu = datos.datos[0].xmlPreliminarPtu;
+            
+            this.datosExtras.datos = xmlPreliminarPtu;
             item.cargandoDetalle = false;
           });
 

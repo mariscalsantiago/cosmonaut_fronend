@@ -23,7 +23,7 @@
             <app-ventana-resumen-timbrado  *ngIf="mostrar.ntimbrado" (salida)="recibirEmergente($event)"></app-ventana-resumen-timbrado>
             <app-ventana-subirdocumento  *ngIf="mostrar.subirdocumento" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-subirdocumento>
             <app-ventana-nominanuevaextraordinaria  *ngIf="mostrar.nuevanominaextraordinaria" (salida)="recibirEmergente($event)"></app-ventana-nominanuevaextraordinaria>
-            <app-nominanueva-ptu *ngIf="mostrar.nuevanominaptu" (salida)="recibirEmergente($event)"></app-nominanueva-ptu>
+            <app-nominanueva-ptu *ngIf="mostrar.nuevanominaptu" (salida)="recibirEmergente($event)" [datos]="datos"></app-nominanueva-ptu>
             <app-ventana-tablaisr *ngIf="mostrar.tablaisr" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-tablaisr>
             <app-ventana-subcidio *ngIf="mostrar.subcidio" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-subcidio>
             <app-ventana-nominanuevafiniquitoliquidacion  *ngIf="mostrar.nuevanominafiniquitoliquidacion" (salida)="recibirEmergente($event)"></app-ventana-nominanuevafiniquitoliquidacion>

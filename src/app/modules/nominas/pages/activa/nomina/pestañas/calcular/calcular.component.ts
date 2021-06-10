@@ -6,6 +6,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
+import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
 
 @Component({
   selector: 'app-calcular',
@@ -19,6 +20,7 @@ export class CalcularComponent implements OnInit {
   public nominaOrdinaria: boolean = false;
   public nominaExtraordinaria: boolean = false;
   public nominaLiquidacion:boolean = false;
+  public nominaPtu:boolean = false;
   public objEnviar: any = [];
   public arreglotabla: any = {
     columnas: [],
@@ -37,7 +39,8 @@ export class CalcularComponent implements OnInit {
 
   constructor(private navigate: Router,
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
-    private nominaAguinaldoPrd: NominaaguinaldoService,private nominaFiniquito:NominafiniquitoliquidacionService, private cp: CurrencyPipe) { }
+    private nominaAguinaldoPrd: NominaaguinaldoService,private nominaFiniquito:NominafiniquitoliquidacionService, private cp: CurrencyPipe,
+    private nominaPtuPrd:NominaptuService) { }
 
   ngOnInit(): void {
 
@@ -95,6 +98,23 @@ export class CalcularComponent implements OnInit {
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenandoTablas("calculoEmpleadoLiquidacion");
+      });
+    }else if(this.nominaSeleccionada.nominaPtu){
+      this.llave = "nominaPtu";
+      this.llave2 = "calculoEmpleadoPtu";
+      this.nominaPtu = true;
+
+      this.cargando = true;
+      this.objEnviar = {
+        nominaXperiodoId: this.nominaSeleccionada.nominaPtu?.nominaXperiodoId
+      }
+
+      this.nominaPtuPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
+
+        
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenandoTablas("calculoEmpleadoPtu");
       });
     }
 
@@ -161,6 +181,10 @@ export class CalcularComponent implements OnInit {
         }else if(this.nominaSeleccionada.nominaLiquidacion){
           this.nominaFiniquito.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
             this.rellenandoDesglose("detalleNominaEmpleadoLiquidacion", datosItem, item);
+          });
+        }else if(this.nominaSeleccionada.nominaPtu){
+          this.nominaPtuPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
+            this.rellenandoDesglose("detalleNominaEmpleadoPtu", datosItem, item);
           });
         }
 

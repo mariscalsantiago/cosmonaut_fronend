@@ -138,7 +138,7 @@ export class ContenidoComponent implements OnInit {
           this.sistemaUsuarioPrd.logout().subscribe(datos =>{
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.authPrd.eliminarTokens();
-            console.log(datos,"Esto es cuando se deslogea");
+            
             this.navigate.navigateByUrl('/auth/login');
           });
       }

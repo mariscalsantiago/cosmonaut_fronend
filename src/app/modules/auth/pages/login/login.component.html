@@ -24,11 +24,17 @@
           Email y/o contraseña inválidos
         </div>
 
+        <div *ngIf="mensajesuccess" style="width: fit-content;" class="alert alert-success" role="alert">
+          {{mensajeSucess}} 
+        </div>
+        <div *ngIf="mensajeerror" style="width: fit-content;" class="alert alert-danger" role="alert">
+          {{mensajeDanger}} 
+        </div>
         <form *ngIf="!cambiarPassword" class="form" [formGroup]="myForm" (ngSubmit)="enviarformulario()">
         
           <div class="form-group">
-            <label class="text-light" for="usuariologin"><small *ngIf="!ventanapass">Email</small><small
-                *ngIf="ventanapass">Ingresa tu email y te enviaremos un link para restablecerla</small></label>
+            <label class="text-light" for="usuariologin"><small *ngIf="!ventanapass">Correo electrónico</small><small
+                *ngIf="ventanapass">Ingresa tu correo electrónico y te enviaremos un link para restablecerla</small></label>
             <input *ngIf="!ventanapass" formControlName="username" type="email" class="form-control " id="usuariologin"
               aria-describedby="emailHelp">
 
@@ -38,7 +44,7 @@
             <input formControlName="password" type="password" class="form-control" id="loginpassword">
           </div>
           <div class="form-group" *ngIf="ventanapass">
-            <label class="text-light" for="exampleInputPassword1"><small>Email</small></label>
+            <label class="text-light" for="exampleInputPassword1"><small>Correo electrónico</small></label>
             <input #emailrestablecer type="email" class="form-control" id="exampleInputPassword1">
           </div>
           <a style="    color: #00c0af;" *ngIf="!ventanapass" (click)="ventanapass=true"><small> <u>¿Olvidaste tu
@@ -57,7 +63,7 @@
           </div>
 
           <div class="boton" *ngIf="ventanapass">
-            <button type="button" class="btn btn-info heartbeat"><span *ngIf="!cargando">ENVIAR</span>
+            <button (click)="olvidastetupassword()" type="button" class="btn btn-info heartbeat"><span *ngIf="!cargando">ENVIAR</span>
               <div *ngIf="cargando" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
@@ -72,12 +78,20 @@
 
         </form>
 
-        <form (ngSubmit)="cambiarContrasenias()" [formGroup]="myFormPassword" *ngIf="cambiarPassword" class="form" >
+        <form (ngSubmit)="cambiarContrasenias()" [formGroup]="myFormPassword" *ngIf="cambiarPassword && !mensajesuccess" class="form" >
+        
           <div class="form-group" >
+           
             <label class="text-light" for="loginpassword"><small>Contraseña nueva</small></label>
             <input [class.is-invalid]="(f.password1.errors && f.password1.touched) || invalidapassword" formControlName="password1" type="password" class="form-control" id="loginpassword">
             <div *ngIf="f.password1.errors?.required && f.password1.touched" class="invalid-feedback">
               Campo requerido
+            </div>
+            <div *ngIf="(f.password1.touched && f.password1.errors?.minlength)" class="invalid-feedback">
+              Debe contener mínimo 8 caracteres
+            </div>
+            <div *ngIf="(f.password1.touched && f.password1.errors?.errorPassword)" class="invalid-feedback">
+              Debe contener al menos una mayúscula, una minúscula y un número.
             </div>
           </div>
           <div class="form-group">
@@ -90,13 +104,20 @@
               Contraseñas no conciden
             </div>
           </div>
+          <div class="form-group">
+            <label class="text-light" for="loginpassword"><small>Contraseña anterior</small></label>
+            <input [class.is-invalid]="f.oldpassword.errors?.required && f.oldpassword.touched" formControlName="oldpassword" type="password" class="form-control">
+            <div class="invalid-feedback">
+              Campo requerido
+            </div>
+          </div>
           <div class="boton mt-3">
             <button type="submit" class="btn btn-info heartbeat"><span *ngIf="!cargando">Guardar</span>
               <div *ngIf="cargando" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </button>
-            <button *ngIf="correcto" type="button" class="btn btn-success button-fill"><span>CORRECTO</span></button>
+            <button *ngIf="correcto && !cambiarPassword" type="button" class="btn btn-success button-fill"><span>CORRECTO</span></button>
 
           </div>
         </form>

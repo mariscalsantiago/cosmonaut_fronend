@@ -32,6 +32,7 @@ export class ListachatsActivosComponent implements OnInit {
     this.cargando = true;
     this.chatPrd.getListaChatActivos().subscribe(datos => {
 
+      console.log(datos);
       
         this.construirTabla(datos.datos);
     });
@@ -52,8 +53,8 @@ export class ListachatsActivosComponent implements OnInit {
 
     if(obj){
         for(let item of obj){
-            item["nombreempleado"] = item.personaId?.nombre+" "+item.personaId.apellidoPaterno+" ";
-            item["nombreempleado"] += item.personaId?.apellidoMaterno?"":item.personaId?.apellidoMaterno
+            item["nombreempleado"] = item.usuarioId?.nombre+" "+item.usuarioId.apellidoPat+" ";
+            item["nombreempleado"] += item.personaId?.apellidoMat?"":item.usuarioId?.apellidoMat
 
             var datePipe = new DatePipe("es-MX");
             item["fecha"] = (new Date(item.fechaMensajeIncialEmpleado).toUTCString()).replace(" 00:00:00 GMT", "");

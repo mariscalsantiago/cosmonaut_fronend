@@ -5,7 +5,7 @@
                     class="fas fa-pencil-alt primary" (click)="editarcampos = true;accionarMostrar()"
                     style="width: 10%;text-align: right; cursor: pointer;"></i></div>
             <div class="row mb-4">
-                <article class="titulo  col">
+                <article [class.ajustar]="editarcampos" class="titulo  col">
                     Nombre
                     <article *ngIf="!editarcampos">{{empleado.nombre}}</article>
                     <article *ngIf="editarcampos">
@@ -16,7 +16,7 @@
                         </div>
                     </article>
                 </article>
-                <article class="titulo   col">
+                <article [class.ajustar]="editarcampos" class="titulo   col">
                     Primer apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoPaterno}}</article>
                     <article *ngIf="editarcampos">
@@ -28,7 +28,7 @@
                         </div>
                     </article>
                 </article>
-                <article class="titulo   col">
+                <article [class.ajustar]="editarcampos" class="titulo   col">
                     Segundo apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
@@ -39,7 +39,7 @@
 
             </div>
             <div class="row mb-4">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Genero
                     <article>
                         <input formControlName="genero" id="femenino" type="radio" name="genero" value="true"><label
@@ -51,7 +51,7 @@
                 </article>
             </div>
             <div class="row">
-                <article class="titulo mr-1 col">
+                <article [class.ajustar]="editarcampos"   class="titulo mr-1 col">
                     Fecha de nacimiento
                 </article>
 
@@ -59,7 +59,10 @@
             <div class="row">
                 <article *ngIf="editarcampos" class="titulo col">
                     <article>
-                        <input #fechaNacimiento (focusout)="validarfechNacimiento(fechaNacimiento.value)" formControlName="fechaNacimiento" type="date" name="" id="fn1" class="form-control">
+                        <input [class.is-invalid]="f.fechaNacimiento.errors && submitEnviado" #fechaNacimiento (focusout)="validarfechNacimiento(fechaNacimiento.value)" formControlName="fechaNacimiento" type="date" name="" id="fn1" class="form-control">
+                        <div  class="invalid-feedback">
+                            Campo requerido
+                        </div>
                     </article>
                 </article>
                 <article *ngIf="!editarcampos" class="titulo col">
@@ -80,7 +83,7 @@
             <hr>
 
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     CURP
                     <article *ngIf="!editarcampos">{{empleado.curp}}</article>
                     <article *ngIf="editarcampos">
@@ -98,7 +101,7 @@
                 </article>
             </div>
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     RFC
                     <article *ngIf="!editarcampos">
                         {{empleado.rfc}}
@@ -118,7 +121,7 @@
                 </article>
             </div>
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Seguro Social
                     <article *ngIf="!editarcampos">
                         {{empleado.nss}}
@@ -128,8 +131,25 @@
                     </article>
                 </article>
             </div>
+            <div class="row ">
+                <article [class.ajustar]="editarcampos" class="titulo col">
+                  Correo empresarial
+                    <article *ngIf="!editarcampos">
+                        {{empleado.emailCorporativo}}
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" formControlName="emailCorporativo" type="text" name=""
+                             class="form-control">
+                        <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched"
+                            
+                            class="invalid-feedback">
+                          Correo empresarial inválido
+                        </div>
+                    </article>
+                </article>
+            </div>
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                   Correo personal
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoInicialEmailPersonal}}
@@ -149,30 +169,14 @@
                     </article>
                 </article>
             </div>
-            <div class="row ">
-                <article class="titulo col">
-                  Correo empresarial
-                    <article *ngIf="!editarcampos">
-                        {{empleado.emailCorporativo}}
-                    </article>
-                    <article *ngIf="editarcampos">
-                        <input formControlName="emailCorporativo" type="text" name=""
-                             class="form-control">
-                        <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched"
-                            [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}"
-                            class="invalid-feedback">
-                          Correo empresarial inválido
-                        </div>
-                    </article>
-                </article>
-            </div>
+           
 
         </div>
         <div class="col-12 col-lg-6 col-xl-6  mb-3 mt-3">
             <div class="row"><label class="titulo">INFORMACIÓN ADICIONAL</label></div>
 
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Nacionalidad
                     <article *ngIf="!editarcampos">
                         {{empleado.nacionalidadId?.descripcion}}
@@ -188,7 +192,7 @@
                         </div>
                     </article>
                 </article>
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Teléfono
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoInicialTelefono}}
@@ -201,9 +205,10 @@
                         </div>
                     </article>
                 </article>
+                
             </div>
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Estado Civil
                     <article *ngIf="!editarcampos">
                         {{empleado.estadoCivilDescripcion}}
@@ -218,7 +223,7 @@
                         </select>
                     </article>
                 </article>
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Hijos
                     <article *ngIf="!editarcampos">
                         {{empleado.numeroHijos}}
@@ -229,7 +234,22 @@
                 </article>
             </div>
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
+                    Celular
+                    <article *ngIf="!editarcampos">
+                        {{empleado.celular}}
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input type="number" formControlName="celular" maxlength="10" class="form-control"
+                            [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}">
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article>
+            </div>
+            <div class="row mb-2">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Dirección
                     <article *ngIf="!editarcampos">
                         {{domicilioArreglo?.calle}} # {{domicilioArreglo?.numeroExterior}} Col. {{domicilioArreglo?.colonia}}, {{domicilioArreglo?.municipio}}, C.P. {{domicilioArreglo?.codigoPostal}} , {{domicilioArreglo?.entidadFederativa}}
@@ -324,7 +344,7 @@
                 </article>
             </div>
             <div class="row">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Perfil de Linkedin
                     <article *ngIf="!editarcampos">
                         {{empleado.urlLinkedin}}
@@ -340,7 +360,7 @@
             <div class="row mt-5"><label class="titulo">CONTACTO DE EMERGENCIA</label></div>
 
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Nombre
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoEmergenciaNombre}} {{empleado.contactoEmergenciaApellidoPaterno}}
@@ -355,7 +375,7 @@
                         </div>
                     </article>
                 </article>
-                <article *ngIf="editarcampos" class="titulo col">
+                <article *ngIf="editarcampos" [class.ajustar]="editarcampos"  class="titulo col">
                     Primer apellido
                     <article>
                         <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name=""
@@ -367,7 +387,7 @@
                         </div>
                     </article>
                 </article>
-                <article *ngIf="editarcampos" class="titulo col">
+                <article *ngIf="editarcampos" [class.ajustar]="editarcampos"  class="titulo col">
                     Segundo apellido
                     <article>
                         <input formControlName="contactoEmergenciaApellidoMaterno" type="text" name=""
@@ -378,7 +398,7 @@
             </div>
 
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Parentesco
                     <article *ngIf="!editarcampos">
                         {{empleado.parentescoId?.descripcion}}
@@ -392,7 +412,7 @@
             </div>
 
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                   Correo
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoEmergenciaEmail}}
@@ -404,7 +424,7 @@
                         </div>
                     </article>
                 </article>
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Celular
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoEmergenciaTelefono}}
@@ -420,13 +440,13 @@
         <!-- <div class="col-12 col-lg-6 col-xl-4  mb-3 mt-3">
             <div class="row"><label class="titulo">PREFERENCIAS</label></div>
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Alimentación
                     <article>
                         Mixta
                     </article>
                 </article>
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Color Favorito
                     <article>
                         Azul
@@ -434,13 +454,13 @@
                 </article>
             </div>
             <div class="row mb-2">
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Alergias
                     <article>
                         Ninguna
                     </article>
                 </article>
-                <article class="titulo col">
+                <article [class.ajustar]="editarcampos" class="titulo col">
                     Dulce Favorito
                     <article>
                         Paleta de caramelo

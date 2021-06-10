@@ -14,10 +14,7 @@ export class UsuarioSistemaService {
   public introActivado:boolean = true;
 
   constructor(private http: HttpClient) {
-
     this.usuario = new usuarioClass(470, 852);
-    
-
   }
 
 
@@ -73,6 +70,32 @@ export class UsuarioSistemaService {
   public getInformacionAdicionalUser(userName:string):Observable<any>{
     return this.http.get(`${direcciones.usuariosAuth}/obtener/username/${userName}`);
   } 
+
+  public resetPasword(obj:any):Observable<any>{
+    const httpOptions = {
+      headers:new HttpHeaders({
+        "Content-Type":"application/json"
+      })
+    };
+
+    let json = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.usuariosAuth}/cambiarPwd`,json,httpOptions);
+  }
+
+
+  public enviarCorreorecuperacion(obj:any):Observable<any>{
+    const httpOptions = {
+      headers:new HttpHeaders({
+        "Content-Type":"application/json"
+      })
+    };
+
+    let json = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.usuariosAuth}/reestablecerPwd`,json,httpOptions);
+  }
+
 
 
   public obtenerInfo( correo: any): Observable<any> {

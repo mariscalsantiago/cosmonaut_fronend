@@ -39,5 +39,7 @@ export const direcciones = {
     chat: `${ip}/chat`,
     socket: `${ipSocket}/websocket`,
     usuariosAuth:`${ipAdmin}/usuarios`,
-    versiones:`${ipAdmin}/version`
+    versiones:`${ipAdmin}/version`,
+    ptu:`${ip}/ptu`,
+    oauth:`${ipAdmin}/oauth`
 };

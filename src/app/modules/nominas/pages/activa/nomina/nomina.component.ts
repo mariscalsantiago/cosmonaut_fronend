@@ -36,6 +36,8 @@ export class NominaComponent implements OnInit {
        this.llave = "nominaExtraordinaria";
      }else if(temp.nominaLiquidacion){
       this.llave = "nominaLiquidacion";
+    }else if(temp.nominaPtu){
+      this.llave = "nominaPtu";
     }
 
      this.nominaSeleccionada = temp;
