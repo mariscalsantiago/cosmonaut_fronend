@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -24,26 +24,23 @@ export class TokenInterceptorService implements HttpInterceptor {
     }
     return next.handle(req).pipe(
       catchError((e: HttpErrorResponse) => {
-
-        console.log("Entra al primer error del handler");
         if (e instanceof HttpErrorResponse && e.status === 401 && this.authPrd.isAuthenticated()) {
           if (!this.refreshTokenEnProgreso) {
             this.refreshTokenEnProgreso = true;
-            this.accessTokenSubject.next(null);
             return this.authPrd.refreshToken(this.authPrd.getRefreshToken()).pipe(
               switchMap(respuestaBackTokennuevo => {
                 this.refreshTokenEnProgreso = false;
-                this.accessTokenSubject.next(respuestaBackTokennuevo.accessToken);
+                this.accessTokenSubject.next(respuestaBackTokennuevo.access_token);
                 req = req.clone({
                   setHeaders: {
-                    authorization: `Bearer ${respuestaBackTokennuevo.accessToken}`
+                    authorization: `Bearer ${respuestaBackTokennuevo.access_token}`
                   }
                 });
                 return next.handle(req);
               }),
               catchError((e: HttpErrorResponse) => {
                 this.refreshTokenEnProgreso = false;
-                //Eliminar el token --- (posiblemente)
+                this.authPrd.eliminarTokens();
                 return throwError(e);
               })
             );

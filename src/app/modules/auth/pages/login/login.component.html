@@ -128,14 +128,14 @@
 
         <div class="contenedor">
           <div (click)="seleccionadoCompania(item)" [class.seleccionado]="item.seleccionado" *ngFor="let item of arregloCompanias" class="caja">
-            <span>Titulo de empresa</span>
+            <span>{{item.nombre}}</span>
             <img src="assets/imgs/logo2.png" alt="" srcset="">
           </div>
         </div>
 
         <br id="#lugar"><br><br>
         <div class="boton" *ngIf="!ventanapass">
-          <button [disabled]="empresaSeleccionadaBool" type="submit" class="btn btn-info heartbeat"><span>INGRESAR</span>
+          <button *ngIf="!correcto" [disabled]="empresaSeleccionadaBool" type="button" (click)="seleccionarcompaniaFinal()" class="btn btn-info heartbeat"><span  *ngIf="!cargando">INGRESAR</span>
             <div *ngIf="cargando" class="spinner-border" role="status">
               <span class="sr-only">Loading...</span>
             </div>

@@ -54,7 +54,7 @@ export class VentanaNuevanominaComponent implements OnInit {
       {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
         grupoNomina: [, [Validators.required]],
-        usuarioId: this.usuarioSistemaPrd.getUsuario().idUsuario,
+        usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
         fechaIniPeriodo: [, [Validators.required]],
         fechaFinPeriodo: [{ value: '', disabled: true }, [Validators.required]],
         nombreNomina: [, [Validators.required]]

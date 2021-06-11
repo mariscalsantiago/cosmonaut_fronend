@@ -85,7 +85,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     return this.formbuilder.group(
       {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
-        usuarioId: this.usuarioSistemaPrd.getUsuario().idUsuario,
+        usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
         nombreNomina: [, [Validators.required]],
         monedaId: [, [Validators.required]],
         centrocClienteId: [, [Validators.required]],

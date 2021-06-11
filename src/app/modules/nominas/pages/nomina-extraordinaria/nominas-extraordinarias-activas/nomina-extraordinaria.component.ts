@@ -68,7 +68,7 @@ export class NominaExtraordinariaComponent implements OnInit {
         let objEnviar = {
           nominaXperiodoId: item.nominaExtraordinaria.nominaXperiodoId,
           clienteId: this.usuariSistemaPrd.getIdEmpresa(),
-          usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
+          usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
         }
 
         

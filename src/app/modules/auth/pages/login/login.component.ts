@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ValidarPasswordService } from 'src/app/shared/services/configuracion/validar-password.service';
-import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService, usuarioClass } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 
@@ -17,7 +17,7 @@ declare var $: any;
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild("emailrestablecer") correo!:ElementRef;
+  @ViewChild("emailrestablecer") correo!: ElementRef;
 
 
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   public aparecerCheck: boolean = false;
   public aparecerListaempresas: boolean = false;
   public cargandoLogin: boolean = false;
-  public mensajeSucess:string = "Contraseña actualizada correctamente";
+  public mensajeSucess: string = "Contraseña actualizada correctamente";
 
   public usuarioObj: any;
 
@@ -55,11 +55,13 @@ export class LoginComponent implements OnInit {
 
   public invalidapassword: boolean = false;
   public mensajesuccess: boolean = false;
-  public mensajeerror:boolean = false;
-  public mensajeDanger:string = "";
+  public mensajeerror: boolean = false;
+  public mensajeDanger: string = "";
+  public clienteSeleccionado:any;
 
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
-    private companiaPrd: SharedCompaniaService, private usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService) {
+    private companiaPrd: SharedCompaniaService, private usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService,
+    private authUsuarioPrd: UsuariosauthService) {
     let obj = {};
     this.myForm = this.createMyForm(obj);
 
@@ -72,6 +74,7 @@ export class LoginComponent implements OnInit {
 
     //   this.arregloCompanias = datos.datos;
     // });
+
 
   }
 
@@ -120,23 +123,58 @@ export class LoginComponent implements OnInit {
 
     this.authPrd.login(this.myForm.value).subscribe(datos => {
       let username = datos.username;
-      this.usuarioSistemaPrd.getInformacionAdicionalUser(username).subscribe(valorusuario => {
+      this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(username)).subscribe(valorusuario => {
         this.cargando = false;
         this.correcto = true;
         this.mensajesuccess = false;
         this.mensajeerror = false;
-        this.usuarioObj = valorusuario.datos;
-        let objRecibido = valorusuario.datos.personas[0];
-        const usuario: usuarioClass = new usuarioClass(objRecibido.centrocClienteId.centrocClienteId, objRecibido.personaId);
-        usuario.setDatosEmpleado(objRecibido);
-        this.usuarioSistemaPrd.setUsuario(usuario);
+
+        this.usuarioObj = valorusuario.datos.usuario;
+       
         if (valorusuario.datos.usuario.passwordProvisional) {
           this.cambiarPassword = true;
           this.incorrectoback = false;
         } else {
-          setTimeout(() => {
-            this.routerPrd.navigate(['/inicio']);
-          }, 2000);
+
+
+          let objRecibido = valorusuario.datos.clientes[0];
+          const usuario: usuarioClass = new usuarioClass();
+          usuario.centrocClienteId = objRecibido.centrocClienteId;
+          usuario.usuarioId = this.usuarioObj.usuarioId;
+          usuario.nombre = this.usuarioObj.nombre;
+          usuario.apellidoPat = this.usuarioObj.apellidoPat;
+          usuario.email = this.usuarioObj.email;
+          usuario.fechaAlta = this.usuarioObj.fechaAlta;
+          usuario.passwordProvisional = this.usuarioObj.passwordProvisional;
+          usuario.rolId = this.usuarioObj.rolId?.rolId;
+          usuario.submodulosXpermisos = valorusuario.datos.submodulosXpermisos;
+          this.usuarioSistemaPrd.setUsuario(usuario);
+          this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+            let obj = datos.datos;
+
+            this.usuarioSistemaPrd.setVersionSistema(obj.versionCosmonautId?.versionCosmonautId);
+
+          });
+
+          if(valorusuario.datos.clientes.length > 1){
+              this.multiempresa = true;
+              this.login = false;
+              this.correcto = false;
+
+              this.arregloCompanias = valorusuario.datos.clientes;
+
+              for(let item of this.arregloCompanias){
+                item.seleccionado = false;
+              }
+
+          }else{
+            setTimeout(() => {
+              this.routerPrd.navigate(['/inicio']);
+            }, 2000);
+          }
+
+
+        
         }
 
 
@@ -205,17 +243,17 @@ export class LoginComponent implements OnInit {
 
     let usuario: usuarioClass;
     if (!this.aparecerListaempresas) {
-      usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
+     // usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
     } else {
       if (this.empresaSeleccionada == undefined) {
-        usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
+       // usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
       } else {
-        usuario = new usuarioClass(this.empresaSeleccionada.centrocClienteId, 1);
+        //usuario = new usuarioClass(this.empresaSeleccionada.centrocClienteId, 1);
       }
     }
 
 
-    this.usuarioSistemaPrd.setUsuario(usuario);
+ //   this.usuarioSistemaPrd.setUsuario(usuario);
 
   }
 
@@ -229,6 +267,8 @@ export class LoginComponent implements OnInit {
     item.seleccionado = true;
 
     this.empresaSeleccionadaBool = false;
+
+    this.clienteSeleccionado = item;
   }
 
 
@@ -252,7 +292,7 @@ export class LoginComponent implements OnInit {
 
     let obj = this.myFormPassword.value;
     let objEnviar = {
-      usuarioId: this.usuarioObj.usuario.usuarioId,
+      usuarioId: this.usuarioObj.usuarioId,
       oldPwd: obj.oldpassword,
       newPwd: obj.password1
     }
@@ -260,7 +300,7 @@ export class LoginComponent implements OnInit {
     this.cargando = true;
     this.usuarioSistemaPrd.resetPasword(objEnviar).subscribe(datos => {
 
-      if(datos.resultado){
+      if (datos.resultado) {
         this.usuarioSistemaPrd.logout().subscribe(() => {
           this.regresar();
           this.cargando = false;
@@ -271,14 +311,14 @@ export class LoginComponent implements OnInit {
           this.myForm.controls.username.setValue("");
           this.myForm.controls.password.setValue("");
           this.mensajeSucess = "Contraseña actualizada correctamente"
-          
+
         });
-      }else{
+      } else {
         this.mensajeDanger = datos.mensaje;
         this.mensajeerror = true;
         this.cargando = false;
       }
-     
+
     });
 
 
@@ -301,33 +341,62 @@ export class LoginComponent implements OnInit {
 
   }
 
-  public olvidastetupassword(){
-     if(this.correo.nativeElement.value){
-        let objenviar = {
-          username:this.correo.nativeElement.value
-        }
+  public olvidastetupassword() {
+    if (this.correo.nativeElement.value) {
+      let objenviar = {
+        username: this.correo.nativeElement.value
+      }
 
-        this.cargando = true;
-        this.usuarioSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos =>{
-          this.cargando = false;
-          if(datos.resultado){
-            this.regresar();
-            this.correo.nativeElement.value = "";
+      this.cargando = true;
+      this.usuarioSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {
+        this.cargando = false;
+        if (datos.resultado) {
+          this.regresar();
+          this.correo.nativeElement.value = "";
           this.mensajeSucess = "Se ha enviado un correo electrónico con su contraseña de recuperación";
-          
+
           this.mensajesuccess = true;
           this.mensajeerror = false;
           this.correcto = false;
           this.myForm.controls.username.setValue("");
           this.myForm.controls.password.setValue("");
-          }else{
-            this.mensajesuccess = false;
-            this.mensajeerror = true;
-            this.mensajeDanger = datos.mensaje;
-            
-          }
-        })
-     }
+        } else {
+          this.mensajesuccess = false;
+          this.mensajeerror = true;
+          this.mensajeDanger = datos.mensaje;
+
+        }
+      })
+    }
+  }
+
+
+  public seleccionarcompaniaFinal(){
+
+    let usuario:usuarioClass = this.usuarioSistemaPrd.getUsuario();
+    usuario.centrocClienteId = this.clienteSeleccionado.centrocClienteId;
+
+    this.usuarioSistemaPrd.setUsuario(usuario);
+    this.cargando = true;
+
+
+    this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      let obj = datos.datos;
+      this.cargando = false;
+      this.correcto = true;
+
+      this.usuarioSistemaPrd.setVersionSistema(obj.versionCosmonautId?.versionCosmonautId);
+      setTimeout(() => {
+        this.routerPrd.navigate(['/inicio']);
+      }, 2000);
+
+    });
+
+    
+
+    
+
+
   }
 
 

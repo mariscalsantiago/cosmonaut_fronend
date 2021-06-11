@@ -169,7 +169,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
         let objEnviar = {
           clienteId: this.usuariosPrd.getIdEmpresa(),
-          usuarioId: this.usuariosPrd.getUsuario().idUsuario,
+          usuarioId: this.usuariosPrd.getUsuario().usuarioId,
           nombreNomina: obj.nombre,
           cuentaBancoId: obj.bancoId,
           monedaId: obj.monedaId,

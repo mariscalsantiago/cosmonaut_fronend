@@ -17,14 +17,19 @@ export class RolesService {
     return this.http.get<modulos>(`${direcciones.roles}`);
   }
 
-  public getListaModulos(activo: boolean): Observable<modulos[]> {
-    return this.http.get<any>(`${direcciones.modulos}/listar/todosActivo/${activo}`)
+  public getListaModulos(activo: boolean,idVersion:number): Observable<modulos[]> {
+    return this.http.get<any>(`${direcciones.modulos}/version/${idVersion}/listar/todosActivo/${activo}`)
       .pipe(map(valor => valor.datos));
   }
 
 
   public getListaTodosSistema(): Observable<any> {
     return this.http.get(`${direcciones.roles}/listar/todosActivo/true`);
+  }
+
+  public getRolesByEmpresa(idEmpresa:any,version:number,activo:boolean):Observable<any>{
+    console.log("Esto se envia",`${direcciones.roles}/cliente/${idEmpresa}/version/${version}/listar/todosActivo/${activo}`);
+      return this.http.get(`${direcciones.roles}/cliente/${idEmpresa}/version/${version}/listar/todosActivo/${activo}`);
   }
 
 

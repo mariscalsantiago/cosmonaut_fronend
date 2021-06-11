@@ -40,6 +40,25 @@ export class UsuariosauthService {
       
   }
 
+  public actualizarVersionsistema(obj:any):Observable<any>{
+    const httpOptions = {
+      headers:new HttpHeaders({
+        'Content-Type':'application/json'
+      })
+    }
+
+
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.versiones}/modificar`,json,httpOptions);
+      
+  }
+
+  public getVersionByEmpresa(idEmpresa:number):Observable<any>{
+    return this.http.get(`${direcciones.versiones}/cliente/${idEmpresa}`);
+  }
+
+
+
   
 
 

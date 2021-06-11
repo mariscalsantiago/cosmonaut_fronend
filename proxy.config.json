@@ -32,7 +32,7 @@
          "changeOrigin": true
     },
     "/admin/*":{
-        "target":"https://aac7a634733f.ngrok.io",
+        "target":"http://30721af94228.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/admin": ""

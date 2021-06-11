@@ -69,7 +69,7 @@ export class NominaPTUComponent implements OnInit {
           let objEnviar = {
             nominaXperiodoId: item.nominaPtu.nominaXperiodoId,
             clienteId: this.usuariSistemaPrd.getIdEmpresa(),
-            usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
+            usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
           }
           this.nominaPtuPrd.calcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

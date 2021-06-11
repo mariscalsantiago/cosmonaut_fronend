@@ -57,7 +57,7 @@ export class ChatbootComponent implements OnInit {
 
     this.tamanio = documento.innerWidth;
 
-    this.chatPrd.conectarSocket(this.usuarioSistemaPrd.getIdEmpresa(),this.usuarioSistemaPrd.getUsuario().idUsuario)
+    this.chatPrd.conectarSocket(this.usuarioSistemaPrd.getIdEmpresa(),this.usuarioSistemaPrd.getUsuario().usuarioId)
     this.chatPrd.recibiendoMensajeServer().subscribe(datos =>{
       let objEnviado = {
         enviado:false,

@@ -86,7 +86,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
     return this.formbuilder.group(
       {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
-        usuarioId: this.usuarioSistemaPrd.getUsuario().idUsuario,
+        usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
         fecXReportes: [, [Validators.required]],
         nombreNomina: [, [Validators.required]],
         monedaId: [],

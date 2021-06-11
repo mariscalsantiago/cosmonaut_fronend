@@ -12,6 +12,8 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
   private readonly JWT_TOKEN = 'JWT_TOKEN';
+  private readonly USUARIO = 'usuario';
+  private readonly VERSION = 'version';
 
   constructor(private http: HttpClient,private router: Router,private httpbackend:HttpBackend) { 
     this.http = new HttpClient(this.httpbackend);
@@ -56,15 +58,18 @@ export class AuthService {
 
   eliminarTokens(): void {
     localStorage.removeItem(this.JWT_TOKEN);
+    localStorage.removeItem(this.USUARIO);
+    localStorage.removeItem(this.VERSION);
   }
 
   public refreshToken(tokenRefresh:string):Observable<any>{
     const httpOptions = {
       headers:new HttpHeaders({
-        'Content-type':'x-www-form-urlencoded'   
+        'Content-type':'application/x-www-form-urlencoded'   
       })
     }
     let cuerpo = `grant_type=refresh_token&refresh_token=${tokenRefresh}`;
+
     return this.http.post(`${direcciones.oauth}/access_token`,cuerpo,httpOptions).
                 pipe(tap(tokens => this.guardarToken(tokens)));;
   }

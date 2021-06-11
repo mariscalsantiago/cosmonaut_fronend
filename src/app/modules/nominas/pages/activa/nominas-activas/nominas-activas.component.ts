@@ -70,7 +70,7 @@ export class NominasActivasComponent implements OnInit {
         let objEnviar = {
           nominaXperiodoId: item.nominaOrdinaria.nominaXperiodoId,
           clienteId: this.usuariSistemaPrd.getIdEmpresa(),
-          usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
+          usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
         }
         this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

@@ -45,6 +45,10 @@ export class DetalleCompanyComponent implements OnInit {
 
   public arregloVersiones:any = [];
 
+  public versionEmpresa={
+    versionCosmonautXclienteId:undefined
+  };
+
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService,private versionesPrd:VersionesService,
@@ -52,6 +56,7 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {  
+
 
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.compania = true;
@@ -68,6 +73,9 @@ export class DetalleCompanyComponent implements OnInit {
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
       if (!this.insertar) {
+
+      
+
         this.companyPrd.getEmpresaById(this.objCompany.centrocClienteId).subscribe(datos => {
           this.cargandoImg = false;
           this.imagen = datos.datos?.imagen;
@@ -83,6 +91,16 @@ export class DetalleCompanyComponent implements OnInit {
       
 
       this.myFormcomp = this.createFormcomp((this.objCompany));
+
+
+      this.authUsuariosPrd.getVersionByEmpresa(this.objCompany.centrocClienteId).subscribe(datos =>{
+        console.log("Esta es la version",datos.versionCosmonautId?.versionCosmonautId);
+        this.myFormcomp.controls.versioncosmonaut.setValue(datos.datos.versionCosmonautId?.versionCosmonautId);
+        this.versionEmpresa = datos.datos;
+        console.log("Version de empresa",datos.datos);
+    });
+
+
       if(this.objCompany.multiempresa){
             this.myFormcomp.controls.rfc.setValidators([]);
             this.myFormcomp.controls.rfc.updateValueAndValidity();
@@ -205,6 +223,7 @@ export class DetalleCompanyComponent implements OnInit {
           imagen: this.imagen  
         };
 
+        
 
         
 
@@ -220,7 +239,7 @@ export class DetalleCompanyComponent implements OnInit {
             if(datos.resultado){
               
             let objVersionEnviar = {
-              centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),
+              centrocClienteId:datos.datos.centrocClienteId,
               versionId:obj.versioncosmonaut
             };
             this.authUsuariosPrd.guardarVersionsistema(objVersionEnviar).subscribe(datosVersion =>{
@@ -247,8 +266,36 @@ export class DetalleCompanyComponent implements OnInit {
           });
 
         } else {
+
           this.companyPrd.modificar(obj).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+            if(datos.resultado){
+            let objEnviar =   {
+                versionCosmonautXclienteId: this.versionEmpresa.versionCosmonautXclienteId,
+                versionId: obj.versioncosmonaut,
+                centrocClienteId: obj.centrocClienteId
+                }
+
+                if(!Boolean(objEnviar.versionCosmonautXclienteId)){
+                  delete objEnviar.versionCosmonautXclienteId;
+                  this.authUsuariosPrd.guardarVersionsistema(objEnviar).subscribe(datosVersion =>{
+                    if(!datosVersion.resultado){
+                          this.modalPrd.showMessageDialog(datosVersion.resultado,datosVersion.mensaje);
+                    }
+                  });
+
+                }else{
+                  this.authUsuariosPrd.actualizarVersionsistema(objEnviar).subscribe(valordatos =>{
+                    if(!valordatos.resultado){
+                        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+                    }
+                  });
+                }
+
+               
+            }
+
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
             this.listcontacto = true;
             this.compania = false;
