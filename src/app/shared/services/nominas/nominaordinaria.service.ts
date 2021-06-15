@@ -2,10 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
-import { ordinariaCalculo, ordinariaListaActivos,ordinariaUsuariosCalculados,ordinariaUsuariosCalculadosDetalle,
-  ordinariaUsuariosDispersion, 
-  ordinariaUsuariosTimbrado,
-  ordinariaUsuariosTimbradoDetalle} from './datos';
+
 
 
 @Injectable({
@@ -22,7 +19,7 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/guardar/nomina`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/guardar/nomina`, json, httpOptions);
 
   }
 
@@ -35,7 +32,7 @@ export class NominaordinariaService {
     };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaCalculo);
-    return this.http.post(`${direcciones.orquestador}/calcula/nomina/periodo`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/calcula/nomina/periodo`, json, httpOptions);
 
   }
 
@@ -47,7 +44,7 @@ export class NominaordinariaService {
     };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaListaActivos);
-    return this.http.post(`${direcciones.orquestador}/consulta/nominas/activas`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/consulta/nominas/activas`, json, httpOptions);
   }
 
   public getUsuariosCalculados(obj:any):Observable<any> {
@@ -58,7 +55,7 @@ export class NominaordinariaService {
     };
     let json: string = JSON.stringify(obj);
      //return this.creandoObservable(ordinariaUsuariosCalculados);
-    return this.http.post(`${direcciones.orquestador}/lista/empleado/calculo/percepciones/deducciones`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/calculo/percepciones/deducciones`, json, httpOptions);
   }
 
 
@@ -70,7 +67,7 @@ export class NominaordinariaService {
     };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosCalculadosDetalle);
-     return this.http.post(`${direcciones.orquestador}/detalle/nomina/empleado`,json,httpOptions);
+     return this.http.post(`${direcciones.nominaOrdinaria}/detalle/nomina/empleado`,json,httpOptions);
   
   }
 
@@ -82,7 +79,7 @@ export class NominaordinariaService {
     };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosDispersion);
-    return this.http.post(`${direcciones.orquestador}/lista/empleado/total/pago/neto`,json,httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/total/pago/neto`,json,httpOptions);
  }
 
 
@@ -94,7 +91,7 @@ export class NominaordinariaService {
     };
     let json: string = JSON.stringify(obj);
    //return this.creandoObservable(ordinariaUsuariosTimbrado);
-   return this.http.post(`${direcciones.orquestador}/listado/empleado/total/pago/neto/fecha/timbrado`, json, httpOptions);
+   return this.http.post(`${direcciones.nominaOrdinaria}/listado/empleado/total/pago/neto/fecha/timbrado`, json, httpOptions);
   }
 
   public getUsuariosTimbradoDetalle(obj:any):Observable<any> {
@@ -106,7 +103,7 @@ export class NominaordinariaService {
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosTimbradoDetalle);
     
-    return this.http.post(`${direcciones.orquestador}/detalle/empleado/total/pago/neto/detalle/monto/timbrado`,json,httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/detalle/empleado/total/pago/neto/detalle/monto/timbrado`,json,httpOptions);
   }
 
   public descargaRecibos(obj: any): Observable<any> {
@@ -116,7 +113,7 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/descarga/recibos`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/descarga/recibos`, json, httpOptions);
 
   }
 
@@ -127,7 +124,19 @@ export class NominaordinariaService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/descarga/dispercion/`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/descarga/dispercion/`, json, httpOptions);
+
+  }
+
+
+  public eliminar(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.nominaOrdinaria}/eliminacion/nomina/ordinaria`, json, httpOptions);
 
   }
 

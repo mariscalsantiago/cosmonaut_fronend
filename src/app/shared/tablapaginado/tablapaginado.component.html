@@ -79,9 +79,9 @@
             <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i
                 class="icon_24descargar primary-bg"></i></button>
             <button *ngIf="ver" (click)="btnVer(item,indice)"><i class="icon_24ver primary-bg"></i></button>
-            <button *ngIf="editar && item.nombre !== 'Politica Estandar'" (click)="btnEditar(item,indice)"><i
+            <button *ngIf="editar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial')" (click)="btnEditar(item,indice)"><i
                 class="icon_24editar primary-bg"></i></button>
-            <button *ngIf="eliminar && item.nombre !== 'Politica Estandar'" (click)="btnEliminar(item,indice)"><i
+            <button *ngIf="eliminar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial')" (click)="btnEliminar(item,indice)"><i
                 class="icon_24eliminar danger-bg"></i></button>
             <button *ngIf="llave " (click)="btnLlave(item,indice)">
               <i class="icon_24llave primary-bg"></i>

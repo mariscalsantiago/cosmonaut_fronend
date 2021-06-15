@@ -28,7 +28,6 @@ export const direcciones = {
     registroPatronal:`${ip}/registroPatronal`,
     conceptos:`${ip}/percepcionDeduccion`,
     incidencias:`${ip}/incidencias`,
-    orquestador:`${ipCalculos}/orquestador`,
     documentos:`${ip}/documentos`,
     kardex:`${ip}/kardex`,
     tablasValores: `${ipAdmin}/TablasValores`,
@@ -41,5 +40,11 @@ export const direcciones = {
     usuariosAuth:`${ipAdmin}/usuarios`,
     versiones:`${ipAdmin}/version`,
     ptu:`${ip}/ptu`,
-    oauth:`${ipAdmin}/oauth`
+    oauth:`${ipAdmin}/oauth`,
+    nominaOrdinaria:`${ipCalculos}/nomina-ordinaria`,
+    nominaExtraordinaria:`${ipCalculos}/nomina-extraordinaria`,
+    nominaLiquidacion:`${ipCalculos}/nomina-liquidacion`,
+    nominaPtu:`${ipCalculos}/nomina-ptu`,
+    orquestador:`${ipCalculos}/orquestador`,
+    calculo:`${ipCalculos}/calculo`
 };

@@ -24,9 +24,9 @@ import { CalculosService } from 'src/app/shared/services/nominas/calculos.servic
   styleUrls: ['./empleo.component.scss']
 })
 export class EmpleoComponent implements OnInit {
-  @ViewChild("fechaAntiguedad") fechaAntiguedadElemento!:ElementRef;
-  @ViewChild("fechaInicioCont") fechaInicioCont!:ElementRef;
-  @ViewChild("fechaFinCont") fechaFinCont!:ElementRef;
+  @ViewChild("fechaAntiguedad") fechaAntiguedadElemento!: ElementRef;
+  @ViewChild("fechaInicioCont") fechaInicioCont!: ElementRef;
+  @ViewChild("fechaFinCont") fechaFinCont!: ElementRef;
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;
   @Input() arregloEnviar: any;
@@ -84,14 +84,14 @@ export class EmpleoComponent implements OnInit {
     private usuarioSistemaPrd: UsuarioSistemaService,
     private jornadaPrd: JornadalaboralService, private sedesPrd: SharedSedesService,
     private modalPrd: ModalService, private puestosPrd: PuestosService,
-    private calculoPrd:CalculosService) { }
+    private calculoPrd: CalculosService) { }
 
   ngOnInit(): void {
 
 
 
-   
-    
+
+
 
     this.id_empresa = this.usuarioSistemaPrd.getIdEmpresa();
 
@@ -121,34 +121,34 @@ export class EmpleoComponent implements OnInit {
     this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
 
 
-   this.suscripciones();
+    this.suscripciones();
 
   }
 
 
   ngAfterViewInit(): void {
 
-   const datepipe = new DatePipe("es-MX");
-   let diamaximo = datepipe.transform(new Date,"yyyy-MM-dd")
-   this.fechaAntiguedadElemento.nativeElement.max = diamaximo;
-   
-   
+    const datepipe = new DatePipe("es-MX");
+    let diamaximo = datepipe.transform(new Date, "yyyy-MM-dd")
+    this.fechaAntiguedadElemento.nativeElement.max = diamaximo;
+
+
   }
 
 
-  public suscripciones(){
-        this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor =>{
-        });
-        this.myForm.controls.fechaAntiguedad.valueChanges.subscribe(valor =>{
-              this.fechaInicioCont.nativeElement.min = valor;
-            });
+  public suscripciones() {
+    this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor => {
+    });
+    this.myForm.controls.fechaAntiguedad.valueChanges.subscribe(valor => {
+      this.fechaInicioCont.nativeElement.min = valor;
+    });
 
-        this.myForm.controls.fechaInicio.valueChanges.subscribe(valor =>{
-          this.fechaFinCont.nativeElement.min = valor;
-        });
+    this.myForm.controls.fechaInicio.valueChanges.subscribe(valor => {
+      this.fechaFinCont.nativeElement.min = valor;
+    });
 
 
-      
+
   }
 
 
@@ -195,19 +195,19 @@ export class EmpleoComponent implements OnInit {
 
   public validarfechaInicioCont(fecha: any) {
 
-    
+
 
     if (fecha != "") {
-     if(`${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "" && `${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "null" ){
-      var fecha = fecha.split("-");
-      this.fechaIC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
-     }else{
-      this.modalPrd.showMessageDialog(this.modalPrd.error, 'Debes seleccionar la fecha de antigüedad')
-      .then(() => {
-        this.myForm.controls.fechaInicio.setValue("");
-        this.myForm.controls.fechaFin.setValue("");
-      });
-    }
+      if (`${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "" && `${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "null") {
+        var fecha = fecha.split("-");
+        this.fechaIC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+      } else {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'Debes seleccionar la fecha de antigüedad')
+          .then(() => {
+            this.myForm.controls.fechaInicio.setValue("");
+            this.myForm.controls.fechaFin.setValue("");
+          });
+      }
     }
   }
 
@@ -217,7 +217,7 @@ export class EmpleoComponent implements OnInit {
     var fechaFC = new Date();
     var fecha = fecha.split("-");
     fechaFC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
-    if (`${this.myForm.controls.fechaInicio.value}`.trim() !== "null" &&  `${this.myForm.controls.fechaInicio.value}`.trim() !== "") {
+    if (`${this.myForm.controls.fechaInicio.value}`.trim() !== "null" && `${this.myForm.controls.fechaInicio.value}`.trim() !== "") {
       if (fechaFC < this.fechaIC) {
 
         this.modalPrd.showMessageDialog(false, 'La fecha debe ser mayor a la fecha incio de contrato')
@@ -292,7 +292,7 @@ export class EmpleoComponent implements OnInit {
 
           this.puestosPrd.save(objEnviar).subscribe(datos => {
 
-            
+
 
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
@@ -312,7 +312,7 @@ export class EmpleoComponent implements OnInit {
 
           this.puestosPrd.savepuest(objEnviar).subscribe(datos => {
 
-            
+
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
 
@@ -396,7 +396,7 @@ export class EmpleoComponent implements OnInit {
 
 
 
-    
+
     this.submitEnviado = true;
 
     let noesFecha: boolean = (this.myForm.controls.tipoContratoId.value == null || this.myForm.controls.tipoContratoId.value == 1 || this.myForm.controls.tipoContratoId.value == 10);
@@ -485,7 +485,7 @@ export class EmpleoComponent implements OnInit {
             personaId: this.puestoIdReporta == 0 ? null : this.puestoIdReporta
           },
           fechaAltaImss: obj.fechaAltaImss,
-          sueldoNetoMensual:obj.sueldoNetoMensual
+          sueldoNetoMensual: obj.sueldoNetoMensual
         }
 
 
@@ -577,7 +577,7 @@ export class EmpleoComponent implements OnInit {
 
 
     this.apareceplusPuesto = true;
-    
+
     this.textoArea = $event.target.options[$event.target.options.selectedIndex].text;
 
 
@@ -617,7 +617,7 @@ export class EmpleoComponent implements OnInit {
       this.myForm.controls.sueldoBrutoMensual.updateValueAndValidity();
     }
 
-    
+
   }
 
 
@@ -645,9 +645,9 @@ export class EmpleoComponent implements OnInit {
         let encontrado: boolean = false;
         let nombreCompleto = "";
         for (let item of this.arregloempleadosreporta) {
-          
-         nombreCompleto = item.personaId.nombre + " " + item.personaId.apellidoPaterno+" "+(item.personaId.apellidoMaterno == undefined ? "":item.personaId.apellidoMaterno);
-          
+
+          nombreCompleto = item.personaId.nombre + " " + item.personaId.apellidoPaterno + " " + (item.personaId.apellidoMaterno == undefined ? "" : item.personaId.apellidoMaterno);
+
           if (nombreCompleto.includes(nombreCapturado)) {
             encontrado = true;
             this.puestoIdReporta = item.personaId.personaId;
@@ -665,7 +665,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public validarFechaImss() {
-    
+
     let fecha = this.myForm.controls.fechaAltaImss.value;
     if (fecha != undefined && fecha != '') {
       let fechaaux: Date = new Date((new Date(fecha).toUTCString()).replace(" 00:00:00 GMT", ""));
@@ -712,7 +712,7 @@ export class EmpleoComponent implements OnInit {
       this.myForm.controls.tiposueldo.disable();
       this.myForm.controls.tiposueldo.setValue('n');
 
-      
+
       this.myForm.controls.tipoCompensacionId.setValue(2);
 
 
@@ -725,7 +725,7 @@ export class EmpleoComponent implements OnInit {
       this.myForm.controls.salarioDiarioIntegrado.disable();
 
       this.cambiarSueldoField();
-    }else{
+    } else {
       this.myForm.controls.salarioDiario.setValidators([]);
       this.myForm.controls.salarioDiario.updateValueAndValidity();
       this.myForm.controls.salarioDiarioIntegrado.setValidators([]);
@@ -734,7 +734,7 @@ export class EmpleoComponent implements OnInit {
 
       this.myForm.controls.tiposueldo.enable();
       this.myForm.controls.salarioDiario.disable();
-      
+
     }
 
 
@@ -742,68 +742,75 @@ export class EmpleoComponent implements OnInit {
   }
 
 
-  public cambiasueldobruto(){
-         
-
-  
+  public cambiasueldobruto(esBruto: boolean) {
 
 
-    
 
 
-    if(this.myForm.controls.sueldoBrutoMensual.invalid){
+
+
+
+
+    if (this.myForm.controls.sueldoBrutoMensual.invalid) {
       return;
     }
 
-    if(this.myForm.controls.politicaId.invalid){
+    if (this.myForm.controls.politicaId.invalid) {
 
-      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar una política");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar una política");
       return;
     }
-    if(this.myForm.controls.grupoNominaId.invalid){
+    if (this.myForm.controls.grupoNominaId.invalid) {
 
-      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar un grupo de  nómina");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar un grupo de  nómina");
       return;
     }
-    if(this.myForm.controls.tipoCompensacionId.invalid){
+    if (this.myForm.controls.tipoCompensacionId.invalid) {
 
-      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar la compensación");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la compensación");
       return;
     }
-    if(this.myForm.controls.fechaAntiguedad.invalid){
+    if (this.myForm.controls.fechaAntiguedad.invalid) {
 
-      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar la fecha de antigüedad");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la fecha de antigüedad");
       return;
     }
-    if(this.myForm.controls.fechaInicio.invalid){
+    if (this.myForm.controls.fechaInicio.invalid) {
 
-      this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe seleccionar la de inicio de contrato");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la de inicio de contrato");
       return;
     }
 
 
-   let objenviar =  {
+    let objenviar = {
       clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
       politicaId: this.myForm.controls.politicaId.value,
       grupoNomina: this.myForm.controls.grupoNominaId.value,
       tipoCompensacion: this.myForm.controls.tipoCompensacionId.value,
       sbmImss: this.myForm.controls.sueldoBrutoMensual.value,
+      pagoNeto: this.myForm.controls.sueldoNetoMensual.value,
       fechaAntiguedad: this.myForm.controls.fechaAntiguedad.value,
-      fecIniPeriodo: new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd")    
+      fecIniPeriodo: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd")
     }
 
-    this.modalPrd.showMessageDialog(this.modalPrd.loading,"Calculando");
+    if (esBruto) {
+      delete objenviar.pagoNeto;
+    } else {
+      delete objenviar.sbmImss;
+    }
 
-    this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos =>{
+    this.modalPrd.showMessageDialog(this.modalPrd.loading, "Calculando");
+
+    this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos => {
 
       let aux = datos.datos;
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      if(datos.datos !== undefined){
-    
-        
-          this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
-          this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
-          this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
+      if (datos.datos !== undefined) {
+
+
+        this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
+        this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
+        this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
       }
     });
 

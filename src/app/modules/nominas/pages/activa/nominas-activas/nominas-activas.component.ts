@@ -24,14 +24,14 @@ export class NominasActivasComponent implements OnInit {
     private nominaOrdinariaPrd: NominaordinariaService) { }
 
   ngOnInit(): void {
-    
+
     this.traerListaNomina();
 
   }
 
 
-  public traerListaNomina(){
-  
+  public traerListaNomina() {
+
     this.cargando = true;
     let objenviar =
     {
@@ -51,11 +51,11 @@ export class NominasActivasComponent implements OnInit {
 
       if (valor.datos) {
         //this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
-        
-      //  this.arreglo.push({ nominaOrdinaria: { ...valor.datos.datos },inicial:true });
-        
-      this.traerListaNomina();
-        
+
+        //  this.arreglo.push({ nominaOrdinaria: { ...valor.datos.datos },inicial:true });
+
+        this.traerListaNomina();
+
       }
     });
   }
@@ -74,10 +74,10 @@ export class NominasActivasComponent implements OnInit {
         }
         this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
-          if(datos.resultado){
-            console.log("datos enviados",datos);
-            this.router.navigate(['/nominas/nomina'], { state: { datos: {nominaOrdinaria:item.nominaOrdinaria} } });
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+          if (datos.resultado) {
+            console.log("datos enviados", datos);
+            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaOrdinaria: item.nominaOrdinaria } } });
           }
         });
 
@@ -93,6 +93,28 @@ export class NominasActivasComponent implements OnInit {
     this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
   }
 
+
+  public eliminar(obj: any, indice: number) {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas eliminar la nómina?").then(valor => {
+      if (valor) {
+        let objEnviar = {
+          nominaXperiodoId: obj.nominaXperiodoId,
+          usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
+        };
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.nominaOrdinariaPrd.eliminar(objEnviar).subscribe(datos => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+            if (datos.resultado) {
+              this.arreglo.splice(indice, 1)
+            }
+          });
+        });
+      }
+    });
+
+  }
 
 
 

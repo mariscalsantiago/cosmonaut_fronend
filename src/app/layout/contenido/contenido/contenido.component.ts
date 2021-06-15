@@ -7,6 +7,8 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 import { Router } from '@angular/router';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
 
 @Component({
   selector: 'app-contenido',
@@ -20,6 +22,9 @@ export class ContenidoComponent implements OnInit {
   public temporal: boolean = false;
 
   public ocultarchat:boolean = true;
+
+
+  public PRINCIPAL_MENU:any;
 
 
 
@@ -68,7 +73,8 @@ export class ContenidoComponent implements OnInit {
 
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
     private ventana: VentanaemergenteService,private navigate:Router,
-    private chatPrd:ChatSocketService,private authPrd:AuthService) {
+    private chatPrd:ChatSocketService,private authPrd:AuthService,private configuracionPrd:ConfiguracionesService,
+    private rolesPrd:RolesService,private usuariosSistemaPrd:UsuarioSistemaService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
   }
@@ -81,6 +87,24 @@ export class ContenidoComponent implements OnInit {
 
 
     this.chatPrd.setChatDatos(this.chat);
+
+
+    if(this.authPrd.isAuthenticated()){
+        if(!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)){
+          this.rolesPrd.getListaModulos(true,this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
+            this.PRINCIPAL_MENU=this.configuracionPrd.traerDatosMenu(this.usuariosSistemaPrd.getUsuario().submodulosXpermisos,datos,this.usuariosSistemaPrd.getVersionSistema());
+            
+            this.configuracionPrd.setElementosSesion(this.configuracionPrd.MENUUSUARIO,this.PRINCIPAL_MENU);
+            this.establecericons();
+
+          });
+        }else{
+           this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos =>{
+             this.PRINCIPAL_MENU = datos;  
+             this.establecericons();
+           });
+        }
+    }
 
   }
 
@@ -145,6 +169,22 @@ export class ContenidoComponent implements OnInit {
     });
   }
 
+
+  public establecericons(){
+      for(let item of this.PRINCIPAL_MENU){
+          switch(item.moduloId){
+              case 1:
+                  item.icono = "icon_admoncos"
+                break;
+                case 2:
+                  item.icono = "icon_admon"
+                break;
+          }
+      }
+  }
+
+
+ 
 
 
 }

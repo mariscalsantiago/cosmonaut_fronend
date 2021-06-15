@@ -17,7 +17,7 @@ export class NominaptuService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/guardar/nomina/ptu`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaPtu}/guardar/nomina/ptu`, json, httpOptions);
 
   }
 
@@ -30,7 +30,7 @@ export class NominaptuService {
     };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaCalculo);
-    return this.http.post(`${direcciones.orquestador}/calculo/nomina/ptu`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaPtu}/calculo/nomina/ptu`, json, httpOptions);
 
   }
 
@@ -42,7 +42,7 @@ export class NominaptuService {
     };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaListaActivos);
-    return this.http.post(`${direcciones.orquestador}/listado/nominas/ptu`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaPtu}/listado/nominas/ptu`, json, httpOptions);
   }
 
   public getUsuariosCalculados(obj:any):Observable<any> {
@@ -53,7 +53,7 @@ export class NominaptuService {
     };
     let json: string = JSON.stringify(obj);
      //return this.creandoObservable(ordinariaUsuariosCalculados);
-    return this.http.post(`${direcciones.orquestador}/lista/empleados/ptu`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaPtu}/lista/empleados/ptu`, json, httpOptions);
   }
 
 
@@ -65,7 +65,7 @@ export class NominaptuService {
     };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosCalculadosDetalle);
-     return this.http.post(`${direcciones.orquestador}/detalle/empleado/nomina/ptu`,json,httpOptions);
+     return this.http.post(`${direcciones.nominaPtu}/detalle/empleado/nomina/ptu`,json,httpOptions);
   
   }
 
@@ -77,7 +77,7 @@ export class NominaptuService {
     };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosDispersion);
-    return this.http.post(`${direcciones.orquestador}/listado/empleados/total-pago-neto/ptu`,json,httpOptions);
+    return this.http.post(`${direcciones.nominaPtu}/listado/empleados/total-pago-neto/ptu`,json,httpOptions);
  }
 
 
@@ -89,7 +89,7 @@ export class NominaptuService {
     };
     let json: string = JSON.stringify(obj);
    //return this.creandoObservable(ordinariaUsuariosTimbrado);
-   return this.http.post(`${direcciones.orquestador}/listado/empleados/total-pago-neto/ptu/timbrado`, json, httpOptions);
+   return this.http.post(`${direcciones.nominaPtu}/listado/empleados/total-pago-neto/ptu/timbrado`, json, httpOptions);
   }
 
   public getUsuariosTimbradoDetalle(obj:any):Observable<any> {
@@ -101,7 +101,7 @@ export class NominaptuService {
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosTimbradoDetalle);
     
-    return this.http.post(`${direcciones.orquestador}/detalle/empleados/total/pago-neto/detalle/montos/timbrado/ptu`,json,httpOptions);
+    return this.http.post(`${direcciones.nominaPtu}/detalle/empleados/total/pago-neto/detalle/montos/timbrado/ptu`,json,httpOptions);
   }
 
   public descargaRecibos(obj: any): Observable<any> {
@@ -111,7 +111,7 @@ export class NominaptuService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/descarga/recibos`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaPtu}/descarga/recibos`, json, httpOptions);
 
   }
 
@@ -122,7 +122,7 @@ export class NominaptuService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/descarga/dispercion/`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaPtu}/descarga/dispercion/`, json, httpOptions);
 
   }
 
@@ -148,6 +148,18 @@ export class NominaptuService {
     return this.http.post(`${direcciones.ptu}/carga/masiva`, json, httpOptions);
 
   }
+
+  public eliminar(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.nominaOrdinaria}/eliminacion/nomina/ptu`, json, httpOptions);
+
+  }
+
 
 
   public creandoObservable(obj:any):Subject<any>{

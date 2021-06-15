@@ -18,7 +18,18 @@ export class CalculosService {
     };
 
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.orquestador}/calcula/salario/bruto/mensual`, json, httpOptions);
+    return this.http.post(`${direcciones.calculo}/salario/bruto/mensual`, json, httpOptions);
+
+  }
+  public calculoSueldoNeto(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.nominaPtu}/salario/imss/completo/ppp`, json, httpOptions);
 
   }
 }

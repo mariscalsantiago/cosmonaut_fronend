@@ -17,7 +17,7 @@
 <div class="scrooll-design">
 
    
-    <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo" >
+    <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo;let indice = index;" >
         <div class="col-6 mt-3">
             <article>{{item.nominaOrdinaria?.nombreNomina}}
                 <article>Período de {{item.nominaOrdinaria?.fechaInicio | date:'dd MMM'}} hasta {{item.nominaOrdinaria?.fechaFin | date:'dd MMM'}}</article>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <a style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle mt-3">
+            <a (click)="eliminar(item.nominaOrdinaria,indice)" style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle mt-3">
                 <i style="background-color: #56dfd4 !important;" class="icon_eliminar "></i>
                 Eliminar</a>
     

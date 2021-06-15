@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { RolesService } from '../../services/roles.service';
 
 @Component({
@@ -20,12 +21,13 @@ export class ListarolesComponent implements OnInit {
 
   public arreglo:any = [];
 
-  constructor(private routerPrd:Router,private rolesPrd:RolesService,private modalPrd:ModalService) { }
+  constructor(private routerPrd:Router,private rolesPrd:RolesService,private modalPrd:ModalService,
+    private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
     this.cargando = true;
-    this.rolesPrd.getListaTodosSistema().subscribe(datos =>{
+    this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos =>{
       this.arreglo = datos.datos;
       let columnas:Array<tabla> = [new tabla("nombreRol","Rol"),
       new tabla("","Número de usuarios"),

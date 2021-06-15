@@ -14,17 +14,29 @@
                 <img src="assets/imgs/logo2.png" alt="" srcset="">
             </div>
             <ul id="listanavegadora" class="list-unstyled components">
-                <li *ngFor="let item of arreglo" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.rol?.includes(rol)}">
+                <li *ngFor="let item of PRINCIPAL_MENU" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
                     <a [routerLink]="item.routerLink" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
                         <i [class]="item.icono"></i>
-                        {{item.nombre}}</a>
-                    <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="item.nombre">
-                        <li *ngFor="let item2 of item.submenu" [ngClass]="{'ocultarMenu':!item2.rol?.includes(rol)}" (click)="seleccionarSubmenu(item,item2)">
-                            <a [routerLink]="item2.routerLink">{{item2.nombre}}</a>
+                        {{item.nombreModulo | uppercase}}</a>
+                    <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="'m'+item.moduloId">
+                        <li *ngFor="let item2 of item.submodulos" [ngClass]="{'ocultarMenu':!item2.checked}" (click)="seleccionarSubmenu(item,item2)">
+                            <a [routerLink]="item2.pathServicio">{{item2.nombreSubmodulo }}</a>
                         </li>
                     </ul>
                 </li>
                 <li id="salirbtn"  (click)="cerrarSesion()"><a >    <i class="icon_cerrarsesion danger-bg"></i>CERRAR SESIÓN</a></li>
+            </ul>
+            <ul class="list-unstyled components">
+                <li *ngFor="let item of arreglo" [ngClass]="{'active':item.seleccionado}">
+                    <a [routerLink]="item.routerLink" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
+                        <i [class]="item.icono"></i>
+                        {{item.nombre}}</a>
+                    <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="item.nombre">
+                        <li *ngFor="let item2 of item.submenu" (click)="seleccionarSubmenu(item,item2)">
+                            <a [routerLink]="item2.routerLink">{{item2.nombre}}</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <div id="contenido" class="content" [ngClass]="{'scrollhide':modal.modal || emergente.modal}" style="position: relative;">

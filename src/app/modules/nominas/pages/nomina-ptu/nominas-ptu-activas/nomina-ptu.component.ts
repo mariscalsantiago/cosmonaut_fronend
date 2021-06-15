@@ -109,4 +109,25 @@ export class NominaPTUComponent implements OnInit {
       this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
     }
   
+
+    public eliminar(obj: any, indice: number) {
+      this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas eliminar la nómina?").then(valor => {
+        if (valor) {
+          let objEnviar = {
+            nominaXperiodoId: obj.nominaXperiodoId,
+            usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
+          };
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.nominaPtuPrd.eliminar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.arreglo.splice(indice, 1)
+              }
+            });
+          });
+        }
+      });
+  
+    }
 }

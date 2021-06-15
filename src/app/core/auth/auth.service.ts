@@ -14,6 +14,7 @@ export class AuthService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly USUARIO = 'usuario';
   private readonly VERSION = 'version';
+  private readonly SESSION = 'sesion';
 
   constructor(private http: HttpClient,private router: Router,private httpbackend:HttpBackend) { 
     this.http = new HttpClient(this.httpbackend);
@@ -60,6 +61,7 @@ export class AuthService {
     localStorage.removeItem(this.JWT_TOKEN);
     localStorage.removeItem(this.USUARIO);
     localStorage.removeItem(this.VERSION);
+    localStorage.removeItem(this.SESSION);
   }
 
   public refreshToken(tokenRefresh:string):Observable<any>{

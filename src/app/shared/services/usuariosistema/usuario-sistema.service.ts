@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { direcciones } from 'src/assets/direcciones';
-import { AuthService } from 'src/app/core/auth/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -31,7 +30,8 @@ export class UsuarioSistemaService {
   }
 
   public getIdEmpresa() {
-    this.usuario = this.usuario.centrocClienteId == undefined  ? JSON.parse(localStorage["usuario"]):this.usuario;
+    if(localStorage["usuario"] !== undefined){
+    this.usuario = this.usuario.centrocClienteId == undefined  ? JSON.parse(localStorage["usuario"]):this.usuario;}
     return this.usuario.centrocClienteId;
   }
 
