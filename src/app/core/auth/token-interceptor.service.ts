@@ -1,6 +1,7 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -8,16 +9,59 @@ import { AuthService } from './auth.service';
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
+  public refreshTokenEnProgreso: boolean = false;
+  accessTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
   constructor(private authPrd: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      if (this.authPrd.isAuthenticated()) {
-          req = req.clone({
-              setHeaders: {
-                  authorization: `Bearer ${this.authPrd.getToken()}`
-              }
-          });
+    if (this.authPrd.isAuthenticated()) {
+      req = req.clone({
+        setHeaders: {
+          authorization: `Bearer ${this.authPrd.getToken()}`
+        }
+      });
+    }
+    return next.handle(req).pipe(
+      catchError((e: HttpErrorResponse) => {
+        if (e instanceof HttpErrorResponse && e.status === 401 && this.authPrd.isAuthenticated()) {
+          if (!this.refreshTokenEnProgreso) {
+            this.refreshTokenEnProgreso = true;
+            return this.authPrd.refreshToken(this.authPrd.getRefreshToken()).pipe(
+              switchMap(respuestaBackTokennuevo => {
+                this.refreshTokenEnProgreso = false;
+                this.accessTokenSubject.next(respuestaBackTokennuevo.access_token);
+                req = req.clone({
+                  setHeaders: {
+                    authorization: `Bearer ${respuestaBackTokennuevo.access_token}`
+                  }
+                });
+                return next.handle(req);
+              }),
+              catchError((e: HttpErrorResponse) => {
+                this.refreshTokenEnProgreso = false;
+                this.authPrd.eliminarTokens();
+                return throwError(e);
+              })
+            );
+          } else {
+            return this.accessTokenSubject.pipe(
+              filter(accessToken => accessToken !== null),
+              take(1),
+              switchMap(token => {
+                req = req.clone({
+                  setHeaders: {
+                    authorization: `Bearer ${token}`
+                  }
+                });
+                return next.handle(req);
+              }));
+          }
+        }
+
+        return throwError(e);
       }
-      return next.handle(req);
+
+      ));
   }
 }

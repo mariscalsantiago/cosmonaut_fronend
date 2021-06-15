@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
-import { ModalService } from 'src/app/shared/services/modales/modal.service';
-import { UsuarioSistemaService,usuarioClass } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { ValidarPasswordService } from 'src/app/shared/services/configuracion/validar-password.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
+import { UsuarioSistemaService, usuarioClass } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 
 declare var $: any;
@@ -15,34 +17,51 @@ declare var $: any;
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild("emailrestablecer") correo!: ElementRef;
+
+
 
   public myForm: FormGroup;
+  public myFormPassword!: FormGroup;
 
   public error: boolean = false;
   public cargando: boolean = false;
   public correcto: boolean = false;
   public ventanapass: boolean = false;
   public aparecerCheck: boolean = false;
-  public aparecerListaempresas:boolean = false;
-  public cargandoLogin:boolean = false;
+  public aparecerListaempresas: boolean = false;
+  public cargandoLogin: boolean = false;
+  public mensajeSucess: string = "Contraseña actualizada correctamente";
+
+  public usuarioObj: any;
+
+  public incorrectoback: boolean = false;
 
 
   public cargandoEmpresa: boolean = false;
-  public cargandoEmpresaCompania:boolean = false;
-  public arregloCompanias: any = [{seleccionado:false},{seleccionado:false},{seleccionado:false},{seleccionado:false},{seleccionado:false},{seleccionado:false}];
+  public cargandoEmpresaCompania: boolean = false;
+  public arregloCompanias: any = [{ seleccionado: false }, { seleccionado: false }, { seleccionado: false }, { seleccionado: false }, { seleccionado: false }, { seleccionado: false }];
   public arregloEmpresas: any = [];
 
-  public empresaSeleccionada:any;
-  public companiaSeleccionada:any;
+  public empresaSeleccionada: any;
+  public companiaSeleccionada: any;
 
-  public login:boolean = true;
-  public multiempresa:boolean = false;
+  public login: boolean = true;
+  public multiempresa: boolean = false;
 
-  public empresaSeleccionadaBool:boolean = true;
+  public empresaSeleccionadaBool: boolean = true;
+
+  public cambiarPassword: boolean = false;
+
+  public invalidapassword: boolean = false;
+  public mensajesuccess: boolean = false;
+  public mensajeerror: boolean = false;
+  public mensajeDanger: string = "";
+  public clienteSeleccionado:any;
 
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
-    private companiaPrd: SharedCompaniaService,private usuarioSistemaPrd:UsuarioSistemaService,
-    private modalPrd:ModalService) {
+    private companiaPrd: SharedCompaniaService, private usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService,
+    private authUsuarioPrd: UsuariosauthService) {
     let obj = {};
     this.myForm = this.createMyForm(obj);
 
@@ -52,62 +71,124 @@ export class LoginComponent implements OnInit {
     this.cargandoEmpresa = true;
     // this.companiaPrd.getAllCompany().subscribe(datos => {
     //   this.cargandoEmpresa = false;
-    
+
     //   this.arregloCompanias = datos.datos;
     // });
+
 
   }
 
   ngOnInit(): void {
 
-    this.cargandoLogin = true;
+    this.myFormPassword = this.createFormPassword();
+    this.suscribirse();
+
+    this.cargandoLogin = this.usuarioSistemaPrd.introActivado;
     setTimeout(() => {
-     this.cargandoLogin = false;
+      this.cargandoLogin = false;
+      this.usuarioSistemaPrd.introActivado = false;
     }, 4000);
     //$('#modalshare').modal('show');
+
+
+  }
+
+  public createFormPassword() {
+    return this.formBuilder.group({
+      password1: ['', [Validators.required, ValidarPasswordService.validarPassword, Validators.minLength(8)]],
+      password2: ['', [Validators.required]],
+      oldpassword: ['', Validators.required]
+    });
   }
 
   public createMyForm(obj: any) {
     return this.formBuilder.group({
-      email: ['', Validators.required],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
 
 
-  public enviarformulario() {   
+  public suscribirse() {
+    this.myFormPassword.controls.password1.valueChanges.subscribe(valor => {
+      this.invalidapassword = valor !== this.f.password2.value;
+    });
 
-    this.usuarioSistemaPrd.login(this.myForm.value).subscribe(datos =>{
-        if(datos.resultado) {
-            if(datos.datos == undefined){
-                alert("Usuario invalido");
-                this.cargando = false;
-            }else{
-              if(!this.myForm.value.email.includes(this.myForm.value.password)){
+    this.myFormPassword.controls.password2.valueChanges.subscribe(valor => {
+      this.invalidapassword = valor !== this.f.password1.value;
+    });
+  }
 
-                alert("Contraseña invalida");
-               
-                this.cargando = false;
-                this.correcto = false;
-  
-                return;
+  public enviarformulario() {
+
+    this.authPrd.login(this.myForm.value).subscribe(datos => {
+      let username = datos.username;
+      this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(username)).subscribe(valorusuario => {
+        this.cargando = false;
+        this.correcto = true;
+        this.mensajesuccess = false;
+        this.mensajeerror = false;
+
+        this.usuarioObj = valorusuario.datos.usuario;
+       
+        if (valorusuario.datos.usuario.passwordProvisional) {
+          this.cambiarPassword = true;
+          this.incorrectoback = false;
+        } else {
+
+
+          let objRecibido = valorusuario.datos.clientes[0];
+          const usuario: usuarioClass = new usuarioClass();
+          usuario.centrocClienteId = objRecibido.centrocClienteId;
+          usuario.usuarioId = this.usuarioObj.usuarioId;
+          usuario.nombre = this.usuarioObj.nombre;
+          usuario.apellidoPat = this.usuarioObj.apellidoPat;
+          usuario.email = this.usuarioObj.email;
+          usuario.fechaAlta = this.usuarioObj.fechaAlta;
+          usuario.passwordProvisional = this.usuarioObj.passwordProvisional;
+          usuario.rolId = this.usuarioObj.rolId?.rolId;
+          usuario.submodulosXpermisos = valorusuario.datos.submodulosXpermisos;
+          this.usuarioSistemaPrd.setUsuario(usuario);
+          this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+            let obj = datos.datos;
+
+            this.usuarioSistemaPrd.setVersionSistema(obj.versionCosmonautId?.versionCosmonautId);
+
+          });
+
+          if(valorusuario.datos.clientes.length > 1){
+              this.multiempresa = true;
+              this.login = false;
+              this.correcto = false;
+
+              this.arregloCompanias = valorusuario.datos.clientes;
+
+              for(let item of this.arregloCompanias){
+                item.seleccionado = false;
               }
 
-              this.cargando = false;
-              this.correcto = true;
+          }else{
+            setTimeout(() => {
+              this.routerPrd.navigate(['/inicio']);
+            }, 2000);
+          }
 
-              
 
-              let objRecibido = datos.datos[0];
-              const usuario:usuarioClass = new usuarioClass(objRecibido.centrocClienteId.centrocClienteId,objRecibido.personaId);
-              usuario.setDatosEmpleado(objRecibido);
-              this.usuarioSistemaPrd.setUsuario(usuario);
-
-              setTimeout(() => {
-                this.routerPrd.navigate(['/inicio']);        
-              }, 2000);
-            }
+        
         }
+
+
+      });
+
+
+
+    }, (err) => {
+      this.cargando = false
+
+      this.incorrectoback = err.status == 401;
+      this.mensajesuccess = false;
+      this.mensajeerror = false;
+
     });
 
     this.cargando = true;
@@ -132,7 +213,7 @@ export class LoginComponent implements OnInit {
     this.cargandoEmpresaCompania = true;
 
     this.companiaPrd.getAllEmp(elemento.centrocClienteId).subscribe(datos => {
-      
+
       this.arregloEmpresas = datos.datos;
       this.cargandoEmpresaCompania = false;
     });
@@ -146,46 +227,176 @@ export class LoginComponent implements OnInit {
 
     elemento.seleccionado = true;
 
-    
+
 
     this.empresaSeleccionada = elemento;
 
   }
 
 
-  public finalizadoSeleccion(){
-    if(this.empresaSeleccionada== undefined && this.companiaSeleccionada == undefined){
-        alert("no se ha seleccionado el cliente");
-        return;
+  public finalizadoSeleccion() {
+    if (this.empresaSeleccionada == undefined && this.companiaSeleccionada == undefined) {
+      alert("no se ha seleccionado el cliente");
+      return;
     }
     $('#modalshare').modal('hide');
 
-    let usuario:usuarioClass;
-    if(!this.aparecerListaempresas){
-        usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId,1);
-    }else{
-      if(this.empresaSeleccionada == undefined){
-        usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId,1);
-      }else{
-        usuario = new usuarioClass(this.empresaSeleccionada.centrocClienteId,1);
+    let usuario: usuarioClass;
+    if (!this.aparecerListaempresas) {
+     // usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
+    } else {
+      if (this.empresaSeleccionada == undefined) {
+       // usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
+      } else {
+        //usuario = new usuarioClass(this.empresaSeleccionada.centrocClienteId, 1);
       }
     }
 
 
-    this.usuarioSistemaPrd.setUsuario(usuario);
+ //   this.usuarioSistemaPrd.setUsuario(usuario);
 
   }
 
 
-  public seleccionadoCompania(item:any){
+  public seleccionadoCompania(item: any) {
 
-    for(let item of this.arregloCompanias){
-       item.seleccionado = false;  
-    } 
+    for (let item of this.arregloCompanias) {
+      item.seleccionado = false;
+    }
 
     item.seleccionado = true;
 
     this.empresaSeleccionadaBool = false;
+
+    this.clienteSeleccionado = item;
+  }
+
+
+  public cambiarContrasenias() {
+
+    if (this.myFormPassword.invalid || this.invalidapassword) {
+      Object.values(this.myFormPassword.controls).forEach(control => {
+        control.markAsTouched();
+      });
+      return;
+    }
+
+
+    this.restablecerContraseña();
+
+
+  }
+
+  public restablecerContraseña() {
+
+
+    let obj = this.myFormPassword.value;
+    let objEnviar = {
+      usuarioId: this.usuarioObj.usuarioId,
+      oldPwd: obj.oldpassword,
+      newPwd: obj.password1
+    }
+
+    this.cargando = true;
+    this.usuarioSistemaPrd.resetPasword(objEnviar).subscribe(datos => {
+
+      if (datos.resultado) {
+        this.usuarioSistemaPrd.logout().subscribe(() => {
+          this.regresar();
+          this.cargando = false;
+          this.mensajesuccess = true;
+          this.authPrd.eliminarTokens();
+          this.mensajeerror = false;
+          this.correcto = false;
+          this.myForm.controls.username.setValue("");
+          this.myForm.controls.password.setValue("");
+          this.mensajeSucess = "Contraseña actualizada correctamente"
+
+        });
+      } else {
+        this.mensajeDanger = datos.mensaje;
+        this.mensajeerror = true;
+        this.cargando = false;
+      }
+
+    });
+
+
+
+
+
+  }
+
+  public get f() {
+    return this.myFormPassword.controls;
+  }
+
+  public regresar() {
+    this.cargando = false;
+    this.mensajesuccess = false;
+    this.cambiarPassword = false;
+    this.ventanapass = false;
+    this.login = true;
+
+
+  }
+
+  public olvidastetupassword() {
+    if (this.correo.nativeElement.value) {
+      let objenviar = {
+        username: this.correo.nativeElement.value
+      }
+
+      this.cargando = true;
+      this.usuarioSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {
+        this.cargando = false;
+        if (datos.resultado) {
+          this.regresar();
+          this.correo.nativeElement.value = "";
+          this.mensajeSucess = "Se ha enviado un correo electrónico con su contraseña de recuperación";
+
+          this.mensajesuccess = true;
+          this.mensajeerror = false;
+          this.correcto = false;
+          this.myForm.controls.username.setValue("");
+          this.myForm.controls.password.setValue("");
+        } else {
+          this.mensajesuccess = false;
+          this.mensajeerror = true;
+          this.mensajeDanger = datos.mensaje;
+
+        }
+      })
+    }
+  }
+
+
+  public seleccionarcompaniaFinal(){
+
+    let usuario:usuarioClass = this.usuarioSistemaPrd.getUsuario();
+    usuario.centrocClienteId = this.clienteSeleccionado.centrocClienteId;
+
+    this.usuarioSistemaPrd.setUsuario(usuario);
+    this.cargando = true;
+
+
+    this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      let obj = datos.datos;
+      this.cargando = false;
+      this.correcto = true;
+
+      this.usuarioSistemaPrd.setVersionSistema(obj.versionCosmonautId?.versionCosmonautId);
+      setTimeout(() => {
+        this.routerPrd.navigate(['/inicio']);
+      }, 2000);
+
+    });
+
+    
+
+    
+
+
   }
 
 

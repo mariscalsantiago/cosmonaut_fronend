@@ -1,6 +1,6 @@
 <div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
     <div class="col titulo-outlet">
-        <label>PARTICIPACIÒN DE LOS TRABAJADORES EN LAS UTILIDADES</label>
+        <label>NÓMINA PARTICIPACIÓN DE LOS TRABAJADORES EN LAS UTILIDADES</label>
     </div>
 </div>
 
@@ -16,10 +16,11 @@
 
 <div class="scrooll-design">
 
-    <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo" >
+   
+    <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo; let indice = index;" >
         <div class="col-6 mt-3">
-            <article>Nómina PTU
-                <article>Período 001/2020</article>
+            <article>{{item.nominaPtu?.nombreNomina}}
+                <article>Período de {{item.nominaPtu?.fechaInicio | date:'dd MMM'}} hasta {{item.nominaPtu?.fechaFin | date:'dd MMM'}}</article>
             </article>
     
         </div>
@@ -36,10 +37,10 @@
     
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>$16,499.96</td>
-                        <td>$3,380.60</td>
-                        <td>$13,271.36</td>
+                        <td>{{item.nominaPtu?.empleados}}</td>
+                        <td>{{item.nominaPtu?.percepciones | currency}}</td>
+                        <td>{{item.nominaPtu?.deducciones | currency}}</td>
+                        <td>{{item.nominaPtu?.total | currency}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -52,7 +53,7 @@
                         <a class="nav-item nav-link " id="nav-home-tab" role="tab" aria-controls="nav-home"
                             aria-selected="true">1. Calcular</a>
                         <a class="nav-item nav-link " id="nav-profile-tab" role="tab" aria-controls="nav-profile"
-                            aria-selected="false">2. Pagar</a>
+                            aria-selected="false">2. Dispersar</a>
                         <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
                         <a class="nav-item nav-link " id="nav-contact-tab" role="tab" aria-controls="nav-empleo"
                             aria-selected="false">3. Timbrar</a>
@@ -77,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <a style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle mt-3">
+            <a (click)="eliminar(item.nominaPtu,indice)" style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle mt-3">
                 <i style="background-color: #56dfd4 !important;" class="icon_eliminar "></i>
                 Eliminar</a>
     
@@ -88,11 +89,11 @@
         </div>
         
     </div>
-    <div class="row   m-2 background-panel "  >
-        <div *ngIf="cargando" class="col text-center mb-5">
+    <div  class="row   m-2 background-panel "  >
+        <div *ngIf="cargando"  class="col text-center mb-5">
             <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
           </div>
-          <div *ngIf="!cargando && arreglo.length == 0" class="alert  col text-center">
+          <div *ngIf="!cargando && arreglo == undefined" class="alert  col text-center">
             <strong>En este momento no existen nóminas activas</strong>
           </div>
     </div>

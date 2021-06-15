@@ -6,6 +6,7 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
+import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class PagarComponent implements OnInit {
   public nominaOrdinaria: boolean = false;
   public nominaExtraordinaria: boolean = false;
   public nominaLiquidacion: boolean = false;
+  public nominaPtu:boolean = false;
   public llave: string = "";
 
   public arreglotabla: any = {
@@ -36,7 +38,7 @@ export class PagarComponent implements OnInit {
   constructor(private modalPrd: ModalService,
     private ventana: VentanaemergenteService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaLiquidacionPrd: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
-    private reportes:ReportesService) { }
+    private reportes:ReportesService,private nominaPtuPrd:NominaptuService) { }
 
 
 
@@ -73,6 +75,17 @@ export class PagarComponent implements OnInit {
       this.cargando = true;
       this.nominaLiquidacionPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
         this.crearTabla(datos,"empleadoApagoLiquidacion");
+      });
+    }else if (this.nominaSeleccionada.nominaPtu) {
+      this.llave = "nominaPtu";
+      this.nominaPtu = true;
+      this.cargando = true;
+      this.objEnviar = {
+        nominaXperiodoId: this.nominaSeleccionada.nominaPtu?.nominaXperiodoId
+      }
+      this.cargando = true;
+      this.nominaPtuPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
+        this.crearTabla(datos,"empleadoApagoPtu");
       });
     }
   }

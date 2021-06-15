@@ -6,6 +6,9 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { Router } from '@angular/router';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
 
 @Component({
   selector: 'app-contenido',
@@ -19,6 +22,9 @@ export class ContenidoComponent implements OnInit {
   public temporal: boolean = false;
 
   public ocultarchat:boolean = true;
+
+
+  public PRINCIPAL_MENU:any;
 
 
 
@@ -67,7 +73,8 @@ export class ContenidoComponent implements OnInit {
 
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
     private ventana: VentanaemergenteService,private navigate:Router,
-    private chatPrd:ChatSocketService) {
+    private chatPrd:ChatSocketService,private authPrd:AuthService,private configuracionPrd:ConfiguracionesService,
+    private rolesPrd:RolesService,private usuariosSistemaPrd:UsuarioSistemaService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
   }
@@ -80,6 +87,25 @@ export class ContenidoComponent implements OnInit {
 
 
     this.chatPrd.setChatDatos(this.chat);
+
+
+    if(this.authPrd.isAuthenticated()){
+        if(!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)){
+          this.rolesPrd.getListaModulos(true,this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
+            this.PRINCIPAL_MENU=this.configuracionPrd.traerDatosMenu(this.usuariosSistemaPrd.getUsuario().submodulosXpermisos,datos,this.usuariosSistemaPrd.getVersionSistema());
+            this.PRINCIPAL_MENU.unshift({moduloId:0,nombreModulo:"Inicio",seleccionado:true,checked:true,pathServicio:'/inicio',icono:'icon_home'});
+            this.configuracionPrd.setElementosSesion(this.configuracionPrd.MENUUSUARIO,this.PRINCIPAL_MENU);
+            this.establecericons();
+
+          });
+        }else{
+           this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos =>{
+             this.PRINCIPAL_MENU = datos;  
+             this.PRINCIPAL_MENU.unshift({moduloId:0,nombreModulo:"Inicio",seleccionado:true,checked:true,pathServicio:'/inicio',icono:'icon_home'});
+             this.establecericons();
+           });
+        }
+    }
 
   }
 
@@ -133,11 +159,33 @@ export class ContenidoComponent implements OnInit {
   public cerrarSesion(){
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Estás seguro de cerrar la sesión?").then(valor=>{
       if(valor){
-          this.navigate.navigate(["/"]);
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.sistemaUsuarioPrd.logout().subscribe(datos =>{
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.authPrd.eliminarTokens();
+            
+            this.navigate.navigateByUrl('/auth/login');
+          });
       }
     });
   }
 
+
+  public establecericons(){
+      for(let item of this.PRINCIPAL_MENU){
+          switch(item.moduloId){
+              case 1:
+                  item.icono = "icon_admoncos"
+                break;
+                case 2:
+                  item.icono = "icon_admon"
+                break;
+          }
+      }
+  }
+
+
+ 
 
 
 }

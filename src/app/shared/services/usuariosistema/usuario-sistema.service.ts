@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { direcciones } from 'src/assets/direcciones';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,35 +10,34 @@ import { direcciones } from 'src/assets/direcciones';
 export class UsuarioSistemaService {
 
   public usuario!: usuarioClass;
+  public introActivado:boolean = true;
 
   constructor(private http: HttpClient) {
-
-    this.usuario = new usuarioClass(466, 1);
-    
-
+    this.usuario = new usuarioClass();
   }
 
 
-  public login(obj: any): Observable<any> {
-    return this.http.get(`${direcciones.centroCostosCliente}/login/${obj.email}`);
-  }
-
+  
 
   public getUsuario() {
+    this.usuario = this.usuario.usuarioId == undefined ? JSON.parse(localStorage["usuario"]):this.usuario;
     return this.usuario;
   }
 
   public setUsuario(usuario: usuarioClass) {
     this.usuario = usuario;
+    localStorage["usuario"]=JSON.stringify(usuario);
   }
 
   public getIdEmpresa() {
-    return this.usuario.idEmpresa;
+    if(localStorage["usuario"] !== undefined){
+    this.usuario = this.usuario.centrocClienteId == undefined  ? JSON.parse(localStorage["usuario"]):this.usuario;}
+    return this.usuario.centrocClienteId;
   }
 
   public getRol(): string {
-    let rol: string = "ADMIN|EMPRESA|COMPANIA|OTRO";
-    let idTipoPersona = this.usuario.getUsuario()?.tipoPersonaId?.tipoPersonaId;
+    let idTipoPersona = 3234;
+    let rol:string = "";
     
     switch (idTipoPersona) {
       case 3:
@@ -67,37 +67,76 @@ export class UsuarioSistemaService {
   }
 
   public getDatosUsuario(){
-    return this.usuario.getUsuario();
+    return this.usuario;
   }
+
+  public getInformacionAdicionalUser(userName:string):Observable<any>{
+    return this.http.get(`${direcciones.usuariosAuth}/obtener/username/${userName}`);
+  } 
+
+  public resetPasword(obj:any):Observable<any>{
+    const httpOptions = {
+      headers:new HttpHeaders({
+        "Content-Type":"application/json"
+      })
+    };
+
+    let json = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.usuariosAuth}/cambiarPwd`,json,httpOptions);
+  }
+
+
+  public enviarCorreorecuperacion(obj:any):Observable<any>{
+    const httpOptions = {
+      headers:new HttpHeaders({
+        "Content-Type":"application/json"
+      })
+    };
+
+    let json = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.usuariosAuth}/reestablecerPwd`,json,httpOptions);
+  }
+
+
+
+  public obtenerInfo( correo: any): Observable<any> {
+    return this.http.get(`${direcciones.centroCostosCliente}/login/${correo}`);
+  }
+
+  public logout():Observable<any>{
+    return this.http.get(`${environment.rutaAdmin}/auth/logout`);
+  }
+
+  public getVersionSistema(){
+      return Number(localStorage.getItem("version"))
+  }
+
+  public setVersionSistema(idNumber:string){
+      localStorage.setItem("version",idNumber);
+  }
+
+  
 }
 
 
 
 
 export class usuarioClass {
-  public idEmpresa!: number;
-  public nombreEmpresa!: string;
-  public idUsuario!: number;
-  public usuario!: any;
-
-
-  public constructor(idEmpresa: number, idUsuario: number) {
-
-    this.idUsuario = idUsuario;
-    this.idEmpresa = idEmpresa;
-  }
-
-  public setDatosEmpleado(obj: any) {
-    this.usuario = obj;
-  }
-
-
-  public getUsuario() {
-    return this.usuario;
-  }
-
-
-
+  public usuarioId!:number;
+  public nombre!:string;
+  public apellidoPat!:string;
+  public email!:string;
+  public fechaAlta!:Date;
+  public passwordProvisional!:boolean;
+  public rolId!:number;
+  public submodulosXpermisos!:any;
+  public centrocClienteId!:number;
+  public rfc!:string;
+  public razonSocial!:string;
+  public nombreEmpresa!:string;
+  public multiempresa!:boolean;
 
 }
 

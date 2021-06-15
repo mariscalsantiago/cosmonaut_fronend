@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { CompanyService } from '../../services/company.service';
 
 @Component({
@@ -33,7 +34,7 @@ export class DetalleContactoComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router, private modalPrd: ModalService) {
+    private routerPrd: Router, private modalPrd: ModalService,private usuariosAuth:UsuariosauthService) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -83,7 +84,8 @@ export class DetalleContactoComponent implements OnInit {
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : datePipe.transform(new Date(), 'dd-MMM-y')), disabled: true }, [Validators.required]],
       personaId: obj.personaId,
-      contactoInicialPuesto:obj.contactoInicialPuesto
+      contactoInicialPuesto:obj.contactoInicialPuesto,
+      usuarioinicial:[obj.usuarioinicial]
 
     });
   }
@@ -91,8 +93,8 @@ export class DetalleContactoComponent implements OnInit {
   public enviarPeticioncont() {
 
     this.submitEnviado = true;
-    
 
+  
     if (this.myFormcont.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -137,6 +139,24 @@ export class DetalleContactoComponent implements OnInit {
               if(datos.resultado){
                 this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
+
+                  if(obj.usuarioinicial){
+                      let objAuthEnviar = {
+                        nombre:  obj.nombre,
+                        apellidoPat: obj.apellidoPaterno,
+                        apellidoMat: obj.apellidoMaterno,
+                        email: obj.emailCorporativo,
+                        centrocClienteIds: [this.datosEmpresa.centrocClienteId],
+                        rolId: 1
+                    }
+
+                    this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv =>{
+                      if(!vv.resultado){
+                          this.modalPrd.showMessageDialog(vv.resultado,vv.mensaje);
+                      }
+                    });
+                  }
+
                   if(this.esModificaEmpresa){
                     this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } });
                   }else{

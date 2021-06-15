@@ -2,7 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -12,7 +15,7 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class DetalleUsuarioComponent implements OnInit {
 
-  public tamanio:number= 0;
+  public tamanio: number = 0;
   @ViewChild("nombre") public nombre!: ElementRef;
 
   @HostListener('window:resize', ['$event'])
@@ -21,7 +24,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     this.tamanio = event.target.innerHeight;
-    
+
   }
 
 
@@ -31,39 +34,44 @@ export class DetalleUsuarioComponent implements OnInit {
   public objusuario: any = {};
   public arregloCompany: any;
   public summitenviado: boolean = false;
-  public companiasenviar = [];
+  public companiasenviar:any = [];
+  public arregloRoles: any = [];
 
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router, private modalPrd: ModalService) {
+    private routerPrd: Router, private modalPrd: ModalService, private rolesPrd: RolesService,
+    private usuariosSistemaPrd: UsuarioSistemaService, private usuariosAuth: UsuariosauthService) {
 
     let datePipe = new DatePipe("es-MX");
 
     let fecha = new Date();
-    this.fechaActual = datePipe.transform(fecha, 'dd-MMM-y')?.replace(".","");
+    this.fechaActual = datePipe.transform(fecha, 'dd-MMM-y')?.replace(".", "");
   }
 
   ngOnInit(): void {
-    
+
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
     this.verificarCompaniasExista();
 
-    
+
+
+    this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos => this.arregloRoles = datos.datos);
+
 
     this.routerActivePrd.params.subscribe(parametros => {
-      
+
       let id = parametros["idusuario"];
       this.insertar = id == undefined;
       if (id != undefined) {
-        
 
-        this.usuariosPrd.getById(id).subscribe(datosusuario => {          
+
+        this.usuariosPrd.getById(id).subscribe(datosusuario => {
           this.objusuario = datosusuario.datos;
-          
+
           let datePipe = new DatePipe("es-MX");
-          this.objusuario.fechaAlta = (new Date(this.objusuario.fechaAlta).toUTCString()).replace(" 00:00:00 GMT","");
-          this.objusuario.fechaAlta = datePipe.transform(this.objusuario.fechaAlta,"dd-MMM-y")?.replace(".","");
-           this.myForm = this.createForm((this.objusuario));
+          this.objusuario.fechaAlta = (new Date(this.objusuario.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+          this.objusuario.fechaAlta = datePipe.transform(this.objusuario.fechaAlta, "dd-MMM-y")?.replace(".", "");
+          this.myForm = this.createForm((this.objusuario));
         });
       }
     });
@@ -84,22 +92,22 @@ export class DetalleUsuarioComponent implements OnInit {
 
     if (!this.insertar)
       this.nombre.nativeElement.focus();
-   
+
   }
 
 
   public verificarCompaniasExista() {
-    
-    
-      if (this.arregloCompany.length == 0){
-        this.cancelar();
-      }
+
+
+    if (this.arregloCompany.length == 0) {
+      this.cancelar();
+    }
   }
 
 
   public createForm(obj: any) {
 
-    
+
     return this.formBuilder.group({
 
 
@@ -111,9 +119,9 @@ export class DetalleUsuarioComponent implements OnInit {
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
       centrocClienteId: [{ value: obj.centrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
-      personaId: [{value:obj.personaId,disabled:true}],
-      multicliente:{value:obj.multicliente,disabled:true},
-      rol:{value:obj.rol,disabled:true}
+      personaId: [{ value: obj.personaId, disabled: true }],
+      multicliente: obj.multicliente,
+      rol: { value: obj.rol }
 
 
     });
@@ -123,10 +131,10 @@ export class DetalleUsuarioComponent implements OnInit {
   public enviarPeticion() {
 
 
-     
+
 
     this.summitenviado = true;
-    
+
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
 
@@ -136,48 +144,58 @@ export class DetalleUsuarioComponent implements OnInit {
     let mensaje = this.insertar ? "¿Deseas registrar el usuario?" : "¿Deseas actualizar los datos del usuario?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
       if (valor) {
+
+       
+
         let obj = this.myForm.value;
-        let objEnviar: any = {
-          nombre: obj.nombre,
-          apellidoPaterno: obj.apellidoPaterno,
-          apellidoMaterno: obj.apellidoMaterno,
-          esActivo: obj.esActivo,
-          emailCorporativo: obj.correoelectronico,
-          centrocClienteId: {
-            centrocClienteId: obj.centrocClienteId
+
+        let companysend = [];
+        if(obj.multicliente){
+          for(let item of this.companiasenviar){
+            companysend.push(item.centrocClienteId);
           }
         }
 
-        
+        let objAuthEnviar = {
+          nombre: obj.nombre,
+          apellidoPat: obj.apellidoPaterno,
+          apellidoMat: obj.apellidoMaterno,
+          email: obj.correoelectronico,
+          centrocClienteIds:obj.multicliente?companysend : [obj.centrocClienteId],
+          rolId: obj.rol
+        }
+
+
+
 
         if (this.insertar) {
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          this.usuariosPrd.save(objEnviar).subscribe(datos => {
+          this.usuariosAuth.guardar(objAuthEnviar).subscribe((datos) => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            if(datos.resultado){
-              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-              .then(() => this.routerPrd.navigate(["/usuarios"]));
-            }else{
-              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-            }
-            
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+              .then(() => {
+                if (datos.resultado) {
+                  this.routerPrd.navigate(["/usuarios"])
+                }
+              });
           });
 
+
         } else {
-          objEnviar.personaId = obj.personaId;
-          objEnviar.centrocClienteId.centrocClienteId = this.objusuario.centrocClienteId.centrocClienteId;
+          //  objEnviar.personaId = obj.personaId;
+          // objEnviar.centrocClienteId.centrocClienteId = this.objusuario.centrocClienteId.centrocClienteId;
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          this.usuariosPrd.modificar(objEnviar).subscribe(datos => {
+          this.usuariosPrd.modificar(objAuthEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            if(datos.resultado){
+            if (datos.resultado) {
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-              .then(() => this.routerPrd.navigate(["/usuarios"]));
-            }else{
+                .then(() => this.routerPrd.navigate(["/usuarios"]));
+            } else {
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
             }
-            
+
           });
         }
       }
@@ -195,21 +213,21 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public cancelar() {
-    
+
     this.routerPrd.navigate(['/usuarios']);
   }
 
 
-  public cambiarMultiempresa(){
+  public cambiarMultiempresa() {
 
 
   }
 
 
-  public recibirEtiquetas(evento:any){
-     this.myForm.controls.centrocClienteId.setValue(evento[0].centrocClienteId);
-     this.companiasenviar = evento;
-     
+  public recibirEtiquetas(evento: any) {
+    this.myForm.controls.centrocClienteId.setValue(evento[0].centrocClienteId);
+    this.companiasenviar = evento;
+
   }
 
 

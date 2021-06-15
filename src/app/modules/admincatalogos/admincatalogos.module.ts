@@ -18,11 +18,7 @@ import { ABCAdminCatalogosComponent  } from './pages/abc-admincatalogos/abc-admi
     CommonModule,
     AdminCatalogosRoutingModule,
     ShareModule,
-    FormsModule,ReactiveFormsModule,
-    CoreModule
-  ],
-  providers: [
-    AdminCatalogosService
+    FormsModule,ReactiveFormsModule
   ]
 })
 export class AdminCatalogosModule { }

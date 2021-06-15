@@ -21,7 +21,7 @@ export class ChatSocketService {
   }
 
   public enviarMensaje(mensaje:string){
-    console.log(mensaje,"senvia");
+    
       this.socket.send(mensaje);
   }
 

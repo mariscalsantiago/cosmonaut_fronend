@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
@@ -83,6 +82,28 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
 
   public continuar(item: any) {
     this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
+  }
+
+
+  public eliminar(obj: any, indice: number) {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas eliminar la nómina?").then(valor => {
+      if (valor) {
+        let objEnviar = {
+          nominaXperiodoId: obj.nominaXperiodoId,
+          usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
+        };
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.nominaFiniquitoPrd.eliminar(objEnviar).subscribe(datos => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+            if (datos.resultado) {
+              this.arreglo.splice(indice, 1)
+            }
+          });
+        });
+      }
+    });
+
   }
 
 

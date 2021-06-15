@@ -6,17 +6,17 @@
 
             <nav class="nav-inside">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a (click)="backTab(0)" class="nav-item nav-link "
+                    <a *ngIf="!editar" class="nav-item nav-link "
                         [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab"
-                        role="tab" aria-controls="nav-home" aria-selected="true">1. Crear nòmina</a>
+                        role="tab" >1. Crear nòmina</a>
                     <a (click)="backTab(1)" class="nav-item nav-link "
                         [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}"
-                        id="nav-profile-tab" role="tab" aria-controls="nav-profile" aria-selected="false">2. Seleccionar
+                        id="nav-profile-tab" role="tab" >2. Seleccionar
                         empleados</a>
                     <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
                     <a (click)="backTab(3)" class="nav-item nav-link "
                         [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled,'selecciona':activado[2].seleccionado}"
-                        id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">3. Descargar
+                        id="nav-contact-tab" role="tab" >3. Descargar
                         formato</a>
 
                 </div>
@@ -28,28 +28,55 @@
 
                     <form [formGroup]="myForm" (ngSubmit)="enviarEtapa1()">
                         <div class="row">
-                            <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
+                            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                                <label for="nombre">Razón social *</label>
+                                <select [class.is-invalid]="f.centrocClienteId.errors && f.centrocClienteId.touched" formControlName="centrocClienteId" class="form-control">
+                                    <option *ngFor="let item of arregloCompanias"[value]="item.centrocClienteId">{{item.nombre}}</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+                            </div>
+                            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="nombre">Nombre de la nómina *</label>
-                                <input id="nombre" formControlName="nombre"
+                                <input formControlName="nombre"
                                     [class.is-invalid]="f.nombre.errors && f.nombre.touched" type="text"
                                     class="form-control">
                                 <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
                                     Campo requerido
                                 </div>
                             </div>
-                            <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
+                            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                                <label for="nombre">Fecha inicio *</label>
+                                <input formControlName="fechaInicio"
+                                    [class.is-invalid]="f.fechaInicio.errors && f.fechaInicio.touched" type="date"
+                                    class="form-control">
+                                <div  class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+                            </div>
+                            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                                <label for="nombre">Fecha fin *</label>
+                                <input formControlName="fechaFin"
+                                    [class.is-invalid]="f.fechaFin.errors && f.fechaFin.touched" type="date"
+                                    class="form-control">
+                                <div  class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+                            </div>
+                            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="cuenta">Cuenta bancaria *</label>
                                 <select formControlName="bancoId" class="form-control"
                                     [class.is-invalid]="f.bancoId.errors && f.bancoId.touched" type="text"
                                     class="form-control">
-                                <option *ngFor="let item of cuentasBancarias" [value]="item.bancoId">{{item.nombreCorto}}</option>
+                                <option *ngFor="let item of cuentasBancarias" [value]="item.cuentaBancoId">{{item.nombreCuenta}}</option>
                               </select>
                               <div *ngIf="f.bancoId.errors && f.bancoId.touched" class="invalid-feedback">
                                 Campo requerido
                               </div>
                                 
                             </div>
-                            <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
+                            <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="moneda">Moneda *</label>
                                 
                                 <select formControlName="monedaId" [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" type= "text" class="form-control">
@@ -89,8 +116,8 @@
                                 <span class="radiomark"></span>
                             </label>
                             <div *ngIf="valor == '2'">
-                                <select name=""  class="form-control">
-                                    <option value="">Ârea</option>
+                                <select #inputarea style="font-size: 12px;" name=""  class="form-control mb-2">
+                                    <option *ngFor="let item of arregloareas" [value]="item.areaId">{{item.descripcion}}</option>
                                 </select>
 
                             </div>
@@ -99,9 +126,10 @@
                                 <span class="radiomark"></span>
                             </label>
                             <div *ngIf="valor == '3'">
-                                <select name=""  class="form-control">
-                                    <option value="">Empleado</option>
-                                </select>
+                                <div class="input-group-sm mb-3 col-8">
+                                    <label for="exampleFormControlSelect1" style="font-size: 12px;">Empleados *</label>
+                                    <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
+                                </div>
 
                             </div>
                         </div>
@@ -113,7 +141,7 @@
                             class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
                         <button (click)="seleccionarItem()" type="button"
-                            class="btn btn-primary button-fill">Guardar</button>
+                            class="btn btn-primary button-fill">Continuar</button>
                     </div>
 
 
@@ -124,25 +152,29 @@
 
                     <div class="row">
                         <div class="input-group-sm mb-4 mt-3 col-12 col-sm-12 col-lg-12">
-                            <label >Descargar el formato, llénalo y ve al siguiente paso. Recuerda llenar todos los campos obligatorios.</label>
+                            <label style="font-size: 12px;">Descargar el formato, llénalo y ve al siguiente paso. Recuerda llenar todos los campos obligatorios.</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 text-left">
-                            <a class="botonestilo  estiloextralink"><small *ngIf="!cargandoIcon"><i
-                                        class="fas fa-download"></i> Descargar formaato</small>
+                            <a (click)="descargarArchivo()" class="botonestilo  estiloextralink"><small *ngIf="!cargandoIcon"><i
+                                        class="fas fa-download"></i> Descargar formato</small>
                                 <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </a>
                         </div>
                     </div>
-                    <div class="row">
+                    <form [formGroup]="myFormFile" (ngSubmit)="guardarArchivoDispersion()">
+                    <div  class="row">
                         <div class="input-group-sm mb-3 col-12 col-sm-7 col-lg-7">
-                            <label>Sube el formato con los datos modificados</label>
+                            <label style="font-size: 12px;">Sube el formato con los datos modificados</label>
                             <div class="input-group mb-3">
                               <input type="hidden" >
-                              <input type="text" class="form-control disabled bg-light" >
+                              <input formControlName="archivo" [class.is-invalid]="myFormFile.controls.archivo.errors && myFormFile.controls.archivo.touched" #inputFile type="text" class="form-control disabled bg-light" >
+                              <div class="invalid-feedback">
+                                  Archivo layout requerido.
+                              </div>
                               <div (click)="abrirArchivo()" class="input-group-append" style="cursor: pointer;">
                                 <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
                               </div>
@@ -154,9 +186,10 @@
                         <button type="button" (click)="cancelar()"
                             class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-                        <button (click)="seleccionarItem()" type="button"
+                        <button  type="submit"
                             class="btn btn-primary button-fill">Guardar</button>
                     </div>
+                </form>
                 </div>
 
 

@@ -68,7 +68,7 @@ export class NominaExtraordinariaComponent implements OnInit {
         let objEnviar = {
           nominaXperiodoId: item.nominaExtraordinaria.nominaXperiodoId,
           clienteId: this.usuariSistemaPrd.getIdEmpresa(),
-          usuarioId: this.usuariSistemaPrd.getUsuario().idUsuario
+          usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
         }
 
         
@@ -76,7 +76,7 @@ export class NominaExtraordinariaComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
-            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaExtraordinaria: datos.datos } } });
+            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaExtraordinaria: item.nominaExtraordinaria } } });
           }
         });
 
@@ -90,6 +90,28 @@ export class NominaExtraordinariaComponent implements OnInit {
 
   public continuar(item: any) {
     this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
+  }
+
+
+  public eliminar(obj: any, indice: number) {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas eliminar la nómina?").then(valor => {
+      if (valor) {
+        let objEnviar = {
+          nominaXperiodoId: obj.nominaXperiodoId,
+          usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
+        };
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.nominaAguinaldoPrd.eliminar(objEnviar).subscribe(datos => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+            if (datos.resultado) {
+              this.arreglo.splice(indice, 1)
+            }
+          });
+        });
+      }
+    });
+
   }
 
 

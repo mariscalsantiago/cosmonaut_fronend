@@ -85,7 +85,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     return this.formbuilder.group(
       {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
-        usuarioId: this.usuarioSistemaPrd.getUsuario().idUsuario,
+        usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
         nombreNomina: [, [Validators.required]],
         monedaId: [, [Validators.required]],
         centrocClienteId: [, [Validators.required]],
@@ -160,12 +160,6 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
       this.salida.emit({
         type: "guardar", datos: datos
-      });
-    },err =>{
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-
-      this.salida.emit({
-        type: "guardar", datos: "bueno"
       });
     });
 

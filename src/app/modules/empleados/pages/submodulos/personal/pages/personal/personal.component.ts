@@ -255,19 +255,19 @@ export class PersonalComponent implements OnInit {
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: obj.apellidoMaterno,
       genero: [{ value: genero, disabled: true }],
-      fechaNacimiento: [fechaNacimiento],
+      fechaNacimiento: [fechaNacimiento,Validators.required],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
       nss: obj.nss,
-      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [Validators.required, Validators.email]],
-      emailCorporativo: [obj.emailCorporativo, [Validators.email]],
+      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [ Validators.email]],
+      emailCorporativo: [{value:obj.emailCorporativo,disabled:true}, [Validators.email]],
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       estadoCivil: obj.estadoCivil,
       numeroHijos: obj.numeroHijos,
       url: obj.urlLinkedin,
-      contactoEmergenciaNombre: [obj.contactoEmergenciaNombre, [Validators.required]],
-      contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno, [Validators.required]],
+      contactoEmergenciaNombre: [obj.contactoEmergenciaNombre],
+      contactoEmergenciaApellidoPaterno: [obj.contactoEmergenciaApellidoPaterno],
       contactoEmergenciaApellidoMaterno: [obj.contactoEmergenciaApellidoMaterno],
       contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail, [Validators.email]],
@@ -278,7 +278,8 @@ export class PersonalComponent implements OnInit {
       asentamientoId: [{ value: obj.asentamientoId, disabled: true }, [Validators.required]],
       calle: [{ value: obj.calle, disabled: true }, [Validators.required]],
       numExterior: [{ value: obj.numExterior, disabled: true }, [Validators.required]],
-      numInterior: { value: obj.numInterior, disabled: true }
+      numInterior: { value: obj.numInterior, disabled: true },
+      celular:[obj.celular]
 
     });
   }
@@ -334,8 +335,6 @@ export class PersonalComponent implements OnInit {
       fechaNacimiento: fechanacimiento,
       tieneCurp: obj.tieneCurp,
       contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
-      emailCorporativo: obj.emailCorporativo,
-      invitarEmpleado: obj.invitarEmpleado,
       nacionalidadId: {
         nacionalidadId: obj.nacionalidadId
       },
@@ -352,8 +351,9 @@ export class PersonalComponent implements OnInit {
       contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
       curp: obj.curp,
       rfc: obj.rfc,
-      nns: obj.nns,
+      nss: obj.nss,
       personaId: this.idEmpleado,
+      celular:obj.celular,
       centrocClienteId: {
         centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
       },
