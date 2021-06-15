@@ -51,11 +51,6 @@ export class ListaEmpresasComponent implements OnInit {
     this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
       this.arreglo = datos.datos;
-      
-
-      if(this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA"){
-          this.arreglo = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
-      }
 
       let columnas: Array<tabla> = [
         new tabla("url", "imagen"),

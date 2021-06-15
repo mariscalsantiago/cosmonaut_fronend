@@ -10,7 +10,8 @@ import { UsuarioService } from '../../services/usuario.service';
 //Importamos para el lenguaje en mis fechas (SAMV)
 import localeEn from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
-import { Console } from 'console';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 registerLocaleData(localeEn, 'es-MX');
 
 @Component({
@@ -62,6 +63,8 @@ export class UsuariosComponent implements OnInit {
   public tamanio = 0;
   public changeIconDown: boolean = false;
 
+  public esClienteEmpresa:boolean = false;
+
 
 
   public arreglotabla: any = {
@@ -74,17 +77,61 @@ export class UsuariosComponent implements OnInit {
 
 
   constructor(private routerPrd: Router, private usuariosPrd: UsuarioService,
-    private companiPrd: SharedCompaniaService, private modalPrd: ModalService) { }
+    private companiPrd: SharedCompaniaService, private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
+    private empresasProd: EmpresasService) { }
 
   ngOnInit(): void {
+
+    this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
+
+
+    
 
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
     this.cargando = true;
-    this.filtrar();
 
-    this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
+    this.usuariosPrd.getAllUsers(true).subscribe(datos => {
+      this.arreglo = datos.datos;
+      let columnas: Array<tabla> = [
+        new tabla("usuarioId", "ID"),
+        new tabla("nombre", "Nombre"),
+        new tabla("apellidoPat", "Primer apellido"),
+        new tabla("apellidoMat", "Segundo apellido"),
+        new tabla("email", "Correo electrónico"),
+        new tabla("nombreRol", "Rol"),
+        ((this.esClienteEmpresa)?new tabla("multicliente", "Multicliente"):new tabla("empresa", "empresa")),
+        new tabla("esActivo", "Estatus")
+      ];
+
+      if (this.arreglo !== undefined) {
+        for (let item of this.arreglo) {
+          item["nombreRol"] = item?.rolId?.nombreRol;
+        }
+      }
+
+      this.arreglotabla = {
+        columnas: columnas,
+        filas: this.arreglo
+      }
+
+
+      this.cargando = false;
+
+
+    });
+
+
+
+    if(this.esClienteEmpresa){
+      this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
+    }else{
+      this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCompany = datos.datos);
+    }
+
+    
+    
 
   }
 
@@ -132,9 +179,9 @@ export class UsuariosComponent implements OnInit {
 
   public verdetalle(obj: any) {
     if (obj == undefined) {
-      this.routerPrd.navigate(['usuarios', 'detalle_usuario', "agregar"], { state: { company: this.arregloCompany } });
+      this.routerPrd.navigate([(this.esClienteEmpresa)?"cliente":"",'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany,usuario:obj } });
     } else {
-      this.routerPrd.navigate(['usuarios', 'detalle_usuario', "actualizar", obj.personaId], { state: { company: this.arregloCompany } });
+      this.routerPrd.navigate([(this.esClienteEmpresa)?"cliente":"",'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany,usuario:obj } });
     }
   }
 
@@ -197,7 +244,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public filtrar() {
-    
+
     this.cargando = true;
 
     let fechar = "";
@@ -246,13 +293,13 @@ export class UsuariosComponent implements OnInit {
 
     this.cargando = true;
 
-    this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-      this.arreglo = datos.datos;
+    // this.usuariosPrd.filtrar(peticion).subscribe(datos => {
+    //   this.arreglo = datos.datos;
 
-      this.procesarTabla({ datos: this.arreglo });
+    //   this.procesarTabla({ datos: this.arreglo });
 
-      this.cargando = false;
-    });
+    //   this.cargando = false;
+    // });
 
   }
 
@@ -267,21 +314,27 @@ export class UsuariosComponent implements OnInit {
       case "filaseleccionada":
         this.activarMultiseleccion = obj.datos;
         break;
-        case "llave":
-         this.generarllave(obj.datos);
-          break;
+      case "llave":
+        this.generarllave(obj.datos);
+        break;
     }
 
   }
 
 
-  public generarllave(obj:any){
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas resetear y reenviar la clave de este usuario?").then((valor)=>{
-      if(valor){
+  public generarllave(obj: any) {
+    console.log(obj.email);
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas resetear y reenviar la clave de este usuario?").then((valor) => {
+      if (valor) {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        setTimeout(() => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        }, 2000);
+        let objenviar = {
+          username: obj.email
+        }
+
+        this.usuariosSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        });
 
       }
     });

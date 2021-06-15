@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
@@ -10,7 +10,10 @@ import { direcciones } from 'src/assets/direcciones';
 })
 export class NominaordinariaService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private backend:HttpBackend) { 
+
+    this.http = new HttpClient(this.backend);
+  }
 
   public crearNomina(obj:any):Observable<any> {
     const httpOptions = {

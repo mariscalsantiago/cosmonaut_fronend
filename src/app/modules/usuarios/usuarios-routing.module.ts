@@ -1,30 +1,35 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
-import { DetalleUsuarioComponent  } from './pages/detalle-usuario/detalle-usuario.component';
+import { DetalleUsuarioComponent } from './pages/detalle-usuario/detalle-usuario.component';
 
 
 export const routes: Routes = [
- 
-{
-  path: '',
-  children: [
-    {
-      path: 'usuarios',
-      component: UsuariosComponent
-    },{
-        path: 'usuarios/detalle_usuario/agregar',
-        component: DetalleUsuarioComponent
+
+  {
+    path: '',
+    children: [
+      {
+        path: 'usuarios',
+        component: UsuariosComponent
       },
       {
-        path: 'usuarios/detalle_usuario/actualizar/:idusuario',
+        path: 'cliente/usuarios',
+        component: UsuariosComponent
+      }, 
+      {
+        path: 'usuarios/detalle_usuario',
+        component: DetalleUsuarioComponent
+      },      
+      {
+        path: 'cliente/usuarios/detalle_usuario',
         component: DetalleUsuarioComponent
       }
-  ]
-}];
+    ]
+  }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule] 
+  exports: [RouterModule]
 })
 export class usuariosRoutingModule { }

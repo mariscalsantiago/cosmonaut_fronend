@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 import { direcciones } from '../../../../assets/direcciones';
 
 @Injectable({
@@ -8,118 +8,30 @@ import { direcciones } from '../../../../assets/direcciones';
 })
 export class UsuarioService {
 
-  private url: string = '';
+
 
   constructor(private http: HttpClient) {
-    this.url = direcciones.usuarios;
   }
 
-
-  public getAllUsers(): Observable<any> {
-    
-    return this.http.get(this.url+"/lista/todo/3");
-  }
-
-  public getByCompany(obj: any): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-
-
-
-    let json: string = JSON.stringify(obj);
-    return this.http.post(`${this.url}/lista/compania/tipoPersona`, json, httpOptions);
-  }
-
-  public getById(id_user: number): Observable<any> {
-
-
-    return this.http.get(`${this.url}/obtener/id/${id_user}`);
-
-  }
-
-  public filtrar(obj: any): Observable<any> {
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-
-
-
-    let json: string = JSON.stringify(obj);
-    
-    
-    return this.http.post(`${this.url}/lista/dinamica`, json, httpOptions);
-  }
-
-  public save(obj: any): Observable<any> {
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-
-
-
-    let json: string = JSON.stringify(obj);
-
-
-    
-    
-    return this.http.put(`${this.url}/guardar/usuario`, json, httpOptions);
-  }
-
-  public modificar(obj: any): Observable<any> {
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-
-
-
-
-
-    let json: string = JSON.stringify(obj);
-
-    
-
-    return this.http.post(`${this.url}/modificar/usuario`, json, httpOptions);
-  }
-
-
- 
 
   public modificarListaActivos(obj: any): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+    return new Subject();
+  }
+
+  
+  public getAllUsers(activo:any):Observable<any>{
+   return this.http.get(`${direcciones.usuariosAuth}/listar/todosActivo/${activo}`);
+  }
 
 
-
-
-
-
+  public filtrar(obj: any): Observable<any> {
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${this.url}/modificar/lista`, json, httpOptions);
+    
+    
+    return this.http.post(`${direcciones.usuarios}/lista/dinamica`, json);
   }
 
 
 
-  public getPrueba(): Observable<any> {
-    return this.http.get("empresas/people/?search=r2");
-  }
 
 }

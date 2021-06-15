@@ -7,7 +7,7 @@ import { TablapaginadoComponent } from './tablapaginado/tablapaginado.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubirarchivoComponent } from './subirarchivo/subirarchivo.component';
 import { ManipularfilesDirective } from './directivas/manipularfiles.directive';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MayusculasDirective } from './directivas/mayusculas.directive';
 import { SolonumerosDirective } from './directivas/solonumeros.directive';
 import { TamanioVentanaDirective } from './directivas/tamanio-ventana.directive';
@@ -32,6 +32,7 @@ import { TagComponent } from './tag/tag.component';
 import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemergentes/tiposventanas/ventana-nominanuevafiniquitoliquidacion/ventana-nominanuevafiniquitoliquidacion.component';
 import { FormatosDirective } from './directivas/formatos.directive';
 import { EditarmensajeChatComponent } from './ventanasemergentes/tiposventanas/editarmensaje-chat/editarmensaje-chat.component';
+import { TokenInterceptorService } from '../core/auth/token-interceptor.service';
 
 
 @NgModule({

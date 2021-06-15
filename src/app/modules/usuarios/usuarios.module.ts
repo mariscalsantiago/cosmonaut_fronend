@@ -10,6 +10,8 @@ import { ShareModule } from 'src/app/shared/share.module';
 import { DetalleUsuarioComponent } from './pages/detalle-usuario/detalle-usuario.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { CoreModule } from 'src/app/core/core.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from 'src/app/core/auth/token-interceptor.service';
 
 
 
