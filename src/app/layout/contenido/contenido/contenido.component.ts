@@ -93,7 +93,7 @@ export class ContenidoComponent implements OnInit {
         if(!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)){
           this.rolesPrd.getListaModulos(true,this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
             this.PRINCIPAL_MENU=this.configuracionPrd.traerDatosMenu(this.usuariosSistemaPrd.getUsuario().submodulosXpermisos,datos,this.usuariosSistemaPrd.getVersionSistema());
-            
+            this.PRINCIPAL_MENU.unshift({moduloId:0,nombreModulo:"Inicio",seleccionado:true,checked:true,pathServicio:'/inicio',icono:'icon_home'});
             this.configuracionPrd.setElementosSesion(this.configuracionPrd.MENUUSUARIO,this.PRINCIPAL_MENU);
             this.establecericons();
 
@@ -101,6 +101,7 @@ export class ContenidoComponent implements OnInit {
         }else{
            this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos =>{
              this.PRINCIPAL_MENU = datos;  
+             this.PRINCIPAL_MENU.unshift({moduloId:0,nombreModulo:"Inicio",seleccionado:true,checked:true,pathServicio:'/inicio',icono:'icon_home'});
              this.establecericons();
            });
         }

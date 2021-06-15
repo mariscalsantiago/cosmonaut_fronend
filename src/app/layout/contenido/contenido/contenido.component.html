@@ -26,7 +26,7 @@
                 </li>
                 <li id="salirbtn"  (click)="cerrarSesion()"><a >    <i class="icon_cerrarsesion danger-bg"></i>CERRAR SESIÓN</a></li>
             </ul>
-            <ul class="list-unstyled components">
+            <!-- <ul class="list-unstyled components">
                 <li *ngFor="let item of arreglo" [ngClass]="{'active':item.seleccionado}">
                     <a [routerLink]="item.routerLink" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
                         <i [class]="item.icono"></i>
@@ -37,7 +37,7 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul> -->
         </nav>
         <div id="contenido" class="content" [ngClass]="{'scrollhide':modal.modal || emergente.modal}" style="position: relative;">
             <nav  class="navbar navbar-expand-lg navbar-light">
