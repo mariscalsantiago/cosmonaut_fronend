@@ -54,6 +54,18 @@ export class EmpleadosService {
 
   }
 
+  public saveCargaMasivaEventos(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.incidencias}/carga/masiva/`, json, httpOptions);
+
+  }
+
   public getEmpleadosCompania(idCompania: number): Observable<any> {
 
 
@@ -62,15 +74,34 @@ export class EmpleadosService {
   }
   public getEmpleadosBaja(id: number,status: boolean): Observable<any> {
 
-
     return this.http.get(`${direcciones.contratoColaborador}/lista/empleado/baja/${id}/${status}`);
 
   }
 
-  public getListaErroresCargaMasiva(idEmpresa: number): Observable<any> {
+  public getFiltroCargaMasiva(idEmpresa: number,esCorrecto: boolean): Observable<any> {
 
 
-    return this.http.get(`${direcciones.empleado}/lista/empleados/erroneos/${idEmpresa}`);
+    return this.http.get(`${direcciones.usuarios}/lista/carga/masiva/empleados/estatus/${idEmpresa}/${esCorrecto}`);
+
+  }
+
+  public getFiltroCargaMasivaEventos(idEmpresa: number,esCorrecto: boolean): Observable<any> {
+
+
+    return this.http.get(`${direcciones.incidencias}/lista/carga/masiva/estatus/${idEmpresa}/${esCorrecto}`);
+
+  }
+
+  public getListaCargaMasiva(idEmpresa: number): Observable<any> {
+
+
+    return this.http.get(`${direcciones.usuarios}/lista/carga/masiva/empleados/${idEmpresa}`);
+
+  }
+
+  public getListaCargaMasivaEventos(idEmpresa: number): Observable<any> {
+
+    return this.http.get(`${direcciones.incidencias}/lista/carga/masiva/${idEmpresa}`);
 
   }
 

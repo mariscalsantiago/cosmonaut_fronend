@@ -15,7 +15,8 @@ export class MenuService {
                                                                                     {nombre:"AGUINALDO",routerLink:['/nominas/nomina_extraordinaria'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"FINIQUITO/LIQUIDACIÓN",routerLink:['/nominas/finiquito_liquidacion'],rol:["ALL","ADMINEMPRESA"]},
                                                                                     {nombre:"PTU",routerLink:['/nominas/ptu'],rol:["ALL","ADMINEMPRESA"]},
-                                                                                    {nombre:"CALCULADORA",routerLink:['/nominas/calculadora'],rol:["ALL","ADMINEMPRESA"]}
+                                                                                    {nombre:"CALCULADORA",routerLink:['/nominas/calculadora'],rol:["ALL","ADMINEMPRESA"]},
+                                                                                    {nombre:"PPP",routerLink:['/nominas/ppp'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 ]},
     { nombre: "EMPLEADOS", icono: "icon_empleados", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"LISTA Y ALTA DE EMPLEADOS",routerLink:['/empleados'],rol:["ALL","ADMINEMPRESA"]},
@@ -27,7 +28,7 @@ export class MenuService {
     { nombre: "EVENTOS", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[],submenu:[
                                                                                 {nombre:"EVENTO",routerLink:["/eventos/eventosxempleado"],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"CALENDARIO",routerLink:["/eventos/calendario"],rol:["ALL","ADMINEMPRESA"]},
-                                                                                {nombre:"CARGA MASIVA",routerLink:[""],rol:["ALL","ADMINEMPRESA"]}
+                                                                                {nombre:"CARGA MASIVA",routerLink:["/eventos/cargamasivaeventos"],rol:["ALL","ADMINEMPRESA"]}
     ]},
     { nombre: "CHAT", icono: "icon_eventos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:['/chat/bandeja']},
     { nombre: "IMSS", icono: "icon_imss", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],submenu:[
@@ -46,6 +47,7 @@ export class MenuService {
     { nombre: "ADMINISTRACIÓN DE EMPRESA", icono: "icon_admon", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"],submenu:[
                                                                                 {nombre:"CONFIGURACIÓN EMPRESA",routerLink:['/listaempresas'],rol:["ALL","ADMINCOMPANIA","ADMINEMPRESA"]},
                                                                                 {nombre:"EMPRESA",routerLink:['listaempresas', 'empresas', this.tipoinsert],rol:["ALL","ADMINCOMPANIA"]},
+                                                                                {nombre:"MOVIMIENTOS",routerLink:['/movimientosbitacora'],rol:["ALL","ADMINCOMPANIA"]},
                                                                               ]},
   ];
 

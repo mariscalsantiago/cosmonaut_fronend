@@ -13,10 +13,12 @@ import { DatosbancariosComponent } from './pages/empresas/pestañas/datosbancari
 import { DatosimssComponent } from './pages/empresas/pestañas/datosimss/datosimss.component';
 import { SedeComponent } from './pages/empresas/pestañas/domicilio/sede/sede.component';
 import { CuentasComponent } from './pages/empresas/pestañas/datosbancarios/cuentas/cuentas.component';
+import { MovimientosComponent } from './pages/movimientos/movimientos/movimientos.component';
 
 
 @NgModule({
-    declarations: [EmpresasComponent, ListaEmpresasComponent, DetalleempresasComponent,InformacionempresaComponent,DomicilioComponent,DatosbancariosComponent,DatosimssComponent,SedeComponent, CuentasComponent],
+    declarations: [EmpresasComponent, ListaEmpresasComponent, DetalleempresasComponent,InformacionempresaComponent,
+      DomicilioComponent,DatosbancariosComponent,DatosimssComponent,SedeComponent, CuentasComponent,MovimientosComponent],
     imports: [
       CommonModule, 
       EmpresasRoutingModule,

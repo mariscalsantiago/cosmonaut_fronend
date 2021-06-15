@@ -5,6 +5,7 @@ import { EmpresasComponent } from './pages/empresas/empresas.component';
 import { ListaEmpresasComponent } from './pages/listaempresas/listaempresas.component';
 import { SedeComponent } from './pages/empresas/pestañas/domicilio/sede/sede.component';
 import { CuentasComponent } from './pages/empresas/pestañas/datosbancarios/cuentas/cuentas.component';
+import { MovimientosComponent } from './pages/movimientos/movimientos/movimientos.component';
 
 
 const routes: Routes = [{
@@ -26,6 +27,11 @@ const routes: Routes = [{
     {
       path: 'listaempresas/empresas/nuevo/cuenta',
       component: CuentasComponent
+      
+    },
+    {
+      path: 'movimientosbitacora',
+      component: MovimientosComponent
       
     },
     {

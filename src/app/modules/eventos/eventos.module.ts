@@ -7,9 +7,10 @@ import { ListaeventosxempledoComponent } from './pages/eventosxempleado/listaeve
 import { ShareModule } from '../../shared/share.module';
 import { DetalleeventoxempleadoComponent } from './pages/eventosxempleado/detalleeventoxempleado/detalleeventoxempleado.component';
 import { CalendarioComponent } from './pages/calendario/calendario.component';
+import { CargaMasivaEventosComponent } from './pages/cargamasivaeventos/cargamasivaeventos.component';
 
 @NgModule({
-    declarations: [ListaeventosxempledoComponent, DetalleeventoxempleadoComponent, CalendarioComponent],
+    declarations: [ListaeventosxempledoComponent, DetalleeventoxempleadoComponent, CalendarioComponent,CargaMasivaEventosComponent],
     imports:[CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,eventosRoutingModule,ShareModule]
 })
 export class eventosModule{

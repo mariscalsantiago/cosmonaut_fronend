@@ -5,6 +5,8 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { EmpleadosService } from '../../services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { tabla } from 'src/app/core/data/tabla';
 import { truncate } from 'fs';
 
 @Component({
@@ -22,6 +24,13 @@ export class CargaMasivaComponent implements OnInit {
   public submitEnviado: boolean = false;
   public cargandoIcon: boolean = false;
   public idEmpresa: number = 0;
+  public fileName: string = "";
+  public arregloTipoCarga: any  = [];
+  public idEmpleado : number = 0;
+  public listaErrores : boolean = false;
+  public fromEmpleado : boolean = true;
+  public estatusEmpleado : boolean = false;
+  public tipocarga : number = 0;
   
   public obj: any = [];
 
@@ -29,8 +38,13 @@ export class CargaMasivaComponent implements OnInit {
   @ViewChild("documento") public inputdoc!: ElementRef;
   @Output() salida = new EventEmitter<any>();
 
+  public arreglotabla:any = {
+    columnas:[],
+    filas:[]
+  };
 
-  constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute,
+
+  constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute, private reportesPrd: ReportesService,
     private routerPrd: Router,private modalPrd:ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
     private catalogosPrd:CatalogosService, private EmpleadosService:EmpleadosService) {
   }
@@ -41,32 +55,141 @@ export class CargaMasivaComponent implements OnInit {
     this.obj = history.state.datos == undefined ? {} : history.state.datos;
 
       
-
+    this.catalogosPrd.getTipoCarga(true).subscribe(datos => this.arregloTipoCarga = datos.datos);
+    
       this.myForm = this.createFormcomp((this.obj));
 
 
   }
 
 
+  public crearTabla(datos:any){
+    
+    this.arreglo = datos.datos;
+
+    
+    let columnas: Array<tabla> = [
+      new tabla("nombreCompleto", "Nombre de empleado"),
+      new tabla("numeroEmpleado", "Número de empleado"),
+      new tabla("estatus", "Estatus carga")
+    ]
+
+
+    this.arreglotabla = {
+      columnas:[],
+      filas:[]
+    }
+  
+
+    if(this.arreglo !== undefined){
+      for(let item of this.arreglo){
+
+        item.nombreCompleto = item.nombre + " " + item.apellidoPaterno+" "+(item.apellidoMaterno == undefined ? "":item.apellidoMaterno);
+
+        item.estatus = item.esCorrecto? "Exitoso":"Error";
+          
+      }
+    }
+
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = this.arreglo;
+    this.cargando = false;
+  }
 
   public createFormcomp(obj: any) {
     
     return this.formBuilder.group({
 
-      documento: [obj.documento],
+      documento: [obj.documento,[Validators.required]],
       nombre: [obj.nombre],
-      tipoCargaId: [obj.tipoCargaId, [Validators.required]]
+      tipoCargaId: [obj.tipoCargaId,[Validators.required]]
 
     });
+  }
+
+  public filtrar(){
+    debugger;
+    if(this.idEmpleado != 0){
+      if(this.idEmpleado == 1){
+        this.estatusEmpleado = true;
+      }else{
+        this.estatusEmpleado = false;
+      }
+    
+      this.cargando = true;
+    
+      this.EmpleadosService.getFiltroCargaMasiva(this.idEmpresa,this.estatusEmpleado).subscribe(datos =>{
+          this.crearTabla(datos);
+      });
+    }else{
+      this.cargando = true;
+
+      this.EmpleadosService.getListaCargaMasiva(this.idEmpresa).subscribe(datos => {
+                       
+        this.crearTabla(datos);
+      });
+    }
+
   }
 
   public iniciarDescarga(){
     debugger;
     let obj = this.myForm.value;
-    if(obj.empleadoId == null){
+    this.tipocarga = obj.tipoCargaId;
+    if(obj.tipoCargaId == '0' || obj.tipoCargaId == undefined){
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Debe seleccionar un formato a cargar");
+    }else{
+
+        debugger;
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+          let objEnviar : any = {
+            
+              idEmpresa: this.idEmpresa,
+              tipoCargaId: obj.tipoCargaId
+            
+
+          }
+          
+            this.reportesPrd.getTipoFormatoEmpleado(objEnviar).subscribe(archivo => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
+              const downloadLink = document.createElement("a");
+              if(obj.tipoCargaId == 1){
+                this.fileName = `${"Formato carga masiva Empleados"}.xlsx`;
+              }
+              else if(obj.tipoCargaId == 2){
+                this.fileName = `${"Formato carga masiva Ex-empleados"}.xlsx`;
+              }
+              else if(obj.tipoCargaId == 3){
+                this.fileName = `${"Formato carga masiva Empleados con pago complementario"}.xlsx`;
+              }
+      
+              downloadLink.href = linkSource;
+              downloadLink.download = this.fileName;
+              downloadLink.click();
+            });
+
     }
 
+  }
+
+  public descargarEmpleados(){
+    debugger;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+  
+        this.reportesPrd.getDescargaListaEmpleadosErroneos(this.idEmpresa,this.tipocarga).subscribe(archivo => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
+          const downloadLink = document.createElement("a");
+          const fileName = `${"Empleados-Erroneos"}.xlsx`;
+  
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
+        });
+  
   }
 
   public abrirDoc() {
@@ -108,7 +231,7 @@ export class CargaMasivaComponent implements OnInit {
 
   public enviarPeticion() {
     debugger;
-    
+    this.submitEnviado = true;
       if (this.myForm.invalid) {
         Object.values(this.myForm.controls).forEach(control => {
           control.markAsTouched();
@@ -125,38 +248,52 @@ export class CargaMasivaComponent implements OnInit {
           if(valor){
             
             let  obj = this.myForm.getRawValue();
+            this.tipocarga = obj.tipoCargaId;
 
-              let objEnviar : any = {
+              let objEnviar : any = 
+            {
                 centrocClienteId: this.idEmpresa,
                 tipoCargaId: obj.tipoCargaId,
                 archivo: obj.documento
             };
+            
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-             
-    
-              this.EmpleadosService.saveCargaMasiva(objEnviar).subscribe(datos => {
+                this.EmpleadosService.saveCargaMasiva(objEnviar).subscribe(datos => {
     
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
                 this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
                   .then(()=> {
                      if (!datos.resultado) {
-
-                      this.EmpleadosService.getListaErroresCargaMasiva(this.idEmpresa).subscribe(datos => {
-                      this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
-                      .then(()=> {
-                      });
+                      debugger;
+                      this.listaErrores = true;
+                      this.fromEmpleado = false;
+                      this.cargando = true;
+                                                            
+                      this.EmpleadosService.getListaCargaMasiva(this.idEmpresa).subscribe(datos => {
+                       
+                      this.crearTabla(datos);
                     });
-                  }   
+                  } else{
+                    this.routerPrd.navigate(['/empleados']);
+                  }  
                   });
-              });       
+              });     
+
           }
         });
 
   }
 
-  public cancelarcomp() {
+  public agregar(){
+    this.fromEmpleado = true;
+    this.listaErrores = false;
+
+  }
+
+
+  public cancelar() {
     this.routerPrd.navigate(['/empleados']);
   }
 
