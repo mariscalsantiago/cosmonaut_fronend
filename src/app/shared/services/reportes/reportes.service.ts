@@ -48,6 +48,14 @@ export class ReportesService {
     return this.http.get(`${direcciones.reportes}/cargaMasiva/layoutListaEmpleado/${id_empresa}`);
  }
 
+ public getListaEmpresaPPP(id_empresa:number):Observable<any>{
+  return this.http.get(`${direcciones.reportes}/pagoComplementario/empresas/${id_empresa}`);
+}
+
+public getListaGrupoNominaPPP(id_empresa:number):Observable<any>{
+  return this.http.get(`${direcciones.reportes}/pagoComplementario/grupoNomina/${id_empresa}`);
+}
+
  public getDescargaListaEmpleadosErroneos(id_empresa:number,Id_tipoCarga: number):Observable<any>{
   return this.http.get(`${direcciones.reportes}/empleado/lista/empleados/erroneos/${id_empresa}/${Id_tipoCarga}`);
 }
@@ -65,6 +73,19 @@ public getDescargaListaEventosErroneos(obj:any):Observable<any>{
 
 }
 
+public getFiltroDinamicoPPP(obj:any):Observable<any>{
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+  let json = JSON.stringify(obj);
+
+  
+  return this.http.post(`${direcciones.reportes}/pagoComplementario/filtroDinamico/`,json,httpOptions);
+
+}
+
   public getComprobanteFiscal(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
@@ -74,7 +95,20 @@ public getDescargaListaEventosErroneos(obj:any):Observable<any>{
     let json = JSON.stringify(obj);
 
     
-    return this.http.post(`${direcciones.reportes}/empleado/perfil/personal`,json,httpOptions);
+    return this.http.post(`${direcciones.reportes}/empleado/perfil/personal/`,json,httpOptions);
+
+  }
+
+  public getDescargaLayaoutPPP(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+
+    
+    return this.http.post(`${direcciones.reportes}/cargaMasiva/layoutNominaPPP/`,json,httpOptions);
 
   }
 
