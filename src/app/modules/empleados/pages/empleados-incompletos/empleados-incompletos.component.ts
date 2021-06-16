@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpleadosService } from '../../services/empleados.service';
 
@@ -16,10 +17,17 @@ export class EmpleadosIncompletosComponent implements OnInit {
     columnas:[],
     filas:[]
   };
+
+
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+
   constructor(private empleadosPrd:EmpleadosService,private usuariosSistemaPrd:UsuarioSistemaService ,
-    private router:Router) { }
+    private router:Router,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    
 
     this.cargando = true;
 
@@ -41,8 +49,16 @@ export class EmpleadosIncompletosComponent implements OnInit {
 
     });
 
+
+    
+
   }
 
+
+  public establecerPermisos(){
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+  }
 
   public recibirTabla(obj:any){
 

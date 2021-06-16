@@ -3,6 +3,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { table } from 'console';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from '../../../services/eventos.service';
@@ -28,6 +29,15 @@ export class ListaeventosxempledoComponent implements OnInit {
     filas:[]
   };
 
+
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+
+
+
+
+
+
   public evento:any;
 
   @HostListener('window:resize', ['$event'])
@@ -48,9 +58,11 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   constructor(private router:Router,private eventosPrd:EventosService,private usuariosSistemaPrd:UsuarioSistemaService,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    this.establecerPermisos();
 
     let documento: any = document.defaultView;
 
@@ -90,6 +102,12 @@ export class ListaeventosxempledoComponent implements OnInit {
       this.cargando = false;
     });
     
+  }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
   }
 
   public recibirTabla(obj:any){

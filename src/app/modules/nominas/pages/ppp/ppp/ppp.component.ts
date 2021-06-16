@@ -64,7 +64,6 @@ export class PPPComponent implements OnInit {
     private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
-
     let documento: any = document.defaultView;
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.tamanio = documento.innerWidth;
@@ -76,7 +75,7 @@ export class PPPComponent implements OnInit {
   }
 
   public procesarTabla(datos: any) {
-    debugger;
+    
     this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
       //new tabla("personaId", "ID", false, false, true),
@@ -101,7 +100,7 @@ export class PPPComponent implements OnInit {
 
 
   public seleccionarTodosBool(input: any) {
-    debugger;
+    
     for (let item of this.arreglo)
         if(item.personaId){
         input.checkbox = input.checked;
@@ -113,7 +112,7 @@ export class PPPComponent implements OnInit {
 
   public guardarMultiseleccion() {
 
-    debugger;
+    
     let mensaje = `¿Deseas descargar el layaut de lo seleccionado?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
@@ -182,7 +181,7 @@ export class PPPComponent implements OnInit {
     }
     
     
-    debugger;
+    
     this.reportesPrd.getFiltroDinamicoPPP(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
 
@@ -195,7 +194,7 @@ export class PPPComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-    debugger;
+    
 
     switch (obj.type) {
       case "filaseleccionada":

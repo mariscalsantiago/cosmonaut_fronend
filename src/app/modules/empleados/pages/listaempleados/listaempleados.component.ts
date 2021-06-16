@@ -7,6 +7,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { EmpleadosService } from '../../services/empleados.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-listaempleados',
@@ -47,13 +48,25 @@ export class ListaempleadosComponent implements OnInit {
   }
 
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esDescargar:boolean = false;
+
+
+
+ 
+
+
+
   public tamanio: number = 0;
 
   constructor(private routerPrd: Router, private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
     private usuarioSistemaPrd: UsuarioSistemaService,private modalPrd:ModalService, private empresasPrd: SharedCompaniaService,
-    private areasPrd: SharedAreasService) { }
+    private areasPrd: SharedAreasService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+    this.establecerPermisos();
 
     let documento: any = document.defaultView;
 
@@ -69,6 +82,15 @@ export class ListaempleadosComponent implements OnInit {
     this.filtrar();
 
   }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
+  }
+
 
 
   public agregar() {
@@ -96,7 +118,7 @@ export class ListaempleadosComponent implements OnInit {
   }
 
   public descargarEmpleados(){
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
   
@@ -138,7 +160,7 @@ export class ListaempleadosComponent implements OnInit {
     this.cargando = true;
     this.empleadosPrd.filtrar(objenviar).subscribe(datos =>{
       let columnas: Array<tabla> = [
-        new tabla("nombre", "Nombre", true, true),
+        new tabla("nombre", "Nombre", this.esConsultar, this.esConsultar),
         new tabla("numeroEmpleado", "Número de empleado",false,false,true),
         new tabla("razonSocial", "Empresa"),
         new tabla("puesto", "Puesto"),

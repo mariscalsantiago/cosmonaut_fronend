@@ -19,8 +19,8 @@
                         <i [class]="item.icono"></i>
                         {{item.nombreModulo | uppercase}}</a>
                     <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="'m'+item.moduloId">
-                        <li *ngFor="let item2 of item.submodulos" [ngClass]="{'ocultarMenu':!item2.checked}" (click)="seleccionarSubmenu(item,item2)">
-                            <a [routerLink]="item2.pathServicio">{{item2.nombreSubmodulo }}</a>
+                        <li *ngFor="let item2 of item.submodulos" [ngClass]="{'ocultarMenu':!item2.checked}">
+                            <a  (click)="seleccionarSubmenu(item,item2)" [routerLink]="item2.pathServicio">{{item2.nombreSubmodulo }}</a>
                         </li>
                     </ul>
                 </li>

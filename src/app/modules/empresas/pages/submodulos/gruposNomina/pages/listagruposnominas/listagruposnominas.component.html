@@ -124,7 +124,7 @@
   <br>
   <div class="row" style="margin: 10px;">
     <div class="col-12 col-lg-12 text-right">
-      <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+      <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
         <i class="fa fa-plus"></i> Agregar grupo de nómina
       </button>
     </div>
@@ -132,7 +132,7 @@
 
 
   <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
-    <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="true"
-      [eliminar]="true" [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+    <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="esEditar"
+      [eliminar]="esEliminar" [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
   </div>
 </div>

@@ -6,6 +6,7 @@ import { datosTemporales, UsuarioSistemaService } from 'src/app/shared/services/
 
 import { EmpresasService } from '../../services/empresas.service';
 import { DatePipe } from '@angular/common';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-listaempresas',
@@ -27,6 +28,12 @@ export class ListaEmpresasComponent implements OnInit {
   };
   public indexSeleccionado: number = 0;
 
+
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     event.target.innerWidth;
@@ -36,9 +43,11 @@ export class ListaEmpresasComponent implements OnInit {
   }
 
   constructor(private routerPrd: Router, private empresasProd: EmpresasService,
-    private usuarioSistemaPrd: UsuarioSistemaService, private modalPrd: ModalService) { }
+    private usuarioSistemaPrd: UsuarioSistemaService, private modalPrd: ModalService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    this.establecerPermisos();
 
     let documento: any = document.defaultView;
 
@@ -55,7 +64,7 @@ export class ListaEmpresasComponent implements OnInit {
       let columnas: Array<tabla> = [
         new tabla("url", "imagen"),
         new tabla("centrocClienteId", "ID empresa"),
-        new tabla("razonSocial", "Razón social	", true, true),
+        new tabla("razonSocial", "Razón social	", this.esConsultar,this.esConsultar),
         new tabla("nombre", "Nombre de la empresa	"),
         new tabla("rfc", "RFC"),
         new tabla("fechaAlta", "Fecha de registro en el sistema"),
@@ -147,6 +156,14 @@ export class ListaEmpresasComponent implements OnInit {
 
   public clonar(obj:any){
      return JSON.parse(JSON.stringify(obj));
+  }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
   }
 
 }

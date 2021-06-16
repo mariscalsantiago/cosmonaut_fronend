@@ -6,7 +6,7 @@
 
 <hr>
 
-<form [formGroup]="myForm" (ngSubmit)="enviarPeticion()" *ngIf="fromEmpleado">
+<form  [formGroup]="myForm" (ngSubmit)="enviarPeticion()" *ngIf="fromEmpleado">
 
   <input type="hidden" >
   <div class="row">
@@ -30,8 +30,8 @@
               </div>
               <br> 
 
-              <nav>
-                    <a (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i
+              <nav >
+                    <a *ngIf="esDescargar" (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i
                       class="fas fa-download"></i> Descargar formato
                     </a>
                </nav>
@@ -58,7 +58,7 @@
     <div class="text-right margen" style="margin-bottom: 20px;">
       <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
         (click)="cancelar()">Cancelar</button>
-      <button type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
+      <button *ngIf="esRegistrar" type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
     </div>
     <br>
   </div>

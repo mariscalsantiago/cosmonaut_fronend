@@ -7,6 +7,7 @@ import { EmpleadosService } from '../../services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { truncate } from 'fs';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-form-baja-empleado',
@@ -39,12 +40,24 @@ export class FormBajaEmpleadoComponent implements OnInit {
   public numerodias: boolean = false;
 
 
+
+  public esRegistrar:boolean = false;
+
+
+
+
+
+
+ 
+
+
   constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
-    private catalogosPrd:CatalogosService, private EmpleadosService:EmpleadosService) {
+    private catalogosPrd:CatalogosService, private EmpleadosService:EmpleadosService,private configuracionesPrd:ConfiguracionesService) {
   }
 
   ngOnInit(): void {
+    this.establecerPermisos();
 
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
 
@@ -79,6 +92,17 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
 
   }
+
+
+
+ public establecerPermisos(){
+  this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+
+}
+
+
+
+ 
 
   ngAfterViewInit(): void {
 

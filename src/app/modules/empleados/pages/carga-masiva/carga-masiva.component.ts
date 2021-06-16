@@ -8,6 +8,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { tabla } from 'src/app/core/data/tabla';
 import { truncate } from 'fs';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-carga-masiva',
@@ -44,12 +45,28 @@ export class CargaMasivaComponent implements OnInit {
   };
 
 
+
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esDescargar:boolean = false;
+
+
+
+
+
+
+
+
+
+
   constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute, private reportesPrd: ReportesService,
     private routerPrd: Router,private modalPrd:ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
-    private catalogosPrd:CatalogosService, private EmpleadosService:EmpleadosService) {
+    private catalogosPrd:CatalogosService, private EmpleadosService:EmpleadosService,private configuracionesPrd:ConfiguracionesService) {
   }
 
   ngOnInit(): void {
+
+    this.establecerPermisos();
 
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.obj = history.state.datos == undefined ? {} : history.state.datos;
@@ -60,6 +77,14 @@ export class CargaMasivaComponent implements OnInit {
       this.myForm = this.createFormcomp((this.obj));
 
 
+  }
+
+
+  public establecerPermisos(){
+    console.log(this.esRegistrar);
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
   }
 
 
@@ -108,7 +133,7 @@ export class CargaMasivaComponent implements OnInit {
   }
 
   public filtrar(){
-    debugger;
+    
     if(this.idEmpleado != 0){
       if(this.idEmpleado == 1){
         this.estatusEmpleado = true;
@@ -133,14 +158,14 @@ export class CargaMasivaComponent implements OnInit {
   }
 
   public iniciarDescarga(){
-    debugger;
+    
     let obj = this.myForm.value;
     this.tipocarga = obj.tipoCargaId;
     if(obj.tipoCargaId == '0' || obj.tipoCargaId == undefined){
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Debe seleccionar un formato a cargar");
     }else{
 
-        debugger;
+        
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
           let objEnviar : any = {
@@ -175,7 +200,7 @@ export class CargaMasivaComponent implements OnInit {
   }
 
   public descargarEmpleados(){
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
   
@@ -193,7 +218,7 @@ export class CargaMasivaComponent implements OnInit {
   }
 
   public abrirDoc() {
-    debugger;
+    
     let input = document.createElement("input");
     input.type = "file";
     input.accept = ".xlsx";
@@ -230,7 +255,7 @@ export class CargaMasivaComponent implements OnInit {
   }
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
       if (this.myForm.invalid) {
         Object.values(this.myForm.controls).forEach(control => {
@@ -266,7 +291,7 @@ export class CargaMasivaComponent implements OnInit {
                 this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
                   .then(()=> {
                      if (!datos.resultado) {
-                      debugger;
+                      
                       this.listaErrores = true;
                       this.fromEmpleado = false;
                       this.cargando = true;

@@ -9,6 +9,7 @@ import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.s
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 
 
@@ -54,11 +55,18 @@ export class CargaMasivaEventosComponent implements OnInit {
   };
 
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esDescargar:boolean = false;
+
+
   constructor(private formbuilder: FormBuilder, private modalPrd: ModalService, private routerPrd: Router,
     private catalogosPrd:CatalogosService, private usuarioSistemaPrd:UsuarioSistemaService,private areasPrd: SharedAreasService,
-    private reportesPrd: ReportesService,private EmpleadosService:EmpleadosService) { }
+    private reportesPrd: ReportesService,private EmpleadosService:EmpleadosService,private configuracionesPrd:ConfiguracionesService) { }
  
   ngOnInit(): void {
+
+    this.establecerPermisos();
 
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.obj = history.state.datos == undefined ? {} : history.state.datos;
@@ -76,6 +84,16 @@ export class CargaMasivaEventosComponent implements OnInit {
 
     this.myForm = this.createForm((this.obj));
   }
+
+
+  public establecerPermisos(){
+
+  
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
+  }
+
 
   public createForm(obj: any) {
     
@@ -127,7 +145,7 @@ export class CargaMasivaEventosComponent implements OnInit {
  }
 
   public descargarArchivo(){
-    debugger;
+    
       this.cargandoIcon = true;
       let obj = 
 
@@ -161,7 +179,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 
 
     public filtrar(){
-      debugger;
+      
       if(this.idEvento != 0){
         if(this.idEvento == 1){
           this.estatusEvento = true;
@@ -188,7 +206,7 @@ export class CargaMasivaEventosComponent implements OnInit {
     }
  
     public obtenerEmpleados() {
-      debugger;
+      
       let valor = [];
       
       switch (this.valor) {
@@ -223,7 +241,7 @@ export class CargaMasivaEventosComponent implements OnInit {
   }
 
   public cambiarTab(obj:any){
-    debugger;
+    
     for(let item of this.activado){
         item.form = false;
         item.seleccionado = false;
@@ -250,7 +268,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 
 
   public seleccionarItem() {
-    debugger;
+    
     /*if(this.valor == "2"){
       if(this.etiquetas.length === 0){
         this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha seleccionado ningun empledo");
@@ -295,7 +313,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
       if (this.myForm.invalid) {
         Object.values(this.myForm.controls).forEach(control => {
@@ -330,7 +348,7 @@ export class CargaMasivaEventosComponent implements OnInit {
                 this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
                   .then(()=> {
                      if (!datos.resultado) {
-                      debugger;
+                      
                       this.listaErrores = true;
                       this.fromEventos = false;
                       this.cargando = true;
@@ -354,7 +372,7 @@ export class CargaMasivaEventosComponent implements OnInit {
   public abrirArchivo()
   {
 
-    debugger;
+    
     let input = document.createElement("input");
     input.type = "file";
     input.accept = ".xlsx";
@@ -379,7 +397,7 @@ export class CargaMasivaEventosComponent implements OnInit {
   }
 
   public descargarEventos(){
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     let objEnviar: any ={
       idEmpresa: this.idEmpresa,

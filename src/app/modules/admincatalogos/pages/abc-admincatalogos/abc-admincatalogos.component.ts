@@ -175,7 +175,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      debugger;
+      
       this.descripcion = this.objdetrep.estado;
       this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => this.arregloTablaValores = datos.datos);
       this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => this.arregloPeriodicidad = datos.datos);
@@ -1118,7 +1118,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 17){
-          debugger;
+          
           let fechainicio = "";
           let fechafin = "";
           if (obj.fechaFin != undefined || obj.fechaFin != null) {
@@ -1203,7 +1203,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 19){
 
-          debugger;
+          
           let fechainicio = "";
           let fechafin = "";
           if (obj.fechaFin != undefined || obj.fechaFin != null) {
@@ -1288,7 +1288,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
         }
         else if(this.detCatalogos.listaCatalogosId == 18){
-          debugger;
+          
           let fechainicio = "";
           let fechafin = "";
           if (obj.fechaFin != undefined || obj.fechaFin != null) {

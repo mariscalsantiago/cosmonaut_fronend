@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { UsuariocontactorrhService } from '../services/usuariocontactorrh.service';
 import { DatePipe } from '@angular/common';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-listacontactosrrh',
@@ -27,6 +28,11 @@ export class ListacontactosrrhComponent implements OnInit {
     filas: []
   };
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     event.target.innerWidth;
@@ -36,7 +42,8 @@ export class ListacontactosrrhComponent implements OnInit {
   }
 
 
-  constructor(private router: Router, private usuariosPrd: UsuariocontactorrhService, private CanRouterPrd: ActivatedRoute) { }
+  constructor(private router: Router, private usuariosPrd: UsuariocontactorrhService, private CanRouterPrd: ActivatedRoute,
+    private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     let documento: any = document.defaultView;
@@ -58,6 +65,8 @@ export class ListacontactosrrhComponent implements OnInit {
         }
       }
 
+
+    
 
 
 
@@ -87,6 +96,20 @@ export class ListacontactosrrhComponent implements OnInit {
 
     });
 
+  }
+
+
+
+
+ 
+
+
+
+ public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
   }
 
 

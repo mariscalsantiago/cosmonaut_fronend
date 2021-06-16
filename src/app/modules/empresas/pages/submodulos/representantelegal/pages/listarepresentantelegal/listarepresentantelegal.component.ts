@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { RepresentanteLegalService } from '../services/representantelegal.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-listarepresentantelegal',
@@ -33,6 +34,16 @@ export class ListarepresentantelegalComponent implements OnInit {
   };
 
 
+
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
+
+
+
+
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     event.target.innerWidth;
@@ -50,7 +61,7 @@ export class ListarepresentantelegalComponent implements OnInit {
   public arreglo:any = [];
 
   constructor(private routerPrd:Router,private representanteProd:RepresentanteLegalService,private CanRouterPrd:ActivatedRoute,
-    ) { }
+    private configuracionesPrd:ConfiguracionesService ) { }
 
   ngOnInit(): void {
     let documento:any = document.defaultView;
@@ -82,6 +93,15 @@ export class ListarepresentantelegalComponent implements OnInit {
     });
 
   }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
+  }
+
 
   public realizarTabla(datos:any){
     

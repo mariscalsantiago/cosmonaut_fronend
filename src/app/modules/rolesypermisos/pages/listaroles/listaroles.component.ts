@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { RolesService } from '../../services/roles.service';
@@ -21,10 +22,18 @@ export class ListarolesComponent implements OnInit {
 
   public arreglo:any = [];
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
+
   constructor(private routerPrd:Router,private rolesPrd:RolesService,private modalPrd:ModalService,
-    private usuariosSistemaPrd:UsuarioSistemaService) { }
+    private usuariosSistemaPrd:UsuarioSistemaService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+
+    this.establecerPermisos();
 
     this.cargando = true;
     this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos =>{
@@ -79,6 +88,14 @@ export class ListarolesComponent implements OnInit {
           this.eliminar(obj.datos,obj.indice);
           break;
         }
+  }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
   }
 
 }

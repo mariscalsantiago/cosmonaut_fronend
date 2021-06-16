@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { CuentasbancariasService } from '../../services/cuentasbancarias.service';
 
 @Component({
@@ -38,9 +39,19 @@ export class ListascuentasbancariasComponent implements OnInit {
     this.tamanio = event.target.innerWidth;
   }
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
+
+
+
+ 
+
+
 
   constructor(private routerPrd: Router, private activateRouter: ActivatedRoute,
-    private cuentasPrd: CuentasbancariasService) { }
+    private cuentasPrd: CuentasbancariasService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -79,6 +90,14 @@ export class ListascuentasbancariasComponent implements OnInit {
 
     });
 
+  }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
   }
 
   apagando(indice:number){

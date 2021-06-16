@@ -126,7 +126,10 @@ export class ContenidoComponent implements OnInit {
     this.limpiando();
     obj.seleccionado = true;
 
+    console.log("Son los permisos");
+    console.log(obj2.permisos);
 
+    this.configuracionPrd.setPermisos(obj2.permisos);
   }
 
 

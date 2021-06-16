@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { ConceptosService } from '../../services/conceptos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-listasconceptospercepciones',
@@ -71,8 +72,18 @@ export class ListasconceptospercepcionesComponent implements OnInit {
   public cargandoDed:boolean = false;
 
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
+
+
+
+
+
+
   constructor(private conceptosPrd: ConceptosService, private routerPrd: Router,
-    private routerActive: ActivatedRoute,private modalPrd:ModalService) { }
+    private routerActive: ActivatedRoute,private modalPrd:ModalService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -99,6 +110,15 @@ export class ListasconceptospercepcionesComponent implements OnInit {
     });
 
   }
+
+
+
+ public establecerPermisos(){
+  this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+  this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+  this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+  this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
+}
 
 
   public crearTablaDeduccion(datos:any){

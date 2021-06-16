@@ -105,7 +105,7 @@
         </div>
         <div class="row" style="  margin-top: 10px;  width: 100%;">
           <div class="col text-right">
-            <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+            <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
               <i class="fa fa-plus"></i> Agregar politíca
             </button>
           </div>
@@ -113,7 +113,7 @@
     </div>
 
     <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
-              <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesglose"  [datos]="arreglotabla" [tablabeneficios]="true" [editar]="true" [eliminar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+              <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesglose"  [datos]="arreglotabla" [tablabeneficios]="true" [editar]="esEditar" [eliminar]="esEliminar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
     
   </div>

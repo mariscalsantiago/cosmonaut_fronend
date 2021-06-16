@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { permiso } from 'src/app/core/modelos/permiso';
-import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
-import { UsuarioSistemaService } from '../usuariosistema/usuario-sistema.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +12,9 @@ export class ConfiguracionesService {
 
   public readonly  MODULOS:string = "modulos";
   public readonly MENUUSUARIO:string = "menuusuario";
+
+
+  public permisosActuales!:Array<clasepermiso>;
 
 
   constructor() { }
@@ -104,4 +106,30 @@ export class ConfiguracionesService {
     }
     return tieneModulo;
   }
+
+
+  public setPermisos(obj:Array<clasepermiso>){
+    console.log("Inserta los permisos",obj);
+      this.permisosActuales = obj;
+  }
+
+  public getPermisos(cadena:string):boolean{
+    let mostrar:boolean = false;
+     for(let item of this.permisosActuales){
+        if(cadena == item.descripcion && item.checked){
+            mostrar = true;
+            break;
+        }
+     }
+    return mostrar;
+  }
+
+
+  
+}
+
+interface clasepermiso{
+   permisoId:number,
+   descripcion:string,
+   checked:boolean
 }

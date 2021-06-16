@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
@@ -13,6 +12,7 @@ import { registerLocaleData } from '@angular/common';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 registerLocaleData(localeEn, 'es-MX');
 
 @Component({
@@ -21,24 +21,12 @@ registerLocaleData(localeEn, 'es-MX');
   styleUrls: ['./usuarios.component.scss']
 })
 export class UsuariosComponent implements OnInit {
-
-
-
-
-
-
   public cargando: Boolean = false;
   public tipoguardad: boolean = false;
-
-
-
-
 
   /*
     Directivas de filtros
   */
-
-
   public id_company: string = "";
   public idUsuario: any = "";
   public nombre: string = "";
@@ -47,11 +35,6 @@ export class UsuariosComponent implements OnInit {
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
   public activo: number = 0;
-
-
-
-
-
 
   /*
   
@@ -65,19 +48,26 @@ export class UsuariosComponent implements OnInit {
   public changeIconDown: boolean = false;
 
   public esClienteEmpresa: boolean = false;
-
-
-
   public arreglotabla: any = {
     columnas: [],
     filas: []
   };
 
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+
+
+
+
+
+
+
   public activarMultiseleccion: boolean = false;
 
 
-  constructor(private routerPrd: Router, private usuariosPrd: UsuarioService,
+  constructor(private routerPrd: Router, private configuracionesPrd:ConfiguracionesService,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
     private empresasProd: EmpresasService, private usuariosAuthPrd: UsuariosauthService) { }
 
@@ -92,24 +82,30 @@ export class UsuariosComponent implements OnInit {
 
     this.tamanio = documento.innerWidth;
     this.cargando = true;
-
-    this.usuariosPrd.getAllUsers(true).subscribe(datos => {
-      this.arreglo = datos.datos;
-      this.procesarTabla();
-      this.cargando = false;
-    });
-
-
-
     if (this.esClienteEmpresa) {
-      this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
+      this.companiPrd.getAllCompany().subscribe(datos => {
+        this.arregloCompany = datos.datos
+        this.filtrar();
+      });
     } else {
-      this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCompany = datos.datos);
+      this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        this.arregloCompany = datos.datos;
+        this.filtrar();
+      
+      });
     }
 
 
 
 
+  }
+
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
   }
 
   public procesarTabla() {
@@ -123,6 +119,8 @@ export class UsuariosComponent implements OnInit {
       ((this.esClienteEmpresa) ? new tabla("esMulticliente", "Multicliente") : new tabla("empresa", "empresa")),
       new tabla("esActivo", "Estatus")
     ];
+
+    columnas.splice(6,1);
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
@@ -213,16 +211,18 @@ export class UsuariosComponent implements OnInit {
 
   public filtrar() {
 
-    this.cargando = true;
+    
 
 
     let arregloenviar = [];
     
     if(!Boolean(this.id_company)){
       arregloenviar.push(this.usuariosSistemaPrd.getIdEmpresa());
-      for(let item of this.arregloCompany){
-        arregloenviar.push(item.centrocClienteId);
-    }
+      if(this.arregloCompany !== undefined){
+        for(let item of this.arregloCompany){
+          arregloenviar.push(item.centrocClienteId);
+      }
+      }
     }else{
       arregloenviar.push(this.id_company);
     }
@@ -241,6 +241,8 @@ export class UsuariosComponent implements OnInit {
     }
 
 
+
+    this.cargando = true;
     this.usuariosAuthPrd.filtrarUsuarios(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
       this.procesarTabla();
