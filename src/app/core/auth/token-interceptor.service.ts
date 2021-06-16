@@ -1,5 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
@@ -12,7 +13,7 @@ export class TokenInterceptorService implements HttpInterceptor {
   public refreshTokenEnProgreso: boolean = false;
   accessTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private authPrd: AuthService) { }
+  constructor(private authPrd: AuthService,private routerPrd:Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authPrd.isAuthenticated()) {
@@ -41,6 +42,7 @@ export class TokenInterceptorService implements HttpInterceptor {
               catchError((e: HttpErrorResponse) => {
                 this.refreshTokenEnProgreso = false;
                 this.authPrd.eliminarTokens();
+                this.routerPrd.navigateByUrl("/");
                 return throwError(e);
               })
             );

@@ -59,6 +59,17 @@ export class UsuariosauthService {
 
 
 
+  public filtrarUsuarios(obj:any):Observable<any>{
+     let json = JSON.stringify(obj);
+      return this.http.post(`${direcciones.usuariosAuth}/filtrar`,json);
+  }
+
+  public usuariosActivarDesactivar(obj:any):Observable<any>{
+      let json = JSON.stringify(obj);
+      return this.http.post(`${direcciones.usuariosAuth}/cambiar/estados`,json);
+  }
+
+
   
 
 

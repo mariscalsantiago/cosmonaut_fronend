@@ -12,6 +12,7 @@ import localeEn from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 registerLocaleData(localeEn, 'es-MX');
 
 @Component({
@@ -38,7 +39,7 @@ export class UsuariosComponent implements OnInit {
   */
 
 
-  public id_company: number = 0;
+  public id_company: string = "";
   public idUsuario: any = "";
   public nombre: string = "";
   public apellidoPat: string = "";
@@ -63,7 +64,7 @@ export class UsuariosComponent implements OnInit {
   public tamanio = 0;
   public changeIconDown: boolean = false;
 
-  public esClienteEmpresa:boolean = false;
+  public esClienteEmpresa: boolean = false;
 
 
 
@@ -78,14 +79,14 @@ export class UsuariosComponent implements OnInit {
 
   constructor(private routerPrd: Router, private usuariosPrd: UsuarioService,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private empresasProd: EmpresasService) { }
+    private empresasProd: EmpresasService, private usuariosAuthPrd: UsuariosauthService) { }
 
   ngOnInit(): void {
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
 
 
-    
+
 
     let documento: any = document.defaultView;
 
@@ -94,83 +95,46 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosPrd.getAllUsers(true).subscribe(datos => {
       this.arreglo = datos.datos;
-      let columnas: Array<tabla> = [
-        new tabla("usuarioId", "ID"),
-        new tabla("nombre", "Nombre"),
-        new tabla("apellidoPat", "Primer apellido"),
-        new tabla("apellidoMat", "Segundo apellido"),
-        new tabla("email", "Correo electrónico"),
-        new tabla("nombreRol", "Rol"),
-        ((this.esClienteEmpresa)?new tabla("multicliente", "Multicliente"):new tabla("empresa", "empresa")),
-        new tabla("esActivo", "Estatus")
-      ];
-
-      if (this.arreglo !== undefined) {
-        for (let item of this.arreglo) {
-          item["nombreRol"] = item?.rolId?.nombreRol;
-        }
-      }
-
-      this.arreglotabla = {
-        columnas: columnas,
-        filas: this.arreglo
-      }
-
-
+      this.procesarTabla();
       this.cargando = false;
-
-
     });
 
 
 
-    if(this.esClienteEmpresa){
+    if (this.esClienteEmpresa) {
       this.companiPrd.getAllCompany().subscribe(datos => this.arregloCompany = datos.datos);
-    }else{
+    } else {
       this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCompany = datos.datos);
     }
 
-    
-    
+
+
 
   }
 
-  public procesarTabla(datos: any) {
-    this.arreglo = datos.datos;
+  public procesarTabla() {
     let columnas: Array<tabla> = [
-      new tabla("personaId", "ID", false, false, true),
+      new tabla("usuarioId", "ID"),
       new tabla("nombre", "Nombre"),
-      new tabla("apellidoPaterno", "Primer apellido"),
-      new tabla("apellidoMaterno", "Segundo apellido"),
-      new tabla("razonSocial", "Centro de costos"),
-      new tabla("emailCorporativo", "Correo empresarial"),
-      new tabla("fechaAlta", "Fecha de registro en el sistema"),
-      new tabla("activo", "Estatus")
-    ]
-
-
-
-
+      new tabla("apellidoPat", "Primer apellido"),
+      new tabla("apellidoMat", "Segundo apellido"),
+      new tabla("email", "Correo electrónico"),
+      new tabla("rolnombre", "Rol"),
+      ((this.esClienteEmpresa) ? new tabla("esMulticliente", "Multicliente") : new tabla("empresa", "empresa")),
+      new tabla("esActivo", "Estatus")
+    ];
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
-        var datePipe = new DatePipe("es-MX");
-        item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-        item.fechaAlta = datePipe.transform(item.fechaAlta, 'dd-MMM-y')?.replace(".", "");
-
-        item["centrocClientenombre"] = item.centrocClienteId.nombre;
-
+        item["rolnombre"] = item?.rolId?.nombreRol;
+        item["esMulticliente"] = item?.esMulticliente? "Sí":"No";
       }
     }
 
-
     this.arreglotabla = {
-      columnas: [],
-      filas: []
-    };
-
-    this.arreglotabla.columnas = columnas;
-    this.arreglotabla.filas = this.arreglo;
+      columnas: columnas,
+      filas: this.arreglo
+    }
   }
 
 
@@ -179,9 +143,9 @@ export class UsuariosComponent implements OnInit {
 
   public verdetalle(obj: any) {
     if (obj == undefined) {
-      this.routerPrd.navigate([(this.esClienteEmpresa)?"cliente":"",'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany,usuario:obj } });
+      this.routerPrd.navigate([(this.esClienteEmpresa) ? "cliente" : "", 'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany, usuario: obj } });
     } else {
-      this.routerPrd.navigate([(this.esClienteEmpresa)?"cliente":"",'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany,usuario:obj } });
+      this.routerPrd.navigate([(this.esClienteEmpresa) ? "cliente" : "", 'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany, usuario: obj } });
     }
   }
 
@@ -205,23 +169,27 @@ export class UsuariosComponent implements OnInit {
 
           if (item["seleccionado"]) {
 
-            arregloUsuario.push({ personaId: item["personaId"], esActivo: this.tipoguardad });
+            arregloUsuario.push( item["usuarioId"]);
 
           }
+        }
+
+        let objEnviar = {
+          ids:arregloUsuario,
+          esActivo: tipoguardad
         }
 
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-        this.usuariosPrd.modificarListaActivos(arregloUsuario).subscribe(datos => {
+        this.usuariosAuthPrd.usuariosActivarDesactivar(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(valor => {
             if (valor) {
               for (let item of arregloUsuario) {
                 for (let item2 of this.arreglo) {
-                  if (item2.personaId === item.personaId) {
-                    item2["esActivo"] = item["esActivo"];
-                    item2["activo"] = item["esActivo"];
+                  if (item2.usuarioId === item) {
+                    item2["esActivo"] = tipoguardad;
                     item2["seleccionado"] = false;
                     break;
                   }
@@ -247,60 +215,37 @@ export class UsuariosComponent implements OnInit {
 
     this.cargando = true;
 
-    let fechar = "";
 
-    if (this.fechaRegistro != undefined || this.fechaRegistro != null) {
-
-
-      if (this.fechaRegistro != "") {
-        const fecha1 = new Date(this.fechaRegistro).toUTCString().replace("GMT", "");
-        fechar = `${new Date(fecha1).getTime()}`;
-      }
-
-
-
-
+    let arregloenviar = [];
+    
+    if(!Boolean(this.id_company)){
+      arregloenviar.push(this.usuariosSistemaPrd.getIdEmpresa());
+      for(let item of this.arregloCompany){
+        arregloenviar.push(item.centrocClienteId);
     }
-
-    let actboo: string = "";
-
-    if (this.activo == 1) {
-      actboo = "true";
-    } else if (this.activo == 2) {
-      actboo = "false";
+    }else{
+      arregloenviar.push(this.id_company);
     }
+    
 
 
     let peticion = {
-      personaId: this.idUsuario,
-      nombre: this.nombre,
-      apellidoPaterno: this.apellidoPat,
-      apellidoMaterno: this.apellidoMat,
-      fechaAlta: fechar,
-      emailCorporativo: this.correoempresarial,
-      esActivo: actboo,
-      centrocClienteId: {
-        centrocClienteId: (this.id_company) == 0 ? "" : this.id_company
-      },
-      tipoPersonaId: {
-        tipoPersonaId: 3
-      }
+      idUsuario: this.idUsuario || null,
+      nombre: this.nombre || null,
+      apellidoPat: this.apellidoPat || null,
+      apellidoMat: this.apellidoMat || null,
+      fechaAlta: this.fechaRegistro || null,
+      email: this.correoempresarial || null,
+      idClientes: arregloenviar,
+      esActivo: this.activo == 0? null:this.activo == 1
     }
 
 
-
-
-
-    this.cargando = true;
-
-    // this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-    //   this.arreglo = datos.datos;
-
-    //   this.procesarTabla({ datos: this.arreglo });
-
-    //   this.cargando = false;
-    // });
-
+    this.usuariosAuthPrd.filtrarUsuarios(peticion).subscribe(datos => {
+      this.arreglo = datos.datos;
+      this.procesarTabla();
+      this.cargando = false;
+    });
   }
 
 

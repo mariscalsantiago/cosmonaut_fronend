@@ -14,9 +14,7 @@ export class UsuarioService {
   }
 
 
-  public modificarListaActivos(obj: any): Observable<any> {
-    return new Subject();
-  }
+  
 
   
   public getAllUsers(activo:any):Observable<any>{
