@@ -47,8 +47,6 @@ export class TablapaginadoComponent implements OnInit {
 
   @Input() public esnomina:boolean = false;
 
-  @Input() public esRol:boolean = false;
-
   
 
   public arreglotemp: any = [];
