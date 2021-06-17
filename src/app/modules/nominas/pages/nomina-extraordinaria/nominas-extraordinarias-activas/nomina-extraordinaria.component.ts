@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-nomina-extraordinaria',
@@ -18,14 +19,38 @@ export class NominaExtraordinariaComponent implements OnInit {
   public arreglo: any = [];
   public arregloPersonas: any = [];
 
+  public esRegistrar:boolean = false;
+  public esCalcular:boolean = false;
+  public esConsultar:boolean = false;
+  public esConcluir:boolean = false;
+  public esDispersar:boolean = false;
+  public esEliminar:boolean = false;
+  public esTimbrar:boolean = false;
+  public esDescargar:boolean = false;
+
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService,
-    private empleadoPrd: EmpleadosService, private nominaAguinaldoPrd: NominaaguinaldoService, private usuariSistemaPrd: UsuarioSistemaService) { }
+    private empleadoPrd: EmpleadosService, private nominaAguinaldoPrd: NominaaguinaldoService, private usuariSistemaPrd: UsuarioSistemaService,
+    private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
    this.traerListaNomina();
 
+   this.establecerPermisos();
+
+  }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esCalcular = this.configuracionesPrd.getPermisos("Calcular");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esConcluir = this.configuracionesPrd.getPermisos("Concluir");
+    this.esDispersar = this.configuracionesPrd.getPermisos("Dispersar");
+    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
+    this.esTimbrar = this.configuracionesPrd.getPermisos("Timbrar");
+    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
   }
 
   public traerListaNomina(){

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
@@ -18,14 +19,35 @@ export class NominaPTUComponent implements OnInit {
   public arreglo:any = [];
   public arregloPersonas:any = [];
 
+  public esRegistrar:boolean = false;
+  public esCalcular:boolean = false;
+  public esConsultar:boolean = false;
+  public esConcluir:boolean = false;
+  public esDispersar:boolean = false;
+  public esEliminar:boolean = false;
+  public esTimbrar:boolean = false;
+  public esDescargar:boolean = false;
+
   constructor(private ventana:VentanaemergenteService,private router:Router,
     private modalPrd:ModalService,private empleadoPrd:EmpleadosService,private usuariSistemaPrd:UsuarioSistemaService,
-    private nominaPtuPrd:NominaptuService) { }
+    private nominaPtuPrd:NominaptuService,private configuracionesPrd:ConfiguracionesService) { }
 
     ngOnInit(): void {
     
       this.traerListaNomina();
-  
+      this.establecerPermisos();
+    }
+
+
+    public establecerPermisos(){
+      this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+      this.esCalcular = this.configuracionesPrd.getPermisos("Calcular");
+      this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+      this.esConcluir = this.configuracionesPrd.getPermisos("Concluir");
+      this.esDispersar = this.configuracionesPrd.getPermisos("Dispersar");
+      this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
+      this.esTimbrar = this.configuracionesPrd.getPermisos("Timbrar");
+      this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
     }
   
   

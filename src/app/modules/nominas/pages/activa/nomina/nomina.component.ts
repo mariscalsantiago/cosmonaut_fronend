@@ -42,6 +42,7 @@ export class NominaComponent implements OnInit {
     let temp = history.state.datos == undefined ? {} : history.state.datos;
 
 
+    console.log("ESTE ES LA TEMPORAL",temp);
 
 
     if (temp.nominaOrdinaria) {
@@ -56,39 +57,49 @@ export class NominaComponent implements OnInit {
 
     this.nominaSeleccionada = temp;
 
+    if(this.esCalcular){
+      this.activado[0].tab = true;
+      this.activado[0].form = true;
+      this.activado[0].seleccionado = true;
+    }else if(this.esDispersar){
+      this.activado[0].tab = false;
+      this.activado[0].form = false;
+      this.activado[0].seleccionado = false;
+      this.activado[1].tab = true;
+      this.activado[1].form = true;
+      this.activado[1].seleccionado = true;
+    }else if(this.esTimbrar){
+      this.activado[0].tab = false;
+      this.activado[0].form = false;
+      this.activado[0].seleccionado = false;
+      this.activado[2].tab = true;
+      this.activado[2].form = true;
+      this.activado[2].seleccionado = true;
+    }else if(this.esConcluir){
+      this.activado[0].tab = false;
+      this.activado[0].form = false;
+      this.activado[0].seleccionado = false;
+      this.activado[3].tab = true;
+      this.activado[3].form = true;
+      this.activado[3].seleccionado = true;
+    }
+
 
 
 
   }
 
   public establecerPermisos() {
-    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
-    this.esCalcular = !this.configuracionesPrd.getPermisos("Calcular");
-    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esRegistrar = !this.configuracionesPrd.getPermisos("Registrar");
+    this.esCalcular = this.configuracionesPrd.getPermisos("Calcular");
+    this.esConsultar = !this.configuracionesPrd.getPermisos("Consultar");
     this.esConcluir = !this.configuracionesPrd.getPermisos("Concluir");
     this.esDispersar =!this.configuracionesPrd.getPermisos("Dispersar");
-    this.esEliminar = !this.configuracionesPrd.getPermisos("Eliminar");
+    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
     this.esTimbrar = !this.configuracionesPrd.getPermisos("Timbrar");
     this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
 
-    if(this.esCalcular){
-      this.activado[0].tab = true;
-      this.activado[0].form = true;
-      this.activado[0].seleccionado = true;
-    }else if(this.esDispersar){
-      this.activado[1].tab = true;
-      this.activado[1].form = true;
-      this.activado[1].seleccionado = true;
-    }else if(this.esTimbrar){
-      this.activado[2].tab = true;
-      this.activado[2].form = true;
-      this.activado[2].seleccionado = true;
-    }else if(this.esConcluir){
-      this.activado[3].tab = true;
-      this.activado[3].form = true;
-      this.activado[3].seleccionado = true;
-    }
-
+   
   }
 
   public backTab(numero: number) {
