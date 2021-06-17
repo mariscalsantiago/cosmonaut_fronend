@@ -1,12 +1,12 @@
 <div class="row mt-3">
     <div class="col-11 text-right">
-        <a (click)="descargarDispersion()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIconDispersion"><i
+        <a *ngIf="esDescargar" (click)="descargarDispersion()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIconDispersion"><i
                     class="fas fa-download"></i> Descargar dispersión</small>
             <div *ngIf="cargandoIconDispersion" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </a>
-        <a class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+        <a *ngIf="esDescargar" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
                     class="fas fa-download"></i> Descargar RFC's</small>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>

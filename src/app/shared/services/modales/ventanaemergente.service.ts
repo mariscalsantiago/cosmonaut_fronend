@@ -15,14 +15,14 @@ export class VentanaemergenteService {
   public ndispersion: string = "ndispersion";
   public ntimbrado: string = "ntimbrado";
   public subirdocumento: string = "subirdocumento";
-  public nuevanominaextraordinaria:string = "nuevanominaextraordinaria";
-  public nuevanominaptu:string = "nuevanominaptu";
-  public tablaisr:string = "tablaisr";
-  public subcidio:string = "subcidio";
+  public nuevanominaextraordinaria: string = "nuevanominaextraordinaria";
+  public nuevanominaptu: string = "nuevanominaptu";
+  public tablaisr: string = "tablaisr";
+  public subcidio: string = "subcidio";
   public nuevanominafiniquitoliquidacion: string = "nuevanominafiniquitoliquidacion";
-  public mensajechat:string = "mensajechat";
+  public mensajechat: string = "mensajechat";
 
-  
+
 
   private subject?: Subject<any>;;
 
@@ -30,7 +30,7 @@ export class VentanaemergenteService {
     modal: false,
     titulo: '',
     ventanaalerta: false,
-    datos:undefined
+    datos: undefined
   }
 
   private mostrar: any = {
@@ -44,23 +44,23 @@ export class VentanaemergenteService {
     ndispersion: false,
     ntimbrado: false,
     subirdocumento: false,
-    nuevanominaptu:false,
-    tablaisr:false,
-    subcidio:false,
-    nuevanominaextraordinaria:false,
+    nuevanominaptu: false,
+    tablaisr: false,
+    subcidio: false,
+    nuevanominaextraordinaria: false,
     nuevanominafiniquitoliquidacion: false,
-    mensajechat:false
+    mensajechat: false
   }
 
   constructor() { }
 
   public showVentana(tipoVentana: string, configuracion?: configuracion): Promise<any> {
 
-    
+
     for (let llave in this.mostrar) {
       this.mostrar[llave] = false;
     }
-    
+
 
 
     this.emergente.datos = configuracion?.datos;
@@ -96,39 +96,43 @@ export class VentanaemergenteService {
         this.mostrar.ndispersion = true;
         this.emergente.titulo = "Resumen de la dispersión";
         break;
+      case this.ntimbrado:
+        this.mostrar.ntimbrado = true;
+        this.emergente.titulo = "Resumen del timbrado";
+        break;
       case this.subirdocumento:
         this.mostrar.subirdocumento = true;
         this.emergente.titulo = "Subir documento";
         break;
-        case this.nuevanominaptu:
+      case this.nuevanominaptu:
         this.mostrar.nuevanominaptu = true;
         this.emergente.titulo = "Nómina de PTU";
         break;
-        case this.tablaisr:
+      case this.tablaisr:
         this.mostrar.tablaisr = true;
         this.emergente.titulo = "";
         break;
-        case this.subcidio:
+      case this.subcidio:
         this.mostrar.subcidio = true;
         this.emergente.titulo = "";
         break;
-        case this.nuevanominaextraordinaria:
+      case this.nuevanominaextraordinaria:
         this.mostrar.nuevanominaextraordinaria = true;
         this.emergente.titulo = "Nueva nómina aguinaldo";
         break;
-        case this.nuevanominafiniquitoliquidacion:
+      case this.nuevanominafiniquitoliquidacion:
         this.mostrar.nuevanominafiniquitoliquidacion = true;
         this.emergente.titulo = "Nueva nómina finiquito/liquidación";
         break;
-        case this.mensajechat:
+      case this.mensajechat:
 
-          this.mostrar.mensajechat = true;
+        this.mostrar.mensajechat = true;
         this.emergente.titulo = "Editar mensaje";
-          break;
+        break;
 
-          
+
     }
-    
+
 
     this.subject = new Subject<any>();
 
@@ -161,5 +165,5 @@ export class VentanaemergenteService {
 
 class configuracion {
   public ventanaalerta?: boolean = false;
-  public datos?:any = undefined;
+  public datos?: any = undefined;
 }

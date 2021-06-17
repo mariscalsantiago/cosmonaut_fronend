@@ -1,7 +1,10 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
@@ -16,6 +19,7 @@ import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.serv
 })
 export class TimbrarComponent implements OnInit {
   @Output() salida = new EventEmitter();
+  @Input() esDescargar:boolean = false;
   public cargando: boolean = false;
   public cargandoIcon: boolean = false;
   public arreglo: any = [];
@@ -36,7 +40,7 @@ export class TimbrarComponent implements OnInit {
   constructor(private empleadoPrd: EmpleadosService, private ventana: VentanaemergenteService,
     private modalPrd: ModalService, private nominaOrdinariaPrd:NominaordinariaService,
     private nominaAguinaldoPrd:NominaaguinaldoService,private nominaLiquidacionPrd:NominafiniquitoliquidacionService, private cp: CurrencyPipe,
-    private nominaPtuPrd:NominaptuService) { }
+    private nominaPtuPrd:NominaptuService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -182,19 +186,7 @@ export class TimbrarComponent implements OnInit {
   }
 
 
-  public timbrar() {
-    this.ventana.showVentana(this.ventana.timbrar, { ventanaalerta: true }).then(datos => {
-
-      this.modalPrd.showMessageDialog(this.modalPrd.loading);
-      setTimeout(() => {
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        this.ventana.showVentana(this.ventana.ntimbrado).then(() => {
-          this.salida.emit({ type: "timbrar" });
-        });;
-      }, 2000);
-
-    });;
-  }
+ 
 
   public regresar() {
 
@@ -231,6 +223,42 @@ export class TimbrarComponent implements OnInit {
 
     this.cargando = false;
 
+  }
+
+
+  
+
+  public timbrar() {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas timbrar la nómina?").then(valor => {
+      if (valor) {
+
+
+     
+        let obj = [{}]
+
+
+        this.nominaOrdinariaPrd.timbrar(obj).subscribe(()=>{
+          this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Timbrando","Espere un momento, el proceso se tardara varios minutos.");
+          let intervalo = interval(1000);
+          intervalo.pipe(take(11));
+          intervalo.subscribe((valor)=>{
+            this.configuracionesPrd.setCantidad(valor*10);
+            if(valor == 10){
+              this.configuracionesPrd.setCantidad(0);
+               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+               this.ventana.showVentana(this.ventana.ntimbrado).then(() => {
+                this.salida.emit({ type: "timbrar" });
+              });;
+            }
+          });
+        });
+
+        
+      
+
+      
+      }
+    });
   }
 
 }

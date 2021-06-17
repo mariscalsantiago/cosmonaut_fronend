@@ -8,6 +8,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 })
 export class VentanaResumenTimbradoComponent implements OnInit {
   @Output() salida = new EventEmitter<any>();
+  public cargandoIcon:boolean = false;
   constructor(private modalPrd:ModalService) { }
 
   ngOnInit(): void {
@@ -21,11 +22,7 @@ export class VentanaResumenTimbradoComponent implements OnInit {
 
 
   public guardar(){
-      this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas continuar?").then(valor =>{
-        if(valor){
-          this.salida.emit({type:"guardar",datos:valor});
-        }
-      });
+    this.salida.emit({type:"guardar",datos:true});
   }
 
 }

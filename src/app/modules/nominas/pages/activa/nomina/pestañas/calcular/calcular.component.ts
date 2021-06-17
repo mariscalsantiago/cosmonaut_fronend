@@ -16,6 +16,8 @@ import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.serv
 export class CalcularComponent implements OnInit {
   @Output() salida = new EventEmitter();
   @Input() nominaSeleccionada: any;
+  @Input() esEliminar:boolean = false;
+  @Input() esDescargar:boolean = false;
   public cargando: boolean = false;
   public nominaOrdinaria: boolean = false;
   public nominaExtraordinaria: boolean = false;

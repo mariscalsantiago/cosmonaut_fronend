@@ -13,6 +13,8 @@ export class ConfiguracionesService {
   public readonly  MODULOS:string = "modulos";
   public readonly MENUUSUARIO:string = "menuusuario";
 
+  public cantidad:number = 0;
+
 
   public permisosActuales!:Array<clasepermiso>;
 
@@ -122,6 +124,17 @@ export class ConfiguracionesService {
         }
      }
     return mostrar;
+  }
+
+
+  public getCantidadDispersion(){
+    console.log("La cantidad dad es ",this.cantidad);
+    return this.cantidad;
+
+  }
+
+  public setCantidad(cantidad:number){
+      this.cantidad = cantidad;
   }
 
 

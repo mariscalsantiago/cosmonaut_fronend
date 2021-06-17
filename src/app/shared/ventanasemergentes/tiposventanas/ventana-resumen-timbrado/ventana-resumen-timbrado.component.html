@@ -1,6 +1,17 @@
-<p>ventana-resumen-timbrado works!</p>
-<div class="text-center margin" style="margin-bottom: 20px;">
+<div class="row">
+    <div class="col-12">
+        <h6>97 de 100 pagos han sido exitosos</h6>
 
-    <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-    <button type="submit" (click)="guardar()" class="btn btn-primary button-fill">Guardar</button>
+    </div>
+    <div class="col-12">
+        <a class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+            class="fas fa-download"></i> Descargar errores de pago</small>
+    <div *ngIf="cargandoIcon" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</a>
+    </div>
+</div>
+<div class="text-center margin" style="margin-bottom: 20px;">
+    <button type="submit" (click)="guardar()" class="btn btn-primary button-fill">Cerrar</button>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
@@ -19,15 +20,42 @@ export class NominasActivasComponent implements OnInit {
   public arreglo: any = [];
   public arregloPersonas: any = [];
 
+  public esRegistrar:boolean = false;
+  public esCalcular:boolean = false;
+  public esConsultar:boolean = false;
+  public esConcluir:boolean = false;
+  public esDispersar:boolean = false;
+  public esEliminar:boolean = false;
+  public esTimbrar:boolean = false;
+  public esDescargar:boolean = false;
+
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService, private usuariSistemaPrd: UsuarioSistemaService,
-    private nominaOrdinariaPrd: NominaordinariaService) { }
+    private nominaOrdinariaPrd: NominaordinariaService,private configuracionesPrd:ConfiguracionesService) { }
+
+
+
 
   ngOnInit(): void {
 
     this.traerListaNomina();
+    this.establecerPermisos();
+    
 
   }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esCalcular = this.configuracionesPrd.getPermisos("Calcular");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esConcluir = this.configuracionesPrd.getPermisos("Concluir");
+    this.esDispersar = this.configuracionesPrd.getPermisos("Dispersar");
+    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
+    this.esTimbrar = this.configuracionesPrd.getPermisos("Timbrar");
+    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
+  }
+
 
 
   public traerListaNomina() {
@@ -77,7 +105,7 @@ export class NominasActivasComponent implements OnInit {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
             console.log("datos enviados", datos);
-            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaOrdinaria: item.nominaOrdinaria } } });
+            this.router.navigate(['nominas','nomina'], { state: { datos: { nominaOrdinaria: item.nominaOrdinaria } } });
           }
         });
 

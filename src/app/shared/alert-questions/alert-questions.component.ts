@@ -1,4 +1,5 @@
 import { Component, OnInit, Output,EventEmitter, Input, HostListener, OnChanges, SimpleChanges } from '@angular/core';
+import { ConfiguracionesService } from '../services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-alert-questions',
@@ -44,13 +45,15 @@ export class AlertQuestionsComponent implements OnInit,OnChanges {
 
 
 
-  constructor() {
+  constructor(private configuracion:ConfiguracionesService) {
 
     this.content = document.getElementById("contenido");
     this.scrollTop = this.content.scrollTop;
 
 
     this.content.style.overflow = "hidden";
+
+
 
    }
 
@@ -83,5 +86,10 @@ export class AlertQuestionsComponent implements OnInit,OnChanges {
     this.content.style.overflow = "auto";
     this.eventoFunciones.emit(true);
   }
+
+
+  public getCantidad(){
+    return this.configuracion.getCantidadDispersion();
+    }
 
 }

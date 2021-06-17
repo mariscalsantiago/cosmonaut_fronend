@@ -1,6 +1,6 @@
 import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
 
 
@@ -141,6 +141,23 @@ export class NominaordinariaService {
     let json: string = JSON.stringify(obj);
     return this.http.post(`${direcciones.nominaOrdinaria}/eliminacion/nomina/ordinaria`, json, httpOptions);
 
+  }
+
+
+  public dispersar(obj:any):Observable<any>{
+      let json = JSON.stringify(obj);
+      return new BehaviorSubject(true);
+      return this.http.put(`${direcciones.nominaOrdinaria}/dispersion-timbrado/dispersion`,json);
+  }
+
+
+
+  public statusProcesoDispersar(nominaPeriodoId:number,cantidadEmpleados:number):Observable<any>{
+    return this.http.get(`${direcciones.nominaOrdinaria}/dispersion-timbrado/procesando/dispersion/${nominaPeriodoId}/${cantidadEmpleados}`);
+  }
+
+  public timbrar(obj:any):Observable<any>{
+      return new BehaviorSubject(true);
   }
 
 

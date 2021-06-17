@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 
 
@@ -14,39 +15,81 @@ export class NominaComponent implements OnInit {
     { tab: false, form: false, disabled: false, seleccionado: false },
     { tab: false, form: false, disabled: false, seleccionado: false }];
 
-    public nominaSeleccionada:any;
-    public arreglo:any = [];
+  public nominaSeleccionada: any;
+  public arreglo: any = [];
 
-    public llave:string = "";
+  public llave: string = "";
 
-  constructor() { }
+
+  public esRegistrar: boolean = false;
+  public esCalcular: boolean = false;
+  public esConsultar: boolean = false;
+  public esConcluir: boolean = false;
+  public esDispersar: boolean = false;
+  public esEliminar: boolean = false;
+  public esTimbrar: boolean = false;
+  public esDescargar: boolean = false;
+
+  constructor(private configuracionesPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
 
-   
+    this.establecerPermisos();
+
+
+
 
     let temp = history.state.datos == undefined ? {} : history.state.datos;
 
 
-    
 
-    if(temp.nominaOrdinaria){
+
+    if (temp.nominaOrdinaria) {
       this.llave = "nominaOrdinaria";
-     }else if(temp.nominaExtraordinaria){
-       this.llave = "nominaExtraordinaria";
-     }else if(temp.nominaLiquidacion){
+    } else if (temp.nominaExtraordinaria) {
+      this.llave = "nominaExtraordinaria";
+    } else if (temp.nominaLiquidacion) {
       this.llave = "nominaLiquidacion";
-    }else if(temp.nominaPtu){
+    } else if (temp.nominaPtu) {
       this.llave = "nominaPtu";
     }
 
-     this.nominaSeleccionada = temp;
-   
+    this.nominaSeleccionada = temp;
 
 
-   
+
+
   }
 
+  public establecerPermisos() {
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esCalcular = !this.configuracionesPrd.getPermisos("Calcular");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esConcluir = !this.configuracionesPrd.getPermisos("Concluir");
+    this.esDispersar =!this.configuracionesPrd.getPermisos("Dispersar");
+    this.esEliminar = !this.configuracionesPrd.getPermisos("Eliminar");
+    this.esTimbrar = !this.configuracionesPrd.getPermisos("Timbrar");
+    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
+
+    if(this.esCalcular){
+      this.activado[0].tab = true;
+      this.activado[0].form = true;
+      this.activado[0].seleccionado = true;
+    }else if(this.esDispersar){
+      this.activado[1].tab = true;
+      this.activado[1].form = true;
+      this.activado[1].seleccionado = true;
+    }else if(this.esTimbrar){
+      this.activado[2].tab = true;
+      this.activado[2].form = true;
+      this.activado[2].seleccionado = true;
+    }else if(this.esConcluir){
+      this.activado[3].tab = true;
+      this.activado[3].form = true;
+      this.activado[3].seleccionado = true;
+    }
+
+  }
 
   public backTab(numero: number) {
     if (!this.activado[numero].tab) return;
@@ -63,14 +106,43 @@ export class NominaComponent implements OnInit {
 
   public recibirComponente(obj: any) {
 
-    for (let item of this.activado) {
-      item.seleccionado = false;
-      item.form = false;
-    }
+
+  
+
+    if (!this.esDispersar && obj.type == "calcular") {
+       if(this.esTimbrar){
+          obj.type = "dispersar";
+        }else if(this.esConcluir){
+          obj.type = "timbrar";  
+        }else{
+          return;
+        }
+    }else  if (!this.esTimbrar && obj.type == "dispersar") {
+      if(this.esConcluir){
+       obj.type = "timbrar";   
+     }else{
+       return;
+     }
+   }else  if (!this.esConcluir && obj.type == "timbrar") {
+     return;
+ }
 
 
 
-    
+   for (let item of this.activado) {
+    item.seleccionado = false;
+    item.form = false;
+  }
+
+   
+
+   
+
+
+
+
+
+
     switch (obj.type) {
       case "calcular":
         this.activado[1].tab = true;
@@ -82,7 +154,7 @@ export class NominaComponent implements OnInit {
         this.activado[2].form = true;
         this.activado[2].seleccionado = true;
         break;
-        case "timbrar":
+      case "timbrar":
         this.activado[3].tab = true;
         this.activado[3].form = true;
         this.activado[3].seleccionado = true;

@@ -73,6 +73,8 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.establecerPermisos();
+
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
 
 
