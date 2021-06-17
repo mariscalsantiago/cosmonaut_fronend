@@ -47,5 +47,6 @@ export const direcciones = {
     nominaLiquidacion:`${ipCalculos}/nomina-liquidacion`,
     nominaPtu:`${ipCalculos}/nomina-ptu`,
     orquestador:`${ipCalculos}/orquestador`,
-    calculo:`${ipCalculos}/calculo`
+    calculo:`${ipCalculos}/calculo`,
+    imss: `${ip}/imss`,
 };

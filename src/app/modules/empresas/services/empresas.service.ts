@@ -23,6 +23,21 @@ export class EmpresasService {
     
 
   }
+
+  public getListarMovimientosIDSE():Observable<any>{
+    
+    return this.http.get(`${direcciones.imss}/listar/movimientos`);
+    
+
+  }
+
+  public getListarRegistroPatronal(idEmpresa:number):Observable<any>{
+    
+    return this.http.get(`${direcciones.imss}/cliente/${idEmpresa}/listar/registrospatronales`);
+  
+
+  }
+
   public getActivos(idEmpresA:number):Observable<any>{
     
     return this.http.get(`${this.url}/validacion/captura/empresa/${idEmpresA}`);
@@ -60,9 +75,27 @@ export class EmpresasService {
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
+  public filtrarIDSE(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+  
+    
+    return this.http.post(`${direcciones.imss}/filtrar`,json,httpOptions);
+  
+  }
+
   public eliminar(id:any):Observable<any>{
 
     return this.http.post(`${this.url}/eliminar/empresa/id/${id}`,{});
+  }
+
+  public eliminarPPP(id:any):Observable<any>{
+
+    return this.http.post(`${direcciones.imss}/eliminar/${id}`,{});
   }
     
   

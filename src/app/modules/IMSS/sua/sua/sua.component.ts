@@ -3,6 +3,8 @@ import { tabla } from 'src/app/core/data/tabla';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { DatePipe } from '@angular/common';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 
 @Component({
   selector: 'app-sua',
@@ -12,9 +14,18 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 export class SuaComponent implements OnInit {
 
   public empresa: any;
-  public arregloEmpresa: any = [];
+  public idEmpresa: number = 0;
+  public arregloMovimientos: any = [];
+  public arregloRegistroPatronal: any = [];
+  public arreglo: any = [];
   public cargando: boolean = false;
   public cargandoIcon: boolean = false;
+  public objFiltro: any = [];
+  public activarMultiseleccion: boolean = false;
+  public arregloSUA : any = [];
+  public movimientoImssId : number = 0;
+  public mensaje : string = "";
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -24,83 +35,241 @@ export class SuaComponent implements OnInit {
       filas:[]
   };
 
+      /*
+    Directivas de filtros
+  */
+
+
+    public registroPatronal: string = "";
+    public idregistroPatronal: number = 0;
+    public nombre: string = "";
+    public apellidoPat: string = "";
+    public apellidoMat: string = "";
+    public numeroEmpleado: string = "";
+    public fechaMin: Date =  new Date('0000-00-00');
+    public fechaMax: Date =  new Date('0000-00-00');
+    public movimiento: number = 0;
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
-    this.empresasPrd.getAllEmp(this.usauriosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      this.arregloEmpresa = datos.datos;
-    });
+    debugger;
+    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
-    this.traerTabla();
+    this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
+    this.empresasPrd.getListarRegistroPatronal(this.idEmpresa).subscribe(datos => this.arregloRegistroPatronal = datos.datos);
+
+
+    this.filtrar();
+
   }
 
-    public traerTabla() {
+    public traerTabla(datos:any) {
       const columna: Array<tabla> = [
         new tabla("nombre", "Nombre completo del empleado"),
         new tabla("sbc", "SBC"),
         new tabla("movimiento", "Movimiento"),
-        new tabla("fecha", "Fecha de movimiento")
+        new tabla("fechamovimiento", "Fecha de movimiento")
       ];
+      
+      this.arreglotabla = {
+        columnas:[],
+        filas:[]
+      }
   
+      if(this.arreglo !== undefined){
+        for(let item of this.arreglo){
+          if(item.fecha_movimiento !== undefined ){
+          item.fecha_movimiento = (new Date(item.fecha_movimiento).toUTCString()).replace(" 00:00:00 GMT", "");
+          let datepipe = new DatePipe("es-MX");
+          item.fechamovimiento = datepipe.transform(item.fecha_movimiento , 'dd-MMM-y')?.replace(".","");
+  
+          item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
+ 
+          }
+        }
+      }
   
       this.arreglotabla.columnas = columna;
-      this.arreglotabla.filas = [{
-        nombre : "Mayte Delacrúz Nieto",
-        sbc : "$323.91",
-        movimiento : "Modificación",
-        fecha : "18/05/2021"
-      }];
+      this.arreglotabla.filas = this.arreglo
     }
 
 
   public filtrar() {
 
+    debugger;
+
+    this.cargando = true;
+
+    for(let item of this.arregloRegistroPatronal){
+      if(item.registroPatronalId = this.idregistroPatronal)
+      this.registroPatronal = item.registroPatronal;
+    }
+    if(this.registroPatronal != ''){
+    this.objFiltro = {
+      ...this.objFiltro,
+      registroPatronal: this.registroPatronal
+    };
+    }
+
+    if(this.nombre != ''){
+      this.objFiltro = {
+        ...this.objFiltro,
+        nombre: this.nombre
+      };
+      }
+      if(this.apellidoPat != ''){
+        this.objFiltro = {
+          ...this.objFiltro,
+          apellidoPat: this.apellidoPat
+        };
+        }
+        if(this.apellidoMat != ''){
+          this.objFiltro = {
+            ...this.objFiltro,
+            apellidoMat: this.apellidoMat
+          };
+        }
+        if(this.numeroEmpleado != ''){
+          this.objFiltro = {
+            ...this.objFiltro,
+            numeroEmpleado: this.numeroEmpleado
+          };
+        }
+        if(this.movimiento != 0){
+          this.objFiltro = {
+            ...this.objFiltro,
+            movimiento: this.movimiento
+          };
+        }
+        this.objFiltro = {
+          ...this.objFiltro,
+          clienteId: this.idEmpresa,
+          fechaMax: this.fechaMax,
+          fechaMin: this.fechaMin
+        };
+   
+  debugger;
+  this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
+    this.arreglo = datos.datos;
+
+    this.traerTabla({ datos: this.arreglo });
+
+    this.cargando = false;
+  });
+
   }
 
-  public agregar() {
+
+  public guardarMultiseleccion(obj:any) {
+
+    debugger;
+    if(obj == 1){
+      this.mensaje = `¿Deseas descargar el archivo de altas?`;
+    }
+    else if(obj == 2){
+      this.mensaje = `¿Deseas descargar el archivo de modificaciones?`;
+      }
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, this.mensaje).then(valor => {
+      if (valor) {
+
+        let valorAltas = [];
+        let valorModif = [];
+        for (let item of this.arreglo) {
+
+          if (item["seleccionado"]) {
+            if(obj==1){
+
+              if(item.movimientoImssId ==3){
+                valorAltas.push(item.kardex_colaborador_id);
+              }
+            }
+            else if(obj==2){
+              if(item.movimientoImssId ==1 || item.movimientoImssId ==2){
+                valorModif.push(item.kardex_colaborador_id);
+              }
+            }
+
+          }
+        }
+        if(obj==1){
+          this.arregloSUA = { 
+            idEmpresa: this.idEmpresa,
+            idKardex: valorAltas
+          }
+        }
+
+        if(obj==2){
+          this.arregloSUA = { 
+            idEmpresa: this.idEmpresa,
+            idKardex: valorModif
+          }
+        }
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+        if(obj == 1){
+        this.reportesPrd.getDescargaLayaoutAltasSUA(this.arregloSUA).subscribe(archivo => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
+          const downloadLink = document.createElement("a");
+          const fileName = `${"Layaout reingresos/altas SUA"}.txt`;
+  
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
+          if (archivo) {
+            for (let item of this.arregloSUA.idKardex) {
+              for (let item2 of this.arreglo) {
+                if (item2.kardex_colaborador_id === item) {
+                  item2["seleccionado"] = false;
+                  break;
+                }
+              }
+            }
+            this.activarMultiseleccion = false;
+          }
+        });
+      }
+      if(obj == 2){
+        this.reportesPrd.getDescargaLayaoutMoficacionSUA(this.arregloSUA).subscribe(archivo => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
+          const downloadLink = document.createElement("a");
+          const fileName = `${"Layaout modificacion SUA"}.txt`;
+  
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
+          if (archivo) {
+            for (let item of this.arregloSUA.idKardex) {
+              for (let item2 of this.arreglo) {
+                if (item2.kardex_colaborador_id === item) {
+                  item2["seleccionado"] = false;
+                  break;
+                }
+              }
+            }
+            this.activarMultiseleccion = false;
+          }
+        });
+      }
+
+      }
+    });
+    
+
+
 
   }
-
   public recibirTabla(obj: any) {
 
     switch (obj.type) {
-      case "eliminar":
-
-      this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar?").then(valor =>{
-          
-        if(valor){
-
-        }
-      
-      });
-
-        break;
-      case "desglosar":
-        let item = obj.datos;
-       
-
-
-        let columnas: Array<tabla> = [
-          new tabla("nombre", "Política"),
-          new tabla("razon", "Percepciones variables"),
-          new tabla("nombrecuenta", "Registro patronal"),
-          new tabla("nombremoneda", "Estatus de empleado"),
-          new tabla("periodo", "Salario diario"),
-          new tabla("baseperiododescripcion", "Salario diario integrado"),
-          new tabla("periodoaguinaldodescripcion", "SBC")
-          
-        ];
-       
-
-
-        this.arreglotablaDesglose.columnas = columnas;
-        this.arreglotablaDesglose.filas = item;
-
-        item.cargandoDetalle = false;
-        
+        case "filaseleccionada":
+          this.activarMultiseleccion = obj.datos;
         break;
     }
 

@@ -183,7 +183,7 @@ export class InformacionempresaComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     
-
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
     if (this.enviarPeticion.enviarPeticion) {
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;
@@ -217,7 +217,7 @@ export class InformacionempresaComponent implements OnInit {
            esActivo:obj.esActivo
         }
 
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+       
         if(this.datosempresa.insertar){  
         this.empresaPrd.save(objenviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

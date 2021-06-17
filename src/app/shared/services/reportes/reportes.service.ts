@@ -112,6 +112,72 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
 
   }
 
+  public getDescargaLayaoutReingresosIDSE(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+
+    
+    return this.http.post(`${direcciones.reportes}/idse/altasReingresos/`,json,httpOptions);
+
+  }
+
+  public getDescargaLayaoutAltasSUA(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+
+    
+    return this.http.post(`${direcciones.reportes}/sua/altas/`,json,httpOptions);
+
+  }
+
+  public getDescargaLayaoutBajaIDSE(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+
+    
+    return this.http.post(`${direcciones.reportes}/idse/baja/`,json,httpOptions);
+
+  }
+
+  public getDescargaLayaoutMoficacionIDSE(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+
+    
+    return this.http.post(`${direcciones.reportes}/idse/modificacion/`,json,httpOptions);
+
+  }
+
+  public getDescargaLayaoutMoficacionSUA(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+
+    
+    return this.http.post(`${direcciones.reportes}/sua/modificacion/`,json,httpOptions);
+
+  }
+  
+
   public getlayoutDispersionNomina(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
