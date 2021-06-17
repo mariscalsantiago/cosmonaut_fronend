@@ -59,7 +59,7 @@ export class SuaComponent implements OnInit {
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
-    this.empresasPrd.getListarRegistroPatronal(112).subscribe(datos => this.arregloRegistroPatronal = datos.datos);
+    this.empresasPrd.getListarRegistroPatronal(this.idEmpresa).subscribe(datos => this.arregloRegistroPatronal = datos.datos);
 
 
     this.filtrar();
@@ -146,7 +146,7 @@ export class SuaComponent implements OnInit {
         }
         this.objFiltro = {
           ...this.objFiltro,
-          clienteId: 112,
+          clienteId: this.idEmpresa,
           fechaMax: this.fechaMax,
           fechaMin: this.fechaMin
         };
@@ -204,7 +204,7 @@ export class SuaComponent implements OnInit {
 
         if(obj==2){
           this.arregloSUA = { 
-            idEmpresa: 112,
+            idEmpresa: this.idEmpresa,
             idKardex: valorModif
           }
         }

@@ -61,7 +61,7 @@ export class IDSEComponent implements OnInit {
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
-    this.empresasPrd.getListarRegistroPatronal(112).subscribe(datos => this.arregloRegistroPatronal = datos.datos);
+    this.empresasPrd.getListarRegistroPatronal(this.idEmpresa).subscribe(datos => this.arregloRegistroPatronal = datos.datos);
 
 
     this.filtrar();
@@ -160,7 +160,7 @@ export class IDSEComponent implements OnInit {
         }
         this.objFiltro = {
           ...this.objFiltro,
-          clienteId: 112,
+          clienteId: this.idEmpresa,
           fechaMovimiento: this.fechaMovimiento
         };
    
