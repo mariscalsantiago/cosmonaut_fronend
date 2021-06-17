@@ -162,7 +162,7 @@ export class PagarComponent implements OnInit {
                 obj.push(   {
                   nominaPeriodoId: this.idnominaPeriodo,
                   personaId: item.personaId,
-                  fechaContrato: item.fechaContratp,
+                  fechaContrato: item.fechaContrato,
                   centroClienteId: item.centroClienteId,
                   usuarioId: this.usuariosSistemaPrd.getUsuario().usuarioId,
                   servicio: "dispersion_st"
@@ -180,7 +180,7 @@ export class PagarComponent implements OnInit {
             if(valor == 10){
               this.configuracionesPrd.setCantidad(0);
                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-               this.ventana.showVentana(this.ventana.ndispersion).then(valor => {
+               this.ventana.showVentana(this.ventana.ndispersion,{datos:this.idnominaPeriodo}).then(valor => {
                 this.salida.emit({ type: "dispersar" });
               });
             }

@@ -49,4 +49,5 @@ export const direcciones = {
     orquestador:`${ipCalculos}/orquestador`,
     calculo:`${ipCalculos}/calculo`,
     imss: `${ip}/imss`,
+    dispersion:`${ipCalculos}/dispersion-timbrado`
 };

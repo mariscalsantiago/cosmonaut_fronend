@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
@@ -189,5 +189,20 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
     
     return this.http.post(`${direcciones.reportes}/nominaDispersion/layoutDispersionNomina`,json,httpOptions);
 
+  }
+
+
+  public getErroresDispersionEmpleados(idNomina:number):Observable<any>{
+      return this.http.get(`${direcciones.reportes}/dispersion/lista/dispersion/erroneos/${idNomina}`);
+  }
+
+  public crearArchivo(base64:string,nombre:string,extension:string){
+    const linkSource = 'data:application/pdf;base64,' + `${base64}\n`;
+    const downloadLink = document.createElement("a");
+    const fileName = `${nombre}.${extension}`;
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
   }
 }
