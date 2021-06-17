@@ -4,6 +4,9 @@
     </div>
   </div>
   <hr>
+  <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()" >
+  <input type="hidden" >
+
   <div class="row" *ngIf="fromEventos">
     <div class="col-2"></div>
     <div class="col-8 margennav" >
@@ -13,7 +16,7 @@
               <div class="form-group row margen">
                 <label class="titulo">INFORMACIÓN PARA CARGA MASIVA DE EVENTOS</label>
               </div>
-              <div class="form-group  margen" *ngIf="fromEventos">
+              <div class="form-group  margen" >
 
             <nav class="nav-inside">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -128,6 +131,7 @@
 
     </div>
 </div>
+  </form>
 <div class="container" *ngIf="listaErrores">
   
     <div class="row">
