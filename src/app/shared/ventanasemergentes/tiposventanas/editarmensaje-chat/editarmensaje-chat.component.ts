@@ -1,6 +1,9 @@
 import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-editarmensaje-chat',
@@ -13,10 +16,13 @@ export class EditarmensajeChatComponent implements OnInit {
   public arreglotipomensaje:any = [];
   @Output() salida = new EventEmitter<any>();
 
-  constructor(private fb:FormBuilder,private modalPrd:ModalService) { }
+
+  constructor(private fb:FormBuilder,private modalPrd:ModalService,private catalogosPrd:CatalogosService,
+    private socketPrd:ChatSocketService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
     this.myForm = this.createForm();
+    this.catalogosPrd.getListaTipoMensaje().subscribe(datos=>this.arreglotipomensaje = datos.datos);
   }
 
 
@@ -63,14 +69,35 @@ export class EditarmensajeChatComponent implements OnInit {
     
 
     let obj = this.myForm.value;
+    
+      
+          let objEnviar = {
+            mensajeGenerico:obj.mensaje,
+            tipoMensajeId:{
+              tipoMensajeId:obj.tipomensaje
+            },
+            centrocClienteId:{
+              centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa()
+            },
+            personaId:{
+              personaId:this.usuariosSistemaPrd.usuario.usuarioId
+            }
+          }
 
-    this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    setTimeout(() => {
-      this.modalPrd.showMessageDialog(this.modalPrd.loading);
-      this.modalPrd.showMessageDialog(this.modalPrd.success,"Operacion guardado exitosamente").then(()=>{
-        this.salida.emit({type:"guardar",datos:true});
-      });
-    }, 2000);
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.socketPrd.guardarMensajeGenerico(objEnviar).subscribe((datos)=>{
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(() =>{
+                if(datos.resultado){
+                  this.salida.emit({type:"guardar",datos:true});
+                }
+            });
+          });
+      
+    
+
+    
+   
   
   }
 

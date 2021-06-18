@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { ChatService } from '../../services/chat.service';
@@ -21,10 +22,12 @@ export class ListachatsActivosComponent implements OnInit {
 
 
 
+  public mensajes:any = [];
 
   public cargando: boolean = false;
   constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
-    private usuariossistemaPrd: UsuarioSistemaService, private socket: ChatSocketService) { }
+    private usuariossistemaPrd: UsuarioSistemaService, private socket: ChatSocketService,
+    private modalPrd:ModalService) { }
 
   ngOnInit(): void {
 
@@ -33,6 +36,8 @@ export class ListachatsActivosComponent implements OnInit {
     this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.construirTabla(datos.datos);
     });
+
+    this.socket.getMensajeGenericoByEmpresa(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => this.mensajes = datos.datos);
 
 
 
@@ -87,6 +92,25 @@ export class ListachatsActivosComponent implements OnInit {
         });
         break;
       case "default":
+        this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas enviar el mensaje generico?").then(valor =>{
+          if(valor){
+            console.log(this.mensajes);
+              if(this.mensajes.length == 0){
+                  this.modalPrd.showMessageDialog(this.modalPrd.error,"No hay mensajes genericos que enviar");
+              }else{
+                  this.socket.enviarMensajeGenerico(this.mensajes[0].mensajeGenerico,obj.datos.conversacion);
+                  let objEnviar = {
+                    chatColaboradorId: obj.datos.chatColaboradorId,
+                    atendido: false,
+                    rechazo: true,
+                    fechaRechazo: new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd")
+                  };
+                  this.socket.modificarMensaje(objEnviar).subscribe(datos => {
+                    console.log(datos.datos);
+                });
+              }
+          }
+        });
         break;
     }
   }

@@ -211,6 +211,11 @@ export class CatalogosService {
 }
 
 
+public getListaTipoMensaje():Observable<any>{
+    return this.http.get(`${direcciones.tipomensaje}/listar/todos`);
+}
+
+
 
 
 }

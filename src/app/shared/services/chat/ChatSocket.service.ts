@@ -60,6 +60,24 @@ export class ChatSocketService {
   }
 
 
+  public guardarMensajeGenerico(obj:any):Observable<any>{
+      let json = JSON.stringify(obj);
+      return this.http.put(`${direcciones.administrarMensajeChat}/guardar`,json);
+  }
+
+  public getMensajeGenericoByEmpresa(idEmpresa:number):Observable<any>{
+      return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/${idEmpresa}`);
+  }
+
+
+  public enviarMensajeGenerico(mensaje:string,canal:string){
+    let socketInterno:WebSocket = new WebSocket(direcciones.socket+canal);
+    socketInterno.onopen = ()=>{
+      socketInterno.send(mensaje);
+    }
+  
+  }
+
   
 
 

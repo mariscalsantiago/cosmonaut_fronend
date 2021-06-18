@@ -49,5 +49,7 @@ export const direcciones = {
     orquestador:`${ipCalculos}/orquestador`,
     calculo:`${ipCalculos}/calculo`,
     imss: `${ip}/imss`,
-    dispersion:`${ipCalculos}/dispersion-timbrado`
+    dispersion:`${ipCalculos}/dispersion-timbrado`,
+    tipomensaje:`${ip3}/tipo-mensaje`,
+    administrarMensajeChat:`${ipAdmin}/administrar-mensaje-chat`
 };
