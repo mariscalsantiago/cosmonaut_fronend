@@ -11,6 +11,7 @@ export class ConfiguracionesService {
   public scrollCompany: number = 1;
 
   public readonly  MODULOS:string = "modulos";
+  public readonly MONEDAS:string = "monedas";
   public readonly MENUUSUARIO:string = "menuusuario";
   public accesoRuta:boolean = false;
 
