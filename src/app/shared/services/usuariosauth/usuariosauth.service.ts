@@ -27,6 +27,22 @@ export class UsuariosauthService {
   }
 
 
+  public modificar(obj:any):Observable<any>{
+
+    const httpOptions = {
+      headers:new HttpHeaders({
+        'Content-Type':'application/json'
+      })
+    }
+
+
+    let json = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.usuariosAuth}/modificar`,json,httpOptions);
+
+  }
+
+
   public guardarVersionsistema(obj:any):Observable<any>{
     const httpOptions = {
       headers:new HttpHeaders({

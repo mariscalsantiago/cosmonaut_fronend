@@ -11,15 +11,15 @@ const routes: Routes = [
   path: '',
   children: [
     {
-      path: 'company',
+      path: '',
       component: CompanyComponent
     },
     {
-      path: 'company/detalle_company/:tipoinsert',
+      path: 'detalle_company/:tipoinsert',
       component: DetalleCompanyComponent
     },
     {
-      path: 'company/detalle_contacto/:tipoinsert',
+      path: 'detalle_contacto/:tipoinsert',
       component: DetalleContactoComponent
     }
   ]

@@ -9,6 +9,8 @@ import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.servi
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contenido',
@@ -217,6 +219,21 @@ export class ContenidoComponent implements OnInit {
     this.chat.datos.nombre = this.usuariosSistemaPrd.getUsuario().nombre+" "+this.usuariosSistemaPrd.getUsuario().apellidoPat;
     this.chat.datos.rrh = false;
 
+  }
+
+
+  public irRuta(item:any){
+    let intervalo = interval(300);
+    intervalo.pipe(take(1));
+    let valor = intervalo.subscribe(()=>{
+      this.configuracionPrd.accesoRuta = false;
+      valor.unsubscribe();
+    });
+
+    
+    
+    this.configuracionPrd.accesoRuta = true;
+    this.navigate.navigate([item.pathServicio]);
   }
 
 

@@ -92,10 +92,11 @@ export class ListachatsActivosComponent implements OnInit {
         });
         break;
       case "default":
+        debugger;
         this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas enviar el mensaje generico?").then(valor =>{
           if(valor){
             console.log(this.mensajes);
-              if(this.mensajes.length == 0){
+              if(this.mensajes == undefined){
                   this.modalPrd.showMessageDialog(this.modalPrd.error,"No hay mensajes genericos que enviar");
               }else{
                   this.socket.enviarMensajeGenerico(this.mensajes[0].mensajeGenerico,obj.datos.conversacion);

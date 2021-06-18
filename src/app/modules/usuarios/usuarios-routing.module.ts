@@ -10,19 +10,19 @@ export const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'usuarios',
+        path: '',
         component: UsuariosComponent
       },
       {
-        path: 'cliente/usuarios',
+        path: 'usuarios',
         component: UsuariosComponent
       }, 
       {
-        path: 'usuarios/detalle_usuario',
+        path: 'detalle_usuario',
         component: DetalleUsuarioComponent
       },      
       {
-        path: 'cliente/usuarios/detalle_usuario',
+        path: 'usuarios/detalle_usuario',
         component: DetalleUsuarioComponent
       }
     ]

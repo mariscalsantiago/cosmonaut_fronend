@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
-import { UsuarioService } from '../../services/usuario.service';
 
 
 //Importamos para el lenguaje en mis fechas (SAMV)
@@ -76,8 +75,6 @@ export class UsuariosComponent implements OnInit {
     this.establecerPermisos();
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
-
-
 
 
     let documento: any = document.defaultView;

@@ -12,6 +12,7 @@ export class ConfiguracionesService {
 
   public readonly  MODULOS:string = "modulos";
   public readonly MENUUSUARIO:string = "menuusuario";
+  public accesoRuta:boolean = false;
 
   public cantidad:number = 0;
 
@@ -136,6 +137,10 @@ export class ConfiguracionesService {
   public setCantidad(cantidad:number){
       this.cantidad = cantidad;
   }
+
+
+  
+ 
 
 
   

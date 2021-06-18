@@ -62,6 +62,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.verificarCompaniasExista();
 
+    console.log(this.objusuario,"ESTE ES EL USUARIO");
+
     
 
   
@@ -108,16 +110,17 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
       nombre: [obj.nombre, [Validators.required]],
-      apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
-      apellidoMaterno: [obj.apellidoMaterno],
-      correoelectronico: [obj.emailCorporativo, [Validators.required, Validators.email]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
+      apellidoPaterno: [obj.apellidoPat, [Validators.required]],
+      apellidoMaterno: [obj.apellidoMat],
+      correoelectronico: [obj.email, [Validators.required, Validators.email]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta,"dd/MM/yyyy")), disabled: true }, [Validators.required]],
       centrocClienteId: [obj.centrocClienteId?.centrocClienteId, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: [{ value: obj.personaId, disabled: true }],
-      multicliente: obj.multicliente == undefined ? false:obj.multicliente,
-      rol:[obj.rol,Validators.required],
-      nombrecliente:{value:this.usuariosSistemaPrd.getUsuario().nombreEmpresa,disabled:true}
+      multicliente: obj.esMulticliente == undefined ? false:obj.esMulticliente=="Sí",
+      rol:[obj.rolId.rolId,Validators.required],
+      nombrecliente:{value:this.usuariosSistemaPrd.getUsuario().nombreEmpresa,disabled:true},
+      usuarioId:obj.usuarioId
 
 
     });
@@ -159,13 +162,15 @@ export class DetalleUsuarioComponent implements OnInit {
           email: obj.correoelectronico,
           centrocClienteIds:obj.multicliente?companysend : [obj.centrocClienteId],
           rolId: obj.rol,
-          esMulticliente:obj.multicliente
+          esMulticliente:obj.multicliente,
+          usuarioId:obj.usuarioId
         }
 
 
 
 
         if (this.insertar) {
+          delete objAuthEnviar.usuarioId;
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosAuth.guardar(objAuthEnviar).subscribe((datos) => {
@@ -180,20 +185,17 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
         } else {
-          //  objEnviar.personaId = obj.personaId;
-          // objEnviar.centrocClienteId.centrocClienteId = this.objusuario.centrocClienteId.centrocClienteId;
-
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          // this.usuariosPrd.modificar(objAuthEnviar).subscribe(datos => {
-          //   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          //   if (datos.resultado) {
-          //     this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-          //       .then(() => this.routerPrd.navigate(["/usuarios"]));
-          //   } else {
-          //     this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-          //   }
-
-          // });
+        
+          this.usuariosAuth.modificar(objAuthEnviar).subscribe(datos =>{
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+              .then(() => {
+                if (datos.resultado) {
+                  this.routerPrd.navigate(["/usuarios"])
+                }
+              });
+          });
         }
       }
     });
