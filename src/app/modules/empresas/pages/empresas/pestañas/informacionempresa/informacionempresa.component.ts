@@ -180,8 +180,9 @@ export class InformacionempresaComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     
-    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
     if (this.enviarPeticion.enviarPeticion) {
+      this.modalPrd.showMessageDialog(this.modalPrd.loading);
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;
       if (obj.curpInv != null) {
