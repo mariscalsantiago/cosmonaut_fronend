@@ -63,10 +63,12 @@ export class ContenidoComponent implements OnInit {
   public rol!: string;
 
 
-  public chat: any = {
+  public chat = {
     ocultar: true,
     datos: {
-      nombre: "Santiago antonio"
+      nombre: "Mariscal",
+      socket:"",
+      rrh:false
     }
   }
 
@@ -206,6 +208,15 @@ export class ContenidoComponent implements OnInit {
 
       }
     }
+  }
+
+
+  public darClickChat(){
+    this.chatPrd.getChatDatos().datos.socket = `/websocket/chat/${this.usuariosSistemaPrd.getIdEmpresa()}/${this.usuariosSistemaPrd.usuario.usuarioId}`;
+    this.chat.ocultar = !this.chat.ocultar
+    this.chat.datos.nombre = this.usuariosSistemaPrd.getUsuario().nombre+" "+this.usuariosSistemaPrd.getUsuario().apellidoPat;
+    this.chat.datos.rrh = false;
+
   }
 
 

@@ -6,7 +6,7 @@
                 <span class="sr-only">Loading...</span>
             </div>
         </a>
-        <a *ngIf="esDescargar" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+        <a *ngIf="esDescargar" (click)="descargarRfc()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
                     class="fas fa-download"></i> Descargar RFC's</small>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>

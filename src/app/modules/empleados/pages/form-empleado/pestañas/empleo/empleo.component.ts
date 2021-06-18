@@ -790,7 +790,8 @@ export class EmpleoComponent implements OnInit {
       sbmImss: this.myForm.controls.sueldoBrutoMensual.value,
       pagoNeto: this.myForm.controls.sueldoNetoMensual.value,
       fechaAntiguedad: this.myForm.controls.fechaAntiguedad.value,
-      fecIniPeriodo: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd")
+      fecIniPeriodo: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"),
+
     }
 
     if (esBruto) {
@@ -801,18 +802,33 @@ export class EmpleoComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading, "Calculando");
 
-    this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos => {
+    if (esBruto) {
+      this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos => {
 
-      let aux = datos.datos;
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      if (datos.datos !== undefined) {
+        let aux = datos.datos;
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        if (datos.datos !== undefined) {
 
 
-        this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
-        this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
-        this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
-      }
-    });
+          this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
+          this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
+          this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
+        }
+      });
+    } else {
+      this.calculoPrd.calculoSueldoNeto(objenviar).subscribe(datos => {
+
+        let aux = datos.datos;
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        if (datos.datos !== undefined) {
+
+
+          this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
+          this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
+          this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
+        }
+      });
+    }
 
   }
 }

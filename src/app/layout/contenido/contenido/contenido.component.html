@@ -51,7 +51,7 @@
     </div>
     <div class="chaticon heartbeat">
         <span class="badge badge-danger">2</span>
-        <img (click)="chat.ocultar = !chat.ocultar" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
+        <img (click)="darClickChat()" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
     </div>
     <app-chatboot  *ngIf="!chat.ocultar" [datos]="chat.datos" (salida)="recibirchat($event)"></app-chatboot>
 </div>

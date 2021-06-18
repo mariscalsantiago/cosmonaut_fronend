@@ -37,7 +37,7 @@ export const direcciones = {
     modulos: `${ipAdmin}/modulos`,
     permisos: `${ipAdmin}/permisos`,
     chat: `${ip}/chat`,
-    socket: `${ipSocket}/websocket`,
+    socket: `${ipSocket}`,
     usuariosAuth:`${ipAdmin}/usuarios`,
     versiones:`${ipAdmin}/version`,
     ptu:`${ip}/ptu`,

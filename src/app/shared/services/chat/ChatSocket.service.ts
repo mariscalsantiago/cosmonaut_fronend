@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
@@ -9,15 +10,20 @@ export class ChatSocketService {
 
   private socket!:WebSocket;
 
-  public datos:any = {
-    nombre:""
+  public datos = {
+    ocultar: true,
+    datos: {
+      nombre: "Mariscal",
+      socket:"",
+      rrh:false
+    }
   }
 
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
-  public conectarSocket(idEmpresa:number,idusuario:number){
-    this.socket = new WebSocket(`${direcciones.socket}/chat/${idEmpresa}/${idusuario}`);
+  public conectarSocket(cadenaSocket:string){
+    this.socket = new WebSocket(`${direcciones.socket}${cadenaSocket}`);
   }
 
   public enviarMensaje(mensaje:string){
@@ -33,6 +39,12 @@ export class ChatSocketService {
     }
     
     return subject;
+  }
+
+
+  public modificarMensaje(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.chat}/modificar`,json);
   }
 
 

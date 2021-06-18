@@ -24,9 +24,10 @@ export class ChatbootComponent implements OnInit {
 
 
  @Input() 
-  public datos:any={
-    nombre:"",
-    socket:""
+  public datos={
+    nombre: "",
+    socket:"",
+    rrh:false
   }
 
 
@@ -57,7 +58,7 @@ export class ChatbootComponent implements OnInit {
 
     this.tamanio = documento.innerWidth;
 
-    this.chatPrd.conectarSocket(this.usuarioSistemaPrd.getIdEmpresa(),this.usuarioSistemaPrd.getUsuario().usuarioId)
+    this.chatPrd.conectarSocket(this.chatPrd.getChatDatos().datos.socket);
     this.chatPrd.recibiendoMensajeServer().subscribe(datos =>{
       let objEnviado = {
         enviado:false,
@@ -91,6 +92,9 @@ export class ChatbootComponent implements OnInit {
     this.arreglomensajes.push(objEnviado);
     this.chatPrd.enviarMensaje(this.mensaje);
     this.mensaje = "";
+
+    
+
     this.acomodandoVentanaChat();
   }
 

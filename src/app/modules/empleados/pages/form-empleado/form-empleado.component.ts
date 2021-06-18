@@ -17,10 +17,10 @@ export class FormEmpleadoComponent implements OnInit {
   public titulo:string = "DAR DE ALTA EMPLEADO";
 
   public activado = [
-    { tab: true, form: true, disabled: false,seleccionado:true },
+    { tab: true, form: false, disabled: false,seleccionado:true },
     { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false ,seleccionado:false},
-    { tab: false, form: false, disabled: false,seleccionado:false },   
+    { tab: false, form: true, disabled: false,seleccionado:false },   
     { tab: false, form: false, disabled: false ,seleccionado:false}];
 
   public ocultarDetalleTransfrencia: boolean = true;

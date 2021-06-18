@@ -18,7 +18,7 @@
 
 
     <div *ngIf="esDescargar" class="col-11 text-right">
-        <a  class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+        <a (click)="descargarNomina()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
                     class="fas fa-download"></i> Descargar nómina</small>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>

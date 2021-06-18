@@ -204,14 +204,17 @@ export class PagarComponent implements OnInit {
       }
       this.reportes.getlayoutDispersionNomina(obj).subscribe(datos =>{
         this.cargandoIconDispersion = false;
-        const linkSource = 'data:application/pdf;base64,' + `${datos.datos}\n`;
-        const downloadLink = document.createElement("a");
-        const fileName = `Archivo_dispersion_${this.nominaSeleccionada[this.llave].nombreNomina.replace(" ",".")}.xlsx`;
-
-        downloadLink.href = linkSource;
-        downloadLink.download = fileName;
-        downloadLink.click();
+        this.reportes.crearArchivo(datos.datos,`Archivo_dispersion_${this.nominaSeleccionada[this.llave].nombreNomina.replace(" ",".")}`,"xlsx");
       });
+  }
+
+
+  public descargarRfc(){
+    this.cargandoIcon = true;
+    this.reportes.getDescargarTxtRfctabDispersar(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+      this.cargandoIcon = false;
+      this.reportes.crearArchivo(datos.datos,`archivoRFCs_${this.usuariosSistemaPrd.getIdEmpresa()}`,"txt");
+    });
   }
 
 }

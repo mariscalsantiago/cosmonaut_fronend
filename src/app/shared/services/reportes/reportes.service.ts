@@ -196,6 +196,15 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
       return this.http.get(`${direcciones.reportes}/dispersion/lista/dispersion/erroneos/${idNomina}`);
   }
 
+  public getReporteNominasTabCalculados(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.reportes}/nominaDispersion/layoutReporteNomina/`,json);
+  }
+
+  public getDescargarTxtRfctabDispersar(idEmpresa:number):Observable<any>{
+      return this.http.get(`${direcciones.reportes}/nominaDispersion/txtIdRfc/${idEmpresa}`);
+  }
+
   public crearArchivo(base64:string,nombre:string,extension:string){
     const linkSource = 'data:application/pdf;base64,' + `${base64}\n`;
     const downloadLink = document.createElement("a");

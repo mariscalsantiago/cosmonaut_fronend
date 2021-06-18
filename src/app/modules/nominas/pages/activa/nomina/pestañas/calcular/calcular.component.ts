@@ -7,6 +7,7 @@ import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaag
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 
 @Component({
   selector: 'app-calcular',
@@ -42,7 +43,7 @@ export class CalcularComponent implements OnInit {
   constructor(private navigate: Router,
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService,private nominaFiniquito:NominafiniquitoliquidacionService, private cp: CurrencyPipe,
-    private nominaPtuPrd:NominaptuService) { }
+    private nominaPtuPrd:NominaptuService,private reportesPrd:ReportesService) { }
 
   ngOnInit(): void {
 
@@ -238,6 +239,19 @@ export class CalcularComponent implements OnInit {
     this.datosDetalleEmpleadoNomina[2]=percepciones;
     this.datosDetalleEmpleadoNomina[3]= deducciones;
     item.cargandoDetalle = false;
+  }
+
+  public descargarNomina(){
+    let objEnviar = {
+      nominaPeriodoId:this.nominaSeleccionada[this.llave].nominaXperiodoId
+    }
+
+
+    this.cargandoIcon = true;
+    this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos =>{
+      this.cargandoIcon = false;
+      this.reportesPrd.crearArchivo(datos.datos,`nomina_${this.nominaSeleccionada[this.llave].nominaXperiodoId}`,"xlsx");
+    });
   }
 
 }

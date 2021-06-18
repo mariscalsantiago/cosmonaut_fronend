@@ -11,7 +11,7 @@ export class ChatService {
   constructor(private http:HttpClient) { }
 
 
-  public getListaChatActivos():Observable<any>{
-      return this.http.get(`${direcciones.chat}/listar`);
+  public getListaChatActivos(idEmpresa:number):Observable<any>{
+      return this.http.get(`${direcciones.chat}/listar/${idEmpresa}`);
   }
 }
