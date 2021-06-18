@@ -5,10 +5,11 @@ import { ShareModule } from "src/app/shared/share.module";
 import { IDSEComponent } from "src/app/modules/IMSS/IDSE/idse/idse.component";
 import { imssRoutingModule } from "src/app/modules/IMSS/imss-routing.module";
 import { SuaComponent } from "src/app/modules/IMSS/sua/sua/sua.component";
+import { VariabilidadComponent } from "src/app/modules/IMSS/variabilidad/variabilidad/variabilidad.component";
 
 
 @NgModule({
-    declarations:[IDSEComponent, SuaComponent],
+    declarations:[IDSEComponent, SuaComponent, VariabilidadComponent],
     imports:[CommonModule,FormsModule,imssRoutingModule,ShareModule]
 })
 export class imssModule{

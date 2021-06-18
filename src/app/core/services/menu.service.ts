@@ -35,7 +35,7 @@ export class MenuService {
                                                                                 {nombre:"IDSE",routerLink:['/imss/idse'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"SUA",routerLink:['/imss/sua'],rol:["ALL","ADMINEMPRESA"]},
                                                                                 {nombre:"MOVIMIENTOS",routerLink:[],rol:["ALL","ADMINEMPRESA"]},
-                                                                                {nombre:"VARIABILIDAD",routerLink:[],rol:["ALL","ADMINEMPRESA"]}] },
+                                                                                {nombre:"VARIABILIDAD",routerLink:['/imss/variabilidad'],rol:["ALL","ADMINEMPRESA"]}] },
     { nombre: "REPORTES", icono: "icon_reportes", seleccionado: false,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[] },
     { nombre: "MI PERFIL", icono: "icon_perfil", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINEMPRESA"],routerLink:[]},
     { nombre: 'ADMINISTRACIÓN COSMONAUT', icono: "icon_admoncos", seleccionado: false ,seleccionadosubmenu:false,rol:["ALL","ADMINCOMPANIA"],submenu:[

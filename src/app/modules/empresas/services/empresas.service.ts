@@ -88,6 +88,19 @@ export class EmpresasService {
   
   }
 
+  public filtrarVariabilidad(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+  
+    
+    return this.http.post(`${direcciones.imss}/variabilidad/filtrar`,json,httpOptions);
+  
+  }
+
   public eliminar(id:any):Observable<any>{
 
     return this.http.post(`${this.url}/eliminar/empresa/id/${id}`,{});
