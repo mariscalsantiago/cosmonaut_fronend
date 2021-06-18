@@ -37,7 +37,7 @@ export class ListachatsActivosComponent implements OnInit {
       this.construirTabla(datos.datos);
     });
 
-    this.socket.getMensajeGenericoByEmpresa(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => this.mensajes = datos.datos);
+    this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => this.mensajes = datos.datos);
 
 
 
@@ -118,7 +118,10 @@ export class ListachatsActivosComponent implements OnInit {
 
   public editarMensaje() {
 
-    this.ventanaPrd.showVentana(this.ventanaPrd.mensajechat)
+    this.ventanaPrd.showVentana(this.ventanaPrd.mensajechat,{datos:this.mensajes || []})
+          .then(datos =>{
+             this.mensajes = [datos.datos]
+          });
 
   }
 

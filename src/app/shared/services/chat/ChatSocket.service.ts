@@ -65,9 +65,17 @@ export class ChatSocketService {
       return this.http.put(`${direcciones.administrarMensajeChat}/guardar`,json);
   }
 
+  public modificarMensajeGenerico(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.administrarMensajeChat}/modificar`,json);
+}
+
   public getMensajeGenericoByEmpresa(idEmpresa:number):Observable<any>{
       return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/${idEmpresa}`);
   }
+  public getMensajeGenericoByEmpresaByEmpleado(idEmpresa:number,idUsuario:number):Observable<any>{
+    return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/usuario/${idEmpresa}/${idUsuario}`);
+}
 
 
   public enviarMensajeGenerico(mensaje:string,canal:string){

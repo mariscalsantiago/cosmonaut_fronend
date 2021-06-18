@@ -27,7 +27,7 @@
             <app-ventana-tablaisr *ngIf="mostrar.tablaisr" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-tablaisr>
             <app-ventana-subcidio *ngIf="mostrar.subcidio" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-subcidio>
             <app-ventana-nominanuevafiniquitoliquidacion  *ngIf="mostrar.nuevanominafiniquitoliquidacion" (salida)="recibirEmergente($event)"></app-ventana-nominanuevafiniquitoliquidacion>
-            <app-editarmensaje-chat *ngIf="mostrar.mensajechat" (salida)="recibirEmergente($event)"></app-editarmensaje-chat>
+            <app-editarmensaje-chat *ngIf="mostrar.mensajechat" (salida)="recibirEmergente($event)" [datos]="datos"></app-editarmensaje-chat>
 
         </div>
     </div>
