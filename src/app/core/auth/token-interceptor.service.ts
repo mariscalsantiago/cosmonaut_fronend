@@ -32,11 +32,10 @@ export class TokenInterceptorService implements HttpInterceptor {
               switchMap(respuestaBackTokennuevo => {
                 this.refreshTokenEnProgreso = false;
                 this.accessTokenSubject.next(respuestaBackTokennuevo.access_token);
-                req = req.clone({
-                  setHeaders: {
-                    authorization: `Bearer ${respuestaBackTokennuevo.access_token}`
-                  }
-                });
+                req = req.clone({headers: new HttpHeaders({
+                  'Content-Type':'application/json',
+                  'Authorization':`Bearer ${respuestaBackTokennuevo.access_token}`
+                })});
                 return next.handle(req);
               }),
               catchError((e: HttpErrorResponse) => {
@@ -60,7 +59,6 @@ export class TokenInterceptorService implements HttpInterceptor {
               }));
           }
         }
-
         return throwError(e);
       }
 

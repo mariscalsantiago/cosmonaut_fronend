@@ -14,7 +14,6 @@ export class LoadingRutasService implements CanLoad {
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
       if(!this.configuracionesPrd.accesoRuta && this.authPrd.isAuthenticated()){
-        
           this.routerPrd.navigateByUrl("/inicio");
       }
       return this.configuracionesPrd.accesoRuta;

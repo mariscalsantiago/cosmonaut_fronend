@@ -162,9 +162,9 @@ export class TimbrarComponent implements OnInit {
 
         }else if (this.nominaSeleccionada.nominaPtu) {
         
-          console.log(objEnviar);
+          
           this.nominaPtuPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
-            console.log("el detalle es esto",datos);
+            
             let xmlPreliminarPtu = datos.datos[0].xmlPreliminarPtu;
             
             this.datosExtras.datos = xmlPreliminarPtu;

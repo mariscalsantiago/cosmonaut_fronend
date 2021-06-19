@@ -8,5 +8,6 @@ export interface modulos {
     submodulos?:Array<submodulo>,
     seleccionado?:boolean,
     checked?:boolean,
-    previo?:boolean
+    previo?:boolean,
+    mostrar?:boolean
 }

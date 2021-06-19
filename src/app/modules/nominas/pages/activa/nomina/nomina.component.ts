@@ -42,7 +42,7 @@ export class NominaComponent implements OnInit {
     let temp = history.state.datos == undefined ? {} : history.state.datos;
 
 
-    console.log("ESTE ES LA TEMPORAL",temp);
+    
 
 
     if (temp.nominaOrdinaria) {

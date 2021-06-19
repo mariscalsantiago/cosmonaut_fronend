@@ -30,7 +30,7 @@
                     <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
                   </div>
                 <div *ngIf="!cargando" id="accordion" class="acordion_desplegable">
-                    <div *ngFor="let item of arreglo;let indice = index " class="card" [ngClass]="{'cardselected':arreglo[indice].seleccionado}">
+                    <div *ngFor="let item of arreglo;let indice = index " [class.ocultar]="!item.mostrar"  class="card" [ngClass]="{'cardselected':arreglo[indice].seleccionado}">
                         <div [ngClass]="{'fondoblanco':arreglo[indice].seleccionado}" class="card-header" id="detallepago">
 
                             <h5 class="mb-0">
@@ -57,7 +57,7 @@
                             <div class="card-body">
 
                                 <div class="row">
-                                    <div class="col-4" *ngFor="let auxitem of item.submodulos;let indice2 = index;" >
+                                    <div class="col-4" *ngFor="let auxitem of item.submodulos;let indice2 = index;" [class.ocultar]="!auxitem.mostrar" >
                                         <label  style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)" class="contenedorInputCheckRadio">{{auxitem.nombreSubmodulo}}
                                             <input [ngModelOptions]="{standalone: true}" [(ngModel)]="auxitem.checked"   type="checkbox">
                                             <span class="checkmark"></span>

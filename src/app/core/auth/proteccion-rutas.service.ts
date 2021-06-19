@@ -14,7 +14,6 @@ export class ProteccionRutasService implements CanActivate {
     if(!this.autPrd.isAuthenticated()){
       return this.routerPrd.parseUrl('/auth/login');
     }else if(!this.configuracionPrd.accesoRuta){
-      
       return this.routerPrd.parseUrl('/inicio');
     }else{
         this.usuarioSistemaPrd.introActivado = false;

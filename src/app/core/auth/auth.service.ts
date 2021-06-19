@@ -51,10 +51,12 @@ export class AuthService {
     return refreshToken;
   }
 
-  private guardarToken(respuesta: any): void {
+  private guardarToken(respuesta: any,esregresh:boolean = false): void {
 
     localStorage.setItem(this.JWT_TOKEN, JSON.stringify(respuesta));
-    this.router.navigateByUrl('/');
+    if(esregresh){
+      this.router.navigateByUrl('/');
+    }
   }
 
   eliminarTokens(): void {

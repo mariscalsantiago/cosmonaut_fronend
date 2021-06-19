@@ -88,14 +88,14 @@ export class ListachatsActivosComponent implements OnInit {
           fechaRespuesta: new Date().getTime()
         };
         this.socket.modificarMensaje(objEnviar).subscribe(datos => {
-            console.log(datos.datos);
+            
         });
         break;
       case "default":
         debugger;
         this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas enviar el mensaje generico?").then(valor =>{
           if(valor){
-            console.log(this.mensajes);
+            
               if(this.mensajes == undefined){
                   this.modalPrd.showMessageDialog(this.modalPrd.error,"No hay mensajes genericos que enviar");
               }else{
@@ -107,7 +107,7 @@ export class ListachatsActivosComponent implements OnInit {
                     fechaRechazo: new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd")
                   };
                   this.socket.modificarMensaje(objEnviar).subscribe(datos => {
-                    console.log(datos.datos);
+                    
                 });
               }
           }

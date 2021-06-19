@@ -47,6 +47,7 @@ export class ListarolesComponent implements OnInit {
       };
       this.cargando = false;
     });
+
   }
 
 

@@ -62,7 +62,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.verificarCompaniasExista();
 
-    console.log(this.objusuario,"ESTE ES EL USUARIO");
+    
 
     
 
@@ -77,7 +77,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     this.routerActivePrd.params.subscribe(params =>{
-      console.log(params);
+      
     });
 
 
@@ -118,7 +118,7 @@ export class DetalleUsuarioComponent implements OnInit {
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: [{ value: obj.personaId, disabled: true }],
       multicliente: obj.esMulticliente == undefined ? false:obj.esMulticliente=="Sí",
-      rol:[obj.rolId.rolId,Validators.required],
+      rol:[obj.rolId?.rolId,Validators.required],
       nombrecliente:{value:this.usuariosSistemaPrd.getUsuario().nombreEmpresa,disabled:true},
       usuarioId:obj.usuarioId
 

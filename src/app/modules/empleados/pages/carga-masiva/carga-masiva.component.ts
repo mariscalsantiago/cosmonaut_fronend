@@ -81,7 +81,7 @@ export class CargaMasivaComponent implements OnInit {
 
 
   public establecerPermisos(){
-    console.log(this.esRegistrar);
+    
     this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
     this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
     this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");

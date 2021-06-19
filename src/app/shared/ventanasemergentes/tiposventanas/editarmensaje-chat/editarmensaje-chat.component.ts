@@ -22,9 +22,9 @@ export class EditarmensajeChatComponent implements OnInit {
     private socketPrd:ChatSocketService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
-    console.log("Este es el mensaje generico",this.datos[0]);
+    
     this.myForm = this.createForm(this.datos[0]);
-    console.log(this.myForm.value);
+    
     this.catalogosPrd.getListaTipoMensaje().subscribe(datos=>this.arreglotipomensaje = datos.datos);
    
   }

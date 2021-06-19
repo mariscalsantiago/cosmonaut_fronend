@@ -10,9 +10,10 @@ export class ConfiguracionesService {
 
   public scrollCompany: number = 1;
 
-  public readonly  MODULOS:string = "modulos";
+  public readonly MODULOS:string = "modulos";
   public readonly MONEDAS:string = "monedas";
   public readonly MENUUSUARIO:string = "menuusuario";
+  public readonly PERMISOSXVERSIONES:string = "permisosxversiones";
   public accesoRuta:boolean = false;
 
   public cantidad:number = 0;
@@ -113,7 +114,7 @@ export class ConfiguracionesService {
 
 
   public setPermisos(obj:Array<clasepermiso>){
-    console.log("Inserta los permisos",obj);
+    
       this.permisosActuales = obj;
   }
 
@@ -130,7 +131,7 @@ export class ConfiguracionesService {
 
 
   public getCantidadDispersion(){
-    console.log("La cantidad dad es ",this.cantidad);
+    
     return this.cantidad;
 
   }

@@ -269,7 +269,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public generarllave(obj: any) {
-    console.log(obj.email);
+    
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas resetear y reenviar la clave de este usuario?").then((valor) => {
       if (valor) {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
