@@ -101,6 +101,17 @@ export class DetalleRolesComponent implements OnInit {
               let existe = datos.datos.some((obj:any) => obj.submoduloId == submodulo.submoduloId);
               submodulo.mostrar = existe;
               haysubmodulos.push(existe);
+              if(submodulo.permisos)
+              {
+
+                submodulo.permisos.forEach(permiso =>{
+                  let existePermisos = datos.datos.some((obj:any) => obj.permisoId == permiso.permisoId);
+                  permiso.mostrar = existePermisos;
+                });
+
+                
+
+              }
            });
            modulo.mostrar = haysubmodulos.includes(true);
           }

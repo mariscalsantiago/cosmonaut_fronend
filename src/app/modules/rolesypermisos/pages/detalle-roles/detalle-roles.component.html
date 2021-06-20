@@ -63,7 +63,7 @@
                                             <span class="checkmark"></span>
                                         </label>
                                         <ul *ngIf="auxitem.checked">
-                                            <li *ngFor="let permiso of auxitem.permisos;let indice3 = index;"> <label style="top: 8px;" class="contenedorInputCheckRadio"> {{permiso.descripcion}}
+                                            <li *ngFor="let permiso of auxitem.permisos;let indice3 = index;" [class.ocultar]="!permiso.mostrar" > <label style="top: 8px;" class="contenedorInputCheckRadio"> {{permiso.descripcion}}
                                                     <input  [ngModelOptions]="{standalone: true}" [(ngModel)]="permiso.checked" type="checkbox">
                                                     <span class="checkmark"></span>
                                                 </label> </li>
