@@ -39,7 +39,19 @@ export class NominaaguinaldoService {
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(aguinaldoListaActivos);
     return this.http.post(`${direcciones.nominaExtraordinaria}/consulta/nomina/extraordinaria`, json, httpOptions);
-  
+  }
+
+  public getUsuariosCalculadosFiltrado(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    //return this.creandoObservable(aguinaldoUsuariosCalculados);
+    return this.http.post(`${direcciones.nominaExtraordinaria}/lista/empleado/aguinaldo/filtrar`, json, httpOptions);
+
+
   }
 
   public getUsuariosCalculados(obj:any):Observable<any> {

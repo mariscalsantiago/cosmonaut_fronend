@@ -50,6 +50,18 @@ export class NominaordinariaService {
     return this.http.post(`${direcciones.nominaOrdinaria}/consulta/nominas/activas`, json, httpOptions);
   }
 
+
+  public getUsuariosCalculadosFiltrado(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+     //return this.creandoObservable(ordinariaUsuariosCalculados);
+    return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/calculo/percepciones/deducciones/filtrar`, json, httpOptions);
+  }
+
   public getUsuariosCalculados(obj:any):Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -159,6 +171,8 @@ export class NominaordinariaService {
   public timbrar(obj:any):Observable<any>{
       return new BehaviorSubject(true);
   }
+
+ 
 
  
 

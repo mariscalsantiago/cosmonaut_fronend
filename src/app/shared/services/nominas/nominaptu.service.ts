@@ -45,6 +45,18 @@ export class NominaptuService {
     return this.http.post(`${direcciones.nominaPtu}/listado/nominas/ptu`, json, httpOptions);
   }
 
+
+  public getUsuariosCalculadosFiltrado(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+     //return this.creandoObservable(ordinariaUsuariosCalculados);
+    return this.http.post(`${direcciones.nominaPtu}/lista/empleados/ptu/filtrar`, json, httpOptions);
+  }
+
   public getUsuariosCalculados(obj:any):Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({

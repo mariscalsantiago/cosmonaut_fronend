@@ -7,6 +7,8 @@ import { datosTemporales, UsuarioSistemaService } from 'src/app/shared/services/
 import { EmpresasService } from '../../services/empresas.service';
 import { DatePipe } from '@angular/common';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listaempresas',
@@ -43,7 +45,8 @@ export class ListaEmpresasComponent implements OnInit {
   }
 
   constructor(private routerPrd: Router, private empresasProd: EmpresasService,
-    private usuarioSistemaPrd: UsuarioSistemaService, private modalPrd: ModalService,private configuracionesPrd:ConfiguracionesService) { }
+    private usuarioSistemaPrd: UsuarioSistemaService, private modalPrd: ModalService,private configuracionesPrd:ConfiguracionesService,
+    private configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -108,6 +111,19 @@ export class ListaEmpresasComponent implements OnInit {
     if (obj.type == "editar") {
       this.routerPrd.navigate(['listaempresas', 'empresas', 'modifica'], { state: { data: obj.datos } });
     } else if (obj.type == "columna") {
+
+  
+
+      let intervalo = interval(300);
+      intervalo.pipe(take(1));
+      let valor = intervalo.subscribe(()=>{
+        this.configuracionPrd.accesoRuta = false;
+        valor.unsubscribe();
+      });
+  
+      this.configuracionPrd.accesoRuta = true;
+      
+
       datosTemporales.configuracionEmpresaNombreEmpresa = obj.datos.razonSocial;
       
       this.routerPrd.navigate(['/empresa', 'detalle', obj.datos.centrocClienteId, 'representantelegal']);
