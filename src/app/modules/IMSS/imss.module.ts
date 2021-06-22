@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ShareModule } from "src/app/shared/share.module";
 import { IDSEComponent } from "src/app/modules/IMSS/IDSE/idse/idse.component";
 import { imssRoutingModule } from "src/app/modules/IMSS/imss-routing.module";
@@ -10,7 +10,7 @@ import { VariabilidadComponent } from "src/app/modules/IMSS/variabilidad/variabi
 
 @NgModule({
     declarations:[IDSEComponent, SuaComponent, VariabilidadComponent],
-    imports:[CommonModule,FormsModule,imssRoutingModule,ShareModule]
+    imports:[CommonModule,FormsModule,imssRoutingModule,ShareModule, ReactiveFormsModule]
 })
 export class imssModule{
 
