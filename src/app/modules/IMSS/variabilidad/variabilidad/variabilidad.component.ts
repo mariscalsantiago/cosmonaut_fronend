@@ -39,6 +39,8 @@ export class VariabilidadComponent implements OnInit {
   public bimestreLeyenda : any = "";
   public fechaActual: string = "";
   public listaEmpleadosPromedio : boolean = false;
+
+  public apellidoPat:string = "";
   
   public arreglotabla: any = {
     columnas: [],
