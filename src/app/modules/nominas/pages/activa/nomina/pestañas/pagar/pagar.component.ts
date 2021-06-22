@@ -217,4 +217,9 @@ export class PagarComponent implements OnInit {
     });
   }
 
+
+  public filtrar(){
+    
+  }
+
 }

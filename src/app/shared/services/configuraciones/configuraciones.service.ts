@@ -14,6 +14,7 @@ export class ConfiguracionesService {
   public readonly MONEDAS:string = "monedas";
   public readonly MENUUSUARIO:string = "menuusuario";
   public readonly PERMISOSXVERSIONES:string = "permisosxversiones";
+  
   public accesoRuta:boolean = false;
 
   public cantidad:number = 0;
