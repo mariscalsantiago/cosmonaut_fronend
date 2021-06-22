@@ -46,6 +46,9 @@ export class ListacontactosrrhComponent implements OnInit {
     private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+
+    this.establecerPermisos();
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;

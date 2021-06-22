@@ -55,6 +55,9 @@ export class ListascuentasbancariasComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+    this.establecerPermisos();
+
     
     this.activateRouter.params.subscribe(datos => {
 
