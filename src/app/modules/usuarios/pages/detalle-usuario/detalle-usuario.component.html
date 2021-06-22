@@ -77,7 +77,7 @@
 
               <div *ngIf="f.multicliente.value && esClienteEmpresa" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Clientes *</label>
-                <app-tag [datos]="arregloCompany" [llave]="'nombre'"  (salida)="recibirEtiquetas($event)"></app-tag>
+                <app-tag [datos]="arregloCompany" [llave]="'nombre'" [arregloEtiquetas]="companiasenviar" (salida)="recibirEtiquetas($event)"></app-tag>
             </div>
             <div *ngIf="!f.multicliente.value && esClienteEmpresa" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Cliente *</label>

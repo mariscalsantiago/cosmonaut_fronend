@@ -104,6 +104,15 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public createForm(obj: any) {
 
+    if(!this.insertar){
+      let verificador = obj.esMulticliente == undefined ? false:obj.esMulticliente=="Sí";
+      if(verificador){
+          this.companiasenviar = obj.centrocClientes;
+      }else{
+        this.companiasenviar = [];
+      }
+    }
+
 
     return this.formBuilder.group({
 
@@ -114,7 +123,7 @@ export class DetalleUsuarioComponent implements OnInit {
       apellidoMaterno: [obj.apellidoMat],
       correoelectronico: [obj.email, [Validators.required, Validators.email]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta,"dd/MM/yyyy")), disabled: true }, [Validators.required]],
-      centrocClienteId: [obj.centrocClientes[0].centrocClienteId, [Validators.required]],
+      centrocClienteId: [this.insertar?"":obj.centrocClientes[0].centrocClienteId, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: [{ value: obj.personaId, disabled: true }],
       multicliente: obj.esMulticliente == undefined ? false:obj.esMulticliente=="Sí",
@@ -178,7 +187,11 @@ export class DetalleUsuarioComponent implements OnInit {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
               .then(() => {
                 if (datos.resultado) {
-                  this.routerPrd.navigate(["/usuarios"])
+                  if(this.esClienteEmpresa){
+                    this.routerPrd.navigate(["/cliente/usuarios"])
+                  }else{
+                    this.routerPrd.navigate(["/usuarios"])
+                  }
                 }
               });
           });
@@ -192,7 +205,11 @@ export class DetalleUsuarioComponent implements OnInit {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
               .then(() => {
                 if (datos.resultado) {
-                  this.routerPrd.navigate(["/usuarios"])
+                  if(this.esClienteEmpresa){
+                    this.routerPrd.navigate(["/cliente/usuarios"])
+                  }else{
+                    this.routerPrd.navigate(["/usuarios"])
+                  }
                 }
               });
           });
@@ -213,7 +230,11 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public cancelar() {
 
-    this.routerPrd.navigate(['/usuarios']);
+    if(this.esClienteEmpresa){
+      this.routerPrd.navigate(["/cliente/usuarios"])
+    }else{
+      this.routerPrd.navigate(["/usuarios"])
+    }
   }
 
 
