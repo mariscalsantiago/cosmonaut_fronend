@@ -197,7 +197,7 @@ export class VariabilidadComponent implements OnInit {
 
   public filtrar() {
 
-    debugger;
+   // debugger;
 
     this.cargando = true;
 
@@ -207,7 +207,7 @@ export class VariabilidadComponent implements OnInit {
 
         };
    
-  debugger;
+  //debugger;
   this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 

@@ -1,7 +1,7 @@
 <div class="row margen">
-  <div class="col titulo-outlet">
-      <label >CONFIGURACIÓN DEL CLIENTE</label>
-  </div>
+    <div class="col titulo-outlet">
+        <label>CONFIGURACIÓN DEL CLIENTE</label>
+    </div>
 </div>
 
 
@@ -9,117 +9,110 @@
 
 <form [formGroup]="myFormcont" (ngSubmit)="enviarPeticioncont()">
 
-  <input type="hidden" formControlName="personaId">
+    <input type="hidden" formControlName="personaId">
 
-  <div class="background-panel margen background-ajustar" appTamanioVentana>
-    <br>
-      <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE CONTACTO</label></div>
-      <div class="form group row margen">
+    <div class="background-panel margen background-ajustar" appTamanioVentana>
+        <br>
+        <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE CONTACTO</label></div>
+        <div class="form group row margen">
 
-          <div class=" input-group-sm mb-3 col-4">
-            <label >Nombre *</label>
-            <input #nombre formControlName="nombre" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"  placeholder="">
-            <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
-                Campo requerido
-              </div>
-
-          </div>
-          <div class=" input-group-sm mb-3 col-4">
-            <label >Primer apellido *</label>
-            <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
-                placeholder="">
-                <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
-                  Campo requerido
-                  </div>
-
-          </div>
-          <div class=" input-group-sm mb-3 col-4">
-              <label >Segundo apellido</label>
-              <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control" id="apellidoMaterno" aria-describedby="emailHelp"
-                  placeholder="">
-
-          </div>
-          <div class=" input-group-sm mb-3 col-4">
-            <label >CURP</label>
-            <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}"
-                placeholder="">
-                <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
-                    CURP inválida, favor de verificar
-                  </div>
-
-          </div>
-          <div class=" input-group-sm mb-3 col-4">
-            <label >Puesto</label>
-            <input formControlName="contactoInicialPuesto" maxlength="150" type="text" class="form-control" 
-                placeholder="">
-
-          </div>
-          <div class="input-group-sm mb-3 col-4">
-            <label >Correo empresarial *</label>
-            <input formControlName="emailCorporativo" type="email" appMayusculas [minusculas]="true" class="form-control" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched) }"
-                placeholder="">
-                <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
-                  Campo requerido
-                  </div>
-                  <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
-                    Correo empresarial inválido, favor de verificar
-                  </div>
-
-          </div>
-          <div class="input-group-sm mb-3 col-4">
-            <label >Correo personal</label>
-            <input appMayusculas [minusculas]="true" formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase"  [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched}"
-                placeholder="">
-
-                <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
-                  Campo requerido
-                  </div>
-                  <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
-                    Correo personal inválido, favor de verificar
-                  </div>
-
-        </div>
-        <div class="input-group-sm mb-3 col-4">
-          <label >Teléfono *</label>
-          <input appSolonumeros formControlName="contactoInicialTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}"
-              placeholder="">
-
-              <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
-                Campo requerido
+            <div class=" input-group-sm mb-3 col-4">
+                <label>Nombre *</label>
+                <input #nombre formControlName="nombre" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
+                <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
                 </div>
 
-      </div>
-      <div class=" input-group-sm mb-3 col-4">
-        <label >Celular</label>
-        <input appSolonumeros formControlName="celular" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}"
-            placeholder="">
+            </div>
+            <div class=" input-group-sm mb-3 col-4">
+                <label>Primer apellido *</label>
+                <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
+                <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
 
-            <div *ngIf="f.celular.errors && submitEnviado" class="invalid-feedback">
-                Campo requerido
-              </div>
+            </div>
+            <div class=" input-group-sm mb-3 col-4">
+                <label>Segundo apellido</label>
+                <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control" id="apellidoMaterno" aria-describedby="emailHelp" placeholder="">
 
-    </div>
-      <div class="input-group-sm mb-3 col-4">
-        <label >Fecha de registro en el sistema *</label>
-        <input formControlName="fechaAlta" type="text" class="form-control"
-            placeholder="">
+            </div>
+            <div class=" input-group-sm mb-3 col-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'curp' | tooltip">
+                <label>CURP</label>
+                <input formControlName="curp" maxlength="18" type="text" class="form-control" [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}" placeholder="">
+                <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
+                    CURP inválida, favor de verificar
+                </div>
 
-    </div>
-    <div class="input-group-sm mb-3 col-4">
-      <label  style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)" class="contenedorInputCheckRadio">Registrar como usuario inicial
+            </div>
+            <div class=" input-group-sm mb-3 col-4">
+                <label>Puesto</label>
+                <input formControlName="contactoInicialPuesto" maxlength="150" type="text" class="form-control" placeholder="">
+
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+                <label>Correo empresarial *</label>
+                <input formControlName="emailCorporativo" type="email" appMayusculas [minusculas]="true" class="form-control" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched) }"
+                    placeholder="">
+                <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+                <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
+                    Correo empresarial inválido, favor de verificar
+                </div>
+
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+                <label>Correo personal</label>
+                <input appMayusculas [minusculas]="true" formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched}"
+                    placeholder="">
+
+                <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+                <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
+                    Correo personal inválido, favor de verificar
+                </div>
+
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+                <label>Teléfono *</label>
+                <input appSolonumeros formControlName="contactoInicialTelefono" maxlength="10" type="text" class="form-control" [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}" placeholder="">
+
+                <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div class=" input-group-sm mb-3 col-4">
+                <label>Celular</label>
+                <input appSolonumeros formControlName="celular" maxlength="10" type="text" class="form-control" [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}" placeholder="">
+
+                <div *ngIf="f.celular.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+                <label>Fecha de registro en el sistema *</label>
+                <input formControlName="fechaAlta" type="text" class="form-control" placeholder="">
+
+            </div>
+            <div class="input-group-sm mb-3 col-4">
+                <label style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)" class="contenedorInputCheckRadio">Registrar como usuario inicial
         <input formControlName="usuarioinicial" type="checkbox">
         <span class="checkmark"></span>
     </label>
-  </div>
+            </div>
 
-      </div>
+        </div>
 
 
-  </div>
+    </div>
 
-  <div class="text-center margin" style="margin-bottom: 20px;">
-    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="regresarPantallaPrincipal()" >Cancelar</button>
-    <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
-</div>
+    <div class="text-center margin" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="regresarPantallaPrincipal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>
 
 </form>

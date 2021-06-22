@@ -12,8 +12,7 @@
         <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                 <label for="tiposueldo">Tipo de sueldo de entrada *</label>
-                <select [class.is-invalid]="f.tiposueldo.errors && f.tiposueldo.touched" id="tiposueldo"  formControlName="tiposueldo" class="form-control"
-                    >
+                <select [class.is-invalid]="f.tiposueldo.errors && f.tiposueldo.touched" id="tiposueldo" formControlName="tiposueldo" class="form-control">
                     <option value="b">Bruto</option>
                     <option value="n">Neto</option>
                 </select>
@@ -43,7 +42,7 @@
                 </div>
 
             </div>
-            <div *ngIf="esSueldoNeto" class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+            <div *ngIf="esSueldoNeto" class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'politicaCaluladora' | tooltip">
                 <label>Política *</label>
                 <select [class.is-invalid]="f.politicaId.errors && f.politicaId.touched" formControlName="politicaId" class="form-control">
                     <option *ngFor="let item of arregloPoliticas" [value]="item.politicaId">{{item.nombre}}</option>
@@ -58,9 +57,9 @@
                 <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && f.basePeriodoId.touched}" class="form-control">
                     <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.nombreCorto}}</option>
                   </select>
-                  <div *ngIf="f.basePeriodoId.touched && f.basePeriodoId.errors" class="invalid-feedback">
+                <div *ngIf="f.basePeriodoId.touched && f.basePeriodoId.errors" class="invalid-feedback">
                     Campo requerido
-                  </div>
+                </div>
 
             </div>
             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
@@ -97,22 +96,22 @@
 
             <div class="form-group row margen">
                 <div class="input-group-sm mb-3 ">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <th>Limite inferior</th>
-                                    <th>$0.00</th>
-                                </tr>
-                                <tr>
-                                    <th>Excedente de limite inferior</th>
-                                    <th>$0.00</th>
-                                </tr>
-                                <tr>
-                                    <th>Impuesto marginal</th>
-                                    <th>$0.00</th>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Limite inferior</th>
+                                <th>$0.00</th>
+                            </tr>
+                            <tr>
+                                <th>Excedente de limite inferior</th>
+                                <th>$0.00</th>
+                            </tr>
+                            <tr>
+                                <th>Impuesto marginal</th>
+                                <th>$0.00</th>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
