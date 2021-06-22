@@ -144,15 +144,17 @@ export class CalcularComponent implements OnInit {
     ];
 
 
-    for (let item of this.arreglo) {
+    if(this.arreglo !== undefined){
+      for (let item of this.arreglo) {
 
 
-      item["nombrecompleto"] = item[llave].empleado;
-      item["numeroEmpleado"] = item[llave].numeroEmpleado;
-      item["diaslaborados"] = item[llave].diasLaborados;
-      item["percepciones"] = this.cp.transform(item[llave].percepciones);
-      item["deducciones"] = this.cp.transform(item[llave].deducciones);
-      item["total"] = this.cp.transform(item[llave].total);
+        item["nombrecompleto"] = item[llave].empleado;
+        item["numeroEmpleado"] = item[llave].numeroEmpleado;
+        item["diaslaborados"] = item[llave].diasLaborados;
+        item["percepciones"] = this.cp.transform(item[llave].percepciones);
+        item["deducciones"] = this.cp.transform(item[llave].deducciones);
+        item["total"] = this.cp.transform(item[llave].total);
+      }
     }
 
     let filas: Array<any> = this.arreglo;
