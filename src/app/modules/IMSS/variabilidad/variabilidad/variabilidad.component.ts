@@ -56,7 +56,7 @@ export class VariabilidadComponent implements OnInit {
     private modalPrd:ModalService, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
-    debugger;
+  //  debugger;
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
@@ -101,7 +101,7 @@ export class VariabilidadComponent implements OnInit {
 
   public filtrar() {
 
-    debugger;
+   // debugger;
 
     this.cargando = true;
 
@@ -111,7 +111,7 @@ export class VariabilidadComponent implements OnInit {
 
         };
    
-  debugger;
+  //debugger;
   this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 

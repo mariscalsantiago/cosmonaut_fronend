@@ -33,6 +33,7 @@ import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemerg
 import { FormatosDirective } from './directivas/formatos.directive';
 import { EditarmensajeChatComponent } from './ventanasemergentes/tiposventanas/editarmensaje-chat/editarmensaje-chat.component';
 import { TokenInterceptorService } from '../core/auth/token-interceptor.service';
+import { TooltipPipe } from './pipes/tooltip.pipe';
 
 
 @NgModule({
@@ -71,14 +72,15 @@ import { TokenInterceptorService } from '../core/auth/token-interceptor.service'
     TagComponent,
     VentanaNominaNuevaFiniquitoLiquidacionComponent,
     FormatosDirective,
-    EditarmensajeChatComponent
+    EditarmensajeChatComponent,
+    TooltipPipe
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent, MayusculasDirective, SolonumerosDirective, TamanioVentanaDirective,
-    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective,TagComponent,FormatosDirective],
+    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective,TagComponent,FormatosDirective, TooltipPipe],
   providers:[CurrencyPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

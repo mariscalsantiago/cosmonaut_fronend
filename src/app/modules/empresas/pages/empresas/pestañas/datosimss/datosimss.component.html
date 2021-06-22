@@ -1,46 +1,47 @@
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
 
-            
-  <div  class="row mt-3">
-    <div class="col-10">
-      <div class="form group row">
-              <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Registro patronal *</label>
-                <input formControlName="registroPatronal" maxlength="11" type="text" class="form-control"  [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado || (f.registroPatronal.errors?.pattern && f.registroPatronal.touched)}" placeholder="">
-                <div *ngIf="submitEnviado && f.registroPatronal.errors?.required" class="invalid-feedback">
-                  Campo requerido
+
+    <div class="row mt-3">
+        <div class="col-10">
+            <div class="form group row">
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'registroPatronal' | tooltip">
+                    <label>Registro patronal *</label>
+                    <input formControlName="registroPatronal" maxlength="11" type="text" class="form-control" [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado || (f.registroPatronal.errors?.pattern && f.registroPatronal.touched)}" placeholder="">
+                    <div *ngIf="submitEnviado && f.registroPatronal.errors?.required" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="f.registroPatronal.errors?.pattern && f.registroPatronal.touched" class="invalid-feedback">
+                        Registro patronal no es válida
+                    </div>
                 </div>
-                <div *ngIf="f.registroPatronal.errors?.pattern && f.registroPatronal.touched" class="invalid-feedback">
-                  Registro patronal no es válida
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'primaRiesgo' | tooltip">
+                    <label>Prima de riesgo *</label>
+                    <input formControlName="emPrimaRiesgo" maxlength="7" type="text" class="form-control" [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
+                    <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched" class="invalid-feedback">
+                        Prima de riesgo no es válida
+                    </div>
                 </div>
-              </div>
+
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                  <label>Prima de riesgo *</label>
-                  <input formControlName="emPrimaRiesgo" maxlength="7" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
-                  <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
-                    Campo requerido
-                  </div>
-                  <div *ngIf="f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched" class="invalid-feedback">
-                    Prima de riesgo no es válida
-                  </div>
+                    <label>Clave subdelegacional IMSS *</label>
+                    <input appSolonumeros formControlName="emClaveDelegacionalImss" maxlength="2" type="text" class="form-control" [ngClass]="{'is-invalid':(submitEnviado && f.emClaveDelegacionalImss.errors?.required) || (f.emClaveDelegacionalImss.errors?.pattern && f.emClaveDelegacionalImss.touched)}"
+                        placeholder="">
+                    <div *ngIf="submitEnviado && f.emClaveDelegacionalImss.errors?.required" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="f.emClaveDelegacionalImss.errors?.pattern && f.emClaveDelegacionalImss.touched" class="invalid-feedback">
+                        Clave subdelegacional IMSS no es válida
+                    </div>
                 </div>
-          
-                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                  <label>Clave subdelegacional IMSS *</label>
-                  <input appSolonumeros formControlName="emClaveDelegacionalImss" maxlength="2" type="text" class="form-control"  [ngClass]="{'is-invalid':(submitEnviado && f.emClaveDelegacionalImss.errors?.required) || (f.emClaveDelegacionalImss.errors?.pattern && f.emClaveDelegacionalImss.touched)}" placeholder="">
-                  <div *ngIf="submitEnviado && f.emClaveDelegacionalImss.errors?.required" class="invalid-feedback">
-                    Campo requerido
-                  </div>
-                  <div *ngIf="f.emClaveDelegacionalImss.errors?.pattern && f.emClaveDelegacionalImss.touched" class="invalid-feedback">
-                    Clave subdelegacional IMSS no es válida
-                  </div>
-                </div>
-    
-      </div>
-      <div class="form group row">
+
+            </div>
+            <div class="form group row">
                 <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12"></div>
-                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                  <label class="contenedorInputCheckRadio">IMSS obrero integrado a IMSS patronal para salario mínimo
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'imssObrero' | tooltip">
+                    <label class="contenedorInputCheckRadio">IMSS obrero integrado a IMSS patronal para salario mínimo
                     <input formControlName="emImssObreroIntegradoApatronal" type="checkbox" name="" id="emImssObreroIntegradoApatronal">
                     <span class="checkmark"></span>
                   </label>
@@ -48,14 +49,14 @@
 
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                  <label class="contenedorInputCheckRadio">Cálculo automático de promedio de variables
+                    <label class="contenedorInputCheckRadio">Cálculo automático de promedio de variables
                     <input formControlName="emCalculoAutoPromedioVar" type="checkbox" class="form-check-input"
                     id="emCalculoAutoPromedioVar">
                     <span class="checkmark"></span>
                   </label>
                 </div>
 
-               <!--<div class="input-group-sm mb-3 col-4"></div>
+                <!--<div class="input-group-sm mb-3 col-4"></div>
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                   <label class="contenedorInputCheckRadio">Enviar movimientos al IMSS mediante Cosmonaut
                     <input formControlName="emEnviarMovsImss" type="checkbox" name="" id="emEnviarMovsImss">
@@ -99,24 +100,24 @@
                   <label>Llave privada FIEL *</label>
                   <input type="text" class="form-control" id="nomEmpresa">
                 </div>-->
-              </div>
-    
+            </div>
+
+        </div>
     </div>
-  </div>
-    
-    
-    
+
+
+
     <div class="row">
         <div class="col-12">
             <div class="text-right margin" style="margin-bottom: 20px;">
-        
+
                 <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+                <button type="submit" class="btn btn-primary button-fill">Guardar</button>
             </div>
         </div>
     </div>
 
     <div *ngIf="cargando" class="col text-center mb-5">
-      <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+        <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
     </div>
 </form>
