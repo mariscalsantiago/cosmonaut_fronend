@@ -1,6 +1,9 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
@@ -8,6 +11,7 @@ import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nomin
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-pagar',
@@ -17,6 +21,7 @@ import { ReportesService } from 'src/app/shared/services/reportes/reportes.servi
 export class PagarComponent implements OnInit {
   @Output() salida = new EventEmitter();
   @Input() nominaSeleccionada: any;
+  @Input() esDescargar:boolean = false;
 
   public cargando: boolean = false;
   public cargandoIcon: boolean = false;
@@ -35,10 +40,13 @@ export class PagarComponent implements OnInit {
 
   public arreglo: any = [];
 
+  public idnominaPeriodo:number = -1;
+
   constructor(private modalPrd: ModalService,
     private ventana: VentanaemergenteService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaLiquidacionPrd: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
-    private reportes:ReportesService,private nominaPtuPrd:NominaptuService) { }
+    private reportes:ReportesService,private nominaPtuPrd:NominaptuService,
+    private configuracionesPrd:ConfiguracionesService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
 
 
@@ -50,6 +58,8 @@ export class PagarComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
       }
+
+      this.idnominaPeriodo = this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId;
       this.cargando = true;
       this.nominaOrdinariaPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
         this.crearTabla(datos,"empleadoApago");
@@ -61,6 +71,7 @@ export class PagarComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
       }
+      this.idnominaPeriodo = this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId;
       this.cargando = true;
       this.nominaAguinaldoPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
         this.crearTabla(datos,"empleadoApagoAguinaldo");
@@ -72,6 +83,7 @@ export class PagarComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId
       }
+      this.idnominaPeriodo = this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId;
       this.cargando = true;
       this.nominaLiquidacionPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
         this.crearTabla(datos,"empleadoApagoLiquidacion");
@@ -83,6 +95,7 @@ export class PagarComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaPtu?.nominaXperiodoId
       }
+      this.idnominaPeriodo = this.nominaSeleccionada.nominaPtu?.nominaXperiodoId;
       this.cargando = true;
       this.nominaPtuPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
         this.crearTabla(datos,"empleadoApagoPtu");
@@ -140,9 +153,44 @@ export class PagarComponent implements OnInit {
   public dispersar() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas dispersar la nómina?").then(valor => {
       if (valor) {
-        this.ventana.showVentana(this.ventana.ndispersion).then(valor => {
-          this.salida.emit({ type: "dispersar" });
+
+
+     
+        let obj = []
+        for(let item of this.arreglo){
+            if(item.seleccionado){
+                obj.push(   {
+                  nominaPeriodoId: this.idnominaPeriodo,
+                  personaId: item.personaId,
+                  fechaContrato: item.fechaContrato,
+                  centroClienteId: item.centroClienteId,
+                  usuarioId: this.usuariosSistemaPrd.getUsuario().usuarioId,
+                  servicio: "dispersion_st"
+              });
+            }
+        }
+
+
+        this.nominaOrdinariaPrd.dispersar(obj).subscribe(()=>{
+          this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Dispersando","Espere un momento, el proceso se tardara varios minutos.");
+          let intervalo = interval(1000);
+          intervalo.pipe(take(11));
+          intervalo.subscribe((valor)=>{
+            this.configuracionesPrd.setCantidad(valor*10);
+            if(valor == 10){
+              this.configuracionesPrd.setCantidad(0);
+               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+               this.ventana.showVentana(this.ventana.ndispersion,{datos:this.idnominaPeriodo}).then(valor => {
+                this.salida.emit({ type: "dispersar" });
+              });
+            }
+          });
         });
+
+        
+      
+
+      
       }
     });
   }
@@ -156,14 +204,22 @@ export class PagarComponent implements OnInit {
       }
       this.reportes.getlayoutDispersionNomina(obj).subscribe(datos =>{
         this.cargandoIconDispersion = false;
-        const linkSource = 'data:application/pdf;base64,' + `${datos.datos}\n`;
-        const downloadLink = document.createElement("a");
-        const fileName = `Archivo_dispersion_${this.nominaSeleccionada[this.llave].nombreNomina.replace(" ",".")}.xlsx`;
-
-        downloadLink.href = linkSource;
-        downloadLink.download = fileName;
-        downloadLink.click();
+        this.reportes.crearArchivo(datos.datos,`Archivo_dispersion_${this.nominaSeleccionada[this.llave].nombreNomina.replace(" ",".")}`,"xlsx");
       });
+  }
+
+
+  public descargarRfc(){
+    this.cargandoIcon = true;
+    this.reportes.getDescargarTxtRfctabDispersar(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+      this.cargandoIcon = false;
+      this.reportes.crearArchivo(datos.datos,`archivoRFCs_${this.usuariosSistemaPrd.getIdEmpresa()}`,"txt");
+    });
+  }
+
+
+  public filtrar(){
+    
   }
 
 }

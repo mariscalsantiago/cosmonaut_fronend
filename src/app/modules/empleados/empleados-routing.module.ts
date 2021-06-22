@@ -11,17 +11,17 @@ import { CargaMasivaComponent } from './pages/carga-masiva/carga-masiva.componen
 
 const routes: Routes = [{
   path:'',children:[
-     {path:'empleados',component:ListaempleadosComponent},
-     {path:'empleados/empleadosincompletos',component:EmpleadosIncompletosComponent},
-     {path:'empleados/empleado',component:FormEmpleadoComponent},
-     {path:'empleados/bajaempleado',component:FormBajaEmpleadoComponent},
-     {path:'empleados/cargamasiva',component:CargaMasivaComponent},
-     {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/personal/empleados-personal.module').then(m => m.EmpleadosPersonalModule)},
-     {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/empleo/empleados-empleo.module').then(m => m.empleadosEmpleoModule)},
-     {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/pagos/empleados-pagos.module').then(m => m.empleadosPagosModule)},
-     {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/eventos/empleados-eventos.module').then(m => m.empleadosEventosModule)},
-     {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/documentos/empleados-documentos.module').then(m => m.empleadosDocumentosModule)},
-     {path:'empleados/:id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/kardex/empleados-kardex.module').then(m => m.empleadosKardexModule)}
+     {path:'',component:ListaempleadosComponent},
+     {path:'empleadosincompletos',component:EmpleadosIncompletosComponent},
+     {path:'empleado',component:FormEmpleadoComponent},
+     {path:'bajaempleado',component:FormBajaEmpleadoComponent},
+     {path:'cargamasiva',component:CargaMasivaComponent},
+     {path:':id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/personal/empleados-personal.module').then(m => m.EmpleadosPersonalModule)},
+     {path:':id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/empleo/empleados-empleo.module').then(m => m.empleadosEmpleoModule)},
+     {path:':id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/pagos/empleados-pagos.module').then(m => m.empleadosPagosModule)},
+     {path:':id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/eventos/empleados-eventos.module').then(m => m.empleadosEventosModule)},
+     {path:':id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/documentos/empleados-documentos.module').then(m => m.empleadosDocumentosModule)},
+     {path:':id',component:EmpleadoComponent,loadChildren:()=> import('./pages/submodulos/kardex/empleados-kardex.module').then(m => m.empleadosKardexModule)}
   ]
 }];
 

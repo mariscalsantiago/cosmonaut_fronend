@@ -91,7 +91,7 @@
 </div>
 <div class="row" style="margin: 10px;">
   <div class="col-12 col-lg-12 text-right">
-    <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+    <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
       <i class="fa fa-plus"></i> Agregar jornada
     </button>
   </div>
@@ -99,7 +99,7 @@
 
 
 <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
-  <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesglose"  [datos]="arreglotabla" [editar]="true" [eliminar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+  <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesglose"  [datos]="arreglotabla" [editar]="esEditar" [eliminar]="esEliminar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
 </div>
 
 </div>

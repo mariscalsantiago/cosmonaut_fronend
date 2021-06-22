@@ -29,7 +29,7 @@ export class CalculosService {
     };
 
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominaPtu}/salario/imss/completo/ppp`, json, httpOptions);
+    return this.http.post(`${direcciones.calculo}/salario/imss/completo/ppp`, json, httpOptions);
 
   }
 }

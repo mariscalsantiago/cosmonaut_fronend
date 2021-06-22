@@ -11,14 +11,14 @@ export const routes: Routes = [
   path: '',
   children: [
     {
-      path: 'admincatalogos',
+      path: '',
       component: AdminCatalogosComponent
     },{
-        path: 'admincatalogos/detalle_admincatalogos/detalle',
+        path: 'detalle_admincatalogos/detalle',
         component: DetalleAdminCatalogosComponent
       }
       ,{
-        path: 'admincatalogos/detalle_admincatalogos/:tipoinsert',
+        path: 'detalle_admincatalogos/:tipoinsert',
         component: ABCAdminCatalogosComponent
       }
   ]

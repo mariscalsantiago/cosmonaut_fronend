@@ -179,7 +179,7 @@ export class VentanaPercepcionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-  debugger;
+  
     /*this.submitEnviado = true;
     if (this.myForm.invalid) {
 

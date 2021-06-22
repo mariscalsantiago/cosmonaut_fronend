@@ -7,5 +7,6 @@ export interface submodulo {
     esActivo?: boolean,
     permisos?:Array<permiso>,
     checked?:boolean,
-    previo?:boolean
+    previo?:boolean,
+    mostrar?:boolean
 }

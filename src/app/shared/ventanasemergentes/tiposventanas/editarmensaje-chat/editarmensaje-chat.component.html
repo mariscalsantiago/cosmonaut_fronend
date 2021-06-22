@@ -3,7 +3,7 @@
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Tipo de mensaje *</label>
             <select [class.is-invalid]="f.tipomensaje.errors && f.tipomensaje.touched" formControlName="tipomensaje" class="form-control">
-                <option *ngFor="let item of arreglotipomensaje" [value]="item.id">{{item.nombre}}</option>
+                <option *ngFor="let item of arreglotipomensaje" [value]="item.tipoMensajeId">{{item.descripcion}}</option>
             </select>
             <div class="invalid-feedback">
                 Campo requerido

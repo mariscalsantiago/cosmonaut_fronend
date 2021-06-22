@@ -140,6 +140,7 @@ export class LoginComponent implements OnInit {
           let objRecibido = valorusuario.datos.clientes[0];
           const usuario: usuarioClass = new usuarioClass();
           usuario.centrocClienteId = objRecibido.centrocClienteId;
+          usuario.nombreEmpresa = objRecibido.razonSocial;
           usuario.usuarioId = this.usuarioObj.usuarioId;
           usuario.nombre = this.usuarioObj.nombre;
           usuario.apellidoPat = this.usuarioObj.apellidoPat;
@@ -375,6 +376,7 @@ export class LoginComponent implements OnInit {
 
     let usuario:usuarioClass = this.usuarioSistemaPrd.getUsuario();
     usuario.centrocClienteId = this.clienteSeleccionado.centrocClienteId;
+    usuario.nombreEmpresa = this.clienteSeleccionado.razonSocial;
 
     this.usuarioSistemaPrd.setUsuario(usuario);
     this.cargando = true;

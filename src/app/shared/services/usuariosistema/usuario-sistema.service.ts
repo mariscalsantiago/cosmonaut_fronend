@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { direcciones } from 'src/assets/direcciones';
 import { environment } from 'src/environments/environment';
 
@@ -12,7 +12,7 @@ export class UsuarioSistemaService {
   public usuario!: usuarioClass;
   public introActivado:boolean = true;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private httpBack:HttpBackend) {
     this.usuario = new usuarioClass();
   }
 
@@ -88,20 +88,16 @@ export class UsuarioSistemaService {
 
 
   public enviarCorreorecuperacion(obj:any):Observable<any>{
-    const httpOptions = {
-      headers:new HttpHeaders({
-        "Content-Type":"application/json"
-      })
-    };
-
     let json = JSON.stringify(obj);
 
-    return this.http.post(`${direcciones.usuariosAuth}/reestablecerPwd`,json,httpOptions);
+    return this.http.post(`${direcciones.usuariosAuth}/reestablecerPwd`,json);
   }
 
 
 
   public obtenerInfo( correo: any): Observable<any> {
+
+
     return this.http.get(`${direcciones.centroCostosCliente}/login/${correo}`);
   }
 

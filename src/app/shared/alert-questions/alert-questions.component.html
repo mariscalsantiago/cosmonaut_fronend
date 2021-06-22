@@ -14,6 +14,9 @@
             <div *ngIf="iconType=='error' || iconType=='question'" class="containerimg">
                 <img src="assets/icons/ICO_error.svg" width="75px" height="75px" alt="" srcset="">
             </div>
+            <div *ngIf="iconType=='dispersar'" class="containerimg">
+                <img src="assets/icons/ICO_alerta.svg" width="75px" height="75px" alt="" srcset="">
+            </div>
             <div *ngIf="iconType=='loading'" class="modalLoading" [ngClass]="{'transparent':iconType==='loading'}">
                 <div >
                     <img style="width: 195px;" src="assets/imgs/transparente_corto_final.gif" alt="" srcset="">
@@ -27,7 +30,13 @@
                 <div class="col">
                     <h5 class="titulo">{{titulo}}</h5>
                     <p id="subtitulo">{{subtitulo}}</p>
-                    <div *ngIf="iconType!=='loading'" class="modal-footer text-center">
+                    <div *ngIf="iconType=='dispersar'" class="alinear" style="margin-top: 35px;">
+                        <div class="progress">
+                          <div class="progress-bar primary-bg" role="progressbar" [style.width]="getCantidad()+'%'"
+                            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{getCantidad()}}%</div>
+                        </div>
+                      </div>
+                    <div *ngIf="iconType!=='loading' && iconType!=='dispersar'" class="modal-footer text-center">
                         <button style="margin:auto" type="button" *ngIf="iconType!='success' && iconType != 'error'"
                             class="btn btn-outline-primary button-outlet" data-dismiss="modal"
                             (click)="cancelar()">Cancelar</button>

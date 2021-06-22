@@ -5,6 +5,8 @@ import { CompanyService } from 'src/app/modules/company/services/company.service
 import { DatosempresaService } from 'src/app/modules/empresas/services/datosempresa/datosempresa.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-informacionempresa',
@@ -43,7 +45,8 @@ export class InformacionempresaComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private empresaPrd: DatosempresaService, private routerPrd: Router, private modalPrd: ModalService, private companyPrd: CompanyService) { }
+    private empresaPrd: DatosempresaService, private routerPrd: Router, private modalPrd: ModalService, private companyPrd: CompanyService,
+    private authUsuariosPrd:UsuariosauthService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
     this.obj = this.datosempresamod.datosempresaObj
@@ -228,6 +231,16 @@ export class InformacionempresaComponent implements OnInit {
 
         if(resultado){
           this.datosempresa.centrocClienteEmpresa = datos.datos.centrocClienteId;
+
+          let objVersionEnviar = {
+            centrocClienteId:datos.datos.centrocClienteId,
+            versionId:this.usuariosSistemaPrd.getVersionSistema()
+          };
+          this.authUsuariosPrd.guardarVersionsistema(objVersionEnviar).subscribe(datosVersion =>{
+            if(!datosVersion.resultado){
+                  this.modalPrd.showMessageDialog(datosVersion.resultado,datosVersion.mensaje);
+            }
+          });
         }
 
       });

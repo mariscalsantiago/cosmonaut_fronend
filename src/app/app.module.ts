@@ -16,7 +16,6 @@ import { ContenidoComponent } from './layout/contenido/contenido/contenido.compo
 import { NavComponent } from './layout/nav/nav/nav.component';
 import { ShareModule } from './shared/share.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from './core/interceptores/interceptor.service';
 
 
 //Importamos para el lenguaje en mis fechas (SAMV)
@@ -44,14 +43,6 @@ registerLocaleData(localeEn, 'es-MX');
     ShareModule
   ],
   providers: [MDBSpinningPreloader,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService, multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService, multi: true
-    },
     {
       provide:LOCALE_ID,useValue:'es-MX'
     },{

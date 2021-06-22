@@ -9,13 +9,13 @@
     <div class="row margen">
     
       <div class="col text-right">
-        <button type="button" class="btn btn-light button-outlet" (click)="detalle(undefined)">
+        <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="detalle(undefined)">
           <i class="fa fa-plus"></i>Agregar rol
         </button>
       </div>
     </div>
     <div class="row margen margen-tabla background-panel">
-      <app-tablapaginado [datos]="arreglotabla"  [eliminar]="true"  [editar]="true"  [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+      <app-tablapaginado [datos]="arreglotabla"  [eliminar]="esEliminar" [editar]="esEditar"  [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
   </div>
 

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { filter, flatMap, map, tap } from 'rxjs/operators';
 import { modulos } from 'src/app/core/modelos/modulos';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { direcciones } from 'src/assets/direcciones';
@@ -34,12 +34,26 @@ export class RolesService {
   }
 
 
+  public getPermisosByVersiones(versionCosmonaut:number):Observable<any>{
+    if (this.configuracionesPrd.isSession(this.configuracionesPrd.PERMISOSXVERSIONES)) {
+      return this.configuracionesPrd.getElementosSesion(this.configuracionesPrd.PERMISOSXVERSIONES);
+    } else {
+      return this.http.get<any>(`${direcciones.versiones}/submodulo/permiso`)
+        .pipe(map(valor => {
+          let arreglo = valor.datos.filter((valor:any) => valor.versionCosmonautId ==  versionCosmonaut);
+          this.configuracionesPrd.setElementosSesion(this.configuracionesPrd.PERMISOSXVERSIONES,{datos:arreglo});
+          return {datos:arreglo};
+        }));
+    }
+  }
+
+
   public getListaTodosSistema(): Observable<any> {
     return this.http.get(`${direcciones.roles}/listar/todosActivo/true`);
   }
 
   public getRolesByEmpresa(idEmpresa: any, version: number, activo: boolean): Observable<any> {
-    console.log("Esto se envia", `${direcciones.roles}/cliente/${idEmpresa}/version/${version}/listar/todosActivo/${activo}`);
+    
     return this.http.get(`${direcciones.roles}/cliente/${idEmpresa}/version/${version}/listar/todosActivo/${activo}`);
   }
 

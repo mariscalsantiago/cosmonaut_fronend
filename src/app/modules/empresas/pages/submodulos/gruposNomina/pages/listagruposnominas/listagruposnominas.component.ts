@@ -4,6 +4,7 @@ import { element } from 'protractor';
 import { tabla } from 'src/app/core/data/tabla';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { GruponominasService } from '../../services/gruponominas.service';
@@ -49,6 +50,15 @@ export class ListagruposnominasComponent implements OnInit {
     filas: []
   };
 
+
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
+
+
+
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     event.target.innerWidth;
@@ -69,7 +79,7 @@ export class ListagruposnominasComponent implements OnInit {
   constructor(private gruposnominaPrd: GruponominasService, private routerPrd: Router,
     private routerActive: ActivatedRoute, private catalogosPrd: CatalogosService,
     private empresasPrd: SharedCompaniaService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private modalPrd: ModalService) { }
+    private modalPrd: ModalService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -108,6 +118,16 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   }
+
+
+
+ public establecerPermisos(){
+  this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+  this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+  this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+  this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
+}
+
 
   public preparandoTabla(datos: any) {
     this.arreglo = datos.datos;

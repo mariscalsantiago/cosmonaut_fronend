@@ -1,5 +1,6 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
@@ -12,15 +13,15 @@ export class TokenInterceptorService implements HttpInterceptor {
   public refreshTokenEnProgreso: boolean = false;
   accessTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private authPrd: AuthService) { }
+  constructor(private authPrd: AuthService,private routerPrd:Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authPrd.isAuthenticated()) {
-      req = req.clone({
-        setHeaders: {
-          authorization: `Bearer ${this.authPrd.getToken()}`
-        }
-      });
+      req = req.clone({headers: new HttpHeaders({
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${this.authPrd.getToken()}`
+      })});
+    
     }
     return next.handle(req).pipe(
       catchError((e: HttpErrorResponse) => {
@@ -31,16 +32,16 @@ export class TokenInterceptorService implements HttpInterceptor {
               switchMap(respuestaBackTokennuevo => {
                 this.refreshTokenEnProgreso = false;
                 this.accessTokenSubject.next(respuestaBackTokennuevo.access_token);
-                req = req.clone({
-                  setHeaders: {
-                    authorization: `Bearer ${respuestaBackTokennuevo.access_token}`
-                  }
-                });
+                req = req.clone({headers: new HttpHeaders({
+                  'Content-Type':'application/json',
+                  'Authorization':`Bearer ${respuestaBackTokennuevo.access_token}`
+                })});
                 return next.handle(req);
               }),
               catchError((e: HttpErrorResponse) => {
                 this.refreshTokenEnProgreso = false;
                 this.authPrd.eliminarTokens();
+                this.routerPrd.navigateByUrl("/");
                 return throwError(e);
               })
             );
@@ -58,7 +59,6 @@ export class TokenInterceptorService implements HttpInterceptor {
               }));
           }
         }
-
         return throwError(e);
       }
 

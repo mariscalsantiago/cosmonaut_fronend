@@ -71,7 +71,7 @@
                         <button type="button" (click)="cancelar()"
                             class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-                        <button (click)="seleccionarItem()" type="button"
+                        <button *ngIf="esRegistrar" (click)="seleccionarItem()" type="button"
                             class="btn btn-primary button-fill">Continuar</button>
                     </div>
 
@@ -89,7 +89,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 text-left">
-                            <a (click)="descargarArchivo()" class="botonestilo  estiloextralink"><i
+                            <a *ngIf="esDescargar" (click)="descargarArchivo()" class="botonestilo  estiloextralink"><i
                                         class="fas fa-download"></i> Descargar formato
                             </a>
                         </div>
@@ -115,7 +115,7 @@
                         <button type="button" (click)="cancelar()"
                             class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-                        <button (click)="enviarPeticion()" type="button"
+                        <button *ngIf="esRegistrar" (click)="enviarPeticion()" type="button"
                             class="btn btn-primary button-fill">Continuar</button>
                     </div>
 

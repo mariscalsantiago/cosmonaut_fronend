@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
@@ -9,15 +10,20 @@ export class ChatSocketService {
 
   private socket!:WebSocket;
 
-  public datos:any = {
-    nombre:""
+  public datos = {
+    ocultar: true,
+    datos: {
+      nombre: "Mariscal",
+      socket:"",
+      rrh:false
+    }
   }
 
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
-  public conectarSocket(idEmpresa:number,idusuario:number){
-    this.socket = new WebSocket(`${direcciones.socket}/chat/${idEmpresa}/${idusuario}`);
+  public conectarSocket(cadenaSocket:string){
+    this.socket = new WebSocket(`${direcciones.socket}${cadenaSocket}`);
   }
 
   public enviarMensaje(mensaje:string){
@@ -36,6 +42,12 @@ export class ChatSocketService {
   }
 
 
+  public modificarMensaje(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.chat}/modificar`,json);
+  }
+
+
 
 
   public setChatDatos(obj:any){
@@ -47,6 +59,32 @@ export class ChatSocketService {
     return this.datos;
   }
 
+
+  public guardarMensajeGenerico(obj:any):Observable<any>{
+      let json = JSON.stringify(obj);
+      return this.http.put(`${direcciones.administrarMensajeChat}/guardar`,json);
+  }
+
+  public modificarMensajeGenerico(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.administrarMensajeChat}/modificar`,json);
+}
+
+  public getMensajeGenericoByEmpresa(idEmpresa:number):Observable<any>{
+      return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/${idEmpresa}`);
+  }
+  public getMensajeGenericoByEmpresaByEmpleado(idEmpresa:number,idUsuario:number):Observable<any>{
+    return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/usuario/${idEmpresa}/${idUsuario}`);
+}
+
+
+  public enviarMensajeGenerico(mensaje:string,canal:string){
+    let socketInterno:WebSocket = new WebSocket(direcciones.socket+canal);
+    socketInterno.onopen = ()=>{
+      socketInterno.send(mensaje);
+    }
+  
+  }
 
   
 

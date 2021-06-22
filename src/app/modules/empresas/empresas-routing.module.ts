@@ -12,66 +12,66 @@ const routes: Routes = [{
   path:'',
   children:[
     {
-       path:'listaempresas',
+       path:'',
        component:ListaEmpresasComponent
     },
     {
-      path: 'listaempresas/empresas/:tipoinsert',
+      path: 'empresas/:tipoinsert',
       component: EmpresasComponent
     },
     {
-      path: 'listaempresas/empresas/nuevo/sede',
+      path: 'empresas/nuevo/sede',
       component: SedeComponent
       
     },
     {
-      path: 'listaempresas/empresas/nuevo/cuenta',
+      path: 'empresas/nuevo/cuenta',
       component: CuentasComponent
       
     },
     {
-      path: 'movimientosbitacora',
+      path: 'bitacora',
       component: MovimientosComponent
       
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/contactosRRH/empresascontactosrrh.module").then(m => m.empresasContactosRrhModule)
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/cuentasbancarias/empresascuentasbancarias.module").then(m => m.empresasCuentasBancariasModule)
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/representantelegal/empresarepresentantelegal.module").then(m => m.empresaRepresentanteLegalModule)
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/apoderadoLegal/empresaapoderadoLegal.module").then(m => m.empresaApoderadoLegalModule)
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/puestos/empresapuestos.module").then(m => m.empresapuestosModule)
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/politicas/empresapoliticas.module").then(m => m.empresapoliticasModule)
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/gruposNomina/empresasgruponominas.module").then(m => m.empresasGrupoNominasModule)
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/jonadaLaboral/empresasjornadalaboral.module").then(m => m.empresasJornadaLaboralModule)
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/conceptos/empresasconceptos.module").then(m => m.empresasConceptosModule)
     },
     {
-      path: 'empresa/detalle/:id',
+      path: 'detalle/:id',
       component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/tablavalores/empresastablavalores.module").then(m => m.empresasTablaValoresModule)
     }
 

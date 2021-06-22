@@ -69,7 +69,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
   ngOnInit(): void {
 
 
-    console.log(this.datos,"ventana emergfente principal");
+    
     
     this.content = document.getElementById("contenido");
     this.bodymodal = document.getElementById("bodyemergente");

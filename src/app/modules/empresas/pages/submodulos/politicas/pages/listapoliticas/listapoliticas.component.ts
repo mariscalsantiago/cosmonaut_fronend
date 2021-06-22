@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PoliticasService } from '../services/politicas.service';
 
@@ -50,8 +51,18 @@ export class ListapoliticasComponent implements OnInit {
   };
 
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
+
+
+
+
+
+
   constructor(private routerPrd: Router, private politicasProd: PoliticasService, private CanRouterPrd: ActivatedRoute,
-    private modalPrd: ModalService) { }
+    private modalPrd: ModalService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -72,6 +83,15 @@ export class ListapoliticasComponent implements OnInit {
     });
 
   }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
+  }
+
 
   public traerdatosTabla(datos:any){
     this.arreglo = datos.datos;

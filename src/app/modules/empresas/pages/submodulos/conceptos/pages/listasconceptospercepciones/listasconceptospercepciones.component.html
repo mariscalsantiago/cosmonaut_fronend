@@ -41,7 +41,7 @@
 
   <div class="row" style="margin: 10px;">
     <div class="col-12 col-lg-12 text-right">
-      <button type="button" class="btn btn-light button-outlet" (click)="verdetallePer(undefined)">
+      <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetallePer(undefined)">
         <i class="fa fa-plus"></i> Agregar percepción
       </button>
     </div>
@@ -50,7 +50,7 @@
 
   <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
     <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesgloseP" [datos]="arreglotablaPert"
-      [editar]="true" [cargando]="cargandoPer" (salida)="recibirTablaPercepcion($event)">
+      [editar]="esEditar" [cargando]="cargandoPer" (salida)="recibirTablaPercepcion($event)">
     </app-tablapaginado>
   </div>
 
@@ -60,14 +60,14 @@
 <div class="scrooll-designempresa">
   <div class="row" style="margin: 10px;">
     <div class="col-12 col-lg-12 text-right">
-      <button type="button" class="btn btn-light button-outlet" (click)="verdetalleDed(undefined)">
+      <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalleDed(undefined)">
         <i class="fa fa-plus"></i> Agregar deducción
       </button>
     </div>
   </div>
   <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
     <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesgloseD" [datos]="arreglotablaDedt"
-      [editar]="true" [cargando]="cargandoDed" (salida)="recibirTablaDeduccion($event)">
+      [editar]="esEditar" [cargando]="cargandoDed" (salida)="recibirTablaDeduccion($event)">
     </app-tablapaginado>
   </div>
 </div>

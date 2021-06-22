@@ -14,7 +14,7 @@
           <div class="col text-right">
           </div>
         </div>
-        <app-tablapaginado [datos]="arreglotabla" [editar]="true" [eliminar]="true" [imagen]="true"
+        <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [eliminar]="esEliminar" [imagen]="true"
           [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
       </div>
     </div>

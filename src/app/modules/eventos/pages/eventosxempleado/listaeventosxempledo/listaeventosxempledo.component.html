@@ -118,7 +118,7 @@
                           <label>RESULTADOS</label>
                         </div>
                         <div class="col text-right">
-                            <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
+                            <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="agregar()">
                               <i class="fa fa-plus"></i> Agregar evento
                             </button>
                           </div>
@@ -126,7 +126,7 @@
     
     
                       <div class="row   margen-tabla background-panel "  id="vetanaprincipaltabla">
-                        <app-tablapaginado [datos]="arreglotabla"  [cargando]="cargando" (salida)="recibirTabla($event)" [eliminar]="true" [ver]="true" ></app-tablapaginado>
+                        <app-tablapaginado [datos]="arreglotabla"  [cargando]="cargando" (salida)="recibirTabla($event)" [eliminar]="esRegistrar" [ver]="true" ></app-tablapaginado>
                       </div>
     
     

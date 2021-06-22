@@ -15,29 +15,17 @@
             </div>
             <ul id="listanavegadora" class="list-unstyled components">
                 <li *ngFor="let item of PRINCIPAL_MENU" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
-                    <a [routerLink]="item.routerLink" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
+                    <a [routerLink]="item.pathServicio" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
                         <i [class]="item.icono"></i>
                         {{item.nombreModulo | uppercase}}</a>
                     <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="'m'+item.moduloId">
-                        <li *ngFor="let item2 of item.submodulos" [ngClass]="{'ocultarMenu':!item2.checked}" (click)="seleccionarSubmenu(item,item2)">
-                            <a [routerLink]="item2.pathServicio">{{item2.nombreSubmodulo }}</a>
+                        <li *ngFor="let item2 of item.submodulos" [ngClass]="{'ocultarMenu':!item2.checked}">
+                            <a  (click)="seleccionarSubmenu(item,item2)" (click)="irRuta(item2)">{{item2.nombreSubmodulo }}</a>
                         </li>
                     </ul>
                 </li>
                 <li id="salirbtn"  (click)="cerrarSesion()"><a >    <i class="icon_cerrarsesion danger-bg"></i>CERRAR SESIÓN</a></li>
             </ul>
-            <!-- <ul class="list-unstyled components">
-                <li *ngFor="let item of arreglo" [ngClass]="{'active':item.seleccionado}">
-                    <a [routerLink]="item.routerLink" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
-                        <i [class]="item.icono"></i>
-                        {{item.nombre}}</a>
-                    <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="item.nombre">
-                        <li *ngFor="let item2 of item.submenu" (click)="seleccionarSubmenu(item,item2)">
-                            <a [routerLink]="item2.routerLink">{{item2.nombre}}</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul> -->
         </nav>
         <div id="contenido" class="content" [ngClass]="{'scrollhide':modal.modal || emergente.modal}" style="position: relative;">
             <nav  class="navbar navbar-expand-lg navbar-light">
@@ -63,7 +51,7 @@
     </div>
     <div class="chaticon heartbeat">
         <span class="badge badge-danger">2</span>
-        <img (click)="chat.ocultar = !chat.ocultar" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
+        <img (click)="darClickChat()" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
     </div>
     <app-chatboot  *ngIf="!chat.ocultar" [datos]="chat.datos" (salida)="recibirchat($event)"></app-chatboot>
 </div>

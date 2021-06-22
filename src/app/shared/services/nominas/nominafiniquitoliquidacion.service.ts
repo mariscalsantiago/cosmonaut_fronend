@@ -43,6 +43,18 @@ export class NominafiniquitoliquidacionService {
 
   }
 
+
+  public getUsuariosCalculadosFiltrado(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+   // return this.creandoObservable(finiquitoUsuariosCalculados);
+    return this.http.post(`${direcciones.nominaLiquidacion}/lista/empleados/total/pago/neto/liquidacion/filtrar`, json, httpOptions);
+
+  }
   public getUsuariosCalculados(obj:any):Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({

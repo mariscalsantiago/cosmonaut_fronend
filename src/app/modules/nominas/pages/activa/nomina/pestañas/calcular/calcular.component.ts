@@ -7,6 +7,7 @@ import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaag
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 
 @Component({
   selector: 'app-calcular',
@@ -16,11 +17,13 @@ import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.serv
 export class CalcularComponent implements OnInit {
   @Output() salida = new EventEmitter();
   @Input() nominaSeleccionada: any;
+  @Input() esEliminar: boolean = false;
+  @Input() esDescargar: boolean = false;
   public cargando: boolean = false;
   public nominaOrdinaria: boolean = false;
   public nominaExtraordinaria: boolean = false;
-  public nominaLiquidacion:boolean = false;
-  public nominaPtu:boolean = false;
+  public nominaLiquidacion: boolean = false;
+  public nominaPtu: boolean = false;
   public objEnviar: any = [];
   public arreglotabla: any = {
     columnas: [],
@@ -28,19 +31,26 @@ export class CalcularComponent implements OnInit {
   }
 
   public llave: string = "";
-  public llave2:string = "";
+  public llave2: string = "";
 
-  public datosDetalleEmpleadoNomina:any = [];
+  public datosDetalleEmpleadoNomina: any = [];
 
   public cargandoIcon: boolean = false;
 
 
   public arreglo: any = [];
 
+
+  public rfc: string = "";
+  public nombre: string = "";
+  public apellidoPaterno: string = "";
+  public apellidoMaterno: string = "";
+  public numeroempleado: string = "";
+
   constructor(private navigate: Router,
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
-    private nominaAguinaldoPrd: NominaaguinaldoService,private nominaFiniquito:NominafiniquitoliquidacionService, private cp: CurrencyPipe,
-    private nominaPtuPrd:NominaptuService) { }
+    private nominaAguinaldoPrd: NominaaguinaldoService, private nominaFiniquito: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
+    private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
 
@@ -76,7 +86,7 @@ export class CalcularComponent implements OnInit {
 
       this.nominaAguinaldoPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
-        
+
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenandoTablas("calculoEmpleadoAguinaldo");
@@ -94,12 +104,12 @@ export class CalcularComponent implements OnInit {
 
       this.nominaFiniquito.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
-        
+
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenandoTablas("calculoEmpleadoLiquidacion");
       });
-    }else if(this.nominaSeleccionada.nominaPtu){
+    } else if (this.nominaSeleccionada.nominaPtu) {
       this.llave = "nominaPtu";
       this.llave2 = "calculoEmpleadoPtu";
       this.nominaPtu = true;
@@ -111,7 +121,7 @@ export class CalcularComponent implements OnInit {
 
       this.nominaPtuPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
-        
+
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenandoTablas("calculoEmpleadoPtu");
@@ -135,7 +145,7 @@ export class CalcularComponent implements OnInit {
 
 
     for (let item of this.arreglo) {
-      
+
 
       item["nombrecompleto"] = item[llave].empleado;
       item["numeroEmpleado"] = item[llave].numeroEmpleado;
@@ -170,7 +180,7 @@ export class CalcularComponent implements OnInit {
         if (this.nominaSeleccionada.nominaOrdinaria) {
 
           this.nominaOrdinariaPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
-            
+
             this.rellenandoDesglose("detalleNominaEmpleado", datosItem, item);
           });
 
@@ -178,11 +188,11 @@ export class CalcularComponent implements OnInit {
           this.nominaAguinaldoPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
             this.rellenandoDesglose("detalleNominaEmpleadoAguinaldo", datosItem, item);
           });
-        }else if(this.nominaSeleccionada.nominaLiquidacion){
+        } else if (this.nominaSeleccionada.nominaLiquidacion) {
           this.nominaFiniquito.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
             this.rellenandoDesglose("detalleNominaEmpleadoLiquidacion", datosItem, item);
           });
-        }else if(this.nominaSeleccionada.nominaPtu){
+        } else if (this.nominaSeleccionada.nominaPtu) {
           this.nominaPtuPrd.getUsuariosCalculadosDetalle(objEnviar).subscribe(datosItem => {
             this.rellenandoDesglose("detalleNominaEmpleadoPtu", datosItem, item);
           });
@@ -227,15 +237,78 @@ export class CalcularComponent implements OnInit {
 
     }
 
-    
 
-    
-    
-    this.datosDetalleEmpleadoNomina[0]=otros;
-    this.datosDetalleEmpleadoNomina[1]= dias;
-    this.datosDetalleEmpleadoNomina[2]=percepciones;
-    this.datosDetalleEmpleadoNomina[3]= deducciones;
+
+
+
+    this.datosDetalleEmpleadoNomina[0] = otros;
+    this.datosDetalleEmpleadoNomina[1] = dias;
+    this.datosDetalleEmpleadoNomina[2] = percepciones;
+    this.datosDetalleEmpleadoNomina[3] = deducciones;
     item.cargandoDetalle = false;
+  }
+
+  public descargarNomina() {
+    let objEnviar = {
+      nominaPeriodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId
+    }
+
+
+    this.cargandoIcon = true;
+    this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
+      this.cargandoIcon = false;
+      this.reportesPrd.crearArchivo(datos.datos, `nomina_${this.nominaSeleccionada[this.llave].nominaXperiodoId}`, "xlsx");
+    });
+  }
+
+  public filtrar() {
+    let objenviar = {
+      nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
+      numeroempleado: this.numeroempleado,
+      apellidoMaterno: this.apellidoMaterno,
+      apellidoPaterno: this.apellidoPaterno,
+      nombreEmpleado: this.nombre,
+      rfc: this.reportesPrd
+    }
+
+
+    this.cargando = true;
+
+    if (this.nominaSeleccionada.nominaOrdinaria) {
+
+      this.nominaOrdinariaPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenandoTablas("calculoEmpleado");
+
+      });
+
+    } if (this.nominaSeleccionada.nominaExtraordinaria) {
+      this.nominaAguinaldoPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenandoTablas("calculoEmpleadoAguinaldo");
+
+      });
+
+    } else if (this.nominaSeleccionada.nominaLiquidacion) {
+      this.nominaFiniquito.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenandoTablas("calculoEmpleadoLiquidacion");
+
+      });
+    } else if (this.nominaSeleccionada.nominaPtu) {
+
+
+      this.nominaPtuPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenandoTablas("calculoEmpleadoPtu");
+
+      });
+
+    }
   }
 
 }

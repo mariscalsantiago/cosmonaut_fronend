@@ -37,7 +37,7 @@ export const direcciones = {
     modulos: `${ipAdmin}/modulos`,
     permisos: `${ipAdmin}/permisos`,
     chat: `${ip}/chat`,
-    socket: `${ipSocket}/websocket`,
+    socket: `${ipSocket}`,
     usuariosAuth:`${ipAdmin}/usuarios`,
     versiones:`${ipAdmin}/version`,
     ptu:`${ip}/ptu`,
@@ -50,4 +50,7 @@ export const direcciones = {
     orquestador:`${ipCalculos}/orquestador`,
     calculo:`${ipCalculos}/calculo`,
     imss: `${ip}/imss`,
+    dispersion:`${ipCalculos}/dispersion-timbrado`,
+    tipomensaje:`${ip3}/tipo-mensaje`,
+    administrarMensajeChat:`${ipAdmin}/administrar-mensaje-chat`
 };

@@ -4,6 +4,7 @@ import { tabla } from 'src/app/core/data/tabla';
 import { TablaValoresService } from '../../services/tablavalores.service';
 import { DatePipe } from '@angular/common';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 
 
@@ -63,8 +64,16 @@ export class ListasTablaValoresComponent implements OnInit {
   }
 
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
+
+
+
+
   constructor(private routerPrd: Router, private activateRouter: ActivatedRoute,
-    private tablavaloresProd:TablaValoresService, private ventana:VentanaemergenteService) { }
+    private tablavaloresProd:TablaValoresService, private ventana:VentanaemergenteService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -98,6 +107,17 @@ export class ListasTablaValoresComponent implements OnInit {
     });
 
   }
+
+
+
+ public establecerPermisos(){
+  this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+  this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+  this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+  this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
+}
+
+
 
 
   public crearTablaReferencia(datos:any){

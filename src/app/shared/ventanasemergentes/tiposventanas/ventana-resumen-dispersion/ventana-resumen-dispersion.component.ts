@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 
 @Component({
   selector: 'app-ventana-resumen-dispersion',
@@ -8,7 +9,9 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 })
 export class VentanaResumenDispersionComponent implements OnInit {
   @Output() salida = new EventEmitter<any>();
-  constructor(private modalPrd:ModalService) { }
+  @Input() datos:any;
+  public cargandoIcon:boolean = false;
+  constructor(private reportesPrd:ReportesService) { }
 
   ngOnInit(): void {
   }
@@ -21,10 +24,15 @@ export class VentanaResumenDispersionComponent implements OnInit {
 
 
   public guardar(){
-      this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas continuar?").then(valor =>{
-        if(valor){
-          this.salida.emit({type:"guardar",datos:valor});
-        }
-      });
+    this.salida.emit({type:"guardar",datos:true});
+  }
+
+
+  public descargarErrores(){
+    this.cargandoIcon = true;
+    this.reportesPrd.getErroresDispersionEmpleados(this.datos).subscribe(datos =>{
+      this.cargandoIcon = false;
+      this.reportesPrd.crearArchivo(datos.datos,"erroresDispersion","xlsx");
+    });
   }
 }

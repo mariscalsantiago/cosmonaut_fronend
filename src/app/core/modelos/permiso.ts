@@ -3,5 +3,6 @@ export interface permiso {
     descripcion?: string,
     esActivo?: boolean,
     checked?:boolean,
-    previo?:boolean
+    previo?:boolean,
+    mostrar?:boolean
 }

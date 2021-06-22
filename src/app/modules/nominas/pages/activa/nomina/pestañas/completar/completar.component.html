@@ -1,20 +1,44 @@
-<div class="form-group margen row mt-2 text-center"><label style="    margin: auto;" class="titulo">¡SE HAN TIMBRADO 1
-        DE 1 EMPLEADOS!</label></div>
+<div class="form-group margen row mt-2 text-center"><label style="    margin: auto;" class="titulo">Resumen</label></div>
 <div class="row">
-    <div class="col-12 text-center">
-        <img style="width: 50%;" src="assets/imgs/terminado.svg" alt="">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Total pago neto</td>
+                    <td>{{12323|currency}}</td>
+                </tr>
+                <tr>
+                    <td>Pagos realizados</td>
+                    <td>{{12}}</td>
+                </tr>
+                <tr>
+                    <td>Recibos de pago</td>
+                    <td>{{12}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div class="col-2"></div>
 </div>
 <div class="row">
     <div class="col-12 text-center mt-2">
-        <button  class="btn btn-primary button-outlet mr-2">Descargar recibos</button>
-        <button  class="btn btn-primary button-fill">Descargar folios</button>
+        <button (click)="enviarRecibos()"  class="btn btn-primary button-outlet mr-2">Enviar recibos a empleados</button>
+        <button *ngIf="esDescargar" class="btn btn-primary button-outlet mr-2">Descargar recibos</button>
+        <button *ngIf="esDescargar"  class="btn btn-primary button-fill">Descargar folios</button>
     </div>
 </div>
+
 <div class="row">
-    <div class="col-12 text-center mt-1">
-        <a style="color:#56dfd4;text-decoration: underline;    display: block; font-size: smaller;"  class="dropdown-toggle">¿Necesitas cancelar este timbrado?</a>
+    <div class="col-11 text-center ">
+        <a (click)="cancelarTimbrado()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+                    class="fas fa-download"></i> Cancelar timbrado</small>
+            <div *ngIf="cargandoIcon" class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </a>
     </div>
 </div>
+
 
 

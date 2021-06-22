@@ -29,7 +29,6 @@ export class DetalleRolesComponent implements OnInit {
   ngOnInit(): void {
 
 
-
     this.objrol = history.state.datos;
     this.actualizar = Boolean(this.objrol);
     this.myForm = this.createForm(this.objrol);
@@ -54,24 +53,26 @@ export class DetalleRolesComponent implements OnInit {
 
   public traerDatosMenu(obj?: any) {
     let modificar = Boolean(obj);
-    this.rolesPrd.getListaModulos(true,this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
-      this.cargando = false;
+    this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
       this.arreglo = datos;
       this.arreglo.forEach(valor => {
         valor.seleccionado = false;
         valor.checked = false;
         valor.previo = false;
+        valor.mostrar = true;
         if (valor.submodulos) {
           valor.submodulos.forEach(valor2 => {
             let primerAuxSubmodulo = true;
             valor2.checked = false;
             valor2.previo = false;
+            valor2.mostrar = true;
             let filtrar: any = [];
             if (modificar) filtrar = Object.values(obj).filter((x: any) => x.submoduloId == valor2.submoduloId);
 
             valor2.permisos?.forEach(valor3 => {
 
               valor3.checked = this.encontrarConcidencias(filtrar, valor3);
+              valor3.mostrar = true;
               valor3.previo = valor3.checked;
               if (valor3.checked) {
                 if (primerAuxSubmodulo) {
@@ -86,6 +87,39 @@ export class DetalleRolesComponent implements OnInit {
           });
         }
       });
+
+
+
+    this.rolesPrd.getPermisosByVersiones(this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos =>{
+        this.cargando = false;
+
+       if(this.usuariosSistemaPrd.getVersionSistema() !== 4 && this.usuariosSistemaPrd.getVersionSistema() !== 1){
+        this.arreglo.forEach(modulo =>{
+          if(modulo.submodulos){
+           let haysubmodulos:any = [];
+           modulo.submodulos.forEach(submodulo =>{
+              let existe = datos.datos.some((obj:any) => obj.submoduloId == submodulo.submoduloId);
+              submodulo.mostrar = existe;
+              haysubmodulos.push(existe);
+              if(submodulo.permisos)
+              {
+
+                submodulo.permisos.forEach(permiso =>{
+                  let existePermisos = datos.datos.some((obj:any) => obj.permisoId == permiso.permisoId);
+                  permiso.mostrar = existePermisos;
+                });
+
+                
+
+              }
+           });
+           modulo.mostrar = haysubmodulos.includes(true);
+          }
+       });
+       }
+
+       
+    });
 
     });
   }
@@ -144,7 +178,7 @@ export class DetalleRolesComponent implements OnInit {
     }
 
 
-   
+
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.rolesPrd.modificarRol(objenviar).subscribe(datos => {
       if (datos.resultado) {
@@ -157,7 +191,7 @@ export class DetalleRolesComponent implements OnInit {
 
             this.rolesPrd.quitarPermisoxModulo(enviarArraySinPermiso).subscribe(sinpermiso => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-              this.modalPrd.showMessageDialog(sinpermiso.resultado,sinpermiso.mensaje).then(() => {
+              this.modalPrd.showMessageDialog(sinpermiso.resultado, sinpermiso.mensaje).then(() => {
                 if (sinpermiso.resultado) {
                   this.routerPrd.navigate(["/rolesypermisos/lista"]);
                 }
@@ -272,14 +306,14 @@ export class DetalleRolesComponent implements OnInit {
             } else {
               if (!item2.checked && item2.previo) {
                 item2.permisos?.forEach(valor => {
-                 if(valor.previo){
-                  objEnviarPermiso.submodulosXpemisos.push(
-                    {
-                      submoduloId: item2.submoduloId,
-                      permisoId: valor.permisoId
-                    }
-                  );
-                 }
+                  if (valor.previo) {
+                    objEnviarPermiso.submodulosXpemisos.push(
+                      {
+                        submoduloId: item2.submoduloId,
+                        permisoId: valor.permisoId
+                      }
+                    );
+                  }
                 });
               }
             }
@@ -290,19 +324,19 @@ export class DetalleRolesComponent implements OnInit {
 
         if (!item.checked && item.previo) {
           item.submodulos?.forEach(valor => {
-           if(valor.previo){
-            let idSubmodulo = valor.submoduloId;
-            valor.permisos?.forEach(valor2 => {
-              if(valor2.previo){
-                objEnviarPermiso.submodulosXpemisos.push(
-                  {
-                    submoduloId: idSubmodulo,
-                    permisoId: valor2.permisoId
-                  }
-                );
-              }
-            });
-           }
+            if (valor.previo) {
+              let idSubmodulo = valor.submoduloId;
+              valor.permisos?.forEach(valor2 => {
+                if (valor2.previo) {
+                  objEnviarPermiso.submodulosXpemisos.push(
+                    {
+                      submoduloId: idSubmodulo,
+                      permisoId: valor2.permisoId
+                    }
+                  );
+                }
+              });
+            }
           });
         }
 
@@ -324,7 +358,6 @@ export class DetalleRolesComponent implements OnInit {
   public get f() {
     return this.myForm.controls;
   }
-
 
 
 

@@ -63,7 +63,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.objdetcat = history.state.data == undefined ? {} : history.state.data;
     this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => this.arregloListaCatalogos = datos.datos);
@@ -183,7 +183,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 15){
-      debugger;
+      
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
       let fecha = new Date();

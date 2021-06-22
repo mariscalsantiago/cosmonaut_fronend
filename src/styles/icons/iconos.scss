@@ -152,4 +152,11 @@
     mask: url($rutaimg) no-repeat center;
 
   }
+  .icon_chat{
+    $rutaimg : '../../assets/icons/ICO_chat.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
 

@@ -6,13 +6,13 @@
       <label>RESULTADOS</label>
     </div>
     <div class="col text-right">
-      <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+      <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
         <i class="fa fa-plus"></i> Agregar cuenta bancaria
       </button>
     </div>
   </div>
   <div class="row margen margen-tabla background-panel scrooll">
-    <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="true"
+    <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="esEditar"
       [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
   </div>
 </div>

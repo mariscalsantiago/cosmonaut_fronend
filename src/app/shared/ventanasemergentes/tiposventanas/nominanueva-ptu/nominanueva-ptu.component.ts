@@ -146,7 +146,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
 
   public  ngOnChanges(changes: SimpleChanges): void{
-        console.log(this.datos);
+        
   }
   public enviarEtapa1() {
 
@@ -180,7 +180,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
         this.modal.showMessageDialog(this.modal.loading);
         this.nominaPrd.crearNomina(objEnviar).subscribe(datos => {
-          console.log(datos,"despues de guardr la nomina");
+          
           this.modal.showMessageDialog(this.modal.loadingfinish);
        
           this.modal.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{

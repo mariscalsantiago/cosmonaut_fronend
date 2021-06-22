@@ -94,10 +94,10 @@ export class DetalleCompanyComponent implements OnInit {
 
 
       this.authUsuariosPrd.getVersionByEmpresa(this.objCompany.centrocClienteId).subscribe(datos =>{
-        console.log("Esta es la version",datos.versionCosmonautId?.versionCosmonautId);
+        
         this.myFormcomp.controls.versioncosmonaut.setValue(datos.datos.versionCosmonautId?.versionCosmonautId);
         this.versionEmpresa = datos.datos;
-        console.log("Version de empresa",datos.datos);
+        
     });
 
 

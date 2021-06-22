@@ -37,6 +37,8 @@ export class DetalleUsuarioComponent implements OnInit {
   public companiasenviar:any = [];
   public arregloRoles: any = [];
 
+  public esClienteEmpresa:boolean = false;
+
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private modalPrd: ModalService, private rolesPrd: RolesService,
@@ -46,42 +48,37 @@ export class DetalleUsuarioComponent implements OnInit {
 
     let fecha = new Date();
     this.fechaActual = datePipe.transform(fecha, 'dd-MMM-y')?.replace(".", "");
+
+    
   }
 
   ngOnInit(): void {
 
+    this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
+    this.insertar = !Boolean(history.state.usuario);
+    this.objusuario = history.state.usuario;
+    this.objusuario = this.objusuario == undefined ? {}:this.objusuario;
+
     this.verificarCompaniasExista();
 
+    
 
+    
 
+  
     this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos => this.arregloRoles = datos.datos);
-
-
-    this.routerActivePrd.params.subscribe(parametros => {
-
-      let id = parametros["idusuario"];
-      this.insertar = id == undefined;
-      if (id != undefined) {
-
-
-        this.usuariosPrd.getById(id).subscribe(datosusuario => {
-          this.objusuario = datosusuario.datos;
-
-          let datePipe = new DatePipe("es-MX");
-          this.objusuario.fechaAlta = (new Date(this.objusuario.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-          this.objusuario.fechaAlta = datePipe.transform(this.objusuario.fechaAlta, "dd-MMM-y")?.replace(".", "");
-          this.myForm = this.createForm((this.objusuario));
-        });
-      }
-    });
-
-
+    
 
     this.objusuario.centrocClienteId = {};
 
 
-    this.myForm = this.createForm((this.objusuario));
+    this.myForm = this.createForm(this.objusuario);
+
+
+    this.routerActivePrd.params.subscribe(params =>{
+      
+    });
 
 
 
@@ -113,15 +110,17 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
       nombre: [obj.nombre, [Validators.required]],
-      apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
-      apellidoMaterno: [obj.apellidoMaterno],
-      correoelectronico: [obj.emailCorporativo, [Validators.required, Validators.email]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : obj.fechaAlta), disabled: true }, [Validators.required]],
-      centrocClienteId: [{ value: obj.centrocClienteId.centrocClienteId, disabled: !this.insertar }, [Validators.required]],
+      apellidoPaterno: [obj.apellidoPat, [Validators.required]],
+      apellidoMaterno: [obj.apellidoMat],
+      correoelectronico: [obj.email, [Validators.required, Validators.email]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta,"dd/MM/yyyy")), disabled: true }, [Validators.required]],
+      centrocClienteId: [obj.centrocClienteId?.centrocClienteId, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: [{ value: obj.personaId, disabled: true }],
-      multicliente: obj.multicliente,
-      rol: { value: obj.rol }
+      multicliente: obj.esMulticliente == undefined ? false:obj.esMulticliente=="Sí",
+      rol:[obj.rolId?.rolId,Validators.required],
+      nombrecliente:{value:this.usuariosSistemaPrd.getUsuario().nombreEmpresa,disabled:true},
+      usuarioId:obj.usuarioId
 
 
     });
@@ -162,13 +161,16 @@ export class DetalleUsuarioComponent implements OnInit {
           apellidoMat: obj.apellidoMaterno,
           email: obj.correoelectronico,
           centrocClienteIds:obj.multicliente?companysend : [obj.centrocClienteId],
-          rolId: obj.rol
+          rolId: obj.rol,
+          esMulticliente:obj.multicliente,
+          usuarioId:obj.usuarioId
         }
 
 
 
 
         if (this.insertar) {
+          delete objAuthEnviar.usuarioId;
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosAuth.guardar(objAuthEnviar).subscribe((datos) => {
@@ -183,19 +185,16 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
         } else {
-          //  objEnviar.personaId = obj.personaId;
-          // objEnviar.centrocClienteId.centrocClienteId = this.objusuario.centrocClienteId.centrocClienteId;
-
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          this.usuariosPrd.modificar(objAuthEnviar).subscribe(datos => {
+        
+          this.usuariosAuth.modificar(objAuthEnviar).subscribe(datos =>{
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            if (datos.resultado) {
-              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-                .then(() => this.routerPrd.navigate(["/usuarios"]));
-            } else {
-              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-            }
-
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+              .then(() => {
+                if (datos.resultado) {
+                  this.routerPrd.navigate(["/usuarios"])
+                }
+              });
           });
         }
       }

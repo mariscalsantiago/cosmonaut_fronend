@@ -7,7 +7,7 @@
 
 <div class="row ml-1">
     <div class="col text-left">
-        <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
+        <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="agregar()">
             <i class="fa fa-plus"></i> Nueva nómina
         </button>
     </div>
@@ -50,14 +50,14 @@
     
                 <nav class="nav-inside">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link " id="nav-home-tab" role="tab" aria-controls="nav-home"
+                        <a *ngIf="esCalcular" class="nav-item nav-link " id="nav-home-tab" role="tab" aria-controls="nav-home"
                             aria-selected="true">1. Calcular</a>
-                        <a class="nav-item nav-link " id="nav-profile-tab" role="tab" aria-controls="nav-profile"
+                        <a *ngIf="esDispersar" class="nav-item nav-link " id="nav-profile-tab" role="tab" aria-controls="nav-profile"
                             aria-selected="false">2. Dispersar</a>
                         <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
-                        <a class="nav-item nav-link " id="nav-contact-tab" role="tab" aria-controls="nav-empleo"
+                        <a *ngIf="esTimbrar" class="nav-item nav-link " id="nav-contact-tab" role="tab" aria-controls="nav-empleo"
                             aria-selected="false">3. Timbrar</a>
-                        <a class="nav-item nav-link " id="nav-contact-tab" role="tab" aria-controls="nav-detalle"
+                        <a  class="nav-item nav-link " id="nav-contact-tab" role="tab" aria-controls="nav-detalle"
                             aria-selected="false">4. Completar</a>
                     </div>
                 </nav>
@@ -78,14 +78,14 @@
                     </div>
                 </div>
             </div>
-            <a (click)="eliminar(item.nominaPtu,indice)" style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle mt-3">
+            <a *ngIf="esEliminar" (click)="eliminar(item.nominaPtu,indice)" style="color:#56dfd4;text-decoration: underline;"  class="dropdown-toggle mt-3">
                 <i style="background-color: #56dfd4 !important;" class="icon_eliminar "></i>
                 Eliminar</a>
     
         </div>
         <div class="col-3 text-right segundaseccion" style="    border-bottom-right-radius: 20px;">
-            <button *ngIf="!item.inicial" (click)="continuar(item)"  class="btn btn-primary button-fill mr-2 mt-2">Continuar</button>
-            <button *ngIf="item.inicial" (click)="calcularNomina(item)" type="button" class="btn btn-primary button-outlet mr-2 mt-2">Calcular</button>
+            <button *ngIf="!item.inicial && esConsultar" (click)="continuar(item)"  class="btn btn-primary button-fill mr-2 mt-2">Continuar</button>
+            <button *ngIf="item.inicial && esCalcular" (click)="calcularNomina(item)" type="button" class="btn btn-primary button-outlet mr-2 mt-2">Calcular</button>
         </div>
         
     </div>

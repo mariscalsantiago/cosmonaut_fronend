@@ -60,7 +60,7 @@
                   </div>
                   <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                     <select name="" class="form-control" [(ngModel)]="id_company">
-                      <option value="0" selected>Seleccionar cliente</option>
+                      <option value="" selected>Seleccionar cliente</option>
                       <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.nombre}}
                       </option>
                     </select>
@@ -96,7 +96,7 @@
         <label>RESULTADOS</label>
       </div>
       <div class="col text-right">
-        <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+        <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
           <i class="fa fa-plus"></i>Agregar
         </button>
       </div>
@@ -113,7 +113,7 @@
     </div>
 
     <div class="row margen margen-tabla background-panel ">
-      <app-tablapaginado [datos]="arreglotabla" [llave]="true" [editar]="true" [checkbox]="true" [cargando]="cargando"
+      <app-tablapaginado [datos]="arreglotabla" [llave]="esEditar" [editar]="esEditar" [checkbox]="esEditar" [cargando]="cargando"
         (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
   </div>
