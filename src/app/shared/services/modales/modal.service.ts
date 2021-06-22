@@ -13,6 +13,7 @@ export class ModalService {
   public loadingfinish: string = "finishloading";
   public question: string = "question";
   public dispersar:string = "dispersar";
+  public variabilidad : string = "variabilidad";
 
   public subject?: Subject<any>;;
 

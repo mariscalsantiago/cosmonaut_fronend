@@ -17,6 +17,9 @@
             <div *ngIf="iconType=='dispersar'" class="containerimg">
                 <img src="assets/icons/ICO_alerta.svg" width="75px" height="75px" alt="" srcset="">
             </div>
+            <div *ngIf="iconType=='variabilidad'" class="containerimg">
+                <img src="assets/icons/ICO_alerta.svg" width="75px" height="75px" alt="" srcset="">
+            </div>
             <div *ngIf="iconType=='loading'" class="modalLoading" [ngClass]="{'transparent':iconType==='loading'}">
                 <div >
                     <img style="width: 195px;" src="assets/imgs/transparente_corto_final.gif" alt="" srcset="">
@@ -36,12 +39,20 @@
                             aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{getCantidad()}}%</div>
                         </div>
                       </div>
-                    <div *ngIf="iconType!=='loading' && iconType!=='dispersar'" class="modal-footer text-center">
+                    <div *ngIf="iconType!=='loading' && iconType!=='dispersar' && iconType!=='variabilidad'" class="modal-footer text-center">
                         <button style="margin:auto" type="button" *ngIf="iconType!='success' && iconType != 'error'"
                             class="btn btn-outline-primary button-outlet" data-dismiss="modal"
                             (click)="cancelar()">Cancelar</button>
                         <button *ngIf="iconType!=='success'" style="margin:auto" type="button" class="btn btn-primary button-fill"
                             (click)="aceptar()">Aceptar</button>
+                    </div>
+                    <div *ngIf="iconType=='variabilidad'" class="modal-footer text-center">
+                        <button style="margin:auto" type="button" *ngIf="iconType!='success' && iconType != 'error'"
+                            class="btn btn-outline-primary button-outlet" data-dismiss="modal"
+                            (click)="cancelar()">Cancelar</button>
+                        <button style="margin:auto" type="button" class="btn btn-primary button-fill"
+                            (click)="aceptar()"><i
+                            class="fas fa-download"></i>Descargar</button>
                     </div>
                 </div>
             </div>
