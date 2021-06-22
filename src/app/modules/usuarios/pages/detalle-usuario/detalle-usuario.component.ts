@@ -172,7 +172,8 @@ export class DetalleUsuarioComponent implements OnInit {
           centrocClienteIds:obj.multicliente?companysend : [obj.centrocClienteId],
           rolId: obj.rol,
           esMulticliente:obj.multicliente,
-          usuarioId:obj.usuarioId
+          usuarioId:obj.usuarioId,
+          esActivo:obj.esActivo
         }
 
 
@@ -180,6 +181,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
         if (this.insertar) {
           delete objAuthEnviar.usuarioId;
+          delete objAuthEnviar.esActivo
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosAuth.guardar(objAuthEnviar).subscribe((datos) => {
