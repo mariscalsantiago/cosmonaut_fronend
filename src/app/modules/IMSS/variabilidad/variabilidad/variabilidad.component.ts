@@ -7,6 +7,9 @@ import { DatePipe } from '@angular/common';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { CompanyService } from 'src/app/modules/company/services/company.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-variabilidad',
@@ -35,11 +38,18 @@ export class VariabilidadComponent implements OnInit {
   public razonSocial: string = "";
   public bimestreLeyenda : any = "";
   public fechaActual: string = "";
-
+  public listaEmpleadosPromedio : boolean = false;
+  
   public arreglotabla: any = {
     columnas: [],
     filas: []
   }
+
+  public arreglotablaListaEmpleadosPromedio: any = {
+    columnas: [],
+    filas: []
+  }
+
   public arreglotablaDesglose:any = {
       columnas:[],
       filas:[]
@@ -57,7 +67,7 @@ export class VariabilidadComponent implements OnInit {
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService, private reportesPrd: ReportesService, 
-    private companyProd: CompanyService, private formBuild: FormBuilder) { }
+    private companyProd: CompanyService, private formBuild: FormBuilder, private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     debugger;
@@ -138,6 +148,7 @@ export class VariabilidadComponent implements OnInit {
   
       this.arreglotabla.columnas = columna;
       this.arreglotabla.filas = this.arreglo
+      this.cargando = false;
     }
 
     public crearTablaListaEmpleadosPromedio(datos:any) {
@@ -148,20 +159,21 @@ export class VariabilidadComponent implements OnInit {
 
       ];
       
-      this.arreglotabla = {
+      this.arreglotablaListaEmpleadosPromedio = {
         columnas:[],
         filas:[]
       }
   
-      if(this.arreglo !== undefined){
-        for(let item of this.arreglo){
+      if(this.arregloListaEmpleadosPromedio !== undefined){
+        for(let item of this.arregloListaEmpleadosPromedio){
           item.nombreCompleto = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
 
         }
       }
   
-      this.arreglotabla.columnas = columna;
-      this.arreglotabla.filas = this.arreglo
+      this.arreglotablaListaEmpleadosPromedio.columnas = columna;
+      this.arreglotablaListaEmpleadosPromedio.filas = this.arreglo
+      this.cargando = false;
     }
 
     public createForm(obj: any) {
@@ -210,12 +222,10 @@ export class VariabilidadComponent implements OnInit {
   public guardarMultiseleccion(obj:any) {
 
     debugger;
-    if(obj == 1){
-      this.mensaje = `¿Deseas descargar el archivo de altas?`;
-    }
-    else if(obj == 2){
-      this.mensaje = `¿Deseas descargar el archivo de modificaciones?`;
-      }
+
+      this.mensaje = `¿Deseas descargar el archivo?`;
+      
+
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, this.mensaje).then(valor => {
       if (valor) {
@@ -225,60 +235,22 @@ export class VariabilidadComponent implements OnInit {
         for (let item of this.arreglo) {
 
           if (item["seleccionado"]) {
-            if(obj==1){
 
               if(item.movimientoImssId ==3){
                 valorAltas.push(item.kardex_colaborador_id);
               }
-            }
-            else if(obj==2){
-              if(item.movimientoImssId ==1 || item.movimientoImssId ==2){
-                valorModif.push(item.kardex_colaborador_id);
-              }
-            }
+
 
           }
         }
-        if(obj==1){
+
           this.arregloSUA = { 
             idEmpresa: this.idEmpresa,
             idKardex: valorAltas
           }
-        }
-
-        if(obj==2){
-          this.arregloSUA = { 
-            idEmpresa: this.idEmpresa,
-            idKardex: valorModif
-          }
-        }
+        
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
-        if(obj == 1){
-        this.reportesPrd.getDescargaLayaoutAltasSUA(this.arregloSUA).subscribe(archivo => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
-          const downloadLink = document.createElement("a");
-          const fileName = `${"Layaout reingresos/altas SUA"}.txt`;
-  
-          downloadLink.href = linkSource;
-          downloadLink.download = fileName;
-          downloadLink.click();
-          if (archivo) {
-            for (let item of this.arregloSUA.idKardex) {
-              for (let item2 of this.arreglo) {
-                if (item2.kardex_colaborador_id === item) {
-                  item2["seleccionado"] = false;
-                  break;
-                }
-              }
-            }
-            this.activarMultiseleccion = false;
-          }
-        });
-      }
-      if(obj == 2){
         this.reportesPrd.getDescargaLayaoutMoficacionSUA(this.arregloSUA).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
@@ -300,7 +272,7 @@ export class VariabilidadComponent implements OnInit {
             this.activarMultiseleccion = false;
           }
         });
-      }
+      
 
       }
     });
@@ -361,24 +333,31 @@ export class VariabilidadComponent implements OnInit {
               
             }
             else if(obj.bimestre == "6to Bimestre"){
-              this.bimestreLeyenda = 6;
+              obj.bimestre = 6;
               
             }
 
               let objEnviar : any = 
               {
-                clienteId: this.idEmpresa,
-                bimestre: obj.bimestre,
-                fechaAplicacion: this.fechaActual,
+                clienteId: 463,
+                bimestre: 3,
+                fechaAplicacion: "2021-06-01",
                 anioFiscal: 2021,
                 usuarioId: 1
               };
 
            
-            this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
                 this.empresasPrd.calculoPromedioVariables(objEnviar).subscribe(datos => {
-    
+                  debugger;
+                  this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
+                  let intervalo = interval(1000);
+                  intervalo.pipe(take(11));
+                  intervalo.subscribe((valor)=>{
+                  this.configuracionesPrd.setCantidad(valor*10);
+                
+                  if(valor == 10){
+                    valor = 0;
+                  this.configuracionesPrd.setCantidad(0);
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
                 this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
@@ -387,6 +366,7 @@ export class VariabilidadComponent implements OnInit {
                       debugger;
                       this.listaVariabilidad = false;
                       this.fromPromediar = false;
+                      this.listaEmpleadosPromedio = true;
                       this.cargando = true;
                       let objLista : any ={
                         variabilidad: datos.datos.variabilidadId
@@ -400,6 +380,8 @@ export class VariabilidadComponent implements OnInit {
                     this.listaVariabilidad = false;
                     this.fromPromediar = true;
                   }  
+                  });
+                }
                   });
               });     
 
