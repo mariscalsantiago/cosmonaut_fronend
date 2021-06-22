@@ -268,7 +268,7 @@ export class CalcularComponent implements OnInit {
       apellidoMaterno: this.apellidoMaterno,
       apellidoPaterno: this.apellidoPaterno,
       nombreEmpleado: this.nombre,
-      rfc: this.reportesPrd
+      rfc: this.rfc
     }
 
 

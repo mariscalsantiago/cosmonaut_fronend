@@ -44,17 +44,7 @@ export class NominafiniquitoliquidacionService {
   }
 
 
-  public getUsuariosCalculadosFiltrado(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-    let json: string = JSON.stringify(obj);
-   // return this.creandoObservable(finiquitoUsuariosCalculados);
-    return this.http.post(`${direcciones.nominaLiquidacion}/lista/empleados/total/pago/neto/liquidacion/filtrar`, json, httpOptions);
-
-  }
+  
   public getUsuariosCalculados(obj:any):Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -64,6 +54,18 @@ export class NominafiniquitoliquidacionService {
     let json: string = JSON.stringify(obj);
    // return this.creandoObservable(finiquitoUsuariosCalculados);
     return this.http.post(`${direcciones.nominaLiquidacion}/lista/empleados/total/pago/neto/liquidacion`, json, httpOptions);
+
+  }
+
+  public getUsuariosCalculadosFiltrado(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+   // return this.creandoObservable(finiquitoUsuariosCalculados);
+    return this.http.post(`${direcciones.nominaLiquidacion}/lista/empleados/total/pago/neto/liquidacion/filtrar`, json, httpOptions);
 
   }
 
@@ -93,6 +95,19 @@ export class NominafiniquitoliquidacionService {
 
   }
 
+  public getUsuariosDispersionFiltrar(obj:any):Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+   // return this.creandoObservable(finiquitoUsuariosDispersion);
+   return this.http.post(`${direcciones.nominaLiquidacion}/lista/empleados/fechabaja/percepciones/deducciones/liquidacion/filtrar`, json, httpOptions);
+
+  }
+
 
   public getUsuariosTimbrado(obj:any):Observable<any> {
 
@@ -104,6 +119,19 @@ export class NominafiniquitoliquidacionService {
     let json: string = JSON.stringify(obj);
    // return this.creandoObservable(finiquitoUsuariosTimbrado);
     return this.http.post(`${direcciones.nominaLiquidacion}/lista/empleados/total/pagoneto/timbrado/liquidacion`, json, httpOptions);
+
+  }
+
+  public getUsuariosTimbradoFiltrar(obj:any):Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+   // return this.creandoObservable(finiquitoUsuariosTimbrado);
+    return this.http.post(`${direcciones.nominaLiquidacion}/lista/empleados/total/pagoneto/timbrado/liquidacion/filtrar`, json, httpOptions);
 
   }
 
