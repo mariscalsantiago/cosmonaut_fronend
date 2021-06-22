@@ -152,9 +152,16 @@
                          <app-tablapaginado [datos]="arreglotablaListaEmpleadosPromedio" [cargando]="cargando" ></app-tablapaginado>
                       </div>
     
+
+                    <br>
     
+                    <div class="text-center margin" style="margin-bottom: 20px;">
     
-    
+                        <button type="button" (click)="cancelarPromedio()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                        
+                        <button (click)="aplicarPromedio()" class="btn btn-primary button-fill">Aplicar</button>
+                    </div>
+
                 </div>
     
             </div>
@@ -163,6 +170,7 @@
     
     
     </div>
+    
 </div>
 
 

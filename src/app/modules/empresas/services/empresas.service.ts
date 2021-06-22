@@ -114,6 +114,19 @@ export class EmpresasService {
   
   }
 
+  public aplicarPromedioVariables(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+  
+    
+    return this.http.post(`${direcciones.variabilidad}/aplicar/promedio/variables`,json,httpOptions);
+  
+  }
+
   public filtrarVariabilidad(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
