@@ -114,7 +114,7 @@ export class DetalleUsuarioComponent implements OnInit {
       apellidoMaterno: [obj.apellidoMat],
       correoelectronico: [obj.email, [Validators.required, Validators.email]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta,"dd/MM/yyyy")), disabled: true }, [Validators.required]],
-      centrocClienteId: [obj.centrocClienteId?.centrocClienteId, [Validators.required]],
+      centrocClienteId: [obj.centrocClientes[0].centrocClienteId, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: [{ value: obj.personaId, disabled: true }],
       multicliente: obj.esMulticliente == undefined ? false:obj.esMulticliente=="Sí",

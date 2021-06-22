@@ -33,6 +33,13 @@ export class PagarComponent implements OnInit {
   public nominaPtu:boolean = false;
   public llave: string = "";
 
+
+  public rfc: string = "";
+  public nombre: string = "";
+  public apellidoPaterno: string = "";
+  public apellidoMaterno: string = "";
+  public numeroempleado: string = "";
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -219,7 +226,53 @@ export class PagarComponent implements OnInit {
 
 
   public filtrar(){
-    
+    let objenviar = {
+      nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
+      numeroempleado: this.numeroempleado,
+      apellidoMaterno: this.apellidoMaterno,
+      apellidoPaterno: this.apellidoPaterno,
+      nombreEmpleado: this.nombre,
+      rfc: this.rfc
+    }
+
+
+    this.cargando = true;
+
+    if (this.nominaSeleccionada.nominaOrdinaria) {
+
+      this.nominaOrdinariaPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.crearTabla(datos,"empleadoApago");
+
+      });
+
+    } if (this.nominaSeleccionada.nominaExtraordinaria) {
+      this.nominaAguinaldoPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.crearTabla(datos,"empleadoApagoAguinaldo");
+
+      });
+
+    } else if (this.nominaSeleccionada.nominaLiquidacion) {
+      this.nominaLiquidacionPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.crearTabla(datos,"empleadoApagoLiquidacion");
+
+      });
+    } else if (this.nominaSeleccionada.nominaPtu) {
+
+
+      this.nominaPtuPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.crearTabla(datos,"empleadoApagoPtu");
+
+      });
+
+    }
   }
 
 }
