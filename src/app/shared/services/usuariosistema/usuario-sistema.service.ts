@@ -35,6 +35,12 @@ export class UsuarioSistemaService {
     return this.usuario.centrocClienteId;
   }
 
+  public esCliente() {
+    if(localStorage["usuario"] !== undefined){
+    this.usuario = this.usuario.esCliente == undefined  ? JSON.parse(localStorage["usuario"]):this.usuario;}
+    return Boolean(this.usuario.esCliente);
+  }
+
   public getRol(): string {
     let idTipoPersona = 3234;
     let rol:string = "";
@@ -89,8 +95,13 @@ export class UsuarioSistemaService {
 
   public enviarCorreorecuperacion(obj:any):Observable<any>{
     let json = JSON.stringify(obj);
+    const httpOptions = {
+      headers:new HttpHeaders({
+        "Content-Type":"application/json"
+      })
+    };
 
-    return this.http.post(`${direcciones.usuariosAuth}/reestablecerPwd`,json);
+    return this.http.post(`${direcciones.usuariosAuth}/reestablecerPwd`,json,httpOptions);
   }
 
 
@@ -133,6 +144,8 @@ export class usuarioClass {
   public razonSocial!:string;
   public nombreEmpresa!:string;
   public multiempresa!:boolean;
+  public esCliente!:boolean;
+  public centrocClienteIdPadre!:number;
 
 }
 
