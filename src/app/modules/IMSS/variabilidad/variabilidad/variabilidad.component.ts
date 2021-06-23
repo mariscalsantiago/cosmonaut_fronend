@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { truncate } from 'fs';
 
 @Component({
   selector: 'app-variabilidad',
@@ -38,7 +39,8 @@ export class VariabilidadComponent implements OnInit {
   public razonSocial: string = "";
   public bimestreLeyenda : any = "";
   public fechaActual: string = "";
-  public listaEmpleadosPromedio : boolean = false;
+  public listaPromedio : boolean = false;
+  public listaVariable : boolean = true;
 
   public apellidoPat:string = "";
   
@@ -155,7 +157,7 @@ export class VariabilidadComponent implements OnInit {
 
     public aplicarPromedio(){
 
-      this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Aplicar promedio de variables","Este cálculo afectará a las futuras nóminas del bimestre y permanecerá sin ser editable.").then(valor =>{
+      this.modalPrd.showMessageDialog(this.modalPrd.warning,"Aplicar promedio de variables","Este cálculo afectará a las futuras nóminas del bimestre y permanecerá sin ser editable.").then(valor =>{
         
           if(valor){
             
@@ -170,9 +172,9 @@ export class VariabilidadComponent implements OnInit {
 
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
-                this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
-                  .then(()=> {
-                     if (!datos.resultado) {
+                this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de varibales completo").then(valor =>{
+        
+                  if (!datos.resultado) {
                       debugger;
 
                   } else{
@@ -334,13 +336,15 @@ export class VariabilidadComponent implements OnInit {
   public cancelar(){
     this.listaVariabilidad = true;
     this.fromPromediar = false;
+    this.listaVariable = true;
+    this.listaPromedio = false;
 
   }
 
   public cancelarPromedio(){
     this.listaVariabilidad = false;
     this.fromPromediar = true;
-    this.listaEmpleadosPromedio = false;
+
 
   }
 
@@ -414,9 +418,10 @@ export class VariabilidadComponent implements OnInit {
                   //.then(()=> {
                      if (!datos.resultado) {
                       debugger;
-                      this.listaVariabilidad = false;
+                      this.listaVariabilidad = true;
                       this.fromPromediar = false;
-                      this.listaEmpleadosPromedio = true;
+                      this.listaPromedio = true;
+                      this.listaVariable = false;
                       this.cargando = true;
                       let objLista : any ={
                         //variabilidad: datos.datos.variabilidadId
@@ -424,7 +429,7 @@ export class VariabilidadComponent implements OnInit {
                       }
                                                             
                       this.empresasPrd.listaEmpleadosPromedioVariables(objLista).subscribe(datos => {
-                       
+                      
                       this.crearTablaListaEmpleadosPromedio(datos.datos);
                     });
                   } else{

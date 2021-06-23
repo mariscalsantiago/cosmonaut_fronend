@@ -66,8 +66,8 @@
 
                 <div class="mt-2">
 
-                    <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
-                    <div class="form group row margen">
+                    <div class="form-group margen row " *ngIf="listaVariable"><label class="titulo">BÚSQUEDA</label></div>
+                    <div class="form group row margen" *ngIf="listaVariable">
                         <div class=" input-group-sm mb-3 col-3 ">
                             <select class="form-control" [(ngModel)]="razonSocial" name="">
                                 <option value="0" selected >Razón social</option>
@@ -80,7 +80,7 @@
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
                             <input  type="text" class="form-control" placeholder="Filtrar por bimestre">
-                            <input type="text" class="form-control" [(ngModel)]="apellidoPat" placeholder="Filtrar por bimestre">
+                            
                         </div>
 
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
@@ -95,63 +95,33 @@
                         <div class="col titulo">
                             <label>RESULTADOS</label>
                         </div>
-                        <div class="row text-right margin botonmultiseleccion">
+                        <div class="row text-right margin botonmultiseleccion" *ngIf="listaVariable">
                             <button (click)="promedioVariabilidad()" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Promediar variables</span>
                             </button>
 
                         </div>
+                        <div class="row text-right margin botonmultiseleccion" *ngIf="listaPromedio">
+                            <button (click)="guardarMultiseleccion(1)" type="button"
+                            class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar reporte</span>
+                          </button>
+
+                      </div>
 
                     </div>
 
 
-                    <div class="   margen-tabla background-panel ">
+                    <div class="   margen-tabla background-panel " *ngIf="listaVariable">
                         <br>
                         <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
                     </div>
 
-
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-<div class="scrooll-design" style="margin-top: -22px;" *ngIf="listaEmpleadosPromedio">
-    <div class="margen ">
-
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
-    
-                <div class="mt-2">
-    
- 
-                    
-                    <div class="row margen">
-                        <div class="col titulo">
-                          <label>RESULTADOS</label>
-                        </div>
-                        
-                        <div class="row text-right margin botonmultiseleccion">
-                              <button (click)="guardarMultiseleccion(1)" type="button"
-                              class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar reporte</span>
-                            </button>
-
-                        </div>
-                        
-                    </div>
-    
-    
-                      <div class="   margen-tabla background-panel ">
+                    <div class="   margen-tabla background-panel " *ngIf="listaPromedio">
                         <br>
-                         <app-tablapaginado [datos]="arreglotablaListaEmpleadosPromedio" [cargando]="cargando" ></app-tablapaginado>
-                      </div>
-    
-
+                        <app-tablapaginado [datos]="arreglotablaListaEmpleadosPromedio" [cargando]="cargando" ></app-tablapaginado>
+                    </div>
                     <br>
     
-                    <div class="text-center margin" style="margin-bottom: 20px;">
+                    <div class="text-center margin" style="margin-bottom: 20px;" *ngIf="listaPromedio">
     
                         <button type="button" (click)="cancelarPromedio()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
                         
@@ -159,17 +129,8 @@
                     </div>
 
                 </div>
-    
+
             </div>
-    
-        </div>
-    
-    
-    </div>
-    
+
 </div>
 
-
-
-    </div>
-</div>
