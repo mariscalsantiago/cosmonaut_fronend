@@ -76,7 +76,7 @@ export class ListasTablaValoresComponent implements OnInit {
     private tablavaloresProd:TablaValoresService, private ventana:VentanaemergenteService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    debugger;
+    this.establecerPermisos();
     
     this.activateRouter.params.subscribe(datos => {
       

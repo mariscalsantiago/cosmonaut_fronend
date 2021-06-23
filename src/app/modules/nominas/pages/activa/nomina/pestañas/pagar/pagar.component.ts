@@ -123,6 +123,7 @@ export class PagarComponent implements OnInit {
       new tabla("tipopago", "Tipo de pago", false, false, true),
       new tabla("status", "Estatus ", false, false, true)
     ];
+   if(this.arreglo !== undefined){
     for (let item of this.arreglo) {
       item["nombrecompleto"] = item[llave].nombreEmpleado + " " + item[llave].apellidoPatEmpleado + " ";
       item["nombrecompleto"] += (item[llave].apellidoMatEmpleado == undefined) ? "" : item[llave].apellidoMatEmpleado;
@@ -131,7 +132,8 @@ export class PagarComponent implements OnInit {
       item["tipopago"] = item[llave].tipoPago;
       item["total"] = this.cp.transform(item[llave].totalNetoEndinero);
       item["status"] = item[llave].status;
-    }
+    }   
+  }
     let filas: Array<any> = this.arreglo;
     this.arreglotabla = {
       columnas: columnas,
@@ -240,7 +242,7 @@ export class PagarComponent implements OnInit {
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
 
-      this.nominaOrdinariaPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+      this.nominaOrdinariaPrd.getUsuariosDispersionFiltrar(objenviar).subscribe(datos => {
         this.cargando = false;
         this.arreglo = datos.datos;
         this.crearTabla(datos,"empleadoApago");
@@ -248,7 +250,7 @@ export class PagarComponent implements OnInit {
       });
 
     } if (this.nominaSeleccionada.nominaExtraordinaria) {
-      this.nominaAguinaldoPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+      this.nominaAguinaldoPrd.getUsuariosDispersionFiltrar(objenviar).subscribe(datos => {
         this.cargando = false;
         this.arreglo = datos.datos;
         this.crearTabla(datos,"empleadoApagoAguinaldo");
@@ -256,7 +258,7 @@ export class PagarComponent implements OnInit {
       });
 
     } else if (this.nominaSeleccionada.nominaLiquidacion) {
-      this.nominaLiquidacionPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+      this.nominaLiquidacionPrd.getUsuariosDispersionFiltrar(objenviar).subscribe(datos => {
         this.cargando = false;
         this.arreglo = datos.datos;
         this.crearTabla(datos,"empleadoApagoLiquidacion");
@@ -265,7 +267,7 @@ export class PagarComponent implements OnInit {
     } else if (this.nominaSeleccionada.nominaPtu) {
 
 
-      this.nominaPtuPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+      this.nominaPtuPrd.getUsuariosDispersionFiltrar(objenviar).subscribe(datos => {
         this.cargando = false;
         this.arreglo = datos.datos;
         this.crearTabla(datos,"empleadoApagoPtu");

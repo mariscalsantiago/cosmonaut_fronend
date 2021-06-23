@@ -14,6 +14,8 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
   styleUrls: ['./informacionempresa.component.scss']
 })
 export class InformacionempresaComponent implements OnInit {
+ //tooltip = "A través de esta clave alfanumérica de 13 caracteres, el SAT puede identificar quién pagó los ingresos que recibieron los empleados."
+   //tooltip = "Clave Única de Registro de Población (CURP).\nClave alfanumérica de 18 caracteres."
   @ViewChild("nombre") public nombre!: ElementRef;
 
   @ViewChild("key") public inputkey!: ElementRef;

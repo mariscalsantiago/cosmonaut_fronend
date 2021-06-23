@@ -20,7 +20,7 @@ export class EmpresasComponent implements OnInit {
 
 
   public activado = [
-    { tab: true, form: true, disabled: false },
+    { tab: true, form: false, disabled: false },
     { tab: false, form: false, disabled: false },
     { tab: false, form: false, disabled: false },
     { tab: false, form: false, disabled: false },

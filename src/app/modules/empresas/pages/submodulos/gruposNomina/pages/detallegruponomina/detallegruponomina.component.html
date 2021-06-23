@@ -2,139 +2,133 @@
 <hr>
 <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
 
-  <input type="hidden" formControlName="grupoNominaId">
+    <input type="hidden" formControlName="grupoNominaId">
 
-  <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
-    <br>
-    <div class="form-group row margen">
-      <label class="titulo">INFORMACIÓN DE GRUPOS DE NÓMINA</label>
-    </div>
-    <div class="form-group row margen">
-
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Nombre de grupo de nómina *</label>
-        <input #nombre formControlName="nombre" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}"  type="text" class="form-control" placeholder="">
-        <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
-          Campo requerido
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
+        <br>
+        <div class="form-group row margen">
+            <label class="titulo">INFORMACIÓN DE GRUPOS DE NÓMINA</label>
         </div>
-      </div>
+        <div class="form-group row margen">
 
-    
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Razón social *</label>
-        <select formControlName="centrocClienteId" [ngClass]="{'is-invalid':f.centrocClienteId.errors && submitInvalido}" class="form-control disabled">
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Nombre de grupo de nómina *</label>
+                <input #nombre formControlName="nombre" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}" type="text" class="form-control" placeholder="">
+                <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Razón social *</label>
+                <select formControlName="centrocClienteId" [ngClass]="{'is-invalid':f.centrocClienteId.errors && submitInvalido}" class="form-control disabled">
           <option *ngFor="let item of arreglocompany" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
         </select>
-        <div *ngIf="submitInvalido && f.centrocClienteId.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Cuenta bancaria *</label>
-        <select formControlName="clabe" [ngClass]="{'is-invalid':f.clabe.errors && submitInvalido}" class="form-control">
+                <div *ngIf="submitInvalido && f.centrocClienteId.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Cuenta bancaria *</label>
+                <select formControlName="clabe" [ngClass]="{'is-invalid':f.clabe.errors && submitInvalido}" class="form-control">
           <option *ngFor="let item of arregloCuentasBancarias" [value]="item.cuentaBancoId">{{item.nombreCuenta}}</option>
         </select>
-        <div *ngIf="submitInvalido && f.clabe.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Moneda *</label>
-        <select formControlName="monedaId" [ngClass]="{'is-invalid':f.monedaId.errors && submitInvalido}" class="form-control">
+                <div *ngIf="submitInvalido && f.clabe.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Moneda *</label>
+                <select formControlName="monedaId" [ngClass]="{'is-invalid':f.monedaId.errors && submitInvalido}" class="form-control">
           <option *ngFor="let item of arregloMonedas" [value]="item.monedaId">{{item.descripcion}}</option>
         </select>
-        <div *ngIf="submitInvalido && f.monedaId.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Periodo de nómina *</label>
-        <select #periodopago formControlName="periodicidadPagoId" [ngClass]="{'is-invalid':f.periodicidadPagoId.errors && submitInvalido}" class="form-control">
+                <div *ngIf="submitInvalido && f.monedaId.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Periodo de nómina *</label>
+                <select #periodopago formControlName="periodicidadPagoId" [ngClass]="{'is-invalid':f.periodicidadPagoId.errors && submitInvalido}" class="form-control">
           <option *ngFor="let item of arregloPeriocidadPago" [value]="item.periodicidadPagoId">{{item.descripcion}}</option>
         </select>
-        <div *ngIf="submitInvalido && f.periodicidadPagoId.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div *ngIf="periodopago.value == '04'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label class="contenedorInputCheckRadio">Ajuste de ISR
+                <div *ngIf="submitInvalido && f.periodicidadPagoId.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="periodopago.value == '04'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label class="contenedorInputCheckRadio">Ajuste de ISR
           <input formControlName="ajustedeisr" #ajusteisr (click)="activar(ajusteisr)" id="ajustedeisr" type="checkbox">
           <span class="checkmark"></span>
-        </label>      
-        
-     </div>
-      <div *ngIf="activadoISR"  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
-        <label >Ajustar base gravable del mes de periodos ordinarios faltantes.</label>
-        <label class="contenedorInputCheckRadio">Sí
+        </label>
+
+            </div>
+            <div *ngIf="activadoISR" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
+                <label>Ajustar base gravable del mes de periodos ordinarios faltantes.</label>
+                <label class="contenedorInputCheckRadio">Sí
           <input value="true" formControlName="ajustarBaseGravableFaltantes" checked type="radio" name="ajustarBaseGravableFaltantes" id="">
           <span class="radiomark"></span>
         </label>
-        <label class="contenedorInputCheckRadio">No
+                <label class="contenedorInputCheckRadio">No
           <input value="false" formControlName="ajustarBaseGravableFaltantes" type="radio" name="ajustarBaseGravableFaltantes" id="">
           <span class="radiomark"></span>
         </label>
-        
-         
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Calcular periodo de nómina con base a *</label>
-        <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
+
+
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'calculosConBase' | tooltip">
+                <label>Calcular periodo de nómina con base a *</label>
+                <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
           <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.descripcion}}</option>
         </select>
-        <div *ngIf="submitInvalido && f.basePeriodoId.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Periodo para pago de aguinaldo *</label>
-        <select formControlName="periodoAguinaldoId" [ngClass]="{'is-invalid':f.periodoAguinaldoId.errors && submitInvalido}" class="form-control">
+                <div *ngIf="submitInvalido && f.basePeriodoId.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Periodo para pago de aguinaldo *</label>
+                <select formControlName="periodoAguinaldoId" [ngClass]="{'is-invalid':f.periodoAguinaldoId.errors && submitInvalido}" class="form-control">
           <option *ngFor="let item of arregloCatPeriodosAguinaldo" [value]="item.periodoAguinaldoId">{{item.descripcion}}</option>
         </select>
-        <div *ngIf="submitInvalido && f.periodoAguinaldoId.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Calcular subsidio al empleo de manera :</label><br>
-        <label class="contenedorInputCheckRadio">Periódica
+                <div *ngIf="submitInvalido && f.periodoAguinaldoId.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Calcular subsidio al empleo de manera :</label><br>
+                <label class="contenedorInputCheckRadio">Periódica
           <input name="maneraCalcularSubsidio" formControlName="maneraCalcularSubsidio" type="radio" value="periodica" [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" >
           <span class="radiomark"></span>
-        </label>   
-        <label class="contenedorInputCheckRadio">Diaria
+        </label>
+                <label class="contenedorInputCheckRadio">Diaria
           <input name="maneraCalcularSubsidio" formControlName="maneraCalcularSubsidio" type="radio" value="diaria"   [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" >
           <span class="radiomark"></span>
         </label>
-        <div *ngIf="submitInvalido && f.maneraCalcularSubsidio.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label class="contenedorInputCheckRadio">Pago complementario
+                <div *ngIf="submitInvalido && f.maneraCalcularSubsidio.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label class="contenedorInputCheckRadio">Pago complementario
           <input formControlName="pagoComplementario" id="pagoComplementario" type="checkbox">
           <span class="checkmark"></span>
-        </label>      
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
+        </label>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'calcularISR' | tooltip">
+                <label class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
           <input formControlName="esIsrAguinaldoReglamento" id="esIsrAguinaldoReglamento" type="checkbox">
           <span class="checkmark"></span>
-        </label>      
-      </div>
+        </label>
+            </div>
+
+        </div>
+
+
 
     </div>
-
-
-
-  </div>
-  <div class="text-center margin" style="margin-bottom: 20px;">
-    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
-      (click)="cancelar()">Cancelar</button>
-    <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
-  </div>
+    <div class="text-center margin" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>
 
 </form>
-
-
-
-
-

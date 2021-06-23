@@ -39,6 +39,8 @@ export class VariabilidadComponent implements OnInit {
   public bimestreLeyenda : any = "";
   public fechaActual: string = "";
   public listaEmpleadosPromedio : boolean = false;
+
+  public apellidoPat:string = "";
   
   public arreglotabla: any = {
     columnas: [],
@@ -238,7 +240,7 @@ export class VariabilidadComponent implements OnInit {
 
   public filtrar() {
 
-    debugger;
+   // debugger;
 
     this.cargando = true;
 
@@ -248,7 +250,7 @@ export class VariabilidadComponent implements OnInit {
 
         };
    
-  debugger;
+  //debugger;
   this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 

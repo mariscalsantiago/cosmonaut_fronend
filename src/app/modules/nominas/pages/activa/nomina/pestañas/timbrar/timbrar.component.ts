@@ -268,9 +268,10 @@ export class TimbrarComponent implements OnInit {
 
 
   public filtrar(){
+
   
     let objenviar = {
-      nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
+      nominaXperiodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
       numeroempleado: this.numeroempleado,
       apellidoMaterno: this.apellidoMaterno,
       apellidoPaterno: this.apellidoPaterno,
@@ -280,10 +281,11 @@ export class TimbrarComponent implements OnInit {
 
 
     this.cargando = true;
+    debugger;
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
 
-      this.nominaOrdinariaPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+      this.nominaOrdinariaPrd.getUsuariosTimbradoFiltrar(objenviar).subscribe(datos => {
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenarTablas(datos);
@@ -291,7 +293,7 @@ export class TimbrarComponent implements OnInit {
       });
 
     } if (this.nominaSeleccionada.nominaExtraordinaria) {
-      this.nominaAguinaldoPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+      this.nominaAguinaldoPrd.getUsuariosTimbradoFiltrar(objenviar).subscribe(datos => {
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenarTablas(datos);
@@ -299,7 +301,7 @@ export class TimbrarComponent implements OnInit {
       });
 
     } else if (this.nominaSeleccionada.nominaLiquidacion) {
-      this.nominaLiquidacionPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+      this.nominaLiquidacionPrd.getUsuariosTimbradoFiltrar(objenviar).subscribe(datos => {
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenarTablas(datos);
@@ -308,7 +310,7 @@ export class TimbrarComponent implements OnInit {
     } else if (this.nominaSeleccionada.nominaPtu) {
 
 
-      this.nominaPtuPrd.getUsuariosCalculadosFiltrado(objenviar).subscribe(datos => {
+      this.nominaPtuPrd.getUsuariosTimbradoFiltrar(objenviar).subscribe(datos => {
         this.cargando = false;
         this.arreglo = datos.datos;
         this.rellenarTablas(datos);

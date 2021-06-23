@@ -1,48 +1,47 @@
 <div class="m-3">
-  <div class="row">
-    <div class="col titulo-outlet">
-      <label>{{titulo}}</label>
+    <div class="row">
+        <div class="col titulo-outlet">
+            <label>{{titulo}}</label>
+        </div>
     </div>
-  </div>
 </div>
 
 
-  <div id="perfilEmpleada" *ngIf="ocultarempleada" style="    height: 70px;" class=" background-panel">
+<div id="perfilEmpleada" *ngIf="ocultarempleada" style="    height: 70px;" class=" background-panel">
 
 
     <div (click)="subirFotoperfil();" class="marginImage alinear">
-      <img style="border-radius: 50%;" width="60px" height="60px" [src]="elEmpleado.url" alt="..." class="tableimg">
-      <br>
-      <span class="estilolink">Subir foto de perfil</span>
+        <img style="border-radius: 50%;" width="60px" height="60px" [src]="elEmpleado.url" alt="..." class="tableimg">
+        <br>
+        <span class="estilolink">Subir foto de perfil</span>
     </div>
     <div class="alinear ml-3" style="font-size: 12px;width: 50%;">
-      <div class="contenedorflex">
-        <div class="elementoitem">
-          <i style="    border: 1px solid black;
+        <div class="contenedorflex">
+            <div class="elementoitem">
+                <i style="    border: 1px solid black;
         border-radius: 100%;
         padding: 2px;" class="fas fa-dollar-sign"></i> &nbsp; {{datosPersona.contratoColaborador?.sueldoBrutoMensual | currency:'$'}}
-        </div>
-        <div class="elementoitem">
+            </div>
+            <div class="elementoitem">
 
-         &nbsp;
-        </div>
-        <div class="elementoitem">
+                &nbsp;
+            </div>
+            <div class="elementoitem">
 
 
-          <i class="fas fa-user"></i> &nbsp;{{datosPersona.contratoColaborador?.puestoId?.descripcion}}
+                <i class="fas fa-user"></i> &nbsp;{{datosPersona.contratoColaborador?.puestoId?.descripcion}}
 
+            </div>
+            <div class="elementoitem">
+                <i class="fas fa-phone-alt"></i> &nbsp;{{datosPersona.contratoColaborador?.personaId?.contactoInicialTelefono}}
+            </div>
         </div>
-        <div class="elementoitem">
-          <i class="fas fa-phone-alt"></i> &nbsp;{{datosPersona.contratoColaborador?.personaId?.contactoInicialTelefono}}
-        </div>
-      </div>
 
     </div>
     <div class="alinear" style="width: 24%;    margin-top: 35px;">
-      <div class="progress">
-        <div class="progress-bar primary-bg" role="progressbar" [style.width]="porcentaje?.porcentaje+'%'"
-          aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{porcentaje?.porcentaje}}%</div>
-      </div>
+        <div class="progress">
+            <div class="progress-bar primary-bg" role="progressbar" [style.width]="porcentaje?.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{porcentaje?.porcentaje}}%</div>
+        </div>
     </div>
     <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div>
     <a (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
@@ -52,7 +51,7 @@
       </div>
     </a>
 
-  </div>
+</div>
 
 
 
@@ -61,60 +60,46 @@
 
 
 <div class="form-desing mt-3">
-  <div class="row m-1 background-panel background-ajustar" appTamanioVentana [pixeles]="180">
+    <div class="row m-1 background-panel background-ajustar" appTamanioVentana [pixeles]="180">
 
 
-    <div class="col-12 margennav">
+        <div class="col-12 margennav">
 
-      <nav class="nav-inside">
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a (click)="backTab(0)" class="nav-item nav-link "
-            [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab" role="tab"
-            aria-controls="nav-home" aria-selected="true">1. Información básica</a>
-          <a (click)="backTab(1)" class="nav-item nav-link "
-            [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}"
-            id="nav-profile-tab" role="tab" aria-controls="nav-profile" aria-selected="false">2. Domicilio</a>
-          <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
-          <a (click)="backTab(3)" class="nav-item nav-link "
-            [ngClass]="{'activado':activado[3].tab,'disabled':activado[3].disabled,'selecciona':activado[3].seleccionado}"
-            id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">3. Información de
+            <nav class="nav-inside">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a (click)="backTab(0)" class="nav-item nav-link " [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab" role="tab" aria-controls="nav-home" aria-selected="true">1. Información básica</a>
+                    <a (click)="backTab(1)" class="nav-item nav-link " [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}" id="nav-profile-tab" role="tab" aria-controls="nav-profile" aria-selected="false">2. Domicilio</a>
+                    <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
+                    <a (click)="backTab(3)" class="nav-item nav-link " [ngClass]="{'activado':activado[3].tab,'disabled':activado[3].disabled,'selecciona':activado[3].seleccionado}" id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">3. Información de
             empleo</a>
-          <a (click)="backTab(4)" class="nav-item nav-link "
-            [ngClass]="{'activado':activado[4].tab,'disabled':activado[4].disabled,'ocultar':ocultarDetalleTransfrencia,'selecciona':activado[4].seleccionado}"
-            id="nav-contact-tab" role="tab" aria-controls="nav-detalle" aria-selected="false">4. Detalle de la
+                    <a (click)="backTab(4)" class="nav-item nav-link " [ngClass]="{'activado':activado[4].tab,'disabled':activado[4].disabled,'ocultar':ocultarDetalleTransfrencia,'selecciona':activado[4].seleccionado}" id="nav-contact-tab" role="tab" aria-controls="nav-detalle"
+                        aria-selected="false">4. Detalle de la
             cuenta</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <app-informacionbasica *ngIf="activado[0].form" (enviado)="recibir($event)" [datosPersona]="tabsEnviar">
+                    </app-informacionbasica>
+                </div>
+                <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <app-domicilio *ngIf="activado[1].form" (enviado)="recibir($event)" [tabsDatos]="tabsEnviar" [datosPersona]="datosPersona"></app-domicilio>
+                </div>
+                <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <app-preferencias *ngIf="activado[2].form" (enviado)="recibir($event)" [datosPersona]="datosPersona">
+                    </app-preferencias>
+                </div>
+                <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel" aria-labelledby="nav-empleo-tab">
+                    <app-empleo *ngIf="activado[3].form" (enviado)="recibir($event)" [tabsDatos]="tabsEnviar" [datosPersona]="datosPersona" [arregloEnviar]="tabsEnviar"></app-empleo>
+                </div>
+                <div class="tab-pane fade" [ngClass]="{'show active':activado[4].form}" id="nav-detalle" role="tabpanel" aria-labelledby="nav-detalle-tab">
+                    <app-detalle *ngIf="activado[4].form" (enviado)="recibir($event)" [datosPersona]="datosPersona"></app-detalle>
+                </div>
+            </div>
         </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel"
-          aria-labelledby="nav-home-tab">
-          <app-informacionbasica *ngIf="activado[0].form" (enviado)="recibir($event)" [datosPersona]="tabsEnviar">
-          </app-informacionbasica>
-        </div>
-        <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel"
-          aria-labelledby="nav-profile-tab">
-          <app-domicilio *ngIf="activado[1].form" (enviado)="recibir($event)" [tabsDatos]="tabsEnviar"
-            [datosPersona]="datosPersona"></app-domicilio>
-        </div>
-        <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel"
-          aria-labelledby="nav-contact-tab">
-          <app-preferencias *ngIf="activado[2].form" (enviado)="recibir($event)" [datosPersona]="datosPersona">
-          </app-preferencias>
-        </div>
-        <div class="tab-pane fade" [ngClass]="{'show active':activado[3].form}" id="nav-empleo" role="tabpanel"
-          aria-labelledby="nav-empleo-tab">
-          <app-empleo *ngIf="activado[3].form" (enviado)="recibir($event)" [tabsDatos]="tabsEnviar"
-            [datosPersona]="datosPersona" [arregloEnviar]="tabsEnviar"></app-empleo>
-        </div>
-        <div class="tab-pane fade" [ngClass]="{'show active':activado[4].form}" id="nav-detalle" role="tabpanel"
-          aria-labelledby="nav-detalle-tab">
-          <app-detalle *ngIf="activado[4].form" (enviado)="recibir($event)" [datosPersona]="datosPersona"></app-detalle>
-        </div>
-      </div>
+
+
+
+
     </div>
-
-
-
-
-  </div>
 </div>
