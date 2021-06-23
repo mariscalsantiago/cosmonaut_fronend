@@ -75,7 +75,7 @@ export class PPPComponent implements OnInit {
   }
 
   public procesarTabla(datos: any) {
-    
+    debugger;
     this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
       //new tabla("personaId", "ID", false, false, true),
