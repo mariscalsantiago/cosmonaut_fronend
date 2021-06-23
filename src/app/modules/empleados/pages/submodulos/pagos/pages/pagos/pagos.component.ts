@@ -18,6 +18,8 @@ import { CalculosService } from 'src/app/shared/services/nominas/calculos.servic
   styleUrls: ['./pagos.component.scss']
 })
 export class PagosComponent implements OnInit {
+  lineBreak = '\n\r\xa0\xa0\xa0\xa0\xa0\xa0\n\r';
+
 
   public arreglopintar: any = [false, false, false, false, false];
 
@@ -120,13 +122,13 @@ export class PagosComponent implements OnInit {
   public crearTablaPercepcion(datos: any) {
 
     this.arreglotablaPer = datos.datos;
-
     let columnas: Array<tabla> = [
+      
       new tabla("nombre", "Nombre de percepción"),
-      new tabla("fechaInicioPer", "Fecha inicio de percepción"),
+      new tabla("fechaInicioPer", 'Fecha inicio percepción'),
       new tabla("tipoMonto", "Tipo de monto"),
-      new tabla("valor", "Valor(porcentaje/monto)"),
-      new tabla("esActivo", "Estatus")
+      new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
+      new tabla("esActivo", "Estatus de percepción")
     ]
 
 
@@ -169,10 +171,10 @@ export class PagosComponent implements OnInit {
 
     let columnas: Array<tabla> = [
       new tabla("nombre", "Nombre de deducción"),
-      new tabla("fechaInicioDesctoDed", "Fecha inicio de descuento"),
+      new tabla("fechaInicioDesctoDed", this.lineBreak+'Fecha inicio de'+this.lineBreak+' descuento'),
       //new tabla("", "Tipo de descuento"),
-      new tabla("valor", "Valor(porcentaje/monto)"),
-      new tabla("esActivo", "Estatus")
+      new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
+      new tabla("esActivo", "Estatus de deducción")
     ]
 
 

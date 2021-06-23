@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'primaRiesgo' | tooltip">
-                    <label>Prima de riesgo *</label>
+                    <label>Prima de riesgo de trabajo *</label>
                     <input formControlName="emPrimaRiesgo" maxlength="7" type="text" class="form-control" [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
                     <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
                         Campo requerido
