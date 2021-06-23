@@ -13,4 +13,8 @@ export class SharedPoliticasService {
   public getPoliticasByEmpresa(id_empresa: number): Observable<any> {
     return this.http.get(`${direcciones.nclPolitica}/obtener/politica/idEmpresa/${id_empresa}`);
   }
+  public getPoliticasByPersona(id_persona: number): Observable<any> {
+    return this.http.get(`${direcciones.usuarios}/obtener/detalle/eventos/${id_persona}`);
+  }
+
 }

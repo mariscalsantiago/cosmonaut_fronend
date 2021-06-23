@@ -130,8 +130,8 @@ export class ListacontactosrrhComponent implements OnInit {
       nombre: this.nombre,
       apellidoPaterno: this.apellidoPaterno,
       apellidoMaterno: this.apellidoMaterno,
-      contactoInicialEmailPersonal:this.correoP,
-      emailCorporativo:this.correoE,
+      contactoInicialEmailPersonal:this.correoP.toLowerCase(),
+      emailCorporativo:this.correoE.toLowerCase(),
       centrocClienteId: {
         centrocClienteId: this.id_empresa
       },

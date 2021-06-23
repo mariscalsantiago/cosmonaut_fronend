@@ -248,7 +248,7 @@ export class UsuariosComponent implements OnInit {
       apellidoPat: this.apellidoPat || null,
       apellidoMat: this.apellidoMat || null,
       fechaAlta: this.fechaRegistro || null,
-      email: this.correoempresarial || null,
+      email: this.correoempresarial.toLowerCase() || null,
       idClientes: arregloenviar,
       esActivo: this.activo == 0? null:this.activo == 1
     }
@@ -290,7 +290,7 @@ export class UsuariosComponent implements OnInit {
       if (valor) {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         let objenviar = {
-          username: obj.email
+          username: obj.email.toLowerCase()
         }
 
         this.usuariosSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {

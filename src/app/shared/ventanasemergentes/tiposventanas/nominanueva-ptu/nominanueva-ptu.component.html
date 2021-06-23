@@ -4,7 +4,7 @@
 
         <div class="col-12 margennav">
 
-            <nav class="nav-inside">
+            <nav aria-label="cosmonaut" class="nav-inside">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a *ngIf="!editar" class="nav-item nav-link " [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab" role="tab">1. Crear nòmina</a>
                     <a (click)="backTab(1)" class="nav-item nav-link " [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}" id="nav-profile-tab" role="tab">2. Seleccionar

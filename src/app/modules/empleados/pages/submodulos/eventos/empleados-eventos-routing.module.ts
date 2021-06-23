@@ -13,7 +13,8 @@ const rutas:Routes = [
 
 @NgModule({
 
-    imports:[RouterModule.forChild(rutas)]
+    imports:[RouterModule.forChild(rutas)],
+    
 
 })
 export class empleadosEventosRoutingModule{
