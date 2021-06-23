@@ -1,11 +1,11 @@
 <div class="contenido_component">
 
-    <div class="wrapper" >
+    <div class="wrapper">
         <div (click)="mostrarmenu = false" class="backgroundresponsive" [ngClass]="{'backgroundresponsive':mostrarmenu}"></div>
         <nav id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
-            <div class="col-2 responsivo" ><button style="    margin-left: 16px;
-                margin-top: 7px;" (click)="mostrarmenu = false" >
-                <i class="fas fa-bars"></i>
+            <div class="col-2 responsivo"><button style="    margin-left: 16px;
+                margin-top: 7px;" (click)="mostrarmenu = false">
+                <i aria-hidden="true" class="fas fa-bars"></i>
             </button></div>
             <div class="sidebar-header imgmovil">
                 <img src="assets/imgs/logo.png" alt="" srcset="">
@@ -16,36 +16,37 @@
             <ul id="listanavegadora" class="list-unstyled components">
                 <li *ngFor="let item of PRINCIPAL_MENU" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
                     <a [routerLink]="item.pathServicio" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
-                        <i [class]="item.icono"></i>
-                        {{item.nombreModulo | uppercase}}</a>
+                        <i aria-hidden="true" [class]="item.icono"></i> {{item.nombreModulo | uppercase}}</a>
                     <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="'m'+item.moduloId">
                         <li *ngFor="let item2 of item.submodulos" [ngClass]="{'ocultarMenu':!item2.checked}">
-                            <a  (click)="seleccionarSubmenu(item,item2)" (click)="irRuta(item2)">{{item2.nombreSubmodulo }}</a>
+                            <a (click)="seleccionarSubmenu(item,item2)" (click)="irRuta(item2)">{{item2.nombreSubmodulo }}</a>
                         </li>
                     </ul>
                 </li>
-                <li id="salirbtn"  (click)="cerrarSesion()"><a >    <i class="icon_cerrarsesion danger-bg"></i>CERRAR SESIÓN</a></li>
+                <li id="salirbtn" (click)="cerrarSesion()">
+                    <a> <i aria-hidden="true" class="icon_cerrarsesion danger-bg"></i>CERRAR SESIÓN</a>
+                </li>
             </ul>
         </nav>
         <div id="contenido" class="content" [ngClass]="{'scrollhide':modal.modal || emergente.modal}" style="position: relative;">
-            <nav  class="navbar navbar-expand-lg navbar-light">
-            
-                <div class="col-2 responsivo"><button (click)="mostrarmenu = true" >
-                    <i class="fas fa-bars"></i>
+            <nav class="navbar navbar-expand-lg navbar-light">
+
+                <div class="col-2 responsivo"><button (click)="mostrarmenu = true">
+                    <i aria-hidden="true" class="fas fa-bars"></i>
                 </button></div>
                 <div class="col-2 aparece-desktop"></div>
                 <div class="col-5"></div>
                 <div class="col-5 text-right">
-                    <!-- <button><i class="fas fa-search"></i></button>
-                    <button><i class="fas fa-question"></i></button> -->
+                    <!-- <button><i aria-hidden="true" class="fas fa-search"></i></button>
+                    <button><i aria-hidden="true" class="fas fa-question"></i></button> -->
                 </div>
             </nav>
-            <div class="container-fluid" >
+            <div class="container-fluid">
                 <router-outlet></router-outlet>
 
                 <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [subtitulo]="modal.strSubtitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
                 <app-ventanaemergenteprincipal [ventanaalerta]="emergente.ventanaalerta" *ngIf="emergente.modal" [titulo]="emergente.titulo" [mostrar]="mostrar" (salida)="recibirEmergente($event)" [datos]="emergente.datos"></app-ventanaemergenteprincipal>
-                
+
             </div>
         </div>
     </div>
@@ -53,5 +54,5 @@
         <span class="badge badge-danger">2</span>
         <img (click)="darClickChat()" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
     </div>
-    <app-chatboot  *ngIf="!chat.ocultar" [datos]="chat.datos" (salida)="recibirchat($event)"></app-chatboot>
+    <app-chatboot *ngIf="!chat.ocultar" [datos]="chat.datos" (salida)="recibirchat($event)"></app-chatboot>
 </div>

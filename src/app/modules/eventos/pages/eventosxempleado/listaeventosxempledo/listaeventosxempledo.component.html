@@ -1,76 +1,73 @@
-
-    <div class="row ml-2 mr-2 titulosfijos" style="background-color: transparent;">
-        <div class="col titulo-outlet">
-            <label>
+<div class="row ml-2 mr-2 titulosfijos" style="background-color: transparent;">
+    <div class="col titulo-outlet">
+        <label>
                 EVENTOS
             </label>
-        </div>
     </div>
+</div>
 
 
 <div class="col-10" style="    z-index: 4;">
     <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
-      <div class="adentro">
-        <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal"
-          aria-label="Close">
+        <div class="adentro">
+            <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <div class="header">
-          <h5 class="titulo">{{evento.incidenciaDescripcion}}</h5>
+            <div class="header">
+                <h5 class="titulo">{{evento.incidenciaDescripcion}}</h5>
 
-          <!-- <p id="subtitulo"><strong>Grupo de nomina</strong>ASG coorporation</p> -->
-        </div>
-        <hr>
-        <div class="body">
-
-
-          <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
-            <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-          </div>
-
-          <div class="row">
-            <div class=" col-12 ">
-                <label>Días: <span class="letramenos">{{evento.duracion}}</span></label> 
+                <!-- <p id="subtitulo"><strong>Grupo de nomina</strong>ASG coorporation</p> -->
             </div>
-            <div class=" col-12 ">
-                <label>Fecha de inicio: <span class="letramenos">{{evento.fechaInicio}}</span></label> 
-            </div>
-            <div class=" col-12 ">
-                <label>Fecha de termino: <span class="letramenos">{{(evento.fechaFin | date:'dd-MMM-yyyy')?.replace(".","")}}</span></label> 
-            </div>
-            <div class=" col-12 ">
-              <label>Fecha de aplicación: <span class="letramenos">{{evento.fechaAplicacion | date:'dd-MMM-yyyy'}}</span></label> 
-          </div>
-          <div class=" col-12 ">
-            <label>Fecha de monto: <span class="letramenos">{{evento.monto}}</span></label> 
-        </div>
-            <div class=" col-12 ">
-                <label>Política: <span class="letramenos">{{evento.politicaNombre}}</span></label> 
-            </div>
-            <div class=" col-12 ">
-                <label>Comentario: <span class="letramenos">{{evento.comentarios}}</span></label> 
-            </div>
-          </div>
+            <hr>
+            <div class="body">
 
-          
 
-        </div>
-        <hr>
-        <div class="footer">
-          <div class="row">
-            <div class="col-12 text-center">
-                <button  (click)="aparecemodalito = false" type="submit"
-                class="btn btn-primary button-fill  ml-1">Cerrar</button>
-                <!-- <button disabled (click)="aparecemodalito = false" type="submit"
+                <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                </div>
+
+                <div class="row">
+                    <div class=" col-12 ">
+                        <label>Días: <span class="letramenos">{{evento.duracion}}</span></label>
+                    </div>
+                    <div class=" col-12 ">
+                        <label>Fecha de inicio: <span class="letramenos">{{evento.fechaInicio}}</span></label>
+                    </div>
+                    <div class=" col-12 ">
+                        <label>Fecha de termino: <span class="letramenos">{{(evento.fechaFin | date:'dd-MMM-yyyy')?.replace(".","")}}</span></label>
+                    </div>
+                    <div class=" col-12 ">
+                        <label>Fecha de aplicación: <span class="letramenos">{{evento.fechaAplicacion | date:'dd-MMM-yyyy'}}</span></label>
+                    </div>
+                    <div class=" col-12 ">
+                        <label>Fecha de monto: <span class="letramenos">{{evento.monto}}</span></label>
+                    </div>
+                    <div class=" col-12 ">
+                        <label>Política: <span class="letramenos">{{evento.politicaNombre}}</span></label>
+                    </div>
+                    <div class=" col-12 ">
+                        <label>Comentario: <span class="letramenos">{{evento.comentarios}}</span></label>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <hr>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill  ml-1">Cerrar</button>
+                        <!-- <button disabled (click)="aparecemodalito = false" type="submit"
                 class="btn btn-primary button-fill btndespues rechazarbtn">Rechazar</button> -->
-            
-            </div>
-          </div>
-        </div>
 
-      </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
+</div>
 
 
 
@@ -79,65 +76,65 @@
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
-    
+
                 <div class="mt-2">
-    
+
                     <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
                     <div class="form group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control"  placeholder="Nombre">
+                            <input type="text" class="form-control" placeholder="Nombre">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control"  placeholder="Primer apellido">
+                            <input type="text" class="form-control" placeholder="Primer apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control"  placeholder="Segundo apellido">
+                            <input type="text" class="form-control" placeholder="Segundo apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" >
+                            <select class="form-control">
                                 <option value="">Estatus</option>
                                 <option >Activo</option>
                                 <option >Inactivo</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" >
+                            <select class="form-control">
                                 <option selected value="">Evento</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
                             <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
-                          </div>
-    
-                        
+                        </div>
+
+
                     </div>
-    
-    
+
+
                     <div class="row margen">
                         <div class="col titulo">
-                          <label>RESULTADOS</label>
+                            <label>RESULTADOS</label>
                         </div>
                         <div class="col text-right">
                             <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="agregar()">
-                              <i class="fa fa-plus"></i> Agregar evento
+                              <i aria-hidden="true" class="fa fa-plus"></i> Agregar evento
                             </button>
-                          </div>
-                      </div>
-    
-    
-                      <div class="row   margen-tabla background-panel "  id="vetanaprincipaltabla">
-                        <app-tablapaginado [datos]="arreglotabla"  [cargando]="cargando" (salida)="recibirTabla($event)" [eliminar]="esRegistrar" [ver]="true" ></app-tablapaginado>
-                      </div>
-    
-    
-    
-    
+                        </div>
+                    </div>
+
+
+                    <div class="row   margen-tabla background-panel " id="vetanaprincipaltabla">
+                        <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando" (salida)="recibirTabla($event)" [eliminar]="esRegistrar" [ver]="true"></app-tablapaginado>
+                    </div>
+
+
+
+
                 </div>
-    
+
             </div>
-    
+
         </div>
-    
-    
+
+
     </div>
 </div>

@@ -75,7 +75,7 @@
                                     <select (change)="cambiaArea($event)" formControlName="areaId" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.areaId.errors && submitEnviado}">
                         <option *ngFor="let item of arregloArea" [value]="item.areaId">{{item.descripcion}}</option>
                     </select>
-                                    <i (click)="agregarAreasModal()" style="position: absolute;
+                                    <i aria-hidden="true" (click)="agregarAreasModal()" style="position: absolute;
                     top: 37px;
                     right: -10px;
                     z-index: 1;
@@ -94,7 +94,7 @@
                         <option *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}
                         </option>
                     </select>
-                                    <i (click)="agregarPuestoModal()" *ngIf="apareceplusPuesto" style="position: absolute;
+                                    <i aria-hidden="true" (click)="agregarPuestoModal()" *ngIf="apareceplusPuesto" style="position: absolute;
                     top: 37px;
                     right: -10px;
                     

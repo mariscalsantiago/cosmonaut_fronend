@@ -6,24 +6,17 @@
 
             <nav class="nav-inside">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a *ngIf="!editar" class="nav-item nav-link "
-                        [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab"
-                        role="tab" >1. Crear nòmina</a>
-                    <a (click)="backTab(1)" class="nav-item nav-link "
-                        [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}"
-                        id="nav-profile-tab" role="tab" >2. Seleccionar
+                    <a *ngIf="!editar" class="nav-item nav-link " [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab" role="tab">1. Crear nòmina</a>
+                    <a (click)="backTab(1)" class="nav-item nav-link " [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}" id="nav-profile-tab" role="tab">2. Seleccionar
                         empleados</a>
                     <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
-                    <a (click)="backTab(3)" class="nav-item nav-link "
-                        [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled,'selecciona':activado[2].seleccionado}"
-                        id="nav-contact-tab" role="tab" >3. Descargar
+                    <a (click)="backTab(3)" class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled,'selecciona':activado[2].seleccionado}" id="nav-contact-tab" role="tab">3. Descargar
                         formato</a>
 
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel"
-                    aria-labelledby="nav-home-tab">
+                <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
 
                     <form [formGroup]="myForm" (ngSubmit)="enviarEtapa1()">
@@ -39,60 +32,51 @@
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="nombre">Nombre de la nómina *</label>
-                                <input formControlName="nombre"
-                                    [class.is-invalid]="f.nombre.errors && f.nombre.touched" type="text"
-                                    class="form-control">
+                                <input formControlName="nombre" [class.is-invalid]="f.nombre.errors && f.nombre.touched" type="text" class="form-control">
                                 <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
                                     Campo requerido
                                 </div>
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="nombre">Fecha inicio *</label>
-                                <input formControlName="fechaInicio"
-                                    [class.is-invalid]="f.fechaInicio.errors && f.fechaInicio.touched" type="date"
-                                    class="form-control">
-                                <div  class="invalid-feedback">
+                                <input formControlName="fechaInicio" [class.is-invalid]="f.fechaInicio.errors && f.fechaInicio.touched" type="date" class="form-control">
+                                <div class="invalid-feedback">
                                     Campo requerido
                                 </div>
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="nombre">Fecha fin *</label>
-                                <input formControlName="fechaFin"
-                                    [class.is-invalid]="f.fechaFin.errors && f.fechaFin.touched" type="date"
-                                    class="form-control">
-                                <div  class="invalid-feedback">
+                                <input formControlName="fechaFin" [class.is-invalid]="f.fechaFin.errors && f.fechaFin.touched" type="date" class="form-control">
+                                <div class="invalid-feedback">
                                     Campo requerido
                                 </div>
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="cuenta">Cuenta bancaria *</label>
-                                <select formControlName="bancoId" class="form-control"
-                                    [class.is-invalid]="f.bancoId.errors && f.bancoId.touched" type="text"
-                                    class="form-control">
+                                <select formControlName="bancoId" class="form-control" [class.is-invalid]="f.bancoId.errors && f.bancoId.touched" type="text" class="form-control">
                                 <option *ngFor="let item of cuentasBancarias" [value]="item.cuentaBancoId">{{item.nombreCuenta}}</option>
                               </select>
-                              <div *ngIf="f.bancoId.errors && f.bancoId.touched" class="invalid-feedback">
-                                Campo requerido
-                              </div>
-                                
+                                <div *ngIf="f.bancoId.errors && f.bancoId.touched" class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="moneda">Moneda *</label>
-                                
-                                <select formControlName="monedaId" [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" type= "text" class="form-control">
+
+                                <select formControlName="monedaId" [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" type="text" class="form-control">
                                     <option *ngFor="let item of arregloMonedas" [value]="item.monedaId">{{item.descripcion}}</option>
                                   </select>
-                                  <div *ngIf="f.monedaId.errors && f.monedaId.touched" class="invalid-feedback">
+                                <div *ngIf="f.monedaId.errors && f.monedaId.touched" class="invalid-feedback">
                                     Campo requerido
-                                  </div>
+                                </div>
                             </div>
                         </div>
 
 
                         <div class="text-right margin" style="margin-bottom: 20px;">
 
-                            <button type="button" (click)="cancelar()"
-                                class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                            <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
                             <button type="submit" class="btn btn-primary button-fill">Guardar</button>
                         </div>
@@ -100,8 +84,7 @@
 
 
                 </div>
-                <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel"
-                    aria-labelledby="nav-profile-tab">
+                <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
 
                     <div class="row">
@@ -116,7 +99,7 @@
                                 <span class="radiomark"></span>
                             </label>
                             <div *ngIf="valor == '2'">
-                                <select #inputarea style="font-size: 12px;" name=""  class="form-control mb-2">
+                                <select #inputarea style="font-size: 12px;" name="" class="form-control mb-2">
                                     <option *ngFor="let item of arregloareas" [value]="item.areaId">{{item.descripcion}}</option>
                                 </select>
 
@@ -137,17 +120,14 @@
                     </div>
                     <div class="text-right margin" style="margin-bottom: 20px;">
 
-                        <button type="button" (click)="cancelar()"
-                            class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                        <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-                        <button (click)="seleccionarItem()" type="button"
-                            class="btn btn-primary button-fill">Continuar</button>
+                        <button (click)="seleccionarItem()" type="button" class="btn btn-primary button-fill">Continuar</button>
                     </div>
 
 
                 </div>
-                <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel"
-                    aria-labelledby="nav-contact-tab">
+                <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 
 
                     <div class="row">
@@ -166,30 +146,28 @@
                         </div>
                     </div>
                     <form [formGroup]="myFormFile" (ngSubmit)="guardarArchivoDispersion()">
-                    <div  class="row">
-                        <div class="input-group-sm mb-3 col-12 col-sm-7 col-lg-7">
-                            <label style="font-size: 12px;">Sube el formato con los datos modificados</label>
-                            <div class="input-group mb-3">
-                              <input type="hidden" >
-                              <input formControlName="archivo" [class.is-invalid]="myFormFile.controls.archivo.errors && myFormFile.controls.archivo.touched" #inputFile type="text" class="form-control disabled bg-light" >
-                              <div class="invalid-feedback">
-                                  Archivo layout requerido.
-                              </div>
-                              <div (click)="abrirArchivo()" class="input-group-append" style="cursor: pointer;">
-                                <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i class="icon_upload"></i> Subir archivo</span>
-                              </div>
+                        <div class="row">
+                            <div class="input-group-sm mb-3 col-12 col-sm-7 col-lg-7">
+                                <label style="font-size: 12px;">Sube el formato con los datos modificados</label>
+                                <div class="input-group mb-3">
+                                    <input type="hidden">
+                                    <input formControlName="archivo" [class.is-invalid]="myFormFile.controls.archivo.errors && myFormFile.controls.archivo.touched" #inputFile type="text" class="form-control disabled bg-light">
+                                    <div class="invalid-feedback">
+                                        Archivo layout requerido.
+                                    </div>
+                                    <div (click)="abrirArchivo()" class="input-group-append" style="cursor: pointer;">
+                                        <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                    </div>
-                    <div class="text-right margin" style="margin-bottom: 20px;">
+                        </div>
+                        <div class="text-right margin" style="margin-bottom: 20px;">
 
-                        <button type="button" (click)="cancelar()"
-                            class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                            <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-                        <button  type="submit"
-                            class="btn btn-primary button-fill">Guardar</button>
-                    </div>
-                </form>
+                            <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+                        </div>
+                    </form>
                 </div>
 
 

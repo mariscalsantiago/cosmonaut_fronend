@@ -22,7 +22,7 @@
                 </div>
 
                 <div *ngIf="!cargandolistapuesto">
-                    <table class="table m-3 table-hober table-sm " style="width: 90%;">
+                    <table aria-hidden="true" class="table m-3 table-hober table-sm " style="width: 90%;">
                         <thead>
                             <tr>
                                 <th class="text-center" scope="col">Nombre de área</th>
@@ -102,7 +102,7 @@
                         <div class="row" style="  margin-top: 10px;  width: 100%;">
                             <div class="col text-right">
                                 <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-                  <i class="fa fa-plus"></i>Agregar puesto
+                  <i aria-hidden="true" class="fa fa-plus"></i>Agregar puesto
                 </button>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                             </div>
                         </div>
 
-                        <table *ngIf="!cargando" class="table table-hover">
+                        <table aria-hidden="true" *ngIf="!cargando" class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Nombre de puesto</th>
@@ -134,7 +134,7 @@
                                     <td>{{item.fechaAlta}}</td>
                                     <td>
                                         <button (click)="verdetalle(item)" class="btnPersonalizado">
-                          <i class="icon_editar text-center bg-light" ></i></button>
+                          <i aria-hidden="true" class="icon_editar text-center bg-light" ></i></button>
                                     </td>
                                 </tr>
 

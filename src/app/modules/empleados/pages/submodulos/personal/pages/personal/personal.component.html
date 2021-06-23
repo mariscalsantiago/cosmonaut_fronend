@@ -1,16 +1,13 @@
 <form [formGroup]="myForm" (ngSubmit)="enviandoFormulario()">
     <div class="row">
         <div class="col-12 col-lg-6 col-xl-6 mb-3 mt-3 ">
-            <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i *ngIf="!editarcampos"
-                    class="fas fa-pencil-alt primary" (click)="editarcampos = true;accionarMostrar()"
-                    style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+            <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i aria-hidden="true" *ngIf="!editarcampos" class="fas fa-pencil-alt primary" (click)="editarcampos = true;accionarMostrar()" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
             <div class="row mb-4">
                 <article [class.ajustar]="editarcampos" class="titulo  col">
                     Nombre
                     <article *ngIf="!editarcampos">{{empleado.nombre}}</article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" formControlName="nombre"
-                            type="text" name=""   class="form-control">
+                        <input [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" formControlName="nombre" type="text" name="" class="form-control">
                         <div *ngIf="f.nombre.errors " class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -20,9 +17,7 @@
                     Primer apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoPaterno}}</article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
-                            formControlName="apellidoPaterno" type="text" name=""  
-                            class="form-control">
+                        <input [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" formControlName="apellidoPaterno" type="text" name="" class="form-control">
                         <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -32,8 +27,7 @@
                     Segundo apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="apellidoMaterno" type="text" name=""  
-                            class="form-control">
+                        <input formControlName="apellidoMaterno" type="text" name="" class="form-control">
                     </article>
                 </article>
 
@@ -42,16 +36,14 @@
                 <article [class.ajustar]="editarcampos" class="titulo col">
                     Genero
                     <article>
-                        <input formControlName="genero" id="femenino" type="radio" name="genero" value="true"><label
-                            for="femenino">&nbsp; Femenino &nbsp;</label>
-                        <input formControlName="genero" id="masculino" type="radio" name="genero" value="false"><label
-                            for="masculino">&nbsp; Masculino</label>
+                        <input formControlName="genero" id="femenino" type="radio" name="genero" value="true"><label for="femenino">&nbsp; Femenino &nbsp;</label>
+                        <input formControlName="genero" id="masculino" type="radio" name="genero" value="false"><label for="masculino">&nbsp; Masculino</label>
                     </article>
 
                 </article>
             </div>
             <div class="row">
-                <article [class.ajustar]="editarcampos"   class="titulo mr-1 col">
+                <article [class.ajustar]="editarcampos" class="titulo mr-1 col">
                     Fecha de nacimiento
                 </article>
 
@@ -60,7 +52,7 @@
                 <article *ngIf="editarcampos" class="titulo col">
                     <article>
                         <input [class.is-invalid]="f.fechaNacimiento.errors && submitEnviado" #fechaNacimiento (focusout)="validarfechNacimiento(fechaNacimiento.value)" formControlName="fechaNacimiento" type="date" name="" id="fn1" class="form-control">
-                        <div  class="invalid-feedback">
+                        <div class="invalid-feedback">
                             Campo requerido
                         </div>
                     </article>
@@ -87,10 +79,7 @@
                     CURP
                     <article *ngIf="!editarcampos">{{empleado.curp}}</article>
                     <article *ngIf="editarcampos">
-                        <input
-                            [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}"
-                            formControlName="curp" type="text" name=""  
-                            class="form-control">
+                        <input [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" name="" class="form-control">
                         <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -107,10 +96,7 @@
                         {{empleado.rfc}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input
-                            [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}"
-                            formControlName="rfc" maxlength="13" type="text" name=""  
-                            class="form-control">
+                        <input [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" maxlength="13" type="text" name="" class="form-control">
                         <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -127,49 +113,43 @@
                         {{empleado.nss}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="nss" type="text" name=""  class="form-control">
+                        <input formControlName="nss" type="text" name="" class="form-control">
                     </article>
                 </article>
             </div>
             <div class="row ">
                 <article [class.ajustar]="editarcampos" class="titulo col">
-                  Correo empresarial
+                    Correo empresarial
                     <article *ngIf="!editarcampos">
                         {{empleado.emailCorporativo}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" formControlName="emailCorporativo" type="text" name=""
-                             class="form-control">
-                        <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched"
-                            
-                            class="invalid-feedback">
-                          Correo empresarial inválido
+                        <input [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" formControlName="emailCorporativo" type="text" name="" class="form-control">
+                        <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
+                            Correo empresarial inválido
                         </div>
                     </article>
                 </article>
             </div>
             <div class="row mb-2">
                 <article [class.ajustar]="editarcampos" class="titulo col">
-                  Correo personal
+                    Correo personal
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoInicialEmailPersonal}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="contactoInicialEmailPersonal" type="text"
-                            [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
+                        <input formControlName="contactoInicialEmailPersonal" type="text" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
                             class="form-control">
-                        <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado"
-                            class="invalid-feedback">
+                        <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
-                        <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched"
-                            class="invalid-feedback">
+                        <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                             Correo personal inválido
                         </div>
                     </article>
                 </article>
             </div>
-           
+
 
         </div>
         <div class="col-12 col-lg-6 col-xl-6  mb-3 mt-3">
@@ -182,8 +162,7 @@
                         {{empleado.nacionalidadId?.descripcion}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <select formControlName="nacionalidadId" name=""
-                            [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}" class="form-control">
+                        <select formControlName="nacionalidadId" name="" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}" class="form-control">
                             <option *ngFor="let item of (arreglonacionalidad | async)?.datos"
                                 [value]="item.nacionalidadId">{{item.descripcion}}</option>
                         </select>
@@ -198,14 +177,13 @@
                         {{empleado.contactoInicialTelefono}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="contactoInicialTelefono" maxlength="10" class="form-control"
-                            [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
+                        <input formControlName="contactoInicialTelefono" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
                         <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
                     </article>
                 </article>
-                
+
             </div>
             <div class="row mb-2">
                 <article [class.ajustar]="editarcampos" class="titulo col">
@@ -240,8 +218,7 @@
                         {{empleado.celular}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input type="number" formControlName="celular" maxlength="10" class="form-control"
-                            [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}">
+                        <input type="number" formControlName="celular" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}">
                         <div class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -256,15 +233,14 @@
                     </article>
 
                     <article *ngIf="editarcampos">
-                     
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="form group row  ">
-                    
+
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                         <label>Código postal *</label>
-                                        <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control"
-                                            [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
+                                        <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control" [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
                                             placeholder="">
                                         <div *ngIf="f.codigo.errors?.required && submitEnviado" class="invalid-feedback">
                                             Campo requerido
@@ -272,43 +248,38 @@
                                         <div *ngIf="f.codigo.errors?.pattern && f.codigo.touched" class="invalid-feedback">
                                             Código postal incorrecto, formato númerico
                                         </div>
-                    
-                    
+
+
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                         <label>Entidad federativa *</label>
-                                        <input formControlName="estado"  type="email"
-                                            [ngClass]="{'is-invalid':f.estado.errors?.required && submitEnviado}"
-                                            class="form-control disabled bg-light" placeholder="">
+                                        <input formControlName="estado" type="email" [ngClass]="{'is-invalid':f.estado.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
                                         <div *ngIf="f.estado.errors?.required && submitEnviado" class="invalid-feedback">
                                             Campo requerido
                                         </div>
-                    
+
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                         <label>Municipio o alcadía *</label>
-                                        <input formControlName="municipio"  type="email"
-                                            [ngClass]="{'is-invalid':f.municipio.errors?.required && submitEnviado}"
-                                            class="form-control disabled bg-light" placeholder="">
+                                        <input formControlName="municipio" type="email" [ngClass]="{'is-invalid':f.municipio.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
                                         <div *ngIf="f.municipio.errors?.required && submitEnviado" class="invalid-feedback">
                                             Campo requerido
                                         </div>
-                    
+
                                     </div>
-                    
+
                                 </div>
-                    
+
                                 <div class="form group row ">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                         <label>Colonia *</label>
-                                        <select formControlName="asentamientoId" name="" 
-                                            [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
+                                        <select formControlName="asentamientoId" name="" [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
                                             <option *ngFor="let item of domicilioCodigoPostal" [value]="item.asentamientoCpCons">{{item.asentamiento}}</option>
                                         </select>
                                         <div *ngIf="f.asentamientoId.errors && submitEnviado" class="invalid-feedback">
                                             Campo requerido
                                         </div>
-                    
+
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8">
                                         <label>Calle *</label>
@@ -317,13 +288,12 @@
                                             Campo requerido
                                         </div>
                                     </div>
-                                </div>  
-                    
+                                </div>
+
                                 <div class="form group row ">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                         <label>Número exterior *</label>
-                                        <input formControlName="numExterior" type="text" name="" 
-                                            [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
+                                        <input formControlName="numExterior" type="text" name="" [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
                                         <div *ngIf="f.numExterior.errors && submitEnviado" class="invalid-feedback">
                                             Campo requerido
                                         </div>
@@ -331,13 +301,13 @@
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                         <label>Número interior</label>
                                         <input formControlName="numInterior" type="email" class="form-control text-lowercase" placeholder="">
-                    
+
                                     </div>
                                 </div>
-                    
+
                             </div>
                         </div>
-                    
+
 
 
                     </article>
@@ -363,35 +333,28 @@
                 <article [class.ajustar]="editarcampos" class="titulo col">
                     Nombre
                     <article *ngIf="!editarcampos">
-                        {{empleado.contactoEmergenciaNombre}} {{empleado.contactoEmergenciaApellidoPaterno}}
-                        {{empleado.contactoEmergenciaApellidoMaterno}}
+                        {{empleado.contactoEmergenciaNombre}} {{empleado.contactoEmergenciaApellidoPaterno}} {{empleado.contactoEmergenciaApellidoMaterno}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="contactoEmergenciaNombre" type="text"
-                            [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}"
-                            class="form-control">
+                        <input formControlName="contactoEmergenciaNombre" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}" class="form-control">
                         <div *ngIf="f.contactoEmergenciaNombre.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
                     </article>
                 </article>
-                <article *ngIf="editarcampos" [class.ajustar]="editarcampos"  class="titulo col">
+                <article *ngIf="editarcampos" [class.ajustar]="editarcampos" class="titulo col">
                     Primer apellido
                     <article>
-                        <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name=""
-                            [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}"
-                            class="form-control">
-                        <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado"
-                            class="invalid-feedback">
+                        <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}" class="form-control">
+                        <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
                     </article>
                 </article>
-                <article *ngIf="editarcampos" [class.ajustar]="editarcampos"  class="titulo col">
+                <article *ngIf="editarcampos" [class.ajustar]="editarcampos" class="titulo col">
                     Segundo apellido
                     <article>
-                        <input formControlName="contactoEmergenciaApellidoMaterno" type="text" name=""
-                            class="form-control">
+                        <input formControlName="contactoEmergenciaApellidoMaterno" type="text" name="" class="form-control">
                     </article>
                 </article>
 
@@ -404,7 +367,7 @@
                         {{empleado.parentescoId?.descripcion}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <select formControlName="contactoEmergenciaParentesco" name=""  class="form-control">
+                        <select formControlName="contactoEmergenciaParentesco" name="" class="form-control">
                             <option *ngFor="let item of (arregloParenteesco | async)?.datos" [value]="item.parentescoId">{{item.descripcion}}</option>
                         </select>
                     </article>
@@ -413,12 +376,12 @@
 
             <div class="row mb-2">
                 <article [class.ajustar]="editarcampos" class="titulo col">
-                  Correo
+                    Correo
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoEmergenciaEmail}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="contactoEmergenciaEmail" type="text" name=""  class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched}">
+                        <input formControlName="contactoEmergenciaEmail" type="text" name="" class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched}">
                         <div *ngIf="f.contactoEmergenciaEmail.errors?.email && f.contactoEmergenciaEmail.touched" class="invalid-feedback">
                             Correo inválido
                         </div>
@@ -430,7 +393,7 @@
                         {{empleado.contactoEmergenciaTelefono}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="contactoEmergenciaTelefono" type="text" maxlength="10"  class="form-control">
+                        <input formControlName="contactoEmergenciaTelefono" type="text" maxlength="10" class="form-control">
                     </article>
                 </article>
             </div>
@@ -475,8 +438,7 @@
         <div class="col-12">
             <div class="text-right " style="margin-bottom: 20px; margin-right: 16px;">
 
-                <button (click)="editarcampos = false;accionarCancelar()" type="button"
-                    class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button (click)="editarcampos = false;accionarCancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
                 <button type="submit" class="btn btn-primary button-fill">Guardar</button>
             </div>
         </div>

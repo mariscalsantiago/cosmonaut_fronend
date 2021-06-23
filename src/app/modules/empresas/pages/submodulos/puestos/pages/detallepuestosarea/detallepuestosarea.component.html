@@ -1,106 +1,103 @@
 <br>
 <div class="col-7">
-<div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
+    <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
 
 
-  <div class="adentro">
+        <div class="adentro">
 
-    <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+            <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <div  class="header"><h5 class="titulo">LISTA DE PUESTOS</h5>
-    
-      
-    </div>
-  <hr>
-  <div  class="body">
+            <div class="header">
+                <h5 class="titulo">LISTA DE PUESTOS</h5>
 
 
-    <div *ngIf="cargandolistapuesto" class="col text-center mb-5">
-      <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-    </div>
+            </div>
+            <hr>
+            <div class="body">
 
-   <div *ngIf="!cargandolistapuesto">
-    <table  class="table m-3 table-hober table-sm " style="width: 90%;">
-      <thead>
-        <tr>
-          <th class="text-center" scope="col">Nombre de puesto</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of arreglodetalle">
-          <td>{{item.nombreCorto}}</td>
-        </tr>
-      </tbody>
-    </table>
-   </div>
 
-  </div>
-  <hr>
-  <div  class="footer">
-    <div class="row">
-      <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
-    </div>
-  </div>
+                <div *ngIf="cargandolistapuesto" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                </div>
 
-  </div>
-</div>
-</div>
-<br><br>
- <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
-  
-    <input type="hidden" formControlName="areaId">
+                <div *ngIf="!cargandolistapuesto">
+                    <table aria-hidden="true" class="table m-3 table-hober table-sm " style="width: 90%;">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">Nombre de puesto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of arreglodetalle">
+                                <td>{{item.nombreCorto}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    
-    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
-      <div id="vetanaprincipaltablapuesto"  class=" background-panel scrooll" style="position: relative;"  >
-      <br>
-        <div class="form-group row margen">
-          <label class="titulo">INFORMACIÓN DE PUESTOS</label></div>
-        <div  class="form group row margen">
-  
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-10">
-              <label for="exampleFormControlSelect1">Empresa *</label>
-              <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}"
-                  placeholder="">
-                  <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
-                    Campo requerido
-                  </div>
+            </div>
+            <hr>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+                </div>
             </div>
 
-            <div  class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-              <label >Área *</label>
-              <input formControlName="nombreCorto" type="text" maxlength="250" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && f.nombreCorto.touched}"
-                  placeholder="">
-                  <div *ngIf="f.nombreCorto.errors && f.nombreCorto.touched" class="invalid-feedback">
-                    Campo requerido
-                  </div>
-                 <br> 
+        </div>
+    </div>
+</div>
+<br><br>
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+
+    <input type="hidden" formControlName="areaId">
+
+
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
+        <div id="vetanaprincipaltablapuesto" class=" background-panel scrooll" style="position: relative;">
+            <br>
+            <div class="form-group row margen">
+                <label class="titulo">INFORMACIÓN DE PUESTOS</label></div>
+            <div class="form group row margen">
+
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-10">
+                    <label for="exampleFormControlSelect1">Empresa *</label>
+                    <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && f.nombre.touched}" placeholder="">
+                    <div *ngIf="f.nombre.errors && f.nombre.touched" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+
+                <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <label>Área *</label>
+                    <input formControlName="nombreCorto" type="text" maxlength="250" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && f.nombreCorto.touched}" placeholder="">
+                    <div *ngIf="f.nombreCorto.errors && f.nombreCorto.touched" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <br>
                     <nav>
                         <a routerlinkactive="active" (click)="traerModal(undefined)" routerlink="/home" style="text-decoration: underline;color: #00c2c3;">
                         Consultar puestos existentes</a>
-                     </nav>
+                    </nav>
+                </div>
+
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Puesto *</label>
+                    <input #nombre formControlName="puesto" maxlength="250" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}" placeholder="">
+                    <div *ngIf="f.puesto.errors && f.puesto.touched" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+
+
             </div>
 
-         <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-            <label for="exampleFormControlSelect1">Puesto *</label>
-            <input #nombre  formControlName="puesto" maxlength="250" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && f.puesto.touched}"
-                placeholder="">
-                <div *ngIf="f.puesto.errors && f.puesto.touched" class="invalid-feedback">
-                    Campo requerido
-                </div>
-          </div>
-            
-  
         </div>
-    
-      </div>
     </div>
-  
-    <div class="text-center margin" style="margin-bottom: 20px;">
-      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)" (click)="redirect(undefined)" >Cancelar</button>
-      <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
-  </div>   
-  
-  </form>
 
+    <div class="text-center margin" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)" (click)="redirect(undefined)">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>
+
+</form>

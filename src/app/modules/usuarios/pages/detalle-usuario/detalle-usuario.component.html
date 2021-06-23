@@ -1,7 +1,7 @@
 <div class="row margen">
     <div class="col titulo-outlet">
 
-        <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/usuarios"></i>INFORMACIÓN
+        <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/usuarios"></i>INFORMACIÓN
             BÁSICA</label>
     </div>
 </div>
@@ -9,12 +9,12 @@
 
 <hr>
 
-<form [formGroup]="myForm" class="form-desing"  (ngSubmit)="enviarPeticion()">
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
 
     <input type="hidden" formControlName="personaId">
     <div class="background-panel margen background-ajustar" appTamanioVentana>
         <div class="form-group row margen"><label class="titulo">Información de Usuario</label></div>
-      
+
         <div *ngIf="!insertar" class="form-group row margen">
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>ID usuario</label>
@@ -25,16 +25,14 @@
 
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Nombre *</label>
-                <input #nombre  appMayusculas formControlName="nombre" type="text" class="form-control"
-                    [ngClass]="{'is-invalid':f.nombre.errors && summitenviado}" placeholder="">
+                <input #nombre appMayusculas formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && summitenviado}" placeholder="">
                 <div *ngIf="f.nombre.errors && summitenviado" class="invalid-feedback">
                     Campo requerido
                 </div>
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Primer apellido *</label>
-                <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control"
-                    [ngClass]="{'is-invalid':f.apellidoPaterno.errors && summitenviado}" placeholder="">
+                <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && summitenviado}" placeholder="">
                 <div *ngIf="f.apellidoPaterno.errors && summitenviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -47,8 +45,8 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Correo electrónico *</label>
-                <input appMayusculas [minusculas]="true" formControlName="correoelectronico"  type="email" class="form-control"
-                    [ngClass]="{'is-invalid':(f.correoelectronico.errors?.email && f.correoelectronico.touched) || (f.correoelectronico.errors?.required && summitenviado) }" placeholder="">
+                <input appMayusculas [minusculas]="true" formControlName="correoelectronico" type="email" class="form-control" [ngClass]="{'is-invalid':(f.correoelectronico.errors?.email && f.correoelectronico.touched) || (f.correoelectronico.errors?.required && summitenviado) }"
+                    placeholder="">
                 <div *ngIf="f.correoelectronico.errors?.required && summitenviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -68,14 +66,14 @@
                     <option value="false">INACTIVO</option>
                 </select>
             </div>
-            <div *ngIf="esClienteEmpresa"  style="padding-top: 35px;" class="input-group-sm  col-12 col-sm-12 col-md-4 col-lg-4">
+            <div *ngIf="esClienteEmpresa" style="padding-top: 35px;" class="input-group-sm  col-12 col-sm-12 col-md-4 col-lg-4">
                 <label class="contenedorInputCheckRadio">Usuario multicliente
                   <input (change)="cambiarMultiempresa()" formControlName="multicliente" type="checkbox" name="" id="multiempresa">
                   <span class="checkmark"></span>
                 </label>
-              </div>
+            </div>
 
-              <div *ngIf="f.multicliente.value && esClienteEmpresa" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div *ngIf="f.multicliente.value && esClienteEmpresa" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Clientes *</label>
                 <app-tag [datos]="arregloCompany" [llave]="'nombre'" [arregloEtiquetas]="companiasenviar" (salida)="recibirEtiquetas($event)"></app-tag>
             </div>
@@ -100,14 +98,14 @@
             </div>
             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Rol *</label>
-                <select [class.is-invalid]="f.rol.errors && summitenviado"  formControlName="rol" class="form-control">
+                <select [class.is-invalid]="f.rol.errors && summitenviado" formControlName="rol" class="form-control">
                     <option *ngFor="let item of arregloRoles" [value]="item.rolId" >{{item.nombreRol}}</option>
                 </select>
                 <div class="invalid-feedback">
                     Campo requerido.
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 
 
@@ -116,7 +114,7 @@
     <div class="text-center margin" style="margin-bottom: 20px;">
 
         <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-        <button  type="submit" class="btn btn-primary button-fill">Guardar</button>
+        <button type="submit" class="btn btn-primary button-fill">Guardar</button>
     </div>
 
 </form>

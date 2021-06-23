@@ -18,10 +18,10 @@
                   <label class="titulo" style="    width: 80%;
                   float: left;
                   text-align: left;">BÚSQUEDA</label>
-                  <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  <i aria-hidden="true" *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                     aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
                     class="fas fa-chevron-up "></i>
-                  <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  <i aria-hidden="true" *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                     aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
                     class="fas fa-chevron-down "></i>
   
@@ -80,7 +80,7 @@
             </div>
             <div class="col text-right">
                 <button type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
-          <i class="fa fa-plus"></i>Agregar cliente
+          <i aria-hidden="true" class="fa fa-plus"></i>Agregar cliente
         </button>
             </div>
         </div>

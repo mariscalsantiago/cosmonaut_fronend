@@ -1,259 +1,250 @@
 <div *ngIf="!cargando && arreglo !== undefined " class="row  margen mt-3" style="margin-bottom: -25px;">
-  <div class="input-group mb-3 mostrarelementos ">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
-    </div>
-    <select [(ngModel)]="numeroitems" class="custom-select" id="inputGroupSelect01" (change)="cambia()">
+    <div class="input-group mb-3 mostrarelementos ">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
+        </div>
+        <select [(ngModel)]="numeroitems" class="custom-select" id="inputGroupSelect01" (change)="cambia()">
       <option value="5" selected>5</option>
       <option value="20">20</option>
       <option value="50">50</option>
       <option value="100">100</option>
     </select>
-  </div>
+    </div>
 </div>
 <div style="margin: 10px;overflow: auto;">
 
-  <table *ngIf="!cargando && arreglo !== undefined" class="table table-hover  anchura ">
-    <thead>
-      <tr>
-        <th *ngIf="checkbox"></th>
-        <th *ngIf="imagen"></th>
-        <th (click)="ordenar(item)" style="position: relative;cursor:pointer" scope="col"
-          *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
-          {{item.nombre}}<i class="fas fa-caret-up flechaarriba" [ngClass]="{'colorear':item.acomodar == true}"></i>
-          <i class="fas fa-caret-down flechaabajo" [ngClass]="{'colorear':item.acomodar == false}"></i>
-        </th>
-        <th *ngIf="tablabeneficios">
-          Tabla de beneficios
-        </th>
-        <th *ngIf="porcentaje">Porcentaje de avance</th>
-        <th *ngIf="timbrado">Timbrar</th>
-        <th *ngIf="ver || editar || eliminar || desglosar || descargar">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let item of arreglo; let indice = index;">
-        <tr class="fade-in-second">
-          <td *ngIf="checkbox && !esnomina">
-            <label class="contenedorInputCheckRadio">
+    <table aria-hidden="true" *ngIf="!cargando && arreglo !== undefined" class="table table-hover  anchura ">
+        <thead>
+            <tr>
+                <th *ngIf="checkbox"></th>
+                <th *ngIf="imagen"></th>
+                <th (click)="ordenar(item)" style="position: relative;cursor:pointer" scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
+                    {{item.nombre}}<i aria-hidden="true" class="fas fa-caret-up flechaarriba" [ngClass]="{'colorear':item.acomodar == true}"></i>
+                    <i aria-hidden="true" class="fas fa-caret-down flechaabajo" [ngClass]="{'colorear':item.acomodar == false}"></i>
+                </th>
+                <th *ngIf="tablabeneficios">
+                    Tabla de beneficios
+                </th>
+                <th *ngIf="porcentaje">Porcentaje de avance</th>
+                <th *ngIf="timbrado">Timbrar</th>
+                <th *ngIf="ver || editar || eliminar || desglosar || descargar">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let item of arreglo; let indice = index;">
+                <tr class="fade-in-second">
+                    <td *ngIf="checkbox && !esnomina">
+                        <label class="contenedorInputCheckRadio">
               <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
               <span class="checkmark"></span>
             </label>
-          </td>
+                    </td>
 
-          <td *ngIf="checkbox && esnomina">
-            <label *ngIf="item.tipopago === 'Transferencia'" class="contenedorInputCheckRadio">
+                    <td *ngIf="checkbox && esnomina">
+                        <label *ngIf="item.tipopago === 'Transferencia'" class="contenedorInputCheckRadio">
               <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
               <span class="checkmark"></span>
             </label>
-          </td>
+                    </td>
 
-          <td *ngIf="imagen" style="width: 44px;" scope="row">
-            <img *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
-            <img *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]"
-              class="tableimg">
-          </td>
-          <td *ngFor="let item2 of datos.columnas"
-            [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
-            (click)="eventoclick(item2,item,indice)">{{(item2.nombre ==
-            'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}</td>
-          <td *ngIf="tablabeneficios" style="text-align: center;">
-            <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
+                    <td *ngIf="imagen" style="width: 44px;" scope="row">
+                        <img *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
+                        <img *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]" class="tableimg">
+                    </td>
+                    <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
+                        (click)="eventoclick(item2,item,indice)">{{(item2.nombre == 'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
+                    </td>
+                    <td *ngIf="tablabeneficios" style="text-align: center;">
+                        <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
                 class="icon_24ver primary-bg"></i></button>
-          </td>
-          <td *ngIf="porcentaje">
-            <div class="progress">
-              <div class="progress-bar primary-bg" role="progressbar" [style.width]="item.porcentaje+'%'"
-                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{item.porcentaje}}%</div>
-            </div>
-          </td>
-          <th *ngIf="timbrado">
+                    </td>
+                    <td *ngIf="porcentaje">
+                        <div class="progress">
+                            <div class="progress-bar primary-bg" role="progressbar" [style.width]="item.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{item.porcentaje}}%</div>
+                        </div>
+                    </td>
+                    <th *ngIf="timbrado">
 
-            <label class="contenedorInputCheckRadio" style="text-align: center;    margin-left: 22px;">
+                        <label class="contenedorInputCheckRadio" style="text-align: center;    margin-left: 22px;">
               <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
               <span class="checkmark"></span>
             </label>
 
-          </th>
-          <td *ngIf="!chat" class="opciones" [ngClass]="{'centrar':item.nombre !== 'Politica Estandar'}">
-            <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i
+                    </th>
+                    <td *ngIf="!chat" class="opciones" [ngClass]="{'centrar':item.nombre !== 'Politica Estandar'}">
+                        <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i
                 class="icon_24descargar primary-bg"></i></button>
-            <button *ngIf="ver" (click)="btnVer(item,indice)"><i class="icon_24ver primary-bg"></i></button>
-            <button *ngIf="editar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEditar(item,indice)"><i
+                        <button *ngIf="ver" (click)="btnVer(item,indice)"><i aria-hidden="true" class="icon_24ver primary-bg"></i></button>
+                        <button *ngIf="editar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEditar(item,indice)"><i
                 class="icon_24editar primary-bg"></i></button>
-            <button *ngIf="eliminar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i
+                        <button *ngIf="eliminar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i
                 class="icon_24eliminar danger-bg"></i></button>
-            <button *ngIf="llave " (click)="btnLlave(item,indice)">
-              <i class="icon_24llave primary-bg"></i>
+                        <button *ngIf="llave " (click)="btnLlave(item,indice)">
+              <i aria-hidden="true" class="icon_24llave primary-bg"></i>
             </button>
-            <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)"><i *ngIf="item.desglosarDown"
+                        <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)"><i aria-hidden="true" *ngIf="item.desglosarDown"
                 class="fas fa-chevron-down primary" style="font-size: 14px;
                     margin: 9px;"></i>
 
-              <i *ngIf="!item.desglosarDown" class="fas fa-chevron-up primary" style="font-size: 14px;
+              <i aria-hidden="true" *ngIf="!item.desglosarDown" class="fas fa-chevron-up primary" style="font-size: 14px;
                     margin: 9px;"></i>
             </button>
-          </td>
-          <td *ngIf="chat" class="text-right" >
-            <button (click)="btnresponder(item,indice)" class="btn btn-primary button-fill" >
+                    </td>
+                    <td *ngIf="chat" class="text-right">
+                        <button (click)="btnresponder(item,indice)" class="btn btn-primary button-fill">
               Responder
             </button>
-            <button  (click)="btnDefault(item,indice)"style="background: white;
-            border: 1px solid;" class="btn btn-primary button-outlet" >
+                        <button (click)="btnDefault(item,indice)" style="background: white;
+            border: 1px solid;" class="btn btn-primary button-outlet">
               Enviar mensaje generico
             </button>
-          </td>
-        </tr>
-        <tr *ngIf="!item.desglosarDown && item.cargandoDetalle" class="slide-in-bck-center">
-          <td colspan="100%">
-            <div class="col text-center mb-5">
-              <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-            </div>
-          </td>
-        </tr>
-        <tr *ngIf="!item.desglosarDown && !item.cargandoDetalle && !nominacalculo && !nominatimbrar"
-          class="slide-in-bck-center">
-          <td colspan="90%">
-            <div class="row mb-4">
-              <article *ngFor="let item of arreglotablaDesglose?.columnas;let indice = index;"
-                class="titulo  col-4 mb-3">
-                {{item.nombre}}
-                <article>{{arreglotablaDesglose?.filas[item.id]}}</article>
-              </article>
-            </div>
-          </td>
-        </tr>
-        <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominatimbrar">
+                    </td>
+                </tr>
+                <tr *ngIf="!item.desglosarDown && item.cargandoDetalle" class="slide-in-bck-center">
+                    <td colspan="100%">
+                        <div class="col text-center mb-5">
+                            <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="!item.desglosarDown && !item.cargandoDetalle && !nominacalculo && !nominatimbrar" class="slide-in-bck-center">
+                    <td colspan="90%">
+                        <div class="row mb-4">
+                            <article *ngFor="let item of arreglotablaDesglose?.columnas;let indice = index;" class="titulo  col-4 mb-3">
+                                {{item.nombre}}
+                                <article>{{arreglotablaDesglose?.filas[item.id]}}</article>
+                            </article>
+                        </div>
+                    </td>
+                </tr>
+                <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominatimbrar">
 
-          <tr style="background-color: white;">
-            <td colspan="4" style="    border-right: 1px dashed #c5c5c5;">
+                    <tr style="background-color: white;">
+                        <td colspan="4" style="    border-right: 1px dashed #c5c5c5;">
 
-              <table class="tablaTimbrado">
-                <thead>
-                  <tr>
-                    <th>Percepciones</th>
-                    <th>Monto</th>
-                    <th>Gravado</th>
-                    <th>Exento</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of datosExtras.datos.percepcion">
-                    <td>{{item.percepciones}}</td>
-                    <td>{{item.monto | currency}}</td>
-                    <td>{{item.gravado | currency}}</td>
-                    <td>{{item.exento | currency}}</td>
-                  </tr>
-                  <tr class="totalesTimbrado">
-                    <th>Total</th>
-                    <th>{{datosExtras.datos.totalMontoPercepciones | currency}}</th>
-                    <th>{{datosExtras.datos.totalGravado | currency}}</th>
-                    <th>{{datosExtras.datos.totalExento | currency}}</th>
-                  </tr>
-                </tbody>
-              </table>
+                            <table aria-hidden="true" class="tablaTimbrado">
+                                <thead>
+                                    <tr>
+                                        <th>Percepciones</th>
+                                        <th>Monto</th>
+                                        <th>Gravado</th>
+                                        <th>Exento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of datosExtras.datos.percepcion">
+                                        <td>{{item.percepciones}}</td>
+                                        <td>{{item.monto | currency}}</td>
+                                        <td>{{item.gravado | currency}}</td>
+                                        <td>{{item.exento | currency}}</td>
+                                    </tr>
+                                    <tr class="totalesTimbrado">
+                                        <th>Total</th>
+                                        <th>{{datosExtras.datos.totalMontoPercepciones | currency}}</th>
+                                        <th>{{datosExtras.datos.totalGravado | currency}}</th>
+                                        <th>{{datosExtras.datos.totalExento | currency}}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-            </td>
-            <td colspan="2" style="    border-right: 1px dashed #c5c5c5;">
+                        </td>
+                        <td colspan="2" style="    border-right: 1px dashed #c5c5c5;">
 
-              <table class="tablaTimbrado">
-                <thead>
-                  <tr>
-                    <th>Deducciones</th>
-                    <th>Monto</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of datosExtras.datos.deduccion">
-                    <td>{{item.deducciones}}</td>
-                    <td>{{item.monto | currency}}</td>
-                  </tr>
-                  <tr class="totalesTimbrado">
-                    <th>Total</th>
-                    <th>{{datosExtras.datos.totalMontoDeducciones | currency}}</th>
-                  </tr>
-                </tbody>
-              </table>
+                            <table aria-hidden="true" class="tablaTimbrado">
+                                <thead>
+                                    <tr>
+                                        <th>Deducciones</th>
+                                        <th>Monto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of datosExtras.datos.deduccion">
+                                        <td>{{item.deducciones}}</td>
+                                        <td>{{item.monto | currency}}</td>
+                                    </tr>
+                                    <tr class="totalesTimbrado">
+                                        <th>Total</th>
+                                        <th>{{datosExtras.datos.totalMontoDeducciones | currency}}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-            </td>
-            <td span="7">
-              <a (click)="descargar()" style="color:#b8b8b8;text-decoration: underline;cursor: not-allowed;"
-                class="dropdown-toggle">
-                <i style="background-color: #b8b8b8 !important;" class="icon_eventos "></i>
-                Vista preliminar de recibo de pago
+                        </td>
+                        <td span="7">
+                            <a (click)="descargar()" style="color:#b8b8b8;text-decoration: underline;cursor: not-allowed;" class="dropdown-toggle">
+                                <i aria-hidden="true" style="background-color: #b8b8b8 !important;" class="icon_eventos "></i> Vista preliminar de recibo de pago
 
-              </a>
-            </td>
-          </tr>
-        </ng-container>
-        <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominacalculo">
-          <tr style="background-color: white;" class="slide-in-bck-center">
-            <td colspan="2">
+                            </a>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominacalculo">
+                    <tr style="background-color: white;" class="slide-in-bck-center">
+                        <td colspan="2">
 
-              <article *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
-                {{item.valor}}
-                <article>{{item.dato | currency}}</article>
-              </article>
+                            <article *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
+                                {{item.valor}}
+                                <article>{{item.dato | currency}}</article>
+                            </article>
 
 
 
-            </td>
+                        </td>
 
-            <td>
+                        <td>
 
-              <article *ngFor="let item of datosExtras[1]" class="titulo  col-12 mb-3">
-                {{item.valor}}
-                <article>{{item.dato}}</article>
-              </article>
+                            <article *ngFor="let item of datosExtras[1]" class="titulo  col-12 mb-3">
+                                {{item.valor}}
+                                <article>{{item.dato}}</article>
+                            </article>
 
-            </td>
-            <td>
+                        </td>
+                        <td>
 
-              <article *ngFor="let item of datosExtras[2]" class="titulo  col-12 mb-3">
-                {{item.concepto}}
-                <article> {{item.montoTotal | currency}}</article>
-              </article>
+                            <article *ngFor="let item of datosExtras[2]" class="titulo  col-12 mb-3">
+                                {{item.concepto}}
+                                <article> {{item.montoTotal | currency}}</article>
+                            </article>
 
-            </td>
-            <td colspan="3">
+                        </td>
+                        <td colspan="3">
 
-              <article *ngFor="let item of datosExtras[3]" class="titulo  col-12 mb-3">
-                {{item.concepto}}
-                <article> {{item.montoCuota | currency}}</article>
-              </article>
+                            <article *ngFor="let item of datosExtras[3]" class="titulo  col-12 mb-3">
+                                {{item.concepto}}
+                                <article> {{item.montoCuota | currency}}</article>
+                            </article>
 
-            </td>
-          </tr>
-        </ng-container>
+                        </td>
+                    </tr>
+                </ng-container>
 
 
-      </ng-container>
-    </tbody>
-  </table>
+            </ng-container>
+        </tbody>
+    </table>
 </div>
 <div *ngIf="!cargando && arreglo === undefined" class="alert  col text-center">
-  <strong>En este momento no existen registros</strong>
+    <strong>En este momento no existen registros</strong>
 </div>
 <div *ngIf="!cargando && arreglo !== undefined" class="row" style="width: 100%;">
-  <div class="col">
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li (click)="pasarSiguienteItem(false)" class="page-item" [ngClass]="{'disabled':!activarAntes}">
-          <a class="page-link" tabindex="-1" aria-disabled="true">Anterior</a>
-        </li>
-        <li (click)="mostrarListaPaginaAnterior()" class="page-item " *ngIf="activarMenos"><a class="page-link">...</a>
-        </li>
-        <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas"
-          (click)="paginacambiar(item)"><a class="page-link">{{item.mostrar}}</a></li>
-        <li (click)="mostrarListaPaginaSiguiente()" class="page-item " *ngIf="activarMas"><a class="page-link">...</a>
-        </li>
-        <li (click)="pasarSiguienteItem(true)" class="page-item" [ngClass]="{'disabled':!activarSiguiente}">
-          <a class="page-link">Siguiente</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+    <div class="col">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li (click)="pasarSiguienteItem(false)" class="page-item" [ngClass]="{'disabled':!activarAntes}">
+                    <a class="page-link" tabindex="-1" aria-disabled="true">Anterior</a>
+                </li>
+                <li (click)="mostrarListaPaginaAnterior()" class="page-item " *ngIf="activarMenos"><a class="page-link">...</a>
+                </li>
+                <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas" (click)="paginacambiar(item)"><a class="page-link">{{item.mostrar}}</a></li>
+                <li (click)="mostrarListaPaginaSiguiente()" class="page-item " *ngIf="activarMas"><a class="page-link">...</a>
+                </li>
+                <li (click)="pasarSiguienteItem(true)" class="page-item" [ngClass]="{'disabled':!activarSiguiente}">
+                    <a class="page-link">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 <div *ngIf="cargando" class="col text-center mb-5">
-  <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
 </div>

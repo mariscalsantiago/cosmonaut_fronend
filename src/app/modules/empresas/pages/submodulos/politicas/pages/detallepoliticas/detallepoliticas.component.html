@@ -99,7 +99,7 @@
         <div class="card-body">
             <div id="table" class="table-editable ">
 
-                <table *ngIf="!cargando && arregloTablaBeneficios !== undefined" class="table table-hover">
+                <table aria-hidden="true" *ngIf="!cargando && arregloTablaBeneficios !== undefined" class="table table-hover">
                     <tr>
                         <th class="text-center" scope="col">Años de antiguedad</th>
                         <th class="text-center" scope="col">Días de aguinaldo</th>

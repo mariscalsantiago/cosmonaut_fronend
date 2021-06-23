@@ -1,7 +1,7 @@
 <div class="row margen">
     <div class="col titulo-outlet">
 
-        <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/usuarios"></i>ADMINISTRACIÓN DE
+        <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/usuarios"></i>ADMINISTRACIÓN DE
             ROLES</label>
     </div>
 </div>
@@ -28,9 +28,9 @@
             <div class="col-12">
                 <div *ngIf="cargando" class="col text-center mb-5">
                     <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-                  </div>
+                </div>
                 <div *ngIf="!cargando" id="accordion" class="acordion_desplegable">
-                    <div *ngFor="let item of arreglo;let indice = index " [class.ocultar]="!item.mostrar"  class="card" [ngClass]="{'cardselected':arreglo[indice].seleccionado}">
+                    <div *ngFor="let item of arreglo;let indice = index " [class.ocultar]="!item.mostrar" class="card" [ngClass]="{'cardselected':arreglo[indice].seleccionado}">
                         <div [ngClass]="{'fondoblanco':arreglo[indice].seleccionado}" class="card-header" id="detallepago">
 
                             <h5 class="mb-0">
@@ -38,38 +38,35 @@
                                     <input [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"  type="checkbox">
                                     <span class="checkmark"></span>
                                 </label>
-                                <button type="button" style="margin-left: 10px;" (click)="cambiarStatus(indice)" class="btn btn-link"
-                                    data-toggle="collapse" data-target="#detallepagocolapsar" aria-expanded="false"
-                                    aria-controls="detallepago">
+                                <button type="button" style="margin-left: 10px;" (click)="cambiarStatus(indice)" class="btn btn-link" data-toggle="collapse" data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
 
                                     {{item.nombreModulo}}
-                                    <i *ngIf="!arreglo[indice].seleccionado" data-toggle="collapse" data-target="#collapseOne"
+                                    <i aria-hidden="true" *ngIf="!arreglo[indice].seleccionado" data-toggle="collapse" data-target="#collapseOne"
                                         aria-expanded="true" aria-controls="collapseOne"
                                         class="fas fa-chevron-down "></i>
-                                    <i *ngIf="arreglo[indice].seleccionado" data-toggle="collapse" data-target="#collapseOne"
+                                    <i aria-hidden="true" *ngIf="arreglo[indice].seleccionado" data-toggle="collapse" data-target="#collapseOne"
                                         aria-expanded="true" aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                                 </button>
                             </h5>
                         </div>
 
-                        <div id="detallepagocolapsar" *ngIf="item.checked" class="collapse" aria-labelledby="detallepago"
-                            data-parent="#accordion">
+                        <div id="detallepagocolapsar" *ngIf="item.checked" class="collapse" aria-labelledby="detallepago" data-parent="#accordion">
                             <div class="card-body">
 
                                 <div class="row">
-                                    <div class="col-4" *ngFor="let auxitem of item.submodulos;let indice2 = index;" [class.ocultar]="!auxitem.mostrar" >
-                                        <label  style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)" class="contenedorInputCheckRadio">{{auxitem.nombreSubmodulo}}
+                                    <div class="col-4" *ngFor="let auxitem of item.submodulos;let indice2 = index;" [class.ocultar]="!auxitem.mostrar">
+                                        <label style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)" class="contenedorInputCheckRadio">{{auxitem.nombreSubmodulo}}
                                             <input [ngModelOptions]="{standalone: true}" [(ngModel)]="auxitem.checked"   type="checkbox">
                                             <span class="checkmark"></span>
                                         </label>
                                         <ul *ngIf="auxitem.checked">
-                                            <li *ngFor="let permiso of auxitem.permisos;let indice3 = index;" [class.ocultar]="!permiso.mostrar" > <label style="top: 8px;" class="contenedorInputCheckRadio"> {{permiso.descripcion}}
+                                            <li *ngFor="let permiso of auxitem.permisos;let indice3 = index;" [class.ocultar]="!permiso.mostrar"> <label style="top: 8px;" class="contenedorInputCheckRadio"> {{permiso.descripcion}}
                                                     <input  [ngModelOptions]="{standalone: true}" [(ngModel)]="permiso.checked" type="checkbox">
                                                     <span class="checkmark"></span>
                                                 </label> </li>
                                         </ul>
                                     </div>
-                                 
+
                                 </div>
 
                             </div>
