@@ -88,6 +88,32 @@ export class EmpresasService {
   
   }
 
+  public calculoPromedioVariables(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+  
+    
+    return this.http.post(`${direcciones.variabilidad}/calculo/promedio/variables`,json,httpOptions);
+  
+  }
+
+  public listaEmpleadosPromedioVariables(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+  
+    
+    return this.http.post(`${direcciones.variabilidad}/lista/empleados/promedio/variables`,json,httpOptions);
+  
+  }
+
   public filtrarVariabilidad(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({

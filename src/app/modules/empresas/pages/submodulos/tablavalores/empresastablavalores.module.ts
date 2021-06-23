@@ -6,10 +6,11 @@ import { ShareModule } from "src/app/shared/share.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TablaValoresService } from "./services/tablavalores.service";
 import { HttpClientModule } from "@angular/common/http";
+import { CoreModule } from "src/app/core/core.module";
 
 @NgModule({
     imports:[CommonModule,empresasTablaValoresComponentRoutingModule,ShareModule,FormsModule,ReactiveFormsModule,
-    HttpClientModule],
+    HttpClientModule,CoreModule],
     declarations: [ListasTablaValoresComponent],
     providers:[TablaValoresService]
 })

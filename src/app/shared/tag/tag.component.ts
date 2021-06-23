@@ -24,6 +24,7 @@ export class TagComponent implements OnInit,OnChanges {
 
   @Input()
   public dias:string = "";
+  
 
 
   public elementoSeleccionado:string = "";

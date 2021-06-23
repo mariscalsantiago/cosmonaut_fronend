@@ -55,6 +55,9 @@ export class ListascuentasbancariasComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+    this.establecerPermisos();
+
     
     this.activateRouter.params.subscribe(datos => {
 
@@ -94,6 +97,7 @@ export class ListascuentasbancariasComponent implements OnInit {
 
 
   public establecerPermisos(){
+    debugger;
     this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
     this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
     this.esEditar = this.configuracionesPrd.getPermisos("Editar");

@@ -33,6 +33,13 @@ export class PagarComponent implements OnInit {
   public nominaPtu:boolean = false;
   public llave: string = "";
 
+
+  public rfc: string = "";
+  public nombre: string = "";
+  public apellidoPaterno: string = "";
+  public apellidoMaterno: string = "";
+  public numeroempleado: string = "";
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -116,6 +123,7 @@ export class PagarComponent implements OnInit {
       new tabla("tipopago", "Tipo de pago", false, false, true),
       new tabla("status", "Estatus ", false, false, true)
     ];
+   if(this.arreglo !== undefined){
     for (let item of this.arreglo) {
       item["nombrecompleto"] = item[llave].nombreEmpleado + " " + item[llave].apellidoPatEmpleado + " ";
       item["nombrecompleto"] += (item[llave].apellidoMatEmpleado == undefined) ? "" : item[llave].apellidoMatEmpleado;
@@ -124,7 +132,8 @@ export class PagarComponent implements OnInit {
       item["tipopago"] = item[llave].tipoPago;
       item["total"] = this.cp.transform(item[llave].totalNetoEndinero);
       item["status"] = item[llave].status;
-    }
+    }   
+  }
     let filas: Array<any> = this.arreglo;
     this.arreglotabla = {
       columnas: columnas,
@@ -215,6 +224,57 @@ export class PagarComponent implements OnInit {
       this.cargandoIcon = false;
       this.reportes.crearArchivo(datos.datos,`archivoRFCs_${this.usuariosSistemaPrd.getIdEmpresa()}`,"txt");
     });
+  }
+
+
+  public filtrar(){
+    let objenviar = {
+      nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
+      numeroempleado: this.numeroempleado,
+      apellidoMaterno: this.apellidoMaterno,
+      apellidoPaterno: this.apellidoPaterno,
+      nombreEmpleado: this.nombre,
+      rfc: this.rfc
+    }
+
+
+    this.cargando = true;
+
+    if (this.nominaSeleccionada.nominaOrdinaria) {
+
+      this.nominaOrdinariaPrd.getUsuariosDispersionFiltrar(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.crearTabla(datos,"empleadoApago");
+
+      });
+
+    } if (this.nominaSeleccionada.nominaExtraordinaria) {
+      this.nominaAguinaldoPrd.getUsuariosDispersionFiltrar(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.crearTabla(datos,"empleadoApagoAguinaldo");
+
+      });
+
+    } else if (this.nominaSeleccionada.nominaLiquidacion) {
+      this.nominaLiquidacionPrd.getUsuariosDispersionFiltrar(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.crearTabla(datos,"empleadoApagoLiquidacion");
+
+      });
+    } else if (this.nominaSeleccionada.nominaPtu) {
+
+
+      this.nominaPtuPrd.getUsuariosDispersionFiltrar(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.crearTabla(datos,"empleadoApagoPtu");
+
+      });
+
+    }
   }
 
 }

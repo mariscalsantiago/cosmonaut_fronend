@@ -39,8 +39,9 @@ export class NominaaguinaldoService {
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(aguinaldoListaActivos);
     return this.http.post(`${direcciones.nominaExtraordinaria}/consulta/nomina/extraordinaria`, json, httpOptions);
-  
   }
+
+  
 
   public getUsuariosCalculados(obj:any):Observable<any> {
     const httpOptions = {
@@ -51,6 +52,20 @@ export class NominaaguinaldoService {
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(aguinaldoUsuariosCalculados);
     return this.http.post(`${direcciones.nominaExtraordinaria}/lista/empleado/aguinaldo`, json, httpOptions);
+
+
+  }
+
+
+  public getUsuariosCalculadosFiltrado(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    //return this.creandoObservable(aguinaldoUsuariosCalculados);
+    return this.http.post(`${direcciones.nominaExtraordinaria}/lista/empleado/aguinaldo/filtrar`, json, httpOptions);
 
 
   }
@@ -79,6 +94,18 @@ export class NominaaguinaldoService {
    return this.http.post(`${direcciones.nominaExtraordinaria}/lista/empleado/pago/neto/nomina/extraordinaria`, json, httpOptions);
   }
 
+  public getUsuariosDispersionFiltrar(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    
+   // return this.creandoObservable(aguinaldoUsuariosDispersion);
+   return this.http.post(`${direcciones.nominaExtraordinaria}/lista/empleado/pago/neto/nomina/extraordinaria/filtrar`, json, httpOptions);
+  }
+
 
   public getUsuariosTimbrado(obj:any):Observable<any> {
     const httpOptions = {
@@ -89,6 +116,19 @@ export class NominaaguinaldoService {
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(aguinaldoUsuariosTimbrado);
     return this.http.post(`${direcciones.nominaExtraordinaria}/lista/empleado/total/pago/neto/nomina/extraordinaria/aguinaldo/timbrado`,json,httpOptions); 
+
+  }
+
+
+  public getUsuariosTimbradoFiltrar(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    //return this.creandoObservable(aguinaldoUsuariosTimbrado);
+    return this.http.post(`${direcciones.nominaExtraordinaria}/lista/empleado/total/pago/neto/nomina/extraordinaria/aguinaldo/timbrado/filtrar`,json,httpOptions); 
 
   }
 

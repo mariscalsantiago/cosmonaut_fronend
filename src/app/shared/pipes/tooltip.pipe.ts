@@ -94,9 +94,10 @@ export class TooltipPipe implements PipeTransform {
     }
     else if(value === 'politicaCaluladora'){
       return "Condiciones estipuladas por la empresa para la contratación y pago al trabajador, puedes modificarlas a través del menú Configuración -> Políticas.";
-    }else if(value === ''){
-      console.log('entro aqui')
-      return "";
+    }else if(value === 'bimestre'){
+      return "Periodo sobre el cual se calcula el promedio de las percepciones variables del trabajador para la actualización del salario diario integrado.";
+    }else if(value === 'dias'){
+      return "Número de días sobre los cuales se calcula el promedio de las percepciones variables del trabajador para la actualización del salario diario integrado.";
     }
    
     return '';

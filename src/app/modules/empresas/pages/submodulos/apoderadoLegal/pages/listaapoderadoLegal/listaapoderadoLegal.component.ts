@@ -62,6 +62,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.establecerPermisos();
     let documento:any = document.defaultView;
 
     this.tamanio = documento.innerWidth;

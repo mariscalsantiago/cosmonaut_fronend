@@ -45,6 +45,9 @@ export class NominaptuService {
     return this.http.post(`${direcciones.nominaPtu}/listado/nominas/ptu`, json, httpOptions);
   }
 
+
+  
+
   public getUsuariosCalculados(obj:any):Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -54,6 +57,17 @@ export class NominaptuService {
     let json: string = JSON.stringify(obj);
      //return this.creandoObservable(ordinariaUsuariosCalculados);
     return this.http.post(`${direcciones.nominaPtu}/lista/empleados/ptu`, json, httpOptions);
+  }
+
+  public getUsuariosCalculadosFiltrado(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+     //return this.creandoObservable(ordinariaUsuariosCalculados);
+    return this.http.post(`${direcciones.nominaPtu}/lista/empleados/ptu/filtrar`, json, httpOptions);
   }
 
 
@@ -80,6 +94,17 @@ export class NominaptuService {
     return this.http.post(`${direcciones.nominaPtu}/listado/empleados/total-pago-neto/ptu`,json,httpOptions);
  }
 
+ public getUsuariosDispersionFiltrar(obj:any):Observable<any> {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+  let json: string = JSON.stringify(obj);
+  //return this.creandoObservable(ordinariaUsuariosDispersion);
+  return this.http.post(`${direcciones.nominaPtu}/listado/empleados/total-pago-neto/ptu/filtrar`,json,httpOptions);
+}
+
 
   public getUsuariosTimbrado(obj:any):Observable<any> {
     const httpOptions = {
@@ -90,6 +115,17 @@ export class NominaptuService {
     let json: string = JSON.stringify(obj);
    //return this.creandoObservable(ordinariaUsuariosTimbrado);
    return this.http.post(`${direcciones.nominaPtu}/listado/empleados/total-pago-neto/ptu/timbrado`, json, httpOptions);
+  }
+
+  public getUsuariosTimbradoFiltrar(obj:any):Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+   //return this.creandoObservable(ordinariaUsuariosTimbrado);
+   return this.http.post(`${direcciones.nominaPtu}/listado/empleados/total-pago-neto/ptu/timbrado/filtrar`, json, httpOptions);
   }
 
   public getUsuariosTimbradoDetalle(obj:any):Observable<any> {

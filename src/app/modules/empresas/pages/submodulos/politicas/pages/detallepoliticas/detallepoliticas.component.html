@@ -1,141 +1,140 @@
 <br><br>
- <form  [formGroup]="myFormpol" class="form-desing" (ngSubmit)="enviarPeticion()">
-  
+<form [formGroup]="myFormpol" class="form-desing" (ngSubmit)="enviarPeticion()">
+
     <input type="hidden" formControlName="politicaId">
-  
+
     <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
-      <br>
+        <br>
         <div class="form-group row margen">
-          <label class="titulo">INFORMACIÓN DE POLITÍCA</label></div>
+            <label class="titulo">INFORMACIÓN DE POLITÍCA</label></div>
         <div class="form group row margen">
-  
-            <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-              <label >Nombre *</label>
-              <input #nombre formControlName="nombre" maxlength="64" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"  placeholder="">
-              <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
-                  Campo requerido
+
+            <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'politica' | tooltip">
+                <label>Nombre *</label>
+                <input #nombre formControlName="nombre" maxlength="64" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
+                <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
                 </div>
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-              <label >Días económicos *</label>
-              <input appSolonumeros formControlName="diasEconomicos" type="text" class="form-control" [ngClass]="{'is-invalid':f.diasEconomicos.errors && submitEnviado}"
-                  placeholder="">
-                  <div *ngIf="f.diasEconomicos.errors && submitEnviado" class="invalid-feedback">
+                <label>Días económicos *</label>
+                <input appSolonumeros formControlName="diasEconomicos" type="text" class="form-control" [ngClass]="{'is-invalid':f.diasEconomicos.errors && submitEnviado}" placeholder="">
+                <div *ngIf="f.diasEconomicos.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
-                    </div>
-    
+                </div>
+
             </div>
-          <!--<div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <!--<div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
             <label class="contenedorInputCheckRadio">Prima vacacional al aniversario
               <input formControlName="primaAniversario" type="checkbox" name="" id="primaAniversario">
               <span class="checkmark"></span>
             </label>
           </div>-->
 
-          <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-            <label class="contenedorInputCheckRadio">Se descuentan faltas
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label class="contenedorInputCheckRadio">Se descuentan faltas
               <input formControlName="descuentaFaltas" type="checkbox" name="" id="descuentaFaltas">
               <span class="checkmark"></span>
             </label>
-          </div>
-          <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-            <label class="contenedorInputCheckRadio">Se descuentan incapacidades
+            </div>
+            <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
+                <label class="contenedorInputCheckRadio">Se descuentan incapacidades
               <input formControlName="descuentaIncapacidades" type="checkbox" name="" id="descuentaIncapacidades">
               <span class="checkmark"></span>
             </label>
-          </div>
-          <div class="input-group-sm mb-4 col-6 col-sm-6 col-lg-6">
-            <label class="contenedorInputCheckRadio">Costo vales de restaurante
+            </div>
+            <div class="input-group-sm mb-4 col-6 col-sm-6 col-lg-6">
+                <label class="contenedorInputCheckRadio">Costo vales de restaurante
               <input formControlName="costoValesRestaurante" type="checkbox" name="" id="costoValesRestaurante">
               <span class="checkmark"></span>
             </label>
-          </div>
-          <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-            <label class="contenedorInputCheckRadio">Descuento proporción séptimo día
+            </div>
+            <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
+                <label class="contenedorInputCheckRadio">Descuento proporción séptimo día
               <input formControlName="descuentoPropDia" type="checkbox" name="" id="descuentoPropDia">
               <span class="checkmark"></span>
             </label>
-          </div>
-          <!--<div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>-->
-          <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-            <label>Prima vacacional: *</label><br>
-            <label class="contenedorInputCheckRadio">Al aniversario
+            </div>
+            <!--<div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>-->
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Prima vacacional: *</label><br>
+                <label class="contenedorInputCheckRadio">Al aniversario
               <input name="primaAniversario" formControlName="primaAniversario" type="radio" value="Aniversario" [ngClass]="{'is-invalid':f.primaAniversario.errors && submitEnviado}" >
               <span class="radiomark"></span>
-            </label>   
-            <label class="contenedorInputCheckRadio">Por evento
+            </label>
+                <label class="contenedorInputCheckRadio">Por evento
               <input name="primaAniversario" formControlName="primaAniversario" type="radio" value="Evento"   [ngClass]="{'is-invalid':f.primaAniversario.errors && submitEnviado}" >
               <span class="radiomark"></span>
             </label>
-            <div *ngIf="submitEnviado && f.primaAniversario.errors" class="invalid-feedback">
-              Campo requerido
+                <div *ngIf="submitEnviado && f.primaAniversario.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
-          </div>
-          <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-            <label>Cálculo con base en :</label><br>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'calculosConBase' | tooltip">
+                <label>Cálculo con base en :</label><br>
 
-            <label class="contenedorInputCheckRadio"> Fecha de antigüedad
+                <label class="contenedorInputCheckRadio"> Fecha de antigüedad
               <input  value="antiguedad" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" >
               <span class="radiomark"></span>
             </label>
 
-            <label class="contenedorInputCheckRadio"> Fecha de ingreso
+                <label class="contenedorInputCheckRadio"> Fecha de ingreso
               <input value="contrato" formControlName="calculoAntiguedadx" type="radio" name="calculoAntiguedadx" >
               <span class="radiomark"></span>
             </label>
-            
-          </div>
 
-  
+            </div>
+
+
         </div>
-    
-    
+
+
     </div>
-  
 
 
-  <div *ngIf="mostrarBeneficios" class="card margen margen-tabla background-panel ">
-    <div class="form-group row margen">
-      <label class="titulo">INFORMACIÓN DE TABLA DE BENEFICIOS</label></div>
-    <div class="card-body">
-    <div id="table" class="table-editable ">
 
-      <table  *ngIf="!cargando && arregloTablaBeneficios !== undefined" class="table table-hover">
-        <tr>
-          <th class="text-center" scope="col">Años de antiguedad</th>
-          <th class="text-center" scope="col">Días de aguinaldo</th>
-          <th class="text-center" scope="col">Días de vacaciones</th>
-          <th class="text-center" scope="col">Prima vacacional</th>
-        </tr>
-        <tr *ngFor="let beneficios of arregloTablaBeneficios; let beneficioPolitica = index">
-          <td>
-            <span (keyup)="changeValue(beneficioPolitica, 'aniosAntiguedad', $event)" (blur)="updateList(beneficioPolitica, 'aniosAntiguedad', $event)" contenteditable="true">{{beneficios.aniosAntiguedad}}</span>
-          </td>
-          <td>
-            <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasAguinaldo', $event)" (blur)="updateList(beneficioPolitica, 'diasAguinaldo', $event)">{{beneficios.diasAguinaldo}}</span>
-          </td>
-          <td>
-            <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasVacaciones', $event)" (blur)="updateList(beneficioPolitica, 'diasVacaciones', $event)">{{beneficios.diasVacaciones}}</span>
-          </td>
-          <td>
-            <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'primaVacacional', $event)" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)">{{beneficios.primaVacacional}}</span>
-          </td>
+    <div *ngIf="mostrarBeneficios" class="card margen margen-tabla background-panel ">
+        <div class="form-group row margen">
+            <label class="titulo">INFORMACIÓN DE TABLA DE BENEFICIOS</label></div>
+        <div class="card-body">
+            <div id="table" class="table-editable ">
 
-        </tr>
-      </table>
-      <div *ngIf="!cargando && arregloTablaBeneficios === undefined" class="alert col text-center">
-        <strong>En este momento no existen registros</strong>
-      </div>
-      <div *ngIf="cargando" class="col text-center mb-5">
-        <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-      </div>
+                <table *ngIf="!cargando && arregloTablaBeneficios !== undefined" class="table table-hover">
+                    <tr>
+                        <th class="text-center" scope="col">Años de antiguedad</th>
+                        <th class="text-center" scope="col">Días de aguinaldo</th>
+                        <th class="text-center" scope="col">Días de vacaciones</th>
+                        <th class="text-center" scope="col">Prima vacacional</th>
+                    </tr>
+                    <tr *ngFor="let beneficios of arregloTablaBeneficios; let beneficioPolitica = index">
+                        <td>
+                            <span (keyup)="changeValue(beneficioPolitica, 'aniosAntiguedad', $event)" (blur)="updateList(beneficioPolitica, 'aniosAntiguedad', $event)" contenteditable="true">{{beneficios.aniosAntiguedad}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasAguinaldo', $event)" (blur)="updateList(beneficioPolitica, 'diasAguinaldo', $event)">{{beneficios.diasAguinaldo}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasVacaciones', $event)" (blur)="updateList(beneficioPolitica, 'diasVacaciones', $event)">{{beneficios.diasVacaciones}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'primaVacacional', $event)" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)">{{beneficios.primaVacacional}}</span>
+                        </td>
+
+                    </tr>
+                </table>
+                <div *ngIf="!cargando && arregloTablaBeneficios === undefined" class="alert col text-center">
+                    <strong>En este momento no existen registros</strong>
+                </div>
+                <div *ngIf="cargando" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div class="text-center margin" style="margin-bottom: 20px;">
-  <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
-  <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
-</div>   
+    <div class="text-center margin" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)" (click)="redirect(undefined)">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>
 
 </form>

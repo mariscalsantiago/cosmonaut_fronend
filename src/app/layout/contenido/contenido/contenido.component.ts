@@ -113,8 +113,12 @@ export class ContenidoComponent implements OnInit {
   }
 
   public limpiando() {
-    for (let item of this.PRINCIPAL_MENU)
+
+    
+      for (let item of this.PRINCIPAL_MENU)
       item.seleccionado = false;
+    
+    
   }
 
   public seleccionado(obj: any) {

@@ -66,6 +66,8 @@ export class ListapoliticasComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.establecerPermisos();
+
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;

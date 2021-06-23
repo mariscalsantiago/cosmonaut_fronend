@@ -90,13 +90,13 @@ export class NominaComponent implements OnInit {
   }
 
   public establecerPermisos() {
-    this.esRegistrar = !this.configuracionesPrd.getPermisos("Registrar");
+    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
     this.esCalcular = this.configuracionesPrd.getPermisos("Calcular");
-    this.esConsultar = !this.configuracionesPrd.getPermisos("Consultar");
-    this.esConcluir = !this.configuracionesPrd.getPermisos("Concluir");
-    this.esDispersar =!this.configuracionesPrd.getPermisos("Dispersar");
+    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esConcluir = this.configuracionesPrd.getPermisos("Concluir");
+    this.esDispersar =this.configuracionesPrd.getPermisos("Dispersar");
     this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
-    this.esTimbrar = !this.configuracionesPrd.getPermisos("Timbrar");
+    this.esTimbrar = this.configuracionesPrd.getPermisos("Timbrar");
     this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
 
    

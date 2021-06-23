@@ -186,9 +186,38 @@ export class DetalleRolesComponent implements OnInit {
         let enviarArray = this.formandoPermisos(rolId);
         let enviarArraySinPermiso = this.quitandoPermisos(rolId);
 
-        this.rolesPrd.guardarPermisoxModulo(enviarArray).subscribe(valorDatos => {
-          if (valorDatos.resultado) {
 
+
+        if(enviarArray.submodulosXpemisos.length !== 0){
+          this.rolesPrd.guardarPermisoxModulo(enviarArray).subscribe(valorDatos => {
+            if (valorDatos.resultado) {
+  
+              if(enviarArraySinPermiso.submodulosXpemisos.length !== 0){
+                this.rolesPrd.quitarPermisoxModulo(enviarArraySinPermiso).subscribe(sinpermiso => {
+                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                  this.modalPrd.showMessageDialog(sinpermiso.resultado, sinpermiso.mensaje).then(() => {
+                    if (sinpermiso.resultado) {
+                      this.routerPrd.navigate(["/rolesypermisos/lista"]);
+                    }
+                  });
+                });
+              }else{
+
+                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                this.modalPrd.showMessageDialog(valorDatos.resultado, valorDatos.mensaje).then(() => {
+                  if (valorDatos.resultado) {
+                    this.routerPrd.navigate(["/rolesypermisos/lista"]);
+                  }
+                });
+
+                }
+  
+            } else {
+              this.modalPrd.showMessageDialog(valorDatos.resultado, valorDatos.mensaje);
+            }
+          });
+        }else{
+          if(enviarArraySinPermiso.submodulosXpemisos.length !== 0){
             this.rolesPrd.quitarPermisoxModulo(enviarArraySinPermiso).subscribe(sinpermiso => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(sinpermiso.resultado, sinpermiso.mensaje).then(() => {
@@ -197,11 +226,15 @@ export class DetalleRolesComponent implements OnInit {
                 }
               });
             });
-
-          } else {
-            this.modalPrd.showMessageDialog(valorDatos.resultado, valorDatos.mensaje);
+          }else{
+                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+                  if (datos.resultado) {
+                    this.routerPrd.navigate(["/rolesypermisos/lista"]);
+                  }
+                });
           }
-        });
+        }
 
       } else {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
@@ -224,6 +257,7 @@ export class DetalleRolesComponent implements OnInit {
 
         let enviarArray = this.formandoPermisos(rolId);
 
+       if(enviarArray.submodulosXpemisos.length !== 0){
         this.rolesPrd.guardarPermisoxModulo(enviarArray).subscribe(valorDatos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(valorDatos.resultado, valorDatos.mensaje).then(() => {
@@ -233,6 +267,15 @@ export class DetalleRolesComponent implements OnInit {
             }
           });
         });
+       }else{
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          if (datos.resultado) {
+            this.routerPrd.navigate(["/rolesypermisos/lista"]);
+          }
+        });
+       }
 
       } else {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

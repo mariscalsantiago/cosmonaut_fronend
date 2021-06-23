@@ -31,7 +31,7 @@
                 </div>
 
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+            <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'salarioNetoMensual' | tooltip">
                 <label>Sueldo bruto *</label>
                 <input formControlName="sueldobruto" [class.is-invalid]="(f.sueldobruto.errors?.required && f.sueldobruto.touched) || (f.sueldobruto.errors?.min )" type="text" class="form-control">
                 <div *ngIf="f.sueldobruto.errors?.required && f.sueldobruto.touched" class="invalid-feedback">

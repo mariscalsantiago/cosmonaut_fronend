@@ -33,6 +33,11 @@ export class TimbrarComponent implements OnInit {
 
   public llave: string = "";
   public llave2: string = "";
+  public rfc: string = "";
+  public nombre: string = "";
+  public apellidoPaterno: string = "";
+  public apellidoMaterno: string = "";
+  public numeroempleado: string = "";
 
 
   @Input() nominaSeleccionada: any;
@@ -259,6 +264,61 @@ export class TimbrarComponent implements OnInit {
       
       }
     });
+  }
+
+
+  public filtrar(){
+
+  
+    let objenviar = {
+      nominaXperiodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
+      numeroempleado: this.numeroempleado,
+      apellidoMaterno: this.apellidoMaterno,
+      apellidoPaterno: this.apellidoPaterno,
+      nombreEmpleado: this.nombre,
+      rfc: this.rfc
+    }
+
+
+    this.cargando = true;
+    debugger;
+
+    if (this.nominaSeleccionada.nominaOrdinaria) {
+
+      this.nominaOrdinariaPrd.getUsuariosTimbradoFiltrar(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenarTablas(datos);
+
+      });
+
+    } if (this.nominaSeleccionada.nominaExtraordinaria) {
+      this.nominaAguinaldoPrd.getUsuariosTimbradoFiltrar(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenarTablas(datos);
+
+      });
+
+    } else if (this.nominaSeleccionada.nominaLiquidacion) {
+      this.nominaLiquidacionPrd.getUsuariosTimbradoFiltrar(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenarTablas(datos);
+
+      });
+    } else if (this.nominaSeleccionada.nominaPtu) {
+
+
+      this.nominaPtuPrd.getUsuariosTimbradoFiltrar(objenviar).subscribe(datos => {
+        this.cargando = false;
+        this.arreglo = datos.datos;
+        this.rellenarTablas(datos);
+
+      });
+
+    }
+    
   }
 
 }
