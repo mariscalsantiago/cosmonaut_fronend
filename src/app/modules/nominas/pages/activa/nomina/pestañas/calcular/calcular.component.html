@@ -4,16 +4,16 @@
         <input [(ngModel)]="numeroempleado" type="text" class="form-control" placeholder="Número de empleado">
     </div>
     <div class=" input-group-sm mb-3 col-3 ">
-        <input [(ngModel)]="nombre"  appAlfanumerico type="text" class="form-control" placeholder="Nombre">
+        <input [(ngModel)]="nombre" appAlfanumerico type="text" class="form-control" placeholder="Nombre">
     </div>
     <div class=" input-group-sm mb-3 col-3 ">
-        <input [(ngModel)]="apellidoPaterno"  appAlfanumerico type="text" class="form-control" placeholder="Primer apellido">
+        <input [(ngModel)]="apellidoPaterno" appAlfanumerico type="text" class="form-control" placeholder="Primer apellido">
     </div>
     <div class=" input-group-sm mb-3 col-3 ">
-        <input [(ngModel)]="apellidoMaterno"  appAlfanumerico type="text" class="form-control" placeholder="Segundo apellido">
+        <input [(ngModel)]="apellidoMaterno" appAlfanumerico type="text" class="form-control" placeholder="Segundo apellido">
     </div>
-    <div class=" input-group-sm mb-3 col-3 ">
-        <input [(ngModel)]="rfc"  type="text" name="" placeholder="RFC"  class="form-control">
+    <div class=" input-group-sm mb-3 col-3 " data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
+        <input [(ngModel)]="rfc" type="text" name="" placeholder="RFC" class="form-control">
     </div>
     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
         <button (click)="filtrar()" type="button" class="btn btn-primary button-outlet ">Filtrar</button>
@@ -31,7 +31,7 @@
 </div>
 
 <div class="row especialrow">
-    
+
     <div class="col-6">
         <article>Empleados
             <article style="margin-left: 32px;">{{nominaSeleccionada[llave]?.empleados}}</article>
@@ -56,8 +56,7 @@
 
 <div class="row">
     <div class="col">
-        <app-tablapaginado [nominacalculo]="true" [datosExtras]="datosDetalleEmpleadoNomina" [datos]="arreglotabla"
-            [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
+        <app-tablapaginado [nominacalculo]="true" [datosExtras]="datosDetalleEmpleadoNomina" [datos]="arreglotabla" [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
 </div>
 
@@ -68,11 +67,10 @@
     <button *ngIf="nominaExtraordinaria" (click)="regresarExtraordinaria()" class="btn btn-primary button-outlet mr-2">Regresar</button>
     <button (click)="continuar()" class="btn btn-primary button-fill">Continuar</button>
 </div>
- 
+
 <div class="row">
     <div class="col">
         <a *ngIf="esEliminar" style="color:#56dfd4;text-decoration: underline;" class="dropdown-toggle mt-3">
-            <i style="background-color: #56dfd4 !important;" class="icon_eliminar "></i>
-            Eliminar nómina</a>
+            <i aria-hidden="true" style="background-color: #56dfd4 !important;" class="icon_eliminar "></i> Eliminar nómina</a>
     </div>
 </div>

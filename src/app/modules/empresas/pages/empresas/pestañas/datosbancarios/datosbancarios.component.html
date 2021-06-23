@@ -1,11 +1,11 @@
-<!--<table *ngIf="listaCuentaNuevo" class="table table-hover table-sm">
+<!--<table aria-hidden="true" *ngIf="listaCuentaNuevo" class="table table-hover table-sm">
 
   <thead>
     <tr>
       <th scope="col " >  
           <div class="col-12 col-lg-12 text-right">
           <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-            <i class="fa fa-plus"></i> Agregar cuenta bancaria
+            <i aria-hidden="true" class="fa fa-plus"></i> Agregar cuenta bancaria
           </button>
         </div>
       </th>
@@ -15,25 +15,24 @@
 
 <div class="scrooll-designempresa">
 
-  <div class="mt-3">
-    <div class="row margen">
-      <div class="col titulo">
-        <label>RESULTADOS</label>
-      </div>
-      <div class="col text-right">
-        <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-          <i class="fa fa-plus"></i> Agregar cuenta bancaria
+    <div class="mt-3">
+        <div class="row margen">
+            <div class="col titulo">
+                <label>RESULTADOS</label>
+            </div>
+            <div class="col text-right">
+                <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+          <i aria-hidden="true" class="fa fa-plus"></i> Agregar cuenta bancaria
         </button>
-      </div>
+            </div>
+        </div>
+        <div class="row margen margen-tabla background-panel scrooll">
+            <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="true" [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+        </div>
     </div>
-    <div class="row margen margen-tabla background-panel scrooll">
-      <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="true"
-        [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
-    </div>
-  </div>
-  
-  
-  </div>
+
+
+</div>
 
 
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
@@ -70,14 +69,14 @@
 
 </div>-->
 
-<div class="row">
-    <div class="col-12">
-        <div class="text-right margin" style="margin-bottom: 20px;">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-right margin" style="margin-bottom: 20px;">
 
-            <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-            <!--<button *ngIf="habGuardar" (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>-->
-            <button (click)="activarCont()" type="submit" class="btn btn-primary button-fill">Continuar</button>
+                <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <!--<button *ngIf="habGuardar" (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>-->
+                <button (click)="activarCont()" type="submit" class="btn btn-primary button-fill">Continuar</button>
+            </div>
         </div>
     </div>
-</div>
 </form>

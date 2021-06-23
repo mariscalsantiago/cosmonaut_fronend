@@ -72,7 +72,7 @@ export class VariabilidadComponent implements OnInit {
     private companyProd: CompanyService, private formBuild: FormBuilder, private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    debugger;
+  //  debugger;
     let obj: any  = [];
     this.myForm = this.createForm(obj);
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
@@ -85,7 +85,7 @@ export class VariabilidadComponent implements OnInit {
     this.fechaActual = `${dia}/${mes}/${anio}`;
 
     this.companyProd.getAll().subscribe(datos => {
-      debugger;
+     // debugger;
       this.arregloEmpresa = datos.datos;
 
       this.myForm = this.createForm(obj);
@@ -264,7 +264,7 @@ export class VariabilidadComponent implements OnInit {
 
   public guardarMultiseleccion(obj:any) {
 
-    debugger;
+ //   debugger;
 
       this.mensaje = `¿Deseas descargar el archivo?`;
       

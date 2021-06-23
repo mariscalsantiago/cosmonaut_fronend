@@ -1,99 +1,92 @@
 <div class="moduloempleados">
-  <div class="ml-3 mr-3">
-    <div class="row">
-      <div class="col titulo-outlet">
-        <label><i class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/empleados"></i>{{empleado.nombre}}
+    <div class="ml-3 mr-3">
+        <div class="row">
+            <div class="col titulo-outlet">
+                <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/empleados"></i>{{empleado.nombre}}
           {{empleado.apellidoMaterno}} {{empleado.apellidoPaterno}}</label>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 
 
-  <div class="scrollempleado mt-2" >
-    <div id="perfilEmpleada" style="    height: 70px;" class=" background-panel">
+    <div class="scrollempleado mt-2">
+        <div id="perfilEmpleada" style="    height: 70px;" class=" background-panel">
 
 
-      <div (click)="subirFotoperfil();" class="marginImage alinear">
-        <img style="border-radius: 50%;" width="60px" height="60px" [src]="elEmpleado.url" alt="..." class="tableimg">
-        <br>
-        <span class="estilolink">Subir foto de perfil</span>
-      </div>
-      <div class="alinear ml-3" style="font-size: 12px;width: 50%;">
-        <div class="contenedorflex">
-          <div class="elementoitem">
-            <i style="    border: 1px solid black;
+            <div (click)="subirFotoperfil();" class="marginImage alinear">
+                <img style="border-radius: 50%;" width="60px" height="60px" [src]="elEmpleado.url" alt="..." class="tableimg">
+                <br>
+                <span class="estilolink">Subir foto de perfil</span>
+            </div>
+            <div class="alinear ml-3" style="font-size: 12px;width: 50%;">
+                <div class="contenedorflex">
+                    <div class="elementoitem">
+                        <i aria-hidden="true" style="    border: 1px solid black;
           border-radius: 100%;
           padding: 2px;" class="fas fa-dollar-sign"></i> &nbsp; {{empleado.sueldoBrutoMensual | currency:'$'}}
-          </div>
-          <div class="elementoitem">
+                    </div>
+                    <div class="elementoitem">
 
-           &nbsp;
-          </div>
-          <div class="elementoitem">
+                        &nbsp;
+                    </div>
+                    <div class="elementoitem">
 
 
-            <i class="fas fa-user"></i> &nbsp;{{empleado.puestoId?.descripcion}}
+                        <i aria-hidden="true" class="fas fa-user"></i> &nbsp;{{empleado.puestoId?.descripcion}}
 
-          </div>
-          <div class="elementoitem">
-            <i class="fas fa-phone-alt"></i> &nbsp;{{empleado.personaId?.contactoInicialTelefono}}
-          </div>
-        </div>
+                    </div>
+                    <div class="elementoitem">
+                        <i aria-hidden="true" class="fas fa-phone-alt"></i> &nbsp;{{empleado.personaId?.contactoInicialTelefono}}
+                    </div>
+                </div>
 
-      </div>
-      <div class="alinear" style="width: 24%;    margin-top: 35px;">
-        <div class="progress">
-          <div class="progress-bar primary-bg" role="progressbar" [style.width]="porcentaje?.porcentaje+'%'"
-            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{porcentaje?.porcentaje}}%</div>
-        </div>
-      </div>
-      <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div>
-      <a (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+            </div>
+            <div class="alinear" style="width: 24%;    margin-top: 35px;">
+                <div class="progress">
+                    <div class="progress-bar primary-bg" role="progressbar" [style.width]="porcentaje?.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{porcentaje?.porcentaje}}%</div>
+                </div>
+            </div>
+            <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div>
+            <a (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
             class="fas fa-download"></i> Descargar perfil</small>
         <div *ngIf="cargandoIcon" class="spinner-border" role="status">
           <span class="sr-only">Loading...</span>
         </div>
       </a>
 
-    </div>
+        </div>
 
 
-    <ul class="nav nav-tabs" id="navegadorTabs" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal"
-          aria-selected="true" routerLinkActive="active" [routerLink]="['personal']">Personal</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-          aria-selected="false" routerLinkActive="active" [routerLink]="['empleo']">Empleo</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-          aria-selected="false" routerLinkActive="active" [routerLink]="['pagos']">Pago</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-          aria-selected="false" routerLinkActive="active" [routerLink]="['eventos']">Eventos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-          aria-selected="false" routerLinkActive="active" [routerLink]="['documentos']">Documentos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-          aria-selected="false" routerLinkActive="active" [routerLink]="['kardex']">Kardex</a>
-      </li>
-      <!-- <li class="nav-item">
+        <ul class="nav nav-tabs" id="navegadorTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true" routerLinkActive="active" [routerLink]="['personal']">Personal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" routerLinkActive="active" [routerLink]="['empleo']">Empleo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" routerLinkActive="active" [routerLink]="['pagos']">Pago</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" routerLinkActive="active" [routerLink]="['eventos']">Eventos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" routerLinkActive="active" [routerLink]="['documentos']">Documentos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" routerLinkActive="active" [routerLink]="['kardex']">Kardex</a>
+            </li>
+            <!-- <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
         aria-selected="false" routerLinkActive="active">Notas</a>
     </li> -->
-    </ul>
+        </ul>
 
 
-    <div class="row m-2 background-panel background-ajustar" appTamanioVentana>
-      <div class="col-12 m-3">
-        <router-outlet></router-outlet>
-      </div>
+        <div class="row m-2 background-panel background-ajustar" appTamanioVentana>
+            <div class="col-12 m-3">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

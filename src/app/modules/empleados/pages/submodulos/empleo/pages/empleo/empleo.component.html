@@ -1,7 +1,7 @@
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
     <div class="row">
         <div class="col-12">
-            <div class="row"><label class="titulo">DETALLE DE EMPLEO</label><i *ngIf="!editarcampos" class="fas fa-pencil-alt primary" (click)="editarcampos = true;" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+            <div class="row"><label class="titulo">DETALLE DE EMPLEO</label><i aria-hidden="true" *ngIf="!editarcampos" class="fas fa-pencil-alt primary" (click)="editarcampos = true;" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
 
             <div class="row mb-4">
                 <article class="titulo  col">
@@ -279,7 +279,7 @@
 
             <div class="row"><label class="titulo">HISTORIAL DE EMPLEO</label></div>
             <div class="row" style="margin-right: 10%;">
-                <table class="table table-hover  table-responsive">
+                <table aria-hidden="true" class="table table-hover  table-responsive">
                     <thead class="head">
                         <tr>
                             <th scope="col">Periodo</th>

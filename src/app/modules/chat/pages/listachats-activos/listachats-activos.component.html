@@ -1,19 +1,18 @@
 <div class="row margen titulosfijos">
     <div class="col titulo-outlet">
-      <label>BANDEJA DE MENSAJES</label>
+        <label>BANDEJA DE MENSAJES</label>
     </div>
-  </div>
-  <div class="scrooll-design">
+</div>
+<div class="scrooll-design">
     <div class="row margen">
-    
+
         <div class="col text-right">
-          <button type="button" class="btn btn-light button-outlet" (click)="editarMensaje()">
-            <i class="fa fa-plus"></i>Editar mensaje
+            <button type="button" class="btn btn-light button-outlet" (click)="editarMensaje()">
+            <i aria-hidden="true" class="fa fa-plus"></i>Editar mensaje
           </button>
         </div>
-      </div>
-    <div class="row margen margen-tabla background-panel">
-      <app-tablapaginado [datos]="arreglotabla"   [chat]="true"  [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
-  </div>
-
+    <div class="row margen margen-tabla background-panel">
+        <app-tablapaginado [datos]="arreglotabla" [chat]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+    </div>
+</div>

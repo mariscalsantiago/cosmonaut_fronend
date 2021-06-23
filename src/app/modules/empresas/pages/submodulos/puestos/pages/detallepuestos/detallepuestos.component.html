@@ -1,182 +1,178 @@
 <br>
 <div class="col-7">
-<div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
+    <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
 
 
-  <div class="adentro">
+        <div class="adentro">
 
-    <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+            <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <div  class="header"><h5 class="titulo">LISTA DE ÁREAS</h5>
-    
-      
-    </div>
-  <hr>
-  <div  class="body">
+            <div class="header">
+                <h5 class="titulo">LISTA DE ÁREAS</h5>
 
 
-    <div *ngIf="cargandolistapuesto" class="col text-center mb-5">
-      <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-    </div>
+            </div>
+            <hr>
+            <div class="body">
 
-   <div *ngIf="!cargandolistapuesto">
-    <table  class="table m-3 table-hober table-sm " style="width: 90%;">
-      <thead>
-        <tr>
-          <th class="text-center" scope="col">Nombre de área</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of arreglodetalle">
-          <td>{{item.nombreCorto}}</td>
-        </tr>
-      </tbody>
-    </table>
-   </div>
 
-  </div>
-  <hr>
-  <div  class="footer">
-    <div class="row">
-      <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
-    </div>
-  </div>
+                <div *ngIf="cargandolistapuesto" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                </div>
 
-  </div>
-</div>
-</div>
-<br><br>
- <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
-  
-    <input type="hidden" formControlName="areaId">
+                <div *ngIf="!cargandolistapuesto">
+                    <table aria-hidden="true" class="table m-3 table-hober table-sm " style="width: 90%;">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">Nombre de área</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of arreglodetalle">
+                                <td>{{item.nombreCorto}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    
-    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
-      <div id="vetanaprincipaltablapuesto"  class=" background-panel scrooll" style="position: relative;"  >
-      <br>
-        <div class="form-group row margen">
-          <label class="titulo">INFORMACIÓN DE ÁREAS</label></div>
-        <div  class="form group row margen">
-  
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-10">
-              <label for="exampleFormControlSelect1">Empresa *</label>
-              <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"
-                  placeholder="">
-                  <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
-                    Campor requerido
-                  </div>
+            </div>
+            <hr>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+                </div>
             </div>
 
-            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-              <label >Área *</label>
-              <input #nombre formControlName="nombreCorto" type="text" maxlength="250" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && submitEnviado}"
-                  placeholder="">
-                  <div *ngIf="f.nombreCorto.errors && submitEnviado" class="invalid-feedback">
-                      Campor requerido
-                  </div>
-                 <br> 
+        </div>
+    </div>
+</div>
+<br><br>
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+
+    <input type="hidden" formControlName="areaId">
+
+
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
+        <div id="vetanaprincipaltablapuesto" class=" background-panel scrooll" style="position: relative;">
+            <br>
+            <div class="form-group row margen">
+                <label class="titulo">INFORMACIÓN DE ÁREAS</label></div>
+            <div class="form group row margen">
+
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-10">
+                    <label for="exampleFormControlSelect1">Empresa *</label>
+                    <input formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
+                    <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
+                        Campor requerido
+                    </div>
+                </div>
+
+                <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'area' | tooltip">
+                    <label>Área *</label>
+                    <input #nombre formControlName="nombreCorto" type="text" maxlength="250" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && submitEnviado}" placeholder="">
+                    <div *ngIf="f.nombreCorto.errors && submitEnviado" class="invalid-feedback">
+                        Campor requerido
+                    </div>
+                    <br>
                     <nav>
                         <a routerlinkactive="active" (click)="traerModal(undefined)" routerlink="/home" style="text-decoration: underline;color: #00c2c3;">
                         Consultar áreas existentes</a>
-                     </nav>
+                    </nav>
+                </div>
+
+                <div *ngIf="listpuesto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'puesto' | tooltip">
+                    <label for="exampleFormControlSelect1">Puesto *</label>
+                    <input formControlName="puesto" maxlength="250" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && submitEnviado}" placeholder="">
+                    <div *ngIf="f.puesto.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+
+
             </div>
 
-         <div *ngIf="listpuesto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-            <label for="exampleFormControlSelect1">Puesto *</label>
-            <input formControlName="puesto" maxlength="250" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && submitEnviado}"
-                placeholder="">
-                <div *ngIf="f.puesto.errors && submitEnviado" class="invalid-feedback">
-                    Campo requerido
-                </div>
-          </div>
-            
-  
-        </div>
-
-        <hr>
-        <div *ngIf="puestonuevo" class="row margen scrooll">   
-          <div>
-            <br>
-              <div class="form-group row margen">
-                <label class="titulo">PUESTOS EXISTENTES</label></div>
-              <div class="form-group row margen">
-            <div class="row" style="  margin-top: 10px;  width: 100%;">
-              <div class="col text-right">
-                <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-                  <i class="fa fa-plus"></i>Agregar puesto
+            <hr>
+            <div *ngIf="puestonuevo" class="row margen scrooll">
+                <div>
+                    <br>
+                    <div class="form-group row margen">
+                        <label class="titulo">PUESTOS EXISTENTES</label></div>
+                    <div class="form-group row margen">
+                        <div class="row" style="  margin-top: 10px;  width: 100%;">
+                            <div class="col text-right">
+                                <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+                  <i aria-hidden="true" class="fa fa-plus"></i>Agregar puesto
                 </button>
-              </div>
-            </div>
-            <div  class="row margen" style="margin-bottom: -25px;">
-              <div class="input-group mb-5">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
-                </div>
-                <select class="custom-select" id="inputGroupSelect01">
+                            </div>
+                        </div>
+                        <div class="row margen" style="margin-bottom: -25px;">
+                            <div class="input-group mb-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Elementos</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01">
                   <option value="1" selected>20</option>
                   <option value="2">50</option>
                   <option value="3">100</option>
                 </select>
-               
-              </div>
-            </div>
-    
-              <table *ngIf="!cargando" class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">Nombre de puesto</th>
-                      <th class="text-center" scope="col">Fecha registro</th>
-                      <th scope="col">Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of arreglo;">
-                      <td>{{item.nombreCorto}}</td>
-                      <td>{{item.fechaAlta}}</td>
-                      <td>
-                        <button (click)="verdetalle(item)" class="btnPersonalizado">
-                          <i class="icon_editar text-center bg-light" ></i></button>
-                    </td>
-                    </tr>
-                 
-                  </tbody>
-                </table>
-                <div *ngIf="!cargando" class="row" style="width: 100%;">
-                  <div class="col" > 
-                   <nav aria-label="Page navigation example">
-                     <ul class="pagination justify-content-center">
-                       <li class="page-item disabled">
-                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
-                       </li>
-                       <li class="page-item"><a class="page-link" >1</a></li>
-                       <li class="page-item"><a class="page-link" >2</a></li>
-                       <li class="page-item"><a class="page-link" >3</a></li>
-                       <li class="page-item">
-                         <a class="page-link">Siguiente</a>
-                       </li>
-                     </ul>
-                   </nav></div>
-                </div>
-        
-              <div *ngIf="cargando" class="col text-center mb-5">
-                <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-              </div>
-              
-          </div>
-          </div>
-        </div>
-        
-    
-      </div>
-    </div>
-  
-    <div class="text-center margin" style="margin-bottom: 20px;">
-      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
-      <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
-  </div>   
-  
-  </form>
-  
 
- 
+                            </div>
+                        </div>
+
+                        <table aria-hidden="true" *ngIf="!cargando" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre de puesto</th>
+                                    <th class="text-center" scope="col">Fecha registro</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of arreglo;">
+                                    <td>{{item.nombreCorto}}</td>
+                                    <td>{{item.fechaAlta}}</td>
+                                    <td>
+                                        <button (click)="verdetalle(item)" class="btnPersonalizado">
+                          <i aria-hidden="true" class="icon_editar text-center bg-light" ></i></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div *ngIf="!cargando" class="row" style="width: 100%;">
+                            <div class="col">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Antes</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link">1</a></li>
+                                        <li class="page-item"><a class="page-link">2</a></li>
+                                        <li class="page-item"><a class="page-link">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link">Siguiente</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <div *ngIf="cargando" class="col text-center mb-5">
+                            <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)" (click)="redirect(undefined)">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>
+
+</form>

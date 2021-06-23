@@ -1,21 +1,20 @@
 <div class="row margen titulosfijos">
     <div class="col titulo-outlet">
-      <label>ADMINISTRACIÓN DE ROLES</label>
+        <label>ADMINISTRACIÓN DE ROLES</label>
     </div>
-  </div>
+</div>
 
 
-  <div class="scrooll-design">
+<div class="scrooll-design">
     <div class="row margen">
-    
-      <div class="col text-right">
-        <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="detalle(undefined)">
-          <i class="fa fa-plus"></i>Agregar rol
+
+        <div class="col text-right">
+            <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="detalle(undefined)">
+          <i aria-hidden="true" class="fa fa-plus"></i>Agregar rol
         </button>
-      </div>
+        </div>
     </div>
     <div class="row margen margen-tabla background-panel">
-      <app-tablapaginado [datos]="arreglotabla"  [eliminar]="esEliminar" [editar]="esEditar"  [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+        <app-tablapaginado [datos]="arreglotabla" [eliminar]="esEliminar" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
-  </div>
-
+</div>
