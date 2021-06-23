@@ -87,11 +87,25 @@ export class UsuariosComponent implements OnInit {
         this.filtrar();
       });
     } else {
-      this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-        this.arregloCompany = datos.datos;
-        this.filtrar();
-      
-      });
+      if(this.usuariosSistemaPrd.esCliente()){
+        this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+          
+          if(Boolean(datos.datos)){
+            this.arregloCompany = datos.datos;
+            this.arregloCompany.unshift({centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),nombre:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)"})
+          }else{
+            this.arregloCompany = datos.datos;
+          }
+          this.filtrar();
+        
+        });
+      }else{
+        this.empresasProd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+          this.arregloCompany = [datos.datos];
+          this.filtrar();
+        
+        });
+      }
     }
 
 
@@ -240,6 +254,8 @@ export class UsuariosComponent implements OnInit {
     }
 
 
+
+    
 
     this.cargando = true;
     this.usuariosAuthPrd.filtrarUsuarios(peticion).subscribe(datos => {

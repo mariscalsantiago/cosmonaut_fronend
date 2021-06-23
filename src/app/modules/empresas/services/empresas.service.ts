@@ -24,6 +24,14 @@ export class EmpresasService {
 
   }
 
+
+  public getEmpresaById(idEmpresa:number):Observable<any>{
+    
+    return this.http.get(`${this.url}/obtener/id/${idEmpresa}`);
+    
+
+  }
+
   public getListarMovimientosIDSE():Observable<any>{
     
     return this.http.get(`${direcciones.imss}/listar/movimientos`);
@@ -111,6 +119,19 @@ export class EmpresasService {
   
     
     return this.http.post(`${direcciones.variabilidad}/lista/empleados/promedio/variables`,json,httpOptions);
+  
+  }
+
+  public aplicarPromedioVariables(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json = JSON.stringify(obj);
+  
+    
+    return this.http.post(`${direcciones.variabilidad}/aplicar/promedio/variables`,json,httpOptions);
   
   }
 

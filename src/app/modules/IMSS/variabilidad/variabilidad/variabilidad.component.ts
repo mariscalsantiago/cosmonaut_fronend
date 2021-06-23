@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { truncate } from 'fs';
 
 @Component({
   selector: 'app-variabilidad',
@@ -38,7 +39,10 @@ export class VariabilidadComponent implements OnInit {
   public razonSocial: string = "";
   public bimestreLeyenda : any = "";
   public fechaActual: string = "";
-  public listaEmpleadosPromedio : boolean = false;
+  public listaPromedio : boolean = false;
+  public listaVariable : boolean = true;
+
+  public apellidoPat:string = "";
   
   public arreglotabla: any = {
     columnas: [],
@@ -151,7 +155,46 @@ export class VariabilidadComponent implements OnInit {
       this.cargando = false;
     }
 
+    public aplicarPromedio(){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.warning,"Aplicar promedio de variables","Este cálculo afectará a las futuras nóminas del bimestre y permanecerá sin ser editable.").then(valor =>{
+        
+          if(valor){
+            
+           
+              let objEnviar : any = 
+              {
+                variabilidad: 86
+              };
+
+              this.modalPrd.showMessageDialog(this.modalPrd.loading);
+                this.empresasPrd.aplicarPromedioVariables(objEnviar).subscribe(datos => {
+
+                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+    
+                this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de varibales completo").then(valor =>{
+        
+                  if (!datos.resultado) {
+                      debugger;
+
+                  } else{
+                    this.listaVariabilidad = false;
+                    this.fromPromediar = true;
+                  }  
+                  });
+              });     
+
+          }
+        });
+        
+
+  }
+
+
     public crearTablaListaEmpleadosPromedio(datos:any) {
+
+      this.arregloListaEmpleadosPromedio = datos;
+      
       const columna: Array<tabla> = [
         new tabla("nombreCompleto", "Nombre"),
         new tabla("diasLaboradosBimestre", "Días"),
@@ -166,13 +209,15 @@ export class VariabilidadComponent implements OnInit {
   
       if(this.arregloListaEmpleadosPromedio !== undefined){
         for(let item of this.arregloListaEmpleadosPromedio){
-          item.nombreCompleto = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
+          item.nombreCompleto = item.calculoEmpleadoVariabilidad.nombre + " " + item.calculoEmpleadoVariabilidad.apellidoPat+" "+(item.calculoEmpleadoVariabilidad.apellidoMat == undefined ? "":item.calculoEmpleadoVariabilidad.apellidoMat);
+          item.diasLaboradosBimestre = item.calculoEmpleadoVariabilidad.diasLaboradosBimestre;
+          item.diferencia = item.calculoEmpleadoVariabilidad.diferencia;
 
         }
       }
   
       this.arreglotablaListaEmpleadosPromedio.columnas = columna;
-      this.arreglotablaListaEmpleadosPromedio.filas = this.arreglo
+      this.arreglotablaListaEmpleadosPromedio.filas = this.arregloListaEmpleadosPromedio
       this.cargando = false;
     }
 
@@ -291,6 +336,15 @@ export class VariabilidadComponent implements OnInit {
   public cancelar(){
     this.listaVariabilidad = true;
     this.fromPromediar = false;
+    this.listaVariable = true;
+    this.listaPromedio = false;
+
+  }
+
+  public cancelarPromedio(){
+    this.listaVariabilidad = false;
+    this.fromPromediar = true;
+
 
   }
 
@@ -339,7 +393,7 @@ export class VariabilidadComponent implements OnInit {
 
               let objEnviar : any = 
               {
-                clienteId: 463,
+                clienteId: 461,
                 bimestre: 3,
                 fechaAplicacion: "2021-06-01",
                 anioFiscal: 2021,
@@ -360,27 +414,29 @@ export class VariabilidadComponent implements OnInit {
                   this.configuracionesPrd.setCantidad(0);
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
-                this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
-                  .then(()=> {
-                     if (datos.datos != null || datos.datos != undefined) {
+                //this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
+                  //.then(()=> {
+                     if (!datos.resultado) {
                       debugger;
-                      this.listaVariabilidad = false;
+                      this.listaVariabilidad = true;
                       this.fromPromediar = false;
-                      this.listaEmpleadosPromedio = true;
+                      this.listaPromedio = true;
+                      this.listaVariable = false;
                       this.cargando = true;
                       let objLista : any ={
-                        variabilidad: datos.datos.variabilidadId
+                        //variabilidad: datos.datos.variabilidadId
+                        variabilidad: 86
                       }
                                                             
                       this.empresasPrd.listaEmpleadosPromedioVariables(objLista).subscribe(datos => {
-                       
-                      this.crearTablaListaEmpleadosPromedio({ datos: this.arregloListaEmpleadosPromedio });
+                      
+                      this.crearTablaListaEmpleadosPromedio(datos.datos);
                     });
                   } else{
                     this.listaVariabilidad = false;
                     this.fromPromediar = true;
                   }  
-                  });
+                  //});
                 }
                   });
               });     

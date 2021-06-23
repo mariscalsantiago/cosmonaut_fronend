@@ -32,9 +32,9 @@ export class EditarmensajeChatComponent implements OnInit {
 
   public createForm(obj:any){
     return this.fb.group({
-      tipomensaje:[obj.tipoMensajeId?.tipoMensajeId,[Validators.required]],
-      mensaje:[obj.mensajeGenerico,[Validators.required]],
-      mensajeChatCentrocostosId:obj.mensajeChatCentrocostosId
+      tipomensaje:[obj?.tipoMensajeId?.tipoMensajeId,[Validators.required]],
+      mensaje:[obj?.mensajeGenerico,[Validators.required]],
+      mensajeChatCentrocostosId:obj?.mensajeChatCentrocostosId
     });
   }
 

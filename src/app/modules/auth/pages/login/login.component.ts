@@ -149,6 +149,8 @@ export class LoginComponent implements OnInit {
           usuario.passwordProvisional = this.usuarioObj.passwordProvisional;
           usuario.rolId = this.usuarioObj.rolId?.rolId;
           usuario.submodulosXpermisos = valorusuario.datos.submodulosXpermisos;
+          usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId)
+          usuario.centrocClienteIdPadre = (usuario.esCliente)?0:objRecibido.centroCostosCentrocClienteId.centrocClienteId;
           this.usuarioSistemaPrd.setUsuario(usuario);
           this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
             let obj = datos.datos;
@@ -377,6 +379,9 @@ export class LoginComponent implements OnInit {
     let usuario:usuarioClass = this.usuarioSistemaPrd.getUsuario();
     usuario.centrocClienteId = this.clienteSeleccionado.centrocClienteId;
     usuario.nombreEmpresa = this.clienteSeleccionado.razonSocial;
+    usuario.esCliente = !Boolean(this.clienteSeleccionado.centroCostosCentrocClienteId)
+    usuario.centrocClienteIdPadre = (usuario.esCliente)?0:this.clienteSeleccionado?.centroCostosCentrocClienteId?.centrocClienteId;
+    
 
     this.usuarioSistemaPrd.setUsuario(usuario);
     this.cargando = true;

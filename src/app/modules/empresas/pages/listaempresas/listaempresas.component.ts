@@ -60,33 +60,15 @@ export class ListaEmpresasComponent implements OnInit {
 
 
 
-    this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-
-      this.arreglo = datos.datos;
-
-      let columnas: Array<tabla> = [
-        new tabla("url", "imagen"),
-        new tabla("centrocClienteId", "ID empresa"),
-        new tabla("razonSocial", "Razón social	", this.esConsultar,this.esConsultar),
-        new tabla("nombre", "Nombre de la empresa	"),
-        new tabla("rfc", "RFC"),
-        new tabla("fechaAlta", "Fecha de registro en el sistema"),
-        new tabla("esActivo", "Estatus")
-      ];
-      if(this.arreglo !== undefined){
-        for(let item of this.arreglo){
-          item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
-          let datepipe = new DatePipe("es-MX");
-          item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
-          
-        }
-      }
-
-      
-      this.arreglotabla.columnas = columnas;
-      this.arreglotabla.filas = this.arreglo;
-      this.cargando = false;
-    });
+    if(this.usuarioSistemaPrd.esCliente()){
+      this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+          this.cargandoTablas(datos.datos);
+      });
+    }else{
+      this.empresasProd.getEmpresaById(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+            this.cargandoTablas([datos.datos]);
+      });
+    }
 
   }
   public verdetalleemp(obj: any) {
@@ -95,6 +77,34 @@ export class ListaEmpresasComponent implements OnInit {
     this.routerPrd.navigate(['listaempresas', 'empresas', tipoinsert], { state: { data: obj } });
     this.cargando = false;
 
+  }
+
+
+  public cargandoTablas(arreglo:any){
+    this.arreglo = arreglo;
+  
+    let columnas: Array<tabla> = [
+      new tabla("url", "imagen"),
+      new tabla("centrocClienteId", "ID empresa"),
+      new tabla("razonSocial", "Razón social	", this.esConsultar,this.esConsultar),
+      new tabla("nombre", "Nombre de la empresa	"),
+      new tabla("rfc", "RFC"),
+      new tabla("fechaAlta", "Fecha de registro en el sistema"),
+      new tabla("esActivo", "Estatus")
+    ];
+    if(this.arreglo !== undefined){
+      for(let item of this.arreglo){
+        item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+        let datepipe = new DatePipe("es-MX");
+        item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
+        
+      }
+    }
+
+    
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = this.arreglo;
+    this.cargando = false;
   }
 
 

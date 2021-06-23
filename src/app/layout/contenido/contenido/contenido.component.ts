@@ -100,6 +100,7 @@ export class ContenidoComponent implements OnInit {
           this.PRINCIPAL_MENU.unshift({ moduloId: 0, nombreModulo: "Inicio", seleccionado: true, checked: true, pathServicio: '/inicio', icono: 'icon_home' });
           this.configuracionPrd.setElementosSesion(this.configuracionPrd.MENUUSUARIO, this.PRINCIPAL_MENU);
           this.establecericons();
+          
 
         });
       } else {
