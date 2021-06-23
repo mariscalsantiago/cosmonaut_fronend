@@ -11,6 +11,7 @@ import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaag
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 
 @Component({
   selector: 'app-timbrar',
@@ -45,7 +46,7 @@ export class TimbrarComponent implements OnInit {
   constructor(private empleadoPrd: EmpleadosService, private ventana: VentanaemergenteService,
     private modalPrd: ModalService, private nominaOrdinariaPrd:NominaordinariaService,
     private nominaAguinaldoPrd:NominaaguinaldoService,private nominaLiquidacionPrd:NominafiniquitoliquidacionService, private cp: CurrencyPipe,
-    private nominaPtuPrd:NominaptuService,private configuracionesPrd:ConfiguracionesService) { }
+    private nominaPtuPrd:NominaptuService,private configuracionesPrd:ConfiguracionesService,private reportesPrd:ReportesService) { }
 
   ngOnInit(): void {
 
@@ -126,9 +127,10 @@ export class TimbrarComponent implements OnInit {
 
   public recibirTabla(obj: any) {
    
+    let item = obj.datos;
     switch (obj.type) {
+      
       case "desglosar":
-        let item = obj.datos;
         let objEnviar = {
           nominaXperiodoId: this.nominaSeleccionada[this.llave2]?.nominaXperiodoId,
           fechaContrato: item[this.llave].fechaContrato,
@@ -183,6 +185,20 @@ export class TimbrarComponent implements OnInit {
        
 
         break;
+
+        case "descargar":
+         let enviarObj =  {
+          nominaPeriodoId: this.nominaSeleccionada[this.llave2]?.nominaXperiodoId,
+          idEmpleado: item[this.llave].numeroEmpleado,
+          esVistaPrevia:true
+            }
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor =>{
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                  console.log(valor);
+            });
+          break;
     }
   }
 
