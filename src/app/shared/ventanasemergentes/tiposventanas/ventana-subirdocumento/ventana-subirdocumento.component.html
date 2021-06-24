@@ -7,9 +7,6 @@
             <option value=""></option>
             <option *ngFor="let item of arregloDocumentos"  [value]="item.id">{{item.nombre}}</option>
         </select>
-            <!--<div *ngIf="f.idTipoDocumento.errors && f.idTipoDocumento.touched" class="invalid-feedback">
-            Campo requerido
-        </div>-->
         </div>
 
         <div *ngIf="nomDocumento" class="input-group-sm mb-3 col-8">

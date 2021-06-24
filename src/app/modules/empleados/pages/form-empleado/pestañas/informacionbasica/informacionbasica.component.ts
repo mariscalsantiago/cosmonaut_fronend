@@ -37,7 +37,6 @@ export class InformacionbasicaComponent implements OnInit {
     private routerPrd: Router, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    
     if(this.datosPersona[0].insertar === undefined){
      let obj = {
         nacionalidadId: {}
@@ -57,7 +56,6 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    
     const pipe = new DatePipe("es-MX");
 
     if(obj.nacionalidadId.nacionalidadId === undefined){

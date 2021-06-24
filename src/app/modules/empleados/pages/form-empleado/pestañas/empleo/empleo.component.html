@@ -1,4 +1,3 @@
-<!-- ------------------------- -->
 <div class="col-12 " style="z-index: 2;">
     <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente fade-in-second " [style.width]="modalWidth">
         <div class="adentro">
@@ -54,9 +53,6 @@
     </div>
 </div>
 
-
-
-<!-- ---------------------- -->
 
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
 
@@ -244,11 +240,11 @@
                 </div>
                 <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Pago IMSS *</label>
-                    <input formControlName="salarioNetoMensualImss" formatos [moneda]="true"  type="text" name="" id="" class="form-control">
+                    <input formControlName="salarioNetoMensualImss" formatos [moneda]="true" type="text" name="" id="" class="form-control">
                 </div>
                 <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Pago complementario *</label>
-                    <input formatos formControlName="pagoComplementario" [moneda]="true"  type="text" name="" id="" class="form-control">
+                    <input formatos formControlName="pagoComplementario" [moneda]="true" type="text" name="" id="" class="form-control">
                 </div>
                 <div *ngIf="f.tiposueldo.value == 'b'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'salarioNetoMensual'| tooltip">
                     <label for="exampleFormControlSelect1">Sueldo neto mensual*</label>
@@ -319,14 +315,14 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'fechaIngreso' | tooltip">
                     <label for="exampleFormControlSelect1">Fecha de ingreso*</label>
-                    <input #fechaInicioCont (focusout)="validarfechaInicioCont(fechaInicioCont.value)" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" name="" id="" class="form-control">
+                    <input [min]="f.fechaAntiguedad.value" #fechaInicioCont (focusout)="validarfechaInicioCont(fechaInicioCont.value)" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
-                    </div>
+                    </div>a
                 </div>
                 <div *ngIf="activaFechaFin" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Fecha fin de contrato*</label>
-                    <input #fechaFinCont (focusout)="validarfechaFinCont(fechaFinCont.value)" [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin" type="date" name="" id="" class="form-control">
+                    <input [min]="f.fechaInicio.value" #fechaFinCont (focusout)="validarfechaFinCont(fechaFinCont.value)" [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin" type="date" name="" id="" class="form-control">
                     <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
