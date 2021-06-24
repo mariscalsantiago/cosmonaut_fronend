@@ -48,8 +48,8 @@
                     </td>
 
                     <td *ngIf="imagen" style="width: 44px;" scope="row">
-                        <img *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
-                        <img *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]" class="tableimg">
+                        <img alt="" *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
+                        <img alt="" *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]" class="tableimg">
                     </td>
                     <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
                         (click)="eventoclick(item2,item,indice)">{{(item2.nombre == 'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
