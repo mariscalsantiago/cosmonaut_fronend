@@ -171,7 +171,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
-    let multifechas: boolean = seleccionado == 1 || seleccionado == 2 || seleccionado == 5;
+    let multifechas: boolean = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
     switch (seleccionado) {
       case 1:
       case 2:
@@ -251,6 +251,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         let aux = JSON.parse(JSON.stringify(objEnviar));
 
         aux.fechaInicio = new Date((new Date(item).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+        aux.duracion = 1;
         objEnviarArray.push(aux);
       }
     } else {
@@ -460,7 +461,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
 
-    let multifechas: boolean = seleccionado == 1 || seleccionado == 2 || seleccionado == 5;
+    let multifechas: boolean = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
     if (multifechas) {
       this.myForm.controls.fechaInicio.setValue("");
     }

@@ -56,6 +56,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
+    console.log("Esta es la compania",this.arregloCompany);
     this.insertar = !Boolean(history.state.usuario);
     this.objusuario = history.state.usuario;
     this.objusuario = this.objusuario == undefined ? {}:this.objusuario;
@@ -121,7 +122,7 @@ export class DetalleUsuarioComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPat, [Validators.required]],
       apellidoMaterno: [obj.apellidoMat],
-      correoelectronico: [obj.email.toLowerCase(), [Validators.required, Validators.email]],
+      correoelectronico: [obj.email?.toLowerCase(), [Validators.required, Validators.email]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta,"dd/MM/yyyy")), disabled: true }, [Validators.required]],
       centrocClienteId: [this.insertar?"":obj.centrocClientes[0].centrocClienteId, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
