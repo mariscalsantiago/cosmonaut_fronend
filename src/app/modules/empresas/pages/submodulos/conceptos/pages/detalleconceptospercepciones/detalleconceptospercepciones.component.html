@@ -35,7 +35,7 @@
         <label>Catálogo SAT *</label>
           <select formControlName="tipoPercepcionId" class="form-control"
           [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}">
-          <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipoPercepcionId">{{item.descripcion}}</option>
+          <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipopercepcion">{{item.descripcion}}</option>
         </select>
         <div *ngIf="submitInvalido && f.tipoPercepcionId.errors" class="invalid-feedback">
           Campo requerido
@@ -65,6 +65,12 @@
           <input formControlName="gravaIsn" type="checkbox" name="" id="gravaIsn">
           <span class="checkmark"></span>
         </label>
+
+        <label class="contenedorInputCheckRadio">Integra IMSS 
+          <input formControlName="integraImss" type="checkbox" name="" id="integraImss">
+          <span class="checkmark"></span>
+        </label>
+
       </div>
 
       <div  class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">

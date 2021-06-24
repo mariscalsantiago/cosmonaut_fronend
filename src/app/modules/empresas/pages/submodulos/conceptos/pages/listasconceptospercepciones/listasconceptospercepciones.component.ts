@@ -346,12 +346,14 @@ export class ListasconceptospercepcionesComponent implements OnInit {
           let columnas:Array<tabla> = [
             new tabla("gravaIsrdescripcion","Grava ISR"),
             new tabla("gravaIsndescripcion","Grava ISN"),
+            new tabla("integraIMSSdescripcion","Integra IMSS"),
             new tabla("cuentaContable","Cuenta contable"),
             new tabla("tipoPeriodicidad","Tipo de percepción")
           ];
 
 
           item.gravaIsrdescripcion = (item.gravaIsr=='S')?'Si':'No';
+          item.integraIMSSdescripcion = (item.integraImss=='S')?'Si':'No';
           item.gravaIsndescripcion = item.gravaIsn?"Si":"No";
 
           this.arreglotablaDesgloseP.columnas = columnas;

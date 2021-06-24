@@ -29,7 +29,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   ngOnInit(): void {
 
     
-    this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => this.arregloTipoPercepcion = datos.datos);
+    this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
+      debugger;
+      
+      this.arregloTipoPercepcion = datos.datos
+      this.concatenaEspecializacion();
+    });
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
@@ -87,6 +92,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       tipoPeriodicidad: [obj.tipoPeriodicidad, [Validators.required]],
       gravaIsr: obj.gravaIsr,
       gravaIsn: obj.gravaIsn == undefined?false:obj.gravaIsn,
+      integraImss: obj.integraImss == undefined?false:obj.integraImss,
       cuentaContable: obj.cuentaContable,
       tipoConcepto: [obj.tipoConcepto],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
@@ -96,7 +102,16 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   }
 
+  public concatenaEspecializacion(){
 
+    
+    if(this.arregloTipoPercepcion !== undefined){
+      for(let item of this.arregloTipoPercepcion){
+        item.tipopercepcion = item.tipoPercepcionId + "-" + item.especializacion;
+
+      }
+    }
+  }
 
   public enviarPeticion() {
 
@@ -115,10 +130,14 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
         
-
+        debugger;
         if (valor) {
 
           let obj = this.myForm.value;
+
+          let splitE = obj.tipoPercepcionId.split('-');
+          let especializacion = splitE[1];
+          let tipoDeduccion = splitE[0];
 
           if (obj.tipoConcepto == "Ordinario") {
             obj.tipoConcepto = "O"
@@ -130,19 +149,26 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
           if (obj.gravaIsn == null){
             obj.gravaIsn = false;
           }
+          let integraImss = "";
+          if (obj.integraImss == null){
+            integraImss= "N";
+          }
           let gravaIsr = obj.gravaIsr == true ? "S" : "N";
+          integraImss = obj.integraImss == true ? "S" : "N";
 
           this.peticion = {
 
             nombre: obj.nombre,
             tipoPercepcionId: {
-              tipoPercepcionId: obj.tipoPercepcionId
+              tipoPercepcionId: tipoDeduccion,
+              especializacion: especializacion
             },
 
             tipoPeriodicidad: obj.tipoPeriodicidad,
             cuentaContable: obj.cuentaContable,
             tipoConcepto: obj.tipoConcepto,
             gravaIsn: obj.gravaIsn,
+            integraImss: integraImss,
             esActivo: obj.esActivo,
             gravaIsr: gravaIsr,
             centrocClienteId: {

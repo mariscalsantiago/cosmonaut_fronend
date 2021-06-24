@@ -11,7 +11,7 @@ import { VariabilidadComponent } from "src/app/modules/IMSS/variabilidad/variabi
 @NgModule({
     declarations:[IDSEComponent, SuaComponent, VariabilidadComponent],
     imports:[CommonModule,FormsModule,imssRoutingModule,ShareModule, ReactiveFormsModule]
-})
+    })
 export class imssModule{
 
 }

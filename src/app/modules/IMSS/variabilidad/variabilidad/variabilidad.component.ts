@@ -20,6 +20,7 @@ import { truncate } from 'fs';
 export class VariabilidadComponent implements OnInit {
 
   public myForm!: FormGroup;
+  public submitEnviado:boolean = false;
   public empresa: any;
   public idEmpresa: number = 0;
   public arregloMovimientos: any = [];
@@ -75,8 +76,7 @@ export class VariabilidadComponent implements OnInit {
 
   ngOnInit(): void {
     debugger;
-    let obj: any  = [];
-    this.myForm = this.createForm(obj);
+
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     let fecha = new Date();
@@ -86,15 +86,24 @@ export class VariabilidadComponent implements OnInit {
 
     this.fechaActual = `${dia}/${mes}/${anio}`;
 
-    this.companyProd.getAll().subscribe(datos => {
-      debugger;
-      this.arregloEmpresa = datos.datos;
+    this.cargando = true;
 
+        this.objFiltro = {
+          ...this.objFiltro,
+          clienteId: 463,
+
+        };
+    
+    this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
+      this.arreglo = datos.datos;
+  
+      this.traerTabla({ datos: this.arreglo });
+  
+      this.cargando = false;
+      let obj: any  = [];
       this.myForm = this.createForm(obj);
     });
-    
-    this.filtrar();
-    
+
     
 
   }
@@ -122,7 +131,7 @@ export class VariabilidadComponent implements OnInit {
           item.fechaAplicacion = (new Date(item.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
           item.fecha = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
-
+          this.razonSocial = item.razonSocial;
           if(item.bimestre == undefined || item.bimestre == null){
 
             this.bimestreLeyenda = "1er Bimestre"
@@ -223,17 +232,18 @@ export class VariabilidadComponent implements OnInit {
 
     public createForm(obj: any) {
 
-      for(let item of this.arregloEmpresa){
+      /*for(let item of this.arregloEmpresa){
         if(item.centrocClienteId == 514){
           this.razonSocial = item.razonSocial;
         }
-      }
+      }*/
   
       return this.formBuild.group({
   
         razonSocial: [this.razonSocial],
         bimestre: [this.bimestreLeyenda],
-        fecha: [this.fechaActual]
+        fecha: [this.fechaActual],
+        diaspromediar: []
 
   
       });
@@ -350,15 +360,13 @@ export class VariabilidadComponent implements OnInit {
 
   public enviarPeticion() {
     debugger;
-    /*this.submitEnviado = true;
-      if (this.myForm.invalid) {
-        Object.values(this.myForm.controls).forEach(control => {
-          control.markAsTouched();
-        });
-        this.modalPrd.showMessageDialog(this.modalPrd.error);
-        return;
-  
-      }*/
+    if (this.myForm.invalid) {
+      Object.values(this.myForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
+    }
   
       let mensaje = "¿Deseas realizar el calculo promedio de variables?";
       

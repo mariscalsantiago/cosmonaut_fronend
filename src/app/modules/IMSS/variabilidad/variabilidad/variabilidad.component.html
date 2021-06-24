@@ -29,11 +29,14 @@
                     <input formControlName="bimestre" maxlength="300"  type="text" class="form-control disabled bg-light" >
             
                 </div>
-    
-                <div class="  input-group-sm mb-3 col-10">
-                    <label>Días a promediar *</label>
-                    <input  type="text" class="form-control">
-            
+
+                <div class="input-group-sm mb-3 col-10">
+                    <label for="exampleFormControlSelect1">Días a promediar *</label>
+                    <input formControlName="diaspromediar"  type="text" name=""  class="form-control">
+                    <!--<div *ngIf="f.diaspromediar.errors && f.diaspromediar.touched" class="invalid-feedback">
+                        Campo requerido
+                    </div>-->
+                    
                 </div>
     
                 <div class="  input-group-sm mb-3 col-10">
