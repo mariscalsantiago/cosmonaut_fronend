@@ -28,8 +28,14 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    debugger;
+    this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => {
+      debugger;
+      
+      this.arregloTipoDeduccion = datos.datos
+      this.concatenaEspecializacion();
     
-    this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => this.arregloTipoDeduccion = datos.datos);
+    });
     
 
     this.routerActive.params.subscribe(datos => {
@@ -74,7 +80,16 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
   }
 
+  public concatenaEspecializacion(){
 
+    
+    if(this.arregloTipoDeduccion !== undefined){
+      for(let item of this.arregloTipoDeduccion){
+        item.tipodedeccion = item.tipoDeduccionId + "-" + item.especializacion;
+
+      }
+    }
+  }
 
   public enviarPeticion() {
 
@@ -93,15 +108,21 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
     
-
+        debugger;
         if (valor) {
 
           let obj = this.myForm.value;
+
+          let splitE = obj.tipoDeduccionId.split('-');
+          let especializacion = splitE[1];
+          let tipoDeduccion = splitE[0];
+
           this.peticion = {
   
             nombre: obj.nombre,
             tipoDeduccionId: {
-              tipoDeduccionId: obj.tipoDeduccionId
+              tipoDeduccionId: tipoDeduccion,
+              especializacion: especializacion
               },
             cuentaContable: obj.cuentaContable,
             esActivo: obj.esActivo,

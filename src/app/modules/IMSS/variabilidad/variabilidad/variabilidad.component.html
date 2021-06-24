@@ -44,12 +44,13 @@
 
                 </div>
 
-
-                <div class="text-center margin" style="margin-bottom: 20px;">
-
-                    <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-
-                    <button type="submit" class="btn btn-primary button-fill">Continuar</button>
+                <div class="input-group-sm mb-3 col-10">
+                    <label for="exampleFormControlSelect1">Días a promediar *</label>
+                    <input formControlName="diaspromediar"  type="text" name=""  class="form-control">
+                    <!--<div *ngIf="f.diaspromediar.errors && f.diaspromediar.touched" class="invalid-feedback">
+                        Campo requerido
+                    </div>-->
+                    
                 </div>
                 <br>
             </div>
