@@ -1,7 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { of } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -95,7 +93,8 @@ export class CalendarioComponent implements OnInit {
     let obj = {
       clienteId: this.usuariosSistemaPrd.getIdEmpresa(),
       fechaInicio: inicioMes.getTime(),
-      fechaFin: finalMes.getTime()
+      fechaFin: finalMes.getTime(),
+      esActivo:true
     }
 
 
