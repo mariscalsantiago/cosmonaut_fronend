@@ -1,105 +1,104 @@
 <br><br>
 <div class="scrooll-designempresa">
-<div class="row">
+    <div class="row">
 
 
-  <div class="col-12 col-lg-12">
-    <div id="accordionFiltro">
+        <div class="col-12 col-lg-12">
+            <div id="accordionFiltro">
 
-      <div id="accordion">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
-                class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <label class="titulo" style="    width: 80%;
                 float: left;
                 text-align: left;">JORNADA LABORAL</label>
-                <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
                   class="fas fa-chevron-up "></i>
-                <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
                   class="fas fa-chevron-down "></i>
 
               </button>
-              <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                                <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
                 <label class="titulo">JORNADA LABORAL</label>
               </button>
 
-            </h5>
-          </div>
+                            </h5>
+                        </div>
 
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
 
     </div>
-  </div>
-
-</div>
-<div class="col-9">
-<div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
+    <div class="col-9">
+        <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
 
 
-  <div class="adentro">
+            <div class="adentro">
 
-    <button (click)="aparecemodalito = false"  type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+                <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <div  class="header"><h5 class="titulo">JORNADA LABORAL</h5>
-    
+                <div class="header">
+                    <h5 class="titulo">JORNADA LABORAL</h5>
+
+                </div>
+                <hr>
+                <div class="body">
+
+
+                    <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
+                        <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                    </div>
+
+                    <div *ngIf="!cargandodetallegrupo">
+                        <table aria-hidden="true" class="table m-3 table-hober table-sm " style="width: 90%;">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">Nombre de empleado</th>
+                                    <th class="text-center" scope="col">Número de empleado</th>
+                                    <th class="text-center" scope="col">Puesto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of arreglodetalle">
+
+                                    <td>{{item.nombre}} {{item.apellidom}} {{item.apellidop}}</td>
+                                    <td class="text-center">{{item.numeroemp}}</td>
+                                    <td>{{item.puesto}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="footer">
+                    <div class="row">
+                        <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-  <hr>
-  <div  class="body">
-
-
-    <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
-      <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-    </div>
-
-   <div *ngIf="!cargandodetallegrupo">
-    <table  class="table m-3 table-hober table-sm " style="width: 90%;">
-      <thead>
-        <tr>
-          <th class="text-center" scope="col">Nombre de empleado</th>
-          <th class="text-center" scope="col">Número de empleado</th>
-          <th class="text-center" scope="col">Puesto</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of arreglodetalle">
-          
-          <td >{{item.nombre}} {{item.apellidom}} {{item.apellidop}}</td>
-          <td class="text-center">{{item.numeroemp}}</td>
-          <td >{{item.puesto}}</td>
-        </tr>
-      </tbody>
-    </table>
-   </div>
-
-  </div>
-  <hr>
-  <div  class="footer">
-    <div class="row">
-      <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
-    </div>
-  </div>
-
-  </div>
-</div>
-</div>
-<div class="row" style="margin: 10px;">
-  <div class="col-12 col-lg-12 text-right">
-    <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-      <i class="fa fa-plus"></i> Agregar jornada
+    <div class="row" style="margin: 10px;">
+        <div class="col-12 col-lg-12 text-right">
+            <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+      <i aria-hidden="true" class="fa fa-plus"></i> Agregar jornada
     </button>
-  </div>
-</div>
+        </div>
+    </div>
 
 
-<div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
-  <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesglose"  [datos]="arreglotabla" [editar]="esEditar" [eliminar]="esEliminar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
-</div>
+    <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
+        <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesglose" [datos]="arreglotabla" [editar]="esEditar" [eliminar]="esEliminar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+    </div>
 
 </div>

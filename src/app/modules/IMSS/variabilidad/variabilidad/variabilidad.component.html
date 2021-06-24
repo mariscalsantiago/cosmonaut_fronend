@@ -1,33 +1,47 @@
 <div class="row margen">
     <div class="col titulo-outlet">
-      <label><i class="fas fa-chevron-left aparece-movil-inline-block" ></i>PROMEDIO DE VARIABLES</label>
+        <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block" ></i>PROMEDIO DE VARIABLES</label>
     </div>
-  </div>
-  
-  <hr>
+</div>
 
-  <form [formGroup]="myForm" *ngIf="fromPromediar" (ngSubmit)="enviarPeticion()">
+<hr>
+
+<form [formGroup]="myForm" *ngIf="fromPromediar" (ngSubmit)="enviarPeticion()">
     <input type="hidden">
     <div class="form-group row">
-            <div class="col-2"></div>
-            <div class="col-8">
-          <div class="background-panel margen">
-          <br>
-            <div class="form-group row margen">
-              <label class="titulo">CALCULAR PROMEDIO DE VARIABLES</label>
-            </div>
-            <div class="form-group row margen">
-            
-                <div class="  input-group-sm mb-3 col-10">
-                    <label >Razón social </label>
-                    <input formControlName="razonSocial" maxlength="300" type="text" class="form-control disabled bg-light" >
-            
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="background-panel margen">
+                <br>
+                <div class="form-group row margen">
+                    <label class="titulo">CALCULAR PROMEDIO DE VARIABLES</label>
                 </div>
-    
-                <div class="  input-group-sm mb-3 col-10">
-                    <label>Bimestre a calcular *</label>
-                    <input formControlName="bimestre" maxlength="300"  type="text" class="form-control disabled bg-light" >
-            
+                <div class="form-group row margen">
+
+                    <div class="  input-group-sm mb-3 col-10">
+                        <label>Razón social </label>
+                        <input formControlName="razonSocial" maxlength="300" type="text" class="form-control disabled bg-light">
+
+                    </div>
+
+                    <div class="  input-group-sm mb-3 col-10" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'bimestre' | tooltip">
+                        <label>Bimestre a calcular *</label>
+                        <input formControlName="bimestre" maxlength="300" type="text" class="form-control disabled bg-light">
+
+                    </div>
+
+                    <div class="  input-group-sm mb-3 col-10" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'dias' | tooltip">
+                        <label>Días a promediar *</label>
+                        <input type="text" class="form-control">
+
+                    </div>
+
+                    <div class="  input-group-sm mb-3 col-10">
+                        <label>Fecha de aplicación *</label>
+                        <input formControlName="fecha" type="text" class="form-control disabled bg-light">
+
+                    </div>
+
                 </div>
 
                 <div class="input-group-sm mb-3 col-10">
@@ -38,28 +52,12 @@
                     </div>-->
                     
                 </div>
-    
-                <div class="  input-group-sm mb-3 col-10">
-                    <label>Fecha de aplicación *</label>
-                    <input formControlName="fecha" type="text" class="form-control disabled bg-light">
-            
-                </div>
-    
+                <br>
             </div>
-            
-            
-            <div class="text-center margin" style="margin-bottom: 20px;">
-    
-                <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                
-                <button type="submit" class="btn btn-primary button-fill">Continuar</button>
-            </div>
-            <br>
-          </div>
         </div>
-        </div>
-        
-    </form>
+    </div>
+
+</form>
 
 <div class="scrooll-design" style="margin-top: -22px;" *ngIf="listaVariabilidad">
     <div class="margen ">

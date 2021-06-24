@@ -1,147 +1,139 @@
 <br><br>
- <form class="form-desing" [formGroup]="myFormrep" (ngSubmit)="enviarPeticion()">
+<form class="form-desing" [formGroup]="myFormrep" (ngSubmit)="enviarPeticion()">
 
     <input type="hidden" formControlName="personaId">
 
     <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
-      <br>
+        <br>
         <div class="form-group row margen">
-          <label class="titulo">INFORMACIÓN DE APODERADO LEGAL</label></div>
+            <label class="titulo">INFORMACIÓN DE APODERADO LEGAL</label></div>
         <div class="form group row margen">
 
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Nombre *</label>
-              <input #nombre formControlName="nombre" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}"  placeholder="">
-              <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
-                Campo requerido
+                <label>Nombre *</label>
+                <input #nombre formControlName="nombre" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
+                <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
                 </div>
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Primer apellido *</label>
-              <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}"
-                  placeholder="">
-                  <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
+                <label>Primer apellido *</label>
+                <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
+                <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
-                    </div>
+                </div>
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                <label >Segundo apellido</label>
-                <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control" id="apellidoMaterno" aria-describedby="apellidoMaterno"
-                    placeholder="">
+                <label>Segundo apellido</label>
+                <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control" id="apellidoMaterno" aria-describedby="apellidoMaterno" placeholder="">
 
             </div>
             <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Nacionalidad *</label>
-              <select formControlName="nacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}">
+                <label>Nacionalidad *</label>
+                <select formControlName="nacionalidadId" type="text" class="form-control" [ngClass]="{'is-invalid':f.nacionalidadId.errors && submitEnviado}">
                   <option value=""></option>
                   <option *ngFor="let item of arreglonacionalidad"  [value]="item.nacionalidadId">{{item.descripcion}}</option>
               </select>
-              <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
+                <div *ngIf="f.nacionalidadId.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
-              </div>
-          </div>
-          <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <label >RFC *</label>
-            <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" type="text" class="form-control" name="" >
-            <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
-                Campo requerido
+                </div>
             </div>
-            <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
-                RFC inválido, favor de verificar
-            </div>
-            
-        </div>
-            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >CURP *</label>
-              <input formControlName="curp" maxlength="18" type="text" class="form-control"  [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || (f.curp.errors?.pattern && f.curp.touched)}"
-                  placeholder="">
-                  <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
+            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
+                <label>RFC *</label>
+                <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" type="text" class="form-control" name="">
+                <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                     Campo requerido
-                  </div>
-                  <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
-                      CURP inválida, favor de verificar
-                    </div>
+                </div>
+                <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
+                    RFC inválido, favor de verificar
+                </div>
 
             </div>
-            
+            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'curp' | tooltip">
+                <label>CURP *</label>
+                <input formControlName="curp" maxlength="18" type="text" class="form-control" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || (f.curp.errors?.pattern && f.curp.touched)}" placeholder="">
+                <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+                <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
+                    CURP inválida, favor de verificar
+                </div>
+
+            </div>
+
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Poder notarial *</label>
-              <input formControlName="poderNotarial" maxlength="30"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.poderNotarial.errors && submitEnviado}"
-                  placeholder="">
-  
-                  <div *ngIf="f.poderNotarial.errors && submitEnviado" class="invalid-feedback">
-                      Campo requerido
-                    </div>
-  
-          </div>
+                <label>Poder notarial *</label>
+                <input formControlName="poderNotarial" maxlength="30" type="text" class="form-control" [ngClass]="{'is-invalid':f.poderNotarial.errors && submitEnviado}" placeholder="">
 
-          <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <label >Facultad *</label>
-            <select formControlName="facultadPoderId" type="text" class="form-control" [ngClass]="{'is-invalid':f.facultadPoderId.errors && f.facultadPoderId.touched}">
+                <div *ngIf="f.poderNotarial.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+
+            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <label>Facultad *</label>
+                <select formControlName="facultadPoderId" type="text" class="form-control" [ngClass]="{'is-invalid':f.facultadPoderId.errors && f.facultadPoderId.touched}">
                 <option value=""></option>
                 <option *ngFor="let item of arregloFacultadPoder"  [value]="item.facultadPoderId">{{item.descripcion}}</option>
             </select>
-            <div *ngIf="f.facultadPoderId.errors && submitEnviado" class="invalid-feedback">
-                  Campo requerido
-            </div>
-        </div>
-
-            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Correo empresarial *</label>
-              <input formControlName="emailCorporativo" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched)}"
-                  placeholder="">
-                  <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
+                <div *ngIf="f.facultadPoderId.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
-                    </div>
-                    <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
-                      Correo empresarial inválido
-                    </div>
+                </div>
             </div>
-            
-            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-              <label >Correo personal</label>
-              <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase"  [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
-                  placeholder="">
-                    <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
-                      Correo personal inválido
-                    </div>
 
-          </div>
-          <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <label >Teléfono *</label>
-            <input appSolonumeros formControlName="contactoInicialTelefono" maxlength="10"  type="text" class="form-control"  [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}"
-                placeholder="">
+            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <label>Correo empresarial *</label>
+                <input formControlName="emailCorporativo" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched)}" placeholder="">
+                <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+                <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
+                    Correo empresarial inválido
+                </div>
+            </div>
+
+            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <label>Correo personal</label>
+                <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" placeholder="">
+                <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
+                    Correo personal inválido
+                </div>
+
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <label>Teléfono *</label>
+                <input appSolonumeros formControlName="contactoInicialTelefono" maxlength="10" type="text" class="form-control" [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}" placeholder="">
 
                 <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
-                  </div>
+                </div>
 
-        </div>
-        <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-          <label >Celular</label>
-          <input appSolonumeros formControlName="celular" maxlength="10"  type="text" class="form-control"  
-              placeholder="">
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <label>Celular</label>
+                <input appSolonumeros formControlName="celular" maxlength="10" type="text" class="form-control" placeholder="">
 
-      </div>
+            </div>
 
-        <!--<div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <!--<div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
           <label >Fecha de registro *</label>
           <input formControlName="fechaAlta" type="text" class="form-control"
               placeholder="">
 
         </div>-->
 
-        <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-          <label for="exampleFormControlSelect1">Estatus de apoderado legal *</label>
-          <select  formControlName="esActivo" class="form-control">
+            <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <label for="exampleFormControlSelect1">Estatus de apoderado legal *</label>
+                <select formControlName="esActivo" class="form-control">
             <option value="true" selected >ACTIVO</option>
             <option value="false">INACTIVO</option>
           </select>
-      </div>
+            </div>
 
-      <!-- <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <!-- <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
         <label >Firma</label>
         <input formControlName="firma" type="text" class="form-control" id="firma" aria-describedby="firma"
             placeholder="">
@@ -154,8 +146,8 @@
     </div>
 
     <div class="text-center margin" style="margin-bottom: 20px;">
-      <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)"(click)="redirect(undefined)" >Cancelar</button>
-      <button  type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
-  </div>
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)" (click)="redirect(undefined)">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>
 
-  </form>
+</form>

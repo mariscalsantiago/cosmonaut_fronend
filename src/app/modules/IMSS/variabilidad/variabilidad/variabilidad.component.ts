@@ -276,7 +276,7 @@ export class VariabilidadComponent implements OnInit {
 
   public guardarMultiseleccion(obj:any) {
 
-    debugger;
+ //   debugger;
 
       this.mensaje = `¿Deseas descargar el archivo?`;
       

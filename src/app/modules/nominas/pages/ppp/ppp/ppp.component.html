@@ -1,39 +1,37 @@
 <div>
 
-  <div class="row margen titulosfijos">
-    <div class="col titulo-outlet">
-      <label>PAGO COMPLEMENTARIO</label>
+    <div class="row margen titulosfijos">
+        <div class="col titulo-outlet">
+            <label>PAGO COMPLEMENTARIO</label>
+        </div>
     </div>
-  </div>
 
-  <div class="scrooll-design">
-    <div class="margen">
-      <div id="accordionFiltro">
+    <div class="scrooll-design">
+        <div class="margen">
+            <div id="accordionFiltro">
 
-        <div id="accordion">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
-                  class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
-                  aria-expanded="true" aria-controls="collapseOne">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <label class="titulo" style="    width: 80%;
                 float: left;
                 text-align: left;">BÚSQUEDA</label>
-                  <i *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  <i aria-hidden="true" *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                     aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
                     class="fas fa-chevron-up "></i>
-                  <i *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  <i aria-hidden="true" *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                     aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
                     class="fas fa-chevron-down "></i>
 
                 </button>
-                <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                                <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
                   <label class="titulo">BÚSQUEDA</label>
                 </button>
 
-              </h5>
-            </div>
+                            </h5>
+                        </div>
 
             <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne"
               data-parent="#accordion">
@@ -59,52 +57,49 @@
                       <option *ngFor="let item of arregloGrupoNomina" [value]="item.idGrupoNomina">{{item.nombreGrupoNomina}}
                       </option>
                     </select>
-                  </div>
-                  <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                    <select name="" class="form-control" [(ngModel)]="idEmpresaActual">
+                                    </div>
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <select name="" class="form-control" [(ngModel)]="idEmpresaActual">
                       <option value="0" selected>Empresa</option>
                       <option *ngFor="let item of arregloEmpresa" [value]="item.idEmpresa">{{item.nombreEmpresa}}
                       </option>
                     </select>
-                  </div>
+                                    </div>
 
-                  <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                    <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
-                  </div>
+                                    <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                                        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
             </div>
-          </div>
+
         </div>
 
-      </div>
+        <div class="row margen">
+            <div class="col titulo">
+                <label>RESULTADOS</label>
+            </div>
 
-    </div>
+        </div>
 
-    <div class="row margen">
-      <div class="col titulo">
-        <label>RESULTADOS</label>
-      </div>
+        <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
 
-    </div>
-
-    <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
-
-      <div class="col-12">
-        <button (click)="guardarMultiseleccion()" type="button"
-
-          class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar archivo</span>
+            <div class="col-12">
+                <button (click)="guardarMultiseleccion()" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar archivo</span>
         </button>
-      </div>
-    </div>
+            </div>
+        </div>
 
-    <div class="row margen margen-tabla background-panel ">
-      <!--<div class="form-check ml-4 mt-4">
+        <div class="row margen margen-tabla background-panel ">
+            <!--<div class="form-check ml-4 mt-4">
         <input (change)="seleccionarTodosBool(valor)" #valor type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Seleccionar todos</label>
       </div>-->
-      <app-tablapaginado [datos]="arreglotabla" [checkbox]="true" [cargando]="cargando"
-        (salida)="recibirTabla($event)"></app-tablapaginado>
+            <app-tablapaginado [datos]="arreglotabla" [checkbox]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+        </div>
     </div>
-  </div>
 </div>

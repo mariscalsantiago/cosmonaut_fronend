@@ -196,6 +196,12 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
       return this.http.get(`${direcciones.reportes}/dispersion/lista/dispersion/erroneos/${idNomina}`);
   }
 
+
+  public getComprobanteFiscalXML(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.reportes}/comprobanteFiscal/layoutComprobanteFiscal`,json);
+  }
+
   public getReporteNominasTabCalculados(obj:any):Observable<any>{
     let json = JSON.stringify(obj);
     return this.http.post(`${direcciones.reportes}/nominaDispersion/layoutReporteNomina/`,json);

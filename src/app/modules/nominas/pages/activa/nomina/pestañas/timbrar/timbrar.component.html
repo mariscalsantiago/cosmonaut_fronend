@@ -10,11 +10,11 @@
         <input [(ngModel)]="apellidoPaterno" appAlfanumerico type="text" class="form-control" placeholder="Primer apellido">
     </div>
     <div class=" input-group-sm mb-3 col-3 ">
-        <input [(ngModel)]="apellidoMaterno"  appAlfanumerico type="text" class="form-control" placeholder="Primer apellido">
+        <input [(ngModel)]="apellidoMaterno" appAlfanumerico type="text" class="form-control" placeholder="Primer apellido">
     </div>
-    <div class=" input-group-sm mb-3 col-3 ">
-        <input [(ngModel)]="rfc"  type="text" name="" placeholder="RFC"  class="form-control">
-     </div>
+    <div class=" input-group-sm mb-3 col-3 " data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
+        <input [(ngModel)]="rfc" type="text" name="" placeholder="RFC" class="form-control">
+    </div>
     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
         <button (click)="filtrar()" type="button" class="btn btn-primary button-outlet mr-3 ">Filtrar</button>
     </div>
@@ -22,51 +22,50 @@
 
 
 
-    
-    
-    <div class="row">
-        <div class="col-11 text-right">
-            <a *ngIf="esDescargar" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+
+
+<div class="row">
+    <div class="col-11 text-right">
+        <a *ngIf="esDescargar" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
                         class="fas fa-download"></i> Descargar nómina</small>
                 <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
             </a>
-        </div>
-    </div>  
-
-    <div class="row especialrow">
-        <div class="col-6">
-            <article>Empleados
-                <article style="margin-left: 32px;">{{nominaSeleccionada[llave2].empleados}}</article>
-            </article>
-        </div>
-        <div class="col-2">
-            <article>Percepciones
-                <article>{{nominaSeleccionada[llave2].percepciones | currency}}</article>
-            </article>
-        </div>
-        <div class="col-2">
-            <article>Deducciones
-                <article>{{nominaSeleccionada[llave2].deducciones | currency}}</article>
-            </article>
-        </div>
-        <div class="col-2">
-            <article>Total
-                <article>{{nominaSeleccionada[llave2].total | currency}}</article>
-            </article>
-        </div>
     </div>
-    <div class="row">
-        <div class="col">
-          <app-tablapaginado [nominatimbrar]="true" [datosExtras]="datosExtras" [desglosar]="true" [datos]="arreglotabla"  [cargando]="cargando" [timbrado]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
-        </div>
+</div>
+
+<div class="row especialrow">
+    <div class="col-6">
+        <article>Empleados
+            <article style="margin-left: 32px;">{{nominaSeleccionada[llave2].empleados}}</article>
+        </article>
     </div>
-
-
-    <div class="text-center margin" style="margin-bottom: 20px;">
-
-        <button (click)="regresar()" class="btn btn-primary button-outlet mr-2">Regresar</button>
-        <button (click)="timbrar()"  class="btn btn-primary button-fill">Timbrar</button>
+    <div class="col-2">
+        <article>Percepciones
+            <article>{{nominaSeleccionada[llave2].percepciones | currency}}</article>
+        </article>
     </div>
-    
+    <div class="col-2">
+        <article>Deducciones
+            <article>{{nominaSeleccionada[llave2].deducciones | currency}}</article>
+        </article>
+    </div>
+    <div class="col-2">
+        <article>Total
+            <article>{{nominaSeleccionada[llave2].total | currency}}</article>
+        </article>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <app-tablapaginado [nominatimbrar]="true" [datosExtras]="datosExtras" [desglosar]="true" [datos]="arreglotabla" [cargando]="cargando" [timbrado]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
+    </div>
+</div>
+
+
+<div class="text-center margin" style="margin-bottom: 20px;">
+
+    <button (click)="regresar()" class="btn btn-primary button-outlet mr-2">Regresar</button>
+    <button (click)="timbrar()" class="btn btn-primary button-fill">Timbrar</button>
+</div>

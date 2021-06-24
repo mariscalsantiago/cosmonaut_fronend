@@ -24,6 +24,14 @@ export class EmpresasService {
 
   }
 
+
+  public getEmpresaById(idEmpresa:number):Observable<any>{
+    
+    return this.http.get(`${this.url}/obtener/id/${idEmpresa}`);
+    
+
+  }
+
   public getListarMovimientosIDSE():Observable<any>{
     
     return this.http.get(`${direcciones.imss}/listar/movimientos`);

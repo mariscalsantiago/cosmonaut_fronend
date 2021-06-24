@@ -1,174 +1,170 @@
 <div class="container">
-  <br><br>
-  <div class="row">
-    <div class="col-12 mr-3">
-      <div id="accordion" class="acordion_desplegable">
-        <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
-          <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
-            <h5 class="mb-0">
-              <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse"
-                data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
+    <br><br>
+    <div class="row">
+        <div class="col-12 mr-3">
+            <div id="accordion" class="acordion_desplegable">
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
+                    <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
+                        <h5 class="mb-0">
+                            <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse" data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
 
                 Valores de referencia
-                <i *ngIf="!arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="!arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-down "></i>
-                <i *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
               </button>
-            </h5>
-          </div>
-
-          <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago" data-parent="#accordion">
-                  
-            <div class="card-body">
-
-             
-              <div class="row">
-                <div class="col-12">
-
-                  <div class="row margen">
-                    <div class="col titulo">
-                      <label>RESULTADOS</label>
+                        </h5>
                     </div>
-                    <div class="col text-right">
+
+                    <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago" data-parent="#accordion">
+
+                        <div class="card-body">
+
+
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="row margen">
+                                        <div class="col titulo">
+                                            <label>RESULTADOS</label>
+                                        </div>
+                                        <div class="col text-right">
+                                        </div>
+                                    </div>
+                                    <div class="row margen margen-tabla background-panel">
+                                        <app-tablapaginado [datos]="arreglotablaRef" [cargando]="cargandoRef">
+                                        </app-tablapaginado>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
                     </div>
-                  </div>
-                  <div class="row margen margen-tabla background-panel">
-                    <app-tablapaginado [datos]="arreglotablaRef" [cargando]="cargandoRef">
-                    </app-tablapaginado>
-                  </div>
-
-
                 </div>
-              </div>
-
-
-
-            </div>
-          </div>
-        </div>
-        <div class="card" [ngClass]="{'cardselected':arreglopintar[1]}">
-          <div class="card-header" id="compensacion">
-            <h5 class="mb-0">
-              <button (click)="cambiarStatus(1)"class="btn btn-link collapsed" data-toggle="collapse"
-                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[1]}">
+                    <div class="card-header" id="compensacion">
+                        <h5 class="mb-0">
+                            <button (click)="cambiarStatus(1)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 Tablas periódicas ISR
-                <i *ngIf="!arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="!arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-down "></i>
-                <i *ngIf="arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
               </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="compensacion" data-parent="#accordion">
-            <div class="card-body">
-                <div class="row">
-                <div class="col-12">
-
-                  <div class="row margen">
-                    <div class="col titulo">
-                      <label>RESULTADOS</label>
+                        </h5>
                     </div>
-                    <div class="col text-right">
+                    <div id="collapseTwo" class="collapse" aria-labelledby="compensacion" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="row margen">
+                                        <div class="col titulo">
+                                            <label>RESULTADOS</label>
+                                        </div>
+                                        <div class="col text-right">
+                                        </div>
+                                    </div>
+                                    <div id="vetanaprincipaltablaISR" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
+                                        <app-tablapaginado [datos]="arreglotablaISR" [ver]="true" [cargando]="cargandoISR" (salida)="recibirTablaISR($event)">
+                                        </app-tablapaginado>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
                     </div>
-                  </div>
-                  <div id="vetanaprincipaltablaISR"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
-                    <app-tablapaginado [datos]="arreglotablaISR" [ver]="true"  [cargando]="cargandoISR" (salida)="recibirTablaISR($event)">
-                    </app-tablapaginado>
-                  </div>
-
-
                 </div>
-              </div>
-
-
-
-            </div>
-          </div>
-        </div>
-        <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}">
-          <div class="card-header" id="percepciones">
-            <h5 class="mb-0">
-              <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse"
-                data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}">
+                    <div class="card-header" id="percepciones">
+                        <h5 class="mb-0">
+                            <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
                 Tablas periódicas de subsidio
-                <i *ngIf="!arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="!arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-down "></i>
-                <i *ngIf="arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
               </button>
-            </h5>
-          </div>
-          <div id="collapsefour" class="collapse" aria-labelledby="percepciones" data-parent="#accordion">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-12">
-
-                  <div class="row margen">
-                    <div class="col titulo">
-                      <label>RESULTADOS</label>
+                        </h5>
                     </div>
-                    <div class="col text-right">
+                    <div id="collapsefour" class="collapse" aria-labelledby="percepciones" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="row margen">
+                                        <div class="col titulo">
+                                            <label>RESULTADOS</label>
+                                        </div>
+                                        <div class="col text-right">
+                                        </div>
+                                    </div>
+                                    <div class="row margen margen-tabla background-panel">
+                                        <app-tablapaginado [datos]="arreglotablaSubcidio" [ver]="true" [cargando]="cargandoSubcidio" (salida)="recibirTablaSubcidio($event)">
+                                        </app-tablapaginado>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
                     </div>
-                  </div>
-                  <div class="row margen margen-tabla background-panel">
-                    <app-tablapaginado [datos]="arreglotablaSubcidio" [ver]="true"  [cargando]="cargandoSubcidio" (salida)="recibirTablaSubcidio($event)">
-                    </app-tablapaginado>
-                  </div>
-
-
                 </div>
-              </div>
-
-
-
-            </div>
-          </div>
-        </div>
-        <div class="card" [ngClass]="{'cardselected':arreglopintar[3]}">
-          <div class="card-header" id="deducciones">
-            <h5 class="mb-0">
-              <button (click)="cambiarStatus(3)" class="btn btn-link collapsed" data-toggle="collapse"
-                data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[3]}">
+                    <div class="card-header" id="deducciones">
+                        <h5 class="mb-0">
+                            <button (click)="cambiarStatus(3)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
                 Tablas de impuesto sobre nómina
-                <i *ngIf="!arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="!arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-down "></i>
-                <i *ngIf="arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                <i aria-hidden="true" *ngIf="arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne" class="fas fa-chevron-up "></i>
               </button>
-            </h5>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="deducciones" data-parent="#accordion">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-12">
-
-                  <div class="row margen">
-                    <div class="col titulo">
-                      <label>RESULTADOS</label>
+                        </h5>
                     </div>
-                    <div class="col text-right">
+                    <div id="collapseFive" class="collapse" aria-labelledby="deducciones" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="row margen">
+                                        <div class="col titulo">
+                                            <label>RESULTADOS</label>
+                                        </div>
+                                        <div class="col text-right">
+                                        </div>
+                                    </div>
+                                    <div class="row margen margen-tabla background-panel">
+                                        <app-tablapaginado [datos]="arreglotablaNomina" [cargando]="cargandoNomina">
+                                        </app-tablapaginado>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
                     </div>
-                  </div>
-                  <div class="row margen margen-tabla background-panel">
-                    <app-tablapaginado [datos]="arreglotablaNomina" [cargando]="cargandoNomina" >
-                    </app-tablapaginado>
-                  </div>
-
-
                 </div>
-              </div>
-
-
 
             </div>
-
-          </div>
         </div>
-        
-      </div>
     </div>
-  </div>
 </div>
 
 

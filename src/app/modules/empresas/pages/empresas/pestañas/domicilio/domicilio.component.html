@@ -1,14 +1,13 @@
 <form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
     <input type="hidden" formControlName="domicilioId">
-    
+
     <div class="row mt-3">
         <div class="col-10">
             <div class="form group row">
 
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Código postal *</label>
-                    <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control"
-                        [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
+                    <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control" [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
                         placeholder="">
                     <div *ngIf="f.codigo.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
@@ -21,9 +20,7 @@
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Entidad federativa *</label>
-                    <input formControlName="estado"  type="email"
-                        [ngClass]="{'is-invalid':f.estado.errors?.required && submitEnviado}"
-                        class="form-control disabled bg-light" placeholder="">
+                    <input formControlName="estado" type="email" [ngClass]="{'is-invalid':f.estado.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
                     <div *ngIf="f.estado.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -31,9 +28,7 @@
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Municipio o alcadía *</label>
-                    <input formControlName="municipio"  type="email"
-                        [ngClass]="{'is-invalid':f.municipio.errors?.required && submitEnviado}"
-                        class="form-control disabled bg-light" placeholder="">
+                    <input formControlName="municipio" type="email" [ngClass]="{'is-invalid':f.municipio.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
                     <div *ngIf="f.municipio.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -44,8 +39,7 @@
             <div class="form group row ">
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Colonia *</label>
-                    <select formControlName="asentamientoId" name="" 
-                        [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
+                    <select formControlName="asentamientoId" name="" [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
                         <option *ngFor="let item of domicilioCodigoPostal" [value]="item.asentamientoCpCons">{{item.asentamiento}}</option>
                     </select>
                     <div *ngIf="f.asentamientoId.errors && submitEnviado" class="invalid-feedback">
@@ -65,8 +59,7 @@
             <div class="form group row ">
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Número exterior *</label>
-                    <input formControlName="numExterior" type="text" name="" 
-                        [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
+                    <input formControlName="numExterior" type="text" name="" [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
                     <div *ngIf="f.numExterior.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -94,14 +87,14 @@
     </div>
 </form>
 
-<!--<table *ngIf="listaSedeNuevo" class="table table-hover table-sm">
+<!--<table aria-hidden="true" *ngIf="listaSedeNuevo" class="table table-hover table-sm">
 
     <thead>
       <tr>
         <th scope="col " >  
             <div class="col-12 col-lg-12 text-right">
             <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-              <i class="fa fa-plus"></i> Agregar sede
+              <i aria-hidden="true" class="fa fa-plus"></i> Agregar sede
             </button>
           </div>
         </th>
@@ -109,28 +102,27 @@
     </thead> 
   </table>-->
 
-  <div class="scrooll-designempresa">
+<div class="scrooll-designempresa">
 
     <div class="mt-3">
-      <div class="row margen">
-        <div class="col titulo">
-          <label>RESULTADOS</label>
-        </div>
-        <div class="col text-right">
-          <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-            <i class="fa fa-plus"></i> Agregar sede
+        <div class="row margen">
+            <div class="col titulo">
+                <label>RESULTADOS</label>
+            </div>
+            <div class="col text-right">
+                <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+            <i aria-hidden="true" class="fa fa-plus"></i> Agregar sede
           </button>
+            </div>
         </div>
-      </div>
-      <div class="row margen margen-tabla background-panel scrooll">
-        <app-tablapaginado [datos]="arreglotabla" [editar]="true" [eliminar]="true" 
-        [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
-      </div>
+        <div class="row margen margen-tabla background-panel scrooll">
+            <app-tablapaginado [datos]="arreglotabla" [editar]="true" [eliminar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+        </div>
     </div>
-    
-    
-    </div>
-  <!--<div *ngIf="listaSedeModificar" class="scrooll-designempresa">
+
+
+</div>
+<!--<div *ngIf="listaSedeModificar" class="scrooll-designempresa">
 
     <div class="mt-3">
       <div class="row margen">
@@ -139,13 +131,13 @@
         </div>
         <div class="col text-right">
           <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-            <i class="fa fa-plus"></i> Agregar sede
+            <i aria-hidden="true" class="fa fa-plus"></i> Agregar sede
           </button>
         </div>
       </div>
       <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
 
-        <table *ngIf="!cargando && arregloListaSede !== undefined" class="table table-hover table-sm">
+        <table aria-hidden="true" *ngIf="!cargando && arregloListaSede !== undefined" class="table table-hover table-sm">
            <thead>
              <tr>
                <th scope="col">Nombre de la sede</th>
@@ -163,8 +155,8 @@
                  <td>{{item.municipio}} </td>
                  <td>{{item.entidadFederativa}} </td>
                  <td class="opciones">
-                   <button (click)="verdetalle(item)"><i class="icon_editar primary-bg"></i></button>
-                   <button (click)="eliminar(item)" ><i class="icon_eliminar danger-bg"></i></button>
+                   <button (click)="verdetalle(item)"><i aria-hidden="true" class="icon_editar primary-bg"></i></button>
+                   <button (click)="eliminar(item)" ><i aria-hidden="true" class="icon_eliminar danger-bg"></i></button>
      
                  </td>
                </tr>
@@ -185,4 +177,3 @@
     
     
     </div>-->
-  
