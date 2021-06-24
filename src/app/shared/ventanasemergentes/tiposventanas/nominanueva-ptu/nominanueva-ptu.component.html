@@ -9,7 +9,6 @@
                     <a *ngIf="!editar" class="nav-item nav-link " [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab" role="tab">1. Crear nòmina</a>
                     <a (click)="backTab(1)" class="nav-item nav-link " [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}" id="nav-profile-tab" role="tab">2. Seleccionar
                         empleados</a>
-                    <!-- <a class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled}" id="nav-contact-tab"  role="tab" aria-controls="nav-contact" aria-selected="false">3. Preferencias</a> -->
                     <a (click)="backTab(3)" class="nav-item nav-link " [ngClass]="{'activado':activado[2].tab,'disabled':activado[2].disabled,'selecciona':activado[2].seleccionado}" id="nav-contact-tab" role="tab">3. Descargar
                         formato</a>
 
@@ -137,7 +136,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 text-left">
-                            <a (click)="descargarArchivo()" class="botonestilo  estiloextralink"><small *ngIf="!cargandoIcon"><i
+                            <a (click)="descargarArchivo()" class="botonestilo  estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true"
                                         class="fas fa-download"></i> Descargar formato</small>
                                 <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                                     <span class="sr-only">Loading...</span>

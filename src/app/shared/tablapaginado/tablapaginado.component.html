@@ -55,7 +55,7 @@
                         (click)="eventoclick(item2,item,indice)">{{(item2.nombre == 'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
                     <td *ngIf="tablabeneficios" style="text-align: center;">
-                        <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
+                        <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i aria-hidden="true"
                 class="icon_24ver primary-bg"></i></button>
                     </td>
                     <td *ngIf="porcentaje">
@@ -72,12 +72,12 @@
 
                     </th>
                     <td *ngIf="!chat" class="opciones" [ngClass]="{'centrar':item.nombre !== 'Politica Estandar'}">
-                        <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i
+                        <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i aria-hidden="true"
                 class="icon_24descargar primary-bg"></i></button>
                         <button *ngIf="ver" (click)="btnVer(item,indice)"><i aria-hidden="true" class="icon_24ver primary-bg"></i></button>
-                        <button *ngIf="editar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEditar(item,indice)"><i
+                        <button *ngIf="editar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEditar(item,indice)"><i aria-hidden="true"
                 class="icon_24editar primary-bg"></i></button>
-                        <button *ngIf="eliminar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i
+                        <button *ngIf="eliminar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i aria-hidden="true"
                 class="icon_24eliminar danger-bg"></i></button>
                         <button *ngIf="llave " (click)="btnLlave(item,indice)">
               <i aria-hidden="true" class="icon_24llave primary-bg"></i>
