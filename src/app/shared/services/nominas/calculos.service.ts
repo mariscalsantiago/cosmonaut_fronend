@@ -21,7 +21,7 @@ export class CalculosService {
     return this.http.post(`${direcciones.calculo}/salario/bruto/mensual`, json, httpOptions);
 
   }
-  public calculoSueldoNeto(obj: any): Observable<any> {
+  public calculoSueldoNetoPPP(obj: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

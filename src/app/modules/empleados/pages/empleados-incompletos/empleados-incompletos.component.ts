@@ -50,6 +50,8 @@ export class EmpleadosIncompletosComponent implements OnInit {
     });
 
 
+
+    this.establecerPermisos();
     
 
   }
