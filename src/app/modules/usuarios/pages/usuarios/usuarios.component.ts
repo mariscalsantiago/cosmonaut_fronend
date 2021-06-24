@@ -92,7 +92,7 @@ export class UsuariosComponent implements OnInit {
           
           if(Boolean(datos.datos)){
             this.arregloCompany = datos.datos;
-            this.arregloCompany.unshift({centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),nombre:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)"})
+            this.arregloCompany.unshift({centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),nombre:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)",razonSocial:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)"})
           }else{
             this.arregloCompany = datos.datos;
           }

@@ -68,7 +68,7 @@ export class ConfiguracionesService {
 
 
   
-  public traerDatosMenu(permisos: any,menu:any,version:number) {
+  public traerDatosMenu(permisos: any,menu:any,version:number,esCliente?:boolean) {
     let arreglo:[any] = menu;
       
       
@@ -84,20 +84,24 @@ export class ConfiguracionesService {
             valor2.seleccionadosubmenu = false;
             let filtrar: any = Object.values(permisos).filter((x: any) => x.submoduloId == valor2.submoduloId);
 
-            valor2.permisos?.forEach((valor3:any[any]) => {
+            debugger;
+            if((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9)){
+              valor2.permisos?.forEach((valor3:any[any]) => {
 
-              valor3.checked = this.encontrarConcidencias(filtrar, valor3);
-              valor3.previo = valor3.checked;
-              if (valor3.checked) {
-                if (primerAuxSubmodulo) {
-                  valor.checked = true;
-                  valor.previo = true;
-                  valor2.checked = true;
-                  valor2.previo = true;
-                  primerAuxSubmodulo = false;
+                valor3.checked = this.encontrarConcidencias(filtrar, valor3);
+                valor3.previo = valor3.checked;
+                if (valor3.checked) {
+                  if (primerAuxSubmodulo) {
+                    valor.checked = true;
+                    valor.previo = true;
+                    valor2.checked = true;
+                    valor2.previo = true;
+                    primerAuxSubmodulo = false;
+                  }
                 }
-              }
-            });
+              });
+            }
+
           });
         }
       });
