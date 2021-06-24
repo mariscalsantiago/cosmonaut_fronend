@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedPoliticasService } from '../../../../../../../shared/services/politicas/shared-politicas.service';
+import { ActivatedRoute } from '@angular/router';
+import { InfoDetalle } from '../../../../../../../core/data/infodetalle';
 
 @Component({
   selector: 'app-eventos',
@@ -6,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./eventos.component.scss']
 })
 export class EventosComponent implements OnInit {
+  public idEmpleado!: number;
+  public informacion = new  InfoDetalle;
+  constructor(private politicasPrd: SharedPoliticasService,private router: ActivatedRoute,) {
+  }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+  this.router.params.subscribe(params => {
+    // this.idEmpleado = params["id"];
+    this.idEmpleado = 668;
+   this.politicasPrd.getPoliticasByPersona(this.idEmpleado).toPromise()
+   .then(datos => {console.log('d',datos['datos']);this.informacion = datos['datos'];
+   }).catch(error => {
+     console.log('error >',error)
+   })
+ })
   }
 
 }

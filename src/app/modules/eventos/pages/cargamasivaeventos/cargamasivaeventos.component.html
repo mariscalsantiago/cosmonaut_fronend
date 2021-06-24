@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group  margen">
 
-                    <nav class="nav-inside">
+                    <nav aria-label="cosmonaut" class="nav-inside">
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <a (click)="backTab(0)" class="nav-item nav-link " [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab" role="tab" aria-controls="nav-home" aria-selected="true">1. Filtrar empleados</a>
                             <a (click)="backTab(1)" class="nav-item nav-link " [ngClass]="{'activado':activado[1].tab,'disabled':activado[1].disabled,'selecciona':activado[1].seleccionado}" id="nav-profile-tab" role="tab" aria-controls="nav-profile" aria-selected="false">2. Obtener formato</a>
@@ -81,7 +81,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 text-left">
-                                    <a *ngIf="esDescargar" (click)="descargarArchivo()" class="botonestilo  estiloextralink"><i
+                                    <a *ngIf="esDescargar" (click)="descargarArchivo()" class="botonestilo  estiloextralink"><i aria-hidden="true"
                                         class="fas fa-download"></i> Descargar formato
                             </a>
                                 </div>
@@ -165,7 +165,7 @@
 
                     <div class="col-12 text-left form-group  margen">
 
-                        <a class="botonestilo aparece-desktop estiloextralink" (click)="descargarEventos()"><i
+                        <a class="botonestilo aparece-desktop estiloextralink" (click)="descargarEventos()"><i aria-hidden="true"
                       class="fas fa-download"></i> Descargar archivos con errores
                     </a>
                     </div>

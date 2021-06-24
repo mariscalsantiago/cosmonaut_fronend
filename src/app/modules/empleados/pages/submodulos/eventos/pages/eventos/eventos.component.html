@@ -5,54 +5,54 @@
             <article class="titulo mr-1 col">
                 VACACIONES
             </article>
-        
+
         </div>
         <div class="row mb-4">
             <article class="titulo  col">
                 Días utilizados
-                <article>0</article>
+                <article>{{informacion.vacacionesUsadas}}</article>
             </article>
-            <article class="titulo   col" >
+            <article class="titulo   col">
                 Días disponibles
-                <article>18</article>
+                <article>{{informacion.vacacionesDisponibles}}</article>
             </article>
-    
+
         </div>
 
         <div class="row">
             <article class="titulo mr-1 col">
                 INCAPACIDADES
             </article>
-        
+
         </div>
         <div class="row mb-4">
             <article class="titulo  col">
                 Días utilizados
-                <article>0</article>
+                <article>{{informacion.incapacidadesUsadas}}</article>
             </article>
-           
-        
+
+
         </div>
-      
-     
+
+
         <div class="row">
             <article class="titulo mr-1 col">
                 DÍAS ECONÓMICOS
             </article>
-        
+
         </div>
         <div class="row mb-4">
             <article class="titulo  col">
                 Días utilizados
-                <article>0</article>
+                <article>{{informacion.economicosUsados}}</article>
             </article>
-        
-            <article class="titulo   col" >
+
+            <article class="titulo   col">
                 Días disponibles
-                <article>10</article>
+                <article>{{informacion.economicosDisponibles}}</article>
             </article>
-        
-        
+
+
         </div>
     </div>
     <div class="col-12 col-lg-12 col-xl-5 mb-3 mt-3 ">
@@ -61,49 +61,48 @@
             <article class="titulo mr-1 col-12">
                 El empleado está asociado a la política <a href="http://">Política uno</a>, que contiene los siguientes beneficios:
             </article>
-        
+
         </div>
         <div class="row mb-4">
             <article class="titulo  col">
                 Descuento proporción séptimo día
-                <article>No</article>
+                <article>{{informacion.descuentoSeptimoDia | boolean}}</article>
             </article>
             <article class="titulo   col">
                 Días económicos
-                <article>10 días</article>
-            </article>     
+                <article>{{informacion.diasEconomicos}}</article>
+            </article>
         </div>
         <div class="row mb-4">
             <article class="titulo  col">
                 Se descuentan incapacidades
-                <article>Sí</article>
+                <article>{{informacion.descuentoIncapacidad | boolean}}</article>
             </article>
             <article class="titulo   col">
                 Días de vacaciones
-                <article>18 días</article>
-            </article>     
+                <article>{{informacion.diasVacaciones}}</article>
+            </article>
         </div>
         <div class="row mb-4">
             <article class="titulo  col">
                 Se descuentan faltas
-                <article>Sí</article>
+                <article>{{informacion.descuentoFalta | boolean}}</article>
             </article>
             <article class="titulo   col">
                 Prima vacacional
-                <article>0.25</article>
-            </article>     
+                <article>{{informacion.primaVacacional }}</article>
+            </article>
         </div>
         <div class="row mb-4">
             <article class="titulo  col">
                 Prima vacacional al aniversario
-                <article>Sí</article>
+                <article>{{informacion.primaVacacionalAniversario | boolean}}</article>
             </article>
             <article class="titulo   col">
                 Días de Aguinaldo
-                <article>15</article>
-            </article>     
+                <article>{{informacion.diasAguinaldo}}</article>
+            </article>
         </div>
 
     </div>
 </div>
-

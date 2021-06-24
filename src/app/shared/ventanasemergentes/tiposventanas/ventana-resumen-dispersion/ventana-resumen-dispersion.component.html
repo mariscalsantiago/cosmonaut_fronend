@@ -4,7 +4,7 @@
 
     </div>
     <div class="col-12">
-        <a (click)="descargarErrores()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+        <a (click)="descargarErrores()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true"
             class="fas fa-download"></i> Descargar errores de pago</small>
     <div *ngIf="cargandoIcon" class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>

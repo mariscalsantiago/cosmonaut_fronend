@@ -16,18 +16,18 @@
     <table aria-hidden="true" *ngIf="!cargando && arreglo !== undefined" class="table table-hover  anchura ">
         <thead>
             <tr>
-                <th *ngIf="checkbox"></th>
-                <th *ngIf="imagen"></th>
-                <th (click)="ordenar(item)" style="position: relative;cursor:pointer" scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
+                <th id="" *ngIf="checkbox"></th>
+                <th id="" *ngIf="imagen"></th>
+                <th id="" (click)="ordenar(item)" style="position: relative;cursor:pointer" scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
                     {{item.nombre}}<i aria-hidden="true" class="fas fa-caret-up flechaarriba" [ngClass]="{'colorear':item.acomodar == true}"></i>
                     <i aria-hidden="true" class="fas fa-caret-down flechaabajo" [ngClass]="{'colorear':item.acomodar == false}"></i>
                 </th>
-                <th *ngIf="tablabeneficios">
+                <th id="" *ngIf="tablabeneficios">
                     Tabla de beneficios
                 </th>
-                <th *ngIf="porcentaje">Porcentaje de avance</th>
-                <th *ngIf="timbrado">Timbrar</th>
-                <th *ngIf="ver || editar || eliminar || desglosar || descargar">Acciones</th>
+                <th id="" *ngIf="porcentaje">Porcentaje de avance</th>
+                <th id="" *ngIf="timbrado">Timbrar</th>
+                <th id="" *ngIf="ver || editar || eliminar || desglosar || descargar">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -55,7 +55,7 @@
                         (click)="eventoclick(item2,item,indice)">{{(item2.nombre == 'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
                     <td *ngIf="tablabeneficios" style="text-align: center;">
-                        <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
+                        <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i aria-hidden="true"
                 class="icon_24ver primary-bg"></i></button>
                     </td>
                     <td *ngIf="porcentaje">
@@ -63,7 +63,7 @@
                             <div class="progress-bar primary-bg" role="progressbar" [style.width]="item.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{item.porcentaje}}%</div>
                         </div>
                     </td>
-                    <th *ngIf="timbrado">
+                    <th id="" *ngIf="timbrado">
 
                         <label class="contenedorInputCheckRadio" style="text-align: center;    margin-left: 22px;">
               <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name="" id="ajusteirs">
@@ -72,12 +72,12 @@
 
                     </th>
                     <td *ngIf="!chat" class="opciones" [ngClass]="{'centrar':item.nombre !== 'Politica Estandar'}">
-                        <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i
+                        <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i aria-hidden="true"
                 class="icon_24descargar primary-bg"></i></button>
                         <button *ngIf="ver" (click)="btnVer(item,indice)"><i aria-hidden="true" class="icon_24ver primary-bg"></i></button>
-                        <button *ngIf="editar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEditar(item,indice)"><i
+                        <button *ngIf="editar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEditar(item,indice)"><i aria-hidden="true"
                 class="icon_24editar primary-bg"></i></button>
-                        <button *ngIf="eliminar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i
+                        <button *ngIf="eliminar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i aria-hidden="true"
                 class="icon_24eliminar danger-bg"></i></button>
                         <button *ngIf="llave " (click)="btnLlave(item,indice)">
               <i aria-hidden="true" class="icon_24llave primary-bg"></i>
@@ -228,7 +228,7 @@
 </div>
 <div *ngIf="!cargando && arreglo !== undefined" class="row" style="width: 100%;">
     <div class="col">
-        <nav aria-label="Page navigation example">
+        <nav aria-label="cosmonaut" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li (click)="pasarSiguienteItem(false)" class="page-item" [ngClass]="{'disabled':!activarAntes}">
                     <a class="page-link" tabindex="-1" aria-disabled="true">Anterior</a>

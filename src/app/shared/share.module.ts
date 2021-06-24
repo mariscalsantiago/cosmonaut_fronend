@@ -34,6 +34,7 @@ import { FormatosDirective } from './directivas/formatos.directive';
 import { EditarmensajeChatComponent } from './ventanasemergentes/tiposventanas/editarmensaje-chat/editarmensaje-chat.component';
 import { TooltipPipe } from './pipes/tooltip.pipe';
 import { CoreModule } from '../core/core.module';
+import { BooleanPipe } from './pipes/boolean.pipe';
 
 
 @NgModule({
@@ -73,14 +74,15 @@ import { CoreModule } from '../core/core.module';
     VentanaNominaNuevaFiniquitoLiquidacionComponent,
     FormatosDirective,
     EditarmensajeChatComponent,
-    TooltipPipe
+    TooltipPipe,
+    BooleanPipe
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule,CoreModule
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent, MayusculasDirective, SolonumerosDirective, TamanioVentanaDirective,
-    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective,TagComponent,FormatosDirective, TooltipPipe],
+    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective,TagComponent,FormatosDirective, TooltipPipe, BooleanPipe],
   providers:[CurrencyPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
