@@ -376,7 +376,9 @@ export class EmpleoComponent implements OnInit {
       puestoIdReporta: obj.jefeInmediatoId?.personaId,
       fechaAltaImss: [(obj.fechaAltaImss !== undefined && obj.fechaAltaImss !== "") ? pipe.transform(new Date(Number(obj.fechaAltaImss)), "yyyy-MM-dd") : obj.fechaAltaImss],
       sbc: [{ value: obj.sbc, disabled: true }],
-      salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []]
+      salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []],
+      salarioNetoMensualImss:[obj.salarioNetoMensualImss],
+      pagoComplementario:[obj.pagoComplementario]
     });
 
   }
@@ -455,7 +457,7 @@ export class EmpleoComponent implements OnInit {
 
 
 
-        let objEnviar = {
+        let objEnviar:any = {
           areaId: { areaId: obj.areaId },
           puestoId: { puestoId: obj.puestoId },
           politicaId: { politicaId: obj.politicaId },
@@ -486,6 +488,15 @@ export class EmpleoComponent implements OnInit {
           },
           fechaAltaImss: obj.fechaAltaImss,
           sueldoNetoMensual: obj.sueldoNetoMensual
+        }
+
+
+        if(this.grupoNominaSeleccionado.pagoComplementario){
+          objEnviar.pppSalarioBaseMensual = objEnviar.sueldoBrutoMensual;
+          objEnviar.salarioNetoMensualImss=obj.salarioNetoMensualImss;
+          objEnviar.pppMontoComplementario = obj.pagoComplementario;
+          objEnviar.salarioDiarioIntegrado = obj.salarioDiarioIntegrado;
+          objEnviar.sbc = obj.salarioDiarioIntegrado;
         }
 
 
@@ -782,7 +793,7 @@ export class EmpleoComponent implements OnInit {
     }
 
 
-    let objenviar = {
+    let objenviar:any = {
       clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
       politicaId: this.myForm.controls.politicaId.value,
       grupoNomina: this.myForm.controls.grupoNominaId.value,
@@ -798,6 +809,7 @@ export class EmpleoComponent implements OnInit {
       delete objenviar.pagoNeto;
     } else {
       delete objenviar.sbmImss;
+      objenviar.salarioDiario = this.myForm.controls.salarioDiario.value;
     }
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading, "Calculando");
@@ -816,18 +828,27 @@ export class EmpleoComponent implements OnInit {
         }
       });
     } else {
-      this.calculoPrd.calculoSueldoNeto(objenviar).subscribe(datos => {
 
-        let aux = datos.datos;
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        if (datos.datos !== undefined) {
+      if(this.grupoNominaSeleccionado.pagoComplementario){
 
+        this.calculoPrd.calculoSueldoNetoPPP(objenviar).subscribe(datos => {
 
-          this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
-          this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
-          this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
-        }
-      });
+          let aux = datos.datos;
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          if (datos.datos !== undefined) {
+          
+            this.myForm.controls.salarioDiarioIntegrado.setValue(aux.salarioDiarioIntegrado);
+            this.myForm.controls.salarioNetoMensualImss.setValue(aux.salarioNetoMensualImss);
+            this.myForm.controls.pagoComplementario.setValue(aux.pagoComplementario);
+            this.myForm.controls.sueldoBrutoMensual.setValue(aux.sbmTrabajador);
+            
+  
+          }
+        });
+      }else{
+        //Se calcula sueldo neto a sueldo bruto.....
+      }
+
     }
 
   }

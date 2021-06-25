@@ -59,7 +59,7 @@
             <label *ngIf="porcentual">Porcentaje *</label>
             <label *ngIf="fijo">Monto *</label>
             <label *ngIf="montopago">Monto de cada pago *</label>
-            <input *ngIf="porcentual" formatos [moneda]="true" [control]="f.valor" formControlName="valor" type="text" class="form-control">
+            <input *ngIf="porcentual" formatos [moneda]="false" [control]="f.valor" formControlName="valor" type="text" class="form-control">
             <input *ngIf="fijo || montopago" formatos [moneda]="true" [control]="f.valor" formControlName="valor" type="text" class="form-control">
 
 

@@ -9,7 +9,6 @@
                 <div class="header">
                     <h5 class="titulo">{{mensajeModalito}}</h5>
 
-                    <!-- <p id="subtitulo"><strong>Grupo de nomina</strong>ASG coorporation</p> -->
                 </div>
                 <hr>
                 <div class="body">
@@ -245,11 +244,11 @@
                 </div>
                 <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Pago IMSS *</label>
-                    <input formatos [moneda]="true" disabled type="text" name="" id="" class="form-control">
+                    <input formControlName="salarioNetoMensualImss" formatos [moneda]="true"  type="text" name="" id="" class="form-control">
                 </div>
                 <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Pago complementario *</label>
-                    <input formatos [moneda]="true" disabled type="text" name="" id="" class="form-control">
+                    <input formatos formControlName="pagoComplementario" [moneda]="true"  type="text" name="" id="" class="form-control">
                 </div>
                 <div *ngIf="f.tiposueldo.value == 'b'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'salarioNetoMensual'| tooltip">
                     <label for="exampleFormControlSelect1">Sueldo neto mensual*</label>

@@ -74,34 +74,38 @@ export class ListaeventosxempledoComponent implements OnInit {
     this.eventosPrd.getByIdEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
 
       this.arreglo = datos.datos;
-      let columnas:Array<tabla> = [
-        new tabla("incidenciaDescripcion","Tipo de evento"),
-        new tabla("nombrecompleado","Nombre del empleado"),
-        new tabla("numeroEmpleado","Número de empleado",false,false,true),
-        new tabla("fechaInicio","Fecha de inicio",false,false,true),
-        new tabla("tiempo","Tiempo",false,false,true)
-      ];
-
-      this.arreglotabla = {
-        columnas:[],
-        filas:[]
-      }
-
-      if(this.arreglo !== undefined){
-          for(let item of this.arreglo){
-              item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
-              var datePipe = new DatePipe("es-MX");
-              item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
-              item.fechaInicio = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".","");
-          }
-      }
- 
-      this.arreglotabla.columnas = columnas;
-      this.arreglotabla.filas = this.arreglo;
-
-      this.cargando = false;
+      this.generandoTabla();
     });
     
+  }
+
+  public generandoTabla(){
+    let columnas:Array<tabla> = [
+      new tabla("incidenciaDescripcion","Tipo de evento"),
+      new tabla("nombrecompleado","Nombre del empleado"),
+      new tabla("numeroEmpleado","Número de empleado",false,false,true),
+      new tabla("fechaInicio","Fecha de inicio",false,false,true),
+      new tabla("tiempo","Tiempo",false,false,true)
+    ];
+
+    this.arreglotabla = {
+      columnas:[],
+      filas:[]
+    }
+
+    if(this.arreglo !== undefined){
+        for(let item of this.arreglo){
+            item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
+            var datePipe = new DatePipe("es-MX");
+            item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
+            item.fechaInicio = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".","");
+        }
+    }
+
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = this.arreglo;
+
+    this.cargando = false;
   }
 
 
@@ -115,7 +119,7 @@ export class ListaeventosxempledoComponent implements OnInit {
     
       switch(obj.type){
          case "eliminar":
-             this.eliminarIncidencia(obj.datos);
+             this.eliminarIncidencia(obj.datos,obj.indice);
            break;
            case "ver":
              this.evento = obj.datos;
@@ -127,7 +131,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
 
-  public eliminarIncidencia(obj:any){
+  public eliminarIncidencia(obj:any,indice:number){
      this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas inactivar el evento?").then((valor)=>{
         if(valor){
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
@@ -137,6 +141,17 @@ export class ListaeventosxempledoComponent implements OnInit {
              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                if(datos.resultado){
                 obj.esActivo = false;
+                this.arreglo.splice(indice,1);
+                this.arreglotabla = {
+                  columnas: [
+                    new tabla("incidenciaDescripcion","Tipo de evento"),
+                    new tabla("nombrecompleado","Nombre del empleado"),
+                    new tabla("numeroEmpleado","Número de empleado",false,false,true),
+                    new tabla("fechaInicio","Fecha de inicio",false,false,true),
+                    new tabla("tiempo","Tiempo",false,false,true)
+                  ],
+                  filas:this.arreglo
+                }
                }
              });
           });

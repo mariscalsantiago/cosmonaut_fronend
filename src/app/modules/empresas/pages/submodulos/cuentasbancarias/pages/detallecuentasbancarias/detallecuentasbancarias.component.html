@@ -24,10 +24,6 @@
             tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a><i aria-hidden="true" class="far fa-times-circle"></i>
           </div>
 
-          <!-- <i aria-hidden="true" (click)="mostrartooltip = !mostrartooltip"
-            class="fas fa-question-circle primary cursorhand " data-toggle="tooltip" data-placement="top"
-            title="Dar click para información"></i> -->
-
         </label>
                 <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="19" class="form-control" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitInvalido}" placeholder="">
                 <div *ngIf="submitInvalido && f.numeroCuenta.errors" class="invalid-feedback">

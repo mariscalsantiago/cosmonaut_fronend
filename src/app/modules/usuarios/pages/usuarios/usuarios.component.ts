@@ -92,7 +92,7 @@ export class UsuariosComponent implements OnInit {
           
           if(Boolean(datos.datos)){
             this.arregloCompany = datos.datos;
-            this.arregloCompany.unshift({centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),nombre:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)"})
+            this.arregloCompany.unshift({centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),nombre:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)",razonSocial:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)"})
           }else{
             this.arregloCompany = datos.datos;
           }
@@ -248,7 +248,7 @@ export class UsuariosComponent implements OnInit {
       apellidoPat: this.apellidoPat || null,
       apellidoMat: this.apellidoMat || null,
       fechaAlta: this.fechaRegistro || null,
-      email: this.correoempresarial || null,
+      email: this.correoempresarial.toLowerCase() || null,
       idClientes: arregloenviar,
       esActivo: this.activo == 0? null:this.activo == 1
     }
@@ -290,7 +290,7 @@ export class UsuariosComponent implements OnInit {
       if (valor) {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         let objenviar = {
-          username: obj.email
+          username: obj.email.toLowerCase()
         }
 
         this.usuariosSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {

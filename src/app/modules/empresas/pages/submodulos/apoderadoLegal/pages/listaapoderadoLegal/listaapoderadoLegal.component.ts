@@ -191,8 +191,8 @@ export class ListaapoderadoLegalComponent implements OnInit {
       nombre: this.nombre,
       apellidoPaterno: this.apellidoPaterno,
       apellidoMaterno: this.apellidoMaterno,
-      emailCorporativo: this.emailCorporativo,
-      contactoInicialEmailPersonal: this.contactoInicialEmailPersonal,
+      emailCorporativo: this.emailCorporativo.toLowerCase(),
+      contactoInicialEmailPersonal: this.contactoInicialEmailPersonal.toLowerCase(),
       centrocClienteId: {
         centrocClienteId: (this.id_empresa) == 0 ? "" : this.id_empresa
       },

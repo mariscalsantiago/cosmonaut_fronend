@@ -14,7 +14,7 @@ import { EventosService } from '../../../services/eventos.service';
   styleUrls: ['./detalleeventoxempleado.component.scss']
 })
 export class DetalleeventoxempleadoComponent implements OnInit {
-  @ViewChild("inputFile") public inputFile!:ElementRef;
+  @ViewChild("inputFile") public inputFile!: ElementRef;
 
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
@@ -23,7 +23,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloTipoIncapacidad: any = [];
   public tagcomponente: boolean = false;
   public arregloUnidadMedida: any = [];
-  public arregloFechas:any = [];
+  public arregloFechas: any = [];
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService) { }
@@ -39,13 +39,13 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     this.catalogosPrd.getTipoIncapacidad(true).subscribe(datos => this.arregloTipoIncapacidad = datos.datos);
     this.catalogosPrd.getUnidadMedida(true).subscribe(datos => {
       this.arregloUnidadMedida = [];
-      if(datos.datos){        
-        for(let item of datos.datos){
-            if(item.unidadMedidaId == 2){
-              continue;
-            }
-            this.arregloUnidadMedida.push(item);
+      if (datos.datos) {
+        for (let item of datos.datos) {
+          if (item.unidadMedidaId == 2) {
+            continue;
           }
+          this.arregloUnidadMedida.push(item);
+        }
       }
 
     });
@@ -61,24 +61,24 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   }
 
 
-  public suscribirse(){
-    this.myForm.controls.unidadmedida.valueChanges.subscribe(valor =>{
-      
-      switch(valor){
-          case "1":
-              this.myForm.controls.numerohoras.setValidators([Validators.required]);
-              this.myForm.controls.numerohoras.updateValueAndValidity();
+  public suscribirse() {
+    this.myForm.controls.unidadmedida.valueChanges.subscribe(valor => {
 
-              this.myForm.controls.monto.clearValidators();
-            this.myForm.controls.monto.updateValueAndValidity();
-            break;
-          case "3":
+      switch (valor) {
+        case "1":
+          this.myForm.controls.numerohoras.setValidators([Validators.required]);
+          this.myForm.controls.numerohoras.updateValueAndValidity();
 
-            this.myForm.controls.numerohoras.clearValidators();
-            this.myForm.controls.numerohoras.updateValueAndValidity();
-            this.myForm.controls.monto.setValidators([Validators.required]);
-            this.myForm.controls.monto.updateValueAndValidity();
-            break;
+          this.myForm.controls.monto.clearValidators();
+          this.myForm.controls.monto.updateValueAndValidity();
+          break;
+        case "3":
+
+          this.myForm.controls.numerohoras.clearValidators();
+          this.myForm.controls.numerohoras.updateValueAndValidity();
+          this.myForm.controls.monto.setValidators([Validators.required]);
+          this.myForm.controls.monto.updateValueAndValidity();
+          break;
       }
     });
   }
@@ -171,7 +171,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
-    let multifechas:boolean = seleccionado == 1 || seleccionado == 2 || seleccionado == 5;
+    let multifechas: boolean = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
     switch (seleccionado) {
       case 1:
       case 2:
@@ -204,6 +204,10 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.archivo;
         delete objEnviar.fechaFin;
         delete objEnviar.tipoIncapacidadId;
+        objEnviar.unidadMedidaId = {
+          unidadMedidaId: obj.unidadmedida
+        }
+        objEnviar.heTiempo = obj.numerohoras;
         break;
       case 3:
         delete objEnviar.monto;
@@ -220,11 +224,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.archivo;
         delete objEnviar.fechaFin;
 
-        objEnviar.unidadMedidaId = {
-          unidadMedidaId:obj.unidadmedida
-        }
-
-        objEnviar.heTiempo = obj.numerohoras;
 
         break;
       case 8:
@@ -241,29 +240,30 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
     delete objEnviar.incidenciaId;
 
-    let objEnviarArray:Array<any>;
+    let objEnviarArray: Array<any>;
 
-    
-    
 
-    if(multifechas){
+
+
+    if (multifechas) {
       objEnviarArray = [];
-        for(let item of this.arregloFechas){
-            let aux = JSON.parse(JSON.stringify(objEnviar));
-            
-            aux.fechaInicio = new Date((new Date(item).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-            objEnviarArray.push(aux);
-        }
-    }else{
+      for (let item of this.arregloFechas) {
+        let aux = JSON.parse(JSON.stringify(objEnviar));
+
+        aux.fechaInicio = new Date((new Date(item).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+        aux.duracion = 1;
+        objEnviarArray.push(aux);
+      }
+    } else {
       objEnviarArray = [objEnviar]
     }
 
 
 
-    
 
 
-  //  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+    //  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     //return;
     this.eventoPrd.save(objEnviarArray).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -352,6 +352,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           case 1:
           case 2:
           case 5:
+          case 9:
             ocultar = false;
             break;
         }
@@ -460,9 +461,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
 
-    let multifechas:boolean = seleccionado == 1 || seleccionado == 2 || seleccionado == 5;
-    if(multifechas){
-          this.myForm.controls.fechaInicio.setValue("");
+    let multifechas: boolean = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
+    if (multifechas) {
+      this.myForm.controls.fechaInicio.setValue("");
     }
     for (let llave in this.myForm.controls) {
       if (llave == "incidenciaId" || llave == "personaId")
@@ -475,7 +476,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
 
-    this.tagcomponente = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5);
+    this.tagcomponente = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
 
 
 
@@ -536,6 +537,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.duracion.updateValueAndValidity();
       this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
       this.myForm.controls.fechaAplicacion.updateValueAndValidity();
+
+      this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+      this.myForm.controls.fechaInicio.updateValueAndValidity();
     }
 
     if (seleccionado == 10 || seleccionado == 11 || seleccionado == 16) {
@@ -553,17 +557,17 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public perderFoco() {
 
-    
+
     const totalDias = this.myForm.controls.duracion.value;
     if (totalDias) {
-      if(this.myForm.controls.fechaInicio.value){
+      if (this.myForm.controls.fechaInicio.value) {
         var datePipe = new DatePipe("es-MX");
         let fechaActual = new Date((new Date(this.myForm.controls.fechaInicio.value)).toUTCString().replace("GMT", ""));
         let fechaFin: Date = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + (Number(totalDias) <= 0 ? 0 : Number(totalDias) - 1));
-  
+
         this.myForm.controls.fechaFin.setValue(datePipe.transform(fechaFin, "yyyy-MM-dd"));
       }
-    
+
     }
   }
 
