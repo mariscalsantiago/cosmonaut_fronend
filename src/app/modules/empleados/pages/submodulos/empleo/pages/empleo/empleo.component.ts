@@ -13,6 +13,7 @@ import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.s
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 
+
 @Component({
   selector: 'app-empleo',
   templateUrl: './empleo.component.html',
@@ -22,7 +23,8 @@ export class EmpleoComponent implements OnInit {
 
   public editarcampos: boolean = false;
   public submitEnviado: boolean = false;
-
+  public today = new Date((new Date(new Date).toUTCString()).replace(" 00:00:00 GMT", ""));
+  public date !: any;
   public myForm!: FormGroup;
   public idEmpleado!: number;
 
@@ -34,6 +36,11 @@ export class EmpleoComponent implements OnInit {
   public arregloEstados: any = [];
   public arregloJornadas: any = [];
   public arregloPoliticas: any = [];
+  public fechaIC: Date = new Date();
+  public fechaAntiguedad: Date = new Date();
+  public arregloareasgeograficas: any = [];
+
+  public arregloTipoContrato: any = [];
 
   constructor(private formBuilder: FormBuilder, private contratoColaboradorPrd: ContratocolaboradorService,
     private router: ActivatedRoute, public catalogosPrd: CatalogosService,
@@ -42,8 +49,13 @@ export class EmpleoComponent implements OnInit {
     private modalPrd: ModalService) { }
 
   ngOnInit() {
+    
+ // document.getElementById('fechantiguefa')
+ //document.getElementById('fechaantiguedad')?.setAttribute("min", String(this.date));
 
 
+ this.catalogosPrd.getAreasGeograficas(true).subscribe(datos => this.arregloareasgeograficas = datos.datos);
+ this.catalogosPrd.getTipoContratos(true).subscribe(datos => this.arregloTipoContrato = datos.datos);
 
 
     this.router.params.subscribe(params => {
@@ -80,23 +92,23 @@ export class EmpleoComponent implements OnInit {
   public createForm(obj: any) {
     let datePipe = new DatePipe("en-MX");
 
-
-
-
-
+    this.date = datePipe.transform(this.today, 'yyyy-MM-dd');
 
     return this.formBuilder.group({
+      numEmpleado: [obj.numEmpleado, [Validators.required]],
       areaId: [obj.areaId?.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
       sedeId: obj.sedeId?.sedeId,
       estadoId: obj.estadoId?.estadoId,
       fechaAntiguedad: [datePipe.transform(obj.fechaAntiguedad, 'yyyy-MM-dd'), [Validators.required]],
       fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd'), [Validators.required]],
-      fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd'), [Validators.required]],
+      fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd')],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       puesto_id_reporta: obj.jefeInmediatoId?.personaId,
+      areaGeograficaId: [obj.areaGeograficaId?.areaGeograficaId,[Validators.required]],
       esSindicalizado: [`${obj.esSindicalizado}`],
+      tipoContratoId: [obj.tipoContratoId?.tipoContratoId,[Validators.required]],
       fechaAltaImss:obj.fechaAltaImss
     });
 
@@ -108,13 +120,14 @@ export class EmpleoComponent implements OnInit {
 
   public enviarFormulario() {
     this.submitEnviado = true;
-
-    
-
+    if(this.myForm.value.tipoContratoId !== "10" && this.myForm.value.tipoContratoId !== "1"){
+      this.myForm.controls.fechaFin.setErrors({required: true});
+    }
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
+
 
     const titulo =  "¿Deseas actualizar los datos del usuario?";
  
@@ -184,7 +197,6 @@ export class EmpleoComponent implements OnInit {
           }
         });
       });
-
       
       
 
@@ -207,6 +219,92 @@ export class EmpleoComponent implements OnInit {
 
   public get f() {
     return this.myForm.controls;
+  }
+  public validarfechAntiguedad(fecha: any) {
+
+
+    let fechaInicioContra = fecha;
+    var fecha = fecha.split("-");
+    this.fechaAntiguedad.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+    var today = new Date();
+
+    if (this.fechaAntiguedad > today) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha debe ser igual o menor a la fecha actual')
+        .then(() => {
+          this.myForm.controls.fechaAntiguedad.setValue("");
+          this.myForm.controls.fechaInicio.setValue("");
+        });
+
+    } else {
+      this.myForm.controls.fechaInicio.setValue(fechaInicioContra);
+    }
+  }
+
+  public validarfechaInicioCont(fecha: any) {
+
+
+
+    if (fecha != "") {
+      if (`${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "" && `${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "null") {
+        var fecha = fecha.split("-");
+        this.fechaIC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+      } else {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'Debes seleccionar la fecha de antigüedad')
+          .then(() => {
+            this.myForm.controls.fechaInicio.setValue("");
+            this.myForm.controls.fechaFin.setValue("");
+          });
+      }
+    }
+  }
+
+  public validarfechaFinCont(fecha: any) {
+
+
+    var fechaFC = new Date();
+    var fecha = fecha.split("-");
+    fechaFC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+    if (`${this.myForm.controls.fechaInicio.value}`.trim() !== "null" && `${this.myForm.controls.fechaInicio.value}`.trim() !== "") {
+      if (fechaFC < this.fechaIC) {
+
+        this.modalPrd.showMessageDialog(false, 'La fecha debe ser mayor a la fecha incio de contrato')
+          .then(() => {
+            this.myForm.controls.fechaFin.setValue("");
+          });
+
+      }
+    } else {
+
+      this.modalPrd.showMessageDialog(false, 'Debe colocar una fecha incio de contrato ')
+        .then(() => {
+          this.myForm.controls.fechaFin.setValue("");
+        });
+    }
+  }
+
+
+  public validarFechaImss() {
+
+    let fecha = this.myForm.controls.fechaAltaImss.value;
+    if (fecha != undefined && fecha != '') {
+      let fechaaux: Date = new Date((new Date(fecha).toUTCString()).replace(" 00:00:00 GMT", ""));
+      try {
+
+
+
+        if (!(this.myForm.controls.fechaAntiguedad.value !== '' && this.myForm.controls.fechaAntiguedad.value !== null)) {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar la fecha de antigüedad");
+        }
+        let fechaAntiguedad: Date = new Date((new Date(this.myForm.controls.fechaAntiguedad.value).toUTCString()).replace(" 00:00:00 GMT", ""));
+
+        if (!(fechaaux >= fechaAntiguedad)) {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha del imss no puede ser menor a la fecha de antigüedad del empleado");
+        }
+      } catch {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar la fecha de antigüedad");
+      }
+    }
   }
 
 }

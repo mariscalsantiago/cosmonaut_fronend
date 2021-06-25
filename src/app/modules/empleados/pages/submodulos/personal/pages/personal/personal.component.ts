@@ -51,13 +51,9 @@ export class PersonalComponent implements OnInit {
     this.navparams.params.subscribe(param => {
 
       this.idEmpleado = param["id"];
-
-
-
-
       this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datoscontrato => {
 
-        
+        console.log('datoscontrato',datoscontrato)
         
         this.empleado = datoscontrato.datos;
         this.parsearInformacion();
