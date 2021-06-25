@@ -6,8 +6,8 @@
 
 <hr>
 
-<form [formGroup]="myForm" *ngIf="fromPromediar" (ngSubmit)="enviarPeticion()">
-    <input type="hidden">
+<form [formGroup]="myForm" *ngIf="fromPromediar" (ngSubmit)="enviarPeticion()" class="form-desing">
+
     <div class="form-group row">
         <div class="col-2"></div>
         <div class="col-8">
@@ -30,10 +30,13 @@
 
                     </div>
 
-                    <div class="  input-group-sm mb-3 col-10" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'dias' | tooltip">
+                    <div class="input-group-sm mb-3 col-10" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'dias' | tooltip">
                         <label>Días a promediar *</label>
-                        <input type="text" class="form-control">
-
+                        <input formControlName="diaspromediar" [class.is-invalid]="(f.diaspromediar.errors?.required && f.diaspromediar.touched) || (f.diaspromediar.errors?.min )" type="text" class="form-control">
+                        <div *ngIf="f.diaspromediar.errors?.required && f.diaspromediar.touched" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+       
                     </div>
 
                     <div class="  input-group-sm mb-3 col-10">
@@ -44,13 +47,12 @@
 
                 </div>
 
-                <div class="input-group-sm mb-3 col-10">
-                    <label for="exampleFormControlSelect1">Días a promediar *</label>
-                    <input formControlName="diaspromediar"  type="text" name=""  class="form-control">
-                    <!--<div *ngIf="f.diaspromediar.errors && f.diaspromediar.touched" class="invalid-feedback">
-                        Campo requerido
-                    </div>-->
+                <br>
+                <div class="text-center margin" style="margin-bottom: 20px;">
+    
+                    <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
                     
+                    <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Aplicar</button>
                 </div>
                 <br>
             </div>
@@ -102,7 +104,7 @@
 
                         </div>
                         <div class="row text-right margin botonmultiseleccion" *ngIf="listaPromedio">
-                            <button (click)="guardarMultiseleccion(1)" type="button"
+                            <button (click)="desgargarArchivo()" type="button"
                             class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar reporte</span>
                           </button>
 

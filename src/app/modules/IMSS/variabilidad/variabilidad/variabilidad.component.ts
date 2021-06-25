@@ -42,6 +42,7 @@ export class VariabilidadComponent implements OnInit {
   public fechaActual: string = "";
   public listaPromedio : boolean = false;
   public listaVariable : boolean = true;
+  public variabilidad : number = 0;
 
   public apellidoPat:string = "";
   
@@ -109,7 +110,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
     public traerTabla(datos:any) {
-
+      debugger;
       const columna: Array<tabla> = [
         new tabla("razonSocial", "Razón Social"),
         new tabla("anioFiscal", "Año"),
@@ -173,7 +174,7 @@ export class VariabilidadComponent implements OnInit {
            
               let objEnviar : any = 
               {
-                variabilidad: 86
+                variabilidad: this.variabilidad
               };
 
               this.modalPrd.showMessageDialog(this.modalPrd.loading);
@@ -183,13 +184,10 @@ export class VariabilidadComponent implements OnInit {
     
                 this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de varibales completo").then(valor =>{
         
-                  if (!datos.resultado) {
-                      debugger;
-
-                  } else{
-                    this.listaVariabilidad = false;
-                    this.fromPromediar = true;
-                  }  
+                  if (datos.resultado) {
+                      this.desgargarArchivo();
+                      this.cancelar();
+                  }
                   });
               });     
 
@@ -243,7 +241,7 @@ export class VariabilidadComponent implements OnInit {
         razonSocial: [this.razonSocial],
         bimestre: [this.bimestreLeyenda],
         fecha: [this.fechaActual],
-        diaspromediar: []
+        diaspromediar: [, Validators.required]
 
   
       });
@@ -274,67 +272,22 @@ export class VariabilidadComponent implements OnInit {
   }
 
 
-  public guardarMultiseleccion(obj:any) {
+  public desgargarArchivo() {
+    debugger;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
- //   debugger;
-
-      this.mensaje = `¿Deseas descargar el archivo?`;
-      
-
-
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, this.mensaje).then(valor => {
-      if (valor) {
-
-        let valorAltas = [];
-        let valorModif = [];
-        for (let item of this.arreglo) {
-
-          if (item["seleccionado"]) {
-
-              if(item.movimientoImssId ==3){
-                valorAltas.push(item.kardex_colaborador_id);
-              }
-
-
-          }
-        }
-
-          this.arregloSUA = { 
-            idEmpresa: this.idEmpresa,
-            idKardex: valorAltas
-          }
-        
-
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.reportesPrd.getDescargaLayaoutMoficacionSUA(this.arregloSUA).subscribe(archivo => {
+    
+        this.reportesPrd.getDescargaListaEmpleados(this.variabilidad).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
+          const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
-          const fileName = `${"Layaout modificacion SUA"}.txt`;
+          const fileName = `${"ListaEmpleadosCalculoPromedio"}.xlsx`;
   
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
           downloadLink.click();
-          if (archivo) {
-            for (let item of this.arregloSUA.idKardex) {
-              for (let item2 of this.arreglo) {
-                if (item2.kardex_colaborador_id === item) {
-                  item2["seleccionado"] = false;
-                  break;
-                }
-              }
-            }
-            this.activarMultiseleccion = false;
-          }
         });
-      
-
-      }
-    });
-    
-
-
-
+  
   }
 
   public promedioVariabilidad(){
@@ -361,10 +314,14 @@ export class VariabilidadComponent implements OnInit {
   public enviarPeticion() {
     debugger;
     if (this.myForm.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+
+
       Object.values(this.myForm.controls).forEach(control => {
         control.markAsTouched();
       });
-      this.modalPrd.showMessageDialog(this.modalPrd.error);
+
       return;
     }
   
@@ -434,7 +391,9 @@ export class VariabilidadComponent implements OnInit {
                       let objLista : any ={
                         //variabilidad: datos.datos.variabilidadId
                         variabilidad: 86
+                        
                       }
+                      this.variabilidad = objLista.variabilidad;
                                                             
                       this.empresasPrd.listaEmpleadosPromedioVariables(objLista).subscribe(datos => {
                       
@@ -458,10 +417,14 @@ export class VariabilidadComponent implements OnInit {
   public recibirTabla(obj: any) {
 
     switch (obj.type) {
-        case "filaseleccionada":
-          this.activarMultiseleccion = obj.datos;
-        break;
+      case "descargar":
+          this.desgargarArchivo();
+         break;
     }
 
+  }
+
+  public get f() {
+    return this.myForm.controls;
   }
 }
