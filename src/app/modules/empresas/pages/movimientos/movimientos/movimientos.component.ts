@@ -64,54 +64,5 @@ export class MovimientosComponent implements OnInit {
 
   }
 
-  public agregar() {
-
-  }
-
-  public recibirTabla(obj: any) {
-
-    switch (obj.type) {
-      case "eliminar":
-
-      this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar?").then(valor =>{
-          
-        if(valor){
-
-        }
-      
-      });
-
-        break;
-      case "desglosar":
-        let item = obj.datos;
-       
-         let columnas: Array<tabla> = [
-          new tabla("politica", "Política"),
-          new tabla("percepciones", "Percepciones variables"),
-          new tabla("patronal", "Registro patronal"),
-          new tabla("estatusEmpleado", "Estatus de empleado"),
-          new tabla("salario", "Salario diario"),
-          new tabla("salarioIntegrado", "Salario diario integrado"),
-
-          
-        ];
-       
-
-        item.politica = "Estándar";
-        item.percepciones = "0",
-        item.patronal = "Y23542",
-        item.estatusEmpleado = "Activo",
-        item.salario = "72",
-        item.salarioIntegrado = "762.79"
-
-        this.arreglotablaDesglose.columnas = columnas;
-        this.arreglotablaDesglose.filas = item;
-
-        item.cargandoDetalle = false;
-        
-        break;
-    }
-
-  }
 
 }

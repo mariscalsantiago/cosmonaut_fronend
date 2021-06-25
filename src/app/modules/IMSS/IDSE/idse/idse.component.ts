@@ -211,11 +211,11 @@ export class IDSEComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-        this.reportesPrd.getDescargaLayaoutReingresosIDSE(this.arregloIDSE).subscribe(archivo => {
+        this.reportesPrd.getDescargaLayaoutIDSE(this.arregloIDSE).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
-          const fileName = `${"Layaout reingresos/altas IDSE"}.xlsx`;
+          const fileName = `${"Layaout  IDSE"}.xlsx`;
   
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
