@@ -47,7 +47,7 @@
             </label>
                     </td>
 
-                    <td *ngIf="imagen" style="width: 44px;" scope="row">
+                    <td *ngIf="imagen" style="width: 44px;">
                         <img alt="" *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
                         <img alt="" *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]" class="tableimg">
                     </td>
@@ -143,7 +143,7 @@
                             <a (click)="definirFecha()" style="color:#E17B5B;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                     ¿Necesitas cancelar este timbrado?</a>
                         </td>
-                    </tr> 
+                    </tr>
 
                 </ng-container>
                 <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominatimbrar">

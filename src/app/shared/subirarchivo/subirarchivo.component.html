@@ -11,8 +11,8 @@
         "><i aria-hidden="true" class="fas fa-upload"></i>&nbsp;Subir archivo</small></button>
         </div>
         <div *ngIf="buffer != undefined || mostrarImagenUrl" class="col-12">
-            <img *ngIf="!mostrarImagenUrl" [src]="sanitize('data:image/jpg;base64, ' + arrayBufferToBase64(buffer))" alt="" srcset="">
-            <img *ngIf="mostrarImagenUrl" [src]="recibiendoImagen">
+            <img alt="" *ngIf="!mostrarImagenUrl" [src]="sanitize('data:image/jpg;base64, ' + arrayBufferToBase64(buffer))" alt="" srcset="">
+            <img alt="" *ngIf="mostrarImagenUrl" [src]="recibiendoImagen">
             <p *ngIf="!mostrarImagenUrl" class="cambia" style="    color: #4cc1b0;"><strong style="font-weight: bolder;">Tamaño </strong> {{tamanio()}}KB</p>
 
             <i aria-hidden="true" (click)="eliminarImagen()" class="far fa-times-circle" id="closeid"></i>
