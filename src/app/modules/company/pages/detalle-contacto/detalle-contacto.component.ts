@@ -79,8 +79,8 @@ export class DetalleContactoComponent implements OnInit {
       apellidoMaterno: [obj.apellidoMaterno],
       celular: [obj.celular],
       curp: [obj.curp, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
-      emailCorporativo: [obj.emailCorporativo.toLowerCase(), [Validators.required, Validators.email]],
-      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal.toLowerCase(), [ Validators.email]],
+      emailCorporativo: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
+      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : datePipe.transform(new Date(), 'dd-MMM-y')), disabled: true }, [Validators.required]],
       personaId: obj.personaId,
@@ -117,8 +117,8 @@ export class DetalleContactoComponent implements OnInit {
           curp: obj.curp,
           celular: obj.celular,
           //fechaAlta: obj.fechaAlta,
-          emailCorporativo: obj.emailCorporativo.toLowerCase(),
-          contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal.toLowerCase(),
+          emailCorporativo: obj.emailCorporativo?.toLowerCase(),
+          contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal?.toLowerCase(),
           contactoInicialTelefono: obj.contactoInicialTelefono,
           centrocClienteId: {
             centrocClienteId: this.datosEmpresa.centrocClienteId
@@ -145,7 +145,7 @@ export class DetalleContactoComponent implements OnInit {
                         nombre:  obj.nombre,
                         apellidoPat: obj.apellidoPaterno,
                         apellidoMat: obj.apellidoMaterno,
-                        email: obj.emailCorporativo.toLowerCase(),
+                        email: obj.emailCorporativo?.toLowerCase(),
                         centrocClienteIds: [this.datosEmpresa.centrocClienteId],
                         rolId: 1
                     }

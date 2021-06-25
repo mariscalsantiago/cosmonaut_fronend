@@ -15,7 +15,7 @@ export class MayusculasDirective {
   onKeyDown(event: KeyboardEvent) {    
 
     if(this.minusculas){
-      this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
+      this.el.nativeElement.value = `${this.el.nativeElement.value}`?.toLowerCase();
     }
 
     this.onFocusout(null);
@@ -40,13 +40,13 @@ export class MayusculasDirective {
             cadena += dato + es;
           } else {
             cadena += dato.substring(0,1).toUpperCase() +
-             dato.substring(1,dato.length).toLowerCase() +  es;
+             dato.substring(1,dato.length)?.toLowerCase() +  es;
           }
           
         });
         this.render.setProperty(this.el.nativeElement, 'value', cadena);
       }else{
-        this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
+        this.el.nativeElement.value = `${this.el.nativeElement.value}`?.toLowerCase();
       }
 
     }

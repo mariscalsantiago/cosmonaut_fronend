@@ -112,7 +112,7 @@
                         <div class="row mb-4">
                             <article *ngFor="let item of arreglotablaDesglose?.columnas;let indice = index;" class="titulo  col-4 mb-3">
                                 {{item.nombre}}
-                                <article>{{arreglotablaDesglose?.filas[item.id]}}</article>
+                                <article> {{arreglotablaDesglose?.filas[item.id] | hora:item.nombre}}</article>
                             </article>
                         </div>
                     </td>
