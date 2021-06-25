@@ -12,7 +12,7 @@
     <div class=" input-group-sm mb-3 col-3 ">
         <input [(ngModel)]="apellidoMaterno" appAlfanumerico type="text" class="form-control" placeholder="Segundo apellido">
     </div>
-    <div class=" input-group-sm mb-3 col-3 " >
+    <div class=" input-group-sm mb-3 col-3 ">
         <input [(ngModel)]="rfc" type="text" name="" placeholder="RFC" class="form-control">
     </div>
     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
@@ -21,8 +21,7 @@
 
 
     <div *ngIf="esDescargar" class="col-11 text-right">
-        <a (click)="descargarNomina()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
-                    class="fas fa-download"></i> Descargar nómina</small>
+        <a (click)="descargarNomina()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" class="fas fa-download"></i> Descargar nómina</small>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>

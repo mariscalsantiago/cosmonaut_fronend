@@ -38,6 +38,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public timbrado: boolean = false;
   @Input() public llave:boolean = false;
   @Input() public chat:boolean = false;
+  @Input() public esNominaHistorica:boolean = false;
 
   @Input() public icondefault: string = "default";
 
@@ -373,6 +374,11 @@ export class TablapaginadoComponent implements OnInit {
     }
   }
 
+
+
+  public definirFecha(){
+    
+  }
   
 
 

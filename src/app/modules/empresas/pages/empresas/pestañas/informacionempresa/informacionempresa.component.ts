@@ -99,7 +99,7 @@ export class InformacionempresaComponent implements OnInit {
     }
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
-      razonSocial: [obj.razonSocial, [Validators.required]],
+      razonSocial: [obj.razonSocial],
       actividadEconomicaId: [obj.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId, [Validators.required]],
       actividadEconomicaId2: [obj.actividadEconomicaId?.actividadEconomicaId, [Validators.required]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
@@ -132,9 +132,12 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-    debugger
+    //debugger
     this.submitEnviado = true;
     let noesRFC: boolean = (this.myform.controls.regimenfiscalId.value == null || this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
+    if(this.myform.value.regimenfiscalId !== "621"){
+      this.myform.controls.razonSocial.setErrors({required: true});
+    }
 
     if (this.myform.invalid) {
       let invalido: boolean = true;

@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div>
-            <a (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
+            <a (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" 
             class="fas fa-download"></i> Descargar perfil</small>
         <div *ngIf="cargandoIcon" class="spinner-border" role="status">
           <span class="sr-only">Loading...</span>

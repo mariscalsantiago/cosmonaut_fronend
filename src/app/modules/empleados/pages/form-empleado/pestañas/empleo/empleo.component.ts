@@ -359,7 +359,7 @@ export class EmpleoComponent implements OnInit {
       fechaAntiguedad: [(obj.fechaAntiguedad !== undefined && obj.fechaAntiguedad !== "") ? pipe.transform(new Date(Number(obj.fechaAntiguedad)), "yyyy-MM-dd") : obj.fechaAntiguedad, [Validators.required]],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
       fechaInicio: [(obj.fechaInicio !== undefined && obj.fechaInicio !== "") ? pipe.transform(new Date(Number(obj.fechaInicio)), "yyyy-MM-dd") : obj.fechaInicio, Validators.required],
-      fechaFin: [{ value: (obj.fechaFin !== undefined && obj.fechaFin !== "") ? pipe.transform(new Date(Number(obj.fechaFin)), "yyyy-MM-dd") : obj.fechaFin, disabled: false }, [Validators.required]],
+      fechaFin: [{ value: (obj.fechaFin !== undefined && obj.fechaFin !== "") ? pipe.transform(new Date(Number(obj.fechaFin)), "yyyy-MM-dd") : obj.fechaFin, disabled: false }],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
@@ -402,7 +402,9 @@ export class EmpleoComponent implements OnInit {
     this.submitEnviado = true;
 
     let noesFecha: boolean = (this.myForm.controls.tipoContratoId.value == null || this.myForm.controls.tipoContratoId.value == 1 || this.myForm.controls.tipoContratoId.value == 10);
-
+    if(this.myForm.value.tipoContratoId !== "10" && this.myForm.value.tipoContratoId !== "1"){
+      this.myForm.controls.fechaFin.setErrors({required: true});
+    }
     if (this.myForm.invalid) {
       let invalido: boolean = true;
       if (noesFecha) {

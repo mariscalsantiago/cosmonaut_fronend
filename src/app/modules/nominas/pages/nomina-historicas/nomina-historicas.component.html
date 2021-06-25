@@ -6,77 +6,10 @@
 <div class="form-desing ">
     <div class="row m-1 background-panel background-ajustar" appTamanioVentana [pixeles]="160">
 
-        <div class="form-desing mt-3" style="width: 100%;">
 
-            <div class="col-12 text-right">
-                <button class="btn btn-primary button-fill">Acumulados</button>
-            </div>
-            <div class="row m-1 background-panel ">
-                <div class="col-12 margennav background-ajustar">
-
-                    <nav aria-label="cosmonaut" class="nav-inside">
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link " [ngClass]="{'activado':activado[0].tab,'selecciona':activado[0].seleccionado}" id="nav-home-tab" role="tab" aria-controls="nav-home" aria-selected="true">2020</a>
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade " [ngClass]="{'show active':activado[0].form}" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
-                            <table aria-hidden="true" class="table table-responsive">
-                                <thead>
-                                    <tr>
-                                        <th>Octubre 200</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Nómina Semanal Soulsoft</td>
-                                        <td>Periodo 001/2020: 1 oct.- 7 oct.</td>
-                                        <td>Empleados: 3</td>
-                                        <td>Total: $5,586.04</td>
-                                        <td class="opciones">
-                                            <button style="    border: 0;" (click)="btnDesglosar()"><i aria-hidden="true"  *ngIf="!desglosarDown" class="fas fa-chevron-down primary" style="font-size: 14px;
-                                                    margin: 9px;"></i>
-                                                  
-                                                  <i aria-hidden="true" *ngIf="desglosarDown"  class="fas fa-chevron-up primary" style="font-size: 14px;
-                                                    margin: 9px;"></i>
-                                                  </button>
-                                        </td>
-                                    </tr>
-                                    <tr *ngIf="desglosarDown">
-                                        <td colspan="1">
-                                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Detalle de Nómina</a>
-                                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Nómina
-                                            </a>
-                                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Fotos
-                                            </a>
-                                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Nómina</a>
-                                        </td>
-                                        <td colspan="1">
-                                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Póliza Contable</a>
-                                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Nómina</a>
-                                        </td>
-                                        <td colspan="2">
-                                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Recibos de nómina en ZIP</a>
-                                            <a (click)="definirFecha()" style="color:#E17B5B;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                                    ¿Necesitas cancelar este timbrado?</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="row margen background-panel " style="    width: 100%;
+        margin: 50px;">
+            <app-tablapaginado [esNominaHistorica]="true" [datos]="arreglotabla" [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
 </div>

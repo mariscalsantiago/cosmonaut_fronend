@@ -82,8 +82,8 @@
                             <input type="text" class="form-control" placeholder="Filtrar por año">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input  type="text" class="form-control" placeholder="Filtrar por bimestre">
-                            
+                            <input type="text" class="form-control" placeholder="Filtrar por bimestre">
+
                         </div>
 
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
@@ -108,7 +108,7 @@
                             class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar reporte</span>
                           </button>
 
-                      </div>
+                        </div>
 
                     </div>
 
@@ -120,14 +120,14 @@
 
                     <div class="   margen-tabla background-panel " *ngIf="listaPromedio">
                         <br>
-                        <app-tablapaginado [datos]="arreglotablaListaEmpleadosPromedio" [cargando]="cargando" ></app-tablapaginado>
+                        <app-tablapaginado [datos]="arreglotablaListaEmpleadosPromedio" [cargando]="cargando"></app-tablapaginado>
                     </div>
                     <br>
-    
+
                     <div class="text-center margin" style="margin-bottom: 20px;" *ngIf="listaPromedio">
-    
+
                         <button type="button" (click)="cancelarPromedio()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                        
+
                         <button (click)="aplicarPromedio()" class="btn btn-primary button-fill">Aplicar</button>
                     </div>
 
@@ -135,5 +135,4 @@
 
             </div>
 
-</div>
-
+        </div>

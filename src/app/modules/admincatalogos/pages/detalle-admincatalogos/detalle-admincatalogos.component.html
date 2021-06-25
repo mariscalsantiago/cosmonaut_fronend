@@ -15,28 +15,6 @@
 
                 <div id="accordion">
                     <div class="card">
-                        <!--<div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                  <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;"
-                    class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    <label class="titulo" style="    width: 80%;
-                  float: left;
-                  text-align: left;">BÚSQUEDA</label>
-                    <i aria-hidden="true" *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                      aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                      class="fas fa-chevron-up "></i>
-                    <i aria-hidden="true" *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                      aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                      class="fas fa-chevron-down "></i>
-  
-                  </button>
-                  <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
-                    <label class="titulo">BÚSQUEDA</label>
-                  </button>
-  
-                </h5>
-              </div>-->
 
                         <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
@@ -49,12 +27,6 @@
                         </option>
                       </select>
                                     </div>
-                                    <!--<div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                        <input type="text" class="form-control" placeholder="Descripción">
-                      </div>
-                    <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                      <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
-                    </div>-->
                                 </div>
                             </div>
                         </div>

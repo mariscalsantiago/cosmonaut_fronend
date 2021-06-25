@@ -31,15 +31,6 @@
                             Campo requerido
                         </div>
                     </div>
-                    <!--<div class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
-                  <label for="exampleFormControlSelect1">Seleccionar al empleado*</label>
-                  <input list="empleados" class="form-control" formControlName="personaId"
-                      name="browser" id="browser">
-
-                  <datalist id="empleados">
-                      <option *ngFor="let item of arregloempleados" [value]="item.nombre">{{item.nombre}} {{item.apellidoPaterno}} {{item.apellidoMaterno}}</option>
-                  </datalist>
-              </div>-->
                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                         <label>Tipo de cálculo *</label>
                         <select #calculo (focusout)="validarTipoCalculo(calculo.value)" formControlName="tipoBajaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoBajaId.errors && submitEnviado}">

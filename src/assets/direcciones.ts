@@ -53,5 +53,6 @@ export const direcciones = {
     bitacoramovimientos: `${ipAdmin}/bitacora-movimientos`,
     dispersion:`${ipCalculos}/dispersion-timbrado`,
     tipomensaje:`${ip3}/tipo-mensaje`,
-    administrarMensajeChat:`${ipAdmin}/administrar-mensaje-chat`
+    administrarMensajeChat:`${ipAdmin}/administrar-mensaje-chat`,
+    nominasHistoricas: `${ipCalculos}/nominas-historicas`
 };

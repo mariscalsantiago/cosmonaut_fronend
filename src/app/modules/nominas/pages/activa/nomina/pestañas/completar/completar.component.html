@@ -31,8 +31,7 @@
 
 <div class="row">
     <div class="col-11 text-center ">
-        <a (click)="cancelarTimbrado()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i
-                    class="fas fa-download"></i> Cancelar timbrado</small>
+        <a (click)="cancelarTimbrado()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" class="fas fa-download"></i> Cancelar timbrado</small>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>

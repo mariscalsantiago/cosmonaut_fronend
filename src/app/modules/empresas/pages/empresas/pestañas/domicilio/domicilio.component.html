@@ -87,20 +87,6 @@
     </div>
 </form>
 
-<!--<table aria-hidden="true" *ngIf="listaSedeNuevo" class="table table-hover table-sm">
-
-    <thead>
-      <tr>
-        <th id="" scope="col " >  
-            <div class="col-12 col-lg-12 text-right">
-            <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-              <i aria-hidden="true" class="fa fa-plus"></i> Agregar sede
-            </button>
-          </div>
-        </th>
-      </tr>
-    </thead> 
-  </table>-->
 
 <div class="scrooll-designempresa">
 
@@ -122,58 +108,3 @@
 
 
 </div>
-<!--<div *ngIf="listaSedeModificar" class="scrooll-designempresa">
-
-    <div class="mt-3">
-      <div class="row margen">
-        <div class="col titulo">
-          <label>RESULTADOS</label>
-        </div>
-        <div class="col text-right">
-          <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-            <i aria-hidden="true" class="fa fa-plus"></i> Agregar sede
-          </button>
-        </div>
-      </div>
-      <div id="vetanaprincipaltabla"  class="row margen margen-tabla background-panel scrooll" style="position: relative;"  >
-
-        <table aria-hidden="true" *ngIf="!cargando && arregloListaSede !== undefined" class="table table-hover table-sm">
-           <thead>
-             <tr>
-               <th id="" scope="col">Nombre de la sede</th>
-               <th id="" scope="col">Código postal</th>
-               <th id="" scope="col">Municipio o alcadía</th>
-               <th id="" scope="col">Entidad Federativa</th>
-               <th id="" scope="col ">Acciones</th>
-             </tr>
-           </thead>
-           <tbody>
-             <ng-container *ngFor="let item of arregloListaSede;let indice = index;">
-               <tr>
-                 <td>{{item.sedeNombre}} </td>
-                 <td>{{item.codigoPostal}} </td>
-                 <td>{{item.municipio}} </td>
-                 <td>{{item.entidadFederativa}} </td>
-                 <td class="opciones">
-                   <button (click)="verdetalle(item)"><i aria-hidden="true" class="icon_editar primary-bg"></i></button>
-                   <button (click)="eliminar(item)" ><i aria-hidden="true" class="icon_eliminar danger-bg"></i></button>
-     
-                 </td>
-               </tr>
-               </ng-container>
-         
-       
-           </tbody>
-         </table>
-         <div *ngIf="cargando" class="col text-center mb-5">
-          <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
-        </div>
-         <div *ngIf="!cargando && arregloListaSede === undefined" class="alert  col text-center">
-           <strong>En este momento no existen registros</strong>
-         </div>
-      
-       </div>
-    </div>
-    
-    
-    </div>-->

@@ -53,13 +53,12 @@ export class ChatbootComponent implements OnInit {
   constructor(private chatPrd:ChatSocketService,private usuarioSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
-
+    this.datos.nombre = this.datos.nombre.replace('undefined', '');
     let documento: any = document.defaultView;
-
     this.tamanio = documento.innerWidth;
-
     this.chatPrd.conectarSocket(this.chatPrd.getChatDatos().datos.socket);
     this.chatPrd.recibiendoMensajeServer().subscribe(datos =>{
+      
       let objEnviado = {
         enviado:false,
         mensaje:datos.data,
