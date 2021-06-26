@@ -15,7 +15,7 @@ export class MayusculasDirective {
   onKeyDown(event: KeyboardEvent) {    
 
     if(this.minusculas){
-      this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
+     this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
     }
 
     this.onFocusout(null);
