@@ -20,6 +20,10 @@ export class NominaHistoricasComponent implements OnInit {
 
   public cargando: boolean = false;
 
+  public nominaId: string = "";
+  public periodo: string = "";
+  public fecha: string = "";
+
 
   constructor(private nominashistoricasPrd: NominasHistoricasService, private usuarioSistemaPrd: UsuarioSistemaService) { }
 
@@ -58,7 +62,39 @@ export class NominaHistoricasComponent implements OnInit {
 
 
 
-  public recibirTabla(obj:any) {
-      obj.datos.cargandoDetalle = false;
+  public recibirTabla(obj: any) {
+    obj.datos.cargandoDetalle = false;
+    console.log(obj);
+    switch (obj.type) {
+      case "polizacontable":
+          alert("Poliza contable");
+        break;
+      case "detallenomina":
+        alert("detlale nomina");
+        break;
+      case "nomina":
+        alert("nomina");
+        break;
+      case "fotos":
+        alert("fotos");
+        break;
+      case "reportenomina":
+        alert("reporte nomina")
+        break;
+      case "reportepolizacontable":
+        alert("reporte poliza contable");
+        break;
+      case "recibonominazip":
+        alert("recibo nomina zip");
+        break;
+      case "cancelartimbrado":
+        alert("cancelartimbrado");
+        break;
+    }
+  }
+
+
+  public filtrar() {
+
   }
 }

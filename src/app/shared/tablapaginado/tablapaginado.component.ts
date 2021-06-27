@@ -376,8 +376,33 @@ export class TablapaginadoComponent implements OnInit {
 
 
 
-  public definirFecha(){
-    
+  public definirFecha(tipo:string,item:any,indice:number){
+    switch (tipo) {
+      case "polizacontable":
+        this.salida.emit({ type: "polizacontable", datos: item, indice: indice });
+        break;
+      case "detallenomina":
+        this.salida.emit({ type: "detallenomina", datos: item, indice: indice });
+        break;
+      case "nomina":
+        this.salida.emit({ type: "nomina", datos: item, indice: indice });
+        break;
+      case "fotos":
+        this.salida.emit({ type: "fotos", datos: item, indice: indice });
+        break;
+      case "reportenomina":
+        this.salida.emit({ type: "reportenomina", datos: item, indice: indice });
+        break;
+      case "reportepolizacontable":
+        this.salida.emit({ type: "reportepolizacontable", datos: item, indice: indice });
+        break;
+      case "recibonominazip":
+        this.salida.emit({ type: "recibonominazip", datos: item, indice: indice });
+        break;
+      case "cancelartimbrado":
+        this.salida.emit({ type: "cancelartimbrado", datos: item, indice: indice });
+        break;
+    }
   }
   
 

@@ -70,7 +70,10 @@ export class ContenidoComponent implements OnInit {
     datos: {
       nombre: "Mariscal",
       socket:"",
-      rrh:false
+      rrh:false,
+      numeromensajes:0,
+      mensajeRecibido:false,
+      arregloMensaje:[]
     }
   }
 
@@ -219,10 +222,14 @@ export class ContenidoComponent implements OnInit {
 
 
   public darClickChat(){
-    this.chatPrd.getChatDatos().datos.socket = `/websocket/chat/${this.usuariosSistemaPrd.getIdEmpresa()}/${this.usuariosSistemaPrd.usuario.usuarioId}`;
+    this.chatPrd.getChatDatos().datos.socket = `/websocket/chat/${this.usuariosSistemaPrd.getIdEmpresa()}${this.usuariosSistemaPrd.usuario.usuarioId}/${this.usuariosSistemaPrd.getIdEmpresa()}/${this.usuariosSistemaPrd.usuario.usuarioId}`;
     this.chat.ocultar = !this.chat.ocultar
     this.chat.datos.nombre = this.usuariosSistemaPrd.getUsuario().nombre+" "+this.usuariosSistemaPrd.getUsuario().apellidoPat;
     this.chat.datos.rrh = false;
+
+
+    this.chat.datos.numeromensajes = 0;
+    this.chat.datos.mensajeRecibido = false;
 
   }
 

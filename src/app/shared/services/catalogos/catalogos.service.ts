@@ -124,9 +124,7 @@ export class CatalogosService {
 
 
   public getPeriocidadPago(estatus:boolean):Observable<any>{
-
     return this.http.get(`${this.url}/csPeriodicidadPago/listar/todosActivo/${estatus}`);
-
   }
 
   public getBasePeriodos(estatus:boolean):Observable<any>{

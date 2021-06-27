@@ -70,8 +70,8 @@ export class InformacionbasicaComponent implements OnInit {
       genero: [{value:obj.genero,disabled:true}],
       fechaNacimiento: [{value:(obj.fechaNacimiento !== undefined && obj.fechaNacimiento !== "") ? pipe.transform(new Date(Number(obj.fechaNacimiento)), "yyyy-MM-dd") : obj.fechaNacimiento,disabled:true}],
       tieneCurp: [true],
-      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal.toLowerCase(), [ Validators.email]],
-      emailCorporativo: [obj.emailCorporativo.toLowerCase(), [Validators.required, Validators.email]],
+      contactoInicialEmailPersonal: [obj?.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
+      emailCorporativo: [obj?.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
       invitarEmpleado: obj.invitarEmpleado,
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
       estadoCivil: obj.estadoCivil,
@@ -84,7 +84,7 @@ export class InformacionbasicaComponent implements OnInit {
       contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
       contactoEmergenciaParentesco: obj.parentescoId?.parentescoId,
       celular: [obj.celular, []],
-      contactoEmergenciaEmail: [obj.contactoEmergenciaEmail.toLowerCase(), [Validators.email]],
+      contactoEmergenciaEmail: [obj.contactoEmergenciaEmail?.toLowerCase(), [Validators.email]],
       contactoEmergenciaTelefono: [obj.contactoEmergenciaTelefono, []],
       nss: [obj.nss, [validacionesForms.nssValido,Validators.required]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
@@ -129,6 +129,8 @@ export class InformacionbasicaComponent implements OnInit {
 
     this.submitEnviado = true;
 
+    console.log(this.myform.getRawValue());
+
 
     if (this.myform.invalid) {
 
@@ -151,6 +153,8 @@ export class InformacionbasicaComponent implements OnInit {
   public guardarCambios() {
     let obj = this.myform.getRawValue();
 
+  
+
     let fechanacimiento = '';
 
 
@@ -167,8 +171,8 @@ export class InformacionbasicaComponent implements OnInit {
       genero: obj.genero,
       fechaNacimiento: fechanacimiento,
       tieneCurp: obj.tieneCurp,
-      contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal.toLowerCase(),
-      emailCorporativo: obj.emailCorporativo.toLowerCase(),
+      contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
+      emailCorporativo: obj.emailCorporativo,
       invitarEmpleado: obj.invitarEmpleado,
       nacionalidadId: {
         nacionalidadId: obj.nacionalidadId
@@ -185,7 +189,7 @@ export class InformacionbasicaComponent implements OnInit {
       parentescoId: {
         parentescoId: obj.contactoEmergenciaParentesco
       },
-      contactoEmergenciaEmail: obj.contactoEmergenciaEmail.toLowerCase(),
+      contactoEmergenciaEmail: obj.contactoEmergenciaEmail,
       contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
       centrocClienteId: {
         centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()

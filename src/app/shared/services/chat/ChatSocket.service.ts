@@ -10,20 +10,34 @@ export class ChatSocketService {
 
   private socket!:WebSocket;
 
+  public esConectado:boolean = false;
+
   public datos = {
     ocultar: true,
     datos: {
       nombre: "Mariscal",
       socket:"",
-      rrh:false
+      rrh:false,
+      numeromensajes:0,
+      mensajeRecibido:false
     }
   }
+
+
+  public mensajes:any = [];
 
 
   constructor(private http:HttpClient) { }
 
   public conectarSocket(cadenaSocket:string){
     this.socket = new WebSocket(`${direcciones.socket}${cadenaSocket}`);
+    this.esConectado = true;
+
+
+    this.socket.onclose = ()=>{
+      console.log("Se cerro en automatico",this.esConectado);
+      this.esConectado = false;
+    }
   }
 
   public enviarMensaje(mensaje:string){
@@ -42,6 +56,21 @@ export class ChatSocketService {
   }
 
 
+  public reiniciarChat(mensaje:any){
+      this.esConectado = false;
+      this.mensajes = [mensaje];
+  }
+
+
+  public getMensajes(){
+    return this.mensajes;
+  }
+
+  public setMensajes(mensajes:any){
+      this.mensajes = mensajes;
+  }
+
+
   public modificarMensaje(obj:any):Observable<any>{
     let json = JSON.stringify(obj);
     return this.http.post(`${direcciones.chat}/modificar`,json);
@@ -57,6 +86,11 @@ export class ChatSocketService {
 
   public getChatDatos(){
     return this.datos;
+  }
+
+
+  public isConnect(){
+    return this.esConectado;
   }
 
 
