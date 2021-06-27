@@ -274,6 +274,7 @@ export class VariabilidadComponent implements OnInit {
 
   public desgargarArchivo() {
     debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     

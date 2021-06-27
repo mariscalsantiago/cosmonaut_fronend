@@ -1,5 +1,5 @@
 <br><br>
-<form [formGroup]="myFormpol" class="form-desing" (ngSubmit)="enviarPeticion()">
+<form [formGroup]="myFormpol" class="form-desing" >
 
     <input type="hidden" formControlName="politicaId">
 
@@ -87,48 +87,95 @@
 
 
 
-    <div *ngIf="mostrarBeneficios" class="card margen margen-tabla background-panel ">
-        <div class="form-group row margen">
-            <label class="titulo">INFORMACIÓN DE TABLA DE BENEFICIOS</label></div>
-        <div class="card-body">
-            <div id="table" class="table-editable ">
+     <div class="col-12 mr-3">
+                <div id="accordion" class="acordion_desplegable">
+                    <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
+                        <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
+                            <h5 class="mb-0">
+                                <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse" data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
+    
+                    Tabla de beneficios
+                    <i aria-hidden="true" *ngIf="!arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                      aria-controls="collapseOne" class="fas fa-chevron-down "></i>
+                    <i aria-hidden="true" *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                      aria-controls="collapseOne" class="fas fa-chevron-up "></i>
+                  </button>
+                            </h5>
+                        </div>
 
-                <table aria-hidden="true" *ngIf="!cargando && arregloTablaBeneficios !== undefined" class="table table-hover">
-                    <tr>
-                        <th id="" class="text-center" scope="col">Años de antiguedad</th>
-                        <th id="" class="text-center" scope="col">Días de aguinaldo</th>
-                        <th id="" class="text-center" scope="col">Días de vacaciones</th>
-                        <th id="" class="text-center" scope="col">Prima vacacional</th>
-                    </tr>
-                    <tr *ngFor="let beneficios of arregloTablaBeneficios; let beneficioPolitica = index">
-                        <td>
-                            <span (keyup)="changeValue(beneficioPolitica, 'aniosAntiguedad', $event)" (blur)="updateList(beneficioPolitica, 'aniosAntiguedad', $event)" contenteditable="true">{{beneficios.aniosAntiguedad}}</span>
-                        </td>
-                        <td>
-                            <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasAguinaldo', $event)" (blur)="updateList(beneficioPolitica, 'diasAguinaldo', $event)">{{beneficios.diasAguinaldo}}</span>
-                        </td>
-                        <td>
-                            <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasVacaciones', $event)" (blur)="updateList(beneficioPolitica, 'diasVacaciones', $event)">{{beneficios.diasVacaciones}}</span>
-                        </td>
-                        <td>
-                            <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'primaVacacional', $event)" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)">{{beneficios.primaVacacional}}</span>
-                        </td>
+                        <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago" data-parent="#accordion">
 
-                    </tr>
-                </table>
-                <div *ngIf="!cargando && arregloTablaBeneficios === undefined" class="alert col text-center">
-                    <strong>En este momento no existen registros</strong>
-                </div>
-                <div *ngIf="cargando" class="col text-center mb-5">
-                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                            <div class="card-body">
+                                <div *ngIf="mostrarBeneficios" class="card margen margen-tabla background-panel ">
+                                    <div class="form-group row margen">
+                                        <label class="titulo">INFORMACIÓN DE TABLA DE BENEFICIOS</label></div>
+                                    <div class="card-body">
+                                        <div id="table" class="table-editable ">
+                            
+                                            <table aria-hidden="true" *ngIf="!cargando && arregloTablaBeneficios !== undefined" class="table table-hover">
+                                                <tr>
+                                                    <th id="" class="text-center" scope="col">Años de antiguedad</th>
+                                                    <th id="" class="text-center" scope="col">Días de aguinaldo</th>
+                                                    <th id="" class="text-center" scope="col">Días de vacaciones</th>
+                                                    <th id="" class="text-center" scope="col">Prima vacacional</th>
+                                                </tr>
+                                                <tr *ngFor="let beneficios of arregloTablaBeneficios; let beneficioPolitica = index">
+                                                    <td>
+                                                        <span (keyup)="changeValue(beneficioPolitica, 'aniosAntiguedad', $event)" (blur)="updateList(beneficioPolitica, 'aniosAntiguedad', $event)" contenteditable="true">{{beneficios.aniosAntiguedad}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasAguinaldo', $event)" (blur)="updateList(beneficioPolitica, 'diasAguinaldo', $event)">{{beneficios.diasAguinaldo}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasVacaciones', $event)" (blur)="updateList(beneficioPolitica, 'diasVacaciones', $event)">{{beneficios.diasVacaciones}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'primaVacacional', $event)" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)">{{beneficios.primaVacacional}}</span>
+                                                    </td>
+                            
+                                                </tr>
+                                            </table>
+                                            <div *ngIf="!cargando && arregloTablaBeneficios === undefined" class="alert col text-center">
+                                                <strong>En este momento no existen registros</strong>
+                                            </div>
+                                            <div *ngIf="cargando" class="col text-center mb-5">
+                                                <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+    
+    
+    
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card" [ngClass]="{'cardselected':arreglopintar[1]}">
+                        <div class="card-header" id="compensacion">
+                            <h5 class="mb-0">
+                                <button (click)="cambiarStatus(1)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Percepciones
+                    <i aria-hidden="true" *ngIf="!arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                      aria-controls="collapseOne" class="fas fa-chevron-down "></i>
+                    <i aria-hidden="true" *ngIf="arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                      aria-controls="collapseOne" class="fas fa-chevron-up "></i>
+                  </button>
+                            </h5>
+                        </div>
+
+                    </div>
+    
                 </div>
             </div>
-        </div>
-    </div>
+
+    
 
     <div class="text-center margin" style="margin-bottom: 20px;">
         <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (eventoFunciones)="redirect($event)" (click)="redirect(undefined)">Cancelar</button>
-        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+        <button (click)="enviarPeticion()" class="btn btn-primary button-fill agrandarloading">Guardar</button>
     </div>
 
 </form>
+
