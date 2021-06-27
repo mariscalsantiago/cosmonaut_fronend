@@ -54,14 +54,9 @@ export class DetallerepresentantelegalComponent implements OnInit {
         nacionalidadId: {}
       };
     }
-    this.catalogosPrd.getNacinalidades(true).subscribe(datos => {
-      debugger;
-      this.arreglonacionalidad = datos.datos
-      this.myFormrep = this.createFormrep((objdetrep));
-    });
-
 
     this.myFormrep = this.createFormrep((objdetrep));
+    this.catalogosPrd.getNacinalidades(true).subscribe(datos => this.arreglonacionalidad = datos.datos);
 
   }
 
@@ -73,7 +68,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
 
   public createFormrep(obj: any) {
-    debugger;
+    
     let datePipe = new DatePipe("en-MX");
     if(this.insertar){
     obj.nacionalidadId.nacionalidadId = this.constNacionalidad;
@@ -88,8 +83,8 @@ export class DetallerepresentantelegalComponent implements OnInit {
       rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
       nacionalidadId: [obj.nacionalidadId.nacionalidadId, [Validators.required]],
       curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
-      emailCorporativo: [obj.emailCorporativo, [Validators.required, Validators.email]],
-      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal, [ Validators.email]],
+      emailCorporativo: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
+      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       //fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
