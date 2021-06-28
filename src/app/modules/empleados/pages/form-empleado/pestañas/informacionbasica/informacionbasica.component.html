@@ -93,7 +93,7 @@
                 </div>
                 <div class="input-group-sm mb-4 col-8">
                     <label>Correo personal </label>
-                    <input appMayusculas [minusculas]="true" formControlName="contactoInicialEmailPersonal" type="email" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
+                    <input formatos [correo]="true" [control]="f.contactoInicialEmailPersonal" formControlName="contactoInicialEmailPersonal" type="email" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
                         class="form-control" name="">
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                         Correo personal inválido
