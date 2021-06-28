@@ -26,8 +26,7 @@ export class ChatbootComponent implements OnInit,AfterViewInit {
  @Input() 
   public datos={
     nombre: "",
-    socket:"",
-    rrh:false
+    socket:""
   }
 
 
@@ -67,23 +66,51 @@ export class ChatbootComponent implements OnInit,AfterViewInit {
       this.chatPrd.conectarSocket(this.chatPrd.getChatDatos().datos.socket);
       this.chatPrd.recibiendoMensajeServer().subscribe(datos =>{        
 
-        let mensajeCompuesto = datos.data.split('|')
+        let body;
+        let mensajedefecto:boolean = true;
+        try{
+          body = JSON.parse(datos.data);
+          mensajedefecto = false;
+        }catch{
+          mensajedefecto = true;
+          body = datos.data;
 
-        if((mensajeCompuesto[0] !== this.usuarioSistemaPrd.getUsuario().usuarioId.toString())){
+        }
+
+        if(!mensajedefecto){
+
+          if((Number(body.idUsuario) !== this.usuarioSistemaPrd.getUsuario().usuarioId)){
+             
+            let objEnviado = {
+              enviado:false,
+              mensaje: body.mensaje,
+              fecha:new Date()
+            };
+
+            this.arreglomensajes = this.chatPrd.getMensajes();
+            this.arreglomensajes.push(objEnviado);
+    
+            this.chatPrd.setMensajes(this.arreglomensajes);
+            this.acomodandoVentanaChat();
+
+
+            this.chatPrd.datos.datos.numeromensajes += 1;
+            this.chatPrd.datos.datos.mensajeRecibido = true;
+
+            if(!this.usuarioSistemaPrd.usuario.esRecursosHumanos){
+                this.chatPrd.setNombreRecursosHumanos("Lo atiende "+body.nombre);
+            }
+          }
+
+        }else{
+         
           let objEnviado = {
             enviado:false,
-            mensaje: mensajeCompuesto[1] || mensajeCompuesto[0],
+            mensaje: body,
             fecha:new Date()
           };
-  
 
-          if(this.chatPrd.getChatDatos().datos.rrh && !Boolean(mensajeCompuesto[1])) return;
-  
-  
-  
-          this.chatPrd.getChatDatos().datos.mensajeRecibido = Boolean(mensajeCompuesto[1]);
-          this.chatPrd.getChatDatos().datos.numeromensajes += Boolean(mensajeCompuesto[1])?1:0;
-    
+          this.arreglomensajes = this.chatPrd.getMensajes();
           this.arreglomensajes.push(objEnviado);
   
           this.chatPrd.setMensajes(this.arreglomensajes);
@@ -115,8 +142,16 @@ export class ChatbootComponent implements OnInit,AfterViewInit {
     };
 
     this.arreglomensajes.push(objEnviado);
-    this.mensaje = `${this.usuarioSistemaPrd.usuario.usuarioId}|${this.mensaje}`;
-    this.chatPrd.enviarMensaje(this.mensaje);
+
+
+    let body = {
+      mensaje:this.mensaje,
+      idUsuario:this.usuarioSistemaPrd.getUsuario().usuarioId,
+      nombre:`${this.usuarioSistemaPrd.getUsuario().nombre} ${this.usuarioSistemaPrd.getUsuario().apellidoPat}`,
+      fecha:new Date()
+    }
+    
+    this.chatPrd.enviarMensaje(JSON.stringify(body));
     this.mensaje = "";
 
     

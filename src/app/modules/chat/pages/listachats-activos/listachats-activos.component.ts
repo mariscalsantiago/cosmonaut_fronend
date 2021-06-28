@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -26,7 +27,7 @@ export class ListachatsActivosComponent implements OnInit {
   public cargando: boolean = false;
   constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
     private usuariossistemaPrd: UsuarioSistemaService, private socket: ChatSocketService,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService,private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -48,15 +49,15 @@ export class ListachatsActivosComponent implements OnInit {
 
     let columnas: Array<tabla> = [
       new tabla("nombreempleado", "Empleado"),
-      new tabla("mensajeInicialEmpleado", "Mensaje"),
-      new tabla("fecha", "Fecha", false, false, true),
+      new tabla("mensaje", "Mensaje"),
+      new tabla("fecha", "Fecha", false, false, true)   
     ]
 
     if (obj) {
       for (let item of obj) {
         item["nombreempleado"] = item.usuarioId?.nombre + " " + item.usuarioId.apellidoPat + " ";
         item["nombreempleado"] += item.personaId?.apellidoMat ? "" : item.usuarioId?.apellidoMat
-
+        item["mensaje"]=JSON.parse(item.mensajeInicialEmpleado).mensaje
         var datePipe = new DatePipe("es-MX");
         item["fecha"] = (new Date(item.fechaMensajeIncialEmpleado).toUTCString()).replace(" 00:00:00 GMT", "");
         item["fecha"] = datePipe.transform(item["fecha"], 'dd-MMM-y')?.replace(".", "");
@@ -81,12 +82,13 @@ export class ListachatsActivosComponent implements OnInit {
         this.socket.getChatDatos().datos.nombre = obj.datos.nombreempleado;
         this.socket.getChatDatos().datos.socket = obj.datos.conversacion;
         this.socket.getChatDatos().ocultar = false;
-        this.socket.getChatDatos().datos.rrh = true;
+
+        this.configuracionesPrd.ocultarChat = false;
 
 
         let objEnviado = {
           enviado:false,
-          mensaje: obj.datos.mensajeInicialEmpleado.split('|')[1],
+          mensaje: JSON.parse(obj.datos.mensajeInicialEmpleado).mensaje,
           fecha:new Date()
         };
         this.socket.reiniciarChat(objEnviado);

@@ -17,14 +17,21 @@ export class ChatSocketService {
     datos: {
       nombre: "Recursos humanos",
       socket:"",
-      rrh:false,
       numeromensajes:0,
       mensajeRecibido:false
+    },
+    body:{
+      mensaje:"",
+      idUsuario:0,
+      nombre:"",
+      fecha:""
     }
   }
 
 
   public mensajes:any = [];
+
+  private nombreRecursos:string = "Recursos humaos";
 
 
   constructor(private http:HttpClient) { }
@@ -125,7 +132,19 @@ export class ChatSocketService {
   
   }
 
+
+  public getNombreRecursosHumanos(){
+      return this.nombreRecursos;
+  }
+
+  public setNombreRecursosHumanos(nombre:string){
+      this.nombreRecursos = nombre;
+  }
+
   
 
 
 }
+
+
+

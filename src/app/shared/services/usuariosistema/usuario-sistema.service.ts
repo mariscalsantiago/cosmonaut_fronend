@@ -146,6 +146,7 @@ export class usuarioClass {
   public multiempresa!:boolean;
   public esCliente!:boolean;
   public centrocClienteIdPadre!:number;
+  public esRecursosHumanos!:boolean;
 
 }
 
