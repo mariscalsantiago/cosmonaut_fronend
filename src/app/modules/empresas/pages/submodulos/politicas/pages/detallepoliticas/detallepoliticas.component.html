@@ -87,7 +87,7 @@
 
 
 
-     <div class="col-12 mr-3">
+     <div class="col-12 mr-3" *ngIf="mostrarBeneficios">
                 <div id="accordion" class="acordion_desplegable">
                     <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
                         <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
