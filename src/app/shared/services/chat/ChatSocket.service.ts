@@ -15,7 +15,7 @@ export class ChatSocketService {
   public datos = {
     ocultar: true,
     datos: {
-      nombre: "Mariscal",
+      nombre: "Recursos humanos",
       socket:"",
       rrh:false,
       numeromensajes:0,
@@ -91,6 +91,11 @@ export class ChatSocketService {
 
   public isConnect(){
     return this.esConectado;
+  }
+
+  public disconnect(){
+    this.mensajes = [];
+      this.esConectado = false;  
   }
 
 

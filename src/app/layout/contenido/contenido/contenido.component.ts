@@ -95,7 +95,6 @@ export class ContenidoComponent implements OnInit {
 
     this.chatPrd.setChatDatos(this.chat);
 
-
     if (this.authPrd.isAuthenticated()) {
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
         this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
@@ -173,6 +172,8 @@ export class ContenidoComponent implements OnInit {
   public cerrarSesion() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Estás seguro de cerrar la sesión?").then(valor => {
       if (valor) {
+
+        this.chatPrd.disconnect();
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.sistemaUsuarioPrd.logout().subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -224,7 +225,7 @@ export class ContenidoComponent implements OnInit {
   public darClickChat(){
     this.chatPrd.getChatDatos().datos.socket = `/websocket/chat/${this.usuariosSistemaPrd.getIdEmpresa()}${this.usuariosSistemaPrd.usuario.usuarioId}/${this.usuariosSistemaPrd.getIdEmpresa()}/${this.usuariosSistemaPrd.usuario.usuarioId}`;
     this.chat.ocultar = !this.chat.ocultar
-    this.chat.datos.nombre = this.usuariosSistemaPrd.getUsuario().nombre+" "+this.usuariosSistemaPrd.getUsuario().apellidoPat;
+    this.chat.datos.nombre = "Recursos humanos";
     this.chat.datos.rrh = false;
 
 
@@ -247,6 +248,8 @@ export class ContenidoComponent implements OnInit {
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
   }
+
+
 
 
 
