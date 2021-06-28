@@ -24,6 +24,11 @@ export class ConfiguracionesService {
   public permisosActuales!:Array<clasepermiso>;
 
 
+  public ocultarChat:any = undefined;
+
+
+
+
   constructor() { }
 
   public getScrollCompany(scroll: number) {
@@ -74,6 +79,7 @@ export class ConfiguracionesService {
       
       
     arreglo.forEach((valor:any[any]) => {
+       
         valor.seleccionado = false;
         valor.checked = false;
         valor.previo = false;
@@ -83,9 +89,12 @@ export class ConfiguracionesService {
             valor2.checked = false;
             valor2.previo = false;
             valor2.seleccionadosubmenu = false;
+
+         
+
             let filtrar: any = Object.values(permisos).filter((x: any) => x.submoduloId == valor2.submoduloId);
 
-            debugger;
+     
             if((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9) || version === 1){
               valor2.permisos?.forEach((valor3:any[any]) => {
 
@@ -98,6 +107,13 @@ export class ConfiguracionesService {
                     valor2.checked = true;
                     valor2.previo = true;
                     primerAuxSubmodulo = false;
+
+                    if(valor.nombreModulo.includes("Chat") && valor2.checked){
+                      let usuario = JSON.parse(localStorage["usuario"]);
+                      usuario.esRecursosHumanos = true;
+                      localStorage["usuario"] = JSON.stringify(usuario);
+                      
+                  }
                   }
                 }
               });
