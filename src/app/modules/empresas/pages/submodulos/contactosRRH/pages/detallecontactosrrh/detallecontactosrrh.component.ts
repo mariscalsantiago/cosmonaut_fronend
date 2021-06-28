@@ -85,7 +85,6 @@ export class DetallecontactosrrhComponent implements OnInit {
 
   public enviarPeticion() {
 
-
     this.subbmitActive = true;
 
     if (this.myForm.invalid) {
