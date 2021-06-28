@@ -40,8 +40,8 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <select name="" class="form-control" [(ngModel)]="id_company">
-                      <option value="0" selected>Seleccionar catalogo</option>
+                                        <select name="" class="form-control" [(ngModel)]="id_catalogo">
+                      <option value = "0" selected>Seleccionar catalogo</option>
                       <option *ngFor="let item of arreglo" [value]="item.listaCatalogosId">{{item.nombreCatalogo}}
                       </option>
                     </select>

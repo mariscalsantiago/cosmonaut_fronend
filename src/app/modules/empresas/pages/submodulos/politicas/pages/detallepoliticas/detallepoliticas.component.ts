@@ -24,6 +24,7 @@ export class DetallepoliticasComponent implements OnInit {
   public arregloTablaBeneficios: any = [];
   public editField: string = "";
   public mostrarBeneficios: boolean = false;
+  public arreglopintar: any = [false, false, false];
 
   public beneficio: any =[];
   public beneficiotab : any =[];
@@ -226,6 +227,19 @@ export class DetallepoliticasComponent implements OnInit {
     });
   }
 
+  public cambiarStatus(valor: any) {
+
+    for (let x = 0; x < this.arreglopintar.length; x++) {
+
+      if (x == valor) {
+        continue;
+      }
+
+      this.arreglopintar[x] = false;
+
+    }
+    this.arreglopintar[valor] = !this.arreglopintar[valor];
+  }
 
   public redirect(obj: any) {
     this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/politicas"]);

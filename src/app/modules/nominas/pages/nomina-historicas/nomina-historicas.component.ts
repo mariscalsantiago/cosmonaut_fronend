@@ -95,6 +95,7 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public filtrar() {
+    
 
   }
 }
