@@ -387,7 +387,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       apellidoPaterno: this.apellidoPat,
       apellidoMaterno: this.apellidoMat,
       fechaAlta: fechar,
-      emailCorporativo: this.correoempresarial.toLowerCase(),
+      emailCorporativo: this.correoempresarial?.toLowerCase(),
       esActivo: actboo,
       centrocClienteId: {
         centrocClienteId: ""

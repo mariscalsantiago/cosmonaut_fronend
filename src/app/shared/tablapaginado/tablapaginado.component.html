@@ -47,7 +47,7 @@
             </label>
                     </td>
 
-                    <td *ngIf="imagen" style="width: 44px;" scope="row">
+                    <td *ngIf="imagen" style="width: 44px;">
                         <img alt="" *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
                         <img alt="" *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]" class="tableimg">
                     </td>
@@ -112,7 +112,7 @@
                         <div class="row mb-4">
                             <article *ngFor="let item of arreglotablaDesglose?.columnas;let indice = index;" class="titulo  col-4 mb-3">
                                 {{item.nombre}}
-                                <article>{{arreglotablaDesglose?.filas[item.id]}}</article>
+                                <article> {{arreglotablaDesglose?.filas[item.id] | hora:item.nombre}}</article>
                             </article>
                         </div>
                     </td>
@@ -141,7 +141,7 @@
                             <a (click)="definirFecha('cancelartimbrado',item,indice)" style="color:#E17B5B;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                     ¿Necesitas cancelar este timbrado?</a>
                         </td>
-                    </tr> 
+                    </tr>
 
                 </ng-container>
                 <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominatimbrar">

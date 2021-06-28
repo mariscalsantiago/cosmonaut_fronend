@@ -16,8 +16,8 @@ export class EventosComponent implements OnInit {
 
   ngOnInit() {
   this.router.params.subscribe(params => {
-    // this.idEmpleado = params["id"];
-    this.idEmpleado = 668;
+    this.idEmpleado = params["id"];
+    //this.idEmpleado = 668;
    this.politicasPrd.getPoliticasByPersona(this.idEmpleado).toPromise()
    .then(datos => {console.log('d',datos['datos']);this.informacion = datos['datos'];
    }).catch(error => {
