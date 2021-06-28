@@ -256,6 +256,7 @@ export class EmpleoComponent implements OnInit {
   public enviarPeticinoArea() {
 
 
+    
 
 
     this.enviadoSubmitArea = true;
@@ -396,7 +397,7 @@ export class EmpleoComponent implements OnInit {
 
 
 
-
+    console.log(this.myForm.getRawValue());
 
 
     this.submitEnviado = true;
