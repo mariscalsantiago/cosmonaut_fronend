@@ -82,12 +82,11 @@
                     </article>
                 </article>
             </div>
-
             <hr>
             <div class="row">
                 <article class="titulo  col">
                     Tipo de contrato *
-                    <article *ngIf="!editarcampos">{{empleado.tipoContratoId?.tipoContratoId}}</article>
+                    <article *ngIf="!editarcampos">{{contratoDesc}}</article>
                 </article>
             </div>
             <div class="row mb-4">
@@ -97,6 +96,24 @@
                         {{item.descripcion}}</option>
                 </select>
                     <div *ngIf="f.tipoContratoId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </article>
+            </div>
+            <div class="row">
+                <article class="titulo  col">
+                    Régimen de contratación* *
+                    <article *ngIf="!editarcampos">{{ empleado.tipoRegimenContratacionId?.descripcion}}</article>
+                </article>
+            </div>
+            <div class="row mb-4">
+                <article *ngIf="editarcampos" class="titulo col">
+                    <select [ngClass]="{'is-invalid':f.tipoRegimenContratacionId.errors && submitEnviado}" formControlName="tipoRegimenContratacionId" name="" id="" class="form-control">
+                        <option *ngFor="let item of arregloRegimenContratacion"
+                            [value]="item.tipoRegimenContratacionId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.tipoRegimenContratacionId.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
 

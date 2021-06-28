@@ -124,7 +124,7 @@
                         {{empleado.emailCorporativo}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" formControlName="emailCorporativo" type="text" name="" class="form-control">
+                        <input formatos [correo]="true" [control]="f.emailCorporativo" [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" formControlName="emailCorporativo" type="text" name="" class="form-control">
                         <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
                             Correo empresarial inválido
                         </div>

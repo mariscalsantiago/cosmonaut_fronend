@@ -86,7 +86,8 @@
 
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
                 <label>Correo empresarial *</label>
-                <input formControlName="emailCorporativo" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched)}" placeholder="">
+                <input formatos [correo]="true" [control]="f.emailCorporativo" formControlName="emailCorporativo" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched)}"
+                    placeholder="">
                 <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -97,7 +98,8 @@
 
             <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
                 <label>Correo personal</label>
-                <input formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}" placeholder="">
+                <input formatos [correo]="true" [control]="f.contactoInicialEmailPersonal" formControlName="contactoInicialEmailPersonal" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
+                    placeholder="">
                 <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                     Correo personal inválido
                 </div>

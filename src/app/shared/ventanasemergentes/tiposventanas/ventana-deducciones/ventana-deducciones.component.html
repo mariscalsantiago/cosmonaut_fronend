@@ -15,13 +15,13 @@
 
         </div>
 
-        <div *ngIf="infonavit" class="input-group-sm mb-3 col-4">
-            <label>Fecha fin de descuento *</label>
+        <div *ngIf="infonavit || infonacot" class="input-group-sm mb-3 col-4">
+            <label>Fecha fin de descuento <b *ngIf="!infonavit && !infonacot">*</b></label>
             <input formControlName="fechaFinDescuento" type="date" class="form-control">
 
         </div>
         <div *ngIf="prestamo" class=" input-group-sm mb-3 col-4">
-            <label for="exampleFormControlSelect1">Tipo de descuento *</label>
+            <label for="exampleFormControlSelect1">Tipo de descuento * </label>
             <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
             <option value=""></option>
             <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
@@ -122,10 +122,16 @@
 
         </div>
         <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">
+            <label>Número de plazos mensuales *</label>
+            <input formControlName="numeroPlazos" type="text" class="form-control">
+
+        </div>
+        <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">
             <label>Monto por período *</label>
             <input formatos [moneda]="true" [control]="f.valor" formControlName="valor" type="text" class="form-control">
 
         </div>
+
         <div *ngIf="infonavit" class="  input-group-sm mb-3 col-6">
             <label>Número de folio del aviso de retención *</label>
             <input formControlName="folioAvisoRetencion" type="text" class="form-control">
