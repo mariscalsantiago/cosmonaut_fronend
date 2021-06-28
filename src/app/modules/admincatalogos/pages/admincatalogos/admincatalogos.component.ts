@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { triggerAsyncId } from 'async_hooks';
 import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { AdminCatalogosService } from '../../services/admincatalogos.service';
@@ -26,7 +27,7 @@ export class AdminCatalogosComponent implements OnInit {
   */
 
 
-  public id_company: number = 0;
+  public id_catalogo: string = "0";
   public idUsuario: any = "";
   public nombre: string = "";
   public apellidoPat: string = "";
@@ -34,6 +35,8 @@ export class AdminCatalogosComponent implements OnInit {
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
   public activo: number = 0;
+  public objFiltro: any = [];
+  public arregloFiltro: any = [];
 
 
   /*
@@ -60,7 +63,7 @@ export class AdminCatalogosComponent implements OnInit {
      private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-  
+    debugger;
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -74,7 +77,32 @@ export class AdminCatalogosComponent implements OnInit {
 
   }
 
+  public procesarTablaFiltro(obj:any) {
+    debugger;
+    this.arregloFiltro= obj;
+    let columnas: Array<tabla> = [
+      new tabla("descripcion", "Catálogo")
+    ]
+
+
+
+    this.arreglotabla = {
+      columnas: [],
+      filas: []
+    };
+
+    for(let item of this.arregloFiltro){
+      item.descripcion = item.nombreCatalogo;
+    }
+
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = this.arregloFiltro;
+
+    this.cargando = false;
+  }
+
   public procesarTabla(obj:any) {
+    debugger;
     this.arreglo = obj.datos;
     
     let columnas: Array<tabla> = [
@@ -109,55 +137,35 @@ export class AdminCatalogosComponent implements OnInit {
 
 
   public filtrar() {
+    debugger;
     
     this.cargando = true;
+    
+    this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => {
+      
+      if(this.id_catalogo !== "0"){
+      this.arregloFiltro = datos.datos;
+      this.filtroCatalogo();
+      this.procesarTablaFiltro(this.objFiltro);
+      }else{
 
-    let fechar = "";
+      this.procesarTabla(datos);
+      }
 
-    if (this.fechaRegistro != undefined || this.fechaRegistro != null) {
+    });
+  }
 
+  public filtroCatalogo(){
 
-      if (this.fechaRegistro != "") {
-        const fecha1 = new Date(this.fechaRegistro).toUTCString().replace("GMT", "");
-        fechar = `${new Date(fecha1).getTime()}`;
+    for(let item of this.arregloFiltro){
+      if(item.listaCatalogosId == this.id_catalogo){
+
+        this.objFiltro = [
+            item
+        
+      ]
       }
     }
-
-    let actboo: string = "";
-
-    if (this.activo == 1) {
-      actboo = "true";
-    } else if (this.activo == 2) {
-      actboo = "false";
-    }
-
-
-    let peticion = {
-      personaId: this.idUsuario,
-      nombre: this.nombre,
-      apellidoPaterno: this.apellidoPat,
-      apellidoMaterno: this.apellidoMat,
-      fechaAlta: fechar,
-      emailCorporativo: this.correoempresarial?.toLowerCase(),
-      esActivo: actboo,
-      centrocClienteId: {
-        centrocClienteId: ""
-      },
-      tipoPersonaId: {
-        tipoPersonaId: 3
-      }
-    }
-
-    this.cargando = true;
-
-    /*this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-      this.arreglo = datos.datos;
-
-      this.procesarTabla({ datos: this.arreglo });
-
-      this.cargando = false;
-    });*/
-
   }
 
 

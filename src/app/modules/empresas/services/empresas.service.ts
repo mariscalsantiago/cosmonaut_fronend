@@ -83,6 +83,19 @@ export class EmpresasService {
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
+  public bitacoraMovimientoslistar(obj:any):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+
+    let json:string = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.bitacoramovimientos}/listar`,json,httpOptions);
+  }
+
   public filtrarIDSE(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({

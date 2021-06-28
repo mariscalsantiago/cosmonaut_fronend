@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -13,12 +14,12 @@ export class TokenInterceptorService implements HttpInterceptor {
   public refreshTokenEnProgreso: boolean = false;
   accessTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private authPrd: AuthService,private routerPrd:Router) { }
+  constructor(private authPrd: AuthService,private routerPrd:Router,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authPrd.isAuthenticated()) {
       req = req.clone({headers: new HttpHeaders({
-        'Content-Type':'application/json',
+        'Content-Type':'application/json;centroClinteId/34;usuarioId/22',
         'Authorization':`Bearer ${this.authPrd.getToken()}`
       })});
     
@@ -50,11 +51,10 @@ export class TokenInterceptorService implements HttpInterceptor {
               filter(accessToken => accessToken !== null),
               take(1),
               switchMap(token => {
-                req = req.clone({
-                  setHeaders: {
-                    authorization: `Bearer ${token}`
-                  }
-                });
+                req = req.clone({headers: new HttpHeaders({
+                  'Content-Type':'application/json',
+                  'Authorization':`Bearer ${token.access_token}`
+                })});
                 return next.handle(req);
               }));
           }

@@ -13,9 +13,10 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 export class MovimientosComponent implements OnInit {
 
   public empresa: any;
-  public arregloEmpresa: any = [];
+  public arreglo: any = [];
   public cargandoIcon: boolean = false;
   public cargando: boolean = false;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -31,16 +32,16 @@ export class MovimientosComponent implements OnInit {
     private modalPrd:ModalService) { }
 
   ngOnInit(): void {
-    this.empresasPrd.getAllEmp(this.usauriosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      this.arregloEmpresa = datos.datos;
-    });
+    debugger;
 
-
-    this.traerTabla();
+    this.filtrar();
   }
 
-  public traerTabla() {
-    const columna: Array<tabla> = [
+  public traerTabla(obj:any) {
+
+    this.arreglo = obj.datos;
+
+    const columnas: Array<tabla> = [
       new tabla("nombre", "Nombre de usuario"),
       new tabla("rol", "Rol"),
       new tabla("modulo", "Módulo"),
@@ -49,20 +50,41 @@ export class MovimientosComponent implements OnInit {
     ];
 
 
-    this.arreglotabla.columnas = columna;
-    this.arreglotabla.filas = [{
-      nombre : "Mayte Delacrúz Nieto",
-      rol : "Administrador de recursos humanos ",
-      modulo : "Empleados",
-      movimiento : "Regitró empleado",
-      fecha : "18/05/2021"
-    }];
+    this.arreglotabla = {
+      columnas:[],
+      filas:[]
+    }
+
+    this.arreglotabla.columnas = columnas;
+    this.arreglotabla.filas = this.arreglo;
+    this.cargando = false;
   }
 
 
   public filtrar() {
 
+ 
+      let peticion = {
+        
+          centroClienteId: 1
+      }
+      
+      
+      this.cargando = true;
+      this.empresasPrd.bitacoraMovimientoslistar(peticion).subscribe(datos => {
+          this.traerTabla(datos);
+      });
+      /*}else{
+        this.cargando = true;
+        this.empresasPrd.bitacoraMovimientoslistar(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
+            this.traerTabla(datos);
+        });
+      });
+      }*/
+  
+    }
+
   }
 
 
-}
+

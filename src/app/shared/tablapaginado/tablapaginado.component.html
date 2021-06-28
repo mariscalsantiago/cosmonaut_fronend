@@ -120,27 +120,25 @@
                 <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && esNominaHistorica">
                     <tr style="background-color: white;">
                         <td colspan="1">
-                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
+                            <a (click)="definirFecha('detallenomina',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Detalle de Nómina</a>
-                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
+                            <a (click)="definirFecha('nomina',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Nómina
                             </a>
-                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
+                            <a (click)="definirFecha('fotos',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Fotos
                             </a>
-                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
+                            <a (click)="definirFecha('reportenomina',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Nómina</a>
                         </td>
                         <td colspan="1">
-                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
+                            <a (click)="definirFecha('reportepolizacontable',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Póliza Contable</a>
-                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Nómina</a>
                         </td>
                         <td colspan="2">
-                            <a (click)="definirFecha()" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
+                            <a (click)="definirFecha('recibonominazip',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Recibos de nómina en ZIP</a>
-                            <a (click)="definirFecha()" style="color:#E17B5B;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
+                            <a (click)="definirFecha('cancelartimbrado',item,indice)" style="color:#E17B5B;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                     ¿Necesitas cancelar este timbrado?</a>
                         </td>
                     </tr>

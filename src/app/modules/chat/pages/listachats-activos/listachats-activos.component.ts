@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
-import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
@@ -76,12 +75,22 @@ export class ListachatsActivosComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
+    
     switch (obj.type) {
       case "responder":
         this.socket.getChatDatos().datos.nombre = obj.datos.nombreempleado;
         this.socket.getChatDatos().datos.socket = obj.datos.conversacion;
         this.socket.getChatDatos().ocultar = false;
         this.socket.getChatDatos().datos.rrh = true;
+
+
+        let objEnviado = {
+          enviado:false,
+          mensaje: obj.datos.mensajeInicialEmpleado.split('|')[1],
+          fecha:new Date()
+        };
+        this.socket.reiniciarChat(objEnviado);
+
         let objEnviar = {
           chatColaboradorId: obj.datos.chatColaboradorId,
           atendido: true,

@@ -6,6 +6,25 @@
 <div class="form-desing ">
     <div class="row m-1 background-panel background-ajustar" appTamanioVentana [pixeles]="160">
 
+        
+        <div class="form-group margen row  mt-3 " style="width: 100%;"><label class="titulo">BÚSQUEDA</label></div>
+                    <div style="width: 100%;" class="form group row margen">
+                        <div class=" input-group-sm mb-3 col-4 ">
+                            <input type="text" class="form-control" [(ngModel)]="nominaId" placeholder="Id nómina">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-4 ">
+                            <input appAlfanumerico type="text" class="form-control" [(ngModel)]="periodo" placeholder="Periodo nómina">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-4 ">
+                            <input appAlfanumerico type="date" class="form-control" [(ngModel)]="fecha" placeholder="Fecha inicio">
+                        </div>
+                        <div class=" input-group-sm mb-1 text-right col-12 col-lg-2  col-xl-12 ">
+                            <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                        </div>
+
+
+                    </div>
+
 
         <div class="row margen background-panel " style="    width: 100%;
         margin: 50px;">

@@ -367,6 +367,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
       if(valor){
 
         let obj = this.myForm.getRawValue();
+        if(obj.esActivo == "true"){
+          obj.esActivo = true;
+        }else if(obj.esActivo == "false"){
+          obj.esActivo = false;
+        }
         if(this.detCatalogos.listaCatalogosId == 1){
           this.objEnviar = {
             codBanco: obj.codBanco,
