@@ -17,14 +17,14 @@
                         </div>
                         <div *ngIf="f.regimenfiscalId.value != 606 && f.regimenfiscalId.value != 612 && f.regimenfiscalId.value != 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" >
                             <label>Razón social *</label>
-                            <input maxlength="18" [ngClass]="{'is-invalid':(f.razonSocialInv.errors?.required && submitEnviado) || f.razonSocialInv.errors?.pattern && f.razonSocialInv.touched}" formControlName="razonSocialInv" type="text" max="18" class="form-control">
+                            <input maxlength="250" [ngClass]="{'is-invalid':(f.razonSocialInv.errors?.required && submitEnviado) || f.razonSocialInv.errors?.pattern && f.razonSocialInv.touched}" formControlName="razonSocialInv" type="text" max="18" class="form-control">
                             <div *ngIf="f.razonSocialInv.errors?.required && submitEnviado" class="invalid-feedback">
                                 Campo requerido
                             </div>
                         </div>
                         <div *ngIf="f.regimenfiscalId.value == 606 || f.regimenfiscalId.value == 612 || f.regimenfiscalId.value == 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                             <label>Razón social</label>
-                            <input maxlength="18"  formControlName="razonSocial" type="text" class="form-control">
+                            <input maxlength="250"  formControlName="razonSocial" type="text" class="form-control">
 
                         </div>
                         <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
