@@ -40,6 +40,7 @@ export class InformacionempresaComponent implements OnInit {
   public arregloactividad2: any = [];
   public imagen:any = undefined;
   public curpFinal: string = "";
+  public razonsocialFinal: string = "";
   public idNivel: number = 1 ;
   public idNivel2: number = 2 ;
   public cargando: Boolean = false;
@@ -100,6 +101,7 @@ export class InformacionempresaComponent implements OnInit {
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial],
+      razonSocialInv: [obj.razonSocial,[Validators.required]],
       actividadEconomicaId: [obj.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId, [Validators.required]],
       actividadEconomicaId2: [obj.actividadEconomicaId?.actividadEconomicaId, [Validators.required]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
@@ -132,12 +134,13 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-    //debugger
+    debugger
     this.submitEnviado = true;
     let noesRFC: boolean = (this.myform.controls.regimenfiscalId.value == null || this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
-    if(this.myform.value.regimenfiscalId !== "621"){
-      this.myform.controls.razonSocial.setErrors({required: true});
-    }
+    
+    //if(this.myform.value.regimenfiscalId !== "621"){
+      //this.myform.controls.razonSocial.setErrors({required: true});
+    //}
 
     if (this.myform.invalid) {
       let invalido: boolean = true;
@@ -149,7 +152,7 @@ export class InformacionempresaComponent implements OnInit {
             this.myform.controls.key.setValidators([]);
             this.myform.controls.key.updateValueAndValidity();
 
-          if (item == "cer"  || item == "key" || item == "contrasenia" || item == "curpInv")
+          if (item == "cer"  || item == "key" || item == "contrasenia" || item == "curpInv" )
             continue;
           }else{
           if (item == "curpInv")
@@ -161,6 +164,20 @@ export class InformacionempresaComponent implements OnInit {
           }
           invalido = false;
         }
+      }
+      else{
+        for (let item in this.myform.controls) {
+
+          if (item == "razonSocialInv")
+            continue;
+          
+          if (this.myform.controls[item].invalid) {
+            invalido = true;
+            break;
+          }
+          invalido = false;
+        }
+
       }
       if (invalido) {
         this.mostrarMessage();
@@ -190,6 +207,7 @@ export class InformacionempresaComponent implements OnInit {
     
 
     if (this.enviarPeticion.enviarPeticion) {
+      debugger;
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;
@@ -198,12 +216,19 @@ export class InformacionempresaComponent implements OnInit {
       } else {
         this.curpFinal = obj.curp
       }
+
+      if (obj.razonSocialInv != null) {
+        this.razonsocialFinal = obj.razonSocialInv;
+      } else {
+        this.razonsocialFinal = obj.razonSocial
+      }
+
       if (obj.cer != null && obj.key != null) {
         this.obj.cerKeyConstrasenia = false;
       }
       let objenviar:any = {
            nombre : obj.nombre,
-           razonSocial : obj.razonSocial,
+           razonSocial : this.razonsocialFinal,
            cerKeyConstrasenia: this.obj.cerKeyConstrasenia,
            rfc : obj.rfc ,
            regimenfiscalId:{
