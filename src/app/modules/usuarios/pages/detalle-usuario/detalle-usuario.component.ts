@@ -169,7 +169,7 @@ export class DetalleUsuarioComponent implements OnInit {
           nombre: obj.nombre,
           apellidoPat: obj.apellidoPaterno,
           apellidoMat: obj.apellidoMaterno,
-          email: obj.correoelectronico.toLowerCase(),
+          email: obj.correoelectronico?.toLowerCase(),
           centrocClienteIds:obj.multicliente?companysend : [obj.centrocClienteId],
           rolId: obj.rol,
           esMulticliente:obj.multicliente,

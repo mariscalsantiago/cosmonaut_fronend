@@ -330,7 +330,7 @@ export class PersonalComponent implements OnInit {
       genero: genero,
       fechaNacimiento: fechanacimiento,
       tieneCurp: obj.tieneCurp,
-      contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal.toLowerCase(),
+      contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal?.toLowerCase(),
       nacionalidadId: {
         nacionalidadId: obj.nacionalidadId
       },
@@ -343,7 +343,7 @@ export class PersonalComponent implements OnInit {
       contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
       contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
       contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
-      contactoEmergenciaEmail: obj.contactoEmergenciaEmail.toLowerCase(),
+      contactoEmergenciaEmail: obj.contactoEmergenciaEmail?.toLowerCase(),
       contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
       curp: obj.curp,
       rfc: obj.rfc,

@@ -189,7 +189,7 @@ export class InformacionbasicaComponent implements OnInit {
       parentescoId: {
         parentescoId: obj.contactoEmergenciaParentesco
       },
-      contactoEmergenciaEmail: obj.contactoEmergenciaEmail,
+      contactoEmergenciaEmail: obj.contactoEmergenciaEmail?.toLowerCase(),
       contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
       centrocClienteId: {
         centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()

@@ -256,6 +256,7 @@ export class EmpleoComponent implements OnInit {
   public enviarPeticinoArea() {
 
 
+    
 
 
     this.enviadoSubmitArea = true;
@@ -396,7 +397,7 @@ export class EmpleoComponent implements OnInit {
 
 
 
-
+    console.log(this.myForm.getRawValue());
 
 
     this.submitEnviado = true;
@@ -722,6 +723,10 @@ export class EmpleoComponent implements OnInit {
     if (this.grupoNominaSeleccionado.pagoComplementario) {
 
 
+      this.myForm.controls.salarioNetoMensualImss.disable();
+      this.myForm.controls.pagoComplementario.disable();
+
+
       this.myForm.controls.tiposueldo.disable();
       this.myForm.controls.tiposueldo.setValue('n');
 
@@ -792,6 +797,15 @@ export class EmpleoComponent implements OnInit {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la de inicio de contrato");
       return;
+    }
+
+
+    if(this.grupoNominaSeleccionado.pagoComplementario){
+      if (this.myForm.controls.salarioDiario.invalid) {
+
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el salario diario");
+        return;
+      }
     }
 
 

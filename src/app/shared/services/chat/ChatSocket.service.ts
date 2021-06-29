@@ -15,16 +15,23 @@ export class ChatSocketService {
   public datos = {
     ocultar: true,
     datos: {
-      nombre: "Mariscal",
+      nombre: "Recursos humanos",
       socket:"",
-      rrh:false,
       numeromensajes:0,
       mensajeRecibido:false
+    },
+    body:{
+      mensaje:"",
+      idUsuario:0,
+      nombre:"",
+      fecha:""
     }
   }
 
 
   public mensajes:any = [];
+
+  private nombreRecursos:string = "Recursos humaos";
 
 
   constructor(private http:HttpClient) { }
@@ -93,6 +100,11 @@ export class ChatSocketService {
     return this.esConectado;
   }
 
+  public disconnect(){
+    this.mensajes = [];
+      this.esConectado = false;  
+  }
+
 
   public guardarMensajeGenerico(obj:any):Observable<any>{
       let json = JSON.stringify(obj);
@@ -120,7 +132,19 @@ export class ChatSocketService {
   
   }
 
+
+  public getNombreRecursosHumanos(){
+      return this.nombreRecursos;
+  }
+
+  public setNombreRecursosHumanos(nombre:string){
+      this.nombreRecursos = nombre;
+  }
+
   
 
 
 }
+
+
+

@@ -187,8 +187,8 @@ export class ListarepresentantelegalComponent implements OnInit {
       nombre: this.nombre,
       apellidoPaterno: this.apellidoPaterno,
       apellidoMaterno: this.apellidoMaterno,
-      emailCorporativo: this.emailCorporativo.toLowerCase(),
-      contactoInicialEmailPersonal: this.contactoInicialEmailPersonal.toLowerCase(),
+      emailCorporativo: this.emailCorporativo?.toLowerCase(),
+      contactoInicialEmailPersonal: this.contactoInicialEmailPersonal?.toLowerCase(),
       centrocClienteId: {
         centrocClienteId: (this.id_empresa) == 0 ? "" : this.id_empresa
       },

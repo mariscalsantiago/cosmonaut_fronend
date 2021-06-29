@@ -19,8 +19,10 @@ export class TokenInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authPrd.isAuthenticated()) {
       req = req.clone({headers: new HttpHeaders({
-        'Content-Type':'application/json;centroClinteId/34;usuarioId/22',
-        'Authorization':`Bearer ${this.authPrd.getToken()}`
+        'Content-Type':'application/json;',
+        'Authorization':`Bearer ${this.authPrd.getToken()}`,
+        'datos-sesion':`idempresa=${this.usuariosSistemaPrd.getIdEmpresa()}&idUsuario=${this.usuariosSistemaPrd.usuario.usuarioId}`,
+        'datos-flujo':`${this.routerPrd.url}`
       })});
     
     }
@@ -35,7 +37,9 @@ export class TokenInterceptorService implements HttpInterceptor {
                 this.accessTokenSubject.next(respuestaBackTokennuevo.access_token);
                 req = req.clone({headers: new HttpHeaders({
                   'Content-Type':'application/json',
-                  'Authorization':`Bearer ${respuestaBackTokennuevo.access_token}`
+                  'Authorization':`Bearer ${respuestaBackTokennuevo.access_token}`,
+                  'datos-sesion':`idempresa=${this.usuariosSistemaPrd.getIdEmpresa()}&idUsuario=${this.usuariosSistemaPrd.usuario.usuarioId}`,
+                  'datos-flujo':`${this.routerPrd.url}`
                 })});
                 return next.handle(req);
               }),
@@ -53,7 +57,9 @@ export class TokenInterceptorService implements HttpInterceptor {
               switchMap(token => {
                 req = req.clone({headers: new HttpHeaders({
                   'Content-Type':'application/json',
-                  'Authorization':`Bearer ${token.access_token}`
+                  'Authorization':`Bearer ${token.access_token}`,
+                  'datos-sesion':`idempresa=${this.usuariosSistemaPrd.getIdEmpresa()}&idUsuario=${this.usuariosSistemaPrd.usuario.usuarioId}`,
+                  'datos-flujo':`${this.routerPrd.url}`
                 })});
                 return next.handle(req);
               }));

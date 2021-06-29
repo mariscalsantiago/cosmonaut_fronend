@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
   }
 
   public enviarformulario() {
-    this.myForm.value.username = this.myForm.value.username.toLowerCase();
+    this.myForm.value.username = this.myForm.value.username?.toLowerCase();
     this.authPrd.login(this.myForm.value).subscribe(datos => {
       let username = datos.username;
       this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(username)).subscribe(valorusuario => {
@@ -144,12 +144,13 @@ export class LoginComponent implements OnInit {
           usuario.usuarioId = this.usuarioObj.usuarioId;
           usuario.nombre = this.usuarioObj.nombre;
           usuario.apellidoPat = this.usuarioObj.apellidoPat;
-          usuario.email = this.usuarioObj.email.toLowerCase();
+          usuario.email = this.usuarioObj.email?.toLowerCase();
           usuario.fechaAlta = this.usuarioObj.fechaAlta;
           usuario.passwordProvisional = this.usuarioObj.passwordProvisional;
           usuario.rolId = this.usuarioObj.rolId?.rolId;
           usuario.submodulosXpermisos = valorusuario.datos.submodulosXpermisos;
-          usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId)
+          usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId);
+          usuario.esRecursosHumanos = false;
           usuario.centrocClienteIdPadre = (usuario.esCliente)?0:objRecibido.centroCostosCentrocClienteId.centrocClienteId;
           this.usuarioSistemaPrd.setUsuario(usuario);
           this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
@@ -347,7 +348,7 @@ export class LoginComponent implements OnInit {
   public olvidastetupassword() {
     if (this.correo.nativeElement.value) {
       let objenviar = {
-        username: this.correo.nativeElement.value.toLowerCase()
+        username: this.correo.nativeElement.value?.toLowerCase()
       }
 
       this.cargando = true;

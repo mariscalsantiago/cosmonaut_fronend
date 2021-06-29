@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../../core/services/menu.service';
 import { menuprincipal } from '../../../core/data/estructuramenu';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
-import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { usuarioClass, UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { Router } from '@angular/router';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
@@ -65,22 +65,29 @@ export class ContenidoComponent implements OnInit {
   public rol!: string;
 
 
+
+
   public chat = {
     ocultar: true,
     datos: {
-      nombre: "Mariscal",
+      nombre: "",
       socket:"",
-      rrh:false,
       numeromensajes:0,
       mensajeRecibido:false,
       arregloMensaje:[]
+    },
+    body:{
+      mensaje:"",
+      idUsuario:0,
+      nombre:"",
+      fecha:""
     }
   }
 
 
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
     private ventana: VentanaemergenteService, private navigate: Router,
-    private chatPrd: ChatSocketService, private authPrd: AuthService, private configuracionPrd: ConfiguracionesService,
+    private chatPrd: ChatSocketService, private authPrd: AuthService, public configuracionPrd: ConfiguracionesService,
     private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
@@ -95,7 +102,6 @@ export class ContenidoComponent implements OnInit {
 
     this.chatPrd.setChatDatos(this.chat);
 
-
     if (this.authPrd.isAuthenticated()) {
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
         this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
@@ -103,13 +109,27 @@ export class ContenidoComponent implements OnInit {
           this.PRINCIPAL_MENU.unshift({ moduloId: 0, nombreModulo: "Inicio", seleccionado: true, checked: true, pathServicio: '/inicio', icono: 'icon_home' });
           this.configuracionPrd.setElementosSesion(this.configuracionPrd.MENUUSUARIO, this.PRINCIPAL_MENU);
           this.establecericons();
+
+          this.usuariosSistemaPrd.setUsuario((JSON.parse(localStorage["usuario"])) as usuarioClass);
           
+          if(!Boolean(this.configuracionPrd.ocultarChat)){
+            this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
+          }
+
 
         });
       } else {
         this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
           this.PRINCIPAL_MENU = datos;
           this.establecericons();
+          if(!Boolean(this.configuracionPrd.ocultarChat)){
+            this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
+          }
+
+
+
+          
+
         });
       }
     }
@@ -173,6 +193,8 @@ export class ContenidoComponent implements OnInit {
   public cerrarSesion() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Estás seguro de cerrar la sesión?").then(valor => {
       if (valor) {
+
+        this.chatPrd.disconnect();
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.sistemaUsuarioPrd.logout().subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -222,15 +244,22 @@ export class ContenidoComponent implements OnInit {
 
 
   public darClickChat(){
-    this.chatPrd.getChatDatos().datos.socket = `/websocket/chat/${this.usuariosSistemaPrd.getIdEmpresa()}${this.usuariosSistemaPrd.usuario.usuarioId}/${this.usuariosSistemaPrd.getIdEmpresa()}/${this.usuariosSistemaPrd.usuario.usuarioId}`;
-    this.chat.ocultar = !this.chat.ocultar
-    this.chat.datos.nombre = this.usuariosSistemaPrd.getUsuario().nombre+" "+this.usuariosSistemaPrd.getUsuario().apellidoPat;
-    this.chat.datos.rrh = false;
+    if(!this.usuariosSistemaPrd.getUsuario().esRecursosHumanos){
+      this.chatPrd.getChatDatos().datos.socket = `/websocket/chat/${this.usuariosSistemaPrd.getIdEmpresa()}${this.usuariosSistemaPrd.usuario.usuarioId}/${this.usuariosSistemaPrd.getIdEmpresa()}/${this.usuariosSistemaPrd.usuario.usuarioId}`;
+      this.chat.ocultar = !this.chat.ocultar
+      this.chat.datos.nombre = this.chatPrd.getNombreRecursosHumanos();
+      this.chat.datos.numeromensajes = 0;
+      this.chat.datos.mensajeRecibido = false;
+  
+    }else{
+      this.chat.ocultar = !this.chat.ocultar;
+      this.chat.datos.numeromensajes = 0;
+      this.chat.datos.mensajeRecibido = false;
+    }
 
 
-    this.chat.datos.numeromensajes = 0;
-    this.chat.datos.mensajeRecibido = false;
-
+    this.chatPrd.datos.datos.numeromensajes = 0;
+    this.chatPrd.datos.datos.mensajeRecibido = false;
   }
 
 
@@ -247,6 +276,8 @@ export class ContenidoComponent implements OnInit {
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
   }
+
+
 
 
 

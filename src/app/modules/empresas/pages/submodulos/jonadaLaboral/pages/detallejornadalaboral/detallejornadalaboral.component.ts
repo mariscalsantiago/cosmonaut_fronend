@@ -23,6 +23,8 @@ export class DetallejornadalaboralComponent implements OnInit {
   public arreglosumahoras: any =[];
   public arreglodetalleJornada: any =[];
   public horarioComida: boolean = false;
+  public jornada: any;
+
 
   
 
@@ -128,8 +130,8 @@ export class DetallejornadalaboralComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       tipoJornadaId: [obj.tipoJornadaId?.tipoJornadaId, [Validators.required]],
       sumaHorasJornadaId: [obj.sumaHorasJornadaId?.sumaHorasJornadaId, [Validators.required]],
-      horaEntrada: [obj.horaEntrada, [Validators.required]],
-      horaSalida: [obj.horaSalida, [Validators.required]],
+      horaEntrada: [{value:obj.horaEntrada, disabled: true}, [Validators.required]],
+      horaSalida: [{value:obj.horaSalida, disabled: true}, [Validators.required]],
       horaInicioComida: [obj.horaInicioComida],
       horaFinComida: [obj.horaFinComida],
       lunes: obj.lunes,
@@ -403,6 +405,36 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   public activar(obj: any) {
     this.activadoISR = obj.checked;
+  }
+  selectJornada(op: any){
+    this.jornada = op.value;
+
+    this.myForm.controls.horaEntrada.enable();
+    this.myForm.controls.horaSalida.enable();
+    if(op.value =='3'){
+      this.myForm.controls.horaInicioComida.setErrors({required: true});
+      this.myForm.controls.horaFinComida.setErrors({required: true});
+      
+    }
+    //console.log('op', op)
+  }
+  hrInicio(response : any){
+    if(this.jornada === '1') {
+    let hr = Number(response.value.substring(0,2))+8;
+    let newValue : any;
+    console.log('hr', hr, 'value', response.value)
+    newValue = response.value.replace(response.value.substring(0,2),Number(response.value.substring(0,2))+8)
+    if(hr  === 8 || hr === 9){
+      newValue = response.value.replace(response.value.substring(0,2),'0'+String(hr))
+    }
+    if(hr > 23) {
+      console.log('entro', hr, '0'+String(hr - 24));
+      newValue = response.value.replace(response.value.substring(0,2),'0'+String(hr - 24))
+    }
+
+    this.myForm.controls.horaSalida.setValue(newValue);
+    this.myForm.controls.horaSalida.disable();
+    }
   }
 
 }

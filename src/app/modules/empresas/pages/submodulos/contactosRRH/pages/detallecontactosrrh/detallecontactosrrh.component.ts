@@ -110,8 +110,8 @@ export class DetallecontactosrrhComponent implements OnInit {
           celular: obj.celular,
           rfc: obj.rfc,
           esActivo: true,
-          emailCorporativo: obj.emailCorp.toLowerCase(),
-          contactoInicialEmailPersonal: obj.ciEmailPersonal.toLowerCase(),
+          emailCorporativo: obj.emailCorp?.toLowerCase(),
+          contactoInicialEmailPersonal: obj.ciEmailPersonal?.toLowerCase(),
           contactoInicialTelefono: obj.ciTelefono,
           contactoInicialExtension: obj.ciExtension,
           centrocClienteId: {

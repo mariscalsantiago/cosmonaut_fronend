@@ -7,7 +7,7 @@
             <div class="row">
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
                     <label>Nombre *</label>
-                    <input formControlName="nombre" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
+                    <input formControlName="nombre" formatos [especial]="true" [control]="f.nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.nombre.errors " class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -17,7 +17,7 @@
 
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
                     <label>Primer apellido *</label>
-                    <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
+                    <input formControlName="apellidoPaterno" formatos [especial]="true" [control]="f.apellidoPaterno"  type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -26,13 +26,13 @@
                 </div>
                 <div class=" input-group-sm mb-4 col-12 col-sm-6 col-lg-6 col-xl-4">
                     <label>Segundo apellido</label>
-                    <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control" placeholder="">
+                    <input formControlName="apellidoMaterno" formatos [especial]="true" [control]="f.apellidoMaterno"  type="text" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'curp' | tooltip">
                     <label>CURP *</label>
-                    <input maxlength="18" (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="">
+                    <input  maxlength="18" (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="">
                     <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-8">
                     <label>Correo empresarial *</label>
-                    <input appMayusculas [minusculas]="true" formControlName="emailCorporativo" type="email" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched)}" class="form-control"
+                    <input formatos [correo]="true" [control]="f.emailCorporativo" formControlName="emailCorporativo" type="email" [ngClass]="{'is-invalid':(f.emailCorporativo.errors?.required && submitEnviado) || (f.emailCorporativo.errors?.email && f.emailCorporativo.touched)}" class="form-control"
                         name="">
                     <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
@@ -93,7 +93,7 @@
                 </div>
                 <div class="input-group-sm mb-4 col-8">
                     <label>Correo personal </label>
-                    <input appMayusculas [minusculas]="true" formControlName="contactoInicialEmailPersonal" type="email" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
+                    <input formatos [correo]="true" [control]="f.contactoInicialEmailPersonal" formControlName="contactoInicialEmailPersonal" type="email" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
                         class="form-control" name="">
                     <div *ngIf="f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched" class="invalid-feedback">
                         Correo personal inválido
