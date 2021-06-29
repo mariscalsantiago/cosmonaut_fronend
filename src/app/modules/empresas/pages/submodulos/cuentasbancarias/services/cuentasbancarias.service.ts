@@ -62,6 +62,19 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     return this.http.put(`${direcciones.conceptos}/guardaPercepcionEmpleado`,json,httpOptions);
   }
 
+  public savePercepcionPolitica(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    
+    
+    return this.http.put(`${direcciones.conceptos}/guardaDeduccionPolitica`,json,httpOptions);
+  }
+
   public modificarPercepcionEmpleado(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
@@ -146,6 +159,9 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
 
   public getObtenerPeriodicidad(id_empresa:number,tipoPeriodicidad:string):Observable<any>{
     return  this.http.get(`${direcciones.conceptos}/obtener/percepcion/periodicidad/${id_empresa}/${tipoPeriodicidad}`);
+  }
+  public getObtenerPoliticaPeriodicidad(id_empresa:number,tipoPeriodicidad:string):Observable<any>{
+    return  this.http.get(`${direcciones.conceptos}/obtener/percepcion/politica/periodicidad/${id_empresa}/${tipoPeriodicidad}`);
   }
 
   public getObtenerDeduccion(id_empresa:number):Observable<any>{

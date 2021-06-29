@@ -152,11 +152,11 @@
                         </div>
 
                     </div>
-                    <div class="card" [ngClass]="{'cardselected':arreglopintar[1]}">
-                        <div class="card-header" id="compensacion">
+                    <div class="card" [ngClass]="{'cardselected':arreglopintar[1]}" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'percepciones' | tooltip">
+                        <div class="card-header" id="percepciones">
                             <h5 class="mb-0">
-                                <button (click)="cambiarStatus(1)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Percepciones
+                                <button (click)="cambiarStatus(1)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
+                    Percepciones específicas
                     <i aria-hidden="true" *ngIf="!arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                       aria-controls="collapseOne" class="fas fa-chevron-down "></i>
                     <i aria-hidden="true" *ngIf="arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
@@ -164,7 +164,70 @@
                   </button>
                             </h5>
                         </div>
-
+                        <div id="collapsefour" class="collapse" aria-labelledby="percepciones" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+    
+                                        <div class="row margen">
+                                            <div class="col titulo">
+                                                <label>RESULTADOS</label>
+                                            </div>
+                                            <div class="col text-right">
+                                                <button type="button" class="btn btn-light button-outlet" (click)="agregarPer()">
+                            <i aria-hidden="true" class="fa fa-plus"></i> Agregar percepción
+                          </button>
+                                            </div>
+                                        </div>
+                                        <div class="row margen margen-tabla background-panel">
+                                            <app-tablapaginado [datos]="arreglotablaPert" [editar]="true" [cargando]="cargandoPer" (salida)="recibirTablaPer($event)">
+                                            </app-tablapaginado>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'deducciones' | tooltip">
+                        <div class="card-header" id="deducciones">
+                            <h5 class="mb-0">
+                                <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                    Deducciones específicas
+                    <i aria-hidden="true" *ngIf="!arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                      aria-controls="collapseOne" class="fas fa-chevron-down "></i>
+                    <i aria-hidden="true" *ngIf="arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                      aria-controls="collapseOne" class="fas fa-chevron-up "></i>
+                  </button>
+                            </h5>
+                        </div>
+                        <div id="collapseFive" class="collapse" aria-labelledby="deducciones" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+    
+                                        <div class="row margen">
+                                            <div class="col titulo">
+                                                <label>RESULTADOS</label>
+                                            </div>
+                                            <div class="col text-right">
+                                                <button type="button" class="btn btn-light button-outlet" (click)="agregarDed()">
+                            <i aria-hidden="true" class="fa fa-plus"></i> Agregar deducción
+                          </button>
+                                            </div>
+                                        </div>
+                                        <div class="row margen margen-tabla background-panel">
+                                            <app-tablapaginado [datos]="arreglotablaDedt" [editar]="true" [cargando]="cargandoDed" (salida)="recibirTablaDed($event)">
+                                            </app-tablapaginado>
+                                        </div>
+    
+    
+                                    </div>
+                                </div>
+    
+    
+    
+                            </div>
+                        </div>
                     </div>
     
                 </div>
