@@ -122,7 +122,7 @@ export class ListasTablaValoresComponent implements OnInit {
 
   public crearTablaReferencia(datos:any){
     
-    debugger;
+    
     this.arregloRef = datos.datos;
     
 
@@ -157,7 +157,7 @@ export class ListasTablaValoresComponent implements OnInit {
   }
 
   public crearTablaISR(datos:any){
-    debugger;
+    
      
     this.arregloISR = datos.datos;
     let columnas: Array<tabla> = [
@@ -179,7 +179,7 @@ export class ListasTablaValoresComponent implements OnInit {
 
   public crearTablaSubcidio(datos:any){
     
-     debugger;
+     
     this.arregloSubsidio = datos.datos;
     let columnas: Array<tabla> = [
       new tabla("tabla", "Tipo tabla")
@@ -198,7 +198,7 @@ export class ListasTablaValoresComponent implements OnInit {
   }
 
   public crearTablaNomina(datos:any){
-    debugger;
+    
      
     this.arregloNomina = datos.datos;
     

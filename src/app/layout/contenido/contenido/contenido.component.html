@@ -16,7 +16,7 @@
             <ul id="listanavegadora" class="list-unstyled components">
                 <li *ngFor="let item of PRINCIPAL_MENU" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
                     <a [routerLink]="item.pathServicio" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
-                        <i aria-hidden="true" [class]="item.icono"></i> {{item.nombreModulo | uppercase}}</a>
+                        <i aria-hidden="true" [class]="item.icono"></i> {{item.nombreModulo | uppercase}} <span *ngIf="item.nombreModulo.includes('Chat') && configuracionPrd.notificaciones !== 0"  class="badge badge-danger">{{configuracionPrd.notificaciones}}</span></a>
                     <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="'m'+item.moduloId">
                         <li *ngFor="let item2 of item.submodulos" [ngClass]="{'ocultarMenu':!item2.checked}">
                             <a (click)="seleccionarSubmenu(item,item2)" (click)="irRuta(item2)">{{item2.nombreSubmodulo }}</a>

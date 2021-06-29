@@ -31,7 +31,7 @@ export class ChatSocketService {
 
   public mensajes:any = [];
 
-  private nombreRecursos:string = "Recursos humaos";
+  private nombreRecursos:string = "Recursos humanos";
 
 
   constructor(private http:HttpClient) { }

@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { tabla } from 'src/app/core/data/tabla';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
@@ -13,12 +14,18 @@ import { ChatService } from '../../services/chat.service';
   templateUrl: './listachats-activos.component.html',
   styleUrls: ['./listachats-activos.component.scss']
 })
-export class ListachatsActivosComponent implements OnInit {
+export class ListachatsActivosComponent implements OnInit,OnDestroy {
 
   public arreglotabla: any = {
     columnas: [],
     filas: []
   }
+
+
+  public suscripcion!:Subscription;
+
+
+  public cantidad:number = 0;
 
 
 
@@ -31,10 +38,19 @@ export class ListachatsActivosComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.configuracionesPrd.notificaciones = 0;
+
 
     this.cargando = true;
-    this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
-      this.construirTabla(datos.datos);
+    this.suscripcion = this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
+      console.log("No hay bronca de los datos");
+      if(datos.datos !== undefined){
+        if(this.cantidad !== datos.datos.length){
+          this.cantidad = datos.datos.length;
+          this.construirTabla(datos.datos);
+        }
+      }
+      
     });
 
     this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => this.mensajes = datos.datos);
@@ -42,6 +58,11 @@ export class ListachatsActivosComponent implements OnInit {
 
 
 
+  }
+
+
+  ngOnDestroy(){
+    this.suscripcion.unsubscribe();
   }
 
 
@@ -91,7 +112,10 @@ export class ListachatsActivosComponent implements OnInit {
           mensaje: JSON.parse(obj.datos.mensajeInicialEmpleado).mensaje,
           fecha:new Date()
         };
-        this.socket.reiniciarChat(objEnviado);
+
+        if(this.socket.getMensajes().length === 0){
+            this.socket.setMensajes([objEnviado])
+        }
 
         let objEnviar = {
           chatColaboradorId: obj.datos.chatColaboradorId,
@@ -103,7 +127,7 @@ export class ListachatsActivosComponent implements OnInit {
         });
         break;
       case "default":
-        debugger;
+        
         this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas enviar el mensaje generico?").then(valor =>{
           if(valor){
             

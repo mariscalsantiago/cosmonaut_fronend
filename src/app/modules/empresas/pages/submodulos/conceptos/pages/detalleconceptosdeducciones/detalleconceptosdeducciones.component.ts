@@ -28,9 +28,9 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => {
-      debugger;
+      
       
       this.arregloTipoDeduccion = datos.datos
       this.concatenaEspecializacion();
@@ -108,7 +108,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
     
-        debugger;
+        
         if (valor) {
 
           let obj = this.myForm.value;

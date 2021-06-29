@@ -25,14 +25,14 @@
 
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Nombre *</label>
-                <input #nombre appMayusculas formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && summitenviado}" placeholder="">
+                <input #nombre formatos [especial]="true" [control]="f.nombre" formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && summitenviado}" placeholder="">
                 <div *ngIf="f.nombre.errors && summitenviado" class="invalid-feedback">
                     Campo requerido
                 </div>
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Primer apellido *</label>
-                <input formControlName="apellidoPaterno" appMayusculas type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && summitenviado}" placeholder="">
+                <input formControlName="apellidoPaterno" formatos [especial]="true" [control]="f.apellidoPaterno" type="text" class="form-control" [ngClass]="{'is-invalid':f.apellidoPaterno.errors && summitenviado}" placeholder="">
                 <div *ngIf="f.apellidoPaterno.errors && summitenviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -40,12 +40,12 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Segundo apellido</label>
-                <input formControlName="apellidoMaterno" appMayusculas type="text" class="form-control" placeholder="">
+                <input formControlName="apellidoMaterno" formatos [especial]="true" [control]="f.apellidoMaterno" type="text" class="form-control" placeholder="">
 
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Correo electrónico *</label>
-                <input appMayusculas [minusculas]="true" formControlName="correoelectronico" type="email" class="form-control" [ngClass]="{'is-invalid':(f.correoelectronico.errors?.email && f.correoelectronico.touched) || (f.correoelectronico.errors?.required && summitenviado) }"
+                <input formatos [correo]="true" [control]="f.correoelectronico" formControlName="correoelectronico" type="email" class="form-control" [ngClass]="{'is-invalid':(f.correoelectronico.errors?.email && f.correoelectronico.touched) || (f.correoelectronico.errors?.required && summitenviado) }"
                     placeholder="">
                 <div *ngIf="f.correoelectronico.errors?.required && summitenviado" class="invalid-feedback">
                     Campo requerido

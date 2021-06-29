@@ -32,7 +32,7 @@ export class MovimientosComponent implements OnInit {
     private modalPrd:ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.filtrar();
   }

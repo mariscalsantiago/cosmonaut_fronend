@@ -30,7 +30,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     
     this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
-      debugger;
+      
       
       this.arregloTipoPercepcion = datos.datos
       this.concatenaEspecializacion();
@@ -130,7 +130,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
         
-        debugger;
+        
         if (valor) {
 
           let obj = this.myForm.value;

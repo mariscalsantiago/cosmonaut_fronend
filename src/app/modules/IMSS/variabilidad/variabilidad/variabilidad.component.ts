@@ -76,7 +76,7 @@ export class VariabilidadComponent implements OnInit {
     private companyProd: CompanyService, private formBuild: FormBuilder, private configuracionesPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
@@ -110,7 +110,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
     public traerTabla(datos:any) {
-      debugger;
+      
       const columna: Array<tabla> = [
         new tabla("razonSocial", "Razón Social"),
         new tabla("anioFiscal", "Año"),
@@ -250,7 +250,7 @@ export class VariabilidadComponent implements OnInit {
 
   public filtrar() {
 
-   // debugger;
+   // 
 
     this.cargando = true;
 
@@ -260,7 +260,7 @@ export class VariabilidadComponent implements OnInit {
 
         };
    
-  //debugger;
+  //
   this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 
@@ -273,7 +273,7 @@ export class VariabilidadComponent implements OnInit {
 
 
   public desgargarArchivo() {
-    debugger;
+    
     
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
@@ -313,7 +313,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public enviarPeticion() {
-    debugger;
+    
     if (this.myForm.invalid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -368,7 +368,7 @@ export class VariabilidadComponent implements OnInit {
 
            
                 this.empresasPrd.calculoPromedioVariables(objEnviar).subscribe(datos => {
-                  debugger;
+                  
                   this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
                   let intervalo = interval(1000);
                   intervalo.pipe(take(11));
@@ -383,7 +383,7 @@ export class VariabilidadComponent implements OnInit {
                 //this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
                   //.then(()=> {
                      if (!datos.resultado) {
-                      debugger;
+                      
                       this.listaVariabilidad = true;
                       this.fromPromediar = false;
                       this.listaPromedio = true;

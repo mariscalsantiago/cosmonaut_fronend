@@ -7,7 +7,7 @@
                     Nombre
                     <article *ngIf="!editarcampos">{{empleado.nombre}}</article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" formControlName="nombre" type="text" name="" class="form-control">
+                        <input [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" formControlName="nombre" type="text" formatos [especial]="true" [control]="f.nombre" name="" class="form-control">
                         <div *ngIf="f.nombre.errors " class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -17,7 +17,7 @@
                     Primer apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoPaterno}}</article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" formControlName="apellidoPaterno" type="text" name="" class="form-control">
+                        <input [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" formControlName="apellidoPaterno" formatos [especial]="true" [control]="f.apellidoPaterno" type="text" name="" class="form-control">
                         <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -27,7 +27,7 @@
                     Segundo apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="apellidoMaterno" type="text" name="" class="form-control">
+                        <input formControlName="apellidoMaterno" formatos [especial]="true" [control]="f.apellidoMaterno" type="text" name="" class="form-control">
                     </article>
                 </article>
 
@@ -124,7 +124,7 @@
                         {{empleado.emailCorporativo}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" formControlName="emailCorporativo" type="text" name="" class="form-control">
+                        <input formatos [correo]="true" [control]="f.emailCorporativo" [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" formControlName="emailCorporativo" type="text" name="" class="form-control">
                         <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
                             Correo empresarial inválido
                         </div>

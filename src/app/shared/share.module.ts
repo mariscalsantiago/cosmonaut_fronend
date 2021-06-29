@@ -35,7 +35,6 @@ import { EditarmensajeChatComponent } from './ventanasemergentes/tiposventanas/e
 import { TooltipPipe } from './pipes/tooltip.pipe';
 import { CoreModule } from '../core/core.module';
 import { BooleanPipe } from './pipes/boolean.pipe';
-import { PipesPipe } from './pipes.pipe';
 import { HoraPipe } from './pipes/hora.pipe';
 
 
@@ -78,7 +77,6 @@ import { HoraPipe } from './pipes/hora.pipe';
     EditarmensajeChatComponent,
     TooltipPipe,
     BooleanPipe,
-    PipesPipe,
     HoraPipe
 
   ],

@@ -9,8 +9,9 @@ import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.servi
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { ChatService } from 'src/app/modules/chat/services/chat.service';
 
 @Component({
   selector: 'app-contenido',
@@ -27,6 +28,9 @@ export class ContenidoComponent implements OnInit {
 
 
   public PRINCIPAL_MENU: any;
+
+
+  public suscripcion!:Subscription;
 
 
 
@@ -67,7 +71,7 @@ export class ContenidoComponent implements OnInit {
 
 
 
-  public chat = {
+  public chat:any = {
     ocultar: true,
     datos: {
       nombre: "",
@@ -88,12 +92,15 @@ export class ContenidoComponent implements OnInit {
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
     private ventana: VentanaemergenteService, private navigate: Router,
     private chatPrd: ChatSocketService, private authPrd: AuthService, public configuracionPrd: ConfiguracionesService,
-    private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService) {
+    private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService,
+    private charComponentPrd:ChatService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
   }
 
   ngOnInit(): void {
+
+    this.chat = this.chatPrd.getChatDatos();
 
     this.rol = this.sistemaUsuarioPrd.getRol();
 
@@ -101,6 +108,7 @@ export class ContenidoComponent implements OnInit {
 
 
     this.chatPrd.setChatDatos(this.chat);
+
 
     if (this.authPrd.isAuthenticated()) {
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
@@ -114,16 +122,29 @@ export class ContenidoComponent implements OnInit {
           
           if(!Boolean(this.configuracionPrd.ocultarChat)){
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
+           
+            if(this.usuariosSistemaPrd.usuario.esRecursosHumanos){
+              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+                console.log("SANTIAGO ANTONIO",datos.datos);
+              });
+            }
+        
           }
 
 
         });
+
       } else {
         this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
           this.PRINCIPAL_MENU = datos;
           this.establecericons();
-          if(!Boolean(this.configuracionPrd.ocultarChat)){
+          if((this.configuracionPrd.ocultarChat) == undefined){
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
+            if(this.usuariosSistemaPrd.usuario.esRecursosHumanos){
+              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+                console.log("SANTIAGO ANTONIO",datos.datos);
+              });
+            }
           }
 
 
@@ -195,6 +216,7 @@ export class ContenidoComponent implements OnInit {
       if (valor) {
 
         this.chatPrd.disconnect();
+        this.suscripcion.unsubscribe();
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.sistemaUsuarioPrd.logout().subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

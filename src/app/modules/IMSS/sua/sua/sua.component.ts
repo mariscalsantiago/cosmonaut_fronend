@@ -55,7 +55,7 @@ export class SuaComponent implements OnInit {
     private modalPrd:ModalService, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
@@ -99,7 +99,7 @@ export class SuaComponent implements OnInit {
 
   public filtrar() {
 
-    debugger;
+    
 
     this.cargando = true;
 
@@ -151,7 +151,7 @@ export class SuaComponent implements OnInit {
           fechaMin: this.fechaMin
         };
    
-  debugger;
+  
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 
@@ -165,7 +165,7 @@ export class SuaComponent implements OnInit {
 
   public guardarMultiseleccion(obj:any) {
 
-    debugger;
+    
     if(obj == 1){
       this.mensaje = `¿Deseas descargar el archivo de altas?`;
     }
