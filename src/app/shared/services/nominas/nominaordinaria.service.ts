@@ -182,25 +182,38 @@ export class NominaordinariaService {
   }
 
 
+
+  //----------------Dispersar------------------------
+
   public dispersar(obj:any):Observable<any>{
       let json = JSON.stringify(obj);
-      return new BehaviorSubject(true);
-      return this.http.put(`${direcciones.dispersion}/dispersion`,json);
+      return this.http.put(`${direcciones.dispersion}`,json);
   }
-
-
 
   public statusProcesoDispersar(nominaPeriodoId:number,cantidadEmpleados:number):Observable<any>{
-    return this.http.get(`${direcciones.dispersion}/procesando/dispersion/${nominaPeriodoId}/${cantidadEmpleados}`);
+    return this.http.get(`${direcciones.dispersion}/procesando/${nominaPeriodoId}/${cantidadEmpleados}`);
   }
+
+  public resumenDispersar(idPeriodo:number):Observable<any>{
+    return this.http.get(`${direcciones.dispersion}/resume/${idPeriodo}`);
+  }
+
+
+  //----------------Timbrar>------------------------
 
   public timbrar(obj:any):Observable<any>{
-      return new BehaviorSubject(true);
+    let json = JSON.stringify(obj);
+    return this.http.put(`${direcciones.timbrado}/${obj.centroClienteId}`,json);
   }
 
- 
 
- 
+  public statusProcesoTimbrar(nominaPeriodoId:number,cantidadEmpleados:number):Observable<any>{
+    return this.http.get(`${direcciones.timbrado}/procesando/${nominaPeriodoId}/${cantidadEmpleados}`);
+  }
+
+  public resumenTimbrado(idPeriodo:number):Observable<any>{
+    return this.http.get(`${direcciones.timbrado}/resume/${idPeriodo}`);
+  }
 
 
   public creandoObservable(obj:any):Subject<any>{
