@@ -406,7 +406,8 @@ export class DetallejornadalaboralComponent implements OnInit {
   public activar(obj: any) {
     this.activadoISR = obj.checked;
   }
-  selectJornada(op: any){
+
+  public selectJornada(op: any){
     this.jornada = op.value;
 
     this.myForm.controls.horaEntrada.enable();
@@ -418,7 +419,8 @@ export class DetallejornadalaboralComponent implements OnInit {
     }
     //console.log('op', op)
   }
-  hrInicio(response : any){
+
+  public hrInicio(response : any){
     if(this.jornada === '1') {
     let hr = Number(response.value.substring(0,2))+8;
     let newValue : any;
