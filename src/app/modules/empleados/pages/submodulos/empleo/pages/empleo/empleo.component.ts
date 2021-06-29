@@ -32,6 +32,7 @@ export class EmpleoComponent implements OnInit {
   public arregloArea: any = [];
   public arregloPuestos: any = [];
   public arregloempleadosreporta: any = [];
+  public arregloRegimenContratacion: any = [];
   public arregloSedes: any = [];
   public arregloEstados: any = [];
   public arregloJornadas: any = [];
@@ -39,6 +40,7 @@ export class EmpleoComponent implements OnInit {
   public fechaIC: Date = new Date();
   public fechaAntiguedad: Date = new Date();
   public arregloareasgeograficas: any = [];
+  public contratoDesc : string | undefined;
 
   public arregloTipoContrato: any = [];
 
@@ -53,9 +55,19 @@ export class EmpleoComponent implements OnInit {
  // document.getElementById('fechantiguefa')
  //document.getElementById('fechaantiguedad')?.setAttribute("min", String(this.date));
 
-
  this.catalogosPrd.getAreasGeograficas(true).subscribe(datos => this.arregloareasgeograficas = datos.datos);
  this.catalogosPrd.getTipoContratos(true).subscribe(datos => this.arregloTipoContrato = datos.datos);
+ this.catalogosPrd.getTipoRegimencontratacion(true).subscribe(datos => this.arregloRegimenContratacion = datos.datos);
+ this.areasPrd.getAreasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloArea = datos.datos);
+ this.empleadosPrd.getEmpleadosCompania(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+   this.arregloempleadosreporta = datos.datos
+   
+ });
+ this.sedesPrd.getsedeByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloSedes = datos.datos);
+ this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
+ this.jornadaPrd.jornadasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloJornadas = datos.datos);
+ this.politicasPrd.getPoliticasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloPoliticas = datos.datos);
+ 
 
 
     this.router.params.subscribe(params => {
@@ -63,27 +75,14 @@ export class EmpleoComponent implements OnInit {
 
       this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
         this.empleado = datos.datos;
+        this.contratoDesc = this.arregloTipoContrato.find((item:any) => item.tipoContratoId === this.empleado.tipoContratoId.tipoContratoId)?.descripcion;
+        
         this.myForm = this.createForm(this.empleado);
         this.cambiaArea();
         
       });;
     });
-
-
     this.myForm = this.createForm(this.empleado);
-
-
-
-    this.areasPrd.getAreasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloArea = datos.datos);
-    this.empleadosPrd.getEmpleadosCompania(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      this.arregloempleadosreporta = datos.datos
-      
-    });
-    this.sedesPrd.getsedeByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloSedes = datos.datos);
-    this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
-    this.jornadaPrd.jornadasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloJornadas = datos.datos);
-    this.politicasPrd.getPoliticasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloPoliticas = datos.datos);
-
 
   }
 
@@ -109,7 +108,9 @@ export class EmpleoComponent implements OnInit {
       areaGeograficaId: [obj.areaGeograficaId?.areaGeograficaId,[Validators.required]],
       esSindicalizado: [`${obj.esSindicalizado}`],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId,[Validators.required]],
-      fechaAltaImss:obj.fechaAltaImss
+      fechaAltaImss:obj.fechaAltaImss,
+      tipoRegimenContratacionId: [obj.tipoRegimenContratacionId?.tipoRegimenContratacionId, [Validators.required]],
+
     });
 
 

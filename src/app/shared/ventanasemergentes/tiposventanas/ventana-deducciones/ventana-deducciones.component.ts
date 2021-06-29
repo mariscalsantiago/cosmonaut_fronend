@@ -101,7 +101,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       numeroFolio: [obj.numeroFolio],
       fechaInicioDescto: [datePipe.transform(obj.fechaInicioDescto, 'yyyy-MM-dd')],
       montoPercepcion: [obj.montoPercepcion],
-      esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true" , disabled: true }]
+      esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true" , disabled: true }],
+      numPlazos: [obj.numPlazosMensuales]
 
     });
 
@@ -132,7 +133,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.valor= true;
       this.valorDescuento = false;
 
-
+console.log('info',this.infonavit)
+if(this.myForm.get(['']))
       this.myForm.controls.baseCalculoId.enable();
       this.myForm.controls.valor.enable();
 
@@ -462,5 +464,6 @@ export class VentanaDeduccionesComponent implements OnInit {
   public get f(){
     return this.myForm.controls;
   }
+
 
 }

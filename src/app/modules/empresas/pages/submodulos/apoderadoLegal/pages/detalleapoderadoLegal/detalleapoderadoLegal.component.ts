@@ -128,7 +128,6 @@ export class DetalleapoderadoLegalComponent implements OnInit {
 
 
   public enviarPeticion() {
-    
     this.submitEnviado = true;
 
     if (this.myFormrep.invalid) {

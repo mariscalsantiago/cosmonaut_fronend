@@ -56,7 +56,7 @@
                     Campo requerido
                 </div>
             </div>
-            <div *ngIf="periodopago.value == '04'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="periodopago.value !== '01' && periodopago.value !== '05'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label class="contenedorInputCheckRadio">Ajuste de ISR
           <input formControlName="ajustedeisr" #ajusteisr (click)="activar(ajusteisr)" id="ajustedeisr" type="checkbox">
           <span class="checkmark"></span>

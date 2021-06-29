@@ -17,7 +17,7 @@
                         </div>
                         <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                             <label>Razón social *</label>
-                            <input formControlName="razonSocial" type="text" class="form-control" [ngClass]="{'is-invalid':f.razonSocial.errors && submitEnviado && f.regimenfiscalId.value !== '621' }" placeholder="">
+                            <input formControlName="razonSocial" type="text" class="form-control" [ngClass]="{'is-invalid':f.razonSocial.errors && submitEnviado && (f.regimenfiscalId.value !== '621' && f.regimenfiscalId.value !== '612' ) }" placeholder="">
                             <div *ngIf="f.razonSocial.errors " class="invalid-feedback">
                                 Campo requerido
                             </div>

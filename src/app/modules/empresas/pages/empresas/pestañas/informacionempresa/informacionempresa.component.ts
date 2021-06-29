@@ -135,7 +135,7 @@ export class InformacionempresaComponent implements OnInit {
     //debugger
     this.submitEnviado = true;
     let noesRFC: boolean = (this.myform.controls.regimenfiscalId.value == null || this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
-    if(this.myform.value.regimenfiscalId !== "621"){
+    if(this.myform.value.regimenfiscalId !== "621" && this.myform.value.regimenfiscalId !== "612" ){
       this.myform.controls.razonSocial.setErrors({required: true});
     }
 

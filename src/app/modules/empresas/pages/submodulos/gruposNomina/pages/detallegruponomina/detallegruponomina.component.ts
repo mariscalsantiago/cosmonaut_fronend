@@ -95,8 +95,6 @@ export class DetallegruponominaComponent implements OnInit {
     this.catalogosPrd.getCatPeriodoAguinaldo(true).subscribe(datos => this.arregloCatPeriodosAguinaldo = datos.datos);
 
 
-
-
     
 
   }
@@ -108,12 +106,13 @@ export class DetallegruponominaComponent implements OnInit {
   }
 
   public crearForm(obj:any){
-    
+
     if(!this.esInsert){
       
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
       obj.ajustarBaseGravableFaltantes = obj.ajustarBaseGravableFaltantes ? "true" : "false";
-      if(obj.periodicidadPagoId?.periodicidadPagoId == "04"){
+
+      if(obj.periodicidadPagoId?.periodicidadPagoId !== "01" && obj.periodicidadPagoId?.periodicidadPagoId !== "05" ){
         this.ajustedeisr = true;
         this.activarISR();
       }
@@ -149,13 +148,14 @@ export class DetallegruponominaComponent implements OnInit {
     
 
     this.submitInvalido = true;
+
+    console.log('x', this.myForm)
     if (!this.myForm.valid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error);
 
       return;
     }
-
     let titulo = (this.esInsert) ? "¿Deseas registrar un grupo de nómina?" : "¿Deseas actualizar los datos del grupo de nómina?";
     
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
@@ -243,7 +243,7 @@ export class DetallegruponominaComponent implements OnInit {
   }
 
   public activarISR(){
-    
+    console.log('entro')
         this.activadoISR = true;
   }
 
