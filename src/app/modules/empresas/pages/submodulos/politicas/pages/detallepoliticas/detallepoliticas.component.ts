@@ -1,9 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Console } from 'console';
+import { tabla } from 'src/app/core/data/tabla';
+import { DatePipe } from '@angular/common';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PoliticasService } from '../services/politicas.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
 
 @Component({
   selector: 'app-detallepoliticas',
@@ -11,12 +15,13 @@ import { PoliticasService } from '../services/politicas.service';
   styleUrls: ['./detallepoliticas.component.scss']
 })
 export class DetallepoliticasComponent implements OnInit {
+  lineBreak = '\n\r\xa0\xa0\xa0\xa0\xa0\xa0\n\r';
   @ViewChild("nombre") public nombre!:ElementRef;
   public myFormpol!: FormGroup;
   public arreglo: any = [];
   public insertar: boolean = false;
   public cargando: Boolean = false;
-
+  public idEmpleado: number = -1;
   public submitEnviado: boolean = false;
   public esInsert: boolean = false;
   public id_empresa: number = 0;
@@ -25,13 +30,29 @@ export class DetallepoliticasComponent implements OnInit {
   public editField: string = "";
   public mostrarBeneficios: boolean = false;
   public arreglopintar: any = [false, false, false];
-
+  public arreglotablaPer: any = [];
   public beneficio: any =[];
   public beneficiotab : any =[];
+  public cargandoPer: boolean = false;
+  public cargandoDed: boolean = false;
+  public arreglotablaDed: any = [];
+  public idPolitica : number = 0;
+
+  public arreglotablaPert: any = {
+    columnas: [],
+    filas: []
+  };
+
+
+  public arreglotablaDedt: any = {
+    columnas: [],
+    filas: []
+  };
 
 
   constructor(private formBuilder: FormBuilder, private politicasPrd: PoliticasService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router,private modalPrd:ModalService) {
+    private routerPrd: Router,private modalPrd:ModalService,private router: ActivatedRoute, private bancosPrd: CuentasbancariasService,
+    private usuariosSistemaPrd: UsuarioSistemaService, private ventana: VentanaemergenteService) {
     
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -42,13 +63,28 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    debugger;
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
+    this.idPolitica = objdetrep.politicaId;
+    this.router.params.subscribe(params => {
+      this.idEmpleado = params["id"];
+    });
 
   if(!this.insertar){
     this.mostrarBeneficios = true;
-    this.politicasPrd.getdetalleBeneficio(objdetrep.politicaId,this.id_empresa).subscribe(datos => this.arregloTablaBeneficios = datos.datos);
+    this.politicasPrd.getdetalleBeneficio(this.idPolitica,this.id_empresa).subscribe(datos => this.arregloTablaBeneficios = datos.datos);
     this.myFormpol = this.createFormrep((objdetrep));
+
+    this.cargandoPer = true;
+    this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.crearTablaPercepcion(datos);
+    });
+
+
+    this.cargandoDed = true;
+    this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.crearTablaDeduccion(datos);
+    });
     
   }else{
     this.myFormpol = this.createFormrep((objdetrep));
@@ -244,6 +280,180 @@ export class DetallepoliticasComponent implements OnInit {
   public redirect(obj: any) {
     this.routerPrd.navigate(["/empresa/detalle/" + this.id_empresa + "/politicas"]);
   }
+
+  
+
+  public agregarPer() {
+    debugger;
+    let datosPer: any = {
+      idEmpleado: this.idEmpleado,
+      idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
+      idPolitica: this.idPolitica
+    };
+    this.ventana.showVentana(this.ventana.percepciones, { datos: datosPer }).then(valor => {
+      if (valor.datos) {
+
+        this.agregarNuevaPercepcion(valor.datos);
+      }
+    });
+  }
+  public agregarDed() {
+    let datosDed: any = {
+      idEmpleado: this.idEmpleado,
+      idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
+      idPolitica: this.idPolitica
+    };
+    this.ventana.showVentana(this.ventana.deducciones, { datos: datosDed }).then(valor => {
+      if (valor.datos) {
+
+        this.agregarNuevaDeduccion(valor.datos);
+      }
+    });
+  }
+
+  public agregarNuevaPercepcion(obj: any) {
+    debugger;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    this.bancosPrd.savePercepcionPolitica(obj).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+      this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        this.crearTablaPercepcion(datos);
+      });
+
+    });
+  }
+
+
+  public agregarNuevaDeduccion(obj: any) {
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    this.bancosPrd.saveDeduccionEmpleado(obj).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+      this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        this.crearTablaDeduccion(datos);
+      });
+    });
+  }
+
+  public crearTablaDeduccion(datos: any) {
+    
+
+    this.arreglotablaDed = datos.datos;
+
+
+    let columnas: Array<tabla> = [
+      new tabla("nombre", "Nombre de deducción"),
+      new tabla("fechaInicioDesctoDed", this.lineBreak+'Fecha inicio de'+this.lineBreak+' descuento'),
+      //new tabla("", "Tipo de descuento"),
+      new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
+      new tabla("esActivo", "Estatus de deducción")
+    ]
+
+
+    this.arreglotablaDedt = {
+      columnas: [],
+      filas: []
+    }
+
+
+    if (this.arreglotablaDed !== undefined) {
+      for (let item of this.arreglotablaDed) {
+        if(item.fechaInicioDescto !== undefined ){
+        item.fechaInicioDescto = (new Date(item.fechaInicioDescto).toUTCString()).replace(" 00:00:00 GMT", "");
+        let datepipe = new DatePipe("es-MX");
+        item.fechaInicioDesctoDed = datepipe.transform(item.fechaInicioDescto, 'dd-MMM-y')?.replace(".", "");
+        }
+        item.nombre = item.conceptoDeduccionId?.nombre;
+
+        if (item.esActivo) {
+          item.esActivo = true
+        }
+        if (!item.esActivo) {
+          item.esActivo = false
+        }
+      }
+    }
+
+    this.arreglotablaDedt.columnas = columnas;
+    this.arreglotablaDedt.filas = this.arreglotablaDed;
+    this.cargandoDed = false;
+  }
+
+  public crearTablaPercepcion(datos: any) {
+
+    this.arreglotablaPer = datos.datos;
+    let columnas: Array<tabla> = [
+      
+      new tabla("nombre", "Nombre de percepción"),
+      new tabla("fechaInicioPer", 'Fecha inicio percepción'),
+      new tabla("tipoMonto", "Tipo de monto"),
+      new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
+      new tabla("esActivo", "Estatus de percepción")
+    ]
+
+
+    this.arreglotablaPert = {
+      columnas: [],
+      filas: []
+    }
+    if (this.arreglotablaPer !== undefined) {
+      for (let item of this.arreglotablaPer) {
+        if(item.fechaInicio !== undefined ){
+        item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
+        let datepipe = new DatePipe("es-MX");
+        item.fechaInicioPer = datepipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".", "");
+        }
+
+        item.nombre = item.conceptoPercepcionId?.nombre;
+
+        item.tipoMonto = (item.baseCalculoId?.baseCalculoId == '1') ? 'Porcentual' : 'Fijo';
+
+        if (item.esActivo) {
+          item.esActivo = true;
+        }
+        if (!item.esActivo) {
+          item.esActivo = false;
+        }
+      }
+    }
+
+
+    this.arreglotablaPert.columnas = columnas;
+    this.arreglotablaPert.filas = this.arreglotablaPer;
+    this.cargandoPer = false;
+  }
+
+  public recibirTablaDed(obj: any) {
+
+    if (obj.type == "editar") {
+      let datosDed = obj.datos;
+      this.ventana.showVentana(this.ventana.deducciones, { datos: datosDed }).then(valor => {
+        if (valor.datos) {
+
+          //this.modificarDeduccion(valor.datos);
+        }
+      });
+    }
+  }
+
+  public recibirTablaPer(obj: any) {
+
+    if (obj.type == "editar") {
+      let datosPer = obj.datos;
+      this.ventana.showVentana(this.ventana.percepciones, { datos: datosPer }).then(valor => {
+        if (valor.datos) {
+
+         // this.modificarPercepcion(valor.datos);
+        }
+      });
+
+    }
+  }
+
   get f() { return this.myFormpol.controls; }
 
 

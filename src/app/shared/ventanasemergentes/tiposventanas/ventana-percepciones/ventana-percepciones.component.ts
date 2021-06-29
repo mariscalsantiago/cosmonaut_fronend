@@ -28,6 +28,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   public empleado: number = 0;
   public conceptoPercepcionId: number = 0;
   public objEnviar: any = [];
+  public politica: number = 0;
 
   @Input() public datos:any;
 
@@ -39,10 +40,11 @@ export class VentanaPercepcionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
-    
+    debugger;
     if(this.datos.idEmpleado != undefined){
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;
+      this.politica = this.datos.idPolitica;
     }else{
       this.empresa = this.datos.centrocClienteId?.centrocClienteId;
       this.empleado = this.datos.personaId?.personaId;
@@ -114,9 +116,16 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.estandar= false;
         this.myForm.controls.baseCalculoId.disable();
         this.myForm.controls.baseCalculoId.setValue(2);
-        this.bancosPrd.getObtenerPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
+        debugger;
+        if(this.politica !== undefined){
+        this.bancosPrd.getObtenerPoliticaPeriodicidad(527, nombrePer).subscribe(datos =>{
           this.nombrePercepcion = datos.datos;
         });
+        }else{
+          this.bancosPrd.getObtenerPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
+            this.nombrePercepcion = datos.datos;
+          });
+        }
       }else{
         let nombrePer = "E";
         this.myForm.controls.baseCalculoId.enable();
@@ -129,9 +138,16 @@ export class VentanaPercepcionesComponent implements OnInit {
         }
         this.periodica = false;
         this.estandar= true;
-        this.bancosPrd.getObtenerPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
+        if(this.politica !== undefined){
+        this.bancosPrd.getObtenerPoliticaPeriodicidad(527, nombrePer).subscribe(datos =>{
           this.nombrePercepcion = datos.datos;
         });
+        }else{
+          this.bancosPrd.getObtenerPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
+            this.nombrePercepcion = datos.datos;
+          });
+
+        }
         }
       }
    }
@@ -207,7 +223,36 @@ export class VentanaPercepcionesComponent implements OnInit {
           }
           
           if(this.esInsert){
+
+            if(this.politica !== undefined){
             this.objEnviar = {
+            tipoPercepcionId: {
+              tipoPercepcionId: obj.nomPercepcion
+            },
+            conceptoPercepcionId: {
+              conceptoPercepcionId: this.conceptoPercepcionId
+            },
+            politicaId: {
+              politicaId: this.politica
+            },
+            centrocClienteId: {
+                centrocClienteId: this.empresa
+            },
+            valor: obj.porcentaje,
+            baseCalculoId:{
+              baseCalculoId: obj.baseCalculoId
+            },
+            esActivo: obj.esActivo,
+            referencia: obj.referencia,
+            fechaInicio: fechar,
+            montoTotal: obj.montoPercepcion,
+            numeroPeriodos: obj.numeroPeriodos,
+            montoPorPeriodo: obj.montoPorPeriodo
+          
+          };
+        }else{
+
+          this.objEnviar = {
             tipoPercepcionId: {
               tipoPercepcionId: obj.nomPercepcion
             },
@@ -232,6 +277,7 @@ export class VentanaPercepcionesComponent implements OnInit {
             montoPorPeriodo: obj.montoPorPeriodo
           
           };
+        }
           
         }else{
           for(let item of this.nombrePercepcion){
@@ -239,6 +285,36 @@ export class VentanaPercepcionesComponent implements OnInit {
               this.conceptoPercepcionId = item.conceptoPercepcionId;
             }
           }
+
+          if(this.politica !== undefined){
+          this.objEnviar = {
+            configuraPercepcionId: this.datos.configuraPercepcionId,
+            tipoPercepcionId: {
+              tipoPercepcionId: obj.nomPercepcion
+            },
+            conceptoPercepcionId: {
+              conceptoPercepcionId: this.conceptoPercepcionId
+            },
+            politicaId: {
+              politicaId: this.politica
+            },
+            centrocClienteId: {
+                centrocClienteId: this.empresa
+            },
+            valor: obj.porcentaje,
+            baseCalculoId:{
+              baseCalculoId: obj.baseCalculoId
+            },
+            esActivo: obj.esActivo,
+            referencia: obj.referencia,
+            fechaInicio: fechar,
+            montoTotal: obj.montoPercepcion,
+            numeroPeriodos: obj.numeroPeriodos,
+            montoPorPeriodo: obj.montoPorPeriodo
+          
+          };
+        }else{
+
           this.objEnviar = {
             configuraPercepcionId: this.datos.configuraPercepcionId,
             tipoPercepcionId: {
@@ -265,6 +341,7 @@ export class VentanaPercepcionesComponent implements OnInit {
             montoPorPeriodo: obj.montoPorPeriodo
           
           };
+        }
 
         }
           
