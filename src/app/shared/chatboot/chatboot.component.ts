@@ -74,6 +74,9 @@ export class ChatbootComponent implements OnInit,AfterViewInit {
         }catch{
           mensajedefecto = true;
           body = datos.data;
+          if(this.arreglomensajes.some((valor:any) => valor.mensaje.includes("Bienvenid@")) || this.usuarioSistemaPrd.getUsuario().esRecursosHumanos){
+              return;
+          }
 
         }
 
@@ -165,6 +168,13 @@ export class ChatbootComponent implements OnInit,AfterViewInit {
 
 
     
+  }
+
+
+  public enviarTeclado(evento:any){
+      if(evento.key == "Enter"){
+          this.enviarMensaje();
+      }
   }
 
 }

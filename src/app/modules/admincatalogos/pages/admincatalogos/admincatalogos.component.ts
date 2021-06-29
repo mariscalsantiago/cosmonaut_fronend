@@ -63,7 +63,7 @@ export class AdminCatalogosComponent implements OnInit {
      private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -78,7 +78,7 @@ export class AdminCatalogosComponent implements OnInit {
   }
 
   public procesarTablaFiltro(obj:any) {
-    debugger;
+    
     this.arregloFiltro= obj;
     let columnas: Array<tabla> = [
       new tabla("descripcion", "Catálogo")
@@ -102,7 +102,7 @@ export class AdminCatalogosComponent implements OnInit {
   }
 
   public procesarTabla(obj:any) {
-    debugger;
+    
     this.arreglo = obj.datos;
     
     let columnas: Array<tabla> = [
@@ -137,7 +137,7 @@ export class AdminCatalogosComponent implements OnInit {
 
 
   public filtrar() {
-    debugger;
+    
     
     this.cargando = true;
     

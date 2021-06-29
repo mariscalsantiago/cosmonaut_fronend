@@ -32,7 +32,7 @@
       <div class="footer titulos">
         <div class="sendchat">
 
-          <input [(ngModel)]="mensaje" placeholder="Escribe tu mensaje..." type="text" name="s"  class="form-control limiteschat">
+          <input (keydown)="enviarTeclado($event)" [(ngModel)]="mensaje" placeholder="Escribe tu mensaje..." type="text" name="s"  class="form-control limiteschat">
          
           <div (click)="enviarMensaje()" class="adjunto"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
               <defs>

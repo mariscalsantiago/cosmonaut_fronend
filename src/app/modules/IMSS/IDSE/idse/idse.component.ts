@@ -56,7 +56,7 @@ export class IDSEComponent implements OnInit {
     private modalPrd:ModalService, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
@@ -71,7 +71,7 @@ export class IDSEComponent implements OnInit {
   }
 
   public traerTabla(datos:any) {
-    debugger;
+    
     this.arreglo = datos.datos;
     const columna: Array<tabla> = [
       new tabla("nombre", "Nombre completo del empleado"),
@@ -113,7 +113,7 @@ export class IDSEComponent implements OnInit {
 
   public filtrar() {
 
-    debugger;
+    
 
     this.cargando = true;
 
@@ -164,7 +164,7 @@ export class IDSEComponent implements OnInit {
           fechaMovimiento: this.fechaMovimiento
         };
    
-  debugger;
+  
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 
@@ -176,7 +176,7 @@ export class IDSEComponent implements OnInit {
   }
 
   public seleccionarTodosBool(input: any) {
-    debugger;
+    
     for (let item of this.arreglo)
         if(item.personaId){
         input.checkbox = input.checked;
@@ -188,7 +188,7 @@ export class IDSEComponent implements OnInit {
 
   public guardarMultiseleccion() {
 
-    debugger;
+    
     let mensaje = `¿Deseas descargar el archivo de lo seleccionado?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
@@ -246,7 +246,7 @@ export class IDSEComponent implements OnInit {
 
     switch (obj.type) {
       case "eliminar":
-        debugger;
+        
         let mensaje = "¿Estás seguro de eliminar el registro?";
         this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
 

@@ -26,6 +26,8 @@ export class ConfiguracionesService {
 
   public ocultarChat:any = undefined;
 
+  public notificaciones:number = 0;
+
 
 
 

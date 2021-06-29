@@ -297,7 +297,7 @@ export class TimbrarComponent implements OnInit {
 
 
     this.cargando = true;
-    debugger;
+    
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
 
