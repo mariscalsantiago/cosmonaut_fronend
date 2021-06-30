@@ -81,34 +81,9 @@ export class MovimientosComponent implements OnInit {
 
 
   public filtrar() {
-<<<<<<< HEAD
-    this.cargando = true;
-      if(this.nombre != ''){
-        this.objFiltro = {
-          ...this.objFiltro,
-          nombre: this.nombre
-        };
-        }else if(this.apellidoPaterno != ''){
-          this.objFiltro = {
-            ...this.objFiltro,
-            apellidoPaterno: this.apellidoPaterno
-          };
-        } else if(this.apellidoMaterno != ''){
-            this.objFiltro = {
-              ...this.objFiltro,
-              apellidoMaterno: this.apellidoMaterno
-            };
-        }
-        if(this.fechaMovimiento !== undefined){
-          let datepipe = new DatePipe("es-MX");
-         // this.fechaMovimiento = String(datepipe.transform(this.fechaMovimiento , 'dd-MMM-y')?.replace(".",""))
-          
-        }
-=======
     debugger;
  
-      let peticion = {
->>>>>>> origin/RJR
+      
         
         this.objFiltro = {
           ...this.objFiltro,
