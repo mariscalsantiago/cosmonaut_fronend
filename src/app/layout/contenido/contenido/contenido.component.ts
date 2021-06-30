@@ -142,7 +142,7 @@ export class ContenidoComponent implements OnInit {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
             if(this.usuariosSistemaPrd.usuario.esRecursosHumanos){
               this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
-                console.log("SANTIAGO ANTONIO",datos.datos);
+                // console.log("SANTIAGO ANTONIO",datos.datos);
               });
             }
           }
