@@ -9,9 +9,9 @@
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
-    
+
                 <div class="mt-2">
-    
+
                     <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
                     <div class="form group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
@@ -19,16 +19,16 @@
                                 <option value="0" selected >Registro Patronal</option>
                                 <option *ngFor="let item of arregloRegistroPatronal" [value]="item.registroPatronalId">{{item.registroPatronal}}</option>
                             </select>
-    
+
                         </div>
                     </div>
 
                     <div class="form-group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <label style="color:white" >Desde</label>
-                            <input  type="date" placeholder="desde" [(ngModel)]="fechaMin" class="form-control">
+                            <label style="color:white">Desde</label>
+                            <input type="date" placeholder="desde" [(ngModel)]="fechaMin" class="form-control">
                         </div>
-                                                
+
                         <div class=" input-group-sm mb-3 col-3 ">
                             <label style="color:white" for="">Hasta</label>
                             <input type="date" class="form-control" [(ngModel)]="fechaMax" placeholder="Hasta">
@@ -39,13 +39,13 @@
                             <input type="text" class="form-control" [(ngModel)]="numeroEmpleado" placeholder="Número de empleado">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input  type="text" class="form-control" [(ngModel)]="nombre"  placeholder="Nombre">
+                            <input type="text" class="form-control" [(ngModel)]="nombre" placeholder="Nombre">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input  type="text" class="form-control" [(ngModel)]="apellidoPat" placeholder="Primer apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoPat" placeholder="Primer apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input  type="text" class="form-control" [(ngModel)]="apellidoMat" placeholder="Segundo apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoMat" placeholder="Segundo apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
                             <select class="form-control" [(ngModel)]="movimiento" name="">
@@ -53,27 +53,25 @@
                                 <option *ngFor="let item of arregloMovimientos" [value]="item.movimientoImssId">{{item.descripcionMovimiento}}</option>
                             </select>
                         </div>
-                      
+
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
-                          </div>
-    
-                        
+                            <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                        </div>
+
+
                     </div>
-    
-                    
+
+
                     <div class="row margen">
                         <div class="col titulo">
-                          <label>RESULTADOS</label>
+                            <label>RESULTADOS</label>
                         </div>
                         <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
 
                             <div class="col-12">
-                              <button (click)="guardarMultiseleccion(1)" type="button"
-                                class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar altas</span>
+                                <button (click)="guardarMultiseleccion(1)" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar altas</span>
                               </button>
-                              <button (click)="guardarMultiseleccion(2)" type="button"
-                              class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar modificaciones</span>
+                                <button (click)="guardarMultiseleccion(2)" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar modificaciones</span>
                             </button>
 
                             </div>
@@ -81,22 +79,22 @@
                         </div>
 
                     </div>
-    
-    
-                      <div class="   margen-tabla background-panel ">
+
+
+                    <div class="   margen-tabla background-panel ">
                         <br>
-                         <app-tablapaginado [checkbox]="true" [datos]="arreglotabla"  [cargando]="cargando" (salida)="recibirTabla($event)" ></app-tablapaginado>
-                      </div>
-    
-    
-    
-    
+                        <app-tablapaginado [checkbox]="true" [datos]="arreglotabla" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                    </div>
+
+
+
+
                 </div>
-    
+
             </div>
-    
+
         </div>
-    
-    
+
+
     </div>
 </div>
