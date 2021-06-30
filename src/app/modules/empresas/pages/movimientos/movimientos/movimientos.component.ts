@@ -3,6 +3,7 @@ import { tabla } from 'src/app/core/data/tabla';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-movimientos',
@@ -13,10 +14,16 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 export class MovimientosComponent implements OnInit {
 
   public empresa: any;
+
+  public idEmpresa: number = 0;
   public arreglo: any = [];
   public cargandoIcon: boolean = false;
   public cargando: boolean = false;
-
+  public fechaMovimiento: any;
+  public objFiltro: any = [];
+  public nombre: string = "";
+  public apellidoPaterno: string = "";
+  public apellidoMaterno: string = "";
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -31,9 +38,9 @@ export class MovimientosComponent implements OnInit {
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService) { }
 
-  ngOnInit(): void {
-    
-
+  ngOnInit() {
+    //this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
+   this.idEmpresa = 1;
     this.filtrar();
   }
 
@@ -54,7 +61,19 @@ export class MovimientosComponent implements OnInit {
       columnas:[],
       filas:[]
     }
-
+    console.log('datos',this.arreglo)
+    if(this.arreglo !== undefined){
+      for(let item of this.arreglo){
+        if(item.fechaMovimiento !== undefined ){
+        item.fecha = (new Date(item.fechaMovimiento).toUTCString()).replace(" 00:00:00 GMT", "");
+        let datepipe = new DatePipe("es-MX");
+        item.fecha = String(datepipe.transform(item.fecha , 'dd-MMM-y')?.replace(".",""));
+        item.nombre = item.nombre + " " + item.apellidoPaterno+" "+(item.apellidoMaterno == undefined ? "":item.apellidoMaterno);
+        }
+      }
+    }
+   
+    
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
     this.cargando = false;
@@ -64,15 +83,18 @@ export class MovimientosComponent implements OnInit {
   public filtrar() {
     debugger;
  
-      let peticion = {
+      
         
-          centroClienteId: 1
-      }
-      
-      
-      this.cargando = true;
-      this.empresasPrd.bitacoraMovimientoslistar(peticion).subscribe(datos => {
-          this.traerTabla(datos);
+        this.objFiltro = {
+          ...this.objFiltro,
+          centroClienteId: this.idEmpresa,
+          fechaMovimiento: this.fechaMovimiento
+        };
+        console.log('moc', this.objFiltro)
+      this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
+   
+        
+        this.traerTabla(datos);
       });
       /*}else{
         this.cargando = true;

@@ -10,53 +10,57 @@
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
-    
+
                 <div class="mt-2">
-    
+
                     <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
+
                     <div class="form group row margen">
+                        <!-- <div class=" input-group-sm mb-3 col-3 ">
+                            <input type="text" class="form-control" [(ngModel)]="centroClienteId" placeholder="Centro Cliente Id">
+                        </div> -->
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input  type="text" class="form-control"   placeholder="Nombre">
+                            <input type="text" class="form-control" [(ngModel)]="nombre" placeholder="Nombre">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input  type="text" class="form-control"  placeholder="Primer apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoPaterno" placeholder="Primer apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input  type="text" class="form-control"   placeholder="Segundo apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoMaterno" placeholder="Segundo apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="date" class="form-control" placeholder="Fecha de movimiento">
+                            <input type="date" class="form-control" [(ngModel)]="fechaMovimiento" placeholder="Fecha de movimiento">
                         </div>
-                      
+
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
-                          </div>
-    
-                        
+                            <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                        </div>
+
+
                     </div>
-    
-    
+
+
                     <div class="row margen">
                         <div class="col titulo">
-                          <label>RESULTADOS</label>
+                            <label>RESULTADOS</label>
                         </div>
-                      </div>
-    
-    
-                      <div class="   margen-tabla background-panel ">
+                    </div>
+
+
+                    <div class="   margen-tabla background-panel ">
                         <br>
-                        <app-tablapaginado [datos]="arreglotabla"   [cargando]="cargando"  ></app-tablapaginado>
-                      </div>
-    
-    
-    
-    
+                        <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando"></app-tablapaginado>
+                    </div>
+
+
+
+
                 </div>
-    
+
             </div>
-    
+
         </div>
-    
-    
+
+
     </div>
 </div>

@@ -91,16 +91,12 @@ export class SuaComponent implements OnInit {
           }
         }
       }
-  
       this.arreglotabla.columnas = columna;
       this.arreglotabla.filas = this.arreglo
     }
 
 
   public filtrar() {
-
-    
-
     this.cargando = true;
 
     for(let item of this.arregloRegistroPatronal){

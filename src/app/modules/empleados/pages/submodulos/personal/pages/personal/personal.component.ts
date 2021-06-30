@@ -58,11 +58,12 @@ export class PersonalComponent implements OnInit {
         this.empleado = datoscontrato.datos;
         this.parsearInformacion();
         this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
-          this.domicilioArreglo = datosnativo?.datos[0];
+          this.domicilioArreglo = datosnativo?.datos == undefined ?undefined:datosnativo?.datos[0];
         });
 
         this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datosdomicilio => {
 
+          
           if (datosdomicilio.datos !== undefined) {
 
             this.domicilioArreglo = datosdomicilio.datos[0];
@@ -76,7 +77,7 @@ export class PersonalComponent implements OnInit {
 
             
           } else {
-            this.createForm(this.empleado);
+           this.myForm =  this.createForm(this.empleado);
           }
 
           this.insertarDomicilio = datosdomicilio.datos == undefined;
@@ -257,7 +258,7 @@ export class PersonalComponent implements OnInit {
       nss: obj.nss,
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
       emailCorporativo: [{value:obj.emailCorporativo?.toLowerCase(),disabled:true}, [Validators.email]],
-      nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
+      nacionalidadId: [obj.nacionalidadId?.nacionalidadId || 1, [Validators.required]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       estadoCivil: obj.estadoCivil,
       numeroHijos: obj.numeroHijos,

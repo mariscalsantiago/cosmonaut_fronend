@@ -199,6 +199,7 @@ export class TimbrarComponent implements OnInit {
         this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           console.log(valor);
+          this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numeroEmpleado,"xlsx")
         });
         break;
     }
@@ -257,38 +258,46 @@ export class TimbrarComponent implements OnInit {
 
 
 
+        let idCentroCliente = 0;
+
         let obj = []
         for (let item of this.arreglo) {
           if (item.seleccionado) {
             obj.push({
               nominaPeriodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
-              personaId: item.personaId,
-              fechaContrato: item.fechaContrato,
-              centroClienteId: item.centroClienteId,
+              personaId: item[this.llave].personaId,
+              fechaContrato: item[this.llave].fechaContrato,
+              centroClienteId: item[this.llave].centroClienteId,
               usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
               servicio: "facturacion_sw"
             });
           }
+
+          idCentroCliente = item[this.llave].centroClienteId;
         }
 
 
-        this.nominaOrdinariaPrd.timbrar(obj).subscribe((valor) => {
-          if (valor.datos.exito) {
-            this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Timbrando", "Espere un momento, el proceso se tardara varios minutos.");
-            let suscripcion = timer(0, 1500).pipe(concatMap(() =>
-              this.nominaOrdinariaPrd
-                .statusProcesoTimbrar(this.nominaSeleccionada[this.llave2].nominaXperiodoId, this.arreglo.length)))
-              .subscribe(datos => {
-                this.configuracionesPrd.setCantidad(datos.datos);
-                if (datos.datos == 100) {
-                  suscripcion.unsubscribe();
-                  this.configuracionesPrd.setCantidad(0);
-                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-                  this.ventana.showVentana(this.ventana.ntimbrado, { datos: this.nominaSeleccionada[this.llave2].nominaXperiodoId }).then(() => {
-                    this.salida.emit({ type: "timbrar" });
-                  });
-                }
-              });
+        this.nominaOrdinariaPrd.timbrar(obj,idCentroCliente).subscribe((valor) => {
+          if(valor.resultado){
+            if (valor.datos.exito) {
+              this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Timbrando", "Espere un momento, el proceso se tardara varios minutos.");
+              let suscripcion = timer(0, 1500).pipe(concatMap(() =>
+                this.nominaOrdinariaPrd
+                  .statusProcesoTimbrar(this.nominaSeleccionada[this.llave2].nominaXperiodoId, this.arreglo.length)))
+                .subscribe(datos => {
+                  this.configuracionesPrd.setCantidad(datos.datos);
+                  if (datos.datos == 100) {
+                    suscripcion.unsubscribe();
+                    this.configuracionesPrd.setCantidad(0);
+                    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                    this.ventana.showVentana(this.ventana.ntimbrado, { datos: this.nominaSeleccionada[this.llave2].nominaXperiodoId }).then(() => {
+                      this.salida.emit({ type: "timbrar" });
+                    });
+                  }
+                });
+            }
+          }else{
+            this.modalPrd.showMessageDialog(valor.resultado,valor.mensaje);
           }
         });
       }
