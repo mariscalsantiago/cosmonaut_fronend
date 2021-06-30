@@ -389,3 +389,45 @@ form{
 
 
 }
+
+
+
+.menu-hamburgesa{
+    width: auto;
+    display: inline-block;
+    button{
+        background: transparent;
+        border: 0;
+        color: white;margin-left:-15px;
+        i{
+            font-size: large;
+        }
+    }
+}
+
+.tituloabajoimg{
+    height: 80px;
+    text-align: center;
+    margin-top: -9px;
+    article{
+        color:$secondary;
+        font-size: larger;
+        article{
+            color:#616060;
+            font-size: small;
+        }
+    }
+}
+
+.labelflotante{
+    position: fixed;
+    left: 128px;
+    z-index: 1;
+    background: #3ea196;
+    color: white;
+    width: 100px;
+    margin-top: -26px;
+    border-radius: 10px;
+    border: 1px white solid;
+    font-size: small;
+}

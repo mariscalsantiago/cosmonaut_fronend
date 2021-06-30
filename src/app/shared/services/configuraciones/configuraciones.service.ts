@@ -28,6 +28,8 @@ export class ConfiguracionesService {
 
   public notificaciones:number = 0;
 
+  public menu:boolean = false;
+
 
 
 

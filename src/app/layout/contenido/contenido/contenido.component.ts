@@ -29,8 +29,10 @@ export class ContenidoComponent implements OnInit {
 
   public PRINCIPAL_MENU: any;
 
+  public botonsalir:boolean = false;
 
-  public suscripcion!:Subscription;
+
+  public suscripcion!: Subscription;
 
 
 
@@ -71,40 +73,49 @@ export class ContenidoComponent implements OnInit {
 
 
 
-  public chat:any = {
+  public chat: any = {
     ocultar: true,
     datos: {
       nombre: "",
-      socket:"",
-      numeromensajes:0,
-      mensajeRecibido:false,
-      arregloMensaje:[]
+      socket: "",
+      numeromensajes: 0,
+      mensajeRecibido: false,
+      arregloMensaje: []
     },
-    body:{
-      mensaje:"",
-      idUsuario:0,
-      nombre:"",
-      fecha:""
+    body: {
+      mensaje: "",
+      idUsuario: 0,
+      nombre: "",
+      fecha: ""
     }
   }
+
+
+  public nombre: string = "";
+  public nombreRol: string = "Administrador";
 
 
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
     private ventana: VentanaemergenteService, private navigate: Router,
     private chatPrd: ChatSocketService, private authPrd: AuthService, public configuracionPrd: ConfiguracionesService,
     private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private charComponentPrd:ChatService) {
+    private charComponentPrd: ChatService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
   }
 
   ngOnInit(): void {
 
+
+
+
     this.chat = this.chatPrd.getChatDatos();
 
     this.rol = this.sistemaUsuarioPrd.getRol();
 
     this.arreglo = this.menuPrd.getMenu();
+
+    this.nombre = this.sistemaUsuarioPrd.getUsuario().nombre + " " + this.sistemaUsuarioPrd.getUsuario().apellidoPat;
 
 
     this.chatPrd.setChatDatos(this.chat);
@@ -113,22 +124,22 @@ export class ContenidoComponent implements OnInit {
     if (this.authPrd.isAuthenticated()) {
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
         this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
-          this.PRINCIPAL_MENU = this.configuracionPrd.traerDatosMenu(this.usuariosSistemaPrd.getUsuario().submodulosXpermisos, datos, this.usuariosSistemaPrd.getVersionSistema(),this.usuariosSistemaPrd.esCliente());
+          this.PRINCIPAL_MENU = this.configuracionPrd.traerDatosMenu(this.usuariosSistemaPrd.getUsuario().submodulosXpermisos, datos, this.usuariosSistemaPrd.getVersionSistema(), this.usuariosSistemaPrd.esCliente());
           this.PRINCIPAL_MENU.unshift({ moduloId: 0, nombreModulo: "Inicio", seleccionado: true, checked: true, pathServicio: '/inicio', icono: 'icon_home' });
           this.configuracionPrd.setElementosSesion(this.configuracionPrd.MENUUSUARIO, this.PRINCIPAL_MENU);
           this.establecericons();
 
           this.usuariosSistemaPrd.setUsuario((JSON.parse(localStorage["usuario"])) as usuarioClass);
-          
-          if(!Boolean(this.configuracionPrd.ocultarChat)){
+
+          if (!Boolean(this.configuracionPrd.ocultarChat)) {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-           
-            if(this.usuariosSistemaPrd.usuario.esRecursosHumanos){
-              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
-                console.log("SANTIAGO ANTONIO",datos.datos);
+
+            if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
+              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+                console.log("SANTIAGO ANTONIO", datos.datos);
               });
             }
-        
+
           }
 
 
@@ -138,10 +149,10 @@ export class ContenidoComponent implements OnInit {
         this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
           this.PRINCIPAL_MENU = datos;
           this.establecericons();
-          if((this.configuracionPrd.ocultarChat) == undefined){
+          if ((this.configuracionPrd.ocultarChat) == undefined) {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-            if(this.usuariosSistemaPrd.usuario.esRecursosHumanos){
-              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+            if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
+              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
                 // console.log("SANTIAGO ANTONIO",datos.datos);
               });
             }
@@ -149,7 +160,7 @@ export class ContenidoComponent implements OnInit {
 
 
 
-          
+
 
         });
       }
@@ -159,11 +170,11 @@ export class ContenidoComponent implements OnInit {
 
   public limpiando() {
 
-    
-      for (let item of this.PRINCIPAL_MENU)
+
+    for (let item of this.PRINCIPAL_MENU)
       item.seleccionado = false;
-    
-    
+
+
   }
 
   public seleccionado(obj: any) {
@@ -179,8 +190,8 @@ export class ContenidoComponent implements OnInit {
     this.limpiando();
     obj.seleccionado = true;
 
-    
-    
+
+
 
     this.configuracionPrd.setPermisos(obj2.permisos);
   }
@@ -216,7 +227,7 @@ export class ContenidoComponent implements OnInit {
       if (valor) {
 
         this.chatPrd.disconnect();
-        if(this.suscripcion)this.suscripcion.unsubscribe();
+        if (this.suscripcion) this.suscripcion.unsubscribe();
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.sistemaUsuarioPrd.logout().subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -265,15 +276,15 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public darClickChat(){
-    if(!this.usuariosSistemaPrd.getUsuario().esRecursosHumanos){
+  public darClickChat() {
+    if (!this.usuariosSistemaPrd.getUsuario().esRecursosHumanos) {
       this.chatPrd.getChatDatos().datos.socket = `/websocket/chat/${this.usuariosSistemaPrd.getIdEmpresa()}${this.usuariosSistemaPrd.usuario.usuarioId}/${this.usuariosSistemaPrd.getIdEmpresa()}/${this.usuariosSistemaPrd.usuario.usuarioId}`;
       this.chat.ocultar = !this.chat.ocultar
       this.chat.datos.nombre = this.chatPrd.getNombreRecursosHumanos();
       this.chat.datos.numeromensajes = 0;
       this.chat.datos.mensajeRecibido = false;
-  
-    }else{
+
+    } else {
       this.chat.ocultar = !this.chat.ocultar;
       this.chat.datos.numeromensajes = 0;
       this.chat.datos.mensajeRecibido = false;
@@ -285,18 +296,34 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public irRuta(item:any){
+  public irRuta(item: any) {
     let intervalo = interval(300);
     intervalo.pipe(take(1));
-    let valor = intervalo.subscribe(()=>{
+    let valor = intervalo.subscribe(() => {
       this.configuracionPrd.accesoRuta = false;
       valor.unsubscribe();
     });
 
-    
-    
+
+
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
+  }
+
+
+
+  public entraComponente(obj: any) {
+    for (let item of this.PRINCIPAL_MENU) {
+      item.labelflotante = false;
+    }
+
+    obj.labelflotante = true;
+  }
+
+  public saleComponente(item: any) {
+    for (let item of this.PRINCIPAL_MENU) {
+      item.labelflotante = false;
+    }
   }
 
 
