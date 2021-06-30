@@ -1,6 +1,6 @@
-import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
+import {  HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import {  Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
 
 
@@ -10,197 +10,148 @@ import { direcciones } from 'src/assets/direcciones';
 })
 export class NominaordinariaService {
 
-  constructor(private http: HttpClient,private backend:HttpBackend) { 
-
-    this.http = new HttpClient(this.backend);
+  constructor(private http: HttpClient) { 
   }
 
   public crearNomina(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominaOrdinaria}/guardar/nomina`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/guardar/nomina`, json);
 
   }
 
 
   public calcularNomina(obj:any):Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaCalculo);
-    return this.http.post(`${direcciones.nominaOrdinaria}/calcula/nomina/periodo`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/calcula/nomina/periodo`, json);
 
   }
 
   public getListaNominas(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+  
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaListaActivos);
-    return this.http.post(`${direcciones.nominaOrdinaria}/consulta/nominas/activas`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/consulta/nominas/activas`, json);
   }
 
 
  
 
   public getUsuariosCalculados(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
     let json: string = JSON.stringify(obj);
      //return this.creandoObservable(ordinariaUsuariosCalculados);
-    return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/calculo/percepciones/deducciones`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/calculo/percepciones/deducciones`, json);
   }
 
 
   public getUsuariosCalculadosFiltrado(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
     let json: string = JSON.stringify(obj);
      //return this.creandoObservable(ordinariaUsuariosCalculados);
-    return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/calculo/percepciones/deducciones/filtrar`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/calculo/percepciones/deducciones/filtrar`, json);
   }
 
 
   public getUsuariosCalculadosDetalle(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+  
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosCalculadosDetalle);
-     return this.http.post(`${direcciones.nominaOrdinaria}/detalle/nomina/empleado`,json,httpOptions);
+     return this.http.post(`${direcciones.nominaOrdinaria}/detalle/nomina/empleado`,json);
   
   }
 
   public getUsuariosDispersion(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+  
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosDispersion);
-    return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/total/pago/neto`,json,httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/total/pago/neto`,json);
  }
 
 
  public getUsuariosDispersionFiltrar(obj:any):Observable<any> {
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+  
   let json: string = JSON.stringify(obj);
   //return this.creandoObservable(ordinariaUsuariosDispersion);
-  return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/total/pago/neto/filtrar`,json,httpOptions);
+  return this.http.post(`${direcciones.nominaOrdinaria}/lista/empleado/total/pago/neto/filtrar`,json);
 }
 
 
   public getUsuariosTimbrado(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+   
     let json: string = JSON.stringify(obj);
    //return this.creandoObservable(ordinariaUsuariosTimbrado);
-   return this.http.post(`${direcciones.nominaOrdinaria}/listado/empleado/total/pago/neto/fecha/timbrado`, json, httpOptions);
+   return this.http.post(`${direcciones.nominaOrdinaria}/listado/empleado/total/pago/neto/fecha/timbrado`, json);
   }
 
   public getUsuariosTimbradoFiltrar(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+   
     let json: string = JSON.stringify(obj);
    //return this.creandoObservable(ordinariaUsuariosTimbrado);
-   return this.http.post(`${direcciones.nominaOrdinaria}/listado/empleado/total/pago/neto/fecha/timbrado/filtrar`, json, httpOptions);
+   return this.http.post(`${direcciones.nominaOrdinaria}/listado/empleado/total/pago/neto/fecha/timbrado/filtrar`, json);
   }
 
   public getUsuariosTimbradoDetalle(obj:any):Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+   
     let json: string = JSON.stringify(obj);
     //return this.creandoObservable(ordinariaUsuariosTimbradoDetalle);
     
-    return this.http.post(`${direcciones.nominaOrdinaria}/detalle/empleado/total/pago/neto/detalle/monto/timbrado`,json,httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/detalle/empleado/total/pago/neto/detalle/monto/timbrado`,json);
   }
 
   public descargaRecibos(obj: any): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+  
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominaOrdinaria}/descarga/recibos`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/descarga/recibos`, json);
 
   }
 
   public descargaDispercion(obj: any): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+   
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominaOrdinaria}/descarga/dispercion/`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/descarga/dispercion/`, json);
 
   }
 
 
   public eliminar(obj:any):Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+    
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominaOrdinaria}/eliminacion/nomina/ordinaria`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaOrdinaria}/eliminacion/nomina/ordinaria`, json);
 
   }
 
+
+
+  //----------------Dispersar------------------------
 
   public dispersar(obj:any):Observable<any>{
       let json = JSON.stringify(obj);
-      return new BehaviorSubject(true);
-      return this.http.put(`${direcciones.dispersion}/dispersion`,json);
+      return this.http.put(`${direcciones.dispersion}`,json);
   }
-
-
 
   public statusProcesoDispersar(nominaPeriodoId:number,cantidadEmpleados:number):Observable<any>{
-    return this.http.get(`${direcciones.dispersion}/procesando/dispersion/${nominaPeriodoId}/${cantidadEmpleados}`);
+    return this.http.get(`${direcciones.dispersion}/procesando/${nominaPeriodoId}/${cantidadEmpleados}`);
   }
 
-  public timbrar(obj:any):Observable<any>{
-      return new BehaviorSubject(true);
+  public resumenDispersar(idPeriodo:number):Observable<any>{
+    return this.http.get(`${direcciones.dispersion}/resume/${idPeriodo}`);
   }
 
- 
 
- 
+  //----------------Timbrar>------------------------
+
+  public timbrar(obj:any,idCentrocliente:number):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.put(`${direcciones.timbrado}/${idCentrocliente}`,json);
+  }
+
+
+  public statusProcesoTimbrar(nominaPeriodoId:number,cantidadEmpleados:number):Observable<any>{
+    return this.http.get(`${direcciones.timbrado}/procesando/${nominaPeriodoId}/${cantidadEmpleados}`);
+  }
+
+  public resumenTimbrado(idPeriodo:number):Observable<any>{
+    return this.http.get(`${direcciones.timbrado}/resume/${idPeriodo}`);
+  }
 
 
   public creandoObservable(obj:any):Subject<any>{

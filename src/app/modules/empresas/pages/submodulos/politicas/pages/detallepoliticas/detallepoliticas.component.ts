@@ -71,18 +71,19 @@ export class DetallepoliticasComponent implements OnInit {
     });
 
   if(!this.insertar){
+    debugger;
     this.mostrarBeneficios = true;
     this.politicasPrd.getdetalleBeneficio(this.idPolitica,this.id_empresa).subscribe(datos => this.arregloTablaBeneficios = datos.datos);
     this.myFormpol = this.createFormrep((objdetrep));
 
     this.cargandoPer = true;
-    this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+    this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.crearTablaPercepcion(datos);
     });
 
 
     this.cargandoDed = true;
-    this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+    this.bancosPrd.getListaDeduccionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.crearTablaDeduccion(datos);
     });
     
@@ -318,7 +319,7 @@ export class DetallepoliticasComponent implements OnInit {
     this.bancosPrd.savePercepcionPolitica(obj).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-      this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
         this.crearTablaPercepcion(datos);
       });
 
@@ -330,10 +331,10 @@ export class DetallepoliticasComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-    this.bancosPrd.saveDeduccionEmpleado(obj).subscribe(datos => {
+    this.bancosPrd.saveDeduccionPolitica(obj).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-      this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.bancosPrd.getListaDeduccionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
         this.crearTablaDeduccion(datos);
       });
     });
@@ -434,10 +435,23 @@ export class DetallepoliticasComponent implements OnInit {
       this.ventana.showVentana(this.ventana.deducciones, { datos: datosDed }).then(valor => {
         if (valor.datos) {
 
-          //this.modificarDeduccion(valor.datos);
+          this.modificarDeduccion(valor.datos);
         }
       });
     }
+  }
+
+  public modificarDeduccion(obj: any) {
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    this.bancosPrd.modificarDeduccionPolitica(obj).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+      this.bancosPrd.getListaDeduccionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        this.crearTablaDeduccion(datos);
+      });
+    });
   }
 
   public recibirTablaPer(obj: any) {
@@ -447,13 +461,25 @@ export class DetallepoliticasComponent implements OnInit {
       this.ventana.showVentana(this.ventana.percepciones, { datos: datosPer }).then(valor => {
         if (valor.datos) {
 
-         // this.modificarPercepcion(valor.datos);
+          this.modificarPercepcion(valor.datos);
         }
       });
 
     }
   }
 
+  public modificarPercepcion(obj: any) {
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    this.bancosPrd.modificarPercepcionPolitica(obj).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+      this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        this.crearTablaPercepcion(datos);
+      });
+    });
+  }
   get f() { return this.myFormpol.controls; }
 
 

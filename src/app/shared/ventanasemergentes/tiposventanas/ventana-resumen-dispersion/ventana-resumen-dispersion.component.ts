@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 
 @Component({
@@ -11,9 +12,16 @@ export class VentanaResumenDispersionComponent implements OnInit {
   @Output() salida = new EventEmitter<any>();
   @Input() datos:any;
   public cargandoIcon:boolean = false;
-  constructor(private reportesPrd:ReportesService) { }
+  public recibidos:any;
+  constructor(private reportesPrd:ReportesService,private nominasOrdinariasPrd:NominaordinariaService) { }
 
   ngOnInit(): void {
+    console.log(this.datos,"ESTOS SON LOS DATOS");
+    this.nominasOrdinariasPrd.resumenDispersar(this.datos).subscribe(datos =>{
+        if(datos.datos !== undefined){
+          this.recibidos = datos.datos[0];
+        }
+    });
   }
 
 

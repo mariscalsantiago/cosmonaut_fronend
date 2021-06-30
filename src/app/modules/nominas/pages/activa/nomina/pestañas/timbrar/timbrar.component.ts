@@ -1,7 +1,7 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { interval } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { concatMap, take } from 'rxjs/operators';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
@@ -12,6 +12,7 @@ import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nomin
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-timbrar',
@@ -20,7 +21,7 @@ import { ReportesService } from 'src/app/shared/services/reportes/reportes.servi
 })
 export class TimbrarComponent implements OnInit {
   @Output() salida = new EventEmitter();
-  @Input() esDescargar:boolean = false;
+  @Input() esDescargar: boolean = false;
   public cargando: boolean = false;
   public cargandoIcon: boolean = false;
   public arreglo: any = [];
@@ -44,9 +45,10 @@ export class TimbrarComponent implements OnInit {
   @Input() nominaSeleccionada: any;
 
   constructor(private empleadoPrd: EmpleadosService, private ventana: VentanaemergenteService,
-    private modalPrd: ModalService, private nominaOrdinariaPrd:NominaordinariaService,
-    private nominaAguinaldoPrd:NominaaguinaldoService,private nominaLiquidacionPrd:NominafiniquitoliquidacionService, private cp: CurrencyPipe,
-    private nominaPtuPrd:NominaptuService,private configuracionesPrd:ConfiguracionesService,private reportesPrd:ReportesService) { }
+    private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
+    private nominaAguinaldoPrd: NominaaguinaldoService, private nominaLiquidacionPrd: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
+    private nominaPtuPrd: NominaptuService, private configuracionesPrd: ConfiguracionesService, private reportesPrd: ReportesService,
+    private usuarioSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
@@ -63,26 +65,26 @@ export class TimbrarComponent implements OnInit {
       this.initOrdinaria(objEnviar);
       this.llave = "reciboATimbrar";
       this.llave2 = "nominaOrdinaria";
-      
+
     } else if (this.nominaSeleccionada.nominaExtraordinaria) {
       objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId;
       this.initExtraordinaria(objEnviar);
       this.llave = "reciboATimbrarAguinaldo";
       this.llave2 = "nominaExtraordinaria";
 
-      
-    }else if(this.nominaSeleccionada.nominaLiquidacion){
+
+    } else if (this.nominaSeleccionada.nominaLiquidacion) {
       objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId;
       this.initLiquidacion(objEnviar);
       this.llave = "reciboATimbrarLiquidacion";
       this.llave2 = "nominaLiquidacion";
-      
-    }else if(this.nominaSeleccionada.nominaPtu){
+
+    } else if (this.nominaSeleccionada.nominaPtu) {
       objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaPtu?.nominaXperiodoId;
       this.initPtu(objEnviar);
       this.llave = "reciboATimbrarPtu";
       this.llave2 = "nominaPtu";
-      
+
     }
   }
 
@@ -108,7 +110,7 @@ export class TimbrarComponent implements OnInit {
 
   }
 
-  public initLiquidacion(objEnviar:any){
+  public initLiquidacion(objEnviar: any) {
     this.nominaLiquidacionPrd.getUsuariosTimbrado(objEnviar).subscribe(datos => {
 
       this.rellenarTablas(datos);
@@ -116,7 +118,7 @@ export class TimbrarComponent implements OnInit {
     });
   }
 
-  public initPtu(objEnviar:any){
+  public initPtu(objEnviar: any) {
     this.nominaPtuPrd.getUsuariosTimbrado(objEnviar).subscribe(datos => {
 
       this.rellenarTablas(datos);
@@ -126,10 +128,10 @@ export class TimbrarComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-   
+
     let item = obj.datos;
     switch (obj.type) {
-      
+
       case "desglosar":
         let objEnviar = {
           nominaXperiodoId: this.nominaSeleccionada[this.llave2]?.nominaXperiodoId,
@@ -137,43 +139,43 @@ export class TimbrarComponent implements OnInit {
           personaId: item[this.llave].personaId,
           clienteId: item[this.llave].centrocClienteId
         }
-         
+
         if (this.nominaSeleccionada.nominaOrdinaria) {
 
           this.nominaOrdinariaPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminar = datos.datos[0].xmlPreliminar;
-            
+
             this.datosExtras.datos = xmlPreliminar;
             item.cargandoDetalle = false;
           });
-         
+
         } else if (this.nominaSeleccionada.nominaExtraordinaria) {
-        
+
           this.nominaAguinaldoPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminarAguinaldo = datos.datos[0].xmlPreliminarAguinaldo;
-            
+
             this.datosExtras.datos = xmlPreliminarAguinaldo;
             item.cargandoDetalle = false;
           });
 
 
-        }else if (this.nominaSeleccionada.nominaLiquidacion) {
-        
+        } else if (this.nominaSeleccionada.nominaLiquidacion) {
+
           this.nominaLiquidacionPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminarLiquidacion = datos.datos[0].xmlPreliminarLiquidacion;
-            
+
             this.datosExtras.datos = xmlPreliminarLiquidacion;
             item.cargandoDetalle = false;
           });
 
 
-        }else if (this.nominaSeleccionada.nominaPtu) {
-        
-          
+        } else if (this.nominaSeleccionada.nominaPtu) {
+
+
           this.nominaPtuPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
-            
+
             let xmlPreliminarPtu = datos.datos[0].xmlPreliminarPtu;
-            
+
             this.datosExtras.datos = xmlPreliminarPtu;
             item.cargandoDetalle = false;
           });
@@ -182,23 +184,24 @@ export class TimbrarComponent implements OnInit {
         }
 
 
-       
+
 
         break;
 
-        case "descargar":
-         let enviarObj =  {
+      case "descargar":
+        let enviarObj = {
           nominaPeriodoId: this.nominaSeleccionada[this.llave2]?.nominaXperiodoId,
           idEmpleado: item[this.llave].numeroEmpleado,
-          esVistaPrevia:true
-            }
+          esVistaPrevia: true
+        }
 
-            this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor =>{
-              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-                  console.log(valor);
-            });
-          break;
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          console.log(valor);
+          this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numeroEmpleado,"xlsx")
+        });
+        break;
     }
   }
 
@@ -207,7 +210,7 @@ export class TimbrarComponent implements OnInit {
   }
 
 
- 
+
 
   public regresar() {
 
@@ -247,45 +250,64 @@ export class TimbrarComponent implements OnInit {
   }
 
 
-  
+
 
   public timbrar() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas timbrar la nómina?").then(valor => {
       if (valor) {
 
 
-     
-        let obj = [{}]
+
+        let idCentroCliente = 0;
+
+        let obj = []
+        for (let item of this.arreglo) {
+          if (item.seleccionado) {
+            obj.push({
+              nominaPeriodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
+              personaId: item[this.llave].personaId,
+              fechaContrato: item[this.llave].fechaContrato,
+              centroClienteId: item[this.llave].centroClienteId,
+              usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
+              servicio: "facturacion_sw"
+            });
+          }
+
+          idCentroCliente = item[this.llave].centroClienteId;
+        }
 
 
-        this.nominaOrdinariaPrd.timbrar(obj).subscribe(()=>{
-          this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Timbrando","Espere un momento, el proceso se tardara varios minutos.");
-          let intervalo = interval(1000);
-          intervalo.pipe(take(11));
-          intervalo.subscribe((valor)=>{
-            this.configuracionesPrd.setCantidad(valor*10);
-            if(valor == 10){
-              this.configuracionesPrd.setCantidad(0);
-               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-               this.ventana.showVentana(this.ventana.ntimbrado).then(() => {
-                this.salida.emit({ type: "timbrar" });
-              });;
+        this.nominaOrdinariaPrd.timbrar(obj,idCentroCliente).subscribe((valor) => {
+          if(valor.resultado){
+            if (valor.datos.exito) {
+              this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Timbrando", "Espere un momento, el proceso se tardara varios minutos.");
+              let suscripcion = timer(0, 1500).pipe(concatMap(() =>
+                this.nominaOrdinariaPrd
+                  .statusProcesoTimbrar(this.nominaSeleccionada[this.llave2].nominaXperiodoId, this.arreglo.length)))
+                .subscribe(datos => {
+                  this.configuracionesPrd.setCantidad(datos.datos);
+                  if (datos.datos == 100) {
+                    suscripcion.unsubscribe();
+                    this.configuracionesPrd.setCantidad(0);
+                    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                    this.ventana.showVentana(this.ventana.ntimbrado, { datos: this.nominaSeleccionada[this.llave2].nominaXperiodoId }).then(() => {
+                      this.salida.emit({ type: "timbrar" });
+                    });
+                  }
+                });
             }
-          });
+          }else{
+            this.modalPrd.showMessageDialog(valor.resultado,valor.mensaje);
+          }
         });
-
-        
-      
-
-      
       }
     });
   }
 
 
-  public filtrar(){
+  public filtrar() {
 
-  
+
     let objenviar = {
       nominaXperiodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
       numeroempleado: this.numeroempleado,
@@ -297,7 +319,7 @@ export class TimbrarComponent implements OnInit {
 
 
     this.cargando = true;
-    
+
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
 
@@ -334,7 +356,7 @@ export class TimbrarComponent implements OnInit {
       });
 
     }
-    
+
   }
 
 }

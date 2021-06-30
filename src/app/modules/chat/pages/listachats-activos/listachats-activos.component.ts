@@ -101,7 +101,7 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
     switch (obj.type) {
       case "responder":
         this.socket.getChatDatos().datos.nombre = obj.datos.nombreempleado;
-        this.socket.getChatDatos().datos.socket = obj.datos.conversacion;
+        this.socket.getChatDatos().datos.socket = obj.datos.conversacion.substring(0,obj.datos.conversacion.lastIndexOf("/"))+"/"+this.usuariossistemaPrd.getUsuario().usuarioId;
         this.socket.getChatDatos().ocultar = false;
 
         this.configuracionesPrd.ocultarChat = false;

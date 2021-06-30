@@ -216,7 +216,7 @@ export class ContenidoComponent implements OnInit {
       if (valor) {
 
         this.chatPrd.disconnect();
-        this.suscripcion.unsubscribe();
+        if(this.suscripcion)this.suscripcion.unsubscribe();
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.sistemaUsuarioPrd.logout().subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

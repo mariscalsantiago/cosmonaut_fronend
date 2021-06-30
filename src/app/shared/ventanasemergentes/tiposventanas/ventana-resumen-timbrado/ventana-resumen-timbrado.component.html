@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-12">
-        <h6>97 de 100 pagos han sido exitosos</h6>
+        <h6>{{recibidos.totalRecibosTimbrados}} de {{recibidos.totalTimbrados}}  pagos han sido exitosos</h6>
 
     </div>
     <div class="col-12">
-        <a class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true"
+        <a (click)="descargarErrores()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true"
             class="fas fa-download"></i> Descargar errores de pago</small>
     <div *ngIf="cargandoIcon" class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>

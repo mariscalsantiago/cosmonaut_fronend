@@ -116,6 +116,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
 
   public enviarPeticion() {
+    debugger;
 
     this.submitEnviado = true;
 
@@ -156,7 +157,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
           }
         }
 
-       /* if (this.insertar) {
+        if (this.insertar) {
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
@@ -183,7 +184,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
               }
             });
           });
-        }*/
+        }
 
       }
     });

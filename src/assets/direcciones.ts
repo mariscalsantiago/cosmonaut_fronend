@@ -51,8 +51,9 @@ export const direcciones = {
     calculo:`${ipCalculos}/calculo`,
     imss: `${ip}/imss`,
     bitacoramovimientos: `${ipAdmin}/bitacora-movimientos`,
-    dispersion:`${ipCalculos}/dispersion-timbrado`,
+    dispersion:`${ipCalculos}/dispersion`,
     tipomensaje:`${ip3}/tipo-mensaje`,
     administrarMensajeChat:`${ipAdmin}/administrar-mensaje-chat`,
-    nominasHistoricas: `${ipCalculos}/nominas-historicas`
+    nominasHistoricas: `${ipCalculos}/nominas-historicas`,
+    timbrado:`${ipCalculos}/timbrado`
 };
