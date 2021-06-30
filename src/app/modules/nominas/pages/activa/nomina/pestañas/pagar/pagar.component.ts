@@ -32,6 +32,7 @@ export class PagarComponent implements OnInit {
   public nominaLiquidacion: boolean = false;
   public nominaPtu: boolean = false;
   public llave: string = "";
+  public llave2:string = "";
 
 
   public rfc: string = "";
@@ -68,6 +69,7 @@ export class PagarComponent implements OnInit {
 
       this.idnominaPeriodo = this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId;
       this.cargando = true;
+      this.llave2 = "empleadoApago";
       this.nominaOrdinariaPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
         this.crearTabla(datos, "empleadoApago");
       });
@@ -80,6 +82,7 @@ export class PagarComponent implements OnInit {
       }
       this.idnominaPeriodo = this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId;
       this.cargando = true;
+      this.llave2 = "empleadoApagoAguinaldo";
       this.nominaAguinaldoPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
         this.crearTabla(datos, "empleadoApagoAguinaldo");
       });
@@ -92,6 +95,7 @@ export class PagarComponent implements OnInit {
       }
       this.idnominaPeriodo = this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId;
       this.cargando = true;
+      this.llave2 = "empleadoApagoLiquidacion";
       this.nominaLiquidacionPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
         this.crearTabla(datos, "empleadoApagoLiquidacion");
       });
@@ -104,6 +108,7 @@ export class PagarComponent implements OnInit {
       }
       this.idnominaPeriodo = this.nominaSeleccionada.nominaPtu?.nominaXperiodoId;
       this.cargando = true;
+      this.llave2 = "empleadoApagoPtu";
       this.nominaPtuPrd.getUsuariosDispersion(this.objEnviar).subscribe(datos => {
         this.crearTabla(datos, "empleadoApagoPtu");
       });
@@ -153,6 +158,8 @@ export class PagarComponent implements OnInit {
   public recibirTabla(obj: any) {
 
 
+    
+
   }
 
   public regresar() {
@@ -164,15 +171,17 @@ export class PagarComponent implements OnInit {
       if (valor) {
 
 
+        console.log(this.arreglo);
+
 
         let obj = []
         for (let item of this.arreglo) {
           if (item.seleccionado) {
             obj.push({
               nominaPeriodoId: this.idnominaPeriodo,
-              personaId: item.personaId,
-              fechaContrato: item.fechaContrato,
-              centroClienteId: item.centroClienteId,
+              personaId: item[this.llave2].personaId,
+              fechaContrato: item[this.llave2].fechaContrato,
+              centroClienteId: item[this.llave2].centroClienteId,
               usuarioId: this.usuariosSistemaPrd.getUsuario().usuarioId,
               servicio: "dispersion_st"
             });
@@ -182,17 +191,21 @@ export class PagarComponent implements OnInit {
         this.nominaOrdinariaPrd.dispersar(obj).subscribe((valor) => {
           if (valor.datos.exito) {
             this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento, el proceso se tardara varios minutos.");
-            timer(0, 1500).pipe(concatMap(() =>
+         let suscribe =    timer(0, 1500).pipe(concatMap(() =>
               this.nominaOrdinariaPrd
-                .statusProcesoDispersar(this.idnominaPeriodo, this.arreglo.length)))
+                .statusProcesoDispersar(this.idnominaPeriodo, obj.length)))
               .subscribe(datos => {
                 this.configuracionesPrd.setCantidad(datos.datos);
-                if (datos.datos == 100) {
-                  this.configuracionesPrd.setCantidad(0);
-                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-                  this.ventana.showVentana(this.ventana.ndispersion, { datos: this.idnominaPeriodo }).then(valor => {
-                    this.salida.emit({ type: "dispersar" });
-                  });
+                if (datos.datos >=30) {
+                  suscribe.unsubscribe();
+                  setTimeout(() => {
+                    
+                    this.configuracionesPrd.setCantidad(0);
+                    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                    this.ventana.showVentana(this.ventana.ndispersion, { datos: this.idnominaPeriodo }).then(valor => {
+                      this.salida.emit({ type: "dispersar" });
+                    });
+                  }, 2000);
                 }
               });
           }

@@ -138,7 +138,7 @@
                         {{empleado.contactoInicialEmailPersonal}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="contactoInicialEmailPersonal" type="text" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
+                        <input formatos [correo]="true" [control]="f.contactoInicialEmailPersonal" formControlName="contactoInicialEmailPersonal" type="text" [ngClass]="{'is-invalid':(f.contactoInicialEmailPersonal.errors?.required && submitEnviado) || (f.contactoInicialEmailPersonal.errors?.email && f.contactoInicialEmailPersonal.touched)}"
                             class="form-control">
                         <div *ngIf="f.contactoInicialEmailPersonal.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
