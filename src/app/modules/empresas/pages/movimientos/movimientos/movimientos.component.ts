@@ -81,6 +81,7 @@ export class MovimientosComponent implements OnInit {
 
 
   public filtrar() {
+<<<<<<< HEAD
     this.cargando = true;
       if(this.nombre != ''){
         this.objFiltro = {
@@ -103,6 +104,11 @@ export class MovimientosComponent implements OnInit {
          // this.fechaMovimiento = String(datepipe.transform(this.fechaMovimiento , 'dd-MMM-y')?.replace(".",""))
           
         }
+=======
+    debugger;
+ 
+      let peticion = {
+>>>>>>> origin/RJR
         
         this.objFiltro = {
           ...this.objFiltro,

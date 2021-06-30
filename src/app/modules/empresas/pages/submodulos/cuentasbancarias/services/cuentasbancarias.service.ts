@@ -25,8 +25,16 @@ export class CuentasbancariasService {
     return this.http.get(`${direcciones.conceptos}/obtienePercepcionEmpleado/${id_persona}/${id_empresa}`);
 }
 
+public getListaPercepcionesPolitica(id_politica:number,id_empresa:number):Observable<any>{
+  return this.http.get(`${direcciones.conceptos}/obtienePercepcionPolitica/${id_politica}/${id_empresa}`);
+}
+
 public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observable<any>{
   return this.http.get(`${direcciones.conceptos}/obtieneDeduccionEmpleado/${id_persona}/${id_empresa}`);
+}
+
+public getListaDeduccionesPolitica(id_politica:number,id_empresa:number):Observable<any>{
+  return this.http.get(`${direcciones.conceptos}/obtieneDeduccionPolitica/${id_politica}/${id_empresa}`);
 }
 
   public getobtieneBanco():Observable<any>{
@@ -72,7 +80,7 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     let json: string = JSON.stringify(obj);
     
     
-    return this.http.put(`${direcciones.conceptos}/guardaDeduccionPolitica`,json,httpOptions);
+    return this.http.put(`${direcciones.conceptos}/guardaPercepcionPolitica`,json,httpOptions);
   }
 
   public modificarPercepcionEmpleado(obj:any):Observable<any>{
@@ -88,6 +96,19 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     return this.http.post(`${direcciones.conceptos}/modificaPercepcionEmpleado`,json,httpOptions);
   }
 
+  public modificarPercepcionPolitica(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    
+    
+    return this.http.post(`${direcciones.conceptos}/modificarPercepcionPolitica`,json,httpOptions);
+  }
+
   public saveDeduccionEmpleado(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
@@ -101,6 +122,19 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     return this.http.put(`${direcciones.conceptos}/guardaDeduccionEmpleado`,json,httpOptions);
   }
 
+  public saveDeduccionPolitica(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    
+    
+    return this.http.put(`${direcciones.conceptos}/guardaDeduccionPolitica`,json,httpOptions);
+  }
+
   public modificarDeduccionEmpleado(obj:any):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
@@ -112,6 +146,19 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
     
     
     return this.http.post(`${direcciones.conceptos}/modificaDeduccionEmpleado`,json,httpOptions);
+  }
+
+  public modificarDeduccionPolitica(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    
+    
+    return this.http.post(`${direcciones.conceptos}/modificarDeduccionPolitica`,json,httpOptions);
   }
 
   public  modificar(obj:any):Observable<any>{
@@ -166,5 +213,9 @@ public getListaDeduccionesEmpleado(id_persona:number,id_empresa:number):Observab
 
   public getObtenerDeduccion(id_empresa:number):Observable<any>{
     return  this.http.get(`${direcciones.conceptos}/obtener/deduccion/${id_empresa}`);
+  }
+
+  public getObtenerDeduccionPolitica(id_empresa:number):Observable<any>{
+    return  this.http.get(`${direcciones.conceptos}/obtener/deduccion/politica/${id_empresa}`);
   }
 }
