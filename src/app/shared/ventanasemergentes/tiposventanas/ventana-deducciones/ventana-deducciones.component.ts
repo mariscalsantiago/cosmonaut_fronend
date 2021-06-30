@@ -41,6 +41,8 @@ export class VentanaDeduccionesComponent implements OnInit {
   public empleado: number = 0;
   public arregloDescuentoInfonavit: any = [];
   public objEnviar : any = [];
+  public politica: number = 0;
+  public deducPolitica: boolean = false;
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -50,20 +52,25 @@ export class VentanaDeduccionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
-    
+    debugger;
     if(this.datos.idEmpleado != undefined){
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;
+      this.politica = this.datos.idPolitica;
     }else{
       this.empresa = this.datos.centrocClienteId?.centrocClienteId;
       this.empleado = this.datos.personaId?.personaId;
+      this.politica = this.datos.politicaId?.politicaId;
     }
     
     this.catalogosPrd.getTipoDescuentoInfonavit(true).subscribe(datos => this.arregloDescuentoInfonavit = datos.datos);
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
-    this.bancosPrd.getObtenerDeduccion(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
-
+    if(this.politica !== undefined){
+    this.bancosPrd.getObtenerDeduccionPolitica(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
+    }else{
     
+    this.bancosPrd.getObtenerDeduccion(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
+    }
     if(this.datos.idEmpleado != undefined){
       this.datos = {};
       this.esInsert = true;
@@ -116,7 +123,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    
+    debugger;
     if(concepto=='010'){
       this.infonavit = true;
       this.fijo = true;
@@ -152,6 +159,7 @@ if(this.myForm.get(['']))
       this.normalDeduccion = true;
       this.numFolio = true;
       this.infonavit = false;
+      this.deducPolitica = false;
       this.prestamo = false;
       this.credito = true;
       this.referencia = false;
@@ -169,12 +177,32 @@ if(this.myForm.get(['']))
 
     }    
     else if(concepto=='004'){
+      if(this.politica !== undefined){
+      this.infonavit = false;
+      this.deducPolitica = true;
+      this.pensionAlimenticia = false;
+      this.submenu = false;
+      this.numFolio = false;
+      this.normalDeduccion = true;
+      this.valor = true;
+      this.infonacot = false;
+      this.prestamo = false;
+      this.montopago = false;
+      this.porcentual = true;
+      this.fijo = false;
+      this.valorDescuento = false;
+    
+      this.myForm.controls.valor.enable();
+      this.myForm.controls.baseCalculoId.enable();
+
+      }else{
       this.submenu = true;
       this.prestamo = true;
       this.normalDeduccion = false;
       this.numFolio = true;
       this.montopago = true;
       this.infonavit = false;
+      this.deducPolitica = false;
       this.pensionAlimenticia = false;
       this.fijo = false;
       this.porcentual = false;
@@ -188,6 +216,7 @@ if(this.myForm.get(['']))
       this.myForm.controls.baseCalculoId.disable();
       this.myForm.controls.baseCalculoId.setValue(2);
       this.myForm.controls.valor.disable();
+      }
 
       if(this.esInsert){
       this.myForm.controls.montoTotal.setValue(""); 
@@ -203,6 +232,7 @@ if(this.myForm.get(['']))
       this.normalDeduccion = true;
       this.numFolio = false;
       this.infonavit = false;
+      this.deducPolitica = false;
       this.pensionAlimenticia = false;
       this.prestamo = false;
       this.valor = false;
@@ -220,7 +250,9 @@ if(this.myForm.get(['']))
       
     }
     else{
+      if(this.politica !== undefined){
       this.infonavit = false;
+      this.deducPolitica = true;
       this.pensionAlimenticia = false;
       this.submenu = false;
       this.numFolio = false;
@@ -235,6 +267,24 @@ if(this.myForm.get(['']))
     
       this.myForm.controls.valor.enable();
       this.myForm.controls.baseCalculoId.enable();
+      }else{
+
+        this.infonavit = false;
+        this.pensionAlimenticia = false;
+        this.submenu = false;
+        this.numFolio = false;
+        this.normalDeduccion = true;
+        this.valor = true;
+        this.infonacot = false;
+        this.prestamo = false;
+        this.montopago = false;
+        this.porcentual = true;
+        this.fijo = false;
+        this.valorDescuento = false;
+      
+        this.myForm.controls.valor.enable();
+        this.myForm.controls.baseCalculoId.enable();  
+      }
 
       if(this.esInsert){
       this.myForm.controls.baseCalculoId.setValue("");
@@ -373,6 +423,43 @@ if(this.myForm.get(['']))
           }
 
           if(this.esInsert){
+          if(this.politica !== undefined){
+          this.objEnviar = {
+            tipoDeduccionId: {
+              tipoDeduccionId: obj.nomDeduccion
+            },
+            conceptoDeduccionId: {
+              conceptoDeduccionId: this.conceptodeduccion
+            },
+            politicaId: {
+              politicaId: this.politica
+            },
+               
+            centrocClienteId: {
+              centrocClienteId: this.empresa
+              },
+              
+            baseCalculoId: {
+              baseCalculoId: obj.baseCalculoId
+            },
+            valor: obj.valor,
+            fechaInicioDescto: fechaIniDesc,
+            numeroFolio: obj.numeroFolio,
+            montoTotal: obj.montoTotal,
+            numeroCuotas: obj.numeroCuotas,
+            interesPorcentaje: obj.interesPorcentaje,
+            fechaFinDescuento: fechaFinDesc,
+            folioAvisoRetencion: obj.folioAvisoRetencion,
+            fechaRecepcionAvisoRetencion: fechaRecepAviRetencion,
+            folioAvisoSuspension: obj.folioAvisoSuspension,
+            fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
+            esActivo: obj.esActivo,
+            tipoDescuentoInfonavitId: {
+             tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
+            }
+          };
+        }else{
+
           this.objEnviar = {
             tipoDeduccionId: {
               tipoDeduccionId: obj.nomDeduccion
@@ -408,6 +495,7 @@ if(this.myForm.get(['']))
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
           };
+        }
         }else{
           if(obj.baseCalculoId == null){
             obj.baseCalculoId = obj.tipoDescuentoInfonavitId;
@@ -415,6 +503,43 @@ if(this.myForm.get(['']))
           if(obj.tipoDescuentoInfonavitId == null){
             obj.tipoDescuentoInfonavitId = obj.baseCalculoId;
           }
+          if(this.politica !== undefined){
+          this.objEnviar = {
+            configuraDeduccionId: this.datos.configuraDeduccionId,
+            tipoDeduccionId: {
+              tipoDeduccionId: obj.nomDeduccion
+            },
+            conceptoDeduccionId: {
+              conceptoDeduccionId: this.conceptodeduccion
+            },
+            politicaId: {
+              politicaId: this.politica
+            },
+                 
+            centrocClienteId: {
+              centrocClienteId: this.empresa
+              },
+              
+            baseCalculoId: {
+              baseCalculoId: obj.baseCalculoId
+            },
+            valor: obj.valor,
+            fechaInicioDescto: fechaIniDesc,
+            numeroFolio: obj.numeroFolio,
+            montoTotal: obj.montoTotal,
+            numeroCuotas: obj.numeroCuotas,
+            interesPorcentaje: obj.interesPorcentaje,
+            fechaFinDescuento: fechaFinDesc,
+            folioAvisoRetencion: obj.folioAvisoRetencion,
+            fechaRecepcionAvisoRetencion: fechaRecepAviRetencion,
+            folioAvisoSuspension: obj.folioAvisoSuspension,
+            fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
+            esActivo: obj.esActivo,
+            tipoDescuentoInfonavitId: {
+             tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
+            }
+          };
+        }else{
           
           this.objEnviar = {
             configuraDeduccionId: this.datos.configuraDeduccionId,
@@ -452,6 +577,8 @@ if(this.myForm.get(['']))
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
           };
+
+        }
           
 
         }

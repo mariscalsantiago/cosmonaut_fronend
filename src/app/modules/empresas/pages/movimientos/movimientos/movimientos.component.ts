@@ -62,7 +62,7 @@ export class MovimientosComponent implements OnInit {
 
 
   public filtrar() {
-
+    debugger;
  
       let peticion = {
         

@@ -48,6 +48,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     }else{
       this.empresa = this.datos.centrocClienteId?.centrocClienteId;
       this.empleado = this.datos.personaId?.personaId;
+      this.politica = this.datos.politicaId?.politicaId;
     }
 
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
@@ -108,7 +109,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo:any){
-    
+    debugger;
     if(tipo != ""){
       if(tipo == 1){
         let nombrePer = "P";
@@ -118,7 +119,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.myForm.controls.baseCalculoId.setValue(2);
         debugger;
         if(this.politica !== undefined){
-        this.bancosPrd.getObtenerPoliticaPeriodicidad(527, nombrePer).subscribe(datos =>{
+        this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
           this.nombrePercepcion = datos.datos;
         });
         }else{
@@ -139,7 +140,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.periodica = false;
         this.estandar= true;
         if(this.politica !== undefined){
-        this.bancosPrd.getObtenerPoliticaPeriodicidad(527, nombrePer).subscribe(datos =>{
+        this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
           this.nombrePercepcion = datos.datos;
         });
         }else{
