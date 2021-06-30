@@ -23,7 +23,7 @@ export class FormatosDirective implements OnInit {
 
   @HostListener("input", ["$event"])
   onInput(event: KeyboardEvent) {
-
+    
 
     if (this.moneda) {
       this.el.nativeElement.value = this.el.nativeElement.value.replace("$", "").replace(",", "");
@@ -67,7 +67,7 @@ export class FormatosDirective implements OnInit {
       }
     } else if (this.letras || this.especial) {
 
-      let expresionRegular = /^[a-zA-Z ]+$/i;
+      let expresionRegular = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/i;
       const regex = new RegExp(expresionRegular);
       if (!regex.test(event.key)) {
         event.preventDefault();
