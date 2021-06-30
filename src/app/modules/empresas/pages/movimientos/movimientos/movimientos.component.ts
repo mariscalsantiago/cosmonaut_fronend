@@ -98,10 +98,12 @@ export class MovimientosComponent implements OnInit {
               apellidoMaterno: this.apellidoMaterno
             };
         }
+        console.log('arr', this.arreglo)
         if(this.fechaMovimiento !== undefined){
-          let datepipe = new DatePipe("es-MX");
-         // this.fechaMovimiento = String(datepipe.transform(this.fechaMovimiento , 'dd-MMM-y')?.replace(".",""))
-          
+      
+          const fecha1 = new Date(this.fechaMovimiento).toUTCString().replace("GMT", "");
+          this.fechaMovimiento = `${new Date(fecha1).getTime()}`;
+  
         }
         
         this.objFiltro = {

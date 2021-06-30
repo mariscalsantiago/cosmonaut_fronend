@@ -47,13 +47,11 @@
         <div *ngIf="prestamo" class="  input-group-sm mb-3 col-4">
             <label>Monto *</label>
             <input #monto (focusout)="validarMontoTotal(monto.value)" formatos [moneda]="true" [control]="f.montoTotal" formControlName="montoTotal" type="text" class="form-control">
-
         </div>
 
         <div *ngIf="prestamo" class="  input-group-sm mb-3 col-4">
             <label>Número de cuotas *</label>
             <input #numero (focusout)="validarNumeroCuotas(numero.value)" formControlName="numeroCuotas" type="text" class="form-control">
-
         </div>
         <div *ngIf="valor" class="  input-group-sm mb-3 col-4">
             <label *ngIf="porcentual">Porcentaje *</label>
@@ -61,17 +59,12 @@
             <label *ngIf="montopago">Monto de cada pago *</label>
             <input *ngIf="porcentual" formatos [moneda]="false" [control]="f.valor" formControlName="valor" type="text" class="form-control">
             <input *ngIf="fijo || montopago" formatos [moneda]="true" [control]="f.valor" formControlName="valor" type="text" class="form-control">
-
-
-
         </div>
 
         <div *ngIf="valorDescuento" class="  input-group-sm mb-3 col-4">
             <label>Valor de descuento *</label>
             <input formControlName="interesPorcentaje" type="text" class="form-control">
-
         </div>
-
 
         <div class="input-group-sm mb-3 col-4">
             <label>Estatus *</label>
@@ -168,12 +161,9 @@
             <input formControlName="fechaRecepcionAvisoSuspension" type="date" class="form-control">
 
         </div>
-
     </div>
     <div class="text-right margin" style="margin-bottom: 20px;">
-
         <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-
         <button type="submit" class="btn btn-primary button-fill">Guardar</button>
     </div>
 
