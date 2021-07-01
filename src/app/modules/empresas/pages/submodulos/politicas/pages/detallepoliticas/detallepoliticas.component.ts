@@ -145,6 +145,7 @@ export class DetallepoliticasComponent implements OnInit {
 
 
   public changeValue(id: number, property: string, event: any) {
+    console.log(id, property, event)
     
     this.editField = event.target.textContent;
   }

@@ -36,26 +36,26 @@
                         <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="form group row margen">
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="number" [(ngModel)]="numeroEmpleado" class="form-control" placeholder="Número de empleado">
+                                    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <input type="text" [(ngModel)]="numeroEmpleado" class="form-control" placeholder="Número de empleado">
                                     </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input appAlfanumerico type="text" [(ngModel)]="nombreEmpleado" class="form-control" placeholder="Nombre">
+                                    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <input type="text" [(ngModel)]="nombreEmpleado" formatos [especial]="true" [control]="nombreEmpleado" class="form-control" placeholder="Nombre">
                                     </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input appAlfanumerico type="text" [(ngModel)]="primerApellidoEmpleado" class="form-control" placeholder="Primer apellido">
+                                    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <input type="text" [(ngModel)]="primerApellidoEmpleado" formatos [especial]="true" [control]="primerApellidoEmpleado" class="form-control" placeholder="Primer apellido">
                                     </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
-                                        <input appAlfanumerico type="text" [(ngModel)]="segundoApellidoEmpleado" class="form-control" placeholder="Segundo apellido">
+                                    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
+                                        <input type="text" [(ngModel)]="segundoApellidoEmpleado" formatos [especial]="true" [control]="segundoApellidoEmpleado" class="form-control" placeholder="Segundo apellido">
                                     </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <select name="" class="form-control" [(ngModel)]="grupoNomina">
                       <option value="0" selected>Grupo de nómina</option>
                       <option *ngFor="let item of arregloGrupoNomina" [value]="item.idGrupoNomina">{{item.nombreGrupoNomina}}
                       </option>
                     </select>
                                     </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <select name="" class="form-control" [(ngModel)]="idEmpresaActual">
                       <option value="0" selected>Empresa</option>
                       <option *ngFor="let item of arregloEmpresa" [value]="item.idEmpresa">{{item.nombreEmpresa}}
@@ -63,8 +63,8 @@
                     </select>
                                     </div>
 
-                                    <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                                        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                    <div class="input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                                        <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                                     </div>
                                 </div>
                             </div>

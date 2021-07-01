@@ -1,110 +1,78 @@
-
-
-.button-outlet{
+.button-outlet {
     background-color: transparent!important;
 }
 
-
-
-
-table{
+table {
     border-radius: 10px;
 }
 
-.margen-tabla table{
-    margin:15px;
+.margen-tabla table {
+    margin: 15px;
 }
 
-
-td{
-    color:rgb(49, 49, 49);
-
-    button{
+td {
+    color: rgb(49, 49, 49);
+    button {
         border: 0px solid black;
         margin-left: 2px;
     }
 }
 
-
-.acomodando{
-
+.acomodando {
     width: 100%;
     height: 100%;
-
-
     text-align: center;
-
-    
-
 }
 
-
-
-
-.botonmultiseleccion{
+.botonmultiseleccion {
     margin: auto;
     height: 59px;
 }
 
-.agrandarloading{
+.agrandarloading {
     width: 7em;
 }
 
-
-.scrooll{
+.scrooll {
     overflow: auto;
 }
 
-.btnPersonalizado{
+.btnPersonalizado {
     background-color: transparent;
-    i{
+    i {
         background-color: #00c1af !important;
     }
 }
 
-
-.contenedorDiv{
-   
-    .consulta{
+.contenedorDiv {
+    .consulta {
         width: 100%;
         height: auto;
         left: 0;
-        
     }
-    
 }
 
-
-.ventanaemergente{
+.ventanaemergente {
     z-index: 1;
     display: block;
     overflow: auto;
     padding: 4%;
     width: 50%;
     border-radius: 5px;
-    border:1px solid rgb(102, 102, 102);
+    border: 1px solid rgb(102, 102, 102);
     height: auto;
     background-color: white !important;
-    -webkit-box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42); 
-box-shadow: 5px 2px 5px 1px rgba(0,0,0,0.42);
-left:5%;
-
-position: absolute;
-
-.btnclosemodal{
-    top: 0   !important;
-    position: absolute  !important;
-    right: 11px   !important;
-    
-
-    span{
-        color: #56dfd4;
-        font-size: x-large;
+    -webkit-box-shadow: 5px 2px 5px 1px rgba(0, 0, 0, 0.42);
+    box-shadow: 5px 2px 5px 1px rgba(0, 0, 0, 0.42);
+    left: 5%;
+    position: absolute;
+    .btnclosemodal {
+        top: 0 !important;
+        position: absolute !important;
+        right: 11px !important;
+        span {
+            color: #56dfd4;
+            font-size: x-large;
+        }
     }
 }
-
-
-}
-
-
-
