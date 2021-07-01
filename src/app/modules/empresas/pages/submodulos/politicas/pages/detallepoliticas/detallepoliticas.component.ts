@@ -149,15 +149,11 @@ export class DetallepoliticasComponent implements OnInit {
 
 
   public changeValue(id: number, property: string, event: any) {
-    const value = (event.target as HTMLInputElement).value;
-    if (event.target && value < this.arregloTablaBeneficios[id][property] ) {
-      (event.target as HTMLInputElement).value = value.replace(value, this.arregloTablaBeneficios[id][property]);
-      event.target.textContent = value.replace(value, this.arregloTablaBeneficios[id][property]);
+    const value = event.target.textContent;
+    if ( value < this.arregloTablaBeneficios[id][property] ) {
+      (event.target as HTMLInputElement).textContent = value.replace(value, this.arregloTablaBeneficios[id][property]);
     } 
-
       this.editField = event.target.textContent;
-
-    console.log('160',this.editField)
    
   }
 
