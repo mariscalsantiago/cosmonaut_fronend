@@ -28,6 +28,9 @@ export class ConfiguracionesService {
 
   public notificaciones:number = 0;
 
+  public menu:boolean = false;
+  public MENUPRINCIPAL = undefined;
+
 
 
 
@@ -143,6 +146,7 @@ export class ConfiguracionesService {
   }
 
   public getPermisos(cadena:string):boolean{
+    debugger;
     let mostrar:boolean = false;
      for(let item of this.permisosActuales){
         if(cadena == item.descripcion && item.checked){

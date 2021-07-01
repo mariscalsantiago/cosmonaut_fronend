@@ -199,7 +199,7 @@ export class TimbrarComponent implements OnInit {
         this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           console.log(valor);
-          this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numeroEmpleado,"xlsx")
+          this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numeroEmpleado,"pdf")
         });
         break;
     }
@@ -258,6 +258,8 @@ export class TimbrarComponent implements OnInit {
 
 
 
+
+        console.log(this.arreglo);
         let idCentroCliente = 0;
 
         let obj = []
@@ -267,17 +269,21 @@ export class TimbrarComponent implements OnInit {
               nominaPeriodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
               personaId: item[this.llave].personaId,
               fechaContrato: item[this.llave].fechaContrato,
-              centroClienteId: item[this.llave].centroClienteId,
+              centroClienteId:  item[this.llave].centroClienteId || this.usuarioSistemaPrd.getIdEmpresa(),//Posiblemente cambio desde el backend con el centro costo cliente...
               usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
               servicio: "facturacion_sw"
             });
           }
 
-          idCentroCliente = item[this.llave].centroClienteId;
+          idCentroCliente = item[this.llave].centroClienteId || this.usuarioSistemaPrd.getIdEmpresa();
         }
 
 
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
         this.nominaOrdinariaPrd.timbrar(obj,idCentroCliente).subscribe((valor) => {
+
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if(valor.resultado){
             if (valor.datos.exito) {
               this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Timbrando", "Espere un momento, el proceso se tardara varios minutos.");

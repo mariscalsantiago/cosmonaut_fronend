@@ -188,7 +188,10 @@ export class PagarComponent implements OnInit {
           }
         }
 
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.nominaOrdinariaPrd.dispersar(obj).subscribe((valor) => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if (valor.datos.exito) {
             this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento, el proceso se tardara varios minutos.");
          let suscribe =    timer(0, 1500).pipe(concatMap(() =>

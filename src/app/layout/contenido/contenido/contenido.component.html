@@ -1,8 +1,8 @@
-<div class="contenido_component">
+<div style="margin-left: 10px;background-color: #f6f7f9;" class="contenido_component">
 
     <div class="wrapper">
         <div (click)="mostrarmenu = false" class="backgroundresponsive" [ngClass]="{'backgroundresponsive':mostrarmenu}"></div>
-        <nav aria-label="cosmonaut" id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
+        <nav style="background-color: #f6f7f9;" *ngIf="configuracionPrd.menu"  aria-label="cosmonaut" id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
             <div class="col-2 responsivo"><button style="    margin-left: 16px;
                 margin-top: 7px;" (click)="mostrarmenu = false">
                 <i aria-hidden="true" class="fas fa-bars"></i>
@@ -10,21 +10,34 @@
             <div class="sidebar-header imgmovil">
                 <img src="assets/imgs/logo.png" alt="" srcset="">
             </div>
-            <div class="sidebar-header imgescritorio">
+            <div style="background-color: #f6f7f9;
+            margin: 8px;" class="sidebar-header imgescritorio">
                 <img src="assets/imgs/logo2.png" alt="" srcset="">
             </div>
+            <div class="tituloabajoimg">
+                <article>
+                        {{nombre}}
+                    <article>
+                        {{nombreRol}}
+                    </article>
+                </article>
+            </div>
             <ul id="listanavegadora" class="list-unstyled components">
-                <li *ngFor="let item of PRINCIPAL_MENU" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
-                    <a [routerLink]="item.pathServicio" (click)="seleccionado(item)" [ngClass]="{'dropdown-toggle':true}">
-                        <i aria-hidden="true" [class]="item.icono"></i> {{item.nombreModulo | uppercase}} <span *ngIf="item.nombreModulo.includes('Chat') && configuracionPrd.notificaciones !== 0"  class="badge badge-danger">{{configuracionPrd.notificaciones}}</span></a>
-                    <ul [ngClass]="{'list-unstyled collapse':true,'show':item.seleccionadosubmenu}" [id]="'m'+item.moduloId">
-                        <li *ngFor="let item2 of item.submodulos" [ngClass]="{'ocultarMenu':!item2.checked}">
-                            <a (click)="seleccionarSubmenu(item,item2)" (click)="irRuta(item2)">{{item2.nombreSubmodulo }}</a>
+                <li style="text-align: right; background-color: #f6f7f9;" *ngFor="let item of PRINCIPAL_MENU;let indice = index" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
+                    <a (mouseover)="entraComponente(item)" (mouseout)="saleComponente(item)" style="display: inline-block;position: relative;" [routerLink]="item.pathServicio" (click)="seleccionado(item,indice)" [ngClass]="{'dropdown-toggle':true}">
+                        <i aria-hidden="true" [class]="item.icono"></i> <span style="display: block;color:white" *ngIf="item.seleccionado">{{item.nombreModulo}}</span> 
+                        <div *ngIf="item.labelflotante && !item.seleccionado" class="labelflotante">{{item.nombreModulo}}</div>
+                        <span *ngIf="item.nombreModulo.includes('Chat') && configuracionPrd.notificaciones !== 0"  class="badge badge-danger">{{configuracionPrd.notificaciones}}</span></a>
+                    <ul class="labelflotantemenu" *ngIf="item.seleccionadosubmenu">
+                        <li *ngFor="let item2 of item.submodulos" >
+                            <span  (click)="irRuta(item2);seleccionarSubmenu(item,item2);">{{item2.nombreSubmodulo }}</span>
                         </li>
                     </ul>
                 </li>
-                <li id="salirbtn" (click)="cerrarSesion()">
-                    <a> <i aria-hidden="true" class="icon_cerrarsesion danger-bg"></i>CERRAR SESIÓN</a>
+                <li  style="text-align: right;" id="salirbtn" (click)="cerrarSesion()">
+                    <a (mouseover)="botonsalir=true" (mouseout)="botonsalir=false" style="display: inline-block;    border-bottom-left-radius: 19px;"> <i  aria-hidden="true" class="icon_cerrarsesion danger-bg"></i>
+                        <div *ngIf="botonsalir" class="labelflotante">Salir</div>
+                    </a>
                 </li>
             </ul>
         </nav>

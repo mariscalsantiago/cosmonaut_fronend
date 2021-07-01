@@ -7,10 +7,10 @@
     background-color: $fondo;
     width: 100%;
     border-radius: 25px;
-    height: 90vh;
-    margin-top: 5vh;
+    height: 98vh;
+    margin-top: 1vh;
     overflow: hidden;
-    margin-right: 24px;
+    margin-right: 9px;
 }
 
 .content-modal{
@@ -33,8 +33,7 @@
 
 
 #sidebar {
-    min-width: 253px;
-    max-width: 253;
+    min-width: 150px;
     min-height: 100vh;
     height: 100vh;
     
@@ -104,7 +103,7 @@ a, a:hover, a:focus {
 #sidebar ul.components {
     padding: 20px 0;
     
-    margin-top: -50px;
+    margin-top: -30px;
 }
 
 #sidebar ul p {
@@ -125,15 +124,18 @@ a, a:hover, a:focus {
     font-size: 1.1em;
     display: block;
     text-align: left;
-    @media only screen and (max-width : $pantallamovil)
-    {
+    width: 108px;
+    text-align: center;
+    border: 1px solid white;
+    background: #51cec0;
+    border-right: #51cec0;
     i{
         background: white!important;
-    }}
+    }
 }
 #sidebar ul li a:hover {
     color: $primary;
-    background: #fff;
+    background: #3ea196;
     
     i{
         background-color: $primary;
@@ -145,15 +147,21 @@ a, a:hover, a:focus {
 
 
 #sidebar ul li.active > a{
-    color: $primary;
-    background: white;
+    color: #00DED4;
+    background: #022538;
     border-style: solid;
-    width: 253px;
+    width: 116px;
     border-width: 2px;
     text-align: left;
-    border-radius: 20px;
+    border: #022538;
     font-size: 16px;
-
+    height: 80px;
+    text-align: center;
+    -webkit-box-shadow: -10px 2px 13px -7px rgba(0,0,0,0.71); 
+box-shadow: -10px 2px 13px -7px rgba(0,0,0,0.71);
+    /* border-radius: 5px; */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 
     i{
         background-color: $primary;
@@ -233,7 +241,7 @@ ul ul a {
 
 
 .sidebar-header img{
-    max-width: 150px;
+    max-width: 105px;
     height: auto;
     
 }

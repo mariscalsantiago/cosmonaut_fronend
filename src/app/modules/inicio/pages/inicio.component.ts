@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -12,7 +13,8 @@ export class InicioComponent implements OnInit {
 
   public valor: any;
 
-  constructor(private modalPrd: ModalService, private ventana: VentanaemergenteService,private usuariosPrd:UsuarioSistemaService) { }
+  constructor(private modalPrd: ModalService, private ventana: VentanaemergenteService,private usuariosPrd:UsuarioSistemaService,
+    public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
   

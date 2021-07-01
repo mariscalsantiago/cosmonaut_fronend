@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from '../../services/eventos.service';
@@ -32,7 +33,7 @@ export class CalendarioComponent implements OnInit {
 
   constructor(private ventana: VentanaemergenteService, private eventoPrd: EventosService,
     private areasPrd: SharedAreasService, private catalogos: CatalogosService,
-    private usuariosSistemaPrd: UsuarioSistemaService) { }
+    private usuariosSistemaPrd: UsuarioSistemaService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 

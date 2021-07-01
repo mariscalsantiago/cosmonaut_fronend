@@ -63,9 +63,11 @@ export class ListaempleadosComponent implements OnInit {
 
   constructor(private routerPrd: Router, private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
     private usuarioSistemaPrd: UsuarioSistemaService,private modalPrd:ModalService, private empresasPrd: SharedCompaniaService,
-    private areasPrd: SharedAreasService,private configuracionesPrd:ConfiguracionesService) { }
+    private areasPrd: SharedAreasService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    debugger;
     this.establecerPermisos();
 
     let documento: any = document.defaultView;
@@ -85,10 +87,10 @@ export class ListaempleadosComponent implements OnInit {
 
 
   public establecerPermisos(){
-    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
-    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
-    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
-    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionPrd.getPermisos("Editar");
+    this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
   }
 
 
