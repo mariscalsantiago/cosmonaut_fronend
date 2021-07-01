@@ -27,7 +27,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+    debugger;
 
     this.cargando = true;
 

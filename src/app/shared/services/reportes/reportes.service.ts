@@ -44,9 +44,12 @@ export class ReportesService {
     return this.http.post(`${direcciones.reportes}/cargaMasiva/layoutEventosIncidencias/`,json,httpOptions);
   }
   
-  public getDescargaListaEmpleados(id_empresa:number):Observable<any>{
-    return this.http.get(`${direcciones.reportes}/cargaMasiva/layoutListaEmpleado/${id_empresa}`);
+  public getDescargaListaEmpleados(id_variabilidad:number):Observable<any>{
+    return this.http.get(`${direcciones.reportes}/imss/variabilidad/${id_variabilidad}`);
  }
+ public getCalcularDías(numeroDias:number):Observable<any>{
+  return this.http.get(`${direcciones.imss}/variabilidad/calcularDias/${numeroDias}`);
+}
 
  public getListaEmpresaPPP(id_empresa:number):Observable<any>{
   return this.http.get(`${direcciones.reportes}/pagoComplementario/empresas/${id_empresa}`);

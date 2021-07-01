@@ -23,17 +23,11 @@ export class VariabilidadComponent implements OnInit {
   public submitEnviado:boolean = false;
   public empresa: any;
   public idEmpresa: number = 0;
-  public arregloMovimientos: any = [];
-  public arregloEmpresa: any = [];
-  public arregloRegistroPatronal: any = [];
-  public arreglo: any = [];
+   public arreglo: any = [];
   public arregloListaEmpleadosPromedio: any = [];
   public cargando: boolean = false;
   public cargandoIcon: boolean = false;
   public objFiltro: any = [];
-  public activarMultiseleccion: boolean = false;
-  public arregloSUA : any = [];
-  public movimientoImssId : number = 0;
   public mensaje : string = "";
   public fromPromediar : boolean = false;
   public listaVariabilidad : boolean = true;
@@ -43,8 +37,11 @@ export class VariabilidadComponent implements OnInit {
   public listaPromedio : boolean = false;
   public listaVariable : boolean = true;
   public variabilidad : number = 0;
-
+  public bimestreCalcular: number = 0;
+  public diasCalcular : number = 0;
   public apellidoPat:string = "";
+  public fecha: Date = new Date;
+  public anioFiscal: number = 0;
   
   public arreglotabla: any = {
     columnas: [],
@@ -66,8 +63,9 @@ export class VariabilidadComponent implements OnInit {
   */
 
 
-    public razonSocialEmpresa: string = "";
-    public nombre: string = "";
+    public razonSocialEmpresa: string = "0";
+    public anioFiltro: string = "";
+    public bimestre: string = "";
 
 
 
@@ -79,19 +77,20 @@ export class VariabilidadComponent implements OnInit {
     
 
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
-
+    debugger;
     let fecha = new Date();
     let dia = fecha.getDate().toString();
     let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
-    let anio = fecha.getFullYear();
+    this.anioFiscal = fecha.getFullYear();
 
-    this.fechaActual = `${dia}/${mes}/${anio}`;
+    this.fechaActual = `${dia}/${mes}/${this.anioFiscal}`;
 
     this.cargando = true;
 
         this.objFiltro = {
           ...this.objFiltro,
-          clienteId: 463,
+          //clienteId: 463
+          clienteId: this.idEmpresa
 
         };
     
@@ -110,7 +109,8 @@ export class VariabilidadComponent implements OnInit {
   }
 
     public traerTabla(datos:any) {
-      
+
+      debugger;
       const columna: Array<tabla> = [
         new tabla("razonSocial", "Razón Social"),
         new tabla("anioFiscal", "Año"),
@@ -136,24 +136,42 @@ export class VariabilidadComponent implements OnInit {
           if(item.bimestre == undefined || item.bimestre == null){
 
             this.bimestreLeyenda = "1er Bimestre"
+            this.bimestreCalcular = 1;
+            let anio = this.fecha.getFullYear();
+            this.fechaActual = `01/03/${anio}`;
           }
           else if(item.bimestre ==1){
             this.bimestreLeyenda = "2er Bimestre"
+            this.bimestreCalcular = 2;
+            let anio = this.fecha.getFullYear();
+            this.fechaActual = `01/05/${anio}`;
           }
           else if(item.bimestre ==2){
             this.bimestreLeyenda = "3er Bimestre"
+            this.bimestreCalcular = 3;
+            let anio = this.fecha.getFullYear();
+            this.fechaActual = `01/07/${anio}`;
           }
           else if(item.bimestre ==3){
             this.bimestreLeyenda = "4to Bimestre"
+            this.bimestreCalcular = 4;
+            let anio = this.fecha.getFullYear();
+            this.fechaActual = `01/09/${anio}`;
             
           }
           else if(item.bimestre ==4){
             this.bimestreLeyenda = "5to Bimestre"
+            this.bimestreCalcular = 5;
+            let anio = this.fecha.getFullYear();
+            this.fechaActual = `01/11/${anio}`;
             
           }
           else if(item.bimestre ==5){
             this.bimestreLeyenda = "6to Bimestre"
-            
+            this.bimestreCalcular = 6;
+            let anio = this.fecha.getFullYear();
+            anio = anio + 1; 
+            this.fechaActual = `01/01/${anio}`;
           }
   
           }
@@ -230,18 +248,21 @@ export class VariabilidadComponent implements OnInit {
 
     public createForm(obj: any) {
 
-      /*for(let item of this.arregloEmpresa){
-        if(item.centrocClienteId == 514){
-          this.razonSocial = item.razonSocial;
-        }
-      }*/
-  
+      
+    if(this.bimestreCalcular==0){
+
+      this.bimestreLeyenda = "1er Bimestre"
+      this.bimestreCalcular = 1;
+      let anio = this.fecha.getFullYear();
+      this.fechaActual = `01/03/${anio}`;
+  }
+
       return this.formBuild.group({
   
         razonSocial: [this.razonSocial],
         bimestre: [this.bimestreLeyenda],
         fecha: [this.fechaActual],
-        diaspromediar: [, Validators.required]
+        diaspromediar: [this.diasCalcular, Validators.required]
 
   
       });
@@ -256,8 +277,9 @@ export class VariabilidadComponent implements OnInit {
 
         this.objFiltro = {
           ...this.objFiltro,
-          clienteId: 463,
-
+          clienteId: this.razonSocialEmpresa,
+          anioFiscal: this.anioFiltro,
+          bimestre: this.bimestre
         };
    
   //
@@ -292,6 +314,15 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public promedioVariabilidad(){
+    debugger;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    this.reportesPrd.getCalcularDías(this.bimestreCalcular).subscribe(archivo => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.diasCalcular = archivo.datos.diasTotales;
+      this.myForm.controls.diaspromediar.setValue(this.diasCalcular);
+
+    });
 
     this.listaVariabilidad = false;
     this.fromPromediar = true;
@@ -356,13 +387,22 @@ export class VariabilidadComponent implements OnInit {
               obj.bimestre = 6;
               
             }
-
+            debugger;
               let objEnviar : any = 
-              {
+              
+              /*{
                 clienteId: 461,
                 bimestre: 3,
                 fechaAplicacion: "2021-06-01",
                 anioFiscal: 2021,
+                usuarioId: 1
+              };*/
+
+              {
+                clienteId: this.idEmpresa,
+                bimestre: obj.bimestre,
+                fechaAplicacion: obj.fecha,
+                anioFiscal: this.arreglo.anioFiscal,
                 usuarioId: 1
               };
 
@@ -378,11 +418,8 @@ export class VariabilidadComponent implements OnInit {
                   if(valor == 10){
                     valor = 0;
                   this.configuracionesPrd.setCantidad(0);
-                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-    
-                //this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
-                  //.then(()=> {
-                     if (!datos.resultado) {
+                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                     if (datos.resultado) {
                       
                       this.listaVariabilidad = true;
                       this.fromPromediar = false;
@@ -390,8 +427,8 @@ export class VariabilidadComponent implements OnInit {
                       this.listaVariable = false;
                       this.cargando = true;
                       let objLista : any ={
-                        //variabilidad: datos.datos.variabilidadId
-                        variabilidad: 86
+                        variabilidad: datos.datos.variabilidadId
+                        //variabilidad: 86
                         
                       }
                       this.variabilidad = objLista.variabilidad;
@@ -404,7 +441,6 @@ export class VariabilidadComponent implements OnInit {
                     this.listaVariabilidad = false;
                     this.fromPromediar = true;
                   }  
-                  //});
                 }
                   });
               });     

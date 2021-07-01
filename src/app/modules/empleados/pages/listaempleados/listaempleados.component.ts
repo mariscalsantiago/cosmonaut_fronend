@@ -66,6 +66,8 @@ export class ListaempleadosComponent implements OnInit {
     private areasPrd: SharedAreasService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    debugger;
     this.establecerPermisos();
 
     let documento: any = document.defaultView;
