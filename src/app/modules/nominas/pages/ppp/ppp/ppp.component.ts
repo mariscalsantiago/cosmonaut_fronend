@@ -5,6 +5,7 @@ import { CheckboxComponent } from 'ng-uikit-pro-standard';
 import { type } from 'os';
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -61,7 +62,7 @@ export class PPPComponent implements OnInit {
 
   constructor(private routerPrd: Router,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
-    private reportesPrd: ReportesService) { }
+    private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     let documento: any = document.defaultView;

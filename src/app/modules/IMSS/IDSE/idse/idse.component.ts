@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { DatePipe } from '@angular/common';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class IDSEComponent implements OnInit {
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService, private reportesPrd: ReportesService) { }
+    private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     

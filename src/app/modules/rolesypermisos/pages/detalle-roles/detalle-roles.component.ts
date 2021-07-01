@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { modulos } from 'src/app/core/modelos/modulos';
 import { permiso } from 'src/app/core/modelos/permiso';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { RolesService } from '../../services/roles.service';
@@ -24,7 +25,7 @@ export class DetalleRolesComponent implements OnInit {
 
   constructor(private rolesPrd: RolesService, private fb: FormBuilder,
     private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private routerPrd: Router) { }
+    private routerPrd: Router,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 

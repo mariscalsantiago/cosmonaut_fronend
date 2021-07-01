@@ -34,11 +34,11 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
   public cargando: boolean = false;
   constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
     private usuariossistemaPrd: UsuarioSistemaService, private socket: ChatSocketService,
-    private modalPrd:ModalService,private configuracionesPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
-    this.configuracionesPrd.notificaciones = 0;
+    this.configuracionPrd.notificaciones = 0;
 
 
     this.cargando = true;
@@ -104,7 +104,7 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
         this.socket.getChatDatos().datos.socket = obj.datos.conversacion.substring(0,obj.datos.conversacion.lastIndexOf("/"))+"/"+this.usuariossistemaPrd.getUsuario().usuarioId;
         this.socket.getChatDatos().ocultar = false;
 
-        this.configuracionesPrd.ocultarChat = false;
+        this.configuracionPrd.ocultarChat = false;
 
 
         let objEnviado = {

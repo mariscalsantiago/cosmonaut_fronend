@@ -3,6 +3,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { format } from 'path';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { CompanyService } from '../../services/company.service';
 
 
@@ -58,7 +59,7 @@ export class CompanyComponent implements OnInit {
     filas: []
   };
 
-  constructor(private routerPrd: Router, private companyProd: CompanyService) { }
+  constructor(private routerPrd: Router, private companyProd: CompanyService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 

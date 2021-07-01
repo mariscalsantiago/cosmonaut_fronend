@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { triggerAsyncId } from 'async_hooks';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { AdminCatalogosService } from '../../services/admincatalogos.service';
 
@@ -60,7 +61,7 @@ export class AdminCatalogosComponent implements OnInit {
 
 
   constructor(private routerPrd: Router, private adminCatalogosPrd: AdminCatalogosService,
-     private modalPrd: ModalService) { }
+     private modalPrd: ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     

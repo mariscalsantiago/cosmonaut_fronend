@@ -18,17 +18,17 @@ export class DetalleempresasComponent implements OnInit {
 
   public titulo:string = `CONFIGURACIÓN EMPRESA`;
 
-  constructor(private configPrd:ConfiguracionesService) {
+  constructor(public configuracionPrd:ConfiguracionesService) {
 
     
    }
 
   ngOnInit(): void {
     let mm:any = document.getElementById("navegadorTabs");
-    mm.scrollLeft = this.configPrd.getScrollCompany(mm.scrollLeft);
+    mm.scrollLeft = this.configuracionPrd.getScrollCompany(mm.scrollLeft);
     mm.addEventListener('scroll', ()=> {
       
-      mm.scrollLeft = this.configPrd.getScrollCompany(mm.scrollLeft);
+      mm.scrollLeft = this.configuracionPrd.getScrollCompany(mm.scrollLeft);
     })
   }
 

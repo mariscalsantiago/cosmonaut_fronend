@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PoliticasService } from 'src/app/modules/empresas/pages/submodulos/politicas/pages/services/politicas.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
@@ -25,7 +26,7 @@ export class NominaCalculadoraComponent implements OnInit {
   public titulosueldo:string = "bruto";
 
   constructor(private modalPrd: ModalService, private formbuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private politicaPrd: PoliticasService, private usuarioSistemaPrd: UsuarioSistemaService) { }
+    private politicaPrd: PoliticasService, private usuarioSistemaPrd: UsuarioSistemaService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     this.myForm = this.crearFormulario();

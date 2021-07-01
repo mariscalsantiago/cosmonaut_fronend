@@ -71,7 +71,7 @@ export class VariabilidadComponent implements OnInit {
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService, private reportesPrd: ReportesService, 
-    private companyProd: CompanyService, private formBuild: FormBuilder, private configuracionesPrd:ConfiguracionesService) { }
+    private companyProd: CompanyService, private formBuild: FormBuilder, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     
@@ -413,11 +413,11 @@ export class VariabilidadComponent implements OnInit {
                   let intervalo = interval(1000);
                   intervalo.pipe(take(11));
                   intervalo.subscribe((valor)=>{
-                  this.configuracionesPrd.setCantidad(valor*10);
+                  this.configuracionPrd.setCantidad(valor*10);
                 
                   if(valor == 10){
                     valor = 0;
-                  this.configuracionesPrd.setCantidad(0);
+                  this.configuracionPrd.setCantidad(0);
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                      if (datos.resultado) {
                       

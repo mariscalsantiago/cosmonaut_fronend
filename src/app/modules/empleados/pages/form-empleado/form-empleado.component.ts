@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
@@ -46,7 +47,7 @@ export class FormEmpleadoComponent implements OnInit {
 
   constructor(private routerPrd: Router, private reportesPrd: ReportesService,
     private domicilioPrd:DomicilioService,private empleadosPrd: EmpleadosService,private empledoContratoPrd:ContratocolaboradorService,
-    private ventana:VentanaemergenteService,private modalPrd:ModalService) { }
+    private ventana:VentanaemergenteService,private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     

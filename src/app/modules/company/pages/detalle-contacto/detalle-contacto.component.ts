@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { CompanyService } from '../../services/company.service';
@@ -34,7 +35,7 @@ export class DetalleContactoComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router, private modalPrd: ModalService,private usuariosAuth:UsuariosauthService) {
+    private routerPrd: Router, private modalPrd: ModalService,private usuariosAuth:UsuariosauthService,public configuracionPrd:ConfiguracionesService) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');

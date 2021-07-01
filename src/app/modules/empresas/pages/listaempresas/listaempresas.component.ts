@@ -46,7 +46,7 @@ export class ListaEmpresasComponent implements OnInit {
 
   constructor(private routerPrd: Router, private empresasProd: EmpresasService,
     private usuarioSistemaPrd: UsuarioSistemaService, private modalPrd: ModalService,private configuracionesPrd:ConfiguracionesService,
-    private configuracionPrd:ConfiguracionesService) { }
+    public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 

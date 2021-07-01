@@ -62,7 +62,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 
   constructor(private formbuilder: FormBuilder, private modalPrd: ModalService, private routerPrd: Router,
     private catalogosPrd:CatalogosService, private usuarioSistemaPrd:UsuarioSistemaService,private areasPrd: SharedAreasService,
-    private reportesPrd: ReportesService,private EmpleadosService:EmpleadosService,private configuracionesPrd:ConfiguracionesService) { }
+    private reportesPrd: ReportesService,private EmpleadosService:EmpleadosService,public configuracionPrd:ConfiguracionesService) { }
  
   ngOnInit(): void {
 
@@ -89,9 +89,9 @@ export class CargaMasivaEventosComponent implements OnInit {
   public establecerPermisos(){
 
   
-    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
-    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
-    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+    this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
   }
 
 
