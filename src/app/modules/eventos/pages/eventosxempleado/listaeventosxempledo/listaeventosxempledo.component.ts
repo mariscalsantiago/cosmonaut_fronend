@@ -32,7 +32,8 @@ export class ListaeventosxempledoComponent implements OnInit {
   public nombre: any = "";
   public apellidoPaterno: any = "";
   public apellidoMaterno: any = "";
-  public esActivo: boolean | undefined;
+  public esActivo: any;
+  public tipoIncidenciaId : any;
   public esRegistrar:boolean = false;
   public esConsultar:boolean = false;
 
@@ -159,7 +160,6 @@ this.filtrar();
   }
 
   public filtrar(){
-    console.log('entro filtrar');
     this.cargando = true;
     if(this.nombre != ''){
       this.objFiltro = {
@@ -176,12 +176,17 @@ this.filtrar();
             ...this.objFiltro,
             apellidoMaterno: this.apellidoMaterno
           };
-      } else if(this.esActivo != undefined){
+      } else if(this.tipoIncidenciaId != undefined){
         this.objFiltro = {
           ...this.objFiltro,
-          esActivo: this.esActivo
+          tipoIncidenciaId: this.tipoIncidenciaId
         };
-    }
+    }else if(this.esActivo != undefined){
+      this.objFiltro = {
+        ...this.objFiltro,
+        esActivo: this.esActivo
+      };
+  }
       this.objFiltro = {
         ...this.objFiltro,
         clienteId: this.usuariosSistemaPrd.getIdEmpresa()
