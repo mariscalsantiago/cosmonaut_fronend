@@ -210,7 +210,7 @@ export class DetallepoliticasComponent implements OnInit {
           },
 
         }
-        
+        console.log('obj', objEnviar)
         if (this.insertar) {
           
           this.modalPrd.showMessageDialog(this.modalPrd.loading);

@@ -132,7 +132,6 @@
                                             <td>
                                                 <input [min]="beneficios.primaVacacional" (keyup)="changeValue(beneficioPolitica, 'primaVacacional', $event)" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)" class="form-control form-control-sm" [value]=" beneficios.primaVacacional">
                                             </td>
-
                                         </tr>
                                     </table>
                                     <div *ngIf="!cargando && arregloTablaBeneficios === undefined" class="alert col text-center">
