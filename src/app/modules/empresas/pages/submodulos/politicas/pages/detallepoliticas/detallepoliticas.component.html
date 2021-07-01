@@ -124,13 +124,13 @@
                                                 <input (keyup)="changeValue(beneficioPolitica, 'aniosAntiguedad', $event)" (blur)="updateList(beneficioPolitica, 'aniosAntiguedad', $event)" contenteditable="true" class="form-control form-control-sm" placeholder="{{beneficios.aniosAntiguedad}}" disabled>
                                             </td>
                                             <td>
-                                                <input contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasAguinaldo', $event)" (blur)="updateList(beneficioPolitica, 'diasAguinaldo', $event)" class="form-control form-control-sm" [value]="beneficios.diasAguinaldo">
+                                                <input [min]="beneficios.diasAguinaldo" (keyup)="changeValue(beneficioPolitica, 'diasAguinaldo', $event)" (blur)="updateList(beneficioPolitica, 'diasAguinaldo', $event)" class="form-control form-control-sm" [value]="beneficios.diasAguinaldo">
                                             </td>
                                             <td>
-                                                <input contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasVacaciones', $event)" (blur)="updateList(beneficioPolitica, 'diasVacaciones', $event)" class="form-control form-control-sm" [value]="beneficios.diasVacaciones">
+                                                <input [min]="beneficios.diasVacaciones" (keyup)="changeValue(beneficioPolitica, 'diasVacaciones', $event)" (blur)="updateList(beneficioPolitica, 'diasVacaciones', $event)" class="form-control form-control-sm" [value]="beneficios.diasVacaciones">
                                             </td>
                                             <td>
-                                                <input contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'primaVacacional', $event)" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)" class="form-control form-control-sm" [value]=" beneficios.primaVacacional">
+                                                <input [min]="beneficios.primaVacacional" (keyup)="changeValue(beneficioPolitica, 'primaVacacional', $event)" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)" class="form-control form-control-sm" [value]=" beneficios.primaVacacional">
                                             </td>
 
                                         </tr>

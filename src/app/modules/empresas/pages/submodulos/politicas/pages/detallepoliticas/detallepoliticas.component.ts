@@ -37,6 +37,10 @@ export class DetallepoliticasComponent implements OnInit {
   public cargandoDed: boolean = false;
   public arreglotablaDed: any = [];
   public idPolitica : number = 0;
+  public aniosAntiguedad : any;
+  public diasAguinaldo : any;
+  public diasVacaciones : any;
+  public primaVacacional : any;
 
   public arreglotablaPert: any = {
     columnas: [],
@@ -145,9 +149,18 @@ export class DetallepoliticasComponent implements OnInit {
 
 
   public changeValue(id: number, property: string, event: any) {
-    console.log(id, property, event)
+    const value = (event.target as HTMLInputElement).value;
+    console.log( this.arregloTablaBeneficios[id][property] , value)
+    if (event.target && value < this.arregloTablaBeneficios[id][property] ) {
+      (event.target as HTMLInputElement).value = value.replace(value, this.arregloTablaBeneficios[id][property]);
+      (event.target as HTMLInputElement).textContent = value.replace(value, this.arregloTablaBeneficios[id][property]);
+    } else {
+      this.editField = event.target.textContent;
+    }
+    console.log('event.target.textContent;', event.target.textContent)
+
     
-    this.editField = event.target.textContent;
+   
   }
 
   public enviarPeticion() {
