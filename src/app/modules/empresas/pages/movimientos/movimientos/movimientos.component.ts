@@ -81,9 +81,30 @@ export class MovimientosComponent implements OnInit {
 
 
   public filtrar() {
-    debugger;
- 
+    this.cargando = true;
+      if(this.nombre != ''){
+        this.objFiltro = {
+          ...this.objFiltro,
+          nombre: this.nombre
+        };
+        }else if(this.apellidoPaterno != ''){
+          this.objFiltro = {
+            ...this.objFiltro,
+            apellidoPaterno: this.apellidoPaterno
+          };
+        } else if(this.apellidoMaterno != ''){
+            this.objFiltro = {
+              ...this.objFiltro,
+              apellidoMaterno: this.apellidoMaterno
+            };
+        }
+        console.log('arr', this.arreglo)
+        if(this.fechaMovimiento !== undefined){
       
+          const fecha1 = new Date(this.fechaMovimiento).toUTCString().replace("GMT", "");
+          this.fechaMovimiento = `${new Date(fecha1).getTime()}`;
+  
+        }
         
         this.objFiltro = {
           ...this.objFiltro,
