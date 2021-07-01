@@ -58,7 +58,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   constructor(private router:Router,private eventosPrd:EventosService,private usuariosSistemaPrd:UsuarioSistemaService,
-    private modalPrd:ModalService,private configuracionesPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -110,8 +110,8 @@ export class ListaeventosxempledoComponent implements OnInit {
 
 
   public establecerPermisos(){
-    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
-    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
   }
 
   public recibirTabla(obj:any){

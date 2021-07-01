@@ -18,4 +18,4 @@ import { AdminDispercionTimbradoComponent } from './pages/admindisptimbrado/admi
     FormsModule,ReactiveFormsModule
   ]
 })
-export class AdminCatalogosModule { }
+export class AdminCatalogosModuleTimbrado { }

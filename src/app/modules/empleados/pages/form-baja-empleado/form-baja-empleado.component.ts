@@ -53,7 +53,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
-    private catalogosPrd:CatalogosService, private EmpleadosService:EmpleadosService,private configuracionesPrd:ConfiguracionesService) {
+    private catalogosPrd:CatalogosService, private EmpleadosService:EmpleadosService,public configuracionPrd:ConfiguracionesService) {
   }
 
   ngOnInit(): void {
@@ -96,7 +96,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
 
  public establecerPermisos(){
-  this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
+  this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
 
 }
 

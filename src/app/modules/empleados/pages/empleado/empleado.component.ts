@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
@@ -28,7 +29,7 @@ export class EmpleadoComponent implements OnInit {
   constructor(private routerCan: ActivatedRoute,
     private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
     private empledoContratoPrd: ContratocolaboradorService,private ventana:VentanaemergenteService,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {

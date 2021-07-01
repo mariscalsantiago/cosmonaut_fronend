@@ -23,7 +23,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
   public esEditar:boolean = false;
 
   constructor(private empleadosPrd:EmpleadosService,private usuariosSistemaPrd:UsuarioSistemaService ,
-    private router:Router,private configuracionesPrd:ConfiguracionesService) { }
+    private router:Router,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -58,8 +58,8 @@ export class EmpleadosIncompletosComponent implements OnInit {
 
 
   public establecerPermisos(){
-    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
-    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+    this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionPrd.getPermisos("Editar");
   }
 
   public recibirTabla(obj:any){

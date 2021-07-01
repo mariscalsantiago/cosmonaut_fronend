@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { AdminCatalogosService } from '../../services/admincatalogos.service';
 import { truncate } from 'fs';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 
 @Component({
@@ -64,7 +65,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   constructor(private routerPrd: Router, private adminCatalogosPrd: AdminCatalogosService,
-    private routerActivePrd: ActivatedRoute, private modalPrd: ModalService, private formBuilder: FormBuilder) { 
+    private routerActivePrd: ActivatedRoute, private modalPrd: ModalService, private formBuilder: FormBuilder,
+    public configuracionPrd:ConfiguracionesService) { 
 
       this.routerActivePrd.params.subscribe(datos => {
         this.insertar = (datos["tipoinsert"] == 'nuevo');

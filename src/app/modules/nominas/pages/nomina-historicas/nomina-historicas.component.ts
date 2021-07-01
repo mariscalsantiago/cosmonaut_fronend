@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { NominasHistoricasService } from 'src/app/shared/services/nominas/nominas-historicas.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
@@ -25,7 +26,8 @@ export class NominaHistoricasComponent implements OnInit {
   public fecha: string = "";
 
 
-  constructor(private nominashistoricasPrd: NominasHistoricasService, private usuarioSistemaPrd: UsuarioSistemaService) { }
+  constructor(private nominashistoricasPrd: NominasHistoricasService, private usuarioSistemaPrd: UsuarioSistemaService,
+    public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     let objEnviar = {

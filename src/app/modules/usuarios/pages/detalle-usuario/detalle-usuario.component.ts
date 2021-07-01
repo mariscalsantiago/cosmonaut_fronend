@@ -3,6 +3,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -42,7 +43,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private modalPrd: ModalService, private rolesPrd: RolesService,
-    private usuariosSistemaPrd: UsuarioSistemaService, private usuariosAuth: UsuariosauthService) {
+    private usuariosSistemaPrd: UsuarioSistemaService, private usuariosAuth: UsuariosauthService,public configuracionPrd:ConfiguracionesService) {
 
     let datePipe = new DatePipe("es-MX");
 

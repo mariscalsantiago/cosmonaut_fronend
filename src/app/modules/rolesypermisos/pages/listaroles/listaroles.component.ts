@@ -28,7 +28,7 @@ export class ListarolesComponent implements OnInit {
   public esEliminar:boolean = false;
 
   constructor(private routerPrd:Router,private rolesPrd:RolesService,private modalPrd:ModalService,
-    private usuariosSistemaPrd:UsuarioSistemaService,private configuracionesPrd:ConfiguracionesService) { }
+    private usuariosSistemaPrd:UsuarioSistemaService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -93,10 +93,10 @@ export class ListarolesComponent implements OnInit {
 
 
   public establecerPermisos(){
-    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
-    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
-    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
-    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionPrd.getPermisos("Editar");
+    this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
   }
 
 }

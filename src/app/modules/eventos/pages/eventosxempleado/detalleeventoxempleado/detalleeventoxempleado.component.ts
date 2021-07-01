@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpleadosService } from '../../../../empleados/services/empleados.service';
@@ -26,7 +27,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloFechas: any = [];
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
-    private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService) { }
+    private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService,
+    public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 

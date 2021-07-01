@@ -7,6 +7,7 @@ import { EmpresasService } from '../../services/empresas.service';
 import { element } from 'protractor';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-empresas',
@@ -76,7 +77,7 @@ export class EmpresasComponent implements OnInit {
   };
 
 
-  constructor(private usuarioSistemaPrd: UsuarioSistemaService, private routerPrd: Router, private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService) {
+  constructor(private usuarioSistemaPrd: UsuarioSistemaService, private routerPrd: Router, private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService,public configuracionPrd:ConfiguracionesService) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');

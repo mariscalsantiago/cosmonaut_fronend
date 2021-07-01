@@ -4,6 +4,7 @@ import { EmpresasService } from 'src/app/modules/empresas/services/empresas.serv
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { DatePipe } from '@angular/common';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-movimientos',
@@ -36,7 +37,7 @@ export class MovimientosComponent implements OnInit {
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit() {
     //this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();

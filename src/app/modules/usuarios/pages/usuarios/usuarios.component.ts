@@ -66,7 +66,7 @@ export class UsuariosComponent implements OnInit {
   public activarMultiseleccion: boolean = false;
 
 
-  constructor(private routerPrd: Router, private configuracionesPrd:ConfiguracionesService,
+  constructor(private routerPrd: Router, public configuracionPrd:ConfiguracionesService,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
     private empresasProd: EmpresasService, private usuariosAuthPrd: UsuariosauthService) { }
 
@@ -116,9 +116,9 @@ export class UsuariosComponent implements OnInit {
 
 
   public establecerPermisos(){
-    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
-    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
-    this.esEditar = this.configuracionesPrd.getPermisos("Editar");
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionPrd.getPermisos("Editar");
   }
 
   public procesarTabla() {

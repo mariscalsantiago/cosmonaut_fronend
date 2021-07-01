@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { UsuarioService } from 'src/app/modules/usuarios/services/usuario.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -52,7 +53,7 @@ export class DetalleCompanyComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService,private versionesPrd:VersionesService,
-    private authUsuariosPrd:UsuariosauthService,private usuariosSistemaPrd:UsuarioSistemaService) {
+    private authUsuariosPrd:UsuariosauthService,private usuariosSistemaPrd:UsuarioSistemaService,public configuracionPrd:ConfiguracionesService) {
   }
 
   ngOnInit(): void {  

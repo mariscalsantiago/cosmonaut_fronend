@@ -31,7 +31,7 @@ export class NominaExtraordinariaComponent implements OnInit {
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService,
     private empleadoPrd: EmpleadosService, private nominaAguinaldoPrd: NominaaguinaldoService, private usuariSistemaPrd: UsuarioSistemaService,
-    private configuracionesPrd:ConfiguracionesService) { }
+    public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -43,14 +43,14 @@ export class NominaExtraordinariaComponent implements OnInit {
 
 
   public establecerPermisos(){
-    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
-    this.esCalcular = this.configuracionesPrd.getPermisos("Calcular");
-    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
-    this.esConcluir = this.configuracionesPrd.getPermisos("Concluir");
-    this.esDispersar = this.configuracionesPrd.getPermisos("Dispersar");
-    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
-    this.esTimbrar = this.configuracionesPrd.getPermisos("Timbrar");
-    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esCalcular = this.configuracionPrd.getPermisos("Calcular");
+    this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+    this.esConcluir = this.configuracionPrd.getPermisos("Concluir");
+    this.esDispersar = this.configuracionPrd.getPermisos("Dispersar");
+    this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
+    this.esTimbrar = this.configuracionPrd.getPermisos("Timbrar");
+    this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
   }
 
   public traerListaNomina(){
