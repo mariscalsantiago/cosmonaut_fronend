@@ -28,8 +28,11 @@ export class ListaeventosxempledoComponent implements OnInit {
     columnas:[],
     filas:[]
   };
-
-
+  public objFiltro: any = [];
+  public nombre: any;
+  public apellidoPaterno: any;
+  public apellidoMaterno: any;
+  public esActivo: boolean | undefined;
   public esRegistrar:boolean = false;
   public esConsultar:boolean = false;
 
@@ -71,11 +74,7 @@ export class ListaeventosxempledoComponent implements OnInit {
 
     this.cargando = true;
 
-    this.eventosPrd.getByIdEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
-
-      this.arreglo = datos.datos;
-      this.generandoTabla();
-    });
+this.filtrar();
     
   }
 
@@ -92,7 +91,7 @@ export class ListaeventosxempledoComponent implements OnInit {
       columnas:[],
       filas:[]
     }
-
+    console.log('arr', this.arreglo)
     if(this.arreglo !== undefined){
         for(let item of this.arreglo){
             item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
@@ -160,7 +159,38 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public filtrar(){
+    console.log('entro filtrar');
+    this.cargando = true;
+    if(this.nombre != ''){
+      this.objFiltro = {
+        ...this.objFiltro,
+        nombre: this.nombre
+      };
+      }else if(this.apellidoPaterno != ''){
+        this.objFiltro = {
+          ...this.objFiltro,
+          apellidoPaterno: this.apellidoPaterno
+        };
+      } else if(this.apellidoMaterno != ''){
+          this.objFiltro = {
+            ...this.objFiltro,
+            apellidoMaterno: this.apellidoMaterno
+          };
+      } else if(this.esActivo != undefined){
+        this.objFiltro = {
+          ...this.objFiltro,
+          esActivo: this.esActivo
+        };
+    }
+      this.objFiltro = {
+        ...this.objFiltro,
+        clienteId: this.usuariosSistemaPrd.getIdEmpresa()
+      };
+      this.eventosPrd.filtro(this.objFiltro).subscribe(datos =>{
 
+        this.arreglo = datos.datos;
+        this.generandoTabla();
+      });
   }
 
   public agregar(){

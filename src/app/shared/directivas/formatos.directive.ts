@@ -17,6 +17,7 @@ export class FormatosDirective implements OnInit {
   @Input() public alfanumericos: boolean = false;
   @Input() public letras: boolean = false;
   @Input() public numeros: boolean = false;
+  @Input() public minimo: boolean = false;
   @Input() public control!: AbstractControl;
 
   @Input() public correo:boolean = false;
@@ -38,7 +39,7 @@ export class FormatosDirective implements OnInit {
     }else if(this.correo){
       this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
       this.onFocusout(undefined);
-    }
+    } 
   }
 
   @HostListener("keydown", ["$event"])
@@ -73,7 +74,7 @@ export class FormatosDirective implements OnInit {
         event.preventDefault();
       }
 
-    }
+    } 
   }
 
 

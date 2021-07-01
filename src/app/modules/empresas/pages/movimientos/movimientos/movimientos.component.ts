@@ -22,9 +22,9 @@ export class MovimientosComponent implements OnInit {
   public cargando: boolean = false;
   public fechaMovimiento: any;
   public objFiltro: any = [];
-  public nombre: string = "";
-  public apellidoPaterno: string = "";
-  public apellidoMaterno: string = "";
+  public nombre: any;
+  public apellidoPaterno: any;
+  public apellidoMaterno: any;
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -40,8 +40,8 @@ export class MovimientosComponent implements OnInit {
     private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit() {
-    //this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
-   this.idEmpresa = 1;
+    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
+   //this.idEmpresa = 1;
     this.filtrar();
   }
 
@@ -50,7 +50,7 @@ export class MovimientosComponent implements OnInit {
     this.arreglo = obj.datos;
 
     const columnas: Array<tabla> = [
-      new tabla("nombre", "Nombre de usuario"),
+      new tabla("nombrecompleado", "Nombre de usuario"),
       new tabla("rol", "Rol"),
       new tabla("modulo", "Módulo"),
       new tabla("movimiento", "Movimiento"),
@@ -65,11 +65,12 @@ export class MovimientosComponent implements OnInit {
     console.log('datos',this.arreglo)
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
+        item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
+
         if(item.fechaMovimiento !== undefined ){
         item.fecha = (new Date(item.fechaMovimiento).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fecha = String(datepipe.transform(item.fecha , 'dd-MMM-y')?.replace(".",""));
-        item.nombre = item.nombre + " " + item.apellidoPaterno+" "+(item.apellidoMaterno == undefined ? "":item.apellidoMaterno);
         }
       }
     }
@@ -99,20 +100,12 @@ export class MovimientosComponent implements OnInit {
               apellidoMaterno: this.apellidoMaterno
             };
         }
-        console.log('arr', this.arreglo)
-        if(this.fechaMovimiento !== undefined){
-      
-          const fecha1 = new Date(this.fechaMovimiento).toUTCString().replace("GMT", "");
-          this.fechaMovimiento = `${new Date(fecha1).getTime()}`;
-  
-        }
         
         this.objFiltro = {
           ...this.objFiltro,
           centroClienteId: this.idEmpresa,
           fechaMovimiento: this.fechaMovimiento
         };
-        console.log('moc', this.objFiltro)
       this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
    
         

@@ -24,13 +24,13 @@
                             <input type="text" class="form-control" [(ngModel)]="centroClienteId" placeholder="Centro Cliente Id">
                         </div> -->
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="nombre" placeholder="Nombre">
+                            <input type="text" class="form-control" [(ngModel)]="nombre" formatos [especial]="true" [control]="nombre" placeholder="Nombre">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="apellidoPaterno" placeholder="Primer apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoPaterno" formatos [especial]="true" [control]="apellidoPaterno" placeholder="Primer apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="apellidoMaterno" placeholder="Segundo apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoMaterno" formatos [especial]="true" [control]="apellidoMaterno" placeholder="Segundo apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
                             <input type="date" class="form-control" [(ngModel)]="fechaMovimiento" placeholder="Fecha de movimiento">

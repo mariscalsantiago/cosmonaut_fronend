@@ -32,9 +32,9 @@ export class PPPComponent implements OnInit {
 
   public idEmpresaActual: number = 0;
   public numeroEmpleado: any = "";
-  public nombreEmpleado: string = "";
-  public primerApellidoEmpleado: string = "";
-  public segundoApellidoEmpleado: string = "";
+  public nombreEmpleado: any;
+  public primerApellidoEmpleado: any;
+  public segundoApellidoEmpleado: any;
   public grupoNomina: number = 0;
 
   /*
@@ -93,7 +93,7 @@ export class PPPComponent implements OnInit {
       columnas: [],
       filas: []
     };
-
+    console.log('moneda', this.arreglo)
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
   }
