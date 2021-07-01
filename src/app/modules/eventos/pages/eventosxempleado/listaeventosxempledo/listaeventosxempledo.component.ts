@@ -29,9 +29,9 @@ export class ListaeventosxempledoComponent implements OnInit {
     filas:[]
   };
   public objFiltro: any = [];
-  public nombre: any;
-  public apellidoPaterno: any;
-  public apellidoMaterno: any;
+  public nombre: any = "";
+  public apellidoPaterno: any = "";
+  public apellidoMaterno: any = "";
   public esActivo: boolean | undefined;
   public esRegistrar:boolean = false;
   public esConsultar:boolean = false;

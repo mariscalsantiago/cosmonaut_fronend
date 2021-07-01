@@ -150,16 +150,14 @@ export class DetallepoliticasComponent implements OnInit {
 
   public changeValue(id: number, property: string, event: any) {
     const value = (event.target as HTMLInputElement).value;
-    console.log( this.arregloTablaBeneficios[id][property] , value)
     if (event.target && value < this.arregloTablaBeneficios[id][property] ) {
       (event.target as HTMLInputElement).value = value.replace(value, this.arregloTablaBeneficios[id][property]);
-      (event.target as HTMLInputElement).textContent = value.replace(value, this.arregloTablaBeneficios[id][property]);
-    } else {
-      this.editField = event.target.textContent;
-    }
-    console.log('event.target.textContent;', event.target.textContent)
+      event.target.textContent = value.replace(value, this.arregloTablaBeneficios[id][property]);
+    } 
 
-    
+      this.editField = event.target.textContent;
+
+    console.log('160',this.editField)
    
   }
 
@@ -210,7 +208,6 @@ export class DetallepoliticasComponent implements OnInit {
           },
 
         }
-        console.log('obj', objEnviar)
         if (this.insertar) {
           
           this.modalPrd.showMessageDialog(this.modalPrd.loading);

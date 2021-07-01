@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
 import { CheckboxComponent } from 'ng-uikit-pro-standard';
 import { type } from 'os';
@@ -32,9 +32,9 @@ export class PPPComponent implements OnInit {
 
   public idEmpresaActual: number = 0;
   public numeroEmpleado: any = "";
-  public nombreEmpleado: any;
-  public primerApellidoEmpleado: any;
-  public segundoApellidoEmpleado: any;
+  public nombreEmpleado: any = "";
+  public primerApellidoEmpleado: any = "";
+  public segundoApellidoEmpleado: any = "";
   public grupoNomina: number = 0;
 
   /*
@@ -93,7 +93,18 @@ export class PPPComponent implements OnInit {
       columnas: [],
       filas: []
     };
-    console.log('moneda', this.arreglo)
+    if(this.arreglo !== undefined){
+      for(let item of this.arreglo){
+        if(item.pagoComplementario !== undefined ){
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+          })
+          item.pagoComplementario = formatter.format(item.pagoComplementario)
+        }
+      }
+    }
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
   }
