@@ -19,6 +19,10 @@
   &::-webkit-scrollbar {
     width: 0px;
   }
+
+  li:first-child a{
+        border-top-left-radius: 19px;     
+  }
 }
 
 #salirbtn{

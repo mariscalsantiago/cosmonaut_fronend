@@ -129,6 +129,8 @@ export class ContenidoComponent implements OnInit {
           this.configuracionPrd.setElementosSesion(this.configuracionPrd.MENUUSUARIO, this.PRINCIPAL_MENU);
           this.establecericons();
 
+          this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
+
           this.usuariosSistemaPrd.setUsuario((JSON.parse(localStorage["usuario"])) as usuarioClass);
 
           if (!Boolean(this.configuracionPrd.ocultarChat)) {
@@ -146,23 +148,32 @@ export class ContenidoComponent implements OnInit {
         });
 
       } else {
-        this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
-          this.PRINCIPAL_MENU = datos;
-          this.establecericons();
-          if ((this.configuracionPrd.ocultarChat) == undefined) {
-            this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-            if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-                // console.log("SANTIAGO ANTONIO",datos.datos);
-              });
+
+        if(!Boolean(this.configuracionPrd.MENUPRINCIPAL)){
+          this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
+            this.PRINCIPAL_MENU = datos;
+            this.establecericons();
+            this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
+            if ((this.configuracionPrd.ocultarChat) == undefined) {
+              this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
+              if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
+                this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+                  console.log("EN EL ELSE YA CARGADOS",datos.datos);
+                });
+              }
             }
-          }
-
-
-
-
-
-        });
+          });
+        }else{
+            this.PRINCIPAL_MENU = this.configuracionPrd.MENUPRINCIPAL;
+            if ((this.configuracionPrd.ocultarChat) == undefined) {
+              this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
+              if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
+                this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+                  console.log("EN LA PARTE DE YA NO CARGA DEPLANO EL MENU",datos.datos);
+                });
+              }
+            }
+        }
       }
     }
 
@@ -172,17 +183,28 @@ export class ContenidoComponent implements OnInit {
 
 
     for (let item of this.PRINCIPAL_MENU)
-      item.seleccionado = false;
+      {
+        item.seleccionado = false;
+        item.seleccionadosubmenu = false;
+      }
 
 
   }
 
-  public seleccionado(obj: any) {
-    this.limpiando();
 
+  public seleccionado(obj: any,indice:number) {
+    
+    if(!obj.seleccionadosubmenu){
+
+      this.limpiando();
+
+    }
+    
     obj.seleccionado = true;
-
+    
+    if(indice == 0) return;
     obj.seleccionadosubmenu = !obj.seleccionadosubmenu;
+
   }
 
 
@@ -308,6 +330,7 @@ export class ContenidoComponent implements OnInit {
 
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
+    this.configuracionPrd.menu = false;
   }
 
 
