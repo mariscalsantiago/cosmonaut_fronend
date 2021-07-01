@@ -6,10 +6,11 @@ import { IDSEComponent } from "src/app/modules/IMSS/IDSE/idse/idse.component";
 import { imssRoutingModule } from "src/app/modules/IMSS/imss-routing.module";
 import { SuaComponent } from "src/app/modules/IMSS/sua/sua/sua.component";
 import { VariabilidadComponent } from "src/app/modules/IMSS/variabilidad/variabilidad/variabilidad.component";
+import { ConfrontaComponent } from './confronta/confronta.component';
 
 
 @NgModule({
-    declarations:[IDSEComponent, SuaComponent, VariabilidadComponent],
+    declarations:[IDSEComponent, SuaComponent, VariabilidadComponent, ConfrontaComponent],
     imports:[CommonModule,FormsModule,imssRoutingModule,ShareModule, ReactiveFormsModule]
     })
 export class imssModule{
