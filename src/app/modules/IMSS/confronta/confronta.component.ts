@@ -44,8 +44,8 @@ export class ConfrontaComponent implements OnInit {
     public registroPatronal: string = "";
     public idregistroPatronal: any = 0;
     public razonSocial: string = "";
-    public mes: Date =  new Date('00');
-    public anio: Date =  new Date('0000');
+    public mes: any = '';
+    public anio: any = '';
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
