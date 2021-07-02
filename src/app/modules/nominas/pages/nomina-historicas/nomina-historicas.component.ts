@@ -66,7 +66,7 @@ export class NominaHistoricasComponent implements OnInit {
 
   public recibirTabla(obj: any) {
     obj.datos.cargandoDetalle = false;
-    console.log(obj);
+    
     switch (obj.type) {
       case "polizacontable":
           alert("Poliza contable");

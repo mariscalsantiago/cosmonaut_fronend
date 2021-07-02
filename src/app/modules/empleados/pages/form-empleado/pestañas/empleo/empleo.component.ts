@@ -347,7 +347,7 @@ export class EmpleoComponent implements OnInit {
       obj.areaGeograficaId = 1;
     }
     const pipe = new DatePipe("es-MX");
-    console.log('obj',obj);
+    
     return this.formBuilder.group({
       areaId: [obj.areaId?.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],

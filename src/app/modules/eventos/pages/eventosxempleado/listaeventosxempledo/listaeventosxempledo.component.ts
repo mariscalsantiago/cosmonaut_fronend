@@ -159,7 +159,7 @@ this.filtrar();
   }
 
   public filtrar(){
-    console.log('entro filtrar');
+    
     this.cargando = true;
     if(this.nombre != ''){
       this.objFiltro = {

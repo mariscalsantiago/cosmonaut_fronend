@@ -11,6 +11,7 @@ export class ChatSocketService {
   private socket!:WebSocket;
 
   public esConectado:boolean = false;
+  public yaRecibeMensajes:boolean = false;
 
   public datos = {
     ocultar: true,
@@ -41,9 +42,10 @@ export class ChatSocketService {
     this.esConectado = true;
 
 
+    let auxsocket = cadenaSocket;
     this.socket.onclose = ()=>{
-      console.log("Se cerro en automatico",this.esConectado);
-      this.esConectado = false;
+      console.log("Se desconecto el webservices");
+     
     }
   }
 
@@ -52,7 +54,10 @@ export class ChatSocketService {
       this.socket.send(mensaje);
   }
 
-  public recibiendoMensajeServer():Subject<any>{
+  public recibiendoMensajeServer(desdechatboot:boolean = false):Subject<any>{
+    if(desdechatboot){
+      this.yaRecibeMensajes = true;
+    }
 
     let subject:Subject<any> = new Subject();
     this.socket.onmessage = (recibir)=>{
@@ -105,6 +110,13 @@ export class ChatSocketService {
       this.esConectado = false;  
   }
 
+  public desconectarSocket(){
+    if(this.socket){
+      this.disconnect();
+      this.socket.close();
+    }
+  }
+
 
   public guardarMensajeGenerico(obj:any):Observable<any>{
       let json = JSON.stringify(obj);
@@ -120,7 +132,7 @@ export class ChatSocketService {
       return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/${idEmpresa}`);
   }
   public getMensajeGenericoByEmpresaByEmpleado(idEmpresa:number,idUsuario:number):Observable<any>{
-    return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/usuario/${idEmpresa}/${idUsuario}`);
+    return this.http.get(`${direcciones.chat}/listar/usuario/${idEmpresa}/${idUsuario}`);
 }
 
 

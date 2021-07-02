@@ -16,7 +16,7 @@ export class VentanaResumenDispersionComponent implements OnInit {
   constructor(private reportesPrd:ReportesService,private nominasOrdinariasPrd:NominaordinariaService) { }
 
   ngOnInit(): void {
-    console.log(this.datos,"ESTOS SON LOS DATOS");
+    
     this.nominasOrdinariasPrd.resumenDispersar(this.datos).subscribe(datos =>{
         if(datos.datos !== undefined){
           this.recibidos = datos.datos[0];
