@@ -18,8 +18,8 @@ export class ListaempleadosComponent implements OnInit {
 
   public personaId: any = "";
   public nombre: any = "";
-  public apellidoPaterno = "";
-  public apellidoMaterno = "";
+  public apellidoPaterno: any = "";
+  public apellidoMaterno: any = "";
   public idarea: any = "";
   public idPuesto: any = "";
   public empresa: any = "";

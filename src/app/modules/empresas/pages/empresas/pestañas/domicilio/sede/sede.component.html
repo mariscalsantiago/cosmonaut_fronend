@@ -1,109 +1,101 @@
- 
-   
-   <form [formGroup]="myForm"  (ngSubmit)="enviarFormulario()" class="background-panel">
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()" class="background-panel">
     <br>
     <div class="form-group mt-3 row margen"><label class="titulo">INFORMACIÓN DE SEDE</label></div>
-        
-        <div class="row">
 
-            <div class="col-10">
-                <div class="form group row  margen">
-                    
-                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                        <label>Nombre de la sede *</label>
-                        <input formControlName="sede" type="text" name="" 
-                            [ngClass]="{'is-invalid':f.sede.errors && submitEnviado}" class="form-control">
-                        <div *ngIf="f.sede.errors && submitEnviado" class="invalid-feedback">
-                            Campo requerido 
-                        </div>
+    <div class="row">
+
+        <div class="col-10">
+            <div class="form group row  margen">
+
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Nombre de la sede *</label>
+                    <input formControlName="sede" type="text" name="" [ngClass]="{'is-invalid':f.sede.errors && submitEnviado}" class="form-control">
+                    <div *ngIf="f.sede.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
                     </div>
-                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8"></div>
-    
-                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                        <label>Código postal *</label>
-                        <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control"
-                            [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
-                            placeholder="">
-                        <div *ngIf="f.codigo.errors?.required && submitEnviado" class="invalid-feedback">
-                            Campo requerido
-                        </div>
-                        <div *ngIf="f.codigo.errors?.pattern && f.codigo.touched" class="invalid-feedback">
-                            Código postal incorrecto, Formato númerico
-                        </div>
-    
-    
-                    </div>
-                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                        <label>Entidad federativa *</label>
-                        <input formControlName="estado"  type="email"
-                            [ngClass]="{'is-invalid':f.estado.errors?.required && submitEnviado}"
-                            class="form-control disabled bg-light" placeholder="">
-                        <div *ngIf="f.estado.errors?.required && submitEnviado" class="invalid-feedback">
-                            Campo requerido
-                        </div>
-    
-                    </div>
-                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                        <label>Municipio o alcadía *</label>
-                        <input formControlName="municipio"  type="email"
-                            [ngClass]="{'is-invalid':f.municipio.errors?.required && submitEnviado}"
-                            class="form-control disabled bg-light" placeholder="">
-                        <div *ngIf="f.municipio.errors?.required && submitEnviado" class="invalid-feedback">
-                            Campo requerido
-                        </div>
-    
-                    </div>
-    
                 </div>
-    
-                <div class="form group row margen">
-                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                        <label>Colonia *</label>
-                        <select formControlName="asentamientoId" name="" 
-                            [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8"></div>
+
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Código postal *</label>
+                    <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control" [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
+                        placeholder="">
+                    <div *ngIf="f.codigo.errors?.required && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="f.codigo.errors?.pattern && f.codigo.touched" class="invalid-feedback">
+                        Código postal incorrecto, Formato númerico
+                    </div>
+                    <div *ngIf="noCoincide !== ''" class="mt-2"> {{noCoincide}}</div>
+
+
+
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Entidad federativa *</label>
+                    <input formControlName="estado" type="email" [ngClass]="{'is-invalid':f.estado.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
+                    <div *ngIf="f.estado.errors?.required && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Municipio o alcadía *</label>
+                    <input formControlName="municipio" type="email" [ngClass]="{'is-invalid':f.municipio.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
+                    <div *ngIf="f.municipio.errors?.required && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form group row margen">
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Colonia *</label>
+                    <select formControlName="asentamientoId" name="" [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
                             <option *ngFor="let item of domicilioCodigoPostal" [value]="item.asentamientoCpCons">{{item.asentamiento}}</option>
                         </select>
-                        <div *ngIf="f.asentamientoId.errors && submitEnviado" class="invalid-feedback">
-                            Campo requerido
-                        </div>
-    
+                    <div *ngIf="f.asentamientoId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
                     </div>
-                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8">
-                        <label>Calle *</label>
-                        <input formControlName="calle" type="text" [ngClass]="{'is-invalid':f.calle.errors && submitEnviado}" class="form-control" placeholder="">
-                        <div *ngIf="f.calle.errors && submitEnviado" class="invalid-feedback">
-                            Campo requerido
-                        </div>
+
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8">
+                    <label>Calle *</label>
+                    <input formControlName="calle" type="text" [ngClass]="{'is-invalid':f.calle.errors && submitEnviado}" class="form-control" placeholder="">
+                    <div *ngIf="f.calle.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
                     </div>
                 </div>
-    
-                <div class="form group row margen">
-                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                        <label>Número exterior *</label>
-                        <input formControlName="numExterior" type="text" name="" 
-                            [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
-                        <div *ngIf="f.numExterior.errors && submitEnviado" class="invalid-feedback">
-                            Campo requerido
-                        </div>
-                    </div>
-                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                        <label>Número interior</label>
-                        <input formControlName="numInterior" type="email" class="form-control text-lowercase" placeholder="">
-    
+            </div>
+
+            <div class="form group row margen">
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Número exterior *</label>
+                    <input formControlName="numExterior" type="text" name="" [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
+                    <div *ngIf="f.numExterior.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
                     </div>
                 </div>
-    
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Número interior</label>
+                    <input formControlName="numInterior" type="email" class="form-control text-lowercase" placeholder="">
+
+                </div>
             </div>
 
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="text-right margin" style="margin-bottom: 20px;">
-                    <button type="submit" (click)="activarCancel()"class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                    <button (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
 
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="text-right margin" style="margin-bottom: 20px;">
+                <button type="submit" (click)="activarCancel()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
+
             </div>
         </div>
+    </div>
 
-    </form>
+</form>

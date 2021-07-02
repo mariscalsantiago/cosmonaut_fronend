@@ -34,7 +34,7 @@ export class SedeComponent implements OnInit {
   public objenviar: any = [];
   public insertarMof: boolean = false;
   public objMod: any = [];
-
+  public noCoincide =''; 
   constructor(private formBuilder: FormBuilder,private sedePrd:SedeService,
     private catalogosPrd:CatalogosService,private routerPrd:Router, private routerActivePrd: ActivatedRoute )
     {
@@ -244,6 +244,7 @@ public activarCancel(){
             this.myForm.controls.numInterior.enable();
             this.myForm.controls.calle.enable();
           }else{
+            this.noCoincide= 'El código postal no fue encontrado';
             this.myForm.controls.asentamientoId.disable();
             this.myForm.controls.numExterior.disable();
             this.myForm.controls.numInterior.disable();
