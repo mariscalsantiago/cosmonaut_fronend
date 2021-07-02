@@ -6,7 +6,7 @@ import { IDSEComponent } from "src/app/modules/IMSS/IDSE/idse/idse.component";
 import { imssRoutingModule } from "src/app/modules/IMSS/imss-routing.module";
 import { SuaComponent } from "src/app/modules/IMSS/sua/sua/sua.component";
 import { VariabilidadComponent } from "src/app/modules/IMSS/variabilidad/variabilidad/variabilidad.component";
-import { ConfrontaComponent } from './confronta/confronta.component';
+import { ConfrontaComponent } from './confronta/confronta/confronta.component';
 
 
 @NgModule({
