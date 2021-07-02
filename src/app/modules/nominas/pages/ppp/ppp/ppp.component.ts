@@ -89,7 +89,18 @@ export class PPPComponent implements OnInit {
       columnas: [],
       filas: []
     };
-    console.log('moneda', this.arreglo)
+    if(this.arreglo !== undefined){
+      for(let item of this.arreglo){
+        if(item.pagoComplementario !== undefined ){
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+          })
+          item.pagoComplementario = formatter.format(item.pagoComplementario)
+        }
+      }
+    }
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
   }

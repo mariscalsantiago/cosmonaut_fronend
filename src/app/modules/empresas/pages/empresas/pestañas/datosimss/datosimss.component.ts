@@ -17,7 +17,7 @@ export class DatosimssComponent implements OnInit {
   @Input() enviarPeticion: any;
   @Input() cambiaValor: boolean = false;
   @Input() datosempresa:any;
-
+  public show = false;
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
   public activadoCer:boolean = false;
