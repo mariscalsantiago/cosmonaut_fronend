@@ -33,8 +33,8 @@ export class PPPComponent implements OnInit {
   public idEmpresaActual: number = 0;
   public numeroEmpleado: any = "";
   public nombreEmpleado: any = "";
-  public primerApellidoEmpleado: any = "";
-  public segundoApellidoEmpleado: any = "";
+  public primerApellidoEmpleado: any="";
+  public segundoApellidoEmpleado: any="";
   public grupoNomina: number = 0;
 
   /*

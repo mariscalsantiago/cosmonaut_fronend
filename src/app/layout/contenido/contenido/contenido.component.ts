@@ -248,6 +248,7 @@ export class ContenidoComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Estás seguro de cerrar la sesión?").then(valor => {
       if (valor) {
 
+        debugger;
         this.chatPrd.disconnect();
         if (this.suscripcion) this.suscripcion.unsubscribe();
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
