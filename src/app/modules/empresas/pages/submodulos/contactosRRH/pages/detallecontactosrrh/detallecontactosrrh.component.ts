@@ -27,6 +27,7 @@ export class DetallecontactosrrhComponent implements OnInit {
 
 
     this.ActiveRouter.params.subscribe(datos => {
+      
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
         this.esInsert = true;
@@ -52,7 +53,7 @@ export class DetallecontactosrrhComponent implements OnInit {
 
   public createForm(obj: any) {
 
-
+    console.log('obj', obj)
     let fecha = new Date();
     this.fechaActual = fecha.toLocaleDateString();
     let datePipe = new DatePipe("en-MX");

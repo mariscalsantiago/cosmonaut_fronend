@@ -56,6 +56,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public nuevatablaSubsidio : boolean = false;
   public aplicableISN : boolean = false;
   public nuevoaplicableISN : boolean = false;
+  public submitActive = false;
 
   public arreglotabla: any = {
     columnas: [],
@@ -75,7 +76,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    
+  
 
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data;
@@ -220,6 +221,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public createForm(obj: any) {
+    console.log('catalogo', obj)
+
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
 
@@ -683,6 +686,16 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if (this.detCatalogos.listaCatalogosId == 3){
+          this.submitActive = true;
+          if(obj.nombreCorto === null ){
+            this.myForm.controls.nombreCorto.setErrors({required: true});
+          } 
+          if( obj.clave === null){
+            this.myForm.controls.clave.setErrors({required: true});
+          } if( this.myForm.invalid){
+            this.modalPrd.showMessageDialog(this.modalPrd.error);
+            return; 
+          }
          
           
           this.objEnviar = {
