@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 
 
@@ -30,7 +33,9 @@ export class NominaComponent implements OnInit {
   public esTimbrar: boolean = false;
   public esDescargar: boolean = false;
 
-  constructor(private configuracionesPrd: ConfiguracionesService) { }
+  constructor(private configuracionesPrd: ConfiguracionesService,
+    private modalPrd:ModalService,private usuariSistemaPrd:UsuarioSistemaService,
+    private nominaOrdinariaPrd:NominaordinariaService) { }
 
   ngOnInit(): void {
 
@@ -172,5 +177,7 @@ export class NominaComponent implements OnInit {
         break;
     }
   }
+
+
 
 }

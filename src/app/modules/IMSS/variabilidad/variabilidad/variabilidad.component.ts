@@ -77,7 +77,7 @@ export class VariabilidadComponent implements OnInit {
     
 
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
-    debugger;
+    
     let fecha = new Date();
     let dia = fecha.getDate().toString();
     let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
@@ -110,7 +110,7 @@ export class VariabilidadComponent implements OnInit {
 
     public traerTabla(datos:any) {
 
-      debugger;
+      
       const columna: Array<tabla> = [
         new tabla("razonSocial", "Razón Social"),
         new tabla("anioFiscal", "Año"),
@@ -314,7 +314,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public promedioVariabilidad(){
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     this.reportesPrd.getCalcularDías(this.bimestreCalcular).subscribe(archivo => {
@@ -387,7 +387,7 @@ export class VariabilidadComponent implements OnInit {
               obj.bimestre = 6;
               
             }
-            debugger;
+            
               let objEnviar : any = 
               
               /*{

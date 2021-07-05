@@ -316,7 +316,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
           
           
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
-            debugger;
+            
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
               this.arregloLiquidacion=[];
               if(!datos.resultado){

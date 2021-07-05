@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
@@ -19,6 +20,11 @@ export class VentanaNuevanominaComponent implements OnInit {
 
   public myForm!: FormGroup;
 
+
+  public limiteDias: number = 0;
+
+  public fechaMaxima: string = "";
+
   constructor(private modalPrd: ModalService, private grupoNominaPrd: GruponominasService,
     private usuariosPrd: UsuarioSistemaService, private formbuilder: FormBuilder,
     private usuarioSistemaPrd: UsuarioSistemaService, private nominaOrdinariaPrd: NominaordinariaService) { }
@@ -34,14 +40,42 @@ export class VentanaNuevanominaComponent implements OnInit {
 
 
     this.f.fechaIniPeriodo.valueChanges.subscribe(valor => {
-      if (this.f.fechaIniPeriodo.valid) {
-        this.f.fechaFinPeriodo.enable();
-        this.fechafin.nativeElement.min = valor;
-      } else {
-        this.f.fechaFinPeriodo.disable();
+      if (valor) {
         this.f.fechaFinPeriodo.setValue("");
+        if (this.f.fechaIniPeriodo.valid) {
+          this.f.fechaFinPeriodo.enable();
+          this.fechafin.nativeElement.min = valor;
+        } else {
+          this.f.fechaFinPeriodo.disable();
+          this.f.fechaFinPeriodo.setValue("");
+        }
+
+        let fechaActual = new Date(valor);
+        fechaActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + this.limiteDias);
+
+        this.fechaMaxima = String(new DatePipe("es-MX").transform(fechaActual, "yyyy-MM-dd"));
       }
+
     })
+
+
+    this.f.grupoNomina.valueChanges.subscribe(valor => {
+      let gruponomina = this.arreglogruposnomina.filter((mm: any) => valor == mm.id)[0];
+      switch (gruponomina.periodo) {
+        case "Semanal":
+          this.limiteDias = 7;
+          break;
+        case "Quincenal":
+          this.limiteDias = 16;
+          break;
+        case "Mensual":
+          this.limiteDias = 31;
+          break;
+      }
+      this.f.fechaIniPeriodo.enable();
+      this.f.fechaFinPeriodo.setValue("");
+      this.f.fechaFinPeriodo.disable();
+    });
 
 
 
@@ -55,7 +89,7 @@ export class VentanaNuevanominaComponent implements OnInit {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
         grupoNomina: [, [Validators.required]],
         usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
-        fechaIniPeriodo: [, [Validators.required]],
+        fechaIniPeriodo: [{ value: '', disabled: true }, [Validators.required]],
         fechaFinPeriodo: [{ value: '', disabled: true }, [Validators.required]],
         nombreNomina: [, [Validators.required]]
       }
@@ -68,13 +102,6 @@ export class VentanaNuevanominaComponent implements OnInit {
   }
 
 
-  public guardar() {
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas registrar la nómina?").then(valor => {
-      if (valor) {
-        this.salida.emit({ type: "guardar", datos: valor });
-      }
-    });
-  }
 
 
 
@@ -108,15 +135,13 @@ export class VentanaNuevanominaComponent implements OnInit {
     this.nominaOrdinariaPrd.crearNomina(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
-      this.salida.emit({
-        type: "guardar", datos: datos
-      });
-    },err =>{
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-
-      this.salida.emit({
-        type: "guardar", datos: "bueno"
-      });
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+        if (datos.resultado) {
+          this.salida.emit({
+            type: "guardar", datos: datos
+          });
+        }
+      })
     });
 
   }

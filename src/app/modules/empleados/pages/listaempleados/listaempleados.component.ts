@@ -67,7 +67,7 @@ export class ListaempleadosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.establecerPermisos();
 
     let documento: any = document.defaultView;

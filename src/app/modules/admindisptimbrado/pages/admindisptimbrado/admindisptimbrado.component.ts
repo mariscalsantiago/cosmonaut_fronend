@@ -81,7 +81,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
 
   public filtrar() {
-    debugger;
+    
  
       
         
