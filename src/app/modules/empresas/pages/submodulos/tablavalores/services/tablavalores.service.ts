@@ -20,6 +20,9 @@ export class TablaValoresService {
   public getListaReferencia(anio:number):Observable<any>{
        return this.http.get(`${this.url}/listar/valorReferencia/true/${anio}`);
   }
+  public getListaReferenciaCat(anio:number):Observable<any>{
+    return this.http.get(`${direcciones.tablasValoresCAT}/listar/valorReferencia/true/${anio}`);
+}
 
   public getListatablasPeriodicasISR():Observable<any>{
     return this.http.get(`${this.url}/listar/tablasPeriodicasISR`);

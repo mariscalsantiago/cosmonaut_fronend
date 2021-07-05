@@ -4,6 +4,7 @@ import { EmpresasService } from 'src/app/modules/empresas/services/empresas.serv
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { DatePipe } from '@angular/common';
+import { AdminDispercionTimbradoService } from 'src/app/modules/admindisptimbrado/services/admindisptimbrado.service';
 
 @Component({
   selector: 'app-admindisptimbrado',
@@ -36,24 +37,31 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService) { }
+    private modalPrd:ModalService, private admintimbradoDispersion: AdminDispercionTimbradoService) { }
 
   ngOnInit() {
     //this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
    this.idEmpresa = 1;
+   this.cargando = true;
+    
+   this.admintimbradoDispersion.getListaProveedorTimbrado(1).subscribe(datos => {
+   this.traerTabla(datos);
+ });
+
     this.filtrar();
   }
 
   public traerTabla(obj:any) {
+    debugger;
 
     this.arreglo = obj.datos;
 
     const columnas: Array<tabla> = [
-      new tabla("nombre", "Nombre de usuario"),
-      new tabla("rol", "Rol"),
-      new tabla("modulo", "Módulo"),
-      new tabla("movimiento", "Movimiento"),
-      new tabla("fecha", "Fecha de movimiento")
+      new tabla("idCliente", "ID Cliente"),
+      new tabla("cliente", "Cliente"),
+      new tabla("idEmpresa", "ID Empresa"),
+      new tabla("empresa", "Empresa"),
+      new tabla("rfc", "RFC"),
     ];
 
 
