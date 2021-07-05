@@ -121,18 +121,17 @@
                                         </tr>
                                         <tr *ngFor="let beneficios of arregloTablaBeneficios; let beneficioPolitica = index">
                                             <td>
-                                                <input (keyup)="changeValue(beneficioPolitica, 'aniosAntiguedad', $event)" (blur)="updateList(beneficioPolitica, 'aniosAntiguedad', $event)" contenteditable="true" class="form-control form-control-sm" placeholder="{{beneficios.aniosAntiguedad}}" disabled>
+                                                <input (blur)="updateList(beneficioPolitica, 'aniosAntiguedad', $event)" contenteditable="true" class="form-control form-control-sm" placeholder="{{beneficios.aniosAntiguedad}}" disabled>
                                             </td>
                                             <td>
-                                                <input contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasAguinaldo', $event)" (blur)="updateList(beneficioPolitica, 'diasAguinaldo', $event)" class="form-control form-control-sm" [value]="beneficios.diasAguinaldo">
+                                                <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasAguinaldo', $event)" (blur)="updateList(beneficioPolitica, 'diasAguinaldo', $event)">{{beneficios.diasAguinaldo}}</span>
                                             </td>
                                             <td>
-                                                <input contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasVacaciones', $event)" (blur)="updateList(beneficioPolitica, 'diasVacaciones', $event)" class="form-control form-control-sm" [value]="beneficios.diasVacaciones">
+                                                <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'diasVacaciones', $event)" (blur)="updateList(beneficioPolitica, 'diasVacaciones', $event)">{{beneficios.diasVacaciones}}</span>
                                             </td>
                                             <td>
-                                                <input contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'primaVacacional', $event)" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)" class="form-control form-control-sm" [value]=" beneficios.primaVacacional">
+                                                <span contenteditable="true" (keyup)="changeValue(beneficioPolitica, 'primaVacacional', $event)" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)">{{beneficios.primaVacacional}}</span>
                                             </td>
-
                                         </tr>
                                     </table>
                                     <div *ngIf="!cargando && arregloTablaBeneficios === undefined" class="alert col text-center">

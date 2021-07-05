@@ -1,15 +1,11 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CheckboxComponent } from 'ng-uikit-pro-standard';
-import { type } from 'os';
 import { tabla } from 'src/app/core/data/tabla';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { checkServerIdentity } from 'tls';
 
 
 @Component({
@@ -93,7 +89,18 @@ export class PPPComponent implements OnInit {
       columnas: [],
       filas: []
     };
-    console.log('moneda', this.arreglo)
+    if(this.arreglo !== undefined){
+      for(let item of this.arreglo){
+        if(item.pagoComplementario !== undefined ){
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+          })
+          item.pagoComplementario = formatter.format(item.pagoComplementario)
+        }
+      }
+    }
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
   }

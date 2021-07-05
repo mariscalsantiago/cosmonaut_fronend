@@ -22,9 +22,9 @@ export class MovimientosComponent implements OnInit {
   public cargando: boolean = false;
   public fechaMovimiento: any;
   public objFiltro: any = [];
-  public nombre: any;
-  public apellidoPaterno: any;
-  public apellidoMaterno: any;
+  public nombre: any = "";
+  public apellidoPaterno: any = "";
+  public apellidoMaterno: any = "";
   public arreglotabla: any = {
     columnas: [],
     filas: []

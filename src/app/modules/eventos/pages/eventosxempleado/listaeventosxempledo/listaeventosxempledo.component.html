@@ -93,14 +93,14 @@
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
                             <select class="form-control" [(ngModel)]="esActivo">
-                                <option value="">Estatus</option>
-                                <option value=true >Activo</option>
+                                <option  value="" selected>Estatus</option>
+                                <option value=true>Activo</option>
                                 <option value=false >Inactivo</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control">
-                                <option selected value="">Evento</option>
+                            <select class="form-control" [(ngModel)]="tipoIncidenciaId">
+                                <option  value="" selected>Evento</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">

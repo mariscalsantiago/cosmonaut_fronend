@@ -198,7 +198,7 @@ export class TimbrarComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          console.log(valor);
+          
           this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numeroEmpleado,"pdf")
         });
         break;
@@ -259,7 +259,7 @@ export class TimbrarComponent implements OnInit {
 
 
 
-        console.log(this.arreglo);
+        
         let idCentroCliente = 0;
 
         let obj = []
