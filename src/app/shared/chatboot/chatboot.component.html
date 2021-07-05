@@ -19,8 +19,8 @@
         <div>
           <span style="text-align: center; color:gray; display: block; font-size: smaller;">{{(fecha | date:'dd MMM yyyy')?.replace('.','')}}</span>
           <div #ventanaprincipal id="chatprincipal"  class="chat">
-            <div  *ngFor="let item of arreglomensajes" [ngClass]="{'enviado':item.enviado,'recibido':!item.enviado}">
-              <div [ngClass]="{'ajustandoenviado':item.enviado,'ajutandorecibido':!item.enviado}">
+            <div  *ngFor="let item of arreglomensajes" [ngClass]="{'enviado':item.usuarioId === usuarioId,'recibido':item.usuarioId !== usuarioId}">
+              <div [ngClass]="{'ajustandoenviado':item.usuarioId === usuarioId,'ajutandorecibido':item.usuarioId !== usuarioId}">
                 {{item.mensaje}}
               <span class="hora">{{item.fecha | date:'HH:mm'}}</span>
               </div>

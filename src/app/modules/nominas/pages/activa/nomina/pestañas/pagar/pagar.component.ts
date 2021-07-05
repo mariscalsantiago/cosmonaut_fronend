@@ -171,7 +171,7 @@ export class PagarComponent implements OnInit {
       if (valor) {
 
 
-        console.log(this.arreglo);
+        
 
 
         let obj = []

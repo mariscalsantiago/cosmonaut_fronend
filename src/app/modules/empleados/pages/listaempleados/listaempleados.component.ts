@@ -161,7 +161,7 @@ export class ListaempleadosComponent implements OnInit {
 
     this.cargando = true;
     this.empleadosPrd.filtrar(objenviar).subscribe(datos =>{
-      console.log("ESTO ES FILTRAR",datos);
+      
       let columnas: Array<tabla> = [
         new tabla("nombre", "Nombre", this.esConsultar, this.esConsultar),
         new tabla("numeroEmpleado", "Número de empleado",false,false,true),

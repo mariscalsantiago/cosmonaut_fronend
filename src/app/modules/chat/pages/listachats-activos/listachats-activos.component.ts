@@ -43,7 +43,7 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
 
     this.cargando = true;
     this.suscripcion = this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
-      console.log("No hay bronca de los datos");
+      
       if(datos.datos !== undefined){
         if(this.cantidad !== datos.datos.length){
           this.cantidad = datos.datos.length;
@@ -70,17 +70,20 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
 
     let columnas: Array<tabla> = [
       new tabla("nombreempleado", "Empleado"),
-      new tabla("mensaje", "Mensaje"),
+      new tabla("mensajeultimo", "Mensaje"),
       new tabla("fecha", "Fecha", false, false, true)   
     ]
 
     if (obj) {
       for (let item of obj) {
+
+        let arreglomensajes = JSON.parse(item.mensajes);
+
         item["nombreempleado"] = item.usuarioId?.nombre + " " + item.usuarioId.apellidoPat + " ";
-        item["nombreempleado"] += item.personaId?.apellidoMat ? "" : item.usuarioId?.apellidoMat
-        item["mensaje"]=JSON.parse(item.mensajeInicialEmpleado).mensaje
+        item["nombreempleado"] += item.personaId?.apellidoMat ? "" : item.usuarioId?.apellidoMat || ""
+        item["mensajeultimo"]=arreglomensajes[arreglomensajes.length-1]?.mensaje;
         var datePipe = new DatePipe("es-MX");
-        item["fecha"] = (new Date(item.fechaMensajeIncialEmpleado).toUTCString()).replace(" 00:00:00 GMT", "");
+        item["fecha"] = (new Date(item.fechaUltimoMensaje).toUTCString()).replace(" 00:00:00 GMT", "");
         item["fecha"] = datePipe.transform(item["fecha"], 'dd-MMM-y')?.replace(".", "");
 
       }
@@ -97,29 +100,30 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
 
 
   public recibirTabla(obj: any) {
+
+
     
     switch (obj.type) {
       case "responder":
+
+      
+        this.socket.desconectarSocket();
+      
         this.socket.getChatDatos().datos.nombre = obj.datos.nombreempleado;
-        this.socket.getChatDatos().datos.socket = obj.datos.conversacion.substring(0,obj.datos.conversacion.lastIndexOf("/"))+"/"+this.usuariossistemaPrd.getUsuario().usuarioId;
+        this.socket.getChatDatos().datos.socket = obj.datos.conversacionId;
         this.socket.getChatDatos().ocultar = false;
 
         this.configuracionPrd.ocultarChat = false;
 
 
-        let objEnviado = {
-          enviado:false,
-          mensaje: JSON.parse(obj.datos.mensajeInicialEmpleado).mensaje,
-          fecha:new Date()
-        };
 
         if(this.socket.getMensajes().length === 0){
-            this.socket.setMensajes([objEnviado])
+            this.socket.setMensajes(JSON.parse(obj.datos.mensajes))
         }
 
         let objEnviar = {
           chatColaboradorId: obj.datos.chatColaboradorId,
-          atendido: true,
+          esActual: false,
           fechaRespuesta: new Date().getTime()
         };
         this.socket.modificarMensaje(objEnviar).subscribe(datos => {

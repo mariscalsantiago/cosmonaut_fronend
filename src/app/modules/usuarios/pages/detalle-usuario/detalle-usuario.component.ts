@@ -57,7 +57,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
-    console.log("Esta es la compania",this.arregloCompany);
+    
     this.insertar = !Boolean(history.state.usuario);
     this.objusuario = history.state.usuario;
     this.objusuario = this.objusuario == undefined ? {}:this.objusuario;

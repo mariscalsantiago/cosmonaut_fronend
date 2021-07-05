@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { interval, Observable, Subject, timer } from 'rxjs';
-import { concatMap, flatMap, take, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import {  Observable, Subject, timer } from 'rxjs';
+import { concatMap, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { direcciones } from 'src/assets/direcciones';
 
@@ -10,7 +12,8 @@ import { direcciones } from 'src/assets/direcciones';
 })
 export class ChatService {
 
-  constructor(private http:HttpClient,private configuracionPrd:ConfiguracionesService) { }
+  constructor(private http:HttpClient,private configuracionPrd:ConfiguracionesService,
+    private authPrd:AuthService) { }
 
   public primeravez:boolean = true;
 
@@ -24,7 +27,7 @@ export class ChatService {
      
       if(this.primeravez){
         this.primeravez = false;
-        timer(0,2000).pipe(concatMap(()=>this.http.get(`${direcciones.chat}/listar/${idEmpresa}`)),
+       let suscripcion:Subscription =  timer(0,2000).pipe(concatMap(()=>this.http.get(`${direcciones.chat}/listar/${idEmpresa}`)),
         tap((valor:any) =>{
           if(valor.datos !== undefined){
               if(this.arreglo?.length !== valor.datos?.length){
@@ -36,7 +39,11 @@ export class ChatService {
           return valor;
         }))
         .subscribe((datos:any) => {
-          this.subject.next(datos);
+          if(this.authPrd.isAuthenticated()){
+            this.subject.next(datos);
+          }else{
+              suscripcion.unsubscribe();
+          }
         });
       }
 
