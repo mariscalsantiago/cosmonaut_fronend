@@ -30,8 +30,10 @@ export const direcciones = {
     conceptos:`${ip}/percepcionDeduccion`,
     incidencias:`${ip}/incidencias`,
     documentos:`${ip}/documentos`,
+    
     kardex:`${ip}/kardex`,
     tablasValores: `${ipAdmin}/TablasValores`,
+    tablasValoresCAT: `${ip3}/TablasValores`,
     adminCatalogo: `${ipAdmin}/adminCatalogo`,
     roles: `${ipAdmin}/rol`,
     modulos: `${ipAdmin}/modulos`,

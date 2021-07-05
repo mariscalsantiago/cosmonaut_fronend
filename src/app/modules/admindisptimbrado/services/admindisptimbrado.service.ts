@@ -15,8 +15,8 @@ export class AdminDispercionTimbradoService {
   }
 
 
-  public getListaCatalgos(estatus:boolean): Observable<any> {
-       return this.http.get(`${this.url}/listaCatalogos/listar/todosActivo/${estatus}`);
+  public getListaProveedorTimbrado(proveedor:number): Observable<any> {
+       return this.http.get(`${direcciones.adminCatalogo}/cat-proveedor-timbrado/obtener/id/${proveedor}`);
   }
 
     public getByCompany(obj: any): Observable<any> {
