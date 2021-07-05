@@ -44,6 +44,7 @@ export class DomicilioComponent implements OnInit {
   public cargaDom: boolean = false;
   public indexSeleccionado: number = 0;
   public eliminarSede: boolean = false;
+  public noCoincide ='';
 
   public arreglotabla: any = {
     columnas: [],
@@ -380,24 +381,19 @@ export class DomicilioComponent implements OnInit {
             this.domicilioCodigoPostal = datos.datos;
 
             for(let item of datos.datos){
-
               this.nombreEstado = item.dedo;
               this.nombreMunicipio = item.dmnpio;
               this.idEstado = item.edo.estadoId;
               this.idMunicipio = item.catmnpio.cmnpio;
-
               this.myForm.controls.municipio.setValue(this.nombreMunicipio);
               this.myForm.controls.estado.setValue(this.nombreEstado);
-
-
             }
-
-
             this.myForm.controls.asentamientoId.enable();
             this.myForm.controls.numExterior.enable();
             this.myForm.controls.numInterior.enable();
             this.myForm.controls.calle.enable();
           }else{
+            this.noCoincide= 'El código postal no fue encontrado';
             this.myForm.controls.asentamientoId.disable();
             this.myForm.controls.numExterior.disable();
             this.myForm.controls.numInterior.disable();

@@ -40,6 +40,7 @@ export class PersonalComponent implements OnInit {
   public idEstado: number = 0;
   public nombreMunicipio: string = "";
   public idMunicipio: number = 0;
+  public noCoincide = '';
 
   constructor(private formBuilder: FormBuilder,
     private navparams: ActivatedRoute, private empleadoPrd: EmpleadosService,
@@ -139,6 +140,7 @@ export class PersonalComponent implements OnInit {
             this.myForm.controls.numInterior.enable();
             this.myForm.controls.calle.enable();
           } else {
+            this.noCoincide= 'El código postal no fue encontrado';
             this.myForm.controls.asentamientoId.disable();
             this.myForm.controls.numExterior.disable();
             this.myForm.controls.numInterior.disable();

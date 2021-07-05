@@ -3,9 +3,11 @@ import { tabla } from 'src/app/core/data/tabla';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { DatePipe } from '@angular/common';
+
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { SharedCompaniaService } from '../../../../shared/services/compania/shared-compania.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confronta',
@@ -26,7 +28,7 @@ export class ConfrontaComponent implements OnInit {
   public arregloSUA : any = [];
   public movimientoImssId : number = 0;
   public mensaje : string = "";
-
+  public months=[0,1,2,3,4,5,6,7,8,9,10,11].map(x=>new Date(2021,x,1))
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -46,17 +48,27 @@ export class ConfrontaComponent implements OnInit {
     public razonSocial: string = "";
     public mes: any = '';
     public anio: any = '';
+    public arregloCompanias: any = [];
 
-
-  constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
+  constructor(private routerPrd: Router, private empresasPrd: EmpresasService, private companiasPrd: SharedCompaniaService, private usauriosSistemaPrd: UsuarioSistemaService,
+    private modalPrd:ModalService, private usuarioSistemaPrd: UsuarioSistemaService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
     this.empresasPrd.getListarRegistroPatronal(this.idEmpresa).subscribe(datos => this.arregloRegistroPatronal = datos.datos);
+    this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+
+
+
+      this.arregloCompanias = datos.datos;
+
+      if (this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA") {
+
+        this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
+      }
+    });
 
 
     this.filtrar();
@@ -65,11 +77,10 @@ export class ConfrontaComponent implements OnInit {
 
     public traerTabla(datos:any) {
       const columna: Array<tabla> = [
-        new tabla("regionPatronal", "Región patronal"),
+        new tabla("regionPatronal", "Registro patronal"),
         new tabla("razonSocial", "Razón social"),
         new tabla("anio", "Año"),
-        new tabla("mes", "Mes"),
-        new tabla("download", "Acciones")
+        new tabla("mes", "Mes")
       ];
       
       this.arreglotabla = {
@@ -77,18 +88,6 @@ export class ConfrontaComponent implements OnInit {
         filas:[]
       }
   
-      if(this.arreglo !== undefined){
-        for(let item of this.arreglo){
-          if(item.fecha_movimiento !== undefined ){
-          item.fecha_movimiento = (new Date(item.fecha_movimiento).toUTCString()).replace(" 00:00:00 GMT", "");
-          let datepipe = new DatePipe("es-MX");
-          item.fechamovimiento = datepipe.transform(item.fecha_movimiento , 'dd-MMM-y')?.replace(".","");
-  
-          item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
- 
-          }
-        }
-      }
       this.arreglotabla.columnas = columna;
       this.arreglotabla.filas = this.arreglo
     }
@@ -126,6 +125,7 @@ export class ConfrontaComponent implements OnInit {
           clienteId: this.idEmpresa,
         };
    
+        console.log('obj', this.objFiltro)
   
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
@@ -138,106 +138,8 @@ export class ConfrontaComponent implements OnInit {
   }
 
 
-  public guardarMultiseleccion(obj:any) {
-
-    
-    if(obj == 1){
-      this.mensaje = `¿Deseas descargar el archivo de altas?`;
-    }
-    else if(obj == 2){
-      this.mensaje = `¿Deseas descargar el archivo de modificaciones?`;
-      }
-
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, this.mensaje).then(valor => {
-      if (valor) {
-
-        let valorAltas = [];
-        let valorModif = [];
-        for (let item of this.arreglo) {
-
-          if (item["seleccionado"]) {
-            if(obj==1){
-
-              if(item.movimientoImssId ==3){
-                valorAltas.push(item.kardex_colaborador_id);
-              }
-            }
-            else if(obj==2){
-              if(item.movimientoImssId ==1 || item.movimientoImssId ==2){
-                valorModif.push(item.kardex_colaborador_id);
-              }
-            }
-
-          }
-        }
-        if(obj==1){
-          this.arregloSUA = { 
-            idEmpresa: this.idEmpresa,
-            idKardex: valorAltas
-          }
-        }
-
-        if(obj==2){
-          this.arregloSUA = { 
-            idEmpresa: this.idEmpresa,
-            idKardex: valorModif
-          }
-        }
-
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
-        if(obj == 1){
-        this.reportesPrd.getDescargaLayaoutAltasSUA(this.arregloSUA).subscribe(archivo => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
-          const downloadLink = document.createElement("a");
-          const fileName = `${"Layaout reingresos/altas SUA"}.txt`;
-  
-          downloadLink.href = linkSource;
-          downloadLink.download = fileName;
-          downloadLink.click();
-          if (archivo) {
-            for (let item of this.arregloSUA.idKardex) {
-              for (let item2 of this.arreglo) {
-                if (item2.kardex_colaborador_id === item) {
-                  item2["seleccionado"] = false;
-                  break;
-                }
-              }
-            }
-            this.activarMultiseleccion = false;
-          }
-        });
-      }
-      if(obj == 2){
-        this.reportesPrd.getDescargaLayaoutMoficacionSUA(this.arregloSUA).subscribe(archivo => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
-          const downloadLink = document.createElement("a");
-          const fileName = `${"Layaout modificacion SUA"}.txt`;
-  
-          downloadLink.href = linkSource;
-          downloadLink.download = fileName;
-          downloadLink.click();
-          if (archivo) {
-            for (let item of this.arregloSUA.idKardex) {
-              for (let item2 of this.arreglo) {
-                if (item2.kardex_colaborador_id === item) {
-                  item2["seleccionado"] = false;
-                  break;
-                }
-              }
-            }
-            this.activarMultiseleccion = false;
-          }
-        });
-      }
-
-      }
-    });
-    
-
-
+  public verdetalle() {
+    this.routerPrd.navigate(['imss', 'detalleconfronta', 'nuevo'], { state: { datos: undefined } });
 
   }
   public recibirTabla(obj: any) {
@@ -249,4 +151,8 @@ export class ConfrontaComponent implements OnInit {
     }
 
   }
+  public clonar(obj: any) {
+    return JSON.parse(JSON.stringify(obj));
+  }
+
 }

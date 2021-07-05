@@ -1,7 +1,7 @@
 <div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
     <div class="col titulo-outlet">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
-            <i  aria-hidden="true" class="fas fa-bars"></i>
+            <i  aria-hidden="true"class="fas fa-bars"></i>
         </button></div>
 
         <label style="color:white" for="">CONFRONTA</label>
@@ -18,41 +18,46 @@
 
                     <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
                     <div class="form group row margen">
-                        <div class=" input-group-sm mb-3 col-3 ">
+                        <div class="input-group-sm mb-3 col-3 ">
 
                             <label style="color:white" for="">Registro Patronal</label>
-                            <select class="form-control" [(ngModel)]="idregistroPatronal" name="">
-                                <option value="0" selected >Registro Patronal</option>
-                                <option *ngFor="let item of arregloRegistroPatronal" [value]="item.registroPatronalId">{{item.registroPatronal}}</option>
+                            <select name="" class="form-control" [(ngModel)]="idregistroPatronal">
+                                <option value="0"selected >Registro Patronal</option>
+                                <option *ngFor="let item of arregloRegistroPatronal"[value]="item.registroPatronalId">{{item.registroPatronal}}</option>
                             </select>
 
                         </div>
                     </div>
                     <div class="form group row margen">
-                        <div class=" input-group-sm mb-3 col-3 ">
-
-                            <label style="color:white" for="">Razón Social</label>
-                            <select class="form-control" [(ngModel)]="idregistroPatronal" name="">
-                                <option value="0" selected >Razón Social</option>
-                                <option *ngFor="let item of arregloRegistroPatronal" [value]="item.registroPatronalId">{{item.registroPatronal}}</option>
+                        <div class="input-group-sm mb-3 col-3">
+                            <label style="color:white" for="">Razón social </label><br>
+                            <select name="" [(ngModel)]="razonSocial" class="form-control">
+                                <option value="0" selected>Razón Social</option>
+                                <option *ngFor="let item of arregloCompanias" [value]="item.centrocClienteId">
+                                    {{item.nombre}}
+                                </option>
                             </select>
-
                         </div>
 
-                        <div class=" input-group-sm mb-3 col-3 ">
+                        <div class="input-group-sm mb-3 col-3 ">
 
                             <label style="color:white" for="">Año</label>
-                            <input type="number" min="1900" max="2100" step="1" value="2021" placeholder="año" [(ngModel)]="anio" class="form-control">
+                            <input appSolonumeros oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1950" max="2100" step="1" maxlength="4" minlength="4" placeholder="Año" [(ngModel)]="anio" class="form-control">
                         </div>
 
-                        <div class=" input-group-sm mb-3 col-3 ">
+                        <div class="input-group-sm mb-3 col-3 ">
 
                             <label style="color:white" for="">Mes</label><br>
-                            <input type="number" min="01" max="12" step="1" [(ngModel)]="mes">
+                            <select name="" style="text-transform:capitalize;" [(ngModel)]="mes" class="form-control">
+                                <option value="0"selected> Mes </option>
+                                <option  *ngFor="let month of months;let i=index"[value]="month | date: 'MMMM' | titlecase">
+                                     {{month | date: 'MMMM' | titlecase}}
+                                </option>
+                            </select>
                         </div>
 
 
-                        <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                        <div class="input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
                             <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                         </div>
 
@@ -64,29 +69,18 @@
                         <div class="col titulo">
                             <label style="color:white" for="">RESULTADOS</label>
                             <div class="col text-right">
-                                <button type="button" class="btn btn-light button-outlet">
-                                  <i aria-hidden="true" class="fa fa-plus"></i> Agregar confronta
+                                <button type="button" class="btn btn-light button-outlet" (click)="verdetalle()">
+                                  <i aria-hidden="true"class="fa fa-plus"></i> Agregar confronta
                                 </button>
                             </div>
-                        </div>
-                        <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
-
-                            <div class="col-12">
-                                <button (click)="guardarMultiseleccion(1)" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar altas</span>
-                              </button>
-                                <button (click)="guardarMultiseleccion(2)" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar modificaciones</span>
-                            </button>
-
-                            </div>
-
                         </div>
 
                     </div>
 
 
-                    <div class="   margen-tabla background-panel ">
+                    <div class="margen-tabla background-panel ">
                         <br>
-                        <app-tablapaginado [checkbox]="false" [datos]="arreglotabla" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                        <app-tablapaginado [checkbox]="false" [datos]="arreglotabla" [cargando]="cargando" (salida)="recibirTabla($event)" [descargar]="true"></app-tablapaginado>
                     </div>
 
 

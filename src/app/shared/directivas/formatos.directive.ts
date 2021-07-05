@@ -39,7 +39,7 @@ export class FormatosDirective implements OnInit {
     }else if(this.correo){
       this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
       this.onFocusout(undefined);
-    } 
+    }
   }
 
   @HostListener("keydown", ["$event"])
@@ -145,6 +145,7 @@ export class FormatosDirective implements OnInit {
     }
 
   }
+  
 
 
   ngOnDestroy() {

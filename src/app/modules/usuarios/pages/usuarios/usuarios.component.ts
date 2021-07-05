@@ -28,9 +28,9 @@ export class UsuariosComponent implements OnInit {
   */
   public id_company: string = "";
   public idUsuario: any = "";
-  public nombre: string = "";
-  public apellidoPat: string = "";
-  public apellidoMat: string = "";
+  public nombre: any = "";
+  public apellidoPat: any = "";
+  public apellidoMat: any = "";
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
   public activo: number = 0;
