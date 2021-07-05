@@ -62,12 +62,13 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
   ngAfterViewInit(): void {
 
-    this.nombre.nativeElement.focus();
+    //this.nombre.nativeElement.focus();
 
   }
 
   public createForm(obj: any) {
 
+    console.log("El obj es",obj);
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -75,7 +76,6 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
       cuentaContable: [obj.cuentaContable],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
       conceptoDeduccionId: [obj.conceptoDeduccionId]
-
     });
 
   }
