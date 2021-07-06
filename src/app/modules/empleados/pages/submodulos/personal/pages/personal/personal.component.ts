@@ -326,37 +326,42 @@ export class PersonalComponent implements OnInit {
       genero = "M";
 
 
-    let objenviar = {
-      nombre: obj.nombre,
-      apellidoPaterno: obj.apellidoPaterno,
-      apellidoMaterno: obj.apellidoMaterno,
-      genero: genero,
-      fechaNacimiento: fechanacimiento,
-      tieneCurp: obj.tieneCurp,
-      contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal?.toLowerCase(),
-      nacionalidadId: {
-        nacionalidadId: obj.nacionalidadId
-      },
-      estadoCivil: obj.estadoCivil,
-      contactoInicialTelefono: obj.contactoInicialTelefono,
-      tieneHijos: false,
-      numeroHijos: obj.numeroHijos,
-      urlLinkedin: obj.url,
-      contactoEmergenciaNombre: obj.contactoEmergenciaNombre,
-      contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
-      contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
-      contactoEmergenciaParentesco: obj.contactoEmergenciaParentesco,
-      contactoEmergenciaEmail: obj.contactoEmergenciaEmail?.toLowerCase(),
-      contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
-      curp: obj.curp,
-      rfc: obj.rfc,
-      nss: obj.nss,
-      personaId: this.idEmpleado,
-      celular:obj.celular,
-      centrocClienteId: {
-        centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
-      },
-    }
+      let objenviar:any = {
+        nombre: obj.nombre,
+        apellidoPaterno: obj.apellidoPaterno,
+        apellidoMaterno: obj.apellidoMaterno,
+        genero: obj.genero,
+        fechaNacimiento: fechanacimiento,
+        tieneCurp: obj.tieneCurp,
+        contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
+        emailCorporativo: obj.emailCorporativo,
+        invitarEmpleado: obj.invitarEmpleado,
+        nacionalidadId: {
+          nacionalidadId: obj.nacionalidadId
+        },
+        estadoCivil: obj.estadoCivil,
+        contactoInicialTelefono: obj.contactoInicialTelefono,
+        celular: obj.celular,
+        tieneHijos: obj.tieneHijos,
+        numeroHijos: obj.numeroHijos,
+        urlLinkedin: obj.url,
+        contactoEmergenciaNombre: obj.contactoEmergenciaNombre,
+        contactoEmergenciaApellidoPaterno: obj.contactoEmergenciaApellidoPaterno,
+        contactoEmergenciaApellidoMaterno: obj.contactoEmergenciaApellidoMaterno,
+        parentescoId: {
+          parentescoId: obj.contactoEmergenciaParentesco
+        },
+        contactoEmergenciaEmail: obj.contactoEmergenciaEmail?.toLowerCase(),
+        contactoEmergenciaTelefono: obj.contactoEmergenciaTelefono,
+        centrocClienteId: {
+          centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
+        },
+        curp: obj.curp,
+        rfc: obj.rfc,
+        nss: obj.nss,
+        personaId:this.idEmpleado
+      }
+  
 
 
 
