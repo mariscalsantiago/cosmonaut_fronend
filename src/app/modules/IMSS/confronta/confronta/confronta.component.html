@@ -22,7 +22,7 @@
 
                             <label style="color:white" for="">Registro Patronal</label>
                             <select name="" class="form-control" [(ngModel)]="idregistroPatronal">
-                                <option value="0"selected >Registro Patronal</option>
+                                <option value="0" selected >Registro Patronal</option>
                                 <option *ngFor="let item of arregloRegistroPatronal"[value]="item.registroPatronalId">{{item.registroPatronal}}</option>
                             </select>
 
@@ -32,10 +32,8 @@
                         <div class="input-group-sm mb-3 col-3">
                             <label style="color:white" for="">Razón social </label><br>
                             <select name="" [(ngModel)]="razonSocial" class="form-control">
-                                <option value="0" selected>Razón Social</option>
-                                <option *ngFor="let item of arregloCompanias" [value]="item.centrocClienteId">
-                                    {{item.nombre}}
-                                </option>
+                                <option value="0" selected >Razón Social</option>
+                                <option *ngFor="let item of arregloCompanias" [value]="item.centrocClienteId">{{item.nombre}}</option>
                             </select>
                         </div>
 
@@ -49,7 +47,7 @@
 
                             <label style="color:white" for="">Mes</label><br>
                             <select name="" style="text-transform:capitalize;" [(ngModel)]="mes" class="form-control">
-                                <option value="0"selected> Mes </option>
+                                <option value="0" selected > Mes </option>
                                 <option  *ngFor="let month of months;let i=index"[value]="month | date: 'MMMM' | titlecase">
                                      {{month | date: 'MMMM' | titlecase}}
                                 </option>

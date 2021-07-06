@@ -18,7 +18,7 @@
                 <label for="exampleFormControlSelect1">Registro patronal *</label>
                 <select class="form-control" formControlName="idregistroPatronal" name="" [ngClass]="{'is-invalid':f.idregistroPatronal.errors && submitEnviado}">
                     <option value="0" selected >Registro patronal</option>
-                    <option *ngFor="let item of arregloRegistroPatronal"[value]="item.registroPatronalId" >{{item.registroPatronal}}</option>
+                    <option *ngFor="let item of arregloRegistroPatronal" [value]="item.registroPatronalId" >{{item.registroPatronal}}</option>
                 </select>
                 <div *ngIf="f.idregistroPatronal.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -26,10 +26,9 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
                 <label for="exampleFormControlSelect1">Tipo emisión *</label>
-                <select class="form-control" formControlName="tipoEmisionId" name="" [ngClass]="{'is-invalid':f.tipoEmisionId.errors && submitEnviado}"> 
+                <select class="form-control" formControlName="tipoEmisionId" name="" [ngClass]="{'is-invalid':f.tipoEmisionId.errors && submitEnviado}" (change)="tipoEmision($event)"> 
                     <option value="0" selected >Tipo emisión</option>
-                    <option value="bimestral">Mensual</option>
-
+                    <option *ngFor="let item of arregloEmisiones" [value]="item.idTipoEmision" >{{item.tipoEmision}}</option>
                 </select>
                 <div *ngIf="f.tipoEmisionId.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -38,7 +37,8 @@
             <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
 
                 <label for="">Año *</label>
-                <input type="number" min="1900" max="2100" step="1" value="2021" placeholder="Año" formControlName="anio" class="form-control" [ngClass]="{'is-invalid':f.anio.errors && submitEnviado}">
+                <input appSolonumeros oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1900" max="2100" maxlength="4" minlength="4" step="1" value="2021" placeholder="Año" formControlName="anio"
+                    class="form-control" [ngClass]="{'is-invalid':f.anio.errors && submitEnviado}">
                 <div *ngIf="f.anio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -50,8 +50,8 @@
                 <label for="">Mes *</label><br>
                 <select class="form-control" name="" style="text-transform:capitalize;" formControlName="mes" [ngClass]="{'is-invalid':f.mes.errors && submitEnviado}">
                     <option value="0" selected> Mes </option>
-                    <option  *ngFor="let month of months;let i=index"[value]="month | date: 'MMMM' | titlecase">
-                         {{month | date: 'MMMM' | titlecase}}
+                    <option  *ngFor="let item of arregloMeses" [value]="item.idEmision"> 
+                         {{item.mesInicio}} <strong *ngIf="tipo !== 1"> - {{ item.mesFin}}</strong> 
                     </option>
                 </select>
                 <div *ngIf="f.mes.errors && submitEnviado" class="invalid-feedback">
