@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group row margen">
-            <div *ngIf="activaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="activaClave && this.detCatalogos.listaCatalogosId != 3" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Clave *</label>
                 <input formControlName="clave" type="text" class="form-control">
             </div>
@@ -32,6 +32,13 @@
             <div *ngIf="inactivaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Clave *</label>
                 <input formControlName="clave" type="text" class="form-control disabled bg-light">
+            </div>
+            <div *ngIf="activaClave && this.detCatalogos.listaCatalogosId == 3" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Clave *</label>
+                <input appSolonumeros formControlName="clave" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.clave.errors && submitActive}" placeholder="">
+                <div *ngIf="myForm.controls.clave.errors && submitActive" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
 
             <div *ngIf="banco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -45,7 +52,10 @@
 
             <div *ngIf="descripcionGeneral" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Descripción *</label>
-                <input appMayusculas formControlName="nombreCorto" type="text" class="form-control" placeholder="">
+                <input formControlName="nombreCorto" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.nombreCorto.errors && submitActive}" placeholder="">
+                <div *ngIf="myForm.controls.nombreCorto.errors && submitActive" class="invalid-feedback">
+                    Campo requerido
+                </div>
 
             </div>
 
@@ -261,8 +271,7 @@
 
     <div class="text-center margin" style="margin-bottom: 20px;">
 
-        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)"
-            class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
         <button type="submit" class="btn btn-primary button-fill">Guardar</button>
     </div>
 
@@ -275,8 +284,7 @@
         <div class="card-body">
             <div id="table" class="table-editable ">
 
-                <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined"
-                    class="table table-hover">
+                <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
                     <tr>
                         <th id="" class="text-center" scope="col">Límite inferior</th>
                         <th id="" class="text-center" scope="col">Límite superior</th>
@@ -285,24 +293,16 @@
                     </tr>
                     <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaIsrId = index">
                         <td>
-                            <span (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteInferior', $event)"
-                                (blur)="updateList(tarifaPeriodicaIsrId, 'limiteInferior', $event)"
-                                contenteditable="true">{{valores.limiteInferior}}</span>
+                            <span (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
-                                (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteSuperior', $event)"
-                                (blur)="updateList(tarifaPeriodicaIsrId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
-                                (keyup)="changeValue(tarifaPeriodicaIsrId, 'cuotaFija', $event)"
-                                (blur)="updateList(tarifaPeriodicaIsrId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
+                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'cuotaFija', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
-                                (keyup)="changeValue(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)"
-                                (blur)="updateList(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)">{{valores.porcExcedenteLimInf}}</span>
+                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)">{{valores.porcExcedenteLimInf}}</span>
                         </td>
 
                     </tr>
@@ -320,8 +320,7 @@
 
     <div class="text-center margin" style="margin-bottom: 20px;">
 
-        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)"
-            class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
         <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
     </div>
 
@@ -335,8 +334,7 @@
         <div class="card-body">
             <div id="table" class="table-editable ">
 
-                <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined"
-                    class="table table-hover">
+                <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
                     <tr>
                         <th id="" class="text-center" scope="col">Límite inferior</th>
                         <th id="" class="text-center" scope="col">Límite superior</th>
@@ -346,22 +344,16 @@
 
                     <tr *ngFor="let valores of arregloTablaValores; let tasaAplicableIsnId = index">
                         <td>
-                            <span (keyup)="changeValue(tasaAplicableIsnId, 'limiteInferior', $event)"
-                                (blur)="updateList(tasaAplicableIsnId, 'limiteInferior', $event)"
-                                contenteditable="true">{{valores.limiteInferior}}</span>
+                            <span (keyup)="changeValue(tasaAplicableIsnId, 'limiteInferior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
-                                (keyup)="changeValue(tasaAplicableIsnId, 'limiteSuperior', $event)"
-                                (blur)="updateList(tasaAplicableIsnId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+                            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'limiteSuperior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'cuotaFija', $event)"
-                                (blur)="updateList(tasaAplicableIsnId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
+                            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'cuotaFija', $event)" (blur)="updateList(tasaAplicableIsnId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'tasa', $event)"
-                                (blur)="updateList(tasaAplicableIsnId, 'tasa', $event)">{{valores.tasa}}</span>
+                            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'tasa', $event)" (blur)="updateList(tasaAplicableIsnId, 'tasa', $event)">{{valores.tasa}}</span>
                         </td>
                     </tr>
 
@@ -378,8 +370,7 @@
 
     <div class="text-center margin" style="margin-bottom: 20px;">
 
-        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)"
-            class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
         <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
     </div>
 
@@ -393,8 +384,7 @@
         <div class="card-body">
             <div id="table" class="table-editable ">
 
-                <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined"
-                    class="table table-hover">
+                <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
                     <tr>
                         <th id="" class="text-center" scope="col">Límite inferior</th>
                         <th id="" class="text-center" scope="col">Límite superior</th>
@@ -402,19 +392,13 @@
                     </tr>
                     <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaSubsidioId = index">
                         <td>
-                            <span (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)"
-                                (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)"
-                                contenteditable="true">{{valores.limiteInferior}}</span>
+                            <span (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
-                                (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)"
-                                (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
-                                (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)"
-                                (blur)="updateList(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
+                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
                         </td>
 
                     </tr>
@@ -432,8 +416,7 @@
 
     <div class="text-center margin" style="margin-bottom: 20px;">
 
-        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)"
-            class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
         <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
     </div>
 

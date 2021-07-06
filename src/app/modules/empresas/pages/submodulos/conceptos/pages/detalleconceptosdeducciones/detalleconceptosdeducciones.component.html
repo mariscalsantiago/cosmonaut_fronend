@@ -3,53 +3,49 @@
 
 <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
 
-  <input type="hidden" formControlName="conceptoDeduccionId">
-  
-  <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
-    <br>
-    <div class="form-group row margen">
-      <label class="titulo">INFORMACIÓN DE LA DEDUCCIÓN</label>
-    </div>
-    <div class="form-group row margen">
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Nombre de la deducción *</label>
-        <input appMayusculas formControlName="nombre" type="text" class="form-control"
-          [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}" placeholder="">
-        <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
-          Campo requerido
+    <input type="hidden" formControlName="conceptoDeduccionId">
+
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
+        <br>
+        <div class="form-group row margen">
+            <label class="titulo">INFORMACIÓN DE LA DEDUCCIÓN</label>
         </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
-        <label>Catálogo SAT *</label>
-          <select formControlName="tipoDeduccionId" class="form-control"
-          [ngClass]="{'is-invalid':f.tipoDeduccionId.errors && submitInvalido}">
+        <div class="form-group row margen">
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Nombre de la deducción *</label>
+                <input formatos [titlecase]=true [control]="f.nombre" formControlName="nombre" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}" placeholder="">
+                <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
+                <label>Catálogo SAT *</label>
+                <select formControlName="tipoDeduccionId" class="form-control" [ngClass]="{'is-invalid':f.tipoDeduccionId.errors && submitInvalido}">
           <option *ngFor="let item of arregloTipoDeduccion" [value]="item.tipodedeccion">{{item.descripcion}}</option>
         </select>
-        <div *ngIf="submitInvalido && f.tipoDeduccionId.errors" class="invalid-feedback">
-          Campo requerido
-        </div>
-      </div>
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Cuenta contable</label>
-        <input appMayusculas formControlName="cuentaContable" max="100" type="text" class="form-control" placeholder="">
-      </div>
+                <div *ngIf="submitInvalido && f.tipoDeduccionId.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Cuenta contable</label>
+                <input appMayusculas formControlName="cuentaContable" max="100" type="text" class="form-control" placeholder="">
+            </div>
 
-      <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-        <label>Estatus</label>
-        <select name=""  class="form-control" formControlName="esActivo">
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Estatus</label>
+                <select name="" class="form-control" formControlName="esActivo">
           <option value="true">Activo</option>
           <option value="false">Inactivo</option>
         </select>
-      </div>
+            </div>
+
+        </div>
 
     </div>
-
-  </div>
-  <div class="text-center margin" style="margin-bottom: 20px;">
-    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
-      (click)="cancelar()">Cancelar</button>
-    <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
-  </div>
+    <div class="text-center margin" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>
 
 </form>
-
