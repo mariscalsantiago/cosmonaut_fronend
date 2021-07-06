@@ -269,7 +269,7 @@ export class CalcularComponent implements OnInit {
     this.cargandoIcon = true;
     this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
       this.cargandoIcon = false;
-      this.reportesPrd.crearArchivo(datos.datos, `nomina_${this.nominaSeleccionada[this.llave].nominaXperiodoId}`, "xlsx");
+      this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
     });
   }
 

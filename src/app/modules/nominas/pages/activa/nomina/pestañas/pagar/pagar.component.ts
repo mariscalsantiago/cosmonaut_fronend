@@ -241,7 +241,7 @@ export class PagarComponent implements OnInit {
     this.cargandoIcon = true;
     this.reportes.getDescargarTxtRfctabDispersar(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.cargandoIcon = false;
-      this.reportes.crearArchivo(datos.datos, `archivoRFCs_${this.usuariosSistemaPrd.getIdEmpresa()}`, "txt");
+      this.reportes.crearArchivo(datos.datos, `archivoRFCs_${this.nominaSeleccionada[this.llave].nombreNomina}`, "txt");
     });
   }
 

@@ -23,84 +23,84 @@ export class CalendarioComponent implements OnInit {
 
 
 
-  public cargando:boolean = false;
-  public eventos:any;
-  public eventosCopia:any;
-  public colapsar:boolean = false;
+  public cargando: boolean = false;
+  public eventos: any;
+  public eventosCopia: any;
+  public colapsar: boolean = false;
 
 
-  public arreglo:any = [];
+  public arreglo: any = [];
 
   constructor(private ventana: VentanaemergenteService, private eventoPrd: EventosService,
     private areasPrd: SharedAreasService, private catalogos: CatalogosService,
-    private usuariosSistemaPrd: UsuarioSistemaService,public configuracionPrd:ConfiguracionesService) { }
+    private usuariosSistemaPrd: UsuarioSistemaService, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
 
-    
 
-    let fechaActual = new Date();
-    
-    
-    
-    //this.calcularFechasEventos(fechaActual);
-    
 
     this.cargando = true;
-
-    this.eventoPrd.getByIdEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
-
-      this.arreglo = datos.datos;
-
-      
-      let columnas:Array<tabla> = [
-        new tabla("incidenciaDescripcion","Tipo de evento"),
-        new tabla("nombrecompleado","Empleado"),
-        new tabla("fechaInicio","Fecha inicio",false,false,true),
-        new tabla("fechaFin","Fecha fin",false,false,true),
-        new tabla("duracion","Duraciòn",false,false,true)
-      ];
-
-      this.arreglotabla = {
-        columnas:[],
-        filas:[]
-      }
-
-      if(this.arreglo !== undefined){
-          for(let item of this.arreglo){
-              item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
-              var datePipe = new DatePipe("es-MX");
-              item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
-              item.fechaInicio = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".","");
-
-              item.fechaFin = (new Date(item.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "");
-              item.fechaFin = datePipe.transform(item.fechaFin, 'dd-MMM-y')?.replace(".","");
-          }
-      }
- 
-      this.arreglotabla.columnas = columnas;
-      this.arreglotabla.filas = this.arreglo;
-
-      this.cargando = false;
-    });
 
 
   }
 
 
-  public calcularFechasEventos(fechaActual:Date){
+  public calcularFechasEventos(fechaActual: Date) {
     let inicioMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
     let finalMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
     let obj = {
       clienteId: this.usuariosSistemaPrd.getIdEmpresa(),
       fechaInicio: inicioMes.getTime(),
       fechaFin: finalMes.getTime(),
-      esActivo:true
+      esActivo: true
     }
 
 
 
-    this.eventoPrd.filtro(obj).subscribe(datos =>{
+    this.eventoPrd.filtro(obj).subscribe(datos => {
+
+      console.log("Eventos", datos.datos);
+      this.arreglo = datos.datos;
+
+
+
+      let columnas: Array<tabla> = [
+        new tabla("incidenciaDescripcion", "Tipo de evento"),
+        new tabla("nombrecompleado", "Empleado"),
+        new tabla("fechaInicio", "Fecha inicio", false, false, true),
+        new tabla("fechaFin", "Fecha fin", false, false, true),
+        new tabla("duracion", "Duraciòn", false, false, true)
+      ];
+
+      this.arreglotabla = {
+        columnas: [],
+        filas: []
+      }
+
+      if (this.arreglo !== undefined) {
+        let temporal = JSON.stringify(this.arreglo);
+        let aux:any = JSON.parse(temporal);
+
+        for (let item of aux) {
+          item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "" : item.apellidoMaterno}`;
+          var datePipe = new DatePipe("es-MX");
+          item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
+          item.fechaInicio = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".", "");
+
+          item.fechaFin = (new Date(item.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "");
+          item.fechaFin = datePipe.transform(item.fechaFin, 'dd-MMM-y')?.replace(".", "");
+        }
+
+        this.arreglotabla.columnas = columnas;
+        this.arreglotabla.filas = aux;
+      }else{
+        this.arreglotabla.filas = this.arreglotabla;
+      }
+
+
+      this.cargando = false;
+     
+
       this.eventos = datos.datos;
       this.eventosCopia = datos.datos;
 
@@ -108,54 +108,54 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
-  public recibirTabla(obj:any){
+  public recibirTabla(obj: any) {
 
-    switch(obj.type){
-        case "fecha":
-             this.calcularFechasEventos(obj.datos);
-          break;
+    switch (obj.type) {
+      case "fecha":
+        this.calcularFechasEventos(obj.datos);
+        break;
     }
 
   }
 
 
-  public cambiaValor(){
+  public cambiaValor() {
     this.filtrandoEventos();
   }
 
-  public colapsarmtd(){
+  public colapsarmtd() {
     this.colapsar = !this.colapsar;
-    
+
   }
 
-  
- public filtrandoEventos(){
-   let hijosEventos:any = document.getElementById("eventoscheckbox")?.getElementsByTagName("input");
 
-   let arrayFiltrado:any[] = [];
-   for(let item of hijosEventos){
-      if(item.checked){
-        let mm = `${item.id}`.replace("e","");
-        if(mm.includes("-")){
+  public filtrandoEventos() {
+    let hijosEventos: any = document.getElementById("eventoscheckbox")?.getElementsByTagName("input");
+
+    let arrayFiltrado: any[] = [];
+    for (let item of hijosEventos) {
+      if (item.checked) {
+        let mm = `${item.id}`.replace("e", "");
+        if (mm.includes("-")) {
           arrayFiltrado.push(Number(mm.split("-")[0]));
           arrayFiltrado.push(Number(mm.split("-")[1]));
           continue;
         }
-        
+
         arrayFiltrado.push(Number(mm));
       }
+    }
+
+
+
+    this.eventos = [];
+    Object.values(this.eventosCopia).forEach((valor: any) => {
+      if (arrayFiltrado.includes(valor.tipoIncidenciaId)) {
+        this.eventos.push(valor);
+      }
+    });
+
   }
 
-
-  
-   this.eventos = [];
-   Object.values(this.eventosCopia).forEach((valor:any) =>{
-     if(arrayFiltrado.includes(valor.tipoIncidenciaId)){
-        this.eventos.push(valor);
-     }
-   });
-
- }
-  
 
 }

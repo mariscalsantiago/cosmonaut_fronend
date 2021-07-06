@@ -419,7 +419,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         switch (seleccionado) {
           case 3:
             ocultar = false;
-            break;
+            break;   
         }
         break;
       case "folio":

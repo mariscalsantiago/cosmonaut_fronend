@@ -28,7 +28,8 @@
                         <i aria-hidden="true" [class]="item.icono"></i> <span style="display: block;color:white" *ngIf="item.seleccionado">{{item.nombreModulo}}</span> 
                         <div *ngIf="item.labelflotante && !item.seleccionado" class="labelflotante">{{item.nombreModulo}}</div>
                         <span *ngIf="item.nombreModulo.includes('Chat') && configuracionPrd.notificaciones !== 0"  class="badge badge-danger">{{configuracionPrd.notificaciones}}</span></a>
-                    <ul class="labelflotantemenu" *ngIf="item.seleccionadosubmenu">
+                    <ul class="labelflotantemenu" style="    max-height: 200px;
+                    overflow: auto;" *ngIf="item.seleccionadosubmenu">
                         <li *ngFor="let item2 of item.submodulos" >
                             <span  (click)="irRuta(item2);seleccionarSubmenu(item,item2);">{{item2.nombreSubmodulo }}</span>
                         </li>
