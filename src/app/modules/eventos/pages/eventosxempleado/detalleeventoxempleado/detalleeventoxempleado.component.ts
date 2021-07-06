@@ -430,13 +430,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         }
         break;
       case "monto2":
-        switch (seleccionado) {
-          case 10:
-          case 11:
-          case 16:
-            ocultar = false;
-            break;
-        }
+        
         break;
       case "unidad":
         switch (seleccionado) {
@@ -550,8 +544,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.duracion.updateValueAndValidity();
       this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
       this.myForm.controls.fechaAplicacion.updateValueAndValidity();
-      this.myForm.controls.monto.setValidators([Validators.required]);
-      this.myForm.controls.monto.updateValueAndValidity();
       this.myForm.controls.fechaInicio.setValidators([Validators.required]);
       this.myForm.controls.fechaInicio.updateValueAndValidity();
     }
