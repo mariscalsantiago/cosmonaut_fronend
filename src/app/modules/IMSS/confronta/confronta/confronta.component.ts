@@ -45,27 +45,22 @@ export class ConfrontaComponent implements OnInit {
 
     public registroPatronal: string = "";
     public idregistroPatronal: any = 0;
-    public razonSocial: string = "";
-    public mes: any = '';
+    public razonSocial: string = "0";
+    public mes: any = 0;
     public anio: any = '';
     public arregloCompanias: any = [];
 
-  constructor(private routerPrd: Router, private empresasPrd: EmpresasService, private companiasPrd: SharedCompaniaService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService, private usuarioSistemaPrd: UsuarioSistemaService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
+  constructor(private routerPrd: Router, private empresasPrd: EmpresasService, 
+              private companiasPrd: SharedCompaniaService, private usauriosSistemaPrd: UsuarioSistemaService,
+              private usuarioSistemaPrd: UsuarioSistemaService, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
-
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
     this.empresasPrd.getListarRegistroPatronal(this.idEmpresa).subscribe(datos => this.arregloRegistroPatronal = datos.datos);
     this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-
-
-
-      this.arregloCompanias = datos.datos;
-
+    this.arregloCompanias = datos.datos;
       if (this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA") {
-
         this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
       }
     });
@@ -124,16 +119,12 @@ export class ConfrontaComponent implements OnInit {
           ...this.objFiltro,
           clienteId: this.idEmpresa,
         };
-   
-        console.log('obj', this.objFiltro)
-  
-  this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
-    this.arreglo = datos.datos;
-
-    this.traerTabla({ datos: this.arreglo });
-
-    this.cargando = false;
-  });
+        
+        this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
+          this.arreglo = datos.datos;
+          this.traerTabla({ datos: this.arreglo });
+          this.cargando = false;
+        });
 
   }
 
