@@ -117,6 +117,15 @@ export class LoginComponent implements OnInit {
     this.myFormPassword.controls.password2.valueChanges.subscribe(valor => {
       this.invalidapassword = valor !== this.f.password1.value;
     });
+
+
+    this.myForm.controls.password.valueChanges.subscribe(() =>{
+      this.incorrectoback = false;
+    });
+
+    this.myForm.controls.username.valueChanges.subscribe(()=>{
+      this.incorrectoback = false;
+    });
   }
 
   public enviarformulario() {

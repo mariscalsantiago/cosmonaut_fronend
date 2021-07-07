@@ -6,7 +6,6 @@ export const environment = {
   production: false,
   rutaEmpresa:'/empresas',
   rutaCatalogos:'/catalogos',
-  rutaCalculos:'/calculos',
   rutaNomina:'/nomina',
   rutaAdmin: '/admin',
   rutaReportes:'/reportes',

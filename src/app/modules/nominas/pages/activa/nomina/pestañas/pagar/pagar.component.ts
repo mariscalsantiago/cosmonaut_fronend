@@ -163,7 +163,7 @@ export class PagarComponent implements OnInit {
   }
 
   public regresar() {
-
+    this.salida.emit({ type: "inicio" });
   }
 
   public dispersar() {

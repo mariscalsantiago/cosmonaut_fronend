@@ -12,7 +12,9 @@ import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.serv
 import { interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ChatService } from 'src/app/modules/chat/services/chat.service';
-import { ChatbootComponent } from 'src/app/shared/chatboot/chatboot.component';
+
+
+const CryptoJS = require("crypto-js");
 
 @Component({
   selector: 'app-contenido',
@@ -20,6 +22,8 @@ import { ChatbootComponent } from 'src/app/shared/chatboot/chatboot.component';
   styleUrls: ['./contenido.component.scss']
 })
 export class ContenidoComponent implements OnInit {
+
+  private secretKey: string = "llavesecreta@por@santiagoantoniomariscal";
 
   public arreglo!: Array<menuprincipal>;
   public mostrarmenu: boolean = false;
@@ -133,13 +137,16 @@ export class ContenidoComponent implements OnInit {
 
           this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
 
-          this.usuariosSistemaPrd.setUsuario((JSON.parse(sessionStorage["usuario"])) as usuarioClass);
+          let bytes = CryptoJS.AES.decrypt(sessionStorage["usuario"], this.secretKey);
+          let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
+          let usuario = JSON.parse(textodesencriptado);
+
+          this.usuariosSistemaPrd.setUsuario(usuario as usuarioClass);
 
           if (!Boolean(this.configuracionPrd.ocultarChat)) {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
 
             if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-              console.log("Es recursos 1");
               this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
               });
@@ -174,7 +181,7 @@ export class ContenidoComponent implements OnInit {
           if ((this.configuracionPrd.ocultarChat) == undefined) {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
             if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-              console.log("Es recursos 3");
+              
               this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
               });

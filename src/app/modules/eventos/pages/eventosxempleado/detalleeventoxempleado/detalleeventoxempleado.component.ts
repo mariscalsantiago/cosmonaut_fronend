@@ -64,9 +64,14 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   }
 
 
+  public ocultarMontoTemp:boolean = false;
+  public ocultarHorasTemp:boolean = false;
+
   public suscribirse() {
     this.myForm.controls.unidadmedida.valueChanges.subscribe(valor => {
 
+      this.ocultarHorasTemp = false;
+      this.ocultarMontoTemp = false;
       switch (valor) {
         case "1":
           this.myForm.controls.numerohoras.setValidators([Validators.required]);
@@ -74,6 +79,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
           this.myForm.controls.monto.clearValidators();
           this.myForm.controls.monto.updateValueAndValidity();
+          this.ocultarMontoTemp = true;
           break;
         case "3":
 
@@ -81,6 +87,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           this.myForm.controls.numerohoras.updateValueAndValidity();
           this.myForm.controls.monto.setValidators([Validators.required]);
           this.myForm.controls.monto.updateValueAndValidity();
+          this.ocultarHorasTemp = true;
           break;
       }
     });
