@@ -42,7 +42,7 @@ export class CalcularComponent implements OnInit {
   public arreglo: any = [];
 
 
-  public rfc: string = "";
+  public rfc: any = "";
   public nombre: string = "";
   public apellidoPaterno: string = "";
   public apellidoMaterno: string = "";

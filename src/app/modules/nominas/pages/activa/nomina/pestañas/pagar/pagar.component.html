@@ -12,8 +12,8 @@
     <div class=" input-group-sm mb-3 col-3 ">
         <input [(ngModel)]="apellidoMaterno" appAlfanumerico type="text" class="form-control" placeholder="Segundo apellido">
     </div>
-    <div class=" input-group-sm mb-3 col-3 " data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
-        <input [(ngModel)]="rfc" type="text" name="" placeholder="RFC" class="form-control">
+    <div class=" input-group-sm mb-3 col-3 " placement="top" [mdbTooltip]="'rfc' | tooltip">
+        <input [(ngModel)]="rfc" formatos [nochar]="true" [rfc]="true" [control]="rfc" type="text" name="" placeholder="RFC" class="form-control">
     </div>
     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
         <button (click)="filtrar()" type="button" class="btn btn-primary button-outlet ">Filtrar</button>

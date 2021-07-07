@@ -38,7 +38,6 @@ import { CoreModule } from '../core/core.module';
 import { BooleanPipe } from './pipes/boolean.pipe';
 import { HoraPipe } from './pipes/hora.pipe';
 
-
 @NgModule({
   declarations: [
 

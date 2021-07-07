@@ -24,7 +24,7 @@ export class CompanyComponent implements OnInit {
 
   public id_company: number = 0;
   public centrocClienteId: any = "";
-  public rfc: string = "";
+  public rfc: any = "";
   public nombre: string = "";
   public razonSocial: string = "";
   public fechaAlta: any = null;

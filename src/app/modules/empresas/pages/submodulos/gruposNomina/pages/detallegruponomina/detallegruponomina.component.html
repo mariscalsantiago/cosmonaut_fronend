@@ -76,9 +76,9 @@
 
 
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'calculosConBase' | tooltip">
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Calcular periodo de nómina con base a *</label>
-                <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
+                <select placement="top" [mdbTooltip]="'calculosConBase' | tooltip" formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
           <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.descripcion}}</option>
         </select>
                 <div *ngIf="submitInvalido && f.basePeriodoId.errors" class="invalid-feedback">
@@ -114,8 +114,8 @@
           <span class="checkmark"></span>
         </label>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'calcularISR' | tooltip">
-                <label class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label placement="top" [mdbTooltip]="'calcularISR' | tooltip" class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento
           <input formControlName="esIsrAguinaldoReglamento" id="esIsrAguinaldoReglamento" type="checkbox">
           <span class="checkmark"></span>
         </label>

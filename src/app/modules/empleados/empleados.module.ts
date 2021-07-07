@@ -15,6 +15,8 @@ import { DetalleComponent } from './pages/form-empleado/pestañas/detalle/detall
 import { FormBajaEmpleadoComponent } from './pages/form-baja-empleado/form-baja-empleado.component';
 import { EmpleadosIncompletosComponent } from './pages/empleados-incompletos/empleados-incompletos.component';
 import { CargaMasivaComponent } from './pages/carga-masiva/carga-masiva.component';
+import { TooltipModule } from 'ng-uikit-pro-standard';
+
 
 @NgModule({
     declarations: [ListaempleadosComponent, EmpleadoComponent, FormEmpleadoComponent, InformacionbasicaComponent, DomicilioComponent, PreferenciasComponent, EmpleoComponent,
@@ -25,7 +27,9 @@ import { CargaMasivaComponent } from './pages/carga-masiva/carga-masiva.componen
       ShareModule,
       FormsModule,
       ReactiveFormsModule,
-      HttpClientModule
+      HttpClientModule,
+      TooltipModule
+      
     ],
     providers: []
   })

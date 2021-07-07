@@ -7,6 +7,7 @@ import { ShareModule } from "src/app/shared/share.module";
 import { empleadosDocumentosRoutingModule } from "./empleados-documentos-routing.module";
 import { DocumentosComponent } from './pages/documentos/documentos.component';
 
+
 @NgModule({
     declarations:[ DocumentosComponent],
     imports: [CommonModule, empleadosDocumentosRoutingModule, FormsModule,ReactiveFormsModule, HttpClientModule,ShareModule],

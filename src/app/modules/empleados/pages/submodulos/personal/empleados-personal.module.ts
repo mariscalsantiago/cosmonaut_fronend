@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShareModule } from 'src/app/shared/share.module';
 
 
-
 @NgModule({
     declarations: [PersonalComponent],
     imports: [

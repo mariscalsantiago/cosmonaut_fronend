@@ -5,6 +5,7 @@ import { empleadosEventosRoutingModule } from "./empleados-eventos-routing.modul
 import { EventosComponent } from './pages/eventos/eventos.component';
 import { ShareModule } from '../../../../../shared/share.module';
 
+
 @NgModule({
     imports:[CommonModule,FormsModule,ReactiveFormsModule,empleadosEventosRoutingModule,ShareModule],
     declarations: [EventosComponent]

@@ -68,7 +68,7 @@
                     </div>
                 </div>
 
-                <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'area' | tooltip">
+                <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" placement="top" [mdbTooltip]="'area' | tooltip">
                     <label>Área *</label>
                     <input #nombre formControlName="nombreCorto" type="text" maxlength="250" class="form-control" [ngClass]="{'is-invalid':f.nombreCorto.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.nombreCorto.errors && submitEnviado" class="invalid-feedback">
@@ -81,7 +81,7 @@
                     </nav>
                 </div>
 
-                <div *ngIf="listpuesto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'puesto' | tooltip">
+                <div *ngIf="listpuesto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" placement="top" [mdbTooltip]="'puesto' | tooltip">
                     <label for="exampleFormControlSelect1">Puesto *</label>
                     <input formControlName="puesto" maxlength="250" type="text" class="form-control" [ngClass]="{'is-invalid':f.puesto.errors && submitEnviado}" placeholder="">
                     <div *ngIf="f.puesto.errors && submitEnviado" class="invalid-feedback">

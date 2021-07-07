@@ -46,9 +46,9 @@
                 <span class="checkmark"></span>
               </label>
                     </div>
-                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 " data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
+                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
                         <label>RFC {{(objCompany.multiempresa)?'':'*'}}</label>
-                        <input formControlName="rfc" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}">
+                        <input placement="top" [mdbTooltip]="'rfc' | tooltip" formatos [nochar]="true" [rfc]="true" [control]="f.rfc" formControlName="rfc" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}">
                         <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>

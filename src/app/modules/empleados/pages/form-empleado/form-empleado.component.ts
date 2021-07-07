@@ -22,7 +22,8 @@ export class FormEmpleadoComponent implements OnInit {
     { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false,seleccionado:false },   
-    { tab: false, form: false, disabled: false ,seleccionado:false}];
+    { tab: false, form: false, disabled: false ,seleccionado:false}
+  ];
 
   public ocultarDetalleTransfrencia: boolean = true;
   public ocultarempleada: boolean = false;

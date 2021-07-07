@@ -30,9 +30,10 @@
                 <label>Segundo apellido</label>
                 <input formControlName="apellidoMat" appMayusculas type="text" class="form-control" placeholder="">
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'curp' | tooltip">
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>CURP *</label>
-                <input formControlName="curp" maxlength="18" type="text" class="form-control" [ngClass]="{'is-invalid':(f.curp.errors?.required && subbmitActive) || (f.curp.errors?.pattern && f.curp.touched)}" placeholder="">
+                <input placement="top" [mdbTooltip]="'curp' | tooltip" formatos [nochar]="true" [curp]="true" [control]="f.curp" formControlName="curp" maxlength="18" type="text" class="form-control" [ngClass]="{'is-invalid':(f.curp.errors?.required && subbmitActive) || (f.curp.errors?.pattern && f.curp.touched)}"
+                    placeholder="">
                 <div *ngIf="f.curp.errors?.required && subbmitActive" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -41,9 +42,9 @@
                 </div>
 
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>RFC *</label>
-                <input #rfc formControlName="rfc" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.rfc.errors && subbmitActive}">
+                <input placement="top" [mdbTooltip]="'rfc' | tooltip" #rfc formatos [nochar]="true" [rfc]="true" [control]="f.rfc" formControlName="rfc" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.rfc.errors && subbmitActive}">
                 <div *ngIf="f.rfc.errors?.required && subbmitActive" class="invalid-feedback">
                     Campo requerido
                 </div>

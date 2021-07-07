@@ -8,6 +8,7 @@ import { CompanyService } from './services/company.service';
 import { DetalleCompanyComponent } from './pages/detalle-company/detalle_company.component';
 import { DetalleContactoComponent} from './pages/detalle-contacto/detalle-contacto.component'
 import { CoreModule } from 'src/app/core/core.module';
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 @NgModule({
   declarations: [DetalleContactoComponent, DetalleCompanyComponent, CompanyComponent],
@@ -16,8 +17,9 @@ import { CoreModule } from 'src/app/core/core.module';
     companyRoutingModule,
     ShareModule,
     FormsModule,
+    TooltipModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
   ],
   providers: [
     CompanyService

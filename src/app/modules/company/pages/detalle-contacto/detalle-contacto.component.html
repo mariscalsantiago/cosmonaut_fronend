@@ -40,9 +40,10 @@
                 <input formControlName="apellidoMaterno" formatos [especial]="true" [control]="f.apellidoMaterno" type="text" class="form-control" id="apellidoMaterno" aria-describedby="emailHelp" placeholder="">
 
             </div>
-            <div class=" input-group-sm mb-3 col-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'curp' | tooltip">
+            <div class=" input-group-sm mb-3 col-4">
                 <label>CURP</label>
-                <input formControlName="curp" maxlength="18" type="text" class="form-control" [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}" placeholder="">
+                <input placement="top" [mdbTooltip]="'curp' | tooltip" formatos [nochar]="true" [curp]="true" [control]="f.curp" formControlName="curp" maxlength="18" type="text" class="form-control" [ngClass]="{'is-invalid':f.curp.errors?.pattern && f.curp.touched}"
+                    placeholder="">
                 <div *ngIf="f.curp.errors?.pattern && f.curp.touched" class="invalid-feedback">
                     CURP inválida, favor de verificar
                 </div>
@@ -55,7 +56,7 @@
             </div>
             <div class="input-group-sm mb-3 col-4">
                 <label>Correo empresarial *</label>
-                <input formatos [correo]="true" [control]="f.emailCorporativo" formControlName="emailCorporativo" type="email" class="form-control" placeholder="">
+                <input formatos [correo]="true" [control]="f.emailCorporativo" formControlName="emailCorporativo" type="email" placeholder="" class="form-control text-lowercase">
                 <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
