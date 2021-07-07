@@ -2,7 +2,7 @@ import {environment} from './../environments/environment';
 
 const ip:string = environment.rutaEmpresa;
 const ip3:string = environment.rutaCatalogos;
-const ipCalculos:string = environment.rutaCalculos;
+const ipCalculos:string = environment.rutaNomina;
 const ipNomina:string = environment.rutaNomina;
 const ipAdmin: string = environment.rutaAdmin;
 const ipReportes:string = environment.rutaReportes;

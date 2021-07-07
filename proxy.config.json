@@ -23,14 +23,6 @@
           },
          "changeOrigin": true
     },
-    "/calculos/*":{
-        "target":"https://34.75.54.120/nomina",
-        "secure":false,
-        "pathRewrite": {
-            "^/calculos": ""
-          },
-         "changeOrigin": true
-    },
     "/nomina/*":{
         "target":"https://34.75.54.120/nomina",
         "secure":false,
