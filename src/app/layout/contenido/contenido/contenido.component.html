@@ -25,7 +25,7 @@
             <ul id="listanavegadora" class="list-unstyled components">
                 <li style="text-align: right; background-color: #f6f7f9;" *ngFor="let item of PRINCIPAL_MENU;let indice = index" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
                     <a (mouseover)="entraComponente(item)" (mouseout)="saleComponente(item)" style="display: inline-block;position: relative;" [routerLink]="item.pathServicio" (click)="seleccionado(item,indice)" [ngClass]="{'dropdown-toggle':true}">
-                        <i aria-hidden="true" [class]="item.icono"></i> <span style="display: block;color:white" *ngIf="item.seleccionado">{{item.nombreModulo}}</span> 
+                        <i aria-hidden="true" [class]="item.icono"></i> <span style="display: block;color:white;font-size: 11px; white-space: pre-wrap;" >{{item.nombreModulo}}</span> 
                         <div *ngIf="item.labelflotante && !item.seleccionado" class="labelflotante">{{item.nombreModulo}}</div>
                         <span *ngIf="item.nombreModulo.includes('Chat') && configuracionPrd.notificaciones !== 0"  class="badge badge-danger">{{configuracionPrd.notificaciones}}</span></a>
                     <ul class="labelflotantemenu" style="    max-height: 200px;

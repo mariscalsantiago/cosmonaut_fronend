@@ -132,7 +132,7 @@ export class ContenidoComponent implements OnInit {
 
           this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
 
-          this.usuariosSistemaPrd.setUsuario((JSON.parse(localStorage["usuario"])) as usuarioClass);
+          this.usuariosSistemaPrd.setUsuario((JSON.parse(sessionStorage["usuario"])) as usuarioClass);
 
           if (!Boolean(this.configuracionPrd.ocultarChat)) {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;

@@ -56,7 +56,7 @@ export class ConfiguracionesService {
 
   public isSession(llave: string): boolean {
     let isSession = false;
-    let sesionStr:string = localStorage["sesion"];
+    let sesionStr:string = sessionStorage["sesion"];
     if(Boolean(sesionStr)){
       let bytes = CryptoJS.AES.decrypt(sesionStr, this.secretKey);
       let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
@@ -75,23 +75,25 @@ export class ConfiguracionesService {
   }
 
   public getElementosSesion(llave: string): Observable<any> {
-    let bytes = CryptoJS.AES.decrypt(localStorage["sesion"], this.secretKey);
+    let bytes = CryptoJS.AES.decrypt(sessionStorage["sesion"], this.secretKey);
     let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
     return new BehaviorSubject<any>(JSON.parse(textodesencriptado)[llave]);
   }
 
   public getElementosSesionDirecto(llave: string): any {
-    let bytes = CryptoJS.AES.decrypt(localStorage["sesion"], this.secretKey);
+    let bytes = CryptoJS.AES.decrypt(sessionStorage["sesion"], this.secretKey);
     let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
     return JSON.parse(textodesencriptado)[llave];
   }
 
   public setElementosSesion(llave: string, datos: any) {
 
-    let sesion = localStorage["sesion"];
-    let bytes = CryptoJS.AES.decrypt(sesion, this.secretKey);
-    let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
+    debugger; 
+    let sesion = sessionStorage["sesion"];
+   
     if (Boolean(sesion)) {
+      let bytes = CryptoJS.AES.decrypt(sesion, this.secretKey);
+      let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
       sesion = JSON.parse(textodesencriptado);
       sesion[llave] = datos;
     }
@@ -101,7 +103,7 @@ export class ConfiguracionesService {
     }
 
 
-    localStorage["sesion"] = CryptoJS.AES.encrypt(JSON.stringify(sesion), this.secretKey).toString();
+    sessionStorage["sesion"] = CryptoJS.AES.encrypt(JSON.stringify(sesion), this.secretKey).toString();
   }
 
 
@@ -141,9 +143,9 @@ export class ConfiguracionesService {
                   primerAuxSubmodulo = false;
 
                   if (valor.nombreModulo.includes("Chat") && valor2.checked) {
-                    let usuario = JSON.parse(localStorage["usuario"]);
+                    let usuario = JSON.parse(sessionStorage["usuario"]);
                     usuario.esRecursosHumanos = true;
-                    localStorage["usuario"] = JSON.stringify(usuario);
+                    sessionStorage["usuario"] = JSON.stringify(usuario);
 
                   }
                 }

@@ -58,6 +58,7 @@ export class AuthService {
 
   private guardarToken(respuesta: any,esregresh:boolean = false): void {
 
+    
     this.configuracionPrd.setElementosSesion(this.configuracionPrd.JWT,respuesta);
     if(esregresh){
       this.router.navigateByUrl('/');
@@ -65,9 +66,9 @@ export class AuthService {
   }
 
   eliminarTokens(): void {
-    localStorage.removeItem(this.USUARIO);
-    localStorage.removeItem(this.VERSION);
-    localStorage.removeItem(this.SESSION);
+    sessionStorage.removeItem(this.USUARIO);
+    sessionStorage.removeItem(this.VERSION);
+    sessionStorage.removeItem(this.SESSION);
   }
 
   public refreshToken(tokenRefresh:string):Observable<any>{
