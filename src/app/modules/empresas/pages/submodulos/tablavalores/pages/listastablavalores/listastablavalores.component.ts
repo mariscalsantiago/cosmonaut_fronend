@@ -79,7 +79,7 @@ export class ListasTablaValoresComponent implements OnInit {
     this.establecerPermisos();
     
     this.activateRouter.params.subscribe(datos => {
-      debugger;
+      
       this.id_empresa = datos["id"];
       let fecha = new Date();
       let anio = fecha.getFullYear();
@@ -122,7 +122,7 @@ export class ListasTablaValoresComponent implements OnInit {
 
   public crearTablaReferencia(datos:any){
     
-    debugger;
+    
     this.arregloRef = datos.datos;
     
 

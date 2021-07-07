@@ -40,7 +40,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     if(this.datos.idEmpleado != undefined){
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;
@@ -109,7 +109,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo:any){
-    debugger;
+    
     if(tipo != ""){
       if(tipo == 1){
         let nombrePer = "P";
@@ -117,7 +117,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.estandar= false;
         this.myForm.controls.baseCalculoId.disable();
         this.myForm.controls.baseCalculoId.setValue(2);
-        debugger;
+        
         if(this.politica !== undefined){
         this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
           this.nombrePercepcion = datos.datos;

@@ -182,13 +182,7 @@ export class FormEmpleadoComponent implements OnInit {
 
       this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(archivo => {
         this.cargandoIcon = false;
-        const linkSource = 'data:application/pdf;base64,' + `${archivo.datos}\n`;
-        const downloadLink = document.createElement("a");
-        const fileName = `${datos.datos.numEmpleado}-${this.tabsEnviar[0].personaId.nombre.toUpperCase()}_${this.tabsEnviar[0].personaId.apellidoPaterno.toUpperCase()}.pdf`;
-
-        downloadLink.href = linkSource;
-        downloadLink.download = fileName;
-        downloadLink.click();
+        this.reportesPrd.crearArchivo(archivo.datos,`${this.tabsEnviar[0].personaId.rfc}_${this.tabsEnviar[0].personaId.nombre.replace(" ","_")}_${this.tabsEnviar[0].personaId.apellidoPaterno}`,"pdf");
       });
 
 

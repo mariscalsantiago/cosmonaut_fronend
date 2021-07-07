@@ -24,6 +24,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   public arreglodetalleJornada: any =[];
   public horarioComida: boolean = false;
   public jornada: any;
+  public horaSalida : any;
 
 
   
@@ -152,10 +153,6 @@ export class DetallejornadalaboralComponent implements OnInit {
 
 
   public enviarPeticion() {
-
-
-
-
     this.submitInvalido = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -166,9 +163,11 @@ export class DetallejornadalaboralComponent implements OnInit {
     const titulo = this.esInsert ? "¿Deseas registrar la jornada laboral?" : "¿Deseas actualizar los datos de la jornada laboral?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
-        
+        if(this.myForm.value.sumaHorasJornadaId === '1'){
+          this.myForm.value.horaSalida = this.horaSalida;
+        }
 
-        let obj = this.myForm.value;
+        let obj = this.myForm.value; 
         if(!obj.lunes){obj.lunes = false}
         if(!obj.martes){obj.martes = false}
         if(!obj.miercoles){obj.miercoles = false}
@@ -424,17 +423,16 @@ export class DetallejornadalaboralComponent implements OnInit {
     if(this.jornada === '1') {
     let hr = Number(response.value.substring(0,2))+8;
     let newValue : any;
-    console.log('hr', hr, 'value', response.value)
     newValue = response.value.replace(response.value.substring(0,2),Number(response.value.substring(0,2))+8)
     if(hr  === 8 || hr === 9){
       newValue = response.value.replace(response.value.substring(0,2),'0'+String(hr))
     }
     if(hr > 23) {
-      console.log('entro', hr, '0'+String(hr - 24));
       newValue = response.value.replace(response.value.substring(0,2),'0'+String(hr - 24))
     }
 
     this.myForm.controls.horaSalida.setValue(newValue);
+    this.horaSalida = newValue;
     this.myForm.controls.horaSalida.disable();
     }
   }

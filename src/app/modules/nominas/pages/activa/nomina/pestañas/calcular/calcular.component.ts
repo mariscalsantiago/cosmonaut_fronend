@@ -8,6 +8,7 @@ import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nomin
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-calcular',
@@ -50,7 +51,8 @@ export class CalcularComponent implements OnInit {
   constructor(private navigate: Router,
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaFiniquito: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
-    private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService) { }
+    private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService,
+    private usuariSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
@@ -210,7 +212,15 @@ export class CalcularComponent implements OnInit {
   }
   public regresarExtraordinaria() {
 
-    this.navigate.navigate(["/nominas/nomina_extraordinaria"]);
+    if (this.llave == "nominaOrdinaria") {
+      this.navigate.navigate(["/nominas/activas"]);
+    } else if (this.llave == "nominaExtraordinaria") {
+      this.navigate.navigate(["/nominas/nomina_extraordinaria"]);
+    } else if (this.llave == "nominaLiquidacion") {
+      this.navigate.navigate(["/nominas/finiquito_liquidacion"]);
+    } else if (this.llave == "nominaPtu") {
+      this.navigate.navigate(["/nominas/ptu"]);
+    }
   }
 
   public continuar() {
@@ -259,7 +269,7 @@ export class CalcularComponent implements OnInit {
     this.cargandoIcon = true;
     this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
       this.cargandoIcon = false;
-      this.reportesPrd.crearArchivo(datos.datos, `nomina_${this.nominaSeleccionada[this.llave].nominaXperiodoId}`, "xlsx");
+      this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
     });
   }
 
@@ -311,6 +321,51 @@ export class CalcularComponent implements OnInit {
       });
 
     }
+  }
+
+
+
+  public eliminar() {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas eliminar la nómina?").then(valor => {
+      if (valor) {
+        let objEnviar = {
+          nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
+          usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
+        };
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        if (this.llave == "nominaOrdinaria") {
+          this.nominaOrdinariaPrd.eliminar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              this.regresarExtraordinaria();
+            });
+          });
+        } else if (this.llave == "nominaExtraordinaria") {
+          this.nominaAguinaldoPrd.eliminar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              this.regresarExtraordinaria();
+            });
+          });
+        } else if (this.llave == "nominaLiquidacion") {
+          this.nominaFiniquito.eliminar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              this.regresarExtraordinaria();
+            });
+          });
+        } else if (this.llave == "nominaPtu") {
+          this.nominaPtuPrd.eliminar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              this.regresarExtraordinaria();
+            });
+          });
+        }
+      }
+    });
+
   }
 
 }

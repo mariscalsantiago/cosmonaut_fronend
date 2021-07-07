@@ -14,6 +14,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { CalculosService } from 'src/app/shared/services/nominas/calculos.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 
 
 
@@ -84,7 +85,7 @@ export class EmpleoComponent implements OnInit {
     private usuarioSistemaPrd: UsuarioSistemaService,
     private jornadaPrd: JornadalaboralService, private sedesPrd: SharedSedesService,
     private modalPrd: ModalService, private puestosPrd: PuestosService,
-    private calculoPrd: CalculosService) { }
+    private calculoPrd: CalculosService,private usuariosAuth:UsuariosauthService) { }
 
   ngOnInit(): void {
 
@@ -558,8 +559,28 @@ export class EmpleoComponent implements OnInit {
     this.colaboradorPrd.save(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
+
+
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
         if (datos.resultado) {
+
+
+
+          let objAuthEnviar = {
+            nombre:  this.datosPersona.nombre,
+            apellidoPat: this.datosPersona.apellidoPaterno,
+            apellidoMat: this.datosPersona.apellidoMaterno,
+            email: this.datosPersona.emailCorporativo?.toLowerCase(),
+            centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
+            rolId: 3
+        }
+  
+        this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv =>{
+          if(!vv.resultado){
+              this.modalPrd.showMessageDialog(vv.resultado,vv.mensaje);
+          }
+        });
+
           let metodopago = {};
 
           for (let item of this.arregloMetodosPago) {

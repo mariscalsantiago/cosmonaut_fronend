@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { direcciones } from 'src/assets/direcciones';
 import { environment } from 'src/environments/environment';
 
@@ -11,12 +12,12 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly USUARIO = 'usuario';
   private readonly VERSION = 'version';
   private readonly SESSION = 'sesion';
 
-  constructor(private http: HttpClient,private router: Router,private httpbackend:HttpBackend) { 
+  constructor(private http: HttpClient,private router: Router,private httpbackend:HttpBackend,
+    private configuracionPrd:ConfiguracionesService) { 
     this.http = new HttpClient(this.httpbackend);
   }
 
@@ -41,29 +42,33 @@ export class AuthService {
   }
 
   getToken(): string {
-    let obj = localStorage.getItem(this.JWT_TOKEN) as string;
-    let accessToken = JSON.parse(obj)?.access_token;
+    let accessToken = "";
+    
+    if(this.configuracionPrd.isSession(this.configuracionPrd.JWT)){
+      let obj = this.configuracionPrd.getElementosSesionDirecto(this.configuracionPrd.JWT);
+      accessToken = obj?.access_token;
+    }
     return accessToken;
   }
   getRefreshToken():string{
-    let obj = localStorage.getItem(this.JWT_TOKEN) as string;
-    let refreshToken = JSON.parse(obj)?.refresh_token;
+    let obj = this.configuracionPrd.getElementosSesionDirecto(this.configuracionPrd.JWT);
+    let refreshToken = obj?.refresh_token;
     return refreshToken;
   }
 
   private guardarToken(respuesta: any,esregresh:boolean = false): void {
 
-    localStorage.setItem(this.JWT_TOKEN, JSON.stringify(respuesta));
+    
+    this.configuracionPrd.setElementosSesion(this.configuracionPrd.JWT,respuesta);
     if(esregresh){
       this.router.navigateByUrl('/');
     }
   }
 
   eliminarTokens(): void {
-    localStorage.removeItem(this.JWT_TOKEN);
-    localStorage.removeItem(this.USUARIO);
-    localStorage.removeItem(this.VERSION);
-    localStorage.removeItem(this.SESSION);
+    sessionStorage.removeItem(this.USUARIO);
+    sessionStorage.removeItem(this.VERSION);
+    sessionStorage.removeItem(this.SESSION);
   }
 
   public refreshToken(tokenRefresh:string):Observable<any>{

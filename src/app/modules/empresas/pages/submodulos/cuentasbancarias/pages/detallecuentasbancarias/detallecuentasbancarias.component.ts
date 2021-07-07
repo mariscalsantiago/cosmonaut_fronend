@@ -129,6 +129,9 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
 
   public enviarPeticion() {
+    if(this.myForm.controls.funcionCuentaId.value === 0){
+      this.myForm.controls.funcionCuentaId.setErrors({required: true});
+    }
 
 
     this.submitInvalido = true;

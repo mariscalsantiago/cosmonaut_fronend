@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { validacionesForms } from 'src/app/shared/validaciones/validaciones';
 
@@ -205,7 +206,10 @@ export class InformacionbasicaComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     if(this.datosPersona[0].personaId == undefined){
+
       this.empleadosPrd.save(objenviar).subscribe(datos => {
+
+       
 
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
   

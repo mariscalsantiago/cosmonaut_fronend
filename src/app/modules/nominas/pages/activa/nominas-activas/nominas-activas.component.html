@@ -24,6 +24,8 @@
         <div class="col-6 mt-3">
             <article>{{item.nominaOrdinaria?.nombreNomina}}
                 <article>Período de {{item.nominaOrdinaria?.fechaInicio | date:'dd MMM'}} hasta {{item.nominaOrdinaria?.fechaFin | date:'dd MMM'}}</article>
+                <article>Clave: {{item.nominaOrdinaria?.periodo}}</article>
+                <article>Grupo de nómina: {{item.nominaOrdinaria?.grupoNomina}}</article>
             </article>
 
         </div>

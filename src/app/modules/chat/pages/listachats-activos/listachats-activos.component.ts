@@ -77,7 +77,13 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
     if (obj) {
       for (let item of obj) {
 
-        let arreglomensajes = JSON.parse(item.mensajes);
+        let arreglomensajes = [];
+
+        try{
+          arreglomensajes = JSON.parse(item.mensajes || "[{}]")
+        }catch{
+          arreglomensajes = [{mensaje:""}];
+        }
 
         item["nombreempleado"] = item.usuarioId?.nombre + " " + item.usuarioId.apellidoPat + " ";
         item["nombreempleado"] += item.personaId?.apellidoMat ? "" : item.usuarioId?.apellidoMat || ""

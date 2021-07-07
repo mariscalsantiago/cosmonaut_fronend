@@ -52,7 +52,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     if(this.datos.idEmpleado != undefined){
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;
@@ -123,7 +123,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    debugger;
+    
     if(concepto=='010'){
       this.infonavit = true;
       this.fijo = true;

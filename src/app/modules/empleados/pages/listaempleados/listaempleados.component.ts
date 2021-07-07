@@ -18,8 +18,8 @@ export class ListaempleadosComponent implements OnInit {
 
   public personaId: any = "";
   public nombre: any = "";
-  public apellidoPaterno = "";
-  public apellidoMaterno = "";
+  public apellidoPaterno: any = "";
+  public apellidoMaterno: any = "";
   public idarea: any = "";
   public idPuesto: any = "";
   public empresa: any = "";
@@ -67,7 +67,7 @@ export class ListaempleadosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.establecerPermisos();
 
     let documento: any = document.defaultView;

@@ -17,6 +17,8 @@ export class FormatosDirective implements OnInit {
   @Input() public alfanumericos: boolean = false;
   @Input() public letras: boolean = false;
   @Input() public numeros: boolean = false;
+  @Input() public titlecase: boolean = false;
+  
   @Input() public minimo: boolean = false;
   @Input() public control!: AbstractControl;
 
@@ -39,7 +41,10 @@ export class FormatosDirective implements OnInit {
     }else if(this.correo){
       this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
       this.onFocusout(undefined);
-    } 
+    }else if(this.titlecase){
+      this.el.nativeElement.value = `${this.el.nativeElement.value}`[0].toUpperCase()+`${this.el.nativeElement.value}`.slice(1);
+      this.onFocusout(undefined);
+    }
   }
 
   @HostListener("keydown", ["$event"])
@@ -145,6 +150,7 @@ export class FormatosDirective implements OnInit {
     }
 
   }
+  
 
 
   ngOnDestroy() {

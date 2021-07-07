@@ -113,7 +113,7 @@ export class VariabilidadComponent implements OnInit {
 
     public traerTabla(datos:any) {
 
-      debugger;
+      
       const columna: Array<tabla> = [
         new tabla("razonSocial", "Razón Social"),
         new tabla("anioFiscal", "Año"),
@@ -317,7 +317,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public promedioVariabilidad(){
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     this.reportesPrd.getCalcularDías(this.bimestreCalcular).subscribe(archivo => {
@@ -390,7 +390,7 @@ export class VariabilidadComponent implements OnInit {
               obj.bimestre = 6;
               
             }
-            debugger;
+            
               let objEnviar : any = 
               
               /*{

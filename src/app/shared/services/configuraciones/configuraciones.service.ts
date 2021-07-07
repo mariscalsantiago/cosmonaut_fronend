@@ -3,6 +3,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { permiso } from 'src/app/core/modelos/permiso';
 
 
+
+const CryptoJS = require("crypto-js");
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,27 +15,31 @@ export class ConfiguracionesService {
 
   public scrollCompany: number = 1;
 
-  public readonly MODULOS:string = "modulos";
-  public readonly MONEDAS:string = "monedas";
-  public readonly MENUUSUARIO:string = "menuusuario";
-  public readonly PERMISOSXVERSIONES:string = "permisosxversiones";
-  
-  
-  public accesoRuta:boolean = false;
-
-  public cantidad:number = 0;
+  public readonly MODULOS: string = "modulos";
+  public readonly MONEDAS: string = "monedas";
+  public readonly MENUUSUARIO: string = "menuusuario";
+  public readonly PERMISOSXVERSIONES: string = "permisosxversiones";
+  public readonly JWT: string = "jwt";
 
 
-  public permisosActuales!:Array<clasepermiso>;
+  public accesoRuta: boolean = false;
+
+  public cantidad: number = 0;
 
 
-  public ocultarChat:any = undefined;
+  public permisosActuales!: Array<clasepermiso>;
 
-  public notificaciones:number = 0;
 
-  public menu:boolean = false;
+  public ocultarChat: any = undefined;
+
+  public notificaciones: number = 0;
+
+  public menu: boolean = false;
   public MENUPRINCIPAL = undefined;
 
+
+
+  private secretKey: string = "llavesecreta@por@santiagoantoniomariscal";
 
 
 
@@ -45,15 +54,20 @@ export class ConfiguracionesService {
   }
 
 
-  public isSession(llave: string): boolean {   
-    let sesion = localStorage["sesion"];
+  public isSession(llave: string): boolean {
     let isSession = false;
-    if (Boolean(sesion)) {
-      sesion = JSON.parse(sesion);
-      let datos = sesion[llave];
-      isSession = Boolean(datos);
-    } else {
-      isSession = false;
+    let sesionStr:string = sessionStorage["sesion"];
+    if(Boolean(sesionStr)){
+      let bytes = CryptoJS.AES.decrypt(sesionStr, this.secretKey);
+      let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
+      let sesion = textodesencriptado;
+      if (Boolean(sesion)) {
+        sesion = JSON.parse(sesion);
+        let datos = sesion[llave];
+        isSession = Boolean(datos);
+      } else {
+        isSession = false;
+      }
     }
 
 
@@ -61,74 +75,89 @@ export class ConfiguracionesService {
   }
 
   public getElementosSesion(llave: string): Observable<any> {
-    return new BehaviorSubject<any>(JSON.parse(localStorage["sesion"])[llave]);
+    let bytes = CryptoJS.AES.decrypt(sessionStorage["sesion"], this.secretKey);
+    let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
+    return new BehaviorSubject<any>(JSON.parse(textodesencriptado)[llave]);
+  }
+
+  public getElementosSesionDirecto(llave: string): any {
+    let bytes = CryptoJS.AES.decrypt(sessionStorage["sesion"], this.secretKey);
+    let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
+    return JSON.parse(textodesencriptado)[llave];
   }
 
   public setElementosSesion(llave: string, datos: any) {
-    let sesion = localStorage["sesion"];
+
+    debugger; 
+    let sesion = sessionStorage["sesion"];
+   
     if (Boolean(sesion)) {
-      sesion = JSON.parse(sesion);
+      let bytes = CryptoJS.AES.decrypt(sesion, this.secretKey);
+      let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
+      sesion = JSON.parse(textodesencriptado);
       sesion[llave] = datos;
     }
     else {
       sesion = {};
       sesion[llave] = datos;
     }
-    localStorage["sesion"] = JSON.stringify(sesion);;
+
+
+    sessionStorage["sesion"] = CryptoJS.AES.encrypt(JSON.stringify(sesion), this.secretKey).toString();
   }
 
 
-  
-  public traerDatosMenu(permisos: any,menu:any,version:number,esCliente?:boolean) {
-    let arreglo:[any] = menu;
-      
-      
-    arreglo.forEach((valor:any[any]) => {
-       
-        valor.seleccionado = false;
-        valor.checked = false;
-        valor.previo = false;
-        if (valor.submodulos) {
-          valor.submodulos.forEach((valor2:any[any]) => {
-            let primerAuxSubmodulo = true;
-            valor2.checked = false;
-            valor2.previo = false;
-            valor2.seleccionadosubmenu = false;
 
-         
+  public traerDatosMenu(permisos: any, menu: any, version: number, esCliente?: boolean) {
+    let arreglo: [any] = menu;
 
-            let filtrar: any = Object.values(permisos).filter((x: any) => x.submoduloId == valor2.submoduloId);
 
-     
-            if((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9) || version === 1){
-              valor2.permisos?.forEach((valor3:any[any]) => {
+    arreglo.forEach((valor: any[any]) => {
 
-                valor3.checked = this.encontrarConcidencias(filtrar, valor3);
-                valor3.previo = valor3.checked;
-                if (valor3.checked) {
-                  if (primerAuxSubmodulo) {
-                    valor.checked = true;
-                    valor.previo = true;
-                    valor2.checked = true;
-                    valor2.previo = true;
-                    primerAuxSubmodulo = false;
+      valor.seleccionado = false;
+      valor.checked = false;
+      valor.previo = false;
+      if (valor.submodulos) {
+        valor.submodulos.forEach((valor2: any[any]) => {
+          let primerAuxSubmodulo = true;
+          valor2.checked = false;
+          valor2.previo = false;
+          valor2.seleccionadosubmenu = false;
 
-                    if(valor.nombreModulo.includes("Chat") && valor2.checked){
-                      let usuario = JSON.parse(localStorage["usuario"]);
-                      usuario.esRecursosHumanos = true;
-                      localStorage["usuario"] = JSON.stringify(usuario);
-                      
-                  }
+
+
+          let filtrar: any = Object.values(permisos).filter((x: any) => x.submoduloId == valor2.submoduloId);
+
+
+          if ((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9) || version === 1) {
+            valor2.permisos?.forEach((valor3: any[any]) => {
+
+              valor3.checked = this.encontrarConcidencias(filtrar, valor3);
+              valor3.previo = valor3.checked;
+              if (valor3.checked) {
+                if (primerAuxSubmodulo) {
+                  valor.checked = true;
+                  valor.previo = true;
+                  valor2.checked = true;
+                  valor2.previo = true;
+                  primerAuxSubmodulo = false;
+
+                  if (valor.nombreModulo.includes("Chat") && valor2.checked) {
+                    let usuario = JSON.parse(sessionStorage["usuario"]);
+                    usuario.esRecursosHumanos = true;
+                    sessionStorage["usuario"] = JSON.stringify(usuario);
+
                   }
                 }
-              });
-            }
+              }
+            });
+          }
 
-          });
-        }
-      });
+        });
+      }
+    });
 
-     return arreglo;
+    return arreglo;
   }
 
   private encontrarConcidencias(obj: any, valor3: permiso): boolean {
@@ -140,44 +169,44 @@ export class ConfiguracionesService {
   }
 
 
-  public setPermisos(obj:Array<clasepermiso>){
-    
-      this.permisosActuales = obj;
+  public setPermisos(obj: Array<clasepermiso>) {
+
+    this.permisosActuales = obj;
   }
 
-  public getPermisos(cadena:string):boolean{
-    debugger;
-    let mostrar:boolean = false;
-     for(let item of this.permisosActuales){
-        if(cadena == item.descripcion && item.checked){
-            mostrar = true;
-            break;
-        }
-     }
+  public getPermisos(cadena: string): boolean {
+
+    let mostrar: boolean = false;
+    for (let item of this.permisosActuales) {
+      if (cadena == item.descripcion && item.checked) {
+        mostrar = true;
+        break;
+      }
+    }
     return mostrar;
   }
 
 
-  public getCantidadDispersion(){
-    
+  public getCantidadDispersion() {
+
     return this.cantidad;
 
   }
 
-  public setCantidad(cantidad:number){
-      this.cantidad = cantidad;
+  public setCantidad(cantidad: number) {
+    this.cantidad = cantidad;
   }
 
 
-  
- 
 
 
-  
+
+
+
 }
 
-interface clasepermiso{
-   permisoId:number,
-   descripcion:string,
-   checked:boolean
+interface clasepermiso {
+  permisoId: number,
+  descripcion: string,
+  checked: boolean
 }

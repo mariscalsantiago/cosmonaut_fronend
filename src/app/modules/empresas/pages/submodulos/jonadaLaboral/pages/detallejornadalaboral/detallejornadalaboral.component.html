@@ -87,12 +87,12 @@
                 </div>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label>Hora de inicio de comida <b  aria-hidden="true" *ngIf="f.sumaHorasJornadaId.value === '3' ">*</b></label>
+                <label>Hora de inicio de comida <strong  aria-hidden="true" *ngIf="f.sumaHorasJornadaId.value === '3' ">*</strong></label>
                 <input formControlName="horaInicioComida" type="time" class="form-control" placeholder="" [ngClass]="{'is-invalid':f.horaInicioComida.errors && submitInvalido && (f.sumaHorasJornadaId.value === '3')}">
             </div>
 
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label>Hora fin de comida <b  aria-hidden="true" *ngIf="f.sumaHorasJornadaId.value === '3' ">*</b></label>
+                <label>Hora fin de comida <strong  aria-hidden="true" *ngIf="f.sumaHorasJornadaId.value === '3' ">*</strong></label>
                 <input formControlName="horaFinComida" type="time" class="form-control" placeholder="" [ngClass]="{'is-invalid':f.horaFinComida.errors && submitInvalido && (f.sumaHorasJornadaId.value === '3')}">
             </div>
 

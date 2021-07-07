@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { AuthService } from './auth.service';
 
@@ -14,7 +15,8 @@ export class TokenInterceptorService implements HttpInterceptor {
   public refreshTokenEnProgreso: boolean = false;
   accessTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private authPrd: AuthService,private routerPrd:Router,private usuariosSistemaPrd:UsuarioSistemaService) { }
+  constructor(private authPrd: AuthService,private routerPrd:Router,private usuariosSistemaPrd:UsuarioSistemaService,
+    private modalPrd:ModalService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authPrd.isAuthenticated()) {
@@ -64,8 +66,11 @@ export class TokenInterceptorService implements HttpInterceptor {
                 return next.handle(req);
               }));
           }
+        }else if(e instanceof HttpErrorResponse && e.status === 400){
+           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+           this.modalPrd.showMessageDialog(this.modalPrd.error,e.error.mensaje);
         }
-        return throwError(e);
+      return throwError(e);
       }
 
       ));

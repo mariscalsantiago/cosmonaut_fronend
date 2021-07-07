@@ -71,13 +71,13 @@
             </label>
 
                     </th>
-                    <td *ngIf="!chat" class="opciones" [ngClass]="{'centrar':item.nombre !== 'Politica Estandar'}">
-                        <button *ngIf="descargar && item.nombre !== 'Politica Estandar'" (click)="btnDescargar(item,indice)"><i aria-hidden="true"
+                    <td *ngIf="!chat" class="opciones" [ngClass]="{'centrar':item.nombre !== 'Política Estándar'}">
+                        <button *ngIf="descargar && item.nombre !== 'Política Estándar'" (click)="btnDescargar(item,indice)"><i aria-hidden="true"
                 class="icon_24descargar primary-bg"></i></button>
                         <button *ngIf="ver" (click)="btnVer(item,indice)"><i aria-hidden="true" class="icon_24ver primary-bg"></i></button>
-                        <button *ngIf="editar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEditar(item,indice)"><i aria-hidden="true"
+                        <button *ngIf="editar && (item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEditar(item,indice)"><i aria-hidden="true"
                 class="icon_24editar primary-bg"></i></button>
-                        <button *ngIf="eliminar && (item.nombre !== 'Politica Estandar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i aria-hidden="true"
+                        <button *ngIf="eliminar && (item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i aria-hidden="true"
                 class="icon_24eliminar danger-bg"></i></button>
                         <button *ngIf="llave " (click)="btnLlave(item,indice)">
               <i aria-hidden="true" class="icon_24llave primary-bg"></i>
@@ -126,7 +126,7 @@
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Nómina
                             </a>
                             <a (click)="definirFecha('fotos',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
-                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Fotos
+                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Folios
                             </a>
                             <a (click)="definirFecha('reportenomina',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Nómina</a>

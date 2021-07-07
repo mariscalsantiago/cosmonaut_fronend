@@ -316,11 +316,12 @@ export class FormBajaEmpleadoComponent implements OnInit {
           
           
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
-            debugger;
+            
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
               this.arregloLiquidacion=[];
               if(!datos.resultado){
-                this.routerPrd.navigate(['empleados']);
+                
+                this.myFormcomp = this.createFormcomp({});
               }
           });
 
@@ -331,7 +332,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public cancelarcomp() {
-    this.routerPrd.navigate(['/empleados']);
+    this.myFormcomp = this.createFormcomp({});
   }
 
   get f() { return this.myFormcomp.controls; }

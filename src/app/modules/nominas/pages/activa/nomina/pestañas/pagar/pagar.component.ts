@@ -191,6 +191,7 @@ export class PagarComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.nominaOrdinariaPrd.dispersar(obj).subscribe((valor) => {
+          console.log(valor,"Esto ya se anda dispersando");
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if (valor.datos.exito) {
             this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento, el proceso se tardara varios minutos.");
@@ -240,7 +241,7 @@ export class PagarComponent implements OnInit {
     this.cargandoIcon = true;
     this.reportes.getDescargarTxtRfctabDispersar(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.cargandoIcon = false;
-      this.reportes.crearArchivo(datos.datos, `archivoRFCs_${this.usuariosSistemaPrd.getIdEmpresa()}`, "txt");
+      this.reportes.crearArchivo(datos.datos, `archivoRFCs_${this.nominaSeleccionada[this.llave].nombreNomina}`, "txt");
     });
   }
 

@@ -190,6 +190,11 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
       return this.http.get(`${direcciones.reportes}/nominaDispersion/txtIdRfc/${idEmpresa}`);
   }
 
+
+  public getHistoricoPolizaContable(idNomina:number):Observable<any>{
+    return this.http.get(`${direcciones.reportes}/nominaHistorica/polizaContable/${idNomina}`);
+  }
+
   public crearArchivo(base64:string,nombre:string,extension:string){
     const linkSource = 'data:application/pdf;base64,' + `${base64}\n`;
     const downloadLink = document.createElement("a");

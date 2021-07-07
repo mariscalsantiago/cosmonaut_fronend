@@ -76,7 +76,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   ngAfterViewInit(): void {
 
-    this.nombre.nativeElement.focus();
+    //this.nombre.nativeElement.focus();
 
   }
 
@@ -84,11 +84,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
     
+    console.log(obj);
     
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      tipoPercepcionId: [obj.tipoPercepcionId.tipoPercepcionId, [Validators.required]],
+      tipoPercepcionId: [obj.tipoPercepcionId?.tipoPercepcionId, [Validators.required]],
       tipoPeriodicidad: [obj.tipoPeriodicidad, [Validators.required]],
       gravaIsr: obj.gravaIsr,
       gravaIsn: obj.gravaIsn == undefined?false:obj.gravaIsn,
@@ -96,7 +97,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       cuentaContable: obj.cuentaContable,
       tipoConcepto: [obj.tipoConcepto],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
-      conceptoPercepcionId: [obj.conceptoPercepcionId],
+      conceptoPercepcionId: [obj.conceptoPercepcionId,[Validators.required]],
 
     });
 

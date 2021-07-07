@@ -67,7 +67,7 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     this.idPolitica = objdetrep.politicaId;
     this.router.params.subscribe(params => {
@@ -75,7 +75,7 @@ export class DetallepoliticasComponent implements OnInit {
     });
 
   if(!this.insertar){
-    debugger;
+    
     this.mostrarBeneficios = true;
     this.politicasPrd.getdetalleBeneficio(this.idPolitica,this.id_empresa).subscribe(datos => this.arregloTablaBeneficios = datos.datos);
     this.myFormpol = this.createFormrep((objdetrep));
@@ -292,7 +292,7 @@ export class DetallepoliticasComponent implements OnInit {
   
 
   public agregarPer() {
-    debugger;
+    
     let datosPer: any = {
       idEmpleado: this.idEmpleado,
       idEmpresa: this.id_empresa,
@@ -320,7 +320,7 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   public agregarNuevaPercepcion(obj: any) {
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     this.bancosPrd.savePercepcionPolitica(obj).subscribe(datos => {

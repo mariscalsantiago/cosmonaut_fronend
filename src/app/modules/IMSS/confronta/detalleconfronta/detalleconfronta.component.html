@@ -1,0 +1,87 @@
+<div class="row margen">
+    <div class="col titulo-outlet">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+            <i  aria-hidden="true" class="fas fa-bars"></i>
+        </button></div>
+        <label>CONFRONTA</label>
+    </div>
+</div>
+
+
+<hr>
+
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+    <div class="background-panel margen background-ajustar" appTamanioVentana>
+        <div class="form-group row margen mt-2"><label class="titulo">NUEVA CONFRONTA</label></div>
+        <div class="form-group row margen">
+            <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
+                <label for="exampleFormControlSelect1">Registro patronal *</label>
+                <select class="form-control" formControlName="idregistroPatronal" name="" [ngClass]="{'is-invalid':f.idregistroPatronal.errors && submitEnviado}">
+                    <option value="0" selected >Registro patronal</option>
+                    <option *ngFor="let item of arregloRegistroPatronal" [value]="item.registroPatronalId" >{{item.registroPatronal}}</option>
+                </select>
+                <div *ngIf="f.idregistroPatronal.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
+                <label for="exampleFormControlSelect1">Tipo emisión *</label>
+                <select class="form-control" formControlName="tipoEmisionId" name="" [ngClass]="{'is-invalid':f.tipoEmisionId.errors && submitEnviado}" (change)="tipoEmision($event)"> 
+                    <option value="0" selected >Tipo emisión</option>
+                    <option *ngFor="let item of arregloEmisiones" [value]="item.idTipoEmision" >{{item.tipoEmision}}</option>
+                </select>
+                <div *ngIf="f.tipoEmisionId.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
+
+                <label for="">Año *</label>
+                <input appSolonumeros oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1900" max="2100" maxlength="4" minlength="4" step="1" value="2021" placeholder="Año" formControlName="anio"
+                    class="form-control" [ngClass]="{'is-invalid':f.anio.errors && submitEnviado}">
+                <div *ngIf="f.anio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+
+            <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6 ">
+
+                <label for="">Mes *</label><br>
+                <select class="form-control" name="" style="text-transform:capitalize;" formControlName="mes" [ngClass]="{'is-invalid':f.mes.errors && submitEnviado}">
+                    <option value="0" selected> Mes </option>
+                    <option  *ngFor="let item of arregloMeses" [value]="item.idEmision"> 
+                         {{item.mesInicio}} <strong *ngIf="tipo !== 1"> - {{ item.mesFin}}</strong> 
+                    </option>
+                </select>
+                <div *ngIf="f.mes.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Archivo .zip de la emisión *</label>
+                <div class="input-group mb-3">
+                    <input #inputFile formControlName="archivo" type="text" class="form-control" [ngClass]="{'is-invalid':f.archivo.errors && submitEnviado}">
+                    <div (click)="abrirArchivo()" class="input-group-append" style="cursor: pointer;">
+                        <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><img src="assets/Iconos24/upload.png" alt="" srcset=""></span>
+                    </div>
+                </div>
+                <div *ngIf="f.archivo.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">{{buttonCancel}}</button>
+        <button type="submit" class="btn btn-primary button-fill"> <i aria-hidden="true"  *ngIf="buttonSave !== 'Aceptar'"
+            class="fas fa-download"></i>  {{buttonSave}}</button>
+    </div>
+
+</form>

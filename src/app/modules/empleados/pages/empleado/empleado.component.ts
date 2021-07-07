@@ -90,13 +90,7 @@ export class EmpleadoComponent implements OnInit {
 
       this.reportesPrd.getReportePerfilPersonal(objenviar).subscribe(archivo => {
         this.cargandoIcon = false;
-        const linkSource = 'data:application/pdf;base64,' + `${archivo.datos}\n`;
-        const downloadLink = document.createElement("a");
-        const fileName = `${datos.datos.numEmpleado}-${this.empleado.personaId.nombre.toUpperCase()}_${this.empleado.personaId.apellidoPaterno.toUpperCase()}.pdf`;
-
-        downloadLink.href = linkSource;
-        downloadLink.download = fileName;
-        downloadLink.click();
+        this.reportesPrd.crearArchivo(archivo.datos,`${datos.datos.personaId.rfc}_${datos.datos.personaId.nombre.replace(" ","_")}_${datos.datos.personaId.apellidoPaterno}`,"pdf");
       });
 
 

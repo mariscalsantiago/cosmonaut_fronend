@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 
 
@@ -30,7 +33,9 @@ export class NominaComponent implements OnInit {
   public esTimbrar: boolean = false;
   public esDescargar: boolean = false;
 
-  constructor(private configuracionesPrd: ConfiguracionesService) { }
+  constructor(public  configuracionPrd: ConfiguracionesService,
+    private modalPrd:ModalService,private usuariSistemaPrd:UsuarioSistemaService,
+    private nominaOrdinariaPrd:NominaordinariaService) { }
 
   ngOnInit(): void {
 
@@ -90,14 +95,14 @@ export class NominaComponent implements OnInit {
   }
 
   public establecerPermisos() {
-    this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
-    this.esCalcular = this.configuracionesPrd.getPermisos("Calcular");
-    this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
-    this.esConcluir = this.configuracionesPrd.getPermisos("Concluir");
-    this.esDispersar =this.configuracionesPrd.getPermisos("Dispersar");
-    this.esEliminar = this.configuracionesPrd.getPermisos("Eliminar");
-    this.esTimbrar = this.configuracionesPrd.getPermisos("Timbrar");
-    this.esDescargar = this.configuracionesPrd.getPermisos("Descargar");
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esCalcular = this.configuracionPrd.getPermisos("Calcular");
+    this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+    this.esConcluir = this.configuracionPrd.getPermisos("Concluir");
+    this.esDispersar =this.configuracionPrd.getPermisos("Dispersar");
+    this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
+    this.esTimbrar = this.configuracionPrd.getPermisos("Timbrar");
+    this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
 
    
   }
@@ -172,5 +177,7 @@ export class NominaComponent implements OnInit {
         break;
     }
   }
+
+
 
 }

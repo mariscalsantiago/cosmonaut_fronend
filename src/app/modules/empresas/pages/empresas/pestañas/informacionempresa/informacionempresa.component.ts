@@ -207,7 +207,7 @@ export class InformacionempresaComponent implements OnInit {
     
 
     if (this.enviarPeticion.enviarPeticion) {
-      debugger;
+      
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
       this.enviarPeticion.enviarPeticion = false;
       let obj = this.myform.value;

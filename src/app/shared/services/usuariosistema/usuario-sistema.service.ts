@@ -20,24 +20,24 @@ export class UsuarioSistemaService {
   
 
   public getUsuario() {
-    this.usuario = this.usuario.usuarioId == undefined ? JSON.parse(localStorage["usuario"]):this.usuario;
+    this.usuario = this.usuario.usuarioId == undefined ? JSON.parse(sessionStorage["usuario"]):this.usuario;
     return this.usuario;
   }
 
   public setUsuario(usuario: usuarioClass) {
     this.usuario = usuario;
-    localStorage["usuario"]=JSON.stringify(usuario);
+    sessionStorage["usuario"]=JSON.stringify(usuario);
   }
 
   public getIdEmpresa() {
-    if(localStorage["usuario"] !== undefined){
-    this.usuario = this.usuario.centrocClienteId == undefined  ? JSON.parse(localStorage["usuario"]):this.usuario;}
+    if(sessionStorage["usuario"] !== undefined){
+    this.usuario = this.usuario.centrocClienteId == undefined  ? JSON.parse(sessionStorage["usuario"]):this.usuario;}
     return this.usuario.centrocClienteId;
   }
 
   public esCliente() {
-    if(localStorage["usuario"] !== undefined){
-    this.usuario = this.usuario.esCliente == undefined  ? JSON.parse(localStorage["usuario"]):this.usuario;}
+    if(sessionStorage["usuario"] !== undefined){
+    this.usuario = this.usuario.esCliente == undefined  ? JSON.parse(sessionStorage["usuario"]):this.usuario;}
     return Boolean(this.usuario.esCliente);
   }
 
@@ -117,11 +117,11 @@ export class UsuarioSistemaService {
   }
 
   public getVersionSistema(){
-      return Number(localStorage.getItem("version"))
+      return Number(sessionStorage.getItem("version"))
   }
 
   public setVersionSistema(idNumber:string){
-      localStorage.setItem("version",idNumber);
+      sessionStorage.setItem("version",idNumber);
   }
 
   

@@ -68,7 +68,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   }
 
   public traerTabla(obj:any) {
-    debugger;
+    
 
     this.arreglo = obj.datos;
 
