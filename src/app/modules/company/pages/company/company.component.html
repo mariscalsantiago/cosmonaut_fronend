@@ -42,8 +42,8 @@
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <input type="number" [(ngModel)]="centrocClienteId" class="form-control" placeholder="Id cliente">
                                     </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
-                                        <input type="text" [appAlfanumerico]="'true'" [(ngModel)]="rfc" class="form-control" placeholder="RFC">
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <input type="text" [(ngModel)]="rfc" placement="top" [mdbTooltip]="'rfc' | tooltip" class="form-control" formatos [nochar]="true" [rfc]="true" [control]="rfc" placeholder="RFC">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <input type="text" appAlfanumerico [(ngModel)]="nombre" class="form-control" placeholder="Nombre cliente">

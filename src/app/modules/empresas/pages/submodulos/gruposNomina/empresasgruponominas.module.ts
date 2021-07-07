@@ -6,11 +6,12 @@ import { empresasGrupoNominasModuleRouting } from "./empresasgruponominas-routin
 import { DetallegruponominaComponent } from "./pages/detallegruponomina/detallegruponomina.component";
 import { ListagruposnominasComponent } from "./pages/listagruposnominas/listagruposnominas.component";
 import { GruponominasService } from "./services/gruponominas.service";
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 
 @NgModule({
     declarations:[ListagruposnominasComponent,DetallegruponominaComponent],
-    imports:[CommonModule,FormsModule,ReactiveFormsModule,empresasGrupoNominasModuleRouting,ShareModule],
+    imports:[CommonModule,FormsModule,TooltipModule,ReactiveFormsModule,empresasGrupoNominasModuleRouting,ShareModule],
     providers:[GruponominasService]
 })
 export class empresasGrupoNominasModule{

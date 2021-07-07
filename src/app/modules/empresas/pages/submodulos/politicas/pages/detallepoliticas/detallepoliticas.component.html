@@ -9,9 +9,9 @@
             <label class="titulo">INFORMACIÓN DE POLITÍCA</label></div>
         <div class="form group row margen">
 
-            <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'politica' | tooltip">
+            <div class="  input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Nombre *</label>
-                <input #nombre formControlName="nombre" maxlength="64" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
+                <input placement="top" [mdbTooltip]="'politica' | tooltip" #nombre formControlName="nombre" maxlength="64" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" placeholder="">
                 <div *ngIf="f.nombre.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -64,8 +64,8 @@
                     Campo requerido
                 </div>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'calculosConBase' | tooltip">
-                <label>Cálculo con base en :</label><br>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label placement="top" [mdbTooltip]="'calculosConBase' | tooltip">Cálculo con base en :</label><br>
 
                 <label class="contenedorInputCheckRadio"> Fecha de antigüedad
               <input  value="antiguedad" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" >
@@ -151,8 +151,8 @@
                 </div>
 
             </div>
-            <div class="card" [ngClass]="{'cardselected':arreglopintar[1]}" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'percepciones' | tooltip">
-                <div class="card-header" id="percepciones">
+            <div class="card" [ngClass]="{'cardselected':arreglopintar[1]}">
+                <div class="card-header" id="percepciones" placement="top" [mdbTooltip]="'percepciones' | tooltip">
                     <h5 class="mb-0">
                         <button (click)="cambiarStatus(1)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
                     Percepciones específicas
@@ -187,8 +187,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'deducciones' | tooltip">
-                <div class="card-header" id="deducciones">
+            <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}">
+                <div class="card-header" id="deducciones" placement="top" [mdbTooltip]="'deducciones' | tooltip">
                     <h5 class="mb-0">
                         <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
                     Deducciones específicas

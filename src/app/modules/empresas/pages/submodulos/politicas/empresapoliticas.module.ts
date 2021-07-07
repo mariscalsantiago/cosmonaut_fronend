@@ -6,6 +6,7 @@ import { CoreModule } from 'src/app/core/core.module';
 import { empresapoliticasRoutingModule } from "./empresapoliticas-routing.module";
 import { DetallepoliticasComponent } from "./pages/detallepoliticas/detallepoliticas.component";
 import { ListapoliticasComponent } from "./pages/listapoliticas/listapoliticas.component";
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 @NgModule({
    declarations:[DetallepoliticasComponent,ListapoliticasComponent],
@@ -15,7 +16,7 @@ import { ListapoliticasComponent } from "./pages/listapoliticas/listapoliticas.c
       ShareModule,
       FormsModule,
       ReactiveFormsModule,
-      CoreModule
+      CoreModule, TooltipModule
     ],
 })
 export class empresapoliticasModule{

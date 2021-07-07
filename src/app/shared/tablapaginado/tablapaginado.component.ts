@@ -12,6 +12,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public datosExtras:any;
   public arreglo: any = [];
   public numeroitems: number = 5;
+  public total: any = 0;
 
 
   public arreglopaginas: Array<any> = [];
@@ -100,6 +101,7 @@ export class TablapaginadoComponent implements OnInit {
 
 
       this.arreglotemp = this.datos.filas;
+      this.total = this.arreglotemp.length
 
 
       for (let item of this.datos.filas) {
@@ -190,7 +192,7 @@ export class TablapaginadoComponent implements OnInit {
     this.activarAntes = !(indice === 0 && this.indice === 0);
 
     const elementosTotalArreglo = this.arreglotemp.length;
-
+   
 
     if (indice == 2) {
       let totalElementosPaginado = ((this.indice + 1) * 3) * Number(this.numeroitems);

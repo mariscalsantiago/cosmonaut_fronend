@@ -4,9 +4,10 @@
     <div class="row mt-3">
         <div class="col-10">
             <div class="form group row">
-                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'registroPatronal' | tooltip">
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Registro patronal *</label>
-                    <input formControlName="registroPatronal" maxlength="11" type="text" class="form-control" [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado || (f.registroPatronal.errors?.pattern && f.registroPatronal.touched)}" placeholder="">
+                    <input placement="top" [mdbTooltip]="'registroPatronal' | tooltip" formControlName="registroPatronal" maxlength="11" type="text" class="form-control" [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado || (f.registroPatronal.errors?.pattern && f.registroPatronal.touched)}"
+                        placeholder="">
                     <div *ngIf="submitEnviado && f.registroPatronal.errors?.required" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -14,9 +15,10 @@
                         Registro patronal no es válida
                     </div>
                 </div>
-                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'primaRiesgo' | tooltip">
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Prima de riesgo de trabajo *</label>
-                    <input formControlName="emPrimaRiesgo" maxlength="7" type="text" class="form-control" [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}" placeholder="">
+                    <input placement="top" [mdbTooltip]="'primaRiesgo' | tooltip" formControlName="emPrimaRiesgo" maxlength="7" type="text" class="form-control" [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}"
+                        placeholder="">
                     <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -40,8 +42,8 @@
             </div>
             <div class="form group row">
                 <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12"></div>
-                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'imssObrero' | tooltip">
-                    <label class="contenedorInputCheckRadio">IMSS obrero integrado a IMSS patronal para salario mínimo
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label class="contenedorInputCheckRadio" placement="top" [mdbTooltip]="'imssObrero' | tooltip">IMSS obrero integrado a IMSS patronal para salario mínimo
                     <input formControlName="emImssObreroIntegradoApatronal" type="checkbox" name="" id="emImssObreroIntegradoApatronal">
                     <span class="checkmark"></span>
                   </label>

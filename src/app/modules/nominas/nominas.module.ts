@@ -17,11 +17,12 @@ import { NominaCalculadoraComponent } from './pages/nomina-calculadora/nomina-ca
 import { NominaPTUComponent } from './pages/nomina-ptu/nominas-ptu-activas/nomina-ptu.component';
 import { PPPComponent } from "./pages/ppp/ppp/ppp.component";
 import { CoreModule } from "src/app/core/core.module";
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 @NgModule({
     declarations:[NominasActivasComponent, NominaComponent, CalcularComponent, PagarComponent, TimbrarComponent, CompletarComponent, NominaHistoricasComponent, NominaExtraordinariaComponent, NominaDFiniquitoliquidacionActivasComponent, 
         NominaCalculadoraComponent, NominaPTUComponent, PPPComponent],
-    imports:[CommonModule,ReactiveFormsModule,FormsModule,HttpClientModule,nominasRoutingModule,ShareModule,CoreModule],
+    imports:[CommonModule,ReactiveFormsModule,FormsModule,HttpClientModule,TooltipModule,nominasRoutingModule,ShareModule,CoreModule],
     providers:[CurrencyPipe]
 })
 export class nominasModule{

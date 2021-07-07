@@ -9,9 +9,6 @@ import { AdminCatalogosComponent } from './pages/admincatalogos/admincatalogos.c
 import { CoreModule } from 'src/app/core/core.module';
 import { ABCAdminCatalogosComponent  } from './pages/abc-admincatalogos/abc-admincatalogos.component';
 
-
-
-
 @NgModule({
   declarations: [DetalleAdminCatalogosComponent,AdminCatalogosComponent,ABCAdminCatalogosComponent],
   imports: [

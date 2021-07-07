@@ -6,11 +6,12 @@ import { empresasJornadaLaboralModuleRouting } from "./empresasjornadalaboral-ro
 import { DetallejornadalaboralComponent } from "./pages/detallejornadalaboral/detallejornadalaboral.component";
 import { ListajornadalaboralComponent } from "./pages/listajornadalaboral/listajornadalaboral.component";
 import { JornadalaboralService } from "./services/jornadalaboral.service";
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 
 @NgModule({
     declarations:[ListajornadalaboralComponent,DetallejornadalaboralComponent],
-    imports:[CommonModule,FormsModule,ReactiveFormsModule,empresasJornadaLaboralModuleRouting,ShareModule],
+    imports:[CommonModule,FormsModule,ReactiveFormsModule,empresasJornadaLaboralModuleRouting,TooltipModule,ShareModule],
     providers:[JornadalaboralService]
 })
 export class empresasJornadaLaboralModule{

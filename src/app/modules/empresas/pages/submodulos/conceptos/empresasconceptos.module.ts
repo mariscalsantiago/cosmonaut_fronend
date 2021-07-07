@@ -8,10 +8,11 @@ import { ShareModule } from "src/app/shared/share.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ConceptosService } from "./services/conceptos.service";
 import { HttpClientModule } from "@angular/common/http";
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 @NgModule({
-    imports:[CommonModule,empresasConceptosRoutingModule,ShareModule,FormsModule,ReactiveFormsModule,
-    HttpClientModule],
+    imports:[CommonModule,empresasConceptosRoutingModule,ShareModule,FormsModule,ReactiveFormsModule,TooltipModule,
+    HttpClientModule, TooltipModule],
     declarations: [ListasconceptospercepcionesComponent, DetalleconceptospercepcionesComponent,DetalleconceptosdeduccionesComponent],
     providers:[ConceptosService]
 })

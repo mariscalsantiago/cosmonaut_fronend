@@ -18,7 +18,9 @@ export class FormatosDirective implements OnInit {
   @Input() public letras: boolean = false;
   @Input() public numeros: boolean = false;
   @Input() public titlecase: boolean = false;
-  
+  @Input() public nochar: boolean = false;
+  @Input() public curp: boolean = false;
+  @Input() public rfc: boolean = false;
   @Input() public minimo: boolean = false;
   @Input() public control!: AbstractControl;
 
@@ -41,10 +43,13 @@ export class FormatosDirective implements OnInit {
     }else if(this.correo){
       this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
       this.onFocusout(undefined);
-    }else if(this.titlecase){
-      this.el.nativeElement.value = `${this.el.nativeElement.value}`[0].toUpperCase()+`${this.el.nativeElement.value}`.slice(1);
-      this.onFocusout(undefined);
-    }
+    }else if (this.nochar){
+      if(this.curp || this.rfc){
+        this.el.nativeElement.value = `${this.el.nativeElement.value}`.toUpperCase();
+        this.onFocusout(undefined);
+      }
+
+  }
   }
 
   @HostListener("keydown", ["$event"])
@@ -74,6 +79,14 @@ export class FormatosDirective implements OnInit {
     } else if (this.letras || this.especial) {
 
       let expresionRegular = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/i;
+      const regex = new RegExp(expresionRegular);
+      if (!regex.test(event.key)) {
+        event.preventDefault();
+      }
+
+    }  else if (this.nochar) {
+
+      let expresionRegular = /^[A-Za-z0-9]+$/g;
       const regex = new RegExp(expresionRegular);
       if (!regex.test(event.key)) {
         event.preventDefault();

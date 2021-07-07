@@ -6,7 +6,7 @@ import { CoreModule } from 'src/app/core/core.module';
 import { empresaApoderadoLegalRoutingModule } from "./empresaapoderadoLegal-routing.module";
 import { DetalleapoderadoLegalComponent } from "./pages/detalleapoderadoLegal/detalleapoderadoLegal.component";
 import { ListaapoderadoLegalComponent } from "./pages/listaapoderadoLegal/listaapoderadoLegal.component";
-
+import { TooltipModule } from 'ng-uikit-pro-standard';
 @NgModule({
    declarations:[DetalleapoderadoLegalComponent,ListaapoderadoLegalComponent],
    imports: [
@@ -15,7 +15,7 @@ import { ListaapoderadoLegalComponent } from "./pages/listaapoderadoLegal/listaa
       ShareModule,
       FormsModule,
       ReactiveFormsModule,
-      CoreModule
+      CoreModule, TooltipModule
     ],
 })
 export class empresaApoderadoLegalModule{

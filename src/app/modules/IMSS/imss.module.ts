@@ -8,11 +8,12 @@ import { SuaComponent } from "src/app/modules/IMSS/sua/sua/sua.component";
 import { VariabilidadComponent } from "src/app/modules/IMSS/variabilidad/variabilidad/variabilidad.component";
 import { ConfrontaComponent } from './confronta/confronta/confronta.component';
 import { DetalleconfrontaComponent } from './confronta/detalleconfronta/detalleconfronta.component';
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 
 @NgModule({
     declarations:[IDSEComponent, SuaComponent, VariabilidadComponent, ConfrontaComponent, DetalleconfrontaComponent],
-    imports:[CommonModule,FormsModule,imssRoutingModule,ShareModule, ReactiveFormsModule]
+    imports:[CommonModule,FormsModule,imssRoutingModule, TooltipModule,ShareModule, ReactiveFormsModule]
     })
 export class imssModule{
 

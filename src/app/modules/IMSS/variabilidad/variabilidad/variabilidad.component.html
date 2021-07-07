@@ -27,19 +27,19 @@
 
                     </div>
 
-                    <div class="  input-group-sm mb-3 col-10" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'bimestre' | tooltip">
-                        <label>Bimestre a calcular *</label>
+                    <div class="  input-group-sm mb-3 col-10">
+                        <label placement="top" [mdbTooltip]="'bimestre' | tooltip">Bimestre a calcular *</label>
                         <input formControlName="bimestre" maxlength="300" type="text" class="form-control disabled bg-light">
 
                     </div>
 
-                    <div class="input-group-sm mb-3 col-10" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'dias' | tooltip">
-                        <label>Días a promediar *</label>
+                    <div class="input-group-sm mb-3 col-10">
+                        <label placement="top" [mdbTooltip]="'dias' | tooltip">Días a promediar *</label>
                         <input formControlName="diaspromediar" [class.is-invalid]="(f.diaspromediar.errors?.required && f.diaspromediar.touched) || (f.diaspromediar.errors?.min )" type="text" class="form-control">
                         <div *ngIf="f.diaspromediar.errors?.required && f.diaspromediar.touched" class="invalid-feedback">
                             Campo requerido
                         </div>
-       
+
                     </div>
 
                     <div class="  input-group-sm mb-3 col-10">
@@ -52,9 +52,9 @@
 
                 <br>
                 <div class="text-center margin" style="margin-bottom: 20px;">
-    
+
                     <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                    
+
                     <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Aplicar</button>
                 </div>
                 <br>
@@ -106,8 +106,7 @@
                             </button>
                         </div>
                         <div class="row text-right margin botonmultiseleccion" *ngIf="listaPromedio">
-                            <button (click)="desgargarArchivo()" type="button"
-                            class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar reporte</span>
+                            <button (click)="desgargarArchivo()" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar reporte</span>
                           </button>
 
                         </div>

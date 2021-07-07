@@ -14,6 +14,7 @@ import { DatosimssComponent } from './pages/empresas/pestañas/datosimss/datosim
 import { SedeComponent } from './pages/empresas/pestañas/domicilio/sede/sede.component';
 import { CuentasComponent } from './pages/empresas/pestañas/datosbancarios/cuentas/cuentas.component';
 import { MovimientosComponent } from './pages/movimientos/movimientos/movimientos.component';
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MovimientosComponent } from './pages/movimientos/movimientos/movimiento
       ReactiveFormsModule,
       ShareModule,
       FormsModule,
-      HttpClientModule
+      HttpClientModule,
+      TooltipModule
     ],
     providers: []
   })
