@@ -152,7 +152,7 @@ export class NominaaguinaldoService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominaOrdinaria}/eliminacion/nomina/aguinaldo`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaExtraordinaria}/eliminacion/nomina/aguinaldo`, json, httpOptions);
 
   }
 
