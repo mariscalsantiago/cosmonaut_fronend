@@ -55,7 +55,7 @@
             </div>
             <div class="input-group-sm mb-3 col-4">
                 <label>Correo empresarial *</label>
-                <input formatos [correo]="true" [control]="f.emailCorporativo" formControlName="emailCorporativo" type="email" placeholder="">
+                <input formatos [correo]="true" [control]="f.emailCorporativo" formControlName="emailCorporativo" type="email" class="form-control" placeholder="">
                 <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>

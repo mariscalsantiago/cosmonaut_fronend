@@ -199,7 +199,7 @@
                         Campo requerido
                     </div>
                 </div>
-                <div *ngIf="f.tiposueldo.value == 'n'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'salarioNetoMensual' | tooltip">
+                <div *ngIf="f.tiposueldo.value == 'n' && !typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'salarioNetoMensual' | tooltip">
                     <label for="exampleFormControlSelect1">Sueldo neto mensual*</label>
                     <input formatos [moneda]="true" [control]="f.sueldoNetoMensual" formControlName="sueldoNetoMensual" (focusout)="cambiasueldobruto(false)" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldoNetoMensual.errors && submitEnviado,'disabled':!sueldoNeto}">
 
@@ -208,11 +208,20 @@
                     </div>
 
                 </div>
-                <div *ngIf="f.tiposueldo.value== 'b'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'sueldoBrutoMensual' | tooltip">
+                <div *ngIf="f.tiposueldo.value== 'b' && !typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'sueldoBrutoMensual' | tooltip">
                     <label for="exampleFormControlSelect1">Sueldo bruto mensual*</label>
                     <input formatos [moneda]="true" [control]="f.sueldoBrutoMensual" formControlName="sueldoBrutoMensual" (focusout)="cambiasueldobruto(true)" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}">
 
                     <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+                <div *ngIf="typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'sueldoBrutoMensual' | tooltip">
+                    <label for="exampleFormControlSelect1">Sueldo neto mensual PPP*</label>
+                    <input formatos [moneda]="true" [control]="f.sueldonetomensualppp" formControlName="sueldonetomensualppp" (focusout)="cambiassueldoPPP()" type="text" name="" id="m1" class="form-control" [ngClass]="{'is-invalid':f.sueldonetomensualppp.errors && submitEnviado}">
+
+                    <div class="invalid-feedback">
                         Campo requerido
                     </div>
 
@@ -255,9 +264,18 @@
                     </div>
 
                 </div>
-                <div *ngIf="f.tiposueldo.value== 'n'" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'sueldoBrutoMensual' | tooltip">
+                <div *ngIf="f.tiposueldo.value== 'n' && !typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'sueldoBrutoMensual' | tooltip">
                     <label for="exampleFormControlSelect1">Sueldo bruto mensual*</label>
                     <input formControlName="sueldoBrutoMensual" formatos [moneda]="true" [control]="f.sueldoBrutoMensual" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}">
+
+                    <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+                <div *ngIf="typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'sueldoBrutoMensual' | tooltip">
+                    <label for="exampleFormControlSelect1">Sueldo bruto mensual*</label>
+                    <input formControlName="sueldoBrutoMensualPPP" formatos [moneda]="true" [control]="f.sueldoBrutoMensual" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && submitEnviado,'disabled':!sueldoBruto}">
 
                     <div *ngIf="f.sueldoBrutoMensual.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido

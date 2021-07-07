@@ -328,7 +328,7 @@ form{
     overflow-y:auto;
 
     &::-webkit-scrollbar {
-        width: 5px;
+        width: 10px;
         height: 5px;
         cursor: pointer;
       }
@@ -368,7 +368,7 @@ form{
 
     &::-webkit-scrollbar {
         width: 1px;
-        height: 5px;
+        height: 10px;
         cursor: pointer;
       }
 
