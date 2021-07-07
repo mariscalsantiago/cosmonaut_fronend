@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { DatePipe } from '@angular/common';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { AdminDispercionTimbradoService } from 'src/app/modules/admindisptimbrado/services/admindisptimbrado.service';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 
 @Component({
   selector: 'app-admindisptimbrado',
@@ -14,8 +16,8 @@ import { AdminDispercionTimbradoService } from 'src/app/modules/admindisptimbrad
 
 export class AdminDispercionTimbradoComponent implements OnInit {
 
-  public empresa: any;
-
+  public empresa: string = "";
+  public myForm!: FormGroup;
   public idEmpresa: number = 0;
   public arreglo: any = [];
   public cargandoIcon: boolean = false;
@@ -24,6 +26,14 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   public nombre: string = "";
   public cliente: string = "";
   public empresaFiltro: string = "";
+  public aparecemodalito: boolean = false;
+  public aparecemodalitoTimbrado: boolean = false;
+  public scrolly: string = '5%';
+  public modalWidth: string = "55%";
+  public tamanio: number = 0;
+  public cargandolistatimbres: boolean = false;  
+  public arreglotimbres: any = [];
+  public arreglotimbresProveedores : any = [];
 
   public arreglotabla: any = {
     columnas: [],
@@ -34,21 +44,27 @@ export class AdminDispercionTimbradoComponent implements OnInit {
       filas:[]
   };
 
+  public esRegistrar:boolean = false;
+  public esConsultar:boolean = false;
+  public esEditar:boolean = false;
+  public esEliminar:boolean = false;
 
 
-  constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService, private admintimbradoDispersion: AdminDispercionTimbradoService) { }
+
+  constructor(private ventana: VentanaemergenteService,private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
+    private modalPrd:ModalService,private formBuild: FormBuilder, private admintimbradoDispersion: AdminDispercionTimbradoService,
+    public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit() {
-    //this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
-   this.idEmpresa = 1;
+   this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
+   this.establecerPermisos();
+   //this.idEmpresa = 1;
    this.cargando = true;
     
-   this.admintimbradoDispersion.getListaProveedorTimbrado(1).subscribe(datos => {
-   this.traerTabla(datos);
- });
 
     this.filtrar();
+    let obj: any  = [];
+    this.myForm = this.createForm(obj);
   }
 
   public traerTabla(obj:any) {
@@ -57,9 +73,9 @@ export class AdminDispercionTimbradoComponent implements OnInit {
     this.arreglo = obj.datos;
 
     const columnas: Array<tabla> = [
-      new tabla("idCliente", "ID Cliente"),
+      new tabla("clienteId", "ID Cliente"),
       new tabla("cliente", "Cliente"),
-      new tabla("idEmpresa", "ID Empresa"),
+      new tabla("empresaId", "ID Empresa"),
       new tabla("empresa", "Empresa"),
       new tabla("rfc", "RFC"),
     ];
@@ -69,37 +85,150 @@ export class AdminDispercionTimbradoComponent implements OnInit {
       columnas:[],
       filas:[]
     }
-    console.log('datos',this.arreglo)
-    if(this.arreglo !== undefined){
-      for(let item of this.arreglo){
-        if(item.fechaMovimiento !== undefined ){
-        item.fecha = (new Date(item.fechaMovimiento).toUTCString()).replace(" 00:00:00 GMT", "");
-        let datepipe = new DatePipe("es-MX");
-        item.fecha = String(datepipe.transform(item.fecha , 'dd-MMM-y')?.replace(".",""));
-        item.nombre = item.nombre + " " + item.apellidoPaterno+" "+(item.apellidoMaterno == undefined ? "":item.apellidoMaterno);
-        }
-      }
-    }
-   
+ 
     
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
     this.cargando = false;
   }
 
+  public createForm(obj: any) {
+
+     return this.formBuild.group({
+  
+        empresa: [this.empresa],
+        dipersion: [],
+        timbrado: [],
+  
+      });
+  
+    }
+
+  public traerModal(indice: any) {
+    debugger;
+    let elemento: any = document.getElementById("vetanaprincipaltabla")
+    this.aparecemodalito = true;
+
+
+
+    if (elemento.getBoundingClientRect().y < -40) {
+      let numero = elemento.getBoundingClientRect().y;
+      numero = Math.abs(numero);
+
+      this.scrolly = numero + 100 + "px";
+
+
+    } else {
+
+      this.scrolly = "5%";
+    }
+
+
+
+    if (this.tamanio < 600) {
+
+      this.modalWidth = "90%";
+
+    } else {
+      this.modalWidth = "55%";
+
+    }
+
+
+    this.cargandolistatimbres = true;
+
+    this.admintimbradoDispersion.getTimbresActivos().subscribe(datos => {
+      this.arreglotimbres = datos.datos == undefined ? [] : datos.datos;
+
+      this.cargandolistatimbres = false;
+    });
+
+  }
+
+  public traerModalTimbres(obj:any) {
+    debugger;
+    let elemento: any = document.getElementById("vetanaprincipaltabla")
+    this.aparecemodalitoTimbrado = true;
+
+
+
+    if (elemento.getBoundingClientRect().y < -40) {
+      let numero = elemento.getBoundingClientRect().y;
+      numero = Math.abs(numero);
+
+      this.scrolly = numero + 100 + "px";
+
+
+    } else {
+
+      this.scrolly = "5%";
+    }
+
+
+
+    if (this.tamanio < 600) {
+
+      this.modalWidth = "90%";
+
+    } else {
+      this.modalWidth = "55%";
+
+    }
+
+
+    this.cargandolistatimbres = true;
+
+    this.admintimbradoDispersion.getObtenerProveedores(obj.centrocClienteXproveedorId).subscribe(datos => {
+      this.arreglotimbresProveedores = datos.datos == undefined ? [] : datos.datos;
+      this.myForm.controls.empresa.setValue(this.arreglotimbresProveedores.centrocClienteId.nombre);
+
+      this.cargandolistatimbres = false;
+    });
+
+  }
+
+
+  public establecerPermisos(){
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+    this.esEditar = this.configuracionPrd.getPermisos("Editar");
+    this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
+  }
+
+  public recibirTabla(obj:any){
+    
+    if(obj.type == "editar"){
+      let datos = obj.datos;
+      this.ventana.showVentana(this.ventana.adminTimbradoDispersion,{datos:datos}).then(valor =>{
+        if (valor.datos) {
+
+          this.modificarProveedores(valor.datos);
+        }
+      });
+     
+    }
+  }
+
+  public modificarProveedores(obj: any) {
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    this.admintimbradoDispersion.modificarProveedores(obj).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+
+    });
+  }
 
   public filtrar() {
     debugger;
- 
-      
         
         this.objFiltro = {
-          ...this.objFiltro,
-          centroClienteId: this.idEmpresa,
+          clienteId: 1,
+          empresaId: null
+        }
 
-        };
-        console.log('moc', this.objFiltro)
-      this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
+      this.admintimbradoDispersion.proveedoresTimbres(this.objFiltro).subscribe(datos => {
    
         
         this.traerTabla(datos);

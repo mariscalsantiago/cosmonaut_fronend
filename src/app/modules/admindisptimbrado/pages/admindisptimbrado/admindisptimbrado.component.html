@@ -6,7 +6,7 @@
 
 
 <div class="scrooll-design" style="margin-top: -22px;">
-    <div class="margen ">
+    <div class="margen " id="vetanaprincipaltabla" >
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
@@ -29,17 +29,78 @@
 
                     </div>
 
+                    <div class="col-5">
+                        <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
+                    
+                    
+                            <div class="adentro">
+                    
+                                <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                                <div class="header">
+                                    <h5 class="titulo">TIMBRES</h5>
+                    
+                    
+                                </div>
+                                <hr>
+                                <div class="body">
+                    
+                    
+                                    <div *ngIf="cargandolistatimbres" class="col text-center mb-5">
+                                        <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                                    </div>
+                    
+                                    <div *ngIf="!cargandolistatimbres">
+                                        <table aria-hidden="true" class="table m-3 table-hober table-sm " style="width: 90%;">
+                                            <thead>
+                                                <tr>
+                                                    <th id="" class="text-center" scope="col">Proveedor de timbrado</th>
+                                                    <th id="" class="text-center" scope="col">Timbres disponibles</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of arreglotimbres">
+                                                    <td>{{item.timbresSw.nombreCorto}}</td>
+                                                    <td>{{item.timbresSw.timbres_disponibles}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                    
+                                </div>
+                                <hr>
+                                <div class="footer">
+                                    <div class="row">
+                                        <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                        </div>
+                    </div>
 
+                    <br><br>
                     <div class="row margen">
                         <div class="col titulo">
                             <label>RESULTADOS</label>
                         </div>
                     </div>
-
-
                     <div class="   margen-tabla background-panel ">
                         <br>
-                        <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando"></app-tablapaginado>
+
+                        <div class="col-11">
+                            <div class="text-right margin">
+                                <nav aria-label="cosmonaut">
+                                    <a (click)="traerModal(undefined)" class="botonestilo heartbeathand estiloextralink"><i aria-hidden="true" 
+                                        class="icon_24alerta primary-bg"></i> Timbres
+                                    </a>
+                                </nav>
+                            </div>
+                    </div>
+
+                        <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                    
                     </div>
 
 

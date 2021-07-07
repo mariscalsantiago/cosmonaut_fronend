@@ -21,6 +21,7 @@ export class VentanaemergenteService {
   public subcidio: string = "subcidio";
   public nuevanominafiniquitoliquidacion: string = "nuevanominafiniquitoliquidacion";
   public mensajechat: string = "mensajechat";
+  public adminTimbradoDispersion: string = "adminTimbradoDispersion";
 
 
 
@@ -49,7 +50,8 @@ export class VentanaemergenteService {
     subcidio: false,
     nuevanominaextraordinaria: false,
     nuevanominafiniquitoliquidacion: false,
-    mensajechat: false
+    mensajechat: false,
+    adminTimbradoDispersion: false
   }
 
   constructor() { }
@@ -129,7 +131,12 @@ export class VentanaemergenteService {
         this.mostrar.mensajechat = true;
         this.emergente.titulo = "Editar mensaje";
         break;
+        case this.adminTimbradoDispersion:
 
+          this.mostrar.adminTimbradoDispersion = true;
+          this.emergente.titulo = "Seleccionar proveedor";
+          break;
+        
 
     }
 

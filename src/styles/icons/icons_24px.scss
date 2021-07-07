@@ -89,6 +89,14 @@
 
 }
 
+.icon_24alerta{
+  $rutaimg:'../../assets/icons/ICO_alerta.svg';
+  @include icono-imagen($dark);
+  -webkit-mask: url($rutaimg) no-repeat center;
+  mask: url($rutaimg) no-repeat center;
+
+}
+
 .icon_24descargar{
   $rutaimg:'../../assets/Iconos24/download.svg';
   @include icono-imagen($dark);

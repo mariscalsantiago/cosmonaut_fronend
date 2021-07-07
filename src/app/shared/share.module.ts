@@ -20,6 +20,7 @@ import { NominaactivaFechatimbradoComponent } from './ventanasemergentes/tiposve
 import { NominaactivaTimbrarComponent } from './ventanasemergentes/tiposventanas/nominaactiva-timbrar/nominaactiva-timbrar.component';
 import { SubirFotoPerfilComponent } from './ventanasemergentes/tiposventanas/subir-foto-perfil/subir-foto-perfil.component';
 import { VentanaPercepcionesComponent } from './ventanasemergentes/tiposventanas/ventana-percepciones/ventana-percepciones.component';
+import { VentanaAdminTimbradoDispersionComponent } from './ventanasemergentes/tiposventanas/ventana-adminTimDisper/ventana-adminTimDisper.component';
 import { VentanaDeduccionesComponent } from './ventanasemergentes/tiposventanas/ventana-deducciones/ventana-deducciones.component';
 import { VentanaResumenDispersionComponent } from './ventanasemergentes/tiposventanas/ventana-resumen-dispersion/ventana-resumen-dispersion.component';
 import { VentanaResumenTimbradoComponent } from './ventanasemergentes/tiposventanas/ventana-resumen-timbrado/ventana-resumen-timbrado.component';
@@ -63,6 +64,7 @@ import { HoraPipe } from './pipes/hora.pipe';
     NominaactivaTimbrarComponent,
     SubirFotoPerfilComponent,
     VentanaPercepcionesComponent,
+    VentanaAdminTimbradoDispersionComponent,
     VentanaDeduccionesComponent,
     VentanaResumenDispersionComponent,
     VentanaResumenTimbradoComponent,

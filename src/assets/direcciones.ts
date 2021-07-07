@@ -3,6 +3,7 @@ import {environment} from './../environments/environment';
 const ip:string = environment.rutaEmpresa;
 const ip3:string = environment.rutaCatalogos;
 const ipCalculos:string = environment.rutaCalculos;
+const ipNomina:string = environment.rutaNomina;
 const ipAdmin: string = environment.rutaAdmin;
 const ipReportes:string = environment.rutaReportes;
 const ipSocket:string = environment.rutaSocket;
@@ -30,16 +31,17 @@ export const direcciones = {
     conceptos:`${ip}/percepcionDeduccion`,
     incidencias:`${ip}/incidencias`,
     documentos:`${ip}/documentos`,
-    
     kardex:`${ip}/kardex`,
     tablasValores: `${ipAdmin}/TablasValores`,
     tablasValoresCAT: `${ip3}/TablasValores`,
     adminCatalogo: `${ipAdmin}/adminCatalogo`,
+    adminCatalogoDisp: `${ipAdmin}/admin-catalogo`,
     roles: `${ipAdmin}/rol`,
     modulos: `${ipAdmin}/modulos`,
     permisos: `${ipAdmin}/permisos`,
     chat: `${ip}/chat`,
     socket: `${ipSocket}`,
+    empresa: `${ip}`,
     usuariosAuth:`${ipAdmin}/usuarios`,
     versiones:`${ipAdmin}/version`,
     ptu:`${ip}/ptu`,
@@ -57,5 +59,7 @@ export const direcciones = {
     tipomensaje:`${ip3}/tipo-mensaje`,
     administrarMensajeChat:`${ipAdmin}/administrar-mensaje-chat`,
     nominasHistoricas: `${ipCalculos}/nominas-historicas`,
-    timbrado:`${ipCalculos}/timbrado`
+    timbrado:`${ipCalculos}/timbrado`,
+    timbradoAdmin:`${ipNomina}/timbrado`
+
 };

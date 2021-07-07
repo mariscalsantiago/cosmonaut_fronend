@@ -75,6 +75,7 @@ export class ListapoliticasComponent implements OnInit {
     this.cargando = true;
 
     this.CanRouterPrd.params.subscribe(datos => {
+      debugger;
 
       this.id_empresa = datos["id"]
       this.politicasProd.getAllPol(this.id_empresa).subscribe(datos => {

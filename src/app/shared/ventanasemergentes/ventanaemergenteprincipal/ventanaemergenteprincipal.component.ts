@@ -40,7 +40,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     tablaisr: false,
     subcidio: false,
     nuevanominafiniquitoliquidacion: false,
-    mensajechat:false
+    mensajechat:false,
+    adminTimbradoDispersion: false
   }
 
   @HostListener('window:resize', ['$event'])

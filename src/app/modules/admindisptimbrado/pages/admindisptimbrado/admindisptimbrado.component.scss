@@ -4,3 +4,112 @@
     text-decoration: underline !important;
     
 }
+
+.ventanaemergente {
+    z-index: 1;
+    display: block;
+    overflow: auto;
+    padding: 4%;
+    width: 50%;
+    border-radius: 5px;
+    border: 1px solid rgb(102, 102, 102);
+    height: auto;
+    background-color: white !important;
+    -webkit-box-shadow: 5px 2px 5px 1px rgba(0, 0, 0, 0.42);
+    box-shadow: 5px 2px 5px 1px rgba(0, 0, 0, 0.42);
+    left: 5%;
+    position: absolute;
+    .btnclosemodal {
+        top: 0 !important;
+        position: absolute !important;
+        right: 11px !important;
+        span {
+            color: #56dfd4;
+            font-size: x-large;
+        }
+    }
+}
+
+
+.mostrarelementos {
+    width: 180px;
+    label {
+        background: #022538;
+        color: white;
+        font-size: smaller;
+    }
+}
+
+.estiloid {
+    color: #56dfd4;
+    cursor: pointer;
+}
+
+.anchura {
+    width: 95%;
+}
+
+.ocultarcolumna {
+    display: none!important;
+}
+
+table {
+    th {
+        text-align: center;
+    }
+    td {
+        text-align: left;
+    }
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #4cc1b0 !important;
+    border-radius: 50% !important;
+}
+
+.centrar {
+    text-align: center!important;
+}
+
+.table .opciones button {
+    background-color: transparent !important;
+    border: 0 !important;
+}
+
+.flechaarriba {
+    position: absolute;
+    right: 0;
+    top: calc(50% - 10px);
+    color: #b7b7b7;
+}
+
+.flechaabajo {
+    position: absolute;
+    right: 0;
+    bottom: calc(50% - 10px);
+    color: #b7b7b7;
+}
+
+.colorear {
+    color: #53d2bf !important;
+}
+
+.titulo1xml {
+    font-size: 10px;
+    color: rgb(100, 100, 100);
+}
+
+.tablaTimbrado {
+    width: 100%;
+    .totalesTimbrado {
+        text-align: left !important;
+        color: #56dfd4!important;
+    }
+    th {
+        text-align: left !important;
+        border: 1px solid white;
+    }
+    td {
+        border: 1px solid white;
+    }
+}

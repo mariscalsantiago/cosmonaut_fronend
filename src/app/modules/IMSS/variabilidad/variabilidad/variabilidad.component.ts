@@ -23,7 +23,7 @@ export class VariabilidadComponent implements OnInit {
   public submitEnviado:boolean = false;
   public empresa: any;
   public idEmpresa: number = 0;
-   public arreglo: any = [];
+  public arreglo: any = [];
   public arregloListaEmpleadosPromedio: any = [];
   public cargando: boolean = false;
   public cargandoIcon: boolean = false;
@@ -42,6 +42,7 @@ export class VariabilidadComponent implements OnInit {
   public apellidoPat:string = "";
   public fecha: Date = new Date;
   public anioFiscal: number = 0;
+  public idUsuario: any = [];
   
   public arreglotabla: any = {
     columnas: [],
@@ -75,9 +76,11 @@ export class VariabilidadComponent implements OnInit {
 
   ngOnInit(): void {
     
-
-    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     debugger;
+    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
+    this.idUsuario = this.usauriosSistemaPrd.getUsuario();
+    this.idUsuario = this.idUsuario.usuarioId;
+
     let fecha = new Date();
     let dia = fecha.getDate().toString();
     let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
@@ -396,6 +399,7 @@ export class VariabilidadComponent implements OnInit {
                 fechaAplicacion: "2021-06-01",
                 anioFiscal: 2021,
                 usuarioId: 1
+                personaID
               };*/
 
               {
@@ -403,12 +407,12 @@ export class VariabilidadComponent implements OnInit {
                 bimestre: obj.bimestre,
                 fechaAplicacion: obj.fecha,
                 anioFiscal: this.arreglo.anioFiscal,
-                usuarioId: 1
+                usuarioId: this.idUsuario
               };
 
            
                 this.empresasPrd.calculoPromedioVariables(objEnviar).subscribe(datos => {
-                  
+                  valor = 0;
                   this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
                   let intervalo = interval(1000);
                   intervalo.pipe(take(11));
@@ -438,8 +442,11 @@ export class VariabilidadComponent implements OnInit {
                       this.crearTablaListaEmpleadosPromedio(datos.datos);
                     });
                   } else{
+
+                    this.modalPrd.showMessageDialog(this.modalPrd.warning,datos.mensaje).then(valor =>{
                     this.listaVariabilidad = false;
                     this.fromPromediar = true;
+                    });
                   }  
                 }
                   });

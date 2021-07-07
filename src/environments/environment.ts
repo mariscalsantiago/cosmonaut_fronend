@@ -7,6 +7,7 @@ export const environment = {
   rutaEmpresa:'/empresas',
   rutaCatalogos:'/catalogos',
   rutaCalculos:'/calculos',
+  rutaNomina:'/nomina',
   rutaAdmin: '/admin',
   rutaReportes:'/reportes',
   rutaSocket:'wss://34.75.54.120/empresa'

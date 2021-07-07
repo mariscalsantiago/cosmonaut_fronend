@@ -295,7 +295,7 @@ export class DetallepoliticasComponent implements OnInit {
     debugger;
     let datosPer: any = {
       idEmpleado: this.idEmpleado,
-      idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
+      idEmpresa: this.id_empresa,
       idPolitica: this.idPolitica
     };
     this.ventana.showVentana(this.ventana.percepciones, { datos: datosPer }).then(valor => {
@@ -308,7 +308,7 @@ export class DetallepoliticasComponent implements OnInit {
   public agregarDed() {
     let datosDed: any = {
       idEmpleado: this.idEmpleado,
-      idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
+      idEmpresa: this.id_empresa,
       idPolitica: this.idPolitica
     };
     this.ventana.showVentana(this.ventana.deducciones, { datos: datosDed }).then(valor => {
