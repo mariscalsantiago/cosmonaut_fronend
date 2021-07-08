@@ -101,6 +101,7 @@ export class TablapaginadoComponent implements OnInit {
       
       
     if (this.datos.filas !== undefined) {
+  
       this.arreglotemp = this.datos.filas;
       this.total = this.arreglotemp.length;
       for (let item of this.datos.filas) {
@@ -142,6 +143,7 @@ export class TablapaginadoComponent implements OnInit {
 
 
       this.arreglo = this.arreglotemp.slice(0, Number(this.numeroitems));
+      console.log('arreglo', this.arreglo)
 
 
 

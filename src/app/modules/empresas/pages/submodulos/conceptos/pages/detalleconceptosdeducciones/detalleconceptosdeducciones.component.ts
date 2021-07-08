@@ -19,7 +19,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   public esInsert: boolean = false;
   public submitInvalido: boolean = false;
   public arregloTipoDeduccion: any = [];
-  
+  public textFilter: any = "";
   public peticion: any = [];
 
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
@@ -185,6 +185,10 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
   get f() {
     return this.myForm.controls;
+  }
+  filtrar(event: any){
+    this.textFilter = event['target']['value'];
+
   }
 
 

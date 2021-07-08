@@ -20,10 +20,12 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
                 <label>Catálogo SAT *</label>
-                <input autocomplete="off" [ngClass]="{'is-invalid':f.tipoDeduccionId.errors && submitInvalido}" formControlName="tipoDeduccionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
-                <datalist id="catalogoSAT">
-                            <option *ngFor="let item of arregloTipoDeduccion" [value]="item.tipoDeduccionId">
-                                {{item.descripcion}}</option>
+                <input autocomplete="off" [ngClass]="{'is-invalid':f.tipoDeduccionId.errors && submitInvalido}" formControlName="tipoDeduccionId" class="form-control" list="catalogoSAT" name="browser" id="browser" (keyup)="filtrar($event)">
+
+                <datalist id="catalogoSAT">                    
+                     <option *ngFor="let item of arregloTipoDeduccion" [value]="item.tipoDeduccionId"  >
+                        {{item.descripcion}} </option>
+    
                     </datalist>
                 <div *ngIf="f.tipoDeduccionId.errors && submitInvalido" class="invalid-feedback">
                     Campo requerido

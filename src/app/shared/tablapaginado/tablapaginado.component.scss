@@ -44,6 +44,10 @@ input[type="text"]:disabled {
     cursor: pointer;
 }
 
+.td-center {
+    text-align: center !important;
+}
+
 .anchura {
     width: 95%;
 }
@@ -58,7 +62,23 @@ table {
     }
     td {
         text-align: left;
+        // max-width: 500px;
     }
+}
+
+.wrap {
+    max-width: 150px;
+    text-align: justify;
+    white-space: pre-wrap;
+    /* CSS3 */
+    white-space: -moz-pre-wrap;
+    /* Firefox */
+    white-space: -pre-wrap;
+    /* Opera <7 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* IE */
 }
 
 .pagination .page-item.active .page-link {
