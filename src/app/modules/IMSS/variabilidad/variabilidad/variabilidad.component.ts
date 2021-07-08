@@ -76,7 +76,7 @@ export class VariabilidadComponent implements OnInit {
 
   ngOnInit(): void {
     
-    debugger;
+    
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     this.idUsuario = this.usauriosSistemaPrd.getUsuario();
     this.idUsuario = this.idUsuario.usuarioId;

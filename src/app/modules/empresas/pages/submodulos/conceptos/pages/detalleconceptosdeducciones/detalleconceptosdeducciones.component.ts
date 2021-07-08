@@ -19,7 +19,8 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   public esInsert: boolean = false;
   public submitInvalido: boolean = false;
   public arregloTipoDeduccion: any = [];
-  public textFilter: any = "";
+  public obj: any = [];
+  
   public peticion: any = [];
 
   constructor(private formBuild: FormBuilder, private routerPrd: Router,
@@ -29,14 +30,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   ngOnInit(): void {
 
     
-    this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => {
-      
-      
-      this.arregloTipoDeduccion = datos.datos
-      this.concatenaEspecializacion();
-    
-    });
-    
+  
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
@@ -47,16 +41,22 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
       }
     });
 
+    this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => {
+      this.arregloTipoDeduccion = datos.datos
+      this.concatenaEspecializacion();
+    
+    });
 
-    let obj = history.state.data == undefined ? {} : history.state.data;
+    this.obj = history.state.data == undefined ? {} : history.state.data;
+    this.concatenaEspecializacion();
     if (this.esInsert) {
-      obj = {
+      this.obj = {
         tipoDeduccionId: {}
       };
     }
 
 
-    this.myForm = this.createForm(obj);
+    this.myForm = this.createForm(this.obj);
 
   }
 
@@ -72,7 +72,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      tipoDeduccionId: [obj.tipoDeduccionId.tipoDeduccionId, [Validators.required]],
+      tipoDeduccionId: [obj.tipodeduccionobj, [Validators.required]],
       cuentaContable: [obj.cuentaContable],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
       conceptoDeduccionId: [obj.conceptoDeduccionId]
@@ -88,6 +88,10 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
         item.tipodedeccion = item.tipoDeduccionId + "-" + item.especializacion;
 
       }
+    }
+
+    if(this.obj !== undefined){
+      this.obj.tipodeduccionobj = this.obj.tipoDeduccionId.tipoDeduccionId + "-" + this.obj.tipoDeduccionId.especializacion;
     }
   }
 
@@ -186,10 +190,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   get f() {
     return this.myForm.controls;
   }
-  filtrar(event: any){
-    this.textFilter = event['target']['value'];
 
-  }
 
 
   

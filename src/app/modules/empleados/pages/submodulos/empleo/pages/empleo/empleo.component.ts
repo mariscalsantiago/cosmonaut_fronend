@@ -44,6 +44,8 @@ export class EmpleoComponent implements OnInit {
 
   public arregloTipoContrato: any = [];
 
+  public puestoIdReporta:number = 0;
+
   constructor(private formBuilder: FormBuilder, private contratoColaboradorPrd: ContratocolaboradorService,
     private router: ActivatedRoute, public catalogosPrd: CatalogosService,
     private areasPrd: SharedAreasService, private usuariosSistemaPrd: UsuarioSistemaService,
@@ -181,9 +183,10 @@ export class EmpleoComponent implements OnInit {
           jornadaId:{jornadaId:obj.jornadaId,tipoJornadaId:{tipoJornadaId:idTipoJornada}},
           tipoJornadaId:idTipoJornada,
           politicaId:{politicaId:obj.politicaId},
-          jefeInmediatoId:{personaId:obj.puesto_id_reporta},
+          jefeInmediatoId:{personaId:this.puestoIdReporta == 0 ? null : this.puestoIdReporta},
           esSindicalizado:obj.esSindicalizado,
-          fechaAltaImss:obj.fechaAltaImss        
+          fechaAltaImss:obj.fechaAltaImss,
+          numEmpleado:obj.numEmpleado      
       }
 
     
@@ -304,6 +307,35 @@ export class EmpleoComponent implements OnInit {
         }
       } catch {
         this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar la fecha de antigüedad");
+      }
+    }
+  }
+
+
+  public salirReportaA() {
+
+    this.myForm.controls.puesto_id_reporta.setErrors(null);
+    this.myForm.value.puestoIdReporta = undefined;
+    const nombreCapturado = this.myForm.value.puesto_id_reporta;
+    if (nombreCapturado !== undefined) {
+      if (nombreCapturado?.trim() !== "") {
+        let encontrado: boolean = false;
+        let nombreCompleto = "";
+        for (let item of this.arregloempleadosreporta) {
+
+          nombreCompleto = item.personaId.nombre + " " + item.personaId.apellidoPaterno + " " + (item.personaId.apellidoMaterno == undefined ? "" : item.personaId.apellidoMaterno);
+
+          if (nombreCompleto.includes(nombreCapturado)) {
+            encontrado = true;
+            this.puestoIdReporta = item.personaId.personaId;
+            break;
+          }
+        }
+        this.myForm.controls.puesto_id_reporta.setErrors({ require: true });
+        if (encontrado) {
+          this.myForm.controls.puesto_id_reporta.setErrors(null);
+          this.myForm.controls.puesto_id_reporta.setValue(nombreCompleto);
+        }
       }
     }
   }

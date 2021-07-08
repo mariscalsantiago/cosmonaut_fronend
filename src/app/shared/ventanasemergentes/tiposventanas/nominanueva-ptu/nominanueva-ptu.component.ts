@@ -70,7 +70,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
     }
 
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
-    this.cuentasBancariasPrd.getAllByEmpresa(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.cuentasBancarias = datos.datos);
+    this.cuentasBancariasPrd.getCuentaFuncion(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.cuentasBancarias = datos.datos);
 
     this.myFormFile = this.formbuilder.group({
         archivo:[{value:'',disabled:false},Validators.required]

@@ -17,10 +17,18 @@
 
                     <div class="form group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="cliente" placeholder="Cliente">
+                            <select placeholder="Cliente" name="" class="form-control" [(ngModel)]="idCliente">
+                                <option value="0" selected>Selecciona cliente</option>
+                                <option *ngFor="let item of arreglo"  [value]="item.clienteId">{{item.cliente}}
+                                </option>
+                              </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="empresaFiltro" placeholder="Empresa">
+                            <select placeholder="Cliente" name="" class="form-control" [(ngModel)]="idEmpresaFiltro">
+                                <option value="0" selected>Selecciona empresa</option>
+                                <option *ngFor="let item of arreglo"  [value]="item.empresaId">{{item.empresa}}
+                                </option>
+                              </select>
                         </div>
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
                             <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>

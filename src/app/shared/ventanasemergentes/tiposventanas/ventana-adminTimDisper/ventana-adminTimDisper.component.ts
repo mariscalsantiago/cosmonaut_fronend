@@ -17,6 +17,8 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
   public empresa: number = 0;
   public empleado: number = 0;
   public objEnviar: any = [];
+  public arregloDispersion : any = [];
+  public arregloTimbrado : any = [];
 
   @Input() public datos:any;
   @Output() salida = new EventEmitter<any>();
@@ -25,27 +27,20 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
   { }
 
   ngOnInit(): void {
-    debugger;
     
-
-    if(this.datos.esInsert){
-      this.empresa = this.datos.idEmpresa;
-      this.empleado = this.datos.idEmpleado;
     
-    }else{
-
-      this.empresa = this.datos.centrocClienteId;
-      this.empleado = this.datos.personaId;
-    }
-
 
     this.admintimbradoDispersion.getObtenerProveedores(this.datos.centrocClienteXproveedorId).subscribe(datos => {
         this.arregloProveedores = datos.datos;
+        this.admintimbradoDispersion.getCatProveDispersion(true).subscribe(datos => this.arregloDispersion  = datos.datos);
+
+        this.admintimbradoDispersion.getCatProveTimbrado(true).subscribe(datos => this.arregloTimbrado  = datos.datos);
+    
         this.myForm = this.createForm(this.arregloProveedores);
       
     });
 
-    this.myForm = this.createForm(this.arregloProveedores);
+
   }
 
 
@@ -55,8 +50,8 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
     return this.formBuild.group({
 
       empresa: [obj.centrocClienteId.nombre],
-      dipersion: [obj.proveedorDispersionId.descripcion],
-      timbrado:[obj.proveedorTimbradoId.descripcion]
+      dipersion: [obj.proveedorDispersionId.proveedorDispersionId],
+      timbrado:[obj.proveedorTimbradoId.proveedorTimbradoId]
 
     });
 
@@ -87,31 +82,16 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
       
         if(valor){
-          debugger;
+          
           
           let  obj = this.myForm.getRawValue();
-          
-          //if(this.datos.esInsert){
             this.objEnviar = {
               clienteXproveedorId: this.arregloProveedores.centrocClienteXproveedorId,
               clienteId: this.arregloProveedores.centrocClienteId.centrocClienteId,
-              dispersionId: this.arregloProveedores.proveedorDispersionId.proveedorDispersionId,
-              timbradoId: this.arregloProveedores.proveedorTimbradoId.proveedorTimbradoId
+              dispersionId: obj.dipersion,
+              timbradoId: obj.timbrado
             };
                   
-        //}else{
-
-            //this.objEnviar = {
-            //cmsArchivoId: this.datos.cmsArchivoId,
-            //centrocClienteId: this.empresa,
-            //personaId: this.empleado,
-            //usuarioId: this.empleado,
-            //documentosEmpleadoId: obj.idTipoDocumento,
-            //nombreArchivo: obj.nombre,
-            //documento: obj.documento
-            //};
-
-        //}
           
           this.salida.emit({type:"guardar",datos:this.objEnviar});
         }
