@@ -19,24 +19,21 @@ export class AdminDispercionTimbradoService {
        return this.http.get(`${direcciones.adminCatalogoDisp}/cat-proveedor-timbrado/obtener/id/${proveedor}`);
   }
 
-    public getByCompany(obj: any): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-    let json: string = JSON.stringify(obj);
-    return this.http.post(`${this.url}/lista/compania/tipoPersona`, json, httpOptions);
-  }
-
-  public getById(id_user: number): Observable<any> {
-    return this.http.get(`${this.url}/obtener/id/${id_user}`);
-
-  }
 
   public getTimbresActivos():Observable<any>{
     
     return this.http.get(`${direcciones.timbradoAdmin}/consulta/disponibles`);
+  
+  }
+
+  public getCatProveDispersion(Estatus:boolean):Observable<any>{
+    
+    return this.http.get(`${direcciones.adminCatalogoDisp}/cat-proveedor-dispersion/listar/activo/${Estatus}`);
+  
+  }
+  public getCatProveTimbrado(Estatus:boolean):Observable<any>{
+    
+    return this.http.get(`${direcciones.adminCatalogoDisp}/cat-proveedor-timbrado/listar/activo/${Estatus}`);
   
   }
 

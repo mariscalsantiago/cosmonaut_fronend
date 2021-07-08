@@ -19,6 +19,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public esInsert: boolean = false;
   public submitInvalido: boolean = false;
   public arregloTipoPercepcion: any = [];
+  public obj: any = [];
 
   public peticion: any = [];
 
@@ -27,14 +28,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-
+    debugger;
     
-    this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
-      
-      
-      this.arregloTipoPercepcion = datos.datos
-      this.concatenaEspecializacion();
-    });
+
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
@@ -45,39 +41,40 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       }
     });
 
+    this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
+      this.arregloTipoPercepcion = datos.datos
+      this.concatenaEspecializacion();
+    });
 
-    let obj = history.state.data == undefined ? {} : history.state.data;
-
-    if (obj.tipoPeriodicidad == "Periodica") {
-      obj.tipoPeriodicidad = "P"
+    this.obj = history.state.data == undefined ? {} : history.state.data;
+    this.concatenaEspecializacion();
+    if (this.obj.tipoPeriodicidad == "Periodica") {
+      this.obj.tipoPeriodicidad = "P"
     }
-    if (obj.tipoPeriodicidad == "Estandar") {
-      obj.tipoPeriodicidad = "E"
+    if (this.obj.tipoPeriodicidad == "Estandar") {
+      this.obj.tipoPeriodicidad = "E"
     }
 
 
    // obj.gravaIsr = false;
-    if (obj.gravaIsr == "S") {
-      obj.gravaIsr = true
+    if (this.obj.gravaIsr == "S") {
+      this.obj.gravaIsr = true
     }
 
-    if (obj.gravaIsr == "N") {
-      obj.gravaIsr = false
+    if (this.obj.gravaIsr == "N") {
+      this.obj.gravaIsr = false
     }
     if (this.esInsert) {
-      obj = {
+      this.obj = {
         tipoPercepcionId: {}
       };
     }
 
-    this.myForm = this.createForm(obj);
+    this.myForm = this.createForm(this.obj);
 
   }
 
   ngAfterViewInit(): void {
-
-    //this.nombre.nativeElement.focus();
-
   }
 
   public createForm(obj: any) {
@@ -89,7 +86,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      tipoPercepcionId: [obj.tipoPercepcionId?.tipoPercepcionId, [Validators.required]],
+      tipoPercepcionId: [obj.tipopercepcionobj, [Validators.required]],
       tipoPeriodicidad: [obj.tipoPeriodicidad, [Validators.required]],
       gravaIsr: obj.gravaIsr,
       gravaIsn: obj.gravaIsn == undefined?false:obj.gravaIsn,
@@ -97,25 +94,29 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       cuentaContable: obj.cuentaContable,
       tipoConcepto: [obj.tipoConcepto],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
-      conceptoPercepcionId: [obj.conceptoPercepcionId,[Validators.required]],
+      conceptoPercepcionId: [obj.conceptoPercepcionId],
 
     });
 
   }
 
   public concatenaEspecializacion(){
-
-    
+    debugger;
     if(this.arregloTipoPercepcion !== undefined){
       for(let item of this.arregloTipoPercepcion){
         item.tipopercepcion = item.tipoPercepcionId + "-" + item.especializacion;
 
       }
     }
+      if(this.obj !== undefined){
+        this.obj.tipopercepcionobj = this.obj.tipoPercepcionId.tipoPercepcionId + "-" + this.obj.tipoPercepcionId.especializacion;
+      }
+
+    
   }
 
   public enviarPeticion() {
-
+    debugger;
     this.submitInvalido = true;
     if (this.myForm.invalid) {
 
@@ -133,7 +134,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         
         
         if (valor) {
-
+          debugger;
           let obj = this.myForm.value;
 
           let splitE = obj.tipoPercepcionId.split('-');

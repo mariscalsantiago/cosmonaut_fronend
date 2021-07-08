@@ -34,6 +34,10 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   public cargandolistatimbres: boolean = false;  
   public arreglotimbres: any = [];
   public arreglotimbresProveedores : any = [];
+  //filtro
+  public idEmpresaFiltro : number = 0;
+  public idCliente : number = 0;
+
 
   public arreglotabla: any = {
     columnas: [],
@@ -58,10 +62,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   ngOnInit() {
    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
    this.establecerPermisos();
-   //this.idEmpresa = 1;
-   this.cargando = true;
-    
-
+   
     this.filtrar();
     let obj: any  = [];
     this.myForm = this.createForm(obj);
@@ -145,48 +146,6 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
   }
 
-  public traerModalTimbres(obj:any) {
-    debugger;
-    let elemento: any = document.getElementById("vetanaprincipaltabla")
-    this.aparecemodalitoTimbrado = true;
-
-
-
-    if (elemento.getBoundingClientRect().y < -40) {
-      let numero = elemento.getBoundingClientRect().y;
-      numero = Math.abs(numero);
-
-      this.scrolly = numero + 100 + "px";
-
-
-    } else {
-
-      this.scrolly = "5%";
-    }
-
-
-
-    if (this.tamanio < 600) {
-
-      this.modalWidth = "90%";
-
-    } else {
-      this.modalWidth = "55%";
-
-    }
-
-
-    this.cargandolistatimbres = true;
-
-    this.admintimbradoDispersion.getObtenerProveedores(obj.centrocClienteXproveedorId).subscribe(datos => {
-      this.arreglotimbresProveedores = datos.datos == undefined ? [] : datos.datos;
-      this.myForm.controls.empresa.setValue(this.arreglotimbresProveedores.centrocClienteId.nombre);
-
-      this.cargandolistatimbres = false;
-    });
-
-  }
-
 
   public establecerPermisos(){
     this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
@@ -222,24 +181,29 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
   public filtrar() {
     debugger;
-        
-        this.objFiltro = {
-          clienteId: 1,
-          empresaId: null
-        }
+
+    if(this.idEmpresaFiltro != 0){
+      this.objFiltro = {
+        ...this.objFiltro,
+        empresaId: this.idEmpresaFiltro
+      };
+    }
+    if(this.idCliente != 0){
+      this.objFiltro = {
+        ...this.objFiltro,
+        clienteId: this.idCliente
+      };
+    }
+    this.objFiltro = {
+      ...this.objFiltro,
+      clienteId: 1,
+
+    };
 
       this.admintimbradoDispersion.proveedoresTimbres(this.objFiltro).subscribe(datos => {
-   
-        
+        debugger;
         this.traerTabla(datos);
       });
-      /*}else{
-        this.cargando = true;
-        this.empresasPrd.bitacoraMovimientoslistar(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
-            this.traerTabla(datos);
-        });
-      });
-      }*/
   
     }
 
