@@ -183,7 +183,13 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
 
   public getReporteNominasTabCalculados(obj:any):Observable<any>{
     let json = JSON.stringify(obj);
-    return this.http.post(`${direcciones.reportes}/nominaDispersion/layoutReporteNomina/`,json);
+    return this.http.post(`${direcciones.reportes}/nominaDispersion/layoutReporteNomina`,json);
+  }
+
+
+  public getReporteNominasTabCalculadosEspeciales(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.reportes}/nominaDispersion/layoutReporteNominaExtraordinariaAguinaldo`,json);
   }
 
   public getDescargarTxtRfctabDispersar(idEmpresa:number):Observable<any>{
