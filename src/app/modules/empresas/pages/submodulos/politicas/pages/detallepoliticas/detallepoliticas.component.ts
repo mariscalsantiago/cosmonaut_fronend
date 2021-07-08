@@ -67,7 +67,7 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     this.idPolitica = objdetrep.politicaId;
     this.id_empresa = objdetrep.centrocClienteId;
@@ -81,7 +81,7 @@ export class DetallepoliticasComponent implements OnInit {
     this.politicasPrd.getdetalleBeneficio(this.idPolitica,this.id_empresa).subscribe(datos => this.arregloTablaBeneficios = datos.datos);
     this.myFormpol = this.createFormrep((objdetrep));
 
-    debugger;
+    
     this.cargandoPer = true;
     this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.id_empresa).subscribe(datos => {
       this.crearTablaPercepcion(datos);

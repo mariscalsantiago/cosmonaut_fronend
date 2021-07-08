@@ -138,6 +138,8 @@ export class LoginComponent implements OnInit {
         this.mensajesuccess = false;
         this.mensajeerror = false;
 
+        console.log(valorusuario);
+
         this.usuarioObj = valorusuario.datos.usuario;
        
         if (valorusuario.datos.usuario.passwordProvisional) {
@@ -157,6 +159,7 @@ export class LoginComponent implements OnInit {
           usuario.fechaAlta = this.usuarioObj.fechaAlta;
           usuario.passwordProvisional = this.usuarioObj.passwordProvisional;
           usuario.rolId = this.usuarioObj.rolId?.rolId;
+          usuario.nombreRol = this.usuarioObj.rolId?.nombreRol;
           usuario.submodulosXpermisos = valorusuario.datos.submodulosXpermisos;
           usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId);
           usuario.esRecursosHumanos = false;

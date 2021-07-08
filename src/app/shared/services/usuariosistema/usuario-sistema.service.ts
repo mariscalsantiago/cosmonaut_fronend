@@ -175,6 +175,7 @@ export class usuarioClass {
   public esCliente!: boolean;
   public centrocClienteIdPadre!: number;
   public esRecursosHumanos!: boolean;
+  public nombreRol!:string;
 
 }
 

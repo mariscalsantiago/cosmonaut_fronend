@@ -81,7 +81,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   }
 
   public concatenaEspecializacion(){
-debugger;
+
     
     if(this.arregloTipoDeduccion !== undefined){
       for(let item of this.arregloTipoDeduccion){

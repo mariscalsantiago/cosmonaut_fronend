@@ -826,6 +826,7 @@ export class EmpleoComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.loading, "Calculando");
 
     if (esBruto) {
+      delete objenviar.pagoNeto;
       this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos => {
 
         let aux = datos.datos;
@@ -849,7 +850,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public cambiassueldoPPP(){
-    debugger;
+    
     if(this.verificaCambiosNecesarios())return;
 
 
@@ -875,7 +876,9 @@ export class EmpleoComponent implements OnInit {
 
    //*************calculo PPP *******************+ */
 
+   this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.calculoPrd.calculoSueldoNetoPPP(objenviar).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       let aux = datos.datos;
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       if (datos.datos !== undefined) {
