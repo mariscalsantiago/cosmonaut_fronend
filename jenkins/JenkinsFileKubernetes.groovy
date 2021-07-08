@@ -13,10 +13,9 @@ podTemplate(containers:[
     stage("Compilacion") {
         container('angular'){
             script{
-			   git url: 'https://github.com/ASG-BPM/cosmonaut_admin',branch:'main',credentialsId: 'winter_user'
+			   git url: 'https://github.com/ASG-BPM/cosmonaut-front',branch:'main',credentialsId: 'winter_user'
 			   tag = sh(script:'git describe --tags --always `git rev-list --tags` | grep DEV | head -1',returnStdout: true ).trim()
 			   sh "git checkout $tag"
-			   sh "ls -la "
 			   sh 'npm install'
                sh 'ng build --prod --base-href /cosmonaut-front/'
 		   }
