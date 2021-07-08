@@ -9,19 +9,17 @@
         <div  class="input-group-sm mb-3 col-8"></div>
         <div class="input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Proveedor de disperscion *</label>
-            <input formControlName="dipersion" type="text" class="form-control ">
-            <!--<select type="text" class="form-control" formControlName="dipersion">
+            <select type="text" class="form-control" formControlName="dipersion">
                 <option value=""></option> 
-                <option *ngFor="let item of arregloProveedores"  [value]="item.proveedorDispersionId">{{item.descripcion}}</option>
-            </select>-->
+                <option *ngFor="let item of arregloDispersion"  [value]="item.proveedorDispersionId">{{item.descripcion}}</option>
+            </select>
         </div>
         <div class=" input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
             <label>Proveedor de timbrado *</label>
-            <input formControlName="timbrado" type="text" class="form-control ">
-            <!--<select type="text" class="form-control" formControlName="timbrado">
+            <select type="text" class="form-control" formControlName="timbrado">
                 <option value=""></option>
-                <option *ngFor="let item of arregloProveedores"  [value]="item.proveedorTimbradoId">{{item.descripcion}}</option>
-            </select>-->
+                <option *ngFor="let item of arregloTimbrado"  [value]="item.proveedorTimbradoId">{{item.descripcion}}</option>
+            </select>
         </div>
         
         <div class="input-group-sm mb-3 col-12"></div>

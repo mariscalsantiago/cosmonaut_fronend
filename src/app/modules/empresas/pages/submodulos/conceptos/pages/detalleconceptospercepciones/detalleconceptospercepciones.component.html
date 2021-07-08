@@ -34,7 +34,7 @@
                 <label>Catálogo SAT *</label>
                 <select formControlName="tipoPercepcionId" class="form-control"
                     [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}">
-                    <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipoPercepcionId">
+                    <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipopercepcion">
                         {{item.descripcion}}</option>
                 </select>
             </div>

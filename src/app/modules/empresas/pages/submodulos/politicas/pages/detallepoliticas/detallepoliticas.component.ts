@@ -67,9 +67,10 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    debugger;
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     this.idPolitica = objdetrep.politicaId;
+    this.id_empresa = objdetrep.centrocClienteId;
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
     });
@@ -80,14 +81,15 @@ export class DetallepoliticasComponent implements OnInit {
     this.politicasPrd.getdetalleBeneficio(this.idPolitica,this.id_empresa).subscribe(datos => this.arregloTablaBeneficios = datos.datos);
     this.myFormpol = this.createFormrep((objdetrep));
 
+    debugger;
     this.cargandoPer = true;
-    this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+    this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.id_empresa).subscribe(datos => {
       this.crearTablaPercepcion(datos);
     });
 
 
     this.cargandoDed = true;
-    this.bancosPrd.getListaDeduccionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+    this.bancosPrd.getListaDeduccionesPolitica(this.idPolitica, this.id_empresa).subscribe(datos => {
       this.crearTablaDeduccion(datos);
     });
     
@@ -326,7 +328,7 @@ export class DetallepoliticasComponent implements OnInit {
     this.bancosPrd.savePercepcionPolitica(obj).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-      this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.id_empresa).subscribe(datos => {
         this.crearTablaPercepcion(datos);
       });
 
@@ -341,7 +343,7 @@ export class DetallepoliticasComponent implements OnInit {
     this.bancosPrd.saveDeduccionPolitica(obj).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-      this.bancosPrd.getListaDeduccionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.bancosPrd.getListaDeduccionesPolitica(this.idPolitica, this.id_empresa).subscribe(datos => {
         this.crearTablaDeduccion(datos);
       });
     });
@@ -358,7 +360,7 @@ export class DetallepoliticasComponent implements OnInit {
       new tabla("fechaInicioDesctoDed", this.lineBreak+'Fecha inicio de'+this.lineBreak+' descuento'),
       //new tabla("", "Tipo de descuento"),
       new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
-      new tabla("esActivo", "Estatus de deducción")
+      new tabla("esActivo", "Estatus")
     ]
 
 
@@ -400,7 +402,7 @@ export class DetallepoliticasComponent implements OnInit {
       new tabla("fechaInicioPer", 'Fecha inicio percepción'),
       new tabla("tipoMonto", "Tipo de monto"),
       new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
-      new tabla("esActivo", "Estatus de percepción")
+      new tabla("esActivo", "Estatus")
     ]
 
 
