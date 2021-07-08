@@ -7,12 +7,13 @@ import { tabla } from 'src/app/core/data/tabla';
   styleUrls: ['./tablapaginado.component.scss']
 })
 export class TablapaginadoComponent implements OnInit {
-
+  public textFilter = '';
   @Input() public cargando: any = false;
   @Input() public datosExtras:any;
   public arreglo: any = [];
   public numeroitems: number = 5;
   public total: any = 0;
+  public filterby : any = "0";
 
 
   public arreglopaginas: Array<any> = [];
@@ -33,6 +34,8 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public descargar: any;
   @Input() public desglosar: any;
   @Input() public checkbox: any;
+  @Input() public filter: any;
+
   @Input() public imagen: any;
   @Input() public porcentaje: boolean = false;
   @Input() public tablabeneficios: boolean = false;
@@ -98,21 +101,13 @@ export class TablapaginadoComponent implements OnInit {
       
       
     if (this.datos.filas !== undefined) {
-
-
       this.arreglotemp = this.datos.filas;
-      this.total = this.arreglotemp.length
-
-
+      this.total = this.arreglotemp.length;
       for (let item of this.datos.filas) {
         item.seleccionado = false;
         item.desglosarDown = true;
         item.cargandoDetalle = false;
       }
-
-      
-
-      
       this.paginar();
 
     } else {

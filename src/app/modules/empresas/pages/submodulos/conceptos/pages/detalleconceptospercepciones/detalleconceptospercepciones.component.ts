@@ -30,9 +30,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     
     this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
-      
-      
       this.arregloTipoPercepcion = datos.datos
+
+      console.log('percepciones',this.arregloTipoPercepcion)
       this.concatenaEspecializacion();
     });
 

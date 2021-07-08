@@ -119,7 +119,7 @@ export class VariabilidadComponent implements OnInit {
         new tabla("anioFiscal", "Año"),
         new tabla("bimestre", "Bimestre"),
         new tabla("periodoCalculo", "Periodo de cálculo"),
-        new tabla("fecha", "Fecha de amplicación"),
+        new tabla("fecha", "Fecha de aplicación"),
         new tabla("total_empleados", "Empleados"),
         new tabla("diasBimestre", "Días")
       ];

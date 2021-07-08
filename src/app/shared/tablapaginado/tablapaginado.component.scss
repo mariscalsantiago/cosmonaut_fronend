@@ -7,6 +7,20 @@
     }
 }
 
+.search {
+    max-width: 15px;
+}
+
+.btn-search {
+    border-radius: 0 !important;
+}
+
+input[type="text"] {
+    background-color: #F5F7F8;
+    max-width: 60%;
+    border: 0 none transparent;
+}
+
 input[type="text"]:disabled {
     background-color: #F5F7F8;
     max-width: 70px;
