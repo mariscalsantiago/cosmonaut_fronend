@@ -37,6 +37,8 @@ import { TooltipPipe } from './pipes/tooltip.pipe';
 import { CoreModule } from '../core/core.module';
 import { BooleanPipe } from './pipes/boolean.pipe';
 import { HoraPipe } from './pipes/hora.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
+import { HighlightPipe } from './pipes/highlight.pipe';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import { HoraPipe } from './pipes/hora.pipe';
     EditarmensajeChatComponent,
     TooltipPipe,
     BooleanPipe,
-    HoraPipe
+    HoraPipe,
+    FilterPipe,
+    HighlightPipe
 
   ],
   imports: [

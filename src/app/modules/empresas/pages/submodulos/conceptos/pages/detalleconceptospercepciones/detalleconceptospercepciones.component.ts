@@ -30,7 +30,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   ngOnInit(): void {
     debugger;
     
+    this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
+      this.arregloTipoPercepcion = datos.datos
 
+      console.log('percepciones',this.arregloTipoPercepcion)
+      this.concatenaEspecializacion();
+    });
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];

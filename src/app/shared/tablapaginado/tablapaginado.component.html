@@ -15,6 +15,7 @@
         <input type="text" class="form-control-sm " [value]="total" disabled></div>
 
 </div>
+
 <div style="margin: 10px;overflow: auto;">
 
     <table aria-hidden="true" *ngIf="!cargando && arreglo !== undefined" class="table table-hover  anchura ">
@@ -35,7 +36,8 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngFor="let item of arreglo; let indice = index;">
+            <ng-container *ngFor="let item of arreglo ; let indice = index;">
+
                 <tr class="fade-in-second">
                     <td *ngIf="checkbox && !esnomina">
                         <label class="contenedorInputCheckRadio">

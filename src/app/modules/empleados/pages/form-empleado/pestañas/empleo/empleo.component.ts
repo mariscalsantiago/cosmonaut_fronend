@@ -868,7 +868,7 @@ export class EmpleoComponent implements OnInit {
       pagoNeto: this.myForm.controls.sueldonetomensualppp.value,
       fechaAntiguedad: this.myForm.controls.fechaAntiguedad.value,
       fechaContrato: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"),
-      sbmImss : this.myForm.controls.salarioDiario.value
+      sdImss : this.myForm.controls.salarioDiario.value
     }
 
    

@@ -81,9 +81,12 @@
             </div>
             <div *ngIf="!f.multicliente.value && esClienteEmpresa" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Cliente *</label>
-                <select formControlName="centrocClienteId" class="form-control">
+                <input autocomplete="off" formControlName="centrocClienteId" class="form-control" list="clientes" name="browser" id="browser">
+                <datalist id="clientes">
                     <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
-                </select>
+
+                    </datalist>
+
             </div>
             <div *ngIf="!esClienteEmpresa" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Cliente </label>

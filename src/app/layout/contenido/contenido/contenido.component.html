@@ -2,7 +2,7 @@
 
     <div class="wrapper">
         <div (click)="mostrarmenu = false" class="backgroundresponsive" [ngClass]="{'backgroundresponsive':mostrarmenu}"></div>
-        <nav style="background-color: #f6f7f9;" *ngIf="configuracionPrd.menu"  aria-label="cosmonaut" id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
+        <nav style="background-color: #f6f7f9;" *ngIf="configuracionPrd.menu" aria-label="cosmonaut" id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
             <div class="col-2 responsivo"><button style="    margin-left: 16px;
                 margin-top: 7px;" (click)="mostrarmenu = false">
                 <i aria-hidden="true" class="fas fa-bars"></i>
@@ -16,7 +16,7 @@
             </div>
             <div class="tituloabajoimg">
                 <article>
-                        {{nombre}}
+                    {{nombre}}
                     <article>
                         {{nombreRol}}
                     </article>
@@ -25,18 +25,17 @@
             <ul id="listanavegadora" class="list-unstyled components">
                 <li style="text-align: right; background-color: #f6f7f9;" *ngFor="let item of PRINCIPAL_MENU;let indice = index" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
                     <a (mouseover)="entraComponente(item)" (mouseout)="saleComponente(item)" style="display: inline-block;position: relative;" [routerLink]="item.pathServicio" (click)="seleccionado(item,indice)" [ngClass]="{'dropdown-toggle':true}">
-                        <i aria-hidden="true" [class]="item.icono"></i> <span style="display: block;color:white;font-size: 11px; white-space: pre-wrap;" >{{item.nombreModulo}}</span> 
-                        <!-- <div *ngIf="item.labelflotante && !item.seleccionado" class="labelflotante">{{item.nombreModulo}}</div> -->
-                        <span *ngIf="item.nombreModulo.includes('Chat') && configuracionPrd.notificaciones !== 0"  class="badge badge-danger">{{configuracionPrd.notificaciones}}</span></a>
+                        <i aria-hidden="true" [class]="item.icono"></i> <span style="display: block;color:white;font-size: 11px; white-space: pre-wrap;">{{item.nombreModulo}}</span>
+                        <span *ngIf="item.nombreModulo.includes('Chat') && configuracionPrd.notificaciones !== 0" class="badge badge-danger">{{configuracionPrd.notificaciones}}</span></a>
                     <ul class="labelflotantemenu" style="    max-height: 200px;
                     overflow: auto;" *ngIf="item.seleccionadosubmenu">
-                        <li *ngFor="let item2 of item.submodulos" >
-                            <span  (click)="irRuta(item2);seleccionarSubmenu(item,item2);">{{item2.nombreSubmodulo }}</span>
+                        <li *ngFor="let item2 of item.submodulos">
+                            <span (click)="irRuta(item2);seleccionarSubmenu(item,item2);">{{item2.nombreSubmodulo }}</span>
                         </li>
                     </ul>
                 </li>
-                <li  style="text-align: right;" id="salirbtn" (click)="cerrarSesion()">
-                    <a (mouseover)="botonsalir=true" (mouseout)="botonsalir=false" style="display: inline-block;    border-bottom-left-radius: 19px;"> <i  aria-hidden="true" class="icon_cerrarsesion danger-bg"></i>
+                <li style="text-align: right;" id="salirbtn" (click)="cerrarSesion()">
+                    <a (mouseover)="botonsalir=true" (mouseout)="botonsalir=false" style="display: inline-block;    border-bottom-left-radius: 19px;"> <i aria-hidden="true" class="icon_cerrarsesion danger-bg"></i>
                         <div *ngIf="botonsalir" class="labelflotante">Salir</div>
                     </a>
                 </li>
