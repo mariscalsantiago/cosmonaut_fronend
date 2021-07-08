@@ -9,6 +9,7 @@ import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-c
 import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared-areas.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-nominanueva-ptu',
@@ -46,6 +47,9 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
   public myForm!: FormGroup;
 
   public editar:boolean = false;
+
+  public maximo:any;
+
   constructor(private formbuilder: FormBuilder, private modal: ModalService, private cuentasBancariasPrd: CuentasbancariasService,
     private catalogosPrd: CatalogosService, private usuariosPrd: UsuarioSistemaService,
     private companiasPrd: SharedCompaniaService, private areasPrd: SharedAreasService,
@@ -53,6 +57,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
   ngOnInit(): void {
 
+    this.maximo = (new DatePipe("es-MX").transform((new Date(new Date().getFullYear(),11,31)),"yyyy-MM-dd"));
     
 
     this.editar = Boolean(this.datos?.editar)
