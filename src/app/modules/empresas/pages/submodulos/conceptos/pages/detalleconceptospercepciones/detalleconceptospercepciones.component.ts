@@ -33,7 +33,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
       this.arregloTipoPercepcion = datos.datos
 
-      console.log('percepciones',this.arregloTipoPercepcion)
+
       this.concatenaEspecializacion();
     });
 
@@ -83,10 +83,6 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-
-
-    
-    console.log(obj);
     
     return this.formBuild.group({
 

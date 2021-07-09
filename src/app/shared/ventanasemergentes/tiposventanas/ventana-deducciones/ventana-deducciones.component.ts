@@ -109,7 +109,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       fechaInicioDescto: [datePipe.transform(obj.fechaInicioDescto, 'yyyy-MM-dd')],
       montoPercepcion: [obj.montoPercepcion],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true" , disabled: true }],
-      numPlazos: [obj.numPlazosMensuales]
+      numPlazosMensuales: [obj.numPlazosMensuales]
 
     });
 
@@ -140,7 +140,6 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.valor= true;
       this.valorDescuento = false;
 
-console.log('info',this.infonavit)
 if(this.myForm.get(['']))
       this.myForm.controls.baseCalculoId.enable();
       this.myForm.controls.valor.enable();
@@ -378,12 +377,13 @@ if(this.myForm.get(['']))
       return;
 
     }*/
+
     let mensaje = this.esInsert ? "¿Deseas registrar la deducción" : "¿Deseas actualizar la deducción?";
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
           let  obj = this.myForm.getRawValue();
-
+          
 
           let fechaIniDesc = "";
           if (obj.fechaInicioDescto != undefined || obj.fechaInicioDescto != null) {
@@ -454,12 +454,12 @@ if(this.myForm.get(['']))
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
+            numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
           };
         }else{
-
           this.objEnviar = {
             tipoDeduccionId: {
               tipoDeduccionId: obj.nomDeduccion
@@ -491,6 +491,7 @@ if(this.myForm.get(['']))
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
+            numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
@@ -535,6 +536,7 @@ if(this.myForm.get(['']))
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
+            numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
@@ -573,6 +575,7 @@ if(this.myForm.get(['']))
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
+            numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
@@ -582,7 +585,6 @@ if(this.myForm.get(['']))
           
 
         }
-          
           this.salida.emit({type:"guardar",datos:this.objEnviar});
         }
       });

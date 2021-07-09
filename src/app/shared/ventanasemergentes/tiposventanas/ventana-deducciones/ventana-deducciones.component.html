@@ -15,8 +15,8 @@
 
         </div>
 
-        <div *ngIf="infonavit || infonacot || deducPolitica" class="input-group-sm mb-3 col-4">
-            <label>Fecha fin de descuento <strong aria-hidden="true" *ngIf="!infonavit && !infonacot">*</strong></label>
+        <div class="input-group-sm mb-3 col-4">
+            <label>Fecha fin de descuento</label>
             <input formControlName="fechaFinDescuento" type="date" class="form-control">
 
         </div>
@@ -116,7 +116,7 @@
         </div>
         <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">
             <label>Número de plazos mensuales *</label>
-            <input formControlName="numeroPlazos" type="text" class="form-control">
+            <input appSolonumeros formControlName="numPlazosMensuales" type="text" class="form-control">
 
         </div>
         <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">

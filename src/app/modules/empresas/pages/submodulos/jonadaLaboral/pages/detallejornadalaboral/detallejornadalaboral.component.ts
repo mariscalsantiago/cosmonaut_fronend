@@ -416,7 +416,6 @@ export class DetallejornadalaboralComponent implements OnInit {
       this.myForm.controls.horaFinComida.setErrors({required: true});
       
     }
-    //console.log('op', op)
   }
 
   public hrInicio(response : any){

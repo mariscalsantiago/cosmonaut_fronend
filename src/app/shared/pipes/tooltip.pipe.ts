@@ -29,7 +29,7 @@ export class TooltipPipe implements PipeTransform {
       return "Recuerda, existe otra opción para calcular el ISR del aguinaldo ¿Quieres utilizar el método del artículo 174 para calcular el ISR del aguinaldo?";
     }
     else if(value === 'calculosConBase'){
-      return "Selecciona la opción sobre la cual desesas basar los cálculos de nómina considerando el impacto en parámetros como sueldo base, aguinaldo, vaciones, etc";
+      return "Selecciona la opción sobre la cual desesas basar los cálculos de nómina considerando el impacto en parámetros como sueldo base, aguinaldo, vacaciones, etc";
     }
     else if(value === 'politica'){
       return "Al crear tu política nómbrala de manera estándar.";
@@ -80,7 +80,6 @@ export class TooltipPipe implements PipeTransform {
       return "Medio a través del cual el colaborador recibe su salario, se identifica en el recibo de nómina timbrado.";
     }
     else if(value === 'idCliente'){
-      console.log('entro id cliente')
       return "Dato númerico requerido por algunos bancos (por ejemplo: en Bancomer, se llama \"número de contrato de nómina\"; en Banorte, es \"número de emisor\"; en Banamex, es \"número de identificación de cliente\").";
     }
     else if(value === 'percepciones'){

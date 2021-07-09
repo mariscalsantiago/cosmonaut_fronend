@@ -149,7 +149,6 @@ export class DetallegruponominaComponent implements OnInit {
 
     this.submitInvalido = true;
 
-    console.log('x', this.myForm)
     if (!this.myForm.valid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -243,7 +242,6 @@ export class DetallegruponominaComponent implements OnInit {
   }
 
   public activarISR(){
-    console.log('entro')
         this.activadoISR = true;
   }
 

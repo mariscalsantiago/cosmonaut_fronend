@@ -76,13 +76,12 @@
                         </div>
                         <div *ngIf="f.regimenfiscalId.value != 606 && f.regimenfiscalId.value != 612 && f.regimenfiscalId.value != 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                             <label>CURP de la razón social</label>
-                            <input placement="top" [mdbTooltip]="'curpRazon' | tooltip" formatos [nochar]="true" [curp]="true" [control]="f.curp" maxlength="18" formControlName="curp" type="text" max="18" class="form-control">
+                            <input formatos [nochar]="true" [curp]="true" [control]="f.curp" maxlength="18" formControlName="curp" type="text" max="18" class="form-control">
 
                         </div>
                         <div *ngIf="f.regimenfiscalId.value == 606 || f.regimenfiscalId.value == 612 || f.regimenfiscalId.value == 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                             <label>CURP de la razón social *</label>
-                            <input placement="top" [mdbTooltip]="'curpRazon' | tooltip" formatos [nochar]="true" [curp]="true" [control]="f.curpInv" maxlength="18" [ngClass]="{'is-invalid':(f.curpInv.errors?.required && submitEnviado) || f.curpInv.errors?.pattern && f.curpInv.touched}"
-                                formControlName="curpInv" type="text" class="form-control">
+                            <input formatos [nochar]="true" [curp]="true" [control]="f.curpInv" maxlength="18" [ngClass]="{'is-invalid':(f.curpInv.errors?.required && submitEnviado) || f.curpInv.errors?.pattern && f.curpInv.touched}" formControlName="curpInv" type="text" class="form-control">
                             <div *ngIf="f.curpInv.errors?.required && submitEnviado" class="invalid-feedback">
                                 Campo requerido
                             </div>

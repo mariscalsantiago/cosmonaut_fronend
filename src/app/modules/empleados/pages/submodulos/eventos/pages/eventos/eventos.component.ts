@@ -19,7 +19,7 @@ export class EventosComponent implements OnInit {
     this.idEmpleado = params["id"];
     //this.idEmpleado = 668;
    this.politicasPrd.getPoliticasByPersona(this.idEmpleado).toPromise()
-   .then(datos => {this.informacion = datos['datos'];
+   .then(datos => {this.informacion = datos['datos']; console.log('datos', datos)
    }).catch(error => {
      console.log('error >',error)
    })
