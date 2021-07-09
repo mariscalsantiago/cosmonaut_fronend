@@ -12,6 +12,7 @@ export class InfoDetalle {
     diasVacaciones!: number;
     primaVacacional!: number;
     diasAguinaldo!: number;
+    nombrePolitica!: string;
     constructor(){}
 }
 

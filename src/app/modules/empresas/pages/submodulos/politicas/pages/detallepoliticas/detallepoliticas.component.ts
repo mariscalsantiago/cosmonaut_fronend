@@ -144,6 +144,10 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
+    const value = event.target.textContent;
+    if ( value < this.arregloTablaBeneficios[id][property] ) {
+      (event.target as HTMLInputElement).textContent = value.replace(value, this.arregloTablaBeneficios[id][property]);
+    } 
     
     const editField = event.target.textContent;
     this.arregloTablaBeneficios[id][property] = editField;
