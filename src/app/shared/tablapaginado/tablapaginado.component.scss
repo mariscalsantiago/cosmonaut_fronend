@@ -7,9 +7,45 @@
     }
 }
 
+.search {
+    max-width: 15px;
+}
+
+.btn-search {
+    border-radius: 0 !important;
+}
+
+input[type="text"] {
+    background-color: #F5F7F8;
+    max-width: 60%;
+    border: 0 none transparent;
+}
+
+input[type="text"]:disabled {
+    background-color: #F5F7F8;
+    max-width: 70px;
+    border: 0 none transparent;
+}
+
+.right {
+    text-align: right;
+}
+
+.row-between {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    max-width: 100%;
+}
+
 .estiloid {
     color: #56dfd4;
     cursor: pointer;
+}
+
+.td-center {
+    text-align: center !important;
 }
 
 .anchura {
@@ -26,7 +62,23 @@ table {
     }
     td {
         text-align: left;
+        // max-width: 500px;
     }
+}
+
+.wrap {
+    max-width: 150px;
+    text-align: justify;
+    white-space: pre-wrap;
+    /* CSS3 */
+    white-space: -moz-pre-wrap;
+    /* Firefox */
+    white-space: -pre-wrap;
+    /* Opera <7 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* IE */
 }
 
 .pagination .page-item.active .page-link {

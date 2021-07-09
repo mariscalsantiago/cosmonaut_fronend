@@ -28,9 +28,14 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    debugger;
     
+    
+    this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
+      this.arregloTipoPercepcion = datos.datos
 
+      console.log('percepciones',this.arregloTipoPercepcion)
+      this.concatenaEspecializacion();
+    });
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
@@ -101,7 +106,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public concatenaEspecializacion(){
-    debugger;
+    
     if(this.arregloTipoPercepcion !== undefined){
       for(let item of this.arregloTipoPercepcion){
         item.tipopercepcion = item.tipoPercepcionId + "-" + item.especializacion;
@@ -116,7 +121,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitInvalido = true;
     if (this.myForm.invalid) {
 
@@ -134,7 +139,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         
         
         if (valor) {
-          debugger;
+          
           let obj = this.myForm.value;
 
           let splitE = obj.tipoPercepcionId.split('-');

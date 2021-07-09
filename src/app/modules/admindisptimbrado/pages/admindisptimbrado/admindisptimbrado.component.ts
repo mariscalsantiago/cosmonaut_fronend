@@ -106,7 +106,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
     }
 
   public traerModal(indice: any) {
-    debugger;
+    
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -180,7 +180,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   }
 
   public filtrar() {
-    debugger;
+    
 
     if(this.idEmpresaFiltro != 0){
       this.objFiltro = {
@@ -201,7 +201,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
     };
 
       this.admintimbradoDispersion.proveedoresTimbres(this.objFiltro).subscribe(datos => {
-        debugger;
+        
         this.traerTabla(datos);
       });
   

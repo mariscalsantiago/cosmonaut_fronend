@@ -7,11 +7,12 @@ import { empresasContactosRrhRouting } from "./empresascontactosrrh-routing.modu
 import { DetallecontactosrrhComponent } from "./pages/detallecontactosrrh/detallecontactosrrh.component";
 import { ListacontactosrrhComponent } from "./pages/listacontactosrrh/listacontactosrrh.component";
 import { UsuariocontactorrhService } from "./pages/services/usuariocontactorrh.service";
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 @NgModule({
     declarations:[ListacontactosrrhComponent,DetallecontactosrrhComponent],
     imports:[CommonModule,empresasContactosRrhRouting,FormsModule,ReactiveFormsModule,ShareModule,
-    HttpClientModule],
+    HttpClientModule, TooltipModule],
     providers:[UsuariocontactorrhService]
 })
 export class empresasContactosRrhModule{

@@ -9,6 +9,7 @@ import { DetalleeventoxempleadoComponent } from './pages/eventosxempleado/detall
 import { CalendarioComponent } from './pages/calendario/calendario.component';
 import { CargaMasivaEventosComponent } from './pages/cargamasivaeventos/cargamasivaeventos.component';
 
+
 @NgModule({
     declarations: [ListaeventosxempledoComponent, DetalleeventoxempleadoComponent, CalendarioComponent,CargaMasivaEventosComponent],
     imports:[CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,eventosRoutingModule,ShareModule]

@@ -78,6 +78,9 @@ export class EmpleoComponent implements OnInit {
 
   public id_empresa!: number;
 
+
+  public typeppp:boolean = false;
+
   constructor(private formBuilder: FormBuilder, private routerPrd: Router, private gruponominaPrd: GruponominasService,
     private areasPrd: SharedAreasService, private politicasPrd: SharedPoliticasService,
     private empleadosPrd: EmpleadosService, private catalogosPrd: CatalogosService,
@@ -380,7 +383,9 @@ export class EmpleoComponent implements OnInit {
       sbc: [{ value: obj.sbc, disabled: true }],
       salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []],
       salarioNetoMensualImss:[obj.salarioNetoMensualImss],
-      pagoComplementario:[obj.pagoComplementario]
+      pagoComplementario:[obj.pagoComplementario],
+      sueldonetomensualppp:[obj.sueldonetomensualppp],
+      sueldoBrutoMensualPPP:[{value:obj.pppSalarioBaseMensual,disabled:true}]
     });
 
   }
@@ -496,11 +501,13 @@ export class EmpleoComponent implements OnInit {
 
 
         if(this.grupoNominaSeleccionado.pagoComplementario){
-          objEnviar.pppSalarioBaseMensual = objEnviar.sueldoBrutoMensual;
-          objEnviar.salarioNetoMensualImss=obj.salarioNetoMensualImss;
-          objEnviar.pppMontoComplementario = obj.pagoComplementario;
-          objEnviar.salarioDiarioIntegrado = obj.salarioDiarioIntegrado;
-          objEnviar.sbc = obj.salarioDiarioIntegrado;
+          
+          objEnviar.sueldoNetoMensual=obj.salarioNetoMensualImss; //Pago imss
+          delete obj.salarioNetoMensualImss;
+          objEnviar.pppMontoComplementario = obj.pagoComplementario; //Pago complementario
+          objEnviar.sbc = obj.salarioDiarioIntegrado; //Sañario integrado
+          delete obj.salarioDiarioIntegrado;
+          obj.pppSalarioBaseMensual = obj.sueldoBrutoMensualPPP;//sueldo menusal ppp
         }
 
 
@@ -620,7 +627,7 @@ export class EmpleoComponent implements OnInit {
     this.areasPrd.getPuestoByArea(this.id_empresa, this.myForm.controls.areaId.value).subscribe(datos => {
 
       this.arregloPuestos = datos.datos;
-      this.myForm.controls.puestoId.enable();
+      this.myForm.controls.puestocambiassueldoPPPId.enable();
     });
 
   }
@@ -743,6 +750,8 @@ export class EmpleoComponent implements OnInit {
 
     if (this.grupoNominaSeleccionado.pagoComplementario) {
 
+      this.typeppp = true;
+
 
       this.myForm.controls.salarioNetoMensualImss.disable();
       this.myForm.controls.pagoComplementario.disable();
@@ -765,6 +774,8 @@ export class EmpleoComponent implements OnInit {
 
       this.cambiarSueldoField();
     } else {
+
+      this.typeppp = false;
       this.myForm.controls.salarioDiario.setValidators([]);
       this.myForm.controls.salarioDiario.updateValueAndValidity();
       this.myForm.controls.salarioDiarioIntegrado.setValidators([]);
@@ -789,36 +800,7 @@ export class EmpleoComponent implements OnInit {
 
 
 
-
-    if (this.myForm.controls.sueldoBrutoMensual.invalid) {
-      return;
-    }
-
-    if (this.myForm.controls.politicaId.invalid) {
-
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar una política");
-      return;
-    }
-    if (this.myForm.controls.grupoNominaId.invalid) {
-
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar un grupo de  nómina");
-      return;
-    }
-    if (this.myForm.controls.tipoCompensacionId.invalid) {
-
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la compensación");
-      return;
-    }
-    if (this.myForm.controls.fechaAntiguedad.invalid) {
-
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la fecha de antigüedad");
-      return;
-    }
-    if (this.myForm.controls.fechaInicio.invalid) {
-
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la de inicio de contrato");
-      return;
-    }
+   if(this.verificaCambiosNecesarios())return;
 
 
     if(this.grupoNominaSeleccionado.pagoComplementario){
@@ -838,20 +820,13 @@ export class EmpleoComponent implements OnInit {
       sbmImss: this.myForm.controls.sueldoBrutoMensual.value,
       pagoNeto: this.myForm.controls.sueldoNetoMensual.value,
       fechaAntiguedad: this.myForm.controls.fechaAntiguedad.value,
-      fecIniPeriodo: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"),
-
-    }
-
-    if (esBruto) {
-      delete objenviar.pagoNeto;
-    } else {
-      delete objenviar.sbmImss;
-      objenviar.salarioDiario = this.myForm.controls.salarioDiario.value;
+      fecIniPeriodo: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd")
     }
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading, "Calculando");
 
     if (esBruto) {
+      delete objenviar.pagoNeto;
       this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos => {
 
         let aux = datos.datos;
@@ -866,27 +841,95 @@ export class EmpleoComponent implements OnInit {
       });
     } else {
 
-      if(this.grupoNominaSeleccionado.pagoComplementario){
-
-        this.calculoPrd.calculoSueldoNetoPPP(objenviar).subscribe(datos => {
-
-          let aux = datos.datos;
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          if (datos.datos !== undefined) {
-          
-            this.myForm.controls.salarioDiarioIntegrado.setValue(aux.salarioDiarioIntegrado);
-            this.myForm.controls.salarioNetoMensualImss.setValue(aux.salarioNetoMensualImss);
-            this.myForm.controls.pagoComplementario.setValue(aux.pagoComplementario);
-            this.myForm.controls.sueldoBrutoMensual.setValue(aux.sbmTrabajador);
-            
-  
-          }
-        });
-      }else{
+      
         //Se calcula sueldo neto a sueldo bruto.....
-      }
 
     }
 
+  }
+
+
+  public cambiassueldoPPP(){
+    
+    if(this.verificaCambiosNecesarios())return;
+
+
+    if (this.myForm.controls.salarioDiario.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el salario diario");
+      return;
+    }
+
+
+    let objenviar:any = {
+      clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
+      politicaId: this.myForm.controls.politicaId.value,
+      grupoNomina: this.myForm.controls.grupoNominaId.value,
+      tipoCompensacion: this.myForm.controls.tipoCompensacionId.value,
+      pagoNeto: this.myForm.controls.sueldonetomensualppp.value,
+      fechaAntiguedad: this.myForm.controls.fechaAntiguedad.value,
+      fechaContrato: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"),
+      sdImss : this.myForm.controls.salarioDiario.value
+    }
+
+   
+
+   //*************calculo PPP *******************+ */
+
+   this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    this.calculoPrd.calculoSueldoNetoPPP(objenviar).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      let aux = datos.datos;
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      if (datos.datos !== undefined) {
+      
+        this.myForm.controls.salarioDiarioIntegrado.setValue(aux.sbc);
+        this.myForm.controls.salarioNetoMensualImss.setValue(aux.sueldoNetoMensual);
+        this.myForm.controls.sueldoBrutoMensual.setValue(aux.sueldoBrutoMensual);
+        this.myForm.controls.pagoComplementario.setValue(aux.pppMontoComplementario);
+        this.myForm.controls.sueldoBrutoMensualPPP.setValue(aux.pppSbm);
+       
+        
+
+      }
+    });
+
+  }
+
+
+  public verificaCambiosNecesarios():boolean{
+    let variable:boolean = false;
+
+    if (this.myForm.controls.sueldoBrutoMensual.invalid) {
+      variable = true;
+    }
+
+    if (this.myForm.controls.politicaId.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar una política");
+      variable = true;
+    }
+    if (this.myForm.controls.grupoNominaId.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar un grupo de  nómina");
+      variable = true;
+    }
+    if (this.myForm.controls.tipoCompensacionId.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la compensación");
+      variable = true;
+    }
+    if (this.myForm.controls.fechaAntiguedad.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la fecha de antigüedad");
+      variable = true;
+    }
+    if (this.myForm.controls.fechaInicio.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar el inicio de contrato");
+      variable = true;
+    }
+
+    return variable;
   }
 }

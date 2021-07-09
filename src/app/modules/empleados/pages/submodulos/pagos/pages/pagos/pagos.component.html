@@ -279,7 +279,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'percepciones' | tooltip">
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}" placement="top" [mdbTooltip]="'percepciones' | tooltip">
                     <div class="card-header" id="percepciones">
                         <h5 class="mb-0">
                             <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
@@ -315,7 +315,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" [ngClass]="{'cardselected':arreglopintar[3]}" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'deducciones' | tooltip">
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[3]}" placement="top" [mdbTooltip]="'deducciones' | tooltip">
                     <div class="card-header" id="deducciones">
                         <h5 class="mb-0">
                             <button (click)="cambiarStatus(3)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">

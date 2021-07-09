@@ -5,6 +5,7 @@ import { ShareModule } from "src/app/shared/share.module";
 import { empleadosKardexRoutingModule } from "./empleados-kardex-routing.module";
 import { KardexComponent } from './pages/kardex/kardex.component';
 
+
 @NgModule({
     declarations:[ KardexComponent],
     imports:[CommonModule,empleadosKardexRoutingModule,FormsModule,ReactiveFormsModule,ShareModule],

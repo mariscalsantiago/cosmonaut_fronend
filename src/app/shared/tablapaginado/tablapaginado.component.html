@@ -1,5 +1,5 @@
-<div *ngIf="!cargando && arreglo !== undefined " class="row  margen mt-3" style="margin-bottom: -25px;">
-    <div class="input-group mb-3 mostrarelementos ">
+<div *ngIf="!cargando && arreglo !== undefined " class="row-between  margen mt-3" style="margin-bottom: -25px;">
+    <div class="input-group  mb-3 mostrarelementos ">
         <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
         </div>
@@ -10,7 +10,12 @@
       <option value="100">100</option>
     </select>
     </div>
+    <div class="mb-3 col-md-2 right">
+        <label>Total:&nbsp;   </label>
+        <input type="text" class="form-control-sm " [value]="total" disabled></div>
+
 </div>
+
 <div style="margin: 10px;overflow: auto;">
 
     <table aria-hidden="true" *ngIf="!cargando && arreglo !== undefined" class="table table-hover  anchura ">
@@ -31,7 +36,8 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngFor="let item of arreglo; let indice = index;">
+            <ng-container *ngFor="let item of arreglo ; let indice = index;">
+
                 <tr class="fade-in-second">
                     <td *ngIf="checkbox && !esnomina">
                         <label class="contenedorInputCheckRadio">
@@ -51,7 +57,7 @@
                         <img alt="" *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
                         <img alt="" *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]" class="tableimg">
                     </td>
-                    <td *ngFor="let item2 of datos.columnas" [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
+                    <td class="wrap" *ngFor="let item2 of datos.columnas" [class.td-center]="item2.id | centrar " [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
                         (click)="eventoclick(item2,item,indice)">{{(item2.nombre == 'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
                     <td *ngIf="tablabeneficios" style="text-align: center;">
@@ -100,6 +106,7 @@
             </button>
                     </td>
                 </tr>
+
                 <tr *ngIf="!item.desglosarDown && item.cargandoDetalle" class="slide-in-bck-center">
                     <td colspan="100%">
                         <div class="col text-center mb-5">

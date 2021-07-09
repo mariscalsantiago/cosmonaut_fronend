@@ -7,6 +7,7 @@ import { empresapuestosRoutingModule } from "./empresapuestos-routing.module";
 import { DetallepuestosComponent } from "./pages/detallepuestos/detallepuestos.component";
 import { ListapuestosComponent } from "./pages/listapuestos/listapuestos.component";
 import { DetallepuestosareaComponent } from "./pages/detallepuestosarea/detallepuestosarea.component"
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { DetallepuestosareaComponent } from "./pages/detallepuestosarea/detallep
       ShareModule,
       FormsModule,
       ReactiveFormsModule,
-      CoreModule
+      CoreModule, TooltipModule
     ],
 })
 export class empresapuestosModule{

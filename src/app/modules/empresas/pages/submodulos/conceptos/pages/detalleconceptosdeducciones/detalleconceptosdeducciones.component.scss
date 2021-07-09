@@ -1,11 +1,14 @@
-.margen{
+a {
+    background-color: aqua !important;
+}
+
+.margen {
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
 }
 
-
-.mostrarTooltip{
+.mostrarTooltip {
     background-color: rgb(2 37 56 / 64%);
     width: 100%;
     height: 50px;
@@ -17,14 +20,12 @@
     white-space: nowrap;
     display: block;
     position: absolute;
-
-    a{
+    a {
         color: #4cc1b0;
-    text-decoration: underline;
-    
+        text-decoration: underline;
     }
 }
 
-.ocultar{
+.ocultar {
     display: none;
 }

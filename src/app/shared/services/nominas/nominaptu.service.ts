@@ -192,7 +192,7 @@ export class NominaptuService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominaOrdinaria}/eliminacion/nomina/ptu`, json, httpOptions);
+    return this.http.post(`${direcciones.nominaPtu}/eliminacion/nomina/ptu`, json, httpOptions);
 
   }
 

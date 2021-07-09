@@ -160,6 +160,11 @@ export class NominaComponent implements OnInit {
 
 
     switch (obj.type) {
+      case "inicio":
+        this.activado[0].tab = true;
+        this.activado[0].form = true;
+        this.activado[0].seleccionado = true;
+        break;
       case "calcular":
         this.activado[1].tab = true;
         this.activado[1].form = true;

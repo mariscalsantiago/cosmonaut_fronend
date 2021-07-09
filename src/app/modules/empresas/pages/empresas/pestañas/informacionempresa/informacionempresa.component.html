@@ -15,7 +15,7 @@
                                 Campo requerido
                             </div>
                         </div>
-                        <div *ngIf="f.regimenfiscalId.value != 606 && f.regimenfiscalId.value != 612 && f.regimenfiscalId.value != 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" >
+                        <div *ngIf="f.regimenfiscalId.value != 606 && f.regimenfiscalId.value != 612 && f.regimenfiscalId.value != 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                             <label>Razón social *</label>
                             <input maxlength="250" [ngClass]="{'is-invalid':(f.razonSocialInv.errors?.required && submitEnviado) || f.razonSocialInv.errors?.pattern && f.razonSocialInv.touched}" formControlName="razonSocialInv" type="text" max="18" class="form-control">
                             <div *ngIf="f.razonSocialInv.errors?.required && submitEnviado" class="invalid-feedback">
@@ -24,16 +24,17 @@
                         </div>
                         <div *ngIf="f.regimenfiscalId.value == 606 || f.regimenfiscalId.value == 612 || f.regimenfiscalId.value == 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                             <label>Razón social</label>
-                            <input maxlength="250"  formControlName="razonSocial" type="text" class="form-control">
+                            <input maxlength="250" formControlName="razonSocial" type="text" class="form-control">
 
                         </div>
                         <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
                             <label>Actividad económica nivel 1 *</label>
-                            <select #actividad (focusout)="validarActividad2(actividad.value)" formControlName="actividadEconomicaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.actividadEconomicaId.errors && submitEnviado}">
-                <option value=""></option>
-                <option *ngFor="let item of arregloactividad" [value]="item.actividadEconomicaId">{{item.descripcion}}
-                </option>
-              </select>
+                            <input autocomplete="off" #actividad (focusout)="validarActividad2(actividad.value)" formControlName="actividadEconomicaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.actividadEconomicaId.errors && submitEnviado}" list="nivelUno" name="browser"
+                                id="browser">
+                            <datalist id="nivelUno">
+                                        <option *ngFor="let item of arregloactividad" [value]="item.actividadEconomicaId">
+                                            {{item.descripcion}}</option>
+                                </datalist>
                             <div *ngIf="f.actividadEconomicaId.errors " class="invalid-feedback">
                                 Campo requerido
                             </div>
@@ -41,18 +42,20 @@
                         </div>
                         <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
                             <label>Actividad económica nivel 2 *</label>
-                            <select formControlName="actividadEconomicaId2" type="text" class="form-control" [ngClass]="{'is-invalid':f.actividadEconomicaId2.errors && submitEnviado}">
-              <option value=""></option>
-              <option *ngFor="let item of arregloactividad2" [value]="item.actividadEconomicaId">{{item.descripcion}}
-              </option>
-            </select>
+                            <input autocomplete="off" formControlName="actividadEconomicaId2" type="text" class="form-control" [ngClass]="{'is-invalid':f.actividadEconomicaId2.errors && submitEnviado}" list="nivelDos" name="browser" id="browser">
+                            <datalist id="nivelDos">
+                            <option *ngFor="let item of arregloactividad2" [value]="item.actividadEconomicaId">{{item.descripcion}}
+                            </option>
+                            </datalist>
+
                             <div *ngIf="f.actividadEconomicaId2.errors " class="invalid-feedback">
                                 Campo requerido
                             </div>
                         </div>
-                        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
+                        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                             <label>RFC *</label>
-                            <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" type="text" class="form-control" name="">
+                            <input placement="top" [mdbTooltip]="'rfc' | tooltip" formatos [nochar]="true" [rfc]="true" [control]="f.rfc" maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc"
+                                type="text" class="form-control" name="">
                             <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                                 Campo requerido
                             </div>
@@ -62,7 +65,7 @@
 
                         </div>
                         <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
-                            <label>Régimen fiscal </label>
+                            <label>Régimen fiscal * </label>
                             <select formControlName="regimenfiscalId" type="text" class="form-control" [ngClass]="{'is-invalid':f.regimenfiscalId.errors && submitEnviado}">
                 <option value=""></option>
                 <option *ngFor="let item of arregloregimen" [value]="item.regimenfiscalId">{{item.descripcion}}</option>
@@ -71,14 +74,15 @@
                                 Campo requerido
                             </div>
                         </div>
-                        <div *ngIf="f.regimenfiscalId.value != 606 && f.regimenfiscalId.value != 612 && f.regimenfiscalId.value != 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'curpRazon' | tooltip">
+                        <div *ngIf="f.regimenfiscalId.value != 606 && f.regimenfiscalId.value != 612 && f.regimenfiscalId.value != 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                             <label>CURP de la razón social</label>
-                            <input maxlength="18" formControlName="curp" type="text" max="18" class="form-control">
+                            <input placement="top" [mdbTooltip]="'curpRazon' | tooltip" formatos [nochar]="true" [curp]="true" [control]="f.curp" maxlength="18" formControlName="curp" type="text" max="18" class="form-control">
 
                         </div>
-                        <div *ngIf="f.regimenfiscalId.value == 606 || f.regimenfiscalId.value == 612 || f.regimenfiscalId.value == 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'curpRazon' | tooltip">
+                        <div *ngIf="f.regimenfiscalId.value == 606 || f.regimenfiscalId.value == 612 || f.regimenfiscalId.value == 621" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                             <label>CURP de la razón social *</label>
-                            <input maxlength="18" [ngClass]="{'is-invalid':(f.curpInv.errors?.required && submitEnviado) || f.curpInv.errors?.pattern && f.curpInv.touched}" formControlName="curpInv" type="text" class="form-control">
+                            <input placement="top" [mdbTooltip]="'curpRazon' | tooltip" formatos [nochar]="true" [curp]="true" [control]="f.curpInv" maxlength="18" [ngClass]="{'is-invalid':(f.curpInv.errors?.required && submitEnviado) || f.curpInv.errors?.pattern && f.curpInv.touched}"
+                                formControlName="curpInv" type="text" class="form-control">
                             <div *ngIf="f.curpInv.errors?.required && submitEnviado" class="invalid-feedback">
                                 Campo requerido
                             </div>

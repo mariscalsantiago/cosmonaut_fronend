@@ -37,10 +37,6 @@
                             <option *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}
                             </option>
                         </select>
-                        <div *ngIf="f.puestoId.errors && submitEnviado" class="invalid-feedback">
-                            Campo requerido
-                        </div>
-
                     </article>
                 </article>
 
@@ -52,7 +48,7 @@
                     <article *ngIf="!editarcampos">{{empleado.jefeInmediatoId?.nombre}} {{empleado.jefeInmediatoId?.apellidoPaterno}} {{empleado.jefeInmediatoId?.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
 
-                        <input autocomplete="off" list="empleadosreporta" class="form-control" cache formControlName="puesto_id_reporta" name="browser" id="browser">
+                        <input autocomplete="off" list="empleadosreporta" class="form-control" cache formControlName="puesto_id_reporta"  (focusout)="salirReportaA()"  name="browser" id="browser">
 
                         <datalist id="empleadosreporta">
                             <option *ngFor="let item of arregloempleadosreporta" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno+' '+((item.personaId?.apellidoMaterno == undefined)?'':item.personaId?.apellidoMaterno)"></option>

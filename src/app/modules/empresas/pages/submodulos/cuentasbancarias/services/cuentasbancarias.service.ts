@@ -195,6 +195,12 @@ public getListaDeduccionesPolitica(id_politica:number,id_empresa:number):Observa
     return this.http.get(`${this.url}/obtener/cliente/${id_empresa}`);
   }
 
+  public getCuentaFuncion(idEmpresa:number):Observable<any>{
+
+    return this.http.get(`${direcciones.cuentasbancarias}/obtener/cuentaFuncion/cliente/${idEmpresa}`);
+
+ }
+
 
   public getByEmpleado(idEmpleado:number):Observable<any>{
     return  this.http.get(`${direcciones.cuentasbancarias}/obtener/persona/${idEmpleado}`);

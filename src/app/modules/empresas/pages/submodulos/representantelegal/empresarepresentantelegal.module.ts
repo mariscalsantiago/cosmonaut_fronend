@@ -6,6 +6,7 @@ import { CoreModule } from 'src/app/core/core.module';
 import { empresaRepresentanteLegalRoutingModule } from "./empresarepresentantelegal-routing.module";
 import { DetallerepresentantelegalComponent } from "./pages/detallerepresentantelegal/detallerepresentantelegal.component";
 import { ListarepresentantelegalComponent } from "./pages/listarepresentantelegal/listarepresentantelegal.component";
+import { TooltipModule} from 'ng-uikit-pro-standard'
 
 @NgModule({
    declarations:[DetallerepresentantelegalComponent,ListarepresentantelegalComponent],
@@ -15,7 +16,7 @@ import { ListarepresentantelegalComponent } from "./pages/listarepresentantelega
       ShareModule,
       FormsModule,
       ReactiveFormsModule,
-      CoreModule
+      CoreModule, TooltipModule 
     ],
 })
 export class empresaRepresentanteLegalModule{

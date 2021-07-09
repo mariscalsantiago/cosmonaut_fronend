@@ -40,9 +40,10 @@
                     Campo requerido
                 </div>
             </div>
-            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
+            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
                 <label>RFC *</label>
-                <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" type="text" class="form-control" name="">
+                <input [mdbTooltip]="'rfc' | tooltip" placement="top" formatos [nochar]="true" [rfc]="true" [control]="f.rfc" maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc"
+                    type="text" class="form-control" name="">
                 <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -51,9 +52,10 @@
                 </div>
 
             </div>
-            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'curp' | tooltip">
+            <div class="  input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 ">
                 <label>CURP *</label>
-                <input formControlName="curp" maxlength="18" type="text" class="form-control" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || (f.curp.errors?.pattern && f.curp.touched)}" placeholder="">
+                <input [mdbTooltip]="'curp' | tooltip" placement="top" formatos [nochar]="true" [curp]="true" [control]="f.curp" formControlName="curp" maxlength="18" type="text" class="form-control" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || (f.curp.errors?.pattern && f.curp.touched)}"
+                    placeholder="">
                 <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>

@@ -117,6 +117,15 @@ export class LoginComponent implements OnInit {
     this.myFormPassword.controls.password2.valueChanges.subscribe(valor => {
       this.invalidapassword = valor !== this.f.password1.value;
     });
+
+
+    this.myForm.controls.password.valueChanges.subscribe(() =>{
+      this.incorrectoback = false;
+    });
+
+    this.myForm.controls.username.valueChanges.subscribe(()=>{
+      this.incorrectoback = false;
+    });
   }
 
   public enviarformulario() {
@@ -128,6 +137,8 @@ export class LoginComponent implements OnInit {
         this.correcto = true;
         this.mensajesuccess = false;
         this.mensajeerror = false;
+
+        console.log(valorusuario);
 
         this.usuarioObj = valorusuario.datos.usuario;
        
@@ -148,6 +159,7 @@ export class LoginComponent implements OnInit {
           usuario.fechaAlta = this.usuarioObj.fechaAlta;
           usuario.passwordProvisional = this.usuarioObj.passwordProvisional;
           usuario.rolId = this.usuarioObj.rolId?.rolId;
+          usuario.nombreRol = this.usuarioObj.rolId?.nombreRol;
           usuario.submodulosXpermisos = valorusuario.datos.submodulosXpermisos;
           usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId);
           usuario.esRecursosHumanos = false;

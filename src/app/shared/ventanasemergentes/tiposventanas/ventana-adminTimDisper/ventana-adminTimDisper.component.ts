@@ -27,7 +27,7 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
   { }
 
   ngOnInit(): void {
-    debugger;
+    
     
 
     this.admintimbradoDispersion.getObtenerProveedores(this.datos.centrocClienteXproveedorId).subscribe(datos => {
@@ -82,7 +82,7 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
       
         if(valor){
-          debugger;
+          
           
           let  obj = this.myForm.getRawValue();
             this.objEnviar = {

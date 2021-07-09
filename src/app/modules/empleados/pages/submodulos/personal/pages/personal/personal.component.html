@@ -79,7 +79,7 @@
                     CURP
                     <article *ngIf="!editarcampos">{{empleado.curp}}</article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" name="" class="form-control">
+                        <input formatos [nochar]="true" [curp]="true" [control]="f.curp" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" name="" class="form-control">
                         <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -96,7 +96,7 @@
                         {{empleado.rfc}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" maxlength="13" type="text" name="" class="form-control">
+                        <input formatos [nochar]="true" [rfc]="true" [control]="f.rfc" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" maxlength="13" type="text" name="" class="form-control">
                         <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>

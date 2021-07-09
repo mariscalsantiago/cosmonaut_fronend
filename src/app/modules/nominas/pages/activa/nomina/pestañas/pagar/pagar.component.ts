@@ -35,7 +35,7 @@ export class PagarComponent implements OnInit {
   public llave2:string = "";
 
 
-  public rfc: string = "";
+  public rfc: any = "";
   public nombre: string = "";
   public apellidoPaterno: string = "";
   public apellidoMaterno: string = "";
@@ -163,7 +163,7 @@ export class PagarComponent implements OnInit {
   }
 
   public regresar() {
-
+    this.salida.emit({ type: "inicio" });
   }
 
   public dispersar() {

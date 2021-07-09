@@ -213,7 +213,7 @@ export class TimbrarComponent implements OnInit {
 
 
   public regresar() {
-
+    this.salida.emit({ type: "calcular" });
   }
 
 

@@ -13,16 +13,14 @@
         <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Nombre de la percepción *</label>
-                <input formControlName="nombre" maxlength="100" type="text" name="" class="form-control"
-                    [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}" placeholder="">
+                <input formControlName="nombre" maxlength="100" type="text" name="" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}" placeholder="">
                 <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
                     Campo requerido
                 </div>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Tipo de percepción *</label>
-                <select formControlName="tipoPeriodicidad" name="" class="form-control"
-                    [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitInvalido}">
+                <select formControlName="tipoPeriodicidad" name="" class="form-control" [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitInvalido}">
                     <option value="P">Periódica</option>
                     <option value="E">Estándar</option>
                 </select>
@@ -32,16 +30,18 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
                 <label>Catálogo SAT *</label>
-                <select formControlName="tipoPercepcionId" class="form-control"
-                    [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}">
-                    <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipopercepcion">
-                        {{item.descripcion}}</option>
-                </select>
+                <input autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
+                <datalist id="catalogoSAT">
+                        <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipoPercepcionId">
+                            {{item.descripcion}}</option>
+                </datalist>
+                <div *ngIf="f.tipoPercepcionId.errors && submitInvalido" class="invalid-feedback">
+                    Campo requerido
+                </div>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Cuenta contable</label>
-                <input formControlName="cuentaContable" maxlength="100" appMayusculas type="text" class="form-control"
-                    id="cuentaContable" aria-describedby="cuentaContable" placeholder="">
+                <input formControlName="cuentaContable" maxlength="100" appMayusculas type="text" class="form-control" id="cuentaContable" aria-describedby="cuentaContable" placeholder="">
 
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -88,8 +88,7 @@
 
     </div>
     <div class="text-center margin" style="margin-bottom: 20px;">
-        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
-            (click)="cancelar()">Cancelar</button>
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()">Cancelar</button>
         <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
     </div>
 

@@ -7,7 +7,6 @@ import { ShareModule } from 'src/app/shared/share.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
-
 @NgModule({
   declarations: [ListarolesComponent, DetalleRolesComponent],
   imports: [

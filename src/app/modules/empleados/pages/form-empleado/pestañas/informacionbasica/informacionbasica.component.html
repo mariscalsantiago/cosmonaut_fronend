@@ -30,9 +30,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'curp' | tooltip">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label>CURP *</label>
-                    <input maxlength="18" (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" class="form-control" name="">
+                    <input placement="top" [mdbTooltip]="'curp' | tooltip" formatos [nochar]="true" [curp]="true" [control]="f.curp" maxlength="18" (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}"
+                        formControlName="curp" type="text" class="form-control" name="">
                     <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -57,9 +58,10 @@
             </div>
             <div *ngIf="f.tieneCurp.value" class="row">
 
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'rfc' | tooltip">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label>RFC *</label>
-                    <input maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern )}" formControlName="rfc" type="text" class="form-control" name="">
+                    <input placement="top" [mdbTooltip]="'rfc' | tooltip" formatos [nochar]="true" [rfc]="true" [control]="f.rfc" maxlength="13" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern )}" formControlName="rfc" type="text"
+                        class="form-control" name="">
                     <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -68,9 +70,9 @@
                     </div>
 
                 </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'seguroSocial' | tooltip">
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label>Seguro social *</label>
-                    <input [ngClass]="{'is-invalid': (f.nss.errors?.required && submitEnviado)  || (f.nss.errors && f.nss.touched)}" formControlName="nss" maxlength="11" type="text" class="form-control" name="">
+                    <input placement="top" [mdbTooltip]="'seguroSocial' | tooltip" [ngClass]="{'is-invalid': (f.nss.errors?.required && submitEnviado)  || (f.nss.errors && f.nss.touched)}" formControlName="nss" maxlength="11" type="text" class="form-control" name="">
                     <div *ngIf="(f.nss.errors?.required && submitEnviado)" class="invalid-feedback">
                         Campo requerido
                     </div>

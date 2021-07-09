@@ -38,14 +38,14 @@
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="nombre">Fecha inicio *</label>
-                                <input formControlName="fechaInicio" [class.is-invalid]="f.fechaInicio.errors && f.fechaInicio.touched" type="date" class="form-control">
+                                <input #fechainicio [max]="maximo" formControlName="fechaInicio" [class.is-invalid]="f.fechaInicio.errors && f.fechaInicio.touched" type="date" class="form-control">
                                 <div class="invalid-feedback">
                                     Campo requerido
                                 </div>
                             </div>
                             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="nombre">Fecha fin *</label>
-                                <input formControlName="fechaFin" [class.is-invalid]="f.fechaFin.errors && f.fechaFin.touched" type="date" class="form-control">
+                                <input [max]="maximo" [min]="fechainicio.value" formControlName="fechaFin" [class.is-invalid]="f.fechaFin.errors && f.fechaFin.touched" type="date" class="form-control">
                                 <div class="invalid-feedback">
                                     Campo requerido
                                 </div>

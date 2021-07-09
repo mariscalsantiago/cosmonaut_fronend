@@ -37,7 +37,9 @@ import { TooltipPipe } from './pipes/tooltip.pipe';
 import { CoreModule } from '../core/core.module';
 import { BooleanPipe } from './pipes/boolean.pipe';
 import { HoraPipe } from './pipes/hora.pipe';
-
+import { FilterPipe } from './pipes/filter.pipe';
+import { HighlightPipe } from './pipes/highlight.pipe';
+import { CentrarPipe } from './pipes/centrar.pipe';
 
 @NgModule({
   declarations: [
@@ -79,14 +81,17 @@ import { HoraPipe } from './pipes/hora.pipe';
     EditarmensajeChatComponent,
     TooltipPipe,
     BooleanPipe,
-    HoraPipe
+    HoraPipe,
+    FilterPipe,
+    HighlightPipe,
+    CentrarPipe
 
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule,CoreModule
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent, MayusculasDirective, SolonumerosDirective, TamanioVentanaDirective,
-    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent, AlfanumericoDirective,TagComponent,FormatosDirective, TooltipPipe, BooleanPipe, HoraPipe],
+    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent,HighlightPipe,CentrarPipe, AlfanumericoDirective,TagComponent,FormatosDirective, TooltipPipe, BooleanPipe, HoraPipe],
   providers:[CurrencyPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

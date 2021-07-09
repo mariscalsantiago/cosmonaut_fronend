@@ -42,11 +42,13 @@ export class CalcularComponent implements OnInit {
   public arreglo: any = [];
 
 
-  public rfc: string = "";
+  public rfc: any = "";
   public nombre: string = "";
   public apellidoPaterno: string = "";
   public apellidoMaterno: string = "";
   public numeroempleado: string = "";
+
+  public esnormal:boolean = false;
 
   constructor(private navigate: Router,
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
@@ -59,6 +61,7 @@ export class CalcularComponent implements OnInit {
 
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
+      this.esnormal = true;
       this.llave = "nominaOrdinaria";
       this.llave2 = "calculoEmpleado";
       this.nominaOrdinaria = true;
@@ -267,10 +270,17 @@ export class CalcularComponent implements OnInit {
 
 
     this.cargandoIcon = true;
-    this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
-      this.cargandoIcon = false;
-      this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
-    });
+    if(this.esnormal){
+      this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
+        this.cargandoIcon = false;
+        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
+      });
+    }else{
+      this.reportesPrd.getReporteNominasTabCalculadosEspeciales(objEnviar).subscribe(datos => {
+        this.cargandoIcon = false;
+        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
+      });
+    }
   }
 
   public filtrar() {

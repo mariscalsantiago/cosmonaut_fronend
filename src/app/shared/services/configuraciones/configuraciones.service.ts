@@ -88,7 +88,6 @@ export class ConfiguracionesService {
 
   public setElementosSesion(llave: string, datos: any) {
 
-    debugger; 
     let sesion = sessionStorage["sesion"];
    
     if (Boolean(sesion)) {
@@ -143,9 +142,13 @@ export class ConfiguracionesService {
                   primerAuxSubmodulo = false;
 
                   if (valor.nombreModulo.includes("Chat") && valor2.checked) {
-                    let usuario = JSON.parse(sessionStorage["usuario"]);
+
+                    let bytes = CryptoJS.AES.decrypt(sessionStorage["usuario"], this.secretKey);
+                    let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
+                    let usuario = JSON.parse(textodesencriptado);
+                    
                     usuario.esRecursosHumanos = true;
-                    sessionStorage["usuario"] = JSON.stringify(usuario);
+                    sessionStorage["usuario"] = CryptoJS.AES.encrypt(JSON.stringify(usuario), this.secretKey).toString();
 
                   }
                 }
