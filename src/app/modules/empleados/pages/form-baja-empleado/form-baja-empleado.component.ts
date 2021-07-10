@@ -134,8 +134,10 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
       this.EmpleadosService.getEmpleadoValidarFecha(empleado).subscribe(datos => {
           this.arregloEmpleado = datos.datos;
-          if(this.arreglo.mostrarFechaFinUltimoPago){
+          if(this.arregloEmpleado.mostrarFechaFinUltimoPago == true){
               this.ultimaNomina = true;
+          }else{
+            this.ultimaNomina = false;
           }
       });
     }
@@ -303,6 +305,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
         let objEnviar: any ={
           fechaContrato: this.fechaContrato,
           notas: obj.notas,
+          fecha_fin_ultimo_pago: obj.ultimoDia,
           personaId: {
               personaId: this.personaId,
           },
