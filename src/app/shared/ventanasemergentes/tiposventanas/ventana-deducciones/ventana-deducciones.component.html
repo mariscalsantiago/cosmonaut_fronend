@@ -4,37 +4,48 @@
 
         <div class="input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Nombre de deducción *</label>
-            <select #conceptoDeduccionId (focusout)="validarConceptoDeduccion(conceptoDeduccionId.value)" formControlName="nomDeduccion" type="text" class="form-control">
+            <select #conceptoDeduccionId (focusout)="validarConceptoDeduccion(conceptoDeduccionId.value)" formControlName="nomDeduccion" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.nomDeduccion.errors && submitEnviado}">
             <option value=""></option>
             <option *ngFor="let item of obtenerPercepcion"  [value]="item.tipoDeduccionId?.tipoDeduccionId">{{item.nombre}}</option>
         </select>
+            <div *ngIf="myForm.controls.nomDeduccion.errors && submitEnviado" class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
         <div class="input-group-sm mb-3 col-4">
             <label>Fecha inicio de descuento *</label>
-            <input formControlName="fechaInicioDescto" type="date" class="form-control">
-
+            <input formControlName="fechaInicioDescto" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaInicioDescto.errors && submitEnviado}">
+            <div *ngIf="myForm.controls.fechaInicioDescto.errors && submitEnviado" class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
 
-        <div *ngIf="infonavit || infonacot || deducPolitica" class="input-group-sm mb-3 col-4">
-            <label>Fecha fin de descuento <strong aria-hidden="true" *ngIf="!infonavit && !infonacot">*</strong></label>
+        <div class="input-group-sm mb-3 col-4">
+            <label>Fecha fin de descuento</label>
             <input formControlName="fechaFinDescuento" type="date" class="form-control">
 
         </div>
         <div *ngIf="prestamo" class=" input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Tipo de descuento * </label>
-            <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
+            <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.baseCalculoId.errors && submitEnviado}">
             <option value=""></option>
             <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
         </select>
+            <div *ngIf="myForm.controls.baseCalculoId.errors && submitEnviado" class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
 
         <div class="input-group-sm mb-3 col-12"></div>
         <div *ngIf="normalDeduccion" class=" input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Tipo de descuento *</label>
-            <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control">
+            <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.baseCalculoId.errors && submitEnviado}">
             <option value=""></option>
             <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
         </select>
+            <div *ngIf="myForm.controls.baseCalculoId.errors && submitEnviado" class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
 
         <div *ngIf="infonavit" class=" input-group-sm mb-3 col-4">
@@ -116,7 +127,7 @@
         </div>
         <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">
             <label>Número de plazos mensuales *</label>
-            <input formControlName="numeroPlazos" type="text" class="form-control">
+            <input appSolonumeros formControlName="numPlazosMensuales" type="text" class="form-control">
 
         </div>
         <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">

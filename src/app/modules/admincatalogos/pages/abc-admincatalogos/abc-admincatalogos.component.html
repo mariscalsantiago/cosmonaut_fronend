@@ -61,7 +61,7 @@
 
             <div *ngIf="razonBanco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Razón social *</label>
-                <input appMayusculas formControlName="razonSocial" type="text" class="form-control" placeholder="">
+                <input formControlName="razonSocial" type="text" class="form-control" placeholder="">
 
             </div>
             <div *ngIf="regimen" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -292,16 +292,16 @@
                         <th id="" class="text-center" scope="col">Excedente %</th>
                     </tr>
                     <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaIsrId = index">
-                        <td>
+                        <td class="td-center">
                             <span (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
                         </td>
-                        <td>
+                        <td class="td-center">
                             <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
                         </td>
-                        <td>
+                        <td class="td-center">
                             <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'cuotaFija', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
                         </td>
-                        <td>
+                        <td class="td-center">
                             <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)">{{valores.porcExcedenteLimInf}}</span>
                         </td>
 
@@ -386,18 +386,18 @@
 
                 <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
                     <tr>
-                        <th id="" class="text-center" scope="col">Límite inferior</th>
-                        <th id="" class="text-center" scope="col">Límite superior</th>
-                        <th id="" class="text-center" scope="col">Cantidad de subsidio para el empleo</th>
+                        <th id="" class="text-center td-center" scope="col">Límite inferior</th>
+                        <th id="" class="text-center td-center" scope="col">Límite superior</th>
+                        <th id="" class="text-center td-center" scope="col">Cantidad de subsidio para el empleo</th>
                     </tr>
                     <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaSubsidioId = index">
-                        <td>
+                        <td class="td-center">
                             <span (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
                         </td>
-                        <td>
+                        <td class="td-center">
                             <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
                         </td>
-                        <td>
+                        <td class="td-center">
                             <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
                         </td>
 

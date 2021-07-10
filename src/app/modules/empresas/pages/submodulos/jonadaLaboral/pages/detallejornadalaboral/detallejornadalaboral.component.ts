@@ -162,10 +162,11 @@ export class DetallejornadalaboralComponent implements OnInit {
 
     const titulo = this.esInsert ? "¿Deseas registrar la jornada laboral?" : "¿Deseas actualizar los datos de la jornada laboral?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+      if(this.myForm.value.sumaHorasJornadaId === '1'){
+        this.myForm.value.horaSalida = this.horaSalida;
+      }
       if(valor){
-        if(this.myForm.value.sumaHorasJornadaId === '1'){
-          this.myForm.value.horaSalida = this.horaSalida;
-        }
+
 
         let obj = this.myForm.value; 
         if(!obj.lunes){obj.lunes = false}
@@ -190,7 +191,7 @@ export class DetallejornadalaboralComponent implements OnInit {
           mismoHorario: false,
           horarioComida: this.horarioComida,
           sumaHorasJornadaId: {
-            sumaHorasJornadaId: 1,
+            sumaHorasJornadaId: obj.sumaHorasJornadaId,
           },
           horaEntrada: obj.horaEntrada,
           horaInicioComida: obj.horaInicioComida,
@@ -416,7 +417,6 @@ export class DetallejornadalaboralComponent implements OnInit {
       this.myForm.controls.horaFinComida.setErrors({required: true});
       
     }
-    //console.log('op', op)
   }
 
   public hrInicio(response : any){

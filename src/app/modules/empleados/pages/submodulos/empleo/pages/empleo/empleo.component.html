@@ -48,7 +48,8 @@
                     <article *ngIf="!editarcampos">{{empleado.jefeInmediatoId?.nombre}} {{empleado.jefeInmediatoId?.apellidoPaterno}} {{empleado.jefeInmediatoId?.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
 
-                        <input autocomplete="off" list="empleadosreporta" class="form-control" cache formControlName="puesto_id_reporta"  (focusout)="salirReportaA()"  name="browser" id="browser">
+                        <input autocomplete="off" list="empleadosreporta" class="form-control" cache formControlName="puesto_id_reporta" (focusout)="salirReportaA()" name="browser" id="browser">
+
                         <datalist id="empleadosreporta">
                             <option *ngFor="let item of arregloempleadosreporta" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno+' '+((item.personaId?.apellidoMaterno == undefined)?'':item.personaId?.apellidoMaterno)"></option>
                         </datalist>
@@ -96,6 +97,7 @@
 
                 </article>
             </div>
+
             <div class="row">
                 <article class="titulo  col">
                     Régimen de contratación *
@@ -109,6 +111,21 @@
                             [value]="item.tipoRegimenContratacionId">{{item.descripcion}}</option>
                     </select>
                     <div *ngIf="f.tipoRegimenContratacionId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </article>
+            </div>
+            <div class="row">
+                <article class="titulo  col">
+                    Dias de vacaciones no disfrutados *
+                    <article *ngIf="!editarcampos">{{ empleado.diasVacaciones}}</article>
+                </article>
+            </div>
+            <div class="row mb-4">
+                <article *ngIf="editarcampos" class="titulo col">
+                    <input placement="top" [mdbTooltip]="'diasVacaciones' | tooltip" appSolonumeros formControlName="dias_vacaciones" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.dias_vacaciones.errors && submitEnviado}">
+                    <div *ngIf="f.dias_vacaciones.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
 

@@ -67,8 +67,6 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-
-    console.log("El obj es",obj);
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],

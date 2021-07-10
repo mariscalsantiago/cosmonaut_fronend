@@ -14,8 +14,6 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
   styleUrls: ['./informacionempresa.component.scss']
 })
 export class InformacionempresaComponent implements OnInit {
- //tooltip = "A través de esta clave alfanumérica de 13 caracteres, el SAT puede identificar quién pagó los ingresos que recibieron los empleados."
-   //tooltip = "Clave Única de Registro de Población (CURP).\nClave alfanumérica de 18 caracteres."
   @ViewChild("nombre") public nombre!: ElementRef;
 
   @ViewChild("key") public inputkey!: ElementRef;
@@ -121,6 +119,8 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public validarActividad2(actividad:any){
+    console.log('act', actividad)
+    actividad = this.arregloactividad.find((value: any )=> value['descripcion'] === actividad).actividadEconomicaId
     
     if(actividad != ""){
      this.catalogosPrd.getActividadEconomica2(this.idNivel2,actividad).subscribe(datos => this.arregloactividad2 = datos.datos);
@@ -137,11 +137,10 @@ export class InformacionempresaComponent implements OnInit {
     debugger
     this.submitEnviado = true;
     let noesRFC: boolean = (this.myform.controls.regimenfiscalId.value == null || this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
-    
-    //if(this.myform.value.regimenfiscalId !== "621"){
-      //this.myform.controls.razonSocial.setErrors({required: true});
-    //}
-
+    this.myform.updateValueAndValidity();
+    if(this.myform.value.regimenfiscalId !== "621"){
+    this.myform.controls.razonSocial.setValidators([Validators.required]);;
+    }
     if (this.myform.invalid) {
       let invalido: boolean = true;
       if (!noesRFC) {
@@ -238,7 +237,7 @@ export class InformacionempresaComponent implements OnInit {
             centrocClienteId: this.datosempresa.centrocClienteId
            },
            actividadEconomicaId: {
-            actividadEconomicaId: obj.actividadEconomicaId2
+            actividadEconomicaId: this.arregloactividad2.find((value: any )=> value['descripcion'] === obj.actividadEconomicaId2).actividadEconomicaId
            },
            imagen:this.imagen,
            curp : this.curpFinal,        
