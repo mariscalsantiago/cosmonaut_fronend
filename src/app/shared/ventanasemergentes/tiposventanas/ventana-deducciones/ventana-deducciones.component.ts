@@ -124,11 +124,19 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    // this.myForm.clearValidators();
-    this.concepto = concepto;
-     console.log('entro concepto', concepto)
-
+    this.submitEnviado = false;
+    this.myForm.clearValidators();
+    if( concepto === '006' || concepto === '012' || concepto === '020' ||
+        concepto === '021' || concepto === '022' || concepto === '002' ||
+        concepto === '107' || concepto === '013'
+        ){
+      this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+      this.myForm.controls.valor.setValidators([Validators.required]);
+     } 
     if(concepto=='010'){
+      this.myForm.controls.valor.setValidators([Validators.required]);
+      this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([Validators.required]);
+      this.myForm.controls.tipoDescuentoInfonavitId.setValidators([Validators.required]);
       this.infonavit = true;
       this.fijo = true;
       this.submenu = true;
@@ -157,6 +165,9 @@ if(this.myForm.get(['']))
 
     }
     else if(concepto=='007'){
+      this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+      this.myForm.controls.valor.setValidators([Validators.required]);
+      this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([Validators.required]);
       this.submenu = true;
       this.pensionAlimenticia = true;
       this.normalDeduccion = true;
@@ -180,6 +191,10 @@ if(this.myForm.get(['']))
 
     }    
     else if(concepto=='004'){
+      console.log('this.politica',this.politica)
+      this.myForm.controls.montoTotal.setValidators([Validators.required]);
+      this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([Validators.required]);
+      this.myForm.controls.numeroCuotas.setValidators([Validators.required]);
       if(this.politica !== undefined){
       this.infonavit = false;
       this.deducPolitica = true;
@@ -230,6 +245,10 @@ if(this.myForm.get(['']))
       
     }
     else if(concepto=='011'){
+      this.myForm.controls.numeroFolio.setValidators([Validators.required]);
+      this.myForm.controls.montoTotal.setValidators([Validators.required]);
+      this.myForm.controls.numPlazosMensuales.setValidators([Validators.required]);
+      this.myForm.controls.valor.setValidators([Validators.required]);
       this.submenu = true;
       this.infonacot = true;
       this.normalDeduccion = true;
@@ -374,13 +393,9 @@ if(this.myForm.get(['']))
   public enviarPeticion(){
 
     this.submitEnviado = true;
-    
-    console.log('myForm', this.myForm.controls)
-    if(this.concepto === '006'){
-      this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
-      this.myForm.updateValueAndValidity();
+    this.myForm.updateValueAndValidity();
+    console.log('myForm', this.myForm.value)
 
-     }
 
 
 
