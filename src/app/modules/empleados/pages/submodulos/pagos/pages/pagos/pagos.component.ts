@@ -554,9 +554,9 @@ export class PagosComponent implements OnInit {
       fechaAntiguedad: [new DatePipe("es-MX").transform(obj.fechaAntiguedad,"yyyy-MM-dd")],
       fecIniPeriodo:[],
       salarioNetoMensualImss: [obj.salarioNetoMensualImss],
-      pagoComplementario: [obj.pagoComplementario],
+      pagoComplementario: [{value:obj.pagoComplementario,disabled:true}],
       sueldonetomensualppp: [obj.sueldonetomensualppp],
-      sueldoBrutoMensualPPP: [{ value: obj.pppSalarioBaseMensual, disabled: true }]
+      sueldoBrutoMensualPPP: [{ value: obj.pppSalarioBaseMensual,disabled:true}]
     });
   }
 
@@ -590,7 +590,8 @@ export class PagosComponent implements OnInit {
           tipoCompensacionId: { tipoCompensacionId: obj.tipoCompensacionId },
           sbc: obj.sbc,
           sueldoNetoMensual: obj.sueldoNetoMensual,
-          sueldoBrutoMensual: obj.sueldoBrutoMensual
+          sueldoBrutoMensual: obj.sueldoBrutoMensual,
+          salarioDiario:obj.salarioDiario
         }
 
 
@@ -667,6 +668,7 @@ export class PagosComponent implements OnInit {
   public verDetalleCompensacion() {
     console.log("verDetalleCompensacion");
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
+    console.log(this.myFormCompensacion);
     this.detallecompensacionbool = true
     this.suscribirseCompensacion();
   }
@@ -723,7 +725,8 @@ export class PagosComponent implements OnInit {
       this.myFormCompensacion.controls.salarioDiario.updateValueAndValidity();
       this.myFormCompensacion.controls.salarioDiarioIntegrado.setValidators([Validators.required]);
       this.myFormCompensacion.controls.salarioDiarioIntegrado.updateValueAndValidity();
-      this.myFormCompensacion.controls.salarioDiarioIntegrado.disable();
+
+     
 
     } else {
 
@@ -797,7 +800,6 @@ export class PagosComponent implements OnInit {
     this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos =>{
 
       let aux = datos.datos;
-      console.log("Esto es lo calculado",aux);
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       if(datos.datos !== undefined){
     

@@ -272,7 +272,7 @@
                                                         </div>
                                                     </td>
                                                     <td  *ngIf="detallecompensacionbool && typeppp">
-                                                        <input formatos [moneda]="true" [control]="f.sueldonetomensualppp" formControlName="sueldonetomensualppp" (focusout)="cambiassueldoPPP()" type="text" name="" id="m1" class="form-control" [ngClass]="{'is-invalid':f.sueldonetomensualppp.errors && f.sueldonetomensualppp.touched}">
+                                                        <input formatos [moneda]="true" [control]="f.sueldonetomensualppp" formControlName="sueldonetomensualppp" (focusout)="cambiassueldoPPP()" type="text" name="" id="m1" class="form-control" [ngClass]="{'is-invalid':fc.sueldonetomensualppp.errors && fc.sueldonetomensualppp.touched}">
                                                         <div class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
