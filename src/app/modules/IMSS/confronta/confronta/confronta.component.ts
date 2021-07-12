@@ -58,12 +58,15 @@ export class ConfrontaComponent implements OnInit {
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
     this.empresasPrd.getListarRegistroPatronal(this.idEmpresa).subscribe(datos => this.arregloRegistroPatronal = datos.datos);
-    this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-    this.arregloCompanias = datos.datos;
-      if (this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA") {
-        this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
-      }
-    });
+    if(this.usuarioSistemaPrd.esCliente()){
+      this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+          this.arregloCompanias = datos.datos;
+      });
+    }else{
+      this.companiasPrd.getEmpresaById(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+        this.arregloCompanias = [datos.datos];
+      });
+    }
 
 
     this.filtrar();

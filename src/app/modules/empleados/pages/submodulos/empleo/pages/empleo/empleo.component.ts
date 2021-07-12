@@ -22,7 +22,6 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 export class EmpleoComponent implements OnInit {
 
   public editarcampos: boolean = false;
-  public submitEnviado: boolean = false;
   public today = new Date((new Date(new Date).toUTCString()).replace(" 00:00:00 GMT", ""));
   public date !: any;
   public myForm!: FormGroup;
@@ -80,12 +79,26 @@ export class EmpleoComponent implements OnInit {
         this.contratoDesc = this.arregloTipoContrato.find((item:any) => item.tipoContratoId === this.empleado.tipoContratoId.tipoContratoId)?.descripcion;
         
         this.myForm = this.createForm(this.empleado);
+        this.suscripciones();
         this.cambiaArea();
         
       });;
     });
     this.myForm = this.createForm(this.empleado);
+    this.suscripciones();
 
+  }
+
+  public suscripciones(){
+    this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato:number) =>{
+      console.log("SI se suscribe todo este show");
+      debugger;
+      if (idContrato != 1 && idContrato != 10)
+        this.myForm.controls.fechaFin.setValidators([Validators.required]);
+      else
+        this.myForm.controls.fechaFin.clearValidators();
+      this.myForm.controls.fechaFin.updateValueAndValidity();
+    });
   }
 
 
@@ -123,12 +136,12 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
-    this.submitEnviado = true;
-    if(this.myForm.value.tipoContratoId !== "10" && this.myForm.value.tipoContratoId !== "1"){
-      this.myForm.controls.fechaFin.setErrors({required: true});
-    }
+   
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
+      Object.values(this.myForm.controls).forEach(control =>{
+        control.markAsTouched();
+      });
       return;
     }
 
@@ -137,10 +150,8 @@ export class EmpleoComponent implements OnInit {
  
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
-
-
         let obj = this.myForm.value;    
-        //Se verifica que tipo de jornada se selecciono
+        
         let idTipoJornada = -1;    
         for(let item of this.arregloJornadas){    
           if(obj.jornadaId == item.jornadaId){             
@@ -340,5 +351,8 @@ export class EmpleoComponent implements OnInit {
       }
     }
   }
+
+
+  
 
 }

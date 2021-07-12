@@ -52,14 +52,20 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     });
     this.cuentasBancariasPrd.getCuentaFuncion(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
-    this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
-      this.arregloCompanias = datos.datos;
 
-      if (this.usuarioSistemaPrd.getRol() == "ADMINEMPRESA") {
-        this.arregloCompanias = [this.clonar(this.usuarioSistemaPrd.getDatosUsuario().centrocClienteId)]
-      }
-    });
+    
+
+    if(this.usuarioSistemaPrd.esCliente()){
+      this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+          this.arregloCompanias = datos.datos;
+      });
+    }else{
+      this.companiasPrd.getEmpresaById(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+        this.arregloCompanias = [datos.datos];
+      });
+    }
+
     this.suscripciones();
 
     this.empleadosPrd.getEmpleadosCompania(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
