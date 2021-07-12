@@ -121,7 +121,7 @@ export class PPPComponent implements OnInit {
   public guardarMultiseleccion() {
 
     
-    let mensaje = `¿Deseas descargar el layaut de lo seleccionado?`;
+    let mensaje = `¿Deseas descargar el layout con los empleados seleccionados?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
       if (valor) {
