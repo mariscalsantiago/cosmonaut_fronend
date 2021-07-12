@@ -141,6 +141,9 @@ export class EmpleoComponent implements OnInit {
 
 
   public suscripciones() {
+
+    this.myForm.value;
+
     this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor => {
     });
     this.myForm.controls.fechaAntiguedad.valueChanges.subscribe(valor => {
@@ -378,7 +381,6 @@ export class EmpleoComponent implements OnInit {
       esSubcontratado: [obj.esSubcontratado],
       tiposueldo: ['b', [Validators.required]],
       subcontratistaId: obj.subcontratistaId,
-      puestoIdReporta: obj.jefeInmediatoId?.personaId,
       fechaAltaImss: [(obj.fechaAltaImss !== undefined && obj.fechaAltaImss !== "") ? pipe.transform(new Date(Number(obj.fechaAltaImss)), "yyyy-MM-dd") : obj.fechaAltaImss],
       sbc: [{ value: obj.sbc, disabled: true }],
       salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []],
@@ -403,7 +405,8 @@ export class EmpleoComponent implements OnInit {
 
 
 
-    console.log('envForm',this.myForm.getRawValue());
+    console.log('envForm',this.myForm.controls);
+    
 
 
     this.submitEnviado = true;
@@ -465,7 +468,6 @@ export class EmpleoComponent implements OnInit {
         }
 
 
-
         let objEnviar:any = {
           areaId: { areaId: obj.areaId },
           puestoId: { puestoId: obj.puestoId },
@@ -500,6 +502,8 @@ export class EmpleoComponent implements OnInit {
         }
 
 
+        debugger;
+
         if(this.grupoNominaSeleccionado.pagoComplementario){
           
           objEnviar.sueldoNetoMensual=obj.salarioNetoMensualImss; //Pago imss
@@ -507,12 +511,10 @@ export class EmpleoComponent implements OnInit {
           objEnviar.pppMontoComplementario = obj.pagoComplementario; //Pago complementario
           objEnviar.sbc = obj.salarioDiarioIntegrado; //Sañario integrado
           delete obj.salarioDiarioIntegrado;
-          obj.pppSalarioBaseMensual = obj.sueldoBrutoMensualPPP;//sueldo menusal ppp
+          objEnviar.pppSalarioBaseMensual = obj.sueldoBrutoMensualPPP;//sueldo menusal ppp
         }
-
-
-
-
+        
+        
         if (this.tabsDatos[3]?.fechaContrato == undefined) {
           this.guardarContratoColaborador(objEnviar);
         } else {
@@ -627,7 +629,7 @@ export class EmpleoComponent implements OnInit {
     this.areasPrd.getPuestoByArea(this.id_empresa, this.myForm.controls.areaId.value).subscribe(datos => {
 
       this.arregloPuestos = datos.datos;
-      this.myForm.controls.puestocambiassueldoPPPId.enable();
+      this.myForm.controls.puestoId.enable();
     });
 
   }
@@ -679,10 +681,11 @@ export class EmpleoComponent implements OnInit {
 
   public salirReportaA() {
 
-    this.myForm.controls.puesto_id_reporta.setErrors(null);
-    this.myForm.value.puestoIdReporta = undefined;
+    this.myForm.controls.puesto_id_reporta.clearValidators();
+    this.myForm.controls.puesto_id_reporta.updateValueAndValidity();
+    this.puestoIdReporta = 0;
     const nombreCapturado = this.myForm.value.puesto_id_reporta;
-    if (nombreCapturado !== undefined) {
+    if (nombreCapturado) {
       if (nombreCapturado?.trim() !== "") {
         let encontrado: boolean = false;
         let nombreCompleto = "";
@@ -702,6 +705,9 @@ export class EmpleoComponent implements OnInit {
           this.myForm.controls.puesto_id_reporta.setValue(nombreCompleto);
         }
       }
+    }else{
+      this.myForm.controls.puesto_id_reporta.clearValidators();
+      this.myForm.controls.puesto_id_reporta.updateValueAndValidity();
     }
   }
 
@@ -885,6 +891,7 @@ export class EmpleoComponent implements OnInit {
       
         this.myForm.controls.salarioDiarioIntegrado.setValue(aux.sbc);
         this.myForm.controls.salarioNetoMensualImss.setValue(aux.sueldoNetoMensual);
+        this.myForm.controls.sueldoNetoMensual.setValue(aux.sueldoNetoMensual);
         this.myForm.controls.sueldoBrutoMensual.setValue(aux.sueldoBrutoMensual);
         this.myForm.controls.pagoComplementario.setValue(aux.pppMontoComplementario);
         this.myForm.controls.sueldoBrutoMensualPPP.setValue(aux.pppSbm);

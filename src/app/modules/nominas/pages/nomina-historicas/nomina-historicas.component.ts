@@ -72,6 +72,8 @@ export class NominaHistoricasComponent implements OnInit {
 
     console.log(obj);
 
+    let objEnviar: any;
+
     switch (obj.type) {
       case "polizacontable":
         alert("Poliza contable");
@@ -83,7 +85,22 @@ export class NominaHistoricasComponent implements OnInit {
         alert("nomina");
         break;
       case "fotos":
-        alert("Folios");
+        objEnviar = {
+          nominaXperiodoId: obj.datos.nominaXperiodoId,
+          listaIdPersona: [
+    
+          ]
+        }
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.reportesPrd.getFoliosnominaConcluir(objEnviar).subscribe(objrecibido => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          if (objrecibido.resultado) {
+            this.reportesPrd.crearArchivo(objrecibido.datos, `Foliosfiscales_${obj.datos.nombreNomina}_${obj.datos.clavePeriodo}`, "pdf");
+          } else {
+            this.modalPrd.showMessageDialog(objrecibido.resultado, objrecibido.mensaje);
+          }
+        });
         break;
       case "reportenomina":
         alert("reporte nomina")
@@ -91,14 +108,18 @@ export class NominaHistoricasComponent implements OnInit {
       case "reportepolizacontable":
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.reportesPrd.getHistoricoPolizaContable(obj.datos.nominaXperiodoId).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.reportesPrd.crearArchivo(datos.datos, `ReportePólizaContable_${obj.datos.clavePeriodo}_${obj.datos.nombreNomina}`, "xlsx");
+            if(datos.resultado){
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.reportesPrd.crearArchivo(datos.datos, `ReportePólizaContable_${obj.datos.clavePeriodo}_${obj.datos.nombreNomina}`, "xlsx");
+            }else{
+                this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+            }
         });
         break;
       case "recibonominazip":
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-        let objEnviar = {
+        objEnviar = {
           nominaPeriodoId: obj.datos.nominaXperiodoId,
           esVistaPrevia: false,
           esTimbrado: true
@@ -106,7 +127,11 @@ export class NominaHistoricasComponent implements OnInit {
 
         this.reportesPrd.getComprobanteFiscalXML(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.reportesPrd.crearArchivo(datos.datos, `RecibosNómina_${obj.datos.clavePeriodo}_${obj.datos.nombreNomina}`, "zip");
+          if(datos.resultado){
+            this.reportesPrd.crearArchivo(datos.datos, `RecibosNómina_${obj.datos.clavePeriodo}_${obj.datos.nombreNomina}`, "zip");
+          }else{
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+          }
         });
         break;
       case "cancelartimbrado":
