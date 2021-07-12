@@ -58,15 +58,11 @@ export class DetalleCompanyComponent implements OnInit {
 
   ngOnInit(): void {  
 
-
+    debugger;
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.compania = true;
 
     this.cargandoImg = true;
-
-
-    
-
 
     this.versionesPrd.getVersiones(true).subscribe(datos => this.arregloVersiones = datos.datos);
    
@@ -88,25 +84,24 @@ export class DetalleCompanyComponent implements OnInit {
         this.cargandoImg = false;
       }
 
-
-      
-
-      this.myFormcomp = this.createFormcomp((this.objCompany));
-
-
+      if(this.objCompany.centrocClienteId != undefined){
       this.authUsuariosPrd.getVersionByEmpresa(this.objCompany.centrocClienteId).subscribe(datos =>{
-        
+        debugger;
         this.myFormcomp.controls.versioncosmonaut.setValue(datos.datos.versionCosmonautId?.versionCosmonautId);
         this.versionEmpresa = datos.datos;
         
     });
+    }
 
-
-      if(this.objCompany.multiempresa){
-            this.myFormcomp.controls.rfc.setValidators([]);
-            this.myFormcomp.controls.rfc.updateValueAndValidity();
-      }
+      
     });
+
+    if(this.objCompany.multiempresa){
+      this.myFormcomp.controls.rfc.setValidators([]);
+      this.myFormcomp.controls.rfc.updateValueAndValidity();
+    }
+
+   this.myFormcomp = this.createFormcomp((this.objCompany));
 
 
   }
@@ -119,7 +114,7 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public createFormcomp(obj: any) {
-
+    debugger;
     
 
     let datePipe = new DatePipe("en-MX");
@@ -206,7 +201,7 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
   public enviarPeticioncomp() {
-
+    debugger;
     this.submitEnviado = true;
     if (this.myFormcomp.invalid) {     
       this.modalPrd.showMessageDialog(this.modalPrd.error);

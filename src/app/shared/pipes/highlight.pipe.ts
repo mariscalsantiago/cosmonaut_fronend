@@ -12,7 +12,6 @@ export class HighlightPipe implements PipeTransform {
       return searchText;
     }
     const re = new RegExp(item, 'gi');
-    console.log(this._sanitizer.bypassSecurityTrustHtml(searchText.replace(re, `<mark class="highlight">$&</mark>` )))
     return this._sanitizer.bypassSecurityTrustHtml(searchText.replace(re, `<u class="highlight">$&</u>` ));
   }
 

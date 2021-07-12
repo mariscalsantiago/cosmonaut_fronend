@@ -221,7 +221,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    console.log('catalogo', obj)
 
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({

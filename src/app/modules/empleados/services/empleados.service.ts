@@ -111,6 +111,11 @@ export class EmpleadosService {
     return this.http.get(`${direcciones.usuarios}/obtener/id/${idEmpleado}`);
   }
 
+  public getEmpleadoValidarFecha(idEmpleado: number): Observable<any> {
+    
+    return this.http.get(`${direcciones.usuarios}/validarFechaFinPago/${idEmpleado}`);
+  }
+
 
   public update(obj: any): Observable<any> {
 

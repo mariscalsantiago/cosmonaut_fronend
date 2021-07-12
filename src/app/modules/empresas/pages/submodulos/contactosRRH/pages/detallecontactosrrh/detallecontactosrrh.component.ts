@@ -52,8 +52,6 @@ export class DetallecontactosrrhComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-
-    console.log('obj', obj)
     let fecha = new Date();
     this.fechaActual = fecha.toLocaleDateString();
     let datePipe = new DatePipe("en-MX");

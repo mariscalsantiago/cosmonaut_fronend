@@ -38,17 +38,9 @@ export class FormBajaEmpleadoComponent implements OnInit {
   public mostrardias: boolean = false;
   public actguardar: boolean = false;
   public numerodias: boolean = false;
-
-
-
   public esRegistrar:boolean = false;
-
-
-
-
-
-
- 
+  public ultimaNomina: boolean = false;
+  public arregloEmpleado: any = [];
 
 
   constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute,
@@ -72,7 +64,10 @@ export class FormBajaEmpleadoComponent implements OnInit {
     }
     
     this.idEmpresa=this.usuarioSistemaPrd.getIdEmpresa();
-    this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos => this.arreglobaja = datos.datos);
+    this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos =>{
+      debugger;
+    this.arreglobaja = datos.datos
+  });
     this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
     this.catalogosPrd.getMotivoBajaEmpleado(true).subscribe(datos => this.arregloMotivoBaja = datos.datos);
     this.catalogosPrd.getTipoBajaEmpleado(true).subscribe(datos => this.arregloTipoBaja = datos.datos);
@@ -133,7 +128,20 @@ export class FormBajaEmpleadoComponent implements OnInit {
     });
   }
 
-  public subirarchivos() {
+  public validarEmpleado(empleado:any){
+    debugger;
+    if(empleado != ""){
+
+      this.EmpleadosService.getEmpleadoValidarFecha(empleado).subscribe(datos => {
+          this.arregloEmpleado = datos.datos;
+          if(this.arregloEmpleado.mostrarFechaFinUltimoPago == true){
+              this.ultimaNomina = true;
+          }else{
+            this.ultimaNomina = false;
+          }
+      });
+    }
+
   }
 
   public validarTipoCalculo(calculo:any){
@@ -297,6 +305,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
         let objEnviar: any ={
           fechaContrato: this.fechaContrato,
           notas: obj.notas,
+          fecha_fin_ultimo_pago: obj.ultimoDia,
           personaId: {
               personaId: this.personaId,
           },

@@ -91,15 +91,7 @@ export class TablapaginadoComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-
-
-
-    
-
-
-      
-      
-      
+ 
     if (this.datos.filas !== undefined) {
   
       this.arreglotemp = this.datos.filas;
@@ -132,21 +124,12 @@ export class TablapaginadoComponent implements OnInit {
       let primero = true;
       paginas = Math.ceil(paginas);
 
-
       for (let x = 1; x <= paginas; x++) {
-
         this.arreglopaginas.push({ numeropagina: (x - 1) * Number(this.numeroitems), llavepagina: ((x - 1) * Number(this.numeroitems)) + Number(this.numeroitems), mostrar: x, activado: primero });
         primero = false;
       }
-
       this.acomodarPaginado();
-
-
       this.arreglo = this.arreglotemp.slice(0, Number(this.numeroitems));
-      console.log('arreglo', this.arreglo)
-
-
-
     }
 
   }
