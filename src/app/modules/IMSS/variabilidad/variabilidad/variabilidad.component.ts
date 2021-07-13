@@ -45,6 +45,7 @@ export class VariabilidadComponent implements OnInit {
   public idUsuario: any = [];
   public varibilidadID: number = 0;
 
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -411,11 +412,11 @@ export class VariabilidadComponent implements OnInit {
                 clienteId: this.idEmpresa,
                 bimestre: obj.bimestre,
                 fechaAplicacion: obj.fecha,
-                anioFiscal: this.arreglo.anioFiscal,
+                anioFiscal: this.anioFiscal,
                 usuarioId: this.idUsuario
               };
 
-           
+                debugger;
                 this.empresasPrd.calculoPromedioVariables(objEnviar).subscribe(datos => {
                   valor = 0;
                   this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
