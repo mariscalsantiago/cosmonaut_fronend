@@ -82,13 +82,25 @@ export class GruponominasService {
       })
     };
 
-
-
-
     let json = JSON.stringify(obj);
     
 
     return this.http.post(`${this.url}/lista/dinamica`,json,httpOptions);
+
+
+  }
+
+  public calculadoraBruto(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json = JSON.stringify(obj);
+    
+
+    return this.http.post(`${direcciones.calculo}/sueldo/neto/sueldo/bruto/semanal`,json,httpOptions);
 
 
   }

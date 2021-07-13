@@ -43,7 +43,8 @@ export class VariabilidadComponent implements OnInit {
   public fecha: Date = new Date;
   public anioFiscal: number = 0;
   public idUsuario: any = [];
-  
+  public varibilidadID: number = 0;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -206,7 +207,7 @@ export class VariabilidadComponent implements OnInit {
                 this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de varibales completo").then(valor =>{
         
                   if (datos.resultado) {
-                      this.desgargarArchivo();
+                      this.desgargarArchivo(undefined);
                       this.cancelar();
                   }
                   });
@@ -297,13 +298,17 @@ export class VariabilidadComponent implements OnInit {
   }
 
 
-  public desgargarArchivo() {
-    
-    
+  public desgargarArchivo(obj:any) {
+    debugger;
+    if(this.variabilidad == 0){
+      this.varibilidadID = obj.datos.variabilidadId;
+    }else{
+      this.varibilidadID = this.variabilidad
+    }
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     
-        this.reportesPrd.getDescargaListaEmpleadosVariabilidad(this.variabilidad).subscribe(archivo => {
+        this.reportesPrd.getDescargaListaEmpleadosVariabilidad(this.varibilidadID).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
@@ -459,10 +464,10 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-
+    debugger;
     switch (obj.type) {
       case "descargar":
-          this.desgargarArchivo();
+          this.desgargarArchivo(obj);
          break;
     }
 
