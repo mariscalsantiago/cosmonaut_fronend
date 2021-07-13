@@ -16,12 +16,19 @@
 
 </div>
 
+
 <div style="margin: 10px;overflow: auto;">
 
     <table aria-hidden="true" *ngIf="!cargando && arreglo !== undefined" class="table table-hover  anchura ">
         <thead>
             <tr>
-                <th id="" *ngIf="checkbox"></th>
+                <th id="" *ngIf="checkbox">
+                    <label (click)="seleccionarTodos()" class="contenedorInputCheckRadio"> 
+                        <input [(ngModel)]="seleccionarGlobal"  type="checkbox">
+                        <span class="checkmark"></span>
+                      </label>
+                      
+                </th>
                 <th id="" *ngIf="imagen"></th>
                 <th id="" (click)="ordenar(item)" style="position: relative;cursor:pointer" scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
                     {{item.nombre}}<i aria-hidden="true" class="fas fa-caret-up flechaarriba" [ngClass]="{'colorear':item.acomodar == true}"></i>
