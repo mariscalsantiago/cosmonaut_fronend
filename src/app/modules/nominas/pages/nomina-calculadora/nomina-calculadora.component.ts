@@ -5,6 +5,7 @@ import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.se
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
 
 @Component({
   selector: 'app-nomina-calculadora',
@@ -20,22 +21,26 @@ export class NominaCalculadoraComponent implements OnInit {
   public esSueldoNeto: boolean = false;
   public arregloPoliticas: any = [];
   public arregloBasePeriodos: any = [];
+  public idEmpresa: number = 0;
 
   public esMensual:boolean = false;
   public esImss:boolean = false;
   public titulosueldo:string = "bruto";
+  public arregloCalculo: any = [];
 
   constructor(private modalPrd: ModalService, private formbuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private politicaPrd: PoliticasService, private usuarioSistemaPrd: UsuarioSistemaService,public configuracionPrd:ConfiguracionesService) { }
+    private politicaPrd: PoliticasService, private usuarioSistemaPrd: UsuarioSistemaService,
+    public configuracionPrd:ConfiguracionesService, private grupoNominaPrd: GruponominasService,) { }
 
   ngOnInit(): void {
     this.myForm = this.crearFormulario();
+    this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.suscripciones();
     this.catalogosPrd.getPeriocidadPago(true).subscribe(datos => {
       this.arregloPeriocidad = datos.datos;
     });
 
-    this.politicaPrd.getAllPol(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+    this.politicaPrd.getAllPol(this.idEmpresa).subscribe(datos => {
       this.arregloPoliticas = datos.datos;
     });
 
@@ -100,8 +105,36 @@ export class NominaCalculadoraComponent implements OnInit {
 
   public calcular() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas calcular?").then(valor => {
-      if (valor) {
-        this.calculado = true;
+      if(valor){
+         debugger;   
+        let  obj = this.myForm.getRawValue();
+
+
+          let objEnviar : any = 
+          {
+              clienteId: this.idEmpresa,
+              periodicidadPagoId: obj.periodicidadPagoId,
+              sbmImss: obj.sueldobruto,
+              inluyeImms: obj.imss,
+              inlcuyeSubsidio: obj.subsidio
+
+        };
+        
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+            this.grupoNominaPrd.calculadoraBruto(objEnviar).subscribe(datos => {
+
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
+              .then(()=> {
+                 if (datos.resultado) {
+                  this.arregloCalculo = datos.desgloseSalario.desgloseSalario;
+                  this.calculado = true;
+              } 
+              });
+          });     
+
       }
     });
   }
