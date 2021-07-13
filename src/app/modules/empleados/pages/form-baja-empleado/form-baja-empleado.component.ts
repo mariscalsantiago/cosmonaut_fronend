@@ -65,7 +65,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
     
     this.idEmpresa=this.usuarioSistemaPrd.getIdEmpresa();
     this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos =>{
-      debugger;
+      
     this.arreglobaja = datos.datos
   });
     this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
@@ -129,7 +129,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public validarEmpleado(empleado:any){
-    debugger;
+    
     if(empleado != ""){
 
       this.EmpleadosService.getEmpleadoValidarFecha(empleado).subscribe(datos => {

@@ -128,8 +128,13 @@ export class ContenidoComponent implements OnInit {
     this.chatPrd.setChatDatos(this.chat);
 
 
+    
+
     if (this.authPrd.isAuthenticated()) {
+      console.log("Esta en sesion",this.authPrd.isAuthenticated());
+      console.log("Hay sesion de menu",this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO));
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
+        
         this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
           this.PRINCIPAL_MENU = this.configuracionPrd.traerDatosMenu(this.usuariosSistemaPrd.getUsuario().submodulosXpermisos, datos, this.usuariosSistemaPrd.getVersionSistema(), this.usuariosSistemaPrd.esCliente());
           this.PRINCIPAL_MENU.unshift({ moduloId: 0, nombreModulo: "Inicio", seleccionado: true, checked: true, pathServicio: '/inicio', icono: 'icon_home' });
@@ -143,8 +148,7 @@ export class ContenidoComponent implements OnInit {
           let usuario = JSON.parse(textodesencriptado);
 
           this.usuariosSistemaPrd.setUsuario(usuario as usuarioClass);
-
-          if (!Boolean(this.configuracionPrd.ocultarChat)) {
+          
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
 
             if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
@@ -152,30 +156,37 @@ export class ContenidoComponent implements OnInit {
 
               });
             }else{
-              this.darClickChat(true);
+              if(!this.usuariosSistemaPrd.usuario.esCliente){
+                this.darClickChat(true);
+              }else{
+                this.configuracionPrd.ocultarChat = true;
+              }
             }
-
-          }
 
 
         });
 
       } else {
 
+        console.log("Hay emnu chavos",this.configuracionPrd.MENUPRINCIPAL);
+
         if (!Boolean(this.configuracionPrd.MENUPRINCIPAL)) {
+          console.log("Entra para meter el menu en menu configuracion");
           this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
             this.PRINCIPAL_MENU = datos;
             this.establecericons();
             this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
-            if ((this.configuracionPrd.ocultarChat) == undefined) {
               this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
               if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
                 this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
                 });
               }else{
-                this.darClickChat(true);
+                if(!this.usuariosSistemaPrd.usuario.esCliente){
+                  this.darClickChat(true);
+                }else{
+                  this.configuracionPrd.ocultarChat = true;
+                }
               }
-            }
           });
         } else {
           this.PRINCIPAL_MENU = this.configuracionPrd.MENUPRINCIPAL;
@@ -187,7 +198,11 @@ export class ContenidoComponent implements OnInit {
 
               });
             }else{
-              this.darClickChat(true);
+              if(!this.usuariosSistemaPrd.usuario.esCliente){
+                this.darClickChat(true);
+              }else{
+                this.configuracionPrd.ocultarChat = true;
+              }
             }
           }
         }

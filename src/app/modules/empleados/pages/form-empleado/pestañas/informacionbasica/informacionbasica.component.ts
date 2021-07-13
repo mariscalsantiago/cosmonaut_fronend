@@ -35,7 +35,8 @@ export class InformacionbasicaComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private empleadosPrd: EmpleadosService, private usuarioSistemaPrd: UsuarioSistemaService,
-    private routerPrd: Router, private modalPrd: ModalService) { }
+    private routerPrd: Router, private modalPrd: ModalService,
+    private usuariosAuth:UsuariosauthService) { }
 
   ngOnInit(): void {
     if(this.datosPersona[0].insertar === undefined){

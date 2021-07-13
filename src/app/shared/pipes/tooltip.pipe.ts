@@ -97,6 +97,8 @@ export class TooltipPipe implements PipeTransform {
       return "Periodo sobre el cual se calcula el promedio de las percepciones variables del trabajador para la actualización del salario diario integrado.";
     }else if(value === 'dias'){
       return "Número de días sobre los cuales se calcula el promedio de las percepciones variables del trabajador para la actualización del salario diario integrado.";
+    } else if(value === 'fechaFinNomina'){
+      return "No existen nóminas registradas para el empleado en Cosmonaut. Coloca la fecha fin de la última nómina pagada al empleado para que el sistema pueda realizar el cálculo con base a esa fecha.";
     }
    
     return '';

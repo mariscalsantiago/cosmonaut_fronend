@@ -5,18 +5,22 @@
                 <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
                     <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
                         <h5 class="mb-0">
-                            <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse" data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
+                            <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse"
+                                data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
 
-                Detalle pago
-                <i aria-hidden="true" *ngIf="!arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-down "></i>
-                <i aria-hidden="true" *ngIf="arreglopintar[0]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
-              </button>
+                                Detalle pago
+                                <i aria-hidden="true" *ngIf="!arreglopintar[0]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="fas fa-chevron-down "></i>
+                                <i aria-hidden="true" *ngIf="arreglopintar[0]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="fas fa-chevron-up "></i>
+                            </button>
                         </h5>
                     </div>
 
-                    <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago" data-parent="#accordion">
+                    <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago"
+                        data-parent="#accordion">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
@@ -27,14 +31,17 @@
                                                 <td class="titulorow">Método de pago</td>
                                                 <td *ngIf="!metodopagobool">{{empleado?.metodoPagoId?.descripcion}}</td>
                                                 <td *ngIf="metodopagobool">
-                                                    <select [(ngModel)]="indexMetodoSeleccionado" (change)="cambiaValorMetodo()" class="form-control">
-                            <option *ngFor="let item of arregloMetodosPago" [value]="item.metodoPagoId">
-                              {{item.descripcion}}</option>
-                          </select>
+                                                    <select [(ngModel)]="indexMetodoSeleccionado"
+                                                        (change)="cambiaValorMetodo()" class="form-control">
+                                                        <option *ngFor="let item of arregloMetodosPago"
+                                                            [value]="item.metodoPagoId">
+                                                            {{item.descripcion}}</option>
+                                                    </select>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td *ngIf="detalleCuenta" class="titulorow text-left">DETALLE DE LA CUENTA</td>
+                                                <td *ngIf="detalleCuenta" class="titulorow text-left">DETALLE DE LA
+                                                    CUENTA</td>
                                             </tr>
 
                                             <div *ngIf="detalleCuenta" class="row mb-4 text-center">
@@ -60,17 +67,23 @@
                                         </tbody>
                                     </table>
 
-                                    <form *ngIf="metodopagobool && esTransferencia" [formGroup]="myFormMetodoPago" (ngSubmit)="enviandoMetodoPago()">
+                                    <form *ngIf="metodopagobool && esTransferencia" [formGroup]="myFormMetodoPago"
+                                        (ngSubmit)="enviandoMetodoPago()">
 
-                                        <div class="form-group mt-3 row margen"><label class="titulo">DETALLE DE LA CUENTA</label></div>
+                                        <div class="form-group mt-3 row margen"><label class="titulo">DETALLE DE LA
+                                                CUENTA</label></div>
                                         <div class="row">
                                             <div class="col-10">
                                                 <div class="form group row  margen">
                                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                                         <label>Número de cuenta *</label>
                                                         <input type="hidden" formControlName="cuentaBancoId">
-                                                        <input appSolonumeros maxlength="10" formControlName="numeroCuenta" type="text" class="form-control" placeholder="" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
-                                                        <div *ngIf="f.numeroCuenta.errors && submitEnviado" class="invalid-feedback">
+                                                        <input appSolonumeros maxlength="10"
+                                                            formControlName="numeroCuenta" type="text"
+                                                            class="form-control" placeholder=""
+                                                            [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
+                                                        <div *ngIf="f.numeroCuenta.errors && submitEnviado"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
 
@@ -78,27 +91,37 @@
                                                     </div>
                                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                                         <label>Cuenta CLABE *</label>
-                                                        <input #clabe (focusout)="validarBanco(clabe.value)" maxlength="18" formControlName="clabe" type="text" class="form-control" value="" [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
+                                                        <input #clabe (focusout)="validarBanco(clabe.value)"
+                                                            maxlength="18" formControlName="clabe" type="text"
+                                                            class="form-control" value=""
+                                                            [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
                                                             placeholder="">
-                                                        <div *ngIf="submitEnviado && f.clabe.errors?.required" class="invalid-feedback">
+                                                        <div *ngIf="submitEnviado && f.clabe.errors?.required"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
-                                                        <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
+                                                        <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched"
+                                                            class="invalid-feedback">
                                                             La CLABE no es válida
                                                         </div>
                                                     </div>
                                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                                         <label for="exampleFormControlSelect1">Banco *</label>
-                                                        <select formControlName="csBanco" class="form-control disabled bg-light" [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}">
-                                                        <option *ngFor="let item of arreglobancos" [value]="item.bancoId">{{item.nombreCorto}}</option>
+                                                        <select formControlName="csBanco"
+                                                            class="form-control disabled bg-light"
+                                                            [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}">
+                                                            <option *ngFor="let item of arreglobancos"
+                                                                [value]="item.bancoId">{{item.nombreCorto}}</option>
                                                         </select>
-                                                        <div *ngIf="submitEnviado && f.csBanco.errors" class="invalid-feedback">
+                                                        <div *ngIf="submitEnviado && f.csBanco.errors"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
                                                     </div>
                                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                                         <label>Número de ID cliente</label>
-                                                        <input appSolonumeros formControlName="numInformacion" type="text" class="form-control" placeholder="">
+                                                        <input appSolonumeros formControlName="numInformacion"
+                                                            type="text" class="form-control" placeholder="">
 
 
                                                     </div>
@@ -111,8 +134,10 @@
                                             <div class="col-12">
                                                 <div class="text-right margin" style="margin-bottom: 20px;">
 
-                                                    <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                                                    <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+                                                    <button (click)="cancelar()" type="button"
+                                                        class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary button-fill">Guardar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,9 +147,12 @@
                                 <div *ngIf="!metodopagobool" class="col-2"></div>
 
                                 <div class="col-12 text-right">
-                                    <button *ngIf="!metodopagobool" (click)="editandoMetodoPago(undefined)" class="btn btn-primary button-fill">Editar</button>
-                                    <button *ngIf="metodopagobool && !esTransferencia" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                                    <button *ngIf="metodopagobool && !esTransferencia" (click)="guardandometodoPago()" class="btn btn-primary button-fill">Guardar</button>
+                                    <button *ngIf="!metodopagobool" (click)="editandoMetodoPago(undefined)"
+                                        class="btn btn-primary button-fill">Editar</button>
+                                    <button *ngIf="metodopagobool && !esTransferencia" (click)="cancelar()"
+                                        class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                                    <button *ngIf="metodopagobool && !esTransferencia" (click)="guardandometodoPago()"
+                                        class="btn btn-primary button-fill">Guardar</button>
 
                                 </div>
                             </div>
@@ -134,13 +162,16 @@
                 <div class="card" [ngClass]="{'cardselected':arreglopintar[1]}">
                     <div class="card-header" id="compensacion">
                         <h5 class="mb-0">
-                            <button (click)="cambiarStatus(1)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Detalle de compensación
-                <i aria-hidden="true" *ngIf="!arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-down "></i>
-                <i aria-hidden="true" *ngIf="arreglopintar[1]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
-              </button>
+                            <button (click)="cambiarStatus(1)" class="btn btn-link collapsed" data-toggle="collapse"
+                                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Detalle de compensación
+                                <i aria-hidden="true" *ngIf="!arreglopintar[1]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="fas fa-chevron-down "></i>
+                                <i aria-hidden="true" *ngIf="arreglopintar[1]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="fas fa-chevron-up "></i>
+                            </button>
                         </h5>
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="compensacion" data-parent="#accordion">
@@ -152,14 +183,19 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="titulorow">Grupo de nómina</td>
-                                                    <td *ngIf="!detallecompensacionbool">{{empleado?.grupoNominaId?.nombre}}</td>
+                                                    <td *ngIf="!detallecompensacionbool">
+                                                        {{empleado?.grupoNominaId?.nombre}}</td>
                                                     <td *ngIf="detallecompensacionbool">
 
-                                                        <select (change)="cambiarGrupoNomina()" formControlName="grupoNominaId" class="form-control" [ngClass]="{'is-invalid':fc.grupoNominaId.errors && fc.grupoNominaId.touched}">
-                              <option *ngFor="let item of arreglogrupoNomina" [value]="item.id">{{item.nombre}}
-                              </option>
-                            </select>
-                                                        <div *ngIf="fc.grupoNominaId.errors && fc.grupoNominaId.touched" class="invalid-feedback">
+                                                        <select (change)="cambiarGrupoNomina()"
+                                                            formControlName="grupoNominaId" class="form-control"
+                                                            [ngClass]="{'is-invalid':fc.grupoNominaId.errors && fc.grupoNominaId.touched}">
+                                                            <option *ngFor="let item of arreglogrupoNomina"
+                                                                [value]="item.id">{{item.nombre}}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="fc.grupoNominaId.errors && fc.grupoNominaId.touched"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
 
@@ -167,63 +203,107 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="titulorow">Tipo de compensación</td>
-                                                    <td *ngIf="!detallecompensacionbool">{{empleado.tipoCompensacionId?.descripcion}}</td>
+                                                    <td *ngIf="!detallecompensacionbool">
+                                                        {{empleado.tipoCompensacionId?.descripcion}}</td>
                                                     <td *ngIf="detallecompensacionbool">
-                                                        <select formControlName="tipoCompensacionId" name="" id="" class="form-control" [ngClass]="{'is-invalid':fc.tipoCompensacionId.errors && fc.tipoCompensacionId.touched}">
-                              <option *ngFor="let item of arregloCompensacion" [value]="item.tipoCompensacionId">
-                                {{item.descripcion}}</option>
-                            </select>
-                                                        <div *ngIf="fc.tipoCompensacionId.errors && fc.tipoCompensacionId.touched" class="invalid-feedback">
+                                                        <select formControlName="tipoCompensacionId" name="" id=""
+                                                            class="form-control"
+                                                            [ngClass]="{'is-invalid':fc.tipoCompensacionId.errors && fc.tipoCompensacionId.touched}">
+                                                            <option *ngFor="let item of arregloCompensacion"
+                                                                [value]="item.tipoCompensacionId">
+                                                                {{item.descripcion}}</option>
+                                                        </select>
+                                                        <div *ngIf="fc.tipoCompensacionId.errors && fc.tipoCompensacionId.touched"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr *ngIf="detallecompensacionbool">
                                                     <td class="titulorow">Tipo sueldo de entrada</td>
-                                                    <td *ngIf="!detallecompensacionbool">{{empleado.tipoCompensacionId?.descripcion}}</td>
+                                                    <td *ngIf="!detallecompensacionbool">
+                                                        {{empleado.tipoCompensacionId?.descripcion}}</td>
                                                     <td *ngIf="detallecompensacionbool">
-                                                        <select formControlName="tiposueldo" (change)="cambiarSueldoField()" name="" id="" class="form-control" [ngClass]="{'is-invalid':fc.tiposueldo.errors && fc.tiposueldo.touched}">
-                              <option value="b">Bruto</option>
-                              <option value="n">Neto</option>
-                            </select>
-                                                        <div *ngIf="fc.tiposueldo.errors && fc.tiposueldo.touched" class="invalid-feedback">
+                                                        <select formControlName="tiposueldo"
+                                                            (change)="cambiarSueldoField()" name="" id=""
+                                                            class="form-control"
+                                                            [ngClass]="{'is-invalid':fc.tiposueldo.errors && fc.tiposueldo.touched}">
+                                                            <option value="b">Bruto</option>
+                                                            <option value="n">Neto</option>
+                                                        </select>
+                                                        <div *ngIf="fc.tiposueldo.errors && fc.tiposueldo.touched"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="titulorow"><span *ngIf="fc.tiposueldo.value == 'b'">Sueldo bruto
-                              mensual</span><span *ngIf="fc.tiposueldo.value == 'n'">Sueldo neto mensual</span></td>
-                                                    <td *ngIf="!detallecompensacionbool">{{empleado.sueldoBrutoMensual | currency:'$'}}</td>
-                                                    <td *ngIf="detallecompensacionbool && fc.tiposueldo.value == 'b'">
-                                                        <input formatos [moneda]="true" [control]="fc.sueldoBrutoMensual" formControlName="sueldoBrutoMensual" (focusout)="cambiasueldobruto()" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':fc.sueldoBrutoMensual.errors && fc.sueldoBrutoMensual.touched,'disabled':!sueldoBruto}">
+                                                    <td class="titulorow"><span
+                                                            *ngIf="!typeppp && fc.tiposueldo.value == 'b'">Sueldo bruto
+                                                            mensual</span><span
+                                                            *ngIf="!typeppp && fc.tiposueldo.value == 'n'">Sueldo neto
+                                                            mensual</span>
+                                                        <span *ngIf="typeppp">Sueldo neto mensual PPP*</span>
+                                                        </td>
+                                                    <td *ngIf="!detallecompensacionbool">{{empleado.sueldoBrutoMensual |
+                                                        currency:'$'}}</td>
+                                                    <td *ngIf="detallecompensacionbool && fc.tiposueldo.value == 'b' && !typeppp">
+                                                        <input formatos [moneda]="true"
+                                                            [control]="fc.sueldoBrutoMensual"
+                                                            formControlName="sueldoBrutoMensual"
+                                                            (focusout)="cambiasueldobruto()" type="text" name="" id=""
+                                                            class="form-control"
+                                                            [ngClass]="{'is-invalid':fc.sueldoBrutoMensual.errors && fc.sueldoBrutoMensual.touched}">
 
-                                                        <div *ngIf="fc.sueldoBrutoMensual.errors && fc.sueldoBrutoMensual.touched" class="invalid-feedback">
+                                                        <div 
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
                                                     </td>
-                                                    <td *ngIf="detallecompensacionbool && fc.tiposueldo.value== 'n'">
-                                                        <input formatos [moneda]="true" [control]="fc.sueldoNetoMensual" formControlName="sueldoNetoMensual" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':fc.sueldoNetoMensual.errors && fc.sueldoNetoMensual.touched,'disabled':!sueldoNeto}">
+                                                    <td *ngIf="detallecompensacionbool && fc.tiposueldo.value== 'n' && !typeppp">
+                                                        <input formatos [moneda]="true" [control]="fc.sueldoNetoMensual"
+                                                            formControlName="sueldoNetoMensual" type="text" name=""
+                                                            id="" class="form-control"
+                                                            [ngClass]="{'is-invalid':fc.sueldoNetoMensual.errors && fc.sueldoNetoMensual.touched}">
 
-                                                        <div *ngIf="fc.sueldoNetoMensual.errors && fc.sueldoNetoMensual.touched" class="invalid-feedback">
+                                                        <div *ngIf="fc.sueldoNetoMensual.errors && fc.sueldoNetoMensual.touched"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
+                                                    </td>
+                                                    <td  *ngIf="detallecompensacionbool && typeppp">
+                                                        <input formatos [moneda]="true" [control]="f.sueldonetomensualppp" formControlName="sueldonetomensualppp" (focusout)="cambiassueldoPPP()" type="text" name="" id="m1" class="form-control" [ngClass]="{'is-invalid':fc.sueldonetomensualppp.errors && fc.sueldonetomensualppp.touched}">
+                                                        <div class="invalid-feedback">
+                                                            Campo requerido
+                                                        </div>
+                                    
                                                     </td>
                                                 </tr>
-                                                <tr *ngIf="detallecompensacionbool && grupoNominaSeleccionado.pagoComplementario">
+                                                <tr
+                                                    *ngIf="detallecompensacionbool">
                                                     <td class="titulorow">Salario diario</td>
                                                     <td>
-                                                        <input formatos [moneda]="true" [control]="fc.salarioDiario" [ngClass]="{'is-invalid':fc.salarioDiario.errors && fc.salarioDiario.touched}" formControlName="salarioDiario" type="text" name="" id="" class="form-control">
-                                                        <div *ngIf="fc.salarioDiario.errors && fc.salarioDiario.touched" class="invalid-feedback">
+                                                        <input formatos [moneda]="true" [control]="fc.salarioDiario"
+                                                            [ngClass]="{'is-invalid':fc.salarioDiario.errors && fc.salarioDiario.touched}"
+                                                            formControlName="salarioDiario" type="text" name="" id=""
+                                                            class="form-control">
+                                                        <div *ngIf="fc.salarioDiario.errors && fc.salarioDiario.touched"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr *ngIf="detallecompensacionbool && grupoNominaSeleccionado.pagoComplementario">
+                                                <tr
+                                                    *ngIf="detallecompensacionbool && grupoNominaSeleccionado.pagoComplementario">
                                                     <td class="titulorow">Salario diario integrado</td>
                                                     <td>
-                                                        <input formatos [moneda]="true" [control]="fc.salarioDiarioIntegrado" [ngClass]="{'is-invalid':fc.salarioDiarioIntegrado.errors && fc.salarioDiarioIntegrado.touched}" formControlName="salarioDiarioIntegrado" type="text" name="" id="" class="form-control">
-                                                        <div *ngIf="fc.salarioDiarioIntegrado.errors && fc.salarioDiarioIntegrado.touched" class="invalid-feedback">
+                                                        <input formatos [moneda]="true"
+                                                            [control]="fc.salarioDiarioIntegrado"
+                                                            [ngClass]="{'is-invalid':fc.salarioDiarioIntegrado.errors && fc.salarioDiarioIntegrado.touched}"
+                                                            formControlName="salarioDiarioIntegrado" type="text" name=""
+                                                            id="" class="form-control">
+                                                        <div *ngIf="fc.salarioDiarioIntegrado.errors && fc.salarioDiarioIntegrado.touched"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
                                                     </td>
@@ -232,33 +312,72 @@
                                                     <td class="titulorow">Salario Base de Cotización</td>
                                                     <td>{{empleado.sbc | currency:'$'}}</td>
                                                 </tr>
-                                                <tr *ngIf="detallecompensacionbool && !grupoNominaSeleccionado.pagoComplementario">
+                                                <tr
+                                                    *ngIf="detallecompensacionbool && !grupoNominaSeleccionado.pagoComplementario">
                                                     <td class="titulorow">Salario Base de Cotización</td>
                                                     <td>
-                                                        <input formatos [moneda]="true" [control]="fc.sbc" [ngClass]="{'is-invalid':fc.sbc.errors && fc.sbc.touched}" formControlName="sbc" type="text" name="" id="" class="form-control">
-                                                        <div *ngIf="fc.sbc.errors && fc.sbc.touched" class="invalid-feedback">
+                                                        <input formatos [moneda]="true" [control]="fc.sbc"
+                                                            [ngClass]="{'is-invalid':fc.sbc.errors && fc.sbc.touched}"
+                                                            formControlName="sbc" type="text" name="" id=""
+                                                            class="form-control">
+                                                        <div *ngIf="fc.sbc.errors && fc.sbc.touched"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr *ngIf="detallecompensacionbool && grupoNominaSeleccionado.pagoComplementario">
+                                                    <td class="titulorow">Pago IMSS *</td>
+                                                    <td>
+                                                        <input formControlName="salarioNetoMensualImss" formatos [moneda]="true" type="text" name="" id="" class="form-control">
+                                                    </td>
+                                                </tr>
+                                                <tr
+                                                    *ngIf="detallecompensacionbool && grupoNominaSeleccionado.pagoComplementario">
                                                     <td class="titulorow">Pago complementario</td>
-                                                    <td><input formatos [moneda]="true" disabled type="text" name="" id="" class="form-control"></td>
+                                                    <td>
+                                                        <input formatos formControlName="pagoComplementario" [moneda]="true" type="text" name="" id="" class="form-control">
+                                                    </td>
                                                 </tr>
                                                 <tr *ngIf="detallecompensacionbool">
-                                                    <td class="titulorow">Salario <span *ngIf="fc.tiposueldo.value == 'b'"> neto
-                              mensual</span><span *ngIf="fc.tiposueldo.value== 'n'">bruto mensual</span></td>
-                                                    <td *ngIf="fc.tiposueldo.value == 'b'">
-                                                        <input formatos [moneda]="true" [control]="fc.sueldoNetoMensual" formControlName="sueldoNetoMensual" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':fc.sueldoNetoMensual.errors && fc.sueldoNetoMensual.touched,'disabled':!sueldoNeto}">
+                                                    <td class="titulorow">Salario <span
+                                                            *ngIf="fc.tiposueldo.value == 'b' && !typeppp"> neto
+                                                            mensual</span><span *ngIf="fc.tiposueldo.value== 'n' && !typeppp">bruto
+                                                            mensual</span>
+                                                            <span
+                                                            *ngIf="typeppp"> neto
+                                                            mensual</span>
+                                                        </td>
+                                                    <td *ngIf="fc.tiposueldo.value == 'b' && !typeppp">
+                                                        <input formatos [moneda]="true" [control]="fc.sueldoNetoMensual"
+                                                            formControlName="sueldoNetoMensual" type="text" name=""
+                                                            id="" class="form-control"
+                                                            [ngClass]="{'is-invalid':fc.sueldoNetoMensual.errors && fc.sueldoNetoMensual.touched,'disabled':!sueldoNeto}">
 
-                                                        <div *ngIf="fc.sueldoNetoMensual.errors && fc.sueldoNetoMensual.touched" class="invalid-feedback">
+                                                        <div *ngIf="fc.sueldoNetoMensual.errors && fc.sueldoNetoMensual.touched"
+                                                            class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
                                                     </td>
-                                                    <td *ngIf="fc.tiposueldo.value== 'n'">
-                                                        <input formatos [moneda]="true" [control]="fc.sueldoBrutoMensual" formControlName="sueldoBrutoMensual" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':fc.sueldoBrutoMensual.errors && fc.sueldoBrutoMensual.touched,'disabled':!sueldoBruto}">
+                                                    <td *ngIf="fc.tiposueldo.value== 'n' && !typeppp">
+                                                        <input formatos [moneda]="true"
+                                                            [control]="fc.sueldoBrutoMensual"
+                                                            formControlName="sueldoBrutoMensual" type="text" name=""
+                                                            id="" class="form-control"
+                                                            [ngClass]="{'is-invalid':fc.sueldoBrutoMensual.errors && fc.sueldoBrutoMensual.touched,'disabled':!sueldoBruto}">
 
-                                                        <div *ngIf="fc.sueldoBrutoMensual.errors && fc.sueldoBrutoMensual.touched" class="invalid-feedback">
+                                                        <div class="invalid-feedback">
+                                                            Campo requerido
+                                                        </div>
+                                                    </td>
+                                                    <td *ngIf="typeppp">
+                                                        <input formatos [moneda]="true"
+                                                            [control]="fc.sueldoBrutoMensualPPP"
+                                                            formControlName="sueldoBrutoMensualPPP" type="text" name=""
+                                                            id="" class="form-control"
+                                                            [ngClass]="{'is-invalid':fc.sueldoBrutoMensualPPP.errors && fc.sueldoBrutoMensualPPP.touched}">
+
+                                                        <div class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
                                                     </td>
@@ -270,25 +389,32 @@
                                 </div>
 
                                 <div class="col-12 text-right">
-                                    <button *ngIf="!detallecompensacionbool" (click)="verDetalleCompensacion()" class="btn btn-primary button-fill">Editar</button>
-                                    <button *ngIf="detallecompensacionbool" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                                    <button *ngIf="detallecompensacionbool" (click)="guardarDetalleCompensacion()" class="btn btn-primary button-fill">Guardar</button>
+                                    <button *ngIf="!detallecompensacionbool" (click)="verDetalleCompensacion()"
+                                        class="btn btn-primary button-fill">Editar</button>
+                                    <button *ngIf="detallecompensacionbool" (click)="cancelar()"
+                                        class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                                    <button *ngIf="detallecompensacionbool" (click)="guardarDetalleCompensacion()"
+                                        class="btn btn-primary button-fill">Guardar</button>
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}" placement="top" [mdbTooltip]="'percepciones' | tooltip">
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}" placement="top"
+                    [mdbTooltip]="'percepciones' | tooltip">
                     <div class="card-header" id="percepciones">
                         <h5 class="mb-0">
-                            <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
-                Percepciones específicas
-                <i aria-hidden="true" *ngIf="!arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-down "></i>
-                <i aria-hidden="true" *ngIf="arreglopintar[2]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
-              </button>
+                            <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse"
+                                data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
+                                Percepciones específicas
+                                <i aria-hidden="true" *ngIf="!arreglopintar[2]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="fas fa-chevron-down "></i>
+                                <i aria-hidden="true" *ngIf="arreglopintar[2]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="fas fa-chevron-up "></i>
+                            </button>
                         </h5>
                     </div>
                     <div id="collapsefour" class="collapse" aria-labelledby="percepciones" data-parent="#accordion">
@@ -301,13 +427,15 @@
                                             <label>RESULTADOS</label>
                                         </div>
                                         <div class="col text-right">
-                                            <button type="button" class="btn btn-light button-outlet" (click)="agregarPer()">
-                        <i aria-hidden="true" class="fa fa-plus"></i> Agregar percepción
-                      </button>
+                                            <button type="button" class="btn btn-light button-outlet"
+                                                (click)="agregarPer()">
+                                                <i aria-hidden="true" class="fa fa-plus"></i> Agregar percepción
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="row margen margen-tabla background-panel">
-                                        <app-tablapaginado [datos]="arreglotablaPert" [editar]="true" [cargando]="cargandoPer" (salida)="recibirTablaPer($event)">
+                                        <app-tablapaginado [datos]="arreglotablaPert" [editar]="true"
+                                            [cargando]="cargandoPer" (salida)="recibirTablaPer($event)">
                                         </app-tablapaginado>
                                     </div>
                                 </div>
@@ -315,16 +443,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" [ngClass]="{'cardselected':arreglopintar[3]}" placement="top" [mdbTooltip]="'deducciones' | tooltip">
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[3]}" placement="top"
+                    [mdbTooltip]="'deducciones' | tooltip">
                     <div class="card-header" id="deducciones">
                         <h5 class="mb-0">
-                            <button (click)="cambiarStatus(3)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
-                Deducciones específicas
-                <i aria-hidden="true" *ngIf="!arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-down "></i>
-                <i aria-hidden="true" *ngIf="arreglopintar[3]" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" class="fas fa-chevron-up "></i>
-              </button>
+                            <button (click)="cambiarStatus(3)" class="btn btn-link collapsed" data-toggle="collapse"
+                                data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                                Deducciones específicas
+                                <i aria-hidden="true" *ngIf="!arreglopintar[3]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="fas fa-chevron-down "></i>
+                                <i aria-hidden="true" *ngIf="arreglopintar[3]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="fas fa-chevron-up "></i>
+                            </button>
                         </h5>
                     </div>
                     <div id="collapseFive" class="collapse" aria-labelledby="deducciones" data-parent="#accordion">
@@ -337,13 +469,15 @@
                                             <label>RESULTADOS</label>
                                         </div>
                                         <div class="col text-right">
-                                            <button type="button" class="btn btn-light button-outlet" (click)="agregarDed()">
-                        <i aria-hidden="true" class="fa fa-plus"></i> Agregar deducción
-                      </button>
+                                            <button type="button" class="btn btn-light button-outlet"
+                                                (click)="agregarDed()">
+                                                <i aria-hidden="true" class="fa fa-plus"></i> Agregar deducción
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="row margen margen-tabla background-panel">
-                                        <app-tablapaginado [datos]="arreglotablaDedt" [editar]="true" [cargando]="cargandoDed" (salida)="recibirTablaDed($event)">
+                                        <app-tablapaginado [datos]="arreglotablaDedt" [editar]="true"
+                                            [cargando]="cargandoDed" (salida)="recibirTablaDed($event)">
                                         </app-tablapaginado>
                                     </div>
 

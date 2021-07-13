@@ -393,7 +393,7 @@ export class PagosComponent implements OnInit {
   }
 
   public validarBanco(clabe: any) {
-    debugger;
+    
 
     this.myFormMetodoPago.controls.csBanco.setValue("");
     this.myFormMetodoPago.controls.clabe.setValue("");
@@ -537,6 +537,7 @@ export class PagosComponent implements OnInit {
   public sueldoBruto:boolean = false;
   public sueldoNeto:boolean = false;
   public sueldoControlName:string = "";
+  public typeppp:boolean = false;
 
 
   public createFormCompensacion(obj: any) {
@@ -549,9 +550,13 @@ export class PagosComponent implements OnInit {
       sbc: [{ value: obj.sbc, disabled: true }],
       salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []],
       tiposueldo: ['b', [Validators.required]],
-      politicaId:[],
-      fechaAntiguedad: [],
-      fecIniPeriodo:[]
+      politicaId:[obj.politicaId?.politicaId],
+      fechaAntiguedad: [new DatePipe("es-MX").transform(obj.fechaAntiguedad,"yyyy-MM-dd")],
+      fecIniPeriodo:[],
+      salarioNetoMensualImss: [obj.salarioNetoMensualImss],
+      pagoComplementario: [{value:obj.pagoComplementario,disabled:true}],
+      sueldonetomensualppp: [obj.sueldonetomensualppp],
+      sueldoBrutoMensualPPP: [{ value: obj.pppSalarioBaseMensual,disabled:true}]
     });
   }
 
@@ -560,8 +565,6 @@ export class PagosComponent implements OnInit {
   }
 
   public guardarDetalleCompensacion() {
-
-
     if (this.myFormCompensacion.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       Object.values(this.myFormCompensacion.controls).forEach(control => {
@@ -572,61 +575,111 @@ export class PagosComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas actualizar los datos del usuario?").then(valor => {
       if (valor) {
-
+        this.enviarCompensacio();
       }
     });
   }
 
   public enviarCompensacio() {
-    if (this.myFormCompensacion.invalid) {
-      Object.values(this.myFormCompensacion.controls).forEach(control =>{
-        control.markAsTouched();
-      });
-      this.modalPrd.showMessageDialog(this.modalPrd.error);
-      return;
-    }
+ 
 
-
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas actualizar los datos del empleado?").then(valor => {
-      if (valor) {
-
-        const obj = this.myFormCompensacion.value;
+        const obj = this.myFormCompensacion.getRawValue();
         const objEnviar = {
           ...this.empleado,
           grupoNominaId: { grupoNominaId: obj.grupoNominaId },
           tipoCompensacionId: { tipoCompensacionId: obj.tipoCompensacionId },
-          sbc: obj.sbc
+          sbc: obj.sbc,
+          sueldoNetoMensual: obj.sueldoNetoMensual,
+          sueldoBrutoMensual: obj.sueldoBrutoMensual,
+          salarioDiario:obj.salarioDiario
         }
 
+
+        if (this.grupoNominaSeleccionado.pagoComplementario) {
+
+          objEnviar.sueldoNetoMensual = obj.salarioNetoMensualImss; //Pago imss
+          delete obj.salarioNetoMensualImss;
+          objEnviar.pppMontoComplementario = obj.pagoComplementario; //Pago complementario
+          objEnviar.sbc = obj.salarioDiarioIntegrado; //Sañario integrado
+          delete obj.salarioDiarioIntegrado;
+          objEnviar.pppSalarioBaseMensual = obj.sueldoBrutoMensualPPP;//sueldo menusal ppp
+        }
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.contratoColaboradorPrd.update(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(datos.resultados, datos.mensaje).then(() => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
             if (datos.resultado) {
               this.empleado = datos.datos;
               this.cancelar();
             }
           });
         });
+  }
+
+  public cambiassueldoPPP(){
+    
+    if (this.myFormCompensacion.controls.salarioDiario.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el salario diario");
+      return;
+    }
+
+
+    let objenviar: any = {
+      clienteId: this.usuariosSistemaPrd.getIdEmpresa(),
+      politicaId: this.myFormCompensacion.controls.politicaId.value,
+      grupoNomina: this.myFormCompensacion.controls.grupoNominaId.value,
+      tipoCompensacion: this.myFormCompensacion.controls.tipoCompensacionId.value,
+      pagoNeto: this.myFormCompensacion.controls.sueldonetomensualppp.value,
+      fechaAntiguedad: this.myFormCompensacion.controls.fechaAntiguedad.value,
+      fechaContrato: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"),
+      sdImss: this.myFormCompensacion.controls.salarioDiario.value
+    }
+
+
+
+    //*************calculo PPP *******************+ */
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    this.calculoPrd.calculoSueldoNetoPPP(objenviar).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      let aux = datos.datos;
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      if (datos.datos !== undefined) {
+
+        this.myFormCompensacion.controls.salarioDiarioIntegrado.setValue(aux.sbc);
+        this.myFormCompensacion.controls.salarioNetoMensualImss.setValue(aux.sueldoNetoMensual);
+        this.myFormCompensacion.controls.sueldoNetoMensual.setValue(aux.sueldoNetoMensual);
+        this.myFormCompensacion.controls.sueldoBrutoMensual.setValue(aux.sueldoBrutoMensual);
+        this.myFormCompensacion.controls.pagoComplementario.setValue(aux.pppMontoComplementario);
+        this.myFormCompensacion.controls.sueldoBrutoMensualPPP.setValue(aux.pppSbm);
+
+
 
       }
     });
+
   }
+
+  
 
 
   public verDetalleCompensacion() {
+    console.log("verDetalleCompensacion");
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
+    console.log(this.myFormCompensacion);
     this.detallecompensacionbool = true
     this.suscribirseCompensacion();
-
-
-    setTimeout(() => {
-      this.myFormCompensacion.controls.sueldoBrutoMensual.setValue(2342.34);
-      
-    }, 3000);
   }
 
 
   public suscribirseCompensacion(){
+    this.cambiarSueldoField();
   }
+
+
+  
 
 
 
@@ -652,24 +705,33 @@ export class PagosComponent implements OnInit {
 
     if (this.grupoNominaSeleccionado.pagoComplementario) {
 
+      this.typeppp = true;
+
+
+      this.myFormCompensacion.controls.salarioNetoMensualImss.disable();
+      this.myFormCompensacion.controls.pagoComplementario.disable();
+
 
       this.myFormCompensacion.controls.tiposueldo.disable();
       this.myFormCompensacion.controls.tiposueldo.setValue('n');
 
-      
+
       this.myFormCompensacion.controls.tipoCompensacionId.setValue(2);
 
 
       this.myFormCompensacion.controls.salarioDiario.enable();
+      this.myFormCompensacion.controls.salarioDiarioIntegrado.disable();
 
       this.myFormCompensacion.controls.salarioDiario.setValidators([Validators.required]);
       this.myFormCompensacion.controls.salarioDiario.updateValueAndValidity();
       this.myFormCompensacion.controls.salarioDiarioIntegrado.setValidators([Validators.required]);
       this.myFormCompensacion.controls.salarioDiarioIntegrado.updateValueAndValidity();
-      this.myFormCompensacion.controls.salarioDiarioIntegrado.disable();
 
-      this.cambiarSueldoField();
-    }else{
+     
+
+    } else {
+
+      this.typeppp = false;
       this.myFormCompensacion.controls.salarioDiario.setValidators([]);
       this.myFormCompensacion.controls.salarioDiario.updateValueAndValidity();
       this.myFormCompensacion.controls.salarioDiarioIntegrado.setValidators([]);
@@ -678,10 +740,10 @@ export class PagosComponent implements OnInit {
 
       this.myFormCompensacion.controls.tiposueldo.enable();
       this.myFormCompensacion.controls.salarioDiario.disable();
-      
+
     }
 
-
+    this.cambiarSueldoField();
 
   }
 
@@ -701,16 +763,20 @@ export class PagosComponent implements OnInit {
     this.myFormCompensacion.controls.sueldoBrutoMensual.setValidators([]);
     this.myFormCompensacion.controls.sueldoBrutoMensual.updateValueAndValidity();
 
+    this.myFormCompensacion.controls.sueldoBrutoMensual.disable();
+    this.myFormCompensacion.controls.sueldoNetoMensual.disable();
+
     if (this.sueldoNeto) {
 
 
       this.myFormCompensacion.controls.sueldoNetoMensual.setValidators([Validators.required]);
       this.myFormCompensacion.controls.sueldoNetoMensual.updateValueAndValidity();
-
-
+      
+      this.myFormCompensacion.controls.sueldoNetoMensual.enable();
     }
 
     if (this.sueldoBruto) {
+      this.myFormCompensacion.controls.sueldoBrutoMensual.enable();
       this.myFormCompensacion.controls.sueldoBrutoMensual.setValidators([Validators.required]);
       this.myFormCompensacion.controls.sueldoBrutoMensual.updateValueAndValidity();
     }

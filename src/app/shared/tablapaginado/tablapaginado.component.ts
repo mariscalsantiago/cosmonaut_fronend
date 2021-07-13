@@ -52,6 +52,9 @@ export class TablapaginadoComponent implements OnInit {
 
   @Input() public esnomina:boolean = false;
 
+
+  public seleccionarGlobal:boolean = false;
+
   
 
   public arreglotemp: any = [];
@@ -384,6 +387,13 @@ export class TablapaginadoComponent implements OnInit {
       case "cancelartimbrado":
         this.salida.emit({ type: "cancelartimbrado", datos: item, indice: indice });
         break;
+    }
+  }
+
+
+  public seleccionarTodos(){
+    for(let item of this.arreglotemp){
+        item.seleccionado = !this.seleccionarGlobal;
     }
   }
   

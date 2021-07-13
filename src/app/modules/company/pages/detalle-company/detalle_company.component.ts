@@ -58,7 +58,7 @@ export class DetalleCompanyComponent implements OnInit {
 
   ngOnInit(): void {  
 
-    debugger;
+    
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.compania = true;
 
@@ -86,7 +86,7 @@ export class DetalleCompanyComponent implements OnInit {
 
       if(this.objCompany.centrocClienteId != undefined){
       this.authUsuariosPrd.getVersionByEmpresa(this.objCompany.centrocClienteId).subscribe(datos =>{
-        debugger;
+        
         this.myFormcomp.controls.versioncosmonaut.setValue(datos.datos.versionCosmonautId?.versionCosmonautId);
         this.versionEmpresa = datos.datos;
         
@@ -114,7 +114,7 @@ export class DetalleCompanyComponent implements OnInit {
 
 
   public createFormcomp(obj: any) {
-    debugger;
+    
     
 
     let datePipe = new DatePipe("en-MX");
@@ -201,7 +201,7 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
   public enviarPeticioncomp() {
-    debugger;
+    
     this.submitEnviado = true;
     if (this.myFormcomp.invalid) {     
       this.modalPrd.showMessageDialog(this.modalPrd.error);

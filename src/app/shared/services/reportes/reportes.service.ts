@@ -205,6 +205,10 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
     return this.http.get(`${direcciones.reportes}/nominaHistorica/polizaContable/${idNomina}`);
   }
 
+  public getFoliosnominaConcluir(obj:any):Observable<any>{
+      return this.http.post(`${direcciones.reportes}/nominaHistorica/folioFiscal`,obj);
+  }
+
   public crearArchivo(base64:string,nombre:string,extension:string){
     const linkSource = 'data:application/pdf;base64,' + `${base64}\n`;
     const downloadLink = document.createElement("a");

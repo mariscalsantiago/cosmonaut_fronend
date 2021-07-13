@@ -76,16 +76,15 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
         archivo:[{value:'',disabled:false},Validators.required]
     });
 
-    this.companiasPrd.getAllEmp(this.usuariosPrd.getIdEmpresa()).subscribe(datos => {
-
-      this.arregloCompanias = datos.datos;
-
-      if (this.usuariosPrd.getRol() == "ADMINEMPRESA") {
-        this.arregloCompanias = [(this.usuariosPrd.getDatosUsuario().centrocClienteId)]
-      }
-    });
-
-
+    if(this.usuariosPrd.esCliente()){
+      this.companiasPrd.getAllEmp(this.usuariosPrd.getIdEmpresa()).subscribe(datos => {
+          this.arregloCompanias = datos.datos;
+      });
+    }else{
+      this.companiasPrd.getEmpresaById(this.usuariosPrd.getIdEmpresa()).subscribe(datos =>{
+        this.arregloCompanias = [datos.datos];
+      });
+    }
 
     this.areasPrd.getAreasByEmpresa(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.arregloareas = datos.datos);
 
