@@ -290,6 +290,8 @@
                         <th id="" class="text-center" scope="col">Límite superior</th>
                         <th id="" class="text-center" scope="col">Cuota fija</th>
                         <th id="" class="text-center" scope="col">Excedente %</th>
+                        <th id="" class="text-center" scope="col">Fecha Inicio</th>
+                        <th id="" class="text-center" scope="col">Fecha Fin</th>
                     </tr>
                     <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaIsrId = index">
                         <td class="td-center">
@@ -303,6 +305,12 @@
                         </td>
                         <td class="td-center">
                             <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)">{{valores.porcExcedenteLimInf}}</span>
+                        </td>
+                        <td class="td-center">
+                            <input type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaIsrId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'fechaInicio', $event)">
+                        </td>
+                        <td class="td-center">
+                            <input type="date" [value]="valores.fechaFin" (keydown)="changeValue(tarifaPeriodicaIsrId, 'fechaFin', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'fechaFin', $event)">
                         </td>
 
                     </tr>
@@ -340,6 +348,8 @@
                         <th id="" class="text-center" scope="col">Límite superior</th>
                         <th id="" class="text-center" scope="col">Cuota fija</th>
                         <th id="" class="text-center" scope="col">Excedente %</th>
+                        <th id="" class="text-center" scope="col">Fecha Inicio</th>
+
                     </tr>
 
                     <tr *ngFor="let valores of arregloTablaValores; let tasaAplicableIsnId = index">
@@ -355,6 +365,7 @@
                         <td>
                             <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'tasa', $event)" (blur)="updateList(tasaAplicableIsnId, 'tasa', $event)">{{valores.tasa}}</span>
                         </td>
+
                     </tr>
 
                 </table>
@@ -389,6 +400,8 @@
                         <th id="" class="text-center td-center" scope="col">Límite inferior</th>
                         <th id="" class="text-center td-center" scope="col">Límite superior</th>
                         <th id="" class="text-center td-center" scope="col">Cantidad de subsidio para el empleo</th>
+                        <th id="" class="text-center" scope="col">Fecha Inicio</th>
+                        <th id="" class="text-center" scope="col">Fecha Fin</th>
                     </tr>
                     <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaSubsidioId = index">
                         <td class="td-center">
@@ -399,6 +412,12 @@
                         </td>
                         <td class="td-center">
                             <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
+                        </td>
+                        <td class="td-center">
+                            <input type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)">
+                        </td>
+                        <td class="td-center">
+                            <input type="date" [value]="valores.fechaFin" (keydown)="changeValue(tarifaPeriodicaSubsidioId, 'fechaFin', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'fechaFin', $event)">
                         </td>
 
                     </tr>

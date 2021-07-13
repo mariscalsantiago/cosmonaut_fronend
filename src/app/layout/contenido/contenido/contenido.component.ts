@@ -376,6 +376,15 @@ export class ContenidoComponent implements OnInit {
 
 
   public irRuta(item: any) {
+    /*let intervalo = interval(300);
+    intervalo.pipe(take(1));
+    let valor = intervalo.subscribe(() => {
+      this.configuracionPrd.accesoRuta = false;
+      valor.unsubscribe();
+    });*/
+
+
+
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
     this.configuracionPrd.menu = false;
