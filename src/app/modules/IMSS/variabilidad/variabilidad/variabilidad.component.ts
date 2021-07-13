@@ -299,7 +299,7 @@ export class VariabilidadComponent implements OnInit {
 
 
   public desgargarArchivo(obj:any) {
-    debugger;
+    
     if(this.variabilidad == 0){
       this.varibilidadID = obj.datos.variabilidadId;
     }else{
@@ -464,7 +464,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    debugger;
+    
     switch (obj.type) {
       case "descargar":
           this.desgargarArchivo(obj);

@@ -30,7 +30,7 @@ export class ConfiguracionesService {
   public permisosActuales!: Array<clasepermiso>;
 
 
-  public ocultarChat: any = undefined;
+  public ocultarChat: any = true;
 
   public notificaciones: number = 0;
 

@@ -92,7 +92,7 @@ export class EmpleoComponent implements OnInit {
   public suscripciones(){
     this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato:number) =>{
       console.log("SI se suscribe todo este show");
-      debugger;
+      
       if (idContrato != 1 && idContrato != 10)
         this.myForm.controls.fechaFin.setValidators([Validators.required]);
       else
@@ -146,9 +146,16 @@ export class EmpleoComponent implements OnInit {
     }
 
 
-    const titulo =  "¿Deseas actualizar los datos del usuario?";
+    const titulo = this.empleado.esActivo? "¿Deseas actualizar los datos del usuario?":`
+    Usuario con baja`;
+
+    const subtitulo = this.empleado.esActivo? "":`El empleado fue dado de baja previamente
+    ¿Estás seguro de que deseas activar al empleado?
+    Será considerado nuevamente en la generación de nóminas`;
+
+
  
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo,subtitulo).then(valor =>{
       if(valor){
         let obj = this.myForm.value;    
         
@@ -198,7 +205,8 @@ export class EmpleoComponent implements OnInit {
           jefeInmediatoId:{personaId:this.puestoIdReporta == 0 ? null : this.puestoIdReporta},
           esSindicalizado:obj.esSindicalizado,
           fechaAltaImss:obj.fechaAltaImss,
-          numEmpleado:obj.numEmpleado      
+          numEmpleado:obj.numEmpleado,
+          esActivo:true
       }
 
     

@@ -106,7 +106,7 @@ export class NominaCalculadoraComponent implements OnInit {
   public calcular() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas calcular?").then(valor => {
       if(valor){
-         debugger;   
+            
         let  obj = this.myForm.getRawValue();
 
 

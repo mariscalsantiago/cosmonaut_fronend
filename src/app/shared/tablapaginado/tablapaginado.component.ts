@@ -392,7 +392,7 @@ export class TablapaginadoComponent implements OnInit {
 
 
   public seleccionarTodos(){
-    for(let item of this.arreglo){
+    for(let item of this.arreglotemp){
         item.seleccionado = !this.seleccionarGlobal;
     }
   }
