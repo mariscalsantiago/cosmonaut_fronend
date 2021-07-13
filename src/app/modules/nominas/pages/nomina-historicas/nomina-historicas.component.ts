@@ -70,7 +70,7 @@ export class NominaHistoricasComponent implements OnInit {
   public recibirTabla(obj: any) {
     obj.datos.cargandoDetalle = false;
 
-    console.log(obj);
+    
 
     let objEnviar: any;
 

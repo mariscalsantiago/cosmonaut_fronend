@@ -59,7 +59,7 @@ export class CalendarioComponent implements OnInit {
 
     this.eventoPrd.filtro(obj).subscribe(datos => {
 
-      console.log("Eventos", datos.datos);
+      
       this.arreglo = datos.datos;
 
 

@@ -9,6 +9,7 @@ import { ContenidoComponent } from './layout/contenido/contenido/contenido.compo
 
 
 
+
 export const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: 'inicio', component: ContenidoComponent, canActivate: [InicioRutasService], loadChildren: () => import('./modules/inicio/inicio.module').then(m => m.InicioModule) },
@@ -33,4 +34,16 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+
+
+
+export class AppRoutingModule {
+
+  constructor(){
+
+  }
+
+ }
+
+
+

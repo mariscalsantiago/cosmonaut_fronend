@@ -170,7 +170,7 @@ export class EmpleoComponent implements OnInit {
           });
 
       } else {
-        console.log(fechaInicioContra,"Esta es su fecha de contrato");
+        
         this.myForm.controls.fechaInicio.setValue(fechaInicioContra);
       }
     });
@@ -236,7 +236,7 @@ export class EmpleoComponent implements OnInit {
   public validarfechaFinCont() {
 
 
-    console.log("Esta es la fecha de fin",this.myForm.controls.fechaInicio.value);
+    
 
     let fechaFin:Date = new Date(this.myForm.controls.fechaFin.value);
     let fechaInicio:Date = new Date(this.myForm.controls.fechaInicio.value);
