@@ -555,7 +555,7 @@ export class EmpleoComponent implements OnInit {
             nombre: this.datosPersona.nombre,
             apellidoPat: this.datosPersona.apellidoPaterno,
             apellidoMat: this.datosPersona.apellidoMaterno,
-            email: this.datosPersona.emailCorporativo?.toLowerCase(),
+            email: this.datosPersona.emailCorporativo,
             centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
             rolId: 3
           }

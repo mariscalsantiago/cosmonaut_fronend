@@ -720,6 +720,7 @@ export class PagosComponent implements OnInit {
 
 
       this.myFormCompensacion.controls.salarioDiario.enable();
+      this.myFormCompensacion.controls.salarioDiarioIntegrado.disable();
 
       this.myFormCompensacion.controls.salarioDiario.setValidators([Validators.required]);
       this.myFormCompensacion.controls.salarioDiario.updateValueAndValidity();
