@@ -46,8 +46,8 @@ export class CalendarioComponent implements OnInit, OnChanges {
         if (this.eventos !== undefined) {
           for (let item of this.eventos) {
             let fechaEvento: Date = new Date(item.fechaInicio);
-            console.log(item.fechaInicio);
-            console.log(fechaEvento);
+            
+            
 
             let mes = datepipe.transform(fechaEvento,"MM");
             

@@ -91,7 +91,7 @@ export class EmpleoComponent implements OnInit {
 
   public suscripciones(){
     this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato:number) =>{
-      console.log("SI se suscribe todo este show");
+      
       
       if (idContrato != 1 && idContrato != 10)
         this.myForm.controls.fechaFin.setValidators([Validators.required]);

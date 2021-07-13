@@ -131,8 +131,6 @@ export class ContenidoComponent implements OnInit {
     
 
     if (this.authPrd.isAuthenticated()) {
-      console.log("Esta en sesion",this.authPrd.isAuthenticated());
-      console.log("Hay sesion de menu",this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO));
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
         
         this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
@@ -168,10 +166,9 @@ export class ContenidoComponent implements OnInit {
 
       } else {
 
-        console.log("Hay emnu chavos",this.configuracionPrd.MENUPRINCIPAL);
+        
 
         if (!Boolean(this.configuracionPrd.MENUPRINCIPAL)) {
-          console.log("Entra para meter el menu en menu configuracion");
           this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
             this.PRINCIPAL_MENU = datos;
             this.establecericons();
@@ -353,7 +350,7 @@ export class ContenidoComponent implements OnInit {
                     if(!this.chatPrd.yaRecibeMensajes){
                     
                       this.chatPrd.setMensajes(JSON.parse(socketrespuesta.data));
-                      console.log("Anda recibiendo mensajes sin iniciar el globo del chat",socketrespuesta.data);
+                      
                       this.chatPrd.datos.datos.numeromensajes += 1;
                       this.chatPrd.datos.datos.mensajeRecibido = true;
                     }
@@ -379,15 +376,6 @@ export class ContenidoComponent implements OnInit {
 
 
   public irRuta(item: any) {
-    let intervalo = interval(300);
-    intervalo.pipe(take(1));
-    let valor = intervalo.subscribe(() => {
-      this.configuracionPrd.accesoRuta = false;
-      valor.unsubscribe();
-    });
-
-
-
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
     this.configuracionPrd.menu = false;

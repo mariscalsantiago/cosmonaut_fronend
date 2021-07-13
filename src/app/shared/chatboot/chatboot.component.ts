@@ -166,7 +166,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit {
       nombre: `${this.usuarioSistemaPrd.getUsuario().nombre} ${this.usuarioSistemaPrd.getUsuario().apellidoPat}`
     };
 
-    console.log("Usuario enviado", objEnviado);
+    
 
     this.arreglomensajes.push(objEnviado);
     let body = JSON.stringify(this.arreglomensajes.slice(1));

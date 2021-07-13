@@ -44,7 +44,7 @@ export class ChatSocketService {
 
     let auxsocket = cadenaSocket;
     this.socket.onclose = ()=>{
-      console.log("Se desconecto el webservices");
+      
      
     }
   }

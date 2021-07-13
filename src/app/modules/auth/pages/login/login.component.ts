@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit {
         this.mensajesuccess = false;
         this.mensajeerror = false;
 
-        console.log(valorusuario);
+        
 
         this.usuarioObj = valorusuario.datos.usuario;
        

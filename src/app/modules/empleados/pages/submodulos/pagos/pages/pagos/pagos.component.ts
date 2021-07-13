@@ -666,9 +666,9 @@ export class PagosComponent implements OnInit {
 
 
   public verDetalleCompensacion() {
-    console.log("verDetalleCompensacion");
+    
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
-    console.log(this.myFormCompensacion);
+    
     this.detallecompensacionbool = true
     this.suscribirseCompensacion();
   }
