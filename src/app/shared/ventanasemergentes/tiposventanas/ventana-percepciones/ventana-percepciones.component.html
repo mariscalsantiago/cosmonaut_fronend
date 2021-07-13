@@ -10,13 +10,14 @@
         </select>
     </div>
 
-    <div class="input-group-sm mb-3 col-4">
+    <div  class="input-group-sm mb-3 col-4">
         <label for="exampleFormControlSelect1">Nombre de percepción *</label>
         <select #tipoPercepcion (focusout)="validarPercepcion(tipoPercepcion.value)" formControlName="nomPercepcion" type="text" class="form-control">
             <option value=""></option>
             <option *ngFor="let item of nombrePercepcion"  [value]="item.tipoPercepcionId.tipoPercepcionId">{{item.nombre}}</option>
         </select>
     </div>
+
     <div class="input-group-sm mb-3 col-4">
         <label>Fecha inicio de percepción *</label>
         <input formControlName="fechaInicio" type="date" class="form-control">
