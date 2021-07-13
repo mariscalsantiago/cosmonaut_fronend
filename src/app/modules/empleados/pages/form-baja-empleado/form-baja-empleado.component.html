@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                         <label>Seleccionar al empleado *</label>
-                        <select #empleado (focusout)="validarEmpleado(empleado.value)"  formControlName="personaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}">
+                        <select #empleado (focusout)="validarEmpleado(empleado.value)" formControlName="personaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}">
                       <option value=""></option>
                       <option *ngFor="let item of arreglobaja"  [value]="item.personaId.personaId">{{item.personaId.nombre}} {{item.personaId.apellidoPaterno}} {{item.personaId.apellidoMaterno}}</option>
                   </select>
@@ -64,7 +64,7 @@
                     </div>
                     <div *ngIf="ultimaNomina" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                         <label>Fecha fin de última nómina pagada *</label>
-                        <input formControlName="ultimoDia" type="date" [ngClass]="{'is-invalid':f.ultimoDia.errors && submitEnviado}" class="form-control">
+                        <input formControlName="ultimoDia" placement="top" [mdbTooltip]="'fechaFinNomina' | tooltip" type="date" [ngClass]="{'is-invalid':f.ultimoDia.errors && submitEnviado}" class="form-control">
                         <div *ngIf="f.ultimoDia.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
