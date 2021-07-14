@@ -70,7 +70,7 @@ export class DetallepoliticasComponent implements OnInit {
     
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     this.idPolitica = objdetrep.politicaId;
-    this.id_empresa = objdetrep.centrocClienteId;
+    //this.id_empresa = objdetrep.centrocClienteId;
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
     });
@@ -461,7 +461,7 @@ export class DetallepoliticasComponent implements OnInit {
     this.bancosPrd.modificarDeduccionPolitica(obj).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-      this.bancosPrd.getListaDeduccionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.bancosPrd.getListaDeduccionesPolitica(this.idPolitica, this.id_empresa).subscribe(datos => {
         this.crearTablaDeduccion(datos);
       });
     });
@@ -488,7 +488,7 @@ export class DetallepoliticasComponent implements OnInit {
     this.bancosPrd.modificarPercepcionPolitica(obj).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-      this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.bancosPrd.getListaPercepcionesPolitica(this.idPolitica, this.id_empresa).subscribe(datos => {
         this.crearTablaPercepcion(datos);
       });
     });
