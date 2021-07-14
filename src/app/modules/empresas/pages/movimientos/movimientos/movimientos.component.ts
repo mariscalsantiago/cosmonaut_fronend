@@ -86,10 +86,13 @@ export class MovimientosComponent implements OnInit {
     debugger;
 
         
-    if (this.fechaMovimiento != undefined) {
+    if (this.fechaMovimiento != "" && this.fechaMovimiento != undefined) {
     
       const fecha1 = new Date(this.fechaMovimiento).toUTCString().replace("GMT", "");
       this.fechaMovimientoFinal = `${new Date(fecha1).getTime()}`;
+    }else{
+
+      this.fechaMovimientoFinal = ""
     }
 
     this.cargando = true;
