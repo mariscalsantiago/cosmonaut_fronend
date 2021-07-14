@@ -408,12 +408,13 @@ export class VariabilidadComponent implements OnInit {
                 personaID
               };*/
 
+              
               {
                 clienteId: this.idEmpresa,
                 bimestre: obj.bimestre,
-                fechaAplicacion: obj.fecha,
+                fechaAplicacion: "2021-01-01",
                 anioFiscal: this.anioFiscal,
-                usuarioId: this.idUsuario
+                usuarioId: 1
               };
 
                 debugger;
