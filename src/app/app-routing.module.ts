@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule, OnDestroy } from '@angular/core';
+import { Routes, RouterModule, PreloadAllModules, NoPreloading } from '@angular/router';
 import { ProteccionRutasService } from './core/auth/proteccion-rutas.service';
 import { InicioRutasService } from './core/auth/subdiviciones/inicio-rutas.service';
 import { LoadingRutasService } from './core/auth/subdiviciones/loading-rutas.service';
@@ -30,9 +30,11 @@ export const routes: Routes = [
   { path: 'auth', component: AuthComponent,canActivate:[ProteccionRutasLoginService], loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
   { path: '**', redirectTo: '/auth/login', pathMatch: 'full' }
 ]
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { useHash: true})],
+  exports: [RouterModule],
+  
 })
 
 

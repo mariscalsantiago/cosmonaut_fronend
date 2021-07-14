@@ -132,7 +132,7 @@ this.filtrar();
 
 
   public eliminarIncidencia(obj:any,indice:number){
-     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas inactivar el evento?").then((valor)=>{
+     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar el evento?").then((valor)=>{
         if(valor){
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.eventosPrd.delete(obj.incidenciaId).subscribe(datos =>{

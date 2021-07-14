@@ -8,6 +8,12 @@
     background-color: transparent!important;
 }
 
+input[type="date"] {
+    background-color: transparent;
+    //max-width: 60%;
+    border: 0 none transparent;
+}
+
 .td-center {
     text-align: center !important;
 }

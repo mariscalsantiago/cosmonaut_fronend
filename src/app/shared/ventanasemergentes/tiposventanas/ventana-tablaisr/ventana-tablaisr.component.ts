@@ -50,12 +50,23 @@ export class VentanaTablaISRComponent implements OnInit {
     
      
     this.arreglotarifaISR = datos.datos;
+    if (this.arreglotarifaISR !== undefined) {
+      for (let item of this.arreglotarifaISR) {
+        item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
+        item.fechaFin = (new Date(item.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "");
+        let datepipe = new DatePipe("es-MX");
+        item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");;
+        item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");;
+      }
+    }
+
     let columnas: Array<tabla> = [
       new tabla("limiteInferior", "Límite inferior"),
       new tabla("limiteSuperior", "Límite superior"),
       new tabla("cuotaFija", "Cuota fija"),
-      new tabla("porcExcedenteLimInf", "Excedente %")
-
+      new tabla("porcExcedenteLimInf", "Excedente %"),
+      new tabla("fechaInicio", "Fecha Inicio"),
+      new tabla("fechaFin", "Fecha Fin")
     ];
 
     this.arreglotablaISR = {
