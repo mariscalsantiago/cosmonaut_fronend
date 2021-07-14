@@ -9,8 +9,7 @@ import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.servi
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
-import { interval, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/modules/chat/services/chat.service';
 
 
@@ -38,6 +37,8 @@ export class ContenidoComponent implements OnInit {
 
 
   public suscripcion!: Subscription;
+
+  
 
 
 
@@ -283,7 +284,7 @@ export class ContenidoComponent implements OnInit {
         this.sistemaUsuarioPrd.logout().subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.authPrd.eliminarTokens();
-
+          this.PRINCIPAL_MENU = undefined;
           this.navigate.navigateByUrl('/auth/login');
         });
       }
