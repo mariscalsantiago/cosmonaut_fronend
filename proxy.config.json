@@ -1,6 +1,6 @@
 {
     "/empresas/*":{
-        "target":"https://34.75.54.120/empresa",
+        "target":"https://cosmonautdev.wintermute.services/empresa",
         "secure":false,
         "pathRewrite": {
             "^/empresas": ""
@@ -8,7 +8,7 @@
          "changeOrigin": true
     },
     "/yared/*":{
-        "target":"https://34.75.54.120/empresa",
+        "target":"https://cosmonautdev.wintermute.services/empresa",
         "secure":false,
         "pathRewrite": {
             "^/yared": ""
@@ -16,7 +16,7 @@
          "changeOrigin": true
     },
     "/catalogos/*":{
-        "target":"https://34.75.54.120/catalogos",
+        "target":"https://cosmonautdev.wintermute.services/catalogos",
         "secure":false,
         "pathRewrite": {
             "^/catalogos": ""
@@ -24,7 +24,7 @@
          "changeOrigin": true
     },
     "/nomina/*":{
-        "target":"https://34.75.54.120/nomina",
+        "target":"https://cosmonautdev.wintermute.services/nomina",
         "secure":false,
         "pathRewrite": {
             "^/nomina": ""
@@ -32,7 +32,7 @@
          "changeOrigin": true
     },
     "/admin/*":{
-        "target":"https://34.75.54.120/admin",
+        "target":"https://cosmonautdev.wintermute.services/admin",
         "secure":false,
         "pathRewrite": {
             "^/admin": ""
@@ -41,7 +41,7 @@
     }
     ,
     "/reportes/*":{
-        "target":"https://34.75.54.120/reportes",
+        "target":"https://cosmonautdev.wintermute.services/reportes",
         "secure":false,
         "pathRewrite": {
             "^/reportes": ""

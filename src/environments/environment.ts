@@ -9,7 +9,7 @@ export const environment = {
   rutaNomina:'/nomina',
   rutaAdmin: '/admin',
   rutaReportes:'/reportes',
-  rutaSocket:'wss://34.75.54.120/empresa'
+  rutaSocket:'wss://cosmonautdev.wintermute.services/empresa'
 };
 
 /*

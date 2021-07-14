@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  rutaEmpresa:'https://34.75.54.120/empresa',
-  rutaCatalogos:'https://34.75.54.120/catalogos',
-  rutaAdmin:'https://34.75.54.120/admin',
-  rutaReportes:'https://34.75.54.120/reportes',
-  rutaNomina:'https://34.75.54.120/nomina',
-  rutaSocket:'wss://34.75.54.120/empresa'
+  rutaEmpresa:'https://cosmonautdev.wintermute.services/empresa',
+  rutaCatalogos:'https://cosmonautdev.wintermute.services/catalogos',
+  rutaAdmin:'https://cosmonautdev.wintermute.services/admin',
+  rutaReportes:'https://cosmonautdev.wintermute.services/reportes',
+  rutaNomina:'https://cosmonautdev.wintermute.services/nomina',
+  rutaSocket:'wss://cosmonautdev.wintermute.services/empresa'
 };
