@@ -50,10 +50,7 @@ export class ConfiguracionesService {
 
 
   constructor() { 
-
     ConfiguracionesService.referencia = this;
-    this.modulosCargados = new Array<Number>();
-
   }
 
   public getScrollCompany(scroll: number) {
@@ -214,7 +211,7 @@ export class ConfiguracionesService {
 
   public static establecerMenu(m:any){
     setTimeout(() => {
-      //ConfiguracionesService.referencia.accesoRuta = false;
+      ConfiguracionesService.referencia.accesoRuta = false;
       ConfiguracionesService.referencia.cargandomodulo = false;
     }, 20);
     return m;
