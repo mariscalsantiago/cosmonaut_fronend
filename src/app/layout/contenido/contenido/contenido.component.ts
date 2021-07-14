@@ -376,18 +376,20 @@ export class ContenidoComponent implements OnInit {
 
 
   public irRuta(item: any) {
-    /*let intervalo = interval(300);
-    intervalo.pipe(take(1));
-    let valor = intervalo.subscribe(() => {
-      this.configuracionPrd.accesoRuta = false;
-      valor.unsubscribe();
-    });*/
-
-
 
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
     this.configuracionPrd.menu = false;
+
+    console.log(this.configuracionPrd.modulosCargados);
+    console.log(this.configuracionPrd.modulosCargados.some(m => m == item.moduloId.moduloId));
+    if(this.configuracionPrd.modulosCargados.some(m => m == item.moduloId.moduloId)){
+        setTimeout(() => {
+          console.log("Ya esta cargado, siguele",item);
+          this.configuracionPrd.accesoRuta = false;
+        }, 10);
+    }
+
   }
   public entraComponente(obj: any) {
     for (let item of this.PRINCIPAL_MENU) {

@@ -36,6 +36,10 @@ export class ConfiguracionesService {
 
   public menu: boolean = false;
   public MENUPRINCIPAL = undefined;
+  public modulosCargados!:Array<Number>;
+
+  public static referencia:ConfiguracionesService;
+  
 
 
 
@@ -43,7 +47,12 @@ export class ConfiguracionesService {
 
 
 
-  constructor() { }
+  constructor() { 
+
+    ConfiguracionesService.referencia = this;
+    this.modulosCargados = new Array<Number>();
+
+  }
 
   public getScrollCompany(scroll: number) {
 
@@ -201,11 +210,14 @@ export class ConfiguracionesService {
   }
 
 
-
-
-
-
-
+  public static establecerMenu(m:any,idmodulos:Array<Number>){
+    setTimeout(() => {
+      ConfiguracionesService.referencia.accesoRuta = false;
+      ConfiguracionesService.referencia.modulosCargados.push(...idmodulos);
+      console.log("El modulo fue cargadado",idmodulos);
+    }, 10);
+    return m;
+  }
 }
 
 interface clasepermiso {
