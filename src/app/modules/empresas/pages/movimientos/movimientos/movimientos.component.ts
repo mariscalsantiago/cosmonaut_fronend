@@ -21,6 +21,7 @@ export class MovimientosComponent implements OnInit {
   public cargandoIcon: boolean = false;
   public cargando: boolean = false;
   public fechaMovimiento: any;
+  public fechaMovimientoFinal: string = ""; 
   public objFiltro: any = [];
   public nombre: any = "";
   public apellidoPaterno: any = "";
@@ -41,7 +42,6 @@ export class MovimientosComponent implements OnInit {
 
   ngOnInit() {
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
-   //this.idEmpresa = 1;
     this.filtrar();
   }
 
@@ -82,6 +82,16 @@ export class MovimientosComponent implements OnInit {
 
 
   public filtrar() {
+
+    debugger;
+
+        
+    if (this.fechaMovimiento != undefined) {
+    
+      const fecha1 = new Date(this.fechaMovimiento).toUTCString().replace("GMT", "");
+      this.fechaMovimientoFinal = `${new Date(fecha1).getTime()}`;
+    }
+
     this.cargando = true;
       if(this.nombre != ''){
         this.objFiltro = {
@@ -99,11 +109,12 @@ export class MovimientosComponent implements OnInit {
               apellidoMaterno: this.apellidoMaterno
             };
         }
-        
+
+       
         this.objFiltro = {
           ...this.objFiltro,
           centroClienteId: this.idEmpresa,
-          fechaMovimiento: this.fechaMovimiento
+          fechaMovimiento: this.fechaMovimientoFinal
         };
       this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
    

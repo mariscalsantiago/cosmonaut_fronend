@@ -45,6 +45,7 @@ export class VariabilidadComponent implements OnInit {
   public idUsuario: any = [];
   public varibilidadID: number = 0;
 
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -370,8 +371,14 @@ export class VariabilidadComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         
           if(valor){
-            
+            debugger;
             let  obj = this.myForm.getRawValue();
+
+            let fecha = obj.fecha.split("/");
+            let anio = fecha[2];
+            let mes = fecha[1];
+            let dia = fecha[0];
+            fecha = anio + "-" + mes + "-" + dia;
             
             if(obj.bimestre == "1er Bimestre"){
               obj.bimestre = 1;
@@ -397,25 +404,15 @@ export class VariabilidadComponent implements OnInit {
             }
             
               let objEnviar : any = 
-              
-              /*{
-                clienteId: 461,
-                bimestre: 3,
-                fechaAplicacion: "2021-06-01",
-                anioFiscal: 2021,
-                usuarioId: 1
-                personaID
-              };*/
-
               {
                 clienteId: this.idEmpresa,
                 bimestre: obj.bimestre,
-                fechaAplicacion: obj.fecha,
-                anioFiscal: this.arreglo.anioFiscal,
-                usuarioId: this.idUsuario
+                fechaAplicacion: fecha,
+                anioFiscal: this.anioFiscal,
+                usuarioId: 1
               };
 
-           
+                debugger;
                 this.empresasPrd.calculoPromedioVariables(objEnviar).subscribe(datos => {
                   valor = 0;
                   this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
