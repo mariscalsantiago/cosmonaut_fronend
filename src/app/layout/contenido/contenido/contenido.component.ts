@@ -384,7 +384,7 @@ export class ContenidoComponent implements OnInit {
     setTimeout(() => {
       if (!this.configuracionPrd.cargandomodulo) {
         setTimeout(() => {
-          this.configuracionPrd.accesoRuta = false;
+         // this.configuracionPrd.accesoRuta = false;
         }, 10);
       }
   

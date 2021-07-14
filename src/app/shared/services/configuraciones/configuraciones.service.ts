@@ -214,7 +214,7 @@ export class ConfiguracionesService {
 
   public static establecerMenu(m:any){
     setTimeout(() => {
-      ConfiguracionesService.referencia.accesoRuta = false;
+      //ConfiguracionesService.referencia.accesoRuta = false;
       ConfiguracionesService.referencia.cargandomodulo = false;
     }, 20);
     return m;
