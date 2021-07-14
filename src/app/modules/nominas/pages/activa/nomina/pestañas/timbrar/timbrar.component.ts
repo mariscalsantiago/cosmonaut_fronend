@@ -40,6 +40,7 @@ export class TimbrarComponent implements OnInit {
   public apellidoPaterno: string = "";
   public apellidoMaterno: string = "";
   public numeroempleado: string = "";
+  public continuarTitulo:string = "Continuar";
 
 
   @Input() nominaSeleccionada: any;
@@ -128,6 +129,8 @@ export class TimbrarComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
+
+    this.continuarTitulo = (this.arreglo.some((m:any)=>m.seleccionado))? "Dispersar":"Continuar";
 
     let item = obj.datos;
     switch (obj.type) {
@@ -253,6 +256,13 @@ export class TimbrarComponent implements OnInit {
 
 
   public timbrar() {
+
+    if(this.continuarTitulo.includes("Continuar")){
+      this.salida.emit({ type: "timbrar" });
+      return;
+    }
+
+
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas timbrar la nómina?").then(valor => {
       if (valor) {
 

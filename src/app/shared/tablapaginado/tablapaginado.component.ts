@@ -395,6 +395,8 @@ export class TablapaginadoComponent implements OnInit {
     for(let item of this.arreglotemp){
         item.seleccionado = !this.seleccionarGlobal;
     }
+
+    this.salida.emit({});
   }
   
 
