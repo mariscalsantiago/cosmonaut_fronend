@@ -38,7 +38,7 @@ export class ContenidoComponent implements OnInit {
 
   public suscripcion!: Subscription;
 
-  
+
 
 
 
@@ -129,11 +129,11 @@ export class ContenidoComponent implements OnInit {
     this.chatPrd.setChatDatos(this.chat);
 
 
-    
+
 
     if (this.authPrd.isAuthenticated()) {
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
-        
+
         this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
           this.PRINCIPAL_MENU = this.configuracionPrd.traerDatosMenu(this.usuariosSistemaPrd.getUsuario().submodulosXpermisos, datos, this.usuariosSistemaPrd.getVersionSistema(), this.usuariosSistemaPrd.esCliente());
           this.PRINCIPAL_MENU.unshift({ moduloId: 0, nombreModulo: "Inicio", seleccionado: true, checked: true, pathServicio: '/inicio', icono: 'icon_home' });
@@ -147,58 +147,58 @@ export class ContenidoComponent implements OnInit {
           let usuario = JSON.parse(textodesencriptado);
 
           this.usuariosSistemaPrd.setUsuario(usuario as usuarioClass);
-          
-            this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
 
-            if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+          this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
 
-              });
-            }else{
-              if(!this.usuariosSistemaPrd.usuario.esCliente){
-                this.darClickChat(true);
-              }else{
-                this.configuracionPrd.ocultarChat = true;
-              }
+          if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
+            this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+
+            });
+          } else {
+            if (!this.usuariosSistemaPrd.usuario.esCliente) {
+              this.darClickChat(true);
+            } else {
+              this.configuracionPrd.ocultarChat = true;
             }
+          }
 
 
         });
 
       } else {
 
-        
+
 
         if (!Boolean(this.configuracionPrd.MENUPRINCIPAL)) {
           this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
             this.PRINCIPAL_MENU = datos;
             this.establecericons();
             this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
-              this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-              if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-                this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-                });
-              }else{
-                if(!this.usuariosSistemaPrd.usuario.esCliente){
-                  this.darClickChat(true);
-                }else{
-                  this.configuracionPrd.ocultarChat = true;
-                }
+            this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
+            if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
+              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+              });
+            } else {
+              if (!this.usuariosSistemaPrd.usuario.esCliente) {
+                this.darClickChat(true);
+              } else {
+                this.configuracionPrd.ocultarChat = true;
               }
+            }
           });
         } else {
           this.PRINCIPAL_MENU = this.configuracionPrd.MENUPRINCIPAL;
           if ((this.configuracionPrd.ocultarChat) == undefined) {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
             if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-              
+
               this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
 
               });
-            }else{
-              if(!this.usuariosSistemaPrd.usuario.esCliente){
+            } else {
+              if (!this.usuariosSistemaPrd.usuario.esCliente) {
                 this.darClickChat(true);
-              }else{
+              } else {
                 this.configuracionPrd.ocultarChat = true;
               }
             }
@@ -328,38 +328,38 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public darClickChat(autoconectable:boolean = false) {
+  public darClickChat(autoconectable: boolean = false) {
     if (!this.usuariosSistemaPrd.getUsuario().esRecursosHumanos) {
       this.chatPrd.getChatDatos().datos.socket = `/websocket/chat/${this.usuariosSistemaPrd.getIdEmpresa()}${this.usuariosSistemaPrd.usuario.usuarioId}/${this.usuariosSistemaPrd.getIdEmpresa()}/${this.usuariosSistemaPrd.usuario.usuarioId}`;
-      this.chat.ocultar = autoconectable?autoconectable: !this.chat.ocultar
+      this.chat.ocultar = autoconectable ? autoconectable : !this.chat.ocultar
       this.chat.datos.nombre = this.chatPrd.getNombreRecursosHumanos();
       this.chat.datos.numeromensajes = 0;
       this.chat.datos.mensajeRecibido = false;
-      if(autoconectable){
-        if(!this.chatPrd.isConnect()){
-          
-          this.chatPrd.getMensajeGenericoByEmpresaByEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.usuariosSistemaPrd.getUsuario().usuarioId).subscribe(datos =>{
-               if(datos.datos){
-                  let obj = datos.datos[0];
-                  let mensajes = obj.mensajes;
-                  this.chatPrd.setMensajes(JSON.parse(mensajes));
+      if (autoconectable) {
+        if (!this.chatPrd.isConnect()) {
 
-                  this.chatPrd.conectarSocket(this.chatPrd.getChatDatos().datos.socket);
-                  this.chatPrd.recibiendoMensajeServer().subscribe(socketrespuesta =>{
-                 
-                  try{
-                    if(!this.chatPrd.yaRecibeMensajes){
-                    
-                      this.chatPrd.setMensajes(JSON.parse(socketrespuesta.data));
-                      
-                      this.chatPrd.datos.datos.numeromensajes += 1;
-                      this.chatPrd.datos.datos.mensajeRecibido = true;
-                    }
-                  }catch{
-                    console.log("No es el primer mensaje")
+          this.chatPrd.getMensajeGenericoByEmpresaByEmpleado(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getUsuario().usuarioId).subscribe(datos => {
+            if (datos.datos) {
+              let obj = datos.datos[0];
+              let mensajes = obj.mensajes;
+              this.chatPrd.setMensajes(JSON.parse(mensajes));
+
+              this.chatPrd.conectarSocket(this.chatPrd.getChatDatos().datos.socket);
+              this.chatPrd.recibiendoMensajeServer().subscribe(socketrespuesta => {
+
+                try {
+                  if (!this.chatPrd.yaRecibeMensajes) {
+
+                    this.chatPrd.setMensajes(JSON.parse(socketrespuesta.data));
+
+                    this.chatPrd.datos.datos.numeromensajes += 1;
+                    this.chatPrd.datos.datos.mensajeRecibido = true;
                   }
-                  });
-               }
+                } catch {
+                  console.log("No es el primer mensaje")
+                }
+              });
+            }
           });
         }
       }
@@ -381,16 +381,14 @@ export class ContenidoComponent implements OnInit {
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
     this.configuracionPrd.menu = false;
-
-    console.log(this.configuracionPrd.modulosCargados);
-    console.log(this.configuracionPrd.modulosCargados.some(m => m == item.moduloId.moduloId));
-    if(this.configuracionPrd.modulosCargados.some(m => m == item.moduloId.moduloId)){
+    setTimeout(() => {
+      if (!this.configuracionPrd.cargandomodulo) {
         setTimeout(() => {
-          console.log("Ya esta cargado, siguele",item);
           this.configuracionPrd.accesoRuta = false;
         }, 10);
-    }
-
+      }
+  
+    }, 10);
   }
   public entraComponente(obj: any) {
     for (let item of this.PRINCIPAL_MENU) {
