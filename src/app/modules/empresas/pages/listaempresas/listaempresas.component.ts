@@ -121,15 +121,6 @@ export class ListaEmpresasComponent implements OnInit {
     if (obj.type == "editar") {
       this.routerPrd.navigate(['listaempresas', 'empresas', 'modifica'], { state: { data: obj.datos } });
     } else if (obj.type == "columna") {
-
-  
-
-      let intervalo = interval(5000);
-      intervalo.pipe(take(1));
-      let valor = intervalo.subscribe(()=>{
-        this.configuracionPrd.accesoRuta = false;
-        valor.unsubscribe();
-      });
   
       this.configuracionPrd.accesoRuta = true;
       
