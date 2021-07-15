@@ -270,6 +270,7 @@ export class DetallejornadalaboralComponent implements OnInit {
         };
 
         if (this.esInsert) {
+          debugger;
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.jornadaPrd.save(this.peticion).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -290,7 +291,7 @@ export class DetallejornadalaboralComponent implements OnInit {
             mismoHorario: false,
             horarioComida: this.horarioComida,
             sumaHorasJornadaId: {
-              sumaHorasJornadaId: 1,
+              sumaHorasJornadaId: obj.sumaHorasJornadaId,
             },
             horaEntrada: obj.horaEntrada,
             horaInicioComida: obj.horaInicioComida,
