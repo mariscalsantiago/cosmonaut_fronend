@@ -16,6 +16,7 @@ export class VentanaTablaISRComponent implements OnInit {
   public empresa: number = 0;
   public empleado: number = 0;
   public cargando: boolean = false;
+  public periodo: string = '';
 
   public arreglotablaISR: any = {
     columnas: [],
@@ -38,6 +39,7 @@ export class VentanaTablaISRComponent implements OnInit {
     this.empleado = this.datos.personaId?.personaId;
 
     this.cargando = true;
+    this.periodo = this.datos.tabla;
     
     this.tablasISRPrd.getListaTarifaISR(this.datos.periodo).subscribe(datos => {
         this.crearTablaISR(datos);

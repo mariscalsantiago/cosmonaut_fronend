@@ -44,6 +44,8 @@ export class VentanaDeduccionesComponent implements OnInit {
   public politica: number = 0;
   public deducPolitica: boolean = false;
   public concepto !: string;
+  public tipoValor: string ="Porcentaje";
+  public especializacion: string = "";
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -87,9 +89,13 @@ export class VentanaDeduccionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    
     let datePipe = new DatePipe("en-MX");
 
+    if(obj.baseCalculoId?.baseCalculoId === 2){
+      this.tipoValor ="Monto"
+    }
+    this.especializacion =obj.tipoDeduccionId?.especializacion;
+    // console.log('obj',obj.tipoDeduccionId?.especializacion)
     return this.formBuild.group({
 
       nomDeduccion: [obj.tipoDeduccionId?.tipoDeduccionId, Validators.required],
@@ -114,6 +120,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
     });
 
+
     
 
   }
@@ -124,7 +131,9 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-     console.log('myForm', this.myForm.controls)
+     
+
+     console.log('myForm', this.myForm.value)
     this.submitEnviado = false;
     this.myForm.clearValidators();
     if( concepto === '006' || concepto === '012' || concepto === '020' ||
@@ -357,9 +366,11 @@ if(this.myForm.get(['']))
    public validarNomMonto(tipomonto:any){
     
       if(tipomonto == 2){
+        this.tipoValor = "Monto";
         this.porcentual = false;
         this.fijo = true;
-      }else{
+      }else {
+        this.tipoValor = "Porcentaje"
         this.porcentual = true;
         this.fijo = false;
       }
@@ -610,6 +621,7 @@ if(this.myForm.get(['']))
           
 
         }
+        console.log('this.objEnviar',this.objEnviar)
           this.salida.emit({type:"guardar",datos:this.objEnviar});
         }
       });

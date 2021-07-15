@@ -14,7 +14,7 @@ export class VentanaSubcidioComponent implements OnInit {
   public myForm!: FormGroup;
   public arregloSubcidioISR: any = [];
   public empresa: number = 0;
-  
+  public periodo = "";
   public empleado: number = 0;
   public cargando: boolean = false;
 
@@ -39,6 +39,7 @@ export class VentanaSubcidioComponent implements OnInit {
     this.empleado = this.datos.personaId?.personaId;
 
     this.cargando = true;
+    this.periodo = this.datos.tabla;
     
     this.tablasISRPrd.getListaSubcidioISR(this.datos.periodo).subscribe(datos => {
         this.crearTablaSubcidio(datos);

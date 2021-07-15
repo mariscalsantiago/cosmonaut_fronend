@@ -57,6 +57,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public aplicableISN : boolean = false;
   public nuevoaplicableISN : boolean = false;
   public submitActive = false;
+  public periodo:string = "";
+  public especializacion = '';
 
   public arreglotabla: any = {
     columnas: [],
@@ -76,6 +78,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.periodo = "";
   
 
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
@@ -88,7 +91,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
       esActivo: this.objdetrep.esActivo,
       tipoPersona: this.objdetrep.indPersonaFisica
     };
-        
     if(this.detCatalogos.listaCatalogosId == 1){
         this.catBanco();
         this.idCatalogo = this.objdetrep.codBanco;
@@ -163,7 +165,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
-      console.log('17')
+      console.log('17', this.objdetrep)
+      this.periodo = this.objdetrep.tabla;
       this.clave();
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
         if (datos.datos !== undefined) {
@@ -182,6 +185,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     else if(this.detCatalogos.listaCatalogosId == 18){
       let datePipe = new DatePipe("en-MX");
       console.log('18')
+      this.periodo = this.objdetrep.tabla;
       //datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd')
 
       this.clave();
