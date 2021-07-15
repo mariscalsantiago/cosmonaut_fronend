@@ -26,6 +26,8 @@ export class ConfiguracionesService {
 
   public cantidad: number = 0;
 
+  public cargandomodulo:boolean = false;
+
 
   public permisosActuales!: Array<clasepermiso>;
 
@@ -36,6 +38,10 @@ export class ConfiguracionesService {
 
   public menu: boolean = false;
   public MENUPRINCIPAL = undefined;
+  public modulosCargados!:Array<Number>;
+
+  public static referencia:ConfiguracionesService;
+  
 
 
 
@@ -43,7 +49,9 @@ export class ConfiguracionesService {
 
 
 
-  constructor() { }
+  constructor() { 
+    ConfiguracionesService.referencia = this;
+  }
 
   public getScrollCompany(scroll: number) {
 
@@ -201,11 +209,13 @@ export class ConfiguracionesService {
   }
 
 
-
-
-
-
-
+  public static establecerMenu(m:any){
+    setTimeout(() => {
+      ConfiguracionesService.referencia.accesoRuta = false;
+      ConfiguracionesService.referencia.cargandomodulo = false;
+    }, 20);
+    return m;
+  }
 }
 
 interface clasepermiso {

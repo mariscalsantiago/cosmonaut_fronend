@@ -38,7 +38,10 @@
                     Tabla de beneficios
                 </th>
                 <th id="" *ngIf="porcentaje">Porcentaje de avance</th>
-                <th id="" *ngIf="timbrado">Timbrar</th>
+                <th id="" *ngIf="timbrado">  <label style="margin-left: 22px;" (click)="seleccionarTodos()" class="contenedorInputCheckRadio texto"> 
+                    <input [(ngModel)]="seleccionarGlobal"  type="checkbox">
+                    <span class="checkmark"></span>
+                  </label></th>
                 <th id="" *ngIf="ver || editar || eliminar || desglosar || descargar">Acciones</th>
             </tr>
         </thead>

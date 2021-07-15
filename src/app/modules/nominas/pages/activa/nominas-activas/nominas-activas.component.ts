@@ -100,7 +100,6 @@ export class NominasActivasComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
-            
             this.router.navigate(['nominas','nomina'], { state: { datos: { nominaOrdinaria: item.nominaOrdinaria } } });
           }
         });
@@ -114,6 +113,7 @@ export class NominasActivasComponent implements OnInit {
 
   public continuar(item: any) {
 
+    console.log("Antes de entrar padre",item);
     this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
   }
 

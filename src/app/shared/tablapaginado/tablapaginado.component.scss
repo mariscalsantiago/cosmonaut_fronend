@@ -132,3 +132,7 @@ table {
         border: 1px solid white;
     }
 }
+
+.texto::after{
+    content: 'Timbrar' !important;
+}
