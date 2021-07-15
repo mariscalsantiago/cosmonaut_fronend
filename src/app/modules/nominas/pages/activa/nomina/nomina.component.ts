@@ -42,25 +42,22 @@ export class NominaComponent implements OnInit {
     this.establecerPermisos();
 
 
+    this.nominaSeleccionada = history.state.datos == undefined ? {} : history.state.datos;;
+
+    console.log("Esta seleccionada",this.nominaSeleccionada);
 
 
-    let temp = history.state.datos == undefined ? {} : history.state.datos;
-
-
-    
-
-
-    if (temp.nominaOrdinaria) {
+    if (this.nominaSeleccionada.nominaOrdinaria) {
       this.llave = "nominaOrdinaria";
-    } else if (temp.nominaExtraordinaria) {
+    } else if (this.nominaSeleccionada.nominaExtraordinaria) {
       this.llave = "nominaExtraordinaria";
-    } else if (temp.nominaLiquidacion) {
+    } else if (this.nominaSeleccionada.nominaLiquidacion) {
       this.llave = "nominaLiquidacion";
-    } else if (temp.nominaPtu) {
+    } else if (this.nominaSeleccionada.nominaPtu) {
       this.llave = "nominaPtu";
     }
 
-    this.nominaSeleccionada = temp;
+    
 
     if(this.esCalcular){
       this.activado[0].tab = true;

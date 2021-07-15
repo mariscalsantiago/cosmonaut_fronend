@@ -148,12 +148,9 @@ export class DetallejornadalaboralComponent implements OnInit {
     });
   }
 
-
-  
-
-
   public enviarPeticion() {
     this.submitInvalido = true;
+    this.myForm.updateValueAndValidity();
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -410,12 +407,13 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   public selectJornada(op: any){
     this.jornada = op.value;
+    this.myForm.clearValidators();
 
     this.myForm.controls.horaEntrada.enable();
     this.myForm.controls.horaSalida.enable();
     if(op.value =='3'){
-      this.myForm.controls.horaInicioComida.setErrors({required: true});
-      this.myForm.controls.horaFinComida.setErrors({required: true});
+      this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
+      this.myForm.controls.horaFinComida.setValidators([Validators.required]);
       
     }
   }

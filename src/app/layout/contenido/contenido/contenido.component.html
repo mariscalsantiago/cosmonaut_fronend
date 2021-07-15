@@ -23,7 +23,7 @@
                 </article>
             </div>
             <ul id="listanavegadora" class="list-unstyled components">
-                <li style="text-align: right; background-color: #f6f7f9;" *ngFor="let item of PRINCIPAL_MENU;let indice = index" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
+                <li  style="text-align: right; background-color: #f6f7f9;" *ngFor="let item of PRINCIPAL_MENU;let indice = index" [ngClass]="{'active':item.seleccionado,'ocultarMenu':!item.checked}">
                     <a (mouseover)="entraComponente(item)" (mouseout)="saleComponente(item)" style="display: inline-block;position: relative;" [routerLink]="item.pathServicio" (click)="seleccionado(item,indice)" [ngClass]="{'dropdown-toggle':true}">
                         <i aria-hidden="true" [class]="item.icono"></i> <span style="display: block;color:white;font-size: 11px; white-space: pre-wrap;">{{item.nombreModulo}}</span>
                         <span *ngIf="item.nombreModulo.includes('Chat') && configuracionPrd.notificaciones !== 0" class="badge badge-danger">{{configuracionPrd.notificaciones}}</span></a>
@@ -34,7 +34,12 @@
                         </li>
                     </ul>
                 </li>
-                <li style="text-align: right;" id="salirbtn" (click)="cerrarSesion()">
+                <li  *ngIf="PRINCIPAL_MENU === undefined" style="text-align: right;text-align: center;background-color: #f6f7f9;" id="salirbtn">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                </li>
+                <li *ngIf="PRINCIPAL_MENU !== undefined" style="text-align: right;background-color: #f6f7f9;" id="salirbtn" (click)="cerrarSesion()">
                     <a (mouseover)="botonsalir=true" (mouseout)="botonsalir=false" style="display: inline-block;    border-bottom-left-radius: 19px;"> <i aria-hidden="true" class="icon_cerrarsesion danger-bg"></i>
                         <div *ngIf="botonsalir" class="labelflotante">Salir</div>
                     </a>

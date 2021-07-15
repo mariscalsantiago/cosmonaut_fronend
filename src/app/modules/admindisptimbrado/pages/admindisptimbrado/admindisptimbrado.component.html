@@ -1,12 +1,14 @@
 <div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
     <div class="col titulo-outlet">
-        <label>ADMINISTRACIÓN DE DISPERSIÓN Y TIMBRADO</label>
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+            <i  aria-hidden="true" class="fas fa-bars"></i>
+        </button></div> <label>ADMINISTRACIÓN DE DISPERSIÓN Y TIMBRADO</label>
     </div>
 </div>
 
 
 <div class="scrooll-design" style="margin-top: -22px;">
-    <div class="margen " id="vetanaprincipaltabla" >
+    <div class="margen " id="vetanaprincipaltabla">
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
@@ -39,26 +41,26 @@
 
                     <div class="col-5">
                         <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
-                    
-                    
+
+
                             <div class="adentro">
-                    
+
                                 <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                                 <div class="header">
                                     <h5 class="titulo">TIMBRES</h5>
-                    
-                    
+
+
                                 </div>
                                 <hr>
                                 <div class="body">
-                    
-                    
+
+
                                     <div *ngIf="cargandolistatimbres" class="col text-center mb-5">
                                         <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
                                     </div>
-                    
+
                                     <div *ngIf="!cargandolistatimbres">
                                         <table aria-hidden="true" class="table m-3 table-hober table-sm " style="width: 90%;">
                                             <thead>
@@ -75,7 +77,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                    
+
                                 </div>
                                 <hr>
                                 <div class="footer">
@@ -83,7 +85,7 @@
                                         <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
                                     </div>
                                 </div>
-                    
+
                             </div>
                         </div>
                     </div>
@@ -105,10 +107,10 @@
                                     </a>
                                 </nav>
                             </div>
-                    </div>
+                        </div>
 
                         <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
-                    
+
                     </div>
 
 

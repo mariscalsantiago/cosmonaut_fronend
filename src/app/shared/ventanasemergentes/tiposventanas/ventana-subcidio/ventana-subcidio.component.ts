@@ -14,7 +14,7 @@ export class VentanaSubcidioComponent implements OnInit {
   public myForm!: FormGroup;
   public arregloSubcidioISR: any = [];
   public empresa: number = 0;
-  
+  public periodo = "";
   public empleado: number = 0;
   public cargando: boolean = false;
 
@@ -39,6 +39,7 @@ export class VentanaSubcidioComponent implements OnInit {
     this.empleado = this.datos.personaId?.personaId;
 
     this.cargando = true;
+    this.periodo = this.datos.tabla;
     
     this.tablasISRPrd.getListaSubcidioISR(this.datos.periodo).subscribe(datos => {
         this.crearTablaSubcidio(datos);
@@ -51,10 +52,22 @@ export class VentanaSubcidioComponent implements OnInit {
     
      
     this.arregloSubcidioISR = datos.datos;
+    console.log(this.arregloSubcidioISR);
+    if (this.arregloSubcidioISR !== undefined) {
+      for (let item of this.arregloSubcidioISR) {
+        item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
+        item.fechaFin = (new Date(item.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "");
+        let datepipe = new DatePipe("es-MX");
+        item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");;
+        item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");;
+      }
+    }
     let columnas: Array<tabla> = [
       new tabla("limiteInferior", "Para ingresos de"),
       new tabla("limiteSuperior", "Hasta ingresos de"),
-      new tabla("montoSubsidio", "Cantidad de subsidio para el empleo")
+      new tabla("montoSubsidio", "Cantidad de subsidio para el empleo"),
+      new tabla("fechaInicio", "Fecha Inicio"),
+      new tabla("fechaFin", "Fecha Fin")
 
     ];
 

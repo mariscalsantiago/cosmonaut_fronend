@@ -57,6 +57,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public aplicableISN : boolean = false;
   public nuevoaplicableISN : boolean = false;
   public submitActive = false;
+  public periodo:string = "";
+  public especializacion = '';
 
   public arreglotabla: any = {
     columnas: [],
@@ -76,6 +78,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.periodo = "";
   
 
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
@@ -88,7 +91,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
       esActivo: this.objdetrep.esActivo,
       tipoPersona: this.objdetrep.indPersonaFisica
     };
-        
     if(this.detCatalogos.listaCatalogosId == 1){
         this.catBanco();
         this.idCatalogo = this.objdetrep.codBanco;
@@ -163,22 +165,47 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
-      
+      console.log('17', this.objdetrep)
+      this.periodo = this.objdetrep.tabla;
       this.clave();
-      this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
+      this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
+        if (datos.datos !== undefined) {
+          console.log(datos.datos);
+          for (let item of datos.datos) {
+            item["fechaInicio"] = new DatePipe("es-MX").transform(item.fechaInicio, 'yyyy-MM-dd');
+            item["fechaFin"] = new DatePipe("es-MX").transform(item.fechaInicio, 'yyyy-MM-dd');
+          }
+        }
+        this.arregloTablaValores = datos.datos;
+      });
       this.adminCatalogosPrd.getListatablasPeriodicasISR().subscribe(datos => this.arregloPeriodicidad = datos.datos);
       this.clave();
      
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
-      
+      let datePipe = new DatePipe("en-MX");
+      console.log('18')
+      this.periodo = this.objdetrep.tabla;
+      //datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd')
+
       this.clave();
-      this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => this.arregloTablaValores = datos.datos);
+      this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => {
+    
+        if (datos.datos !== undefined) {
+          for (let item of datos.datos) {
+            item["fechaInicio"] = new DatePipe("es-MX").transform(item.fechaInicio, 'yyyy-MM-dd');
+            item["fechaFin"] = new DatePipe("es-MX").transform(item.fechaInicio, 'yyyy-MM-dd');
+          }
+        }
+
+        this.arregloTablaValores = datos.datos;
+      });
       this.adminCatalogosPrd.getListaTablasSubsidioISR().subscribe(datos => this.arregloPeriodicidad = datos.datos);
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      
+      console.log('19')
+
       this.descripcion = this.objdetrep.estado;
       this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => this.arregloTablaValores = datos.datos);
       this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => this.arregloPeriodicidad = datos.datos);
@@ -255,15 +282,23 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    
-    const editField = event.target.textContent;
+    let editField = event.target.textContent;
+    if (property.includes('fecha')){
+     editField = event.target.value;
+    }
+  
     this.arregloTablaValores[id][property] = editField;
+    console.log('editField', editField)
   }
 
 
   public changeValue(id: number, property: string, event: any) {
-    
     this.editField = event.target.textContent;
+
+    console.log('changeValue',id, property, event)
+    if (property.includes('fecha')){
+      this.editField = event.target.value;
+     }
   }
 
   public clave(){
@@ -369,7 +404,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catalogo?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
-
+        console.log('despues del modal',valor, this.myForm.getRawValue())
         let obj = this.myForm.getRawValue();
         if(obj.esActivo == "true"){
           obj.esActivo = true;
@@ -1167,7 +1202,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
            fechaInicio: fechainicio,
            fechaFin: fechafin
          }
-          
+          console.log('this.objEnviar', this.objEnviar)
           if (this.insertar) {
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.saveTarifaPeriodicaISR(this.objEnviar).subscribe(datos => {
@@ -1183,6 +1218,22 @@ export class ABCAdminCatalogosComponent implements OnInit {
           } else {
 
             for(let item of this.arregloTablaValores){
+              console.log(item)
+              let fechainicio = "";
+              let fechafin = "";
+              if (item.fechaFin != undefined || item.fechaFin != null) {
+                if (item.fechaFin != "") {
+                  const fecha1 = new Date(item.fechaFin).toUTCString().replace("GMT", "");
+                  fechafin = `${new Date(fecha1).getTime()}`;
+                }
+              }
+              if (item.fechaInicio != undefined || item.fechaInicio != null) {
+          
+                if (item.fechaInicio != "") {
+                  const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
+                  fechainicio = `${new Date(fecha1).getTime()}`;
+                }
+              }
               this.valores = 
                 {
                   tarifaPeriodicaIsrId: item.tarifaPeriodicaIsrId,
@@ -1192,10 +1243,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
                   porcExcedenteLimInf: item.porcExcedenteLimInf,
                   periodicidadPagoId: item.periodicidadPagoId,
                   esActivo: item.esActivo,
-                  fechaInicio: item.fechaInicio,
-                  fechaFin: item.fechaFin
+                  fechaInicio: fechainicio,
+                  fechaFin: fechafin
 
                 }
+
                 this.valorestab.push(this.valores);
   
               }
@@ -1204,8 +1256,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
               valoresTablaPeriodicaISR: this.valorestab,
 
             }
-  
-  
+
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarTarifaPeriodicaISR(this.objEnviar).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -1307,6 +1358,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
         }
         else if(this.detCatalogos.listaCatalogosId == 18){
+          console.log('entro a 18')
           
           let fechainicio = "";
           let fechafin = "";
@@ -1352,6 +1404,24 @@ export class ABCAdminCatalogosComponent implements OnInit {
           } else {
 
             for(let item of this.arregloTablaValores){
+              console.log('this.arregloTablaValores', this.arregloTablaValores)
+              let fechainicio = "";
+              let fechafin = "";
+              if (item.fechaFin != undefined || item.fechaFin != null) {
+          
+                if (item.fechaFin != "") {
+                  const fecha1 = new Date(item.fechaFin).toUTCString().replace("GMT", "");
+                  fechafin = `${new Date(fecha1).getTime()}`;
+                }
+              }
+              
+              if (item.fechaInicio != undefined || item.fechaInicio != null) {
+          
+                if (item.fechaInicio != "") {
+                  const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
+                  fechainicio = `${new Date(fecha1).getTime()}`;
+                }
+              }
               this.valores = 
                 {
                   tarifaPeriodicaSubsidioId: item.tarifaPeriodicaSubsidioId,
@@ -1360,19 +1430,19 @@ export class ABCAdminCatalogosComponent implements OnInit {
                   montoSubsidio: item.montoSubsidio,
                   periodicidadPagoId: item.periodicidadPagoId,
                   esActivo: item.esActivo,
-                  fechaInicio: item.fechaInicio,
-                  fechaFin: item.fechaFin
+                  fechaInicio: fechainicio,
+                  fechaFin: fechafin
 
                 }
                 this.valorestab.push(this.valores);
-  
+                console.log('item.fechainicio', item.fechaInicio)
+                console.log('fechainicio', fechainicio)
+
               }
             this.objEnviar = {
-
               valoresTablaPeriodicaISR: this.valorestab,
-
             }
-  
+            console.log('18 objEnviar', this.objEnviar)
   
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarTarifaPeriodicaSubsidio(this.objEnviar).subscribe(datos => {

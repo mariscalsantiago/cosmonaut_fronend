@@ -1,7 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { interval, timer } from 'rxjs';
-import { concatMap, take } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { tabla } from 'src/app/core/data/tabla';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -40,6 +40,8 @@ export class PagarComponent implements OnInit {
   public apellidoPaterno: string = "";
   public apellidoMaterno: string = "";
   public numeroempleado: string = "";
+
+  public continuarTitulo:string = "Continuar";
 
   public arreglotabla: any = {
     columnas: [],
@@ -156,10 +158,7 @@ export class PagarComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-
-
-    
-
+      this.continuarTitulo = (this.arreglo.some((m:any)=>m.seleccionado))? "Dispersar":"Continuar";
   }
 
   public regresar() {
@@ -167,11 +166,20 @@ export class PagarComponent implements OnInit {
   }
 
   public dispersar() {
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas dispersar la nómina?").then(valor => {
+
+    if(this.continuarTitulo.includes("Continuar")){
+      this.salida.emit({ type: "dispersar" });
+      return;
+    }
+
+    let titulo = this.continuarTitulo.includes("Dispersar")?"¿Deseas dispersar la nómina?":"¿Deseas continuar a la sección de timbrado?";
+        this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo ).then(valor => {
       if (valor) {
 
 
         
+
+      
 
 
         let obj = []

@@ -124,7 +124,7 @@ export class ListaEmpresasComponent implements OnInit {
 
   
 
-      let intervalo = interval(300);
+      let intervalo = interval(5000);
       intervalo.pipe(take(1));
       let valor = intervalo.subscribe(()=>{
         this.configuracionPrd.accesoRuta = false;
