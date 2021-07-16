@@ -1440,7 +1440,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
               }
             this.objEnviar = {
-              valoresTablaPeriodicaISR: this.valorestab,
+              valoresTablaPeriodicaSubsidio: this.valorestab,
             }
             console.log('18 objEnviar', this.objEnviar)
   
