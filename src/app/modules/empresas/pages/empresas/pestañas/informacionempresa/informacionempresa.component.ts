@@ -88,7 +88,7 @@ export class InformacionempresaComponent implements OnInit {
     this.imagen = imagen;
   }
   public createForm(obj: any) {
-    
+    console.log(obj)
     if (!this.datosempresa.insertar) {
 
       obj.certext = 'Certificado de sello digital cargado';

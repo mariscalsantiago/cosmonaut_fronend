@@ -7,6 +7,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from '../../../services/eventos.service';
+import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 
 @Component({
   selector: 'app-listaeventosxempledo',
@@ -32,11 +33,11 @@ export class ListaeventosxempledoComponent implements OnInit {
   public nombre: any = "";
   public apellidoPaterno: any = "";
   public apellidoMaterno: any = "";
-  public esActivo: any;
-  public tipoIncidenciaId : any;
+  public esActivo: any ="0";
+  public tipoIncidenciaId : any = "0";
   public esRegistrar:boolean = false;
   public esConsultar:boolean = false;
-
+  public arregloIncidenciaTipo: any = [];
 
 
 
@@ -62,7 +63,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   constructor(private router:Router,private eventosPrd:EventosService,private usuariosSistemaPrd:UsuarioSistemaService,
-    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService,  private catalogosPrd: CatalogosService, ) { }
 
   ngOnInit(): void {
 
@@ -74,8 +75,7 @@ export class ListaeventosxempledoComponent implements OnInit {
 
 
     this.cargando = true;
-
-this.filtrar();
+    this.filtrar();
     
   }
 
@@ -160,7 +160,9 @@ this.filtrar();
   }
 
   public filtrar(){
-    
+    this.objFiltro = [];
+    this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => {console.log(datos.datos);this.arregloIncidenciaTipo = datos.datos;});
+
     this.cargando = true;
     if(this.nombre != ''){
       this.objFiltro = {
@@ -177,12 +179,12 @@ this.filtrar();
             ...this.objFiltro,
             apellidoMaterno: this.apellidoMaterno
           };
-      } else if(this.tipoIncidenciaId != undefined){
+      } else if(this.tipoIncidenciaId != "0"){
         this.objFiltro = {
           ...this.objFiltro,
-          tipoIncidenciaId: this.tipoIncidenciaId
+          tipoIncidenciaId: Number(this.tipoIncidenciaId)
         };
-    }else if(this.esActivo != undefined){
+    }else if(this.esActivo != "0"){
       this.objFiltro = {
         ...this.objFiltro,
         esActivo: this.esActivo
