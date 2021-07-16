@@ -120,7 +120,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.myForm.controls.baseCalculoId.setValue(2);
         
         if(this.politica !== undefined){
-          debugger;
+          
         this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
           this.nombrePercepcion = datos.datos;
         });

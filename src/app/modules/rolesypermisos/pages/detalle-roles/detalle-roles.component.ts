@@ -251,12 +251,20 @@ export class DetalleRolesComponent implements OnInit {
       centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
     }
 
+    let temp =  this.formandoPermisos(0);
+    if(temp.submodulosXpemisos.length == 0){
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha seleccionado ningun permiso");
+      return;
+    }
+
+
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.rolesPrd.guardarRol(objenviar).subscribe(datos => {
       if (datos.resultado) {
         const rolId: number = datos.datos.rolId;
 
-        let enviarArray = this.formandoPermisos(rolId);
+        temp.rolId = rolId;
+        let enviarArray = temp;
 
        if(enviarArray.submodulosXpemisos.length !== 0){
         this.rolesPrd.guardarPermisoxModulo(enviarArray).subscribe(valorDatos => {

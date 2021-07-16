@@ -371,7 +371,7 @@ export class VariabilidadComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         
           if(valor){
-            debugger;
+            
             let  obj = this.myForm.getRawValue();
 
             let fecha = obj.fecha.split("/");
@@ -412,7 +412,7 @@ export class VariabilidadComponent implements OnInit {
                 usuarioId: 1
               };
 
-                debugger;
+                
                 this.empresasPrd.calculoPromedioVariables(objEnviar).subscribe(datos => {
                   valor = 0;
                   this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");

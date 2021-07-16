@@ -47,6 +47,9 @@ export class ConfiguracionesService {
 
   private secretKey: string = "llavesecreta@por@santiagoantoniomariscal";
 
+  public static regexCurp = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/;
+  public static regexRFC = '^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$';
+
 
 
   constructor() { 
@@ -135,6 +138,10 @@ export class ConfiguracionesService {
 
           let filtrar: any = Object.values(permisos).filter((x: any) => x.submoduloId == valor2.submoduloId);
 
+
+          if(valor2.submoduloId === 6){
+            
+          }
 
           if ((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9) || version === 1) {
             valor2.permisos?.forEach((valor3: any[any]) => {

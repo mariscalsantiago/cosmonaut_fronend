@@ -40,7 +40,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         this.esInsert = false;
       }
     });
-    debugger;
+    
     //this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
       //this.arregloTipoPercepcion = datos.datos
       //this.concatenaEspecializacion();
@@ -116,7 +116,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public validarPercepcion(tipo:any){
-    debugger;
+    
     this.mostrarAmbas(tipo);
     //this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos => {
       //this.arregloTipoPercepcion = datos.datos

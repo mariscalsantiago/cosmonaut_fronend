@@ -267,7 +267,7 @@ export class DetallejornadalaboralComponent implements OnInit {
         };
 
         if (this.esInsert) {
-          debugger;
+          
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.jornadaPrd.save(this.peticion).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
