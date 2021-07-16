@@ -51,7 +51,7 @@
 
                     <br id="#lugar"><br><br>
                     <div class="boton" *ngIf="!ventanapass">
-                        <button *ngIf="!correcto" type="submit" [disabled]="myForm.invalid" class="btn btn-info heartbeat"><span
+                        <button id="ingresar" #ingresar *ngIf="!correcto" type="submit" [disabled]="myForm.invalid" class="btn btn-info heartbeat"><span
                 *ngIf="!cargando && !ventanapass">INGRESAR</span>
               <div *ngIf="cargando" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
