@@ -341,6 +341,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public cancelarcomp() {
+    this.routerPrd.navigate(['/inicio']);
     this.myFormcomp = this.createFormcomp({});
   }
 
