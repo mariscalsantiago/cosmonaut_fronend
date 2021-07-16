@@ -20,6 +20,8 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public submitInvalido: boolean = false;
   public arregloTipoPercepcion: any = [];
   public obj: any = [];
+  public ambasPeriodicidad: boolean = false;
+
 
   public peticion: any = [];
 
@@ -29,13 +31,6 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   ngOnInit(): void {
     
-    
-    this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
-      this.arregloTipoPercepcion = datos.datos
-
-
-      this.concatenaEspecializacion();
-    });
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
@@ -45,14 +40,17 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         this.esInsert = false;
       }
     });
+    debugger;
+    //this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
+      //this.arregloTipoPercepcion = datos.datos
+      //this.concatenaEspecializacion();
+    //});
 
-    this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
-      this.arregloTipoPercepcion = datos.datos
-      this.concatenaEspecializacion();
-    });
-
+    if(!this.esInsert){
     this.obj = history.state.data == undefined ? {} : history.state.data;
+
     this.concatenaEspecializacion();
+    
     if (this.obj.tipoPeriodicidad == "Periodica") {
       this.obj.tipoPeriodicidad = "P"
     }
@@ -60,8 +58,6 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       this.obj.tipoPeriodicidad = "E"
     }
 
-
-   // obj.gravaIsr = false;
     if (this.obj.gravaIsr == "S") {
       this.obj.gravaIsr = true
     }
@@ -74,7 +70,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         tipoPercepcionId: {}
       };
     }
-
+    }else{
+    this.obj = [];
+    }
     this.myForm = this.createForm(this.obj);
 
   }
@@ -90,6 +88,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       tipoPercepcionId: [obj.tipopercepcionobj, [Validators.required]],
       tipoPeriodicidad: [obj.tipoPeriodicidad, [Validators.required]],
       gravaIsr: obj.gravaIsr,
+      ajustarBaseGravableFaltantes: [obj.ajustarBaseGravableFaltantes],
       gravaIsn: obj.gravaIsn == undefined?false:obj.gravaIsn,
       integraImss: obj.integraImss == undefined?false:obj.integraImss,
       cuentaContable: obj.cuentaContable,
@@ -114,6 +113,32 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       }
 
     
+  }
+
+  public validarPercepcion(tipo:any){
+    debugger;
+    this.mostrarAmbas(tipo);
+    //this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos => {
+      //this.arregloTipoPercepcion = datos.datos
+
+
+      
+      
+      //this.concatenaEspecializacion();
+
+    //});
+    
+    
+  
+  }
+
+  public mostrarAmbas(tipo:any){
+    
+    if(tipo == "A"){
+      this.ambasPeriodicidad = true;
+    }else{
+      this.ambasPeriodicidad = false;
+    }
   }
 
   public enviarPeticion() {
