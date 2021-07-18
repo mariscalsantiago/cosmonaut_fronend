@@ -30,7 +30,7 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
                 <label>Catálogo SAT *</label>
-                <input autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
+                <input #tipoConcepto (focusout)="validarTipoConcepto(tipoConcepto.value)" autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
                 <datalist id="catalogoSAT">
                         <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipoPercepcionId">
                             {{item.descripcion}}</option>
@@ -65,7 +65,7 @@
                     <option value="false">Inactivo</option>
                 </select>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
+            <div  *ngIf="conAmbasPeriodicidad" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
             <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
                 <label class="contenedorInputCheckRadio">Grava ISR
                     <input formControlName="gravaIsr" type="checkbox" name="" id="gravaIsr">
@@ -84,15 +84,15 @@
 
             </div>
 
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="mostrartipoConcepto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Tipo concepto:</label><br>
 
-                <label  class="contenedorInputCheckRadio disabled"> Ordinario
+                <label  class="contenedorInputCheckRadio "> Ordinario
                     <input value="Ordinario" formControlName="tipoConcepto" type="radio" name="tipoConcepto">
                     <span class="radiomark"></span>
                 </label>
 
-                <label class="contenedorInputCheckRadio disableD"> Extraordinario
+                <label class="contenedorInputCheckRadio "> Extraordinario
                     <input value="Extraordinario" formControlName="tipoConcepto" type="radio" name="tipoConcepto">
                     <span class="radiomark"></span>
                 </label>

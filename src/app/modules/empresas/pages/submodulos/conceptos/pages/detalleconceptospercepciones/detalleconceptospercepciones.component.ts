@@ -21,6 +21,10 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public arregloTipoPercepcion: any = [];
   public obj: any = [];
   public ambasPeriodicidad: boolean = false;
+  public conAmbasPeriodicidad: boolean = true;
+  public mostrartipoConcepto: boolean = true;
+  public tipoPercepcion: string = "";
+  public mostrartipoPercepcion: string = "E";
 
 
   public peticion: any = [];
@@ -40,22 +44,26 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         this.esInsert = false;
       }
     });
-    
-    //this.catalogosPrd.getTipoPercepcion(true).subscribe(datos => {
-      //this.arregloTipoPercepcion = datos.datos
-      //this.concatenaEspecializacion();
-    //});
 
     if(!this.esInsert){
+      debugger;
     this.obj = history.state.data == undefined ? {} : history.state.data;
-
-    this.concatenaEspecializacion();
+    
     
     if (this.obj.tipoPeriodicidad == "Periodica") {
+      if(this.obj.tipoPercepcionId.tipoPeriodicidad == "A"){
+        this.mostrartipoPercepcion = "P";
+      }else{
       this.obj.tipoPeriodicidad = "P"
+      }
+      
     }
     if (this.obj.tipoPeriodicidad == "Estandar") {
+      if(this.obj.tipoPercepcionId.tipoPeriodicidad == "A"){
+        this.mostrartipoPercepcion = "E";
+      }else{
       this.obj.tipoPeriodicidad = "E"
+      }
     }
 
     if (this.obj.gravaIsr == "S") {
@@ -65,15 +73,18 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     if (this.obj.gravaIsr == "N") {
       this.obj.gravaIsr = false
     }
-    if (this.esInsert) {
-      this.obj = {
-        tipoPercepcionId: {}
-      };
+    if(this.obj.tipoPercepcionId.tipoPeriodicidad == "A"){
+      this.obj.tipoPeriodicidad = "A"
     }
-    }else{
-    this.obj = [];
-    }
+
+    this.validarPercepcion(this.obj.tipoPeriodicidad);
     this.myForm = this.createForm(this.obj);
+
+    }else{
+    this.obj = {};
+    this.myForm = this.createForm(this.obj);
+    }
+    
 
   }
 
@@ -85,7 +96,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      tipoPercepcionId: [obj.tipopercepcionobj, [Validators.required]],
+      tipoPercepcionId: [obj.tipoPercepcionId?.tipoPercepcionId, [Validators.required]],
       tipoPeriodicidad: [obj.tipoPeriodicidad, [Validators.required]],
       gravaIsr: obj.gravaIsr,
       ajustarBaseGravableFaltantes: [obj.ajustarBaseGravableFaltantes],
@@ -93,6 +104,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       integraImss: obj.integraImss == undefined?false:obj.integraImss,
       cuentaContable: obj.cuentaContable,
       tipoConcepto: [obj.tipoConcepto],
+      periodicidadTipo: [this.mostrartipoPercepcion],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
       conceptoPercepcionId: [obj.conceptoPercepcionId],
 
@@ -100,35 +112,11 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   }
 
-  public concatenaEspecializacion(){
-    
-    if(this.arregloTipoPercepcion !== undefined){
-      for(let item of this.arregloTipoPercepcion){
-        item.tipopercepcion = item.tipoPercepcionId + "-" + item.especializacion;
-
-      }
-    }
-      if(this.obj !== undefined){
-        this.obj.tipopercepcionobj = this.obj.tipoPercepcionId.tipoPercepcionId + "-" + this.obj.tipoPercepcionId.especializacion;
-      }
-
-    
-  }
 
   public validarPercepcion(tipo:any){
+    this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>this.arregloTipoPercepcion = datos.datos);
     
     this.mostrarAmbas(tipo);
-    //this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos => {
-      //this.arregloTipoPercepcion = datos.datos
-
-
-      
-      
-      //this.concatenaEspecializacion();
-
-    //});
-    
-    
   
   }
 
@@ -136,9 +124,94 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     
     if(tipo == "A"){
       this.ambasPeriodicidad = true;
+      this.conAmbasPeriodicidad = false;
     }else{
       this.ambasPeriodicidad = false;
+      this.conAmbasPeriodicidad = true;
     }
+  }
+
+  public validarTipoConcepto(tipo:any){
+    
+    debugger;
+      
+      for(let item of this.arregloTipoPercepcion){
+        if(item.tipoPercepcionId == tipo){
+          this.tipoPercepcion = item.tipoPercepcionId + "-" + item.especializacion;
+          if(item.tipoConcepto == "N"){
+            this.mostrartipoConcepto = false;
+          }
+          else if(item.tipoConcepto == "O"){
+            this.myForm.controls.tipoConcepto.setValue("Ordinario");
+            this.myForm.controls.tipoConcepto.disable();
+            this.mostrartipoConcepto = true;
+          }
+          else if(item.tipoConcepto == "E"){
+            this.myForm.controls.tipoConcepto.setValue("Extraordinario");
+            this.myForm.controls.tipoConcepto.disable();
+            this.mostrartipoConcepto = true;
+          }
+          else if(item.tipoConcepto == "A"){
+            this.myForm.controls.tipoConcepto.setValue("Ordinario");
+            this.mostrartipoConcepto = true;
+          }
+          else{
+            this.mostrartipoConcepto = true;
+            this.myForm.controls.tipoConcepto.enable();
+          }
+
+         if(item.integraIsn == "S" ){
+            this.myForm.controls.gravaIsn.setValue(true);
+            this.myForm.controls.gravaIsn.disable();
+          }
+         else if(item.integraIsn == "N" ){
+            this.myForm.controls.gravaIsn.setValue(false);
+            this.myForm.controls.gravaIsn.disable();
+          }
+          else if(item.integraIsn == "C" ){
+            this.myForm.controls.gravaIsn.setValue(true);
+            this.myForm.controls.gravaIsn.enable();
+          }else{
+            this.myForm.controls.gravaIsn.setValue(false);
+            this.myForm.controls.gravaIsn.enable();
+          }
+          
+         if(item.integraIsr == "S"){
+            this.myForm.controls.gravaIsr.setValue(true);
+            this.myForm.controls.gravaIsr.disable();
+          }
+          else if(item.integraIsr == "N"){
+            this.myForm.controls.gravaIsr.setValue(false);
+            this.myForm.controls.gravaIsr.disable();
+          }
+          else if(item.integraIsr == "C"){
+            this.myForm.controls.gravaIsr.setValue(true);
+            this.myForm.controls.gravaIsr.enable();
+          }
+          else{
+            this.myForm.controls.gravaIsr.setValue(false);
+            this.myForm.controls.gravaIsr.enable();
+          }
+         if(item.integraSdi == "S"){
+            this.myForm.controls.integraImss.setValue(true);
+            this.myForm.controls.integraImss.disable();
+          }
+          else if(item.integraSdi == "N"){
+            this.myForm.controls.integraImss.setValue(false);
+            this.myForm.controls.integraImss.disable();
+          }
+          else if(item.integraSdi == "C"){
+            this.myForm.controls.integraImss.setValue(true);
+            this.myForm.controls.integraImss.enable();
+          }
+          else{
+            this.myForm.controls.integraImss.setValue(false);
+            this.myForm.controls.integraImss.enable();
+          }
+
+        }
+
+      }
   }
 
   public enviarPeticion() {
@@ -160,10 +233,10 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         
         
         if (valor) {
-          
-          let obj = this.myForm.value;
+          debugger;
+          let obj = this.myForm.getRawValue();
 
-          let splitE = obj.tipoPercepcionId.split('-');
+          let splitE = this.tipoPercepcion.split('-');
           let especializacion = splitE[1];
           let tipoDeduccion = splitE[0];
 
@@ -183,6 +256,11 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
           }
           let gravaIsr = obj.gravaIsr == true ? "S" : "N";
           integraImss = obj.integraImss == true ? "S" : "N";
+          //obj.gravaIsn = obj.gravaIsn == true ? "S" : "N";
+
+          if(obj.tipoPeriodicidad == "A"){
+            obj.tipoPeriodicidad = obj.periodicidadTipo;
+          }
 
           this.peticion = {
 
