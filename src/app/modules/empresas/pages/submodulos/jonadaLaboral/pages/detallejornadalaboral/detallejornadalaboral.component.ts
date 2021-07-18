@@ -51,10 +51,13 @@ export class DetallejornadalaboralComponent implements OnInit {
       this.arreglodetalleJornada = datos.datos
       this.myForm = this.crearForm(this.arreglodetalleJornada);
 
+      this.selectJornada(this.myForm.controls.sumaHorasJornadaId)
+
     });;
     }else{
 
           this.myForm = this.crearForm((objdetrep));
+          this.selectJornada(this.myForm.controls.sumaHorasJornadaId)
     }
 
     this.catalogosPrd.getTipoJornadas(true).subscribe(datos => this.arreglotipojornadas = datos.datos);
@@ -63,11 +66,14 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   ngAfterViewInit(): void{
 
-    this.nombre.nativeElement.focus();
+    // this.nombre.nativeElement.focus();
 
   }
 
   public crearForm(obj: any) {
+   
+
+
       if(!this.esInsert){
         if(obj.nclHorarioJornada[0].dia == 1 && obj.nclHorarioJornada[0].esActivo== true){
           let splitHE = obj.nclHorarioJornada[0].horaEntrada.split(' ');
@@ -119,6 +125,7 @@ export class DetallejornadalaboralComponent implements OnInit {
         }
 
       }else{
+
       obj.lunes= true;
       obj.martes= true;
       obj.miercoles= true;
@@ -126,13 +133,12 @@ export class DetallejornadalaboralComponent implements OnInit {
       obj.viernes= true;
       }
 
-    
     return this.formbuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       tipoJornadaId: [obj.tipoJornadaId?.tipoJornadaId, [Validators.required]],
       sumaHorasJornadaId: [obj.sumaHorasJornadaId?.sumaHorasJornadaId, [Validators.required]],
-      horaEntrada: [{value:obj.horaEntrada, disabled: true}, [Validators.required]],
-      horaSalida: [{value:obj.horaSalida, disabled: true}, [Validators.required]],
+      horaEntrada: [obj.horaEntrada, [Validators.required]],
+      horaSalida: [obj.horaSalida, [Validators.required]],
       horaInicioComida: [obj.horaInicioComida],
       horaFinComida: [obj.horaFinComida],
       lunes: obj.lunes,
@@ -279,6 +285,10 @@ export class DetallejornadalaboralComponent implements OnInit {
 
           });
         } else {
+
+          if(String(obj.sumaHorasJornadaId) === '1') {
+            obj.horaSalida = this.horaSalida;
+          }
           this.peticion = {
             jornadaId: obj.jornadaId,
             tipoJornadaId: {
@@ -372,8 +382,6 @@ export class DetallejornadalaboralComponent implements OnInit {
               }
             ]
           };
-
-
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.jornadaPrd.modificar(this.peticion).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -406,12 +414,12 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public selectJornada(op: any){
-    this.jornada = op.value;
     this.myForm.clearValidators();
-
-    this.myForm.controls.horaEntrada.enable();
-    this.myForm.controls.horaSalida.enable();
-    if(op.value =='3'){
+    this.jornada = String(op.value);
+    if(this.jornada =='1'){
+      this.myForm.controls.horaSalida.disable();
+    }
+    if(this.jornada =='3'){
       this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
       this.myForm.controls.horaFinComida.setValidators([Validators.required]);
       
@@ -419,8 +427,11 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public hrInicio(response : any){
+
     if(this.jornada === '1') {
+      this.myForm.controls.horaSalida.disable();
     let hr = Number(response.value.substring(0,2))+8;
+
     let newValue : any;
     newValue = response.value.replace(response.value.substring(0,2),Number(response.value.substring(0,2))+8)
     if(hr  === 8 || hr === 9){
@@ -431,9 +442,12 @@ export class DetallejornadalaboralComponent implements OnInit {
     }
 
     this.myForm.controls.horaSalida.setValue(newValue);
+    this.myForm.value.horaSalida = newValue ;
+
     this.horaSalida = newValue;
-    this.myForm.controls.horaSalida.disable();
+   
     }
+    
   }
 
 }

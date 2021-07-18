@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-import { truncate } from 'fs';
+
 
 @Component({
   selector: 'app-variabilidad',
@@ -92,25 +92,7 @@ export class VariabilidadComponent implements OnInit {
 
     this.cargando = true;
 
-        this.objFiltro = {
-          ...this.objFiltro,
-          //clienteId: 463
-          clienteId: this.idEmpresa
-
-        };
-    
-    this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
-      this.arreglo = datos.datos;
-  
-      this.traerTabla({ datos: this.arreglo });
-  
-      this.cargando = false;
-      let obj: any  = [];
-      this.myForm = this.createForm(obj);
-    });
-
-    
-
+    this.filtrar();
   }
 
     public traerTabla(datos:any) {
@@ -187,6 +169,9 @@ export class VariabilidadComponent implements OnInit {
       this.arreglotabla.filas = this.arreglo
       this.cargando = false;
     }
+
+
+
 
     public aplicarPromedio(){
 
@@ -275,27 +260,30 @@ export class VariabilidadComponent implements OnInit {
     }
 
   public filtrar() {
-
-   // 
-
     this.cargando = true;
-
+    if(this.anioFiltro != ''){
+      this.objFiltro = {
+        ...this.objFiltro,
+        anio: this.anioFiltro
+      };
+      }
+      if(this.bimestre != ''){
         this.objFiltro = {
           ...this.objFiltro,
-          clienteId: this.razonSocialEmpresa,
-          anioFiscal: this.anioFiltro,
           bimestre: this.bimestre
         };
-   
-  //
-  this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
-    this.arreglo = datos.datos;
-
-    this.traerTabla({ datos: this.arreglo });
-
-    this.cargando = false;
-  });
-
+        }
+    this.objFiltro = {
+      ...this.objFiltro,
+      clienteId: this.idEmpresa
+    };
+    this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
+      this.arreglo = datos.datos;
+      this.traerTabla({ datos: this.arreglo });
+      this.cargando = false;
+      let obj: any  = [];
+      this.myForm = this.createForm(obj);
+    });
   }
 
 
@@ -473,4 +461,11 @@ export class VariabilidadComponent implements OnInit {
   public get f() {
     return this.myForm.controls;
   }
+
+
+
+
 }
+
+
+

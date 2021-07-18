@@ -140,12 +140,12 @@
 
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Fecha inicio *</label>
-                <input formControlName="fechaInicio" type="date" class="form-control">
+                <input formControlName="fechaInicio" type="date" class="form-control isr">
 
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Fecha fin *</label>
-                <input formControlName="fechaFin" type="date" class="form-control">
+                <input formControlName="fechaFin" type="date" class="form-control isr">
 
             </div>
 
@@ -307,10 +307,10 @@
                             <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)">{{valores.porcExcedenteLimInf}}</span>
                         </td>
                         <td class="td-center">
-                            <input type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaIsrId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'fechaInicio', $event)">
+                            <input #isr id="isr" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaIsrId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'fechaInicio', $event)">
                         </td>
                         <td class="td-center">
-                            <input type="date" [value]="valores.fechaFin" (keydown)="changeValue(tarifaPeriodicaIsrId, 'fechaFin', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'fechaFin', $event)">
+                            <input #isr id="isr" type="date" [value]="valores.fechaFin" (keydown)="changeValue(tarifaPeriodicaIsrId, 'fechaFin', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'fechaFin', $event)">
                         </td>
 
                     </tr>
@@ -414,10 +414,10 @@
                             <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
                         </td>
                         <td class="td-center">
-                            <input type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)">
+                            <input #isr id="isr" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)">
                         </td>
                         <td class="td-center">
-                            <input type="date" [value]="valores.fechaFin" (keydown)="changeValue(tarifaPeriodicaSubsidioId, 'fechaFin', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'fechaFin', $event)">
+                            <input #isr id="isr" type="date" [value]="valores.fechaFin" (keydown)="changeValue(tarifaPeriodicaSubsidioId, 'fechaFin', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'fechaFin', $event)">
                         </td>
 
                     </tr>
