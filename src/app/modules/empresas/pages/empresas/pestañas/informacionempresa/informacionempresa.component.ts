@@ -90,13 +90,11 @@ export class InformacionempresaComponent implements OnInit {
       this.myform.controls.razonSocial.updateValueAndValidity();
       this.myform.controls.curp.setValidators([Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]);
       this.myform.controls.curp.updateValueAndValidity();
-      console.log("Hace las validaciones");
     } else {
       this.myform.controls.razonSocial.setValidators([Validators.required]);
       this.myform.controls.razonSocial.updateValueAndValidity();
       this.myform.controls.curp.setValidators([Validators.pattern(ConfiguracionesService.regexCurp)]);
       this.myform.controls.curp.updateValueAndValidity();
-      console.log("NO HACE");
     }
   }
 
@@ -115,7 +113,7 @@ export class InformacionempresaComponent implements OnInit {
     if (this.datos.empresa?.certificadoSelloDigitalId) {
       obj.cer = 'Certificado de sello digital cargado';
       obj.key = 'Llave de certificado de sello digital cargado';
-      obj.contrasenia = "1234566789";
+      obj.contrasenia = "12345";
     }
 
     return this.formBuilder.group({
