@@ -403,6 +403,9 @@ export class ContenidoComponent implements OnInit {
       item.labelflotante = false;
     }
   }
+
+
+ 
 }
 
 

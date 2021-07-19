@@ -134,7 +134,9 @@ export class SedeComponent implements OnInit {
       });
     }
     else {
-      this.objenviar.sedeId =  this.sede.sedeId;
+      this.objenviar.sedeId = {
+        sedeId:this.sede.sedeId
+      };
       this.sedePrd.modificar(this.objenviar).subscribe(datos => {
          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
          this.enviado.emit({type:"guardar"});
