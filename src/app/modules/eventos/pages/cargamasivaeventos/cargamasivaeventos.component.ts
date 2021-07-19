@@ -78,6 +78,7 @@ export class CargaMasivaEventosComponent implements OnInit {
       for (let item of this.arregloEmpleados) {
         item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
       }
+
     });
 
 
@@ -101,6 +102,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 
       documento: [obj.documento,[Validators.required]],
       nombre: [obj.nombre],
+      valor: []
 
     });
   }
@@ -232,9 +234,6 @@ export class CargaMasivaEventosComponent implements OnInit {
       return valor;
     }
 
-  public get f(){
-    return this.myForm.controls;
-  }
 
   public cancelar(){
     this.routerPrd.navigate(['/eventos/eventosxempleado']);
@@ -402,7 +401,8 @@ export class CargaMasivaEventosComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     let objEnviar: any ={
       idEmpresa: this.idEmpresa,
-      listaIdEmpleados: this.obtenerEmpleados()
+      listaIdEmpleados: this.obtenerEmpleados(),
+      esActivo: true
     }
 
   
@@ -436,7 +436,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 
   }
 
-
+  get f() { return this.myForm.controls; }
   
 }
 
