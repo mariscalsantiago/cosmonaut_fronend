@@ -6,6 +6,7 @@ import { ListaEmpresasComponent } from './pages/listaempresas/listaempresas.comp
 import { SedeComponent } from './pages/empresas/pestañas/domicilio/sede/sede.component';
 import { CuentasComponent } from './pages/empresas/pestañas/datosbancarios/cuentas/cuentas.component';
 import { MovimientosComponent } from './pages/movimientos/movimientos/movimientos.component';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 
 const routes: Routes = [{
@@ -44,7 +45,7 @@ const routes: Routes = [{
     },
     {
       path: 'detalle/:id',
-      component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/representantelegal/empresarepresentantelegal.module").then(m => m.empresaRepresentanteLegalModule)
+      component: DetalleempresasComponent,loadChildren:()=> import("./pages/submodulos/representantelegal/empresarepresentantelegal.module").then(m => ConfiguracionesService.establecerMenu(m).empresaRepresentanteLegalModule)
     },
     {
       path: 'detalle/:id',

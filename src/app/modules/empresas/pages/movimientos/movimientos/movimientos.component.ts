@@ -83,7 +83,7 @@ export class MovimientosComponent implements OnInit {
 
   public filtrar() {
 
-    debugger;
+    
 
         
     if (this.fechaMovimiento != "" && this.fechaMovimiento != undefined) {

@@ -19,6 +19,7 @@ export class NominaCalculadoraComponent implements OnInit {
   public myForm!: FormGroup;
   public arregloPeriocidad: any = [];
   public esSueldoNeto: boolean = false;
+  public esSueldoNetoBruto: boolean = true;
   public arregloPoliticas: any = [];
   public arregloBasePeriodos: any = [];
   public idEmpresa: number = 0;
@@ -33,6 +34,7 @@ export class NominaCalculadoraComponent implements OnInit {
     public configuracionPrd:ConfiguracionesService, private grupoNominaPrd: GruponominasService,) { }
 
   ngOnInit(): void {
+    debugger;
     this.myForm = this.crearFormulario();
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.suscripciones();
@@ -62,6 +64,7 @@ export class NominaCalculadoraComponent implements OnInit {
   }
 
   public suscripciones() {
+    debugger;
     this.myForm.controls.tiposueldo.valueChanges.subscribe(valor => {
       this.esSueldoNeto = valor == "n";
 
@@ -69,11 +72,13 @@ export class NominaCalculadoraComponent implements OnInit {
         this.myForm.controls.politicaId.setValidators([Validators.required]);
         this.myForm.controls.politicaId.updateValueAndValidity();
         this.titulosueldo = "neto";
+        this.esSueldoNetoBruto = false;
 
       } else {
         this.myForm.controls.politicaId.clearValidators();
         this.myForm.controls.politicaId.updateValueAndValidity();
         this.titulosueldo = "bruto";
+        this.esSueldoNetoBruto = true;
       }
     });
 
@@ -108,7 +113,7 @@ export class NominaCalculadoraComponent implements OnInit {
       if(valor){
             
         let  obj = this.myForm.getRawValue();
-
+        debugger;
 
           let objEnviar : any = 
           {
@@ -116,9 +121,11 @@ export class NominaCalculadoraComponent implements OnInit {
               periodicidadPagoId: obj.periodicidadPagoId,
               sbmImss: obj.sueldobruto,
               inluyeImms: obj.imss,
-              inlcuyeSubsidio: obj.subsidio
+              inlcuyeSubsidio: obj.subsidio,
+              diasPeriodo: obj.basePeriodoId
 
         };
+
         
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 

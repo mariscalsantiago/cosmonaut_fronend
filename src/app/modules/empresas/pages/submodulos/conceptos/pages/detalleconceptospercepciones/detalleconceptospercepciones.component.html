@@ -4,7 +4,6 @@
 <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
 
     <input type="hidden" formControlName="conceptoPercepcionId">
-
     <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
         <br>
         <div class="form-group row margen">
@@ -20,9 +19,10 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Tipo de percepción *</label>
-                <select formControlName="tipoPeriodicidad" name="" class="form-control" [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitInvalido}">
+                <select #tipoPercepcion (focusout)="validarPercepcion(tipoPercepcion.value)" formControlName="tipoPeriodicidad" name="" class="form-control" [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitInvalido}">
                     <option value="P">Periódica</option>
                     <option value="E">Estándar</option>
+                    <option value="A">Ambas</option>
                 </select>
                 <div *ngIf="submitInvalido && f.tipoPeriodicidad.errors" class="invalid-feedback">
                     Campo requerido
@@ -30,7 +30,7 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
                 <label>Catálogo SAT *</label>
-                <input autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
+                <input #tipoConcepto (focusout)="validarTipoConcepto(tipoConcepto.value)" autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
                 <datalist id="catalogoSAT">
                         <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipoPercepcionId">
                             {{item.descripcion}}</option>
@@ -38,6 +38,20 @@
                 <div *ngIf="f.tipoPercepcionId.errors && submitInvalido" class="invalid-feedback">
                     Campo requerido
                 </div>
+            </div>
+
+            <div *ngIf="ambasPeriodicidad" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
+                <label></label>
+                <label class="contenedorInputCheckRadio">Estándar
+                <input value="E" formControlName="periodicidadTipo" checked type="radio" name="periodicidadTipo" id="">
+                <span class="radiomark"></span>
+                </label>
+                <label class="contenedorInputCheckRadio">Periódica
+                <input value="P" formControlName="periodicidadTipo" type="radio" name="periodicidadTipo" id="">
+                <span class="radiomark"></span>
+            </label>
+
+
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Cuenta contable</label>
@@ -51,7 +65,7 @@
                     <option value="false">Inactivo</option>
                 </select>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
+            <div  *ngIf="conAmbasPeriodicidad" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
             <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
                 <label class="contenedorInputCheckRadio">Grava ISR
                     <input formControlName="gravaIsr" type="checkbox" name="" id="gravaIsr">
@@ -70,15 +84,15 @@
 
             </div>
 
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="mostrartipoConcepto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Tipo concepto:</label><br>
 
-                <label class="contenedorInputCheckRadio"> Ordinario
+                <label  class="contenedorInputCheckRadio "> Ordinario
                     <input value="Ordinario" formControlName="tipoConcepto" type="radio" name="tipoConcepto">
                     <span class="radiomark"></span>
                 </label>
 
-                <label class="contenedorInputCheckRadio"> Extraordinario
+                <label class="contenedorInputCheckRadio "> Extraordinario
                     <input value="Extraordinario" formControlName="tipoConcepto" type="radio" name="tipoConcepto">
                     <span class="radiomark"></span>
                 </label>

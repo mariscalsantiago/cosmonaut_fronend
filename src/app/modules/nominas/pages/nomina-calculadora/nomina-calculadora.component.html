@@ -56,16 +56,17 @@
                 </div>
 
             </div>
-            <div *ngIf="esSueldoNeto" class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+            <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                 <label>Calculo en base a</label>
                 <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && f.basePeriodoId.touched}" class="form-control">
-                    <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.nombreCorto}}</option>
+                    <option *ngFor="let item of arregloBasePeriodos" [value]="item.nombreCorto">{{item.nombreCorto}}</option>
                   </select>
                 <div *ngIf="f.basePeriodoId.touched && f.basePeriodoId.errors" class="invalid-feedback">
                     Campo requerido
                 </div>
 
             </div>
+            <div *ngIf="esSueldoNetoBruto" class="input-group-sm mb-4 col-12 col-sm-8 col-lg-8"></div>
             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                 <div>
 

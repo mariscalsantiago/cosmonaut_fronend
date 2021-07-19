@@ -79,7 +79,6 @@ export class NominasActivasComponent implements OnInit {
 
       if (valor.datos) {
         this.traerListaNomina();
-
       }
     });
   }

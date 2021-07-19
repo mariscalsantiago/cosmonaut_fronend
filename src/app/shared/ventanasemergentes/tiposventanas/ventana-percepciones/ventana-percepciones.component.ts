@@ -80,15 +80,15 @@ export class VentanaPercepcionesComponent implements OnInit {
     return this.formBuild.group({
 
       numeroPeriodos: [obj.numeroPeriodos],
-      tipoPeriodicidadId: [obj.tipoPeriodicidadId],
+      tipoPeriodicidadId: [obj.tipoPeriodicidadId, Validators.required],
       baseCalculoId:[obj.baseCalculoId?.baseCalculoId],
       porcentaje: [obj.valor],
       montoPorPeriodo: [obj.montoPorPeriodo],
-      fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd')],
+      fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd'), Validators.required],
       montoPercepcion: [obj.montoTotal],
-      nomPercepcion: [obj.tipoPercepcionId?.tipoPercepcionId],
+      nomPercepcion: [obj.tipoPercepcionId?.tipoPercepcionId, Validators.required],
       referencia:[obj.referencia],
-      esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }]
+      esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }, Validators.required]
 
     });
 
@@ -110,9 +110,16 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo:any){
-    
+
+    this.myForm.clearValidators();
     if(tipo != ""){
       if(tipo == 1){
+        this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+        this.myForm.controls.montoPercepcion.setValidators([Validators.required]);
+        this.myForm.controls.numeroPeriodos.setValidators([Validators.required]);
+        this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
+        // this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
+
         let nombrePer = "P";
         this.periodica = true;
         this.estandar= false;
@@ -120,7 +127,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.myForm.controls.baseCalculoId.setValue(2);
         
         if(this.politica !== undefined){
-          debugger;
+          
         this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
           this.nombrePercepcion = datos.datos;
         });
@@ -130,6 +137,8 @@ export class VentanaPercepcionesComponent implements OnInit {
           });
         }
       }else{
+        this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+        this.myForm.controls.porcentaje.setValidators([Validators.required]);
         let nombrePer = "E";
         this.myForm.controls.baseCalculoId.enable();
         if(!this.esInsert){
@@ -198,15 +207,16 @@ export class VentanaPercepcionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-  
-    /*this.submitEnviado = true;
+    this.myForm.updateValueAndValidity();
+
+    this.submitEnviado = true;
     if (this.myForm.invalid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error);
 
       return;
 
-    }*/
+    }
     let mensaje = this.esInsert ? "¿Deseas registrar la percepción" : "¿Deseas actualizar la percepción?";
     
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{

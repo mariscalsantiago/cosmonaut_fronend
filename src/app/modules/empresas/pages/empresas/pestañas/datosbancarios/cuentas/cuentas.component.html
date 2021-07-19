@@ -8,7 +8,7 @@
         <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
             <label>Nombre de cuenta *</label>
             <input #nombre formControlName="nombreCuenta" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombreCuenta.errors && submitEnviado}" placeholder="">
-            <div *ngIf="submitEnviado && f.nombreCuenta.errors" class="invalid-feedback">
+            <div  class="invalid-feedback">
                 Campo requerido
             </div>
         </div>

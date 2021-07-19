@@ -13,29 +13,9 @@ export class InicioComponent implements OnInit {
 
   public valor: any;
 
-  constructor(private modalPrd: ModalService, private ventana: VentanaemergenteService,private usuariosPrd:UsuarioSistemaService,
-    public configuracionPrd:ConfiguracionesService) { }
+  constructor(public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
   
   }
-
-
-  public alerta() {
-
-  }
-
-
-  public vermodal(){
-    this.ventana.showVentana(this.ventana.timbrado,{ventanaalerta:true});
-  }
-
-  public vermodal2(){
-    this.ventana.showVentana(this.ventana.timbrado);
-  }
-
-
-  
-
-
 }

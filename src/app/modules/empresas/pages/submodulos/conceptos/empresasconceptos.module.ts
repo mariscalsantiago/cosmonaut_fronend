@@ -11,8 +11,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { TooltipModule } from 'ng-uikit-pro-standard';
 
 @NgModule({
-    imports:[CommonModule,empresasConceptosRoutingModule,ShareModule,FormsModule,ReactiveFormsModule,TooltipModule,
-    HttpClientModule, TooltipModule],
+    imports:[CommonModule,FormsModule,TooltipModule,ReactiveFormsModule,empresasConceptosRoutingModule,ShareModule],
     declarations: [ListasconceptospercepcionesComponent, DetalleconceptospercepcionesComponent,DetalleconceptosdeduccionesComponent],
     providers:[ConceptosService]
 })

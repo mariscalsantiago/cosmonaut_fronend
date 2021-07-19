@@ -91,6 +91,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       esActivo: this.objdetrep.esActivo,
       tipoPersona: this.objdetrep.indPersonaFisica
     };
+    console.log('94' , this.detCatalogos)
     if(this.detCatalogos.listaCatalogosId == 1){
         this.catBanco();
         this.idCatalogo = this.objdetrep.codBanco;
@@ -127,7 +128,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 6){
-      
+
+      this.objdetrep.fecInicio = new DatePipe("es-MX").transform(new Date(new Date(this.objdetrep.fecInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+  
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.objdetrep.tipoPersona = this.objdetrep.indPersonaFisica == true  ?"indPersonaFisica":"indPersonaMoral";
@@ -170,11 +173,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
         if (datos.datos !== undefined) {
-          console.log(datos.datos);
           for (let item of datos.datos) {
-            item["fechaInicio"] = new DatePipe("es-MX").transform(item.fechaInicio, 'yyyy-MM-dd');
-            item["fechaFin"] = new DatePipe("es-MX").transform(item.fechaInicio, 'yyyy-MM-dd');
-          }
+            item["fechaInicio"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+            item["fechaFin"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd');          }
         }
         this.arregloTablaValores = datos.datos;
       });
@@ -193,8 +194,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         if (datos.datos !== undefined) {
           for (let item of datos.datos) {
-            item["fechaInicio"] = new DatePipe("es-MX").transform(item.fechaInicio, 'yyyy-MM-dd');
-            item["fechaFin"] = new DatePipe("es-MX").transform(item.fechaInicio, 'yyyy-MM-dd');
+            item["fechaInicio"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+            item["fechaFin"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd'); 
           }
         }
 
@@ -250,6 +251,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public createForm(obj: any) {
 
     let datePipe = new DatePipe("en-MX");
+    console.log('obj',obj)
     return this.formBuilder.group({
 
       clave: [this.idCatalogo],
@@ -1440,7 +1442,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
               }
             this.objEnviar = {
-              valoresTablaPeriodicaISR: this.valorestab,
+              valoresTablaPeriodicaSubsidio: this.valorestab,
             }
             console.log('18 objEnviar', this.objEnviar)
   

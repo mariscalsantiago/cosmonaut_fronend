@@ -6,10 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ShowPipe implements PipeTransform {
 
   transform( text: any,arr: any[], filter: string, column: string ): any {
+    arr = arr || [];
     if(arr.length < 1){
       return text;
     }
-    return arr.find(value => value[filter] === text)[column] ;
+    const resultado = arr.find(value => value[filter] === text) || {descripcion:''}
+    return resultado[column] ;
   }
 
 }
