@@ -19,7 +19,7 @@ export class NominaCalculadoraComponent implements OnInit {
   public myForm!: FormGroup;
   public arregloPeriocidad: any = [];
   public esSueldoNeto: boolean = false;
-  public esSueldoNetoBruto: boolean = true;
+  public esSueldoNetoBruto: boolean = false;
   public arregloPoliticas: any = [];
   public arregloBasePeriodos: any = [];
   public idEmpresa: number = 0;
