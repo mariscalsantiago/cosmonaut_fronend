@@ -402,7 +402,8 @@ export class CargaMasivaEventosComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     let objEnviar: any ={
       idEmpresa: this.idEmpresa,
-      listaIdEmpleados: this.obtenerEmpleados()
+      listaIdEmpleados: this.obtenerEmpleados(),
+      esActivo: true
     }
 
   
