@@ -6,7 +6,6 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { EmpleadosService } from '../../services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { truncate } from 'fs';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
@@ -341,6 +340,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public cancelarcomp() {
+    this.routerPrd.navigate(['/inicio']);
     this.myFormcomp = this.createFormcomp({});
   }
 

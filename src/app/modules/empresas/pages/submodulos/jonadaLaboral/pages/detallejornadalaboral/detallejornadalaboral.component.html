@@ -1,6 +1,6 @@
 <br><br>
 <hr>
-<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()" *ngIf="myForm">
 
     <input type="hidden" formControlName="jornadaId">
 
@@ -74,7 +74,7 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Hora de entrada *</label>
-                <input #nombre formControlName="horaEntrada" [ngClass]="{'is-invalid':f.horaEntrada.errors && submitInvalido}" type="time" class="form-control" placeholder="" (change)="hrInicio($event.target)">
+                <input #nombre formControlName="horaEntrada" [ngClass]="{'is-invalid':f.horaEntrada.errors && submitInvalido}" type="time" class="form-control" placeholder="" (focusout)="hrInicio($event.target)">
                 <div *ngIf="submitInvalido && f.horaEntrada.errors" class="invalid-feedback">
                     Campo requerido
                 </div>

@@ -206,7 +206,7 @@ export class CargaMasivaEventosComponent implements OnInit {
     }
  
     public obtenerEmpleados() {
-      debugger;
+      
       let valor = [];
       
       switch (this.valor) {
@@ -268,7 +268,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 
 
   public seleccionarItem() {
-    debugger;
+    
     
     /*if(this.valor == "2"){
       if(this.etiquetas.length === 0){

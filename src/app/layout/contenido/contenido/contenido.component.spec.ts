@@ -9,7 +9,7 @@ import { ContenidoComponent } from "./contenido.component";
 describe('verificacion outlet en contenido',()=>{
 
 
-    beforeEach(async(()=>{
+   /* beforeEach(async(()=>{
         TestBed.configureTestingModule({
 
             declarations:[ContenidoComponent],
@@ -104,7 +104,7 @@ describe('verificacion outlet en contenido',()=>{
 
         // expect(validar).toBeTruthy();
 
-    });
+    });*/
 
 
     

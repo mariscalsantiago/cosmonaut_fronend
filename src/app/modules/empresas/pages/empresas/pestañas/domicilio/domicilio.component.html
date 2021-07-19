@@ -7,7 +7,7 @@
 
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Código postal *</label>
-                    <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control" [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
+                    <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar()" type="text" class="form-control" [ngClass]="{'is-invalid':f.codigo.errors && submitEnviado}"
                         placeholder="">
                     <div *ngIf="f.codigo.errors?.required && submitEnviado" class="invalid-feedback">
                         Campo requerido

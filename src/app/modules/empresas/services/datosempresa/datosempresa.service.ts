@@ -11,35 +11,19 @@ export class DatosempresaService {
   private url:string = '';
 
   constructor(private http:HttpClient) { 
-
-
     this.url = direcciones.centroCostosCliente;
-
   }
 
   public save(obj:any):Observable<any>{
-    const httpOptions={
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-    let json:string = JSON.stringify(obj);
-    
-    return this.http.put(`${this.url}/guardar/empresa`,json,httpOptions);
+    let json:string = JSON.stringify(obj); 
+    return this.http.put(`${this.url}/guardar/empresa`,json);
   }
 
  
 
   public modificar(obj:any):Observable<any>{
-    const httpOptions={
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
     let json:string = JSON.stringify(obj);
-
-    return this.http.post(`${this.url}/modificar/empresa`,json,httpOptions);
+    return this.http.post(`${this.url}/modificar/empresa`,json);
   }
 
     

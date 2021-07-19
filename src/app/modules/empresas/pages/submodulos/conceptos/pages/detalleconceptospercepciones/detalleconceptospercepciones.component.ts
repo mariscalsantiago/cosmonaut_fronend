@@ -45,7 +45,6 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       }
     });
 
-
     if(!this.esInsert){
       debugger;
     this.obj = history.state.data == undefined ? {} : history.state.data;
@@ -115,8 +114,6 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
-    debugger;
-    
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>this.arregloTipoPercepcion = datos.datos);
     
     this.mostrarAmbas(tipo);
