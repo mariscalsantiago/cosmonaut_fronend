@@ -23,14 +23,6 @@ export class EmpresasComponent implements OnInit {
     { tab: false, form: false, enable: false, seleccionado: false },
     { tab: false, form: false, enable: false, seleccionado: false }
   ];
-
-  public guardarDom: boolean = false;
-  public cuentaBanco: boolean = false;
-  public continuarDom: boolean = false;
-  public continuarBancos: boolean = false;
-  public continuarSede: boolean = false;
-  public continuarCuentas: boolean = false;
-  public activarGuardaMod: boolean = true;
   public insertar: boolean = false;
   public activarList: boolean = false;
   public activarForm: boolean = true;
@@ -119,52 +111,18 @@ export class EmpresasComponent implements OnInit {
         this.activado[2].tab = true;
         this.activado[2].form = true;
         this.activado[2].enable = true;
+        this.activado[2].seleccionado = true;
         this.activado[1].form = false;
-        break;
-      case "domicilioSede":
-
-        this.guardarDom = true;
-        break;
-      case "domicilioCont":
-
-        this.continuarDom = true;
-        break;
-      case "sedeCont":
-
-        this.continuarSede = true;
-        break;
-      case "cuentasCont":
-
-        this.continuarCuentas = true;
-        break;
-      case "bancosCont":
-
-        this.continuarBancos = true;
-        break;
-      case "cuentasBancarias":
-
-        this.cuentaBanco = true;
+        this.activado[1].seleccionado = false;
         break;
       case "datosbancarios":
 
         this.activado[3].tab = true;
         this.activado[3].form = true;
         this.activado[3].enable = true;
+        this.activado[3].seleccionado = true;
         this.activado[2].form = false;
-        break;
-      case "sede":
-
-        this.activado[1].tab = true;
-        this.activado[4].form = true;
-        this.activado[4].enable = true;
-        this.activado[1].form = false;
-        break;
-      case "sedeDom":
-
-        this.activado[1].tab = true;
-        this.activado[1].form = true;
-        this.activado[1].enable = true;
-        this.activado[4].form = false;
+        this.activado[2].seleccionado = false;
         break;
       case "cuentas":
 

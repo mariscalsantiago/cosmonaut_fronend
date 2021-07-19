@@ -16,9 +16,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 })
 export class InformacionempresaComponent implements OnInit {
   @ViewChild("nombre") nombre!: ElementRef;
-
   @Output() enviado = new EventEmitter();
-
   @Input() datos: any;
 
 
@@ -183,7 +181,6 @@ export class InformacionempresaComponent implements OnInit {
       return;
     }
 
-    console.log("Form", obj);
 
 
     let objenviar :any = {
@@ -198,7 +195,7 @@ export class InformacionempresaComponent implements OnInit {
         centrocClienteId: (this.usuariosSistemaPrd.esCliente()) ? this.usuariosSistemaPrd.getIdEmpresa() : this.usuariosSistemaPrd.getUsuario().centrocClienteIdPadre
       },
       actividadEconomicaId: {
-        actividadEconomicaId: this.arregloactividad2.find((value: any) => value.actividadEconomicaId === obj.actividadEconomicaId2).actividadEconomicaId
+        actividadEconomicaId: this.arregloactividad2.find((value: any) => value.actividadEconomicaId === obj.actividadEconomicaId2)?.actividadEconomicaId || obj.actividadEconomicaId2.substring(0,obj.actividadEconomicaId2.lastIndexOf("-"))
       },
       imagen: this.imagen,
       curp: obj.curp,
@@ -209,6 +206,8 @@ export class InformacionempresaComponent implements OnInit {
       centrocClienteId: 0
     }
 
+
+    console.log("Form", objenviar);
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     if (this.datos.insertar) {

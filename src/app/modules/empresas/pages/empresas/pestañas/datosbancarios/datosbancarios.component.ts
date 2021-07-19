@@ -33,6 +33,8 @@ export class DatosbancariosComponent implements OnInit {
   public insertarMof: boolean = false;
   public mostrarSTP: boolean = false;
 
+  public verDetalleBanco: boolean = false;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -49,8 +51,7 @@ export class DatosbancariosComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    this.datos.activarGuardaMod = true;
+    console.log("Esto es datos de empresa",this.datos);
     this.id_empresa = this.datos.empresa.centrocClienteId;
 
     this.cargando = true;
@@ -189,12 +190,7 @@ export class DatosbancariosComponent implements OnInit {
   }
 
   public verdetalle(obj: any) {
-
-    this.datos.idModificar = obj;
-    this.enviado.emit({
-      type: "cuentas"
-    });
-
+    this.verDetalleBanco = true;
   }
 
   public get f() {
@@ -250,8 +246,8 @@ export class DatosbancariosComponent implements OnInit {
       this.objenviar.cuentaBancoId = this.obj.cuentaBancoId;
       this.cuentasPrd.modificar(this.objenviar).subscribe(datos => {
 
-        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-          if(datos.resultado){
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+          if (datos.resultado) {
             this.mostrarSTP = true;
             this.enviado.emit({
               type: "cuentasBancarias"
@@ -261,11 +257,11 @@ export class DatosbancariosComponent implements OnInit {
           }
         });
       });
-
-
-
     }
+  }
 
+  public salidaCuentasBancariasDetalle(obj:any){
+    console.log("Detalle cuenta bancaria",obj);
   }
 
 }
