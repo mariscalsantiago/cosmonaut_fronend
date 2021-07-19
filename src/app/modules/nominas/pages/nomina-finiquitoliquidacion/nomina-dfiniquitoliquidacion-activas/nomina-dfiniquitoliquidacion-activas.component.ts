@@ -70,6 +70,8 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
   public agregar() {
     this.ventana.showVentana(this.ventana.nuevanominafiniquitoliquidacion).then(valor => {
 
+
+      console.log("Todo chido",valor);
       if (valor.datos) {
         //  this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
         //  this.arreglo.push({ nominaLiquidacion: { ...valor.datos.datos },inicial:true });
@@ -121,6 +123,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
             if (datos.resultado) {
               this.arreglo.splice(indice, 1)
+              
             }
           });
         });

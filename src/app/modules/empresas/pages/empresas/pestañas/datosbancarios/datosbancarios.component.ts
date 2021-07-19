@@ -33,6 +33,10 @@ export class DatosbancariosComponent implements OnInit {
   public insertarMof: boolean = false;
   public mostrarSTP: boolean = false;
 
+  public verDetalleBanco: boolean = false;
+
+  public cuentaSeleccionada:any;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -49,8 +53,7 @@ export class DatosbancariosComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    this.datos.activarGuardaMod = true;
+    console.log("Esto es datos de empresa",this.datos);
     this.id_empresa = this.datos.empresa.centrocClienteId;
 
     this.cargando = true;
@@ -66,7 +69,7 @@ export class DatosbancariosComponent implements OnInit {
 
 
 
-      if (datos.datos !== undefined) {
+      if (datos.datos) {
         datos.datos.forEach((part: any) => {
           part.nombrebanco = part.bancoId?.nombreCorto;
         });
@@ -89,7 +92,6 @@ export class DatosbancariosComponent implements OnInit {
 
     }
     return this.formBuilder.group({
-
       usaStp: obj.usaStp,
       cuentaStp: [obj.cuentaStp, [Validators.required, Validators.pattern('[0-9]+')]],
       clabeStp: [obj.clabeStp, [Validators.required, Validators.pattern(/^\d{18}$/)]],
@@ -114,46 +116,34 @@ export class DatosbancariosComponent implements OnInit {
     }
   }
 
-  public activarCont() {
-    this.habcontinuar = true;
+  public continuar() {
+    this.enviado.emit({type:'datosbancarios'});
   }
 
   public recibirTabla(obj: any) {
     switch (obj.type) {
-
       case "editar":
         this.verdetalle(obj.datos);
         break;
       case "desglosar":
         let item = obj.datos;
-
         this.cuentasPrd.getAllByEmpresa(this.id_empresa).subscribe(datos => {
           let temp = datos.datos;
-
-          if (temp != undefined) {
-
+          if (temp) {
             for (let llave in temp) {
               item[llave] = temp[llave];
             }
-
           }
-
-
           let columnas: Array<tabla> = [
             new tabla("descripcion", "Descripcion"),
             new tabla("funcionCuenta", "Función de la cuenta "),
             new tabla("numInformacion", "Número de información"),
             new tabla("numSucursal", "Número de sucursal")
           ];
-
           item.funcionCuenta = item.funcionCuentaId?.descripcion;
-
-
           this.arreglotablaDesglose.columnas = columnas;
           this.arreglotablaDesglose.filas = item;
-
           item.cargandoDetalle = false;
-
         });
 
         break;
@@ -189,12 +179,8 @@ export class DatosbancariosComponent implements OnInit {
   }
 
   public verdetalle(obj: any) {
-
-    this.datos.idModificar = obj;
-    this.enviado.emit({
-      type: "cuentas"
-    });
-
+    this.cuentaSeleccionada = obj;
+    this.verDetalleBanco = true;
   }
 
   public get f() {
@@ -250,8 +236,8 @@ export class DatosbancariosComponent implements OnInit {
       this.objenviar.cuentaBancoId = this.obj.cuentaBancoId;
       this.cuentasPrd.modificar(this.objenviar).subscribe(datos => {
 
-        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-          if(datos.resultado){
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+          if (datos.resultado) {
             this.mostrarSTP = true;
             this.enviado.emit({
               type: "cuentasBancarias"
@@ -261,11 +247,17 @@ export class DatosbancariosComponent implements OnInit {
           }
         });
       });
-
-
-
     }
+  }
 
+  public salidaCuentasBancariasDetalle(obj:any){
+    console.log("Detalle cuenta bancaria",obj);
+    this.verDetalleBanco = false;
+    switch(obj.type){
+        case 'guardar':
+            this.ngOnInit();
+          break;
+    }
   }
 
 }

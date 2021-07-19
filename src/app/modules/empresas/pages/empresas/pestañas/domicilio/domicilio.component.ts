@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomicilioService } from 'src/app/modules/empresas/services/domicilio/domicilio.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -18,12 +18,10 @@ export class DomicilioComponent implements OnInit {
   @Input() datos: any;
 
 
+
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
-  public habGuardar: boolean = true;
-  public habcontinuar: boolean = false;
-  public habContinua: boolean = true;
   public domicilioCodigoPostal: any = [];
   public nombreEstado: string = "";
   public idEstado: number = 0;
@@ -37,10 +35,12 @@ export class DomicilioComponent implements OnInit {
   //public listaSedeNuevo: boolean = true;
   public listaSedeModificar: boolean = false;
   public cargando: Boolean = false;
-  public arregloCons: any = [];
-  public cargaDom: boolean = false;
   public eliminarSede: boolean = false;
   public noCoincide = '';
+  public verSedes: boolean = false;
+  public esContinuar:boolean = false;
+
+  public sedeSeleccionada:any;
 
   public arreglotabla: any = {
     columnas: [],
@@ -60,116 +60,76 @@ export class DomicilioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let obj: any = {};
-    if (!this.datos.insertar) {
-      this.habContinua = false;
-
-    }
+    
+    console.log("Se vuelve a cargar");
+    this.myForm = this.createForm({});
+   
     this.datos.activarGuardaMod = true;
     this.id_empresa = this.datos.empresa.centrocClienteId;
-    //this.listaSedeModificar = this.datosempresa.activarList;
-    //this.listaSedeNuevo = this.datosempresa.activarForm;
 
 
+    console.log("Datos del domicilio", this.id_empresa);
     this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
-      this.arregloCons = datos.datos
-
-      if (this.arregloCons != undefined) {
-        this.cargaDom = true;
-      }
-
-      this.cargando = true;
-      this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
-        this.arregloListaSede = datos.datos;
-        let columnas: Array<tabla> = [
-          new tabla("sedeNombre", "Nombre de la sede"),
-          new tabla("codigoPostal", "Código postal"),
-          new tabla("municipio", "Municipio o alcadía"),
-          new tabla("entidadFederativa", "Entidad Federativa"),
-        ];
-
-
-
-        this.arreglotabla.columnas = columnas;
-        this.arreglotabla.filas = this.arregloListaSede;
-        this.cargando = false;
-
-      });
-
-
-      if (!this.datos.insertar && this.cargaDom) {
-
-        this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
-          obj = datos.datos[0];
-          obj.asentamientoCpCons = obj.asentamientoId
-          this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
-            if (datos.resultado) {
-              this.domicilioCodigoPostal = datos.datos;
-
-              for (let item of datos.datos) {
-
-                this.nombreEstado = item.dedo;
-                this.nombreMunicipio = item.dmnpio;
-                this.idEstado = item.edo.estadoId;
-                this.idMunicipio = item.catmnpio.cmnpio;
-
-                obj.municipio = this.nombreMunicipio;
-                obj.estado = this.nombreEstado;
-
-
+          if(datos.datos){
+            this.esContinuar = true;
+            let obj = datos.datos[0];
+            console.log(obj,"Datos de domicilio");
+            obj.asentamientoCpCons = obj.asentamientoId
+            this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
+              console.log("Este codigo posta",datos.datos);
+              if (datos.resultado) {
+                this.domicilioCodigoPostal = datos.datos;
+      
+                for (let item of datos.datos) {
+      
+                  this.nombreEstado = item.dedo;
+                  this.nombreMunicipio = item.dmnpio;
+                  this.idEstado = item.edo.estadoId;
+                  this.idMunicipio = item.catmnpio.cmnpio;
+      
+                  obj.municipio = this.nombreMunicipio;
+                  obj.estado = this.nombreEstado;
+      
+      
+                }
+      
               }
-
-            }
-
-            this.myForm = this.createForm(obj);
-
-
-          });
-
-        });
-
-      }
-      else if (this.cargaDom && this.datos.insertar) {
-        this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
-          obj = datos.datos[0];
-          obj.asentamientoCpCons = obj.asentamientoId
-          this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
-            if (datos.resultado) {
-              this.domicilioCodigoPostal = datos.datos;
-
-              for (let item of datos.datos) {
-
-                this.nombreEstado = item.dedo;
-                this.nombreMunicipio = item.dmnpio;
-                this.idEstado = item.edo.estadoId;
-                this.idMunicipio = item.catmnpio.cmnpio;
-
-                obj.municipio = this.nombreMunicipio;
-                obj.estado = this.nombreEstado;
+      
+              this.myForm = this.createForm(obj);
+      
+      
+            });
+          }
+    });
 
 
-              }
+    //Se cargan las sedes
 
-            }
-
-            this.myForm = this.createForm(obj);
-            this.habGuardar = false;
-
-          });
-
-        });
-      }
-      else {
-        this.myForm = this.createForm(obj);
+    this.cargando = true;
 
 
-      }
+    this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
+      console.log("Esta son las sedes", datos);
+      this.arregloListaSede = datos.datos;
+      let columnas: Array<tabla> = [
+        new tabla("sedeNombre", "Nombre de la sede"),
+        new tabla("codigoPostal", "Código postal"),
+        new tabla("municipio", "Municipio o alcadía"),
+        new tabla("entidadFederativa", "Entidad Federativa"),
+      ];
+
+
+
+      this.arreglotabla.columnas = columnas;
+      this.arreglotabla.filas = this.arregloListaSede;
+      this.cargando = false;
 
     });
 
+
   }
 
-  public createForm(obj: any) {
+  public createForm(obj?: any) {
 
     return this.formBuilder.group({
       codigo: [obj.codigo, [Validators.required, Validators.pattern('[0-9]+')]],
@@ -184,12 +144,9 @@ export class DomicilioComponent implements OnInit {
 
   }
 
-  public activarContunuar() {
 
-    this.habcontinuar = true;
-  }
 
-  public recibirTabla(obj: any) {
+  public recibirTabla(obj?: any) {
 
     switch (obj.type) {
       case "editar":
@@ -211,9 +168,6 @@ export class DomicilioComponent implements OnInit {
 
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
             if (datos.resultado) {
-              this.enviado.emit({
-                type: "domicilioSede"
-              });
               this.ngOnInit();
             }
           });
@@ -231,38 +185,25 @@ export class DomicilioComponent implements OnInit {
 
     this.submitEnviado = true;
 
-    if (!this.habcontinuar) {
       if (this.myForm.invalid) {
         this.modalPrd.showMessageDialog(this.modalPrd.error);
         return;
       }
-
       let titulo: string = (this.datos.insertar) ? "¿Deseas registrar el domicilio" : "¿Deseas actualizar el domicilio?";
-
       this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
         if (valor) {
           this.datos.activarGuardaMod = true;
           this.guardar();
         }
       });
-
-
-
-    } else {
-      this.modalPrd.showMessageDialog(this.modalPrd.warning, "");
-    }
   }
 
   public guardar() {
     let obj = this.myForm.value;
-    if (obj.domicilioId == null && !this.datos.insertar) {
-      this.datos.insertar = true;
-      //this.modsinIdDom = true;
-    }
-
 
     let objenviar: any =
     {
+      domicilioId: obj.domicilioId,
       codigo: obj.codigo,
       municipio: this.idMunicipio,
       estado: this.idEstado,
@@ -275,54 +216,31 @@ export class DomicilioComponent implements OnInit {
       }
     }
 
-
-    if (this.datos.insertar) {
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    if (!this.esContinuar) {
+      console.log("Es insertar",objenviar);
       this.domicilioPrd.save(objenviar).subscribe(datos => {
-        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-          if (datos.resultado) {
-            this.enviado.emit({
-              type: "domicilioSede"
-            });
-          }
-        });
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        this.ngOnInit();
+        this.verSedes = false;
       });
     } else {
-
-
-      let objenviar: any =
-      {
-        domicilioId: obj.domicilioId,
-        codigo: obj.codigo,
-        municipio: this.idMunicipio,
-        estado: this.idEstado,
-        asentamientoId: obj.asentamientoId,
-        calle: obj.calle,
-        numExterior: obj.numExterior,
-        numInterior: obj.numInterior,
-        centrocClienteId: {
-          centrocClienteId: this.datos.empresa.centrocClienteId
-        }
-      }
-
+      console.log("Es actualizar",objenviar);
       this.domicilioPrd.modificar(objenviar).subscribe(datos => {
-        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-          if (datos.resultado) {
-            this.enviado.emit({
-              type: "domicilioSede"
-            });
-          }
-        });
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        this.ngOnInit();
+        this.verSedes = false;
       });
     }
   }
 
   public verdetalle(obj: any) {
 
+    this.verSedes = true;
 
-    this.datos.idModificar = obj;
-    this.enviado.emit({
-      type: "sede"
-    });
+    this.sedeSeleccionada = obj;
 
 
   }
@@ -381,6 +299,20 @@ export class DomicilioComponent implements OnInit {
   }
 
 
+  public eventoDetalleSede(evento: any) {
+    console.log("Detalle del evento", evento);
+    this.verSedes = false;
+    switch(evento.type){
+        case "guardar":
+          this.ngOnInit();
+          break;
+    }
+  }
+
+
+  public continuarPestania(){
+    this.enviado.emit({type:'domicilio'});
+  }
 
 
 }

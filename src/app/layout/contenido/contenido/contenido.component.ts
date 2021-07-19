@@ -113,7 +113,9 @@ export class ContenidoComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    console.log("samv");
+    
+    
 
 
     this.chat = this.chatPrd.getChatDatos();
@@ -132,6 +134,8 @@ export class ContenidoComponent implements OnInit {
 
 
     if (this.authPrd.isAuthenticated()) {
+      let mm:any = document.getElementsByClassName("LandbotLivechat")
+      mm[0].style.display = "block";
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
 
         this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
@@ -403,6 +407,9 @@ export class ContenidoComponent implements OnInit {
       item.labelflotante = false;
     }
   }
+
+
+ 
 }
 
 

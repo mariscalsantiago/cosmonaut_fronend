@@ -8,40 +8,18 @@ import { direcciones } from 'src/assets/direcciones';
 })
 export class SedeService {
 
-  public url:string = "";
+  public url: string = "";
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public save(obj:any):Observable<any>{
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-
+  public save(obj: any): Observable<any> {
     let json = JSON.stringify(obj);
-
-    
-
-    return this.http.put(`${direcciones.domicilio}/guardar/sede/domicilio`,json,httpOptions);
+    return this.http.put(`${direcciones.domicilio}/guardar/sede/domicilio`, json);
 
   }
-  public modificar(obj:any):Observable<any>{
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-
+  public modificar(obj: any): Observable<any> {
     let json = JSON.stringify(obj);
-
-    
-
-    return this.http.post(`${direcciones.sedes}/modificar`,json,httpOptions);
+    return this.http.post(`${direcciones.sedes}/modificar`, json);
 
   }
 }
