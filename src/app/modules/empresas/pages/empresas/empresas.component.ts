@@ -116,27 +116,12 @@ export class EmpresasComponent implements OnInit {
         this.activado[1].seleccionado = false;
         break;
       case "datosbancarios":
-
         this.activado[3].tab = true;
         this.activado[3].form = true;
         this.activado[3].enable = true;
         this.activado[3].seleccionado = true;
         this.activado[2].form = false;
         this.activado[2].seleccionado = false;
-        break;
-      case "cuentas":
-
-        this.activado[2].tab = true;
-        this.activado[5].form = true;
-        this.activado[5].enable = true;
-        this.activado[2].form = false;
-        break;
-      case "cuentaDatosBancarios":
-
-        this.activado[2].tab = true;
-        this.activado[2].form = true;
-        this.activado[2].enable = true;
-        this.activado[5].form = false;
         break;
     }
 

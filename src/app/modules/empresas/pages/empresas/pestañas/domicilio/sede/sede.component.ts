@@ -69,6 +69,7 @@ export class SedeComponent implements OnInit {
 
 
   public createForm(obj: any) {
+    console.log("El objeto",obj);
     return this.formBuilder.group({
       sede: [obj.sedeNombre, [Validators.required]],
       codigo: [obj.codigoPostal, [Validators.required, Validators.pattern('[0-9]+')]],
@@ -77,7 +78,7 @@ export class SedeComponent implements OnInit {
       asentamientoId: [obj.asentamientoId, [Validators.required]],
       calle: [obj.calle, [Validators.required]],
       numExterior: [obj.numeroExterior, [Validators.required]],
-      numInterior: obj.numInterior
+      numInterior: [obj.numeroInterior]
 
     });
   }
@@ -127,17 +128,21 @@ export class SedeComponent implements OnInit {
       }
     }
 
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
     if (!Boolean(this.sede)) {
       this.sedePrd.save(this.objenviar).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
        this.enviado.emit({type:"guardar"});
+
       });
     }
     else {
-      this.objenviar.sedeId = {
-        sedeId:this.sede.sedeId
-      };
+      delete this.objenviar.sede;
+      this.objenviar.sedeId = this.sede.sedeId;
       this.sedePrd.modificar(this.objenviar).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
          this.enviado.emit({type:"guardar"});
       });

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ValidarPasswordService } from 'src/app/shared/services/configuracion/validar-password.service';
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
   public mensajesuccess: boolean = false;
   public mensajeerror: boolean = false;
   public mensajeDanger: string = "";
-  public clienteSeleccionado:any;
+  public clienteSeleccionado: any;
 
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
     private companiaPrd: SharedCompaniaService, private usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService,
@@ -79,6 +80,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.ocultandoChatBoot();
 
     this.myFormPassword = this.createFormPassword();
     this.suscribirse();
@@ -119,11 +122,11 @@ export class LoginComponent implements OnInit {
     });
 
 
-    this.myForm.controls.password.valueChanges.subscribe(() =>{
+    this.myForm.controls.password.valueChanges.subscribe(() => {
       this.incorrectoback = false;
     });
 
-    this.myForm.controls.username.valueChanges.subscribe(()=>{
+    this.myForm.controls.username.valueChanges.subscribe(() => {
       this.incorrectoback = false;
     });
   }
@@ -138,12 +141,12 @@ export class LoginComponent implements OnInit {
         this.mensajesuccess = false;
         this.mensajeerror = false;
 
-        
 
-        
+
+
 
         this.usuarioObj = valorusuario.datos.usuario;
-       
+
         if (valorusuario.datos.usuario.passwordProvisional) {
           this.cambiarPassword = true;
           this.incorrectoback = false;
@@ -165,7 +168,7 @@ export class LoginComponent implements OnInit {
           usuario.submodulosXpermisos = valorusuario.datos.submodulosXpermisos;
           usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId);
           usuario.esRecursosHumanos = false;
-          usuario.centrocClienteIdPadre = (usuario.esCliente)?0:objRecibido.centroCostosCentrocClienteId.centrocClienteId;
+          usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : objRecibido.centroCostosCentrocClienteId.centrocClienteId;
           console.log(usuario);
           this.usuarioSistemaPrd.setUsuario(usuario);
           this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
@@ -175,25 +178,25 @@ export class LoginComponent implements OnInit {
 
           });
 
-          if(valorusuario.datos.clientes.length > 1){
-              this.multiempresa = true;
-              this.login = false;
-              this.correcto = false;
+          if (valorusuario.datos.clientes.length > 1) {
+            this.multiempresa = true;
+            this.login = false;
+            this.correcto = false;
 
-              this.arregloCompanias = valorusuario.datos.clientes;
+            this.arregloCompanias = valorusuario.datos.clientes;
 
-              for(let item of this.arregloCompanias){
-                item.seleccionado = false;
-              }
+            for (let item of this.arregloCompanias) {
+              item.seleccionado = false;
+            }
 
-          }else{
+          } else {
             setTimeout(() => {
               this.routerPrd.navigate(['/inicio']);
             }, 2000);
           }
 
 
-        
+
         }
 
 
@@ -262,17 +265,17 @@ export class LoginComponent implements OnInit {
 
     let usuario: usuarioClass;
     if (!this.aparecerListaempresas) {
-     // usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
+      // usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
     } else {
       if (this.empresaSeleccionada == undefined) {
-       // usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
+        // usuario = new usuarioClass(this.companiaSeleccionada.centrocClienteId, 1);
       } else {
         //usuario = new usuarioClass(this.empresaSeleccionada.centrocClienteId, 1);
       }
     }
 
 
- //   this.usuarioSistemaPrd.setUsuario(usuario);
+    //   this.usuarioSistemaPrd.setUsuario(usuario);
 
   }
 
@@ -390,14 +393,14 @@ export class LoginComponent implements OnInit {
   }
 
 
-  public seleccionarcompaniaFinal(){
+  public seleccionarcompaniaFinal() {
 
-    let usuario:usuarioClass = this.usuarioSistemaPrd.getUsuario();
+    let usuario: usuarioClass = this.usuarioSistemaPrd.getUsuario();
     usuario.centrocClienteId = this.clienteSeleccionado.centrocClienteId;
     usuario.nombreEmpresa = this.clienteSeleccionado.razonSocial;
     usuario.esCliente = !Boolean(this.clienteSeleccionado.centroCostosCentrocClienteId)
-    usuario.centrocClienteIdPadre = (usuario.esCliente)?0:this.clienteSeleccionado?.centroCostosCentrocClienteId?.centrocClienteId;
-    
+    usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : this.clienteSeleccionado?.centroCostosCentrocClienteId?.centrocClienteId;
+
 
     this.usuarioSistemaPrd.setUsuario(usuario);
     this.cargando = true;
@@ -415,11 +418,22 @@ export class LoginComponent implements OnInit {
 
     });
 
-    
-
-    
 
 
+
+
+
+  }
+
+  public ocultandoChatBoot(){
+    let mm = interval(100).subscribe(() => {
+      try {
+        let mm: any = document.getElementsByClassName("LandbotLivechat")
+        mm[0].style.display = "none";
+      } catch {
+      }
+      mm.unsubscribe();
+    });
   }
 
 
