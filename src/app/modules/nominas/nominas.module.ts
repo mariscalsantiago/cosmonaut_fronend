@@ -26,5 +26,5 @@ import { TooltipModule } from 'ng-uikit-pro-standard';
     providers:[CurrencyPipe]
 })
 export class nominasModule{
-
+   
 }
