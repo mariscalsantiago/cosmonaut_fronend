@@ -102,22 +102,20 @@
             <div class="form-group row margen">
                 <div class="input-group-sm mb-3 ">
                     <table aria-hidden="true" class="table">
+                        <thead>
+                            <tr>
+                                <th id="" class="text-center" scope="col">Limite inferior</th>
+                                <th id="" class="text-center" scope="col">Excedente de limite inferior</th>
+                                <th id="" class="text-center" scope="col">Impuesto marginal</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr *ngFor="let item of arregloCalculo">
-                                <th id="">Limite inferior</th>
-                                <th id="">{{item.limiteInferior}}</th>
-                                
-                            </tr>
-                            <tr *ngFor="let item of arregloCalculo">
-                                <th id="">Excedente de limite inferior</th>
-                                <th id="">{{item.excedente_limiteInferior}}</th>
-                            </tr>
-                            <tr *ngFor="let item of arregloCalculo">
-                                <th id="">Impuesto marginal</th>
-                                <th id="">{{item.impuestoMarginal}}</th>
+                            <tr>
+                                <td >{{limiteInferior}}</td>
+                                <td >{{excedente}}</td>
+                                <td >{{impuestoMarginal}}</td>
                             </tr>
                         </tbody>
-
                     </table>
                 </div>
             </div>

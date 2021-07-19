@@ -170,10 +170,11 @@
         <div *ngIf="infonavit" class="input-group-sm mb-3 col-6">
             <label>Aviso de retención </label>
             <div class="input-group mb-2">
-                <input type="hidden">
-                <input #cer type="text" class="form-control disabled bg-light">
-                <div class="input-group-append" style="cursor: pointer;">
-                    <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
+                <input type="hidden" formControlName="retencion">
+                <input #retencion type="text" class="form-control disabled bg-light">
+                <div (click)="abrirReteencion()" class="input-group-append" style="cursor: pointer;">
+                    <span style="font-size: small;" class="input-group-text dark" id="basic-addon2">
+                        <i aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
                 </div>
 
             </div>
@@ -187,10 +188,11 @@
         <div *ngIf="infonavit" class="input-group-sm mb-3 col-6">
             <label>Aviso de suspensión </label>
             <div class="input-group mb-2">
-                <input type="hidden">
-                <input #cer type="text" class="form-control disabled bg-light">
-                <div class="input-group-append" style="cursor: pointer;">
-                    <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
+                <input type="hidden" formControlName="suspension">
+                <input #suspension type="text" class="form-control disabled bg-light">
+                <div (click)="abrirSuspension()" class="input-group-append" style="cursor: pointer;">
+                    <span style="font-size: small;" class="input-group-text dark" id="basic-addon2">
+                        <i aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
                 </div>
             </div>
         </div>
