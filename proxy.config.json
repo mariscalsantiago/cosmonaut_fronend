@@ -1,6 +1,6 @@
 {
     "/empresas/*":{
-        "target":"https://cosmonautdev.wintermute.services/empresa",
+        "target":"http://9e140bcc7cdb.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/empresas": ""
@@ -24,7 +24,7 @@
          "changeOrigin": true
     },
     "/nomina/*":{
-        "target":"https://cosmonautdev.wintermute.services/nomina",
+        "target":"http://9e140bcc7cdb.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/nomina": ""
