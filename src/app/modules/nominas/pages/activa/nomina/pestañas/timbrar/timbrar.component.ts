@@ -299,10 +299,10 @@ export class TimbrarComponent implements OnInit {
               this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Timbrando", "Espere un momento, el proceso se tardara varios minutos.");
               let suscripcion = timer(0, 1500).pipe(concatMap(() =>
                 this.nominaOrdinariaPrd
-                  .statusProcesoTimbrar(this.nominaSeleccionada[this.llave2].nominaXperiodoId, this.arreglo.length)))
+                  .statusProcesoTimbrar(this.nominaSeleccionada[this.llave2].nominaXperiodoId, obj.length)))
                 .subscribe(datos => {
                   this.configuracionesPrd.setCantidad(datos.datos);
-                  if (datos.datos == 100) {
+                  if (datos.datos >= 100) {
                     suscripcion.unsubscribe();
                     this.configuracionesPrd.setCantidad(0);
                     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
