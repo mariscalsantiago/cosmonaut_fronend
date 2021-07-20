@@ -15,6 +15,7 @@ export class CuentasComponent implements OnInit {
   @Output() enviado = new EventEmitter();
   @Input() datos: any;
   @Input() cuenta:any;
+  mostrartooltip = false;
 
   public arregloBancos:any = [];
   public arregloCuentas:any = [];
@@ -134,5 +135,8 @@ export class CuentasComponent implements OnInit {
         this.enviado.emit({type:'guardar'});
       });
     }
+  }
+  activarCancel(){
+    this.mostrartooltip = false;
   }
 }
