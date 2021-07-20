@@ -28,5 +28,5 @@
 </div>
 
 <ng-template #contenedorCuentasbancarias>
-    <app-cuentas [cuenta]="cuentaSeleccionada" [datos]="datos" (salida)="salidaCuentasBancariasDetalle($event)"></app-cuentas>
+    <app-cuentas [cuenta]="cuentaSeleccionada" [datos]="datos" (emitirEnviado)="salidaCuentasBancariasDetalle($event)"></app-cuentas>
 </ng-template>

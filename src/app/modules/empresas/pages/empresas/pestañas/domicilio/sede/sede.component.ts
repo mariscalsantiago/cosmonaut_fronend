@@ -133,8 +133,11 @@ export class SedeComponent implements OnInit {
     if (!Boolean(this.sede)) {
       this.sedePrd.save(this.objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-       this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
-       this.enviado.emit({type:"guardar"});
+       this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+         if(datos.resultado){
+          this.enviado.emit({type:"guardar"});
+         }
+       });
 
       });
     }
@@ -143,8 +146,11 @@ export class SedeComponent implements OnInit {
       this.objenviar.sedeId = this.sede.sedeId;
       this.sedePrd.modificar(this.objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-         this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
-         this.enviado.emit({type:"guardar"});
+         this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+          if(datos.resultado){
+           this.enviado.emit({type:"guardar"});
+          }
+        });
       });
     }
 
