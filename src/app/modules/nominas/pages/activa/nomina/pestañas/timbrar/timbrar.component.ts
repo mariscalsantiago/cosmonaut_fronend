@@ -1,7 +1,7 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { timer } from 'rxjs';
-import { concatMap, take } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 import { tabla } from 'src/app/core/data/tabla';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
