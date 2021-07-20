@@ -97,10 +97,6 @@ export class DatosimssComponent implements OnInit {
 
     let obj = this.myForm.value;
 
-    if (!this.datos.insertar && this.arregloImss.registroPatronalId == undefined) {
-      this.insertarMof = true;
-    }
-
     this.objenviar = {
       registroPatronal: obj.registroPatronal,
       emPrimaRiesgo: obj.emPrimaRiesgo,
@@ -113,18 +109,12 @@ export class DatosimssComponent implements OnInit {
 
     }
 
-    if (this.datos.insertar) {
+    if (!Boolean(this.arregloImss?.registroPatronalId)) {
 
       this.imssPrd.save(this.objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
           if (datos.resultado) {
-            if (this.insertarMof) {
-              this.enviado.emit({
-                type: "sedeCont"
-              });
-            } else {
-              this.routerPrd.navigate(["/listaempresas"]);
-            }
+            this.routerPrd.navigate(["/listaempresas"]);
           }
         });
       });
