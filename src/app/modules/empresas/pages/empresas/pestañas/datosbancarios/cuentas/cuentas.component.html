@@ -14,9 +14,7 @@
         </div>
         <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
             <label>Número de cuenta * 
-        <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No
-          tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a><i aria-hidden="true" class="far fa-times-circle"></i>
-        </div>
+       
 
 
       </label>
@@ -79,8 +77,8 @@
     <div class="row">
         <div class="col-12">
             <div class="text-right margin" style="margin-bottom: 20px;">
-                <button type="submit" (click)="activarCancel()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                <button (click)="enviarFormulario()" class="btn btn-primary button-fill mr-2">Guardar</button>
+                <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button type="submit" class="btn btn-primary button-fill mr-2">Guardar</button>
             </div>
         </div>
     </div>
