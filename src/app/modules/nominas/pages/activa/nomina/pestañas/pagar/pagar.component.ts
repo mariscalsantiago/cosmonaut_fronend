@@ -122,6 +122,7 @@ export class PagarComponent implements OnInit {
 
   public crearTabla(datos: any, llave: string) {
     this.arreglo = datos.datos;
+    console.log("DOSIF",this.arreglo);
     let columnas: Array<tabla> = [
       new tabla("nombrecompleto", "Nombre"),
       new tabla("rfc", "RFC", false, false, true),
@@ -132,12 +133,12 @@ export class PagarComponent implements OnInit {
     ];
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
-        item["nombrecompleto"] = item[llave].nombreEmpleado + " " + item[llave].apellidoPatEmpleado + " ";
-        item["nombrecompleto"] += (item[llave].apellidoMatEmpleado == undefined) ? "" : item[llave].apellidoMatEmpleado;
+        item["nombrecompleto"] = item[llave].nombre + " " + item[llave].apellidoPat + " ";
+        item["nombrecompleto"] += item[llave].apellidoMat || "";
         item["rfc"] = item[llave].rfc;
         item["banco"] = item[llave].banco;
-        item["tipopago"] = item[llave].tipoPago;
-        item["total"] = this.cp.transform(item[llave].totalNetoEndinero);
+        item["tipopago"] = item[llave].metodoPago;
+        item["total"] = this.cp.transform(item[llave].totalNeto);
         item["status"] = item[llave].status;
       }
     }
@@ -302,6 +303,9 @@ export class PagarComponent implements OnInit {
       });
 
     }
+
+
+    
   }
 
 }

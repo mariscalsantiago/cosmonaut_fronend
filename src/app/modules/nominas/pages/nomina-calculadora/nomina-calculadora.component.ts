@@ -19,15 +19,18 @@ export class NominaCalculadoraComponent implements OnInit {
   public myForm!: FormGroup;
   public arregloPeriocidad: any = [];
   public esSueldoNeto: boolean = false;
-  public esSueldoNetoBruto: boolean = false;
+  public esSueldoNetoBruto: boolean = true;
   public arregloPoliticas: any = [];
   public arregloBasePeriodos: any = [];
   public idEmpresa: number = 0;
+  public limiteInferior: string = ""
+  public excedente: string = ""
+  public impuestoMarginal: string = ""
 
   public esMensual:boolean = false;
   public esImss:boolean = false;
   public titulosueldo:string = "bruto";
-  public arregloCalculo: any = [];
+  public resultCalculo: any = [];
 
   constructor(private modalPrd: ModalService, private formbuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private politicaPrd: PoliticasService, private usuarioSistemaPrd: UsuarioSistemaService,
@@ -136,7 +139,10 @@ export class NominaCalculadoraComponent implements OnInit {
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
               .then(()=> {
                  if (datos.resultado) {
-                  this.arregloCalculo = datos.desgloseSalario.desgloseSalario;
+                  this.resultCalculo = datos.datos.desgloseSalario.desgloseSalario;
+                  this.limiteInferior = this.resultCalculo.limiteInferior;
+                  this.excedente = this.resultCalculo.excedente_limiteInferior;
+                  this.impuestoMarginal = this.resultCalculo.impuestoMarginal;
                   this.calculado = true;
               } 
               });

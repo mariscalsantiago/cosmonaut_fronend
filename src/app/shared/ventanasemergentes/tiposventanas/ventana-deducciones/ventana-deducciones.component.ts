@@ -1,4 +1,4 @@
-import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter, Input , ViewChild, ElementRef} from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -46,9 +46,13 @@ export class VentanaDeduccionesComponent implements OnInit {
   public concepto !: string;
   public tipoValor: string ="Porcentaje";
   public especializacion: string = "";
+  public nombreretencion: string = "";
+  public nombresuspension: string = "";
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
+  @ViewChild("retencion") public inputdoc!: ElementRef;
+  @ViewChild("suspension") public inputdocsusp!: ElementRef;
 
 
   constructor(private modalPrd:ModalService, private formBuild: FormBuilder, private catalogosPrd:CatalogosService,
@@ -116,7 +120,9 @@ export class VentanaDeduccionesComponent implements OnInit {
       fechaInicioDescto: [datePipe.transform(obj.fechaInicioDescto, 'yyyy-MM-dd'), Validators.required],
       montoPercepcion: [obj.montoPercepcion],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true" , disabled: true }],
-      numPlazosMensuales: [obj.numPlazosMensuales]
+      numPlazosMensuales: [obj.numPlazosMensuales],
+      retencion:[obj.retencion],
+      suspension:[obj.suspension]
 
     });
 
@@ -398,8 +404,66 @@ if(this.myForm.get(['']))
       }
 
    }
+   public abrirSuspension() {
 
-  
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".pdf" ;
+
+    input.click();
+
+    input.onchange = () => {
+      let imagenInput: any = input.files;
+      this.inputdocsusp.nativeElement.value = imagenInput![0].name;
+      for (let item in Object.getOwnPropertyNames(imagenInput)) {
+
+        let archivo: File = imagenInput[item];
+
+        archivo.arrayBuffer().then(datos => {
+          this.nombresuspension = this.inputdocsusp.nativeElement.value;
+          //this.myForm.controls.nombre.setValue(this.inputdocsusp.nativeElement.value);
+          this.myForm.controls.suspension.setValue(this.arrayBufferToBase64(datos));
+        });
+
+
+      }
+    }
+  }
+   public abrirReteencion() {
+
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".pdf" ;
+
+    input.click();
+
+    input.onchange = () => {
+      let imagenInput: any = input.files;
+      this.inputdoc.nativeElement.value = imagenInput![0].name;
+      for (let item in Object.getOwnPropertyNames(imagenInput)) {
+
+        let archivo: File = imagenInput[item];
+
+        archivo.arrayBuffer().then(datos => {
+          this.nombreretencion = this.inputdoc.nativeElement.value;
+          //this.myForm.controls.nombre.setValue(this.inputdoc.nativeElement.value);
+          this.myForm.controls.retencion.setValue(this.arrayBufferToBase64(datos));
+        });
+
+
+      }
+    }
+  }
+
+  public arrayBufferToBase64(buffer: any) {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  }
  
 
   public enviarPeticion(){
@@ -457,7 +521,7 @@ if(this.myForm.get(['']))
               fechaRecAviSuspension = `${new Date(fecha1).getTime()}`;
             }
           }
-
+          debugger;
           if(this.esInsert){
           if(this.politica !== undefined){
           this.objEnviar = {
@@ -527,6 +591,10 @@ if(this.myForm.get(['']))
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
+            nombreretencion: this.nombreretencion,
+            nombresuspension: this.nombresuspension,
+            docsupension: obj.suspension,
+            docretencion: obj.retencion,
             numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
@@ -572,6 +640,10 @@ if(this.myForm.get(['']))
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
+            nombreretencion: this.nombreretencion,
+            nombresuspension: this.nombresuspension,
+            docsupension: obj.suspension,
+            docretencion: obj.retencion,
             numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId

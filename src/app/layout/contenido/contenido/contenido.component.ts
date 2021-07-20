@@ -9,7 +9,7 @@ import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.servi
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
-import { Subscription } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { ChatService } from 'src/app/modules/chat/services/chat.service';
 
 
@@ -113,7 +113,7 @@ export class ContenidoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("samv");
+   
     
     
 
@@ -134,8 +134,7 @@ export class ContenidoComponent implements OnInit {
 
 
     if (this.authPrd.isAuthenticated()) {
-      let mm:any = document.getElementsByClassName("LandbotLivechat")
-      mm[0].style.display = "block";
+      this.mostrandoChatBoot();
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
 
         this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
@@ -406,6 +405,18 @@ export class ContenidoComponent implements OnInit {
     for (let item of this.PRINCIPAL_MENU) {
       item.labelflotante = false;
     }
+  }
+
+
+  public mostrandoChatBoot(){
+    let mm = interval(100).subscribe(() => {
+      try {
+        let mm: any = document.getElementsByClassName("LandbotLivechat")
+        mm[0].style.display = "block";
+      } catch {
+      }
+      mm.unsubscribe();
+    });
   }
 
 
