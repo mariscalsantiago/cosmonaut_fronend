@@ -12,9 +12,10 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 })
 export class CuentasComponent implements OnInit {
 
-  @Output() enviado = new EventEmitter();
+  @Output() emitirEnviado = new EventEmitter();
   @Input() datos: any;
   @Input() cuenta:any;
+  mostrartooltip = false;
 
   public arregloBancos:any = [];
   public arregloCuentas:any = [];
@@ -25,7 +26,11 @@ export class CuentasComponent implements OnInit {
     private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
+    console.log(this.cuenta);
     this.myForm =  this.createForm(this.cuenta || {});
+    if(this.cuenta?.cuentaBancoId){
+        this.myForm.controls.esActivo.enable();
+    }
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arregloBancos = datos.datos);
     this.catalogosPrd.getFuncionCuenta(true).subscribe(datos => this.arregloCuentas = datos.datos);
 
@@ -93,7 +98,8 @@ export class CuentasComponent implements OnInit {
   }
 
   public cancelar() {
-      this.enviado.emit({type:'cancelar'});
+    console.log("Se va a cancelar");
+      this.emitirEnviado.emit({type:'cancelar'});
   }
 
 
@@ -120,19 +126,23 @@ export class CuentasComponent implements OnInit {
       }
     };
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    if (!Boolean(this.cuenta.cuentaBancoId)) {
+    if (!Boolean(this.cuenta?.cuentaBancoId)) {
       this.cuentasPrd.save(objEnviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-        this.enviado.emit({type:'guardar'});
+        this.emitirEnviado.emit({type:'guardar'});
       });
     }
     else {
       objEnviar.cuentaBancoId = this.cuenta.cuentaBancoId;
+      console.log("Se va a modificar",objEnviar);
       this.cuentasPrd.modificar(objEnviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-        this.enviado.emit({type:'guardar'});
+        this.emitirEnviado.emit({type:'guardar'});
       });
     }
+  }
+  activarCancel(){
+    this.mostrartooltip = false;
   }
 }
