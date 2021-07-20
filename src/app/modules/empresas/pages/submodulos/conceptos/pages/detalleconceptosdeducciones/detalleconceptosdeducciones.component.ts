@@ -19,6 +19,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   public esInsert: boolean = false;
   public submitInvalido: boolean = false;
   public arregloTipoDeduccion: any = [];
+  public tipoDeduccion : string = ""; 
   public obj: any = [];
   
   public peticion: any = [];
@@ -40,23 +41,24 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
         this.esInsert = false;
       }
     });
-
+    debugger;
     this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => {
       this.arregloTipoDeduccion = datos.datos
-      this.concatenaEspecializacion();
+      //this.concatenaEspecializacion();
     
     });
-
+    if(!this.esInsert){
     this.obj = history.state.data == undefined ? {} : history.state.data;
-    this.concatenaEspecializacion();
-    if (this.esInsert) {
-      this.obj = {
-        tipoDeduccionId: {}
-      };
+    //this.concatenaEspecializacion();
+
+    this.myForm = this.createForm(this.obj);
+    }else{
+      this.obj = {};
+      this.myForm = this.createForm(this.obj);
     }
 
 
-    this.myForm = this.createForm(this.obj);
+    
 
   }
 
@@ -70,7 +72,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      tipoDeduccionId: [obj.tipodeduccionobj, [Validators.required]],
+      tipoDeduccionId: [obj.tipoDeduccionId?.tipoDeduccionId, [Validators.required]],
       cuentaContable: [obj.cuentaContable],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
       conceptoDeduccionId: [obj.conceptoDeduccionId]
@@ -88,10 +90,21 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
       }
     }
 
-    if(this.obj !== undefined){
+    if(!this.esInsert){
       this.obj.tipodeduccionobj = this.obj.tipoDeduccionId.tipoDeduccionId + "-" + this.obj.tipoDeduccionId.especializacion;
     }
   }
+
+  public validarTipoConcepto(tipo:any){
+    
+    debugger;
+      
+      for(let item of this.arregloTipoDeduccion){
+        if(item.tipoDeduccionId == tipo){
+          this.tipoDeduccion = item.tipoDeduccionId + "-" + item.especializacion;
+        }
+      }
+    }
 
   public enviarPeticion() {
 
@@ -112,10 +125,11 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     
         
         if (valor) {
+          debugger;
 
           let obj = this.myForm.value;
-
-          let splitE = obj.tipoDeduccionId.split('-');
+          
+          let splitE = this.tipoDeduccion.split('-');
           let especializacion = splitE[1];
           let tipoDeduccion = splitE[0];
 

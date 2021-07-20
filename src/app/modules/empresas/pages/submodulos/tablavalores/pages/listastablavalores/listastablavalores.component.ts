@@ -100,8 +100,8 @@ export class ListasTablaValoresComponent implements OnInit {
 
       this.cargandoNomina = true;
       
-      this.tablavaloresProd.getListaInpuestoNomina().subscribe(datos => {
-          this.crearTablaNomina(datos);
+      this.tablavaloresProd.getListaEstadosISN().subscribe(datos => {
+          this.crearTablaISN(datos);
       });
 
     });
@@ -196,7 +196,26 @@ export class ListasTablaValoresComponent implements OnInit {
     this.cargandoSubcidio = false;
   
   }
+  public crearTablaISN(datos:any){
+    
+     
+    this.arregloNomina = datos.datos;
+    let columnas: Array<tabla> = [
+      new tabla("estado", "Tipo tabla")
 
+    ];
+
+    this.arreglotablaNomina = {
+      columnas:[],
+      filas:[]
+    }
+
+
+    this.arreglotablaNomina.columnas = columnas;
+    this.arreglotablaNomina.filas = this.arregloNomina;
+    this.cargandoNomina = false;
+  
+  }
   public crearTablaNomina(datos:any){
     
      
@@ -251,6 +270,13 @@ console.log('arregloNomina', this.arregloNomina)
     
     let datosDed = obj.datos;
     this.ventana.showVentana(this.ventana.subcidio,{datos:datosDed}).then(valor =>{
+    });
+  }
+
+  public recibirTablaISN(obj:any){
+    
+    let datos = obj.datos;
+    this.ventana.showVentana(this.ventana.subcidio,{datos:datos}).then(valor =>{
     });
   }
 

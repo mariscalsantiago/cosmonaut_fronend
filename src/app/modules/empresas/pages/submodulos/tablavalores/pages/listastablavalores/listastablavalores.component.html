@@ -149,7 +149,7 @@
                                         </div>
                                     </div>
                                     <div class="row margen margen-tabla background-panel">
-                                        <app-tablapaginado [datos]="arreglotablaNomina" [cargando]="cargandoNomina">
+                                        <app-tablapaginado [datos]="arreglotablaNomina" [cargando]="cargandoNomina" [ver]="true"  (salida)="recibirTablaISN($event)">
                                         </app-tablapaginado>
                                     </div>
 
