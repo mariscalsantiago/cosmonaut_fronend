@@ -428,11 +428,13 @@ export class LoginComponent implements OnInit {
   public ocultandoChatBoot(){
     let mm = interval(100).subscribe(() => {
       try {
-        let mm: any = document.getElementsByClassName("LandbotLivechat");
         let side : any= window;
+        side.myLandbot.hideProactive();
+        let mm: any = document.getElementsByClassName("LandbotLivechat");
+
         mm[0].style.display = "none";
  
-        side.myLandbot.hideProactive();
+
         side.myLandbot.close();
   
         
