@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -165,6 +166,11 @@ export class NominaordinariaService {
 
     let json = JSON.stringify(obj);
     return this.http.post(`${direcciones.nominaOrdinaria}/detalle/montos/imms/patronal`, json);
+  }
+
+  public concluir(nominaPeriodoId:number,companiaid:number):Observable<any>{
+    console.log(`${environment.rutaNomina}/concluir/${nominaPeriodoId}/${companiaid}`);
+    return this.http.get(`${environment.rutaNomina}/concluir/${nominaPeriodoId}/${companiaid}`);
   }
 
 

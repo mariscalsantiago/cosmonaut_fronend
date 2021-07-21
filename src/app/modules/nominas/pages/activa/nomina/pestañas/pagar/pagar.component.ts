@@ -142,7 +142,7 @@ export class PagarComponent implements OnInit {
         item["banco"] = item[llave].banco;
         item["tipopago"] = item[llave].metodoPago;
         item["total"] = this.cp.transform(item[llave].totalNeto);
-        item["status"] = item[llave].status;
+        item["status"] = item[llave].estatusPago;
       }
     }
     let filas: Array<any> = this.arreglo;

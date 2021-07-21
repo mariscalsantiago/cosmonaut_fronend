@@ -254,7 +254,7 @@
                                               <tr *ngFor="let mm of patronal?.datos;let indice = index;">
                                                 <th scope="row">{{indice+1}}</th>
                                                 <td>{{mm.conceptoPatronal}}</td>
-                                                <td>{{mm.monto}}</td>
+                                                <td>{{mm.monto | currency}}</td>
                                               </tr>
                                             </tbody>
                                           </table>

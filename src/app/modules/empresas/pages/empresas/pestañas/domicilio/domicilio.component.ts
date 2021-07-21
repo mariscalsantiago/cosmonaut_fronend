@@ -38,9 +38,9 @@ export class DomicilioComponent implements OnInit {
   public eliminarSede: boolean = false;
   public noCoincide = '';
   public verSedes: boolean = false;
-  public esContinuar:boolean = false;
+  public esContinuar: boolean = false;
 
-  public sedeSeleccionada:any;
+  public sedeSeleccionada: any;
 
   public arreglotabla: any = {
     columnas: [],
@@ -60,50 +60,50 @@ export class DomicilioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
-    console.log("Se vuelve a cargar");
+
+    console.log("Se vuelve a cargar es domicilio",this.datos);
     this.myForm = this.createForm({});
-   
+
     this.datos.activarGuardaMod = true;
     this.id_empresa = this.datos.empresa.centrocClienteId;
 
+      this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
+        if (datos.datos) {
+          this.esContinuar = true;
+          let obj = datos.datos[0];
+          console.log(obj, "Datos de domicilio");
+          obj.asentamientoCpCons = obj.asentamientoId
+          this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
+            console.log("Este codigo posta", datos.datos);
+            if (datos.resultado) {
+              this.domicilioCodigoPostal = datos.datos;
 
-    console.log("Datos del domicilio", this.id_empresa);
-    this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
-          if(datos.datos){
-            this.esContinuar = true;
-            let obj = datos.datos[0];
-            console.log(obj,"Datos de domicilio");
-            obj.asentamientoCpCons = obj.asentamientoId
-            this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
-              console.log("Este codigo posta",datos.datos);
-              if (datos.resultado) {
-                this.domicilioCodigoPostal = datos.datos;
-      
-                for (let item of datos.datos) {
-      
-                  this.nombreEstado = item.dedo;
-                  this.nombreMunicipio = item.dmnpio;
-                  this.idEstado = item.edo.estadoId;
-                  this.idMunicipio = item.catmnpio.cmnpio;
-      
-                  obj.municipio = this.nombreMunicipio;
-                  obj.estado = this.nombreEstado;
-      
-      
-                }
-      
+              for (let item of datos.datos) {
+
+                this.nombreEstado = item.dedo;
+                this.nombreMunicipio = item.dmnpio;
+                this.idEstado = item.edo.estadoId;
+                this.idMunicipio = item.catmnpio.cmnpio;
+
+                obj.municipio = this.nombreMunicipio;
+                obj.estado = this.nombreEstado;
+
+
               }
-      
-              this.myForm = this.createForm(obj);
-      
-      
-            });
-          }
-    });
+
+            }
+
+            this.myForm = this.createForm(obj);
+
+
+          });
+        }
+      });
+
 
 
     //Se cargan las sedes
+
 
     this.cargando = true;
 
@@ -185,17 +185,17 @@ export class DomicilioComponent implements OnInit {
 
     this.submitEnviado = true;
 
-      if (this.myForm.invalid) {
-        this.modalPrd.showMessageDialog(this.modalPrd.error);
-        return;
+    if (this.myForm.invalid) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
+    }
+    let titulo: string = (this.datos.insertar) ? "¿Deseas registrar el domicilio" : "¿Deseas actualizar el domicilio?";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
+      if (valor) {
+        this.datos.activarGuardaMod = true;
+        this.guardar();
       }
-      let titulo: string = (this.datos.insertar) ? "¿Deseas registrar el domicilio" : "¿Deseas actualizar el domicilio?";
-      this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
-        if (valor) {
-          this.datos.activarGuardaMod = true;
-          this.guardar();
-        }
-      });
+    });
   }
 
   public guardar() {
@@ -218,7 +218,7 @@ export class DomicilioComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     if (!this.esContinuar) {
-      console.log("Es insertar",objenviar);
+      console.log("Es insertar", objenviar);
       this.domicilioPrd.save(objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
@@ -226,7 +226,7 @@ export class DomicilioComponent implements OnInit {
         this.verSedes = false;
       });
     } else {
-      console.log("Es actualizar",objenviar);
+      console.log("Es actualizar", objenviar);
       this.domicilioPrd.modificar(objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
@@ -302,16 +302,16 @@ export class DomicilioComponent implements OnInit {
   public eventoDetalleSede(evento: any) {
     console.log("Detalle del evento", evento);
     this.verSedes = false;
-    switch(evento.type){
-        case "guardar":
-          this.ngOnInit();
-          break;
+    switch (evento.type) {
+      case "guardar":
+        this.ngOnInit();
+        break;
     }
   }
 
 
-  public continuarPestania(){
-    this.enviado.emit({type:'domicilio'});
+  public continuarPestania() {
+    this.enviado.emit({ type: 'domicilio' });
   }
 
 

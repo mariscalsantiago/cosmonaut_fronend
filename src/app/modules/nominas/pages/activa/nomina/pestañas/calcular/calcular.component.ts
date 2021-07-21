@@ -433,6 +433,15 @@ export class CalcularComponent implements OnInit {
               }
             });
           });
+        }else  if (this.llave == "nominaExtraordinaria") {
+
+          this.nominaAguinaldoPrd.recalcularNomina(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.regresarExtraordinaria();
+              }
+            });
+          });
         }
       }
     });
