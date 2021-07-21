@@ -116,6 +116,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
       tipoBajaId: [obj.tipoBajaId, [Validators.required]],
       motivoBajaId: [obj.motivoBajaId, [Validators.required]],
       ultimoDia: [obj.ultimoDia, [Validators.required]],
+      fechaFinUltimoPago:[obj.fechaFinUltimoPago],
       calculoAntiguedadx: [obj.calculoAntiguedadx, [Validators.required]],
       pagosXliquidacionIdPrima: [obj.pagosXliquidacionIdPrima],
       pagosXliquidacionId20: [obj.pagosXliquidacionId20],
@@ -128,14 +129,18 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public validarEmpleado(empleado:any){
-    
+    this.myFormcomp.clearValidators();
     if(empleado != ""){
 
       this.EmpleadosService.getEmpleadoValidarFecha(empleado).subscribe(datos => {
           this.arregloEmpleado = datos.datos;
           if(this.arregloEmpleado.mostrarFechaFinUltimoPago == true){
               this.ultimaNomina = true;
+              this.myFormcomp.controls.fechaFinUltimoPago.setValidators([Validators.required]);
           }else{
+            debugger;
+            this.myFormcomp.controls.fechaFinUltimoPago.setValidators([]);
+            this.myFormcomp.controls.fechaFinUltimoPago.updateValueAndValidity();
             this.ultimaNomina = false;
           }
       });
@@ -217,6 +222,16 @@ export class FormBajaEmpleadoComponent implements OnInit {
     
             const fecha1 = new Date(obj.ultimoDia).toUTCString().replace("GMT", "");
             fechar = `${new Date(fecha1).getTime()}`;
+          }
+        }
+
+        let fecharUltimoPago = "";
+        if (obj.fechaFinUltimoPago != undefined || obj.fechaFinUltimoPago != null) {
+    
+          if (obj.fechaFinUltimoPago != "") {
+    
+            const fecha1 = new Date(obj.fechaFinUltimoPago).toUTCString().replace("GMT", "");
+            fecharUltimoPago = `${new Date(fecha1).getTime()}`;
           }
         }
 
@@ -304,7 +319,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
         let objEnviar: any ={
           fechaContrato: this.fechaContrato,
           notas: obj.notas,
-          fecha_fin_ultimo_pago: obj.ultimoDia,
+          fecharUltimoPago: fecharUltimoPago,
           personaId: {
               personaId: this.personaId,
           },
