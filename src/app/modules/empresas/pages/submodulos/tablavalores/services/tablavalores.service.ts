@@ -43,4 +43,8 @@ public getListaTablasSubsidioISR():Observable<any>{
   public getListaInpuestoNomina():Observable<any>{
     return this.http.get(`${this.url}/listar/obtieneTablasISN`);
   }
+
+  public getListaEstadosISN(): Observable<any> {
+    return this.http.get(`${direcciones.tablasValores}/listar/estadosISN`);
+  }
 }

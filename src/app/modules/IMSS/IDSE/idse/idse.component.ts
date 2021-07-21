@@ -6,6 +6,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { DatePipe } from '@angular/common';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({
@@ -117,6 +118,7 @@ export class IDSEComponent implements OnInit {
     
 
     this.cargando = true;
+    this.objFiltro = {};
 
     for(let item of this.arregloRegistroPatronal){
       if(item.registroPatronalId = this.idregistroPatronal)
@@ -127,6 +129,7 @@ export class IDSEComponent implements OnInit {
       ...this.objFiltro,
       registroPatronal: this.registroPatronal
     };
+     this.registroPatronal = '';
     }
 
     if(this.nombre != ''){
@@ -134,30 +137,35 @@ export class IDSEComponent implements OnInit {
         ...this.objFiltro,
         nombre: this.nombre
       };
+      this.nombre = '';
       }
       if(this.apellidoPat != ''){
         this.objFiltro = {
           ...this.objFiltro,
           apellidoPat: this.apellidoPat
         };
+        this.apellidoPat = '';
         }
         if(this.apellidoMat != ''){
           this.objFiltro = {
             ...this.objFiltro,
             apellidoMat: this.apellidoMat
           };
+          this.apellidoMat = '';
         }
         if(this.numeroEmpleado != ''){
           this.objFiltro = {
             ...this.objFiltro,
             numeroEmpleado: this.numeroEmpleado
           };
+          this.numeroEmpleado = '';
         }
         if(this.movimiento != 0){
           this.objFiltro = {
             ...this.objFiltro,
             movimiento: this.movimiento
           };
+          this.movimiento = 0 ;
         }
         this.objFiltro = {
           ...this.objFiltro,
@@ -165,7 +173,7 @@ export class IDSEComponent implements OnInit {
           fechaMovimiento: this.fechaMovimiento
         };
    console.log('fechaMov', this.objFiltro)
-  
+  debugger;
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 

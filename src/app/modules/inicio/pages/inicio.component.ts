@@ -12,10 +12,26 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 export class InicioComponent implements OnInit {
 
   public valor: any;
+  public eventos: any;
 
   constructor(public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
   
   }
+
+  public verdetalle(obj:any){
+    
+  }
+
+  public recibirTabla(obj: any) {
+
+    switch (obj.type) {
+      case "fecha":
+        //this.calcularFechasEventos(obj.datos);
+        break;
+    }
+
+  }
+
 }
