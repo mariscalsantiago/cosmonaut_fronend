@@ -23,9 +23,15 @@ export class NominaCalculadoraComponent implements OnInit {
   public arregloPoliticas: any = [];
   public arregloBasePeriodos: any = [];
   public idEmpresa: number = 0;
-  public limiteInferior: string = ""
-  public excedente: string = ""
-  public impuestoMarginal: string = ""
+  public limiteInferior: string = "";
+  public excedente: string = "";
+  public impuestoMarginal: string = "";
+  public cuotaFija: string = "";
+  public salarioBaseDeCotizacion: string = "";
+  public salarioDiario: string = "";
+  public salarioNetoMensual: string = "";
+  public excedente_limiteInferior: string = "";
+  public isrDeterminado: string = ""; 
 
   public esMensual:boolean = false;
   public esImss:boolean = false;
@@ -131,18 +137,24 @@ export class NominaCalculadoraComponent implements OnInit {
 
         
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
+        debugger;
             this.grupoNominaPrd.calculadoraBruto(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
+            
               .then(()=> {
                  if (datos.resultado) {
                   this.resultCalculo = datos.datos.desgloseSalario.desgloseSalario;
                   this.limiteInferior = this.resultCalculo.limiteInferior;
                   this.excedente = this.resultCalculo.excedente_limiteInferior;
                   this.impuestoMarginal = this.resultCalculo.impuestoMarginal;
+                  this.salarioBaseDeCotizacion = this.resultCalculo.salarioBaseDeCotizacion;
+                  this.salarioDiario = this.resultCalculo.salarioDiario;
+                  this.salarioNetoMensual = this.resultCalculo.salarioNetoMensual;
+                  this.excedente_limiteInferior = this.resultCalculo.excedente_limiteInferior;
+                  this.isrDeterminado = this.resultCalculo.isrDeterminado;
                   this.calculado = true;
               } 
               });
