@@ -1,5 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { tabla } from 'src/app/core/data/tabla';
@@ -22,6 +23,7 @@ export class PagarComponent implements OnInit {
   @Output() salida = new EventEmitter();
   @Input() nominaSeleccionada: any;
   @Input() esDescargar: boolean = false;
+  @Input() esEliminar:boolean = false;
 
   public cargando: boolean = false;
   public cargandoIcon: boolean = false;
@@ -56,7 +58,8 @@ export class PagarComponent implements OnInit {
     private ventana: VentanaemergenteService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaLiquidacionPrd: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
     private reportes: ReportesService, private nominaPtuPrd: NominaptuService,
-    private configuracionesPrd: ConfiguracionesService, private usuariosSistemaPrd: UsuarioSistemaService) { }
+    private configuracionesPrd: ConfiguracionesService, private usuariosSistemaPrd: UsuarioSistemaService,
+    private navigate:Router) { }
 
 
 
@@ -307,5 +310,57 @@ export class PagarComponent implements OnInit {
 
     
   }
+
+  public eliminar() {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas eliminar la nómina?").then(valor => {
+      if (valor) {
+        let objEnviar = {
+          nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
+          usuarioId: this.usuariosSistemaPrd.getUsuario().usuarioId
+        };
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        if (this.nominaSeleccionada.nominaOrdinaria) {
+          this.nominaOrdinariaPrd.eliminar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.navigate.navigate(["/nominas/activas"]);
+              }
+            });
+          });
+        } else if (this.nominaSeleccionada.nominaExtraordinaria) {
+          this.nominaAguinaldoPrd.eliminar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.navigate.navigate(["/nominas/nomina_extraordinaria"]);
+              }
+            });
+          });
+        } else if (this.nominaSeleccionada.nominaLiquidacion) {
+          this.nominaLiquidacionPrd.eliminar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.navigate.navigate(["/nominas/finiquito_liquidacion"]);
+              }
+            });
+          });
+        } else if (this.nominaSeleccionada.nominaPtu) {
+          this.nominaPtuPrd.eliminar(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.navigate.navigate(["/nominas/ptu"]);
+              }
+            });
+          });
+        }
+      }
+    });
+
+  }
+
 
 }

@@ -51,6 +51,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public nominatimbrar:boolean = false;
 
   @Input() public esnomina:boolean = false;
+  @Input() public patronal:any = {datos:[]};
 
 
   public seleccionarGlobal:boolean = false;
@@ -58,6 +59,7 @@ export class TablapaginadoComponent implements OnInit {
   
 
   public arreglotemp: any = [];
+  public verpatronal:boolean = false;
 
 
 
@@ -397,6 +399,12 @@ export class TablapaginadoComponent implements OnInit {
     }
 
     this.salida.emit({});
+  }
+
+  public verRegistroPatronal(item:any){
+    console.log(item);
+    this.verpatronal = !this.verpatronal;
+    this.salida.emit({type:'patronal',datos:item});
   }
   
 

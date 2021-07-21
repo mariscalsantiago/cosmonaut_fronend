@@ -69,7 +69,7 @@ export class NominasActivasComponent implements OnInit {
       this.cargando = false;
       this.arreglo = datos.datos;
       for (let item of this.arreglo) {
-        item["inicial"] = item.nominaOrdinaria.total == undefined;
+        item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto);
       }
     });
   }
