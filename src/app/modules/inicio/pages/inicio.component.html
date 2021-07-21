@@ -7,7 +7,7 @@
 </div>
     <div class="row">
         <div class="col-7">
-            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="370">
+            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="320">
                 <div style="background-color: transparent;">
                     <div class="col-5 titulo-outlet-inicio">
                         <div class="col-2 menu-hamburgesa"></div> <label>CALENDARIO</label>
@@ -15,14 +15,16 @@
                 </div>
                 <div id="collapseOne" class="collapse show " aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
-                    <div >
-                        <app-calendario [eventos]="eventos" ></app-calendario>
-                    </div>
-                </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <app-calendario [eventos]="eventos" (salida)="recibirTabla($event)"></app-calendario>
+                            </div>
+                        </div>
                 </div>
 
+                </div>
                 <div class="col text-right">
-                    <button  type="button" class="btn btn-light button-outlet" >
+                    <button  type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
                   <i aria-hidden="true" class="fa fa-plus"></i>  Eventos
                 </button>
                 </div>
@@ -31,7 +33,7 @@
         </div>
 
         <div class="col-5">
-            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="370">
+            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="320">
                 <div style="background-color: transparent;">
                     <div class="col-5 titulo-outlet-inicio">
                         <div class="col-2 menu-hamburgesa"></div> <label>REPORTTES</label>
@@ -40,7 +42,11 @@
                 <div class="form-group row margen">
 
 
-
+                    <div class="col-12" style="background-color: transparent;">
+                        <div class="col-12 titulo-outlet-recuadros">
+                            <div ></div> <label>CALENDARIO</label>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -59,7 +65,7 @@
 
     <div class="row">
         <div class="col-7">
-            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="570">
+            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="440">
                 <div style="background-color: transparent;">
                     <div class="col-5 titulo-outlet-inicio">
                         <div class="col-2 menu-hamburgesa"></div> <label>VISTOS RECIENTEMENTE</label>

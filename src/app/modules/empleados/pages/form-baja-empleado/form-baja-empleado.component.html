@@ -64,8 +64,8 @@
                     </div>
                     <div *ngIf="ultimaNomina" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                         <label>Fecha fin de última nómina pagada *</label>
-                        <input formControlName="ultimoDia" placement="top" [mdbTooltip]="'fechaFinNomina' | tooltip" type="date" [ngClass]="{'is-invalid':f.ultimoDia.errors && submitEnviado}" class="form-control">
-                        <div *ngIf="f.ultimoDia.errors && submitEnviado" class="invalid-feedback">
+                        <input formControlName="fechaFinUltimoPago" placement="top" [mdbTooltip]="'fechaFinNomina' | tooltip" type="date" [ngClass]="{'is-invalid':f.fechaFinUltimoPago.errors && submitEnviado}" class="form-control">
+                        <div *ngIf="f.fechaFinUltimoPago.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
                     </div>
