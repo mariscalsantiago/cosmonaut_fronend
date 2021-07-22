@@ -238,6 +238,14 @@ export class IDSEComponent implements OnInit {
                 }
               }
             }
+            
+            this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
+              this.arreglo = datos.datos;
+          
+              this.traerTabla({ datos: this.arreglo });
+          
+              this.cargando = false;
+            });
             this.activarMultiseleccion = false;
           }
         });

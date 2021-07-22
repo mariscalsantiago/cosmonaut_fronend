@@ -19,6 +19,11 @@ export class DatosempresaService {
     return this.http.put(`${this.url}/guardar/empresa`,json);
   }
 
+  public saveProveedores(obj:any):Observable<any>{
+    let json:string = JSON.stringify(obj); 
+    return this.http.put(`${direcciones.empresa}/proveedores/guardar`,json);
+  }
+
  
 
   public modificar(obj:any):Observable<any>{

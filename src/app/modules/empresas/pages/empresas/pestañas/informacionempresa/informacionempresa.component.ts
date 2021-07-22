@@ -222,7 +222,18 @@ export class InformacionempresaComponent implements OnInit {
             centrocClienteId: datos.datos.centrocClienteId,
             versionId: this.usuariosSistemaPrd.getVersionSistema()
           };
+
           this.authUsuariosPrd.guardarVersionsistema(objVersionEnviar).subscribe(datosVersion => {
+            if (!datosVersion.resultado) {
+              this.modalPrd.showMessageDialog(datosVersion.resultado, datosVersion.mensaje);
+            }
+          });
+
+          let objVProveedores = {
+            clienteId: datos.datos.centrocClienteId,
+          };
+
+          this.empresaPrd.saveProveedores(objVProveedores).subscribe(datosVersion => {
             if (!datosVersion.resultado) {
               this.modalPrd.showMessageDialog(datosVersion.resultado, datosVersion.mensaje);
             }
