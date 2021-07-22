@@ -182,7 +182,7 @@ export class InformacionempresaComponent implements OnInit {
     }
 
 
-
+    debugger;
     let objenviar :any = {
       nombre: obj.nombre,
       razonSocial: obj.razonSocial,

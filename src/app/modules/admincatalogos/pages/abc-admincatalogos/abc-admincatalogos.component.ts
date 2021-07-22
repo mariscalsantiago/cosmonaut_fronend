@@ -174,7 +174,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
         if (datos.datos !== undefined) {
           for (let item of datos.datos) {
-            item["fechaInicio"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+            //item["fechaInicio"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+            item.fecInicio = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
             item["fechaFin"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd');          }
         }
         this.arregloTablaValores = datos.datos;

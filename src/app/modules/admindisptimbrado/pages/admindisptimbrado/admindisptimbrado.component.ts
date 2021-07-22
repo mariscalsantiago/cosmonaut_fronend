@@ -155,7 +155,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    
+    debugger;
     if(obj.type == "editar"){
       let datos = obj.datos;
       this.ventana.showVentana(this.ventana.adminTimbradoDispersion,{datos:datos}).then(valor =>{
@@ -196,10 +196,10 @@ export class AdminDispercionTimbradoComponent implements OnInit {
     }
     this.objFiltro = {
       ...this.objFiltro,
-      clienteId: 1,
+      clienteId: null,
 
     };
-
+    debugger;
       this.admintimbradoDispersion.proveedoresTimbres(this.objFiltro).subscribe(datos => {
         
         this.traerTabla(datos);
