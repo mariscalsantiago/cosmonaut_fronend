@@ -410,7 +410,7 @@ export class CargaMasivaEventosComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
-          const fileName = `${"Empleados-Erroneos"}.xlsx`;
+          const fileName = `${"Eventos-Erroneos"}.xlsx`;
   
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
