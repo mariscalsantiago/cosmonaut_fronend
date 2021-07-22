@@ -27,7 +27,7 @@
                         <input [(ngModel)]="seleccionarGlobal"  type="checkbox">
                         <span class="checkmark"></span>
                       </label>
-                      
+
                 </th>
                 <th id="" *ngIf="imagen"></th>
                 <th id="" (click)="ordenar(item)" style="position: relative;cursor:pointer" scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
@@ -38,7 +38,7 @@
                     Tabla de beneficios
                 </th>
                 <th id="" *ngIf="porcentaje">Porcentaje de avance</th>
-                <th id="" *ngIf="timbrado">  <label style="margin-left: 22px;" (click)="seleccionarTodos()" class="contenedorInputCheckRadio texto"> 
+                <th id="" *ngIf="timbrado"> <label style="margin-left: 22px;" (click)="seleccionarTodos()" class="contenedorInputCheckRadio texto"> 
                     <input [(ngModel)]="seleccionarGlobal"  type="checkbox">
                     <span class="checkmark"></span>
                   </label></th>
@@ -227,11 +227,10 @@
                         <td colspan="2">
 
                             <article *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
-                                {{item.valor}} <i (click)="verRegistroPatronal(item)" aria-hidden="true"
-                                class="far fa-eye" style="    color: #3ca29a;
+                                {{item.valor}} <i (click)="verRegistroPatronal(item)" aria-hidden="true" class="far fa-eye" style="    color: #3ca29a;
                                 cursor: pointer;" *ngIf="item.valor == 'imss Patronal'"></i>
                                 <article>{{item.dato | currency}}
-                                   
+
                                 </article>
                                 <div *ngIf="item.valor == 'imss Patronal' && verpatronal" class="estiloemergente">
                                     <div class="cabecera">Imss patronal
@@ -242,22 +241,22 @@
 
                                     </div>
                                     <div class="cuerpo">
-                                        <table class="table">
+                                        <table aria-hidden="true" class="table">
                                             <thead>
-                                              <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">Monto</th>
-                                              </tr>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Nombre</th>
+                                                    <th scope="col">Monto</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                              <tr *ngFor="let mm of patronal?.datos;let indice = index;">
-                                                <th scope="row">{{indice+1}}</th>
-                                                <td>{{mm.conceptoPatronal}}</td>
-                                                <td>{{mm.monto | currency}}</td>
-                                              </tr>
+                                                <tr *ngFor="let mm of patronal?.datos;let indice = index;">
+                                                    <th scope="row">{{indice+1}}</th>
+                                                    <td>{{mm.conceptoPatronal}}</td>
+                                                    <td>{{mm.monto | currency}}</td>
+                                                </tr>
                                             </tbody>
-                                          </table>
+                                        </table>
                                     </div>
                                 </div>
                             </article>

@@ -17,7 +17,6 @@
                 <label for="tiposueldo">Tipo de sueldo de entrada *</label>
                 <select [class.is-invalid]="f.tiposueldo.errors && f.tiposueldo.touched" id="tiposueldo" formControlName="tiposueldo" class="form-control">
                     <option value="b">Bruto</option>
-                    <!--<option value="n">Neto</option>-->
                 </select>
                 <div *ngIf="f.tiposueldo.errors && f.tiposueldo.touched" class="invalid-feedback">
                     Campo requerido
@@ -104,35 +103,35 @@
                         <tbody>
                             <tr>
                                 <th id="" class="text-left" scope="col">Limite inferior</th>
-                                <td >{{limiteInferior}}</td>
+                                <td>{{limiteInferior}}</td>
                             </tr>
                             <tr>
                                 <th id="" class="text-left" scope="col">Excedente de limite inferior</th>
-                                <td >{{excedente}}</td>
+                                <td>{{excedente}}</td>
                             </tr>
                             <tr>
                                 <th id="" class="text-left" scope="col">Impuesto marginal</th>
-                                <td >{{impuestoMarginal}}</td>
+                                <td>{{impuestoMarginal}}</td>
                             </tr>
                             <tr>
                                 <th id="" class="text-left" scope="col">Salario base de Cotización</th>
-                                <td >{{salarioBaseDeCotizacion}}</td>
+                                <td>{{salarioBaseDeCotizacion}}</td>
                             </tr>
                             <tr>
                                 <th id="" class="text-left" scope="col">Salario diario</th>
-                                <td >{{salarioDiario}}</td>
+                                <td>{{salarioDiario}}</td>
                             </tr>
                             <tr>
                                 <th id="" class="text-left" scope="col">Salario neto mensual</th>
-                                <td >{{salarioNetoMensual}}</td>
+                                <td>{{salarioNetoMensual}}</td>
                             </tr>
                             <tr>
                                 <th id="" class="text-left" scope="col">Excedente de Limite inferior</th>
-                                <td >{{excedente_limiteInferior}}</td>
+                                <td>{{excedente_limiteInferior}}</td>
                             </tr>
                             <tr>
                                 <th id="" class="text-left" scope="col">ISR determinado</th>
-                                <td >{{isrDeterminado}}</td>
+                                <td>{{isrDeterminado}}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -95,7 +95,7 @@ export class NominaPTUComponent implements OnInit {
           }
           this.nominaPtuPrd.calcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            this.modalPrd.showMessageDialog(datos.resultado,"No se encontraron empleados a los cuales calcular el PTU.").then(()=>{
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               
               if(datos.resultado){
                 

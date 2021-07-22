@@ -138,7 +138,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
               this.ultimaNomina = true;
               this.myFormcomp.controls.fechaFinUltimoPago.setValidators([Validators.required]);
           }else{
-            debugger;
+            
             this.myFormcomp.controls.fechaFinUltimoPago.setValidators([]);
             this.myFormcomp.controls.fechaFinUltimoPago.updateValueAndValidity();
             this.ultimaNomina = false;

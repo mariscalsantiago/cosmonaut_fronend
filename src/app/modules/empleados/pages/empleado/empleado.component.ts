@@ -122,4 +122,21 @@ export class EmpleadoComponent implements OnInit {
   }
 
 
+  public activarEmpleado(){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas reactivar el empleado?").then(valor =>{
+      if(valor){
+          let objEnviar = {
+            ...this.empleado,
+            esActivo:true
+          };
+
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.empleadosPrd.update(objEnviar).subscribe(datos =>{
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+          });
+      }
+    });
+  }
+
+
 }

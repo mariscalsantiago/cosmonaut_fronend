@@ -44,7 +44,7 @@ export const direcciones = {
     empresa: `${ip}`,
     usuariosAuth:`${ipAdmin}/usuarios`,
     versiones:`${ipAdmin}/version`,
-    ptu:`${ip}/ptu`,
+    ptu:`${ipNomina}/ptu`,
     oauth:`${ipAdmin}/oauth`,
     nominaOrdinaria:`${ipCalculos}/nomina-ordinaria`,
     nominaExtraordinaria:`${ipCalculos}/nomina-extraordinaria`,

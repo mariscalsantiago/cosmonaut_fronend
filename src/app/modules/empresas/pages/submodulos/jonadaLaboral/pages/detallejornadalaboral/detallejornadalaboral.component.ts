@@ -71,8 +71,6 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public crearForm(obj: any) {
-   
-
 
       if(!this.esInsert){
         if(obj.nclHorarioJornada[0].dia == 1 && obj.nclHorarioJornada[0].esActivo== true){
@@ -287,7 +285,12 @@ export class DetallejornadalaboralComponent implements OnInit {
         } else {
 
           if(String(obj.sumaHorasJornadaId) === '1') {
-            obj.horaSalida = this.horaSalida;
+ 
+            if(this.horaSalida === undefined){
+              this.hrInicio(obj.horaEntrada)
+              obj.horaSalida = this.horaSalida;
+            }
+            
           }
           this.peticion = {
             jornadaId: obj.jornadaId,
@@ -427,13 +430,21 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public hrInicio(response : any){
-
     if(this.jornada === '1') {
       this.myForm.controls.horaSalida.disable();
-    let hr = Number(response.value.substring(0,2))+8;
+      let hr : number;
+      let newValue : any;
+      if(response.value !== undefined){
+        hr = Number(response.value.substring(0,2))+8;
+        newValue = response.value.replace(response.value.substring(0,2),Number(response.value.substring(0,2))+8)
 
-    let newValue : any;
-    newValue = response.value.replace(response.value.substring(0,2),Number(response.value.substring(0,2))+8)
+      } else {
+         hr = Number(response.substring(0,2))+8;
+         newValue = response.replace(response.substring(0,2),Number(response.substring(0,2))+8)
+
+
+      }
+
     if(hr  === 8 || hr === 9){
       newValue = response.value.replace(response.value.substring(0,2),'0'+String(hr))
     }

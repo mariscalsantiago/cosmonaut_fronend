@@ -173,7 +173,7 @@ export class IDSEComponent implements OnInit {
           fechaMovimiento: this.fechaMovimiento
         };
    console.log('fechaMov', this.objFiltro)
-  debugger;
+  
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 
@@ -260,6 +260,7 @@ export class IDSEComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
+    console.log("Esto es objteto",obj);
 
     switch (obj.type) {
       case "eliminar":
@@ -310,6 +311,9 @@ export class IDSEComponent implements OnInit {
         case "filaseleccionada":
           this.activarMultiseleccion = obj.datos;
         break;
+
+
+        
     }
 
   }

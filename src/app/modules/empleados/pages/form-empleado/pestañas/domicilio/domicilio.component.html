@@ -51,7 +51,7 @@
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8">
                     <label>Calle *</label>
-                    <input formControlName="calle" type="text" [ngClass]="{'is-invalid':f.calle.errors && submitEnviado}" class="form-control" placeholder="">
+                    <input maxlength="86" formControlName="calle" type="text" [ngClass]="{'is-invalid':f.calle.errors && submitEnviado}" class="form-control" placeholder="">
                     <div *ngIf="f.calle.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -61,14 +61,14 @@
             <div class="form group row margen">
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Número exterior *</label>
-                    <input formControlName="numExterior" type="text" name="" [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
+                    <input maxlength="10" formControlName="numExterior" type="text" name="" [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
                     <div *ngIf="f.numExterior.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Número interior</label>
-                    <input formControlName="numInterior" type="email" class="form-control" placeholder="">
+                    <input maxlength="10" formControlName="numInterior" type="email" class="form-control" placeholder="">
 
                 </div>
             </div>
