@@ -73,7 +73,7 @@
               </select>
                     </div>
                     <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-4 ">
-                        <label for="exampleFormControlSelect1">Versión</label>
+                        <label for="exampleFormControlSelect1">Versión *</label>
                         <select [class.is-invalid]="f.versioncosmonaut.errors && submitEnviado" formControlName="versioncosmonaut" class="form-control">
                 <option *ngFor="let item of arregloVersiones" [value]="item.versionCosmonautId">{{item.nombreVersion}}</option>
               </select>
