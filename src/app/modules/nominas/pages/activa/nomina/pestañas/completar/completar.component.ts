@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
   selector: 'app-completar',
@@ -15,8 +17,10 @@ export class CompletarComponent implements OnInit {
   @Input() nominaSeleccionada: any;
 
   public cargandoIcon: boolean = false;
+  public datos:any = {};
   constructor(private modalPrd: ModalService,
-    private reportesPrd:ReportesService) { }
+    private reportesPrd:ReportesService,private nominaPrd:NominaordinariaService,
+    private usuarioSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
@@ -29,6 +33,11 @@ export class CompletarComponent implements OnInit {
     } else if (this.nominaSeleccionada.nominaPtu) {
       this.llave = "nominaPtu";
     }
+
+
+    this.nominaPrd.concluir(this.nominaSeleccionada[this.llave].nominaXperiodoId,this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+      console.log("Esto es concluir",this.datos = datos.datos);
+    });
 
 
   }

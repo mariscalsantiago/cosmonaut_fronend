@@ -1,4 +1,4 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
@@ -48,13 +48,13 @@ export class CalcularComponent implements OnInit {
   public apellidoMaterno: string = "";
   public numeroempleado: string = "";
 
-  public esnormal:boolean = false;
+  public esnormal: boolean = false;
 
   constructor(private navigate: Router,
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaFiniquito: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
     private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService,
-    private usuariSistemaPrd:UsuarioSistemaService) { }
+    private usuariSistemaPrd: UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
@@ -149,15 +149,15 @@ export class CalcularComponent implements OnInit {
     ];
 
 
-    if(this.arreglo !== undefined){
+    if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
 
 
-        item["nombrecompleto"] = item[llave].empleado;
-        item["numeroEmpleado"] = item[llave].numeroEmpleado;
+        item["nombrecompleto"] = `${item[llave].nombre} ${item[llave].apellidoPat} ${item[llave].apellidoMat || ''}`;
+        item["numeroEmpleado"] = item[llave].numEmpleado;
         item["diaslaborados"] = item[llave].diasLaborados;
-        item["percepciones"] = this.cp.transform(item[llave].percepciones);
-        item["deducciones"] = this.cp.transform(item[llave].deducciones);
+        item["percepciones"] = this.cp.transform(item[llave].totalPercepciones);
+        item["deducciones"] = this.cp.transform(item[llave].totalDeducciones);
         item["total"] = this.cp.transform(item[llave].total);
       }
     }
@@ -171,7 +171,18 @@ export class CalcularComponent implements OnInit {
   }
 
 
+  private patronalSeleccionado:any = {
+    nominaXperiodoId: 722,
+    fechaContrato: "string",
+    personaId: 0,
+    clienteId: 0,
+    usuarioId: 0
+  };
+
+  public patronal:any = {datos:[]};
+
   public recibirTabla(obj: any) {
+    console.log("Este es lo de obj ", obj);
 
     switch (obj.type) {
       case "desglosar":
@@ -179,10 +190,16 @@ export class CalcularComponent implements OnInit {
         let item = obj.datos;
         let objEnviar = {
           nominaXperiodoId: this.nominaSeleccionada[this.llave]?.nominaXperiodoId,
-          fechaContrato: item[this.llave2].fechaContrato,
+          fechaContrato: new DatePipe("es-MX").transform(item[this.llave2].fechaContrato,"yyyy-MM-dd"),
           personaId: item[this.llave2].personaId,
           clienteId: item[this.llave2].centrocClienteId
         }
+
+        this.patronalSeleccionado.nominaXperiodoId = this.nominaSeleccionada[this.llave]?.nominaXperiodoId;
+        this.patronalSeleccionado.fechaContrato = new DatePipe("es-MX").transform(item[this.llave2].fechaContrato,"yyyy-MM-dd");
+        this.patronalSeleccionado.personaId = item[this.llave2].personaId;
+        this.patronalSeleccionado.clienteId = item[this.llave2].centrocClienteId;
+        this.patronalSeleccionado.usuarioId = this.usuariSistemaPrd.usuario.usuarioId;
 
         if (this.nominaSeleccionada.nominaOrdinaria) {
 
@@ -205,6 +222,14 @@ export class CalcularComponent implements OnInit {
           });
         }
 
+        break;
+      case 'patronal':
+        if (this.nominaSeleccionada.nominaOrdinaria) {
+          this.nominaOrdinariaPrd.verImssPatronal(this.patronalSeleccionado).subscribe(datos => {
+               this.patronal.datos = datos.datos;
+               console.log(this.patronal);
+          });
+        }
         break;
     }
   }
@@ -253,6 +278,9 @@ export class CalcularComponent implements OnInit {
     }
 
 
+    console.log("Esto son los otros", otros);
+
+
 
 
 
@@ -270,12 +298,12 @@ export class CalcularComponent implements OnInit {
 
 
     this.cargandoIcon = true;
-    if(this.esnormal){
+    if (this.esnormal) {
       this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
         this.cargandoIcon = false;
         this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
       });
-    }else{
+    } else {
       this.reportesPrd.getReporteNominasTabCalculadosEspeciales(objEnviar).subscribe(datos => {
         this.cargandoIcon = false;
         this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
@@ -348,34 +376,75 @@ export class CalcularComponent implements OnInit {
           this.nominaOrdinariaPrd.eliminar(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-              this.regresarExtraordinaria();
+              if (datos.resultado) {
+                this.regresarExtraordinaria();
+              }
             });
           });
         } else if (this.llave == "nominaExtraordinaria") {
           this.nominaAguinaldoPrd.eliminar(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-              this.regresarExtraordinaria();
+              if (datos.resultado) {
+                this.regresarExtraordinaria();
+              }
             });
           });
         } else if (this.llave == "nominaLiquidacion") {
           this.nominaFiniquito.eliminar(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-              this.regresarExtraordinaria();
+              if (datos.resultado) {
+                this.regresarExtraordinaria();
+              }
             });
           });
         } else if (this.llave == "nominaPtu") {
           this.nominaPtuPrd.eliminar(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-              this.regresarExtraordinaria();
+              if (datos.resultado) {
+                this.regresarExtraordinaria();
+              }
             });
           });
         }
       }
     });
 
+  }
+
+  public recalcular() {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, '¿Deseas recalcular la nómina?').then(valor => {
+      if (valor) {
+
+        let objEnviar = {
+          nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
+          clienteId: this.usuariSistemaPrd.getIdEmpresa(),
+          usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
+        }
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        if (this.llave == "nominaOrdinaria") {
+
+          this.nominaOrdinariaPrd.recalcularNomina(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.regresarExtraordinaria();
+              }
+            });
+          });
+        }else  if (this.llave == "nominaExtraordinaria") {
+
+          this.nominaAguinaldoPrd.recalcularNomina(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.regresarExtraordinaria();
+              }
+            });
+          });
+        }
+      }
+    });
   }
 
 }

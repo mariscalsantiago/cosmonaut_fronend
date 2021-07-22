@@ -30,6 +30,13 @@ export class NominaaguinaldoService {
 
   }
 
+
+  public recalcularNomina(obj: any): Observable<any> {
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${direcciones.nominaExtraordinaria}/recalculo`, json);
+
+  }
+
   public getListaNominas(obj:any):Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({

@@ -42,6 +42,8 @@ export class TimbrarComponent implements OnInit {
   public numeroempleado: string = "";
   public continuarTitulo:string = "Continuar";
 
+  public esnormal:boolean = false;
+
 
   @Input() nominaSeleccionada: any;
 
@@ -62,6 +64,7 @@ export class TimbrarComponent implements OnInit {
 
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
+      this.esnormal = true;
       objEnviar.nominaXperiodoId = this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId;
       this.initOrdinaria(objEnviar);
       this.llave = "reciboATimbrar";
@@ -273,6 +276,7 @@ export class TimbrarComponent implements OnInit {
         let idCentroCliente = 0;
 
         let obj = []
+        let arregloaux:Array<Number> = new Array<Number>();
         for (let item of this.arreglo) {
           if (item.seleccionado) {
             obj.push({
@@ -283,6 +287,7 @@ export class TimbrarComponent implements OnInit {
               usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
               servicio: "facturacion_sw"
             });
+            arregloaux.push(item[this.llave].personaId);
           }
 
           idCentroCliente = item[this.llave].centroClienteId || this.usuarioSistemaPrd.getIdEmpresa();
@@ -299,16 +304,18 @@ export class TimbrarComponent implements OnInit {
               this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Timbrando", "Espere un momento, el proceso se tardara varios minutos.");
               let suscripcion = timer(0, 1500).pipe(concatMap(() =>
                 this.nominaOrdinariaPrd
-                  .statusProcesoTimbrar(this.nominaSeleccionada[this.llave2].nominaXperiodoId, obj.length)))
+                  .statusProcesoTimbrar(this.nominaSeleccionada[this.llave2].nominaXperiodoId, obj.length,arregloaux)))
                 .subscribe(datos => {
                   this.configuracionesPrd.setCantidad(datos.datos);
                   if (datos.datos >= 100) {
                     suscripcion.unsubscribe();
-                    this.configuracionesPrd.setCantidad(0);
+                    setTimeout(() => {
+                      this.configuracionesPrd.setCantidad(0);
                     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                     this.ventana.showVentana(this.ventana.ntimbrado, { datos: this.nominaSeleccionada[this.llave2].nominaXperiodoId }).then(() => {
                       this.salida.emit({ type: "timbrar" });
                     });
+                    }, 2000);
                   }
                 });
             }
@@ -373,6 +380,27 @@ export class TimbrarComponent implements OnInit {
 
     }
 
+  }
+
+
+  public descargarNomina(){
+    let objEnviar = {
+      nominaPeriodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId
+    }
+
+
+    this.cargandoIcon = true;
+    if(this.esnormal){
+      this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
+        this.cargandoIcon = false;
+        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
+      });
+    }else{
+      this.reportesPrd.getReporteNominasTabCalculadosEspeciales(objEnviar).subscribe(datos => {
+        this.cargandoIcon = false;
+        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
+      });
+    }
   }
 
 }

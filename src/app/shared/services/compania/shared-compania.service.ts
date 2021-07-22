@@ -9,22 +9,14 @@ import { direcciones } from "src/assets/direcciones";
 export class SharedCompaniaService {
 
   public url:string = "";
-  constructor(private http:HttpClient,private httpb:HttpBackend) {
+  constructor(private http:HttpClient) {
 
       this.url = direcciones.centroCostosCliente;
-
-      this.http = new HttpClient(httpb);
 
    }
 
    public getAllCompany(): Observable<any> {
-     let opciones = {
-      headers:new HttpHeaders({
-        "Content-Type":"application/json",
-        "Authorization":""
-      })   
-    }
-    return this.http.get(`${this.url}/lista/compania`,opciones);
+    return this.http.get(`${this.url}/lista/compania`);
   }
 
   public getAllEmp(idEmpresA:number):Observable<any>{
@@ -36,10 +28,8 @@ export class SharedCompaniaService {
 
 
   public getEmpresaById(idEmpresa:number):Observable<any>{
-
     return this.http.get(`${this.url}/obtener/id/${idEmpresa}`);
-
-  }
+   }
 
  
 

@@ -136,3 +136,35 @@ table {
 .texto::after{
     content: 'Timbrar' !important;
 }
+
+.estiloemergente{
+    -webkit-box-shadow: -5px -1px 19px -1px rgba(0,0,0,0.68); 
+    box-shadow: -5px -1px 19px -1px rgba(0,0,0,0.68);
+    position: fixed;
+    left:40px;
+    top:0;
+    width:400px;
+    height:300px;
+    border-radius: 10px;
+    background: whitesmoke;
+    z-index: 1;
+    border: 1px solid #b5b5b5;
+    overflow: auto;
+  .cabecera{
+      background-color: #022538;
+      height: 20px;
+      color:black;
+      text-align: center;
+      font-size: 12px;
+      button{
+
+    margin-right: 11px;
+    color: white;
+padding-bottom: 15px;
+      }
+
+  }
+  .cuerpo{
+      background-color: #f3f3f3;
+  }
+}

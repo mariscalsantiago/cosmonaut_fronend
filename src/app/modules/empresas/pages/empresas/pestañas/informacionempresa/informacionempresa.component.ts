@@ -216,7 +216,8 @@ export class InformacionempresaComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
         if (datos.resultado) {
-          this.datos.empresa.centrocClienteEmpresa = datos.datos.centrocClienteId;
+          this.datos.empresa = datos.datos;
+          console.log("Esto es la referencia de empresa",this.datos.empresa);
 
           let objVersionEnviar = {
             centrocClienteId: datos.datos.centrocClienteId,
