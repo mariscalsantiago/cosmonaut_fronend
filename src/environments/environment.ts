@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  rutaEmpresa:'http://f80f1ba880d4.ngrok.io',
+  rutaEmpresa:'/empresas',
   rutaCatalogos:'/catalogos',
-  //rutaNomina:'/nomina',
-  rutaNomina:'https://cosmonautdev.wintermute.services/nomina',
+  rutaNomina:'/nomina',
+ //rutaNomina:'https://cosmonautdev.wintermute.services/nomina',
   rutaAdmin: '/admin',
   rutaReportes:'/reportes',
   rutaSocket:'wss://cosmonautdev.wintermute.services/empresa'

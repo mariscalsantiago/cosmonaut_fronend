@@ -24,7 +24,7 @@
          "changeOrigin": true
     },
     "/nomina/*":{
-        "target":"http://f80f1ba880d4.ngrok.io",
+        "target":"https://cosmonautdev.wintermute.services/nomina",
         "secure":false,
         "pathRewrite": {
             "^/nomina": ""
