@@ -196,7 +196,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
     }
     this.objFiltro = {
       ...this.objFiltro,
-      clienteId: 1,
+      clienteId: 1
 
     };
 

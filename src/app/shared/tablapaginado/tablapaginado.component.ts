@@ -398,7 +398,7 @@ export class TablapaginadoComponent implements OnInit {
         item.seleccionado = !this.seleccionarGlobal;
     }
 
-    this.salida.emit({});
+    this.salida.emit({type:'filaseleccionada',datos:!this.seleccionarGlobal});
   }
 
   public verRegistroPatronal(item:any){
