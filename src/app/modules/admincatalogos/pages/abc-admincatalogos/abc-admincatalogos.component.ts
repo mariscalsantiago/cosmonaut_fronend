@@ -128,9 +128,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 6){
-
+      if(this.objdetrep.esActivo === true || this.objdetrep.esActivo === false){
       this.objdetrep.fecInicio = new DatePipe("es-MX").transform(new Date(new Date(this.objdetrep.fecInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
-  
+      }
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.objdetrep.tipoPersona = this.objdetrep.indPersonaFisica == true  ?"indPersonaFisica":"indPersonaMoral";
@@ -205,10 +205,16 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      console.log('19')
 
       this.descripcion = this.objdetrep.estado;
-      this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => this.arregloTablaValores = datos.datos);
+      this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => {
+         if (datos.datos !== undefined) {
+           for (let item of datos.datos) {
+             item["fechaInicio"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+           }
+         }
+        this.arregloTablaValores = datos.datos
+      });
       this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => this.arregloPeriodicidad = datos.datos);
       this.clave();
     }
@@ -251,7 +257,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public createForm(obj: any) {
 
     let datePipe = new DatePipe("en-MX");
-    console.log('obj',obj)
+    if((obj.esActivo === true || obj.esActivo === false) && obj.regimenfiscalId === "08" ){
+      obj.fecInicio = new DatePipe("es-MX").transform(new Date(new Date(obj.fecInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+      }
     return this.formBuilder.group({
 
       clave: [this.idCatalogo],
@@ -1274,6 +1282,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 19){
+          console.log('pasa por aqui', obj)
 
           
           let fechainicio = "";

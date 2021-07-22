@@ -365,6 +365,9 @@
                         <td>
                             <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'tasa', $event)" (blur)="updateList(tasaAplicableIsnId, 'tasa', $event)">{{valores.tasa}}</span>
                         </td>
+                        <td class="td-center">
+                            <input #isr id="isr" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tasaAplicableIsnId, 'fechaInicio', $event)" (blur)="updateList(tasaAplicableIsnId, 'fechaInicio', $event)">
+                        </td>
 
                     </tr>
 
