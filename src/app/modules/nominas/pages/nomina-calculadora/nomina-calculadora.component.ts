@@ -43,7 +43,7 @@ export class NominaCalculadoraComponent implements OnInit {
     public configuracionPrd:ConfiguracionesService, private grupoNominaPrd: GruponominasService,) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.myForm = this.crearFormulario();
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.suscripciones();
@@ -73,7 +73,7 @@ export class NominaCalculadoraComponent implements OnInit {
   }
 
   public suscripciones() {
-    debugger;
+    
     this.myForm.controls.tiposueldo.valueChanges.subscribe(valor => {
       this.esSueldoNeto = valor == "n";
 
@@ -122,7 +122,7 @@ export class NominaCalculadoraComponent implements OnInit {
       if(valor){
             
         let  obj = this.myForm.getRawValue();
-        debugger;
+        
 
           let objEnviar : any = 
           {
@@ -137,7 +137,7 @@ export class NominaCalculadoraComponent implements OnInit {
 
         
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        debugger;
+        
             this.grupoNominaPrd.calculadoraBruto(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

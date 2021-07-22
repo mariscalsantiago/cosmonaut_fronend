@@ -46,7 +46,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     });
 
     if(!this.esInsert){
-      debugger;
+      
     this.obj = history.state.data == undefined ? {} : history.state.data;
     
     
@@ -133,7 +133,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   public validarTipoConcepto(tipo:any){
     
-    debugger;
+    
       
       for(let item of this.arregloTipoPercepcion){
         if(item.tipoPercepcionId == tipo){
@@ -233,7 +233,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         
         
         if (valor) {
-          debugger;
+          
           let obj = this.myForm.getRawValue();
 
           let splitE = this.tipoPercepcion.split('-');

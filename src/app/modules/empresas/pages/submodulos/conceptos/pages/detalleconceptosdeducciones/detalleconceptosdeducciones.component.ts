@@ -41,7 +41,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
         this.esInsert = false;
       }
     });
-    debugger;
+    
     this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => {
       this.arregloTipoDeduccion = datos.datos
       //this.concatenaEspecializacion();
@@ -97,7 +97,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
   public validarTipoConcepto(tipo:any){
     
-    debugger;
+    
       
       for(let item of this.arregloTipoDeduccion){
         if(item.tipoDeduccionId == tipo){
@@ -125,7 +125,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     
         
         if (valor) {
-          debugger;
+          
 
           let obj = this.myForm.value;
           

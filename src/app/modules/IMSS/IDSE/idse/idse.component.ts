@@ -173,7 +173,7 @@ export class IDSEComponent implements OnInit {
           fechaMovimiento: this.fechaMovimiento
         };
    console.log('fechaMov', this.objFiltro)
-  debugger;
+  
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 

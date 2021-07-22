@@ -24,7 +24,7 @@
          "changeOrigin": true
     },
     "/nomina/*":{
-        "target":"http://3bc910fa9d5b.ngrok.io",
+        "target":"http://f80f1ba880d4.ngrok.io",
         "secure":false,
         "pathRewrite": {
             "^/nomina": ""

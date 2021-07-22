@@ -257,6 +257,8 @@ export class InformacionempresaComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
           if (datos.resultado) {
+            this.datos.empresa = datos.datos;
+            console.log("SE modifico empresa",this.datos.empresa);
             this.enviado.emit({ type: 'informacion' });
           }
         });

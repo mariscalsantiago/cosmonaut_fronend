@@ -45,7 +45,7 @@ export class InicioComponent implements OnInit {
 
 
   public calcularFechasEventos(fechaActual: Date) {
-    debugger;
+    
     let inicioMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
     let finalMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
     let obj = {
@@ -81,7 +81,7 @@ export class InicioComponent implements OnInit {
   }
   
   public filtrandoEventos() {
-    debugger;
+    
     let hijosEventos: any = document.getElementById("eventoscheckbox")?.getElementsByTagName("input");
 
     let arrayFiltrado: any[] = [];
@@ -110,14 +110,14 @@ export class InicioComponent implements OnInit {
   }
 
   public verdetalle(obj:any){
-    debugger;
+    
 
     this.routerPrd.navigate(['/eventos/eventosxempleado']);
    
   }
 
   public recibirTabla(obj: any) {
-debugger;
+
     switch (obj.type) {
       case "fecha":
         this.calcularFechasEventos(obj.datos);
