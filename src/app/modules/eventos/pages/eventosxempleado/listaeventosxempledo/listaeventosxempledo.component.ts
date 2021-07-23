@@ -184,16 +184,14 @@ export class ListaeventosxempledoComponent implements OnInit {
           ...this.objFiltro,
           tipoIncidenciaId: Number(this.tipoIncidenciaId)
         };
-    }else if(this.esActivo != "0"){
+    }
       this.objFiltro = {
         ...this.objFiltro,
-        esActivo: this.esActivo
-      };
-  }
-      this.objFiltro = {
-        ...this.objFiltro,
+        esActivo: true,
         clienteId: this.usuariosSistemaPrd.getIdEmpresa()
       };
+      console.log('197',this.objFiltro)
+      
       this.eventosPrd.filtro(this.objFiltro).subscribe(datos =>{
 
         this.arreglo = datos.datos;
