@@ -15,6 +15,7 @@ import { EventosService } from 'src/app/modules/eventos/services/eventos.service
 })
 export class InicioComponent implements OnInit {
 
+  public arreglopintar: any = [false];
   public valor: any;
   public eventos: any;
   public apareceListadoEventos: boolean = false;
@@ -43,6 +44,19 @@ export class InicioComponent implements OnInit {
 
   }
 
+  public cambiarStatus(valor: any) {
+
+    for (let x = 0; x < this.arreglopintar.length; x++) {
+
+      if (x == valor) {
+        continue;
+      }
+
+      this.arreglopintar[x] = false;
+
+    }
+    this.arreglopintar[valor] = !this.arreglopintar[valor];
+  }
 
   public calcularFechasEventos(fechaActual: Date) {
     
@@ -56,6 +70,7 @@ export class InicioComponent implements OnInit {
     }
 
 
+    
 
     this.eventoPrd.filtro(obj).subscribe(datos => {
 

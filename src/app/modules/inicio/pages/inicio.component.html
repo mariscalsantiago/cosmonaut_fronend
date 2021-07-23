@@ -40,7 +40,30 @@
                     </div>
                 </div>
                 <br>
-                <div class="form-group row margen">
+                <div class="cl-10form-group row margen">
+                    <div id="accordion" class="acordion_desplegable">
+                        <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
+                            <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
+                                <h5 class="mb-0">
+                                    <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse"
+                                        data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
+                                         Detalle pago
+                                        <i aria-hidden="true" *ngIf="!arreglopintar[0]" data-toggle="collapse"
+                                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                            class="fas fa-chevron-down "></i>
+                                        <i aria-hidden="true" *ngIf="arreglopintar[0]" data-toggle="collapse"
+                                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                            class="fas fa-chevron-up "></i>
+                                    </button>
+                                </h5>
+                            </div>
+        
+                            <div id="detallepagocolapsar" class="collapse" aria-labelledby="detallepago"
+                                data-parent="#accordion">
+                                    </div>
+                                </div>
+                            </div>
+                       
 
 
                     <div class="col-12" style="background-color: transparent;">
@@ -55,7 +78,7 @@
                     </div>
 
 
-                </div>
+
                
             </div>
 
