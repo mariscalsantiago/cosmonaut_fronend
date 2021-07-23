@@ -68,7 +68,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
     
     let isInsertar = false;
 
-    
+    console.log(obj.datos);
     this.router.navigate(['empleados/empleado'],{ state: { datos: obj.datos, insertar: isInsertar } });
 
   }
