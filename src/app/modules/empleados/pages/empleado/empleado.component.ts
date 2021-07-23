@@ -128,7 +128,9 @@ export class EmpleadoComponent implements OnInit {
       if(valor){
         let isInsertar:boolean = false;
         console.log(this.empleado)
-        this.router.navigate(['empleados/empleado'],{ state: { datos: this.empleado.personaId, insertar: isInsertar } });
+        let fechaContrato = {...this.empleado};
+        delete fechaContrato.fechaContrato;
+        this.router.navigate(['empleados/empleado'],{ state: { datos: this.empleado.personaId, insertar: isInsertar,reactivarCuenta:true,contrato:fechaContrato } });
       }
     });
   }
