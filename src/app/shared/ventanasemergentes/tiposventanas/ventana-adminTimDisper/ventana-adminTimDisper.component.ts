@@ -19,6 +19,8 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
   public objEnviar: any = [];
   public arregloDispersion : any = [];
   public arregloTimbrado : any = [];
+  public idDispersion : number = 0;
+  public idTimbrado : number = 0;
 
   @Input() public datos:any;
   @Output() salida = new EventEmitter<any>();
@@ -45,13 +47,24 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
 
 
   public createForm(obj: any) {
+    debugger;
+    if(obj.proveedorDispersionId == undefined ){
+      this.idDispersion =0;
+    }else{
+      this.idDispersion = obj.proveedorDispersionId.proveedorDispersionId;
+    }
+    if(obj.proveedorTimbradoId == undefined ){
+      this.idTimbrado =0;
+    }else{
+      this.idTimbrado = obj.proveedorTimbradoId.proveedorTimbradoId;
+    }
     
 
     return this.formBuild.group({
 
       empresa: [obj.centrocClienteId.nombre],
-      dipersion: [obj.proveedorDispersionId.proveedorDispersionId],
-      timbrado:[obj.proveedorTimbradoId.proveedorTimbradoId]
+      dipersion: [this.idDispersion],
+      timbrado:[this.idTimbrado]
 
     });
 
