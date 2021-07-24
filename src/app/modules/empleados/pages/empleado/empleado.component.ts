@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
@@ -29,7 +29,8 @@ export class EmpleadoComponent implements OnInit {
   constructor(private routerCan: ActivatedRoute,
     private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
     private empledoContratoPrd: ContratocolaboradorService,private ventana:VentanaemergenteService,
-    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
@@ -125,15 +126,11 @@ export class EmpleadoComponent implements OnInit {
   public activarEmpleado(){
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas reactivar el empleado?").then(valor =>{
       if(valor){
-          let objEnviar = {
-            ...this.empleado,
-            esActivo:true
-          };
-
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          this.empleadosPrd.update(objEnviar).subscribe(datos =>{
-            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
-          });
+        let isInsertar:boolean = false;
+        console.log(this.empleado)
+        let fechaContrato = {...this.empleado};
+        delete fechaContrato.fechaContrato;
+        this.router.navigate(['empleados/empleado'],{ state: { datos: this.empleado.personaId, insertar: isInsertar,reactivarCuenta:true,contrato:fechaContrato } });
       }
     });
   }

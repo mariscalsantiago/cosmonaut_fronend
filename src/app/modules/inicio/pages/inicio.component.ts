@@ -126,8 +126,17 @@ export class InicioComponent implements OnInit {
 
   public verdetalle(obj:any){
     
-
+    this.configuracionPrd.accesoRuta = true;
     this.routerPrd.navigate(['/eventos/eventosxempleado']);
+
+    setTimeout(() => {
+      if (!this.configuracionPrd.cargandomodulo) {
+        setTimeout(() => {
+          this.configuracionPrd.accesoRuta = false;
+        }, 10);
+      }
+  
+    }, 10);
    
   }
 
