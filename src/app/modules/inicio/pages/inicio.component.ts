@@ -7,6 +7,8 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from 'src/app/modules/eventos/services/eventos.service';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-inicio',
@@ -16,6 +18,7 @@ import { EventosService } from 'src/app/modules/eventos/services/eventos.service
 export class InicioComponent implements OnInit {
 
   public arreglopintar: any = [false];
+  public idEmpresa: number = -1;
   public valor: any;
   public eventos: any;
   public apareceListadoEventos: boolean = false;
@@ -28,34 +31,38 @@ export class InicioComponent implements OnInit {
 
   public cargando: boolean = false;
   public eventosCopia: any;
-  public colapsar: boolean = false;
 
 
   public arreglo: any = [];
 
   constructor( private eventoPrd: EventosService,
-    private catalogos: CatalogosService, private routerPrd : Router,
+    private catalogos: CatalogosService, private routerPrd : Router, private reportesPrd: ReportesService, private modalPrd:ModalService,
     private usuariosSistemaPrd: UsuarioSistemaService, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
 
     this.cargando = true;
+    this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
 
   }
 
-  public cambiarStatus(valor: any) {
+  public iniciarDescarga(){
+    
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-    for (let x = 0; x < this.arreglopintar.length; x++) {
-
-      if (x == valor) {
-        continue;
-      }
-
-      this.arreglopintar[x] = false;
-
-    }
-    this.arreglopintar[valor] = !this.arreglopintar[valor];
+  
+        this.reportesPrd.getDescargaListaEmpleados(this.idEmpresa).subscribe(archivo => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
+          const downloadLink = document.createElement("a");
+          const fileName = `${"Empleados"}.xlsx`;
+  
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
+        });
+  
   }
 
   public calcularFechasEventos(fechaActual: Date) {
@@ -68,9 +75,6 @@ export class InicioComponent implements OnInit {
       fechaFin: finalMes.getTime(),
       esActivo: true
     }
-
-
-    
 
     this.eventoPrd.filtro(obj).subscribe(datos => {
 
