@@ -109,6 +109,8 @@ export class ContenidoComponent implements OnInit {
     private charComponentPrd: ChatService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
+
+    console.log("Se vuelve a llamar el contructor");
   }
 
   ngOnInit(): void {

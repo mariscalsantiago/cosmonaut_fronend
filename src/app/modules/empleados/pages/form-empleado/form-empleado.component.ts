@@ -58,6 +58,8 @@ export class FormEmpleadoComponent implements OnInit {
       this.titulo = "COMPLETAR DATOS DEL EMPLEADO";
       this.datosPersona = temp;
       this.datosPersona.insertar = history.state.insertar;
+      this.datosPersona.reactivarCuenta = history.state.reactivarCuenta;
+     
       this.tabsEnviar[0] = temp;
       this.domicilioPrd.getDomicilioPorEmpleado(this.datosPersona.personaId).subscribe(datosdomicilio =>{
         
@@ -67,6 +69,14 @@ export class FormEmpleadoComponent implements OnInit {
       this.activado[0].tab = true;
       this.activado[1].tab = true;
       this.activado[3].tab = true;
+      if(this.datosPersona?.reactivarCuenta){
+        this.titulo = "REACTIVACIÓN DEL EMPLEADO";
+        this.activado[0].form = false;
+        this.activado[0].seleccionado = false;
+        this.activado[3].form = true;
+        this.activado[3].seleccionado = true;
+        this.tabsEnviar[3] = history.state.contrato;
+      }
     }
 
 
@@ -231,3 +241,4 @@ export class FormEmpleadoComponent implements OnInit {
 
 
 }
+
