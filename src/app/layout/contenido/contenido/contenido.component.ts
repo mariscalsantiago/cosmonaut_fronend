@@ -384,6 +384,9 @@ export class ContenidoComponent implements OnInit {
 
   public irRuta(item: any) {
 
+
+    console.log(item);
+
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
     this.configuracionPrd.menu = false;

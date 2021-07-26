@@ -7,13 +7,14 @@ import { TimbradoEmpleadosComponent } from "./pages/timbrado-empleados/timbrado-
 const routes:Routes= [
     {path:'',children:[
         {path:'expediente',component:ExpedienteComponent},
-        {path:'timbrado',component:TimbradoEmpleadosComponent},
+        {path:'timbrados',component:TimbradoEmpleadosComponent},
         {path:'perfil',component:EmpleadoComponent}
     ]}
 ]
 
 @NgModule({
-    imports:[RouterModule.forChild(routes)]
+    imports:[RouterModule.forChild(routes)],
+    exports:[RouterModule]
 })
 export class kiosmoRoutingModule{
 
