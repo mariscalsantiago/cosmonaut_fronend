@@ -8,13 +8,18 @@ import { direcciones } from 'src/assets/direcciones';
 })
 export class NominasHistoricasService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public getNominasHistoricas(obj:any):Observable<any>{
+  public getNominasHistoricas(obj: any): Observable<any> {
     let json = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominasHistoricas}/consulta`,json);
+    return this.http.post(`${direcciones.nominasHistoricas}/consulta`, json);
   }
 
- 
+  public filtrado(obj: any): Observable<any> {
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.nominasHistoricas}/filtrado`, json);
+  }
+
+
 
 }

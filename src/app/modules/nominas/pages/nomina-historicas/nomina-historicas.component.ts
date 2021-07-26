@@ -23,7 +23,7 @@ export class NominaHistoricasComponent implements OnInit {
 
   public cargando: boolean = false;
 
-  public nominaId: string = "";
+  public nombreNomina: string = "";
   public periodo: string = "";
   public fecha: string = "";
 
@@ -40,27 +40,31 @@ export class NominaHistoricasComponent implements OnInit {
     this.cargando = true;
 
     this.nominashistoricasPrd.getNominasHistoricas(objEnviar).subscribe(datos => {
-      let columnas: Array<tabla> = [new tabla("nombreNomina", "Nombre de nómina"),
-      new tabla("clavePeriodo", "Clave de periodo"),
-      new tabla("anio", "Año"),
-      new tabla("fechaInicio", "Fecha")
-      ];
-
-      if (datos.datos !== undefined) {
-        for (let item of datos.datos) {
-          item["anio"] = new DatePipe("es-MX").transform(item.fechaInicio, "yyyy");
-        }
-      }
-
-
-      this.arreglotabla = {
-        columnas: columnas,
-        filas: datos.datos
-      }
+      this.rellenarTablas(datos);
 
       this.cargando = false;
 
     });
+  }
+
+  public rellenarTablas(datos:any){
+    let columnas: Array<tabla> = [new tabla("nombreNomina", "Nombre de nómina"),
+    new tabla("clavePeriodo", "Clave de periodo"),
+    new tabla("anio", "Año"),
+    new tabla("fechaInicio", "Fecha")
+    ];
+
+    if (datos.datos !== undefined) {
+      for (let item of datos.datos) {
+        item["anio"] = new DatePipe("es-MX").transform(item.fechaInicio, "yyyy");
+      }
+    }
+
+
+    this.arreglotabla = {
+      columnas: columnas,
+      filas: datos.datos
+    }
   }
 
 
@@ -143,6 +147,17 @@ export class NominaHistoricasComponent implements OnInit {
 
   public filtrar() {
 
+      let objEnviar = {
+        nombre: this.nombreNomina || undefined,
+        clavePeriodo: this.periodo || undefined,
+        fechaInicio: this.fecha || undefined
+      }
 
+      this.cargando = true;
+      this.nominashistoricasPrd.filtrado(objEnviar).subscribe(datos =>{
+
+        this.rellenarTablas(datos);
+        this.cargando = false;
+      });
   }
 }
