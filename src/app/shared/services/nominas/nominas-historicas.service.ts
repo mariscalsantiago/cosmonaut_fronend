@@ -14,4 +14,7 @@ export class NominasHistoricasService {
     let json = JSON.stringify(obj);
     return this.http.post(`${direcciones.nominasHistoricas}/consulta`,json);
   }
+
+ 
+
 }
