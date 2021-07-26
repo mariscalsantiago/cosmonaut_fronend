@@ -219,10 +219,6 @@ export class DetalleCompanyComponent implements OnInit {
           imagen: this.imagen  
         };
 
-        
-
-        
-
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
         if (this.insertar) {
@@ -243,7 +239,6 @@ export class DetalleCompanyComponent implements OnInit {
                     this.modalPrd.showMessageDialog(datosVersion.resultado,datosVersion.mensaje);
               }
             });
-            }
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
               .then(()=> {
@@ -257,6 +252,7 @@ export class DetalleCompanyComponent implements OnInit {
 
               });
 
+            }
            
 
           });

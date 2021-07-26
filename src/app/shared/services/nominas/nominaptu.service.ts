@@ -181,7 +181,7 @@ export class NominaptuService {
       })
     };
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.ptu}/carga/masiva`, json, httpOptions);
+    return this.http.post(`${direcciones.empresa}/ptu/carga/masiva`, json, httpOptions);
 
   }
 
