@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-timbrado-empleados',
@@ -13,7 +14,7 @@ export class TimbradoEmpleadosComponent implements OnInit {
 
   public cargando:boolean = false;
 
-  constructor() { }
+  constructor(public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
   }
