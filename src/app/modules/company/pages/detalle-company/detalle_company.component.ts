@@ -91,16 +91,12 @@ export class DetalleCompanyComponent implements OnInit {
         this.versionEmpresa = datos.datos;
         
     });
-    }
-
-      
+    }     
     });
-
-    if(this.objCompany.multiempresa){
+    if(this.objCompany.multiempresa && this.myFormcomp){
       this.myFormcomp.controls.rfc.setValidators([]);
       this.myFormcomp.controls.rfc.updateValueAndValidity();
-    }
-
+    } 
    this.myFormcomp = this.createFormcomp((this.objCompany));
 
 
@@ -246,7 +242,8 @@ export class DetalleCompanyComponent implements OnInit {
                 this.contacto = true;
                 if (datos.resultado) {
                   this.objCompany = datos.datos;
-                  this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined, empresa: this.objCompany } })
+                  this.cancelarcomp();
+                  // this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined, empresa: this.objCompany } })
                 }
 
 

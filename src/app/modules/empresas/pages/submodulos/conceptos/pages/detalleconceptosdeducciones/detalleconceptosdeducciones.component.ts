@@ -96,11 +96,9 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   }
 
   public validarTipoConcepto(tipo:any){
-    
-    
-      
+    let type = String(tipo).substring(0,3)
       for(let item of this.arregloTipoDeduccion){
-        if(item.tipoDeduccionId == tipo){
+        if(item.tipoDeduccionId == Number(type)){
           this.tipoDeduccion = item.tipoDeduccionId + "-" + item.especializacion;
         }
       }
@@ -108,13 +106,12 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
   public enviarPeticion() {
 
+
     this.submitInvalido = true;
-    if (this.myForm.invalid) {
+    if (this.myForm.invalid ) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error);
-
       return;
-
     }
 
     let titulo = this.esInsert ? "¿Deseas registrar la deducción ?" : "¿Deseas actualizar la deducción?";
@@ -122,12 +119,12 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
-    
-        
         if (valor) {
           
 
-          let obj = this.myForm.value;
+          let obj = this.myForm.getRawValue();
+          this.validarTipoConcepto(obj.tipoDeduccionId);
+
           
           let splitE = this.tipoDeduccion.split('-');
           let especializacion = splitE[1];
@@ -154,7 +151,6 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
             this.conceptosPrd.saveDed(this.peticion).subscribe(datos => {
-
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
