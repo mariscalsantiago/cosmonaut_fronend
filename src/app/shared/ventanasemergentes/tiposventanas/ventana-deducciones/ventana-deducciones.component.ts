@@ -137,7 +137,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-     
+     debugger;
 
      console.log('myForm', this.myForm.value)
     this.submitEnviado = false;
@@ -212,6 +212,13 @@ if(this.myForm.get(['']))
       this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([Validators.required]);
       this.myForm.controls.numeroCuotas.setValidators([Validators.required]);
       if(this.politica !== undefined){
+      
+      this.myForm.controls.montoTotal.setValidators([]);
+      this.myForm.controls.montoTotal.updateValueAndValidity();  
+      this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([]);
+      this.myForm.controls.fechaRecepcionAvisoRetencion.updateValueAndValidity();  
+      this.myForm.controls.numeroCuotas.setValidators([]);
+      this.myForm.controls.numeroCuotas.updateValueAndValidity();  
       this.infonavit = false;
       this.deducPolitica = true;
       this.pensionAlimenticia = false;
@@ -467,7 +474,8 @@ if(this.myForm.get(['']))
  
 
   public enviarPeticion(){
-
+    debugger;
+    console.log('myForm', this.myForm.value)
     this.submitEnviado = true;
     this.myForm.updateValueAndValidity();
     if (this.myForm.invalid) {
