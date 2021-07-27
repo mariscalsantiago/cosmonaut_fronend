@@ -37,6 +37,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   public arreglotimbres: any = [];
   public arregloCompania: any = [];
   public arreglotimbresProveedores : any = [];
+  public arreglotimbresProveedoresTab : any = [];
   public arregloEmpresa : any = [];
   //filtro
   public idEmpresaFiltro : number = 0;
@@ -143,9 +144,26 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
 
     this.cargandolistatimbres = true;
-
+    debugger;
     this.admintimbradoDispersion.getTimbresActivos().subscribe(datos => {
       this.arreglotimbres = datos.datos == undefined ? [] : datos.datos;
+      for(let item of this.arreglotimbres){
+         for(let itemTimbres of item.contenido){
+
+          this.arreglotimbresProveedores = {
+            timbres_disponibles: itemTimbres.timbres_disponibles  
+          }
+          for(let itemProveedor of item.resultado_servicio){
+
+            this.arreglotimbresProveedores = {
+              ...this.arreglotimbresProveedores,
+              proveedor: itemProveedor.servicio 
+            }
+          }  
+
+          this.arreglotimbresProveedoresTab.push(this.arreglotimbresProveedores);
+        }
+      } 
 
       this.cargandolistatimbres = false;
     });
