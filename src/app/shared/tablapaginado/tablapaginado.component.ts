@@ -8,6 +8,8 @@ import { tabla } from 'src/app/core/data/tabla';
 })
 export class TablapaginadoComponent implements OnInit {
   public textFilter = '';
+
+  public tooltipText = "";
   @Input() public cargando: any = false;
   @Input() public datosExtras:any;
   public arreglo: any = [];
@@ -105,6 +107,9 @@ export class TablapaginadoComponent implements OnInit {
     if (this.datos.filas !== undefined) {
   
       this.arreglotemp = this.datos.filas;
+      if(this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined ){
+        this.tooltipText = "editarUsuario";
+      }
       this.total = this.arreglotemp.length;
       for (let item of this.datos.filas) {
         item.seleccionado = false;
