@@ -41,6 +41,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { HighlightPipe } from './pipes/highlight.pipe';
 import { CentrarPipe } from './pipes/centrar.pipe';
 import { ShowPipe } from './pipes/show.pipe';
+import { TooltipModule } from 'ng-uikit-pro-standard';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,7 @@ import { ShowPipe } from './pipes/show.pipe';
 
   ],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule,CoreModule
+    CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule,CoreModule, TooltipModule,
   ],
   exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent, MayusculasDirective, SolonumerosDirective, TamanioVentanaDirective,
     CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent,HighlightPipe,ShowPipe,CentrarPipe, AlfanumericoDirective,TagComponent,FormatosDirective, TooltipPipe, BooleanPipe, HoraPipe],
