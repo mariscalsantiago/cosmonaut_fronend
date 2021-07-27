@@ -217,6 +217,7 @@ export class ConfiguracionesService {
 
 
   public static establecerMenu(m:any){
+    console.log("Si entra y carga");
     
     setTimeout(() => {
       ConfiguracionesService.referencia.accesoRuta = false;

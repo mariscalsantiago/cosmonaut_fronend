@@ -140,7 +140,6 @@ export class EmpleoComponent implements OnInit {
 
 
   public suscripciones() {
-
     this.myForm.value;
 
     this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor => {

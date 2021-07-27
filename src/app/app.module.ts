@@ -15,13 +15,11 @@ import { FooterComponent } from './layout/footer/footer/footer.component';
 import { ContenidoComponent } from './layout/contenido/contenido/contenido.component';
 import { NavComponent } from './layout/nav/nav/nav.component';
 import { ShareModule } from './shared/share.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 //Importamos para el lenguaje en mis fechas (SAMV)
 import localeEn from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
-import { TokenInterceptorService } from './core/auth/token-interceptor.service';
 registerLocaleData(localeEn, 'es-MX');
 
 

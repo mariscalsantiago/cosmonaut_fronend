@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { tabla } from 'src/app/core/data/tabla';
-import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from 'src/app/modules/eventos/services/eventos.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
