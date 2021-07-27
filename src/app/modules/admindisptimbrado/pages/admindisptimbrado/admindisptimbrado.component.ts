@@ -7,6 +7,8 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { AdminDispercionTimbradoService } from 'src/app/modules/admindisptimbrado/services/admindisptimbrado.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { CompanyService } from 'src/app/modules/company/services/company.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-admindisptimbrado',
@@ -33,7 +35,10 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   public tamanio: number = 0;
   public cargandolistatimbres: boolean = false;  
   public arreglotimbres: any = [];
+  public arregloCompania: any = [];
   public arreglotimbresProveedores : any = [];
+  public arreglotimbresProveedoresTab : any = [];
+  public arregloEmpresa : any = [];
   //filtro
   public idEmpresaFiltro : number = 0;
   public idCliente : number = 0;
@@ -57,11 +62,13 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
   constructor(private ventana: VentanaemergenteService,private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService,private formBuild: FormBuilder, private admintimbradoDispersion: AdminDispercionTimbradoService,
-    public configuracionPrd:ConfiguracionesService) { }
+    public configuracionPrd:ConfiguracionesService, private companyPrd: CompanyService) { }
 
   ngOnInit() {
    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
    this.establecerPermisos();
+   this.companyPrd.getAll().subscribe(datos => this.arregloCompania = datos.datos);
+  
    
     this.filtrar();
     let obj: any  = [];
@@ -137,9 +144,26 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
 
     this.cargandolistatimbres = true;
-
+    debugger;
     this.admintimbradoDispersion.getTimbresActivos().subscribe(datos => {
       this.arreglotimbres = datos.datos == undefined ? [] : datos.datos;
+      for(let item of this.arreglotimbres){
+         for(let itemTimbres of item.contenido){
+
+          this.arreglotimbresProveedores = {
+            timbres_disponibles: itemTimbres.timbres_disponibles  
+          }
+          for(let itemProveedor of item.resultado_servicio){
+
+            this.arreglotimbresProveedores = {
+              ...this.arreglotimbresProveedores,
+              proveedor: itemProveedor.servicio 
+            }
+          }  
+
+          this.arreglotimbresProveedoresTab.push(this.arreglotimbresProveedores);
+        }
+      } 
 
       this.cargandolistatimbres = false;
     });
@@ -178,10 +202,18 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
     });
   }
+  public validarCompania(tipo:any){
+    debugger;
+
+    this.arregloEmpresa = [];
+    if(tipo != 0 ){
+      this.companyPrd.getAllEmp(tipo).subscribe(datos => this.arregloEmpresa = datos.datos);
+    }
+  }
 
   public filtrar() {
-    
 
+    this.objFiltro = {};
     if(this.idEmpresaFiltro != 0){
       this.objFiltro = {
         ...this.objFiltro,
@@ -193,12 +225,13 @@ export class AdminDispercionTimbradoComponent implements OnInit {
         ...this.objFiltro,
         clienteId: this.idCliente
       };
-    }
+    }else{
     this.objFiltro = {
       ...this.objFiltro,
       clienteId: null,
 
     };
+    }
     debugger;
       this.admintimbradoDispersion.proveedoresTimbres(this.objFiltro).subscribe(datos => {
         
