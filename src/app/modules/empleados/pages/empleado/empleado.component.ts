@@ -4,6 +4,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { ContratocolaboradorService } from '../../services/contratocolaborador.service';
 import { EmpleadosService } from '../../services/empleados.service';
 
@@ -30,11 +31,13 @@ export class EmpleadoComponent implements OnInit {
     private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
     private empledoContratoPrd: ContratocolaboradorService,private ventana:VentanaemergenteService,
     private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService,
-    private router:Router) { }
+    private router:Router,
+    private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
-      this.idEmpleado = params["id"];
+      this.idEmpleado = this.router.url.includes("/kiosko/perfil")?this.usuariosSistemaPrd.usuario.usuarioId:params["id"];
+      
 
       this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos =>{
          
