@@ -21,6 +21,12 @@ export class CompanyService {
     
    
   }
+  public getAllEmp(idEmpresA:number):Observable<any>{
+    
+    return this.http.get(`${direcciones.centroCostosCliente}/lista/compania/empresa/${idEmpresA}`);
+    
+
+  }
 
   public getAllCont(obj:any):Observable<any>{
     

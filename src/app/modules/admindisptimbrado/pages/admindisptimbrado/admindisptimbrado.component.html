@@ -19,16 +19,16 @@
 
                     <div class="form group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select placeholder="Cliente" name="" class="form-control" [(ngModel)]="idCliente">
+                            <select #companiaSelect (focusout)="validarCompania(companiaSelect.value)"  placeholder="Cliente" name="" class="form-control" [(ngModel)]="idCliente">
                                 <option value="0" selected>Selecciona cliente</option>
-                                <option *ngFor="let item of arreglo"  [value]="item.clienteId">{{item.cliente}}
+                                <option *ngFor="let item of arregloCompania"  [value]="item.centrocClienteId">{{item.nombre}}
                                 </option>
                               </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
                             <select placeholder="Cliente" name="" class="form-control" [(ngModel)]="idEmpresaFiltro">
                                 <option value="0" selected>Selecciona empresa</option>
-                                <option *ngFor="let item of arreglo"  [value]="item.empresaId">{{item.empresa}}
+                                <option *ngFor="let item of arregloEmpresa"  [value]="item.centrocClienteId">{{item.nombre}}
                                 </option>
                               </select>
                         </div>

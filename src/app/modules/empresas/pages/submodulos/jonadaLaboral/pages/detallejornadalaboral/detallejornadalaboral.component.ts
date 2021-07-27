@@ -105,22 +105,122 @@ export class DetallejornadalaboralComponent implements OnInit {
           obj.horarioJornadaId2= item.horarioJornadaId;
         }
         if(item.dia == 3 && item.esActivo== true){
+          let splitHE = item.horaEntrada.split(' ');
+          let horaHE = splitHE[1];
+          let splitFHE = horaHE.split('.');
+          obj.horaEntrada = splitFHE[0];
+          let splitHS = item.horaSalida.split(' ');
+          let horaHS = splitHS[1];
+          let splitFHS = horaHS.split('.');
+          obj.horaSalida = splitFHS[0];
+          if(item.horaInicioComida != undefined){
+          let splitHIC = item.horaInicioComida.split(' ');
+          let horaHIC = splitHIC[1];
+          let splitFHIC = horaHIC.split('.');
+          obj.horaInicioComida = splitFHIC[0];
+          }
+          if(item.horaFinComida != undefined){
+          let splitHFC = item.horaFinComida.split(' ');
+          let horaHFC = splitHFC[1];
+          let splitFHFC = horaHFC.split('.');
+          obj.horaFinComida = splitFHFC[0];
+          }
           obj.miercoles= true;
           obj.horarioJornadaId3= item.horarioJornadaId;
         }
         if(item.dia == 4 && item.esActivo== true){
+          let splitHE = item.horaEntrada.split(' ');
+          let horaHE = splitHE[1];
+          let splitFHE = horaHE.split('.');
+          obj.horaEntrada = splitFHE[0];
+          let splitHS = item.horaSalida.split(' ');
+          let horaHS = splitHS[1];
+          let splitFHS = horaHS.split('.');
+          obj.horaSalida = splitFHS[0];
+          if(item.horaInicioComida != undefined){
+          let splitHIC = item.horaInicioComida.split(' ');
+          let horaHIC = splitHIC[1];
+          let splitFHIC = horaHIC.split('.');
+          obj.horaInicioComida = splitFHIC[0];
+          }
+          if(item.horaFinComida != undefined){
+          let splitHFC = item.horaFinComida.split(' ');
+          let horaHFC = splitHFC[1];
+          let splitFHFC = horaHFC.split('.');
+          obj.horaFinComida = splitFHFC[0];
+          }
           obj.jueves= true;
           obj.horarioJornadaId4= item.horarioJornadaId;
         }
         if(item.dia == 5 && item.esActivo== true){
+          let splitHE = item.horaEntrada.split(' ');
+          let horaHE = splitHE[1];
+          let splitFHE = horaHE.split('.');
+          obj.horaEntrada = splitFHE[0];
+          let splitHS = item.horaSalida.split(' ');
+          let horaHS = splitHS[1];
+          let splitFHS = horaHS.split('.');
+          obj.horaSalida = splitFHS[0];
+          if(item.horaInicioComida != undefined){
+          let splitHIC = item.horaInicioComida.split(' ');
+          let horaHIC = splitHIC[1];
+          let splitFHIC = horaHIC.split('.');
+          obj.horaInicioComida = splitFHIC[0];
+          }
+          if(item.horaFinComida != undefined){
+          let splitHFC = item.horaFinComida.split(' ');
+          let horaHFC = splitHFC[1];
+          let splitFHFC = horaHFC.split('.');
+          obj.horaFinComida = splitFHFC[0];
+          }
           obj.viernes= true;
           obj.horarioJornadaId5= item.horarioJornadaId;
         }
         if(item.dia == 6 && item.esActivo== true){
+          let splitHE = item.horaEntrada.split(' ');
+          let horaHE = splitHE[1];
+          let splitFHE = horaHE.split('.');
+          obj.horaEntrada = splitFHE[0];
+          let splitHS = item.horaSalida.split(' ');
+          let horaHS = splitHS[1];
+          let splitFHS = horaHS.split('.');
+          obj.horaSalida = splitFHS[0];
+          if(item.horaInicioComida != undefined){
+          let splitHIC = item.horaInicioComida.split(' ');
+          let horaHIC = splitHIC[1];
+          let splitFHIC = horaHIC.split('.');
+          obj.horaInicioComida = splitFHIC[0];
+          }
+          if(item.horaFinComida != undefined){
+          let splitHFC = item.horaFinComida.split(' ');
+          let horaHFC = splitHFC[1];
+          let splitFHFC = horaHFC.split('.');
+          obj.horaFinComida = splitFHFC[0];
+          }
           obj.sabado= true;
           obj.horarioJornadaId6= item.horarioJornadaId;
         }
         if(item.dia == 7 && item.esActivo== true){
+          let splitHE = item.horaEntrada.split(' ');
+          let horaHE = splitHE[1];
+          let splitFHE = horaHE.split('.');
+          obj.horaEntrada = splitFHE[0];
+          let splitHS = item.horaSalida.split(' ');
+          let horaHS = splitHS[1];
+          let splitFHS = horaHS.split('.');
+          obj.horaSalida = splitFHS[0];
+          if(item.horaInicioComida != undefined){
+          let splitHIC = item.horaInicioComida.split(' ');
+          let horaHIC = splitHIC[1];
+          let splitFHIC = horaHIC.split('.');
+          obj.horaInicioComida = splitFHIC[0];
+          }
+          if(item.horaFinComida != undefined){
+          let splitHFC = item.horaFinComida.split(' ');
+          let horaHFC = splitHFC[1];
+          let splitFHFC = horaHFC.split('.');
+          obj.horaFinComida = splitFHFC[0];
+          }
           obj.domingo= true;
           obj.horarioJornadaId7= item.horarioJornadaId;
         }
@@ -174,6 +274,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
 
         let obj = this.myForm.getRawValue(); 
+        debugger;
         if(!obj.lunes){obj.lunes = false}
         if(!obj.martes){obj.martes = false}
         if(!obj.miercoles){obj.miercoles = false}

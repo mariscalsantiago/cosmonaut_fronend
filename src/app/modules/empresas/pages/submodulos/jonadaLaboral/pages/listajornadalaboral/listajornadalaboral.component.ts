@@ -241,49 +241,180 @@ export class ListajornadalaboralComponent implements OnInit {
       case "desglosar":
         let item = obj.datos;
         this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa, item.jornadaId).subscribe(datos => {
-          
+          debugger;
           this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
-          if(this.arreglodetalle.nclHorarioJornada[0].dia == 1 && this.arreglodetalle.nclHorarioJornada[0].esActivo== true){
-            let splitHE = this.arreglodetalle.nclHorarioJornada[0].horaEntrada.split(' ');
-            let horaHE = splitHE[1];
-            let splitFHE = horaHE.split('.');
-            this.arreglodetalle.horaEntrada = splitFHE[0];
-            let splitHS = this.arreglodetalle.nclHorarioJornada[0].horaSalida.split(' ');
-            let horaHS = splitHS[1];
-            let splitFHS = horaHS.split('.');
-            this.arreglodetalle.horaSalida = splitFHS[0];
-            if(this.arreglodetalle.nclHorarioJornada[0].horaInicioComida != undefined){
-            let splitHIC = this.arreglodetalle.nclHorarioJornada[0].horaInicioComida.split(' ');
-            let horaHIC = splitHIC[1];
-            let splitFHIC = horaHIC.split('.');
-            this.arreglodetalle.horaInicioComida = splitFHIC[0];
+
+          for(let item of this.arreglodetalle.nclHorarioJornada){
+            if(item.dia == 1 && item.esActivo== true){
+              let splitHE = item.horaEntrada.split(' ');
+              let horaHE = splitHE[1];
+              let splitFHE = horaHE.split('.');
+              this.arreglodetalle.horaEntrada = splitFHE[0];
+              let splitHS = item.horaSalida.split(' ');
+              let horaHS = splitHS[1];
+              let splitFHS = horaHS.split('.');
+              this.arreglodetalle.horaSalida = splitFHS[0];
+              if(item.horaInicioComida != undefined){
+              let splitHIC = item.horaInicioComida.split(' ');
+              let horaHIC = splitHIC[1];
+              let splitFHIC = horaHIC.split('.');
+              this.arreglodetalle.horaInicioComida = splitFHIC[0];
+              }
+              if(item.horaFinComida != undefined){
+              let splitHFC = item.horaFinComida.split(' ');
+              let horaHFC = splitHFC[1];
+              let splitFHFC = horaHFC.split('.');
+              this.arreglodetalle.horaFinComida = splitFHFC[0];
+              }
+              this.arreglodetalle.lunes= true;
+              this.arreglodetalle.horarioJornadaId1= item.horarioJornadaId;
             }
-            if(this.arreglodetalle.nclHorarioJornada[0].horaFinComida != undefined){
-            let splitHFC = this.arreglodetalle.nclHorarioJornada[0].horaFinComida.split(' ');
-            let horaHFC = splitHFC[1];
-            let splitFHFC = horaHFC.split('.');
-            this.arreglodetalle.horaFinComida = splitFHFC[0];
+            if(item.dia == 2 && item.esActivo== true){
+                let splitHE = item.horaEntrada.split(' ');
+                let horaHE = splitHE[1];
+                let splitFHE = horaHE.split('.');
+                this.arreglodetalle.horaEntrada = splitFHE[0];
+                let splitHS = item.horaSalida.split(' ');
+                let horaHS = splitHS[1];
+                let splitFHS = horaHS.split('.');
+                this.arreglodetalle.horaSalida = splitFHS[0];
+                if(item.horaInicioComida != undefined){
+                let splitHIC = item.horaInicioComida.split(' ');
+                let horaHIC = splitHIC[1];
+                let splitFHIC = horaHIC.split('.');
+                this.arreglodetalle.horaInicioComida = splitFHIC[0];
+                }
+                if(item.horaFinComida != undefined){
+                let splitHFC = item.horaFinComida.split(' ');
+                let horaHFC = splitHFC[1];
+                let splitFHFC = horaHFC.split('.');
+                this.arreglodetalle.horaFinComida = splitFHFC[0];
+                }
+              this.arreglodetalle.martes= true;
+              this.arreglodetalle.horarioJornadaId2= item.horarioJornadaId;
             }
-            this.arreglodetalle.lunes= true;
-          }
-          if(this.arreglodetalle.nclHorarioJornada[1].dia == 2 && this.arreglodetalle.nclHorarioJornada[1].esActivo== true){
-            this.arreglodetalle.martes= true;
-          }
-          if(this.arreglodetalle.nclHorarioJornada[2].dia == 3 && this.arreglodetalle.nclHorarioJornada[2].esActivo== true){
-            this.arreglodetalle.miercoles= true;
-          }
-          if(this.arreglodetalle.nclHorarioJornada[3].dia == 4 && this.arreglodetalle.nclHorarioJornada[3].esActivo== true){
-            this.arreglodetalle.jueves= true;
-          }
-          if(this.arreglodetalle.nclHorarioJornada[4].dia == 5 && this.arreglodetalle.nclHorarioJornada[4].esActivo== true){
-            this.arreglodetalle.viernes= true;
-          }
-          if(this.arreglodetalle.nclHorarioJornada[5].dia == 6 && this.arreglodetalle.nclHorarioJornada[5].esActivo== true){
-            this.arreglodetalle.sabado= true;
-          }
-          if(this.arreglodetalle.nclHorarioJornada[6].dia == 7 && this.arreglodetalle.nclHorarioJornada[6].esActivo== true){
-            this.arreglodetalle.domingo= true;
-          }
+            if(item.dia == 3 && item.esActivo== true){
+                let splitHE = item.horaEntrada.split(' ');
+                let horaHE = splitHE[1];
+                let splitFHE = horaHE.split('.');
+                this.arreglodetalle.horaEntrada = splitFHE[0];
+                let splitHS = item.horaSalida.split(' ');
+                let horaHS = splitHS[1];
+                let splitFHS = horaHS.split('.');
+                this.arreglodetalle.horaSalida = splitFHS[0];
+                if(item.horaInicioComida != undefined){
+                let splitHIC = item.horaInicioComida.split(' ');
+                let horaHIC = splitHIC[1];
+                let splitFHIC = horaHIC.split('.');
+                this.arreglodetalle.horaInicioComida = splitFHIC[0];
+                }
+                if(item.horaFinComida != undefined){
+                let splitHFC = item.horaFinComida.split(' ');
+                let horaHFC = splitHFC[1];
+                let splitFHFC = horaHFC.split('.');
+                this.arreglodetalle.horaFinComida = splitFHFC[0];
+                }
+              this.arreglodetalle.miercoles= true;
+              this.arreglodetalle.horarioJornadaId3= item.horarioJornadaId;
+            }
+            if(item.dia == 4 && item.esActivo== true){
+                let splitHE = item.horaEntrada.split(' ');
+                let horaHE = splitHE[1];
+                let splitFHE = horaHE.split('.');
+                this.arreglodetalle.horaEntrada = splitFHE[0];
+                let splitHS = item.horaSalida.split(' ');
+                let horaHS = splitHS[1];
+                let splitFHS = horaHS.split('.');
+                this.arreglodetalle.horaSalida = splitFHS[0];
+                if(item.horaInicioComida != undefined){
+                let splitHIC = item.horaInicioComida.split(' ');
+                let horaHIC = splitHIC[1];
+                let splitFHIC = horaHIC.split('.');
+                this.arreglodetalle.horaInicioComida = splitFHIC[0];
+                }
+                if(item.horaFinComida != undefined){
+                let splitHFC = item.horaFinComida.split(' ');
+                let horaHFC = splitHFC[1];
+                let splitFHFC = horaHFC.split('.');
+                this.arreglodetalle.horaFinComida = splitFHFC[0];
+                }
+              this.arreglodetalle.jueves= true;
+              this.arreglodetalle.horarioJornadaId4= item.horarioJornadaId;
+            }
+            if(item.dia == 5 && item.esActivo== true){
+                let splitHE = item.horaEntrada.split(' ');
+                let horaHE = splitHE[1];
+                let splitFHE = horaHE.split('.');
+                this.arreglodetalle.horaEntrada = splitFHE[0];
+                let splitHS = item.horaSalida.split(' ');
+                let horaHS = splitHS[1];
+                let splitFHS = horaHS.split('.');
+                this.arreglodetalle.horaSalida = splitFHS[0];
+                if(item.horaInicioComida != undefined){
+                let splitHIC = item.horaInicioComida.split(' ');
+                let horaHIC = splitHIC[1];
+                let splitFHIC = horaHIC.split('.');
+                this.arreglodetalle.horaInicioComida = splitFHIC[0];
+                }
+                if(item.horaFinComida != undefined){
+                let splitHFC = item.horaFinComida.split(' ');
+                let horaHFC = splitHFC[1];
+                let splitFHFC = horaHFC.split('.');
+                this.arreglodetalle.horaFinComida = splitFHFC[0];
+                }
+              this.arreglodetalle.viernes= true;
+              this.arreglodetalle.horarioJornadaId5= item.horarioJornadaId;
+            }
+            if(item.dia == 6 && item.esActivo== true){
+                let splitHE = item.horaEntrada.split(' ');
+                let horaHE = splitHE[1];
+                let splitFHE = horaHE.split('.');
+                this.arreglodetalle.horaEntrada = splitFHE[0];
+                let splitHS = item.horaSalida.split(' ');
+                let horaHS = splitHS[1];
+                let splitFHS = horaHS.split('.');
+                this.arreglodetalle.horaSalida = splitFHS[0];
+                if(item.horaInicioComida != undefined){
+                let splitHIC = item.horaInicioComida.split(' ');
+                let horaHIC = splitHIC[1];
+                let splitFHIC = horaHIC.split('.');
+                this.arreglodetalle.horaInicioComida = splitFHIC[0];
+                }
+                if(item.horaFinComida != undefined){
+                let splitHFC = item.horaFinComida.split(' ');
+                let horaHFC = splitHFC[1];
+                let splitFHFC = horaHFC.split('.');
+                this.arreglodetalle.horaFinComida = splitFHFC[0];
+                }
+              this.arreglodetalle.sabado= true;
+              this.arreglodetalle.horarioJornadaId6= item.horarioJornadaId;
+            }
+            if(item.dia == 7 && item.esActivo== true){
+                let splitHE = item.horaEntrada.split(' ');
+                let horaHE = splitHE[1];
+                let splitFHE = horaHE.split('.');
+                this.arreglodetalle.horaEntrada = splitFHE[0];
+                let splitHS = item.horaSalida.split(' ');
+                let horaHS = splitHS[1];
+                let splitFHS = horaHS.split('.');
+                this.arreglodetalle.horaSalida = splitFHS[0];
+                if(item.horaInicioComida != undefined){
+                let splitHIC = item.horaInicioComida.split(' ');
+                let horaHIC = splitHIC[1];
+                let splitFHIC = horaHIC.split('.');
+                this.arreglodetalle.horaInicioComida = splitFHIC[0];
+                }
+                if(item.horaFinComida != undefined){
+                let splitHFC = item.horaFinComida.split(' ');
+                let horaHFC = splitHFC[1];
+                let splitFHFC = horaHFC.split('.');
+                this.arreglodetalle.horaFinComida = splitFHFC[0];
+                }
+              this.arreglodetalle.domingo= true;
+              this.arreglodetalle.horarioJornadaId7= item.horarioJornadaId;
+            }
+
+        }
           
           
           

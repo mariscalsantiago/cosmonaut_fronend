@@ -243,7 +243,7 @@ export class DetalleCompanyComponent implements OnInit {
                 if (datos.resultado) {
                   this.objCompany = datos.datos;
                   this.cancelarcomp();
-                  // this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined, empresa: this.objCompany } })
+                  this.routerPrd.navigate(['company', 'detalle_contacto', "nuevo"], { state: { datos: undefined, empresa: this.objCompany } })
                 }
 
 
