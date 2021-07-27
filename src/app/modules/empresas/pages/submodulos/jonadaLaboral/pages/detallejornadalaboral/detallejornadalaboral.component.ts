@@ -71,56 +71,60 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public crearForm(obj: any) {
-
+    debugger;
       if(!this.esInsert){
-        if(obj.nclHorarioJornada[0].dia == 1 && obj.nclHorarioJornada[0].esActivo== true){
-          let splitHE = obj.nclHorarioJornada[0].horaEntrada.split(' ');
+        debugger;
+        for(let item of obj.nclHorarioJornada){
+          
+        if(item.dia == 1 && item.esActivo== true){
+          let splitHE = item.horaEntrada.split(' ');
           let horaHE = splitHE[1];
           let splitFHE = horaHE.split('.');
           obj.horaEntrada = splitFHE[0];
-          let splitHS = obj.nclHorarioJornada[0].horaSalida.split(' ');
+          let splitHS = item.horaSalida.split(' ');
           let horaHS = splitHS[1];
           let splitFHS = horaHS.split('.');
           obj.horaSalida = splitFHS[0];
-          if(obj.nclHorarioJornada[0].horaInicioComida != undefined){
-          let splitHIC = obj.nclHorarioJornada[0].horaInicioComida.split(' ');
+          if(item.horaInicioComida != undefined){
+          let splitHIC = item.horaInicioComida.split(' ');
           let horaHIC = splitHIC[1];
           let splitFHIC = horaHIC.split('.');
           obj.horaInicioComida = splitFHIC[0];
           }
-          if(obj.nclHorarioJornada[0].horaFinComida != undefined){
-          let splitHFC = obj.nclHorarioJornada[0].horaFinComida.split(' ');
+          if(item.horaFinComida != undefined){
+          let splitHFC = item.horaFinComida.split(' ');
           let horaHFC = splitHFC[1];
           let splitFHFC = horaHFC.split('.');
           obj.horaFinComida = splitFHFC[0];
           }
           obj.lunes= true;
-          obj.horarioJornadaId1= obj.nclHorarioJornada[0].horarioJornadaId;
+          obj.horarioJornadaId1= item.horarioJornadaId;
         }
-        if(obj.nclHorarioJornada[1].dia == 2 && obj.nclHorarioJornada[1].esActivo== true){
+        if(item.dia == 2 && item.esActivo== true){
           obj.martes= true;
-          obj.horarioJornadaId2= obj.nclHorarioJornada[1].horarioJornadaId;
+          obj.horarioJornadaId2= item.horarioJornadaId;
         }
-        if(obj.nclHorarioJornada[2].dia == 3 && obj.nclHorarioJornada[2].esActivo== true){
+        if(item.dia == 3 && item.esActivo== true){
           obj.miercoles= true;
-          obj.horarioJornadaId3= obj.nclHorarioJornada[2].horarioJornadaId;
+          obj.horarioJornadaId3= item.horarioJornadaId;
         }
-        if(obj.nclHorarioJornada[3].dia == 4 && obj.nclHorarioJornada[3].esActivo== true){
+        if(item.dia == 4 && item.esActivo== true){
           obj.jueves= true;
-          obj.horarioJornadaId4= obj.nclHorarioJornada[3].horarioJornadaId;
+          obj.horarioJornadaId4= item.horarioJornadaId;
         }
-        if(obj.nclHorarioJornada[4].dia == 5 && obj.nclHorarioJornada[4].esActivo== true){
+        if(item.dia == 5 && item.esActivo== true){
           obj.viernes= true;
-          obj.horarioJornadaId5= obj.nclHorarioJornada[4].horarioJornadaId;
+          obj.horarioJornadaId5= item.horarioJornadaId;
         }
-        if(obj.nclHorarioJornada[5].dia == 6 && obj.nclHorarioJornada[5].esActivo== true){
+        if(item.dia == 6 && item.esActivo== true){
           obj.sabado= true;
-          obj.horarioJornadaId6= obj.nclHorarioJornada[5].horarioJornadaId;
+          obj.horarioJornadaId6= item.horarioJornadaId;
         }
-        if(obj.nclHorarioJornada[6].dia == 7 && obj.nclHorarioJornada[6].esActivo== true){
+        if(item.dia == 7 && item.esActivo== true){
           obj.domingo= true;
-          obj.horarioJornadaId7= obj.nclHorarioJornada[6].horarioJornadaId;
+          obj.horarioJornadaId7= item.horarioJornadaId;
         }
+      }
 
       }else{
 
@@ -169,7 +173,7 @@ export class DetallejornadalaboralComponent implements OnInit {
       if(valor){
 
 
-        let obj = this.myForm.value; 
+        let obj = this.myForm.getRawValue(); 
         if(!obj.lunes){obj.lunes = false}
         if(!obj.martes){obj.martes = false}
         if(!obj.miercoles){obj.miercoles = false}
@@ -283,10 +287,11 @@ export class DetallejornadalaboralComponent implements OnInit {
 
           });
         } else {
+          debugger;
 
           if(String(obj.sumaHorasJornadaId) === '1') {
  
-            if(this.horaSalida === undefined){
+            if(this.horaSalida !== undefined){
               this.hrInicio(obj.horaEntrada)
               obj.horaSalida = this.horaSalida;
             }
