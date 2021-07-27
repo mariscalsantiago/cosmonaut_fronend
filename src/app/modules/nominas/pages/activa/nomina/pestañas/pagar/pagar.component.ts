@@ -23,7 +23,7 @@ export class PagarComponent implements OnInit {
   @Output() salida = new EventEmitter();
   @Input() nominaSeleccionada: any;
   @Input() esDescargar: boolean = false;
-  @Input() esEliminar:boolean = false;
+  @Input() esEliminar: boolean = false;
 
   public cargando: boolean = false;
   public cargandoIcon: boolean = false;
@@ -34,7 +34,9 @@ export class PagarComponent implements OnInit {
   public nominaLiquidacion: boolean = false;
   public nominaPtu: boolean = false;
   public llave: string = "";
-  public llave2:string = "";
+  public llave2: string = "";
+
+  public esTransferencia: boolean = true;
 
 
   public rfc: any = "";
@@ -43,14 +45,20 @@ export class PagarComponent implements OnInit {
   public apellidoMaterno: string = "";
   public numeroempleado: string = "";
 
-  public continuarTitulo:string = "Continuar";
+  public continuarTitulo: string = "Continuar";
 
   public arreglotabla: any = {
     columnas: [],
     filas: []
   }
 
+  public arreglotablaconpago: any = {
+    columnas: [],
+    filas: []
+  }
+
   public arreglo: any = [];
+  public arreglo2: any = [];
 
   public idnominaPeriodo: number = -1;
 
@@ -59,7 +67,7 @@ export class PagarComponent implements OnInit {
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaLiquidacionPrd: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
     private reportes: ReportesService, private nominaPtuPrd: NominaptuService,
     private configuracionesPrd: ConfiguracionesService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private navigate:Router) { }
+    private navigate: Router) { }
 
 
 
@@ -125,7 +133,8 @@ export class PagarComponent implements OnInit {
 
   public crearTabla(datos: any, llave: string) {
     this.arreglo = datos.datos;
-    console.log("DOSIF",this.arreglo);
+    let arregloTemp = undefined;
+    console.log("DOSIF", this.arreglo);
     let columnas: Array<tabla> = [
       new tabla("nombrecompleto", "Nombre"),
       new tabla("rfc", "RFC", false, false, true),
@@ -135,6 +144,7 @@ export class PagarComponent implements OnInit {
       new tabla("status", "Estatus ", false, false, true)
     ];
     if (this.arreglo !== undefined) {
+      arregloTemp = new Array<any>();
       for (let item of this.arreglo) {
         item["nombrecompleto"] = item[llave].nombre + " " + item[llave].apellidoPat + " ";
         item["nombrecompleto"] += item[llave].apellidoMat || "";
@@ -143,6 +153,12 @@ export class PagarComponent implements OnInit {
         item["tipopago"] = item[llave].metodoPago;
         item["total"] = this.cp.transform(item[llave].totalNeto);
         item["status"] = item[llave].estatusPago;
+
+
+        if (item[llave].metodoPago !== "Transferencia") {
+          arregloTemp.push(item);
+        }
+
       }
     }
     let filas: Array<any> = this.arreglo;
@@ -150,6 +166,12 @@ export class PagarComponent implements OnInit {
       columnas: columnas,
       filas: filas
     }
+
+    this.arreglotablaconpago = {
+      columnas: columnas,
+      filas: arregloTemp
+    }
+    this.arreglo2 = arregloTemp;
     this.cargando = false;
   }
 
@@ -162,8 +184,12 @@ export class PagarComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-      this.continuarTitulo = (this.arreglo.some((m:any)=>m.seleccionado))? "Dispersar":"Continuar";
+
+    this.continuarTitulo = (this.arreglo.some((m: any) => m.seleccionado)) ? (this.esTransferencia ? "Dispersar" : "Guardar como pagados") : "Continuar";
   }
+
+
+
 
   public regresar() {
     this.salida.emit({ type: "inicio" });
@@ -171,19 +197,19 @@ export class PagarComponent implements OnInit {
 
   public dispersar() {
 
-    if(this.continuarTitulo.includes("Continuar")){
+    if (this.continuarTitulo.includes("Continuar")) {
       this.salida.emit({ type: "dispersar" });
       return;
     }
 
-    let titulo = this.continuarTitulo.includes("Dispersar")?"¿Deseas dispersar la nómina?":"¿Deseas continuar a la sección de timbrado?";
-        this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo ).then(valor => {
+    let titulo = this.continuarTitulo.includes("Dispersar") ? "¿Deseas dispersar la nómina?" : "¿Deseas continuar a la sección de timbrado?";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
       if (valor) {
 
 
-        
 
-      
+
+
 
 
         let obj = []
@@ -203,19 +229,19 @@ export class PagarComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.nominaOrdinariaPrd.dispersar(obj).subscribe((valor) => {
-          
+
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if (valor.datos.exito) {
             this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento, el proceso se tardara varios minutos.");
-         let suscribe =    timer(0, 1500).pipe(concatMap(() =>
+            let suscribe = timer(0, 1500).pipe(concatMap(() =>
               this.nominaOrdinariaPrd
                 .statusProcesoDispersar(this.idnominaPeriodo, obj.length)))
               .subscribe(datos => {
                 this.configuracionesPrd.setCantidad(datos.datos);
-                if (datos.datos >=30) {
+                if (datos.datos >= 30) {
                   suscribe.unsubscribe();
                   setTimeout(() => {
-                    
+
                     this.configuracionesPrd.setCantidad(0);
                     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                     this.ventana.showVentana(this.ventana.ndispersion, { datos: this.idnominaPeriodo }).then(valor => {
@@ -251,7 +277,7 @@ export class PagarComponent implements OnInit {
 
   public descargarRfc() {
     this.cargandoIcon = true;
-    this.reportes.getDescargarTxtRfctabDispersar(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+    this.reportes.getDescargarTxtRfctabDispersar(this.nominaSeleccionada[this.llave].nominaXperiodoId).subscribe(datos => {
       this.cargandoIcon = false;
       this.reportes.crearArchivo(datos.datos, `archivoRFCs_${this.nominaSeleccionada[this.llave].nombreNomina}`, "txt");
     });
@@ -308,7 +334,7 @@ export class PagarComponent implements OnInit {
     }
 
 
-    
+
   }
 
   public eliminar() {
@@ -360,6 +386,19 @@ export class PagarComponent implements OnInit {
       }
     });
 
+  }
+
+
+  public verificando(obj: boolean) {
+    if (obj) {
+      for (let item of this.arreglo) {
+        item.seleccionado = false;
+      }
+    } else {
+      for (let item of this.arreglo2) {
+        item.seleccionado = false;
+      }
+    }
   }
 
 

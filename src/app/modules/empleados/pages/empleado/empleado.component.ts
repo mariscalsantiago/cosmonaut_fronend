@@ -36,29 +36,53 @@ export class EmpleadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
-      this.idEmpleado = this.router.url.includes("/kiosko/perfil")?this.usuariosSistemaPrd.usuario.usuarioId:params["id"];
+      let esKiosko = this.router.url.includes("/kiosko/perfil");
+      
       
 
-      this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos =>{
+      if(!esKiosko){
+        this.idEmpleado = params["id"];
+        this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos =>{
          
-         if(datos.datos?.url !== undefined){
-           
-          this.elEmpleado.url = datos.datos?.url;
-         }
+          if(datos.datos?.url !== undefined){
+            
+           this.elEmpleado.url = datos.datos?.url;
+          }
+ 
+       });
 
-      });
+       this.seguirProceso();
 
-      this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-
-        this.empleado = datos.datos;
-       
-
-      });
-
-      this.empleadosPrd.getPorcentajeavance(this.idEmpleado).subscribe(datos => {
-        this.porcentaje = datos;
+      }else{
+        this.empleadosPrd.getPersonaByCorreo(this.usuariosSistemaPrd.usuario.correo,this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+          if(!datos.resultado){
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+          }else{
+            this.idEmpleado = datos.datos.personaId;
+            this.seguirProceso();
+          }
+        });
         
-      });
+      }
+
+      
+
+     
+    });
+  }
+
+
+  public seguirProceso(){
+    this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
+
+      this.empleado = datos.datos;
+     
+
+    });
+
+    this.empleadosPrd.getPorcentajeavance(this.idEmpleado).subscribe(datos => {
+      this.porcentaje = datos;
+      
     });
   }
 

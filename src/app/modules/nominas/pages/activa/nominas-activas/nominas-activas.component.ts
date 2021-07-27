@@ -87,8 +87,7 @@ export class NominasActivasComponent implements OnInit {
 
 
 
-    this.modalPrd.showMessageDialog(this.modalPrd.question, "Importante", "No has calculado el promedio de variables para este bimestre. Si continuas, tomaremos el promedio del bimestre anterior.").then((valor) => {
-      if (valor) {
+    
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         let objEnviar = {
           nominaXperiodoId: item.nominaOrdinaria.nominaXperiodoId,
@@ -101,18 +100,19 @@ export class NominasActivasComponent implements OnInit {
           if (datos.resultado) {
             this.router.navigate(['nominas','nomina'], { state: { datos: { nominaOrdinaria: item.nominaOrdinaria } } });
           }
+        },e =>{
+          if(e?.error?.mensaje.include("No has calculado ")){
+              this.modalPrd.showMessageDialog(this.modalPrd.success,"¿Deseas promediar las variables?").then(valor =>{
+                if(valor){
+                    alert("Se va a redireccionar");
+                  }
+              });
+          }
+         
         });
-
-
-      }
-    });
-
-
   }
 
   public continuar(item: any) {
-
-    console.log("Antes de entrar padre",item);
     this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
   }
 

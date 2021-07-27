@@ -227,21 +227,21 @@ export class TimbrarComponent implements OnInit {
 
     this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
-      new tabla("nombrecompleto", "Empleados"),
+      new tabla("nombrecompleto", "Nombre"),
       new tabla("tipo", "Método de pago", false, false, true),
       new tabla("total", "Total neto", false, false, true),
       new tabla("fecha", "Fecha de pago de timbrado", false, false, true),
-      new tabla("status", "Estatus ", false, false, true)
+      new tabla("status", "Estatus ", false, false, true),
+      new tabla("statuspago", "Estatus pago", false, false, true)
 
     ];
     for (let item of this.arreglo) {
-      item["nombrecompleto"] = item[this.llave]?.nombreEmpleado + " " + item[this.llave]?.apellidoPatEmpleado + " ";
-      item["nombrecompleto"] += +(item[this.llave]?.apellidoMatEmpleado == undefined) ? "" : item[this.llave]?.apellidoMatEmpleado;
-      item["tipo"] = item[this.llave]?.tipoPago;
+      item["nombrecompleto"] = item[this.llave]?.nombre + " " + item[this.llave]?.apellidoPat + " "+(item[this.llave]?.apellidoMat || '');
+      item["tipo"] = item[this.llave]?.metodoPago;
       item["total"] = this.cp.transform(item[this.llave]?.totalNeto);
       item["fecha"] = new DatePipe("es-MX").transform(item[this.llave]?.fechaPagoTimbrado, "dd/MM/yyyy");
-      item["status"] = item[this.llave]?.status;
-
+      item["status"] = item[this.llave]?.estatusTimbre;
+      item["statuspago"] = item[this.llave]?.estadoPagoDescripcion;
     }
     let filas: Array<any> = this.arreglo;
 

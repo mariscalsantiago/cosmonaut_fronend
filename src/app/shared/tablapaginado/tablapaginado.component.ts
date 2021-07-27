@@ -35,6 +35,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public desglosar: any;
   @Input() public checkbox: any;
   @Input() public filter: any;
+  @Input() public esTransferencia:string = '';
 
   @Input() public imagen: any;
   @Input() public porcentaje: boolean = false;
@@ -78,6 +79,8 @@ export class TablapaginadoComponent implements OnInit {
 
 
 
+      console.log(this.arreglo);
+
   }
 
 
@@ -96,6 +99,8 @@ export class TablapaginadoComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
+
+    
  
     if (this.datos.filas !== undefined) {
   
