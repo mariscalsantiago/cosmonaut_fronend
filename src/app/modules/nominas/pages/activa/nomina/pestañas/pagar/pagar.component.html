@@ -4,13 +4,13 @@
         <input [(ngModel)]="numeroempleado" type="text" class="form-control" placeholder="Número de empleado">
     </div>
     <div class=" input-group-sm mb-3 col-3 ">
-        <input [(ngModel)]="nombre" appAlfanumerico type="text" class="form-control" placeholder="Nombre">
+        <input [(ngModel)]="nombre" formatos [especial]="true"  type="text" class="form-control" placeholder="Nombre">
     </div>
     <div class=" input-group-sm mb-3 col-3 ">
-        <input [(ngModel)]="apellidoPaterno" appAlfanumerico type="text" class="form-control" placeholder="Primer apellido">
+        <input [(ngModel)]="apellidoPaterno" formatos [especial]="true"  type="text" class="form-control" placeholder="Primer apellido">
     </div>
     <div class=" input-group-sm mb-3 col-3 ">
-        <input [(ngModel)]="apellidoMaterno" appAlfanumerico type="text" class="form-control" placeholder="Segundo apellido">
+        <input [(ngModel)]="apellidoMaterno" formatos [especial]="true"  type="text" class="form-control" placeholder="Segundo apellido">
     </div>
     <div class=" input-group-sm mb-3 col-3 " placement="top" [mdbTooltip]="'rfc' | tooltip">
         <input [(ngModel)]="rfc" formatos [nochar]="true" [rfc]="true" [control]="rfc" type="text" name="" placeholder="RFC" class="form-control">

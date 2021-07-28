@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -41,13 +41,15 @@ export class PersonalComponent implements OnInit {
   public nombreMunicipio: string = "";
   public idMunicipio: number = 0;
   public noCoincide = '';
+  public esKiosko:boolean = false;
 
   constructor(private formBuilder: FormBuilder,
     private navparams: ActivatedRoute, private empleadoPrd: EmpleadosService,
     private catalogosPrd: CatalogosService, private usuarioSistemaPrd: UsuarioSistemaService,
-    private modalPrd: ModalService, private domicilioPrd: DomicilioService) { }
+    private modalPrd: ModalService, private domicilioPrd: DomicilioService,private router:Router) { }
 
   ngOnInit(): void {
+    this.esKiosko = this.router.url.includes("/kiosko/perfil");
     this.myForm = this.createForm({});
     this.navparams.params.subscribe(param => {
 

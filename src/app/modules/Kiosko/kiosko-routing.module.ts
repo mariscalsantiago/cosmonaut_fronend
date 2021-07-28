@@ -9,7 +9,11 @@ const routes: Routes = [
         path: '', children: [
             { path: 'expediente', component: ExpedienteComponent },
             { path: 'timbrados', component: TimbradoEmpleadosComponent },
-            { path: 'perfil', component: EmpleadoComponent },
+            {
+                path: 'perfil', component: EmpleadoComponent, children: [
+                    { path: ':id', loadChildren: () => import('../empleados/pages/submodulos/personal/empleados-personal.module').then(m => m.EmpleadosPersonalModule) }
+                ]
+            },
         ]
     }
 ]
