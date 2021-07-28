@@ -18,6 +18,7 @@ export class EmpleadoComponent implements OnInit {
 
 
   public cargandoIcon: boolean = false;
+  public esKiosko:boolean = false;
 
   public empleado: any = {};
   public idEmpleado: number = -1;
@@ -36,11 +37,11 @@ export class EmpleadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
-      let esKiosko = this.router.url.includes("/kiosko/perfil");
+      this.esKiosko = this.router.url.includes("/kiosko/perfil");
       
       
 
-      if(!esKiosko){
+      if(!this.esKiosko){
         this.idEmpleado = params["id"];
         this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos =>{
          
@@ -59,6 +60,7 @@ export class EmpleadoComponent implements OnInit {
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
           }else{
             this.idEmpleado = datos.datos.personaId;
+            this.router.navigate([`/kiosko/perfil/${this.idEmpleado}/personal`]);
             this.seguirProceso();
           }
         });

@@ -46,14 +46,14 @@
             </div>
             <div class="alinear" style="width: 24%;    margin-top: 5px;">
                 <div class="row" style="margin-bottom: 5px;">
-                    <button *ngIf="empleado.esActivo" (click)="activarEmpleado()" style="margin:auto" class="btn btn-primary button-fill heartbeat">Activar empleado</button>
+                    <button *ngIf="!empleado.esActivo && !esKiosko" (click)="activarEmpleado()" style="margin:auto" class="btn btn-primary button-fill heartbeat">Activar empleado</button>
                 </div>
-                <div class="progress">
+                <div *ngIf="!esKiosko" class="progress">
                     <div class="progress-bar primary-bg" role="progressbar" [style.width]="porcentaje?.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{porcentaje?.porcentaje}}%</div>
                 </div>
             </div>
             <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div>
-            <a (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" 
+            <a *ngIf="!esKiosko" (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" 
             class="fas fa-download"></i> Descargar perfil</small>
         <div *ngIf="cargandoIcon" class="spinner-border" role="status">
           <span class="sr-only">Loading...</span>

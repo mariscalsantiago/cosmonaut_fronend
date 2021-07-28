@@ -297,6 +297,7 @@ export class CalcularComponent implements OnInit {
     }
 
 
+    
     this.cargandoIcon = true;
     if (this.esnormal) {
       this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {

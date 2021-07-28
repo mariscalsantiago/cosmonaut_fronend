@@ -388,17 +388,17 @@ export class TimbrarComponent implements OnInit {
       nominaPeriodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId
     }
 
-
     this.cargandoIcon = true;
     if(this.esnormal){
       this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
         this.cargandoIcon = false;
-        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
+        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave2].nombreNomina}_${this.nominaSeleccionada[this.llave2].periodo}`, "xlsx");
       });
     }else{
       this.reportesPrd.getReporteNominasTabCalculadosEspeciales(objEnviar).subscribe(datos => {
+        console.log("Estos son los datos",datos);
         this.cargandoIcon = false;
-        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`, "xlsx");
+        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave2].nombreNomina}_${this.nominaSeleccionada[this.llave2].periodo}`, "xlsx");
       });
     }
   }

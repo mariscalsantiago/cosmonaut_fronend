@@ -220,8 +220,8 @@ export class ConfiguracionesService {
     console.log("Si entra y carga");
     
     setTimeout(() => {
-      ConfiguracionesService.referencia.accesoRuta = false;
-      ConfiguracionesService.referencia.cargandomodulo = false;
+     ConfiguracionesService.referencia.accesoRuta = false;
+     ConfiguracionesService.referencia.cargandomodulo = false;
     }, 20);
     return m;
   }
