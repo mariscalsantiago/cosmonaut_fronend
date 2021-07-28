@@ -169,6 +169,11 @@ export class EmpleadosService {
   }
 
 
+  public getPersonaByCorreo(correo:string,idEmpresa:number):Observable<any>{
+      return this.http.get(`${direcciones.usuarios}/obtener/correo/centrocliente/${correo}/${idEmpresa}`);
+  }
+
+
 
 
 

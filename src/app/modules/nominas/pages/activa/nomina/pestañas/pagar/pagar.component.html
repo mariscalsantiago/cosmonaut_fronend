@@ -58,7 +58,22 @@
 </div>
 <div class="row">
     <div class="col">
-        <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando" [checkbox]="true" [esnomina]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li (click)="esTransferencia = true;" class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Empleados a dispersar</a>
+            </li>
+            <li (click)="esTransferencia = false;" class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Empleados con otros métodos de pago</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <app-tablapaginado [datos]="arreglotabla" [esTransferencia]="'esTransferencia'" [cargando]="cargando" [checkbox]="true" [esnomina]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <app-tablapaginado [datos]="arreglotablaconpago" [esTransferencia]="'esOtro'" [cargando]="cargando" [checkbox]="true" [esnomina]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
+            </div>
+          </div>
     </div>
 </div>
 

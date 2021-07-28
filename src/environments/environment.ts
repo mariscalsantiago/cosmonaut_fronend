@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   rutaEmpresa:'/empresas',
   rutaCatalogos:'/catalogos',
-  rutaNomina:'/nomina',
+  rutaNomina:'http://dfe1435d1c79.ngrok.io',
  //rutaNomina:'https://cosmonautdev.wintermute.services/nomina',
   rutaAdmin: '/admin',
   rutaReportes:'/reportes',

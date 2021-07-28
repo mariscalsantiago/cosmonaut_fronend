@@ -8,6 +8,8 @@ import { tabla } from 'src/app/core/data/tabla';
 })
 export class TablapaginadoComponent implements OnInit {
   public textFilter = '';
+
+  public tooltipText = "";
   @Input() public cargando: any = false;
   @Input() public datosExtras:any;
   public arreglo: any = [];
@@ -35,6 +37,7 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public desglosar: any;
   @Input() public checkbox: any;
   @Input() public filter: any;
+  @Input() public esTransferencia:string = '';
 
   @Input() public imagen: any;
   @Input() public porcentaje: boolean = false;
@@ -78,6 +81,8 @@ export class TablapaginadoComponent implements OnInit {
 
 
 
+      console.log(this.arreglo);
+
   }
 
 
@@ -96,10 +101,15 @@ export class TablapaginadoComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
+
+    
  
     if (this.datos.filas !== undefined) {
   
       this.arreglotemp = this.datos.filas;
+      if(this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined ){
+        this.tooltipText = "editarUsuario";
+      }
       this.total = this.arreglotemp.length;
       for (let item of this.datos.filas) {
         item.seleccionado = false;
