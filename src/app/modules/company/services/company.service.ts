@@ -21,9 +21,20 @@ export class CompanyService {
     
    
   }
+  public getAllSimple():Observable<any>{
+    return this.http.get(`${this.url}/lista/compania/simple`);
+    
+   
+  }
   public getAllEmp(idEmpresA:number):Observable<any>{
     
     return this.http.get(`${direcciones.centroCostosCliente}/lista/compania/empresa/${idEmpresA}`);
+    
+
+  }
+  public getAllEmpSimple():Observable<any>{
+    
+    return this.http.get(`${direcciones.centroCostosCliente}/lista/empresa/simple`);
     
 
   }

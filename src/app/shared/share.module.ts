@@ -28,6 +28,7 @@ import { VentanaSubirDocumentoComponent } from './ventanasemergentes/tiposventan
 import { VentanaNominanuevaextraordinariaComponent } from './ventanasemergentes/tiposventanas/ventana-nominanuevaextraordinaria/ventana-nominanuevaextraordinaria.component';
 import { NominanuevaPtuComponent } from './ventanasemergentes/tiposventanas/nominanueva-ptu/nominanueva-ptu.component';
 import { VentanaTablaISRComponent } from './ventanasemergentes/tiposventanas/ventana-tablaisr/ventana-tablaisr.component';
+import { VentanaTablaISNComponent } from './ventanasemergentes/tiposventanas/ventana-tablaisn/ventana-tablaisn.component';
 import { VentanaSubcidioComponent } from './ventanasemergentes/tiposventanas/ventana-subcidio/ventana-subcidio.component';
 import { TagComponent } from './tag/tag.component';
 import { VentanaNominaNuevaFiniquitoLiquidacionComponent } from './ventanasemergentes/tiposventanas/ventana-nominanuevafiniquitoliquidacion/ventana-nominanuevafiniquitoliquidacion.component';
@@ -76,6 +77,7 @@ import { TooltipModule } from 'ng-uikit-pro-standard';
     VentanaNominanuevaextraordinariaComponent,
     NominanuevaPtuComponent,
     VentanaTablaISRComponent,
+    VentanaTablaISNComponent,
     VentanaSubcidioComponent,
     TagComponent,
     VentanaNominaNuevaFiniquitoLiquidacionComponent,

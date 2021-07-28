@@ -281,8 +281,8 @@ export class DetallejornadalaboralComponent implements OnInit {
       sumaHorasJornadaId: [obj.sumaHorasJornadaId?.sumaHorasJornadaId, [Validators.required]],
       horaEntrada: [obj.horaEntrada, [Validators.required]],
       horaSalida: [obj.horaSalida, [Validators.required]],
-      horaInicioComida: [obj.horaInicioComida],
-      horaFinComida: [obj.horaFinComida],
+      horaInicioComida: [obj.horaInicioComida, [Validators.required]],
+      horaFinComida: [obj.horaFinComida, [Validators.required]],
       lunes: obj.lunes,
       martes: obj.martes,
       miercoles: obj.miercoles,
@@ -298,7 +298,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   public enviarPeticion() {
     this.submitInvalido = true;
-    this.myForm.updateValueAndValidity();
+    //this.myForm.updateValueAndValidity();
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -563,16 +563,30 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public selectJornada(op: any){
+    debugger;
     this.myForm.clearValidators();
+    //this.myForm.updateValueAndValidity();
     this.jornada = String(op.value);
     if(this.jornada =='1'){
       this.myForm.controls.horaSalida.disable();
     }
-    if(this.jornada =='3'){
-      this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
-      this.myForm.controls.horaFinComida.setValidators([Validators.required]);
+    if(this.jornada =='2' || this.jornada =='1'){
+      this.myForm.controls.horaInicioComida.setValidators([]);
+      this.myForm.controls.horaInicioComida.updateValueAndValidity();
+      this.myForm.controls.horaFinComida.setValidators([]);
+      this.myForm.controls.horaFinComida.updateValueAndValidity();
       
     }
+
+    if(this.jornada =='3'){
+      this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
+      this.myForm.controls.horaInicioComida.updateValueAndValidity();
+      this.myForm.controls.horaFinComida.setValidators([Validators.required]);
+      this.myForm.controls.horaFinComida.updateValueAndValidity();
+      
+    }
+
+    
   }
 
   public hrInicio(response : any){
