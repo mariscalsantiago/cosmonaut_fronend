@@ -400,8 +400,8 @@ if(this.myForm.get(['']))
 
       }
       else if(tipomonto == 2){
-        this.porcentual = true;
-        this.fijo = false;
+        this.porcentual = false;
+        this.fijo = true;
         this.valorDescuento = false;
         this.valor = true;
       }

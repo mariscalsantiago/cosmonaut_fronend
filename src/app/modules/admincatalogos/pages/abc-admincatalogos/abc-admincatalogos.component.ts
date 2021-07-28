@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -14,7 +14,6 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
   styleUrls: ['./abc-admincatalogos.component.scss']
 })
 export class ABCAdminCatalogosComponent implements OnInit {
-
 
   public cargando: Boolean = false;
   public tipoguardad: boolean = false;
@@ -128,7 +127,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 6){
-      if(this.objdetrep.esActivo === true || this.objdetrep.esActivo === false){
+      debugger;
+      if (this.objdetrep.fecInicio != undefined || this.objdetrep.fecInicio != null) {
       this.objdetrep.fecInicio = new DatePipe("es-MX").transform(new Date(new Date(this.objdetrep.fecInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
       }
       this.idCatalogo = this.objdetrep.clave;
@@ -174,9 +174,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
         if (datos.datos !== undefined) {
           for (let item of datos.datos) {
-            //item["fechaInicio"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+            
             item.fecInicio = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
-            item["fechaFin"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd');          }
+            item.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd');          }
         }
         this.arregloTablaValores = datos.datos;
       });
@@ -211,7 +211,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => {
          if (datos.datos !== undefined) {
            for (let item of datos.datos) {
-             item["fechaInicio"] = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+            if (item.fechaInicio != undefined || item.fechaInicio != null) {
+              item.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+              }
+             
            }
          }
         this.arregloTablaValores = datos.datos
@@ -257,21 +260,18 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
   public createForm(obj: any) {
 
-    let datePipe = new DatePipe("en-MX");
-    if((obj.esActivo === true || obj.esActivo === false) && obj.regimenfiscalId === "08" ){
-      obj.fecInicio = new DatePipe("es-MX").transform(new Date(new Date(obj.fecInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
-      }
+    const pipe = new DatePipe("es-MX");
     return this.formBuilder.group({
 
       clave: [this.idCatalogo],
-      fecInicio: [datePipe.transform(obj.fecInicio, 'yyyy-MM-dd')],
+      fecInicio: [obj.fecInicio],
       codBanco: [this.idCatalogo],
       integraSdi: [obj.integraSdi],
       integraIsr: [obj.integraIsr],
       integraIsn: [obj.integraIsn],
       valor: [obj.valor],
-      fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd')],
-      fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd')],
+      fechaInicio: [obj.fechaInicio], 
+      fechaFin: [obj.fechaFin],
       tipoConcepto: [obj.tipoConcepto],
       tipoPeriodicidad: [obj.tipoPeriodicidad],
       razonSocial: [obj.razonSocial],
@@ -638,14 +638,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 6){
           
-          let fechar = "";
-          if (obj.fecInicio != undefined || obj.fecInicio != null) {
-      
-            if (obj.fecInicio != "") {
-      
-              const fecha1 = new Date(obj.fecInicio).toUTCString().replace("GMT", "");
-              fechar = `${new Date(fecha1).getTime()}`;
-            }
+          debugger;
+          if (obj.fecInicio != undefined && obj.fecInicio != '') {
+            obj.fecInicio = new Date((new Date(obj.fecInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+           
           }
           if(obj.tipoPersona == "indPersonaMoral"){this.indPersonaMoral = true}
           if(obj.tipoPersona == "indPersonaFisica"){this.indPersonaFisica = true}
@@ -655,7 +651,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             descripcion: obj.nombreCorto,
             indPersonaFisica: this.indPersonaFisica,
             indPersonaMoral: this.indPersonaMoral,
-            fecInicio: fechar,
+            fecInicio: obj.fecInicio,
             activo: obj.esActivo
           }
           if (this.insertar) {
@@ -1303,6 +1299,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
               fechainicio = `${new Date(fecha1).getTime()}`;
             }
           }
+
           this.objEnviar = {
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
@@ -1313,7 +1310,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 estadoId: obj.PeriodicidadPago,
             },
            esActivo: obj.esActivo,
-           fechaInicio: fechainicio,
+           fechaInicio: fechainicio
 
          }
           
@@ -1330,8 +1327,13 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-
+            debugger;
             for(let item of this.arregloTablaValores){
+
+              if (item.fechaInicio != "") {
+                const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
+                item.fechaInicio = `${new Date(fecha1).getTime()}`;
+              }
               this.valores = 
                 {
                   tasaAplicableIsnId: item.tasaAplicableIsnId,

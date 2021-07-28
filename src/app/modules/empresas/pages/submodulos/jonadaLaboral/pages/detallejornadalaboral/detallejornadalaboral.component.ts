@@ -47,6 +47,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     if(!this.esInsert){
+      debugger;
     this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa,objdetrep.jornadaId).subscribe(datos =>{  
       this.arreglodetalleJornada = datos.datos
       this.myForm = this.crearForm(this.arreglodetalleJornada);
@@ -98,12 +99,38 @@ export class DetallejornadalaboralComponent implements OnInit {
           obj.horaFinComida = splitFHFC[0];
           }
           obj.lunes= true;
-          obj.horarioJornadaId1= item.horarioJornadaId;
+
         }
+        if(item.dia == 1){
+          this.arreglodetalleJornada.horarioJornadaId1= item.horarioJornadaId;
+        }  
         if(item.dia == 2 && item.esActivo== true){
+          let splitHE = item.horaEntrada.split(' ');
+          let horaHE = splitHE[1];
+          let splitFHE = horaHE.split('.');
+          obj.horaEntrada = splitFHE[0];
+          let splitHS = item.horaSalida.split(' ');
+          let horaHS = splitHS[1];
+          let splitFHS = horaHS.split('.');
+          obj.horaSalida = splitFHS[0];
+          if(item.horaInicioComida != undefined){
+          let splitHIC = item.horaInicioComida.split(' ');
+          let horaHIC = splitHIC[1];
+          let splitFHIC = horaHIC.split('.');
+          obj.horaInicioComida = splitFHIC[0];
+          }
+          if(item.horaFinComida != undefined){
+          let splitHFC = item.horaFinComida.split(' ');
+          let horaHFC = splitHFC[1];
+          let splitFHFC = horaHFC.split('.');
+          obj.horaFinComida = splitFHFC[0];
+          }
           obj.martes= true;
-          obj.horarioJornadaId2= item.horarioJornadaId;
+         
         }
+        if(item.dia == 2){
+          this.arreglodetalleJornada.horarioJornadaId2= item.horarioJornadaId;
+        }  
         if(item.dia == 3 && item.esActivo== true){
           let splitHE = item.horaEntrada.split(' ');
           let horaHE = splitHE[1];
@@ -126,8 +153,10 @@ export class DetallejornadalaboralComponent implements OnInit {
           obj.horaFinComida = splitFHFC[0];
           }
           obj.miercoles= true;
-          obj.horarioJornadaId3= item.horarioJornadaId;
-        }
+         }
+        if(item.dia == 3){
+          this.arreglodetalleJornada.horarioJornadaId3= item.horarioJornadaId;
+        } 
         if(item.dia == 4 && item.esActivo== true){
           let splitHE = item.horaEntrada.split(' ');
           let horaHE = splitHE[1];
@@ -150,8 +179,10 @@ export class DetallejornadalaboralComponent implements OnInit {
           obj.horaFinComida = splitFHFC[0];
           }
           obj.jueves= true;
-          obj.horarioJornadaId4= item.horarioJornadaId;
-        }
+         }
+        if(item.dia == 4){
+          this.arreglodetalleJornada.horarioJornadaId4= item.horarioJornadaId;
+        } 
         if(item.dia == 5 && item.esActivo== true){
           let splitHE = item.horaEntrada.split(' ');
           let horaHE = splitHE[1];
@@ -174,8 +205,11 @@ export class DetallejornadalaboralComponent implements OnInit {
           obj.horaFinComida = splitFHFC[0];
           }
           obj.viernes= true;
-          obj.horarioJornadaId5= item.horarioJornadaId;
+          
         }
+        if(item.dia == 5){
+          this.arreglodetalleJornada.horarioJornadaId5= item.horarioJornadaId;
+        } 
         if(item.dia == 6 && item.esActivo== true){
           let splitHE = item.horaEntrada.split(' ');
           let horaHE = splitHE[1];
@@ -198,8 +232,11 @@ export class DetallejornadalaboralComponent implements OnInit {
           obj.horaFinComida = splitFHFC[0];
           }
           obj.sabado= true;
-          obj.horarioJornadaId6= item.horarioJornadaId;
+          
         }
+        if(item.dia == 6){
+          this.arreglodetalleJornada.horarioJornadaId6= item.horarioJornadaId;
+        } 
         if(item.dia == 7 && item.esActivo== true){
           let splitHE = item.horaEntrada.split(' ');
           let horaHE = splitHE[1];
@@ -222,7 +259,10 @@ export class DetallejornadalaboralComponent implements OnInit {
           obj.horaFinComida = splitFHFC[0];
           }
           obj.domingo= true;
-          obj.horarioJornadaId7= item.horarioJornadaId;
+          
+        }
+        if(item.dia == 7){
+          this.arreglodetalleJornada.horarioJornadaId7= item.horarioJornadaId;
         }
       }
 
