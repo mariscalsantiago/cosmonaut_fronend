@@ -188,16 +188,12 @@ export class TimbrarComponent implements OnInit {
 
 
         }
-
-
-
-
         break;
 
       case "descargar":
         let enviarObj = {
           nominaPeriodoId: this.nominaSeleccionada[this.llave2]?.nominaXperiodoId,
-          idEmpleado: item[this.llave].numeroEmpleado,
+          idEmpleado: item[this.llave].numEmpleado,
           esVistaPrevia: true
         }
 
@@ -205,7 +201,7 @@ export class TimbrarComponent implements OnInit {
         this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           
-          this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numeroEmpleado,"pdf")
+          this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numEmpleado,"pdf")
         });
         break;
     }

@@ -60,6 +60,8 @@ export class CalcularComponent implements OnInit {
 
 
 
+    console.log("Este es la nomina",this.nominaSeleccionada);
+
     if (this.nominaSeleccionada.nominaOrdinaria) {
       this.esnormal = true;
       this.llave = "nominaOrdinaria";
@@ -190,13 +192,13 @@ export class CalcularComponent implements OnInit {
         let item = obj.datos;
         let objEnviar = {
           nominaXperiodoId: this.nominaSeleccionada[this.llave]?.nominaXperiodoId,
-          fechaContrato: new DatePipe("es-MX").transform(item[this.llave2].fechaContrato,"yyyy-MM-dd"),
+          fechaContrato:new DatePipe("es-MX").transform(new Date(new Date(item[this.llave2].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'),
           personaId: item[this.llave2].personaId,
           clienteId: item[this.llave2].centrocClienteId
         }
 
         this.patronalSeleccionado.nominaXperiodoId = this.nominaSeleccionada[this.llave]?.nominaXperiodoId;
-        this.patronalSeleccionado.fechaContrato = new DatePipe("es-MX").transform(item[this.llave2].fechaContrato,"yyyy-MM-dd");
+        this.patronalSeleccionado.fechaContrato = new DatePipe("es-MX").transform(new Date(new Date(item[this.llave2].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
         this.patronalSeleccionado.personaId = item[this.llave2].personaId;
         this.patronalSeleccionado.clienteId = item[this.llave2].centrocClienteId;
         this.patronalSeleccionado.usuarioId = this.usuariSistemaPrd.usuario.usuarioId;
