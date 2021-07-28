@@ -36,6 +36,10 @@ public getListaTablasSubsidioISR():Observable<any>{
     return this.http.get(`${this.url}/listar/tarifaISR/true/${periodicidad}`);
   }
 
+  public getListaTarifaISN(estadoId:number):Observable<any>{
+    return this.http.get(`${this.url}/listar/tasaAplicableISN/true/${estadoId}`);
+  }
+
   public getListaSubcidioISR(periodicidad:number):Observable<any>{
     return this.http.get(`${this.url}/listar/tablaSubsidioIsr/true/${periodicidad}`);
   }

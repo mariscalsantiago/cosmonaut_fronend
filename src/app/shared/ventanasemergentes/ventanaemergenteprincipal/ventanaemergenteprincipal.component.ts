@@ -38,6 +38,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     nuevanominaextraordinaria:false,
     nuevanominaptu:false,
     tablaisr: false,
+    tablaisn: false,
     subcidio: false,
     nuevanominafiniquitoliquidacion: false,
     mensajechat:false,
@@ -46,6 +47,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
+    debugger;
     event.target.innerWidth;
 
     this.content = document.getElementById("contenido");

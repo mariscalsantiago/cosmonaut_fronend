@@ -18,6 +18,7 @@ export class VentanaemergenteService {
   public nuevanominaextraordinaria: string = "nuevanominaextraordinaria";
   public nuevanominaptu: string = "nuevanominaptu";
   public tablaisr: string = "tablaisr";
+  public tablaisn: string = "tablaisn";
   public subcidio: string = "subcidio";
   public nuevanominafiniquitoliquidacion: string = "nuevanominafiniquitoliquidacion";
   public mensajechat: string = "mensajechat";
@@ -47,6 +48,7 @@ export class VentanaemergenteService {
     subirdocumento: false,
     nuevanominaptu: false,
     tablaisr: false,
+    tablaisn: false,
     subcidio: false,
     nuevanominaextraordinaria: false,
     nuevanominafiniquitoliquidacion: false,
@@ -109,11 +111,15 @@ export class VentanaemergenteService {
       case this.nuevanominaptu:
         this.mostrar.nuevanominaptu = true;
         this.emergente.titulo = "Nómina de PTU";
-        break;
+        break; 
       case this.tablaisr:
         this.mostrar.tablaisr = true;
         this.emergente.titulo = "";
         break;
+        case this.tablaisn:
+          this.mostrar.tablaisn = true;
+          this.emergente.titulo = "";
+          break;
       case this.subcidio:
         this.mostrar.subcidio = true;
         this.emergente.titulo = "";

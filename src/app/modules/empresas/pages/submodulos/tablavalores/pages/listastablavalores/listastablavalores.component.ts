@@ -276,7 +276,7 @@ console.log('arregloNomina', this.arregloNomina)
   public recibirTablaISN(obj:any){
     
     let datos = obj.datos;
-    this.ventana.showVentana(this.ventana.subcidio,{datos:datos}).then(valor =>{
+    this.ventana.showVentana(this.ventana.tablaisn,{datos:datos}).then(valor =>{
     });
   }
 
