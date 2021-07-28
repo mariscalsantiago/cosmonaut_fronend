@@ -287,11 +287,11 @@ export class PagarComponent implements OnInit {
   public filtrar() {
     let objenviar = {
       nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
-      numeroempleado: this.numeroempleado,
-      apellidoMaterno: this.apellidoMaterno,
-      apellidoPaterno: this.apellidoPaterno,
-      nombreEmpleado: this.nombre,
-      rfc: this.rfc
+      numeroempleado: this.numeroempleado || undefined,
+      apellidoMaterno: this.apellidoMaterno || undefined,
+      apellidoPaterno: this.apellidoPaterno || undefined,
+      nombreEmpleado: this.nombre || undefined,
+      rfc: this.rfc || undefined
     }
 
 

@@ -144,6 +144,7 @@ export class CalcularComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("nombrecompleto", "Nombre"),
       new tabla("numeroEmpleado", "Número de empleado", false, false, true),
+      new tabla("fecha","Fecha contrato"),
       new tabla("diaslaborados", "Días laborados", false, false, true),
       new tabla("percepciones", "Percepciones", false, false, true),
       new tabla("deducciones", "Deducciones", false, false, true),
@@ -155,9 +156,12 @@ export class CalcularComponent implements OnInit {
       for (let item of this.arreglo) {
 
 
+        console.log("Esta es la fecha contrato",new DatePipe("es-MX").transform(new Date(new Date(item[llave].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'));
+
         item["nombrecompleto"] = `${item[llave].nombre} ${item[llave].apellidoPat} ${item[llave].apellidoMat || ''}`;
         item["numeroEmpleado"] = item[llave].numEmpleado;
         item["diaslaborados"] = item[llave].diasLaborados;
+        item["fecha"] = new DatePipe("es-MX").transform(new Date(new Date(item[llave].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'),
         item["percepciones"] = this.cp.transform(item[llave].totalPercepciones);
         item["deducciones"] = this.cp.transform(item[llave].totalDeducciones);
         item["total"] = this.cp.transform(item[llave].total);
@@ -317,11 +321,11 @@ export class CalcularComponent implements OnInit {
   public filtrar() {
     let objenviar = {
       nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
-      numeroempleado: this.numeroempleado,
-      apellidoMaterno: this.apellidoMaterno,
-      apellidoPaterno: this.apellidoPaterno,
-      nombreEmpleado: this.nombre,
-      rfc: this.rfc
+      numeroempleado: this.numeroempleado || undefined,
+      apellidoMaterno: this.apellidoMaterno || undefined,
+      apellidoPaterno: this.apellidoPaterno || undefined,
+      nombreEmpleado: this.nombre || undefined,
+      rfc: this.rfc || undefined
     }
 
 
