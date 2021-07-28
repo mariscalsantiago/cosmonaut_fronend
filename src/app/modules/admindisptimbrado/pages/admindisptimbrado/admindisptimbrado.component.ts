@@ -67,7 +67,8 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   ngOnInit() {
    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
    this.establecerPermisos();
-   this.companyPrd.getAll().subscribe(datos => this.arregloCompania = datos.datos);
+   this.companyPrd.getAllSimple().subscribe(datos => this.arregloCompania = datos.datos);
+   this.companyPrd.getAllEmpSimple().subscribe(datos => this.arregloEmpresa = datos.datos);
   
    
     this.filtrar();
@@ -205,10 +206,10 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   public validarCompania(tipo:any){
     debugger;
 
-    this.arregloEmpresa = [];
-    if(tipo != 0 ){
-      this.companyPrd.getAllEmp(tipo).subscribe(datos => this.arregloEmpresa = datos.datos);
-    }
+   // this.arregloEmpresa = [];
+    //if(tipo != 0 ){
+      //this.companyPrd.getAllEmp(tipo).subscribe(datos => this.arregloEmpresa = datos.datos);
+    //}
   }
 
   public filtrar() {
