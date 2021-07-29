@@ -238,7 +238,7 @@ export class PagarComponent implements OnInit {
                 .statusProcesoDispersar(this.idnominaPeriodo, obj.length)))
               .subscribe(datos => {
                 this.configuracionesPrd.setCantidad(datos.datos);
-                if (datos.datos >= 30) {
+                if (datos.datos >= 100) {
                   suscribe.unsubscribe();
                   setTimeout(() => {
 
