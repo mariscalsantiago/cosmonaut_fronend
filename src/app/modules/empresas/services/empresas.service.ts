@@ -57,6 +57,10 @@ export class EmpresasService {
     return this.http.get(`${direcciones.usuarios}/obtener/id/compania/${id_company}`);
 }
 
+public recalculoPromedioVariables(id_Variabilidad:number):Observable<any>{
+  return this.http.get(`${direcciones.variabilidad}/recalculo/promedio/variables/${id_Variabilidad}`);
+}
+
 
   public save(obj:any):Observable<any>{
     const httpOptions={

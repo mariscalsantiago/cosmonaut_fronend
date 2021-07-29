@@ -33,7 +33,8 @@ export class TablapaginadoComponent implements OnInit {
   @Input() public ver: any;
   @Input() public editar: any;
   @Input() public eliminar: any;
-  @Input() public descargar: any;
+  @Input() public descargar: any;  
+  @Input() public recalcular: any;
   @Input() public desglosar: any;
   @Input() public checkbox: any;
   @Input() public filter: any;
@@ -270,6 +271,10 @@ export class TablapaginadoComponent implements OnInit {
 
   public btnDescargar(item: any, indice: number) {
     this.salida.emit({ type: "descargar", datos: item, indice: indice });
+  }
+
+  public btnRecalcular(item: any, indice: number) {
+    this.salida.emit({ type: "recalcular", datos: item, indice: indice });
   }
 
   public btnEditar(item: any, indice: number) {
