@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { CompanyService } from '../../services/company.service';
 
 @Component({
@@ -32,13 +33,18 @@ export class DetalleContactoComponent implements OnInit {
   public submitEnviado: boolean = false;
   public  esModificaEmpresa:boolean = false;
 
+  public cargandoCheckbox:boolean = false;
+
 
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router, private modalPrd: ModalService,private usuariosAuth:UsuariosauthService,public configuracionPrd:ConfiguracionesService) {
+    private routerPrd: Router, private modalPrd: ModalService,private usuariosAuth:UsuariosauthService,public configuracionPrd:ConfiguracionesService,
+    private usuarioSistemaPrd:UsuarioSistemaService) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
+
+
     });
 
 
@@ -60,6 +66,15 @@ export class DetalleContactoComponent implements OnInit {
     this.esModificaEmpresa = history.state.modificaEmpresa == undefined ? false : history.state.modificaEmpresa;
 
     this.myFormcont = this.createFormcont((this.objcontacto));
+
+    if(Boolean(history.state.datos)){
+
+      this.cargandoCheckbox = true;
+     this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.objcontacto?.emailCorporativo)).subscribe(valorusuario => {
+       this.cargandoCheckbox = false;
+       this.myFormcont.controls.usuarioinicial.setValue(Boolean(valorusuario.datos));
+     });
+    }
 
   }
 
