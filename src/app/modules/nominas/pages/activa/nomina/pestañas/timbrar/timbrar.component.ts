@@ -188,16 +188,12 @@ export class TimbrarComponent implements OnInit {
 
 
         }
-
-
-
-
         break;
 
       case "descargar":
         let enviarObj = {
           nominaPeriodoId: this.nominaSeleccionada[this.llave2]?.nominaXperiodoId,
-          idEmpleado: item[this.llave].numeroEmpleado,
+          idEmpleado: item[this.llave].numEmpleado,
           esVistaPrevia: true
         }
 
@@ -205,7 +201,7 @@ export class TimbrarComponent implements OnInit {
         this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           
-          this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numeroEmpleado,"pdf")
+          this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numEmpleado,"pdf")
         });
         break;
     }
@@ -333,11 +329,11 @@ export class TimbrarComponent implements OnInit {
 
     let objenviar = {
       nominaXperiodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
-      numeroempleado: this.numeroempleado,
-      apellidoMaterno: this.apellidoMaterno,
-      apellidoPaterno: this.apellidoPaterno,
-      nombreEmpleado: this.nombre,
-      rfc: this.rfc
+      numeroempleado: this.numeroempleado || undefined,
+      apellidoMaterno: this.apellidoMaterno || undefined,
+      apellidoPaterno: this.apellidoPaterno || undefined,
+      nombreEmpleado: this.nombre || undefined,
+      rfc: this.rfc || undefined
     }
 
 

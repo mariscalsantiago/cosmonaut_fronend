@@ -103,7 +103,6 @@ export class TablapaginadoComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
 
-    
  
     if (this.datos.filas !== undefined) {
   

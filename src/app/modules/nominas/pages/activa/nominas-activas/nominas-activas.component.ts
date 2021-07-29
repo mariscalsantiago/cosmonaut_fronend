@@ -68,8 +68,10 @@ export class NominasActivasComponent implements OnInit {
     this.nominaOrdinariaPrd.getListaNominas(objenviar).subscribe(datos => {
       this.cargando = false;
       this.arreglo = datos.datos;
-      for (let item of this.arreglo) {
-        item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto);
+      if(this.arreglo){
+        for (let item of this.arreglo) {
+          item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto);
+        }
       }
     });
   }

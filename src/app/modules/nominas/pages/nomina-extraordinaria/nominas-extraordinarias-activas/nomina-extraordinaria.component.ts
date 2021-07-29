@@ -62,10 +62,9 @@ export class NominaExtraordinariaComponent implements OnInit {
     this.nominaAguinaldoPrd.getListaNominas(objenviar).subscribe(datos => {
       this.cargando = false;
       this.arreglo = datos.datos;
-
-      if (this.arreglo != undefined) {
+      if(this.arreglo){
         for (let item of this.arreglo) {
-          item["inicial"] = item.nominaExtraordinaria.total == undefined;
+          item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto);
         }
       }
     })

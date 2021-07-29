@@ -40,10 +40,11 @@
 
                 <tbody>
                     <tr>
-                        <td>{{item.nominaExtraordinaria?.empleados}}</td>
-                        <td>{{item.nominaExtraordinaria?.percepciones | currency}}</td>
-                        <td>{{item.nominaExtraordinaria?.deducciones | currency}}</td>
-                        <td>{{item.nominaExtraordinaria?.total | currency}}</td>
+
+                        <td>{{item.nominaExtraordinaria?.numEmpleados}}</td>
+                        <td>{{item.nominaExtraordinaria?.totalPercepciones | currency}}</td>
+                        <td>{{item.nominaExtraordinaria?.totalDeducciones | currency}}</td>
+                        <td>{{item.nominaExtraordinaria?.totalNeto | currency}}</td>
                     </tr>
 
                 </tbody>
