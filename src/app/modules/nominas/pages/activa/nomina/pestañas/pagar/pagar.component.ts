@@ -1,4 +1,4 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
@@ -212,19 +212,22 @@ export class PagarComponent implements OnInit {
 
 
 
+        
         let obj = []
         for (let item of this.arreglo) {
           if (item.seleccionado) {
             obj.push({
               nominaPeriodoId: this.idnominaPeriodo,
               personaId: item[this.llave2].personaId,
-              fechaContrato: item[this.llave2].fechaContrato,
-              centroClienteId: item[this.llave2].centroClienteId,
+              fechaContrato: item[this.llave2].fechaContratoNogrupo,
+              centroClienteId: this.usuariosSistemaPrd.getIdEmpresa(),
               usuarioId: this.usuariosSistemaPrd.getUsuario().usuarioId,
               servicio: "dispersion_st"
             });
+            
           }
         }
+
 
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
