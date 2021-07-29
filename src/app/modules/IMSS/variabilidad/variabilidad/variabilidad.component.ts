@@ -243,7 +243,7 @@ export class VariabilidadComponent implements OnInit {
 
     public createForm(obj: any) {
 
-      
+    debugger;  
     if(this.bimestreCalcular== 0 && !this.esREcalcular){
 
       this.bimestreLeyenda = "1er Bimestre"
@@ -299,7 +299,7 @@ export class VariabilidadComponent implements OnInit {
 
 
   public desgargarArchivo(obj:any) {
-    
+    debugger;
     if(this.variabilidad == 0){
       this.varibilidadID = obj.datos.variabilidadId;
     }else{
@@ -322,6 +322,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public promedioVariabilidad(){
+    debugger;
 
     this.reportesPrd.getCalcularDías(this.bimestreCalcular).subscribe(archivo => {
 
@@ -332,13 +333,19 @@ export class VariabilidadComponent implements OnInit {
 
     this.listaVariabilidad = false;
     this.fromPromediar = true;
+    
   }
 
   public cancelar(){
+    debugger;
+    this.recalcularPromedio = false;
+    this.calcularPromedio = true;
+    this.esREcalcular = false;
     this.listaVariabilidad = true;
     this.fromPromediar = false;
     this.listaVariable = true;
     this.listaPromedio = false;
+    this.ngOnInit();
 
   }
 
@@ -367,21 +374,26 @@ export class VariabilidadComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         
           if(valor){
-            if(this.objRecalculo != undefined){
-              this.varibilidadRecalculoID = this.objRecalculo.variabilidadId;
+
+            if(this.variabilidad == 0){
+              if(this.objRecalculo != undefined){
+                this.varibilidadRecalculoID = this.objRecalculo.variabilidadId;
+              }
+            }else{
+              this.varibilidadRecalculoID = this.variabilidad
             }
             
                
                 this.empresasPrd.recalculoPromedioVariables(this.varibilidadRecalculoID).subscribe(datos => {
-                  valor = 0;
+                  debugger;  
                   this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
                   let intervalo = interval(1000);
-                  intervalo.pipe(take(11));
+                  intervalo.pipe(take(11)).toPromise;
                   intervalo.subscribe((valor)=>{
                   this.configuracionPrd.setCantidad(valor*10);
                 
-                  if(valor == 1){
-                    valor = 0;
+                  if(valor == 11){
+                  valor = 0;
                   this.configuracionPrd.setCantidad(0);
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                      if (datos.resultado) {
@@ -403,8 +415,6 @@ export class VariabilidadComponent implements OnInit {
                       this.crearTablaListaEmpleadosPromedio(datos.datos);
                     });
                   }
-                }else if(valor > 11){
-                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                 }
                   });
               });     
@@ -484,7 +494,7 @@ export class VariabilidadComponent implements OnInit {
                   intervalo.subscribe((valor)=>{
                   this.configuracionPrd.setCantidad(valor*10);
                 
-                  if(valor == 1){
+                  if(valor == 11){
                     valor = 0;
                   this.configuracionPrd.setCantidad(0);
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -508,13 +518,11 @@ export class VariabilidadComponent implements OnInit {
                     });
                   } else{
 
-                    this.modalPrd.showMessageDialog(this.modalPrd.warning,datos.mensaje).then(valor =>{
+                    this.modalPrd.showMessageDialog(this.modalPrd.success,datos.mensaje).then(valor =>{
                     this.listaVariabilidad = false;
                     this.fromPromediar = true;
                     });
                   }  
-                }else if(valor > 11){
-                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                 }
                   });
               });     
@@ -526,7 +534,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    
+    debugger;
     switch (obj.type) {
       case "descargar":
           this.desgargarArchivo(obj);
