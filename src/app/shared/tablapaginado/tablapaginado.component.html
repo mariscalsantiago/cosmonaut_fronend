@@ -30,13 +30,9 @@
                     </label>
                 </th>
                 <th id="" *ngIf="imagen"></th>
-                <th id="" (click)="ordenar(item)" style="position: relative;cursor:pointer" scope="col"
-                    *ngFor="let item of datos.columnas"
-                    [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
-                    {{item.nombre}}<i aria-hidden="true" class="fas fa-caret-up flechaarriba"
-                        [ngClass]="{'colorear':item.acomodar == true}"></i>
-                    <i aria-hidden="true" class="fas fa-caret-down flechaabajo"
-                        [ngClass]="{'colorear':item.acomodar == false}"></i>
+                <th id="" (click)="ordenar(item)" style="position: relative;cursor:pointer" scope="col" *ngFor="let item of datos.columnas" [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
+                    {{item.nombre}}<i aria-hidden="true" class="fas fa-caret-up flechaarriba" [ngClass]="{'colorear':item.acomodar == true}"></i>
+                    <i aria-hidden="true" class="fas fa-caret-down flechaabajo" [ngClass]="{'colorear':item.acomodar == false}"></i>
                 </th>
                 <th id="" *ngIf="tablabeneficios">
                     Tabla de beneficios
@@ -63,20 +59,17 @@
                     </td>
 
                     <td *ngIf="checkbox && (esnomina || timbrado)">
-                        <label *ngIf="item.tipopago === 'Transferencia' && esTransferencia=='esTransferencia'"
-                            class="contenedorInputCheckRadio">
+                        <label *ngIf="item.tipopago === 'Transferencia' && esTransferencia=='esTransferencia'" class="contenedorInputCheckRadio">
                             <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name=""
                                 id="ajusteirs">
                             <span class="checkmark"></span>
                         </label>
-                        <label *ngIf="item.tipopago !== 'Transferencia' && esTransferencia=='esOtro'"
-                            class="contenedorInputCheckRadio">
+                        <label *ngIf="item.tipopago !== 'Transferencia' && esTransferencia=='esOtro'" class="contenedorInputCheckRadio">
                             <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name=""
                                 id="ajusteirs">
                             <span class="checkmark"></span>
                         </label>
-                        <label *ngIf="item.status === 'Sin Timbrar' && item.statuspago === 'Sin pagar'"
-                            class="contenedorInputCheckRadio">
+                        <label *ngIf="item.status === 'Sin Timbrar' && item.statuspago === 'Sin pagar'" class="contenedorInputCheckRadio">
                             <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name=""
                                 id="ajusteirs">
                             <span class="checkmark"></span>
@@ -85,13 +78,10 @@
 
                     <td *ngIf="imagen" style="width: 44px;">
                         <img alt="" *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
-                        <img alt="" *ngIf="item.url == undefined" width="45px" height="45px"
-                            [src]="rutaimagenes[icondefault]" class="tableimg">
+                        <img alt="" *ngIf="item.url == undefined" width="45px" height="45px" [src]="rutaimagenes[icondefault]" class="tableimg">
                     </td>
-                    <td class="wrap" *ngFor="let item2 of datos.columnas" [class.td-center]="item2.id | centrar "
-                        [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
-                        (click)="eventoclick(item2,item,indice)">{{(item2.nombre ==
-                        'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
+                    <td class="wrap" *ngFor="let item2 of datos.columnas" [class.td-center]="item2.id | centrar " [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
+                        (click)="eventoclick(item2,item,indice)">{{(item2.nombre == 'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
                     <td *ngIf="tablabeneficios" style="text-align: center;">
                         <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
@@ -99,8 +89,7 @@
                     </td>
                     <td *ngIf="porcentaje">
                         <div class="progress">
-                            <div class="progress-bar primary-bg" role="progressbar" [style.width]="item.porcentaje+'%'"
-                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{item.porcentaje}}%</div>
+                            <div class="progress-bar primary-bg" role="progressbar" [style.width]="item.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{item.porcentaje}}%</div>
                         </div>
                     </td>
                     <!-- <th id="" *ngIf="timbrado">
@@ -112,25 +101,21 @@
                         </label>
 
                     </th> -->
+
                     <td *ngIf="!chat" class="opciones" [ngClass]="{'centrar':item.nombre !== 'Política Estándar'}">
-                        <button *ngIf="descargar && item.nombre !== 'Política Estándar'"
-                            (click)="btnDescargar(item,indice)"><i aria-hidden="true"
+                        <button *ngIf="descargar && item.nombre !== 'Política Estándar'" (click)="btnDescargar(item,indice)"><i aria-hidden="true"
                                 class="icon_24descargar primary-bg"></i></button>
                         <button *ngIf="recalcular && item.recalcula !== false" style="color:#00C1AF" class="dropdown-toggle mt-3"
                                 (click)="btnRecalcular(item,indice)"><i aria-hidden="true"
                                 class="fas fa-sync"></i>&nbsp;&nbsp;Recalcular</button>
                         <button *ngIf="ver" (click)="btnVer(item,indice)"><i aria-hidden="true"
                                 class="icon_24ver primary-bg"></i></button>
-                        <button
-                            *ngIf="editar && (item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')"
-                            (click)="btnEditar(item,indice)"><i aria-hidden="true"
-                                class="icon_24editar primary-bg"></i></button>
-                        <button
-                            *ngIf="eliminar && (item.es_imss !== true && item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')"
-                            (click)="btnEliminar(item,indice)"><i aria-hidden="true"
+                        <button *ngIf="editar && (item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEditar(item,indice)"><i aria-hidden="true"
+                                class="icon_24editar primary-bg" placement="top" [mdbTooltip]="tooltipText | tooltip"></i></button>
+                        <button *ngIf="eliminar && (item.es_imss !== true && item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i aria-hidden="true"
                                 class="icon_24eliminar danger-bg"></i></button>
                         <button *ngIf="llave " (click)="btnLlave(item,indice)">
-                            <i aria-hidden="true" class="icon_24llave primary-bg"></i>
+                            <i aria-hidden="true" class="icon_24llave primary-bg" placement="top" [mdbTooltip]="'resetPass' | tooltip"></i>
                         </button>
                         <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)"><i aria-hidden="true"
                                 *ngIf="item.desglosarDown" class="fas fa-chevron-down primary" style="font-size: 14px;
@@ -140,6 +125,8 @@
                     margin: 9px;"></i>
                         </button>
                     </td>
+
+
                     <td *ngIf="chat" class="text-right">
                         <button (click)="btnresponder(item,indice)" class="btn btn-primary button-fill">
                             Responder
@@ -158,12 +145,10 @@
                         </div>
                     </td>
                 </tr>
-                <tr *ngIf="!item.desglosarDown && !item.cargandoDetalle && !nominacalculo && !nominatimbrar && !esNominaHistorica"
-                    class="slide-in-bck-center">
+                <tr *ngIf="!item.desglosarDown && !item.cargandoDetalle && !nominacalculo && !nominatimbrar && !esNominaHistorica" class="slide-in-bck-center">
                     <td colspan="90%">
                         <div class="row mb-4">
-                            <article *ngFor="let item of arreglotablaDesglose?.columnas;let indice = index;"
-                                class="titulo  col-4 mb-3">
+                            <article *ngFor="let item of arreglotablaDesglose?.columnas;let indice = index;" class="titulo  col-4 mb-3">
                                 {{item.nombre}}
                                 <article> {{arreglotablaDesglose?.filas[item.id] | hora:item.nombre}}</article>
                             </article>
@@ -173,39 +158,25 @@
                 <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && esNominaHistorica">
                     <tr style="background-color: white;">
                         <td colspan="1">
-                            <a (click)="definirFecha('detallenomina',item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
-                                class="dropdown-toggle">
+                            <a (click)="definirFecha('detallenomina',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Detalle de Nómina</a>
-                            <a (click)="definirFecha('nomina',item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
-                                class="dropdown-toggle">
+                            <a (click)="definirFecha('nomina',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Nómina
                             </a>
-                            <a (click)="definirFecha('fotos',item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
-                                class="dropdown-toggle">
+                            <a (click)="definirFecha('fotos',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Folios
                             </a>
-                            <a (click)="definirFecha('reportenomina',item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
-                                class="dropdown-toggle">
+                            <a (click)="definirFecha('reportenomina',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Nómina</a>
                         </td>
                         <td colspan="1">
-                            <a (click)="definirFecha('reportepolizacontable',item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
-                                class="dropdown-toggle">
+                            <a (click)="definirFecha('reportepolizacontable',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Póliza Contable</a>
                         </td>
                         <td colspan="2">
-                            <a (click)="definirFecha('recibonominazip',item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
-                                class="dropdown-toggle">
+                            <a (click)="definirFecha('recibonominazip',item,indice)" style="color:#56dfd4;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Recibos de nómina en ZIP</a>
-                            <a (click)="definirFecha('cancelartimbrado',item,indice)"
-                                style="color:#E17B5B;text-decoration: underline;line-height: 26px;"
-                                class="dropdown-toggle">
+                            <a (click)="definirFecha('cancelartimbrado',item,indice)" style="color:#E17B5B;text-decoration: underline;line-height: 26px;" class="dropdown-toggle">
                                 ¿Necesitas cancelar este timbrado?</a>
                         </td>
                     </tr>
@@ -265,9 +236,7 @@
 
                         </td>
                         <td span="7">
-                            <a (click)="btnDescargar(item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;cursor: pointer;"
-                                class="dropdown-toggle">
+                            <a (click)="btnDescargar(item,indice)" style="color:#56dfd4;text-decoration: underline;cursor: pointer;" class="dropdown-toggle">
                                 <i aria-hidden="true" class="icon_eventos "></i> Vista preliminar de recibo de pago
 
                             </a>
@@ -279,8 +248,7 @@
                         <td colspan="2">
 
                             <article *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
-                                {{item.valor}} <i (click)="verRegistroPatronal(item)" aria-hidden="true"
-                                    class="far fa-eye" style="    color: #3ca29a;
+                                {{item.valor}} <i (click)="verRegistroPatronal(item)" aria-hidden="true" class="far fa-eye" style="    color: #3ca29a;
                                 cursor: pointer;" *ngIf="item.valor == 'imss Patronal'"></i>
                                 <article>{{item.dato | currency}}
 
@@ -288,8 +256,7 @@
                                 <div *ngIf="item.valor == 'imss Patronal' && verpatronal" class="estiloemergente">
                                     <div class="cabecera">Imss patronal
 
-                                        <button (click)="verpatronal = false" type="button" class="close btnclosemodal"
-                                            aria-label="Close">
+                                        <button (click)="verpatronal = false" type="button" class="close btnclosemodal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
 
@@ -361,13 +328,10 @@
                 <li (click)="pasarSiguienteItem(false)" class="page-item" [ngClass]="{'disabled':!activarAntes}">
                     <a class="page-link" tabindex="-1" aria-disabled="true">Anterior</a>
                 </li>
-                <li (click)="mostrarListaPaginaAnterior()" class="page-item " *ngIf="activarMenos"><a
-                        class="page-link">...</a>
+                <li (click)="mostrarListaPaginaAnterior()" class="page-item " *ngIf="activarMenos"><a class="page-link">...</a>
                 </li>
-                <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas"
-                    (click)="paginacambiar(item)"><a class="page-link">{{item.mostrar}}</a></li>
-                <li (click)="mostrarListaPaginaSiguiente()" class="page-item " *ngIf="activarMas"><a
-                        class="page-link">...</a>
+                <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas" (click)="paginacambiar(item)"><a class="page-link">{{item.mostrar}}</a></li>
+                <li (click)="mostrarListaPaginaSiguiente()" class="page-item " *ngIf="activarMas"><a class="page-link">...</a>
                 </li>
                 <li (click)="pasarSiguienteItem(true)" class="page-item" [ngClass]="{'disabled':!activarSiguiente}">
                     <a class="page-link">Siguiente</a>
