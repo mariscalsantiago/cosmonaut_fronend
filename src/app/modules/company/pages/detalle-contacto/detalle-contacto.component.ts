@@ -43,8 +43,6 @@ export class DetalleContactoComponent implements OnInit {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
-
-
     });
 
 

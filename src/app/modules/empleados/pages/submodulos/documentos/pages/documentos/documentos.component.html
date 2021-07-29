@@ -33,13 +33,13 @@
           <label>RESULTADOS</label>
         </div>
         <div class="col text-right">
-          <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
+          <button *ngIf="!esKiosko" type="button" class="btn btn-light button-outlet" (click)="agregar()">
              Subir documento
           </button>
         </div>
       </div>
       <div class="row margen margen-tabla background-panel">
-        <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [editar]="true" [eliminar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+        <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [editar]="!esKiosko" [eliminar]="!esKiosko" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
       </div>
 
     </div>

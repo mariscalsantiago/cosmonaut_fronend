@@ -25,6 +25,7 @@ export class DocumentosComponent implements OnInit {
   public fileName: string = "";
   public arregloDocumentos: any = [];
   public idTipoDocumento : number = 0;
+  public esKiosko:boolean = false;
   
   public arreglotabla:any = {
     columnas:[],
@@ -43,6 +44,8 @@ export class DocumentosComponent implements OnInit {
     private router:ActivatedRoute, private ventana:VentanaemergenteService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
+
+    this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
 
     
 

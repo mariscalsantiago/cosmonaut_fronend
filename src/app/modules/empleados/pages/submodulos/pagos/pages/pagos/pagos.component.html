@@ -146,7 +146,7 @@
                                 </div>
                                 <div *ngIf="!metodopagobool" class="col-2"></div>
 
-                                <div class="col-12 text-right">
+                                <div *ngIf="!esKiosko" class="col-12 text-right">
                                     <button *ngIf="!metodopagobool" (click)="editandoMetodoPago(undefined)"
                                         class="btn btn-primary button-fill">Editar</button>
                                     <button *ngIf="metodopagobool && !esTransferencia" (click)="cancelar()"
@@ -386,7 +386,7 @@
                                     </form>
                                 </div>
 
-                                <div class="col-12 text-right">
+                                <div *ngIf="!esKiosko" class="col-12 text-right">
                                     <button *ngIf="!detallecompensacionbool" (click)="verDetalleCompensacion()"
                                         class="btn btn-primary button-fill">Editar</button>
                                     <button *ngIf="detallecompensacionbool" (click)="cancelar()"
@@ -424,7 +424,7 @@
                                         <div class="col titulo">
                                             <label>RESULTADOS</label>
                                         </div>
-                                        <div class="col text-right">
+                                        <div *ngIf="!esKiosko" class="col text-right">
                                             <button type="button" class="btn btn-light button-outlet"
                                                 (click)="agregarPer()">
                                                 <i aria-hidden="true" class="fa fa-plus"></i> Agregar percepción
@@ -432,7 +432,7 @@
                                         </div>
                                     </div>
                                     <div class="row margen margen-tabla background-panel">
-                                        <app-tablapaginado [datos]="arreglotablaPert" [editar]="true"
+                                        <app-tablapaginado [datos]="arreglotablaPert" [editar]="!esKiosko"
                                             [cargando]="cargandoPer" (salida)="recibirTablaPer($event)">
                                         </app-tablapaginado>
                                     </div>
@@ -466,7 +466,7 @@
                                         <div class="col titulo">
                                             <label>RESULTADOS</label>
                                         </div>
-                                        <div class="col text-right">
+                                        <div *ngIf="!esKiosko" class="col text-right">
                                             <button type="button" class="btn btn-light button-outlet"
                                                 (click)="agregarDed()">
                                                 <i aria-hidden="true" class="fa fa-plus"></i> Agregar deducción
@@ -474,7 +474,7 @@
                                         </div>
                                     </div>
                                     <div class="row margen margen-tabla background-panel">
-                                        <app-tablapaginado [datos]="arreglotablaDedt" [editar]="true"
+                                        <app-tablapaginado [datos]="arreglotablaDedt" [editar]="!esKiosko"
                                             [cargando]="cargandoDed" (salida)="recibirTablaDed($event)">
                                         </app-tablapaginado>
                                     </div>
