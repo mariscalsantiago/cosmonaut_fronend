@@ -47,7 +47,7 @@
                         <input [(ngModel)]="seleccionarGlobal" type="checkbox">
                         <span class="checkmark"></span>
                     </label></th> -->
-                <th id="" *ngIf="ver || editar || eliminar || desglosar || descargar">Acciones</th>
+                <th id="" *ngIf="ver || editar || eliminar || desglosar || descargar || recalcular">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -116,6 +116,9 @@
                         <button *ngIf="descargar && item.nombre !== 'Política Estándar'"
                             (click)="btnDescargar(item,indice)"><i aria-hidden="true"
                                 class="icon_24descargar primary-bg"></i></button>
+                        <button *ngIf="recalcular" style="color:#00C1AF" class="dropdown-toggle mt-3"
+                                (click)="btnRecalcular(item,indice)"><i aria-hidden="true"
+                                class="fas fa-sync"></i>&nbsp;&nbsp;Recalcular</button>
                         <button *ngIf="ver" (click)="btnVer(item,indice)"><i aria-hidden="true"
                                 class="icon_24ver primary-bg"></i></button>
                         <button

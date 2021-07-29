@@ -9,7 +9,7 @@
 
 <hr>
 
-<form [formGroup]="myForm" *ngIf="fromPromediar" (ngSubmit)="enviarPeticion()" class="form-desing">
+<form [formGroup]="myForm" *ngIf="fromPromediar"  class="form-desing">
 
     <div class="form-group row">
         <div class="col-2"></div>
@@ -55,7 +55,8 @@
 
                     <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-                    <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Calcular</button>
+                    <button (click)="calculoVariabilidad()" *ngIf="calcularPromedio"  class="btn btn-primary button-fill">Calcular</button>
+                    <button (click)="recalcularVariabilidad()" *ngIf="recalcularPromedio"  class="btn btn-primary button-fill">Recalcular</button>
                 </div>
                 <br>
             </div>
@@ -91,7 +92,7 @@
 
 
                     <div class="row margen">
-                        <div class="col titulo">
+                        <div class="col titulo" >
                             <label>RESULTADOS</label>
                         </div>
                         <div class="row text-right margin botonmultiseleccion" *ngIf="listaVariable">
@@ -109,7 +110,7 @@
 
                     <div class="   margen-tabla background-panel " *ngIf="listaVariable">
                         <br>
-                        <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                        <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [recalcular] = "true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
                     </div>
 
                     <div class="   margen-tabla background-panel " *ngIf="listaPromedio">

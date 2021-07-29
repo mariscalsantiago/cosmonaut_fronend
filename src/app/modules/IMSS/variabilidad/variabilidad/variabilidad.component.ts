@@ -44,6 +44,11 @@ export class VariabilidadComponent implements OnInit {
   public anioFiscal: number = 0;
   public idUsuario: any = [];
   public varibilidadID: number = 0;
+  public varibilidadRecalculoID: number = 0;
+  public calcularPromedio: boolean = true;
+  public recalcularPromedio : boolean = false;
+  public objRecalculo : any = [];
+  public esREcalcular : boolean = false;
 
 
   public arreglotabla: any = {
@@ -239,13 +244,19 @@ export class VariabilidadComponent implements OnInit {
     public createForm(obj: any) {
 
       
-    if(this.bimestreCalcular==0){
+    if(this.bimestreCalcular== 0 && !this.esREcalcular){
 
       this.bimestreLeyenda = "1er Bimestre"
       this.bimestreCalcular = 1;
       let anio = this.fecha.getFullYear();
       this.fechaActual = `01/03/${anio}`;
-  }
+   }
+   if(this.esREcalcular){
+     this.razonSocial = obj.razonSocial;
+     this.bimestreLeyenda = obj.bimestre;
+     this.fechaActual= obj.fecha;
+     this.diasCalcular = obj.diasBimestre; 
+   }
 
       return this.formBuild.group({
   
@@ -311,11 +322,9 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public promedioVariabilidad(){
-    
-    this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     this.reportesPrd.getCalcularDías(this.bimestreCalcular).subscribe(archivo => {
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
       this.diasCalcular = archivo.datos.diasTotales;
       this.myForm.controls.diaspromediar.setValue(this.diasCalcular);
 
@@ -339,8 +348,74 @@ export class VariabilidadComponent implements OnInit {
 
 
   }
+  public recalcularVariabilidad() {
+    debugger;
+    if (this.myForm.invalid) {
 
-  public enviarPeticion() {
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+
+
+      Object.values(this.myForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
+
+      return;
+    }
+  
+      let mensaje = "¿Deseas realizar el recalculo de promedio de variables?";
+      
+      this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
+        
+          if(valor){
+            if(this.objRecalculo != undefined){
+              this.varibilidadRecalculoID = this.objRecalculo.variabilidadId;
+            }
+            
+               
+                this.empresasPrd.recalculoPromedioVariables(this.varibilidadRecalculoID).subscribe(datos => {
+                  valor = 0;
+                  this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
+                  let intervalo = interval(1000);
+                  intervalo.pipe(take(11));
+                  intervalo.subscribe((valor)=>{
+                  this.configuracionPrd.setCantidad(valor*10);
+                
+                  if(valor == 1){
+                    valor = 0;
+                  this.configuracionPrd.setCantidad(0);
+                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                     if (datos.resultado) {
+                      
+                      this.listaVariabilidad = true;
+                      this.fromPromediar = false;
+                      this.listaPromedio = true;
+                      this.listaVariable = false;
+                      this.cargando = true;
+                      let objLista : any ={
+                        variabilidad: datos.datos.variabilidadId
+                        //variabilidad: 86
+                        
+                      }
+                      this.variabilidad = objLista.variabilidad;
+                                                            
+                      this.empresasPrd.listaEmpleadosPromedioVariables(objLista).subscribe(datos => {
+                      
+                      this.crearTablaListaEmpleadosPromedio(datos.datos);
+                    });
+                  }
+                }else if(valor > 11){
+                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                }
+                  });
+              });     
+
+          }
+        });
+        
+
+  }
+
+  public calculoVariabilidad() {
     
     if (this.myForm.invalid) {
 
@@ -409,7 +484,7 @@ export class VariabilidadComponent implements OnInit {
                   intervalo.subscribe((valor)=>{
                   this.configuracionPrd.setCantidad(valor*10);
                 
-                  if(valor == 10){
+                  if(valor == 1){
                     valor = 0;
                   this.configuracionPrd.setCantidad(0);
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -438,6 +513,8 @@ export class VariabilidadComponent implements OnInit {
                     this.fromPromediar = true;
                     });
                   }  
+                }else if(valor > 11){
+                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                 }
                   });
               });     
@@ -454,7 +531,18 @@ export class VariabilidadComponent implements OnInit {
       case "descargar":
           this.desgargarArchivo(obj);
          break;
+      case "recalcular":
+        debugger;
+          this.esREcalcular = true;
+          this.objRecalculo = obj.datos;
+          this.myForm = this.createForm(this.objRecalculo);
+          this.listaVariabilidad = false;
+          this.calcularPromedio = false;
+          this.recalcularPromedio = true;
+          this.fromPromediar = true;
+         break;    
     }
+    
 
   }
 
