@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { JornadalaboralService } from 'src/app/modules/empresas/pages/submodulos/jonadaLaboral/services/jornadalaboral.service';
@@ -39,36 +39,40 @@ export class EmpleoComponent implements OnInit {
   public fechaIC: Date = new Date();
   public fechaAntiguedad: Date = new Date();
   public arregloareasgeograficas: any = [];
-  public contratoDesc : string | undefined;
+  public contratoDesc: string | undefined;
 
   public arregloTipoContrato: any = [];
 
-  public puestoIdReporta:number = 0;
+  public puestoIdReporta: number = 0;
+
+  public esKiosko:boolean = false;
 
   constructor(private formBuilder: FormBuilder, private contratoColaboradorPrd: ContratocolaboradorService,
     private router: ActivatedRoute, public catalogosPrd: CatalogosService,
     private areasPrd: SharedAreasService, private usuariosSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private sedesPrd: SharedSedesService, private jornadaPrd: JornadalaboralService, private politicasPrd: SharedPoliticasService,
-    private modalPrd: ModalService) { }
+    private modalPrd: ModalService,private routerPrd:Router) { }
 
   ngOnInit() {
-    
- // document.getElementById('fechantiguefa')
- //document.getElementById('fechaantiguedad')?.setAttribute("min", String(this.date));
 
- this.catalogosPrd.getAreasGeograficas(true).subscribe(datos => this.arregloareasgeograficas = datos.datos);
- this.catalogosPrd.getTipoContratos(true).subscribe(datos => this.arregloTipoContrato = datos.datos);
- this.catalogosPrd.getTipoRegimencontratacion(true).subscribe(datos => this.arregloRegimenContratacion = datos.datos);
- this.areasPrd.getAreasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloArea = datos.datos);
- this.empleadosPrd.getEmpleadosCompania(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-   this.arregloempleadosreporta = datos.datos
-   
- });
- this.sedesPrd.getsedeByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloSedes = datos.datos);
- this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
- this.jornadaPrd.jornadasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloJornadas = datos.datos);
- this.politicasPrd.getPoliticasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloPoliticas = datos.datos);
- 
+    this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
+
+    // document.getElementById('fechantiguefa')
+    //document.getElementById('fechaantiguedad')?.setAttribute("min", String(this.date));
+
+    this.catalogosPrd.getAreasGeograficas(true).subscribe(datos => this.arregloareasgeograficas = datos.datos);
+    this.catalogosPrd.getTipoContratos(true).subscribe(datos => this.arregloTipoContrato = datos.datos);
+    this.catalogosPrd.getTipoRegimencontratacion(true).subscribe(datos => this.arregloRegimenContratacion = datos.datos);
+    this.areasPrd.getAreasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloArea = datos.datos);
+    this.empleadosPrd.getEmpleadosCompania(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.arregloempleadosreporta = datos.datos
+
+    });
+    this.sedesPrd.getsedeByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloSedes = datos.datos);
+    this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
+    this.jornadaPrd.jornadasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloJornadas = datos.datos);
+    this.politicasPrd.getPoliticasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloPoliticas = datos.datos);
+
 
 
     this.router.params.subscribe(params => {
@@ -76,12 +80,12 @@ export class EmpleoComponent implements OnInit {
 
       this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
         this.empleado = datos.datos;
-        this.contratoDesc = this.arregloTipoContrato.find((item:any) => item.tipoContratoId === this.empleado.tipoContratoId.tipoContratoId)?.descripcion;
-        
+        this.contratoDesc = this.arregloTipoContrato.find((item: any) => item.tipoContratoId === this.empleado.tipoContratoId.tipoContratoId)?.descripcion;
+
         this.myForm = this.createForm(this.empleado);
         this.suscripciones();
         this.cambiaArea();
-        
+
       });;
     });
     this.myForm = this.createForm(this.empleado);
@@ -89,10 +93,10 @@ export class EmpleoComponent implements OnInit {
 
   }
 
-  public suscripciones(){
-    this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato:number) =>{
-      
-      
+  public suscripciones() {
+    this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato: number) => {
+
+
       if (idContrato != 1 && idContrato != 10)
         this.myForm.controls.fechaFin.setValidators([Validators.required]);
       else
@@ -120,10 +124,10 @@ export class EmpleoComponent implements OnInit {
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       puesto_id_reporta: obj.jefeInmediatoId?.personaId,
-      areaGeograficaId: [obj.areaGeograficaId?.areaGeograficaId,[Validators.required]],
+      areaGeograficaId: [obj.areaGeograficaId?.areaGeograficaId, [Validators.required]],
       esSindicalizado: [`${obj.esSindicalizado}`],
-      tipoContratoId: [obj.tipoContratoId?.tipoContratoId,[Validators.required]],
-      fechaAltaImss:obj.fechaAltaImss,
+      tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
+      fechaAltaImss: obj.fechaAltaImss,
       dias_vacaciones: [obj.diasVacaciones, Validators.required],
       tipoRegimenContratacionId: [obj.tipoRegimenContratacionId?.tipoRegimenContratacionId, [Validators.required]],
 
@@ -136,35 +140,35 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
-   
+
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
-      Object.values(this.myForm.controls).forEach(control =>{
+      Object.values(this.myForm.controls).forEach(control => {
         control.markAsTouched();
       });
       return;
     }
 
 
-    const titulo = this.empleado.esActivo? "¿Deseas actualizar los datos del usuario?":`
+    const titulo = this.empleado.esActivo ? "¿Deseas actualizar los datos del usuario?" : `
     Usuario con baja`;
 
-    const subtitulo = this.empleado.esActivo? "":`El empleado fue dado de baja previamente
+    const subtitulo = this.empleado.esActivo ? "" : `El empleado fue dado de baja previamente
     ¿Estás seguro de que deseas activar al empleado?
     Será considerado nuevamente en la generación de nóminas`;
 
 
- 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo,subtitulo).then(valor =>{
-      if(valor){
-        let obj = this.myForm.value;    
-        
-        let idTipoJornada = -1;    
-        for(let item of this.arregloJornadas){    
-          if(obj.jornadaId == item.jornadaId){             
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo, subtitulo).then(valor => {
+      if (valor) {
+        let obj = this.myForm.value;
+
+        let idTipoJornada = -1;
+        for (let item of this.arregloJornadas) {
+          if (obj.jornadaId == item.jornadaId) {
             idTipoJornada = item.tipoJornadaId;
             break;
-          }    
+          }
         }
         //******************************************* */
 
@@ -187,42 +191,42 @@ export class EmpleoComponent implements OnInit {
           const fecha1 = new Date(obj.fechaAltaImss).toUTCString().replace("GMT", "");
           obj.fechaAltaImss = `${new Date(fecha1).getTime()}`;
         }
-    
-    
-  
-        let objEnviar = {
-          ...this.empleado,          
-          areaId:{areaId:obj.areaId},
-          puestoId:{puestoId:obj.puestoId},
-          sedeId:{sedeId:obj.sedeId},
-          estadoId:{estadoId:obj.estadoId},
-          fechaAntiguedad:obj.fechaAntiguedad,
-          fechaInicio:obj.fechaInicio,
-          fechaFin:obj.fechaFin,
-          jornadaId:{jornadaId:obj.jornadaId,tipoJornadaId:{tipoJornadaId:idTipoJornada}},
-          tipoJornadaId:idTipoJornada,
-          politicaId:{politicaId:obj.politicaId},
-          jefeInmediatoId:{personaId:this.puestoIdReporta == 0 ? null : this.puestoIdReporta},
-          esSindicalizado:obj.esSindicalizado,
-          fechaAltaImss:obj.fechaAltaImss,
-          numEmpleado:obj.numEmpleado,
-          esActivo:true
-      }
 
-    
-      this.modalPrd.showMessageDialog(this.modalPrd.loading);
-      this.contratoColaboradorPrd.update(objEnviar).subscribe(datos =>{
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-          if(datos.resultado){
-            this.empleado = datos.datos;
-            this.myForm = this.createForm(this.empleado);           
-            this.editarcampos = false;
-          }
+
+
+        let objEnviar = {
+          ...this.empleado,
+          areaId: { areaId: obj.areaId },
+          puestoId: { puestoId: obj.puestoId },
+          sedeId: { sedeId: obj.sedeId },
+          estadoId: { estadoId: obj.estadoId },
+          fechaAntiguedad: obj.fechaAntiguedad,
+          fechaInicio: obj.fechaInicio,
+          fechaFin: obj.fechaFin,
+          jornadaId: { jornadaId: obj.jornadaId, tipoJornadaId: { tipoJornadaId: idTipoJornada } },
+          tipoJornadaId: idTipoJornada,
+          politicaId: { politicaId: obj.politicaId },
+          jefeInmediatoId: { personaId: this.puestoIdReporta == 0 ? null : this.puestoIdReporta },
+          esSindicalizado: obj.esSindicalizado,
+          fechaAltaImss: obj.fechaAltaImss,
+          numEmpleado: obj.numEmpleado,
+          esActivo: true
+        }
+
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.contratoColaboradorPrd.update(objEnviar).subscribe(datos => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+            if (datos.resultado) {
+              this.empleado = datos.datos;
+              this.myForm = this.createForm(this.empleado);
+              this.editarcampos = false;
+            }
+          });
         });
-      });
-      
-      
+
+
 
       }
     });
@@ -361,6 +365,6 @@ export class EmpleoComponent implements OnInit {
   }
 
 
-  
+
 
 }

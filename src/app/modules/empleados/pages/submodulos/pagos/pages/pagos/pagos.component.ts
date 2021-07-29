@@ -58,6 +58,8 @@ export class PagosComponent implements OnInit {
     filas: []
   };
 
+  public esKiosko:boolean = false;
+
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private ventana: VentanaemergenteService,
     private gruponominaPrd: GruponominasService, private usuariosSistemaPrd: UsuarioSistemaService,
@@ -67,6 +69,8 @@ export class PagosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
 
     this.myFormMetodoPago = this.formbuilder.group({});
     this.myFormCompensacion = this.createFormCompensacion({});
