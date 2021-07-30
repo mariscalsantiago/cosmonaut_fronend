@@ -138,10 +138,9 @@ export class VentanaDeduccionesComponent implements OnInit {
 
    public validarConceptoDeduccion(concepto:any){
      debugger;
-
-     console.log('myForm', this.myForm.value)
     this.submitEnviado = false;
     this.myForm.clearValidators();
+    this.myForm.updateValueAndValidity();
     if( concepto === '006' || concepto === '012' || concepto === '020' ||
         concepto === '021' || concepto === '022' || concepto === '002' ||
         concepto === '107' || concepto === '013'
