@@ -376,7 +376,7 @@ if(this.myForm.get(['']))
    }
 
    public validarNomMonto(tipomonto:any){
-    
+    debugger;
       if(tipomonto == 2){
         this.tipoValor = "Monto";
         this.porcentual = false;
@@ -392,6 +392,7 @@ if(this.myForm.get(['']))
    public validarNomMontoInfonavit(tipomonto:any){
     
       if(tipomonto == 1){
+        this.tipoValor = "Monto"
         this.porcentual = false;
         this.fijo = true;
         this.valorDescuento = false;
@@ -399,6 +400,7 @@ if(this.myForm.get(['']))
 
       }
       else if(tipomonto == 2){
+        this.tipoValor = "Porcentaje";
         this.porcentual = false;
         this.fijo = true;
         this.valorDescuento = false;
