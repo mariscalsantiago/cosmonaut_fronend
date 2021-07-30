@@ -35,13 +35,18 @@ export class DomicilioComponent implements OnInit {
 
 
     
+    
+   if(Boolean(this.tabsDatos[1])){
     if(this.tabsDatos[1][0].domicilioId !== undefined){
       this.myForm = this.createForm(this.tabsDatos[1][0]);
       this.buscar(undefined);
 
     }else{
       this.myForm = this.createForm({});
-    }
+    }   
+  }else{
+    this.myForm = this.createForm({});
+  }
 
   }
 
