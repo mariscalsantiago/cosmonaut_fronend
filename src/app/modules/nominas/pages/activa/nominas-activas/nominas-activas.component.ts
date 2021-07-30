@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
@@ -71,6 +72,9 @@ export class NominasActivasComponent implements OnInit {
       if(this.arreglo){
         for (let item of this.arreglo) {
           item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto);
+          item.nominaOrdinaria.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(item.nominaOrdinaria.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+          item.nominaOrdinaria.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.nominaOrdinaria.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd')
+
         }
       }
     });

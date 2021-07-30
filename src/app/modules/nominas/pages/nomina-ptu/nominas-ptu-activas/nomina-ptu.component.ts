@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
@@ -63,6 +64,8 @@ export class NominaPTUComponent implements OnInit {
         this.arreglo = datos.datos;
         for (let item of this.arreglo) {
           item["inicial"] = item.nominaPtu.total == undefined;
+          item.nominaPtu.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(item.nominaPtu.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+          item.nominaPtu.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.nominaPtu.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd')
         }
       });
     }

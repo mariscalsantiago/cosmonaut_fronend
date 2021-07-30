@@ -135,12 +135,14 @@ export class NominaordinariaService {
     return this.http.put(`${direcciones.dispersion}`, json);
   }
 
-  public statusProcesoDispersar(nominaPeriodoId: number, cantidadEmpleados: number): Observable<any> {
-    return this.http.get(`${direcciones.dispersion}/procesando/${nominaPeriodoId}/${cantidadEmpleados}`);
+  public statusProcesoDispersar(nominaPeriodoId: number, empleados: any): Observable<any> {
+    let json = JSON.stringify(empleados);
+    return this.http.post(`${direcciones.dispersion}/procesando/${nominaPeriodoId}`,json);
   }
 
-  public resumenDispersar(idPeriodo: number): Observable<any> {
-    return this.http.get(`${direcciones.dispersion}/resume/${idPeriodo}`);
+  public resumenDispersar(idPeriodo: number,arrayEmpleados:any): Observable<any> {
+    let json = JSON.stringify(arrayEmpleados);
+    return this.http.post(`${direcciones.dispersion}/resume/${idPeriodo}`,json);
   }
 
 
@@ -152,9 +154,9 @@ export class NominaordinariaService {
   }
 
 
-  public statusProcesoTimbrar(nominaPeriodoId: number, cantidadEmpleados: number,arreglo:any): Observable<any> {
+  public statusProcesoTimbrar(nominaPeriodoId: number, cantidadEmpleados: number, arreglo: any): Observable<any> {
     let json = JSON.stringify(arreglo);
-    return this.http.post(`${direcciones.timbrado}/procesando/${nominaPeriodoId}/${cantidadEmpleados}`,json);
+    return this.http.post(`${direcciones.timbrado}/procesando/${nominaPeriodoId}/${cantidadEmpleados}`, json);
   }
 
   public resumenTimbrado(idPeriodo: number): Observable<any> {
@@ -168,11 +170,16 @@ export class NominaordinariaService {
     return this.http.post(`${direcciones.nominaOrdinaria}/detalle/montos/imms/patronal`, json);
   }
 
-  public concluir(nominaPeriodoId:number,companiaid:number):Observable<any>{
+  public concluir(nominaPeriodoId: number, companiaid: number): Observable<any> {
     console.log(`${environment.rutaNomina}/concluir/${nominaPeriodoId}/${companiaid}`);
     return this.http.get(`${environment.rutaNomina}/concluir/${nominaPeriodoId}/${companiaid}`);
   }
 
+
+  public dispersarOtrosTiposMetodosPago(obj: any): Observable<any> {
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.dispersion}/modifica/estatus/empleado/dispersado`, json);
+  }
 
   public creandoObservable(obj: any): Subject<any> {
     let subject = new Subject();

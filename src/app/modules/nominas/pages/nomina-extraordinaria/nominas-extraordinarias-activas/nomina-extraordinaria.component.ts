@@ -6,6 +6,7 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-nomina-extraordinaria',
@@ -64,7 +65,9 @@ export class NominaExtraordinariaComponent implements OnInit {
       this.arreglo = datos.datos;
       if(this.arreglo){
         for (let item of this.arreglo) {
-          item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto);
+          item["inicial"] = !Boolean(item.nominaExtraordinaria.totalNeto);
+          item.nominaExtraordinaria.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(item.nominaExtraordinaria.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+          item.nominaExtraordinaria.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.nominaExtraordinaria.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd')
         }
       }
     })

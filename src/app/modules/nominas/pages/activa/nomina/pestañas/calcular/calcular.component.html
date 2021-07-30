@@ -19,7 +19,7 @@
         <button (click)="filtrar()" type="button" class="btn btn-primary button-outlet ">Filtrar</button>
     </div>
 
-    <div class="col-11 text-left">
+    <div *ngIf="!ocultarEliminar" class="col-11 text-left">
         <a (click)="recalcular()" *ngIf="esEliminar" style="color:#56dfd4;" class="dropdown-toggle mt-3">
             <i aria-hidden="true" class="fas fa-sync"></i>&nbsp;&nbsp;Recalcular</a>
     </div>
@@ -70,7 +70,7 @@
     <button (click)="continuar()" class="btn btn-primary button-fill">Continuar</button>
 </div>
 
-<div class="row">
+<div *ngIf="!ocultarEliminar" class="row">
     <div class="col">
         <a (click)="eliminar()" *ngIf="esEliminar" style="color:#56dfd4;text-decoration: underline;" class="dropdown-toggle mt-3">
             <i aria-hidden="true" style="background-color: #56dfd4 !important;" class="icon_eliminar "></i> Eliminar nómina</a>
