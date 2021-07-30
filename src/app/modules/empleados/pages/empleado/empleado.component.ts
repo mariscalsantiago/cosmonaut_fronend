@@ -167,7 +167,7 @@ export class EmpleadoComponent implements OnInit {
 
   public navegando(item: string) {
    if(!this.esKiosko){
-    this.router.navigate([item]); 
+    this.router.navigate([`/empleados/${this.idEmpleado}/${item}`]); 
    }else{
     this.router.navigate([`/kiosko/perfil/${this.idEmpleado}/${item}`]); 
    }

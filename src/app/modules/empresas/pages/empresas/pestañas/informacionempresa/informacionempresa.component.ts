@@ -136,6 +136,7 @@ export class InformacionempresaComponent implements OnInit {
     actividad = this.arregloactividad.find((value: any) => value['descripcion'] === actividad).actividadEconomicaId
     if (actividad) {
       this.catalogosPrd.getActividadEconomica2(this.idNivel2, actividad).subscribe(datos => this.arregloactividad2 = datos.datos);
+      this.myform.controls.actividadEconomicaId2.setValue("");
     }
   }
 
