@@ -388,7 +388,7 @@ export class VariabilidadComponent implements OnInit {
                   debugger;  
                   this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
                   let intervalo = interval(1000);
-                  intervalo.pipe(take(11)).toPromise;
+                  intervalo.pipe(take(11));
                   intervalo.subscribe((valor)=>{
                   this.configuracionPrd.setCantidad(valor*10);
                 
