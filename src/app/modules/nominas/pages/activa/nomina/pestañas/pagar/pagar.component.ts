@@ -62,6 +62,8 @@ export class PagarComponent implements OnInit {
 
   public idnominaPeriodo: number = -1;
 
+  public ocultarEliminar:boolean = false;
+
   constructor(private modalPrd: ModalService,
     private ventana: VentanaemergenteService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaLiquidacionPrd: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
@@ -80,6 +82,8 @@ export class PagarComponent implements OnInit {
         nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
       }
 
+
+      this.ocultarEliminar = this.nominaSeleccionada.nominaordinaria?.estadoActualNomina !== "Calculada";
       this.idnominaPeriodo = this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId;
       this.cargando = true;
       this.llave2 = "empleadoApago";
@@ -93,6 +97,8 @@ export class PagarComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
       }
+
+      this.ocultarEliminar = this.nominaSeleccionada.nominaExtraordinaria?.estadoActualNomina !== "Calculada";
       this.idnominaPeriodo = this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId;
       this.cargando = true;
       this.llave2 = "empleadoApagoAguinaldo";
@@ -106,6 +112,7 @@ export class PagarComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId
       }
+      this.ocultarEliminar = this.nominaSeleccionada.nominaLiquidacion?.estadoActualNomina !== "Calculada";
       this.idnominaPeriodo = this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId;
       this.cargando = true;
       this.llave2 = "empleadoApagoLiquidacion";
@@ -119,6 +126,7 @@ export class PagarComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaPtu?.nominaXperiodoId
       }
+      this.ocultarEliminar = this.nominaSeleccionada.nominaPtu?.estadoActualNomina !== "Calculada";
       this.idnominaPeriodo = this.nominaSeleccionada.nominaPtu?.nominaXperiodoId;
       this.cargando = true;
       this.llave2 = "empleadoApagoPtu";
@@ -206,63 +214,86 @@ export class PagarComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
       if (valor) {
 
+        if (this.continuarTitulo.includes("Dispersar")) {
+          this.realizandoDispersion();
+        } else {
+          let objEnviar = [];
+          for (let item of this.arreglotablaconpago.filas) {
+            if (item.seleccionado) {
 
-
-
-
-
-
-        
-        let obj = []
-        for (let item of this.arreglo) {
-          if (item.seleccionado) {
-            obj.push({
-              nominaPeriodoId: this.idnominaPeriodo,
-              personaId: item[this.llave2].personaId,
-              fechaContrato: item[this.llave2].fechaContratoNogrupo,
-              centroClienteId: this.usuariosSistemaPrd.getIdEmpresa(),
-              usuarioId: this.usuariosSistemaPrd.getUsuario().usuarioId,
-              servicio: "dispersion_st"
-            });
-            
-          }
-        }
-
-
-
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.nominaOrdinariaPrd.dispersar(obj).subscribe((valor) => {
-
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          if (valor.datos.exito) {
-            this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento, el proceso se tardara varios minutos.");
-            let suscribe = timer(0, 1500).pipe(concatMap(() =>
-              this.nominaOrdinariaPrd
-                .statusProcesoDispersar(this.idnominaPeriodo, obj.length)))
-              .subscribe(datos => {
-                this.configuracionesPrd.setCantidad(datos.datos);
-                if (datos.datos >= 100) {
-                  suscribe.unsubscribe();
-                  setTimeout(() => {
-
-                    this.configuracionesPrd.setCantidad(0);
-                    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-                    this.ventana.showVentana(this.ventana.ndispersion, { datos: this.idnominaPeriodo }).then(valor => {
-                      this.salida.emit({ type: "dispersar" });
-                      this.ngOnInit();
-                    });
-                  }, 2000);
+              objEnviar.push({
+                nominaXperiodoId: {
+                  nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId
+                },
+                personaId: {
+                  personaId: item[this.llave2].personaId
                 }
               });
+
+            }
           }
-        });
 
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-
-
+          this.nominaOrdinariaPrd.dispersarOtrosTiposMetodosPago(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.ngOnInit();
+              }
+            });
+          });
+        }
 
       }
     });
+  }
+
+
+  public realizandoDispersion() {
+    let obj = []
+    let arrayPersonas:any = [];
+    for (let item of this.arreglo) {
+      if (item.seleccionado) {
+        obj.push({
+          nominaPeriodoId: this.idnominaPeriodo,
+          personaId: item[this.llave2].personaId,
+          fechaContrato: item[this.llave2].fechaContratoNogrupo,
+          centroClienteId: this.usuariosSistemaPrd.getIdEmpresa(),
+          usuarioId: this.usuariosSistemaPrd.getUsuario().usuarioId,
+          servicio: "dispersion_st"
+        });
+
+        arrayPersonas.push(item[this.llave2].personaId);
+
+      }
+    }
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    this.nominaOrdinariaPrd.dispersar(obj).subscribe((valor) => {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      if (valor.datos.exito) {
+        this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento, el proceso se tardara varios minutos.");
+        let suscribe = timer(0, 1500).pipe(concatMap(() =>
+          this.nominaOrdinariaPrd
+            .statusProcesoDispersar(this.idnominaPeriodo,arrayPersonas )))
+          .subscribe(datos => {
+            this.configuracionesPrd.setCantidad(datos.datos);
+            if (datos.datos >= 100) {
+              suscribe.unsubscribe();
+              setTimeout(() => {
+
+                this.configuracionesPrd.setCantidad(0);
+                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                this.ventana.showVentana(this.ventana.ndispersion, {datos:{ nominaId: this.idnominaPeriodo,empleados:arrayPersonas }}).then(valor => {
+                  this.salida.emit({ type: "dispersar" });
+                  this.ngOnInit();
+                });
+              }, 2000);
+            }
+          });
+      }
+    });
+
   }
 
 

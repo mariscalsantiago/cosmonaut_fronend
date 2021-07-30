@@ -83,7 +83,7 @@
     <button (click)="dispersar()" class="btn btn-primary button-fill">{{continuarTitulo}}</button>
 </div>
 
-<div class="row">
+<div *ngIf="!ocultarEliminar"  class="row">
     <div class="col">
         <a (click)="eliminar()" *ngIf="esEliminar" style="color:#56dfd4;text-decoration: underline;" class="dropdown-toggle mt-3">
             <i aria-hidden="true" style="background-color: #56dfd4 !important;" class="icon_eliminar "></i> Eliminar nómina</a>

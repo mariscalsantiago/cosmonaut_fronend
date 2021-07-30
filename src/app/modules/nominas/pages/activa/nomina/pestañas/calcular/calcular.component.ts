@@ -34,6 +34,8 @@ export class CalcularComponent implements OnInit {
   public llave: string = "";
   public llave2: string = "";
 
+  public ocultarEliminar:boolean = false;
+
   public datosDetalleEmpleadoNomina: any = [];
 
   public cargandoIcon: boolean = false;
@@ -73,6 +75,8 @@ export class CalcularComponent implements OnInit {
         nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
       }
 
+      this.ocultarEliminar = this.nominaSeleccionada.nominaOrdinaria?.estadoActualNomina !== "Calculada";
+
       this.nominaOrdinariaPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
         this.cargando = false;
         this.arreglo = datos.datos;
@@ -90,6 +94,7 @@ export class CalcularComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
       }
+      this.ocultarEliminar = this.nominaSeleccionada.nominaExtraordinaria?.estadoActualNomina !== "Calculada";
 
       this.nominaAguinaldoPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
@@ -108,6 +113,7 @@ export class CalcularComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId
       }
+      this.ocultarEliminar = this.nominaSeleccionada.nominaLiquidacion?.estadoActualNomina !== "Calculada";
 
       this.nominaFiniquito.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
@@ -125,6 +131,7 @@ export class CalcularComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaPtu?.nominaXperiodoId
       }
+      this.ocultarEliminar = this.nominaSeleccionada.nominaPtu?.estadoActualNomina !== "Calculada";
 
       this.nominaPtuPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 

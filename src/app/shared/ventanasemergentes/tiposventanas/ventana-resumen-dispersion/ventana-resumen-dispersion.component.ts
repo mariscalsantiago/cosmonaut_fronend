@@ -17,9 +17,9 @@ export class VentanaResumenDispersionComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.nominasOrdinariasPrd.resumenDispersar(this.datos).subscribe(datos =>{
+    this.nominasOrdinariasPrd.resumenDispersar(this.datos.nominaId,this.datos.empleados).subscribe(datos =>{
         if(datos.datos !== undefined){
-          this.recibidos = datos.datos[0];
+          this.recibidos = datos.datos;
         }
     });
   }
