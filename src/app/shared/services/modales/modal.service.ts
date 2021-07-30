@@ -14,7 +14,6 @@ export class ModalService {
   public question: string = "question";
   public dispersar:string = "dispersar";
   public variabilidad : string = "variabilidad";
-  public recalcular : string = "recalcular";
 
   public subject?: Subject<any>;;
 
