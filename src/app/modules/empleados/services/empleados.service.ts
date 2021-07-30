@@ -72,6 +72,13 @@ export class EmpleadosService {
     return this.http.get(`${direcciones.contratoColaborador}/obtener/empresa/id/${idCompania}`);
 
   }
+
+  public getEmpleadosAguinaldoByEmpresa(idEmpresa:number):Observable<any>{
+    return this.http.get(`${direcciones.contratoColaborador}/lista/empleado/aguinaldo/${idEmpresa}`);
+  }
+  public getEmpleadosFiniquitoByEmpresa(idEmpresa:any):Observable<any>{
+    return this.http.get(`${direcciones.contratoColaborador}/lista/empleado/finiquito/${idEmpresa}`);
+  }
   public getEmpleadosBaja(id: number,status: boolean): Observable<any> {
 
     return this.http.get(`${direcciones.contratoColaborador}/lista/empleado/baja/${id}/${status}`);

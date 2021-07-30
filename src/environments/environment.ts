@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  rutaEmpresa:'/empresas',
+  rutaEmpresa:'http://d1c639a52292.ngrok.io',
   rutaCatalogos:'/catalogos',
   rutaNomina:'/nomina',
   //rutaNomina:'http://26261203b1a2.ngrok.io',
