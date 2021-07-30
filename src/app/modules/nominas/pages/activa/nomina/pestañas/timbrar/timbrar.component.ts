@@ -310,6 +310,7 @@ export class TimbrarComponent implements OnInit {
                     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                     this.ventana.showVentana(this.ventana.ntimbrado, { datos: this.nominaSeleccionada[this.llave2].nominaXperiodoId }).then(() => {
                       this.salida.emit({ type: "timbrar" });
+                      this.ngOnInit();
                     });
                     }, 2000);
                   }
