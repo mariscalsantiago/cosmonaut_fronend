@@ -15,9 +15,10 @@
 
         <div class="input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Nombre de percepción *</label>
-            <select #tipoPercepcion (focusout)="validarPercepcion(tipoPercepcion.value)" formControlName="nomPercepcion" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.nomPercepcion.errors && submitEnviado}">
+            <select #tipoPercepcion (focusout)="validarPercepcion(tipoPercepcion.value)" formControlName="nomPercepcion" type="text" class="form-control" 
+            [ngClass]="{'is-invalid':myForm.controls.nomPercepcion.errors && submitEnviado}">
             <option value=""></option>
-            <option *ngFor="let item of nombrePercepcion"  [value]="item.tipoPercepcionId.tipoPercepcionId">{{item.nombre}}</option>
+            <option *ngFor="let item of nombrePercepcion"  [value]="item.tipoPercepcion">{{item.nombre}}</option>
         </select>
             <div class="invalid-feedback">
                 Campo requerido

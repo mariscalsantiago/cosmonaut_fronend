@@ -29,6 +29,8 @@ export class VentanaPercepcionesComponent implements OnInit {
   public conceptoPercepcionId: number = 0;
   public objEnviar: any = [];
   public politica: number = 0;
+  public nombrePer: string = "";
+  public nomPercepcion : number = 0;
 
   @Input() public datos:any;
 
@@ -60,8 +62,13 @@ export class VentanaPercepcionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
 
     }else{
-      
+      debugger;
       this.esInsert = false;
+      this.datos = {
+        ...this.datos,
+        tipoPercepcion : this.datos.tipoPercepcionId?.tipoPercepcionId + "-" + this.datos.conceptoPercepcionId?.conceptoPercepcionId
+      };
+
       this.myForm = this.createForm(this.datos);
       let tipo = (this.datos.conceptoPercepcionId?.tipoPeriodicidad == 'P') ? '1' : '2'
       this.validarTipoPercepcion(tipo);
@@ -86,7 +93,7 @@ export class VentanaPercepcionesComponent implements OnInit {
       montoPorPeriodo: [obj.montoPorPeriodo],
       fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd'), Validators.required],
       montoPercepcion: [obj.montoTotal],
-      nomPercepcion: [obj.tipoPercepcionId?.tipoPercepcionId, Validators.required],
+      nomPercepcion: [obj.tipoPercepcion, Validators.required],
       referencia:[obj.referencia],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }, Validators.required]
 
@@ -99,9 +106,12 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarPercepcion(tipo:any){
-    
+    debugger;
+    let split = tipo.split("-");
+    tipo = split[1];
+
     for(let item of this.nombrePercepcion){
-      if(item.tipoPercepcionId?.tipoPercepcionId == tipo){
+      if(item.conceptoPercepcionId == tipo){
         this.conceptoPercepcionId = item.conceptoPercepcionId;
       }
     }
@@ -110,8 +120,9 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo:any){
-
+    debugger;
     this.myForm.clearValidators();
+    //this.myForm.updateValueAndValidity();
     if(tipo != ""){
       if(tipo == 1){
         this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
@@ -120,7 +131,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
         // this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
 
-        let nombrePer = "P";
+        this.nombrePer = "P";
         this.periodica = true;
         this.estandar= false;
         this.myForm.controls.baseCalculoId.disable();
@@ -128,18 +139,26 @@ export class VentanaPercepcionesComponent implements OnInit {
         
         if(this.politica !== undefined){
           
-        this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
+        this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos =>{
+          for(let item of datos.datos){
+            item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+
+        }
           this.nombrePercepcion = datos.datos;
         });
         }else{
-          this.bancosPrd.getObtenerPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
+          this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos =>{
+            for(let item of datos.datos){
+              item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+  
+          }
             this.nombrePercepcion = datos.datos;
           });
         }
       }else{
         this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
         this.myForm.controls.porcentaje.setValidators([Validators.required]);
-        let nombrePer = "E";
+        this.nombrePer = "E";
         this.myForm.controls.baseCalculoId.enable();
         if(!this.esInsert){
           let tipoMonto = this.datos.baseCalculoId?.baseCalculoId;
@@ -151,11 +170,21 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.periodica = false;
         this.estandar= true;
         if(this.politica !== undefined){
-        this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
+        this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos =>{
+          for(let item of datos.datos){
+            item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+
+        }
+
           this.nombrePercepcion = datos.datos;
+          
         });
         }else{
-          this.bancosPrd.getObtenerPeriodicidad(this.empresa, nombrePer).subscribe(datos =>{
+          this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos =>{
+            for(let item of datos.datos){
+                item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+
+            }
             this.nombrePercepcion = datos.datos;
           });
 
@@ -222,8 +251,17 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
       
         if(valor){
-          
+          debugger;
           let  obj = this.myForm.getRawValue();
+
+          let split = obj.nomPercepcion.split("-");
+          obj.nomPercepcion = split[0];
+          if(obj.nomPercepcion !== undefined){
+            this.nomPercepcion =  obj.nomPercepcion;
+            if(this.conceptoPercepcionId == 0){
+              this.conceptoPercepcionId = split[1];
+            }
+          }  
 
           let fechar = "";
           if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
@@ -240,7 +278,7 @@ export class VentanaPercepcionesComponent implements OnInit {
             if(this.politica !== undefined){
             this.objEnviar = {
             tipoPercepcionId: {
-              tipoPercepcionId: obj.nomPercepcion
+              tipoPercepcionId: this.nomPercepcion
             },
             conceptoPercepcionId: {
               conceptoPercepcionId: this.conceptoPercepcionId
@@ -264,10 +302,10 @@ export class VentanaPercepcionesComponent implements OnInit {
           
           };
         }else{
-
+          debugger;
           this.objEnviar = {
             tipoPercepcionId: {
-              tipoPercepcionId: obj.nomPercepcion
+              tipoPercepcionId: this.nomPercepcion
             },
             conceptoPercepcionId: {
               conceptoPercepcionId: this.conceptoPercepcionId
@@ -293,11 +331,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         }
           
         }else{
-          for(let item of this.nombrePercepcion){
-            if(item.tipoPercepcionId?.tipoPercepcionId == obj.nomPercepcion){
-              this.conceptoPercepcionId = item.conceptoPercepcionId;
-            }
-          }
+          debugger;
 
           if(this.politica !== undefined){
           this.objEnviar = {
@@ -331,7 +365,7 @@ export class VentanaPercepcionesComponent implements OnInit {
           this.objEnviar = {
             configuraPercepcionId: this.datos.configuraPercepcionId,
             tipoPercepcionId: {
-              tipoPercepcionId: obj.nomPercepcion
+              tipoPercepcionId: this.nomPercepcion
             },
             conceptoPercepcionId: {
               conceptoPercepcionId: this.conceptoPercepcionId

@@ -103,7 +103,7 @@ export class PagosComponent implements OnInit {
         this.cuentaBanco = datos.datos;
 
       });
-
+      debugger;
 
 
       this.cargandoPer = true;
@@ -132,7 +132,7 @@ export class PagosComponent implements OnInit {
       new tabla("fechaInicioPer", 'Fecha inicio percepción'),
       new tabla("tipoMonto", "Tipo de monto"),
       new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
-      new tabla("esActivo", "Estatus de percepción")
+      new tabla("activo", "Estatus de percepción")
     ]
 
 
@@ -153,10 +153,10 @@ export class PagosComponent implements OnInit {
         item.tipoMonto = (item.baseCalculoId?.baseCalculoId == '1') ? 'Porcentual' : 'Fijo';
 
         if (item.esActivo) {
-          item.esActivo = true;
+          item.activo = 'Activo';
         }
         if (!item.esActivo) {
-          item.esActivo = false;
+          item.activo = 'Inactivo';
         }
       }
     }
@@ -178,7 +178,7 @@ export class PagosComponent implements OnInit {
       new tabla("fechaInicioDesctoDed", this.lineBreak+'Fecha inicio de'+this.lineBreak+' descuento'),
       //new tabla("", "Tipo de descuento"),
       new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
-      new tabla("esActivo", "Estatus de deducción")
+      new tabla("activo", "Estatus de deducción")
     ]
 
 
@@ -198,10 +198,10 @@ export class PagosComponent implements OnInit {
         item.nombre = item.conceptoDeduccionId?.nombre;
 
         if (item.esActivo) {
-          item.esActivo = true
+          item.activo = 'Activo';
         }
         if (!item.esActivo) {
-          item.esActivo = false
+          item.activo = 'Inactivo';
         }
       }
     }
@@ -297,9 +297,11 @@ export class PagosComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     this.bancosPrd.savePercepcionEmpleado(obj).subscribe(datos => {
+      debugger;
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        debugger;
         this.crearTablaPercepcion(datos);
       });
 
