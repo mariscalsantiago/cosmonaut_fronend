@@ -473,8 +473,8 @@ export class PagosComponent implements OnInit {
                 }
                 this.contratoColaboradorPrd.update(objEnviar).subscribe((respContrato) => {
                   this.empleado = respContrato.datos;
-
                   this.cancelar();
+                  this.ngOnInit();
                 });
 
               }
@@ -618,6 +618,7 @@ export class PagosComponent implements OnInit {
             if (datos.resultado) {
               this.empleado = datos.datos;
               this.cancelar();
+              this.ngOnInit();
             }
           });
         });
