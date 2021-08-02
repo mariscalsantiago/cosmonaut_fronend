@@ -150,7 +150,8 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
           cuentaBancoId: obj.clabe,
           todos: obj.seleccionarempleados == "true",
           monedaId: obj.monedaId,
-          empleados: temp
+          empleados: temp,
+          tipoNominaId:obj.tipoNominaId
         };
         this.guardarNomina();
       }

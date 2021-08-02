@@ -140,7 +140,8 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
           todos: obj.todos == "true",
           monedaId: obj.monedaId,
           empleados: temp,
-          fecXReportes:obj.fecXReportes
+          fecXReportes:obj.fecXReportes,
+          tipoNominaId:3
         };
 
         this.guardarNomina();
