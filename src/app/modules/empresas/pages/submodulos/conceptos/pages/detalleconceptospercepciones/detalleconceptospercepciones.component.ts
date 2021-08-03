@@ -25,6 +25,8 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public mostrartipoConcepto: boolean = true;
   public tipoPercepcion: string = "";
   public mostrartipoPercepcion: string = "E";
+  public mensajePercepcion: boolean = false;
+  public noMensajePercepcion: boolean = true; 
 
 
   public peticion: any = [];
@@ -104,6 +106,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       integraImss: obj.integraImss == undefined?false:obj.integraImss,
       cuentaContable: obj.cuentaContable,
       tipoConcepto: [obj.tipoConcepto],
+      tipoPercepcionMensaje:["Sin registros"],
       periodicidadTipo: [this.mostrartipoPercepcion],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
       conceptoPercepcionId: [obj.conceptoPercepcionId],
@@ -114,11 +117,21 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
-    this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>this.arregloTipoPercepcion = datos.datos);
-    
+    debugger;
+    this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
+      this.arregloTipoPercepcion = datos.datos 
+    if(this.arregloTipoPercepcion == undefined){
+      this.mensajePercepcion = true;
+      this.noMensajePercepcion = false;
+    }else{
+      this.mensajePercepcion = false;
+      this.noMensajePercepcion = true;
+    }
     this.mostrarAmbas(tipo);
+  });
   
   }
+  
 
   public mostrarAmbas(tipo:any){
     

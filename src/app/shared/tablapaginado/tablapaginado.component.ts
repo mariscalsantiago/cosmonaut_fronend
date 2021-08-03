@@ -53,6 +53,7 @@ export class TablapaginadoComponent implements OnInit {
   @Output() public salida = new EventEmitter();
   @Input() public nominacalculo:boolean = false;
   @Input() public nominatimbrar:boolean = false;
+  @Input() public imss:boolean = false;
 
   @Input() public esnomina:boolean = false;
   @Input() public patronal:any = {datos:[]};
@@ -418,6 +419,11 @@ export class TablapaginadoComponent implements OnInit {
   public verRegistroPatronal(item:any){
     console.log(item);
     console.log("Se va a ver el patronal",this.verpatronal);
+    this.verpatronal = !this.verpatronal;
+    this.salida.emit({type:'patronal',datos:item});
+  }
+
+  public iniciarDescarga(item:any){
     this.verpatronal = !this.verpatronal;
     this.salida.emit({type:'patronal',datos:item});
   }

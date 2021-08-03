@@ -1,22 +1,21 @@
-<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
-    <input type="hidden">
+
     <div class="form-group row margen">
 
-        <div class="input-group-sm mb-3 col-4">
-            <label>Empresa *</label>
-            <input formControlName="empresa" type="text" class="form-control disabled bg-light">
+        <div class="  input-group-sm mb-3 col-8">
+            <label >Empresa *</label>
+            <input [(ngModel)]="razonSocial" type="text" class="form-control disabled bg-light">
         </div>
-        <div class="input-group-sm mb-3 col-8"></div>
+        <div class="input-group-sm mb-3 col-4"></div>
         <div class="input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Proveedor de disperscion *</label>
-            <select type="text" class="form-control" formControlName="dipersion">
+            <select type="text" class="form-control" [(ngModel)]="idDispersion">
                 <option value="0"></option> 
                 <option *ngFor="let item of arregloDispersion"  [value]="item.proveedorDispersionId">{{item.descripcion}}</option>
             </select>
         </div>
         <div class=" input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
             <label>Proveedor de timbrado *</label>
-            <select type="text" class="form-control" formControlName="timbrado">
+            <select type="text" class="form-control" [(ngModel)]="idTimbrado">
                 <option value="0"></option>
                 <option *ngFor="let item of arregloTimbrado"  [value]="item.proveedorTimbradoId">{{item.descripcion}}</option>
             </select>
@@ -29,7 +28,6 @@
 
         <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-        <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+        <button type="button" (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
 
     </div>
-</form>

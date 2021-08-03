@@ -28,6 +28,7 @@ export class IDSEComponent implements OnInit {
   public activarMultiseleccion: boolean = false;
   public arregloIDSE : any = [];
   public movimientoImssId : number = 0;
+  public imss : boolean = false;
 
   public arreglotabla: any = {
     columnas: [],
@@ -51,6 +52,7 @@ export class IDSEComponent implements OnInit {
     public numeroEmpleado: string = "";
     public fechaMovimiento: Date =  new Date('0000-00-00');
     public movimiento: number = 0;
+    public esActivo : number = 0;
 
 
 
@@ -295,7 +297,7 @@ export class IDSEComponent implements OnInit {
           new tabla("esActivo", "Estatus de empleado"),
           new tabla("salario_diario", "Salario diario"),
           new tabla("sbc", "SBC"),
-          new tabla("salario_diario_integrado", "Salario diario integrado"),
+          //new tabla("salario_diario_integrado", "Salario diario integrado"),
 
           
         ];

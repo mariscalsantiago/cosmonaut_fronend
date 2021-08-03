@@ -14,7 +14,7 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
   public esInsert: boolean = false;
   public nomDocumento: boolean = false;
   public arregloProveedores: any = [];
-  public empresa: number = 0;
+  public razonSocial : string ="";
   public empleado: number = 0;
   public objEnviar: any = [];
   public arregloDispersion : any = [];
@@ -38,7 +38,18 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
 
         this.admintimbradoDispersion.getCatProveTimbrado(true).subscribe(datos => this.arregloTimbrado  = datos.datos);
     
-        this.myForm = this.createForm(this.arregloProveedores);
+        //this.myForm = this.createForm(this.arregloProveedores);
+        this.razonSocial = this.arregloProveedores.centrocClienteId?.nombre
+        if(this.arregloProveedores.proveedorDispersionId == undefined ){
+          this.idDispersion =0;
+        }else{
+          this.idDispersion = this.arregloProveedores.proveedorDispersionId?.proveedorDispersionId;
+        }
+        if(this.arregloProveedores.proveedorTimbradoId == undefined ){
+          this.idTimbrado =0;
+        }else{
+          this.idTimbrado = this.arregloProveedores.proveedorTimbradoId?.proveedorTimbradoId;
+        }
       
     });
 
@@ -46,29 +57,26 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
   }
 
 
-  public createForm(obj: any) {
+  /* public createForm(obj: any) {
     debugger;
     if(obj.proveedorDispersionId == undefined ){
       this.idDispersion =0;
     }else{
-      this.idDispersion = obj.proveedorDispersionId.proveedorDispersionId;
+      this.idDispersion = obj.proveedorDispersionId?.proveedorDispersionId;
     }
     if(obj.proveedorTimbradoId == undefined ){
       this.idTimbrado =0;
     }else{
-      this.idTimbrado = obj.proveedorTimbradoId.proveedorTimbradoId;
+      this.idTimbrado = obj.proveedorTimbradoId?.proveedorTimbradoId;
     }
-    
-
     return this.formBuild.group({
-
-      empresa: [obj.centrocClienteId.nombre],
+      razonSocial: [obj.centrocClienteId?.nombre],
       dipersion: [this.idDispersion],
       timbrado:[this.idTimbrado]
 
     });
 
-  }
+  } */
 
 
 
@@ -79,30 +87,30 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
 
 
   public enviarPeticion(){
-    
-    if (this.myForm.invalid) {
+    debugger;
+/*     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach(control => {
         control.markAsTouched();
       });
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
 
-    }
+    } */
 
     let mensaje =  "¿Deseas actualizar los proveedores?";
-    //let mensaje = this.datos.esInsert? "¿Deseas guardar el documento" : "¿Deseas actualizar el documento?";/
-    
+        
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
       
         if(valor){
           
           
-          let  obj = this.myForm.getRawValue();
+         // let  obj = this.myForm.getRawValue();
+            debugger;
             this.objEnviar = {
               clienteXproveedorId: this.arregloProveedores.centrocClienteXproveedorId,
               clienteId: this.arregloProveedores.centrocClienteId.centrocClienteId,
-              dispersionId: obj.dipersion,
-              timbradoId: obj.timbrado
+              dispersionId: this.idDispersion,
+              timbradoId: this.idTimbrado
             };
                   
           
