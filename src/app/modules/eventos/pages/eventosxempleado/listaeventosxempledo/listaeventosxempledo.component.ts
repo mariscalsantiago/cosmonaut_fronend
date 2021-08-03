@@ -161,7 +161,7 @@ export class ListaeventosxempledoComponent implements OnInit {
 
   public filtrar(){
     this.objFiltro = [];
-    this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => {console.log(datos.datos);this.arregloIncidenciaTipo = datos.datos;});
+    this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => {this.arregloIncidenciaTipo = datos.datos;});
 
     this.cargando = true;
     if(this.nombre != ''){

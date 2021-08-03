@@ -393,7 +393,7 @@ export class TimbrarComponent implements OnInit {
       });
     }else{
       this.reportesPrd.getReporteNominasTabCalculadosEspeciales(objEnviar).subscribe(datos => {
-        console.log("Estos son los datos",datos);
+        
         this.cargandoIcon = false;
         this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${this.nominaSeleccionada[this.llave2].nombreNomina}_${this.nominaSeleccionada[this.llave2].periodo}`, "xlsx");
       });

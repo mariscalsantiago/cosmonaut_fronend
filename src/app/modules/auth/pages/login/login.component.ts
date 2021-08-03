@@ -170,7 +170,7 @@ export class LoginComponent implements OnInit {
           usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId);
           usuario.esRecursosHumanos = false;
           usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : objRecibido.centroCostosCentrocClienteId.centrocClienteId;
-          console.log(usuario);
+          
           this.usuarioSistemaPrd.setUsuario(usuario);
           this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
             let obj = datos.datos;

@@ -40,7 +40,7 @@ export class SedeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Esta es la sede",this.sede);
+    
     if (this.sede != undefined) {
 
       this.catalogosPrd.getAsentamientoByCodigoPostal(this.sede.codigoPostal).subscribe(datos => {
@@ -69,7 +69,7 @@ export class SedeComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    console.log("El objeto",obj);
+    
     return this.formBuilder.group({
       sede: [obj.sedeNombre, [Validators.required]],
       codigo: [obj.codigoPostal, [Validators.required, Validators.pattern('[0-9]+')]],

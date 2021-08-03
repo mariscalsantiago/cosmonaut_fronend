@@ -142,7 +142,7 @@ export class PagarComponent implements OnInit {
   public crearTabla(datos: any, llave: string) {
     this.arreglo = datos.datos;
     let arregloTemp = undefined;
-    console.log("DOSIF", this.arreglo);
+    
     let columnas: Array<tabla> = [
       new tabla("nombrecompleto", "Nombre"),
       new tabla("rfc", "RFC", false, false, true),

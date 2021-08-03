@@ -262,7 +262,7 @@ export class IDSEComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    console.log("Esto es objteto",obj);
+    
 
     switch (obj.type) {
       case "eliminar":

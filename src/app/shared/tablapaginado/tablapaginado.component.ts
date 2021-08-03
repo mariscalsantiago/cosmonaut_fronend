@@ -83,7 +83,7 @@ export class TablapaginadoComponent implements OnInit {
 
 
 
-      console.log(this.arreglo);
+      
 
   }
 
@@ -417,8 +417,8 @@ export class TablapaginadoComponent implements OnInit {
   }
 
   public verRegistroPatronal(item:any){
-    console.log(item);
-    console.log("Se va a ver el patronal",this.verpatronal);
+    
+    
     this.verpatronal = !this.verpatronal;
     this.salida.emit({type:'patronal',datos:item});
   }

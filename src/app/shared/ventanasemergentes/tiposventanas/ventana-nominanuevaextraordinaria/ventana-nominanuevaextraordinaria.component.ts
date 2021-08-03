@@ -162,7 +162,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   public guardarNomina() {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    console.log("Si se genera",this.objEnviar);
+    
     this.nominaAguinaldoPrd.crearNomina(this.objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{

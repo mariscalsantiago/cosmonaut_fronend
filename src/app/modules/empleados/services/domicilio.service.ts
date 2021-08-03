@@ -50,6 +50,7 @@ export class DomicilioService {
 
 
   public getDomicilioPorEmpleado(idEmpleado:number):Observable<any>{
+    
     return this.http.get(`${direcciones.domicilio}/obtener/id/persona/${idEmpleado}`);
   }
   public getDomicilioPorEmpleadoNativo(idEmpleado:number):Observable<any>{
