@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild , ElementRef} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImssService } from 'src/app/modules/empresas/services/imss/imss.service';
@@ -13,6 +13,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 })
 export class DatosimssComponent implements OnInit {
 
+  @ViewChild("nombre") nombre!: ElementRef;
   @Output() enviado = new EventEmitter();
   @Input() datos: any;
   public show = false;
@@ -25,6 +26,7 @@ export class DatosimssComponent implements OnInit {
   public objenviar: any = [];
   public insertarMof: boolean = false;
   public resultado: boolean = false;
+  public imss : boolean = false; 
 
   constructor(private formBuilder: FormBuilder, private imssPrd: ImssService, private routerPrd: Router,
     private modalPrd: ModalService) { }
@@ -42,6 +44,9 @@ export class DatosimssComponent implements OnInit {
   public createForm(obj: any) {
 
     return this.formBuilder.group({
+      cerIMSS: [{ value: obj.cerIMSS, disabled: true }],
+      usuarioCerIMSS: [obj.usuarioCerIMSS],
+      contraseñaCerIMSS: [obj.contraseñaCerIMSS],
       registroPatronal: [obj.registroPatronal, [Validators.required, Validators.pattern(/^[A-Za-z,ñ,Ñ,&]/)]],
       emPrimaRiesgo: [obj.emPrimaRiesgo, [Validators.required, Validators.pattern(/[0-9]{1}(\.[0-9])/)]],
       emClaveDelegacionalImss: [obj.emClaveDelegacionalImss, [Validators.required, Validators.pattern(/^\d{2}$/)]],
@@ -67,6 +72,43 @@ export class DatosimssComponent implements OnInit {
   public cancelar() {
     this.routerPrd.navigate(['/listaempresas']);
 
+  }
+
+  public abrirCerIMSS() {
+
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".cer";
+
+    input.click();
+
+    input.onchange = () => {
+      let imagenInput: any = input.files;
+      //this.inputcer.nativeElement.value = imagenInput![0].name;
+      for (let item in Object.getOwnPropertyNames(imagenInput)) {
+
+        let archivo: File = imagenInput[item];
+
+        archivo.arrayBuffer().then(datos => {
+          this.myForm.controls.cerIMSS.setValue(this.arrayBufferToBase64(datos));
+          //this.myForm.controls.contrasenia.enable();
+
+        });
+
+
+      }
+    }
+    
+  }
+
+  public arrayBufferToBase64(buffer: any) {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 
 
