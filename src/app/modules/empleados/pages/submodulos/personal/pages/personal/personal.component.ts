@@ -62,6 +62,7 @@ export class PersonalComponent implements OnInit {
         this.parsearInformacion();
         this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
           this.domicilioArreglo = datosnativo?.datos == undefined ?undefined:datosnativo?.datos[0];
+          console.log("getDomicilioPorEmpleadoNativo ",this.domicilioArreglo);
         });
 
         this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datosdomicilio => {
@@ -69,7 +70,7 @@ export class PersonalComponent implements OnInit {
           
           if (datosdomicilio.datos !== undefined) {
 
-            this.domicilioArreglo = datosdomicilio.datos[0];
+            console.log("getDomicilioPorEmpleado",this.domicilioArreglo);
             for (let llave in datosdomicilio.datos[0]) {
               this.empleado[llave] = datosdomicilio.datos[0][llave];
 
@@ -363,6 +364,10 @@ export class PersonalComponent implements OnInit {
         nss: obj.nss,
         personaId:this.idEmpleado
       }
+
+      if(!obj.contactoEmergenciaParentesco){
+        delete objenviar.parentescoId;
+      }
   
 
 
@@ -390,6 +395,7 @@ export class PersonalComponent implements OnInit {
 
 
     let obj = this.myForm.value;
+    console.log("My form domicilio",obj);
 
     let objenviar: any =
     {

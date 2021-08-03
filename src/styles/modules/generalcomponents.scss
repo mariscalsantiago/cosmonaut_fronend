@@ -459,18 +459,18 @@ form{
 }
 
 .labelflotantemenu{
-    position: fixed;
-    left: 160px;
-    z-index: 1;
+    position: absolute;
+    left: 165px;
+    z-index: 101;
     background: $dark;
     color: white;
     width: 180px;
-    margin-top: -128px;
     border-radius: 10px;
     border: 1px white solid;
     font-size: small;
     list-style-type: none;
     padding: 0;
+    top:0;
     li{
         padding: 10px;
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuService } from '../../../core/services/menu.service';
 import { menuprincipal } from '../../../core/data/estructuramenu';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -21,6 +21,7 @@ const CryptoJS = require("crypto-js");
   styleUrls: ['./contenido.component.scss']
 })
 export class ContenidoComponent implements OnInit {
+  @ViewChild("#elemento1") elemento1!:ElementRef;
 
   private secretKey: string = "llavesecreta@por@santiagoantoniomariscal";
 
@@ -228,7 +229,7 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public seleccionado(obj: any, indice: number) {
+  public seleccionado(obj: any, indice: number,elemento:any) {
 
     if (!obj.seleccionadosubmenu) {
 
@@ -240,6 +241,34 @@ export class ContenidoComponent implements OnInit {
 
     if (indice == 0) return;
     obj.seleccionadosubmenu = !obj.seleccionadosubmenu;
+
+    setTimeout(() => {
+     
+      let mm1:any = document.getElementById("elemento1");
+      mm1.style.top = ( elemento.getBoundingClientRect().y ) + "px";
+
+      console.log(window.innerHeight);
+      console.log(window.innerHeight - (elemento.getBoundingClientRect().y + mm1.offsetHeight) );
+
+     let ventanaPosition = window.innerHeight - (elemento.getBoundingClientRect().y + mm1.offsetHeight);
+     if(ventanaPosition < 0){
+      mm1.style.top = (( elemento.getBoundingClientRect().y )+ventanaPosition) + "px";
+     }
+    // console.log("La ventana de position");
+    // console.log(ventanaPosition);
+    //  if(ventanaPosition < 0){
+     
+    //   console.log("tope");
+    //   console.log(mm1.offsetTop);
+    
+      
+    //   console.log("En el tope",mm1.offsetTop + ventanaPosition);
+     
+    //  }
+    }, 10);
+
+
+    
 
   }
 
