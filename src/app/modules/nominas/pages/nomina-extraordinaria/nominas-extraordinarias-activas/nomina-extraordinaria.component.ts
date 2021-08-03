@@ -76,7 +76,7 @@ export class NominaExtraordinariaComponent implements OnInit {
   public agregar() {
     this.ventana.showVentana(this.ventana.nuevanominaextraordinaria).then(valor => {
 
-      console.log("el valor traido",valor);
+      
       if (valor.datos) {
        // this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
         //this.arreglo.push({ nominaExtraordinaria: { ...valor.datos.datos }, inicial: true });

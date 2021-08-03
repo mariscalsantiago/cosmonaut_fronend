@@ -63,7 +63,9 @@ export class FormEmpleadoComponent implements OnInit {
       this.tabsEnviar[0] = temp;
       this.domicilioPrd.getDomicilioPorEmpleado(this.datosPersona.personaId).subscribe(datosdomicilio =>{
         
+
           this.tabsEnviar[1] = datosdomicilio.datos;
+          
       });
 
       this.activado[0].tab = true;

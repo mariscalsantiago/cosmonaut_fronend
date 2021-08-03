@@ -53,7 +53,7 @@ export class DatosbancariosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("Esto es datos de empresa",this.datos);
+    
     this.id_empresa = this.datos.empresa.centrocClienteId;
 
     this.cargando = true;
@@ -251,7 +251,7 @@ export class DatosbancariosComponent implements OnInit {
   }
 
   public salidaCuentasBancariasDetalle(obj:any){
-    console.log("Detalle cuenta bancaria",obj);
+    
     this.verDetalleBanco = false;
     switch(obj.type){
         case 'guardar':

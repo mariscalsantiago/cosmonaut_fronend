@@ -74,7 +74,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
     this.ventana.showVentana(this.ventana.nuevanominafiniquitoliquidacion).then(valor => {
 
 
-      console.log("Todo chido",valor);
+      
       if (valor.datos) {
         //  this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
         //  this.arreglo.push({ nominaLiquidacion: { ...valor.datos.datos },inicial:true });

@@ -52,7 +52,7 @@ export class VentanaSubcidioComponent implements OnInit {
     
      
     this.arregloSubcidioISR = datos.datos;
-    console.log(this.arregloSubcidioISR);
+    
     if (this.arregloSubcidioISR !== undefined) {
       for (let item of this.arregloSubcidioISR) {
         item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");

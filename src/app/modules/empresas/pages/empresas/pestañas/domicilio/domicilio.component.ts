@@ -61,7 +61,7 @@ export class DomicilioComponent implements OnInit {
   ngOnInit(): void {
 
 
-    console.log("Se vuelve a cargar es domicilio",this.datos);
+    
     this.myForm = this.createForm({});
 
     this.datos.activarGuardaMod = true;
@@ -71,10 +71,10 @@ export class DomicilioComponent implements OnInit {
         if (datos.datos) {
           this.esContinuar = true;
           let obj = datos.datos[0];
-          console.log(obj, "Datos de domicilio");
+          
           obj.asentamientoCpCons = obj.asentamientoId
           this.catalogosPrd.getAsentamientoByCodigoPostal(obj.codigo).subscribe(datos => {
-            console.log("Este codigo posta", datos.datos);
+            
             if (datos.resultado) {
               this.domicilioCodigoPostal = datos.datos;
 
@@ -109,7 +109,7 @@ export class DomicilioComponent implements OnInit {
 
 
     this.domicilioPrd.getListaSede(this.id_empresa).subscribe(datos => {
-      console.log("Esta son las sedes", datos);
+      
       this.arregloListaSede = datos.datos;
       let columnas: Array<tabla> = [
         new tabla("sedeNombre", "Nombre de la sede"),
@@ -218,7 +218,7 @@ export class DomicilioComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     if (!this.esContinuar) {
-      console.log("Es insertar", objenviar);
+      
       this.domicilioPrd.save(objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
@@ -226,7 +226,7 @@ export class DomicilioComponent implements OnInit {
         this.verSedes = false;
       });
     } else {
-      console.log("Es actualizar", objenviar);
+      
       this.domicilioPrd.modificar(objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
@@ -300,7 +300,7 @@ export class DomicilioComponent implements OnInit {
 
 
   public eventoDetalleSede(evento: any) {
-    console.log("Detalle del evento", evento);
+    
     this.verSedes = false;
     switch (evento.type) {
       case "guardar":

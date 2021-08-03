@@ -67,7 +67,7 @@ export class InformacionempresaComponent implements OnInit {
       let permitido: boolean = (valor == 606 || valor == 612 || valor == 621);
       this.realizarValidacionRegimen(permitido);
 
-      console.log(this.myform.controls);
+      
     });
 
 
@@ -76,7 +76,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
     this.myform.controls.key.valueChanges.subscribe(datos => {
-      console.log("Se hace un cambio", datos);
+      
     });
 
 
@@ -208,7 +208,7 @@ export class InformacionempresaComponent implements OnInit {
     }
 
 
-    console.log("Form", objenviar);
+    
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     if (this.datos.insertar) {
@@ -218,7 +218,7 @@ export class InformacionempresaComponent implements OnInit {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
         if (datos.resultado) {
           this.datos.empresa = datos.datos;
-          console.log("Esto es la referencia de empresa",this.datos.empresa);
+          
 
           let objVersionEnviar = {
             centrocClienteId: datos.datos.centrocClienteId,
@@ -259,7 +259,7 @@ export class InformacionempresaComponent implements OnInit {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
           if (datos.resultado) {
             this.datos.empresa = datos.datos;
-            console.log("SE modifico empresa",this.datos.empresa);
+            
             this.enviado.emit({ type: 'informacion' });
           }
         });

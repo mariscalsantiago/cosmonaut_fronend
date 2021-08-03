@@ -53,15 +53,15 @@ export class EmpresasComponent implements OnInit {
         this.datosempresa.activarList = true;
         this.empresasProd.getActivos(this.datosempresa.empresa.centrocClienteId).subscribe(datos => {
           this.activarPestaniasEmpresa(datos);
-          console.log(datos);
+          
         });
       }
     });
-    console.log("Datos de la empresa ",this.datosempresa);
+    
   }
 
   public activarPestaniasEmpresa(datos: any) {
-    console.log(datos);
+    
     
     this.activado[1].tab = true;
     this.activado[1].enable = true;
@@ -76,11 +76,11 @@ export class EmpresasComponent implements OnInit {
   }
 
   public seleccionar(numero: number) {
-    console.log(this.activado[numero]);
+    
     if (!this.activado[numero].enable)
       return;
 
-    console.log("Se va activar paps");
+    
 
     for (let item of this.activado) {
       item.form = false;

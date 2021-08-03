@@ -62,19 +62,16 @@ export class PersonalComponent implements OnInit {
         this.parsearInformacion();
         this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
           this.domicilioArreglo = datosnativo?.datos == undefined ?undefined:datosnativo?.datos[0];
-          console.log("getDomicilioPorEmpleadoNativo ",this.domicilioArreglo);
+          
         });
 
         this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datosdomicilio => {
-
           
           if (datosdomicilio.datos !== undefined) {
 
-            console.log("getDomicilioPorEmpleado",this.domicilioArreglo);
+            
             for (let llave in datosdomicilio.datos[0]) {
               this.empleado[llave] = datosdomicilio.datos[0][llave];
-
-
             }
             this.myForm = this.createForm(this.empleado);
             this.buscar(undefined);
@@ -281,7 +278,8 @@ export class PersonalComponent implements OnInit {
       calle: [{ value: obj.calle, disabled: true }, [Validators.required]],
       numExterior: [{ value: obj.numExterior, disabled: true }, [Validators.required]],
       numInterior: { value: obj.numInterior, disabled: true },
-      celular:[obj.celular]
+      celular:[obj.celular],
+      domicilioId:obj.domicilioId
 
     });
   }
@@ -395,7 +393,7 @@ export class PersonalComponent implements OnInit {
 
 
     let obj = this.myForm.value;
-    console.log("My form domicilio",obj);
+    
 
     let objenviar: any =
     {
@@ -427,7 +425,7 @@ export class PersonalComponent implements OnInit {
 
 
       
-      objenviar.domicilioId = this.domicilioArreglo.domicilioId;
+      objenviar.domicilioId = obj.domicilioId;
 
       this.domicilioPrd.update(objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

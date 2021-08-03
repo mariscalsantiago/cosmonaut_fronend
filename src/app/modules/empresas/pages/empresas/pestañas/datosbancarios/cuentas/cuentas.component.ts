@@ -26,7 +26,7 @@ export class CuentasComponent implements OnInit {
     private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    console.log(this.cuenta);
+    
     this.myForm =  this.createForm(this.cuenta || {});
     if(this.cuenta?.cuentaBancoId){
         this.myForm.controls.esActivo.enable();
@@ -98,7 +98,7 @@ export class CuentasComponent implements OnInit {
   }
 
   public cancelar() {
-    console.log("Se va a cancelar");
+    
       this.emitirEnviado.emit({type:'cancelar'});
   }
 
@@ -135,7 +135,7 @@ export class CuentasComponent implements OnInit {
     }
     else {
       objEnviar.cuentaBancoId = this.cuenta.cuentaBancoId;
-      console.log("Se va a modificar",objEnviar);
+      
       this.cuentasPrd.modificar(objEnviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
         this.emitirEnviado.emit({type:'guardar'});

@@ -171,7 +171,7 @@ export class NominaordinariaService {
   }
 
   public concluir(nominaPeriodoId: number, companiaid: number): Observable<any> {
-    console.log(`${environment.rutaNomina}/concluir/${nominaPeriodoId}/${companiaid}`);
+    
     return this.http.get(`${environment.rutaNomina}/concluir/${nominaPeriodoId}/${companiaid}`);
   }
 

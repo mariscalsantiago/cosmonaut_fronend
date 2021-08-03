@@ -14,52 +14,52 @@ export class DomicilioComponent implements OnInit {
 
 
   @Output() enviado = new EventEmitter();
-  @Input() datosPersona:any;
-  @Input() tabsDatos:any;
-  
+  @Input() datosPersona: any;
+  @Input() tabsDatos: any;
+
 
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
-  public domicilioCodigoPostal:any = [];
-  public nombreEstado:string = "";
-  public idEstado:number = 0;
-  public nombreMunicipio:string = "";
-  public idMunicipio:number = 0;
+  public domicilioCodigoPostal: any = [];
+  public nombreEstado: string = "";
+  public idEstado: number = 0;
+  public nombreMunicipio: string = "";
+  public idMunicipio: number = 0;
   public noCoincide = '';
 
-  constructor(private formBuilder: FormBuilder,private domicilioPrd:DomicilioService,
-    private catalogosPrd:CatalogosService,private routerPrd:Router,private modalPrd:ModalService) { }
+  constructor(private formBuilder: FormBuilder, private domicilioPrd: DomicilioService,
+    private catalogosPrd: CatalogosService, private routerPrd: Router, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
 
 
-    
-    
-   if(Boolean(this.tabsDatos[1])){
-    if(this.tabsDatos[1][0].domicilioId !== undefined){
-      this.myForm = this.createForm(this.tabsDatos[1][0]);
-      this.buscar(undefined);
 
-    }else{
+
+    if (Boolean(this.tabsDatos[1])) {
+      if (this.tabsDatos[1][0].domicilioId !== undefined) {
+        this.myForm = this.createForm(this.tabsDatos[1][0]);
+        this.buscar(undefined);
+
+      } else {
+        this.myForm = this.createForm({});
+      }
+    } else {
       this.myForm = this.createForm({});
-    }   
-  }else{
-    this.myForm = this.createForm({});
-  }
+    }
 
   }
 
   public createForm(obj: any) {
 
     return this.formBuilder.group({
-      codigo: [obj.codigo, [Validators.required,Validators.pattern('[0-9]+')]],
-      estado:[{value:obj.estado,disabled:true},[Validators.required]],
-      municipio:[{value:obj.municipio,disabled:true},[Validators.required]],
-      asentamientoId:[{value:obj.asentamientoId,disabled:true},[Validators.required]],
-      calle:[{value:obj.calle,disabled:true},[Validators.required]],
-      numExterior:[{value:obj.numExterior,disabled:true},[Validators.required]],
-      numInterior:{value:obj.numInterior,disabled:true}
+      codigo: [obj.codigo, [Validators.required, Validators.pattern('[0-9]+')]],
+      estado: [{ value: obj.estado, disabled: true }, [Validators.required]],
+      municipio: [{ value: obj.municipio, disabled: true }, [Validators.required]],
+      asentamientoId: [{ value: obj.asentamientoId, disabled: true }, [Validators.required]],
+      calle: [{ value: obj.calle, disabled: true }, [Validators.required]],
+      numExterior: [{ value: obj.numExterior, disabled: true }, [Validators.required]],
+      numInterior: { value: obj.numInterior, disabled: true }
     });
 
   }
@@ -82,57 +82,70 @@ export class DomicilioComponent implements OnInit {
       return;
     }
 
-    
+
     const titulo = "¿Deseas guardar cambios?";
-  
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
-      if(valor){
-        let obj = this.myForm.value; 
-  
-        let objenviar:any = 
-          {
-            codigo: obj.codigo,
-            municipio: this.idMunicipio,
-            estado: this.idEstado,
-            asentamientoId: obj.asentamientoId,
-            calle: obj.calle,
-            numExterior: obj.numExterior,
-            numInterior:obj.numInterior,
-            personaId: {
-                personaId: this.datosPersona.personaId
-            }
+
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
+      if (valor) {
+        let obj = this.myForm.value;
+
+        let objenviar: any =
+        {
+          codigo: obj.codigo,
+          municipio: this.idMunicipio,
+          estado: this.idEstado,
+          asentamientoId: obj.asentamientoId,
+          calle: obj.calle,
+          numExterior: obj.numExterior,
+          numInterior: obj.numInterior,
+          personaId: {
+            personaId: this.datosPersona.personaId
+          }
         }
-  
+
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-       
-        if(this.tabsDatos[1][0].domicilioId == undefined){
-          this.domicilioPrd.save(objenviar).subscribe(datos =>{
-            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-              if(datos.resultado){
-                this.enviado.emit({type:"domicilio",datos:datos.datos});
-              }
+
+
+        if (Boolean(this.tabsDatos[1])) {
+
+          if (this.tabsDatos[1][0].domicilioId == undefined) {
+            this.domicilioPrd.save(objenviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+                if (datos.resultado) {
+                  this.enviado.emit({ type: "domicilio", datos: datos.datos });
+                }
+              });
             });
-          });
-        }else{
+          } else {
 
 
-          objenviar.domicilioId = this.tabsDatos[1][0].domicilioId;
+            objenviar.domicilioId = this.tabsDatos[1][0].domicilioId;
 
-          this.domicilioPrd.update(objenviar).subscribe(datos =>{
+            this.domicilioPrd.update(objenviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+                if (datos.resultado) {
+                  this.enviado.emit({ type: "domicilio", datos: datos.datos });
+                }
+              });
+            });
+          }
+
+        } else {
+          this.domicilioPrd.save(objenviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
-              if(datos.resultado){
-                this.enviado.emit({type:"domicilio",datos:datos.datos});
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.enviado.emit({ type: "domicilio", datos: datos.datos });
               }
             });
           });
         }
-        
-        
 
-        
+
+
       }
     });
   }
@@ -142,24 +155,24 @@ export class DomicilioComponent implements OnInit {
   }
 
 
- 
 
-  public buscar(obj:any){
+
+  public buscar(obj: any) {
 
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
 
-    let valor:string = this.myForm.controls.codigo.value;
+    let valor: string = this.myForm.controls.codigo.value;
 
-    if(this.myForm.controls.codigo.errors?.pattern === undefined && valor !== null ){
-      if(valor.trim() !== ""){
-     
+    if (this.myForm.controls.codigo.errors?.pattern === undefined && valor !== null) {
+      if (valor.trim() !== "") {
+
         this.catalogosPrd.getAsentamientoByCodigoPostal(valor).subscribe(datos => {
-          
-          if(datos.resultado){
+
+          if (datos.resultado) {
             this.domicilioCodigoPostal = datos.datos;
 
-            for(let item of datos.datos){
+            for (let item of datos.datos) {
 
               this.nombreEstado = item.dedo;
               this.nombreMunicipio = item.dmnpio;
@@ -177,8 +190,8 @@ export class DomicilioComponent implements OnInit {
             this.myForm.controls.numExterior.enable();
             this.myForm.controls.numInterior.enable();
             this.myForm.controls.calle.enable();
-          }else{
-            this.noCoincide= 'El código postal no fue encontrado';
+          } else {
+            this.noCoincide = 'El código postal no fue encontrado';
             this.myForm.controls.asentamientoId.disable();
             this.myForm.controls.numExterior.disable();
             this.myForm.controls.numInterior.disable();
@@ -187,7 +200,7 @@ export class DomicilioComponent implements OnInit {
             this.nombreMunicipio = "";
             this.idEstado = -1;
             this.idMunicipio = -1;
-            this.domicilioCodigoPostal=[]
+            this.domicilioCodigoPostal = []
 
           }
         });
@@ -202,9 +215,9 @@ export class DomicilioComponent implements OnInit {
 
 
 
-    
 
-  
+
+
 
 
 

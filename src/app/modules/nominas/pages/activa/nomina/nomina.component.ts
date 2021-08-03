@@ -44,7 +44,7 @@ export class NominaComponent implements OnInit {
 
     this.nominaSeleccionada = history.state.datos == undefined ? {} : history.state.datos;;
 
-    console.log("Esta seleccionada",this.nominaSeleccionada);
+    
 
 
     if (this.nominaSeleccionada.nominaOrdinaria) {

@@ -62,7 +62,7 @@ export class CalcularComponent implements OnInit {
 
 
 
-    console.log("Este es la nomina",this.nominaSeleccionada);
+    
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
       this.esnormal = true;
@@ -195,7 +195,7 @@ export class CalcularComponent implements OnInit {
   public patronal:any = {datos:[]};
 
   public recibirTabla(obj: any) {
-    console.log("Este es lo de obj ", obj);
+    
 
     switch (obj.type) {
       case "desglosar":
@@ -240,7 +240,7 @@ export class CalcularComponent implements OnInit {
         if (this.nominaSeleccionada.nominaOrdinaria) {
           this.nominaOrdinariaPrd.verImssPatronal(this.patronalSeleccionado).subscribe(datos => {
                this.patronal.datos = datos.datos;
-               console.log(this.patronal);
+               
           });
         }
         break;
@@ -291,7 +291,7 @@ export class CalcularComponent implements OnInit {
     }
 
 
-    console.log("Esto son los otros", otros);
+    
 
 
 
