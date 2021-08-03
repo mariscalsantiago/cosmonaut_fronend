@@ -58,6 +58,39 @@
                   </label>
                 </div>
 
+                <div *ngIf="imss" class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+                    <label>Usuario de certificado IMSS *</label>
+                    <input formControlName="usuarioCerIMSS" maxlength="250" type="text" class="form-control" 
+                        placeholder="">
+                    <!--<div *ngIf="submitEnviado && f.usuarioCerIMSS.errors?.required" class="invalid-feedback">
+                        Campo requerido
+                    </div>-->
+                </div>
+
+                <div *ngIf="imss" class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+                    <label>Contraseña de certificado IMSS *</label>
+                    <input formControlName="" maxlength="30" type="text" class="form-control" 
+                        placeholder="">
+                   <!-- <div *ngIf="submitEnviado && f.contraseñaCerIMSS.errors?.required" class="invalid-feedback">
+                        Campo requerido
+                    </div>-->
+                </div>
+
+                <div *ngIf="imss" class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
+                    <label>Certificado IMSS *</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" formControlName="cerIMSS" >
+                            <!--<div class="invalid-feedback">
+                                Campo requerido
+                            </div>-->
+                        <div (click)="abrirCerIMSS()" class="input-group-append" style="cursor: pointer;">
+                            <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i
+                                    aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
+                        </div>
+                      
+                    </div>
+                </div>
+
             </div>
 
         </div>
