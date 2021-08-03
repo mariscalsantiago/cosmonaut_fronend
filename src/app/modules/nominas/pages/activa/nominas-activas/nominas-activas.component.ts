@@ -111,6 +111,19 @@ export class NominasActivasComponent implements OnInit {
               this.modalPrd.showMessageDialog(this.modalPrd.success,"¿Deseas promediar las variables?").then(valor =>{
                 if(valor){
                     alert("Se va a redireccionar");
+                    this.configuracionPrd.accesoRuta = true;
+                    this.router.navigate(['/imss/variabilidad']);
+
+
+                    setTimeout(() => {
+                      if (!this.configuracionPrd.cargandomodulo) {
+                        setTimeout(() => {
+                          this.configuracionPrd.accesoRuta = false;
+                        }, 10);
+                      }
+                  
+                    }, 10);
+
                   }
               });
           }
