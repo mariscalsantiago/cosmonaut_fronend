@@ -25,7 +25,7 @@
           </div>
 
         </label>
-                <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="19" class="form-control" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitInvalido}" placeholder="">
+                <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitInvalido}" placeholder="">
                 <div *ngIf="submitInvalido && f.numeroCuenta.errors" class="invalid-feedback">
                     Campo requerido
                 </div>

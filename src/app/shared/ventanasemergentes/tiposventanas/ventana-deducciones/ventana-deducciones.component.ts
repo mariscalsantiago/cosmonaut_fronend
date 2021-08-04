@@ -147,11 +147,47 @@ export class VentanaDeduccionesComponent implements OnInit {
         ){
       this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
       this.myForm.controls.valor.setValidators([Validators.required]);
-     } 
+
+
+      this.myForm.controls.montoTotal.setValidators([]);
+      this.myForm.controls.montoTotal.updateValueAndValidity();
+      this.myForm.controls.numeroCuotas.setValidators([]);
+      this.myForm.controls.numeroCuotas.updateValueAndValidity();
+
+      this.myForm.controls.numeroFolio.setValidators([]);
+      this.myForm.controls.numeroFolio.updateValueAndValidity();
+      this.myForm.controls.numPlazosMensuales.setValidators([]);
+      this.myForm.controls.numPlazosMensuales.updateValueAndValidity();
+
+      this.myForm.controls.tipoDescuentoInfonavitId.setValidators([]);
+      this.myForm.controls.tipoDescuentoInfonavitId.updateValueAndValidity();
+      this.myForm.controls.folioAvisoRetencion.setValidators([]);
+      this.myForm.controls.folioAvisoRetencion.updateValueAndValidity();
+
+      this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([]);
+      this.myForm.controls.fechaRecepcionAvisoRetencion.updateValueAndValidity();
+
+    } 
     if(concepto=='010'){
       this.myForm.controls.valor.setValidators([Validators.required]);
       this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([Validators.required]);
       this.myForm.controls.tipoDescuentoInfonavitId.setValidators([Validators.required]);
+      this.myForm.controls.folioAvisoRetencion.setValidators([Validators.required]);
+
+      this.myForm.controls.baseCalculoId.setValidators([]);
+      this.myForm.controls.baseCalculoId.updateValueAndValidity();
+
+      this.myForm.controls.montoTotal.setValidators([]);
+      this.myForm.controls.montoTotal.updateValueAndValidity();
+      this.myForm.controls.numeroCuotas.setValidators([]);
+      this.myForm.controls.numeroCuotas.updateValueAndValidity();
+
+      this.myForm.controls.numeroFolio.setValidators([]);
+      this.myForm.controls.numeroFolio.updateValueAndValidity();
+      this.myForm.controls.numPlazosMensuales.setValidators([]);
+      this.myForm.controls.numPlazosMensuales.updateValueAndValidity();
+      
+
       this.infonavit = true;
       this.fijo = true;
       this.submenu = true;
@@ -167,7 +203,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.valor= true;
       this.valorDescuento = false;
 
-if(this.myForm.get(['']))
+      if(this.myForm.get(['']))
       this.myForm.controls.baseCalculoId.enable();
       this.myForm.controls.valor.enable();
 
@@ -183,6 +219,22 @@ if(this.myForm.get(['']))
       this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
       this.myForm.controls.valor.setValidators([Validators.required]);
       this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([Validators.required]);
+
+      this.myForm.controls.tipoDescuentoInfonavitId.setValidators([]);
+      this.myForm.controls.tipoDescuentoInfonavitId.updateValueAndValidity();
+      this.myForm.controls.folioAvisoRetencion.setValidators([]);
+      this.myForm.controls.folioAvisoRetencion.updateValueAndValidity();
+
+      this.myForm.controls.montoTotal.setValidators([]);
+      this.myForm.controls.montoTotal.updateValueAndValidity();
+      this.myForm.controls.numeroCuotas.setValidators([]);
+      this.myForm.controls.numeroCuotas.updateValueAndValidity();
+
+      this.myForm.controls.numeroFolio.setValidators([]);
+      this.myForm.controls.numeroFolio.updateValueAndValidity();
+      this.myForm.controls.numPlazosMensuales.setValidators([]);
+      this.myForm.controls.numPlazosMensuales.updateValueAndValidity();
+      
       this.submenu = true;
       this.pensionAlimenticia = true;
       this.normalDeduccion = true;
@@ -210,6 +262,23 @@ if(this.myForm.get(['']))
       this.myForm.controls.montoTotal.setValidators([Validators.required]);
       this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([Validators.required]);
       this.myForm.controls.numeroCuotas.setValidators([Validators.required]);
+
+      this.myForm.controls.valor.setValidators([]);
+      this.myForm.controls.valor.updateValueAndValidity();
+      this.myForm.controls.tipoDescuentoInfonavitId.setValidators([]);
+      this.myForm.controls.tipoDescuentoInfonavitId.updateValueAndValidity();
+      this.myForm.controls.folioAvisoRetencion.setValidators([]);
+      this.myForm.controls.folioAvisoRetencion.updateValueAndValidity();
+
+      this.myForm.controls.baseCalculoId.setValidators([]);
+      this.myForm.controls.baseCalculoId.updateValueAndValidity();
+
+      this.myForm.controls.numeroFolio.setValidators([]);
+      this.myForm.controls.numeroFolio.updateValueAndValidity();
+      this.myForm.controls.numPlazosMensuales.setValidators([]);
+      this.myForm.controls.numPlazosMensuales.updateValueAndValidity();
+      
+
       if(this.politica !== undefined){
       
       this.myForm.controls.montoTotal.setValidators([]);
@@ -218,6 +287,7 @@ if(this.myForm.get(['']))
       this.myForm.controls.fechaRecepcionAvisoRetencion.updateValueAndValidity();  
       this.myForm.controls.numeroCuotas.setValidators([]);
       this.myForm.controls.numeroCuotas.updateValueAndValidity();  
+
       this.infonavit = false;
       this.deducPolitica = true;
       this.pensionAlimenticia = false;
@@ -271,6 +341,22 @@ if(this.myForm.get(['']))
       this.myForm.controls.montoTotal.setValidators([Validators.required]);
       this.myForm.controls.numPlazosMensuales.setValidators([Validators.required]);
       this.myForm.controls.valor.setValidators([Validators.required]);
+
+      this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([]);
+      this.myForm.controls.fechaRecepcionAvisoRetencion.updateValueAndValidity();
+      this.myForm.controls.tipoDescuentoInfonavitId.setValidators([]);
+      this.myForm.controls.tipoDescuentoInfonavitId.updateValueAndValidity();
+      this.myForm.controls.folioAvisoRetencion.setValidators([]);
+      this.myForm.controls.folioAvisoRetencion.updateValueAndValidity();
+
+      this.myForm.controls.baseCalculoId.setValidators([]);
+      this.myForm.controls.baseCalculoId.updateValueAndValidity();
+
+      
+      this.myForm.controls.numeroCuotas.setValidators([]);
+      this.myForm.controls.numeroCuotas.updateValueAndValidity();  
+
+
       this.submenu = true;
       this.infonacot = true;
       this.normalDeduccion = true;
@@ -401,8 +487,8 @@ if(this.myForm.get(['']))
       }
       else if(tipomonto == 2){
         this.tipoValor = "Porcentaje";
-        this.porcentual = false;
-        this.fijo = true;
+        this.porcentual = true;
+        this.fijo = false;
         this.valorDescuento = false;
         this.valor = true;
       }

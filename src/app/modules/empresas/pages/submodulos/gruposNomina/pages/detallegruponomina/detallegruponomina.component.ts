@@ -108,14 +108,19 @@ export class DetallegruponominaComponent implements OnInit {
   public crearForm(obj:any){
 
     if(!this.esInsert){
-      
+      debugger;
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
-      obj.ajustarBaseGravableFaltantes = obj.ajustarBaseGravableFaltantes ? "true" : "false";
-
-      if(obj.periodicidadPagoId?.periodicidadPagoId !== "01" && obj.periodicidadPagoId?.periodicidadPagoId !== "05" ){
+      if(obj.ajustarBaseGravableFaltantes){
         this.ajustedeisr = true;
         this.activarISR();
       }
+      obj.ajustarBaseGravableFaltantes = obj.ajustarBaseGravableFaltantes ? "true" : "false";
+
+/*       if(obj.periodicidadPagoId?.periodicidadPagoId !== "01" && obj.periodicidadPagoId?.periodicidadPagoId !== "05" ){
+        this.ajustedeisr = true;
+        this.activarISR();
+      } */
+
     }else{
       obj.centrocClienteId.centrocClienteId = this.id_empresa;
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio = "periodica";
@@ -185,7 +190,7 @@ export class DetallegruponominaComponent implements OnInit {
 
         };
 
-    
+        debugger;
        
         if (this.esInsert) {
           
