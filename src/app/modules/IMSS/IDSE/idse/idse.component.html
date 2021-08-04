@@ -49,6 +49,15 @@
                                 <option *ngFor="let item of arregloMovimientos" [value]="item.movimientoImssId">{{item.descripcionMovimiento}}</option>
                             </select>
                         </div>
+                        <div *ngIf ="imss" class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
+                            <select class="form-control" [(ngModel)]="esActivo" placeholder="Estatus">
+
+                            <option value="0" selected>Estatus</option>
+                            <option value="1">Activo</option>
+                            <option value="2">Inactivo</option>
+
+                            </select>
+                        </div>
 
                       
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
@@ -57,14 +66,19 @@
     
                         
                     </div>
-    
-    
+        
                     <div class="row margen">
                         <div class="col titulo">
                           <label>RESULTADOS</label>
                         </div>
-                        <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
-
+                        <div *ngIf="imss" class="row text-right margin botonmultiseleccion">
+                            <div class="col-12">
+                                <button (click)="guardarMultiseleccion()" type="button"
+                                  class="btn heartbeathand btn-light button-outlet "><span>Enviar a IDSE</span>
+                                </button>
+                              </div>
+                          </div>
+                          <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
                             <div class="col-12">
                               <button (click)="guardarMultiseleccion()" type="button"
                                 class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar archivo</span>
@@ -76,7 +90,7 @@
     
                       <div class="   margen-tabla background-panel ">
                         <br>
-                        <app-tablapaginado [checkbox]="true" [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
+                        <app-tablapaginado [checkbox]="true"  [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
                       </div>
     
                 </div>

@@ -144,6 +144,7 @@
                             <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
                         </div>
                     </td>
+                    
                 </tr>
                 <tr *ngIf="!item.desglosarDown && !item.cargandoDetalle && !nominacalculo && !nominatimbrar && !esNominaHistorica" class="slide-in-bck-center">
                     <td colspan="90%">
@@ -153,6 +154,23 @@
                                 <article> {{arreglotablaDesglose?.filas[item.id] | hora:item.nombre}}</article>
                             </article>
                         </div>
+                        <div class="row mb-4">
+                            <article class="titulo  col-4 mb-3" *ngIf="imss">
+                                <a (click)="iniciarDescarga(item)" class="botonestilo  estiloextralink"><i aria-hidden="true" 
+                                    class="fas fa-download"></i> Acuse de envío de movimiento 
+                                </a>
+                            </article>
+                            <article class="titulo  col-4 mb-3" *ngIf="imss">
+                                <a  class="botonestilo  estiloextralink"><i aria-hidden="true" 
+                                    class="fas fa-download"></i> Acuse de respuesta de movimiento  
+                                </a>
+                            </article>
+                            <article class="titulo  col-4 mb-3" *ngIf="imss">
+                                <a  class="botonestilo  estiloextralink"><i aria-hidden="true" 
+                                    class="fas fa-download"></i> Txt 
+                                </a>
+                            </article>
+                        </div>       
                     </td>
                 </tr>
                 <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && esNominaHistorica">
@@ -243,6 +261,8 @@
                         </td>
                     </tr>
                 </ng-container>
+
+
                 <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominacalculo">
                     <tr style="background-color: white; position: relative;" class="slide-in-bck-center">
                         <td colspan="3">

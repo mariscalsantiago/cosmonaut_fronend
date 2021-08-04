@@ -24,13 +24,15 @@
                     <option value="E">Estándar</option>
                     <option value="A">Ambas</option>
                 </select>
+                
                 <div *ngIf="submitInvalido && f.tipoPeriodicidad.errors" class="invalid-feedback">
                     Campo requerido
                 </div>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
                 <label>Catálogo SAT *</label>
-                <input #tipoConcepto (focusout)="validarTipoConcepto(tipoConcepto.value)" autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
+                <input *ngIf="mensajePercepcion" formControlName="tipoPercepcionMensaje" class="form-control disabled bg-light" >
+                <input *ngIf="noMensajePercepcion" #tipoConcepto (focusout)="validarTipoConcepto(tipoConcepto.value)" autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
                 <datalist id="catalogoSAT">
                         <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipoPercepcionId">
                             {{item.descripcion}}</option>
@@ -60,7 +62,7 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Estatus</label>
-                <select name="" class="form-control" formControlName="esActivo">
+                <select name="" class="form-control bg-light" formControlName="esActivo">
                     <option value="true">Activo</option>
                     <option value="false">Inactivo</option>
                 </select>
