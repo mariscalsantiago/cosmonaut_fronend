@@ -141,7 +141,7 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public cancelar() {
-    this.routerPrd.navigate(['/listaempresas']);
+    this.enviado.emit({type:"cancelar"});
 
   }
 

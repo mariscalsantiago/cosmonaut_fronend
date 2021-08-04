@@ -62,7 +62,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
       this.arreglo = datos.datos;
       if (this.arreglo !== undefined) {
         for (let item of this.arreglo) {
-          item["inicial"] = item.nominaLiquidacion.total == undefined;
+          item["inicial"] =  !Boolean(item.nominaLiquidacion.total);
           item.nominaLiquidacion.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(item.nominaLiquidacion.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
           item.nominaLiquidacion.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.nominaLiquidacion.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd')
         }

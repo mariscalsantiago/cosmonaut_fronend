@@ -63,7 +63,7 @@ export class NominaPTUComponent implements OnInit {
         this.cargando = false;
         this.arreglo = datos.datos;
         for (let item of this.arreglo) {
-          item["inicial"] = item.nominaPtu.total == undefined;
+          item["inicial"] = !Boolean(item.nominaPtu.totalNeto);
           item.nominaPtu.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(item.nominaPtu.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
           item.nominaPtu.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.nominaPtu.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd')
         }

@@ -123,6 +123,13 @@ export class EmpresasComponent implements OnInit {
         this.activado[2].form = false;
         this.activado[2].seleccionado = false;
         break;
+        case "cancelar":
+
+          if(this.insertar){
+            this.routerPrd.navigate(['/listaempresas']);
+          }
+          
+          break;
     }
 
   }

@@ -429,12 +429,34 @@ export class PersonalComponent implements OnInit {
 
       this.domicilioPrd.update(objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-        this.myForm = this.createForm(this.empleado);
-        this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
-          this.domicilioArreglo = datosnativo?.datos[0];
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
+          if(datos.resultado){
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
+              this.domicilioArreglo = datosnativo?.datos[0];
+    
+              this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datosdomicilio => {
+                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                if (datosdomicilio.datos !== undefined) {
+      
+                  
+                  for (let llave in datosdomicilio.datos[0]) {
+                    this.empleado[llave] = datosdomicilio.datos[0][llave];
+                  }
+                  this.myForm = this.createForm(this.empleado);
+                  this.buscar(undefined);
+      
+                  
+                } else {
+                 this.myForm =  this.createForm(this.empleado);
+                }
+      
+                this.insertarDomicilio = datosdomicilio.datos == undefined;
+              });
+            });
+          }
         });
-
+        this.myForm = this.createForm(this.empleado);
       });
     }
 
