@@ -28,7 +28,7 @@ export class IDSEComponent implements OnInit {
   public activarMultiseleccion: boolean = false;
   public arregloIDSE : any = [];
   public movimientoImssId : number = 0;
-  public imss : boolean = false;
+  public imss : boolean = true;
 
   public arreglotabla: any = {
     columnas: [],
