@@ -286,7 +286,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
     if(obj.listaIdEmpleados.length === 0){
 
-      this.modal.showMessageDialog(this.modal.error,"No se ha seleccionado ningun empledo");
+      this.modal.showMessageDialog(this.modal.error,"No se ha seleccionado ningun empleado");
       return;
     }
     this.nominaPrd.descargarArchivo(obj).subscribe(datos => {
@@ -351,7 +351,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
      return;
     }
 
-    this.modal.showMessageDialog(this.modal.warning,"¿Deseas guardar el archivo de dispersión?").then(valor =>{
+    this.modal.showMessageDialog(this.modal.warning,"¿Deseas cargar el archivo?").then(valor =>{
       if(valor){
 
         this.modal.showMessageDialog(this.modal.loading);

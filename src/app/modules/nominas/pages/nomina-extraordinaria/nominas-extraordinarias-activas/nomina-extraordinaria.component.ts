@@ -87,19 +87,14 @@ export class NominaExtraordinariaComponent implements OnInit {
 
   public calcularNomina(item: any) {
 
-
-
-
-    this.modalPrd.showMessageDialog(this.modalPrd.question, "Importante", "No has calculado el promedio de variables para este bimestre. Si continuas, tomaremos el promedio del bimestre anterior.").then((valor) => {
-      if (valor) {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas calcular la nómina?").then(valor =>{
+      if(valor){
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         let objEnviar = {
           nominaXperiodoId: item.nominaExtraordinaria.nominaXperiodoId,
           clienteId: this.usuariSistemaPrd.getIdEmpresa(),
           usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
-        }
-
-        
+        } 
         this.nominaAguinaldoPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
@@ -107,11 +102,8 @@ export class NominaExtraordinariaComponent implements OnInit {
             this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaExtraordinaria: item.nominaExtraordinaria } } });
           }
         });
-
-
       }
     });
-
   }
 
 

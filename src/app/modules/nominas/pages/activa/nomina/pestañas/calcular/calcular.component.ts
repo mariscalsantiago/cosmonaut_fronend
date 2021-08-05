@@ -456,6 +456,24 @@ export class CalcularComponent implements OnInit {
               }
             });
           });
+        }else  if (this.llave == "nominaLiquidacion") {
+
+          this.nominaFiniquito.recalcularNomina(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.regresarExtraordinaria();
+              }
+            });
+          });
+        }else  if (this.llave == "nominaPtu") {
+
+          this.nominaPtuPrd.recalcularNomina(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.regresarExtraordinaria();
+              }
+            });
+          });
         }
       }
     });
