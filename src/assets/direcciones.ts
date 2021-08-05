@@ -19,6 +19,7 @@ export const direcciones = {
     jornada: `${ip}/jornadas`,
     cuentasbancarias:`${ip}/cuentaBanco`,
     catalogo:`${ip3}/catalogo`,
+    proveedores:`${ip3}`,
     gruponomina:`${ip}/grupoNomina`,
     colaboradorGrupoNomina:`${ip}/colaboradorGrupoNomina`,
     domicilio:`${ip}/domicilio`,
