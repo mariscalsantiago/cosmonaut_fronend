@@ -121,6 +121,18 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
     }
+    else if(this.detCatalogos.listaCatalogosId == 21){
+      
+      this.idCatalogo = this.objdetrep.proveedorDispersionId;
+      this.descripcion = this.objdetrep.descripcion;
+      this.clave();
+    }
+    else if(this.detCatalogos.listaCatalogosId == 22){
+      
+      this.idCatalogo = this.objdetrep.proveedorTimbradoId;
+      this.descripcion = this.objdetrep.descripcion;
+      this.clave();
+    }
     else if(this.detCatalogos.listaCatalogosId == 8){
       this.idCatalogo = this.objdetrep.tipoRegimenContratacionId;
       this.descripcion = this.objdetrep.descripcion;
@@ -936,6 +948,90 @@ export class ABCAdminCatalogosComponent implements OnInit {
   
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarMetodoPago(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+        
+        }
+        else if(this.detCatalogos.listaCatalogosId == 21){
+
+          
+          this.objEnviar = {
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            debugger;
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveProveedorDispersion(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              proveedorDispersionId: obj.clave,
+              descripcion: obj.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarProveedorDispersion(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+          }
+        
+        }
+        else if(this.detCatalogos.listaCatalogosId == 22){
+
+          
+          this.objEnviar = {
+            descripcion: obj.nombreCorto,
+            esActivo: obj.esActivo,
+          }
+          if (this.insertar) {
+            debugger;
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.saveProveedorTimbrado(this.objEnviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                  this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
+                }
+              });
+  
+            });
+  
+          } else {
+            this.objEnviar = {
+
+              proveedorTimbradoId: obj.clave,
+              descripcion: obj.nombreCorto,
+              esActivo: obj.esActivo,
+            }
+  
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.adminCatalogosPrd.modificarProveedorTimbrado(this.objEnviar).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                 if(datos.resultado){
