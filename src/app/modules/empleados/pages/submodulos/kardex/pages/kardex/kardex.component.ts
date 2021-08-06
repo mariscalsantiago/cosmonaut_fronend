@@ -132,7 +132,7 @@ export class KardexComponent implements OnInit {
       let columnas: Array<tabla> = [
        new tabla("politica", "Política"),
        new tabla("salarioDiario", "Salario Diario"),
-       new tabla("salarioIntegrado", "Salario diario integrado"),
+       //new tabla("salarioIntegrado", "Salario diario integrado"),
        new tabla("salarioCotización", "Salario base de cotización"),
        new tabla("estatusEmpleado", "Estatus de empleado"),
               
@@ -141,7 +141,7 @@ export class KardexComponent implements OnInit {
 
      item.politica = item.politicaDescripcion;
      item.salarioDiario = item.salarioDiario;
-     item.salarioIntegrado = item.salarioDiarioIntegrado;
+     //item.salarioIntegrado = item.salarioDiarioIntegrado;
      item.salarioCotización = item.salarioBaseCotizacion;
      item.estatusEmpleado = item.esActivo? "Activo":"Inactivo";
 

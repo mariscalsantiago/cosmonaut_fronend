@@ -194,6 +194,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 11){
+      debugger;
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
         this.adminCatalogosPrd.getListaTipoEvento(true).subscribe(datos => {
@@ -321,17 +322,17 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       else if(item.tipoContratoId !== undefined){
         item.clave = item.tipoContratoId;
       }
-      else if(item.tipoDeduccionId !== undefined){
-        item.clave = item.tipoDeduccionId;
-      }
       else if(item.tipoIncapacidadId !== undefined){
         item.clave = item.tipoIncapacidadId;
+      }
+      else if(item.tipoIncidenciaId !== undefined){
+        item.clave = item.tipoIncidenciaId;
       }
       else if(item.tipoPercepcionId !== undefined){
         item.clave = item.tipoPercepcionId;
       }
-      else if(item.tipoIncidenciaId !== undefined){
-        item.clave = item.tipoIncidenciaId;
+      else if(item.tipoDeduccionId !== undefined){
+        item.clave = item.tipoDeduccionId;
       }
       else if(item.tipoValorReferenciaId?.tipoValorReferenciaId !== undefined){
         item.clave = item.tipoValorReferenciaId?.tipoValorReferenciaId;
