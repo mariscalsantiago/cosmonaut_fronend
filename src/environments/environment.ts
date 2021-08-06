@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   rutaEmpresa:'/empresas',
   rutaCatalogos:'/catalogos',
- // rutaNomina:'/nomina',
-  rutaNomina:'http://6d54a7bea215.ngrok.io',
+  rutaNomina:'/nomina',
+  //rutaNomina:'http://6d54a7bea215.ngrok.io',
   rutaAdmin: '/admin',
   rutaReportes:'/reportes',
   rutaSocket:'wss://cosmonautdev.wintermute.services/empresa'

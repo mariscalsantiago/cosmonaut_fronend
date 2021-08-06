@@ -125,7 +125,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
           temp = [];
           for (let item of this.arregloempleadosSeleccionados) {
             temp.push({
-                fechaContrato: new DatePipe("es-MX").transform(item.fechaContrato, "yyyy-MM-dd"),
+                fecha_contrato: new DatePipe("es-MX").transform(item.fechaContrato, "yyyy-MM-dd"),
                 persona_id: item.personaId.personaId,
                 cliente_id: this.usuarioSistemaPrd.getIdEmpresa()
             });
