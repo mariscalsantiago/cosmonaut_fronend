@@ -25,6 +25,12 @@ export class AdminCatalogosService {
   public getListaFacultad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catFacultadPoder/listar/todosActivo/${estatus}`);
   }
+  public getListaDispersion(): Observable<any> {
+    return this.http.get(`${direcciones.proveedores}/proveedor-dispersion/listar/todos`);
+  }
+  public getListaTimbrado(): Observable<any> {
+    return this.http.get(`${direcciones.proveedores}/proveedor-timbrado/listar/todos`);
+  }
   public getListaMotivoBaja(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catMotivoBaja/listar/todosActivo/${estatus}`);
   }
@@ -227,6 +233,26 @@ export class AdminCatalogosService {
     };
     let json: string = JSON.stringify(obj);
     return this.http.put(`${this.url}/catMetodoPago/guardar`, json, httpOptions);
+  }
+  public saveProveedorTimbrado(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${direcciones.adminCatalogoDisp}/cat-proveedor-timbrado/guardar`, json, httpOptions);
+  }
+  public saveProveedorDispersion(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.put(`${direcciones.adminCatalogoDisp}/cat-proveedor-dispersion/guardar`, json, httpOptions);
   }
   public saveValorReferencia(obj: any): Observable<any> {
 
@@ -446,6 +472,28 @@ export class AdminCatalogosService {
     let json: string = JSON.stringify(obj);
   
     return this.http.post(`${this.url}/catMetodoPago/modificar`, json, httpOptions);
+  }
+  public modificarProveedorTimbrado(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${direcciones.adminCatalogoDisp}/cat-proveedor-timbrado/modificar`, json, httpOptions);
+  }
+  public modificarProveedorDispersion(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${direcciones.adminCatalogoDisp}/cat-proveedor-dispersion/modificar`, json, httpOptions);
   }
   public modificarValorReferencia(obj: any): Observable<any> {
 

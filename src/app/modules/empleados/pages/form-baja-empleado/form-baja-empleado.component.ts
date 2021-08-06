@@ -351,6 +351,8 @@ export class FormBajaEmpleadoComponent implements OnInit {
               if(!datos.resultado){
                 
                 this.myFormcomp = this.createFormcomp({});
+              }else{
+                this.ngOnInit();
               }
           });
 

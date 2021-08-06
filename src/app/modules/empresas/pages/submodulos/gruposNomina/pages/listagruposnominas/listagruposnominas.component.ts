@@ -111,7 +111,7 @@ export class ListagruposnominasComponent implements OnInit {
 
 
       this.catalogosPrd.getPeriocidadPago(true).subscribe(datos => this.arregloperiodo = datos.datos);
-      this.empresasPrd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloRazonSocial = datos.datos);
+      //this.empresasPrd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloRazonSocial = datos.datos);
 
 
       this.razonsocial = this.id_empresa;
@@ -161,7 +161,7 @@ export class ListagruposnominasComponent implements OnInit {
   }
 
   public filtrar() {
-
+    debugger;
 
     let objEnviar = {
 

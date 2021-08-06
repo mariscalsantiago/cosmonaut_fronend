@@ -86,6 +86,24 @@ export class DetalleAdminCatalogosComponent implements OnInit {
        });
 
     }
+    else if(this.objdetcat.listaCatalogosId == 21){
+      debugger;
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaDispersion().subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
+    else if(this.objdetcat.listaCatalogosId == 22){
+      debugger;
+      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.cargando = true;
+        this.adminCatalogosPrd.getListaTimbrado().subscribe(datos => {
+        this.crearTabla(datos);
+       });
+
+    }
     else if(this.objdetcat.listaCatalogosId == 9){
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
@@ -287,6 +305,12 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       }
       else if(item.facultadPoderId !== undefined){
         item.clave = item.facultadPoderId;
+      }
+      else if(item.proveedorDispersionId !== undefined){ 
+        item.clave = item.proveedorDispersionId;
+      }
+      else if(item.proveedorTimbradoId !== undefined){ 
+        item.clave = item.proveedorTimbradoId;
       }
       else if(item.motivoBajaId !== undefined){
         item.clave = item.motivoBajaId;
