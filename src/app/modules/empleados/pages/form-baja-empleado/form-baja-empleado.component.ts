@@ -334,9 +334,15 @@ export class FormBajaEmpleadoComponent implements OnInit {
           },
           pagosLiquidacionColaborador: this.arregloLiquidacion,
           ultimoDia: fechar,
-          fechaParaCalculo: antiguedad
+          fechaParaCalculo: antiguedad,
+          estatusBajaId:1
       }
+
+
+      
+      
           
+      this.modalPrd.showMessageDialog(this.modalPrd.loading);
           
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
             

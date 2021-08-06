@@ -117,7 +117,6 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
-    debugger;
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
       this.arregloTipoPercepcion = datos.datos 
     if(this.arregloTipoPercepcion == undefined){
@@ -298,6 +297,11 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
 
+
+          console.log(this.peticion);
+
+
+          //return;
 
 
           if (this.esInsert) {
