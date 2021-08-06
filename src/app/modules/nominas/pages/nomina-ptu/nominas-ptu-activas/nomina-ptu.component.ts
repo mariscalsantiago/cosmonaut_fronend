@@ -88,8 +88,8 @@ export class NominaPTUComponent implements OnInit {
   
   
   
-      this.modalPrd.showMessageDialog(this.modalPrd.question, "Importante", "No has calculado el promedio de variables para este bimestre. Si continuas, tomaremos el promedio del bimestre anterior.").then((valor) => {
-        if (valor) {
+      
+        
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           let objEnviar = {
             nominaXperiodoId: item.nominaPtu.nominaXperiodoId,
@@ -123,8 +123,6 @@ export class NominaPTUComponent implements OnInit {
           });
   
   
-        }
-      });
   
   
     }
