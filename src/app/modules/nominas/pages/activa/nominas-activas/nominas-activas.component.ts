@@ -104,7 +104,11 @@ export class NominasActivasComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
-            this.router.navigate(['nominas','nomina'], { state: { datos: { nominaOrdinaria: item.nominaOrdinaria } } });
+             item.nominaOrdinaria.numEmpleados = datos.datos.cantidadEmpleados;
+             item.nominaOrdinaria.totalPercepciones = datos.datos.totalPercepcion;
+             item.nominaOrdinaria.totalDeducciones = datos.datos.totalDeduccion;
+             item.nominaOrdinaria.totalNeto = datos.datos.total;
+              this.router.navigate(['nominas','nomina'], { state: { datos: { nominaOrdinaria: item.nominaOrdinaria } } });
           }
         },e =>{
           if(e?.error?.mensaje.include("No has calculado ")){

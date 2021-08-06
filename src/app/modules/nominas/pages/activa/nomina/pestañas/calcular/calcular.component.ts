@@ -62,6 +62,8 @@ export class CalcularComponent implements OnInit {
 
 
 
+
+    console.log("ESTA ES LA NOMINA SELECICONADA",this.nominaSeleccionada);
     
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
