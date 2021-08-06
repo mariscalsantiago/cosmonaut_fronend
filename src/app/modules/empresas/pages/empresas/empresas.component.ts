@@ -125,8 +125,10 @@ export class EmpresasComponent implements OnInit {
         break;
         case "cancelar":
 
+
+          
           if(this.insertar){
-            this.routerPrd.navigate(['/listaempresas']);
+            this.routerPrd.navigate(['/listaempresas']);  
           }
           
           break;

@@ -137,7 +137,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
           
             for(let item of this.empleadoEnviar){
                 temp.push({
-                  fechaContrato:new DatePipe("es-MX").transform(item.fechaContrato,"yyyy-MM-dd"),
+                  fecha_contrato:new DatePipe("es-MX").transform(item.fechaContrato,"yyyy-MM-dd"),
                   persona_id:item.personaId.personaId,
                   cliente_id:this.usuarioSistemaPrd.getIdEmpresa()});
             }  

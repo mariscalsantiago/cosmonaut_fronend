@@ -226,6 +226,11 @@ export class ConfiguracionesService {
     }, 20);
     return m;
   }
+
+
+  public getPermisosBySubmodulo(){
+    
+  }
 }
 
 interface clasepermiso {
