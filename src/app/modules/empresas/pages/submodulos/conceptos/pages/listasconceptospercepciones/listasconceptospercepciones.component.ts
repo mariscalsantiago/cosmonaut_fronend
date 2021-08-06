@@ -100,6 +100,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
       this.cargando = true;
       
       this.cargandoPer = true;
+      debugger;
       this.conceptosPrd.getListaConceptoPercepcion(this.id_empresa).subscribe(datos => {
           this.crearTablaPercepcion(datos);
       });
