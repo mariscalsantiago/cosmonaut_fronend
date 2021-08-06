@@ -37,7 +37,7 @@ export class ConfiguracionesService {
   public notificaciones: number = 0;
 
   public menu: boolean = false;
-  public MENUPRINCIPAL = undefined;
+  public MENUPRINCIPAL:any = undefined;
   public modulosCargados!:Array<Number>;
 
   public static referencia:ConfiguracionesService;
@@ -228,8 +228,9 @@ export class ConfiguracionesService {
   }
 
 
-  public getPermisosBySubmodulo(){
-    
+  public getPermisosBySubmodulo(moduloId:number,submoduloId:number){
+    console.log(JSON.stringify(this.MENUPRINCIPAL));
+        return this.MENUPRINCIPAL.find((o:any) => o.moduloId == moduloId).submodulos.find((o:any) => o.submoduloId == submoduloId).permisos;
   }
 }
 

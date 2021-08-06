@@ -126,10 +126,15 @@ export class EmpresasComponent implements OnInit {
         case "cancelar":
 
 
+        
           
           if(this.insertar){
-            this.routerPrd.navigate(['/listaempresas']);  
+            let permisos = this.configuracionPrd.getPermisosBySubmodulo(2,7);
+            this.configuracionPrd.setPermisos(permisos);
           }
+
+
+          this.routerPrd.navigate(['/listaempresas']);  
           
           break;
     }

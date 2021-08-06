@@ -346,14 +346,12 @@ export class FormBajaEmpleadoComponent implements OnInit {
           
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
             
-            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
-              this.arregloLiquidacion=[];
-              if(!datos.resultado){
-                
-                //this.myFormcomp = this.createFormcomp({});
-              }else{
-                this.ngOnInit();
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+              if(datos.resultado){
+                this.configuracionPrd.setPermisos(this.configuracionPrd.getPermisosBySubmodulo(3,10));
+                this.routerPrd.navigate(['/empleados']);
               }
+            });
           });
 
      }
@@ -363,7 +361,9 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public cancelarcomp() {
-    this.routerPrd.navigate(['/inicio']);
+    
+    this.configuracionPrd.setPermisos(this.configuracionPrd.getPermisosBySubmodulo(3,10));
+    this.routerPrd.navigate(['/empleados']);
     this.myFormcomp = this.createFormcomp({});
   }
 
