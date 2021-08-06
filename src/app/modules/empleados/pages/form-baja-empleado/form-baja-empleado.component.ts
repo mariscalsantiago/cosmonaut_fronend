@@ -350,7 +350,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
               this.arregloLiquidacion=[];
               if(!datos.resultado){
                 
-                this.myFormcomp = this.createFormcomp({});
+                //this.myFormcomp = this.createFormcomp({});
               }else{
                 this.ngOnInit();
               }
