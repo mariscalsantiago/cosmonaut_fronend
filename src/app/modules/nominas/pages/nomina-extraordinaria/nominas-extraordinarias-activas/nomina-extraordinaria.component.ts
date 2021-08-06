@@ -96,10 +96,10 @@ export class NominaExtraordinariaComponent implements OnInit {
           usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
         } 
         this.nominaAguinaldoPrd.calcularNomina(objEnviar).subscribe(datos => {
-          item.nominaExtraordinaria.numEmpleados = datos.cantidadEmpleados;
-            item.nominaExtraordinaria.totalPercepciones = datos.totalPercepcion;
-            item.nominaExtraordinaria.totalDeducciones = datos.totalDeduccion;
-            item.nominaExtraordinaria.totalNeto = datos.total;
+          item.nominaExtraordinaria.numEmpleados = datos.datos.cantidadEmpleados;
+            item.nominaExtraordinaria.totalPercepciones = datos.datos.totalPercepcion;
+            item.nominaExtraordinaria.totalDeducciones = datos.datos.totalDeduccion;
+            item.nominaExtraordinaria.totalNeto = datos.datos.total;
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
