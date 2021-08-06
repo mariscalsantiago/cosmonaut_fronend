@@ -4,7 +4,7 @@
 <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
 
     <input type="hidden" formControlName="conceptoPercepcionId">
-    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="280">
         <br>
         <div class="form-group row margen">
             <label class="titulo">INFORMACIÓN DE LA PERCEPCIÓN</label>
@@ -32,7 +32,7 @@
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
                 <label>Catálogo SAT *</label>
                 <input *ngIf="mensajePercepcion" formControlName="tipoPercepcionMensaje" class="form-control disabled bg-light" >
-                <input *ngIf="noMensajePercepcion" #tipoConcepto (focusout)="validarTipoConcepto(tipoConcepto.value)" autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
+                <input *ngIf="noMensajePercepcion" [value] = "f.tipoPercepcionId.value | show: arregloTipoPercepcion : 'tipoPercepcionId': 'descripcion'" #tipoConcepto (focusout)="validarTipoConcepto(tipoConcepto.value)" autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
                 <datalist id="catalogoSAT">
                         <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipoPercepcionId">
                             {{item.descripcion}}</option>
