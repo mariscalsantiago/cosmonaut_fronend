@@ -227,8 +227,8 @@ export class TimbrarComponent implements OnInit {
       new tabla("tipo", "Método de pago", false, false, true),
       new tabla("total", "Total neto", false, false, true),
       new tabla("fecha", "Fecha de pago de timbrado", false, false, true),
-      new tabla("status", "Estatus ", false, false, true),
-      new tabla("statuspago", "Estatus pago", false, false, true)
+      new tabla("statuspago", "Estatus pago", false, false, true),
+      new tabla("status", "Estatus timbre", false, false, true)
 
     ];
     for (let item of this.arreglo) {

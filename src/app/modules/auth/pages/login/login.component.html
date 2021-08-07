@@ -9,15 +9,17 @@
             </div>
 
             <div id="formulario" *ngIf="login" class="formblock mt-5 fade-in ">
-                <label *ngIf="!ventanapass && !cambiarPassword" class="text-center letra títulos_roboto-—-25pt ">BIENVENIDO, INGRESA TUS DATOS
-          
-        </label>
+                <label *ngIf="!ventanapass && !cambiarPassword"
+                    class="text-center letra títulos_roboto-—-25pt ">BIENVENIDO, INGRESA TUS DATOS
 
-                <label *ngIf="ventanapass && !cambiarPassword" class="text-center letra títulos_roboto-—-25pt ">¿OLVIDASTE TU CONTRASEÑA?
-        </label>
+                </label>
+
+                <label *ngIf="ventanapass && !cambiarPassword"
+                    class="text-center letra títulos_roboto-—-25pt ">¿OLVIDASTE TU CONTRASEÑA?
+                </label>
 
                 <label *ngIf="cambiarPassword" class="text-center letra títulos_roboto-—-25pt ">CAMBIAR CONTRASEÑA
-        </label>
+                </label>
 
 
                 <div *ngIf="incorrectoback" style="width: fit-content;" class="alert alert-danger" role="alert">
@@ -29,13 +31,24 @@
                 </div>
                 <div *ngIf="mensajeerror" style="width: fit-content;" class="alert alert-danger" role="alert">
                     {{mensajeDanger}}
+                    <div style="text-align: center;">
+                        <a (click)="reenviarContrasenialnk()" *ngIf="restablecer && !cargando" style="    color: #0b5cdf;
+                        text-decoration: underline;
+                        cursor: pointer;">Restablecer contraseña</a>
+
+                        <div *ngIf="cargando && restablecer" class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
                 </div>
                 <form *ngIf="!cambiarPassword" class="form" [formGroup]="myForm" (ngSubmit)="enviarformulario()">
 
                     <div class="form-group">
-                        <label class="text-light" for="usuariologin"><small *ngIf="!ventanapass">Correo electrónico</small><small
-                *ngIf="ventanapass">Ingresa tu correo electrónico y te enviaremos un link para restablecerla</small></label>
-                        <input *ngIf="!ventanapass" formControlName="username" type="email" class="form-control " id="usuariologin" aria-describedby="emailHelp">
+                        <label class="text-light" for="usuariologin"><small *ngIf="!ventanapass">Correo
+                                electrónico</small><small *ngIf="ventanapass">Ingresa tu correo electrónico y te
+                                enviaremos un link para restablecerla</small></label>
+                        <input *ngIf="!ventanapass" formControlName="username" type="email" class="form-control "
+                            id="usuariologin" aria-describedby="emailHelp">
 
                     </div>
                     <div class="form-group" *ngIf="!ventanapass ">
@@ -46,56 +59,65 @@
                         <label class="text-light" for="exampleInputPassword1"><small>Correo electrónico</small></label>
                         <input #emailrestablecer type="email" class="form-control" id="exampleInputPassword1">
                     </div>
-                    <a style="    color: #00c0af;" *ngIf="!ventanapass" (click)="ventanapass=true"><small> <u>¿Olvidaste tu
-                contraseña?</u> </small></a>
+                    <a style="    color: #00c0af;" *ngIf="!ventanapass" (click)="ventanapass=true"><small> <u>¿Olvidaste
+                                tu
+                                contraseña?</u> </small></a>
 
                     <br id="#lugar"><br><br>
-                    <div class="boton" *ngIf="!ventanapass">
-                        <button id="ingresar" #ingresar *ngIf="!correcto" type="submit" [disabled]="myForm.invalid" class="btn btn-info heartbeat"><span
-                *ngIf="!cargando && !ventanapass">INGRESAR</span>
-              <div *ngIf="cargando" class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-            </button>
-                        <button *ngIf="correcto" type="submit" class="btn btn-success button-fill"><span>CORRECTO</span></button>
+                    <div class="boton" *ngIf="!ventanapass && !restablecer">
+                        <button id="ingresar" #ingresar *ngIf="!correcto" type="submit" [disabled]="myForm.invalid"
+                            class="btn btn-info heartbeat"><span *ngIf="!cargando && !ventanapass">INGRESAR</span>
+                            <div *ngIf="cargando && !restablecer" class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
+                        <button *ngIf="correcto" type="submit"
+                            class="btn btn-success button-fill"><span>CORRECTO</span></button>
 
                     </div>
 
                     <div class="boton" *ngIf="ventanapass">
-                        <button (click)="olvidastetupassword()" type="button" class="btn btn-info heartbeat"><span *ngIf="!cargando">ENVIAR</span>
-              <div *ngIf="cargando" class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-            </button>
-                        <button *ngIf="correcto" type="submit" class="btn btn-success button-fill"><span>CORRECTO</span></button>
+                        <button (click)="olvidastetupassword()" type="button" class="btn btn-info heartbeat"><span
+                                *ngIf="!cargando">ENVIAR</span>
+                            <div *ngIf="cargando" class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
+                        <button *ngIf="correcto" type="submit"
+                            class="btn btn-success button-fill"><span>CORRECTO</span></button>
 
                     </div>
 
                     <span *ngIf="!ventanapass" class="text-light ">¿No tienes cuenta? <a href="#"
-              [routerLink]="['/auth','solicitar']">Solicitala
-              aquí</a></span>
+                            [routerLink]="['/auth','solicitar']">Solicitala
+                            aquí</a></span>
 
                 </form>
 
-                <form (ngSubmit)="cambiarContrasenias()" [formGroup]="myFormPassword" *ngIf="cambiarPassword && !mensajesuccess" class="form">
+                <form (ngSubmit)="cambiarContrasenias()" [formGroup]="myFormPassword"
+                    *ngIf="cambiarPassword && !mensajesuccess" class="form">
 
                     <div class="form-group">
 
                         <label class="text-light" for="loginpassword"><small>Contraseña nueva</small></label>
-                        <input [class.is-invalid]="(f.password1.errors && f.password1.touched) || invalidapassword" formControlName="password1" type="password" class="form-control" id="loginpassword">
+                        <input [class.is-invalid]="(f.password1.errors && f.password1.touched) || invalidapassword"
+                            formControlName="password1" type="password" class="form-control" id="loginpassword">
                         <div *ngIf="f.password1.errors?.required && f.password1.touched" class="invalid-feedback">
                             Campo requerido
                         </div>
                         <div *ngIf="(f.password1.touched && f.password1.errors?.minlength)" class="invalid-feedback">
                             Debe contener mínimo 8 caracteres
                         </div>
-                        <div *ngIf="(f.password1.touched && f.password1.errors?.errorPassword)" class="invalid-feedback">
+                        <div *ngIf="(f.password1.touched && f.password1.errors?.errorPassword)"
+                            class="invalid-feedback">
                             Debe contener al menos una mayúscula, una minúscula y un número.
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="text-light" for="loginpassword"><small>Repetir contraseña</small></label>
-                        <input [class.is-invalid]="(f.password2.errors?.required && f.password2.touched) || invalidapassword" formControlName="password2" type="password" class="form-control" id="loginpassword">
+                        <input
+                            [class.is-invalid]="(f.password2.errors?.required && f.password2.touched) || invalidapassword"
+                            formControlName="password2" type="password" class="form-control" id="loginpassword">
                         <div *ngIf="f.password2.errors?.required && f.password2.touched" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -105,18 +127,20 @@
                     </div>
                     <div class="form-group">
                         <label class="text-light" for="loginpassword"><small>Contraseña anterior</small></label>
-                        <input [class.is-invalid]="f.oldpassword.errors?.required && f.oldpassword.touched" formControlName="oldpassword" type="password" class="form-control">
+                        <input [class.is-invalid]="f.oldpassword.errors?.required && f.oldpassword.touched"
+                            formControlName="oldpassword" type="password" class="form-control">
                         <div class="invalid-feedback">
                             Campo requerido
                         </div>
                     </div>
                     <div class="boton mt-3">
                         <button type="submit" class="btn btn-info heartbeat"><span *ngIf="!cargando">Guardar</span>
-              <div *ngIf="cargando" class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-            </button>
-                        <button *ngIf="correcto && !cambiarPassword" type="button" class="btn btn-success button-fill"><span>CORRECTO</span></button>
+                            <div *ngIf="cargando" class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
+                        <button *ngIf="correcto && !cambiarPassword" type="button"
+                            class="btn btn-success button-fill"><span>CORRECTO</span></button>
 
                     </div>
                 </form>
@@ -126,7 +150,8 @@
                 <label class="text-center letra títulos_roboto-—-25pt ">ELEGIR CLIENTE</label>
 
                 <div class="contenedor">
-                    <div (click)="seleccionadoCompania(item)" [class.seleccionado]="item.seleccionado" *ngFor="let item of arregloCompanias" class="caja">
+                    <div (click)="seleccionadoCompania(item)" [class.seleccionado]="item.seleccionado"
+                        *ngFor="let item of arregloCompanias" class="caja">
                         <span>{{item.nombre}}</span>
                         <img src="assets/imgs/logo2.png" alt="" srcset="">
                     </div>
@@ -134,12 +159,15 @@
 
                 <br id="#lugar"><br><br>
                 <div class="boton" *ngIf="!ventanapass">
-                    <button *ngIf="!correcto" [disabled]="empresaSeleccionadaBool" type="button" (click)="seleccionarcompaniaFinal()" class="btn btn-info heartbeat"><span  *ngIf="!cargando">INGRESAR</span>
-            <div *ngIf="cargando" class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </button>
-                    <button *ngIf="correcto" type="submit" class="btn btn-success button-fill"><span>CORRECTO</span></button>
+                    <button *ngIf="!correcto" [disabled]="empresaSeleccionadaBool" type="button"
+                        (click)="seleccionarcompaniaFinal()" class="btn btn-info heartbeat"><span
+                            *ngIf="!cargando">INGRESAR</span>
+                        <div *ngIf="cargando" class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </button>
+                    <button *ngIf="correcto" type="submit"
+                        class="btn btn-success button-fill"><span>CORRECTO</span></button>
 
                 </div>
 

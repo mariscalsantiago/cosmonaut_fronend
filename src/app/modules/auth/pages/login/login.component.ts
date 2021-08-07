@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   public aparecerListaempresas: boolean = false;
   public cargandoLogin: boolean = false;
   public mensajeSucess: string = "Contraseña actualizada correctamente";
+  public restablecer:boolean = false;
 
   public usuarioObj: any;
 
@@ -132,6 +133,7 @@ export class LoginComponent implements OnInit {
   }
 
   public enviarformulario() {
+    this.restablecer = false;
     this.myForm.value.username = this.myForm.value.username?.toLowerCase();
     this.authPrd.login(this.myForm.value).subscribe(datos => {
       let username = datos.username;
@@ -209,8 +211,20 @@ export class LoginComponent implements OnInit {
       this.cargando = false
 
       this.incorrectoback = err.status == 401;
+
+     
       this.mensajesuccess = false;
       this.mensajeerror = false;
+
+
+      if(err.status == 401){
+        if(!err.error.message.includes("Credenciales")){
+            this.mensajeerror = true;
+            this.incorrectoback = false;
+            this.mensajeDanger = err.error.message;
+            this.restablecer = true;
+        }
+      }
 
     });
 
@@ -364,19 +378,29 @@ export class LoginComponent implements OnInit {
 
   }
 
-  public olvidastetupassword() {
-    if (this.correo.nativeElement.value) {
+  public olvidastetupassword(valor:any) {
+    console.log(valor);
+    console.log("Si entra");
+    if (this.correo?.nativeElement.value || Boolean(valor)) {
       let objenviar = {
-        username: this.correo.nativeElement.value?.toLowerCase()
+        username: (!Boolean(valor))? this.correo.nativeElement.value?.toLowerCase():this.myForm.value.username?.toLowerCase()
       }
 
+
+      console.log(objenviar);
+      
       this.cargando = true;
       this.usuarioSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {
         this.cargando = false;
+        
         if (datos.resultado) {
+          this.mensajeerror = false;
+          this.restablecer = false;
           this.regresar();
-          this.correo.nativeElement.value = "";
-          this.mensajeSucess = "Se ha enviado un correo electrónico con su contraseña de recuperación";
+          if(Boolean(this.correo)){
+            this.correo.nativeElement.value = "";
+          }
+          this.mensajeSucess = !Boolean(valor)? "Se ha enviado un correo electrónico con su contraseña de recuperación":valor;
 
           this.mensajesuccess = true;
           this.mensajeerror = false;
@@ -447,6 +471,12 @@ export class LoginComponent implements OnInit {
       }
       mm.unsubscribe();
     });
+  }
+
+
+  public reenviarContrasenialnk(){
+      
+      this.olvidastetupassword("Se ha enviado un correo electrónico con sus nuevas credenciales de acceso");
   }
 
 
