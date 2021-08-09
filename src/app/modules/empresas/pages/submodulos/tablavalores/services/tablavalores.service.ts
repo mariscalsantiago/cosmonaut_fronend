@@ -12,7 +12,7 @@ export class TablaValoresService {
 
   constructor(private http:HttpClient) {
 
-    this.url = direcciones.tablasValores;
+    this.url = direcciones.tablasValoresCAT;
 
 
    }

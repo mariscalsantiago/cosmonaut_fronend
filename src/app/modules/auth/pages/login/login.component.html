@@ -77,7 +77,7 @@
                     </div>
 
                     <div class="boton" *ngIf="ventanapass">
-                        <button (click)="olvidastetupassword()" type="button" class="btn btn-info heartbeat"><span
+                        <button (click)="olvidastetupassword(undefined)" type="button" class="btn btn-info heartbeat"><span
                                 *ngIf="!cargando">ENVIAR</span>
                             <div *ngIf="cargando" class="spinner-border" role="status">
                                 <span class="sr-only">Loading...</span>
