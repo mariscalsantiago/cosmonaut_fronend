@@ -96,6 +96,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   }
 
   public validarTipoConcepto(tipo:any){
+    debugger;
     let type = String(tipo).substring(0,3)
       for(let item of this.arregloTipoDeduccion){
         if(item.tipoDeduccionId == Number(type)){

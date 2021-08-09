@@ -75,6 +75,13 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     if (this.obj.gravaIsr == "N") {
       this.obj.gravaIsr = false
     }
+    if (this.obj.integraImss == "S") {
+      this.obj.gravaIsr = true
+    }
+
+    if (this.obj.integraImss == "N") {
+      this.obj.gravaIsr = false
+    }
     if(this.obj.tipoPercepcionId.tipoPeriodicidad == "A"){
       this.obj.tipoPeriodicidad = "A"
     }
@@ -117,6 +124,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
+    debugger;
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
       this.arregloTipoPercepcion = datos.datos 
     if(this.arregloTipoPercepcion == undefined){
@@ -144,11 +152,11 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public validarTipoConcepto(tipo:any){
-    
-    
-      
+  
+      debugger;
+      let type = String(tipo).substring(0,3)
       for(let item of this.arregloTipoPercepcion){
-        if(item.tipoPercepcionId == tipo){
+        if(item.tipoPercepcionId == Number(type)){
           this.tipoPercepcion = item.tipoPercepcionId + "-" + item.especializacion;
           if(item.tipoConcepto == "N"){
             this.mostrartipoConcepto = false;

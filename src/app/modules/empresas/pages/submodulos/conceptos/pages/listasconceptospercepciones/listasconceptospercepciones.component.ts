@@ -342,6 +342,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
           this.eliminarPer(obj.datos);
         break;
         case "desglosar":
+          debugger;
           let item = obj.datos;
 
           let columnas:Array<tabla> = [
