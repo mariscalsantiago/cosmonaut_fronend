@@ -38,22 +38,31 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
 
+    console.log("Este es el ususario",this.usuariossistemaPrd.usuario);
+
     this.configuracionPrd.notificaciones = 0;
 
 
     this.cargando = true;
     this.suscripcion = this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
-      
-      if(datos.datos !== undefined){
+      if(Boolean(datos.datos)){
         if(this.cantidad !== datos.datos.length){
           this.cantidad = datos.datos.length;
           this.construirTabla(datos.datos);
         }
+      }else{
+        this.arreglotabla = {
+          filas:undefined
+        }
       }
-      
+
+      this.cargando = false;
     });
 
-    this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => this.mensajes = datos.datos);
+    this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
+      console.log("Este es el mensaj generico",datos);
+      this.mensajes = datos.datos
+    });
 
 
 
@@ -80,7 +89,7 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
         let arreglomensajes = [];
 
         try{
-          arreglomensajes = JSON.parse(item.mensajes || "[{}]")
+          arreglomensajes = JSON.parse((item.mensajes || "[{}]"))
         }catch{
           arreglomensajes = [{mensaje:""}];
         }
@@ -101,7 +110,7 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
       filas: obj
     };
 
-    this.cargando = false;
+    
   }
 
 
