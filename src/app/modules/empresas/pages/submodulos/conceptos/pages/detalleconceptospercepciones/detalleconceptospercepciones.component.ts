@@ -245,12 +245,22 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
         
         
         if (valor) {
-          
+          debugger;
           let obj = this.myForm.getRawValue();
-
+          let especializacion;
+          let tipoPercepcion;
+          if(this.tipoPercepcion == ""){
+            for(let item of this.arregloTipoPercepcion){
+              if(item.tipoPercepcionId == obj.tipoPercepcionId){
+                especializacion = item.especializacion;
+                tipoPercepcion = item.tipoPercepcionId;
+              }  
+            }  
+          }else{
           let splitE = this.tipoPercepcion.split('-');
-          let especializacion = splitE[1];
-          let tipoDeduccion = splitE[0];
+          especializacion = splitE[1];
+          tipoPercepcion = splitE[0];
+          }
 
           if (obj.tipoConcepto == "Ordinario") {
             obj.tipoConcepto = "O"
@@ -278,7 +288,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
             nombre: obj.nombre,
             tipoPercepcionId: {
-              tipoPercepcionId: tipoDeduccion,
+              tipoPercepcionId: tipoPercepcion,
               especializacion: especializacion
             },
 
