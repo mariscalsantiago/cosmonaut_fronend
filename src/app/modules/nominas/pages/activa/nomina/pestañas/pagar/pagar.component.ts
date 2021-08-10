@@ -268,7 +268,7 @@ export class PagarComponent implements OnInit {
       }
     }
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    this.nominaOrdinariaPrd.dispersar(obj).subscribe((valor) => {
+    this.nominaOrdinariaPrd.dispersar(obj,this.usuariosSistemaPrd.getIdEmpresa()).subscribe((valor) => {
 
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       if (valor.datos.exito) {

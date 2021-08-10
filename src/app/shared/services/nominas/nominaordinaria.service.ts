@@ -130,9 +130,9 @@ export class NominaordinariaService {
 
   //----------------Dispersar------------------------
 
-  public dispersar(obj: any): Observable<any> {
+  public dispersar(obj: any,idEmpresa:number): Observable<any> {
     let json = JSON.stringify(obj);
-    return this.http.put(`${direcciones.dispersion}`, json);
+    return this.http.put(`${direcciones.dispersion}/${idEmpresa}`, json);
   }
 
   public statusProcesoDispersar(nominaPeriodoId: number, empleados: any): Observable<any> {
