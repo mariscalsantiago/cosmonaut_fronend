@@ -920,9 +920,10 @@ export class EmpleoComponent implements OnInit {
   public cambiaSueldoDiario(){
     if (this.myForm.controls.salarioDiario.valid) {
 
-      if(this.myForm.controls.sueldonetomensualppp.valid){
+      if(Boolean(this.myForm.controls.sueldonetomensualppp.value)){
           this.cambiassueldoPPP();
       }else{
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe ingresar el sueldo neto mensual PPP");
         this.sueldoppp.nativeElement.focus();
       }   
     
