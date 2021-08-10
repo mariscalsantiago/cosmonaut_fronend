@@ -62,7 +62,7 @@ export class VentanaPercepcionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
 
     }else{
-      debugger;
+      
       this.esInsert = false;
       this.datos = {
         ...this.datos,
@@ -106,7 +106,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarPercepcion(tipo:any){
-    debugger;
+    
     let split = tipo.split("-");
     tipo = split[1];
 
@@ -120,7 +120,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo:any){
-    debugger;
+    
     this.myForm.clearValidators();
     //this.myForm.updateValueAndValidity();
     if(tipo != ""){
@@ -251,7 +251,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
       
         if(valor){
-          debugger;
+          
           let  obj = this.myForm.getRawValue();
 
           let split = obj.nomPercepcion.split("-");
@@ -302,7 +302,7 @@ export class VentanaPercepcionesComponent implements OnInit {
           
           };
         }else{
-          debugger;
+          
           this.objEnviar = {
             tipoPercepcionId: {
               tipoPercepcionId: this.nomPercepcion
@@ -331,7 +331,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         }
           
         }else{
-          debugger;
+          
 
           if(this.politica !== undefined){
           this.objEnviar = {

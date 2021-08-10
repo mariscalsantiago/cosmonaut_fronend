@@ -35,7 +35,7 @@ export class VentanaTablaISNComponent implements OnInit {
 
   ngOnInit(): void {
     
-    debugger;
+    
     this.cargando = true;
     this.estadoId = this.datos.estadoId;
     this.cestado = this.datos.estado;

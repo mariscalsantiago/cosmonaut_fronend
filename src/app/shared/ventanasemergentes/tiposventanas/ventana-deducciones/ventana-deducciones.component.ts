@@ -137,7 +137,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-     debugger;
+     
     this.submitEnviado = false;
     this.myForm.clearValidators();
     this.myForm.updateValueAndValidity();
@@ -462,7 +462,7 @@ export class VentanaDeduccionesComponent implements OnInit {
    }
 
    public validarNomMonto(tipomonto:any){
-    debugger;
+    
       if(tipomonto == 2){
         this.tipoValor = "Monto";
         this.porcentual = false;
@@ -561,7 +561,7 @@ export class VentanaDeduccionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-    debugger;
+    
     console.log('myForm', this.myForm.value)
     this.submitEnviado = true;
     this.myForm.updateValueAndValidity();

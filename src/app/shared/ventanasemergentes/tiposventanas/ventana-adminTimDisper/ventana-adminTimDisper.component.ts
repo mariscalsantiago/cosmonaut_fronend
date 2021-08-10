@@ -58,7 +58,7 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
 
 
   /* public createForm(obj: any) {
-    debugger;
+    
     if(obj.proveedorDispersionId == undefined ){
       this.idDispersion =0;
     }else{
@@ -87,7 +87,7 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
 
 
   public enviarPeticion(){
-    debugger;
+    
 /*     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach(control => {
         control.markAsTouched();
@@ -105,7 +105,7 @@ export class VentanaAdminTimbradoDispersionComponent implements OnInit {
           
           
          // let  obj = this.myForm.getRawValue();
-            debugger;
+            
             this.objEnviar = {
               clienteXproveedorId: this.arregloProveedores.centrocClienteXproveedorId,
               clienteId: this.arregloProveedores.centrocClienteId.centrocClienteId,

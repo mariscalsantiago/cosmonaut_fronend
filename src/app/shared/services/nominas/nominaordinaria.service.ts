@@ -156,7 +156,7 @@ export class NominaordinariaService {
 
   public statusProcesoTimbrar(nominaPeriodoId: number, cantidadEmpleados: number, arreglo: any): Observable<any> {
     let json = JSON.stringify(arreglo);
-    return this.http.post(`${direcciones.timbrado}/procesando/${nominaPeriodoId}/${cantidadEmpleados}`, json);
+    return this.http.post(`${direcciones.timbrado}/procesando/${nominaPeriodoId}`, json);
   }
 
   public resumenTimbrado(idPeriodo: number): Observable<any> {

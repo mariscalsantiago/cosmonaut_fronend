@@ -84,13 +84,44 @@ export class CompletarComponent implements OnInit {
 
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
       this.reportesPrd.getFoliosnominaConcluir(objEnviar).subscribe(datos =>{
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         if(datos.resultado){
           this.reportesPrd.crearArchivo(datos.datos,`Foliosfiscales_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`,"pdf");
         }else{
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
         }
       });
+  }
+
+
+  public finalizarnomina(){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Desea finalizar la nómina?").then(valor =>{
+      if(valor){
+        
+        }
+    });;
+  }
+
+
+  public descargarRecibos(){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas descargar los recibos?").then(valor =>{
+      if(valor){
+
+        let enviarObj = {
+          nominaPeriodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
+          esVistaPrevia: false,
+          esTimbrado : true
+        }
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          
+          this.reportesPrd.crearArchivo(valor.datos,"recibospago_"+ `${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`,"zip")
+        });
+
+      }
+    });
   }
 
  

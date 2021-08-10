@@ -139,7 +139,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 6){
-      debugger;
+      
       if (this.objdetrep.fecInicio != undefined || this.objdetrep.fecInicio != null) {
       this.objdetrep.fecInicio = new DatePipe("es-MX").transform(new Date(new Date(this.objdetrep.fecInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
       }
@@ -650,7 +650,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 6){
           
-          debugger;
+          
           if (obj.fecInicio != undefined && obj.fecInicio != '') {
             obj.fecInicio = new Date((new Date(obj.fecInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
            
@@ -967,7 +967,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             esActivo: obj.esActivo,
           }
           if (this.insertar) {
-            debugger;
+            
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.saveProveedorDispersion(this.objEnviar).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -1009,7 +1009,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             esActivo: obj.esActivo,
           }
           if (this.insertar) {
-            debugger;
+            
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.saveProveedorTimbrado(this.objEnviar).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -1423,7 +1423,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-            debugger;
+            
             for(let item of this.arregloTablaValores){
 
               if (item.fechaInicio != "") {

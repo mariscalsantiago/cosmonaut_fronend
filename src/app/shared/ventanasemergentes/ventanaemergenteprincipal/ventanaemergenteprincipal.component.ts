@@ -47,7 +47,7 @@ export class VentanaemergenteprincipalComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    debugger;
+    
     event.target.innerWidth;
 
     this.content = document.getElementById("contenido");

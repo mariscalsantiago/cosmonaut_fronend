@@ -241,7 +241,7 @@ export class ListajornadalaboralComponent implements OnInit {
       case "desglosar":
         let item = obj.datos;
         this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa, item.jornadaId).subscribe(datos => {
-          debugger;
+          
           this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
 
           for(let item of this.arreglodetalle.nclHorarioJornada){

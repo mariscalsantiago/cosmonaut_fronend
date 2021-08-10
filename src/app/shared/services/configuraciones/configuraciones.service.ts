@@ -19,6 +19,7 @@ export class ConfiguracionesService {
   public readonly MONEDAS: string = "monedas";
   public readonly MENUUSUARIO: string = "menuusuario";
   public readonly PERMISOSXVERSIONES: string = "permisosxversiones";
+  public readonly ELEMENTOSTABLA:string = "elementostabla";
   public readonly JWT: string = "jwt";
 
 
@@ -141,7 +142,7 @@ export class ConfiguracionesService {
 
           if(valor2.submoduloId ===33){
             //Esto era solo para debuggear
-            //debugger;
+            //
           }
 
           if ((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9 || valor2.submoduloId == 33) || version === 1) {

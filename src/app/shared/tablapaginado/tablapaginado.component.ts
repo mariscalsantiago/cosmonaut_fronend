@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { ConfiguracionesService } from '../services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-tablapaginado',
@@ -77,11 +78,12 @@ export class TablapaginadoComponent implements OnInit {
   };
 
 
-  constructor() { }
+  constructor(private configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
 
+    this.numeroitems = Number(this.configuracionPrd.getElementosSesionDirecto(this.configuracionPrd.ELEMENTOSTABLA) || "5");
 
       
 
@@ -91,6 +93,9 @@ export class TablapaginadoComponent implements OnInit {
   public cambia() {
 
     this.paginar();
+
+    this.configuracionPrd.setElementosSesion(this.configuracionPrd.ELEMENTOSTABLA,this.numeroitems)
+
 
   }
 

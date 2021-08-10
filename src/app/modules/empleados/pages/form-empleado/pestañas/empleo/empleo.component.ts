@@ -28,6 +28,7 @@ export class EmpleoComponent implements OnInit {
   @ViewChild("fechaAntiguedad") fechaAntiguedadElemento!: ElementRef;
   @ViewChild("fechaInicioCont") fechaInicioCont!: ElementRef;
   @ViewChild("fechaFinCont") fechaFinCont!: ElementRef;
+  @ViewChild("sueldoppp") sueldoppp!:ElementRef;
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;
   @Input() arregloEnviar: any;
@@ -913,5 +914,19 @@ export class EmpleoComponent implements OnInit {
     }
 
     return variable;
+  }
+
+
+  public cambiaSueldoDiario(){
+    if (this.myForm.controls.salarioDiario.valid) {
+
+      if(Boolean(this.myForm.controls.sueldonetomensualppp.value)){
+          this.cambiassueldoPPP();
+      }else{
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe ingresar el sueldo neto mensual PPP");
+        this.sueldoppp.nativeElement.focus();
+      }   
+    
+    }
   }
 }

@@ -59,13 +59,6 @@ export class CalcularComponent implements OnInit {
     private usuariSistemaPrd: UsuarioSistemaService) { }
 
   ngOnInit(): void {
-
-
-
-
-    console.log("ESTA ES LA NOMINA SELECICONADA",this.nominaSeleccionada);
-    
-
     if (this.nominaSeleccionada.nominaOrdinaria) {
       this.esnormal = true;
       this.llave = "nominaOrdinaria";
