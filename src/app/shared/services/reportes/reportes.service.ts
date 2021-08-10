@@ -176,8 +176,12 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
 
 
   public getErroresDispersionEmpleados(idNomina:number):Observable<any>{
-      return this.http.get(`${direcciones.reportes}/dispersion/lista/dispersion/erroneos/${idNomina}`);
+      return this.http.get(`${direcciones.reportes}/dispersion/lista/errores/${idNomina}`);
   }
+
+  public getErroresTimbradoEmpleados(idNomina:number):Observable<any>{
+    return this.http.get(`${direcciones.reportes}/timbrado/lista/errores/${idNomina}`);
+}
 
 
   public getComprobanteFiscalXML(obj:any):Observable<any>{

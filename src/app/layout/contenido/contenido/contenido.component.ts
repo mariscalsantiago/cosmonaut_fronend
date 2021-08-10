@@ -176,10 +176,15 @@ export class ContenidoComponent implements OnInit {
       } else {
 
 
+        console.log("Ya estar cargado este show");
+
 
         if (!Boolean(this.configuracionPrd.MENUPRINCIPAL)) {
+          console.log("!Boolean(this.configuracionPrd.MENUPRINCIPAL)");
           this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
             this.PRINCIPAL_MENU = datos;
+            console.log("this.PRINCIPAL_MENU = datos;");
+            console.log(this.PRINCIPAL_MENU);
             this.establecericons();
             this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
@@ -195,6 +200,7 @@ export class ContenidoComponent implements OnInit {
             }
           });
         } else {
+          
           this.PRINCIPAL_MENU = this.configuracionPrd.MENUPRINCIPAL;
           if ((this.configuracionPrd.ocultarChat) == undefined) {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
