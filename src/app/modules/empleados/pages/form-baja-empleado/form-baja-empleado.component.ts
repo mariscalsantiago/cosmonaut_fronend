@@ -40,6 +40,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   public esRegistrar:boolean = false;
   public ultimaNomina: boolean = false;
   public arregloEmpleado: any = [];
+  public etiquetas:any = [];
 
 
   constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute,
@@ -66,6 +67,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
     this.EmpleadosService.getEmpleadosBaja(this.idEmpresa,this.estatusBaj).subscribe(datos =>{
       
     this.arreglobaja = datos.datos
+
   });
     this.EmpleadosService.empleadoListCom(objEnviar).subscribe(datos => this.arregloempleados = datos.datos);
     this.catalogosPrd.getMotivoBajaEmpleado(true).subscribe(datos => this.arregloMotivoBaja = datos.datos);
@@ -122,31 +124,58 @@ export class FormBajaEmpleadoComponent implements OnInit {
       pagosXliquidacionId20: [obj.pagosXliquidacionId20],
       pagosXliquidacionId90: [obj.pagosXliquidacionId90],
       notas: [obj.notas],
-      numeroDias: [obj.numeroDias,[Validators.required]]
-
+      numeroDias: [obj.numeroDias,[Validators.required]],
+      identificadorPersona: [''],
 
     });
   }
 
-  public validarEmpleado(empleado:any){
-    this.myFormcomp.clearValidators();
-    if(empleado != ""){
+  public validarEmpleado() {
+    debugger;
 
-      this.EmpleadosService.getEmpleadoValidarFecha(empleado).subscribe(datos => {
-          this.arregloEmpleado = datos.datos;
-          if(this.arregloEmpleado.mostrarFechaFinUltimoPago == true){
-              this.ultimaNomina = true;
-              this.myFormcomp.controls.fechaFinUltimoPago.setValidators([Validators.required]);
-          }else{
-            
-            this.myFormcomp.controls.fechaFinUltimoPago.setValidators([]);
-            this.myFormcomp.controls.fechaFinUltimoPago.updateValueAndValidity();
-            this.ultimaNomina = false;
+    const nombreCapturado = this.myFormcomp.value.personaId;
+    if (nombreCapturado !== undefined) {
+      if (nombreCapturado.trim() !== "") {
+        let encontrado: boolean = false;
+        for (let item of this.arreglobaja) {
+          const nombreCompleto = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
+          if (nombreCapturado.includes(nombreCompleto)) {
+            this.myFormcomp.controls.identificadorPersona.setValue(item.personaId?.personaId);
+            this.fechaContrato = item.fechaContrato;
+            this.personaId = item.personaId?.personaId;
+            if(this.personaId != null){
+
+              this.EmpleadosService.getEmpleadoValidarFecha(this.personaId).subscribe(datos => {
+                  this.arregloEmpleado = datos.datos;
+                  if(this.arregloEmpleado.mostrarFechaFinUltimoPago == true){
+                      this.ultimaNomina = true;
+                      this.myFormcomp.controls.fechaFinUltimoPago.setValidators([Validators.required]);
+                      this.myFormcomp.controls.fechaFinUltimoPago.updateValueAndValidity();
+                  }else{
+                    
+                    this.myFormcomp.controls.fechaFinUltimoPago.setValidators([]);
+                    this.myFormcomp.controls.fechaFinUltimoPago.updateValueAndValidity();
+                    this.ultimaNomina = false;
+                  }
+              });
+            }
+
+            break;
           }
-      });
+        }
+
+
+      }
     }
 
+
   }
+
+
+  public recibirEtiquetas(obj: any) {
+    debugger;
+    this.etiquetas = obj;
+ }
 
   public validarTipoCalculo(calculo:any){
     
@@ -235,12 +264,6 @@ export class FormBajaEmpleadoComponent implements OnInit {
           }
         }
 
-        for (let item of this.arreglobaja){
-          if(item.numEmpleado == obj.personaId){
-                this.fechaContrato = item.fechaContrato
-                this.personaId = item.personaId.personaId
-              }
-        }
 
         if(obj.pagosXliquidacionIdPrima == true && obj.tipoBajaId != "2"){
           obj.pagosLiquidacionId= 1
@@ -343,7 +366,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
       
           
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          
+          debugger;
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
             
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{

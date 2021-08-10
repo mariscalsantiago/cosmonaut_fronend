@@ -24,16 +24,19 @@
 
             <div class="col-12 col-md-12 col-xl-11">
                 <div class="row">
+
                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                         <label>Seleccionar al empleado *</label>
-                        <select #empleado (focusout)="validarEmpleado(empleado.value)" formControlName="personaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}">
-                      <option value=""></option>
-                      <option *ngFor="let item of arreglobaja"  [value]="item.personaId.personaId">{{item.personaId.nombre}} {{item.personaId.apellidoPaterno}} {{item.personaId.apellidoMaterno}}</option>
-                  </select>
+                        <input autocomplete="off" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}"  (focusout)="validarEmpleado()" list="empleadosreporta" class="form-control" formControlName="personaId" name="browser" id="browser">
+                            
+                        <datalist id="empleadosreporta">
+                            <option *ngFor="let item of arreglobaja" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno + ' ' + ((item.personaId.apellidoMaterno == undefined) ? '':item.personaId.apellidoMaterno)"></option>
+                        </datalist>
                         <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
                     </div>
+
                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                         <label>Tipo de cálculo *</label>
                         <select #calculo (focusout)="validarTipoCalculo(calculo.value)" formControlName="tipoBajaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoBajaId.errors && submitEnviado}">

@@ -145,7 +145,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
 
     this.cargandolistatimbres = true;
-    
+    this.arreglotimbresProveedoresTab =[];
     this.admintimbradoDispersion.getTimbresActivos().subscribe(datos => {
       this.arreglotimbres = datos.datos == undefined ? [] : datos.datos;
       for(let item of this.arreglotimbres){

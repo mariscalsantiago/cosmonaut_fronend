@@ -575,6 +575,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public salirPersonaid() {
+    debugger;
     this.myForm.controls.personaId.clearValidators();
     this.myForm.controls.personaId.updateValueAndValidity();
 
