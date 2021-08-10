@@ -28,6 +28,7 @@ export class EmpleoComponent implements OnInit {
   @ViewChild("fechaAntiguedad") fechaAntiguedadElemento!: ElementRef;
   @ViewChild("fechaInicioCont") fechaInicioCont!: ElementRef;
   @ViewChild("fechaFinCont") fechaFinCont!: ElementRef;
+  @ViewChild("sueldoppp") sueldoppp!:ElementRef;
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;
   @Input() arregloEnviar: any;
@@ -913,5 +914,18 @@ export class EmpleoComponent implements OnInit {
     }
 
     return variable;
+  }
+
+
+  public cambiaSueldoDiario(){
+    if (this.myForm.controls.salarioDiario.valid) {
+
+      if(this.myForm.controls.sueldonetomensualppp.valid){
+          this.cambiassueldoPPP();
+      }else{
+        this.sueldoppp.nativeElement.focus();
+      }   
+    
+    }
   }
 }

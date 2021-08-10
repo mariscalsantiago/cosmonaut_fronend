@@ -222,7 +222,7 @@
                 </div>
                 <div *ngIf="typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4" data-bs-toggle="tooltip" data-bs-placement="top" [title]="'sueldoBrutoMensual' | tooltip">
                     <label for="exampleFormControlSelect1">Sueldo neto mensual PPP*</label>
-                    <input formatos [moneda]="true" [control]="f.sueldonetomensualppp" formControlName="sueldonetomensualppp" (focusout)="cambiassueldoPPP()" type="text" name="" id="m1" class="form-control" [ngClass]="{'is-invalid':f.sueldonetomensualppp.errors && f.sueldonetomensualppp.touched}">
+                    <input #sueldoppp formatos [moneda]="true" [control]="f.sueldonetomensualppp" formControlName="sueldonetomensualppp" (focusout)="cambiassueldoPPP()" type="text" name="" id="m1" class="form-control" [ngClass]="{'is-invalid':f.sueldonetomensualppp.errors && f.sueldonetomensualppp.touched}">
                     <div class="invalid-feedback">
                         Campo requerido
                     </div>
@@ -230,7 +230,7 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Salario diario *</label>
-                    <input formatos [moneda]="true" [control]="f.salarioDiario" [ngClass]="{'is-invalid':f.salarioDiario.errors && f.salarioDiario.touched}" formControlName="salarioDiario" type="text" name="" id="" class="form-control">
+                    <input formatos [moneda]="true" [control]="f.salarioDiario" [ngClass]="{'is-invalid':f.salarioDiario.errors && f.salarioDiario.touched}" (focusout)="cambiaSueldoDiario()" formControlName="salarioDiario" type="text" name="" id="" class="form-control">
                     <div class="invalid-feedback">
                         Campo requerido
                     </div>

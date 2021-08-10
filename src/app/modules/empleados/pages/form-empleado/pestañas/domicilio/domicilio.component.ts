@@ -127,7 +127,7 @@ export class DomicilioComponent implements OnInit {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
                 if (datos.resultado) {
-                  this.enviado.emit({ type: "domicilio", datos: datos.datos });
+                  this.enviado.emit({ type: "domicilio", datos: [datos.datos] });
                 }
               });
             });
@@ -138,7 +138,7 @@ export class DomicilioComponent implements OnInit {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
-                this.enviado.emit({ type: "domicilio", datos: datos.datos });
+                this.enviado.emit({ type: "domicilio", datos: [datos.datos] });
               }
             });
           });
