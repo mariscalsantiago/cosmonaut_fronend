@@ -70,7 +70,7 @@ export class DatosimssComponent implements OnInit {
   }
 
   public cancelar() {
-    this.routerPrd.navigate(['/listaempresas']);
+    this.enviado.emit({type:"cancelar"});
 
   }
 
@@ -156,7 +156,7 @@ export class DatosimssComponent implements OnInit {
       this.imssPrd.save(this.objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
           if (datos.resultado) {
-            this.routerPrd.navigate(["/listaempresas"]);
+            this.enviado.emit({type:"cancelar"});
           }
         });
       });
