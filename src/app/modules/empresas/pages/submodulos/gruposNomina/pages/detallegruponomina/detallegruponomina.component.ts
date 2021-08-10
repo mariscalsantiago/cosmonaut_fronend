@@ -108,7 +108,7 @@ export class DetallegruponominaComponent implements OnInit {
   public crearForm(obj:any){
 
     if(!this.esInsert){
-      debugger;
+      
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
       if(obj.ajustarBaseGravableFaltantes){
         this.ajustedeisr = true;
@@ -190,7 +190,7 @@ export class DetallegruponominaComponent implements OnInit {
 
         };
 
-        debugger;
+        
        
         if (this.esInsert) {
           

@@ -47,7 +47,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     if(!this.esInsert){
-      debugger;
+      
     this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa,objdetrep.jornadaId).subscribe(datos =>{  
       this.arreglodetalleJornada = datos.datos
       this.myForm = this.crearForm(this.arreglodetalleJornada);
@@ -72,9 +72,9 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public crearForm(obj: any) {
-    debugger;
+    
       if(!this.esInsert){
-        debugger;
+        
         for(let item of obj.nclHorarioJornada){
           
         if(item.dia == 1 && item.esActivo== true){
@@ -314,7 +314,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
 
         let obj = this.myForm.getRawValue(); 
-        debugger;
+        
         if(!obj.lunes){obj.lunes = false}
         if(!obj.martes){obj.martes = false}
         if(!obj.miercoles){obj.miercoles = false}
@@ -428,7 +428,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
           });
         } else {
-          debugger;
+          
 
           if(String(obj.sumaHorasJornadaId) === '1') {
  
@@ -563,7 +563,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public selectJornada(op: any){
-    debugger;
+    
     this.myForm.clearValidators();
     //this.myForm.updateValueAndValidity();
     this.jornada = String(op.value);

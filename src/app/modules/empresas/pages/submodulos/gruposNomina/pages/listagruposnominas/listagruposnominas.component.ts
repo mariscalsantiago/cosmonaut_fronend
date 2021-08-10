@@ -161,7 +161,7 @@ export class ListagruposnominasComponent implements OnInit {
   }
 
   public filtrar() {
-    debugger;
+    
 
     let objEnviar = {
 

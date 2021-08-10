@@ -243,7 +243,7 @@ export class VariabilidadComponent implements OnInit {
 
     public createForm(obj: any) {
 
-    debugger;  
+      
     if(this.bimestreCalcular== 0 && !this.esREcalcular){
 
       this.bimestreLeyenda = "1er Bimestre"
@@ -299,7 +299,7 @@ export class VariabilidadComponent implements OnInit {
 
 
   public desgargarArchivo(obj:any) {
-    debugger;
+    
     if(this.variabilidad == 0){
       this.varibilidadID = obj.datos.variabilidadId;
     }else{
@@ -322,7 +322,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public promedioVariabilidad(){
-    debugger;
+    
 
     this.reportesPrd.getCalcularDías(this.bimestreCalcular).subscribe(archivo => {
 
@@ -337,7 +337,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public cancelar(){
-    debugger;
+    
     this.recalcularPromedio = false;
     this.calcularPromedio = true;
     this.esREcalcular = false;
@@ -356,7 +356,7 @@ export class VariabilidadComponent implements OnInit {
 
   }
   public recalcularVariabilidad() {
-    debugger;
+    
     if (this.myForm.invalid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -385,7 +385,7 @@ export class VariabilidadComponent implements OnInit {
             
                
                 this.empresasPrd.recalculoPromedioVariables(this.varibilidadRecalculoID).subscribe(datos => {
-                  debugger;  
+                    
                   this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
                   let intervalo = interval(1000);
                   intervalo.pipe(take(11));
@@ -534,13 +534,13 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    debugger;
+    
     switch (obj.type) {
       case "descargar":
           this.desgargarArchivo(obj);
          break;
       case "recalcular":
-        debugger;
+        
           this.esREcalcular = true;
           this.objRecalculo = obj.datos;
           this.myForm = this.createForm(this.objRecalculo);

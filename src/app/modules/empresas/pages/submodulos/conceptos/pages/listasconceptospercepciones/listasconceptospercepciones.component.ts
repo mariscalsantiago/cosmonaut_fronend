@@ -100,7 +100,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
       this.cargando = true;
       
       this.cargandoPer = true;
-      debugger;
+      
       this.conceptosPrd.getListaConceptoPercepcion(this.id_empresa).subscribe(datos => {
           this.crearTablaPercepcion(datos);
       });
@@ -342,7 +342,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
           this.eliminarPer(obj.datos);
         break;
         case "desglosar":
-          debugger;
+          
           let item = obj.datos;
 
           let columnas:Array<tabla> = [

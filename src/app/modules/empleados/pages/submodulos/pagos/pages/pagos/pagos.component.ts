@@ -103,7 +103,7 @@ export class PagosComponent implements OnInit {
         this.cuentaBanco = datos.datos;
 
       });
-      debugger;
+      
 
 
       this.cargandoPer = true;
@@ -297,11 +297,11 @@ export class PagosComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     this.bancosPrd.savePercepcionEmpleado(obj).subscribe(datos => {
-      debugger;
+      
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-        debugger;
+        
         this.crearTablaPercepcion(datos);
       });
 
