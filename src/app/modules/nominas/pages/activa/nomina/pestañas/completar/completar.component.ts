@@ -93,5 +93,14 @@ export class CompletarComponent implements OnInit {
       });
   }
 
+
+  public finalizarnomina(){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Desea finalizar la nómina?").then(valor =>{
+      if(valor){
+        
+        }
+    });;
+  }
+
  
 }
