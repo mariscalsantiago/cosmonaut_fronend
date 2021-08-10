@@ -89,8 +89,11 @@ export class PagosComponent implements OnInit {
 
         
 
+        
+
 
         this.empleado = datos.datos;
+        this.myFormCompensacion = this.createFormCompensacion(this.empleado);
         if (this.empleado.metodoPagoId.metodoPagoId == 4) {
           this.detalleCuenta = true;
         } else {
@@ -224,6 +227,10 @@ export class PagosComponent implements OnInit {
 
     }
     this.arreglopintar[valor] = !this.arreglopintar[valor];
+
+    if(valor){
+        this.cambiarGrupoNomina();
+    }
   }
 
   //*****************Métodos de pago******************* */
@@ -673,9 +680,6 @@ export class PagosComponent implements OnInit {
 
 
   public verDetalleCompensacion() {
-    
-    this.myFormCompensacion = this.createFormCompensacion(this.empleado);
-    
     this.detallecompensacionbool = true
     this.suscribirseCompensacion();
   }
@@ -691,8 +695,12 @@ export class PagosComponent implements OnInit {
 
 
   public cambiarGrupoNomina() {
+
+
     
     const gruponominaId = this.myFormCompensacion.controls.grupoNominaId.value;
+
+    console.log("cambiarGrupoNomina()",gruponominaId,"sdfsdf",this.arreglogrupoNomina);
 
     let aux;
 
@@ -709,6 +717,8 @@ export class PagosComponent implements OnInit {
 
     this.grupoNominaSeleccionado = aux;
     //this.grupoNominaSeleccionado.pagoComplementario = true;
+
+    console.log("Este es pago complementario",this.grupoNominaSeleccionado);
 
     if (this.grupoNominaSeleccionado.pagoComplementario) {
 
