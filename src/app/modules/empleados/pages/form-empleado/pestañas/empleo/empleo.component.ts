@@ -556,7 +556,7 @@ export class EmpleoComponent implements OnInit {
             apellidoMat: this.datosPersona.apellidoMaterno,
             email: this.datosPersona.emailCorporativo,
             centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
-            rolId: 3
+            rolId: 2
           }
 
           this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
