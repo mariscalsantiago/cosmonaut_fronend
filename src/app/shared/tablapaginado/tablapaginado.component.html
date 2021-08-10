@@ -59,7 +59,7 @@
                     </td>
 
                     <td *ngIf="checkbox && (esnomina || timbrado)">
-                        <label *ngIf="item.tipopago === 'Transferencia' && item.status == 'Sin pagar' && esTransferencia=='esTransferencia'" class="contenedorInputCheckRadio">
+                        <label *ngIf="item.tipopago === 'Transferencia' && (item.status !== 'Pagado' && item.status !== 'En proceso') && esTransferencia=='esTransferencia'" class="contenedorInputCheckRadio">
                             <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name=""
                                 id="ajusteirs">
                             <span class="checkmark"></span>
