@@ -37,12 +37,7 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
     private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-
-    console.log("Este es el ususario",this.usuariossistemaPrd.usuario);
-
     this.configuracionPrd.notificaciones = 0;
-
-
     this.cargando = true;
     this.suscripcion = this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
       if(Boolean(datos.datos)){
