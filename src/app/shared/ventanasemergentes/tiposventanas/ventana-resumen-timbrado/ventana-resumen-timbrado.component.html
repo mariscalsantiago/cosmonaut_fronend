@@ -3,7 +3,7 @@
         <h6>{{recibidos?.totalRecibosTimbrados}} de {{recibidos?.totalTimbrados}}  timbrados han sido exitosos</h6>
 
     </div>
-    <div *ngIf="recibidos?.totalRecibosTimbrados === recibidos?.totalTimbrados" class="col-12">
+    <div *ngIf="recibidos?.totalRecibosTimbrados !== recibidos?.totalTimbrados" class="col-12">
         <a (click)="descargarErrores()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true"
             class="fas fa-download"></i> Descargar errores de timbrado</small>
     <div *ngIf="cargandoIcon" class="spinner-border" role="status">

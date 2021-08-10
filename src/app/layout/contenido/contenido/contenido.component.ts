@@ -157,6 +157,7 @@ export class ContenidoComponent implements OnInit {
           this.usuariosSistemaPrd.setUsuario(usuario as usuarioClass);
 
           this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
+          
 
           if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
             this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
@@ -188,6 +189,7 @@ export class ContenidoComponent implements OnInit {
             this.establecericons();
             this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
+            console.log(this.usuariosSistemaPrd.usuario);
             if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
               this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
               });

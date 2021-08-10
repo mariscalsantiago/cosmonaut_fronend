@@ -42,7 +42,7 @@ export class VentanaResumenTimbradoComponent implements OnInit {
 
   public descargarErrores(){
     this.cargandoIcon = true;
-    this.reportesPrd.getErroresDispersionEmpleados(this.datos).subscribe(datos =>{
+    this.reportesPrd.getErroresTimbradoEmpleados(this.datos).subscribe(datos =>{
       this.cargandoIcon = false;
       this.reportesPrd.crearArchivo(datos.datos,"erroresTimbrado","xlsx");
     });
