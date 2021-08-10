@@ -19,6 +19,7 @@ export class ConfiguracionesService {
   public readonly MONEDAS: string = "monedas";
   public readonly MENUUSUARIO: string = "menuusuario";
   public readonly PERMISOSXVERSIONES: string = "permisosxversiones";
+  public readonly ELEMENTOSTABLA:string = "elementostabla";
   public readonly JWT: string = "jwt";
 
 
