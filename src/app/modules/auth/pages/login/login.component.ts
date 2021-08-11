@@ -219,7 +219,7 @@ export class LoginComponent implements OnInit {
 
       if(err.status == 401){
         console.log(err.error);
-        if(!err.error.message.includes("Credenciales")){
+        if(!err.error.message.includes("Credenciales") && !err.error.message.includes("Crdenciales invalidas")){
             this.mensajeerror = true;
             this.incorrectoback = false;
             this.mensajeDanger = err.error.message;

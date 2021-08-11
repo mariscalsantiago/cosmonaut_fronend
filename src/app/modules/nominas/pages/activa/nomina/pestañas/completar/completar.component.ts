@@ -99,7 +99,8 @@ export class CompletarComponent implements OnInit {
         let enviarObj = {
           nominaPeriodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
           esVistaPrevia: false,
-          esTimbrado : true
+          esTimbrado : true,
+          esSubida : true
         }
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);

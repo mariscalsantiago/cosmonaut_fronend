@@ -40,6 +40,7 @@ export class EmpleadoComponent implements OnInit {
       this.esKiosko = this.router.url.includes("/kiosko/perfil");
 
 
+      
 
       if (!this.esKiosko) {
         this.idEmpleado = params["id"];
