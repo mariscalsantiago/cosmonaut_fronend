@@ -37,16 +37,17 @@
                                 <input  [(ngModel)]="valor" name="seleccion" type="radio" value="1">
                                 <span class="radiomark"></span>
                             </label>
-                                    <label class="contenedorInputCheckRadio">Filtrar por área
+                            <label class="contenedorInputCheckRadio">Filtrar por área
                                 <input [(ngModel)]="valor" name="seleccion" type="radio" value="2">
                                 <span class="radiomark"></span>
                             </label>
                                     <div *ngIf="valor == '2'">
-                                        <select #inputarea style="font-size: 12px;" name="" class="form-control mb-2">
-                                    <option *ngFor="let item of arregloareas" [value]="item.areaId">{{item.descripcion}}</option>
+                                        <select style="font-size: 12px;" [(ngModel)]="idArea"  name="" class="form-control mb-2">
+                                    <option  *ngFor="let item of arregloareas" [value]="item.areaId">{{item.descripcion}}</option>
                                 </select>
 
                                     </div>
+
                                     <label class="contenedorInputCheckRadio">Filtrar por empleados especificos
                                 <input [(ngModel)]="valor" name="seleccion" type="radio" value="3">
                                 <span class="radiomark"></span>
@@ -57,6 +58,7 @@
                                             <label for="exampleFormControlSelect1" style="font-size: 12px;">Empleados *</label>
                                             <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
                                         </div>
+                                        
 
                                     </div>
                                 </div>
