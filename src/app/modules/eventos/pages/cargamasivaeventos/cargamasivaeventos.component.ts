@@ -19,12 +19,9 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
   styleUrls: ['./cargamasivaeventos.component.scss']
 })
 export class CargaMasivaEventosComponent implements OnInit {
-
+  @ViewChild("inputFile") inputFile!:ElementRef;
   @ViewChild("documento") public inputdoc!: ElementRef;
   @Output() salida = new EventEmitter<any>();
-
-  @ViewChild("inputarea") elemento!:ElementRef;
-  @ViewChild("inputFile") inputFile!:ElementRef;
   @Input() public datos:any ;
 
   public activado = [
@@ -48,6 +45,9 @@ export class CargaMasivaEventosComponent implements OnInit {
   public arregloEmpleados: any = [];
   public etiquetas:any = [];
   public estatusEvento: boolean = false;
+  public idArea: number = 0;
+  public personaId: number = 0;
+  public nomEmpleado: string="";
 
   public arreglotabla:any = {
     columnas:[],
@@ -70,10 +70,18 @@ export class CargaMasivaEventosComponent implements OnInit {
 
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.obj = history.state.datos == undefined ? {} : history.state.datos;
-
-    this.areasPrd.getAreasByEmpresa(this.idEmpresa).subscribe(datos => this.arregloareas = datos.datos);
+    debugger;
+    this.areasPrd.getAreasByEmpresa(this.idEmpresa).subscribe(datos => {
+      debugger;
+      this.arregloareas = datos.datos
+      let areaList = this.arregloareas[0]
+      if(areaList.areaId != undefined || areaList.areaId != 0){
+        this.idArea = areaList.areaId;
+      }
+    });
 
     this.EmpleadosService.getEmpleadosCompania(this.idEmpresa).subscribe(datos => {
+      debugger;
       this.arregloEmpleados = datos.datos;
       for (let item of this.arregloEmpleados) {
         item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
@@ -143,11 +151,34 @@ export class CargaMasivaEventosComponent implements OnInit {
   }
 
   public recibirEtiquetas(obj: any) {
+    debugger;
     this.etiquetas = obj;
  }
 
+ public validarEmpleado() {
+  debugger;
+
+  const nombreCapturado = this.myForm.value.valor;
+  if (nombreCapturado !== undefined) {
+    if (nombreCapturado.trim() !== "") {
+      let encontrado: boolean = false;
+      for (let item of this.arregloEmpleados) {
+        const nombreCompleto = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
+        if (nombreCapturado.includes(nombreCompleto)) {
+          this.myForm.controls.identificadorPersona.setValue(item.personaId?.personaId);
+          this.personaId = item.personaId?.personaId;
+
+          break;
+        }
+      }
+    }
+  }
+
+
+}
+
   public descargarArchivo(){
-    
+      debugger;
       this.cargandoIcon = true;
       let obj = 
 
@@ -206,9 +237,10 @@ export class CargaMasivaEventosComponent implements OnInit {
       }
   
     }
- 
+    
+
     public obtenerEmpleados() {
-      
+      debugger;
       let valor = [];
       
       switch (this.valor) {
@@ -219,7 +251,7 @@ export class CargaMasivaEventosComponent implements OnInit {
           break;
         case "2":
           for(let item of this.arregloEmpleados){
-            if(item.areaId?.areaId == this.elemento.nativeElement.value){
+            if(item.areaId?.areaId == this.idArea){
               valor.push(item.personaId?.personaId);
             }
          }
@@ -397,14 +429,18 @@ export class CargaMasivaEventosComponent implements OnInit {
   }
 
   public descargarEventos(){
-    
+    debugger;
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     let objEnviar: any ={
       idEmpresa: this.idEmpresa,
       listaIdEmpleados: this.obtenerEmpleados(),
       esActivo: true
     }
+    if(objEnviar.listaIdEmpleados.length === 0){
 
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha seleccionado ningun empleado");
+      return;
+    }
   
         this.reportesPrd.getDescargaListaEventosErroneos(objEnviar).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
