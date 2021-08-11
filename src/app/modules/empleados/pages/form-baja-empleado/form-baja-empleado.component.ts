@@ -136,7 +136,6 @@ export class FormBajaEmpleadoComponent implements OnInit {
     const nombreCapturado = this.myFormcomp.value.personaId;
     if (nombreCapturado !== undefined) {
       if (nombreCapturado.trim() !== "") {
-        let encontrado: boolean = false;
         for (let item of this.arreglobaja) {
           const nombreCompleto = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
           if (nombreCapturado.includes(nombreCompleto)) {
