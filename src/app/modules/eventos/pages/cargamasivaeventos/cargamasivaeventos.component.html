@@ -30,33 +30,41 @@
                         <div class="tab-pane fade" [ngClass]="{'show active':activado[0].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
                             <br>
+                            <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
+
+                            <input type="hidden">
+                            
                             <div class="row">
                                 <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
                                     <label>Seleccionar los empleados a incluir en el formato</label>
                                     <label class="contenedorInputCheckRadio">Todos los empleados
-                                <input  [(ngModel)]="valor" name="seleccion" type="radio" value="1">
+                                <input  [(ngModel)]="valor" [ngModelOptions]="{standalone: true}" name="seleccion" type="radio" value="1">
                                 <span class="radiomark"></span>
                             </label>
                             <label class="contenedorInputCheckRadio">Filtrar por área
-                                <input [(ngModel)]="valor" name="seleccion" type="radio" value="2">
+                                <input [(ngModel)]="valor" [ngModelOptions]="{standalone: true}" name="seleccion" type="radio" value="2">
                                 <span class="radiomark"></span>
                             </label>
                                     <div *ngIf="valor == '2'">
-                                        <select style="font-size: 12px;" [(ngModel)]="idArea"  name="" class="form-control mb-2">
+                                        <select style="font-size: 12px;" [(ngModel)]="idArea" [ngModelOptions]="{standalone: true}" name="" class="form-control mb-2">
                                     <option  *ngFor="let item of arregloareas" [value]="item.areaId">{{item.descripcion}}</option>
                                 </select>
 
                                     </div>
 
                                     <label class="contenedorInputCheckRadio">Filtrar por empleados especificos
-                                <input [(ngModel)]="valor" name="seleccion" type="radio" value="3">
+                                <input [(ngModel)]="valor" [ngModelOptions]="{standalone: true}" name="seleccion" type="radio" value="3">
                                 <span class="radiomark"></span>
                             </label>
 
                                     <div *ngIf="valor == '3'">
-                                        <div class="input-group-sm mb-3 col-8">
-                                            <label for="exampleFormControlSelect1" style="font-size: 12px;">Empleados *</label>
-                                            <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
+                                        <div class=" input-group-sm mb-3 col-8">
+                                            <label>Empleados *</label>
+                                            <input autocomplete="off" (focusout)="validarEmpleado()" list="empleadosreporta" class="form-control" formControlName="personaId" name="browser" id="browser">
+                                                
+                                            <datalist id="empleadosreporta">
+                                                <option *ngFor="let item of arregloEmpleados" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno + ' ' + ((item.personaId.apellidoMaterno == undefined) ? '':item.personaId.apellidoMaterno)"></option>
+                                            </datalist>
                                         </div>
                                         
 
@@ -70,6 +78,7 @@
 
                                 <button *ngIf="esRegistrar" (click)="seleccionarItem()" type="button" class="btn btn-primary button-fill">Continuar</button>
                             </div>
+                            </form>
 
                             <br>
 

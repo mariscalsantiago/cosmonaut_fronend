@@ -21,12 +21,12 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 export class CargaMasivaEventosComponent implements OnInit {
   @ViewChild("inputFile") inputFile!:ElementRef;
   @ViewChild("documento") public inputdoc!: ElementRef;
-  @Output() salida = new EventEmitter<any>();
   @Input() public datos:any ;
 
   public activado = [
     { tab: true, form: true, disabled: false, seleccionado: true },
     { tab: false, form: false, disabled: false, seleccionado: false }];
+  @Output() salida = new EventEmitter();  
 
   public myForm!: FormGroup;
   public valor: string = "1";
@@ -91,7 +91,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 
 
 
-    this.myForm = this.createForm((this.obj));
+    this.myForm = this.createForm(this.obj);
   }
 
 
@@ -110,7 +110,8 @@ export class CargaMasivaEventosComponent implements OnInit {
 
       documento: [obj.documento,[Validators.required]],
       nombre: [obj.nombre],
-      valor: []
+      valor: [],
+      personaId: []
 
     });
   }
@@ -158,14 +159,12 @@ export class CargaMasivaEventosComponent implements OnInit {
  public validarEmpleado() {
   debugger;
 
-  const nombreCapturado = this.myForm.value.valor;
+  const nombreCapturado = this.myForm.value.personaId;
   if (nombreCapturado !== undefined) {
     if (nombreCapturado.trim() !== "") {
-      let encontrado: boolean = false;
       for (let item of this.arregloEmpleados) {
         const nombreCompleto = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
         if (nombreCapturado.includes(nombreCompleto)) {
-          this.myForm.controls.identificadorPersona.setValue(item.personaId?.personaId);
           this.personaId = item.personaId?.personaId;
 
           break;
@@ -257,10 +256,10 @@ export class CargaMasivaEventosComponent implements OnInit {
          }
           break;
         case "3":
-          for(let item of this.etiquetas){
+          //for(let item of this.etiquetas){
           
-              valor.push(item.personaId?.personaId);
-         }
+              valor.push(this.personaId);
+         //}
           break;
       }
       return valor;
