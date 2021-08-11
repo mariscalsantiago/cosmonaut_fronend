@@ -87,7 +87,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 21){
-      
+      debugger;
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
         this.adminCatalogosPrd.getListaDispersion().subscribe(datos => {
