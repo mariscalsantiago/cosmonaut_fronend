@@ -7,7 +7,7 @@
         </div>
         <div class="input-group-sm mb-3 col-4"></div>
         <div class="input-group-sm mb-3 col-4">
-            <label for="exampleFormControlSelect1">Proveedor de disperscion *</label>
+            <label for="exampleFormControlSelect1">Proveedor de dispersión *</label>
             <select type="text" class="form-control" [(ngModel)]="idDispersion">
                 <option value="0"></option> 
                 <option *ngFor="let item of arregloDispersion"  [value]="item.proveedorDispersionId">{{item.descripcion}}</option>

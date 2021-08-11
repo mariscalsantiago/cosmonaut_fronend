@@ -58,6 +58,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public submitActive = false;
   public periodo:string = "";
   public especializacion = '';
+  public fechaAlta: number = 0;
 
   public arreglotabla: any = {
     columnas: [],
@@ -79,7 +80,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   ngOnInit(): void {
     this.periodo = "";
   
-
+    debugger;
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data;
 
@@ -122,15 +123,28 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 21){
+      debugger;
       
       this.idCatalogo = this.objdetrep.proveedorDispersionId;
       this.descripcion = this.objdetrep.descripcion;
+      if(this.objdetrep.fechaAlta){
+        this.fechaAlta = this.objdetrep.fechaAlta;
+      }else{
+        var fechaFC = new Date();
+        this.fechaAlta = new Date((new Date(fechaFC).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+      }
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 22){
-      
+      debugger;
       this.idCatalogo = this.objdetrep.proveedorTimbradoId;
       this.descripcion = this.objdetrep.descripcion;
+      if(this.objdetrep.fechaAlta){
+        this.fechaAlta = this.objdetrep.fechaAlta;
+      }else{
+        var fechaFC = new Date();
+        this.fechaAlta = new Date((new Date(fechaFC).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+      }
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 8){
@@ -985,6 +999,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
               proveedorDispersionId: obj.clave,
               descripcion: obj.nombreCorto,
               esActivo: obj.esActivo,
+              fechaAlta: this.fechaAlta
             }
   
   
@@ -1027,6 +1042,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
               proveedorTimbradoId: obj.clave,
               descripcion: obj.nombreCorto,
               esActivo: obj.esActivo,
+              fechaAlta: this.fechaAlta
             }
   
   
