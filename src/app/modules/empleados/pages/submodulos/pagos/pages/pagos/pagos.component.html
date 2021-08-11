@@ -243,8 +243,13 @@
                                                             mensual</span>
                                                         <span *ngIf="typeppp">Sueldo neto mensual PPP*</span>
                                                         </td>
-                                                    <td *ngIf="!detallecompensacionbool">{{empleado.sueldoBrutoMensual |
-                                                        currency:'$'}}</td>
+                                                    <td *ngIf="!detallecompensacionbool">
+                                                      <span  *ngIf="!typeppp && fc.tiposueldo.value == 'b'">{{empleado.sueldoBrutoMensual |
+                                                        currency:'$'}}</span>
+                                                        <span  *ngIf="typeppp">{{(empleado.pppSnm||0) |
+                                                            currency:'$'}}</span>
+                                                        
+                                                    </td>
                                                     <td *ngIf="detallecompensacionbool && fc.tiposueldo.value == 'b' && !typeppp">
                                                         <input formatos [moneda]="true"
                                                             [control]="fc.sueldoBrutoMensual"
@@ -307,7 +312,8 @@
                                                     </td>
                                                 </tr>
                                                 <tr *ngIf="!detallecompensacionbool">
-                                                    <td class="titulorow">Salario Base de Cotización</td>
+                                                    <td *ngIf="!typeppp" class="titulorow">Salario Base de Cotización</td>
+                                                    <td *ngIf="typeppp" class="titulorow">Salario Diario Integrado</td>
                                                     <td>{{empleado.sbc | currency:'$'}}</td>
                                                 </tr>
                                                 <tr
@@ -327,7 +333,7 @@
                                                 <tr *ngIf="detallecompensacionbool && grupoNominaSeleccionado.pagoComplementario">
                                                     <td class="titulorow">Pago IMSS *</td>
                                                     <td>
-                                                        <input formControlName="salarioNetoMensualImss" formatos [moneda]="true" type="text" name="" id="" class="form-control">
+                                                        <input  formControlName="salarioNetoMensualImss" formatos [moneda]="true" type="text" name="" id="" class="form-control">
                                                     </td>
                                                 </tr>
                                                 <tr
@@ -338,12 +344,12 @@
                                                     </td>
                                                 </tr>
                                                 <tr *ngIf="detallecompensacionbool">
-                                                    <td class="titulorow">Salario <span
+                                                    <td class="titulorow">Sueldo <span
                                                             *ngIf="fc.tiposueldo.value == 'b' && !typeppp"> neto
                                                             mensual</span><span *ngIf="fc.tiposueldo.value== 'n' && !typeppp">bruto
                                                             mensual</span>
                                                             <span
-                                                            *ngIf="typeppp"> neto
+                                                            *ngIf="typeppp"> bruto
                                                             mensual</span>
                                                         </td>
                                                     <td *ngIf="fc.tiposueldo.value == 'b' && !typeppp">
