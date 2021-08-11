@@ -488,6 +488,7 @@ export class EmpleoComponent implements OnInit {
           objEnviar.sbc = obj.salarioDiarioIntegrado; //Sañario integrado
           delete obj.salarioDiarioIntegrado;
           objEnviar.pppSalarioBaseMensual = obj.sueldoBrutoMensualPPP;//sueldo menusal ppp
+          objEnviar.pppSnm = obj.sueldonetomensualppp;
         }
 
 

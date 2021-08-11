@@ -87,12 +87,16 @@ export class PagosComponent implements OnInit {
       this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
 
 
+
+
         
 
         
 
 
         this.empleado = datos.datos;
+
+        console.log("Este es el empleado",this.empleado);
         this.myFormCompensacion = this.createFormCompensacion(this.empleado);
         if (this.empleado.metodoPagoId.metodoPagoId == 4) {
           this.detalleCuenta = true;
@@ -682,6 +686,13 @@ export class PagosComponent implements OnInit {
   public verDetalleCompensacion() {
     this.detallecompensacionbool = true
     this.suscribirseCompensacion();
+    if(this.typeppp){
+        this.myFormCompensacion.controls.sueldonetomensualppp.setValue(this.empleado.pppSnm || 0);
+        this.myFormCompensacion.controls.salarioDiarioIntegrado.setValue(this.empleado.sbc);
+        this.myFormCompensacion.controls.salarioNetoMensualImss.setValue(this.empleado.sueldoNetoMensual);
+        this.myFormCompensacion.controls.pagoComplementario.setValue(this.empleado.pppMontoComplementario);
+        
+    }
   }
 
 

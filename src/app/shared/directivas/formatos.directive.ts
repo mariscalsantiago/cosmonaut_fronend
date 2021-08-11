@@ -152,7 +152,10 @@ export class FormatosDirective implements OnInit {
 
 
   ngOnInit(): void {
+    console.log("Directiva");
+
     if (this.moneda) {
+      this.el.nativeElement.value = this.formatoMoneda(this.el.nativeElement.value);
       if (this.control) {
         this.suscrita = this.control.valueChanges.subscribe(valor => {
           if (!this.desactivarSuscribir) {

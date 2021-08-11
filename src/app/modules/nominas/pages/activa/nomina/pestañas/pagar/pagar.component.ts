@@ -271,26 +271,30 @@ export class PagarComponent implements OnInit {
     this.nominaOrdinariaPrd.dispersar(obj,this.usuariosSistemaPrd.getIdEmpresa()).subscribe((valor) => {
 
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      if (valor.datos.exito) {
-        this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento, el proceso se tardara varios minutos.");
-        let suscribe = timer(0, 1500).pipe(concatMap(() =>
-          this.nominaOrdinariaPrd
-            .statusProcesoDispersar(this.idnominaPeriodo,arrayPersonas )))
-          .subscribe(datos => {
-            this.configuracionesPrd.setCantidad(datos.datos);
-            if (datos.datos >= 100) {
-              suscribe.unsubscribe();
-              setTimeout(() => {
-
-                this.configuracionesPrd.setCantidad(0);
-                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-                this.ventana.showVentana(this.ventana.ndispersion, {datos:{ nominaId: this.idnominaPeriodo,empleados:arrayPersonas }}).then(valor => {
-                  this.salida.emit({ type: "dispersar" });
-                  this.ngOnInit();
-                });
-              }, 2000);
-            }
-          });
+      if(valor.resultado){
+        if (valor.datos.exito) {
+          this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento, el proceso se tardara varios minutos.");
+          let suscribe = timer(0, 1500).pipe(concatMap(() =>
+            this.nominaOrdinariaPrd
+              .statusProcesoDispersar(this.idnominaPeriodo,arrayPersonas )))
+            .subscribe(datos => {
+              this.configuracionesPrd.setCantidad(datos.datos);
+              if (datos.datos >= 100) {
+                suscribe.unsubscribe();
+                setTimeout(() => {
+  
+                  this.configuracionesPrd.setCantidad(0);
+                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                  this.ventana.showVentana(this.ventana.ndispersion, {datos:{ nominaId: this.idnominaPeriodo,empleados:arrayPersonas }}).then(valor => {
+                    this.continuarTitulo = "Continuar";
+                    this.ngOnInit();
+                  });
+                }, 2000);
+              }
+            });
+        }
+      }else{
+        this.modalPrd.showMessageDialog(valor.resultado,valor.mensaje)
       }
     });
 
