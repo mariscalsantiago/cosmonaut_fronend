@@ -159,8 +159,9 @@ export class NominaordinariaService {
     return this.http.post(`${direcciones.timbrado}/procesando/${nominaPeriodoId}`, json);
   }
 
-  public resumenTimbrado(idPeriodo: number): Observable<any> {
-    return this.http.get(`${direcciones.timbrado}/resume/${idPeriodo}`);
+  public resumenTimbrado(idPeriodo: number,arrayEmpleados:any): Observable<any> {
+    let json = JSON.stringify(arrayEmpleados);
+    return this.http.post(`${direcciones.timbrado}/resume/${idPeriodo}`,json);
   }
 
 

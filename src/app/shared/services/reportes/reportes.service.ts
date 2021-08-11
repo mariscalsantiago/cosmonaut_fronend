@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -211,6 +212,10 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
 
   public getFoliosnominaConcluir(obj:any):Observable<any>{
       return this.http.post(`${direcciones.reportes}/nominaHistorica/folioFiscal`,obj);
+  }
+
+  public enviarRecibosPago(idNomina:number):Observable<any>{
+      return this.http.get(`${environment.rutaAdmin}/comprobantes/sendMail/${idNomina}`);
   }
 
   public crearArchivo(base64:string,nombre:string,extension:string){

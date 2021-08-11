@@ -273,6 +273,7 @@ export class TimbrarComponent implements OnInit {
 
         let obj = []
         let arregloaux:Array<Number> = new Array<Number>();
+
         for (let item of this.arreglo) {
           if (item.seleccionado) {
             obj.push({
@@ -308,9 +309,9 @@ export class TimbrarComponent implements OnInit {
                     setTimeout(() => {
                       this.configuracionesPrd.setCantidad(0);
                     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-                    this.ventana.showVentana(this.ventana.ntimbrado, { datos: this.nominaSeleccionada[this.llave2].nominaXperiodoId }).then(() => {
+                    this.ventana.showVentana(this.ventana.ntimbrado, {datos:{ nominaId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,empleados:arregloaux }}).then(() => {
                       this.ngOnInit();
-                      this.continuarTitulo = "continuarTitulo";
+                      this.continuarTitulo = "Continuar";
                     });
                     }, 2000);
                   }
