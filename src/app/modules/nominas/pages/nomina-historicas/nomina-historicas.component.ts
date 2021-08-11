@@ -48,15 +48,16 @@ export class NominaHistoricasComponent implements OnInit {
   }
 
   public rellenarTablas(datos:any){
-    let columnas: Array<tabla> = [new tabla("nombreNomina", "Nombre de nómina"),
-    new tabla("clavePeriodo", "Clave de periodo"),
+    let columnas: Array<tabla> = [new tabla("nombre_nomina", "Nombre de nómina"),
+    new tabla("clave_periodo", "Clave de periodo"),
     new tabla("anio", "Año"),
-    new tabla("fechaInicio", "Fecha")
+    new tabla("fechai", "Fecha")
     ];
 
     if (datos.datos !== undefined) {
       for (let item of datos.datos) {
-        item["anio"] = new DatePipe("es-MX").transform(item.fechaInicio, "yyyy");
+        item["anio"] = new DatePipe("es-MX").transform(item.fecha_inicio, "yyyy");
+        item["fechai"] = new DatePipe("es-MX").transform(item.fecha_inicio, "dd/MM/yyyy");
       }
     }
 

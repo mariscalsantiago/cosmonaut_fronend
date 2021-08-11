@@ -136,6 +136,11 @@ export class ChatSocketService {
     return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/usuario/${idEmpresa}/${idUsuario}`);
 }
 
+public getMensajesrecibidosPorEmpleado(idEmpresa:number,idUsuario:number):Observable<any>{
+  console.log(`${direcciones.chat}/listar/usuario/${idEmpresa}/${idUsuario}`);
+  return this.http.get(`${direcciones.chat}/listar/usuario/${idEmpresa}/${idUsuario}`);
+}
+
 
   public enviarMensajeGenerico(mensaje:string,canal:string){
     let socketInterno:WebSocket = new WebSocket(direcciones.socket+canal);
