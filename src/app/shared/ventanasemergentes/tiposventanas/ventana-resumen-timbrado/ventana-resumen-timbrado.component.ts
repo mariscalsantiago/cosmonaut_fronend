@@ -20,9 +20,9 @@ export class VentanaResumenTimbradoComponent implements OnInit {
   constructor(private reportesPrd:ReportesService,private nominasOrdinariasPrd:NominaordinariaService) { }
 
   ngOnInit(): void {
-    this.nominasOrdinariasPrd.resumenTimbrado(this.datos).subscribe(datos =>{
+    this.nominasOrdinariasPrd.resumenTimbrado(this.datos.nominaId,this.datos.empleados).subscribe(datos =>{
       if(datos.datos !== undefined){
-        this.recibidos = datos.datos[0];
+        this.recibidos = datos.datos;
       }
   });
   }
@@ -42,7 +42,7 @@ export class VentanaResumenTimbradoComponent implements OnInit {
 
   public descargarErrores(){
     this.cargandoIcon = true;
-    this.reportesPrd.getErroresTimbradoEmpleados(this.datos).subscribe(datos =>{
+    this.reportesPrd.getErroresTimbradoEmpleados(this.datos.nominaId).subscribe(datos =>{
       this.cargandoIcon = false;
       this.reportesPrd.crearArchivo(datos.datos,"erroresTimbrado","xlsx");
     });

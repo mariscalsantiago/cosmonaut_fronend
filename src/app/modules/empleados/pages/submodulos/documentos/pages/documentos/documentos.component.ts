@@ -46,6 +46,7 @@ export class DocumentosComponent implements OnInit {
   ngOnInit(): void {
 
     this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
+    
 
     
 

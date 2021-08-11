@@ -61,10 +61,11 @@ export class TokenInterceptorService implements HttpInterceptor {
               filter(accessToken => accessToken !== null),
               take(1),
               switchMap(token => {
+                console.log("Este token se refresca TOKEN",token);
                 req = req.clone({
                   headers: new HttpHeaders({
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token.access_token}`,
+                    'Authorization': `Bearer ${token}`,
                     'datos-sesion': `idempresa=${this.usuariosSistemaPrd.getIdEmpresa()}&idUsuario=${this.usuariosSistemaPrd.usuario.usuarioId}`,
                     'datos-flujo': `${this.routerPrd.url}`
                   })

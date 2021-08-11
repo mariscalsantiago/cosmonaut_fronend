@@ -34,22 +34,22 @@
 <div class="row especialrow">
     <div class="col-6">
         <article>Empleados
-            <article style="margin-left: 32px;">{{nominaSeleccionada[llave2].empleados}}</article>
+            <article style="margin-left: 32px;">{{nominaSeleccionada[llave2].numEmpleados}}</article>
         </article>
     </div>
     <div class="col-2">
         <article>Percepciones
-            <article>{{nominaSeleccionada[llave2].percepciones | currency}}</article>
+            <article>{{nominaSeleccionada[llave2].totalPercepciones | currency}}</article>
         </article>
     </div>
     <div class="col-2">
         <article>Deducciones
-            <article>{{nominaSeleccionada[llave2].deducciones | currency}}</article>
+            <article>{{nominaSeleccionada[llave2].totalDeducciones | currency}}</article>
         </article>
     </div>
     <div class="col-2">
         <article>Total
-            <article>{{nominaSeleccionada[llave2].total | currency}}</article>
+            <article>{{nominaSeleccionada[llave2].totalNeto | currency}}</article>
         </article>
     </div>
 </div>
@@ -61,7 +61,6 @@
 
 
 <div class="text-center margin" style="margin-bottom: 20px;">
-
     <button (click)="regresar()" class="btn btn-primary button-outlet mr-2">Regresar</button>
     <button (click)="timbrar()" class="btn btn-primary button-fill">{{continuarTitulo}}</button>
 </div>

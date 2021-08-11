@@ -15,6 +15,8 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 })
 export class ExpedienteComponent implements OnInit {
 
+  public fileName:any;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -76,11 +78,83 @@ export class ExpedienteComponent implements OnInit {
     this.cargando = false;
   }
 
-  public filtrar() {
+  public filtrar(){
+    this.cargando = true;
+    if(this.tipodocumento){
+      this.documentosPrd.getListaTipoDocumento(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado,Number(this.tipodocumento || 0)).subscribe(datos => {
+          this.crearTabla(datos);
+      });
+    }else{
+    this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
+        this.crearTabla(datos);
+    });
+    }
 
   }
 
   public recibirTabla(obj: any) {
+    if (obj.type == "descargar") {
+      this.iniciarDescarga(obj.datos);
+      
+    }
+  }
+
+  public iniciarDescarga(obj:any){
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    this.documentosPrd.getDescargaDocEmpleado(obj.cmsArchivoId).subscribe(archivo => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      let linkSource: string = "";
+      if(archivo.datos.tipoMM?.extension == "jpg"){
+          linkSource = 'data:application/jpg;base64,' + `${archivo.datos.contenido}\n`;
+          this.fileName = `${archivo.datos.nombre}.jpg`;
+      }
+      else if(archivo.datos.tipoMM?.extension == "docx"){
+        linkSource = 'data:application/docx;base64,' + `${archivo.datos.contenido}\n`;
+          this.fileName = `${archivo.datos.nombre}.docx`;
+      }
+      else if(archivo.datos.tipoMM?.extension == "png"){
+        linkSource = 'data:application/png;base64,' + `${archivo.datos.contenido}\n`;
+        this.fileName = `${archivo.datos.nombre}.png`;
+      }
+      else if(archivo.datos.tipoMM?.extension == "zip"){
+        linkSource = 'data:application/zip;base64,' + `${archivo.datos.contenido}\n`;
+        this.fileName = `${archivo.datos.nombre}.zip`;
+      }
+      else if(archivo.datos.tipoMM?.extension == "rar"){
+        linkSource = 'data:application/rar;base64,' + `${archivo.datos.contenido}\n`;
+        this.fileName = `${archivo.datos.nombre}.rar`;
+      }
+      else if(archivo.datos.tipoMM?.extension == "xlsx"){
+        linkSource = 'data:application/xlsx;base64,' + `${archivo.datos.contenido}\n`;
+        this.fileName = `${archivo.datos.nombre}.xlsx`;
+      }
+      else if(archivo.datos.tipoMM?.extension == "pdf"){
+        linkSource = 'data:application/pdf;base64,' + `${archivo.datos.contenido}\n`;
+        this.fileName = `${archivo.datos.nombre}.pdf`;
+      }
+      else if(archivo.datos.tipoMM?.extension == "doc"){
+        linkSource = 'data:application/doc;base64,' + `${archivo.datos.contenido}\n`;
+        this.fileName = `${archivo.datos.nombre}.doc`;
+      }
+      else if(archivo.datos.tipoMM?.extension == "jpg"){
+      linkSource = 'data:application/jpg;base64,' + `${archivo.datos.contenido}\n`;
+      this.fileName = `${archivo.datos.nombre}.jpg`;
+      }
+      else{
+      linkSource = 'data:application/txt;base64,' + `${archivo.datos.contenido}\n`;
+      this.fileName = `${archivo.datos.nombre}.txt`;
+      }
+      const downloadLink = document.createElement("a");
+      
+
+      downloadLink.href = linkSource;
+      downloadLink.download = this.fileName;
+      downloadLink.click();
+    });
+  
+
+
   }
 
 

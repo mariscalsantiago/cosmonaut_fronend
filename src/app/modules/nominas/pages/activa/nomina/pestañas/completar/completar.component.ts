@@ -52,24 +52,13 @@ export class CompletarComponent implements OnInit {
   }
 
   public enviarRecibos() {
+    
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas enviar los recibos de pago a los empleados?").then((valor) => {
       if (valor) {
-       let objEnviar = {
-          nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
-          listaIdPersona: [
-    
-          ]
-        }
-
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.reportesPrd.getFoliosnominaConcluir(objEnviar).subscribe(objrecibido => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          if (objrecibido.resultado) {
-            this.reportesPrd.crearArchivo(objrecibido.datos, `Foliosfiscales_${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].clavePeriodo}`, "pdf");
-          } else {
-            this.modalPrd.showMessageDialog(objrecibido.resultado, objrecibido.mensaje);
-          }
-        });
+          this.reportesPrd.enviarRecibosPago(this.nominaSeleccionada[this.llave].nominaXperiodoId).subscribe(datos =>{
+            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
+          })
       }
     });;
   }
@@ -110,7 +99,8 @@ export class CompletarComponent implements OnInit {
         let enviarObj = {
           nominaPeriodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
           esVistaPrevia: false,
-          esTimbrado : true
+          esTimbrado : true,
+          esSubida : true
         }
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
