@@ -48,6 +48,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     
     });
     if(!this.esInsert){
+    debugger;  
     this.obj = history.state.data == undefined ? {} : history.state.data;
     //this.concatenaEspecializacion();
 
