@@ -38,7 +38,7 @@ export class VentanaResumenDispersionComponent implements OnInit {
 
   public descargarErrores(){
     this.cargandoIcon = true;
-    this.reportesPrd.getErroresDispersionEmpleados(this.datos).subscribe(datos =>{
+    this.reportesPrd.getErroresDispersionEmpleados(this.datos.nominaId).subscribe(datos =>{
       this.cargandoIcon = false;
       this.reportesPrd.crearArchivo(datos.datos,"erroresDispersion","xlsx");
     });

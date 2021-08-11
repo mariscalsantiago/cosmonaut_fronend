@@ -286,7 +286,7 @@ export class PagarComponent implements OnInit {
                   this.configuracionesPrd.setCantidad(0);
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                   this.ventana.showVentana(this.ventana.ndispersion, {datos:{ nominaId: this.idnominaPeriodo,empleados:arrayPersonas }}).then(valor => {
-                    this.salida.emit({ type: "dispersar" });
+                    this.continuarTitulo = "Continuar";
                     this.ngOnInit();
                   });
                 }, 2000);
