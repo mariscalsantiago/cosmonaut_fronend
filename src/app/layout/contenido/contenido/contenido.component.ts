@@ -195,6 +195,7 @@ export class ContenidoComponent implements OnInit {
               });
             } else {
               if (!this.usuariosSistemaPrd.usuario.esCliente) {
+                console.log("Se va a activar el chat");
                 this.darClickChat(true);
               } else {
                 this.configuracionPrd.ocultarChat = true;
@@ -213,6 +214,7 @@ export class ContenidoComponent implements OnInit {
               });
             } else {
               if (!this.usuariosSistemaPrd.usuario.esCliente) {
+                console.log("Se va a activar el chat despues en el else cargado esto");
                 this.darClickChat(true);
               } else {
                 this.configuracionPrd.ocultarChat = true;
@@ -380,9 +382,12 @@ export class ContenidoComponent implements OnInit {
       this.chat.datos.numeromensajes = 0;
       this.chat.datos.mensajeRecibido = false;
       if (autoconectable) {
+        console.log("autoconectable");
         if (!this.chatPrd.isConnect()) {
+          console.log("!this.chatPrd.isConnect()");
 
-          this.chatPrd.getMensajeGenericoByEmpresaByEmpleado(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getUsuario().usuarioId).subscribe(datos => {
+          this.chatPrd.getMensajesrecibidosPorEmpleado(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getUsuario().usuarioId).subscribe(datos => {
+            console.log("this.chatPrd.getMensajeGenericoByEmpresaByEmpleado(t",datos);
             if (datos.datos) {
               let obj = datos.datos[0];
               let mensajes = obj.mensajes;
