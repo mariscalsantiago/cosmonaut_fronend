@@ -59,8 +59,8 @@
 
                                     <div *ngIf="valor == '3'">
                                         <div class=" input-group-sm mb-3 col-8">
-                                            <label>Empleados *</label>
-                                            <input autocomplete="off" (focusout)="validarEmpleado()" list="empleadosreporta" class="form-control" formControlName="personaId" name="browser" id="browser">
+                                            <label style="font-size: 12px;" >Empleados *</label>
+                                            <input style="font-size: 12px;" autocomplete="off" (focusout)="validarEmpleado()" list="empleadosreporta" class="form-control" formControlName="personaId" name="browser" id="browser">
                                                 
                                             <datalist id="empleadosreporta">
                                                 <option *ngFor="let item of arregloEmpleados" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno + ' ' + ((item.personaId.apellidoMaterno == undefined) ? '':item.personaId.apellidoMaterno)"></option>
