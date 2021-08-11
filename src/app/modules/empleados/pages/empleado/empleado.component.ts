@@ -41,17 +41,11 @@ export class EmpleadoComponent implements OnInit {
 
 
       
-
+      this.modalPrd.showMessageDialog(this.modalPrd.loading);
       if (!this.esKiosko) {
         this.idEmpleado = params["id"];
-        this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos => {
-
-          if (datos.datos?.url !== undefined) {
-
-            this.elEmpleado.url = datos.datos?.url;
-          }
-
-        });
+       
+        this.traerInfoBasica();
 
         this.seguirProceso();
 
@@ -60,7 +54,10 @@ export class EmpleadoComponent implements OnInit {
           if (!datos.resultado) {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           } else {
+
             this.idEmpleado = datos.datos.personaId;
+
+            this.traerInfoBasica();
             this.router.navigate([`/kiosko/perfil/${this.idEmpleado}/personal`]);
             this.seguirProceso();
           }
@@ -70,6 +67,18 @@ export class EmpleadoComponent implements OnInit {
 
 
 
+
+    });
+  }
+
+  public traerInfoBasica(){
+    this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos => {
+this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      if (datos.datos?.url !== undefined) {
+
+        this.elEmpleado.url = datos.datos?.url;
+        console.log("Me trae el url bien",this.elEmpleado.url);
+      }
 
     });
   }
@@ -145,6 +154,7 @@ export class EmpleadoComponent implements OnInit {
           this.empleadosPrd.update(objEnviar).subscribe(actualizado => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(actualizado.resultado, actualizado.mensaje);
+            this.ngOnInit();
 
           });
         });
