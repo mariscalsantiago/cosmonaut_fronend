@@ -79,11 +79,8 @@ export class ExpedienteComponent implements OnInit {
   }
 
   public filtrar(){
-    
+    this.cargando = true;
     if(this.tipodocumento){
-    
-      this.cargando = true;
-    
       this.documentosPrd.getListaTipoDocumento(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado,Number(this.tipodocumento || 0)).subscribe(datos => {
           this.crearTabla(datos);
       });

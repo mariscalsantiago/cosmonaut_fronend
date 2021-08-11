@@ -20,12 +20,6 @@
                                 <option *ngFor="let item of arregloDocumentos" [value]="item.id">{{item.nombre}}</option>
                             </select>
                         </div>
-                        <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control"  placeholder="Filtrar por fecha">
-                        </div>
-                        <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control"  placeholder="Filtrar por clase">
-                        </div>
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
                             <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                         </div>
