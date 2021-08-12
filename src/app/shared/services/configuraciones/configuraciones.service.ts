@@ -54,6 +54,7 @@ export class ConfiguracionesService {
 
 
   constructor() { 
+    debugger;
     ConfiguracionesService.referencia = this;
   }
 

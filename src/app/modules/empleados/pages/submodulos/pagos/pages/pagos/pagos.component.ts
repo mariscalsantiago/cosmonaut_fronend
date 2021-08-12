@@ -623,7 +623,7 @@ export class PagosComponent implements OnInit {
         }
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.contratoColaboradorPrd.update(objEnviar).subscribe(datos => {
+        this.contratoColaboradorPrd.updateCmpensacionKardex(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
             if (datos.resultado) {
