@@ -930,4 +930,9 @@ export class EmpleoComponent implements OnInit {
     
     }
   }
+
+
+  public calcularsueldo(){
+    alert("");
+  }
 }
