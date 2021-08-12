@@ -54,7 +54,7 @@ export class ConfiguracionesService {
 
 
   constructor() { 
-    debugger;
+    
     ConfiguracionesService.referencia = this;
   }
 
@@ -121,7 +121,7 @@ export class ConfiguracionesService {
 
 
   public traerDatosMenu(permisos: any, menu: any, version: number, esCliente?: boolean) {
-    debugger;
+    
     let arreglo: [any] = menu;
 
 

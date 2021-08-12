@@ -80,7 +80,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   ngOnInit(): void {
     this.periodo = "";
   
-    debugger;
+    
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data;
 
@@ -123,7 +123,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 21){
-      debugger;
+      
       
       this.idCatalogo = this.objdetrep.proveedorDispersionId;
       this.descripcion = this.objdetrep.descripcion;
@@ -136,7 +136,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 22){
-      debugger;
+      
       this.idCatalogo = this.objdetrep.proveedorTimbradoId;
       this.descripcion = this.objdetrep.descripcion;
       if(this.objdetrep.fechaAlta){

@@ -118,7 +118,7 @@ export class ContenidoComponent implements OnInit {
   ngOnInit(): void {
 
    
-    debugger;
+    
     
 
 
@@ -138,7 +138,7 @@ export class ContenidoComponent implements OnInit {
 
 
     if (this.authPrd.isAuthenticated()) {
-      debugger;
+      
       this.mostrandoChatBoot();
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
 
@@ -229,7 +229,7 @@ export class ContenidoComponent implements OnInit {
   }
 
   public limpiando() {
-    debugger;
+    
 
     for (let item of this.PRINCIPAL_MENU) {
       item.seleccionado = false;
@@ -241,7 +241,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public seleccionado(obj: any, indice: number,elemento:any) {
-    debugger;
+    
 
     if (!obj.seleccionadosubmenu) {
 
