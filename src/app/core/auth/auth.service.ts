@@ -1,7 +1,6 @@
 import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { KeyObject } from 'crypto';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
@@ -58,6 +57,7 @@ export class AuthService {
   }
 
   private guardarToken(respuesta: any,esregresh:boolean = false): void {
+    console.log("Este es el token",respuesta);
     this.configuracionPrd.setElementosSesion(this.configuracionPrd.JWT,respuesta);
     if(esregresh){
       this.router.navigateByUrl('/');
