@@ -84,7 +84,13 @@ export class NominaHistoricasComponent implements OnInit {
         alert("Poliza contable");
         break;
       case "detallenomina":
-        alert("detlale nomina");
+        this.reportesPrd.nominaHistorica(obj.datos.nominaXperiodoId).subscribe(objrecibido =>{
+            if(!objrecibido.resultado){
+                this.modalPrd.showMessageDialog(objrecibido.resultado,objrecibido.mensaje);
+            }else{
+              this.reportesPrd.crearArchivo(objrecibido.datos, `Detallenomina_${obj.datos.nombreNomina}_${obj.datos.clavePeriodo}`, "pdf");
+            }
+        });
         break;
       case "nomina":
         alert("nomina");
@@ -108,7 +114,13 @@ export class NominaHistoricasComponent implements OnInit {
         });
         break;
       case "reportenomina":
-        alert("reporte nomina")
+          this.reportesPrd.nominaReporteRaya(obj.datos.nominaXperiodoId).subscribe(objrecibido=>{
+            if (objrecibido.resultado) {
+              this.reportesPrd.crearArchivo(objrecibido.datos, `reportenomina_${obj.datos.nombreNomina}_${obj.datos.clavePeriodo}`, "pdf");
+            } else {
+              this.modalPrd.showMessageDialog(objrecibido.resultado, objrecibido.mensaje);
+            }
+          });
         break;
       case "reportepolizacontable":
         this.modalPrd.showMessageDialog(this.modalPrd.loading);

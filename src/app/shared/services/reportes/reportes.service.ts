@@ -218,6 +218,14 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
       return this.http.get(`${environment.rutaAdmin}/comprobantes/sendMail/${idNomina}`);
   }
 
+  public nominaHistorica(idNomina:number):Observable<any>{
+      return this.http.get(`${direcciones.reportes}/nominaHistorica/detalleNominaHistorica/${idNomina}`);
+  }
+
+  public nominaReporteRaya(idNomina:number):Observable<any>{
+    return this.http.get(`${direcciones.reportes}/nominaHistorica/reporteRaya/${idNomina}`);
+  }
+
   public crearArchivo(base64:string,nombre:string,extension:string){
     const linkSource = 'data:application/pdf;base64,' + `${base64}\n`;
     const downloadLink = document.createElement("a");
