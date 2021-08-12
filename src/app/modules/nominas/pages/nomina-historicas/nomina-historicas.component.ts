@@ -79,19 +79,39 @@ export class NominaHistoricasComponent implements OnInit {
 
     let objEnviar: any;
 
+    console.log(obj);
+
+
+
     switch (obj.type) {
       case "polizacontable":
         alert("Poliza contable");
         break;
       case "detallenomina":
-        alert("detlale nomina");
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.reportesPrd.nominaHistorica(obj.datos.nomina_xperiodo_id).subscribe(objrecibido =>{
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            if(!objrecibido.resultado){
+                this.modalPrd.showMessageDialog(objrecibido.resultado,objrecibido.mensaje);
+            }else{
+              this.reportesPrd.crearArchivo(objrecibido.datos, `Detallenomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "pdf");
+            }
+        });
         break;
       case "nomina":
-        alert("nomina");
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.reportesPrd.nominaReporteRaya(obj.datos.nomina_xperiodo_id).subscribe(objrecibido=>{
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          if (objrecibido.resultado) {
+            this.reportesPrd.crearArchivo(objrecibido.datos, `reportenomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "pdf");
+          } else {
+            this.modalPrd.showMessageDialog(objrecibido.resultado, objrecibido.mensaje);
+          }
+        });
         break;
       case "fotos":
         objEnviar = {
-          nominaXperiodoId: obj.datos.nominaXperiodoId,
+          nominaXperiodoId: obj.datos.nomina_xperiodo_id,
           listaIdPersona: [
     
           ]
@@ -101,18 +121,36 @@ export class NominaHistoricasComponent implements OnInit {
         this.reportesPrd.getFoliosnominaConcluir(objEnviar).subscribe(objrecibido => {
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           if (objrecibido.resultado) {
-            this.reportesPrd.crearArchivo(objrecibido.datos, `Foliosfiscales_${obj.datos.nombreNomina}_${obj.datos.clavePeriodo}`, "pdf");
+            this.reportesPrd.crearArchivo(objrecibido.datos, `Foliosfiscales_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "pdf");
           } else {
             this.modalPrd.showMessageDialog(objrecibido.resultado, objrecibido.mensaje);
           }
         });
         break;
       case "reportenomina":
-        alert("reporte nomina")
+         objEnviar = {
+      nominaPeriodoId: obj.datos.nomina_xperiodo_id
+    }
+
+
+    let esnormal:boolean = true;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+  
+    if (esnormal) {
+      this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "xlsx");
+      });
+    } else {
+      this.reportesPrd.getReporteNominasTabCalculadosEspeciales(objEnviar).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "xlsx");
+      });
+    }
         break;
       case "reportepolizacontable":
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.reportesPrd.getHistoricoPolizaContable(obj.datos.nominaXperiodoId).subscribe(datos => {
+        this.reportesPrd.getHistoricoPolizaContable(obj.datos.nomina_xperiodo_id).subscribe(datos => {
             if(datos.resultado){
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.reportesPrd.crearArchivo(datos.datos, `ReportePólizaContable_${obj.datos.clavePeriodo}_${obj.datos.nombreNomina}`, "xlsx");
@@ -125,7 +163,7 @@ export class NominaHistoricasComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
         objEnviar = {
-          nominaPeriodoId: obj.datos.nominaXperiodoId,
+          nominaPeriodoId: obj.datos.nomina_xperiodo_id,
           esVistaPrevia: false,
           esTimbrado: true
         };
@@ -133,7 +171,7 @@ export class NominaHistoricasComponent implements OnInit {
         this.reportesPrd.getComprobanteFiscalXML(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if(datos.resultado){
-            this.reportesPrd.crearArchivo(datos.datos, `RecibosNómina_${obj.datos.clavePeriodo}_${obj.datos.nombreNomina}`, "zip");
+            this.reportesPrd.crearArchivo(datos.datos, `RecibosNómina_${obj.datos.clave_periodo}_${obj.datos.nombre_nomina}`, "zip");
           }else{
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
           }

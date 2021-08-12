@@ -76,6 +76,8 @@ export class TokenInterceptorService implements HttpInterceptor {
         } else if (e instanceof HttpErrorResponse && e.status === 400) {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(this.modalPrd.error, e.error.mensaje);
+        }else if(e.status >= 500){
+          this.modalPrd.showMessageDialog(this.modalPrd.error, "Error de servidor, en caso de persistir la incidencia contacta a soporte técnico");
         }
         return throwError(e);
       }
