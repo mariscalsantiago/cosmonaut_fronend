@@ -62,7 +62,7 @@
             </div>
             <div class="input-group-sm mb-3 col-4">
                 <label>Correo empresarial *</label>
-                <input formatos [correo]="true" [control]="f.emailCorporativo" formControlName="emailCorporativo"
+                <input formatos [correo]="true" [control]="f.emailCorporativo" [ngClass]="{'is-invalid':f.emailCorporativo.errors && submitEnviado}" formControlName="emailCorporativo"
                     type="email" placeholder="" class="form-control text-lowercase">
                 <div *ngIf="f.emailCorporativo.errors?.required && submitEnviado" class="invalid-feedback">
                     Campo requerido
