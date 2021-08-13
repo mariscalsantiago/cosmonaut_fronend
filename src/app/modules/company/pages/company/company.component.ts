@@ -40,7 +40,7 @@ export class CompanyComponent implements OnInit {
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
   public changeIconDown: boolean = false;
-
+  public multiempresa : boolean = false;
 
   /*
   
@@ -68,7 +68,7 @@ export class CompanyComponent implements OnInit {
     this.tamanio = documento.innerWidth;
 
     this.cargando = true;
-
+    debugger;
     this.companyProd.getAll().subscribe(datos => {
       this.arreglo = datos.datos;
 
@@ -135,9 +135,10 @@ export class CompanyComponent implements OnInit {
       actboo = "false";
     }
 
-
+    debugger;
     let peticion = {
       centrocClienteId: this.centrocClienteId,
+      multiempresa: this.multiempresa,
       rfc: this.rfc,
       nombre: this.nombre,
       razonSocial: this.razonSocial,

@@ -40,10 +40,10 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="number" [(ngModel)]="centrocClienteId" class="form-control" placeholder="Id cliente">
+                                        <input type="number" appSolonumeros maxlength="10" [(ngModel)]="centrocClienteId" class="form-control" placeholder="Id cliente">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="rfc" placement="top" [mdbTooltip]="'rfc' | tooltip" class="form-control" formatos [nochar]="true" [rfc]="true" [control]="rfc" placeholder="RFC">
+                                        <input type="text" appAlfanumericoRFC maxlength="13"  [(ngModel)]="rfc" placement="top" [mdbTooltip]="'rfc' | tooltip" class="form-control" formatos [nochar]="true" [rfc]="true" [control]="rfc" placeholder="RFC">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <input type="text" appAlfanumerico [(ngModel)]="nombre" class="form-control" placeholder="Nombre cliente">
@@ -51,6 +51,7 @@
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
                                         <input type="text" [appAlfanumerico]="'true'" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
                                     </div>
+                                    
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <input type="text" [(ngModel)]="fechaAlta" class="form-control" placeholder="Fecha de registro" onfocus="(this.type='date')" onblur="(this.type='date')">
                                     </div>
@@ -62,6 +63,13 @@
                       <option value="2">Inactivo</option>
   
                     </select>
+                                    </div>
+                                    <div style="padding-top: 5px;" class="input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
+                                        <label class="contenedorInputCheckRadio" style="color: white;">Multiempresa
+                                        <input [(ngModel)]="multiempresa" type="checkbox" name="" >
+                                        <span class="checkmark"></span>
+                                        </label>
+
                                     </div>
                                     <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
                                         <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
