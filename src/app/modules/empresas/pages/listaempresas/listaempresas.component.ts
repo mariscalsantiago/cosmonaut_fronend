@@ -141,7 +141,7 @@ export class ListaEmpresasComponent implements OnInit {
 
 
 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas eliminar la empresa?")
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas desactivar la empresa?")
       .then(valor => {
 
         if (valor) {

@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                            <label>Razón social *</label>
+                            <label>Razón social  <span *ngIf="!mostrarAsterisco">*</span></label>
                             <input maxlength="250" [class.is-invalid]="f.razonSocial.errors && f.razonSocial.touched"
                                 formControlName="razonSocial" type="text" max="18" class="form-control">
                             <div class="invalid-feedback">
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                            <label>CURP de la razón social *</label>
+                            <label>CURP de la razón social <span *ngIf="mostrarAsterisco">*</span></label>
                             <input formatos [nochar]="true" [curp]="true" [control]="f.curp" maxlength="18"
                                 [class.is-invalid]="f.curp.errors && f.curp.touched" formControlName="curp" type="text"
                                 class="form-control">

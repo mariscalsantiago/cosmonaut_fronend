@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { DocumentosService } from 'src/app/modules/empleados/services/documentos.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';

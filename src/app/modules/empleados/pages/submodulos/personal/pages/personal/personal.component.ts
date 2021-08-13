@@ -5,6 +5,7 @@ import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.s
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 @Component({
@@ -46,7 +47,8 @@ export class PersonalComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private navparams: ActivatedRoute, private empleadoPrd: EmpleadosService,
     private catalogosPrd: CatalogosService, private usuarioSistemaPrd: UsuarioSistemaService,
-    private modalPrd: ModalService, private domicilioPrd: DomicilioService,private router:Router) { }
+    private modalPrd: ModalService, private domicilioPrd: DomicilioService,private router:Router,
+    private usuarioAuthPrd:UsuariosauthService) { }
 
   ngOnInit(): void {
     this.esKiosko = this.router.url.includes("/kiosko/perfil");
@@ -82,6 +84,8 @@ export class PersonalComponent implements OnInit {
           }
 
           this.insertarDomicilio = datosdomicilio.datos == undefined;
+
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         });
 
 
@@ -297,17 +301,24 @@ export class PersonalComponent implements OnInit {
       return;
     }
 
+
+   
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas modificar los datos el empleado?").then(valor => {
       if (valor) {
 
-        this.realizarOperacion();
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.myForm.controls.emailCorporativo.value)).subscribe(datos =>{
+          this.realizarOperacion(datos.datos);
+        });
+
+        
 
       }
     });
   }
 
 
-  public realizarOperacion() {
+  public realizarOperacion(esUsuario:any) {
 
     let obj = this.myForm.value;
 
@@ -370,19 +381,66 @@ export class PersonalComponent implements OnInit {
 
 
 
-    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+
     this.empleadoPrd.update(objenviar).subscribe(datos => {
 
       if (datos.resultado) {
 
+        
+        let objAuthEnviar:any = {
+          nombre: obj.nombre,
+          apellidoPat: obj.apellidoPaterno,
+          apellidoMat: obj.apellidoMaterno,
+          email: obj.emailCorporativo?.toLowerCase(),
+          centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
+          rolId: 2,
+          esMulticliente:false,
+          usuarioId:obj.usuarioId
+        }
+        console.log("Esto trae el usuario",esUsuario);
+        if(!Boolean(esUsuario)){
+         
+          console.log("Se guardara");
+          delete objAuthEnviar.usuarioId;
+          this.usuarioAuthPrd.guardar(objAuthEnviar).subscribe((datos) => {
+            if(!datos.resultado){
+                this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+            }else{
+              console.log("Se va a modificar");
+              this.empleado = datos.datos;
+              this.parsearInformacion();
+              this.actualizarDomicilio();
+              this.editarcampos = false;
+            }
+          });
+        }else{
+          objAuthEnviar.nombre = esUsuario.usuario.nombre;
+          objAuthEnviar.apellidoPat = esUsuario.usuario.apellidoPat;
+          objAuthEnviar.apellidoMat = esUsuario.usuario.apellidoMat;
+          objAuthEnviar.email = obj.emailCorporativo;
+          objAuthEnviar.centrocClienteIds = [this.usuarioSistemaPrd.getIdEmpresa()];
+          objAuthEnviar.rolId = 2;
+          objAuthEnviar.esMulticliente = false;
+          objAuthEnviar.usuarioId = esUsuario.usuario.usuarioId;
+          objAuthEnviar.esActivo = true;
+          
 
+          this.usuarioAuthPrd.modificar(objAuthEnviar).subscribe(datos =>{
+            if(!datos.resultado){
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+          }else{
+            this.empleado = datos.datos;
+            this.parsearInformacion();
+            this.actualizarDomicilio();
+            this.editarcampos = false;
+          }
+          });
 
-        this.empleado = datos.datos;
-        this.parsearInformacion();
-        this.actualizarDomicilio();
-        this.editarcampos = false;
+        }
+
+     
       }else{
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
       }
 
@@ -428,32 +486,10 @@ export class PersonalComponent implements OnInit {
       objenviar.domicilioId = obj.domicilioId;
 
       this.domicilioPrd.update(objenviar).subscribe(datos => {
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
           if(datos.resultado){
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
-              this.domicilioArreglo = datosnativo?.datos[0];
-    
-              this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datosdomicilio => {
-                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-                if (datosdomicilio.datos !== undefined) {
-      
-                  
-                  for (let llave in datosdomicilio.datos[0]) {
-                    this.empleado[llave] = datosdomicilio.datos[0][llave];
-                  }
-                  this.myForm = this.createForm(this.empleado);
-                  this.buscar(undefined);
-      
-                  
-                } else {
-                 this.myForm =  this.createForm(this.empleado);
-                }
-      
-                this.insertarDomicilio = datosdomicilio.datos == undefined;
-              });
-            });
+            this.ngOnInit();
           }
         });
         this.myForm = this.createForm(this.empleado);

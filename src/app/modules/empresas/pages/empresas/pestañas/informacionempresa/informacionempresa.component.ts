@@ -32,6 +32,7 @@ export class InformacionempresaComponent implements OnInit {
   public idNivel2: number = 2;
   public cargando: Boolean = false;
   public cargandoImg: boolean = false;
+  public mostrarAsterisco:boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
@@ -66,8 +67,7 @@ export class InformacionempresaComponent implements OnInit {
     this.myform.controls.regimenfiscalId.valueChanges.subscribe(valor => {
       let permitido: boolean = (valor == 606 || valor == 612 || valor == 621);
       this.realizarValidacionRegimen(permitido);
-
-      
+      this.mostrarAsterisco = permitido;
     });
 
 
@@ -133,10 +133,17 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public validarActividad2(actividad: any) {
-    actividad = this.arregloactividad.find((value: any) => value['descripcion'] === actividad).actividadEconomicaId
+    
+    
     if (actividad) {
+      actividad = this.arregloactividad.find((value: any) => value['descripcion'] === actividad).actividadEconomicaId
       this.catalogosPrd.getActividadEconomica2(this.idNivel2, actividad).subscribe(datos => this.arregloactividad2 = datos.datos);
       this.myform.controls.actividadEconomicaId2.setValue("");
+    }else{
+
+      this.myform.controls.actividadEconomicaId.setValue("");
+      this.myform.controls.actividadEconomicaId2.setValue("");
+      console.log("validarActividad2");
     }
   }
 

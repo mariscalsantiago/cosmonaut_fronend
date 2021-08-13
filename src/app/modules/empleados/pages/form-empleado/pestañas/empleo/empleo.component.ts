@@ -695,9 +695,6 @@ export class EmpleoComponent implements OnInit {
     if (fecha != undefined && fecha != '') {
       let fechaaux: Date = new Date((new Date(fecha).toUTCString()).replace(" 00:00:00 GMT", ""));
       try {
-
-
-
         if (!(this.myForm.controls.fechaAntiguedad.value !== '' && this.myForm.controls.fechaAntiguedad.value !== null)) {
           this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar la fecha de antigüedad");
         }
@@ -734,12 +731,8 @@ export class EmpleoComponent implements OnInit {
     if (this.grupoNominaSeleccionado.pagoComplementario) {
 
       this.typeppp = true;
-
-
       this.myForm.controls.salarioNetoMensualImss.disable();
       this.myForm.controls.pagoComplementario.disable();
-
-
       this.myForm.controls.tiposueldo.disable();
       this.myForm.controls.tiposueldo.setValue('n');
 
@@ -785,11 +778,18 @@ export class EmpleoComponent implements OnInit {
 
     if (this.verificaCambiosNecesarios()) return;
 
+    
+
 
     if (this.grupoNominaSeleccionado.pagoComplementario) {
       if (this.myForm.controls.salarioDiario.invalid) {
 
         this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el salario diario");
+        return;
+      }
+    }else{
+      if(this.myForm.controls.sueldoBrutoMensual.invalid){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Falta sueldo bruto mensual");
         return;
       }
     }
@@ -884,10 +884,6 @@ export class EmpleoComponent implements OnInit {
   public verificaCambiosNecesarios(): boolean {
     let variable: boolean = false;
 
-    if (this.myForm.controls.sueldoBrutoMensual.invalid) {
-      variable = true;
-    }
-
     if (this.myForm.controls.politicaId.invalid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar una política");
@@ -928,6 +924,16 @@ export class EmpleoComponent implements OnInit {
         this.sueldoppp.nativeElement.focus();
       }   
     
+    }
+  }
+
+
+  public calcularsueldo(){
+   
+    if(!this.grupoNominaSeleccionado.pagoComplementario){
+        this.cambiasueldobruto(true);
+    }else{
+      this.cambiaSueldoDiario();
     }
   }
 }
