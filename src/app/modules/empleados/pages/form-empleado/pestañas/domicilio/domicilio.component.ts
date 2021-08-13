@@ -158,10 +158,10 @@ export class DomicilioComponent implements OnInit {
 
 
   public buscar(obj: any) {
-
+    debugger;
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
-
+    this.noCoincide = '';
     let valor: string = this.myForm.controls.codigo.value;
 
     if (this.myForm.controls.codigo.errors?.pattern === undefined && valor !== null) {
@@ -179,6 +179,7 @@ export class DomicilioComponent implements OnInit {
               this.idEstado = item.edo.estadoId;
               this.idMunicipio = item.catmnpio.cmnpio;
 
+              
               this.myForm.controls.municipio.setValue(this.nombreMunicipio);
               this.myForm.controls.estado.setValue(this.nombreEstado);
 
