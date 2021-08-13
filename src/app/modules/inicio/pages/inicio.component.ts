@@ -22,7 +22,9 @@ export class InicioComponent implements OnInit {
   public eventos: any;
   public vistosRec: any = undefined;
   public apareceListadoEventos: boolean = false;
-  public ventanaVistos: boolean = false;
+  public vistosTrue: boolean = false;
+  public vistosFalse: boolean = false;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -49,40 +51,33 @@ export class InicioComponent implements OnInit {
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
     if(this.configuracionPrd.VISTOS_RECIENTE.length != 0){
-      this.ventanaVistos = true;
+      this.vistosTrue = true;
+      this.vistosFalse = false;
       this.vistosRec = this.configuracionPrd.VISTOS_RECIENTE;
 
-
-
-
-/*       
       for(let item of this.vistosRec){
 
-        
-        
-          if(this.arreglosIdSubmodulo.length != 0){
-            this.contratoDesc = this.arreglosIdSubmodulo.find((item: any) => item.submoduloId === this.arreglosIdSubmodulo.submoduloId);
-
-
-
-          for(let itemVisto of this.arreglosIdSubmodulo){
-          let nombre = item.nombreSubmodulo;
-          if (nombre.includes(itemVisto.nombreSubmodulo)) {
-            
-            //this.puestoIdReporta = item.personaId.personaId;
-            break;
-          }
-          
+        if(this.arreglosIdSubmodulo.length != 0 && this.arreglosIdSubmodulo.length <= 5){
+            this.contratoDesc = this.arreglosIdSubmodulo.find((itemvisto: any) => itemvisto.submoduloId === item.submoduloId)?.nombreSubmodulo;
+            if(this.contratoDesc !== undefined)
+            continue;
             this.arreglosIdSubmodulo.push(item);
-           
-      }
-      }else{
+ 
 
-         this.arreglosIdSubmodulo.push(item);
-
+        }else{
+            this.arreglosIdSubmodulo.push(item);
         }
-      } */
+      } 
+    }else{
+      this.vistosFalse = true;
+      this.vistosTrue = false;
+      this.vistosRec = {
+        ...this.vistosRec,
+        icono: "icon_home",
+        nombreModulo: "Inicio"
+      }
 
+      this.arreglosIdSubmodulo.push(this.vistosRec);
     } 
 
   }
