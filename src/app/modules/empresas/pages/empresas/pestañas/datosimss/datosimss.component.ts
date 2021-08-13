@@ -26,7 +26,7 @@ export class DatosimssComponent implements OnInit {
   public objenviar: any = [];
   public insertarMof: boolean = false;
   public resultado: boolean = false;
-  public imss : boolean = true; 
+  public imss : boolean = false; 
 
   constructor(private formBuilder: FormBuilder, private imssPrd: ImssService, private routerPrd: Router,
     private modalPrd: ModalService) { }
