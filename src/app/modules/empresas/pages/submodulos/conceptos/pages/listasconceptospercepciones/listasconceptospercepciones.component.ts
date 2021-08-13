@@ -180,7 +180,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
       });
     }
     this.arreglotablaPer = datos.datos;
-    debugger;
+    
 
     let columnas: Array<tabla> = [
       new tabla("nombre", "Nombre de la percepción"),

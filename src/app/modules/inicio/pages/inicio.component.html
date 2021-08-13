@@ -58,24 +58,28 @@
         </div>
         </div>
 
-    <div class="row">
+    <div  class="row">
         <div class="col-7">
-            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="440">
+            <div *ngIf="ventanaVistos" class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="440">
                 <div style="background-color: transparent;">
                     <div class="col-5 titulo-outlet-inicio">
                         <div class="col-2 menu-hamburgesa"></div> <label>VISTOS RECIENTEMENTE</label>
                     </div>
                 </div>
-
+                <br>
                 <div class="form-group row margen">
-
-
-
-
+                    <ul  class="list-unstyled components">
+                        <ng-container *ngFor="let item of vistosRec; let indice = index">
+                            <li #liselection style="text-align: left " >
+                                <a  >
+                                    <i  aria-hidden="true" class="iconoVisto"  [class]="item.icono"></i> <span style="display: block; font-size: 16px; color:  #8d8d8d">{{item.nombreModulo}} {{"-"}} {{item.nombreSubmodulo}}</span>
+                                    </a>
+                            </li>
+                        </ng-container>
+                    </ul>
 
                 </div>
 
-                <br>
             </div>
         </div>
     </div>

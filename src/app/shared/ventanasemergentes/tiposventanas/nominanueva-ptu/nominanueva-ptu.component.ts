@@ -303,7 +303,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
 
   public obtenerEmpleados() {
-    debugger;
+    
     let valor = [];
     
     switch (this.valor) {

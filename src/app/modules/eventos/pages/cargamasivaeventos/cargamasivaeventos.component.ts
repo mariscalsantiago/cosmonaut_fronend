@@ -70,9 +70,9 @@ export class CargaMasivaEventosComponent implements OnInit {
 
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.obj = history.state.datos == undefined ? {} : history.state.datos;
-    debugger;
+    
     this.areasPrd.getAreasByEmpresa(this.idEmpresa).subscribe(datos => {
-      debugger;
+      
       this.arregloareas = datos.datos
       let areaList = this.arregloareas[0]
       if(areaList.areaId != undefined || areaList.areaId != 0){
@@ -81,7 +81,7 @@ export class CargaMasivaEventosComponent implements OnInit {
     });
 
     this.EmpleadosService.getEmpleadosCompania(this.idEmpresa).subscribe(datos => {
-      debugger;
+      
       this.arregloEmpleados = datos.datos;
       for (let item of this.arregloEmpleados) {
         item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
@@ -152,12 +152,12 @@ export class CargaMasivaEventosComponent implements OnInit {
   }
 
   public recibirEtiquetas(obj: any) {
-    debugger;
+    
     this.etiquetas = obj;
  }
 
  public validarEmpleado() {
-  debugger;
+  
 
   const nombreCapturado = this.myForm.value.personaId;
   if (nombreCapturado !== undefined) {
@@ -177,7 +177,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 }
 
   public descargarArchivo(){
-      debugger;
+      
       this.cargandoIcon = true;
       let obj = 
 
@@ -239,7 +239,7 @@ export class CargaMasivaEventosComponent implements OnInit {
     
 
     public obtenerEmpleados() {
-      debugger;
+      
       let valor = [];
       
       switch (this.valor) {
@@ -428,7 +428,7 @@ export class CargaMasivaEventosComponent implements OnInit {
   }
 
   public descargarEventos(){
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     let objEnviar: any ={
       idEmpresa: this.idEmpresa,

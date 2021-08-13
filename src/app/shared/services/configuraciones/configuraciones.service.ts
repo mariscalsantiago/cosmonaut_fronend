@@ -39,6 +39,7 @@ export class ConfiguracionesService {
 
   public menu: boolean = false;
   public MENUPRINCIPAL:any = undefined;
+  public VISTOS_RECIENTE:any = [];
   public modulosCargados!:Array<Number>;
 
   public static referencia:ConfiguracionesService;
@@ -54,7 +55,7 @@ export class ConfiguracionesService {
 
 
   constructor() { 
-    debugger;
+    
     ConfiguracionesService.referencia = this;
   }
 
@@ -121,7 +122,7 @@ export class ConfiguracionesService {
 
 
   public traerDatosMenu(permisos: any, menu: any, version: number, esCliente?: boolean) {
-    debugger;
+    
     let arreglo: [any] = menu;
 
 

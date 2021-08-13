@@ -131,7 +131,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public validarEmpleado() {
-    debugger;
+    
 
     const nombreCapturado = this.myFormcomp.value.personaId;
     if (nombreCapturado !== undefined) {
@@ -172,7 +172,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
 
   public recibirEtiquetas(obj: any) {
-    debugger;
+    
     this.etiquetas = obj;
  }
 
@@ -365,7 +365,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
       
           
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          debugger;
+          
           this.EmpleadosService.saveBaja(objEnviar).subscribe(datos => {
             
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from 'src/app/modules/eventos/services/eventos.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
+
 
 @Component({
   selector: 'app-inicio',
@@ -19,7 +20,9 @@ export class InicioComponent implements OnInit {
   public idEmpresa: number = -1;
   public valor: any;
   public eventos: any;
+  public vistosRec: any = undefined;
   public apareceListadoEventos: boolean = false;
+  public ventanaVistos: boolean = false;
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -32,16 +35,55 @@ export class InicioComponent implements OnInit {
 
 
   public arreglo: any = [];
+  public vistosRecientesFinal : any = [];
+  public arreglosIdSubmodulo : any = [];
+  public contratoDesc: string | undefined;
 
   constructor( private eventoPrd: EventosService,
     private catalogos: CatalogosService, private routerPrd : Router, private reportesPrd: ReportesService, private modalPrd:ModalService,
-    private usuariosSistemaPrd: UsuarioSistemaService, public configuracionPrd: ConfiguracionesService) { }
+    private usuariosSistemaPrd: UsuarioSistemaService,public ContenidoComponent:ContenidoComponent, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
-
+    debugger;
     this.cargando = true;
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
+    if(this.configuracionPrd.VISTOS_RECIENTE.length != 0){
+      this.ventanaVistos = true;
+      this.vistosRec = this.configuracionPrd.VISTOS_RECIENTE;
+
+
+
+
+/*       
+      for(let item of this.vistosRec){
+
+        
+        
+          if(this.arreglosIdSubmodulo.length != 0){
+            this.contratoDesc = this.arreglosIdSubmodulo.find((item: any) => item.submoduloId === this.arreglosIdSubmodulo.submoduloId);
+
+
+
+          for(let itemVisto of this.arreglosIdSubmodulo){
+          let nombre = item.nombreSubmodulo;
+          if (nombre.includes(itemVisto.nombreSubmodulo)) {
+            
+            //this.puestoIdReporta = item.personaId.personaId;
+            break;
+          }
+          
+            this.arreglosIdSubmodulo.push(item);
+           
+      }
+      }else{
+
+         this.arreglosIdSubmodulo.push(item);
+
+        }
+      } */
+
+    } 
 
   }
 
@@ -125,6 +167,8 @@ export class InicioComponent implements OnInit {
     });
 
   }
+
+  
 
   public verdetalle(obj:any){
     
