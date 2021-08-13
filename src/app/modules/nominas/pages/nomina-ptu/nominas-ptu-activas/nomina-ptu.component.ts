@@ -97,7 +97,6 @@ export class NominaPTUComponent implements OnInit {
             usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
           }
           this.nominaPtuPrd.calcularNomina(objEnviar).subscribe(datos => {
-            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               
               if(datos.resultado){
