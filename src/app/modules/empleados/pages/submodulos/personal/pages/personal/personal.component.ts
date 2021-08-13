@@ -114,6 +114,7 @@ export class PersonalComponent implements OnInit {
 
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
+    this.noCoincide = '';
 
     let valor: string = this.myForm.controls.codigo.value;
 

@@ -54,7 +54,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    debugger;
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
     
@@ -127,7 +127,7 @@ export class DetalleUsuarioComponent implements OnInit {
       fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta,"dd/MM/yyyy")), disabled: true }, [Validators.required]],
       centrocClienteId: [this.insertar?"":obj.centrocClientes[0].centrocClienteId, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
-      personaId: [{ value: obj.personaId, disabled: true }],
+      personaId: [{ value: obj.usuarioId, disabled: true }],
       multicliente: obj.esMulticliente == undefined ? false:obj.esMulticliente=="Sí",
       rol:[obj.rolId?.rolId,Validators.required],
       nombrecliente:{value:this.usuariosSistemaPrd.getUsuario().nombreEmpresa,disabled:true},

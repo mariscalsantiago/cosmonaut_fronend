@@ -33,6 +33,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public PRINCIPAL_MENU: any;
+  public VISTOS: any = [];
 
   public botonsalir: boolean = false;
 
@@ -243,6 +244,7 @@ export class ContenidoComponent implements OnInit {
   public seleccionado(obj: any, indice: number,elemento:any) {
     
 
+    
     if (!obj.seleccionadosubmenu) {
 
       this.limpiando();
@@ -286,6 +288,17 @@ export class ContenidoComponent implements OnInit {
 
 
   public seleccionarSubmenu(obj: any, obj2: any) {
+
+    if(obj2){
+
+      obj2 = {
+        ...obj2,
+        icono: obj.icono,
+        nombreModulo: obj.nombreModulo
+      }
+
+      this.configuracionPrd.VISTOS_RECIENTE.push(obj2);
+    }
     this.limpiando();
     obj.seleccionado = true;
 
@@ -341,6 +354,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public establecericons() {
+    
     for (let item of this.PRINCIPAL_MENU) {
       switch (item.moduloId) {
         case 1:

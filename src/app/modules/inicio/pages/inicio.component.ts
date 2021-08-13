@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from 'src/app/modules/eventos/services/eventos.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
+
 
 @Component({
   selector: 'app-inicio',
@@ -19,7 +20,11 @@ export class InicioComponent implements OnInit {
   public idEmpresa: number = -1;
   public valor: any;
   public eventos: any;
+  public vistosRec: any = undefined;
   public apareceListadoEventos: boolean = false;
+  public vistosTrue: boolean = false;
+  public vistosFalse: boolean = false;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -32,16 +37,48 @@ export class InicioComponent implements OnInit {
 
 
   public arreglo: any = [];
+  public vistosRecientesFinal : any = [];
+  public arreglosIdSubmodulo : any = [];
+  public contratoDesc: string | undefined;
 
   constructor( private eventoPrd: EventosService,
     private catalogos: CatalogosService, private routerPrd : Router, private reportesPrd: ReportesService, private modalPrd:ModalService,
-    private usuariosSistemaPrd: UsuarioSistemaService, public configuracionPrd: ConfiguracionesService) { }
+    private usuariosSistemaPrd: UsuarioSistemaService,public ContenidoComponent:ContenidoComponent, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
-
+    debugger;
     this.cargando = true;
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
+    if(this.configuracionPrd.VISTOS_RECIENTE.length != 0){
+      this.vistosTrue = true;
+      this.vistosFalse = false;
+      this.vistosRec = this.configuracionPrd.VISTOS_RECIENTE;
+
+      for(let item of this.vistosRec){
+
+        if(this.arreglosIdSubmodulo.length != 0 && this.arreglosIdSubmodulo.length <= 5){
+            this.contratoDesc = this.arreglosIdSubmodulo.find((itemvisto: any) => itemvisto.submoduloId === item.submoduloId)?.nombreSubmodulo;
+            if(this.contratoDesc !== undefined)
+            continue;
+            this.arreglosIdSubmodulo.push(item);
+ 
+
+        }else{
+            this.arreglosIdSubmodulo.push(item);
+        }
+      } 
+    }else{
+      this.vistosFalse = true;
+      this.vistosTrue = false;
+      this.vistosRec = {
+        ...this.vistosRec,
+        icono: "icon_home",
+        nombreModulo: "Inicio"
+      }
+
+      this.arreglosIdSubmodulo.push(this.vistosRec);
+    } 
 
   }
 
@@ -125,6 +162,8 @@ export class InicioComponent implements OnInit {
     });
 
   }
+
+  
 
   public verdetalle(obj:any){
     

@@ -22,4 +22,9 @@ export class SedeService {
     return this.http.post(`${direcciones.sedes}/modificar`, json);
 
   }
+  public modificarDom(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.domicilio}/modificar`,json);
+
+  }
 }

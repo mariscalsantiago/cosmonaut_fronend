@@ -40,9 +40,9 @@ export class SedeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    debugger;
     if (this.sede != undefined) {
-
+      
       this.catalogosPrd.getAsentamientoByCodigoPostal(this.sede.codigoPostal).subscribe(datos => {
         if (datos.resultado) {
           this.domicilioCodigoPostal = datos.datos;
@@ -105,32 +105,32 @@ export class SedeComponent implements OnInit {
   }
 
   public guardar() {
-
-    let obj = this.myForm.value;
+    debugger;
+    let obj = this.myForm.getRawValue();
    
-    this.objenviar = {
-      sede: obj.sede,
-      codigo: obj.codigo,
-      municipio: this.idMunicipio,
-      estado: this.idEstado,
-      asentamientoId: obj.asentamientoId,
-      calle: obj.calle,
-      numExterior: obj.numExterior,
-      numInterior: obj.numInterior,
-      centrocClienteId: {
-        centrocClienteId: this.datos.empresa.centrocClienteId
-      },
-      sedeId: {
-        descripcion: obj.sede,
-        centrocClienteId: {
-          centrocClienteId: this.datos.empresa.centrocClienteId
-        }
-      }
-    }
-
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     if (!Boolean(this.sede)) {
+      this.objenviar = {
+        sede: obj.sede,
+        codigo: obj.codigo,
+        municipio: this.idMunicipio,
+        estado: this.idEstado,
+        asentamientoId: obj.asentamientoId,
+        calle: obj.calle,
+        numExterior: obj.numExterior,
+        numInterior: obj.numInterior,
+        centrocClienteId: {
+          centrocClienteId: this.datos.empresa.centrocClienteId
+        },
+        sedeId: {
+          descripcion: obj.sede,
+          centrocClienteId: {
+            centrocClienteId: this.datos.empresa.centrocClienteId
+          }
+        }
+      }
+
       this.sedePrd.save(this.objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
        this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
@@ -142,8 +142,22 @@ export class SedeComponent implements OnInit {
       });
     }
     else {
-      delete this.objenviar.sede;
-      this.objenviar.sedeId = this.sede.sedeId;
+      
+      this.objenviar = {
+        codigo: obj.codigo,
+        municipio: this.idMunicipio,
+        estado: this.idEstado,
+        asentamientoId: obj.asentamientoId,
+        calle: obj.calle,
+        numExterior: obj.numExterior,
+        numInterior: obj.numInterior,
+        esActivo:	true,
+        centrocClienteId: {
+          centrocClienteId: this.datos.empresa.centrocClienteId
+        },
+      sedeId: this.sede.sedeId, 
+      descripcion: obj.sede
+      }
       this.sedePrd.modificar(this.objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
@@ -152,6 +166,7 @@ export class SedeComponent implements OnInit {
           }
         });
       });
+      
     }
 
   }
@@ -161,6 +176,7 @@ export class SedeComponent implements OnInit {
 
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
+    this.noCoincide = '';
 
     let valor: string = this.myForm.controls.codigo.value;
 
