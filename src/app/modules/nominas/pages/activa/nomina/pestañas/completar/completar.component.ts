@@ -120,6 +120,7 @@ export class CompletarComponent implements OnInit {
   public concluirnomina(){
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas concluir la nómina?","Solo se podrá consultar esta nómina desde el historica una vez concluida").then(valor =>{
        if(valor){
+         this.modalPrd.showMessageDialog(this.modalPrd.loading);
            this.nominaPrd.concluirNomina(this.nominaSeleccionada[this.llave].nominaXperiodoId).subscribe(datos =>{
              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                if(datos.resultado){

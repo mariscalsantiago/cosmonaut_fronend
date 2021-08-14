@@ -62,6 +62,10 @@ export class DetalleRolesComponent implements OnInit {
         valor.checked = false;
         valor.previo = false;
         valor.mostrar = true;
+        if(Number(valor.moduloId) == 8){
+           valor.mostrar = false;
+        }
+        console.log("Este se visualiza",valor);
         if (valor.submodulos) {
           valor.submodulos.forEach(valor2 => {
             let primerAuxSubmodulo = true;
