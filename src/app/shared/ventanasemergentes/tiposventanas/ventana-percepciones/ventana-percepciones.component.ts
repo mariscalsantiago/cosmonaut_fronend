@@ -86,7 +86,7 @@ export class VentanaPercepcionesComponent implements OnInit {
 
     return this.formBuild.group({
 
-      numeroPeriodos: [obj.numeroPeriodos],
+      numeroPeriodos: [obj.numeroPeriodos,Validators.required],
       tipoPeriodicidadId: [obj.tipoPeriodicidadId, Validators.required],
       baseCalculoId:[obj.baseCalculoId?.baseCalculoId],
       porcentaje: [obj.valor],
@@ -120,15 +120,19 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo:any){
-    
+    debugger;
     this.myForm.clearValidators();
-    //this.myForm.updateValueAndValidity();
+    this.myForm.updateValueAndValidity();
     if(tipo != ""){
       if(tipo == 1){
         this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+        this.myForm.controls.baseCalculoId.updateValueAndValidity();
         this.myForm.controls.montoPercepcion.setValidators([Validators.required]);
+        this.myForm.controls.montoPercepcion.updateValueAndValidity();
         this.myForm.controls.numeroPeriodos.setValidators([Validators.required]);
+        this.myForm.controls.numeroPeriodos.updateValueAndValidity();
         this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
+        this.myForm.controls.montoPorPeriodo.updateValueAndValidity();
         // this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
 
         this.nombrePer = "P";
@@ -158,6 +162,10 @@ export class VentanaPercepcionesComponent implements OnInit {
       }else{
         this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
         this.myForm.controls.porcentaje.setValidators([Validators.required]);
+        this.myForm.controls.numeroPeriodos.setValidators([]);
+        this.myForm.controls.numeroPeriodos.updateValueAndValidity();
+        this.myForm.controls.montoPorPeriodo.setValidators([]);
+        this.myForm.controls.montoPorPeriodo.updateValueAndValidity();
         this.nombrePer = "E";
         this.myForm.controls.baseCalculoId.enable();
         if(!this.esInsert){

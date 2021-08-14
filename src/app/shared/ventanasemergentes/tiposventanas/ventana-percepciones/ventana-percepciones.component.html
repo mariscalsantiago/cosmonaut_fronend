@@ -56,6 +56,9 @@
         <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
             <label>Monto total de percepción *</label>
             <input #monto (focusout)="validarMonto(monto.value)" formatos [moneda]="true" [control]="f.montoPercepcion" formControlName="montoPercepcion" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.montoPercepcion.errors && submitEnviado}">
+            <div class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
         <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
             <label>Número de períodos *</label>

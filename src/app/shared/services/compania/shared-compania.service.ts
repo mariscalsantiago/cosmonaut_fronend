@@ -31,6 +31,8 @@ export class SharedCompaniaService {
     return this.http.get(`${this.url}/obtener/id/${idEmpresa}`);
    }
 
+   
+
  
 
 }
