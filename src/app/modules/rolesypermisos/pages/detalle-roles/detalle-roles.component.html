@@ -32,27 +32,28 @@
                     <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
                 </div>
                 <div *ngIf="!cargando" id="accordion" class="acordion_desplegable">
-                    <div *ngFor="let item of arreglo;let indice = index " [class.ocultar]="!item.mostrar" class="card" [ngClass]="{'cardselected':arreglo[indice].seleccionado}">
-                        <div [ngClass]="{'fondoblanco':arreglo[indice].seleccionado}" class="card-header" id="detallepago">
+                    <div *ngFor="let item of arreglo;let indice = index " [class.ocultar]="!item.mostrar" class="card" >
+                        <div  class="card-header" id="detallepago">
 
                             <h5 class="mb-0">
-                                <label style="top: 8px;" class="contenedorInputCheckRadio">
+                                <label (click)="desplegar(indice)"  style="top: 8px;" class="contenedorInputCheckRadio">
                                     <input [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"  type="checkbox">
                                     <span class="checkmark"></span>
                                 </label>
-                                <button type="button" style="margin-left: 10px;" (click)="cambiarStatus(indice)" class="btn btn-link" data-toggle="collapse" data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
+                                <button type="button" style="margin-left: 10px;" (click)="cambiarStatus(indice)" class="btn btn-link"  aria-controls="detallepago">
 
                                     {{item.nombreModulo}}
-                                    <i aria-hidden="true" *ngIf="!arreglo[indice].seleccionado" data-toggle="collapse" data-target="#collapseOne"
+                                    <i aria-hidden="true" *ngIf="!item.seleccionado" 
                                         aria-expanded="true" aria-controls="collapseOne"
                                         class="fas fa-chevron-down "></i>
-                                    <i aria-hidden="true" *ngIf="arreglo[indice].seleccionado" data-toggle="collapse" data-target="#collapseOne"
+                                        
+                                    <i aria-hidden="true" *ngIf="item.seleccionado" 
                                         aria-expanded="true" aria-controls="collapseOne" class="fas fa-chevron-up "></i>
                                 </button>
                             </h5>
                         </div>
 
-                        <div id="detallepagocolapsar" *ngIf="item.checked" class="collapse" aria-labelledby="detallepago" data-parent="#accordion">
+                        <div id="detallepagocolapsar" *ngIf="item.checked" class="collapse" [class.show]="item.seleccionado"  aria-labelledby="detallepago" data-parent="#accordion">
                             <div class="card-body">
 
                                 <div class="row">

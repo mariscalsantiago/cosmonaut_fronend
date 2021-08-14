@@ -25,7 +25,7 @@ export class DetalleRolesComponent implements OnInit {
 
   constructor(private rolesPrd: RolesService, private fb: FormBuilder,
     private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private routerPrd: Router,public configuracionPrd:ConfiguracionesService) { }
+    private routerPrd: Router, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -53,7 +53,7 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public traerDatosMenu(obj?: any) {
-    
+
     let modificar = Boolean(obj);
     this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
       this.arreglo = datos;
@@ -62,10 +62,10 @@ export class DetalleRolesComponent implements OnInit {
         valor.checked = false;
         valor.previo = false;
         valor.mostrar = true;
-        if(Number(valor.moduloId) == 8){
-           valor.mostrar = false;
+        if (Number(valor.moduloId) == 8) {
+          valor.mostrar = false;
         }
-        console.log("Este se visualiza",valor);
+        console.log("Este se visualiza", valor);
         if (valor.submodulos) {
           valor.submodulos.forEach(valor2 => {
             let primerAuxSubmodulo = true;
@@ -96,36 +96,35 @@ export class DetalleRolesComponent implements OnInit {
 
 
 
-    this.rolesPrd.getPermisosByVersiones(this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos =>{
+      this.rolesPrd.getPermisosByVersiones(this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
         this.cargando = false;
 
-       if(this.usuariosSistemaPrd.getVersionSistema() !== 4 && this.usuariosSistemaPrd.getVersionSistema() !== 1){
-        this.arreglo.forEach(modulo =>{
-          if(modulo.submodulos){
-           let haysubmodulos:any = [];
-           modulo.submodulos.forEach(submodulo =>{
-              let existe = datos.datos.some((obj:any) => obj.submoduloId == submodulo.submoduloId);
-              submodulo.mostrar = existe;
-              haysubmodulos.push(existe);
-              if(submodulo.permisos)
-              {
+        if (this.usuariosSistemaPrd.getVersionSistema() !== 4 && this.usuariosSistemaPrd.getVersionSistema() !== 1) {
+          this.arreglo.forEach(modulo => {
+            if (modulo.submodulos) {
+              let haysubmodulos: any = [];
+              modulo.submodulos.forEach(submodulo => {
+                let existe = datos.datos.some((obj: any) => obj.submoduloId == submodulo.submoduloId);
+                submodulo.mostrar = existe;
+                haysubmodulos.push(existe);
+                if (submodulo.permisos) {
 
-                submodulo.permisos.forEach(permiso =>{
-                  let existePermisos = datos.datos.some((obj:any) => obj.permisoId == permiso.permisoId);
-                  permiso.mostrar = existePermisos;
-                });
+                  submodulo.permisos.forEach(permiso => {
+                    let existePermisos = datos.datos.some((obj: any) => obj.permisoId == permiso.permisoId);
+                    permiso.mostrar = existePermisos;
+                  });
 
-                
 
-              }
-           });
-           modulo.mostrar = haysubmodulos.includes(true);
-          }
-       });
-       }
 
-       
-    });
+                }
+              });
+              modulo.mostrar = haysubmodulos.includes(true);
+            }
+          });
+        }
+
+
+      });
 
     });
   }
@@ -183,22 +182,28 @@ export class DetalleRolesComponent implements OnInit {
       rolId: this.objrol.rolId,
     }
 
-
+    if (!this.verificandoSeleccionadoAlguno()) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha seleccionado ningun permiso");
+        return;
+    }
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.rolesPrd.modificarRol(objenviar).subscribe(datos => {
       if (datos.resultado) {
         const rolId: number = datos.datos.rolId;
+       
         let enviarArray = this.formandoPermisos(rolId);
         let enviarArraySinPermiso = this.quitandoPermisos(rolId);
 
 
 
-        if(enviarArray.submodulosXpemisos.length !== 0){
+
+
+        if (enviarArray.submodulosXpemisos.length !== 0) {
           this.rolesPrd.guardarPermisoxModulo(enviarArray).subscribe(valorDatos => {
             if (valorDatos.resultado) {
-  
-              if(enviarArraySinPermiso.submodulosXpemisos.length !== 0){
+
+              if (enviarArraySinPermiso.submodulosXpemisos.length !== 0) {
                 this.rolesPrd.quitarPermisoxModulo(enviarArraySinPermiso).subscribe(sinpermiso => {
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                   this.modalPrd.showMessageDialog(sinpermiso.resultado, sinpermiso.mensaje).then(() => {
@@ -207,7 +212,7 @@ export class DetalleRolesComponent implements OnInit {
                     }
                   });
                 });
-              }else{
+              } else {
 
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                 this.modalPrd.showMessageDialog(valorDatos.resultado, valorDatos.mensaje).then(() => {
@@ -216,14 +221,14 @@ export class DetalleRolesComponent implements OnInit {
                   }
                 });
 
-                }
-  
+              }
+
             } else {
               this.modalPrd.showMessageDialog(valorDatos.resultado, valorDatos.mensaje);
             }
           });
-        }else{
-          if(enviarArraySinPermiso.submodulosXpemisos.length !== 0){
+        } else {
+          if (enviarArraySinPermiso.submodulosXpemisos.length !== 0) {
             this.rolesPrd.quitarPermisoxModulo(enviarArraySinPermiso).subscribe(sinpermiso => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(sinpermiso.resultado, sinpermiso.mensaje).then(() => {
@@ -232,13 +237,13 @@ export class DetalleRolesComponent implements OnInit {
                 }
               });
             });
-          }else{
-                this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-                  if (datos.resultado) {
-                    this.routerPrd.navigate(["/rolesypermisos/lista"]);
-                  }
-                });
+          } else {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+              if (datos.resultado) {
+                this.routerPrd.navigate(["/rolesypermisos/lista"]);
+              }
+            });
           }
         }
 
@@ -246,6 +251,31 @@ export class DetalleRolesComponent implements OnInit {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       }
     });
+  }
+
+  public verificandoSeleccionadoAlguno(): Boolean {
+    let verificando: boolean = false;
+
+    for (let item of this.arreglo) {
+      if (item.checked) {
+        if (item.submodulos) {
+          for (let item2 of item.submodulos) {
+            if ((item2.checked)) {
+              if (item2.permisos) {
+                for (let item3 of item2.permisos) {
+
+                  if (item3.checked) {
+                     return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return verificando;
   }
 
   public realizarGuardado() {
@@ -256,9 +286,9 @@ export class DetalleRolesComponent implements OnInit {
       centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
     }
 
-    let temp =  this.formandoPermisos(0);
-    if(temp.submodulosXpemisos.length == 0){
-      this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha seleccionado ningun permiso");
+    let temp = this.formandoPermisos(0);
+    if (temp.submodulosXpemisos.length == 0) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha seleccionado ningun permiso");
       return;
     }
 
@@ -271,25 +301,25 @@ export class DetalleRolesComponent implements OnInit {
         temp.rolId = rolId;
         let enviarArray = temp;
 
-       if(enviarArray.submodulosXpemisos.length !== 0){
-        this.rolesPrd.guardarPermisoxModulo(enviarArray).subscribe(valorDatos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.modalPrd.showMessageDialog(valorDatos.resultado, valorDatos.mensaje).then(() => {
+        if (enviarArray.submodulosXpemisos.length !== 0) {
+          this.rolesPrd.guardarPermisoxModulo(enviarArray).subscribe(valorDatos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            if (valorDatos.resultado) {
+            this.modalPrd.showMessageDialog(valorDatos.resultado, valorDatos.mensaje).then(() => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              if (valorDatos.resultado) {
+                this.routerPrd.navigate(["/rolesypermisos/lista"]);
+              }
+            });
+          });
+        } else {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            if (datos.resultado) {
               this.routerPrd.navigate(["/rolesypermisos/lista"]);
             }
           });
-        });
-       }else{
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          if (datos.resultado) {
-            this.routerPrd.navigate(["/rolesypermisos/lista"]);
-          }
-        });
-       }
+        }
 
       } else {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -406,7 +436,7 @@ export class DetalleRolesComponent implements OnInit {
 
   public cambiarStatus(numero: number) {
 
-    this.arreglo.forEach(valor => { valor.seleccionado = false });
+    if(!this.arreglo[numero].checked) return;
 
     this.arreglo[numero].seleccionado = !this.arreglo[numero].seleccionado;
   }
@@ -414,6 +444,13 @@ export class DetalleRolesComponent implements OnInit {
 
   public get f() {
     return this.myForm.controls;
+  }
+
+
+  public desplegar(indice:any){
+    setTimeout(() => {
+      this.arreglo[indice].seleccionado = this.arreglo[indice].checked;
+    }, 10);
   }
 
 

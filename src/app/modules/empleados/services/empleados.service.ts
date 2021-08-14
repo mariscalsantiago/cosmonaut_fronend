@@ -2,6 +2,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { filter, flatMap, map } from 'rxjs/operators';
 import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
@@ -70,6 +71,15 @@ export class EmpleadosService {
 
 
     return this.http.get(`${direcciones.contratoColaborador}/obtener/empresa/id/${idCompania}`);
+
+  }
+
+  public getEmpleadosCompaniaJefe(idCompania: number): Observable<any> {
+
+
+    return this.http.get(`${direcciones.contratoColaborador}/obtener/empresa/id/${idCompania}`).pipe(
+      flatMap((datos:any) => datos.datos),filter((valor:any) => valor.esActivo == true)
+    );
 
   }
 

@@ -114,7 +114,9 @@ export class EmpleoComponent implements OnInit {
 
     this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => this.arregloArea = datos.datos);
     this.politicasPrd.getPoliticasByEmpresa(this.id_empresa).subscribe(datos => this.arregloPoliticas = datos.datos);
-    this.empleadosPrd.getEmpleadosCompania(this.id_empresa).subscribe(datos => this.arregloempleadosreporta = datos.datos);
+    this.empleadosPrd.getEmpleadosCompaniaJefe(this.id_empresa).subscribe(datos => {
+      this.arregloempleadosreporta.push(datos)
+    });
     this.catalogosPrd.getCompensacion(true).subscribe(datos => this.arregloCompensacion = datos.datos);
     this.catalogosPrd.getAreasGeograficas(true).subscribe(datos => this.arregloareasgeograficas = datos.datos);
     this.catalogosPrd.getTipoContratos(true).subscribe(datos => this.arregloTipoContrato = datos.datos);
@@ -725,10 +727,15 @@ export class EmpleoComponent implements OnInit {
       };
     }
 
+    this.limpiarMontos()
+
     this.grupoNominaSeleccionado = aux;
     //this.grupoNominaSeleccionado.pagoComplementario = true;
 
     if (this.grupoNominaSeleccionado.pagoComplementario) {
+
+      this.myForm.controls.sueldonetomensualppp.setValidators([Validators.required]);
+      this.myForm.controls.sueldonetomensualppp.updateValueAndValidity();
 
       this.typeppp = true;
       this.myForm.controls.salarioNetoMensualImss.disable();
@@ -751,6 +758,9 @@ export class EmpleoComponent implements OnInit {
       this.cambiarSueldoField();
     } else {
 
+
+      this.myForm.controls.sueldonetomensualppp.clearValidators();
+      this.myForm.controls.sueldonetomensualppp.updateValueAndValidity();
       this.typeppp = false;
       this.myForm.controls.salarioDiario.setValidators([]);
       this.myForm.controls.salarioDiario.updateValueAndValidity();
@@ -837,6 +847,13 @@ export class EmpleoComponent implements OnInit {
     if (this.verificaCambiosNecesarios()) return;
 
 
+console.log(this.myForm.controls.sueldonetomensualppp);
+
+    if(this.myForm.controls.sueldonetomensualppp.invalid){
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el sueldo neto PPP");
+      return;
+    }
+
     if (this.myForm.controls.salarioDiario.invalid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el salario diario");
@@ -914,18 +931,23 @@ export class EmpleoComponent implements OnInit {
   }
 
 
-  public cambiaSueldoDiario(){
-    if (this.myForm.controls.salarioDiario.valid) {
+  public limpiarMontos(){
+    this.myForm.controls.tipoCompensacionId.setValue("");
+    this.myForm.controls.tiposueldo.setValue("b");
+    this.myForm.controls.sueldoNetoMensual.setValue("");
+    this.myForm.controls.sueldoBrutoMensual.setValue("");
+    this.myForm.controls.sueldonetomensualppp.setValue("");
+    this.myForm.controls.salarioDiario.setValue("");
+    this.myForm.controls.salarioDiarioIntegrado.setValue("");
+    this.myForm.controls.sbc.setValue("");
+    this.myForm.controls.salarioNetoMensualImss.setValue("");
+    this.myForm.controls.pagoComplementario.setValue("");
+    this.myForm.controls.sueldoBrutoMensualPPP.setValue("");
 
-      if(Boolean(this.myForm.controls.sueldonetomensualppp.value)){
-          this.cambiassueldoPPP();
-      }else{
-        this.modalPrd.showMessageDialog(this.modalPrd.error,"Se debe ingresar el sueldo neto mensual PPP");
-        this.sueldoppp.nativeElement.focus();
-      }   
-    
-    }
   }
+
+
+ 
 
 
   public calcularsueldo(){
@@ -933,7 +955,7 @@ export class EmpleoComponent implements OnInit {
     if(!this.grupoNominaSeleccionado.pagoComplementario){
         this.cambiasueldobruto(true);
     }else{
-      this.cambiaSueldoDiario();
+      this.cambiassueldoPPP();
     }
   }
 }

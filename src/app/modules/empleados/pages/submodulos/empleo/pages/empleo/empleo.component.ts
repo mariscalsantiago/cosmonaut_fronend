@@ -64,9 +64,8 @@ export class EmpleoComponent implements OnInit {
     this.catalogosPrd.getTipoContratos(true).subscribe(datos => this.arregloTipoContrato = datos.datos);
     this.catalogosPrd.getTipoRegimencontratacion(true).subscribe(datos => this.arregloRegimenContratacion = datos.datos);
     this.areasPrd.getAreasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloArea = datos.datos);
-    this.empleadosPrd.getEmpleadosCompania(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      this.arregloempleadosreporta = datos.datos
-
+    this.empleadosPrd.getEmpleadosCompaniaJefe(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.arregloempleadosreporta.push(datos)
     });
     this.sedesPrd.getsedeByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloSedes = datos.datos);
     this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);

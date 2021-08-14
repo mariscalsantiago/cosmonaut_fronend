@@ -37,6 +37,8 @@ export class CuentasComponent implements OnInit {
   }
 
   public createForm(obj: any) {
+    
+    console.log(obj,"datos bancarios");
 
     return this.formBuild.group({
 
@@ -48,7 +50,7 @@ export class CuentasComponent implements OnInit {
       num_informacion: [obj.numInformacion],
       clabe: [obj.clabe, [Validators.required, Validators.pattern(/^\d{18}$/)]],
       num_sucursal: [obj.numSucursal],
-      esActivo: [{ value:  true , disabled: true }, [Validators.required]]
+      esActivo: [{ value:  obj.esActivo == undefined ? true:obj.esActivo , disabled: Boolean(obj) }, [Validators.required]]
     });
 
   }
