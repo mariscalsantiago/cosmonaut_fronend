@@ -73,6 +73,7 @@ export class DetallegruponominaComponent implements OnInit {
     this.myForm = this.crearForm(obj)  ;
     
     if(!this.esInsert){
+      debugger;
       obj = history.state.data;
       
       if(obj == undefined){

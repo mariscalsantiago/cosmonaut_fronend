@@ -65,11 +65,11 @@
 
 
     <div class="col-9">
-        <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
+        <div *ngIf="aparecemodalito" [style.top]="scrolly" style="z-index: 4;" class="ventanaemergente" [style.width]="modalWidth">
             <div class="adentro">
                 <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 <div class="header">
                     <h5 class="titulo">GRUPO DE NÓMINA</h5>
 
