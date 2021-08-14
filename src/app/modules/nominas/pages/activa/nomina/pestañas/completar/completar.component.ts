@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
@@ -20,7 +21,8 @@ export class CompletarComponent implements OnInit {
   public datos:any = {};
   constructor(private modalPrd: ModalService,
     private reportesPrd:ReportesService,private nominaPrd:NominaordinariaService,
-    private usuarioSistemaPrd:UsuarioSistemaService) { }
+    private usuarioSistemaPrd:UsuarioSistemaService,
+    private navigate:Router) { }
 
   ngOnInit(): void {
 
@@ -112,6 +114,36 @@ export class CompletarComponent implements OnInit {
 
       }
     });
+  }
+
+
+  public concluirnomina(){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas concluir la nómina?","Solo se podrá consultar esta nómina desde el historica una vez concluida").then(valor =>{
+       if(valor){
+           this.nominaPrd.concluirNomina(this.nominaSeleccionada[this.llave].nominaXperiodoId).subscribe(datos =>{
+             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+               if(datos.resultado){
+                    this.regresarListado();
+               }
+             });
+           });
+       }
+    });
+  }
+
+
+  public regresarListado(){
+
+      if (this.nominaSeleccionada.nominaOrdinaria) {
+        this.navigate.navigate(["/nominas/activas"]);
+      } else if (this.nominaSeleccionada.nominaExtraordinaria) {
+        this.navigate.navigate(["/nominas/nomina_extraordinaria"]);
+      } else if (this.nominaSeleccionada.nominaLiquidacion) {
+        this.navigate.navigate(["/nominas/finiquito_liquidacion"]);
+      } else if (this.nominaSeleccionada.nominaPtu) {
+        this.navigate.navigate(["/nominas/ptu"]);
+      }
+    
   }
 
  

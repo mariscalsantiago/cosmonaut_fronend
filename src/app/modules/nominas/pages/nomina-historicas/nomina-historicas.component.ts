@@ -187,10 +187,12 @@ export class NominaHistoricasComponent implements OnInit {
   public filtrar() {
 
       let objEnviar = {
-        nombre: this.nombreNomina || undefined,
-        clavePeriodo: this.periodo || undefined,
-        fechaInicio: this.fecha || undefined
-      }
+        centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
+        estadoNominaIdActual: 5,
+        nombreNomina: this.nombreNomina || null,
+        clavePeriodo: this.periodo || null,
+        fechaInicio: this.fecha || null
+    }
 
       this.cargando = true;
       this.nominashistoricasPrd.filtrado(objEnviar).subscribe(datos =>{

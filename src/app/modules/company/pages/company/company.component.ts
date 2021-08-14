@@ -68,7 +68,7 @@ export class CompanyComponent implements OnInit {
     this.tamanio = documento.innerWidth;
 
     this.cargando = true;
-    debugger;
+    
     this.companyProd.getAll().subscribe(datos => {
       this.arreglo = datos.datos;
 
@@ -135,7 +135,7 @@ export class CompanyComponent implements OnInit {
       actboo = "false";
     }
 
-    debugger;
+    
     let peticion = {
       centrocClienteId: this.centrocClienteId,
       multiempresa: this.multiempresa,

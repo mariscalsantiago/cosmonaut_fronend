@@ -40,7 +40,7 @@ export class SedeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     if (this.sede != undefined) {
       
       this.catalogosPrd.getAsentamientoByCodigoPostal(this.sede.codigoPostal).subscribe(datos => {
@@ -105,7 +105,7 @@ export class SedeComponent implements OnInit {
   }
 
   public guardar() {
-    debugger;
+    
     let obj = this.myForm.getRawValue();
    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);

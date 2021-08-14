@@ -158,7 +158,7 @@ export class DomicilioComponent implements OnInit {
 
 
   public buscar(obj: any) {
-    debugger;
+    
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
     this.noCoincide = '';

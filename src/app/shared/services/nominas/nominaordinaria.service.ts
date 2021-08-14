@@ -177,6 +177,11 @@ export class NominaordinariaService {
   }
 
 
+  public concluirNomina(nominaPeriodoId:number):Observable<any>{
+      return this.http.post(`${environment.rutaNomina}/concluir/${nominaPeriodoId}`,{});
+  }
+
+
   public dispersarOtrosTiposMetodosPago(obj: any): Observable<any> {
     let json = JSON.stringify(obj);
     return this.http.post(`${direcciones.dispersion}/modifica/estatus/empleado/dispersado`, json);

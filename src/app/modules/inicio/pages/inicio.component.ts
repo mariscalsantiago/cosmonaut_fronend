@@ -46,7 +46,7 @@ export class InicioComponent implements OnInit {
     private usuariosSistemaPrd: UsuarioSistemaService,public ContenidoComponent:ContenidoComponent, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.cargando = true;
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
