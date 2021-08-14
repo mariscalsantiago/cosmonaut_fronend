@@ -113,17 +113,17 @@ export class DetallecontactosrrhComponent implements OnInit {
           contactoInicialTelefono: obj.ciTelefono,
           contactoInicialExtension: obj.ciExtension,
           centrocClienteId: {
-            "centrocClienteId": this.id_empresa
+            centrocClienteId: this.id_empresa
+          },
+          tipoPersonaId:{
+            tipoPersonaId:4
           }
         };
 
 
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
         if (this.esInsert) {
-          
-
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.usuariosPrd.save(peticion).subscribe(datos => {
-            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
             if(datos.resultado){
               this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'contactosrrh']);
@@ -131,9 +131,7 @@ export class DetallecontactosrrhComponent implements OnInit {
               
           });
         } else {
-
           peticion.personaId = obj.personaId;
-
           this.usuariosPrd.modificar(peticion).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)

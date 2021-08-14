@@ -52,19 +52,11 @@ export class ApoderadoLegalService {
 
   public save(obj:any):Observable<any>{
    
-    const httpOptions={
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-
-
-
+  
     let json:string = JSON.stringify(obj);
     
 
-    return this.http.put(`${this.url}/guardar/apoderadoLegal`,json,httpOptions);
+    return this.http.put(`${this.url}/guardar/apoderadoLegal`,json);
   }
 
   public modificar(obj:any):Observable<any>{
