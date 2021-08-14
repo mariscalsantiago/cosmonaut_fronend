@@ -171,14 +171,16 @@ export class DetalleapoderadoLegalComponent implements OnInit {
           },
           facultadPoderId: {
             facultadPoderId: obj.facultadPoderId
+          },
+          tipoPersonaId:{
+            tipoPersonaId:6
           }
+
         }
 
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
         if (this.insertar) {
-
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.apoderadoPrd.save(this.objEnviar).subscribe(datos => {
-            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
                 this.routerPrd.navigate(["/empresa/detalle/" + this.centrocClienteId + "/apoderadoLegal"]);

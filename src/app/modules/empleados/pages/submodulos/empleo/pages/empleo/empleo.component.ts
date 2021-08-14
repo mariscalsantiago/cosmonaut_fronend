@@ -74,7 +74,7 @@ export class EmpleoComponent implements OnInit {
     this.politicasPrd.getPoliticasByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloPoliticas = datos.datos);
 
 
-    debugger;
+    
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
 

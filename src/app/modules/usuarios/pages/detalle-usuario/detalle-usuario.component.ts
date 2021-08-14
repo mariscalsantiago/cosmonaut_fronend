@@ -54,7 +54,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
     

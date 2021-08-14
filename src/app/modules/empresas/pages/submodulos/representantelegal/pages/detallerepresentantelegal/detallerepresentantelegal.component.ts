@@ -154,13 +154,14 @@ export class DetallerepresentantelegalComponent implements OnInit {
           },
           tipoRepresentanteId: {
             tipoRepresentanteId: this.tipoRepresentanteId
+          },
+          tipoPersonaId:{
+            tipoPersonaId:1
           }
         }
 
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
         if (this.insertar) {
-
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
           this.representantePrd.save(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
