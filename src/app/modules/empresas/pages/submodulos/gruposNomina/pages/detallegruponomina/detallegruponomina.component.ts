@@ -31,7 +31,9 @@ export class DetallegruponominaComponent implements OnInit {
   public arregloPeriocidadPago:any = [];
   public arregloBasePeriodos:any = [];
   public arregloCatPeriodosAguinaldo:any = [];
+  public obj:any = [];
   public ajustedeisr:boolean = false;
+  public empresaRazon: string = '';
 
 
 
@@ -43,7 +45,7 @@ export class DetallegruponominaComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    debugger;
     this.activeprd.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -56,37 +58,47 @@ export class DetallegruponominaComponent implements OnInit {
 
 
       this.cuentasBancariasPrd.getCuentaFuncion(this.id_empresa).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
-      
-      this.companiaPrd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arreglocompany = datos.datos);
-    });
-    
-    let obj:any = {
-      esquemaPagoId:{},
-      monedaId:{},
-      centrocClienteId:{},
-      clabe:{},
-      periodicidadPagoId:{},
-      basePeriodoId:{},
-      periodoAguinaldoId:{}
-    }
 
-    this.myForm = this.crearForm(obj)  ;
+
+
+    });
+
+    this.companiaPrd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.arreglocompany = datos.datos;
+      this.empresaRazon = this.arreglocompany.razonSocial;
+
+      this.obj = {
+        esquemaPagoId:{},
+        monedaId:{},
+        centrocClienteId:{},
+        clabe:{},
+        periodicidadPagoId:{},
+        basePeriodoId:{},
+        periodoAguinaldoId:{}
+      }
+  
+      this.myForm = this.crearForm(this.obj);
+
+    
+
     
     if(!this.esInsert){
       debugger;
-      obj = history.state.data;
+      this.obj = history.state.data;
       
-      if(obj == undefined){
+      if(this.obj == undefined){
         this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
           return;
       }else{
-        this.grupoNominaPrd.getGroupNomina(obj.id).subscribe(datos =>{  
+        this.grupoNominaPrd.getGroupNomina(this.obj.id).subscribe(datos =>{  
           this.myForm = this.crearForm(datos.datos);
   
         });;
   
       }
     }
+
+    });
 
 
     //this.catalogosPrd.getEsquemaPago(true).subscribe(datos => this.arregloEsquemaPago = datos.datos);
@@ -123,7 +135,7 @@ export class DetallegruponominaComponent implements OnInit {
       } */
 
     }else{
-      obj.centrocClienteId.centrocClienteId = this.id_empresa;
+      //obj.centrocClienteId.centrocClienteId = this.id_empresa;
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio = "periodica";
       obj.ajustarBaseGravableFaltantes = "false";
 
@@ -136,7 +148,7 @@ export class DetallegruponominaComponent implements OnInit {
       ajustarBaseGravableFaltantes: [obj.ajustarBaseGravableFaltantes],
       monedaId:[obj.monedaId?.monedaId,[Validators.required]],
       ajustedeisr: [this.ajustedeisr],
-      centrocClienteId:[obj.centrocClienteId?.centrocClienteId,[Validators.required]],
+      centrocClienteId:[this.empresaRazon,[Validators.required]],
       clabe:[obj.cuentaBancoId?.cuentaBancoId,[Validators.required]],
       periodicidadPagoId:[obj.periodicidadPagoId?.periodicidadPagoId,[Validators.required]],
       basePeriodoId:[obj.basePeriodoId?.basePeriodoId,[Validators.required]],
