@@ -52,7 +52,7 @@
                         <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
-                        <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
+                        <div *ngIf="f.rfc.errors?.pattern && submitEnviado" class="invalid-feedback">
                             Formato de RFC inválido, favor de verificar.
                         </div>
 

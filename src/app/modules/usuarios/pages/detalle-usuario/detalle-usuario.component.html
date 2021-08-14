@@ -104,7 +104,7 @@
             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Rol *</label>
                 <select [class.is-invalid]="f.rol.errors && summitenviado" formControlName="rol" class="form-control">
-                    <option *ngFor="let item of arregloRoles" [value]="item.rolId" >{{item.nombreRol}}</option>
+                    <option *ngFor="let item of arregloRoles" [class.ocultar]="item.rolId == 2" [value]="item.rolId" >{{item.nombreRol}}</option>
                 </select>
                 <div class="invalid-feedback">
                     Campo requerido.
