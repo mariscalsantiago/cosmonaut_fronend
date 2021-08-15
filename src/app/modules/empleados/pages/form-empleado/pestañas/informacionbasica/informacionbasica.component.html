@@ -201,7 +201,7 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-4 col-lg-4">
                     <label> Celular </label>
-                    <input appSolonumeros formControlName="contactoEmergenciaTelefono" type="text" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaTelefono.errors && submitEnviado}">
+                    <input  formControlName="contactoEmergenciaTelefono" type="text" appSolonumeros maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.contactoEmergenciaTelefono.errors && submitEnviado}">
                     <div *ngIf="f.contactoEmergenciaTelefono.errors && submitEnviado" class="invalid-feedback">
                         Campo requerido
                     </div>

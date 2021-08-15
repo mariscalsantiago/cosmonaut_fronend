@@ -4,9 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { validacionesForms } from 'src/app/shared/validaciones/validaciones';
 
 @Component({
   selector: 'app-personal',
@@ -260,11 +262,11 @@ export class PersonalComponent implements OnInit {
       apellidoMaterno: obj.apellidoMaterno,
       genero: [{ value: genero, disabled: true }],
       fechaNacimiento: [fechaNacimiento,Validators.required],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern('[A-Za-z,ñ,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Za-z,0-9]?[A-Za-z,0-9]?[0-9,A-Za-z]?')]],
-      curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
+      curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
       nss: obj.nss,
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
-      emailCorporativo: [{value:obj.emailCorporativo?.toLowerCase(),disabled:false}, [Validators.email]],
+      emailCorporativo: [{value:obj.emailCorporativo?.toLowerCase(),disabled:false}, [Validators.email,Validators.required]],
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId || 1, [Validators.required]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       estadoCivil: obj.estadoCivil,

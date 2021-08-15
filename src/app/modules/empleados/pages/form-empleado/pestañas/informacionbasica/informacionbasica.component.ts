@@ -65,6 +65,10 @@ export class InformacionbasicaComponent implements OnInit {
       }
 
 
+  
+
+      console.log("Esta cosa llega mas createform ",obj);
+
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
