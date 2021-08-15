@@ -184,9 +184,12 @@ export class ListapuestosComponent implements OnInit {
 
 
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
-
-
-
+      if (this.arreglodetalle !== undefined){
+        for (let item of this.arreglodetalle){
+          item.nombrecompleto = `${item.nombre == undefined ? '':item.nombre} ${item.apellidoPat == undefined ? '':item.apellidoPat} ${item.apellidoMat == undefined ? '':item.apellidoMat}`;
+          
+        }
+      }
     });
 
   }

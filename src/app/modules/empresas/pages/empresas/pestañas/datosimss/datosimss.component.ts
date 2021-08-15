@@ -48,7 +48,7 @@ export class DatosimssComponent implements OnInit {
       usuarioCerIMSS: [obj.usuarioCerIMSS],
       contraseñaCerIMSS: [obj.contraseñaCerIMSS],
       registroPatronal: [obj.registroPatronal, [Validators.required, Validators.pattern(/^[A-Za-z,ñ,Ñ,&]/)]],
-      emPrimaRiesgo: [obj.emPrimaRiesgo, [Validators.required, Validators.pattern(/[0-9]{1}(\.[0-9])/)]],
+      emPrimaRiesgo: [obj.emPrimaRiesgo, [Validators.required, Validators.pattern(/[0-9]{1}(\.[1-9])/)]],
       emClaveDelegacionalImss: [obj.emClaveDelegacionalImss, [Validators.required, Validators.pattern(/^\d{2}$/)]],
       emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
       emCalculoAutoPromedioVar: obj.emCalculoAutoPromedioVar

@@ -157,6 +157,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 
 
   public crearTablaPercepcion(datos:any){
+    debugger;
     if(datos.datos !== undefined){
       datos.datos.forEach((part:any) => {
         part.descripcion=part.tipoPercepcionId?.descripcion;

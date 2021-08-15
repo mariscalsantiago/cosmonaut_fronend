@@ -396,6 +396,12 @@ export class DetallepoliticasComponent implements OnInit {
         else if(item.montoTotal !== undefined){
           item.valorMonto = item.montoTotal
         }
+        if(item.tipoPercepcionId?.noEditable !== undefined ){
+          item.tipoPercepcionId.noEditable = false;
+          }
+          if(item.tipoPercepcionId?.porDefecto !== undefined ){
+            item.tipoPercepcionId.porDefecto = false;
+          }
       }
     }
 
@@ -446,6 +452,12 @@ export class DetallepoliticasComponent implements OnInit {
         else if(item.montoTotal !== undefined){
           item.valorMonto = item.montoTotal
         }
+        if(item.tipoPercepcionId?.noEditable !== undefined ){
+          item.tipoPercepcionId.noEditable = false;
+          }
+          if(item.tipoPercepcionId?.porDefecto !== undefined ){
+            item.tipoPercepcionId.porDefecto = false;
+          }
       }
     }
 

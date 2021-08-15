@@ -165,6 +165,12 @@ export class PagosComponent implements OnInit {
         if (!item.esActivo) {
           item.activo = 'Inactivo';
         }
+        if(item.tipoPercepcionId?.noEditable !== undefined ){
+          item.tipoPercepcionId.noEditable = false;
+          }
+          if(item.tipoPercepcionId?.porDefecto !== undefined ){
+            item.tipoPercepcionId.porDefecto = false;
+          }
       }
     }
 
@@ -210,6 +216,13 @@ export class PagosComponent implements OnInit {
         if (!item.esActivo) {
           item.activo = 'Inactivo';
         }
+
+        if(item.tipoPercepcionId?.noEditable !== undefined ){
+          item.tipoPercepcionId.noEditable = false;
+          }
+          if(item.tipoPercepcionId?.porDefecto !== undefined ){
+            item.tipoPercepcionId.porDefecto = false;
+          }
       }
     }
 
