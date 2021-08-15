@@ -26,7 +26,7 @@ export class DatosimssComponent implements OnInit {
   public objenviar: any = [];
   public insertarMof: boolean = false;
   public resultado: boolean = false;
-  public imss : boolean = false; 
+  public imss : boolean = true; 
 
   constructor(private formBuilder: FormBuilder, private imssPrd: ImssService, private routerPrd: Router,
     private modalPrd: ModalService) { }
@@ -44,14 +44,15 @@ export class DatosimssComponent implements OnInit {
   public createForm(obj: any) {
 
     return this.formBuilder.group({
-      cerIMSS: [{ value: obj.cerIMSS, disabled: true }],
-      usuarioCerIMSS: [obj.usuarioCerIMSS],
-      contraseñaCerIMSS: [obj.contraseñaCerIMSS],
+      cerIMSS: [{ value: obj.cerIMSS, disabled: true },[Validators.required]],
+      usuarioCerIMSS: [obj.usuarioCerIMSS,[Validators.required]],
+      contrasenaCerIMSS: [obj.contrasenaCerIMSS,[Validators.required]],
       registroPatronal: [obj.registroPatronal, [Validators.required, Validators.pattern(/^[A-Za-z,ñ,Ñ,&]/)]],
       emPrimaRiesgo: [obj.emPrimaRiesgo, [Validators.required, Validators.pattern(/[0-9]{1}(\.[1-9])/)]],
       emClaveDelegacionalImss: [obj.emClaveDelegacionalImss, [Validators.required, Validators.pattern(/^\d{2}$/)]],
       emImssObreroIntegradoApatronal: obj.emImssObreroIntegradoApatronal,
-      emCalculoAutoPromedioVar: obj.emCalculoAutoPromedioVar
+      emCalculoAutoPromedioVar: obj.emCalculoAutoPromedioVar,
+
 
     });
 
@@ -134,10 +135,10 @@ export class DatosimssComponent implements OnInit {
 
 
   public guardar() {
-
+    debugger;
     this.datos.activarGuardaMod = true;
 
-    let obj = this.myForm.value;
+    let obj = this.myForm.getRawValue();
 
     this.objenviar = {
       registroPatronal: obj.registroPatronal,
@@ -147,7 +148,10 @@ export class DatosimssComponent implements OnInit {
       emCalculoAutoPromedioVar: obj.emCalculoAutoPromedioVar,
       centrocClienteId: {
         centrocClienteId: this.datos.empresa.centrocClienteId
-      }
+      },
+      usuarioImss: obj.usuarioCerIMSS,
+      pwdImss: obj.contrasenaCerIMSS,
+      certificadoImss: obj.cerIMSS
 
     }
 
