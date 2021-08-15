@@ -11,6 +11,8 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./ventana-deducciones.component.scss']
 })
 export class VentanaDeduccionesComponent implements OnInit {
+  @ViewChild("fechaInicioDescto") fechaInicioDesctoComp!: ElementRef;
+  @ViewChild("fechaFinDescuento") fechaFinDescuento!: ElementRef;
   public myForm!: FormGroup;
   public esInsert: boolean = false;
   public obj: any = [];
@@ -88,8 +90,9 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
       this.validarConceptoDeduccion(this.datos.tipoDeduccionId?.tipoDeduccionId);
     }
+    debugger;
     
-    
+    this.suscripciones();
   }
 
   public createForm(obj: any) {
@@ -133,6 +136,30 @@ export class VentanaDeduccionesComponent implements OnInit {
 
   public cancelar(){
     this.salida.emit({type:"cancelar"});
+  }
+
+  ngAfterViewInit(): void {
+
+    const datepipe = new DatePipe("es-MX");
+    let diamaximo = datepipe.transform(new Date, "yyyy-MM-dd")
+    this.fechaInicioDesctoComp.nativeElement.max = diamaximo;
+
+
+  }
+
+  public suscripciones() {
+    this.myForm.value;
+
+    this.myForm.controls.fechaInicioDescto.valueChanges.subscribe(valor => {
+      this.fechaFinDescuento.nativeElement.min = valor;
+    });
+
+  }
+
+  public validarFechaIniDesc(){
+
+    this.myForm.controls.fechaFinDescuento.setValue("");
+
   }
 
 

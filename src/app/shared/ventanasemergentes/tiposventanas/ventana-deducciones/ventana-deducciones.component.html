@@ -14,7 +14,7 @@
         </div>
         <div class="input-group-sm mb-3 col-4">
             <label>Fecha inicio de descuento *</label>
-            <input formControlName="fechaInicioDescto" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaInicioDescto.errors && submitEnviado}">
+            <input #fechaInicioDesctoCont (focusout)="validarFechaIniDesc()" formControlName="fechaInicioDescto" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaInicioDescto.errors && submitEnviado}">
             <div *ngIf="myForm.controls.fechaInicioDescto.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -22,7 +22,7 @@
 
         <div class="input-group-sm mb-3 col-4">
             <label>Fecha fin de descuento</label>
-            <input formControlName="fechaFinDescuento" type="date" class="form-control">
+            <input [min]="f.fechaInicioDescto.value" #fechaFinDescuento formControlName="fechaFinDescuento" type="date" class="form-control">
         </div>
         <div *ngIf="prestamo" class=" input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Tipo de descuento * </label>

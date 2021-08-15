@@ -231,6 +231,12 @@ export class ListapoliticasComponent implements OnInit {
     this.politicasProd.getdetallePolitica(politicaitem.politicaId, this.id_empresa).subscribe(datos => {
       this.cargandodetallearea = false;
       this.arreglodetalleemp = datos.datos == undefined ? [] : datos.datos;
+      if (this.arreglodetalleemp !== undefined){
+        for (let item of this.arreglodetalleemp){
+          item.nombrecompleto = `${item.nombre == undefined ? '':item.nombre} ${item.apellidoPat == undefined ? '':item.apellidoPat} ${item.apellidoMat == undefined ? '':item.apellidoMat}`;
+          
+        }
+      }
     });
 
   }
