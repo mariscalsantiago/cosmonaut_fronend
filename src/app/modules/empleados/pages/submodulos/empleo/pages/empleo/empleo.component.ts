@@ -82,6 +82,7 @@ export class EmpleoComponent implements OnInit {
         this.contratoDesc = this.arregloTipoContrato.find((item: any) => item.tipoContratoId === this.empleado.tipoContratoId.tipoContratoId)?.descripcion;
 
         this.myForm = this.createForm(this.empleado);
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.suscripciones();
         this.cambiaArea();
 
@@ -212,6 +213,14 @@ export class EmpleoComponent implements OnInit {
           esActivo: true
         }
 
+        if(!Boolean(objEnviar.jefeInmediatoId.personaId)){
+            objEnviar.jefeInmediatoId = null;
+        }
+
+        if(!Boolean(objEnviar.sedeId.sedeId)){
+          objEnviar.sedeId = null;
+          }
+
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.contratoColaboradorPrd.update(objEnviar).subscribe(datos => {
@@ -219,7 +228,8 @@ export class EmpleoComponent implements OnInit {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
             if (datos.resultado) {
               this.empleado = datos.datos;
-              this.myForm = this.createForm(this.empleado);
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.ngOnInit();
               this.editarcampos = false;
             }
           });

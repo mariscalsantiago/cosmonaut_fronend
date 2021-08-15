@@ -65,6 +65,7 @@
                     <article *ngIf="editarcampos">
 
                         <select formControlName="sedeId" name="" class="form-control">
+                            <option value="">Seleccionar sede</option>
                             <option *ngFor="let item of arregloSedes" [value]="item.sedeId">{{item.sedeNombre}}
                             </option>
                         </select>
