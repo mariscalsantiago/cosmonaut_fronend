@@ -163,7 +163,7 @@ export class InformacionempresaComponent implements OnInit {
       return;
     }
 
-    let titulo: string = this.datos.insertar ? "¿Deseas guardar cambios?" : "¿Deseas actualizar los datos de la empresa?";
+    let titulo: string = this.datos.insertar ? "¿Deseas guardar la empresa?" : "¿Deseas actualizar los datos de la empresa?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
       if (valor) {
         this.guardarCambios();

@@ -26,6 +26,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloUnidadMedida: any = [];
   public arregloFechas: any = [];
 
+  public esDomingo:boolean = false;
+
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService,
     public configuracionPrd:ConfiguracionesService) { }
@@ -465,6 +467,10 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
 
+    this.esDomingo = (9 == seleccionado);
+
+    this.myForm.controls.duracion.setValue("");
+
     let multifechas: boolean = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
     if (multifechas) {
       this.myForm.controls.fechaInicio.setValue("");
@@ -619,6 +625,10 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public recibirEtiquetas(obj: any) {
+    if(obj.type == "error"){
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"Para prima dominical solo seleccionar domingos");
+      return;
+    }
     let fecha = obj.lenght == 0 ? "" : obj[0];
     this.myForm.controls.fechaInicio.setValue(fecha);
     this.arregloFechas = obj;

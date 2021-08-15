@@ -223,7 +223,7 @@ export class LoginComponent implements OnInit {
             this.mensajeerror = true;
             this.incorrectoback = false;
             this.mensajeDanger = err.error.message;
-            this.restablecer = true;
+            this.restablecer = !err.error.message.includes("El usuario se encuentra dado de baja");
         }
       }
 

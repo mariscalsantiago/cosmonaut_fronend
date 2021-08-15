@@ -62,7 +62,7 @@
                 <label>Fecha *</label>
 
                 <input *ngIf="!tagcomponente" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
-                <app-tag [class.is-invalid]="f.fechaInicio.errors && submitEnviado" *ngIf="tagcomponente" [calendario]="true" [dias]="numerodias.value" (salida)="recibirEtiquetas($event)"></app-tag>
+                <app-tag [class.is-invalid]="f.fechaInicio.errors && submitEnviado" *ngIf="tagcomponente" [calendario]="true" [dias]="numerodias.value" [dominical]="esDomingo" (salida)="recibirEtiquetas($event)"></app-tag>
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>

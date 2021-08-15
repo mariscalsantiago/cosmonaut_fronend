@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 import { tabla } from 'src/app/core/data/tabla';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -39,7 +40,7 @@ export class ListarolesComponent implements OnInit {
     this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos =>{
       this.arreglo = datos.datos;
       let columnas:Array<tabla> = [new tabla("nombreRol","Rol"),
-      new tabla("","Número de usuarios"),
+      new tabla("noUsuarios","Número de usuarios",false,false,true),
       new tabla("esActivo","Estatus")]
       this.arreglotabla = {
         columnas: columnas,
@@ -57,6 +58,10 @@ export class ListarolesComponent implements OnInit {
   }
 
   public eliminar(obj:any,indice:number){
+      if(obj.noUsuarios !== 0){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede eliminar el rol con usuarios asignados.");
+        return;
+      }
       this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar el rol?").then((valor)=>{
         if(valor){
           this.modalPrd.showMessageDialog(this.modalPrd.loading);

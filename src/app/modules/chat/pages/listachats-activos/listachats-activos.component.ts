@@ -43,6 +43,8 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
       if(Boolean(datos.datos)){
         if(this.cantidad !== datos.datos.length){
           this.cantidad = datos.datos.length;
+          console.log(this.cantidad,"cantidad");
+          console.log("construirTabla",datos);
           this.construirTabla(datos.datos);
         }
       }else{
@@ -51,6 +53,8 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
         }
       }
 
+
+      console.log("cargando false");
       this.cargando = false;
     });
 
