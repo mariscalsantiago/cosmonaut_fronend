@@ -142,11 +142,17 @@ public getMensajesrecibidosPorEmpleado(idEmpresa:number,idUsuario:number):Observ
 }
 
 
-  public enviarMensajeGenerico(mensaje:string,canal:string){
+  public enviarMensajeGenerico(mensaje:string,canal:string):Observable<any>{
+    
+    let observador = new Subject();
     let socketInterno:WebSocket = new WebSocket(direcciones.socket+canal);
     socketInterno.onopen = ()=>{
       socketInterno.send(mensaje);
+      socketInterno.close();
+      observador.complete();
     }
+
+    return observador;
   
   }
 

@@ -78,6 +78,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit {
     } else {
       if (!this.chatPrd.yaRecibeMensajes) {
         this.chatPrd.recibiendoMensajeServer(true).subscribe(datos => {
+          
 
           this.procesandoMensajesRecibidos(datos);
         });
@@ -169,6 +170,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit {
     
 
     this.arreglomensajes.push(objEnviado);
+    
     let body = JSON.stringify(this.arreglomensajes.slice(1));
 
     this.chatPrd.enviarMensaje(body);

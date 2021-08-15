@@ -55,7 +55,6 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
     });
 
     this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
-      console.log("Este es el mensaj generico",datos);
       this.mensajes = datos.datos
     });
 
@@ -71,6 +70,8 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
 
 
   public construirTabla(obj: any) {
+
+    
 
     let columnas: Array<tabla> = [
       new tabla("nombreempleado", "Empleado"),
@@ -142,22 +143,29 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
         break;
       case "default":
         
+      
         this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas enviar el mensaje generico?").then(valor =>{
           if(valor){
             
               if(this.mensajes == undefined){
                   this.modalPrd.showMessageDialog(this.modalPrd.error,"No hay mensajes genericos que enviar");
               }else{
-                  this.socket.enviarMensajeGenerico(this.mensajes[0].mensajeGenerico,obj.datos.conversacion);
-                  let objEnviar = {
-                    chatColaboradorId: obj.datos.chatColaboradorId,
-                    atendido: false,
-                    rechazo: true,
-                    fechaRechazo: new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd")
-                  };
-                  this.socket.modificarMensaje(objEnviar).subscribe(datos => {
-                    
-                });
+                let objEnviado = {
+                  mensaje: this.mensajes[0].mensajeGenerico,
+                  fecha: new Date(),
+                  usuarioId: this.usuariossistemaPrd.getUsuario().usuarioId,
+                  nombre: `${this.usuariossistemaPrd.getUsuario().nombre} ${this.usuariossistemaPrd.getUsuario().apellidoPat}`
+                };
+            
+                let arregloMensajes = JSON.parse(obj.datos.mensajes);
+                arregloMensajes.push(objEnviado);
+            
+                
+                let body = JSON.stringify(arregloMensajes);
+
+              
+            
+                  this.socket.enviarMensajeGenerico(body,obj.datos.conversacionId);
               }
           }
         });
