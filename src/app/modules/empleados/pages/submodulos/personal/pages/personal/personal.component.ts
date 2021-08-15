@@ -383,7 +383,7 @@ export class PersonalComponent implements OnInit {
 
 
 
-
+//rh4
     this.empleadoPrd.update(objenviar).subscribe(datos => {
 
       if (datos.resultado) {

@@ -58,10 +58,7 @@ export class ListarolesComponent implements OnInit {
   }
 
   public eliminar(obj:any,indice:number){
-      if(obj.noUsuarios !== 0){
-        this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede eliminar el rol con usuarios asignados.");
-        return;
-      }
+     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas eliminar el rol?").then((valor)=>{
         if(valor){
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
