@@ -39,14 +39,13 @@ export class InformacionbasicaComponent implements OnInit {
     private usuariosAuth:UsuariosauthService) { }
 
   ngOnInit(): void {
-    if(this.datosPersona[0].insertar === undefined){
+    if(!Boolean(this.datosPersona[0].personaId)){
      let obj = {
         nacionalidadId: {}
       };
       this.myform = this.createForm(obj);
     }else{
-
-    this.myform = this.createForm(this.datosPersona[0]);
+      this.myform = this.createForm(this.datosPersona[0]);
     }
 
     this.catalogosPrd.getNacinalidades(true).subscribe(datos => this.arreglonacionalidad = datos.datos);
@@ -149,7 +148,15 @@ export class InformacionbasicaComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar cambios?").then(valor => {
 
       if (valor) {
-        this.guardarCambios();
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.myform.controls.emailCorporativo.value)).subscribe(datos =>{
+          if(Boolean(datos.datos)){
+            this.modalPrd.showMessageDialog(this.modalPrd.error,"No es posible registrar como cuenta de usuario, el correo empresarial ya existe");
+              return;
+          }
+
+          this.guardarCambios();
+        });
       }
 
     });
