@@ -411,7 +411,7 @@ export class DetallepoliticasComponent implements OnInit {
   }
 
   public crearTablaPercepcion(datos: any) {
-    debugger;
+    
     this.arreglotablaPer = datos.datos;
     let columnas: Array<tabla> = [
       

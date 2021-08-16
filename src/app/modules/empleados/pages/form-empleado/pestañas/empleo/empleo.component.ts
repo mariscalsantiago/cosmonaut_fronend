@@ -126,14 +126,14 @@ export class EmpleoComponent implements OnInit {
     this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
     this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
 
-    debugger;
+    
     this.suscripciones();
 
   }
 
 
   ngAfterViewInit(): void {
-debugger;
+
     const datepipe = new DatePipe("es-MX");
     let diamaximo = datepipe.transform(new Date, "yyyy-MM-dd")
     this.fechaAntiguedadElemento.nativeElement.max = diamaximo;
@@ -143,7 +143,7 @@ debugger;
 
 
   public suscripciones() {
-    debugger;
+    
     this.myForm.value;
 
     this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor => {

@@ -279,7 +279,7 @@ export class TimbrarComponent implements OnInit {
             obj.push({
               nominaPeriodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
               personaId: item[this.llave].personaId,
-              fechaContrato: item[this.llave].fechaContrato,
+              fechaContrato: new DatePipe("es-MX").transform(new Date(new Date(item[this.llave].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'),
               centroClienteId:  item[this.llave].centroClienteId || this.usuarioSistemaPrd.getIdEmpresa(),//Posiblemente cambio desde el backend con el centro costo cliente...
               usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
               servicio: "facturacion_sw"

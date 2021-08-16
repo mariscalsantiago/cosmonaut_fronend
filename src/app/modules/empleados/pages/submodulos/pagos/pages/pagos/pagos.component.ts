@@ -188,7 +188,7 @@ export class PagosComponent implements OnInit {
 
   public crearTablaDeduccion(datos: any) {
     
-    debugger;
+    
     this.arreglotablaDed = datos.datos;
 
 
@@ -487,13 +487,20 @@ export class PagosComponent implements OnInit {
             metodoPagoId: this.indexMetodoSeleccionado
           }
         }
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.contratoColaboradorPrd.update(objContrato).subscribe((respContrato) => {
           if (respContrato.resultado) {
-            if(this.indexMetodoSeleccionado !== 4){
+          console.log("respContrato",respContrato);
+          console.log("indexMetodoSeleccionado",this.indexMetodoSeleccionado);
+          
+            if(this.indexMetodoSeleccionado != 4){
               this.cancelar();
               this.ngOnInit();
               return;
             }
+
+          
+
             let obj = this.myFormMetodoPago.value;
             let objEnviar: any = {
               numeroCuenta: obj.numeroCuenta,

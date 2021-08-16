@@ -142,7 +142,7 @@ export class DatosimssComponent implements OnInit {
 
 
   public guardar() {
-    debugger;
+    
     this.datos.activarGuardaMod = true;
 
     let obj = this.myForm.getRawValue();

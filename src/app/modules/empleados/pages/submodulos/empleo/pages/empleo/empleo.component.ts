@@ -150,6 +150,8 @@ export class EmpleoComponent implements OnInit {
     }
 
 
+    
+
     const titulo = this.empleado.esActivo ? "¿Deseas actualizar los datos del usuario?" : `
     Usuario con baja`;
 
@@ -201,7 +203,7 @@ export class EmpleoComponent implements OnInit {
           sedeId: { sedeId: obj.sedeId },
           estadoId: { estadoId: obj.estadoId },
           fechaAntiguedad: obj.fechaAntiguedad,
-          fechaInicio: obj.fechaInicio,
+          fechaInicio: this.myForm.getRawValue().fechaInicio,
           fechaFin: obj.fechaFin,
           jornadaId: { jornadaId: obj.jornadaId, tipoJornadaId: { tipoJornadaId: idTipoJornada } },
           tipoJornadaId: idTipoJornada,

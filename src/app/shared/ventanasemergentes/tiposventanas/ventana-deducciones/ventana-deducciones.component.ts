@@ -92,13 +92,13 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
       this.validarConceptoDeduccion(this.datos.tipoDeduccionId?.tipoDeduccionId);
     }
-    debugger;
+    
     
     this.suscripciones();
   }
 
   public createForm(obj: any) {
-    debugger;
+    
     let datePipe = new DatePipe("en-MX");
     this.tipoDescuentoInfonavitId = obj.tipoDescuentoInfonavitId?.tipoDescuentoInfonavitId;
 
@@ -168,7 +168,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-     debugger;
+     
      
     this.submitEnviado = false;
     this.myForm.clearValidators();
@@ -645,7 +645,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
-          debugger;
+          
           let  obj = this.myForm.getRawValue();
           
 

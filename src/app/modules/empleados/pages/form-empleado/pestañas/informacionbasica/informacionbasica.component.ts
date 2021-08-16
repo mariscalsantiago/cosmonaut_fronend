@@ -212,6 +212,10 @@ export class InformacionbasicaComponent implements OnInit {
       nss: obj.nss
     }
 
+    if(!Boolean(obj.contactoEmergenciaParentesco)){
+      delete objenviar.parentescoId;
+    }
+
 
     
     
