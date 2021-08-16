@@ -361,9 +361,9 @@ export class DetallepoliticasComponent implements OnInit {
 
     let columnas: Array<tabla> = [
       new tabla("nombre", "Nombre de deducción"),
-      new tabla("fechaInicioDesctoDed", this.lineBreak+'Fecha inicio de'+this.lineBreak+' descuento'),
+      new tabla("fechaInicioDesctoDed", 'Fecha inicio de descuento'),
       //new tabla("", "Tipo de descuento"),
-      new tabla("valorMonto", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
+      new tabla("valorMonto", 'Valor (porcentaje/monto)'),
       new tabla("esActivo", "Estatus")
     ]
 
@@ -418,7 +418,7 @@ export class DetallepoliticasComponent implements OnInit {
       new tabla("nombre", "Nombre de percepción"),
       new tabla("fechaInicioPer", 'Fecha inicio percepción'),
       new tabla("tipoMonto", "Tipo de monto"),
-      new tabla("valorMonto", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
+      new tabla("valorMonto", 'Valor (porcentaje/monto)'),
       new tabla("esActivo", "Estatus")
     ]
 
@@ -446,18 +446,20 @@ export class DetallepoliticasComponent implements OnInit {
           item.esActivo = false;
         }
 
-        if(item.valor !== undefined){
-          item.valorMonto = item.valor; 
-        }
-        else if(item.montoTotal !== undefined){
-          item.valorMonto = item.montoTotal
-        }
         if(item.tipoPercepcionId?.noEditable !== undefined ){
           item.tipoPercepcionId.noEditable = false;
           }
           if(item.tipoPercepcionId?.porDefecto !== undefined ){
             item.tipoPercepcionId.porDefecto = false;
           }
+          
+        if(item.valor !== undefined){
+          item.valorMonto = item.valor; 
+        }
+        else if(item.montoTotal !== undefined){
+          item.valorMonto = item.montoTotal
+        }
+
       }
     }
 
