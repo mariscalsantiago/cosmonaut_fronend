@@ -58,7 +58,7 @@
                   </label>
                 </div>
 
-                <div *ngIf="imss" class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+                <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                     <label>Usuario de certificado IMSS *</label>
                     <input formControlName="usuarioCerIMSS" maxlength="250" type="text" class="form-control" 
                         placeholder="" [ngClass]="{'is-invalid':f.usuarioCerIMSS.errors && submitEnviado || (f.usuarioCerIMSS.errors?.pattern && f.usuarioCerIMSS.touched)}">
@@ -67,7 +67,7 @@
                         </div>
                 </div>
 
-                <div *ngIf="imss" class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+                <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                     <label>Contraseña de certificado IMSS *</label>
                     <input formControlName="contrasenaCerIMSS" maxlength="30" type="password" class="form-control" 
                         placeholder="" [ngClass]="{'is-invalid':f.contrasenaCerIMSS.errors && submitEnviado || (f.contrasenaCerIMSS.errors?.pattern && f.contrasenaCerIMSS.touched)}">
@@ -76,12 +76,12 @@
                         </div>
                 </div>
 
-                <div *ngIf="imss" class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
+                <div class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
                     <label>Certificado IMSS *</label>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" formControlName="cerIMSS" 
-                        [class.is-invalid]="f.cerIMSS.errors && f.cerIMSS.touched">
-                            <div class="invalid-feedback">
+                        [ngClass]="{'is-invalid':f.cerIMSS.errors && submitEnviado || (f.cerIMSS.errors?.pattern && f.cerIMSS.touched)}">
+                            <div *ngIf="submitEnviado && f.cerIMSS.errors?.required" class="invalid-feedback">
                                 Campo requerido
                             </div>
                         <div (click)="abrirCerIMSS()" class="input-group-append" style="cursor: pointer;">

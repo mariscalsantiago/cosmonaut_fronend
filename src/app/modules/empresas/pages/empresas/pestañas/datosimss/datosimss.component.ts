@@ -26,12 +26,12 @@ export class DatosimssComponent implements OnInit {
   public objenviar: any = [];
   public insertarMof: boolean = false;
   public resultado: boolean = false;
-  public imss : boolean = true; 
 
   constructor(private formBuilder: FormBuilder, private imssPrd: ImssService, private routerPrd: Router,
     private modalPrd: ModalService) { }
 
   ngOnInit(): void {
+    debugger;
     this.imssPrd.getAllByImss(this.datos.empresa.centrocClienteId).subscribe(datos => {
       this.arregloImss = datos.datos;
       this.myForm = this.createForm(this.arregloImss);
@@ -42,6 +42,12 @@ export class DatosimssComponent implements OnInit {
   }
 
   public createForm(obj: any) {
+
+    if (this.arregloImss.credencialesImssId != undefined) {
+      obj.cerIMSS = 'Certificado IMSS digital cargado';
+      obj.contrasenaCerIMSS = "12345";
+      obj.usuarioCerIMSS = "Usuario de certificado IMSS cargado";
+    }
 
     return this.formBuilder.group({
       cerIMSS: [{ value: obj.cerIMSS, disabled: true },[Validators.required]],
@@ -121,6 +127,7 @@ export class DatosimssComponent implements OnInit {
       return;
     }
 
+
     this.modalPrd.showMessageDialog(this.modalPrd.warning, '¿Deseas guardar cambios?').then(valor => {
       if (valor) {
         this.guardar();
@@ -139,6 +146,10 @@ export class DatosimssComponent implements OnInit {
     this.datos.activarGuardaMod = true;
 
     let obj = this.myForm.getRawValue();
+    if (!Boolean(obj.cerIMSS)) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer, favor de elegir archivo de certificado ");
+      return;
+    }
 
     this.objenviar = {
       registroPatronal: obj.registroPatronal,

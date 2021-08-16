@@ -51,6 +51,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   public nombreretencion: string = "";
   public nombresuspension: string = "";
   public tipoDescuentoInfonavitId : number = 0;
+  public cambioEstatus : boolean = true;
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -457,14 +458,25 @@ export class VentanaDeduccionesComponent implements OnInit {
       }
       
     }
-    if(this.esInsert){
+    if(this.esInsert ){
+      debugger
     for(let item of this.obtenerPercepcion){
       if(concepto == item.tipoDeduccionId.tipoDeduccionId){
           this.conceptodeduccion= item.conceptoDeduccionId;
       }
     }
-    }else{
+    }
+    else if(!this.esInsert && this.cambioEstatus == false){
+      debugger
+    for(let item of this.obtenerPercepcion){
+      if(concepto == item.tipoDeduccionId.tipoDeduccionId){
+          this.conceptodeduccion= item.conceptoDeduccionId;
+      }
+    }
+    }
+    else{
       this.conceptodeduccion = this.datos.conceptoDeduccionId?.conceptoDeduccionId;
+      this.cambioEstatus = false;
     }
    }
 
