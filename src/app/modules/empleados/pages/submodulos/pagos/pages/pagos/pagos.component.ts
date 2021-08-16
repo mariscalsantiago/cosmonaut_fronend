@@ -188,7 +188,7 @@ export class PagosComponent implements OnInit {
 
   public crearTablaDeduccion(datos: any) {
     
-    debugger;
+    
     this.arreglotablaDed = datos.datos;
 
 
@@ -492,7 +492,7 @@ export class PagosComponent implements OnInit {
           if (respContrato.resultado) {
           console.log("respContrato",respContrato);
           console.log("indexMetodoSeleccionado",this.indexMetodoSeleccionado);
-          debugger;
+          
             if(this.indexMetodoSeleccionado != 4){
               this.cancelar();
               this.ngOnInit();

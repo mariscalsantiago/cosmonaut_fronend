@@ -45,7 +45,7 @@ export class DetallegruponominaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.activeprd.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -83,7 +83,7 @@ export class DetallegruponominaComponent implements OnInit {
 
     
     if(!this.esInsert){
-      debugger;
+      
       this.obj = history.state.data;
       
       if(this.obj == undefined){

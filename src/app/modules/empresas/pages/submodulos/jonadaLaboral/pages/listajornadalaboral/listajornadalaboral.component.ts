@@ -221,7 +221,7 @@ export class ListajornadalaboralComponent implements OnInit {
     this.jornadaPrd.getdetalleJornada(this.id_empresa, jornadaitem.jornadaId).subscribe(datos => {
       
       this.cargandodetallegrupo = false;
-      debugger;
+      
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
       if (this.arreglodetalle !== undefined){
         for (let item of this.arreglodetalle){
