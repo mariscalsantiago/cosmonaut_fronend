@@ -306,6 +306,7 @@ debugger;
         if (this.myFormArea.value.nombreCorto !== undefined) {
           objEnviar.descripcion = obj.nombreCorto;
           objEnviar.nombreCorto = obj.nombreCorto;
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
           this.puestosPrd.save(objEnviar).subscribe(datos => {
 

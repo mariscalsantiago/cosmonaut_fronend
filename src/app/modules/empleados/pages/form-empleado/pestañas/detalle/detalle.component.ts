@@ -54,7 +54,7 @@ export class DetalleComponent implements OnInit {
 
 
   public cancelar() {
-
+    this.navigate.navigate(['/empleados']);
   }
 
   public validarBanco(clabe:any){
