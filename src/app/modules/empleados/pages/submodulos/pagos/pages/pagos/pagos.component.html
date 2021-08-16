@@ -91,7 +91,7 @@
                                                     </div>
                                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                                         <label>Cuenta CLABE *</label>
-                                                        <input #clabe (focusout)="validarBanco(clabe.value)"
+                                                        <input appSolonumeros #clabe (focusout)="validarBanco(clabe.value)"
                                                             maxlength="18" formControlName="clabe" type="text"
                                                             class="form-control" value=""
                                                             [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"

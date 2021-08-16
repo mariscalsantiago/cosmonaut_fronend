@@ -112,7 +112,7 @@ export class EmpleoComponent implements OnInit {
       this.arreglogruponominas = datos.datos
     });
 
-    this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => this.arregloArea = datos.datos);
+    this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => this.arregloArea = datos.datos || []);
     this.politicasPrd.getPoliticasByEmpresa(this.id_empresa).subscribe(datos => this.arregloPoliticas = datos.datos);
     this.empleadosPrd.getEmpleadosCompaniaJefe(this.id_empresa).subscribe(datos => {
       this.arregloempleadosreporta.push(datos)
@@ -306,6 +306,7 @@ debugger;
         if (this.myFormArea.value.nombreCorto !== undefined) {
           objEnviar.descripcion = obj.nombreCorto;
           objEnviar.nombreCorto = obj.nombreCorto;
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
           this.puestosPrd.save(objEnviar).subscribe(datos => {
 

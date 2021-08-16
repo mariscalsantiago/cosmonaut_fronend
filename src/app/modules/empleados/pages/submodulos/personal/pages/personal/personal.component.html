@@ -124,7 +124,10 @@
                         {{empleado.emailCorporativo}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formatos [correo]="true" [control]="f.emailCorporativo" [ngClass]="{'is-invalid':f.emailCorporativo.errors?.email && f.emailCorporativo.touched}" formControlName="emailCorporativo" type="text" name="" class="form-control">
+                        <input formatos [correo]="true" [control]="f.emailCorporativo" [ngClass]="{'is-invalid':f.emailCorporativo.errors && f.emailCorporativo.touched}" formControlName="emailCorporativo" type="text" name="" class="form-control">
+                        <div *ngIf="f.emailCorporativo.errors?.required && f.emailCorporativo.touched" class="invalid-feedback">
+                            Campo obligatorio
+                        </div>
                         <div *ngIf="f.emailCorporativo.errors?.email && f.emailCorporativo.touched" class="invalid-feedback">
                             Correo empresarial inválido
                         </div>
@@ -218,7 +221,7 @@
                         {{empleado.celular}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input type="number" formControlName="celular" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}">
+                        <input type="text" formControlName="celular" appSolonumeros maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}">
                         <div class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -302,7 +305,7 @@
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                         <label>Número interior</label>
-                                        <input maxlength="10" formControlName="numInterior" type="email" class="form-control text-lowercase" placeholder="">
+                                        <input maxlength="10" formControlName="numInterior" type="text" class="form-control" placeholder="">
 
                                     </div>
                                 </div>
@@ -395,7 +398,7 @@
                         {{empleado.contactoEmergenciaTelefono}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="contactoEmergenciaTelefono" type="text" maxlength="10" class="form-control">
+                        <input formControlName="contactoEmergenciaTelefono" type="text" appSolonumeros  maxlength="10" class="form-control">
                     </article>
                 </article>
             </div>
