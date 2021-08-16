@@ -138,7 +138,7 @@ export class PagosComponent implements OnInit {
       new tabla("nombre", "Nombre de percepción"),
       new tabla("fechaInicioPer", 'Fecha inicio percepción'),
       new tabla("tipoMonto", "Tipo de monto"),
-      new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
+      new tabla("valorMonto", 'Valor (porcentaje/monto)'),
       new tabla("activo", "Estatus de percepción")
     ]
 
@@ -171,6 +171,12 @@ export class PagosComponent implements OnInit {
           if(item.tipoPercepcionId?.porDefecto !== undefined ){
             item.tipoPercepcionId.porDefecto = false;
           }
+          if(item.valor !== undefined){
+            item.valorMonto = item.valor; 
+          }
+          else if(item.montoTotal !== undefined){
+            item.valorMonto = item.montoTotal
+          }  
       }
     }
 
@@ -182,15 +188,15 @@ export class PagosComponent implements OnInit {
 
   public crearTablaDeduccion(datos: any) {
     
-
+    debugger;
     this.arreglotablaDed = datos.datos;
 
 
     let columnas: Array<tabla> = [
       new tabla("nombre", "Nombre de deducción"),
-      new tabla("fechaInicioDesctoDed", this.lineBreak+'Fecha inicio de'+this.lineBreak+' descuento'),
+      new tabla("fechaInicioDesctoDed", 'Fecha inicio de descuento'),
       //new tabla("", "Tipo de descuento"),
-      new tabla("valor", this.lineBreak+'Valor'+this.lineBreak+'(porcentaje/monto)'),
+      new tabla("valorMonto", 'Valor (porcentaje/monto)'),
       new tabla("activo", "Estatus de deducción")
     ]
 
@@ -222,6 +228,15 @@ export class PagosComponent implements OnInit {
           }
           if(item.tipoPercepcionId?.porDefecto !== undefined ){
             item.tipoPercepcionId.porDefecto = false;
+          }
+          if(item.valor !== undefined){
+            item.valorMonto = item.valor; 
+          }
+          else if(item.montoTotal !== undefined){
+            item.valorMonto = item.montoTotal
+          }
+          else if(item.interesPorcentaje !== undefined){
+            item.valorMonto = item.interesPorcentaje
           }
       }
     }

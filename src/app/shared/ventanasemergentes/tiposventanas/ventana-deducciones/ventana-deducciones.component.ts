@@ -50,6 +50,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   public especializacion: string = "";
   public nombreretencion: string = "";
   public nombresuspension: string = "";
+  public tipoDescuentoInfonavitId : number = 0;
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -96,7 +97,9 @@ export class VentanaDeduccionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
+    debugger;
     let datePipe = new DatePipe("en-MX");
+    this.tipoDescuentoInfonavitId = obj.tipoDescuentoInfonavitId?.tipoDescuentoInfonavitId;
 
     if(obj.baseCalculoId?.baseCalculoId === 2){
       this.tipoValor ="Monto"
@@ -164,6 +167,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
+     debugger;
      
     this.submitEnviado = false;
     this.myForm.clearValidators();
@@ -196,7 +200,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
     } 
     if(concepto=='010'){
-      this.myForm.controls.valor.setValidators([Validators.required]);
+      //this.myForm.controls.valor.setValidators([Validators.required]);
       this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([Validators.required]);
       this.myForm.controls.tipoDescuentoInfonavitId.setValidators([Validators.required]);
       this.myForm.controls.folioAvisoRetencion.setValidators([Validators.required]);
@@ -214,7 +218,9 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.numPlazosMensuales.setValidators([]);
       this.myForm.controls.numPlazosMensuales.updateValueAndValidity();
       
-
+      if(this.tipoDescuentoInfonavitId !== 0){
+        this.validarNomMontoInfonavit(this.tipoDescuentoInfonavitId)
+      }
       this.infonavit = true;
       this.fijo = true;
       this.submenu = true;
@@ -511,6 +517,11 @@ export class VentanaDeduccionesComponent implements OnInit {
         this.valorDescuento = false;
         this.valor = true;
 
+        this.myForm.controls.valor.setValidators([Validators.required]);
+        this.myForm.controls.valor.updateValueAndValidity();
+        this.myForm.controls.interesPorcentaje.setValidators([]);
+        this.myForm.controls.interesPorcentaje.updateValueAndValidity();
+
       }
       else if(tipomonto == 2){
         this.tipoValor = "Porcentaje";
@@ -518,10 +529,28 @@ export class VentanaDeduccionesComponent implements OnInit {
         this.fijo = false;
         this.valorDescuento = false;
         this.valor = true;
+        this.myForm.controls.valor.setValidators([Validators.required]);
+        this.myForm.controls.valor.updateValueAndValidity();
+        this.myForm.controls.interesPorcentaje.setValidators([]);
+        this.myForm.controls.interesPorcentaje.updateValueAndValidity();
       }
       else{
+        if(this.tipoDescuentoInfonavitId !== undefined){
         this.valorDescuento = true;
         this.valor = false;
+        this.porcentual = false;
+        this.fijo = false;
+          
+        }else{
+
+          this.valorDescuento = true;
+          this.valor = false;
+          this.myForm.controls.interesPorcentaje.setValidators([Validators.required]);
+          this.myForm.controls.interesPorcentaje.updateValueAndValidity();
+          this.myForm.controls.valor.setValidators([]);
+          this.myForm.controls.valor.updateValueAndValidity();
+        }
+        
       }
 
    }
@@ -604,6 +633,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
+          debugger;
           let  obj = this.myForm.getRawValue();
           
 
