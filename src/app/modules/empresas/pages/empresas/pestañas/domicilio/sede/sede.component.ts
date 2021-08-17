@@ -40,7 +40,7 @@ export class SedeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    debugger;
     if (this.sede != undefined) {
       
       this.catalogosPrd.getAsentamientoByCodigoPostal(this.sede.codigoPostal).subscribe(datos => {
@@ -142,8 +142,8 @@ export class SedeComponent implements OnInit {
       });
     }
     else {
-      
-      this.objenviar = {
+
+        this.objenviar = {
         codigo: obj.codigo,
         municipio: this.idMunicipio,
         estado: this.idEstado,
@@ -157,15 +157,44 @@ export class SedeComponent implements OnInit {
         },
       sedeId: this.sede.sedeId, 
       descripcion: obj.sede
-      }
+      } 
+
       this.sedePrd.modificar(this.objenviar).subscribe(datos => {
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-         this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
           if(datos.resultado){
-           this.enviado.emit({type:"guardar"});
+            
+            this.objenviar =
+            {
+              domicilioId: this.sede.domicilioId,
+              codigo: obj.codigo,
+              municipio: this.idMunicipio,
+              estado: this.idEstado,
+              asentamientoId: obj.asentamientoId,
+              calle: obj.calle,
+              numExterior: obj.numExterior,
+              numInterior: obj.numInterior,
+              esActivo:	true,
+              centrocClienteId: {
+                centrocClienteId: this.datos.empresa.centrocClienteId
+              },
+              sede: obj.sede,
+              sedeId: {
+                sedeId: this.sede.sedeId,
+                descripcion: obj.sede,
+                centrocClienteId: {
+                  centrocClienteId: this.datos.empresa.centrocClienteId
+                }
+              }
+            }
+            this.sedePrd.modificarDom(this.objenviar).subscribe(datos => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+                if(datos.resultado){
+                 this.enviado.emit({type:"guardar"});
+                }
+              });
+            });
           }
-        });
-      });
+    });
       
     }
 
