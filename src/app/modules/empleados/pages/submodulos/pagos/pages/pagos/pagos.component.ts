@@ -560,9 +560,13 @@ export class PagosComponent implements OnInit {
 
   public cancelarEspecial(){
     this.primeraVez = true;
-    this.createFormCompensacion(this.empleado);
-    this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
+   // this.createFormCompensacion(this.empleado);
+   this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
     this.cambiarGrupoNomina();
+    this.myFormCompensacion = this.createFormCompensacion(this.empleado);
+    console.log(this.empleado,"createFormCompensacion");
+    
+   this.detallecompensacionbool = false;
 
 
   }
@@ -644,7 +648,8 @@ export class PagosComponent implements OnInit {
       sbc: obj.sbc,
       sueldoNetoMensual: obj.sueldoNetoMensual,
       sueldoBrutoMensual: obj.sueldoBrutoMensual,
-      salarioDiario: obj.salarioDiario
+      salarioDiario: obj.salarioDiario,
+      
     }
 
 
@@ -656,6 +661,7 @@ export class PagosComponent implements OnInit {
       objEnviar.sbc = obj.salarioDiarioIntegrado; //Sañario integrado
       delete obj.salarioDiarioIntegrado;
       objEnviar.pppSalarioBaseMensual = obj.sueldoBrutoMensualPPP;//sueldo menusal ppp
+      objEnviar.pppSnm = obj.sueldonetomensualppp;
     }
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
@@ -664,7 +670,7 @@ export class PagosComponent implements OnInit {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
         if (datos.resultado) {
           this.empleado = datos.datos;
-          this.cancelar();
+          this.cancelarEspecial();
           this.ngOnInit();
         }
       });
@@ -744,6 +750,7 @@ export class PagosComponent implements OnInit {
   public cambiarGrupoNomina() {
 
 
+    console.log("cambiarGrupoNomina");
 
     const gruponominaId = this.myFormCompensacion.controls.grupoNominaId.value;
 
@@ -753,6 +760,7 @@ export class PagosComponent implements OnInit {
     
 
     if(!this.primeraVez){ 
+      console.log("limpiarMontos");
       this.limpiarMontos()
     }
     this.primeraVez = false;
@@ -917,7 +925,7 @@ export class PagosComponent implements OnInit {
 
       let aux = datos.datos;
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      if (datos.datos !== undefined) {
+      if (datos.datos) {
 
 
         this.myFormCompensacion.controls.salarioDiario.setValue(aux.salarioDiario);

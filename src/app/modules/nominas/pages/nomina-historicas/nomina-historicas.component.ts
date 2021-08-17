@@ -168,7 +168,7 @@ export class NominaHistoricasComponent implements OnInit {
           esTimbrado: true
         };
 
-        this.reportesPrd.getComprobanteFiscalXML(objEnviar).subscribe(datos => {
+        this.reportesPrd.getComprobanteFiscalXMLOrdinarias(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if(datos.resultado){
             this.reportesPrd.crearArchivo(datos.datos, `RecibosNómina_${obj.datos.clave_periodo}_${obj.datos.nombre_nomina}`, "zip");

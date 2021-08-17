@@ -106,7 +106,7 @@ export class CompletarComponent implements OnInit {
         }
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
+        this.reportesPrd.getComprobanteFiscalXMLOrdinarias(enviarObj).subscribe(valor => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           
           this.reportesPrd.crearArchivo(valor.datos,"recibospago_"+ `${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`,"zip")
