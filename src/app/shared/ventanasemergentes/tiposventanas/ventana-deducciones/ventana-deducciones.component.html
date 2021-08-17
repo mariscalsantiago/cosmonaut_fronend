@@ -67,7 +67,7 @@
 
         <div *ngIf="prestamo" class="  input-group-sm mb-3 col-4">
             <label>Número de cuotas *</label>
-            <input #numero (focusout)="validarNumeroCuotas(numero.value)" formControlName="numeroCuotas" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.numeroCuotas.errors && submitEnviado}">
+            <input #numero appSolonumeros (focusout)="validarNumeroCuotas(numero.value)" formControlName="numeroCuotas" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.numeroCuotas.errors && submitEnviado}">
             <div *ngIf="myForm.controls.numeroCuotas.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -75,8 +75,8 @@
         <div *ngIf="valor" class="  input-group-sm mb-3 col-4">
             <label *ngIf="!montopago">{{tipoValor}} *</label>
             <label *ngIf="montopago">Monto de cada pago *</label>
-            <input *ngIf="porcentual" formatos [moneda]="false" [control]="f.valor" formControlName="valor" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.valor.errors && submitEnviado && porcentual}">
-            <input *ngIf="fijo || montopago" formatos [moneda]="true" [control]="f.valor" formControlName="valor" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.valor.errors && submitEnviado && (fijo || monto)}">
+            <input *ngIf="porcentual" formatos [moneda]="false" [numerosDecimales]="true"  [control]="f.valor" formControlName="valor" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.valor.errors && submitEnviado && porcentual}">
+            <input *ngIf="fijo || montopago" formatos [moneda]="true" [numerosDecimales]="false" [control]="f.valor" formControlName="valor" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.valor.errors && submitEnviado && (fijo || monto)}">
             <div *ngIf="myForm.controls.valor.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -104,7 +104,7 @@
 
         <div *ngIf="prestamo" class="input-group-sm mb-3 col-6">
             <label>Fecha de otorgamiento del préstamo *</label>
-            <input formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado && prestamo}">
+            <input [max]="f.fechaInicioDescto.value" formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado && prestamo}">
             <div *ngIf="myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado && prestamo" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -112,7 +112,7 @@
 
         <div *ngIf="pensionAlimenticia" class="input-group-sm mb-3 col-6">
             <label>Fecha de demanda *</label>
-            <input formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado && pensionAlimenticia}">
+            <input [max]="f.fechaInicioDescto.value" formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado && pensionAlimenticia}">
             <div *ngIf="myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado && pensionAlimenticia" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -120,7 +120,7 @@
 
         <div *ngIf="infonavit" class="input-group-sm mb-3 col-6">
             <label>Fecha de recepción del aviso de retención *</label>
-            <input formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado}">
+            <input [max]="f.fechaInicioDescto.value" formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado}">
             <div *ngIf="myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -133,7 +133,7 @@
         </div>
         <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">
             <label>Número de crédito *</label>
-            <input formControlName="numeroFolio" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.numeroFolio.errors && submitEnviado}">
+            <input appSolonumeros formControlName="numeroFolio" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.numeroFolio.errors && submitEnviado}">
             <div *ngIf="myForm.controls.numeroFolio.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
