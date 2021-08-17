@@ -60,6 +60,8 @@ export class PagosComponent implements OnInit {
 
   public esKiosko: boolean = false;
 
+  public primeraVez:boolean = false;
+
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private ventana: VentanaemergenteService,
     private gruponominaPrd: GruponominasService, private usuariosSistemaPrd: UsuarioSistemaService,
@@ -85,18 +87,9 @@ export class PagosComponent implements OnInit {
       this.idEmpleado = params["id"];
 
       this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-
-
-
-
-
-
-
-
-
         this.empleado = datos.datos;
-
-        console.log("Este es el empleado", this.empleado);
+        
+        this.primeraVez = true;
         this.myFormCompensacion = this.createFormCompensacion(this.empleado);
         if (this.empleado.metodoPagoId.metodoPagoId == 4) {
           this.detalleCuenta = true;
@@ -565,6 +558,15 @@ export class PagosComponent implements OnInit {
     this.detallecompensacionbool = false;
   }
 
+  public cancelarEspecial(){
+    this.primeraVez = true;
+    this.createFormCompensacion(this.empleado);
+    this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
+    this.cambiarGrupoNomina();
+
+
+  }
+
   public cambiaValorMetodo() {
     this.editandoMetodoPago("");
   }
@@ -591,6 +593,7 @@ export class PagosComponent implements OnInit {
 
 
   public createFormCompensacion(obj: any) {
+    console.log("Se rellna el formulario",obj);
     return this.formbuilder.group({
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
@@ -744,30 +747,29 @@ export class PagosComponent implements OnInit {
 
     const gruponominaId = this.myFormCompensacion.controls.grupoNominaId.value;
 
-    console.log("cambiarGrupoNomina()", gruponominaId, "sdfsdf", this.arreglogrupoNomina);
 
-    let aux;
+    let aux = this.verificandoGruponomina(gruponominaId);
 
-    for (let item of this.arreglogrupoNomina) {
-      if (item.id == gruponominaId) {
-        aux = item;
-        break;
-      }
+    
 
-      aux = {
-        pagoComplementario: false
-      };
+    if(!this.primeraVez){ 
+      this.limpiarMontos()
     }
-
+    this.primeraVez = false;
     this.grupoNominaSeleccionado = aux;
     //this.grupoNominaSeleccionado.pagoComplementario = true;
 
     console.log("Este es pago complementario", this.grupoNominaSeleccionado);
 
+
+
     if (this.grupoNominaSeleccionado.pagoComplementario) {
 
       this.typeppp = true;
 
+
+      this.myFormCompensacion.controls.sueldonetomensualppp.setValidators([Validators.required]);
+      this.myFormCompensacion.controls.sueldonetomensualppp.updateValueAndValidity();
 
       this.myFormCompensacion.controls.salarioNetoMensualImss.disable();
       this.myFormCompensacion.controls.pagoComplementario.disable();
@@ -793,6 +795,9 @@ export class PagosComponent implements OnInit {
     } else {
 
       this.typeppp = false;
+
+      this.myFormCompensacion.controls.sueldonetomensualppp.clearValidators();
+      this.myFormCompensacion.controls.sueldonetomensualppp.updateValueAndValidity();
       this.myFormCompensacion.controls.salarioDiario.setValidators([]);
       this.myFormCompensacion.controls.salarioDiario.updateValueAndValidity();
       this.myFormCompensacion.controls.salarioDiarioIntegrado.setValidators([]);
@@ -805,6 +810,36 @@ export class PagosComponent implements OnInit {
     }
 
     this.cambiarSueldoField();
+
+  }
+
+  public verificandoGruponomina(gruponominaId:number){
+    let aux;
+    for (let item of this.arreglogrupoNomina) {
+      if (item.id == gruponominaId) {
+        aux = item;
+        break;
+      }
+
+      aux = {
+        pagoComplementario: false
+      };
+    }
+    return aux;
+  }
+
+  public limpiarMontos(){
+    this.myFormCompensacion.controls.tipoCompensacionId.setValue("");
+    this.myFormCompensacion.controls.tiposueldo.setValue("b");
+    this.myFormCompensacion.controls.sueldoNetoMensual.setValue("");
+    this.myFormCompensacion.controls.sueldoBrutoMensual.setValue("");
+    this.myFormCompensacion.controls.sueldonetomensualppp.setValue("");
+    this.myFormCompensacion.controls.salarioDiario.setValue("");
+    this.myFormCompensacion.controls.salarioDiarioIntegrado.setValue("");
+    this.myFormCompensacion.controls.sbc.setValue("");
+    this.myFormCompensacion.controls.salarioNetoMensualImss.setValue("");
+    this.myFormCompensacion.controls.pagoComplementario.setValue("");
+    this.myFormCompensacion.controls.sueldoBrutoMensualPPP.setValue("");
 
   }
 
@@ -846,7 +881,26 @@ export class PagosComponent implements OnInit {
   }
 
 
-  public cambiasueldobruto() {
+  public cambiasueldobruto(esBruto:boolean) {
+
+    if (this.verificaCambiosNecesarios()) return;
+
+    
+
+
+    if (this.grupoNominaSeleccionado.pagoComplementario) {
+      if (this.myFormCompensacion.controls.salarioDiario.invalid) {
+
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el salario diario");
+        return;
+      }
+    }else{
+      if(this.myFormCompensacion.controls.sueldoBrutoMensual.invalid){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Falta sueldo bruto mensual");
+        return;
+      }
+    }
+
     let objenviar = {
       clienteId: this.usuariosSistemaPrd.getIdEmpresa(),
       politicaId: this.myFormCompensacion.controls.politicaId.value,
@@ -875,7 +929,33 @@ export class PagosComponent implements OnInit {
   }
 
 
+  public verificaCambiosNecesarios(): boolean {
+    let variable: boolean = false;
 
+   
+    if (this.myFormCompensacion.controls.grupoNominaId.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar un grupo de  nómina");
+      variable = true;
+    }
+    if (this.myFormCompensacion.controls.tipoCompensacionId.invalid) {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar la compensación");
+      variable = true;
+    }
+    return variable;
+  }
+
+
+
+  public calcularSueldo(){
+     
+    if(!this.grupoNominaSeleccionado.pagoComplementario){
+      this.cambiasueldobruto(true);
+  }else{
+    this.cambiassueldoPPP();
+  }
+  }
 
 
   //*******************************Termina detalle compensación */

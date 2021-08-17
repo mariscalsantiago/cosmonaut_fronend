@@ -257,7 +257,7 @@
                                                         <input formatos [moneda]="true"
                                                             [control]="fc.sueldoBrutoMensual"
                                                             formControlName="sueldoBrutoMensual"
-                                                            (focusout)="cambiasueldobruto()" type="text" name="" id=""
+                                                            type="text" name="" id=""
                                                             class="form-control"
                                                             [ngClass]="{'is-invalid':fc.sueldoBrutoMensual.errors && fc.sueldoBrutoMensual.touched}">
 
@@ -278,7 +278,7 @@
                                                         </div>
                                                     </td>
                                                     <td  *ngIf="detallecompensacionbool && typeppp">
-                                                        <input formatos [moneda]="true" [control]="f.sueldonetomensualppp" formControlName="sueldonetomensualppp" (focusout)="cambiassueldoPPP()" type="text" name="" id="m1" class="form-control" [ngClass]="{'is-invalid':fc.sueldonetomensualppp.errors && fc.sueldonetomensualppp.touched}">
+                                                        <input formatos [moneda]="true" [control]="f.sueldonetomensualppp" formControlName="sueldonetomensualppp" type="text" name="" id="m1" class="form-control" [ngClass]="{'is-invalid':fc.sueldonetomensualppp.errors && fc.sueldonetomensualppp.touched}">
                                                         <div class="invalid-feedback">
                                                             Campo requerido
                                                         </div>
@@ -389,6 +389,15 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                <tr
+                                                    *ngIf="detallecompensacionbool">
+                                                    <td class="titulorow">Calcular</td>
+                                                    <td>
+                                                        <button  (click)="calcularSueldo()"
+                                        class="btn btn-primary button-fill">Calcular sueldo</button>
+                                                    </td>
+                                                </tr>
+                                              
 
                                             </tbody>
                                         </table>
@@ -398,7 +407,7 @@
                                 <div *ngIf="!esKiosko" class="col-12 text-right">
                                     <button *ngIf="!detallecompensacionbool" (click)="verDetalleCompensacion()"
                                         class="btn btn-primary button-fill">Editar</button>
-                                    <button *ngIf="detallecompensacionbool" (click)="cancelar()"
+                                    <button *ngIf="detallecompensacionbool" (click)="cancelar();cancelarEspecial();"
                                         class="btn btn-primary button-outlet mr-2">Cancelar</button>
                                     <button *ngIf="detallecompensacionbool" (click)="guardarDetalleCompensacion()"
                                         class="btn btn-primary button-fill">Guardar</button>

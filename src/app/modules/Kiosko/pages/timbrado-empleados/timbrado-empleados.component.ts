@@ -23,14 +23,14 @@ export class TimbradoEmpleadosComponent implements OnInit {
 
   public cargando: boolean = false;
   public idEmpleado: number = 0;
-  public numeroEmpleado:number = -1;
+  public numeroEmpleado: number = -1;
 
   public arreglo: any = [];
 
   constructor(public configuracionPrd: ConfiguracionesService, private empleadosPrd: EmpleadosService,
     private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private documentosPrd: DocumentosService,private sobrePadoPrd:TimbradoEmpleadoService,
-    private contratoColaboradorPrd:ContratocolaboradorService,private reportesPrd:ReportesService) { }
+    private documentosPrd: DocumentosService, private sobrePadoPrd: TimbradoEmpleadoService,
+    private contratoColaboradorPrd: ContratocolaboradorService, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
 
@@ -40,17 +40,16 @@ export class TimbradoEmpleadosComponent implements OnInit {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       } else {
         this.idEmpleado = datos.datos.personaId;
-        
-        this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datocontrato =>{
+
+        this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datocontrato => {
           this.numeroEmpleado = datocontrato.datos.numEmpleado;
           let objenviar = {
-            personaId:this.idEmpleado,
-            fechaContratoNogrupo:datocontrato.datos.fechaContrato,
-            centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),
-            esTimbrado:true
+            personaId: this.idEmpleado,
+            fechaContratoNogrupo: datocontrato.datos.fechaContrato,
+            centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa(),
+            esTimbrado: true
           }
-          console.log(objenviar,"ESTE ES EL CONTRATO");
-          this.sobrePadoPrd.getSobrepago(objenviar).subscribe(datos =>{
+          this.sobrePadoPrd.getSobrepago(objenviar).subscribe(datos => {
             this.crearTabla(datos);
           });
         });
@@ -67,15 +66,15 @@ export class TimbradoEmpleadosComponent implements OnInit {
       new tabla("nombreNomina", "Nombre"),
       new tabla("mes", "Mes"),
       new tabla("anio", "Año"),
-      new tabla("fechatimbre", "Fecha")      
+      new tabla("fechatimbre", "Fecha")
     ]
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
         console.log(item.fechaTimbrado);
-         item["fechatimbre"] = new DatePipe("es-MX").transform((item.fechaTimbrado || new Date()),"dd/MM/yyyy");
-         item["anio"] = new DatePipe("es-MX").transform((item.fechaTimbrado || new Date()),"yyyy");
-         item["mes"] = new DatePipe("es-MX").transform((item.fechaTimbrado || new Date()),"MMM");
+        item["fechatimbre"] = new DatePipe("es-MX").transform((item.fechaTimbrado || new Date()), "dd/MM/yyyy");
+        item["anio"] = new DatePipe("es-MX").transform((item.fechaTimbrado || new Date()), "yyyy");
+        item["mes"] = new DatePipe("es-MX").transform((item.fechaTimbrado || new Date()), "MMM");
       }
     }
 
@@ -91,21 +90,23 @@ export class TimbradoEmpleadosComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    switch(obj.type){
-        case "descargar":
-          let enviarObj = {
-            nominaPeriodoId: obj.datos.nominaXperiodoId,
-            idEmpleado: this.numeroEmpleado,
-            esVistaPrevia: true
-          }
-  
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
-            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            
-            this.reportesPrd.crearArchivo(valor.datos,"Timbrado_"+obj.datos.nombreNomina+ this.numeroEmpleado,"pdf")
-          });
-          break;
+    switch (obj.type) {
+      case "descargar":
+        let enviarObj = {
+          nominaPeriodoId: obj.datos.nominaXperiodoId,
+          idEmpleado: this.numeroEmpleado,
+          esVistaPrevia: true,
+          esTimbrado: false,
+          esSubida: false
+        }
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.reportesPrd.getComprobanteFiscalXMLOrdinarias(enviarObj).subscribe(valor => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+          this.reportesPrd.crearArchivo(valor.datos, "Timbrado_" + obj.datos.nombreNomina + this.numeroEmpleado, "pdf")
+        });
+        break;
     }
   }
 

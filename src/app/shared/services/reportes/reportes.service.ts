@@ -185,9 +185,14 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
 }
 
 
-  public getComprobanteFiscalXML(obj:any):Observable<any>{
+  public getComprobanteFiscalXMLOrdinarias(obj:any):Observable<any>{
     let json = JSON.stringify(obj);
-    return this.http.post(`${direcciones.reportes}/comprobanteFiscal/layoutComprobanteFiscal`,json);
+    return this.http.post(`${direcciones.reportes}/comprobanteFiscal/layoutComprobanteFiscalOrdinaria`,json);
+  }
+
+  public getComprobanteFiscalXMLExtraordinarias(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.reportes}/comprobanteFiscal/layoutComprobanteFiscalExtraordinaria`,json);
   }
 
   public getReporteNominasTabCalculados(obj:any):Observable<any>{

@@ -198,11 +198,20 @@ export class TimbrarComponent implements OnInit {
         }
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.reportesPrd.getComprobanteFiscalXML(enviarObj).subscribe(valor => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          
-          this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numEmpleado,"pdf")
-        });
+        if(this.nominaSeleccionada.nominaOrdinaria){
+          this.reportesPrd.getComprobanteFiscalXMLOrdinarias(enviarObj).subscribe(valor => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            
+            this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numEmpleado,"pdf")
+          });
+        }else{
+          this.reportesPrd.getComprobanteFiscalXMLExtraordinarias(enviarObj).subscribe(valor => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            
+            this.reportesPrd.crearArchivo(valor.datos,"Vista_preliminar_"+ item[this.llave].numEmpleado,"pdf")
+          });
+        }
+      
         break;
     }
   }
