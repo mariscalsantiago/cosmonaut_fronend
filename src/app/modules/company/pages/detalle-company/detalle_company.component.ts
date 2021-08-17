@@ -98,6 +98,11 @@ export class DetalleCompanyComponent implements OnInit {
       this.myFormcomp.controls.rfc.updateValueAndValidity();
     } 
    this.myFormcomp = this.createFormcomp((this.objCompany));
+   if(this.objCompany.multiempresa){
+    this.myFormcomp.controls.rfc.setValidators([Validators.pattern(ConfiguracionesService.regexRFC)]);
+    this.myFormcomp.controls.rfc.updateValueAndValidity();
+   }
+
 
 
   }
@@ -111,14 +116,14 @@ export class DetalleCompanyComponent implements OnInit {
 
   public createFormcomp(obj: any) {
     
-    console.log(obj.fechaAlta);
+    console.log("Creacion de forms componente",obj);
 
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial, [Validators.required]],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
       fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd/MM/yyyy') : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? "true" : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       centrocClienteId: obj.centrocClienteId,

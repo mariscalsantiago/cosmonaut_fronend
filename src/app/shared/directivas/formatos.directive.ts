@@ -25,15 +25,12 @@ export class FormatosDirective implements OnInit {
   @Input() public control!: AbstractControl;
   @Input() public numerosDecimales:boolean = false;
 
-  @Input() public correo:boolean = false;
+  @Input() public correo: boolean = false;
 
   @HostListener("input", ["$event"])
   onInput(event: KeyboardEvent) {
-    
-
-    if (this.moneda) {
-      this.el.nativeElement.value = this.el.nativeElement.value.replace("$", "").replace(",", "");
-    } else if (this.letras) {
+    console.log("onInput");
+    if (this.letras) {
       if (this.minusculas)
         this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
       else if (this.mayusculas)
@@ -41,22 +38,26 @@ export class FormatosDirective implements OnInit {
       this.onFocusout(undefined);
     } else if (this.especial) {
       this.onFocusout(undefined);
-    }else if(this.correo){
+    } else if (this.correo) {
       this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
       this.onFocusout(undefined);
-    }else if (this.nochar){
-      if(this.curp || this.rfc){
+    } else if (this.nochar) {
+      if (this.curp || this.rfc) {
         this.el.nativeElement.value = `${this.el.nativeElement.value}`.toUpperCase();
         this.onFocusout(undefined);
       }
-
+    }
   }
+
+  @HostListener("focus", ["$event"])
+  public enter() {
+    if (this.moneda) {
+      this.el.nativeElement.value = this.el.nativeElement.value.replace("$", "").replaceAll(",", "");
+    }
   }
 
   @HostListener("keydown", ["$event"])
   onkeyDown(event: KeyboardEvent) {
-
-
     this.desactivarSuscribir = true;
     if (this.numerosDecimales) {
       debugger;
@@ -107,7 +108,7 @@ export class FormatosDirective implements OnInit {
         event.preventDefault();
       }
 
-    }  else if (this.nochar) {
+    } else if (this.nochar) {
 
       let expresionRegular = /^[A-Za-z0-9]+$/g;
       const regex = new RegExp(expresionRegular);
@@ -115,7 +116,7 @@ export class FormatosDirective implements OnInit {
         event.preventDefault();
       }
 
-    } 
+    }
   }
 
 
@@ -151,7 +152,7 @@ export class FormatosDirective implements OnInit {
 
       });
       this.render.setProperty(this.el.nativeElement, 'value', cadena);
-    }else  if (this.correo) {
+    } else if (this.correo) {
       this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
     }
 
@@ -161,7 +162,7 @@ export class FormatosDirective implements OnInit {
   }
   @HostListener("change", ["$event"])
   onChange(event: KeyboardEvent) {
-
+    console.log("Si cambia");
   }
 
 
@@ -189,7 +190,7 @@ export class FormatosDirective implements OnInit {
     }
 
   }
-  
+
 
 
   ngOnDestroy() {

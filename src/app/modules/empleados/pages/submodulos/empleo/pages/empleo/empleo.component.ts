@@ -113,7 +113,7 @@ export class EmpleoComponent implements OnInit {
     this.date = datePipe.transform(this.today, 'yyyy-MM-dd');
 
     return this.formBuilder.group({
-      numEmpleado: [obj.numEmpleado, [Validators.required]],
+      numEmpleado: [{value:obj.numEmpleado,disabled:true}, [Validators.required]],
       areaId: [obj.areaId?.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
       sedeId: obj.sedeId?.sedeId,
@@ -211,7 +211,7 @@ export class EmpleoComponent implements OnInit {
           jefeInmediatoId: { personaId: this.puestoIdReporta == 0 ? null : this.puestoIdReporta },
           esSindicalizado: obj.esSindicalizado,
           fechaAltaImss: obj.fechaAltaImss,
-          numEmpleado: obj.numEmpleado,
+          numEmpleado: this.myForm.getRawValue().numEmpleado,
           esActivo: true
         }
 
