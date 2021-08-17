@@ -3,11 +3,11 @@
     <div class="form-group row">
         <div class="input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Tipo de percepción *</label>
-            <select #tipo (focusout)="validarTipoPercepcion(tipo.value)" formControlName="tipoPeriodicidadId" class="form-control" [ngClass]="{'is-invalid':myForm.controls.tipoPeriodicidadId.errors && submitEnviado}">
-            <option value=""></option>
-            <option value="1">Periódica</option>
-            <option value="2">Estándar</option>
-        </select>
+            <select #tipo formControlName="tipoPeriodicidadId" class="form-control"
+                [ngClass]="{'is-invalid':myForm.controls.tipoPeriodicidadId.errors && submitEnviado}">
+                <option value="1">Periódica</option>
+                <option value="2">Estándar</option>
+            </select>
             <div class="invalid-feedback">
                 Campo requerido
             </div>
@@ -15,11 +15,10 @@
 
         <div class="input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Nombre de percepción *</label>
-            <select #tipoPercepcion (focusout)="validarPercepcion(tipoPercepcion.value)" formControlName="nomPercepcion" type="text" class="form-control" 
-            [ngClass]="{'is-invalid':myForm.controls.nomPercepcion.errors && submitEnviado}">
-            <option value=""></option>
-            <option *ngFor="let item of nombrePercepcion"  [value]="item.tipoPercepcion">{{item.nombre}}</option>
-        </select>
+            <select #tipoPercepcion formControlName="nomPercepcion" type="text" class="form-control"
+                [ngClass]="{'is-invalid':myForm.controls.nomPercepcion.errors && submitEnviado}">
+                <option *ngFor="let item of nombrePercepcion" [value]="item.tipoPercepcion">{{item.nombre}}</option>
+            </select>
             <div class="invalid-feedback">
                 Campo requerido
             </div>
@@ -27,7 +26,8 @@
 
         <div class="input-group-sm mb-3 col-4">
             <label>Fecha inicio de percepción *</label>
-            <input formControlName="fechaInicio" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaInicio.errors && submitEnviado}">
+            <input formControlName="fechaInicio" type="date" class="form-control"
+                [ngClass]="{'is-invalid':myForm.controls.fechaInicio.errors && submitEnviado}">
             <div class="invalid-feedback">
                 Campo requerido
             </div>
@@ -35,10 +35,10 @@
         <div class="input-group-sm mb-3 col-12"></div>
         <div class=" input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Tipo de monto *</label>
-            <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.baseCalculoId.errors && submitEnviado}">
-            <option value=""></option>
-            <option *ngFor="let item of arregloTipoMonto"  [value]="item.baseCalculoId">{{item.descripcion}}</option>
-        </select>
+            <select #tipoMonto formControlName="baseCalculoId" type="text"
+                class="form-control" [ngClass]="{'is-invalid':myForm.controls.baseCalculoId.errors && submitEnviado}">
+                <option *ngFor="let item of arregloTipoMonto" [value]="item.baseCalculoId">{{item.descripcion}}</option>
+            </select>
             <div class="invalid-feedback">
                 Campo requerido
             </div>
@@ -47,29 +47,38 @@
         <div *ngIf="estandar" class="  input-group-sm mb-3 col-4">
             <label *ngIf="porcentual">Porcentaje *</label>
             <label *ngIf="fijo">Monto *</label>
-            <input *ngIf="porcentual" formControlName="porcentaje" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.porcentaje.errors && submitEnviado && porcentual}">
-            <input *ngIf="fijo" formControlName="porcentaje" formatos [moneda]="true" [control]="f.porcentaje" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.porcentaje.errors && submitEnviado && fijo}">
+            <input *ngIf="porcentual" formControlName="porcentaje" type="text" class="form-control"
+                [ngClass]="{'is-invalid':myForm.controls.porcentaje.errors && submitEnviado && porcentual}">
+            <input *ngIf="fijo" formControlName="porcentaje" formatos [moneda]="true" [control]="f.porcentaje"
+                type="text" class="form-control"
+                [ngClass]="{'is-invalid':myForm.controls.porcentaje.errors && submitEnviado && fijo}">
             <div class="invalid-feedback">
                 Campo requerido
             </div>
         </div>
         <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
             <label>Monto total de percepción *</label>
-            <input #monto (focusout)="validarMonto(monto.value)" formatos [moneda]="true" [control]="f.montoPercepcion" formControlName="montoPercepcion" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.montoPercepcion.errors && submitEnviado}">
+            <input #monto (focusout)="validarMonto(monto.value)" formatos [moneda]="true" [control]="f.montoPercepcion"
+                formControlName="montoPercepcion" type="text" class="form-control"
+                [ngClass]="{'is-invalid':myForm.controls.montoPercepcion.errors && submitEnviado}">
             <div class="invalid-feedback">
                 Campo requerido
             </div>
         </div>
         <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
             <label>Número de períodos *</label>
-            <input #numPeriodos (focusout)="validarNumPeriodo(numPeriodos.value)" formControlName="numeroPeriodos" type="text" class="form-control" placeholder="" [ngClass]="{'is-invalid':myForm.controls.numeroPeriodos.errors && submitEnviado}">
+            <input #numPeriodos (focusout)="validarNumPeriodo(numPeriodos.value)" formControlName="numeroPeriodos"
+                type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':myForm.controls.numeroPeriodos.errors && submitEnviado}">
             <div class="invalid-feedback">
                 Campo requerido
             </div>
         </div>
         <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
             <label>Monto por período *</label>
-            <input formatos [moneda]="true" [control]="f.montoPorPeriodo" formControlName="montoPorPeriodo" type="text" class="form-control disabled bg-light" [ngClass]="{'is-invalid':myForm.controls.montoPorPeriodo.errors && submitEnviado}">
+            <input formatos [moneda]="true" [control]="f.montoPorPeriodo" formControlName="montoPorPeriodo" type="text"
+                class="form-control disabled bg-light"
+                [ngClass]="{'is-invalid':myForm.controls.montoPorPeriodo.errors && submitEnviado}">
             <div class="invalid-feedback">
                 Campo requerido
             </div>
@@ -81,10 +90,11 @@
         </div>
         <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
             <label>Estatus *</label>
-            <select name="" class="form-control" formControlName="esActivo" [ngClass]="{'is-invalid':myForm.controls.esActivo.errors && submitEnviado}">
-          <option value="true">Activo</option>
-          <option value="false">Inactivo</option>
-        </select>
+            <select name="" class="form-control" formControlName="esActivo"
+                [ngClass]="{'is-invalid':myForm.controls.esActivo.errors && submitEnviado}">
+                <option value="true">Activo</option>
+                <option value="false">Inactivo</option>
+            </select>
             <div class="invalid-feedback">
                 Campo requerido
             </div>

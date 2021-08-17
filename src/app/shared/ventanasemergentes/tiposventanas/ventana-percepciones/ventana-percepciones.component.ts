@@ -1,4 +1,4 @@
-import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -17,7 +17,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   public submitEnviado: boolean = false;
   public arregloTipoMonto: any = [];
   public estandar: boolean = false;
-  public periodica:boolean= true;
+  public periodica: boolean = true;
   public monto: number = 0;
   public numPeriodo: number = 0;
   public montoPercepcion: any = [];
@@ -30,25 +30,25 @@ export class VentanaPercepcionesComponent implements OnInit {
   public objEnviar: any = [];
   public politica: number = 0;
   public nombrePer: string = "";
-  public nomPercepcion : number = 0;
+  public nomPercepcion: number = 0;
 
-  @Input() public datos:any;
+  @Input() public datos: any;
 
 
   @Output() salida = new EventEmitter<any>();
 
 
-  constructor(private modalPrd:ModalService, private formBuild: FormBuilder, private catalogosPrd:CatalogosService,
+  constructor(private modalPrd: ModalService, private formBuild: FormBuilder, private catalogosPrd: CatalogosService,
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
 
-    
-    if(this.datos.idEmpleado != undefined){
+
+    if (this.datos.idEmpleado != undefined) {
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;
       this.politica = this.datos.idPolitica;
-    }else{
+    } else {
       this.empresa = this.datos.centrocClienteId?.centrocClienteId;
       this.empleado = this.datos.personaId?.personaId;
       this.politica = this.datos.politicaId?.politicaId;
@@ -56,17 +56,17 @@ export class VentanaPercepcionesComponent implements OnInit {
 
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
 
-    if(this.datos.idEmpleado != undefined){
+    if (this.datos.idEmpleado != undefined) {
       this.datos = {};
       this.esInsert = true;
       this.myForm = this.createForm(this.datos);
 
-    }else{
-      
+    } else {
+
       this.esInsert = false;
       this.datos = {
         ...this.datos,
-        tipoPercepcion : this.datos.tipoPercepcionId?.tipoPercepcionId + "-" + this.datos.conceptoPercepcionId?.conceptoPercepcionId
+        tipoPercepcion: this.datos.tipoPercepcionId?.tipoPercepcionId + "-" + this.datos.conceptoPercepcionId?.conceptoPercepcionId
       };
 
       this.myForm = this.createForm(this.datos);
@@ -74,57 +74,79 @@ export class VentanaPercepcionesComponent implements OnInit {
       this.validarTipoPercepcion(tipo);
 
     }
+    this.myForm.clearValidators();
+    this.myForm.updateValueAndValidity();
+    console.log(this.myForm.controls);
+
+    this.suscripciones();
+
 
   }
 
+  public suscripciones() {
+    this.myForm.controls.tipoPeriodicidadId.valueChanges.subscribe(valor => {
+      this.validarTipoPercepcion(valor)
+    });
+    this.myForm.controls.nomPercepcion.valueChanges.subscribe(valor => {
+      this.validarPercepcion(valor);
+    });
+
+    this.myForm.controls.baseCalculoId.valueChanges.subscribe(valor => {
+      this.validarNomMonto(valor);
+    });
+  }
+
   public createForm(obj: any) {
-    
+
     let datePipe = new DatePipe("en-MX");
-    if(!this.esInsert){
+    if (!this.esInsert) {
       obj.tipoPeriodicidadId = (obj.conceptoPercepcionId?.tipoPeriodicidad == 'P') ? '1' : '2';
     }
 
     return this.formBuild.group({
 
-      numeroPeriodos: [obj.numeroPeriodos,Validators.required],
+      numeroPeriodos: [obj.numeroPeriodos, Validators.required],
       tipoPeriodicidadId: [obj.tipoPeriodicidadId, Validators.required],
-      baseCalculoId:[obj.baseCalculoId?.baseCalculoId],
+      baseCalculoId: [obj.baseCalculoId?.baseCalculoId],
       porcentaje: [obj.valor],
       montoPorPeriodo: [obj.montoPorPeriodo],
       fechaInicio: [datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd'), Validators.required],
       montoPercepcion: [obj.montoTotal],
-      nomPercepcion: [obj.tipoPercepcion, Validators.required],
-      referencia:[obj.referencia],
+      nomPercepcion: [{ value: obj.tipoPercepcion, disabled: !Boolean(obj.tipoPercepcion) }, Validators.required],
+      referencia: [obj.referencia],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }, Validators.required]
 
     });
 
   }
 
-  public cancelar(){
-    this.salida.emit({type:"cancelar"});
+  public cancelar() {
+    this.salida.emit({ type: "cancelar" });
   }
 
-  public validarPercepcion(tipo:any){
-    
+  public validarPercepcion(tipo: any) {
+
     let split = tipo.split("-");
     tipo = split[1];
 
-    for(let item of this.nombrePercepcion){
-      if(item.conceptoPercepcionId == tipo){
+    for (let item of this.nombrePercepcion) {
+      if (item.conceptoPercepcionId == tipo) {
         this.conceptoPercepcionId = item.conceptoPercepcionId;
       }
     }
-    
-  
+
+
   }
 
-  public validarTipoPercepcion(tipo:any){
-    
+  public validarTipoPercepcion(tipo: any) {
+    this.myForm.controls.nomPercepcion.disable();
     this.myForm.clearValidators();
     this.myForm.updateValueAndValidity();
-    if(tipo != ""){
-      if(tipo == 1){
+
+    if (Boolean(tipo)) {
+      console.log("tuoi politica", tipo);
+      if (tipo == 1) {
+        console.log("tipo 1");
         this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
         this.myForm.controls.baseCalculoId.updateValueAndValidity();
         this.myForm.controls.montoPercepcion.setValidators([Validators.required]);
@@ -133,34 +155,40 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.myForm.controls.numeroPeriodos.updateValueAndValidity();
         this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
         this.myForm.controls.montoPorPeriodo.updateValueAndValidity();
+
+
         // this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
 
         this.nombrePer = "P";
         this.periodica = true;
-        this.estandar= false;
+        this.estandar = false;
         this.myForm.controls.baseCalculoId.disable();
         this.myForm.controls.baseCalculoId.setValue(2);
-        
-        if(this.politica !== undefined){
-          
-        this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos =>{
-          for(let item of datos.datos){
-            item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
 
-        }
-          this.nombrePercepcion = datos.datos;
-        });
-        }else{
-          this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos =>{
-            for(let item of datos.datos){
+        if (this.politica) {
+
+          this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+            for (let item of datos.datos) {
               item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
-  
-          }
+            }
             this.nombrePercepcion = datos.datos;
+            console.log("this.myForm.controls.nomPercepcion.enable();TIPO P");
+            this.myForm.controls.nomPercepcion.enable();
+          });
+        } else {
+          this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+            for (let item of datos.datos) {
+              item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+
+            }
+            this.nombrePercepcion = datos.datos;
+            console.log("this.myForm.controls.nomPercepcion.enable();");
+            this.myForm.controls.nomPercepcion.enable();
+
           });
         }
-      }else{
-        this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+      } else {
+      
         this.myForm.controls.porcentaje.setValidators([Validators.required]);
         this.myForm.controls.numeroPeriodos.setValidators([]);
         this.myForm.controls.numeroPeriodos.updateValueAndValidity();
@@ -168,89 +196,90 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.myForm.controls.montoPorPeriodo.updateValueAndValidity();
         this.nombrePer = "E";
         this.myForm.controls.baseCalculoId.enable();
-        if(!this.esInsert){
+        if (!this.esInsert) {
           let tipoMonto = this.datos.baseCalculoId?.baseCalculoId;
           this.myForm.controls.baseCalculoId.setValue(tipoMonto);
           this.validarNomMonto(tipoMonto);
-        }else{
-        this.myForm.controls.baseCalculoId.setValue("");
+        } else {
+          this.myForm.controls.baseCalculoId.setValue("");
         }
         this.periodica = false;
-        this.estandar= true;
-        if(this.politica !== undefined){
-        this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos =>{
-          for(let item of datos.datos){
-            item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
-
-        }
-
-          this.nombrePercepcion = datos.datos;
-          
-        });
-        }else{
-          this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos =>{
-            for(let item of datos.datos){
-                item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+        this.estandar = true;
+        if (Boolean(this.politica)) {
+          this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+            for (let item of datos.datos) {
+              item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
 
             }
+
+            this.nombrePercepcion = datos.datos;
+            this.myForm.controls.nomPercepcion.enable();
+
+          });
+        } else {
+          //getObtenerPeriodicidad <--- estaba antes esto
+          this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+            for (let item of datos.datos) {
+              item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+
+            }
+            this.myForm.controls.nomPercepcion.enable();
             this.nombrePercepcion = datos.datos;
           });
 
         }
-        }
       }
-   }
+    }
+  }
 
-   public validarMonto(monto:any){
-    
-      this.monto = this.myForm.value.montoPercepcion;
-      if(this.monto != null && this.numPeriodo != null){
-        this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
-          this.montoPercepcion = datos.datos;
-          var monto = this.montoPercepcion.toFixed(4); 
-          this.myForm.controls.montoPorPeriodo.setValue(monto);
-        });
+  public validarMonto(monto: any) {
 
-      }
-   }
+    this.monto = this.myForm.value.montoPercepcion;
+    if (this.monto != null && this.numPeriodo != null) {
+      this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos => {
+        this.montoPercepcion = datos.datos;
+        var monto = this.montoPercepcion.toFixed(4);
+        this.myForm.controls.montoPorPeriodo.setValue(monto);
+      });
 
-   public validarNomMonto(tipomonto:any){
-    
-    if(tipomonto == 2){
+    }
+  }
+
+  public validarNomMonto(tipomonto: any) {
+
+    if (tipomonto == 2) {
       this.porcentual = false;
       this.fijo = true;
-    }else{
+    } else {
       this.porcentual = true;
       this.fijo = false;
     }
 
-   }
+  }
 
-   public validarNumPeriodo(periodo:any){
-    
+  public validarNumPeriodo(periodo: any) {
+
     this.numPeriodo = periodo;
 
-    if(this.numPeriodo < 1){
+    if (this.numPeriodo < 1) {
       this.myForm.controls.numeroPeriodos.setValue('');
       this.myForm.controls.montoPorPeriodo.setValue('');
 
     }
-    else if(this.monto != null && this.numPeriodo != null && this.numPeriodo != 1){
-      this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
+    else if (this.monto != null && this.numPeriodo != null && this.numPeriodo != 1) {
+      this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos => {
         this.montoPercepcion = datos.datos;
-        var monto = this.montoPercepcion.toFixed(4); 
+        var monto = this.montoPercepcion.toFixed(4);
         this.myForm.controls.montoPorPeriodo.setValue(monto);
       });
-        
+
     }
-   }
+  }
 
-   
- 
 
-  public enviarPeticion(){
-    this.myForm.updateValueAndValidity();
 
+
+  public enviarPeticion() {
     this.submitEnviado = true;
     if (this.myForm.invalid) {
 
@@ -260,158 +289,158 @@ export class VentanaPercepcionesComponent implements OnInit {
 
     }
     let mensaje = this.esInsert ? "¿Deseas registrar la percepción" : "¿Deseas actualizar la percepción?";
-    
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
-      
-        if(valor){
-          
-          let  obj = this.myForm.getRawValue();
 
-          let split = obj.nomPercepcion.split("-");
-          obj.nomPercepcion = split[0];
-          if(obj.nomPercepcion !== undefined){
-            this.nomPercepcion =  obj.nomPercepcion;
-            if(this.conceptoPercepcionId == 0){
-              this.conceptoPercepcionId = split[1];
-            }
-          }  
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
 
-          let fechar = "";
-          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
-      
-            if (obj.fechaInicio != "") {
-      
-              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
-              fechar = `${new Date(fecha1).getTime()}`;
-            }
+      if (valor) {
+
+        let obj = this.myForm.getRawValue();
+
+        let split = obj.nomPercepcion.split("-");
+        obj.nomPercepcion = split[0];
+        if (obj.nomPercepcion !== undefined) {
+          this.nomPercepcion = obj.nomPercepcion;
+          if (this.conceptoPercepcionId == 0) {
+            this.conceptoPercepcionId = split[1];
           }
-          
-          if(this.esInsert){
+        }
 
-            if(this.politica !== undefined){
+        let fechar = "";
+        if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
+
+          if (obj.fechaInicio != "") {
+
+            const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
+            fechar = `${new Date(fecha1).getTime()}`;
+          }
+        }
+
+        if (this.esInsert) {
+
+          if (this.politica !== undefined) {
             this.objEnviar = {
-            tipoPercepcionId: {
-              tipoPercepcionId: this.nomPercepcion
-            },
-            conceptoPercepcionId: {
-              conceptoPercepcionId: this.conceptoPercepcionId
-            },
-            politicaId: {
-              politicaId: this.politica
-            },
-            centrocClienteId: {
+              tipoPercepcionId: {
+                tipoPercepcionId: this.nomPercepcion
+              },
+              conceptoPercepcionId: {
+                conceptoPercepcionId: this.conceptoPercepcionId
+              },
+              politicaId: {
+                politicaId: this.politica
+              },
+              centrocClienteId: {
                 centrocClienteId: this.empresa
-            },
-            valor: obj.porcentaje,
-            baseCalculoId:{
-              baseCalculoId: obj.baseCalculoId
-            },
-            esActivo: obj.esActivo,
-            referencia: obj.referencia,
-            fechaInicio: fechar,
-            montoTotal: obj.montoPercepcion,
-            numeroPeriodos: obj.numeroPeriodos,
-            montoPorPeriodo: obj.montoPorPeriodo
-          
-          };
-        }else{
-          
-          this.objEnviar = {
-            tipoPercepcionId: {
-              tipoPercepcionId: this.nomPercepcion
-            },
-            conceptoPercepcionId: {
-              conceptoPercepcionId: this.conceptoPercepcionId
-            },
-            personaId: {
-              personaId: this.empleado
-            },
-            centrocClienteId: {
-                centrocClienteId: this.empresa
-            },
-            valor: obj.porcentaje,
-            baseCalculoId:{
-              baseCalculoId: obj.baseCalculoId
-            },
-            esActivo: obj.esActivo,
-            referencia: obj.referencia,
-            fechaInicio: fechar,
-            montoTotal: obj.montoPercepcion,
-            numeroPeriodos: obj.numeroPeriodos,
-            montoPorPeriodo: obj.montoPorPeriodo
-          
-          };
-        }
-          
-        }else{
-          
+              },
+              valor: obj.porcentaje,
+              baseCalculoId: {
+                baseCalculoId: obj.baseCalculoId
+              },
+              esActivo: obj.esActivo,
+              referencia: obj.referencia,
+              fechaInicio: fechar,
+              montoTotal: obj.montoPercepcion,
+              numeroPeriodos: obj.numeroPeriodos,
+              montoPorPeriodo: obj.montoPorPeriodo
 
-          if(this.politica !== undefined){
-          this.objEnviar = {
-            configuraPercepcionId: this.datos.configuraPercepcionId,
-            tipoPercepcionId: {
-              tipoPercepcionId: obj.nomPercepcion
-            },
-            conceptoPercepcionId: {
-              conceptoPercepcionId: this.conceptoPercepcionId
-            },
-            politicaId: {
-              politicaId: this.politica
-            },
-            centrocClienteId: {
-                centrocClienteId: this.empresa
-            },
-            valor: obj.porcentaje,
-            baseCalculoId:{
-              baseCalculoId: obj.baseCalculoId
-            },
-            esActivo: obj.esActivo,
-            referencia: obj.referencia,
-            fechaInicio: fechar,
-            montoTotal: obj.montoPercepcion,
-            numeroPeriodos: obj.numeroPeriodos,
-            montoPorPeriodo: obj.montoPorPeriodo
-          
-          };
-        }else{
+            };
+          } else {
 
-          this.objEnviar = {
-            configuraPercepcionId: this.datos.configuraPercepcionId,
-            tipoPercepcionId: {
-              tipoPercepcionId: this.nomPercepcion
-            },
-            conceptoPercepcionId: {
-              conceptoPercepcionId: this.conceptoPercepcionId
-            },
-            personaId: {
-              personaId: this.empleado
-            },
-            centrocClienteId: {
+            this.objEnviar = {
+              tipoPercepcionId: {
+                tipoPercepcionId: this.nomPercepcion
+              },
+              conceptoPercepcionId: {
+                conceptoPercepcionId: this.conceptoPercepcionId
+              },
+              personaId: {
+                personaId: this.empleado
+              },
+              centrocClienteId: {
                 centrocClienteId: this.empresa
-            },
-            valor: obj.porcentaje,
-            baseCalculoId:{
-              baseCalculoId: obj.baseCalculoId
-            },
-            esActivo: obj.esActivo,
-            referencia: obj.referencia,
-            fechaInicio: fechar,
-            montoTotal: obj.montoPercepcion,
-            numeroPeriodos: obj.numeroPeriodos,
-            montoPorPeriodo: obj.montoPorPeriodo
-          
-          };
-        }
+              },
+              valor: obj.porcentaje,
+              baseCalculoId: {
+                baseCalculoId: obj.baseCalculoId
+              },
+              esActivo: obj.esActivo,
+              referencia: obj.referencia,
+              fechaInicio: fechar,
+              montoTotal: obj.montoPercepcion,
+              numeroPeriodos: obj.numeroPeriodos,
+              montoPorPeriodo: obj.montoPorPeriodo
+
+            };
+          }
+
+        } else {
+
+
+          if (this.politica !== undefined) {
+            this.objEnviar = {
+              configuraPercepcionId: this.datos.configuraPercepcionId,
+              tipoPercepcionId: {
+                tipoPercepcionId: obj.nomPercepcion
+              },
+              conceptoPercepcionId: {
+                conceptoPercepcionId: this.conceptoPercepcionId
+              },
+              politicaId: {
+                politicaId: this.politica
+              },
+              centrocClienteId: {
+                centrocClienteId: this.empresa
+              },
+              valor: obj.porcentaje,
+              baseCalculoId: {
+                baseCalculoId: obj.baseCalculoId
+              },
+              esActivo: obj.esActivo,
+              referencia: obj.referencia,
+              fechaInicio: fechar,
+              montoTotal: obj.montoPercepcion,
+              numeroPeriodos: obj.numeroPeriodos,
+              montoPorPeriodo: obj.montoPorPeriodo
+
+            };
+          } else {
+
+            this.objEnviar = {
+              configuraPercepcionId: this.datos.configuraPercepcionId,
+              tipoPercepcionId: {
+                tipoPercepcionId: this.nomPercepcion
+              },
+              conceptoPercepcionId: {
+                conceptoPercepcionId: this.conceptoPercepcionId
+              },
+              personaId: {
+                personaId: this.empleado
+              },
+              centrocClienteId: {
+                centrocClienteId: this.empresa
+              },
+              valor: obj.porcentaje,
+              baseCalculoId: {
+                baseCalculoId: obj.baseCalculoId
+              },
+              esActivo: obj.esActivo,
+              referencia: obj.referencia,
+              fechaInicio: fechar,
+              montoTotal: obj.montoPercepcion,
+              numeroPeriodos: obj.numeroPeriodos,
+              montoPorPeriodo: obj.montoPorPeriodo
+
+            };
+          }
 
         }
-          
-          this.salida.emit({type:"guardar",datos:this.objEnviar});
-        }
-      });
+
+        this.salida.emit({ type: "guardar", datos: this.objEnviar });
+      }
+    });
   }
 
 
-  public get f(){
+  public get f() {
     return this.myForm.controls;
   }
 

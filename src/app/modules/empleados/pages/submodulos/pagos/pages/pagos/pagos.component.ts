@@ -380,6 +380,7 @@ export class PagosComponent implements OnInit {
   }
 
   public recibirTablaPer(obj: any) {
+    console.log("tabla percepciones",obj);
 
     if (obj.type == "editar") {
       let datosPer = obj.datos;
