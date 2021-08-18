@@ -101,7 +101,6 @@ export class NominasActivasComponent implements OnInit {
           usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
         }
         this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
              item.nominaOrdinaria.numEmpleados = datos.datos.cantidadEmpleados;

@@ -238,6 +238,7 @@ export class PagarComponent implements OnInit {
           this.nominaOrdinariaPrd.dispersarOtrosTiposMetodosPago(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
               if(datos.resultado){
+                this.continuarTitulo = "Continuar";
                 this.ngOnInit();
               }
             });
@@ -283,10 +284,11 @@ export class PagarComponent implements OnInit {
                 suscribe.unsubscribe();
                 setTimeout(() => {
   
+                  this.continuarTitulo = "Continuar";
                   this.configuracionesPrd.setCantidad(0);
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                   this.ventana.showVentana(this.ventana.ndispersion, {datos:{ nominaId: this.idnominaPeriodo,empleados:arrayPersonas }}).then(valor => {
-                    this.continuarTitulo = "Continuar";
+                    
                     this.ngOnInit();
                   });
                 }, 2000);

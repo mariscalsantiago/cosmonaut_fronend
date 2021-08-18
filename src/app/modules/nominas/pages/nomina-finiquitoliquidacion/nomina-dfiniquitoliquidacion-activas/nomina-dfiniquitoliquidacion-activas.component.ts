@@ -95,9 +95,12 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
           clienteId: this.usuariSistemaPrd.getIdEmpresa()
         }
         this.nominaFiniquitoPrd.calcularNomina(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
+            item.nominaLiquidacion.numEmpleados = datos.datos.cantidadEmpleados;
+            item.nominaLiquidacion.totalPercepciones = datos.datos.totalPercepcion;
+            item.nominaLiquidacion.totalDeducciones = datos.datos.totalDeduccion;
+            item.nominaLiquidacion.totalNeto = datos.datos.total;
             this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaLiquidacion: datos.datos } } });
           }
         });

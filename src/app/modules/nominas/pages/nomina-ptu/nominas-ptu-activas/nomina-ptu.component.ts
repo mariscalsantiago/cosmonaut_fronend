@@ -99,6 +99,10 @@ export class NominaPTUComponent implements OnInit {
           this.nominaPtuPrd.calcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
+                item.nominaPtu.numEmpleados = datos.datos.cantidadEmpleados;
+                item.nominaPtu.totalPercepciones = datos.datos.totalPercepcion;
+                item.nominaPtu.totalDeducciones = datos.datos.totalDeduccion;
+                item.nominaPtu.totalNeto = datos.datos.total;
                 this.router.navigate(['/nominas/nomina'], { state: { datos: {nominaPtu:item.nominaPtu} } });
               }else{
                 this.ventana.showVentana(this.ventana.nuevanominaptu,{datos:{editar:true,datos:item.nominaPtu}}).then(valor => {
