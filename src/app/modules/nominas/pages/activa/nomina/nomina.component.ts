@@ -101,6 +101,9 @@ export class NominaComponent implements OnInit {
     this.esTimbrar = this.configuracionPrd.getPermisos("Timbrar");
     this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
 
+    console.log("Se establece permisos",this.esEliminar);
+    console.log("Permisos actules",this.configuracionPrd.permisosActuales);
+
    
   }
 
