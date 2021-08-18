@@ -71,7 +71,7 @@ export class CalcularComponent implements OnInit {
         nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
       }
 
-      this.ocultarEliminar = this.nominaSeleccionada.nominaOrdinaria?.estadoActualNomina === "Calculada" || this.nominaSeleccionada.nominaOrdinaria?.estadoActualNomina === "Nueva";
+      
 
       this.nominaOrdinariaPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
         this.cargando = false;
@@ -139,7 +139,7 @@ export class CalcularComponent implements OnInit {
     }
 
 
-
+    this.ocultarEliminar = this.nominaSeleccionada[this.llave].estadoActualNomina === "Calculada" || this.nominaSeleccionada[this.llave].estadoActualNomina === "Nueva";
   }
 
 

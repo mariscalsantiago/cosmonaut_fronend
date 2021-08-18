@@ -54,6 +54,13 @@ export class DetalleComponent implements OnInit {
 
 
   public cancelar() {
+
+    if(this.myForm.invalid){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede cancelar, la cuenta bancaria para un empleado de transferencia es obligatorio.");
+      return;
+    }
+
     this.navigate.navigate(['/empleados']);
   }
 

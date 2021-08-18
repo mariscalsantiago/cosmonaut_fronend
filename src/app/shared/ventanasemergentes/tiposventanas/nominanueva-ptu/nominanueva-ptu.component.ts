@@ -287,6 +287,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
     if(obj.listaIdEmpleados.length === 0){
 
       this.modal.showMessageDialog(this.modal.error,"No se ha seleccionado ningun empleado");
+      this.cargandoIcon = false;
       return;
     }
     this.nominaPrd.descargarArchivo(obj).subscribe(datos => {
