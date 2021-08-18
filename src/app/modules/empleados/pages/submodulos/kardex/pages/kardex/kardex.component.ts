@@ -140,12 +140,12 @@ export class KardexComponent implements OnInit {
   public recibirTabla(obj: any) {
     
     if (obj.type == "desglosar") {
-
+      debugger;
       let item = obj.datos;
        
       let columnas: Array<tabla> = [
        new tabla("politica", "Política"),
-       new tabla("salarioDiario", "Salario Diario"),
+       new tabla("salariosDiarios", "Salario Diario"),
        //new tabla("salarioIntegrado", "Salario diario integrado"),
        new tabla("salarioCotización", "Salario base de cotización"),
        new tabla("estatusEmpleado", "Estatus de empleado"),
@@ -154,9 +154,8 @@ export class KardexComponent implements OnInit {
     
 
      item.politica = item.politicaDescripcion;
-     item.salarioDiario = item.salarioDiario;
-     //item.salarioIntegrado = item.salarioDiarioIntegrado;
-     item.salarioCotización = item.salarioBaseCotizacion;
+     item.salariosDiarios = item.salarioDiario.toFixed(2); 
+     item.salarioCotización = item.salarioBaseCotizacion.toFixed(2); 
      item.estatusEmpleado = item.esActivo? "Activo":"Inactivo";
 
      this.arreglotablaDesglose.columnas = columnas;
