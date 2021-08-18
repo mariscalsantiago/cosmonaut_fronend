@@ -102,6 +102,8 @@ export class InicioComponent implements OnInit {
 
   public calcularFechasEventos(fechaActual: Date) {
     
+    console.log("Calcular fechas eventos");
+    
     let inicioMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
     let finalMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
     let obj = {
@@ -130,38 +132,10 @@ export class InicioComponent implements OnInit {
       this.eventos = datos.datos;
       this.eventosCopia = datos.datos;
 
-      this.filtrandoEventos();
+     // this.filtrandoEventos();
     });
   }
   
-  public filtrandoEventos() {
-    
-    let hijosEventos: any = document.getElementById("eventoscheckbox")?.getElementsByTagName("input");
-
-    let arrayFiltrado: any[] = [];
-    for (let item of hijosEventos) {
-      if (item.checked) {
-        let mm = `${item.id}`.replace("e", "");
-        if (mm.includes("-")) {
-          arrayFiltrado.push(Number(mm.split("-")[0]));
-          arrayFiltrado.push(Number(mm.split("-")[1]));
-          continue;
-        }
-
-        arrayFiltrado.push(Number(mm));
-      }
-    }
-
-
-
-    this.eventos = [];
-    Object.values(this.eventosCopia).forEach((valor: any) => {
-      if (arrayFiltrado.includes(valor.tipoIncidenciaId)) {
-        this.eventos.push(valor);
-      }
-    });
-
-  }
 
   
 
