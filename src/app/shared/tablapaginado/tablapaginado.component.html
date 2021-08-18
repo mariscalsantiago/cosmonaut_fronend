@@ -69,7 +69,7 @@
                                 id="ajusteirs">
                             <span class="checkmark"></span>
                         </label>
-                        <label *ngIf="item.status === 'Sin Timbrar' && item.statuspago === 'Pagado'" class="contenedorInputCheckRadio">
+                        <label *ngIf="item.status !== 'Correcto' && item.statuspago === 'Pagado'" class="contenedorInputCheckRadio">
                             <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name=""
                                 id="ajusteirs">
                             <span class="checkmark"></span>

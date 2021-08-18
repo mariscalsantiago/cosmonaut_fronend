@@ -59,6 +59,7 @@ export class CalcularComponent implements OnInit {
     private usuariSistemaPrd: UsuarioSistemaService) { }
 
   ngOnInit(): void {
+    console.log("Esta es la nomina",this.nominaSeleccionada);
     if (this.nominaSeleccionada.nominaOrdinaria) {
       this.esnormal = true;
       this.llave = "nominaOrdinaria";
@@ -70,7 +71,7 @@ export class CalcularComponent implements OnInit {
         nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
       }
 
-      this.ocultarEliminar = this.nominaSeleccionada.nominaOrdinaria?.estadoActualNomina !== "Calculada";
+      this.ocultarEliminar = this.nominaSeleccionada.nominaOrdinaria?.estadoActualNomina === "Calculada" || this.nominaSeleccionada.nominaOrdinaria?.estadoActualNomina === "Nueva";
 
       this.nominaOrdinariaPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
         this.cargando = false;

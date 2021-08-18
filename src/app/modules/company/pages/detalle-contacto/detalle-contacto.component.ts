@@ -23,7 +23,7 @@ export class DetalleContactoComponent implements OnInit {
   public compania: boolean = true;
   public companiaprincipal: boolean = true;
   public insertar: boolean = false;
-  public fechaActual: string = "";
+  public fechaActual!: Date;
   public objcontacto: any;
   public fechaAlta: string = "";
   public cargando: Boolean = false;
@@ -46,14 +46,10 @@ export class DetalleContactoComponent implements OnInit {
     });
 
 
-    let fecha = new Date();
-    let dia = fecha.getDate().toString();
-    let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
-    let anio = fecha.getFullYear();
+   
 
 
-
-    this.fechaActual = `${dia}/${mes}/${anio}`;
+    this.fechaActual = new Date();
 
   }
 
@@ -85,7 +81,7 @@ export class DetalleContactoComponent implements OnInit {
 
 
   public createFormcont(obj: any) {
-    let datePipe = new DatePipe("en-MX");
+    let datePipe = new DatePipe("es-MX");
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
