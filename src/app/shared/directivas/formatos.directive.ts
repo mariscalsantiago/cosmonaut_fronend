@@ -23,6 +23,7 @@ export class FormatosDirective implements OnInit {
   @Input() public rfc: boolean = false;
   @Input() public minimo: boolean = false;
   @Input() public control!: AbstractControl;
+  @Input() public numerosDecimales:boolean = false;
 
   @Input() public correo: boolean = false;
 
@@ -58,7 +59,29 @@ export class FormatosDirective implements OnInit {
   @HostListener("keydown", ["$event"])
   onkeyDown(event: KeyboardEvent) {
     this.desactivarSuscribir = true;
-    if (this.moneda) {
+    if (this.numerosDecimales) {
+      debugger;
+      const regex = /[\d.\/]/g;
+
+
+      if (!regex.test(event.key) && (event.key !== "Backspace" && event.key !== "Tab" && event.key !== "ArrowLeft" && event.key !== "ArrowRight")) {
+        event.preventDefault();
+      } else {
+        if (event.key == ".") {
+          if (this.el.nativeElement.value.split(".").length > 1) {
+            event.preventDefault();
+          }
+        }
+
+        if (event.key === "Backspace" || event.key === "Tab") return;
+        if (this.el.nativeElement.value.split(".")[1]?.length > 2) {
+
+          event.preventDefault();
+        }
+      }
+    }
+    else if (this.moneda) {
+      debugger;
       const regex = /[\d.\/]/g;
 
 
