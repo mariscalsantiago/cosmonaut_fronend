@@ -36,8 +36,10 @@ export class CompletarComponent implements OnInit {
       this.llave = "nominaPtu";
     }
 
+    this.cargandoIcon = true;
 
     this.nominaPrd.concluir(this.nominaSeleccionada[this.llave].nominaXperiodoId,this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+      this.cargandoIcon = false;
       this.datos = datos.datos;
     });
 

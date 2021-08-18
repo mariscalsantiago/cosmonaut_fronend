@@ -5,3 +5,10 @@
     margin-right: 10px;
 }
 
+.botondisabled{
+    background-color: rgb(212, 212, 212) !important;
+    border: 0 solid white!important;
+    span{
+        color:rgb(78, 78, 78) !important;
+    }
+}
