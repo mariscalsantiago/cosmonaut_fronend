@@ -20,10 +20,10 @@
             </div>
         </div>
 
-        <div class="input-group-sm mb-3 col-4">
+        <!--<div class="input-group-sm mb-3 col-4">
             <label>Fecha fin de descuento</label>
             <input [min]="f.fechaInicioDescto.value" #fechaFinDescuento formControlName="fechaFinDescuento" type="date" class="form-control">
-        </div>
+        </div>-->
         <div *ngIf="prestamo" class=" input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Tipo de descuento * </label>
             <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.baseCalculoId.errors && submitEnviado}">
@@ -171,7 +171,7 @@
             <label>Aviso de retención </label>
             <div class="input-group mb-2">
                 <input type="hidden" formControlName="retencion">
-                <input #retencion type="text" class="form-control disabled bg-light">
+                <input #retencion type="text" formControlName="retencion" class="form-control disabled bg-light">
                 <div (click)="abrirReteencion()" class="input-group-append" style="cursor: pointer;">
                     <span style="font-size: small;" class="input-group-text dark" id="basic-addon2">
                         <i aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
@@ -189,7 +189,7 @@
             <label>Aviso de suspensión </label>
             <div class="input-group mb-2">
                 <input type="hidden" formControlName="suspension">
-                <input #suspension type="text" class="form-control disabled bg-light">
+                <input #suspension type="text" formControlName="suspension" class="form-control disabled bg-light">
                 <div (click)="abrirSuspension()" class="input-group-append" style="cursor: pointer;">
                     <span style="font-size: small;" class="input-group-text dark" id="basic-addon2">
                         <i aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
