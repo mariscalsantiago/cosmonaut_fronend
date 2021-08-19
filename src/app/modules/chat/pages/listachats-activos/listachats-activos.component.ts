@@ -41,7 +41,7 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
     this.cargando = true;
     console.log("Se va hacer la peticion");
     this.suscripcion = this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
-      debugger;
+      
       if(Boolean(datos.datos)){
         if(this.cantidad !== datos.datos.length){
           this.cantidad = datos.datos.length;

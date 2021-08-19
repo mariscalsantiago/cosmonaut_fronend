@@ -31,7 +31,7 @@ export class DatosimssComponent implements OnInit {
     private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.imssPrd.getAllByImss(this.datos.empresa.centrocClienteId).subscribe(datos => {
       this.arregloImss = datos.datos;
       this.myForm = this.createForm(this.arregloImss);

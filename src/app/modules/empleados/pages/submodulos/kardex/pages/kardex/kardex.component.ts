@@ -63,7 +63,7 @@ export class KardexComponent implements OnInit {
     
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
       this.empleado = datos.datos;
-      debugger;
+      
       this.peticion = {
         fechaContrato: this.empleado.fechaContrato,
         personaId: {
@@ -140,7 +140,7 @@ export class KardexComponent implements OnInit {
   public recibirTabla(obj: any) {
     
     if (obj.type == "desglosar") {
-      debugger;
+      
       let item = obj.datos;
        
       let columnas: Array<tabla> = [
@@ -169,7 +169,7 @@ export class KardexComponent implements OnInit {
   }
 
   public filtrar(){
-    debugger;
+    
     
     if(this.tipoMovimineto !== '0'){
 

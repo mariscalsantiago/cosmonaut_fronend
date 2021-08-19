@@ -40,7 +40,7 @@ export class SedeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
     if (this.sede != undefined) {
       
       this.catalogosPrd.getAsentamientoByCodigoPostal(this.sede.codigoPostal).subscribe(datos => {

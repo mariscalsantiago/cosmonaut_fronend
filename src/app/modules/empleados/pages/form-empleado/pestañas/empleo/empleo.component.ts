@@ -94,6 +94,8 @@ export class EmpleoComponent implements OnInit {
 
 
 
+    console.log("Este es ele emplado");
+    console.log(this.tabsDatos[3]);
 
 
 
