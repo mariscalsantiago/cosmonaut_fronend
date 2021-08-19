@@ -98,7 +98,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    debugger;
+    
     if (this.datos.retencionCargada  == true) {
       obj.retencion = 'Aviso de retención cargado';
     }
@@ -524,7 +524,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       
     }
     if(this.esInsert ){
-      debugger;
+      
     for(let item of this.obtenerPercepcion){
       if(concepto == item.tipoDeduccionId.tipoDeduccionId){
           this.conceptodeduccion= item.conceptoDeduccionId;
@@ -532,7 +532,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     }
     }
     else if(!this.esInsert && this.cambioEstatus == false){
-      debugger;
+      
     for(let item of this.obtenerPercepcion){
       if(concepto == item.tipoDeduccionId.tipoDeduccionId){
           this.conceptodeduccion= item.conceptoDeduccionId;
@@ -727,7 +727,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
-          debugger;
+          
           let  obj = this.myForm.getRawValue();
           
 
@@ -806,7 +806,7 @@ export class VentanaDeduccionesComponent implements OnInit {
             }
           };
         }else{
-          debugger;
+          
           this.objEnviar = {
             tipoDeduccionId: {
               tipoDeduccionId: obj.nomDeduccion

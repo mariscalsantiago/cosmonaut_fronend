@@ -33,9 +33,15 @@ export class NominaComponent implements OnInit {
   public esTimbrar: boolean = false;
   public esDescargar: boolean = false;
 
-  constructor(public  configuracionPrd: ConfiguracionesService,
-    private modalPrd:ModalService,private usuariSistemaPrd:UsuarioSistemaService,
-    private nominaOrdinariaPrd:NominaordinariaService) { }
+
+  public tabCalculada: boolean = false;
+  public tabDispersada: boolean = false;
+  public tabTimbrado: boolean = false;
+  public tabConcluida: boolean = false;
+
+  constructor(public configuracionPrd: ConfiguracionesService,
+    private modalPrd: ModalService, private usuariSistemaPrd: UsuarioSistemaService,
+    private nominaOrdinariaPrd: NominaordinariaService) { }
 
   ngOnInit(): void {
 
@@ -44,7 +50,7 @@ export class NominaComponent implements OnInit {
 
     this.nominaSeleccionada = history.state.datos == undefined ? {} : history.state.datos;;
 
-    
+
 
 
     if (this.nominaSeleccionada.nominaOrdinaria) {
@@ -57,33 +63,58 @@ export class NominaComponent implements OnInit {
       this.llave = "nominaPtu";
     }
 
-    
+    this.tabCalculada = this.nominaSeleccionada[this.llave].estadoActualNomina === 'Calculada';
+    this.tabDispersada = this.nominaSeleccionada[this.llave].estadoActualNomina === 'Pagada' || this.nominaSeleccionada[this.llave].estadoActualNomina === 'En proceso pago';
+    this.tabTimbrado = this.nominaSeleccionada[this.llave].estadoActualNomina === 'Timbrada' || this.nominaSeleccionada[this.llave].estadoActualNomina === 'En proceso timbrado';
+    this.tabConcluida = this.nominaSeleccionada[this.llave].estadoActualNomina === 'Pagada' && this.nominaSeleccionada[this.llave].estadoActualNomina === 'Timbrada';
 
-    if(this.esCalcular){
+
+
+    if (this.esCalcular) {
       this.activado[0].tab = true;
       this.activado[0].form = true;
       this.activado[0].seleccionado = true;
-    }else if(this.esDispersar){
+    } else if (this.esDispersar) {
       this.activado[0].tab = false;
       this.activado[0].form = false;
       this.activado[0].seleccionado = false;
       this.activado[1].tab = true;
       this.activado[1].form = true;
       this.activado[1].seleccionado = true;
-    }else if(this.esTimbrar){
+    } else if (this.esTimbrar) {
       this.activado[0].tab = false;
       this.activado[0].form = false;
       this.activado[0].seleccionado = false;
       this.activado[2].tab = true;
       this.activado[2].form = true;
       this.activado[2].seleccionado = true;
-    }else if(this.esConcluir){
+    } else if (this.esConcluir) {
       this.activado[0].tab = false;
       this.activado[0].form = false;
       this.activado[0].seleccionado = false;
       this.activado[3].tab = true;
       this.activado[3].form = true;
       this.activado[3].seleccionado = true;
+    }
+
+
+    if (this.tabCalculada) {
+      this.activado[0].tab = true;
+    }
+    if (this.tabDispersada) {
+      this.activado[0].tab = true;
+      this.activado[1].tab = true;
+    }
+    if (this.tabTimbrado) {
+      this.activado[0].tab = true;
+      this.activado[1].tab = true;
+      this.activado[2].tab = true;
+    }
+    if (this.tabConcluida) {
+      this.activado[0].tab = true;
+      this.activado[1].tab = true;
+      this.activado[2].tab = true;
+      this.activado[3].tab = true;
     }
 
 
@@ -96,15 +127,15 @@ export class NominaComponent implements OnInit {
     this.esCalcular = this.configuracionPrd.getPermisos("Calcular");
     this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
     this.esConcluir = this.configuracionPrd.getPermisos("Concluir");
-    this.esDispersar =this.configuracionPrd.getPermisos("Dispersar");
+    this.esDispersar = this.configuracionPrd.getPermisos("Dispersar");
     this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
     this.esTimbrar = this.configuracionPrd.getPermisos("Timbrar");
     this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
 
-    console.log("Se establece permisos",this.esEliminar);
-    console.log("Permisos actules",this.configuracionPrd.permisosActuales);
+    console.log("Se establece permisos", this.esEliminar);
+    console.log("Permisos actules", this.configuracionPrd.permisosActuales);
 
-   
+
   }
 
   public backTab(numero: number) {
@@ -123,36 +154,36 @@ export class NominaComponent implements OnInit {
   public recibirComponente(obj: any) {
 
 
-  
+
 
     if (!this.esDispersar && obj.type == "calcular") {
-       if(this.esTimbrar){
-          obj.type = "dispersar";
-        }else if(this.esConcluir){
-          obj.type = "timbrar";  
-        }else{
-          return;
-        }
-    }else  if (!this.esTimbrar && obj.type == "dispersar") {
-      if(this.esConcluir){
-       obj.type = "timbrar";   
-     }else{
-       return;
-     }
-   }else  if (!this.esConcluir && obj.type == "timbrar") {
-     return;
- }
+      if (this.esTimbrar) {
+        obj.type = "dispersar";
+      } else if (this.esConcluir) {
+        obj.type = "timbrar";
+      } else {
+        return;
+      }
+    } else if (!this.esTimbrar && obj.type == "dispersar") {
+      if (this.esConcluir) {
+        obj.type = "timbrar";
+      } else {
+        return;
+      }
+    } else if (!this.esConcluir && obj.type == "timbrar") {
+      return;
+    }
 
 
 
-   for (let item of this.activado) {
-    item.seleccionado = false;
-    item.form = false;
-  }
+    for (let item of this.activado) {
+      item.seleccionado = false;
+      item.form = false;
+    }
 
-   
 
-   
+
+
 
 
 

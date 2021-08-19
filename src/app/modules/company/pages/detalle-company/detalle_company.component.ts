@@ -57,7 +57,7 @@ export class DetalleCompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {  
-    debugger;
+    
     
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.compania = true;

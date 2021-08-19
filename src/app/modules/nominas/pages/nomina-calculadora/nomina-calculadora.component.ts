@@ -57,7 +57,7 @@ export class NominaCalculadoraComponent implements OnInit {
     });
 
     this.catalogosPrd.getBasePeriodos(true).subscribe(datos => {
-      debugger;
+      
       for(let item of datos.datos){
         
             this.contratoDesc = datos.datos.find((itemmov: any) => itemmov.basePeriodoId === item.basePeriodoId)?.basePeriodoId;
@@ -128,7 +128,7 @@ export class NominaCalculadoraComponent implements OnInit {
   public calcular() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas calcular?").then(valor => {
       if(valor){
-        debugger;    
+            
         let  obj = this.myForm.getRawValue();
 
           obj.basePeriodoId = Number.parseFloat(obj.basePeriodoId);

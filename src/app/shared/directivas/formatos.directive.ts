@@ -60,7 +60,7 @@ export class FormatosDirective implements OnInit {
   onkeyDown(event: KeyboardEvent) {
     this.desactivarSuscribir = true;
     if (this.numerosDecimales) {
-      debugger;
+      
       const regex = /[\d.\/]/g;
 
 
@@ -81,7 +81,7 @@ export class FormatosDirective implements OnInit {
       }
     }
     else if (this.moneda) {
-      debugger;
+      
       const regex = /[\d.\/]/g;
 
 

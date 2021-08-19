@@ -86,10 +86,14 @@ export class VariabilidadComponent implements OnInit {
 
   ngOnInit(): void {
     
-    debugger;
+    
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     this.idUsuario = this.usauriosSistemaPrd.getUsuario();
     this.idUsuario = this.idUsuario.usuarioId;
+    this.EmpleadosService.getEmpleadosCompania(this.idEmpresa).subscribe(datos => {
+      
+      let obj = datos.datos[0];
+      this.nombreEmpresa = obj.centrocClienteId?.razonSocial;
 
     let fecha = new Date();
     let dia = fecha.getDate().toString();
