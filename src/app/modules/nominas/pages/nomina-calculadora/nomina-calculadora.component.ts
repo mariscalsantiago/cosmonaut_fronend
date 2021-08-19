@@ -32,6 +32,7 @@ export class NominaCalculadoraComponent implements OnInit {
   public salarioNetoMensual: string = "";
   public excedente_limiteInferior: string = "";
   public isrDeterminado: string = ""; 
+  public contratoDesc: number | undefined;
 
   public esMensual:boolean = false;
   public esImss:boolean = false;
@@ -56,7 +57,14 @@ export class NominaCalculadoraComponent implements OnInit {
     });
 
     this.catalogosPrd.getBasePeriodos(true).subscribe(datos => {
-      this.arregloBasePeriodos = datos.datos;
+      debugger;
+      for(let item of datos.datos){
+        
+            this.contratoDesc = datos.datos.find((itemmov: any) => itemmov.basePeriodoId === item.basePeriodoId)?.basePeriodoId;
+            if(this.contratoDesc == 3)
+            continue;
+            this.arregloBasePeriodos.push(item);
+      } 
     });
   }
 
@@ -120,10 +128,10 @@ export class NominaCalculadoraComponent implements OnInit {
   public calcular() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas calcular?").then(valor => {
       if(valor){
-            
+        debugger;    
         let  obj = this.myForm.getRawValue();
-        
 
+          obj.basePeriodoId = Number.parseFloat(obj.basePeriodoId);
           let objEnviar : any = 
           {
               clienteId: this.idEmpresa,

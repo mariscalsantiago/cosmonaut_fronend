@@ -25,8 +25,9 @@ export class KardexComponent implements OnInit {
   public idEmpresa: number = 0;
   public empleado: any = [];
   public peticion: any = [];
-  public tipoMovimineto: string = "";
-  public idMovimiento: number = 0;
+  public tipoMovimineto: string = '0';
+  public arregloMovimientos: any = [];
+  public contratoDesc: string | undefined;
 
   
   public arreglotabla:any = {
@@ -62,7 +63,7 @@ export class KardexComponent implements OnInit {
     
     this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
       this.empleado = datos.datos;
-
+      debugger;
       this.peticion = {
         fechaContrato: this.empleado.fechaContrato,
         personaId: {
@@ -76,6 +77,19 @@ export class KardexComponent implements OnInit {
       this.cargando = true;
     
       this.kardexPrd.getListaMovimientos(this.peticion).subscribe(datos => {
+        for(let item of datos.datos){
+
+          if(this.arregloMovimientos.length != 0 ){
+              this.contratoDesc = this.arregloMovimientos.find((itemmov: any) => itemmov.movimientoId === item.movimientoId)?.movimiento;
+              if(this.contratoDesc !== undefined)
+              continue;
+              this.arregloMovimientos.push(item);
+   
+  
+          }else{
+              this.arregloMovimientos.push(item);
+          }
+        } 
           this.crearTabla(datos);
       });
    
@@ -126,12 +140,12 @@ export class KardexComponent implements OnInit {
   public recibirTabla(obj: any) {
     
     if (obj.type == "desglosar") {
-
+      debugger;
       let item = obj.datos;
        
       let columnas: Array<tabla> = [
        new tabla("politica", "Política"),
-       new tabla("salarioDiario", "Salario Diario"),
+       new tabla("salariosDiarios", "Salario Diario"),
        //new tabla("salarioIntegrado", "Salario diario integrado"),
        new tabla("salarioCotización", "Salario base de cotización"),
        new tabla("estatusEmpleado", "Estatus de empleado"),
@@ -140,9 +154,8 @@ export class KardexComponent implements OnInit {
     
 
      item.politica = item.politicaDescripcion;
-     item.salarioDiario = item.salarioDiario;
-     //item.salarioIntegrado = item.salarioDiarioIntegrado;
-     item.salarioCotización = item.salarioBaseCotizacion;
+     item.salariosDiarios = item.salarioDiario.toFixed(2); 
+     item.salarioCotización = item.salarioBaseCotizacion.toFixed(2); 
      item.estatusEmpleado = item.esActivo? "Activo":"Inactivo";
 
      this.arreglotablaDesglose.columnas = columnas;
@@ -156,16 +169,13 @@ export class KardexComponent implements OnInit {
   }
 
   public filtrar(){
+    debugger;
     
-    if(this.tipoMovimineto !== ""){
-    for(let item of this.arreglo){
-      if(item.movimiento == this.tipoMovimineto)
-      this.idMovimiento =  item.movimientoId;
-    }
+    if(this.tipoMovimineto !== '0'){
 
     let peticionid = {
       fechaContrato: this.empleado.fechaContrato,
-      movimientoImssId: this.idMovimiento,
+      movimientoImssId: this.tipoMovimineto,
       personaId: {
           personaId: this.idEmpleado
       },

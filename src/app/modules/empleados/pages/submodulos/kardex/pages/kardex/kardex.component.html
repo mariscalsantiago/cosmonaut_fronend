@@ -8,8 +8,13 @@
   
     <div class="form group row margen">
       <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
-        <input type="text" [appAlfanumerico]="'true'" [(ngModel)]="tipoMovimineto" class="form-control" placeholder="Tipo de movimiento">
+        <select placeholder="Tipo de documento" name="" class="form-control" [(ngModel)]="tipoMovimineto">
+          <option value="0" selected>Selecciona tipo movimiento</option>
+          <option *ngFor="let item of arregloMovimientos"  [value]="item.movimientoId">{{item.movimiento}}
+          </option>
+        </select>
       </div>
+
       <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
         <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
       </div>
