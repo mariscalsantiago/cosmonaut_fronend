@@ -9,6 +9,7 @@ import { CompanyService } from 'src/app/modules/company/services/company.service
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 
@@ -49,7 +50,7 @@ export class VariabilidadComponent implements OnInit {
   public recalcularPromedio : boolean = false;
   public objRecalculo : any = [];
   public esREcalcular : boolean = false;
-
+  public nombreEmpresa : string = '';
 
   public arreglotabla: any = {
     columnas: [],
@@ -78,15 +79,22 @@ export class VariabilidadComponent implements OnInit {
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService, private reportesPrd: ReportesService, 
+    private modalPrd:ModalService, private reportesPrd: ReportesService,private EmpleadosService:EmpleadosService, 
     private companyProd: CompanyService, private formBuild: FormBuilder, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     
-    
+    debugger;
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     this.idUsuario = this.usauriosSistemaPrd.getUsuario();
     this.idUsuario = this.idUsuario.usuarioId;
+    this.EmpleadosService.getEmpleadosCompania(this.idEmpresa).subscribe(datos => {
+      debugger;
+      let obj = datos.datos[0];
+      this.nombreEmpresa = obj.centrocClienteId?.razonSocial;
+
+
+    });
 
     let fecha = new Date();
     let dia = fecha.getDate().toString();

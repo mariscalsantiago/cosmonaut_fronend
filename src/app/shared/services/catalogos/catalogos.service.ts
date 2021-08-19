@@ -186,6 +186,11 @@ export class CatalogosService {
     return this.http.get(`${this.url}/csTipoPercepcion/listar/todosActivo/${estatus}/${periodicidad}/editables`);
 
   }
+  public getTipoPercepFiltro(periodicidad:number, estatus:boolean):Observable<any>{
+
+    return this.http.get(`${this.url}/csTipoPercepcion/listar/todosActivo/${estatus}/para/${periodicidad}/editables`);
+
+  }
 
   public getTipoDeduccion(estatus:boolean):Observable<any>{
 
