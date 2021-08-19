@@ -442,5 +442,8 @@ export class PagarComponent implements OnInit {
     }
   }
 
+  public actualizarLista(){
+    this.ngOnInit();
+  }
 
 }

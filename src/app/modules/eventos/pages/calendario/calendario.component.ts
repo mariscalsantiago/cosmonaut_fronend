@@ -67,8 +67,8 @@ export class CalendarioComponent implements OnInit {
       let columnas: Array<tabla> = [
         new tabla("incidenciaDescripcion", "Tipo de evento"),
         new tabla("nombrecompleado", "Empleado"),
-        new tabla("fechaInicio", "Fecha inicio", false, false, true),
-        new tabla("fechaFin", "Fecha fin", false, false, true),
+        new tabla("fechaInicioTemp", "Fecha inicio", false, false, true),
+        new tabla("fechaFinTemp", "Fecha fin", false, false, true),
         new tabla("duracion", "Duraciòn", false, false, true)
       ];
 
@@ -84,11 +84,11 @@ export class CalendarioComponent implements OnInit {
         for (let item of aux) {
           item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "" : item.apellidoMaterno}`;
           var datePipe = new DatePipe("es-MX");
-          item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
-          item.fechaInicio = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".", "");
+          item.fechaInicioTemp = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
+          item.fechaInicioTemp = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".", "");
 
-          item.fechaFin = (new Date(item.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "");
-          item.fechaFin = datePipe.transform(item.fechaFin, 'dd-MMM-y')?.replace(".", "");
+          item.fechaFinTemp = (new Date(item.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "");
+          item.fechaFinTemp = datePipe.transform(item.fechaFin, 'dd-MMM-y')?.replace(".", "");
         }
 
         this.arreglotabla.columnas = columnas;

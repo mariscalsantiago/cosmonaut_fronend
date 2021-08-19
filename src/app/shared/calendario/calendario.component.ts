@@ -38,6 +38,8 @@ export class CalendarioComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     let arregloResagado = [];
     let primerapasada:boolean = false;
+    console.log("NGONCHANGES CALDENARIIO",this.eventos);
+    if(this.arregloArreglos[0] == undefined) return;
     
    let datepipe = new DatePipe("es-MX");
     for (let x = 0; x <= 5; x++) {
@@ -226,6 +228,9 @@ export class CalendarioComponent implements OnInit, OnChanges {
       case 3:
         this.eventoActual.color = "#e17b5b";
         break;
+        case 11:
+          this.eventoActual.color = "#df481a";
+          break;
       default:
         this.eventoActual.color = "#a31616";
     }

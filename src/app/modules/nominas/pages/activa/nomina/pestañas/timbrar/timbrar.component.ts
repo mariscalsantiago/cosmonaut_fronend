@@ -410,4 +410,8 @@ export class TimbrarComponent implements OnInit {
     }
   }
 
+  public actualizarLista(){
+    this.ngOnInit();
+  }
+
 }
