@@ -20,10 +20,10 @@
             </div>
         </div>
 
-        <!--<div class="input-group-sm mb-3 col-4">
+        <div class="input-group-sm mb-3 col-4">
             <label>Fecha fin de descuento</label>
             <input [min]="f.fechaInicioDescto.value" #fechaFinDescuento formControlName="fechaFinDescuento" type="date" class="form-control">
-        </div>-->
+        </div>
         <div *ngIf="prestamo" class=" input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Tipo de descuento * </label>
             <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.baseCalculoId.errors && submitEnviado}">
