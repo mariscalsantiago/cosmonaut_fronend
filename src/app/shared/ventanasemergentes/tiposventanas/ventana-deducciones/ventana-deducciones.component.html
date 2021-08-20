@@ -84,7 +84,7 @@
 
         <div *ngIf="valorDescuento" class="  input-group-sm mb-3 col-4">
             <label>Valor de descuento *</label>
-            <input formControlName="interesPorcentaje" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.interesPorcentaje.errors && submitEnviado}">
+            <input formControlName="interesPorcentaje" maxlength="3" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.interesPorcentaje.errors && submitEnviado}">
             <div *ngIf="myForm.controls.interesPorcentaje.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
