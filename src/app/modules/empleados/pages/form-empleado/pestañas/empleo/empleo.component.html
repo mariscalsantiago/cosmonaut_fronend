@@ -104,7 +104,8 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Jefe inmediato</label>
-                    <input placement="top" [mdbTooltip]="'jefe' | tooltip" autocomplete="off" [ngClass]="{'is-invalid':f.puesto_id_reporta.errors}" (focusout)="salirReportaA()" list="empleadosreporta" class="form-control" formControlName="puesto_id_reporta" name="browser"
+                    <input placement="top"
+                    [mdbTooltip]="'jefe' | tooltip" autocomplete="off" [ngClass]="{'is-invalid':f.puesto_id_reporta.errors}" (focusout)="salirReportaA()" list="empleadosreporta" class="form-control" formControlName="puesto_id_reporta" name="browser"
                         id="browser">
 
                     <datalist id="empleadosreporta">

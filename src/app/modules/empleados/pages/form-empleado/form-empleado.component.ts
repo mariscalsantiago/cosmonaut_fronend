@@ -53,6 +53,7 @@ export class FormEmpleadoComponent implements OnInit {
   ngOnInit(): void {
     
     let temp =  history.state.datos;
+    console.log("Este es el temporal del empleo",temp);
     
     if(temp !== undefined){
       this.titulo = "COMPLETAR DATOS DEL EMPLEADO";
@@ -70,6 +71,9 @@ export class FormEmpleadoComponent implements OnInit {
 
       this.activado[0].tab = true;
       this.activado[1].tab = true;
+      this.activado[3].tab = true; //Temporal
+
+      //this.tabsEnviar[3] = temp;
       
       if(this.datosPersona?.reactivarCuenta){
         this.titulo = "REACTIVACIÓN DEL EMPLEADO";

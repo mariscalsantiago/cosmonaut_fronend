@@ -8,6 +8,7 @@ import { EmpleadosService } from '../../services/empleados.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { ContratocolaboradorService } from '../../services/contratocolaborador.service';
 
 @Component({
   selector: 'app-listaempleados',
@@ -63,7 +64,8 @@ export class ListaempleadosComponent implements OnInit {
 
   constructor(private routerPrd: Router, private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
     private usuarioSistemaPrd: UsuarioSistemaService,private modalPrd:ModalService, private empresasPrd: SharedCompaniaService,
-    private areasPrd: SharedAreasService,public configuracionPrd:ConfiguracionesService) { }
+    private areasPrd: SharedAreasService,public configuracionPrd:ConfiguracionesService,
+    private empledoContratoPrd:ContratocolaboradorService) { }
 
   ngOnInit(): void {
 
@@ -104,6 +106,16 @@ export class ListaempleadosComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
+    let isInsertar = false;
+    // this.empledoContratoPrd.getContratoColaboradorById(obj.datos.idPersona).subscribe(datos => {
+ 
+    //   console.log("Este es el contrato colaborador");
+    //   this.routerPrd.navigate(['empleados/empleado'],{ state: { datos: datos.datos, insertar: isInsertar } });
+
+
+    // });
+    
+    // return;
     switch (obj.type) {
 
       case "columna":

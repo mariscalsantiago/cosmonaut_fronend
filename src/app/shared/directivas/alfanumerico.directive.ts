@@ -11,7 +11,7 @@ export class AlfanumericoDirective {
 
   @HostListener("keydown", ["$event"])
   onKeyDown(event: KeyboardEvent) {
-    let expresionRegular = /^[a-zA-Z ]+$/i;
+    let expresionRegular = /^[a-zA-Z0-9]+$/i;
     const regex = new RegExp(expresionRegular);
     if(!regex.test(event.key)){
         event.preventDefault();

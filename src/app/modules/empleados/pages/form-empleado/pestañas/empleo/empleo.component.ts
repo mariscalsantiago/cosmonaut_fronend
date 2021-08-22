@@ -43,6 +43,7 @@ export class EmpleoComponent implements OnInit {
   public textoArea: string = "";
   public mensajeModalito: string = "";
   public desabilitarinput: boolean = false;
+  public noRestablecer:boolean = false;
   public grupoNominaSeleccionado: any = {
     pagoComplementario: false
   };
@@ -105,13 +106,29 @@ export class EmpleoComponent implements OnInit {
 
     if (this.tabsDatos[3] !== undefined) {
       this.myForm = this.createForm(this.tabsDatos[3]);
+      
+      this.areasPrd.getPuestoByArea(this.id_empresa, this.myForm.controls.areaId.value).subscribe(datos => {
+
+        this.arregloPuestos = datos.datos;
+        this.myForm.controls.puestoId.enable();
+      });
+      
     } else {
       this.myForm = this.createForm(this.obj);
     }
     this.cambiarSueldoField();
 
     this.gruponominaPrd.getAll(this.id_empresa).subscribe(datos => {
-      this.arreglogruponominas = datos.datos
+      this.arreglogruponominas = datos.datos;
+      this.noRestablecer = true;
+      this.cambiarGrupoNomina();
+      if (this.typeppp) {
+        this.myForm.controls.sueldonetomensualppp.setValue(this.tabsDatos[3].pppSnm || 0);
+        this.myForm.controls.salarioDiarioIntegrado.setValue(this.tabsDatos[3].sbc);
+        this.myForm.controls.salarioNetoMensualImss.setValue(this.tabsDatos[3].sueldoNetoMensual);
+        this.myForm.controls.pagoComplementario.setValue(this.tabsDatos[3].pppMontoComplementario);
+  
+      }
     });
 
     this.areasPrd.getAreasByEmpresa(this.id_empresa).subscribe(datos => this.arregloArea = datos.datos || []);
@@ -370,7 +387,7 @@ export class EmpleoComponent implements OnInit {
     return this.formBuilder.group({
       areaId: [obj.areaId?.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
-      puesto_id_reporta: [obj.puesto_id_reporta],
+      puesto_id_reporta: [`${obj.jefeInmediatoId?.nombre || ''} ${obj.jefeInmediatoId?.apellidoPaterno || ''} ${obj.jefeInmediatoId?.apellidoMaterno || ''}`.trim()],
       sedeId: [obj.sedeId?.sedeId],
       estadoId: [obj.estadoId?.estadoId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
@@ -600,6 +617,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public cambiaArea($event: any) {
+    console.log("Vamos a ver lo que pasa");
     this.myForm.controls.puestoId.disable();
 
 
@@ -717,21 +735,15 @@ export class EmpleoComponent implements OnInit {
 
   public cambiarGrupoNomina() {
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
+    console.log("Este es grupo nomina id",gruponominaId);
 
-    let aux;
+    let aux = this.pagoComplementario(gruponominaId);
+    console.log("Este es aux",aux);
 
-    for (let item of this.arreglogruponominas) {
-      if (item.id == gruponominaId) {
-        aux = item;
-        break;
-      }
-
-      aux = {
-        pagoComplementario: false
-      };
+    if(!this.noRestablecer){
+      this.limpiarMontos()
+      this.noRestablecer = true;
     }
-
-    this.limpiarMontos()
 
     this.grupoNominaSeleccionado = aux;
     //this.grupoNominaSeleccionado.pagoComplementario = true;
@@ -779,6 +791,22 @@ export class EmpleoComponent implements OnInit {
 
 
 
+  }
+
+  public pagoComplementario(gruponominaId:number){
+    let aux;
+    for (let item of this.arreglogruponominas) {
+      if (item.id == gruponominaId) {
+        aux = item;
+        break;
+      }
+
+      aux = {
+        pagoComplementario: false
+      };
+    }
+
+    return aux;
   }
 
 

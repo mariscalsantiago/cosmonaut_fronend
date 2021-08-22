@@ -77,6 +77,12 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.myForm = this.createForm(this.objusuario);
 
+    if(!this.insertar){
+        let companiaSeleccionada = this.arregloCompany.find((o:any) => o["centrocClienteId"] == this.myForm.controls.centrocClienteId.value);
+        this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
+        
+    }
+
 
     this.routerActivePrd.params.subscribe(params =>{
       
@@ -138,8 +144,13 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
 
+
+
+
   public enviarPeticion() {
 
+    let companiaSeleccionada = this.arregloCompany.find((o:any)=>o["razonSocial"].includes(this.myForm.value.centrocClienteId));
+    console.log(companiaSeleccionada);
 
 
 
@@ -164,6 +175,9 @@ export class DetalleUsuarioComponent implements OnInit {
           for(let item of this.companiasenviar){
             companysend.push(item.centrocClienteId);
           }
+        }else{
+          let companiaSeleccionada = this.arregloCompany.find((o:any)=>o["razonSocial"].includes(obj.centrocClienteId));
+          obj.idRazonSocial = companiaSeleccionada.centrocClienteId;
         }
 
         let objAuthEnviar = {
@@ -171,7 +185,7 @@ export class DetalleUsuarioComponent implements OnInit {
           apellidoPat: obj.apellidoPaterno,
           apellidoMat: obj.apellidoMaterno,
           email: obj.correoelectronico?.toLowerCase(),
-          centrocClienteIds:obj.multicliente?companysend : [obj.centrocClienteId],
+          centrocClienteIds:obj.multicliente?companysend : [obj.idRazonSocial],
           rolId: obj.rol,
           esMulticliente:obj.multicliente,
           usuarioId:obj.usuarioId,
