@@ -20,10 +20,10 @@
             </div>
         </div>
 
-        <!--<div class="input-group-sm mb-3 col-4">
+        <div class="input-group-sm mb-3 col-4">
             <label>Fecha fin de descuento</label>
             <input [min]="f.fechaInicioDescto.value" #fechaFinDescuento formControlName="fechaFinDescuento" type="date" class="form-control">
-        </div>-->
+        </div>
         <div *ngIf="prestamo" class=" input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Tipo de descuento * </label>
             <select #tipoMonto (focusout)="validarNomMonto(tipoMonto.value)" formControlName="baseCalculoId" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.baseCalculoId.errors && submitEnviado}">
@@ -84,7 +84,7 @@
 
         <div *ngIf="valorDescuento" class="  input-group-sm mb-3 col-4">
             <label>Valor de descuento *</label>
-            <input formControlName="interesPorcentaje" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.interesPorcentaje.errors && submitEnviado}">
+            <input formControlName="interesPorcentaje" maxlength="3" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.interesPorcentaje.errors && submitEnviado}">
             <div *ngIf="myForm.controls.interesPorcentaje.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -129,7 +129,7 @@
         <div *ngIf="numFolio" class="  input-group-sm mb-3 col-6">
             <label *ngIf="credito">Referencia </label>
             <label *ngIf="referencia">Referencia</label>
-            <input formControlName="numeroFolio" type="text" class="form-control">
+            <input formControlName="numeroFolio" maxlength="32" type="text" class="form-control">
         </div>
         <div *ngIf="infonacot" class="  input-group-sm mb-3 col-4">
             <label>Número de crédito *</label>
@@ -162,7 +162,7 @@
 
         <div *ngIf="infonavit" class="  input-group-sm mb-3 col-6">
             <label>Número de folio del aviso de retención *</label>
-            <input formControlName="folioAvisoRetencion" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.folioAvisoRetencion.errors && submitEnviado}">
+            <input formControlName="folioAvisoRetencion" maxlength="20" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.folioAvisoRetencion.errors && submitEnviado}">
             <div *ngIf="myForm.controls.folioAvisoRetencion.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -181,7 +181,7 @@
         </div>
         <div *ngIf="infonavit" class="  input-group-sm mb-3 col-6">
             <label>Número de folio del aviso de suspensión </label>
-            <input formControlName="folioAvisoSuspension" type="text" class="form-control">
+            <input formControlName="folioAvisoSuspension" maxlength="20" type="text" class="form-control">
 
         </div>
 

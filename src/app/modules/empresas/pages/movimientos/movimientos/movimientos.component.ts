@@ -82,10 +82,7 @@ export class MovimientosComponent implements OnInit {
 
 
   public filtrar() {
-
-    
-
-        
+    debugger;        
     if (this.fechaMovimiento != "" && this.fechaMovimiento != undefined) {
     
       const fecha1 = new Date(this.fechaMovimiento).toUTCString().replace("GMT", "");
@@ -120,18 +117,9 @@ export class MovimientosComponent implements OnInit {
           fechaMovimiento: this.fechaMovimientoFinal
         };
       this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
-   
-        
-        this.traerTabla(datos);
+      this.traerTabla(datos);
+      this.objFiltro = [];
       });
-      /*}else{
-        this.cargando = true;
-        this.empresasPrd.bitacoraMovimientoslistar(this.usuariosSistemaPrd.getIdEmpresa(),this.idEmpleado).subscribe(datos => {
-            this.traerTabla(datos);
-        });
-      });
-      }*/
-  
     }
 
   }

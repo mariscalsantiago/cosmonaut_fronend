@@ -47,7 +47,7 @@
         <div *ngIf="estandar" class="  input-group-sm mb-3 col-4">
             <label *ngIf="porcentual">Porcentaje *</label>
             <label *ngIf="fijo">Monto *</label>
-            <input *ngIf="porcentual" formControlName="porcentaje" type="text" class="form-control"
+            <input *ngIf="porcentual" formatos [moneda]="false" [numerosDecimales]="true"  formControlName="porcentaje" type="text" class="form-control"
                 [ngClass]="{'is-invalid':myForm.controls.porcentaje.errors && submitEnviado && porcentual}">
             <input *ngIf="fijo" formControlName="porcentaje" formatos [moneda]="true" [control]="f.porcentaje"
                 type="text" class="form-control"

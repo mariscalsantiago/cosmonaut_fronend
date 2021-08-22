@@ -162,13 +162,16 @@ export class DatosimssComponent implements OnInit {
       },
       usuarioImss: obj.usuarioCerIMSS,
       pwdImss: obj.contrasenaCerIMSS,
-      certificadoImss: obj.cerIMSS
+      certificadoImss: obj.cerIMSS,
+      esActivo:	true,
 
     }
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     if (!Boolean(this.arregloImss?.registroPatronalId)) {
 
       this.imssPrd.save(this.objenviar).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
           if (datos.resultado) {
             this.enviado.emit({type:"cancelar"});
@@ -179,6 +182,7 @@ export class DatosimssComponent implements OnInit {
 
       this.objenviar.registroPatronalId = this.arregloImss.registroPatronalId;
       this.imssPrd.modificar(this.objenviar).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
       });
 

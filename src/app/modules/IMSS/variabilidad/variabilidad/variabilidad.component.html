@@ -27,10 +27,21 @@
 
                     </div>
 
-                    <div class="  input-group-sm mb-3 col-10">
+                    <div *ngIf="conPromedios" class="  input-group-sm mb-3 col-10">
                         <label placement="top" [mdbTooltip]="'bimestre' | tooltip">Bimestre a calcular *</label>
                         <input formControlName="bimestre" maxlength="300" type="text" class="form-control disabled bg-light">
 
+                    </div>
+                    <div *ngIf="sinPromedios" class=" input-group-sm mb-3 col-10">
+                        <label for="exampleFormControlSelect1">Bimestre a calcular *</label>
+                        <select formControlName="bimestre" class="form-control">
+                            <option value="1">1er Bimestre</option>
+                            <option value="2">2do Bimestre</option>
+                            <option value="3">3er Bimestre</option>
+                            <option value="4">4to Bimestre</option>
+                            <option value="5">5to Bimestre</option>
+                            <option value="6">6to Bimestre</option>
+                        </select>
                     </div>
 
                     <div class="input-group-sm mb-3 col-10">
@@ -76,7 +87,7 @@
                     <div class="form-group margen row " *ngIf="listaVariable"><label class="titulo">BÚSQUEDA</label></div>
                     <div class="form group row margen" *ngIf="listaVariable">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="number" class="form-control" [(ngModel)]="anioFiltro" placeholder="Filtrar por año">
+                            <input appSolonumeros  type="text" maxlength="4" class="form-control" [(ngModel)]="anioFiltro" placeholder="Filtrar por año">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
                             <input type="number" class="form-control" [(ngModel)]="bimestre" placeholder="Filtrar por bimestre">
@@ -121,9 +132,9 @@
 
                     <div class="text-center margin" style="margin-bottom: 20px;" *ngIf="listaPromedio">
 
-                        <button type="button" (click)="cancelarPromedio()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                        <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-                        <button (click)="aplicarPromedio()" class="btn btn-primary button-fill">Calcular</button>
+                        <button (click)="aplicarPromedio()" class="btn btn-primary button-fill">Aplicar</button>
                     </div>
 
                 </div>
