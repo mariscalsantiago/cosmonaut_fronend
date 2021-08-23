@@ -119,7 +119,7 @@ export class NominaHistoricasComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.reportesPrd.getFoliosnominaConcluir(objEnviar).subscribe(objrecibido => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if (objrecibido.resultado) {
             this.reportesPrd.crearArchivo(objrecibido.datos, `Foliosfiscales_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "pdf");
           } else {

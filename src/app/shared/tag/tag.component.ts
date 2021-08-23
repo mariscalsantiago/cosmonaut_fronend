@@ -126,6 +126,9 @@ export class TagComponent implements OnInit,OnChanges {
       if(this.arregloEtiquetas.length >= Number(this.dias)){
           return;
       }
+
+      console.log("Esta es la fecha",this.elementoSeleccionado);
+
       this.arregloEtiquetas.push(this.elementoSeleccionado);
       this.elementoSeleccionado = "";
       this.salida.emit(this.arregloEtiquetas);
