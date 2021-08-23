@@ -29,7 +29,7 @@ export class FormatosDirective implements OnInit {
 
   @HostListener("input", ["$event"])
   onInput(event: KeyboardEvent) {
-    console.log("onInput");
+    
     if (this.letras) {
       if (this.minusculas)
         this.el.nativeElement.value = `${this.el.nativeElement.value}`.toLowerCase();
@@ -162,7 +162,7 @@ export class FormatosDirective implements OnInit {
   }
   @HostListener("change", ["$event"])
   onChange(event: KeyboardEvent) {
-    console.log("Si cambia");
+    
   }
 
 
@@ -176,7 +176,7 @@ export class FormatosDirective implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("Directiva");
+    
 
     if (this.moneda) {
       this.el.nativeElement.value = this.formatoMoneda(this.el.nativeElement.value);

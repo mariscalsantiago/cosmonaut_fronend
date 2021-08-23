@@ -218,7 +218,7 @@ export class LoginComponent implements OnInit {
 
 
       if(err.status == 401){
-        console.log(err.error);
+        
         if(!err.error.message.includes("Credenciales") && !err.error.message.includes("Crdenciales invalidas")){
             this.mensajeerror = true;
             this.incorrectoback = false;
@@ -380,15 +380,15 @@ export class LoginComponent implements OnInit {
   }
 
   public olvidastetupassword(valor:any) {
-    console.log(valor);
-    console.log("Si entra");
+    
+    
     if (this.correo?.nativeElement.value || Boolean(valor)) {
       let objenviar = {
         username: (!Boolean(valor))? this.correo.nativeElement.value?.toLowerCase():this.myForm.value.username?.toLowerCase()
       }
 
 
-      console.log(objenviar);
+      
       
       this.cargando = true;
       this.usuarioSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {

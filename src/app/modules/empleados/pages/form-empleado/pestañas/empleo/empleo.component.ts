@@ -95,8 +95,8 @@ export class EmpleoComponent implements OnInit {
 
 
 
-    console.log("Este es ele emplado");
-    console.log(this.tabsDatos[3]);
+    
+    
 
 
 
@@ -617,7 +617,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public cambiaArea($event: any) {
-    console.log("Vamos a ver lo que pasa");
+    
     this.myForm.controls.puestoId.disable();
 
 
@@ -735,10 +735,10 @@ export class EmpleoComponent implements OnInit {
 
   public cambiarGrupoNomina() {
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
-    console.log("Este es grupo nomina id",gruponominaId);
+    
 
     let aux = this.pagoComplementario(gruponominaId);
-    console.log("Este es aux",aux);
+    
 
     if(!this.noRestablecer){
       this.limpiarMontos()
@@ -879,7 +879,7 @@ export class EmpleoComponent implements OnInit {
     if (this.verificaCambiosNecesarios()) return;
 
 
-console.log(this.myForm.controls.sueldonetomensualppp);
+
 
     if(this.myForm.controls.sueldonetomensualppp.invalid){
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el sueldo neto PPP");

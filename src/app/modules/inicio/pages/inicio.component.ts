@@ -102,7 +102,7 @@ export class InicioComponent implements OnInit {
 
   public calcularFechasEventos(fechaActual: Date) {
     
-    console.log("Calcular fechas eventos");
+    
     
     let inicioMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
     let finalMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);

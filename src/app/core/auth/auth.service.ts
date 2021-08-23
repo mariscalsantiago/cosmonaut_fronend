@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   private guardarToken(respuesta: any,esregresh:boolean = false): void {
-    console.log("Este es el token",respuesta);
+    
     this.configuracionPrd.setElementosSesion(this.configuracionPrd.JWT,respuesta);
     if(esregresh){
       this.router.navigateByUrl('/');

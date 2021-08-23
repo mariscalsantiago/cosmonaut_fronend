@@ -355,7 +355,7 @@ export class TablapaginadoComponent implements OnInit {
 
 
   public ordenar(item: any) {
-    console.log(item);
+    
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
     this.ordInsercion(this.arreglotemp,item.id,item.acomodar);
     this.paginar();

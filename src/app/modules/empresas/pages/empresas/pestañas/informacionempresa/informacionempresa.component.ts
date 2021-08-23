@@ -143,7 +143,7 @@ export class InformacionempresaComponent implements OnInit {
 
       this.myform.controls.actividadEconomicaId.setValue("");
       this.myform.controls.actividadEconomicaId2.setValue("");
-      console.log("validarActividad2");
+      
     }
   }
 

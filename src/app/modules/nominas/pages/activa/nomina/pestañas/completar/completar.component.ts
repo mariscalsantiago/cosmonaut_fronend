@@ -16,6 +16,7 @@ export class CompletarComponent implements OnInit {
   private llave:string = "";
 
   @Input() nominaSeleccionada: any;
+  @Input() concluida:boolean = false;
 
   public cargandoIcon: boolean = false;
   public datos:any = {};
@@ -37,6 +38,8 @@ export class CompletarComponent implements OnInit {
     }
 
     this.cargandoIcon = true;
+
+    
 
     this.nominaPrd.concluir(this.nominaSeleccionada[this.llave].nominaXperiodoId,this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
       this.cargandoIcon = false;

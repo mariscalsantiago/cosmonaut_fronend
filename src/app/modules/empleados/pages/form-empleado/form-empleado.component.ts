@@ -53,7 +53,7 @@ export class FormEmpleadoComponent implements OnInit {
   ngOnInit(): void {
     
     let temp =  history.state.datos;
-    console.log("Este es el temporal del empleo",temp);
+    
     
     if(temp !== undefined){
       this.titulo = "COMPLETAR DATOS DEL EMPLEADO";
@@ -114,7 +114,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[3].disabled = false;
         this.activado[1].form = false;
         this.activado[1].seleccionado = false;
-        console.log("Esto es despues de guardar",elemento);
+        
         this.tabsEnviar[1] = elemento.datos;
         break;
       case "preferencias":

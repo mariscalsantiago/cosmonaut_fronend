@@ -380,7 +380,7 @@ export class PagosComponent implements OnInit {
   }
 
   public recibirTablaPer(obj: any) {
-    console.log("tabla percepciones",obj);
+    
 
     if (obj.type == "editar") {
       let datosPer = obj.datos;
@@ -484,8 +484,8 @@ export class PagosComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.contratoColaboradorPrd.update(objContrato).subscribe((respContrato) => {
           if (respContrato.resultado) {
-          console.log("respContrato",respContrato);
-          console.log("indexMetodoSeleccionado",this.indexMetodoSeleccionado);
+          
+          
           
             if(this.indexMetodoSeleccionado != 4){
               this.cancelar();
@@ -565,7 +565,7 @@ export class PagosComponent implements OnInit {
    this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
     this.cambiarGrupoNomina();
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
-    console.log(this.empleado,"createFormCompensacion");
+    
     
    this.detallecompensacionbool = false;
 
@@ -598,7 +598,7 @@ export class PagosComponent implements OnInit {
 
 
   public createFormCompensacion(obj: any) {
-    console.log("Se rellna el formulario",obj);
+    
     return this.formbuilder.group({
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
@@ -751,7 +751,7 @@ export class PagosComponent implements OnInit {
   public cambiarGrupoNomina() {
 
 
-    console.log("cambiarGrupoNomina");
+    
 
     const gruponominaId = this.myFormCompensacion.controls.grupoNominaId.value;
 
@@ -761,14 +761,14 @@ export class PagosComponent implements OnInit {
     
 
     if(!this.primeraVez){ 
-      console.log("limpiarMontos");
+      
       this.limpiarMontos()
     }
     this.primeraVez = false;
     this.grupoNominaSeleccionado = aux;
     //this.grupoNominaSeleccionado.pagoComplementario = true;
 
-    console.log("Este es pago complementario", this.grupoNominaSeleccionado);
+    
 
 
 

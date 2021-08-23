@@ -69,6 +69,9 @@ export class DetalleContactoComponent implements OnInit {
         this.cargandoCheckbox = false;
         this.myFormcont.controls.usuarioinicial.setValue(Boolean(valorusuario.datos));
         this.tieneUsuarioInicial = Boolean(valorusuario.datos);
+        if(this.tieneUsuarioInicial){
+          this.myFormcont.controls.usuarioinicial.disable();
+        }
       });
     }
 

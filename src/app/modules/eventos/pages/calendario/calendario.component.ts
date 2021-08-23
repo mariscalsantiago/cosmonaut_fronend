@@ -150,6 +150,7 @@ export class CalendarioComponent implements OnInit {
 
     this.eventos = [];
     Object.values(this.eventosCopia).forEach((valor: any) => {
+     
       if (arrayFiltrado.includes(valor.tipoIncidenciaId)) {
         this.eventos.push(valor);
       }

@@ -79,7 +79,7 @@ export class NominaHistoricasComponent implements OnInit {
 
     let objEnviar: any;
 
-    console.log(obj);
+    
 
 
 

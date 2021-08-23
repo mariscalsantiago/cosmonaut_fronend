@@ -316,7 +316,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
 
-          console.log(this.peticion);
+          
 
 
           //return;

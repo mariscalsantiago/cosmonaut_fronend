@@ -71,7 +71,7 @@ export class TimbradoEmpleadosComponent implements OnInit {
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
-        console.log(item.fechaTimbrado);
+        
         item["fechatimbre"] = new DatePipe("es-MX").transform((item.fechaTimbrado || new Date()), "dd/MM/yyyy");
         item["anio"] = new DatePipe("es-MX").transform((item.fechaTimbrado || new Date()), "yyyy");
         item["mes"] = new DatePipe("es-MX").transform((item.fechaTimbrado || new Date()), "MMM");

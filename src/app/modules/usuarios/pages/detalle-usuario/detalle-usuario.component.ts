@@ -37,6 +37,7 @@ export class DetalleUsuarioComponent implements OnInit {
   public summitenviado: boolean = false;
   public companiasenviar:any = [];
   public arregloRoles: any = [];
+  public inabilitar:boolean = false;
 
   public esClienteEmpresa:boolean = false;
 
@@ -77,18 +78,22 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.myForm = this.createForm(this.objusuario);
 
-    if(!this.insertar){
+    if(!this.insertar && this.esClienteEmpresa){
         let companiaSeleccionada = this.arregloCompany.find((o:any) => o["centrocClienteId"] == this.myForm.controls.centrocClienteId.value);
         this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
         
     }
 
+    if(!this.esClienteEmpresa && this.objusuario.rolId?.rolId == 2){
+         this.myForm.controls.nombre.disable();
+         this.myForm.controls.apellidoPaterno.disable();
+         this.myForm.controls.apellidoMaterno.disable();
+         this.myForm.controls.correoelectronico.disable();
+         this.myForm.controls.rol.disable();
+         this.myForm.controls.centrocClienteId.disable();
+         this.inabilitar = true;
 
-    this.routerActivePrd.params.subscribe(params =>{
-      
-    });
-
-
+      }
 
   }
 
@@ -150,7 +155,7 @@ export class DetalleUsuarioComponent implements OnInit {
   public enviarPeticion() {
 
     let companiaSeleccionada = this.arregloCompany.find((o:any)=>o["razonSocial"].includes(this.myForm.value.centrocClienteId));
-    console.log(companiaSeleccionada);
+    
 
 
 
@@ -168,7 +173,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
        
 
-        let obj = this.myForm.value;
+        let obj = this.myForm.getRawValue();
 
         let companysend = [];
         if(obj.multicliente){
@@ -176,8 +181,12 @@ export class DetalleUsuarioComponent implements OnInit {
             companysend.push(item.centrocClienteId);
           }
         }else{
-          let companiaSeleccionada = this.arregloCompany.find((o:any)=>o["razonSocial"].includes(obj.centrocClienteId));
-          obj.idRazonSocial = companiaSeleccionada.centrocClienteId;
+           if(this.esClienteEmpresa){
+            let companiaSeleccionada = this.arregloCompany.find((o:any)=>o["razonSocial"].includes(obj.centrocClienteId));
+            obj.idRazonSocial = companiaSeleccionada.centrocClienteId;
+           }else{
+            obj.idRazonSocial = obj.centrocClienteId;
+           }
         }
 
         let objAuthEnviar = {
