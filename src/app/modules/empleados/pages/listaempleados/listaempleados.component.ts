@@ -109,7 +109,7 @@ export class ListaempleadosComponent implements OnInit {
     let isInsertar = false;
     // this.empledoContratoPrd.getContratoColaboradorById(obj.datos.idPersona).subscribe(datos => {
  
-    //   
+      
     //   this.routerPrd.navigate(['empleados/empleado'],{ state: { datos: datos.datos, insertar: isInsertar } });
 
 

@@ -471,6 +471,7 @@ export class EmpleoComponent implements OnInit {
 
 
         let objEnviar: any = {
+          ...this.tabsDatos[3],
           areaId: { areaId: obj.areaId },
           puestoId: { puestoId: obj.puestoId },
           politicaId: { politicaId: obj.politicaId },
@@ -518,6 +519,15 @@ export class EmpleoComponent implements OnInit {
         if (this.tabsDatos[3]?.fechaContrato == undefined) {
           this.guardarContratoColaborador(objEnviar);
         } else {
+          if(!Boolean(objEnviar.jefeInmediatoId.personaId)){
+            objEnviar.jefeInmediatoId = null;
+        }
+
+        if(!Boolean(objEnviar.sedeId.sedeId)){
+          objEnviar.sedeId = null;
+          }
+
+          objEnviar.fechaContrato = this.tabsDatos[3]?.fechaContrato;
           this.actualizarContratoColaborador(objEnviar);
         }
 

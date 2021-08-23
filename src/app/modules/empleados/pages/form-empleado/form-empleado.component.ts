@@ -71,7 +71,7 @@ export class FormEmpleadoComponent implements OnInit {
 
       this.activado[0].tab = true;
       this.activado[1].tab = true;
-      this.activado[3].tab = true; //Temporal
+     // this.activado[3].tab = true; //Temporal
 
       //this.tabsEnviar[3] = temp;
       
