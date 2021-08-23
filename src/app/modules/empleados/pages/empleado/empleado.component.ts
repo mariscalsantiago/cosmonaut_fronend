@@ -77,7 +77,7 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       if (datos.datos?.url !== undefined) {
 
         this.elEmpleado.url = datos.datos?.url;
-        console.log("Me trae el url bien",this.elEmpleado.url);
+        
       }
 
     });

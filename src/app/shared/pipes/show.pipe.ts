@@ -10,8 +10,12 @@ export class ShowPipe implements PipeTransform {
     if(arr.length < 1){
       return text;
     }
+
+    
+    
     const resultado = arr.find(value => value[filter] === text) || {descripcion:''}
-    return resultado[column] ;
+    
+    return resultado[column]||'' ;
   }
 
 }

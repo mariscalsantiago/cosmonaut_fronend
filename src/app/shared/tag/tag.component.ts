@@ -126,6 +126,11 @@ export class TagComponent implements OnInit,OnChanges {
       if(this.arregloEtiquetas.length >= Number(this.dias)){
           return;
       }
+      let encontrado:boolean = this.arregloEtiquetas.some((o:any)=> o == this.elementoSeleccionado)
+      if(encontrado){
+        this.elementoSeleccionado = "";
+        return;
+      };
       this.arregloEtiquetas.push(this.elementoSeleccionado);
       this.elementoSeleccionado = "";
       this.salida.emit(this.arregloEtiquetas);

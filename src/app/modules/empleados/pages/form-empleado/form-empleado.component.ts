@@ -54,6 +54,7 @@ export class FormEmpleadoComponent implements OnInit {
     
     let temp =  history.state.datos;
     
+    
     if(temp !== undefined){
       this.titulo = "COMPLETAR DATOS DEL EMPLEADO";
       this.datosPersona = temp;
@@ -70,6 +71,9 @@ export class FormEmpleadoComponent implements OnInit {
 
       this.activado[0].tab = true;
       this.activado[1].tab = true;
+     // this.activado[3].tab = true; //Temporal
+
+      //this.tabsEnviar[3] = temp;
       
       if(this.datosPersona?.reactivarCuenta){
         this.titulo = "REACTIVACIÓN DEL EMPLEADO";
@@ -110,7 +114,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[3].disabled = false;
         this.activado[1].form = false;
         this.activado[1].seleccionado = false;
-        console.log("Esto es despues de guardar",elemento);
+        
         this.tabsEnviar[1] = elemento.datos;
         break;
       case "preferencias":

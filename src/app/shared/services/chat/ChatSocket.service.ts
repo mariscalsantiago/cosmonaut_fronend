@@ -132,12 +132,12 @@ export class ChatSocketService {
       return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/${idEmpresa}`);
   }
   public getMensajeGenericoByEmpresaByEmpleado(idEmpresa:number,idUsuario:number):Observable<any>{
-    console.log(`${direcciones.chat}/listar/usuario/${idEmpresa}/${idUsuario}`);
+    
     return this.http.get(`${direcciones.administrarMensajeChat}/lista/empresa/usuario/${idEmpresa}/${idUsuario}`);
 }
 
 public getMensajesrecibidosPorEmpleado(idEmpresa:number,idUsuario:number):Observable<any>{
-  console.log(`${direcciones.chat}/listar/usuario/${idEmpresa}/${idUsuario}`);
+  
   return this.http.get(`${direcciones.chat}/listar/usuario/${idEmpresa}/${idUsuario}`);
 }
 

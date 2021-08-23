@@ -179,25 +179,25 @@ export class ContenidoComponent implements OnInit {
       } else {
 
 
-        console.log("Ya estar cargado este show");
+        
 
 
         if (!Boolean(this.configuracionPrd.MENUPRINCIPAL)) {
           console.log("!Boolean(this.configuracionPrd.MENUPRINCIPAL)");
           this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
             this.PRINCIPAL_MENU = datos;
-            console.log("this.PRINCIPAL_MENU = datos;");
-            console.log(this.PRINCIPAL_MENU);
+            
+            
             this.establecericons();
             this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-            console.log(this.usuariosSistemaPrd.usuario);
+            
             if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
               this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
               });
             } else {
               if (!this.usuariosSistemaPrd.usuario.esCliente) {
-                console.log("Se va a activar el chat");
+                
                 this.darClickChat(true);
               } else {
                 this.configuracionPrd.ocultarChat = true;
@@ -216,7 +216,7 @@ export class ContenidoComponent implements OnInit {
               });
             } else {
               if (!this.usuariosSistemaPrd.usuario.esCliente) {
-                console.log("Se va a activar el chat despues en el else cargado esto");
+                
                 this.darClickChat(true);
               } else {
                 this.configuracionPrd.ocultarChat = true;
@@ -398,12 +398,12 @@ export class ContenidoComponent implements OnInit {
       this.chat.datos.numeromensajes = 0;
       this.chat.datos.mensajeRecibido = false;
       if (autoconectable) {
-        console.log("autoconectable");
+        
         if (!this.chatPrd.isConnect()) {
           console.log("!this.chatPrd.isConnect()");
 
           this.chatPrd.getMensajesrecibidosPorEmpleado(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getUsuario().usuarioId).subscribe(datos => {
-            console.log("this.chatPrd.getMensajeGenericoByEmpresaByEmpleado(t",datos);
+            
             if (datos.datos) {
               let obj = datos.datos[0];
               let mensajes = obj.mensajes;

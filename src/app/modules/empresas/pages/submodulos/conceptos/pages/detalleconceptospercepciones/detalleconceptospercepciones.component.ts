@@ -322,7 +322,7 @@ debugger;
 
 
 
-          console.log(this.peticion);
+          
 
 
           //return;

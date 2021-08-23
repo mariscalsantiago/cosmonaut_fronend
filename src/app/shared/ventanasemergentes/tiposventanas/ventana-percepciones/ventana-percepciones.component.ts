@@ -76,7 +76,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     }
     this.myForm.clearValidators();
     this.myForm.updateValueAndValidity();
-    console.log(this.myForm.controls);
+    
 
     this.suscripciones();
 
@@ -144,9 +144,9 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.myForm.updateValueAndValidity();
 
     if (Boolean(tipo)) {
-      console.log("tuoi politica", tipo);
+      
       if (tipo == 1) {
-        console.log("tipo 1");
+        
         this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
         this.myForm.controls.baseCalculoId.updateValueAndValidity();
         this.myForm.controls.montoPercepcion.setValidators([Validators.required]);
@@ -172,7 +172,6 @@ export class VentanaPercepcionesComponent implements OnInit {
               item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
             }
             this.nombrePercepcion = datos.datos;
-            console.log("this.myForm.controls.nomPercepcion.enable();TIPO P");
             this.myForm.controls.nomPercepcion.enable();
           });
         } else {
@@ -182,7 +181,6 @@ export class VentanaPercepcionesComponent implements OnInit {
 
             }
             this.nombrePercepcion = datos.datos;
-            console.log("this.myForm.controls.nomPercepcion.enable();");
             this.myForm.controls.nomPercepcion.enable();
 
           });

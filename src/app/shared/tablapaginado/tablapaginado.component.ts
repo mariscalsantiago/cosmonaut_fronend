@@ -355,6 +355,7 @@ export class TablapaginadoComponent implements OnInit {
 
 
   public ordenar(item: any) {
+    
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
     this.ordInsercion(this.arreglotemp,item.id,item.acomodar);
     this.paginar();
@@ -366,11 +367,17 @@ export class TablapaginadoComponent implements OnInit {
     for (i = 1; i < a.length; i++) {
       j = i;
       aux = a[i];
+
+      console.log(aux[llave]+"  "+a[j - 1][llave]+"="+(`${aux[llave] < a[j - 1][llave]}`));
      if(tipoAcomodo){
-      while (j > 0 && (aux[llave]==undefined?" ":`${aux[llave]}`)?.toUpperCase() < (a[j - 1][llave] == undefined?" ":`${a[j - 1][llave]}`)?.toUpperCase()) {
+       
+      debugger;
+      while (j > 0 && ((`${aux[llave] || ' '}`)?.toUpperCase() < (`${a[j - 1][llave] || ' '}`)?.toUpperCase())) {
+
         a[j] = a[j - 1];
         j--;
       }
+        debugger;
      }else{
       while (j > 0 && (aux[llave]==undefined?" ":`${aux[llave]}`)?.toUpperCase() > (a[j - 1][llave] == undefined?" ":`${a[j - 1][llave]}`)?.toUpperCase()) {
         a[j] = a[j - 1];

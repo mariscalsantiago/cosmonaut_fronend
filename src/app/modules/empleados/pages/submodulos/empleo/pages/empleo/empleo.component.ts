@@ -123,7 +123,7 @@ export class EmpleoComponent implements OnInit {
       fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd')],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
-      puesto_id_reporta: obj.jefeInmediatoId?.personaId,
+      puesto_id_reporta: [`${obj.jefeInmediatoId?.nombre || ''} ${obj.jefeInmediatoId?.apellidoPaterno || ''} ${obj.jefeInmediatoId?.apellidoMaterno || ''}`.trim()],
       areaGeograficaId: [obj.areaGeograficaId?.areaGeograficaId, [Validators.required]],
       esSindicalizado: [`${obj.esSindicalizado}`],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
@@ -212,8 +212,14 @@ export class EmpleoComponent implements OnInit {
           esSindicalizado: obj.esSindicalizado,
           fechaAltaImss: obj.fechaAltaImss,
           numEmpleado: this.myForm.getRawValue().numEmpleado,
+          tipoContratoId:{tipoContratoId:obj.tipoContratoId},
+          diasVacaciones: obj.dias_vacaciones,
+          areaGeograficaId: { areaGeograficaId: obj.areaGeograficaId },
+          tipoRegimenContratacionId: { tipoRegimenContratacionId: obj.tipoRegimenContratacionId },
           esActivo: true
         }
+
+
 
         if(!Boolean(objEnviar.jefeInmediatoId.personaId)){
             objEnviar.jefeInmediatoId = null;

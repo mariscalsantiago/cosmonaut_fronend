@@ -38,7 +38,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     let arregloResagado = [];
     let primerapasada:boolean = false;
-    console.log("NGONCHANGES CALDENARIIO",this.eventos);
+    console.log("NGONCHANGES CALDENARIIO",JSON.stringify(this.eventos));
     if(this.arregloArreglos[0] == undefined) return;
     
    let datepipe = new DatePipe("es-MX");
@@ -198,6 +198,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
 
   public aparecerModalEvento(evento: any, mouse: any) {
+    
     this.eventoActual = evento;
 
 
@@ -209,6 +210,12 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
    
     switch(evento.tipoIncidenciaId){
+      case 9:
+        this.eventoActual.color = "#bec3cd ";
+        break;
+        case 16:
+        this.eventoActual.color = "#336699";
+        break;
       case 8:
         this.eventoActual.color = "#67bf89";
         break;

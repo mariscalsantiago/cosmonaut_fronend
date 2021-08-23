@@ -116,7 +116,7 @@ export class DetalleCompanyComponent implements OnInit {
 
   public createFormcomp(obj: any) {
     
-    console.log("Creacion de forms componente",obj);
+    
 
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({

@@ -30,7 +30,7 @@
                         <td class="posicion fade-in " [ngClass]="{'noEsDia':!aux.mesActual,'tdActual':aux.esDiaNow}" *ngFor="let aux of item"><span class="absolutoClass"><span
                                     [ngClass]="{'diaActual':aux.esDiaNow}">{{aux.dia}}</span></span>
 
-                            <div style="width: 100%; min-height: 16px;" (click)="aparecerModalEvento(evento,$event)" *ngFor="let evento of aux.eventos" class="evento otros" [ngClass]="{'aniversarios':evento.tipoIncidenciaId == 'aniversario','cumpleanios':evento.tipoIncidenciaId == 8,'faltas':evento.tipoIncidenciaId == 5,'diaseconomicos':evento.tipoIncidenciaId == 2,'vacaciones':evento.tipoIncidenciaId == 1,'horasextras':evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14,'incapacidades':evento.tipoIncidenciaId == 3,'descansolaborados':evento.tipoIncidenciaId == 11}">
+                            <div style="width: 100%; min-height: 16px;" (click)="aparecerModalEvento(evento,$event)" *ngFor="let evento of aux.eventos" class="evento otros" [ngClass]="{'primadominical':evento.tipoIncidenciaId == 9,'festivoslaborados':evento.tipoIncidenciaId == 16,'cumpleanios':evento.tipoIncidenciaId == 8,'faltas':evento.tipoIncidenciaId == 5,'diaseconomicos':evento.tipoIncidenciaId == 2,'vacaciones':evento.tipoIncidenciaId == 1,'horasextras':evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14,'incapacidades':evento.tipoIncidenciaId == 3,'descansolaborados':evento.tipoIncidenciaId == 11}">
                                 {{evento.nombre}}
                             </div>
 
@@ -58,7 +58,7 @@
 
         <span style="color:white;font-size: small;">Dias: {{eventoActual.duracion}}</span> <br>
         <span style="color:white;font-size: small;">Fecha inicio: {{eventoActual.fechaInicio | date:'yyyy MMM dd'}}</span><br>
-        <span style="color:white;font-size: small;">Fecha termino: {{eventoActual.fechaTermino | date:'yyyy MMM dd'}}</span><br>
+        <span style="color:white;font-size: small;">Fecha termino: {{eventoActual.fechaFin | date:'yyyy MMM dd'}}</span><br>
         <span style="color:white;font-size: small;">Fecha aplicación: {{eventoActual.fechaAplicacion | date:'yyyy MMM dd'}}</span><br>
         <span style="color:white;font-size: small;">Monto: {{eventoActual.monto}}</span><br>
         <span style="color:white;font-size: small;">Politica aplicación: {{eventoActual.politicaNombre }}</span><br>

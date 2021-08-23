@@ -401,16 +401,16 @@ export class PersonalComponent implements OnInit {
           esMulticliente:false,
           usuarioId:obj.usuarioId
         }
-        console.log("Esto trae el usuario",esUsuario);
+        
         if(!Boolean(esUsuario)){
          
-          console.log("Se guardara");
+          
           delete objAuthEnviar.usuarioId;
           this.usuarioAuthPrd.guardar(objAuthEnviar).subscribe((datos) => {
             if(!datos.resultado){
                 this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
             }else{
-              console.log("Se va a modificar");
+              
               this.empleado = datos.datos;
               this.parsearInformacion();
               this.actualizarDomicilio();

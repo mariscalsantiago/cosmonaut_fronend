@@ -38,7 +38,7 @@ export class CuentasComponent implements OnInit {
 
   public createForm(obj: any) {
     
-    console.log(obj,"datos bancarios");
+    
 
     return this.formBuild.group({
 

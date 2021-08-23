@@ -31,22 +31,23 @@ export class DetalleContactoComponent implements OnInit {
   public datosEmpresa: any;
 
   public submitEnviado: boolean = false;
-  public  esModificaEmpresa:boolean = false;
+  public esModificaEmpresa: boolean = false;
 
-  public cargandoCheckbox:boolean = false;
+  public cargandoCheckbox: boolean = false;
+  public tieneUsuarioInicial: boolean = false;
 
 
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
-    private routerPrd: Router, private modalPrd: ModalService,private usuariosAuth:UsuariosauthService,public configuracionPrd:ConfiguracionesService,
-    private usuarioSistemaPrd:UsuarioSistemaService) {
+    private routerPrd: Router, private modalPrd: ModalService, private usuariosAuth: UsuariosauthService, public configuracionPrd: ConfiguracionesService,
+    private usuarioSistemaPrd: UsuarioSistemaService) {
 
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
     });
 
 
-   
+
 
 
     this.fechaActual = new Date();
@@ -61,13 +62,17 @@ export class DetalleContactoComponent implements OnInit {
 
     this.myFormcont = this.createFormcont((this.objcontacto));
 
-    if(Boolean(history.state.datos)){
+    if (Boolean(history.state.datos)) {
 
       this.cargandoCheckbox = true;
-     this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.objcontacto?.emailCorporativo)).subscribe(valorusuario => {
-       this.cargandoCheckbox = false;
-       this.myFormcont.controls.usuarioinicial.setValue(Boolean(valorusuario.datos));
-     });
+      this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.objcontacto?.emailCorporativo)).subscribe(valorusuario => {
+        this.cargandoCheckbox = false;
+        this.myFormcont.controls.usuarioinicial.setValue(Boolean(valorusuario.datos));
+        this.tieneUsuarioInicial = Boolean(valorusuario.datos);
+        if(this.tieneUsuarioInicial){
+          this.myFormcont.controls.usuarioinicial.disable();
+        }
+      });
     }
 
   }
@@ -90,12 +95,12 @@ export class DetalleContactoComponent implements OnInit {
       celular: [obj.celular],
       curp: [obj.curp, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
       emailCorporativo: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
-      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
+      contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(this.fechaActual,"dd-MMM-yyyy") : obj.fechaAlta), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(this.fechaActual, "dd-MMM-yyyy") : obj.fechaAlta), disabled: true }, [Validators.required]],
       personaId: obj.personaId,
-      contactoInicialPuesto:obj.contactoInicialPuesto,
-      usuarioinicial:[obj.usuarioinicial]
+      contactoInicialPuesto: obj.contactoInicialPuesto,
+      usuarioinicial: [obj.usuarioinicial]
 
     });
   }
@@ -104,7 +109,7 @@ export class DetalleContactoComponent implements OnInit {
 
     this.submitEnviado = true;
 
-  
+
     if (this.myFormcont.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -133,7 +138,7 @@ export class DetalleContactoComponent implements OnInit {
           centrocClienteId: {
             centrocClienteId: this.datosEmpresa.centrocClienteId
           },
-          contactoInicialPuesto:obj.contactoInicialPuesto
+          contactoInicialPuesto: obj.contactoInicialPuesto
         }
 
 
@@ -144,38 +149,38 @@ export class DetalleContactoComponent implements OnInit {
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.companyPrd.savecont(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
-              if(datos.resultado){
-                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+            if (datos.resultado) {
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
                 .then(() => {
 
-                  if(obj.usuarioinicial){
-                      let objAuthEnviar = {
-                        nombre:  obj.nombre,
-                        apellidoPat: obj.apellidoPaterno,
-                        apellidoMat: obj.apellidoMaterno,
-                        email: obj.emailCorporativo?.toLowerCase(),
-                        centrocClienteIds: [this.datosEmpresa.centrocClienteId],
-                        rolId: 1
+                  if (obj.usuarioinicial) {
+                    let objAuthEnviar = {
+                      nombre: obj.nombre,
+                      apellidoPat: obj.apellidoPaterno,
+                      apellidoMat: obj.apellidoMaterno,
+                      email: obj.emailCorporativo?.toLowerCase(),
+                      centrocClienteIds: [this.datosEmpresa.centrocClienteId],
+                      rolId: 1
                     }
 
-                    this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv =>{
-                      if(!vv.resultado){
-                          this.modalPrd.showMessageDialog(vv.resultado,vv.mensaje);
+                    this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
+                      if (!vv.resultado) {
+                        this.modalPrd.showMessageDialog(vv.resultado, vv.mensaje);
                       }
                     });
                   }
 
-                  if(this.esModificaEmpresa){
+                  if (this.esModificaEmpresa) {
                     this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } });
-                  }else{
+                  } else {
                     this.routerPrd.navigate(['company'])
                   }
                 });
-              }else{
-                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-              }
+            } else {
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+            }
 
             this.compania = false;
             this.contacto = true;
@@ -186,17 +191,39 @@ export class DetalleContactoComponent implements OnInit {
           objEnviar.personaId = obj.personaId;
 
 
-          
-          
+
+
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            if (datos.resultado) {
+              if (!this.tieneUsuarioInicial) {
+                if (obj.usuarioinicial) {
+                  let objAuthEnviar = {
+                    nombre: obj.nombre,
+                    apellidoPat: obj.apellidoPaterno,
+                    apellidoMat: obj.apellidoMaterno,
+                    email: obj.emailCorporativo?.toLowerCase(),
+                    centrocClienteIds: [this.datosEmpresa.centrocClienteId],
+                    rolId: 1
+                  }
 
-            
-            if(datos.resultado){
-              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-              .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
-            }else{
+                  this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
+                    if (!vv.resultado) {
+                      this.modalPrd.showMessageDialog(vv.resultado, vv.mensaje);
+                    } else {
+                      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+                        .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
+                    }
+                  });
+                } else {
+                  this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+                    .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
+                }
+              } else {
+                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+                  .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
+              }
+            } else {
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
             }
 

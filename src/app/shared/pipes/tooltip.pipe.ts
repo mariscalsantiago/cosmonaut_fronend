@@ -103,6 +103,8 @@ export class TooltipPipe implements PipeTransform {
       return "Editar usuario";
     } else if(value === 'resetPass'){
       return "Resetear contraseña";
+    }else if(value =='contactoinicial'){
+        return "Para desactivar a este usuario es necesario hacerlo desde el módulo de Administración de usuarios.";
     }
    
     return '';

@@ -82,7 +82,7 @@ export class NominasActivasComponent implements OnInit {
         }
       }
 
-      console.log("Este es el arreglo",this.arreglo);
+      
     });
   }
 

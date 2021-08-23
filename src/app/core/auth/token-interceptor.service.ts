@@ -61,7 +61,7 @@ export class TokenInterceptorService implements HttpInterceptor {
               filter(accessToken => accessToken !== null),
               take(1),
               switchMap(token => {
-                console.log("Este token se refresca TOKEN",token);
+                
                 req = req.clone({
                   headers: new HttpHeaders({
                     'Content-Type': 'application/json',
