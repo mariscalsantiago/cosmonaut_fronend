@@ -27,6 +27,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public mostrartipoPercepcion: string = "E";
   public mensajePercepcion: boolean = false;
   public noMensajePercepcion: boolean = true; 
+  public limpiarTipopercepcion: boolean = false;
 
 
   public peticion: any = [];
@@ -37,7 +38,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   ngOnInit(): void {
     
-
+debugger;
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -76,11 +77,11 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       this.obj.gravaIsr = false
     }
     if (this.obj.integraImss == "S") {
-      this.obj.gravaIsr = true
+      this.obj.integraImss = true
     }
 
     if (this.obj.integraImss == "N") {
-      this.obj.gravaIsr = false
+      this.obj.integraImss = false
     }
     if(this.obj.tipoPercepcionId.tipoPeriodicidad == "A"){
       this.obj.tipoPeriodicidad = "A"
@@ -124,7 +125,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
-    
+    debugger;
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
       this.arregloTipoPercepcion = datos.datos 
     if(this.arregloTipoPercepcion == undefined){
@@ -153,10 +154,13 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   public validarTipoConcepto(tipo:any){
   
-      
+      debugger;
+      this.limpiarTipopercepcion = false;
       let type = String(tipo).substring(0,3)
       for(let item of this.arregloTipoPercepcion){
+        
         if(item.tipoPercepcionId == Number(type)){
+          this.limpiarTipopercepcion = true;
           this.tipoPercepcion = item.tipoPercepcionId + "-" + item.especializacion;
           if(item.tipoConcepto == "N"){
             this.mostrartipoConcepto = false;
@@ -230,7 +234,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
           }
 
         }
-
+      }
+      if(!this.limpiarTipopercepcion){
+        this.myForm.controls.tipoPercepcionId.setValue('');
       }
   }
 

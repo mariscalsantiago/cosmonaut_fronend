@@ -126,6 +126,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 
 
   public crearTablaDeduccion(datos:any){
+    debugger;
     this.arreglotablaDed = datos.datos;
 
     
@@ -157,6 +158,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 
 
   public crearTablaPercepcion(datos:any){
+    debugger;
     
     if(datos.datos !== undefined){
       datos.datos.forEach((part:any) => {
@@ -344,7 +346,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
           this.eliminarPer(obj.datos);
         break;
         case "desglosar":
-          
+          debugger;
           let item = obj.datos;
 
           let columnas:Array<tabla> = [

@@ -727,7 +727,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
-          
+          debugger;
           let  obj = this.myForm.getRawValue();
           
 
@@ -887,10 +887,6 @@ export class VentanaDeduccionesComponent implements OnInit {
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
-            nombreretencion: this.nombreretencion,
-            nombresuspension: this.nombresuspension,
-            docsupension: obj.suspension,
-            docretencion: obj.retencion,
             numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
@@ -930,6 +926,10 @@ export class VentanaDeduccionesComponent implements OnInit {
             folioAvisoSuspension: obj.folioAvisoSuspension,
             fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
             esActivo: obj.esActivo,
+            nombreretencion: this.nombreretencion,
+            nombresuspension: this.nombresuspension,
+            docsupension: obj.suspension,
+            docretencion: obj.retencion,
             numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
