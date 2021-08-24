@@ -262,6 +262,7 @@ export class InformacionbasicaComponent implements OnInit {
     if (this.myform.controls.tieneHijos.value == "true") {
       this.myform.controls.numeroHijos.enable();
     } else {
+      this.myform.controls.numeroHijos.setValue("");
       this.myform.controls.numeroHijos.disable();
     }
   }

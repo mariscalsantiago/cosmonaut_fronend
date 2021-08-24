@@ -285,6 +285,7 @@ export class TimbrarComponent implements OnInit {
 
         for (let item of this.arreglo) {
           if (item.seleccionado) {
+            console.log("Este es el seleciconado",item);
             obj.push({
               nominaPeriodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
               personaId: item[this.llave].personaId,
