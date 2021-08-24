@@ -56,20 +56,13 @@
                                 <input [(ngModel)]="valor" [ngModelOptions]="{standalone: true}" name="seleccion" type="radio" value="3">
                                 <span class="radiomark"></span>
                             </label>
-
-                                    <div *ngIf="valor == '3'">
-                                        <div class=" input-group-sm mb-3 col-8">
-                                            <label style="font-size: 12px;" >Empleados *</label>
-                                            <input style="font-size: 12px;" autocomplete="off" (focusout)="validarEmpleado()" list="empleadosreporta" class="form-control" formControlName="personaId" name="browser" id="browser">
-                                                
-                                            <datalist id="empleadosreporta">
-                                                <option *ngFor="let item of arregloEmpleados" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno + ' ' + ((item.personaId.apellidoMaterno == undefined) ? '':item.personaId.apellidoMaterno)"></option>
-                                            </datalist>
-                                        </div>
-                                        
-
-                                    </div>
+                            <div *ngIf="valor == '3'">
+                                <div class="input-group-sm mb-3 col-8">
+                                    <label for="exampleFormControlSelect1" style="font-size: 12px;">Empleados *</label>
+                                    <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
                                 </div>
+                            </div>   
+                            </div>
 
                             </div>
                             <div class="text-right margin" style="margin-bottom: 20px;">

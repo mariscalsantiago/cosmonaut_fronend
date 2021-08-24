@@ -65,7 +65,6 @@ export class CargaMasivaEventosComponent implements OnInit {
     private reportesPrd: ReportesService,private EmpleadosService:EmpleadosService,public configuracionPrd:ConfiguracionesService) { }
  
   ngOnInit(): void {
-
     this.establecerPermisos();
 
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
@@ -152,7 +151,7 @@ export class CargaMasivaEventosComponent implements OnInit {
   }
 
   public recibirEtiquetas(obj: any) {
-    
+    debugger;
     this.etiquetas = obj;
  }
 
@@ -256,10 +255,10 @@ export class CargaMasivaEventosComponent implements OnInit {
          }
           break;
         case "3":
-          //for(let item of this.etiquetas){
-          
-              valor.push(this.personaId);
-         //}
+          for(let item of this.etiquetas){
+        
+            valor.push(item.personaId?.personaId);
+       }
           break;
       }
       return valor;
