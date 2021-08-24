@@ -25,10 +25,12 @@ export class DetallejornadalaboralComponent implements OnInit {
   public horarioComida: boolean = false;
   public jornada: any;
   public horaSalida : any;
-
-
-  
-
+  public hr : number = 0;
+  public hrEntrada : number = 0;
+  public newValue : any;
+  public hrComida : number = 0;
+  public newValueComida : any;
+  public hrSalida : number = 0;
 
 
   constructor(private formbuilder: FormBuilder, private activeprd: ActivatedRoute,
@@ -566,19 +568,28 @@ export class DetallejornadalaboralComponent implements OnInit {
     
     this.myForm.clearValidators();
     //this.myForm.updateValueAndValidity();
+    this.myForm.controls.horaFinComida.disable();
+    this.myForm.controls.horaInicioComida.disable();
     this.jornada = String(op.value);
     if(this.jornada =='1'){
       this.myForm.controls.horaSalida.disable();
-    }
-    if(this.jornada =='2' || this.jornada =='1'){
       this.myForm.controls.horaInicioComida.setValidators([]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();
       this.myForm.controls.horaFinComida.setValidators([]);
       this.myForm.controls.horaFinComida.updateValueAndValidity();
+    }
+    if(this.jornada =='2' ){
+      this.myForm.controls.horaSalida.enable();
+      this.myForm.controls.horaInicioComida.setValidators([]);
+      this.myForm.controls.horaInicioComida.updateValueAndValidity();
+      this.myForm.controls.horaFinComida.setValidators([]);
+      this.myForm.controls.horaFinComida.updateValueAndValidity();
+ 
       
     }
 
     if(this.jornada =='3'){
+      this.myForm.controls.horaSalida.enable();
       this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();
       this.myForm.controls.horaFinComida.setValidators([Validators.required]);
@@ -589,34 +600,65 @@ export class DetallejornadalaboralComponent implements OnInit {
     
   }
 
+  public hrDeSalida(response : any){
+    debugger;
+      
+      if(response.value !== undefined){
+        this.hrSalida = Number(response.value.substring(0,2));
+        this.myForm.controls.horaInicioComida.enable();
+      } 
+  }
+
+  public hrInicioComida(response : any){
+    debugger;
+      
+      if(response.value !== undefined){
+        this.hrComida = Number(response.value.substring(0,2));
+        this.newValueComida = response.value.replace(response.value.substring(0,2),Number(response.value.substring(0,2))+1)
+
+        if(this.hrComida >= this.hrEntrada && this.hrComida < this.hrSalida){
+          this.myForm.controls.horaFinComida.enable();
+          this.myForm.controls.horaFinComida.setValue(this.newValueComida);
+          this.myForm.value.horaFinComida = this.newValueComida ;
+
+        }else{
+          this.myForm.controls.horaInicioComida.setValue('');
+        }
+
+      } 
+  }
+
   public hrInicio(response : any){
+    debugger;
     if(this.jornada === '1') {
       this.myForm.controls.horaSalida.disable();
-      let hr : number;
-      let newValue : any;
       if(response.value !== undefined){
-        hr = Number(response.value.substring(0,2))+8;
-        newValue = response.value.replace(response.value.substring(0,2),Number(response.value.substring(0,2))+8)
+        this.hrEntrada = Number(response.value.substring(0,2));
+        this.hr = Number(response.value.substring(0,2))+8;
+        this.newValue = response.value.replace(response.value.substring(0,2),Number(response.value.substring(0,2))+8)
+        
 
       } else {
-         hr = Number(response.substring(0,2))+8;
-         newValue = response.replace(response.substring(0,2),Number(response.substring(0,2))+8)
-
-
+        this.hr = Number(response.substring(0,2))+8;
+        this.newValue = response.replace(response.substring(0,2),Number(response.substring(0,2))+8)
       }
 
-    if(hr  === 8 || hr === 9){
-      newValue = response.value.replace(response.value.substring(0,2),'0'+String(hr))
+    if(this.hr  === 8 || this.hr === 9){
+      this.newValue = response.value.replace(response.value.substring(0,2),'0'+String(this.hr))
     }
-    if(hr > 23) {
-      newValue = response.value.replace(response.value.substring(0,2),'0'+String(hr - 24))
+    if(this.hr > 23) {
+      this.newValue = response.value.replace(response.value.substring(0,2),'0'+String(this.hr - 24))
     }
 
-    this.myForm.controls.horaSalida.setValue(newValue);
-    this.myForm.value.horaSalida = newValue ;
+    this.myForm.controls.horaSalida.setValue(this.newValue);
+    this.myForm.value.horaSalida = this.newValue ;
 
-    this.horaSalida = newValue;
+    this.horaSalida = this.newValue;
    
+    }else{
+      if(response.value !== undefined){
+        this.hrEntrada = Number(response.value.substring(0,2));
+      }
     }
     
   }
