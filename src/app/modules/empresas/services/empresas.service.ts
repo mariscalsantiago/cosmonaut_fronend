@@ -173,7 +173,7 @@ public recalculoPromedioVariables(id_Variabilidad:number):Observable<any>{
 
   public eliminarPPP(id:any):Observable<any>{
 
-    return this.http.post(`${direcciones.imss}/eliminar/${id}`,{});
+    return this.http.delete(`${direcciones.imss}/eliminar/${id}`,{});
   }
     
   

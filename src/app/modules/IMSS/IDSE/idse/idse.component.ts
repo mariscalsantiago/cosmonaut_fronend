@@ -79,7 +79,7 @@ export class IDSEComponent implements OnInit {
     this.arreglo = datos.datos;
     const columna: Array<tabla> = [
       new tabla("nombre", "Nombre completo del empleado"),
-      new tabla("sbc", "SBC"),
+      new tabla("sbcDecimal", "SBC"),
       new tabla("movimiento", "Movimiento"),
       new tabla("fechamovimiento", "Fecha de movimiento")
     ];
@@ -95,7 +95,7 @@ export class IDSEComponent implements OnInit {
         item.fecha_movimiento = (new Date(item.fecha_movimiento).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fechamovimiento = datepipe.transform(item.fecha_movimiento , 'dd-MMM-y')?.replace(".","");
-
+        item.sbcDecimal = item.sbc.toFixed(2);  
         item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
         item.esActivo = item.es_activo;
         if(item.esActivo){
@@ -174,7 +174,7 @@ export class IDSEComponent implements OnInit {
           clienteId: this.idEmpresa,
           fechaMovimiento: this.fechaMovimiento
         };
-   console.log('fechaMov', this.objFiltro)
+        this.fechaMovimiento = new Date('0000-00-00');
   
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
@@ -224,9 +224,9 @@ export class IDSEComponent implements OnInit {
 
         this.reportesPrd.getDescargaLayaoutIDSE(this.arregloIDSE).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
+          const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
-          const fileName = `${"Layaout  IDSE"}.xlsx`;
+          const fileName = `${"Layaout  IDSE"}.txt`;
   
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
@@ -296,7 +296,7 @@ export class IDSEComponent implements OnInit {
           new tabla("registro_patronal", "Registro patronal"),
           new tabla("esActivo", "Estatus de empleado"),
           new tabla("salario_diario", "Salario diario"),
-          new tabla("sbc", "SBC"),
+          new tabla("sbcDecimal", "SBC"),
           //new tabla("salario_diario_integrado", "Salario diario integrado"),
 
           
