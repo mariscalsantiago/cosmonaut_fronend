@@ -95,6 +95,29 @@ export class DetalleUsuarioComponent implements OnInit {
 
       }
 
+
+      this.suscripciones();
+
+  }
+
+  public suscripciones(){
+    this.myForm.controls.rol.valueChanges.subscribe(valor =>{
+      console.log(this.usuariosSistemaPrd.getVersionSistema())
+      if(this.usuariosSistemaPrd.esCliente()){
+          if(valor == 3){
+            this.myForm.controls.multicliente.disable();
+            this.myForm.controls.multicliente.setValue(false);
+            let companiaSeleccionada = this.arregloCompany.find((o:any) => o["centrocClienteId"] == this.usuariosSistemaPrd.usuario.centrocClienteId);
+            this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
+            this.myForm.controls.centrocClienteId.disable();
+            
+
+          }else{
+            this.myForm.controls.multicliente.enable();
+            this.myForm.controls.centrocClienteId.enable();
+          }
+      }
+    });
   }
 
 

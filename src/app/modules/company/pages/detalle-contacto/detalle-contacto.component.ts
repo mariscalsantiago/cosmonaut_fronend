@@ -71,6 +71,7 @@ export class DetalleContactoComponent implements OnInit {
         this.tieneUsuarioInicial = Boolean(valorusuario.datos);
         if(this.tieneUsuarioInicial){
           this.myFormcont.controls.usuarioinicial.disable();
+          this.myFormcont.controls.emailCorporativo.disable();
         }
       });
     }
@@ -195,6 +196,7 @@ export class DetalleContactoComponent implements OnInit {
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {
+            debugger;
             if (datos.resultado) {
               if (!this.tieneUsuarioInicial) {
                 if (obj.usuarioinicial) {
