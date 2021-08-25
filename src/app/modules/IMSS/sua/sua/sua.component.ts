@@ -99,7 +99,7 @@ export class SuaComponent implements OnInit {
 
   public filtrar() {
     this.cargando = true;
-
+    this.objFiltro = [];
     for(let item of this.arregloRegistroPatronal){
       if(item.registroPatronalId = this.idregistroPatronal)
       this.registroPatronal = item.registroPatronal;
@@ -147,7 +147,8 @@ export class SuaComponent implements OnInit {
           fechaMax: this.fechaMax,
           fechaMin: this.fechaMin
         };
-   
+        this.fechaMax = new Date('0000-00-00');
+        this.fechaMin = new Date('0000-00-00');
   
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
