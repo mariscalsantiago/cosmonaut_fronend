@@ -219,7 +219,7 @@ export class PagarComponent implements OnInit {
         } else {
           let objEnviar = [];
           for (let item of this.arreglotablaconpago.filas) {
-            if (item.seleccionado) {
+            if (item.seleccionado && this.continuarTitulo.includes("Guardar como pagados") && item.tipopago !== 'Transferencia' && item.status == 'Sin pagar') {
 
               objEnviar.push({
                 nominaXperiodoId: {
@@ -234,6 +234,8 @@ export class PagarComponent implements OnInit {
           }
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+          
 
           this.nominaOrdinariaPrd.dispersarOtrosTiposMetodosPago(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
@@ -254,7 +256,12 @@ export class PagarComponent implements OnInit {
     let obj = []
     let arrayPersonas:any = [];
     for (let item of this.arreglo) {
+      
       if (item.seleccionado) {
+       
+      }
+
+      if (item.seleccionado && item.tipopago === 'Transferencia'  && this.continuarTitulo.includes("Dispersar") && (item.status !== 'Pagado' && item.status !== 'En proceso')) {
         obj.push({
           nominaPeriodoId: this.idnominaPeriodo,
           personaId: item[this.llave2].personaId,
@@ -263,9 +270,7 @@ export class PagarComponent implements OnInit {
           usuarioId: this.usuariosSistemaPrd.getUsuario().usuarioId,
           servicio: "dispersion_st"
         });
-
         arrayPersonas.push(item[this.llave2].personaId);
-
       }
     }
     this.modalPrd.showMessageDialog(this.modalPrd.loading);

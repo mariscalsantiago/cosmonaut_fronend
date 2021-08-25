@@ -264,7 +264,6 @@ export class TimbrarComponent implements OnInit {
 
 
   public timbrar() {
-
     if(this.continuarTitulo.includes("Continuar")){
       this.salida.emit({ type: "timbrar" });
       return;
@@ -284,8 +283,7 @@ export class TimbrarComponent implements OnInit {
         let arregloaux:Array<Number> = new Array<Number>();
 
         for (let item of this.arreglo) {
-          if (item.seleccionado) {
-            console.log("Este es el seleciconado",item);
+          if (item.seleccionado && item.status !== 'Correcto' && item.statuspago === 'Pagado') {
             obj.push({
               nominaPeriodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
               personaId: item[this.llave].personaId,
@@ -296,7 +294,6 @@ export class TimbrarComponent implements OnInit {
             });
             arregloaux.push(item[this.llave].personaId);
           }
-
           idCentroCliente = item[this.llave].centroClienteId || this.usuarioSistemaPrd.getIdEmpresa();
         }
 
