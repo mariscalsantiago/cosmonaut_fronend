@@ -145,6 +145,7 @@ export class InformacionbasicaComponent implements OnInit {
     }
 
 
+
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar cambios?").then(valor => {
 
       if (valor) {
