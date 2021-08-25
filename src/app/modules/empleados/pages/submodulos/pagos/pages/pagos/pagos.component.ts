@@ -71,7 +71,7 @@ export class PagosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    debugger;
     this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
 
     this.myFormMetodoPago = this.formbuilder.group({});

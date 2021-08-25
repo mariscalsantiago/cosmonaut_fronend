@@ -70,7 +70,7 @@ export class SuaComponent implements OnInit {
     public traerTabla(datos:any) {
       const columna: Array<tabla> = [
         new tabla("nombre", "Nombre completo del empleado"),
-        new tabla("sbc", "SBC"),
+        new tabla("sbcDecimal", "SBC"),
         new tabla("movimiento", "Movimiento"),
         new tabla("fechamovimiento", "Fecha de movimiento")
       ];
@@ -88,6 +88,7 @@ export class SuaComponent implements OnInit {
           item.fechamovimiento = datepipe.transform(item.fecha_movimiento , 'dd-MMM-y')?.replace(".","");
   
           item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
+          item.sbcDecimal = item.sbc.toFixed(2); 
  
           }
         }

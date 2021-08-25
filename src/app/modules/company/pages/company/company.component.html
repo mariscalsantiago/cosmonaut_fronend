@@ -49,7 +49,7 @@
                                         <input type="text" appAlfanumerico [(ngModel)]="nombre" class="form-control" placeholder="Nombre cliente">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
-                                        <input type="text" [appAlfanumerico]="'true'" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
+                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
                                     </div>
                                     
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">

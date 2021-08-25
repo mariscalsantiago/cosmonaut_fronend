@@ -28,7 +28,7 @@ export class IDSEComponent implements OnInit {
   public activarMultiseleccion: boolean = false;
   public arregloIDSE : any = [];
   public movimientoImssId : number = 0;
-  public imss : boolean = true;
+  public imss : boolean = false;
 
   public arreglotabla: any = {
     columnas: [],
@@ -96,6 +96,7 @@ export class IDSEComponent implements OnInit {
         let datepipe = new DatePipe("es-MX");
         item.fechamovimiento = datepipe.transform(item.fecha_movimiento , 'dd-MMM-y')?.replace(".","");
         item.sbcDecimal = item.sbc.toFixed(2);  
+        item.salarioDiario = item.salario_diario.toFixed(2);
         item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
         item.esActivo = item.es_activo;
         if(item.esActivo){
@@ -295,7 +296,7 @@ export class IDSEComponent implements OnInit {
           new tabla("politica", "Política"),
           new tabla("registro_patronal", "Registro patronal"),
           new tabla("esActivo", "Estatus de empleado"),
-          new tabla("salario_diario", "Salario diario"),
+          new tabla("salarioDiario", "Salario diario"),
           new tabla("sbcDecimal", "SBC"),
           //new tabla("salario_diario_integrado", "Salario diario integrado"),
 
