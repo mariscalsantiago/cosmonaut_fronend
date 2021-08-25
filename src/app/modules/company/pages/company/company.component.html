@@ -46,7 +46,7 @@
                                         <input type="text" appAlfanumericoRFC maxlength="13"  [(ngModel)]="rfc" placement="top" [mdbTooltip]="'rfc' | tooltip" class="form-control" formatos [nochar]="true" [rfc]="true" [control]="rfc" placeholder="RFC">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" appAlfanumerico [(ngModel)]="nombre" class="form-control" placeholder="Nombre cliente">
+                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="nombre" class="form-control" placeholder="Nombre cliente">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
                                         <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
