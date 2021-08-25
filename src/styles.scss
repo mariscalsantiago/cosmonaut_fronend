@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
+@import url('https://use.fontawesome.com/releases/v5.0.6/css/all.css');
 
 
 @import './styles/globals';
@@ -19,6 +20,10 @@
 
 #frame-content{
    background-color: red !important; 
+}
+
+*{
+   font-weight: 500 !important;
 }
 
 

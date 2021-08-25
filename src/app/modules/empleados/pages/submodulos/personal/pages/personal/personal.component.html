@@ -1,7 +1,7 @@
 <form [formGroup]="myForm" (ngSubmit)="enviandoFormulario()">
     <div class="row">
         <div class="col-12 col-lg-6 col-xl-6 mb-3 mt-3 ">
-            <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i aria-hidden="true" *ngIf="!editarcampos && !esKiosko" class="fas fa-pencil-alt primary" (click)="editarcampos = true;accionarMostrar()" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+            <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i aria-hidden="true" *ngIf="!editarcampos && !esKiosko" class="icon_24editar primary-bg" (click)="editarcampos = true;accionarMostrar()" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
             <div class="row mb-4">
                 <article [class.ajustar]="editarcampos" class="titulo  col">
                     Nombre
