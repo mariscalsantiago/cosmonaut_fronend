@@ -665,7 +665,6 @@ export class VentanaDeduccionesComponent implements OnInit {
 
         archivo.arrayBuffer().then(datos => {
           this.nombresuspension = this.inputdocsusp.nativeElement.value;
-          //this.myForm.controls.nombre.setValue(this.inputdocsusp.nativeElement.value);
           this.myForm.controls.suspension.setValue(this.arrayBufferToBase64(datos));
         });
 

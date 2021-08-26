@@ -25,6 +25,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public tagcomponente: boolean = false;
   public arregloUnidadMedida: any = [];
   public arregloFechas: any = [];
+  public archivo: string = '';
 
   public esDomingo:boolean = false;
 
@@ -147,7 +148,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public guardarEvento() {
 
-
+    debugger;
 
     let obj = this.myForm.getRawValue();
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
@@ -178,7 +179,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       },
       personaId: obj.identificadorPersona,
       clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
-      fechaContrato: obj.fechaContrato
+      fechaContrato: obj.fechaContrato,
+      archivo:  obj.archivo
     }
 
 
@@ -308,7 +310,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         let archivo: File = imagenInput[item];
 
         archivo.arrayBuffer().then(datos => {
-          this.myForm.controls.urlArchivo.setValue(this.arrayBufferToBase64(datos));
+          this.myForm.controls.archivo.setValue(this.arrayBufferToBase64(datos));
         });
 
 

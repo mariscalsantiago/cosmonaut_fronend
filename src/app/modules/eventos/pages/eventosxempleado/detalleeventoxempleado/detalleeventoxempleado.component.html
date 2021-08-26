@@ -53,7 +53,7 @@
             <div [ngClass]="{'ocultarCampo':verificar('dias')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Días *</label>
 
-                <input #numerodias (blur)="perderFoco()" formatos [numeros]="true" [ngClass]="{'is-invalid':f.duracion.errors && submitEnviado}" formControlName="duracion" type="text" class="form-control">
+                <input appSolonumeros #numerodias (blur)="perderFoco()" formatos [numeros]="true" [ngClass]="{'is-invalid':f.duracion.errors && submitEnviado}" formControlName="duracion" type="text" class="form-control">
                 <div *ngIf="f.duracion.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
@@ -127,7 +127,7 @@
             <div [ngClass]="{'ocultarCampo':verificar('folio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Número de folio *</label>
 
-                <input [ngClass]="{'is-invalid':f.numeroFolio.errors && submitEnviado}" maxlength="8" formControlName="numeroFolio" type="text" class="form-control">
+                <input appAlfanumerico [ngClass]="{'is-invalid':f.numeroFolio.errors && submitEnviado}" maxlength="8" formControlName="numeroFolio" type="text" class="form-control">
                 <div *ngIf="f.numeroFolio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
