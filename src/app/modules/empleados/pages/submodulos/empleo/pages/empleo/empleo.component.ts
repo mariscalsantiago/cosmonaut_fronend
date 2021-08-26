@@ -79,6 +79,7 @@ export class EmpleoComponent implements OnInit {
 
       this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
         this.empleado = datos.datos;
+        this.empleado.fechaContrato = new Date(new Date(this.empleado.fechaContrato).toUTCString().replace("GMT",""));
         this.contratoDesc = this.arregloTipoContrato.find((item: any) => item.tipoContratoId === this.empleado.tipoContratoId.tipoContratoId)?.descripcion;
 
         this.myForm = this.createForm(this.empleado);

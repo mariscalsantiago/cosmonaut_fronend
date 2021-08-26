@@ -15,6 +15,32 @@
 
 }
 
+.icon_24flechaabajo{
+  $rutaimg:'../../assets/Iconos24/abajo.svg';
+  @include icono-imagen($dark);
+  -webkit-mask: url($rutaimg) no-repeat center;
+  mask: url($rutaimg) no-repeat center;
+
+}
+
+.icon_24flechaarriba{
+  $rutaimg:'../../assets/Iconos24/arriba.svg';
+  @include icono-imagen($dark);
+  -webkit-mask: url($rutaimg) no-repeat center;
+  mask: url($rutaimg) no-repeat center;
+
+}
+
+.icon_24agregar{
+  $rutaimg:'../../assets/Iconos24/agregar.svg';
+  @include icono-imagen($dark);
+  -webkit-mask: url($rutaimg) no-repeat center;
+  mask: url($rutaimg) no-repeat center;
+  width: 10px;
+  height: 10px;
+
+}
+
 .icon_24nominas{
   $rutaimg:'../../assets/Iconos24/nominas.svg';
   @include icono-imagen($dark);
