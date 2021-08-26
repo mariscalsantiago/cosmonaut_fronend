@@ -20,8 +20,12 @@
     @include icono-imagen($dark);
     -webkit-mask: url($rutaimg) no-repeat center;
     mask: url($rutaimg) no-repeat center;
+   
 
   }
+
+
+  
 
   .icon_empleados{
     $rutaimg:'../../assets/icons/ICO_empleados.svg';
