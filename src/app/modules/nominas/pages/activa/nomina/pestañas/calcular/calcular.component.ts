@@ -278,20 +278,13 @@ export class CalcularComponent implements OnInit {
     let otros: any = [];
     for (let llave in aux) {
       if (llave.includes("percepciones") || llave.includes("deducciones")) continue;
-      if (llave.includes("dias")) {
+      if (llave.includes("dias") || llave.includes("horas") ) {
         dias.push({ valor: llave.replace(/([A-Z])/g, ' $1'), dato: aux[llave] });
       } else {
         otros.push({ valor: llave.replace(/([A-Z])/g, ' $1'), dato: aux[llave] });
       }
 
     }
-
-
-    
-
-
-
-
 
     this.datosDetalleEmpleadoNomina[0] = otros;
     this.datosDetalleEmpleadoNomina[1] = dias;
