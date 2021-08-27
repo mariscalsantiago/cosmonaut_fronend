@@ -26,6 +26,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloUnidadMedida: any = [];
   public arregloFechas: any = [];
   public archivo: string = '';
+  public nombreArchivo: string = "";
 
   public esDomingo:boolean = false;
 
@@ -180,7 +181,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       personaId: obj.identificadorPersona,
       clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
       fechaContrato: obj.fechaContrato,
-      archivo:  obj.archivo
+      archivo:  obj.archivo,
+      nombreArchivo: this.nombreArchivo
     }
 
 
@@ -193,7 +195,8 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.fechaFin;
         delete objEnviar.monto;
         delete objEnviar.urlArchivo;
-        delete objEnviar.archivo;
+        delete objEnviar.archivo; 
+        delete objEnviar.nombreArchivo; 
         delete objEnviar.numeroFolio;
         delete objEnviar.unidadmedida;
         delete objEnviar.numerohoras;
@@ -207,6 +210,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.unidadmedida;
         delete objEnviar.urlArchivo;
         delete objEnviar.archivo;
+        delete objEnviar.nombreArchivo; 
         delete objEnviar.fechaFin;
         delete objEnviar.tipoIncapacidadId;
         break;
@@ -216,6 +220,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.numeroFolio;
         delete objEnviar.urlArchivo;
         delete objEnviar.archivo;
+        delete objEnviar.nombreArchivo; 
         delete objEnviar.fechaFin;
         delete objEnviar.tipoIncapacidadId;
         objEnviar.unidadMedidaId = {
@@ -236,6 +241,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.unidadmedida;
         delete objEnviar.urlArchivo;
         delete objEnviar.archivo;
+        delete objEnviar.nombreArchivo; 
         delete objEnviar.fechaFin;
 
 
@@ -246,6 +252,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.duracion;
         delete objEnviar.urlArchivo;
         delete objEnviar.archivo;
+        delete objEnviar.nombreArchivo; 
         delete objEnviar.numeroFolio;
         delete objEnviar.unidadmedida;
         delete objEnviar.numerohoras;
@@ -310,6 +317,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         let archivo: File = imagenInput[item];
 
         archivo.arrayBuffer().then(datos => {
+          this.nombreArchivo = this.inputFile.nativeElement.value;
           this.myForm.controls.archivo.setValue(this.arrayBufferToBase64(datos));
         });
 
