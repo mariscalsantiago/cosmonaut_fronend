@@ -83,10 +83,7 @@ export class SuaComponent implements OnInit {
       if(this.arreglo !== undefined){
         for(let item of this.arreglo){
           if(item.fecha_movimiento !== undefined ){
-          item.fecha_movimiento = (new Date(item.fecha_movimiento).toUTCString()).replace(" 00:00:00 GMT", "");
-          let datepipe = new DatePipe("es-MX");
-          item.fechamovimiento = datepipe.transform(item.fecha_movimiento , 'dd-MMM-y')?.replace(".","");
-  
+          item.fechamovimiento = new DatePipe("es-MX").transform(new Date(new Date(item.fecha_movimiento).toUTCString().replace("GMT","")), 'dd-MMM-y');
           item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
           item.sbcDecimal = item.sbc.toFixed(2); 
  

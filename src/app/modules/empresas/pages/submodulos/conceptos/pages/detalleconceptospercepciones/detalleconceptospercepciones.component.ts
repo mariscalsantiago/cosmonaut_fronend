@@ -132,6 +132,7 @@ debugger;
     debugger;
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
       this.arregloTipoPercepcion = datos.datos 
+      
     if(this.arregloTipoPercepcion == undefined){
       this.mensajePercepcion = true;
       this.noMensajePercepcion = false;
@@ -353,8 +354,12 @@ debugger;
         
         
         if (valor) {
+          debugger;
           
           let obj = this.myForm.getRawValue();
+          if(obj.tipoConcepto == null){
+            obj.tipoConcepto = 'N';
+          }
           let especializacion;
           let tipoPercepcion;
           if(this.tipoPercepcion == ""){
