@@ -267,7 +267,11 @@ debugger;
             this.mostrartipoConcepto = true;
           }
           else if(item.tipoConcepto == "A"){
-            this.myForm.controls.tipoConcepto.setValue("Ordinario");
+            if(!this.esInsert){
+              this.myForm.controls.tipoConcepto.setValue(this.obj.tipoConcepto);
+            }else{
+              this.myForm.controls.tipoConcepto.setValue("Ordinario");
+            }
             this.mostrartipoConcepto = true;
           }
           else{
