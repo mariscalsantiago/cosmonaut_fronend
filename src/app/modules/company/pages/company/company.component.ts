@@ -36,11 +36,13 @@ export class CompanyComponent implements OnInit {
   public iconType: string = "";
   public tamanio: number = 0;
   public cargando: Boolean = false;
+  public peticion: any = [];
 
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
   public changeIconDown: boolean = false;
-  public multiempresa : boolean = false;
+  public multiempresa : string = '0';
+  public multiempresaFin : boolean = false;
 
   /*
   
@@ -107,10 +109,7 @@ export class CompanyComponent implements OnInit {
   }
 
   public filtrar() {
-
-
-
-
+    debugger;
     this.cargando = true;
 
     let fechar = "";
@@ -126,6 +125,22 @@ export class CompanyComponent implements OnInit {
       }
 
     }
+    delete this.peticion.multiempresa;
+    if(this.multiempresa == '1'){
+      this.multiempresaFin = true;
+      this.peticion = {
+        ...this.peticion,
+        multiempresa: this.multiempresaFin,
+      }
+      
+    }
+    else if(this.multiempresa == '2'){
+      this.multiempresaFin = false;
+      this.peticion = {
+        ...this.peticion,
+        multiempresa: this.multiempresaFin,
+      }
+    }
 
     let actboo: string = "";
 
@@ -136,9 +151,9 @@ export class CompanyComponent implements OnInit {
     }
 
     
-    let peticion = {
+    this.peticion = {
+      ...this.peticion,
       centrocClienteId: this.centrocClienteId,
-      multiempresa: this.multiempresa,
       rfc: this.rfc,
       nombre: this.nombre,
       razonSocial: this.razonSocial,
@@ -147,7 +162,7 @@ export class CompanyComponent implements OnInit {
     }
     
     
-    this.companyProd.filtrar(peticion).subscribe(datos => {
+    this.companyProd.filtrar(this.peticion).subscribe(datos => {
       this.arreglo = datos.datos;
 
 

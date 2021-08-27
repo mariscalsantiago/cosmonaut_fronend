@@ -19,6 +19,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public esInsert: boolean = false;
   public submitInvalido: boolean = false;
   public arregloTipoPercepcion: any = [];
+  public arregloTipoPercepcionMod: any = [];
   public obj: any = [];
   public ambasPeriodicidad: boolean = false;
   public conAmbasPeriodicidad: boolean = true;
@@ -87,10 +88,13 @@ debugger;
       this.obj.tipoPeriodicidad = "A"
     }
 
-    this.validarPercepcion(this.obj.tipoPeriodicidad);
+    this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{ 
+      this.arregloTipoPercepcion = datos.datos 
+    this.mostrarAmbas(this.obj.tipoPeriodicidad);
+    });
     this.myForm = this.createForm(this.obj);
-
-    }else{
+    this.validarTipoConceptoMod(this.obj.tipoPercepcionId?.tipoPercepcionId);
+     }else{
     this.obj = {};
     this.myForm = this.createForm(this.obj);
     }
@@ -151,17 +155,104 @@ debugger;
       this.conAmbasPeriodicidad = true;
     }
   }
-
   public validarTipoConcepto(tipo:any){
   
+    debugger;
+    this.limpiarTipopercepcion = false;
+    let type = String(tipo).substring(0,3)
+    for(let item of this.arregloTipoPercepcion){
+      
+      if(item.tipoPercepcionId == Number(type)){
+        this.limpiarTipopercepcion = true;
+        this.tipoPercepcion = item.tipoPercepcionId + "-" + item.especializacion;
+        if(item.tipoConcepto == "N"){
+          this.mostrartipoConcepto = false;
+        }
+        else if(item.tipoConcepto == "O"){
+          this.myForm.controls.tipoConcepto.setValue("Ordinario");
+          this.myForm.controls.tipoConcepto.disable();
+          this.mostrartipoConcepto = true;
+        }
+        else if(item.tipoConcepto == "E"){
+          this.myForm.controls.tipoConcepto.setValue("Extraordinario");
+          this.myForm.controls.tipoConcepto.disable();
+          this.mostrartipoConcepto = true;
+        }
+        else if(item.tipoConcepto == "A"){
+          this.myForm.controls.tipoConcepto.setValue("Ordinario");
+          this.mostrartipoConcepto = true;
+        }
+        else{
+          this.mostrartipoConcepto = true;
+          this.myForm.controls.tipoConcepto.enable();
+        }
+
+       if(item.integraIsn == "S" ){
+          this.myForm.controls.gravaIsn.setValue(true);
+          this.myForm.controls.gravaIsn.disable();
+        }
+       else if(item.integraIsn == "N" ){
+          this.myForm.controls.gravaIsn.setValue(false);
+          this.myForm.controls.gravaIsn.disable();
+        }
+        else if(item.integraIsn == "C" ){
+          this.myForm.controls.gravaIsn.setValue(true);
+          this.myForm.controls.gravaIsn.enable();
+        }else{
+          this.myForm.controls.gravaIsn.setValue(false);
+          this.myForm.controls.gravaIsn.enable();
+        }
+        
+       if(item.integraIsr == "S"){
+          this.myForm.controls.gravaIsr.setValue(true);
+          this.myForm.controls.gravaIsr.disable();
+        }
+        else if(item.integraIsr == "N"){
+          this.myForm.controls.gravaIsr.setValue(false);
+          this.myForm.controls.gravaIsr.disable();
+        }
+        else if(item.integraIsr == "C"){
+          this.myForm.controls.gravaIsr.setValue(true);
+          this.myForm.controls.gravaIsr.enable();
+        }
+        else{
+          this.myForm.controls.gravaIsr.setValue(false);
+          this.myForm.controls.gravaIsr.enable();
+        }
+       if(item.integraSdi == "S"){
+          this.myForm.controls.integraImss.setValue(true);
+          this.myForm.controls.integraImss.disable();
+        }
+        else if(item.integraSdi == "N"){
+          this.myForm.controls.integraImss.setValue(false);
+          this.myForm.controls.integraImss.disable();
+        }
+        else if(item.integraSdi == "C"){
+          this.myForm.controls.integraImss.setValue(true);
+          this.myForm.controls.integraImss.enable();
+        }
+        else{
+          this.myForm.controls.integraImss.setValue(false);
+          this.myForm.controls.integraImss.enable();
+        }
+
+      }
+    }
+    if(!this.limpiarTipopercepcion){
+      this.myForm.controls.tipoPercepcionId.setValue('');
+    }
+}
+  public validarTipoConceptoMod(tipo:any){
+  
       debugger;
-      this.limpiarTipopercepcion = false;
-      let type = String(tipo).substring(0,3)
-      for(let item of this.arregloTipoPercepcion){
+      this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{ 
+        this.arregloTipoPercepcionMod = datos.datos 
+
+        let type = String(tipo).substring(0,3)
+      for(let item of this.arregloTipoPercepcionMod){
         
         if(item.tipoPercepcionId == Number(type)){
-          this.limpiarTipopercepcion = true;
-          this.tipoPercepcion = item.tipoPercepcionId + "-" + item.especializacion;
+          
           if(item.tipoConcepto == "N"){
             this.mostrartipoConcepto = false;
           }
@@ -235,9 +326,8 @@ debugger;
 
         }
       }
-      if(!this.limpiarTipopercepcion){
-        this.myForm.controls.tipoPercepcionId.setValue('');
-      }
+
+    });
   }
 
   public enviarPeticion() {
