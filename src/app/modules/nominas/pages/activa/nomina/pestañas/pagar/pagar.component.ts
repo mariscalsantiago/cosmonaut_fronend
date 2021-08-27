@@ -193,7 +193,11 @@ export class PagarComponent implements OnInit {
 
   public recibirTabla(obj: any) {
 
-    this.continuarTitulo = (this.arreglo.some((m: any) => m.seleccionado)) ? (this.esTransferencia ? "Dispersar" : "Guardar como pagados") : "Continuar";
+    if(this.esTransferencia){
+      this.continuarTitulo = this.arreglo.some((m: any) => m.seleccionado && m.tipopago === 'Transferencia'  && (m.status !== 'Pagado' && m.status !== 'En proceso')) ? (this.esTransferencia ? "Dispersar" : "Guardar como pagados") : "Continuar";
+    }else{
+      this.continuarTitulo = this.arreglo.some((m: any) => m.seleccionado && m.tipopago !== 'Transferencia'  && (m.status !== 'Pagado' && m.status !== 'En proceso')) ? (!this.esTransferencia ? "Dispersar" : "Guardar como pagados") : "Continuar";
+    } 
   }
 
 
@@ -449,6 +453,14 @@ export class PagarComponent implements OnInit {
 
   public actualizarLista(){
     this.ngOnInit();
+  }
+
+  public cambiar(){
+    for(let item of this.arreglotabla.filas){
+      item.seleccionado = false;  
+    }
+
+    this.continuarTitulo = "Continuar";
   }
 
 }

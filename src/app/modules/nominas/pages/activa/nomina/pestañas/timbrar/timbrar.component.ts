@@ -133,7 +133,7 @@ export class TimbrarComponent implements OnInit {
 
   public recibirTabla(obj: any) {
 
-    this.continuarTitulo = (this.arreglo.some((m:any)=>m.seleccionado))? "Timbrar":"Continuar";
+    this.continuarTitulo = (this.arreglo.some((m:any)=>m.seleccionado && m.status !== 'Correcto' && m.statuspago === 'Pagado'))? "Timbrar":"Continuar";
 
     let item = obj.datos;
     switch (obj.type) {

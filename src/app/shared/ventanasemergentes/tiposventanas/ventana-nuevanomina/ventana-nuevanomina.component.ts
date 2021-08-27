@@ -61,6 +61,7 @@ export class VentanaNuevanominaComponent implements OnInit {
 
     this.f.grupoNomina.valueChanges.subscribe(valor => {
       let gruponomina = this.arreglogruposnomina.filter((mm: any) => valor == mm.id)[0];
+      console.log(gruponomina);
       switch (gruponomina.periodo) {
         case "Semanal":
           this.limiteDias = 7;
@@ -71,8 +72,15 @@ export class VentanaNuevanominaComponent implements OnInit {
         case "Mensual":
           this.limiteDias = 31;
           break;
+        case "Decenal":
+          this.limiteDias = 10;
+          break;
+        case "Catorcenal":
+          this.limiteDias = 14;
+          break;
       }
       this.f.fechaIniPeriodo.enable();
+      this.f.fechaIniPeriodo.setValue("");
       this.f.fechaFinPeriodo.setValue("");
       this.f.fechaFinPeriodo.disable();
     });
