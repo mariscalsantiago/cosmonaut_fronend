@@ -196,7 +196,7 @@ export class PagarComponent implements OnInit {
     if(this.esTransferencia){
       this.continuarTitulo = this.arreglo.some((m: any) => m.seleccionado && m.tipopago === 'Transferencia'  && (m.status !== 'Pagado' && m.status !== 'En proceso')) ? (this.esTransferencia ? "Dispersar" : "Guardar como pagados") : "Continuar";
     }else{
-      this.continuarTitulo = this.arreglo.some((m: any) => m.seleccionado && m.tipopago !== 'Transferencia'  && (m.status !== 'Pagado' && m.status !== 'En proceso')) ? (!this.esTransferencia ? "Dispersar" : "Guardar como pagados") : "Continuar";
+      this.continuarTitulo = this.arreglo.some((m: any) => m.seleccionado && m.tipopago !== 'Transferencia'  && (m.status !== 'Pagado' && m.status !== 'En proceso')) ? (this.esTransferencia ? "Dispersar" : "Guardar como pagados") : "Continuar";
     } 
   }
 

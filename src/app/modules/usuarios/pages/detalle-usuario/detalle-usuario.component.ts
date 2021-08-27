@@ -103,20 +103,21 @@ export class DetalleUsuarioComponent implements OnInit {
   public suscripciones(){
     this.myForm.controls.rol.valueChanges.subscribe(valor =>{
       console.log(this.usuariosSistemaPrd.getVersionSistema())
-      if(this.usuariosSistemaPrd.esCliente()){
-          if(valor == 3){
+      debugger;
+      if(this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1){
+          if(valor != 1){
             this.myForm.controls.multicliente.disable();
             this.myForm.controls.multicliente.setValue(false);
             let companiaSeleccionada = this.arregloCompany.find((o:any) => o["centrocClienteId"] == this.usuariosSistemaPrd.usuario.centrocClienteId);
             this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
             this.myForm.controls.centrocClienteId.disable();
-            
-
-          }else{
-            this.myForm.controls.multicliente.enable();
-            this.myForm.controls.centrocClienteId.enable();
+            return;
           }
       }
+
+
+      this.myForm.controls.multicliente.enable();
+      this.myForm.controls.centrocClienteId.enable();
     });
   }
 
