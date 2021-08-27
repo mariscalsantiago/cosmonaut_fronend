@@ -64,12 +64,13 @@
   
                     </select>
                                     </div>
-                                    <div style="padding-top: 5px;" class="input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
-                                        <label class="contenedorInputCheckRadio" style="color: white;">Multiempresa
-                                        <input [(ngModel)]="multiempresa" type="checkbox" name="" >
-                                        <span class="checkmark"></span>
-                                        </label>
 
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
+                                        <select class="form-control" [(ngModel)]="multiempresa" placeholder="multiempresa">
+                                        <option value="0" selected>Multiempresa</option>
+                                        <option value="1">Si</option>
+                                        <option value="2">No</option>
+                                        </select>
                                     </div>
                                     <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
                                         <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
