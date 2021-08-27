@@ -90,7 +90,7 @@ export class CalcularComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
       }
-      this.ocultarEliminar = this.nominaSeleccionada.nominaExtraordinaria?.estadoActualNomina !== "Calculada";
+      
 
       this.nominaAguinaldoPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
@@ -109,8 +109,6 @@ export class CalcularComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaLiquidacion?.nominaXperiodoId
       }
-      this.ocultarEliminar = this.nominaSeleccionada.nominaLiquidacion?.estadoActualNomina !== "Calculada";
-
       this.nominaFiniquito.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
 
@@ -127,8 +125,7 @@ export class CalcularComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaPtu?.nominaXperiodoId
       }
-      this.ocultarEliminar = this.nominaSeleccionada.nominaPtu?.estadoActualNomina !== "Calculada";
-
+      
       this.nominaPtuPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
 
@@ -139,7 +136,7 @@ export class CalcularComponent implements OnInit {
     }
 
 
-    this.ocultarEliminar = this.nominaSeleccionada[this.llave].estadoActualNomina === "Calculada" || this.nominaSeleccionada[this.llave].estadoActualNomina === "Nueva";
+    this.ocultarEliminar = this.nominaSeleccionada[this.llave].estadoActualNomina !== "Calculada" && this.nominaSeleccionada[this.llave].estadoActualNomina !== "Nueva";
   }
 
 
