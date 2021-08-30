@@ -165,7 +165,8 @@ export class NominaHistoricasComponent implements OnInit {
         objEnviar = {
           nominaPeriodoId: obj.datos.nomina_xperiodo_id,
           esVistaPrevia: false,
-          esTimbrado: true
+          esTimbrado: true,
+          esSubida:true
         };
 
         this.reportesPrd.getComprobanteFiscalXMLOrdinarias(objEnviar).subscribe(datos => {
