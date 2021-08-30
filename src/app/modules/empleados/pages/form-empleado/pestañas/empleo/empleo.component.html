@@ -71,10 +71,13 @@
                         <option *ngFor="let item of arregloArea" [value]="item.areaId">{{item.descripcion}}</option>
                     </select>
                                     <i aria-hidden="true" (click)="agregarAreasModal()" style="position: absolute;
-                    top: 37px;
-                    right: -10px;
-                    z-index: 1;
-                    color: #4cc1b0;cursor: pointer;" class="fas fa-plus"></i>
+                                    top: 26px;
+                                    right: -3px;
+                                    z-index: 1;
+                                    color: #4cc1b0;
+                                    cursor: pointer;
+                                    font-family: 'Font Awesome 5 Free';
+                                    font-size: x-large;    font-style: inherit;">+</i>
                                     <div  class="invalid-feedback">
                                         Campo requerido
                                     </div>
@@ -90,10 +93,13 @@
                         </option>
                     </select>
                                     <i aria-hidden="true" (click)="agregarPuestoModal()" *ngIf="apareceplusPuesto" style="position: absolute;
-                    top: 37px;
-                    right: -10px;
-                    
-                    color: #4cc1b0;cursor: pointer;" class="fas fa-plus"></i>
+                                    top: 26px;
+                                    right: -3px;
+                                    z-index: 1;
+                                    color: #4cc1b0;
+                                    cursor: pointer;
+                                    font-family: 'Font Awesome 5 Free';
+                                    font-size: x-large;font-style: inherit;">+</i>
                                     <div  class="invalid-feedback">
                                         Campo requerido
                                     </div>
