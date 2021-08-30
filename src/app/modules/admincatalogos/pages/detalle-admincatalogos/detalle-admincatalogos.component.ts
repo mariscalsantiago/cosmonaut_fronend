@@ -521,6 +521,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       else if(item.estadoId !== undefined){
         item.clave = item.estadoId;
       }
+      else if(item.periodo !== undefined){
+        item.clave = item.periodo;
+      }
     }
   }
     

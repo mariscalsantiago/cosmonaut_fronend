@@ -360,6 +360,9 @@ debugger;
           if(obj.tipoConcepto == null){
             obj.tipoConcepto = 'N';
           }
+          if(obj.tipoConcepto == "No aplica"){
+            obj.tipoConcepto = 'N';
+          }
           let especializacion;
           let tipoPercepcion;
           if(this.tipoPercepcion == ""){

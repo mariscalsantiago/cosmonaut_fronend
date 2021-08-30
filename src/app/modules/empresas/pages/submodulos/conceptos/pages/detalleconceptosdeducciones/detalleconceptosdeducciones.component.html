@@ -24,7 +24,7 @@
                     formControlName="tipoDeduccionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
 
                 <datalist id="catalogoSAT">                    
-                     <option *ngFor="let item of arregloTipoDeduccion" [value]="item.tipoDeduccionId"  >
+                     <option *ngFor="let item of arregloTipoDeduccionFinal" [value]="item.tipoDeduccionId"  >
                         {{item.descripcion}} </option>
     
                     </datalist>
