@@ -36,8 +36,14 @@
                 <article [class.ajustar]="editarcampos" class="titulo col">
                     Genero
                     <article>
-                        <input formControlName="genero" id="femenino" type="radio" name="genero" value="true"><label for="femenino">&nbsp; Femenino &nbsp;</label>
-                        <input formControlName="genero" id="masculino" type="radio" name="genero" value="false"><label for="masculino">&nbsp; Masculino</label>
+                        <label style="margin-top: 10px;" class="contenedorInputCheckRadio">Femenino
+                            <input formControlName="genero" id="femenino"  name="genero" value="true"  type="radio">
+                            <span class="radiomark"></span>
+                        </label>
+                        <label class="contenedorInputCheckRadio">Masculino
+                            <input formControlName="genero" id="masculino" type="radio" name="genero" value="false">
+                            <span class="radiomark"></span>
+                        </label>
                     </article>
 
                 </article>
