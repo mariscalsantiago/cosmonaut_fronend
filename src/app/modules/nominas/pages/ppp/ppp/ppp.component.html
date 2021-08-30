@@ -40,7 +40,7 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="numeroEmpleado" class="form-control" placeholder="Número de empleado">
+                                        <input formatos [letras]="true" [especial]="true" type="text" [(ngModel)]="numeroEmpleado" class="form-control" placeholder="Número de empleado">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <input type="text" [(ngModel)]="nombreEmpleado" formatos [especial]="true" [control]="nombreEmpleado" class="form-control" placeholder="Nombre">
@@ -58,13 +58,13 @@
                       </option>
                     </select>
                                     </div>
-                                    <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+<!--                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <select name="" class="form-control" [(ngModel)]="idEmpresaActual">
                       <option value="0" selected>Empresa</option>
                       <option *ngFor="let item of arregloEmpresa" [value]="item.idEmpresa">{{item.nombreEmpresa}}
                       </option>
                     </select>
-                                    </div>
+                                    </div> -->
 
                                     <div class="input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
                                         <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>

@@ -166,17 +166,20 @@ export class ListasconceptospercepcionesComponent implements OnInit {
         if(part.tipoConcepto == "O"){
           part.tipoConcepto= "Ordinario"
         }
-        if(part.tipoConcepto == "E"){
+        else if(part.tipoConcepto == "E"){
           part.tipoConcepto= "Extraordinario"
+        }
+        else if(part.tipoConcepto == "N"){
+          part.tipoConcepto= "No aplica"
         }
 
         if(part.tipoPeriodicidad == "P"){
           part.tipoPeriodicidad= "Periodica"
         }
-        if(part.tipoPeriodicidad == "E"){
+        else if(part.tipoPeriodicidad == "E"){
           part.tipoPeriodicidad= "Estandar"
         }
-        if(part.tipoPeriodicidad == "A"){
+        else if(part.tipoPeriodicidad == "A"){
           part.tipoPeriodicidad= "Ambos"
         }
 

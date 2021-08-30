@@ -194,7 +194,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
-      console.log('17', this.objdetrep)
+      debugger;
       this.periodo = this.objdetrep.tabla;
       this.clave();
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
@@ -202,7 +202,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
           for (let item of datos.datos) {
             
             item.fecInicio = new DatePipe("es-MX").transform(new Date(new Date(item.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
-            item.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd');          }
+            item.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd');         
+           }
         }
         this.arregloTablaValores = datos.datos;
       });
@@ -211,11 +212,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
      
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
-      let datePipe = new DatePipe("en-MX");
-      console.log('18')
+      debugger;
       this.periodo = this.objdetrep.tabla;
-      //datePipe.transform(obj.fechaInicio, 'yyyy-MM-dd')
-
       this.clave();
       this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => {
     
@@ -232,8 +230,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.clave();
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-
+      debugger;
       this.descripcion = this.objdetrep.estado;
+      if(this.objdetrep.estadoId !== undefined){
       this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => {
          if (datos.datos !== undefined) {
            for (let item of datos.datos) {
@@ -245,6 +244,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
          }
         this.arregloTablaValores = datos.datos
       });
+      }
       this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => this.arregloPeriodicidad = datos.datos);
       this.clave();
     }
