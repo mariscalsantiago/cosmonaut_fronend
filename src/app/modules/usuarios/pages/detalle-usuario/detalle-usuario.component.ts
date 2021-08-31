@@ -63,6 +63,8 @@ export class DetalleUsuarioComponent implements OnInit {
     this.objusuario = history.state.usuario;
     this.objusuario = this.objusuario == undefined ? {}:this.objusuario;
 
+    console.log(this.objusuario);
+
     this.verificarCompaniasExista();
 
     
@@ -97,6 +99,17 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
       this.suscripciones();
+
+
+      if(this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1){
+        if(this.objusuario){
+          if(this.objusuario.rolId.rolId != 1){
+            this.myForm.controls.multicliente.disable();
+            this.myForm.controls.multicliente.setValue(false);
+            this.myForm.controls.centrocClienteId.disable();
+          }
+        }
+    }
 
   }
 
