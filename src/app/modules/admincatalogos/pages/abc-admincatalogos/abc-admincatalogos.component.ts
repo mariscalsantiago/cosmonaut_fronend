@@ -79,7 +79,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
   ngOnInit(): void {
     this.periodo = "";
-  
+    debugger;
     
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data;
@@ -104,23 +104,27 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.idCatalogo = this.objdetrep.facultadPoderId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 9){
       this.idCatalogo = this.objdetrep.motivoBajaId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 12){
       
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 11){
       
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 21){
       
@@ -134,6 +138,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.fechaAlta = new Date((new Date(fechaFC).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
       }
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 22){
       
@@ -146,11 +151,13 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.fechaAlta = new Date((new Date(fechaFC).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
       }
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 8){
       this.idCatalogo = this.objdetrep.tipoRegimenContratacionId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 6){
       
@@ -163,21 +170,25 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.objdetrep.esActivo = this.objdetrep.activo;
 
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 7){
       this.idCatalogo = this.objdetrep.tipoContratoId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 5){
       this.idCatalogo = this.objdetrep.tipoDeduccionId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 10){
       this.idCatalogo = this.objdetrep.tipoIncapacidadId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 4){
       this.objdetrep.integraSdi = this.objdetrep.integraSdi == "S"  ? true : false;
@@ -186,17 +197,18 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.idCatalogo = this.objdetrep.tipoPercepcionId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 15){
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.tipoValorReferenciaId?.descripcion;
       this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => this.arregloValoresReferencia = datos.datos);
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
       debugger;
       this.periodo = this.objdetrep.tabla;
-      this.clave();
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
         if (datos.datos !== undefined) {
           for (let item of datos.datos) {
@@ -209,12 +221,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
       });
       this.adminCatalogosPrd.getListatablasPeriodicasISR().subscribe(datos => this.arregloPeriodicidad = datos.datos);
       this.clave();
+
      
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
       debugger;
       this.periodo = this.objdetrep.tabla;
-      this.clave();
       this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => {
     
         if (datos.datos !== undefined) {
@@ -228,6 +240,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
       });
       this.adminCatalogosPrd.getListaTablasSubsidioISR().subscribe(datos => this.arregloPeriodicidad = datos.datos);
       this.clave();
+
+
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
       debugger;
@@ -247,26 +261,31 @@ export class ABCAdminCatalogosComponent implements OnInit {
       }
       this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => this.arregloPeriodicidad = datos.datos);
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 2){
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 14){
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 20){
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 3){
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
+
     }
     else if(this.detCatalogos.listaCatalogosId == 16){
       this.idCatalogo = this.objdetrep.clave;
@@ -279,6 +298,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
     this.myForm = this.createForm((this.objdetrep));
+    this.validaForm();
 
 
   }
@@ -311,11 +331,224 @@ export class ABCAdminCatalogosComponent implements OnInit {
       porcExcedenteLimInf:[obj.porcExcedenteLimInf],
       valorReferencia: [this.objdetrep.tipoValorReferenciaId?.tipoValorReferenciaId],
       tipoPersona: [obj.tipoPersona],
-      nombreCorto: [this.descripcion],
+      nombreCorto: [this.descripcion,Validators.required],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }],
 
 
     });
+  }
+
+  public validaForm(){
+
+    if(this.detCatalogos.listaCatalogosId == 1){
+      this.myForm.controls.codBanco.setValidators([Validators.required]);
+      this.myForm.controls.razonSocial.setValidators([Validators.required]);
+      this.myForm.controls.clave.setValidators([]);
+      this.myForm.controls.clave.updateValueAndValidity();
+      
+  }
+  else if(this.detCatalogos.listaCatalogosId == 13){
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 9){
+    this.myForm.controls.clave.setValidators([Validators.required]);
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 12){
+    this.myForm.controls.clave.setValidators([Validators.required]);
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 11){
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 21){
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 22){
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 8){
+    this.myForm.controls.clave.setValidators([Validators.required]);
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 6){
+    this.myForm.controls.clave.setValidators([Validators.required]);
+    this.myForm.controls.fecInicio.setValidators([Validators.required]);
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 7){
+    this.myForm.controls.clave.setValidators([Validators.required]);
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 5){
+    this.myForm.controls.clave.setValidators([Validators.required]);
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 10){
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 4){
+    this.myForm.controls.clave.setValidators([Validators.required]);
+    this.myForm.controls.tipoConcepto.setValidators([Validators.required]);
+    this.myForm.controls.tipoPeriodicidad.setValidators([Validators.required]);
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 15){
+    this.myForm.controls.valorReferencia.setValidators([Validators.required]);
+    this.myForm.controls.valor.setValidators([Validators.required]);
+    this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+    this.myForm.controls.fechaFin.setValidators([Validators.required]);
+    this.myForm.controls.nombreCorto.setValidators([]);
+    this.myForm.controls.nombreCorto.updateValueAndValidity();
+
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 17){
+    this.myForm.controls.PeriodicidadPago.setValidators([Validators.required]);
+    this.myForm.controls.limiteInferior.setValidators([Validators.required]);
+    this.myForm.controls.limiteSuperior.setValidators([Validators.required]);
+    this.myForm.controls.cuotaFija.setValidators([Validators.required]);
+    this.myForm.controls.porcExcedenteLimInf.setValidators([Validators.required]);
+    this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+    this.myForm.controls.fechaFin.setValidators([Validators.required]);
+    this.myForm.controls.nombreCorto.setValidators([]);
+    this.myForm.controls.nombreCorto.updateValueAndValidity();
+
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+   
+  }
+  else if(this.detCatalogos.listaCatalogosId == 18){
+    this.myForm.controls.PeriodicidadPago.setValidators([Validators.required]);
+    this.myForm.controls.limiteInferior.setValidators([Validators.required]);
+    this.myForm.controls.limiteSuperior.setValidators([Validators.required]);
+    this.myForm.controls.montoSubsidio.setValidators([Validators.required]);
+    this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+    this.myForm.controls.fechaFin.setValidators([Validators.required]);
+    this.myForm.controls.nombreCorto.setValidators([]);
+    this.myForm.controls.nombreCorto.updateValueAndValidity();
+
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 19){
+    this.myForm.controls.PeriodicidadPago.setValidators([Validators.required]);
+    this.myForm.controls.limiteInferior.setValidators([Validators.required]);
+    this.myForm.controls.limiteSuperior.setValidators([Validators.required]);
+    this.myForm.controls.cuotaFija.setValidators([Validators.required]);
+    this.myForm.controls.tasa.setValidators([Validators.required]);
+    this.myForm.controls.referenciaMarcoJuridico.setValidators([Validators.required]);
+    this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+    this.myForm.controls.nombreCorto.setValidators([]);
+    this.myForm.controls.nombreCorto.updateValueAndValidity();
+
+
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 2){
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 14){
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 20){
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 3){
+    this.myForm.controls.clave.setValidators([Validators.required]);
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+  else if(this.detCatalogos.listaCatalogosId == 16){
+    this.myForm.controls.clave.setValidators([]);
+    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.codBanco.setValidators([]);
+    this.myForm.controls.codBanco.updateValueAndValidity();
+    this.myForm.controls.razonSocial.setValidators([]);
+    this.myForm.controls.razonSocial.updateValueAndValidity();
+  }
+
   }
 
   public updateList(id: number, property: string, event: any) {
@@ -431,7 +664,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public enviarPeticion() {
-    
+    debugger;
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -1391,6 +1624,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 19){
+          debugger;
           console.log('pasa por aqui', obj)
 
           
@@ -1439,6 +1673,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
+            debugger;
             
             for(let item of this.arregloTablaValores){
 
@@ -1528,7 +1763,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-
+            debugger;
             for(let item of this.arregloTablaValores){
               console.log('this.arregloTablaValores', this.arregloTablaValores)
               let fechainicio = "";
@@ -1586,6 +1821,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
       }
     });
+  }
+
+  public get f() {
+    return this.myForm.controls;
   }
 }
 
