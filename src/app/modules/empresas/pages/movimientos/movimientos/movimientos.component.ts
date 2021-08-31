@@ -67,9 +67,7 @@ export class MovimientosComponent implements OnInit {
         item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
 
         if(item.fechaMovimiento !== undefined ){
-        item.fecha = (new Date(item.fechaMovimiento).toUTCString()).replace(" 00:00:00 GMT", "");
-        let datepipe = new DatePipe("es-MX");
-        item.fecha = String(datepipe.transform(item.fecha , 'dd-MMM-y')?.replace(".",""));
+        item.fecha = new DatePipe("es-MX").transform(new Date(new Date(item.fechaMovimiento).toUTCString().replace("GMT","")), 'dd-MMM-y');
         }
       }
     }
