@@ -75,7 +75,7 @@ export class IDSEComponent implements OnInit {
   }
 
   public traerTabla(datos:any) {
-    debugger;
+    
     this.arreglo = datos.datos;
     const columna: Array<tabla> = [
       new tabla("nombre", "Nombre completo del empleado"),

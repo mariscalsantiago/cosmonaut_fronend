@@ -81,7 +81,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
   ngOnInit(): void {
     this.periodo = "";
-    debugger;
+    
     
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data;
@@ -209,7 +209,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
-      debugger;
+      
       this.periodo = this.objdetrep.tabla;
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
         if (datos.datos !== undefined) {
@@ -227,7 +227,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
      
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
-      debugger;
+      
       this.periodo = this.objdetrep.tabla;
       this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => {
     
@@ -246,7 +246,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      debugger;
+      
       this.descripcion = this.objdetrep.estado;
       if(this.objdetrep.estadoId !== undefined){
       this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => {
@@ -672,7 +672,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -1635,7 +1635,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 19){
-          debugger;
+          
           console.log('pasa por aqui', obj)
 
           
@@ -1684,7 +1684,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-            debugger;
+            
             
             for(let item of this.arregloTablaValores){
 
@@ -1774,7 +1774,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-            debugger;
+            
             for(let item of this.arregloTablaValores){
               console.log('this.arregloTablaValores', this.arregloTablaValores)
               let fechainicio = "";

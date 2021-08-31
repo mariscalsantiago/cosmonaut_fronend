@@ -80,7 +80,7 @@ export class MovimientosComponent implements OnInit {
 
 
   public filtrar() {
-    debugger;        
+            
     if (this.fechaMovimiento != "" && this.fechaMovimiento != undefined) {
     
       const fecha1 = new Date(this.fechaMovimiento).toUTCString().replace("GMT", "");

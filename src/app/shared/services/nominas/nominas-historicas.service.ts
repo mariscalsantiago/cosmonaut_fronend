@@ -21,5 +21,16 @@ export class NominasHistoricasService {
   }
 
 
+  public acumuladosPorConceptos(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+      return this.http.post(`${direcciones.reportes}/nominaHistorica/acumuladoConcepto`,json);
+  }
+
+  public acumuladosPorMes(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+      return this.http.post(`${direcciones.reportes}/nominaHistorica/acumuladoNominaHistorica`,json);
+  }
+
+
 
 }

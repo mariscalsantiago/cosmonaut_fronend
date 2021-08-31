@@ -196,7 +196,7 @@ export class DetalleContactoComponent implements OnInit {
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {
-            debugger;
+            
             if (datos.resultado) {
               if (!this.tieneUsuarioInicial) {
                 if (obj.usuarioinicial) {

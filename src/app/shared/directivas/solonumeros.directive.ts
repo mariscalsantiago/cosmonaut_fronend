@@ -9,7 +9,9 @@ export class SolonumerosDirective {
 
   @HostListener("keydown", ["$event"])
   onKeyDown(event: KeyboardEvent) {
-    if (event.code != 'Backspace' && event.code  !== 'Tab')
+
+    console.log(event.code);
+    if (event.code != 'Backspace' && event.code  !== 'Tab' && event.code  !== 'ArrowLeft' && event.code  !== 'ArrowRight')
       if (Number.isNaN(Number(event.key))) {
         event.preventDefault();
       }

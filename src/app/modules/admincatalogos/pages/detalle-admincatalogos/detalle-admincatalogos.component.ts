@@ -73,7 +73,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     this.listaTablasFinal =[];
     this.listaTablas = [];
     if(this.objdetcat.listaCatalogosId == 1){
-      debugger;
+      
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
           this.adminCatalogosPrd.getListaBanco(true).subscribe(datos => {
@@ -92,7 +92,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
 
     else if(this.objdetcat.listaCatalogosId == 13){
-      debugger;
+      
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
         this.adminCatalogosPrd.getListaFacultad(true).subscribe(datos => {
@@ -218,7 +218,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 19){
-      debugger;
+      
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
         this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => {
@@ -344,7 +344,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 20){
-      debugger;
+      
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
         

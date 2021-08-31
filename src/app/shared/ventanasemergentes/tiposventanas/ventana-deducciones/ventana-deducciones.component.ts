@@ -726,7 +726,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
-          debugger;
+          
           let  obj = this.myForm.getRawValue();
           
 

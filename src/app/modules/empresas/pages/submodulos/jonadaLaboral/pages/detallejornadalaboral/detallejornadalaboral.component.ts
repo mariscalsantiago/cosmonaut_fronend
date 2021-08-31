@@ -601,7 +601,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public hrDeSalida(response : any){
-    debugger;
+    
       
       if(response.value !== undefined){
         this.hrSalida = Number(response.value.substring(0,2));
@@ -610,7 +610,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public hrInicioComida(response : any){
-    debugger;
+    
       
       if(response.value !== undefined){
         this.hrComida = Number(response.value.substring(0,2));
@@ -629,7 +629,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public hrInicio(response : any){
-    debugger;
+    
     if(this.jornada === '1') {
       this.myForm.controls.horaSalida.disable();
       if(response.value !== undefined){

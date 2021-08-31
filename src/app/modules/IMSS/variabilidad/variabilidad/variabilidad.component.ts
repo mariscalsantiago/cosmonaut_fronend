@@ -101,7 +101,7 @@ export class VariabilidadComponent implements OnInit {
     this.cargando = true;
     
     this.EmpleadosService.getEmpleadosCompania(this.idEmpresa).subscribe(datos => {
-      debugger;
+      
       let obj = datos.datos[0];
       this.razonSocial = obj.centrocClienteId?.razonSocial;
       this.filtrar();
@@ -251,7 +251,7 @@ export class VariabilidadComponent implements OnInit {
     }
 
     public createForm(obj: any) {
-debugger;
+
    if(this.esREcalcular){
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
@@ -312,7 +312,7 @@ debugger;
       clienteId: this.idEmpresa
     };
     this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
-      debugger;
+      
       if(datos.datos == undefined){
         this.sinPromedios = true;
         this.conPromedios = false; 
@@ -439,7 +439,7 @@ debugger;
                 this.empresasPrd.recalculoPromedioVariables(this.varibilidadRecalculoID).subscribe(datos => {
                     
                   this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Recalculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
-                  debugger;
+                  
                   let intervalo = interval(1000);
                   intervalo.pipe(take(10));
                   let subscribe = intervalo.subscribe(valor =>{
@@ -500,7 +500,7 @@ debugger;
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         
           if(valor){
-            debugger;
+            
             let  obj = this.myForm.getRawValue();
 
             let fecha = obj.fecha.split("/");
@@ -543,7 +543,7 @@ debugger;
 
                 
                 this.empresasPrd.calculoPromedioVariables(objEnviar).subscribe(datos => {
-                  debugger;
+                  
                   if(!datos.resultado){
 
                     this.modalPrd.showMessageDialog(this.modalPrd.error,datos.mensaje).then(valor =>{
@@ -598,7 +598,7 @@ debugger;
           this.desgargarArchivo(obj);
          break;
       case "recalcular":
-          debugger;
+          
           this.esREcalcular = true;
           this.objRecalculo = obj.datos;
           this.myForm = this.createForm(this.objRecalculo);
