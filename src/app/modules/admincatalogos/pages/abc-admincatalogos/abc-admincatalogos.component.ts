@@ -59,6 +59,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public periodo:string = "";
   public especializacion = '';
   public fechaAlta: number = 0;
+  public activaClaveCuatro : boolean = false;
+  public activaClaveDos : boolean = false;
 
   public arreglotabla: any = {
     columnas: [],
@@ -577,6 +579,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.activaClave = true;
         this.regimen = true;
       }
+      else if(this.detCatalogos.listaCatalogosId == 9){
+        this.activaClaveCuatro = true;
+      }
+      else if(this.detCatalogos.listaCatalogosId == 12 || this.detCatalogos.listaCatalogosId == 3){
+        this.activaClaveDos = true;
+      }
       else if(this.detCatalogos.listaCatalogosId == 4){
         this.activaClave = true;
         this.percepcion = true;
@@ -675,6 +683,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
         console.log('despues del modal',valor, this.myForm.getRawValue())
+        debugger;
         let obj = this.myForm.getRawValue();
         if(obj.esActivo == "true"){
           obj.esActivo = true;
@@ -764,7 +773,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
         else if(this.detCatalogos.listaCatalogosId == 12){
                    
-          
+
           this.objEnviar = {
             clave: obj.clave,
             descripcion: obj.nombreCorto,
@@ -783,9 +792,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
+
             this.objEnviar = {
 
-              parentescoId: obj.clave,
+              parentescoId: this.objdetrep.parentescoId,
+              clave: obj.clave,
               descripcion: obj.nombreCorto,
               nombreCorto: this.objdetrep.nombreCorto,
               esActivo: obj.esActivo,
@@ -1508,7 +1519,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   
           } else {
 
-            this.objEnviar.valorReferenciaId = obj.clave;
+            this.objEnviar.valorReferenciaId = this.objdetrep.valorReferenciaId;
   
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarReferencia(this.objEnviar).subscribe(datos => {

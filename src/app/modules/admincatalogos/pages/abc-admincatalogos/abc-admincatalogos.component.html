@@ -24,9 +24,17 @@
         </div>
 
         <div class="form-group row margen">
-            <div *ngIf="activaClave && this.detCatalogos.listaCatalogosId != 3 && this.detCatalogos.listaCatalogosId != 20 && this.detCatalogos.listaCatalogosId != 14 && this.detCatalogos.listaCatalogosId != 21 && this.detCatalogos.listaCatalogosId != 22" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="activaClave && this.detCatalogos.listaCatalogosId != 3 && this.detCatalogos.listaCatalogosId != 12 && this.detCatalogos.listaCatalogosId != 20 && this.detCatalogos.listaCatalogosId != 14 && this.detCatalogos.listaCatalogosId != 21 && this.detCatalogos.listaCatalogosId != 22" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Clave *</label>
-                <input formControlName="clave" type="text" class="form-control"
+                <input formControlName="clave" maxlength="3" type="text" class="form-control"
+                [ngClass]="{'is-invalid':f.clave.errors && submitEnviado}">
+                <div *ngIf="f.clave.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="activaClaveCuatro" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Clave *</label>
+                <input formControlName="clave" maxlength="4" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.clave.errors && submitEnviado}">
                 <div *ngIf="f.clave.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -36,11 +44,11 @@
 
             <div *ngIf="inactivaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Clave *</label>
-                <input formControlName="clave" type="text" class="form-control disabled bg-light">
+                <input formControlName="clave" maxlength="4" type="text" class="form-control disabled bg-light">
             </div>
-            <div *ngIf="activaClave && this.detCatalogos.listaCatalogosId == 3" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="activaClaveDos" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Clave *</label>
-                <input appSolonumeros formControlName="clave" type="text" class="form-control"
+                <input appSolonumeros maxlength="2" formControlName="clave" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.clave.errors && submitEnviado}">
                 <div *ngIf="f.clave.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -49,11 +57,11 @@
 
             <div *ngIf="banco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Codigo *</label>
-                <input formControlName="codBanco" type="text" class="form-control disabled bg-light">
+                <input formControlName="codBanco" maxlength="3" type="text" class="form-control disabled bg-light">
             </div>
             <div *ngIf="habilitarbanco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Codigo *</label>
-                <input formControlName="codBanco" type="text" class="form-control "
+                <input formControlName="codBanco" maxlength="3" type="text" class="form-control "
                 [ngClass]="{'is-invalid':f.codBanco.errors && submitEnviado}">
                 <div *ngIf="f.codBanco.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -62,7 +70,7 @@
 
             <div *ngIf="descripcionGeneral" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Descripción *</label>
-                <input formControlName="nombreCorto" type="text" class="form-control" 
+                <input formControlName="nombreCorto" maxlength="250" type="text" class="form-control" 
                 [ngClass]="{'is-invalid':f.nombreCorto.errors && submitEnviado}">
                 <div *ngIf="f.nombreCorto.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -72,7 +80,7 @@
 
             <div *ngIf="razonBanco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Razón social *</label>
-                <input formControlName="razonSocial" type="text" class="form-control" 
+                <input formControlName="razonSocial" maxlength="250" type="text" class="form-control" 
                 [ngClass]="{'is-invalid':f.razonSocial.errors && submitEnviado}">
                 <div *ngIf="f.razonSocial.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido

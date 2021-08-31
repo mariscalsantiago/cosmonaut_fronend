@@ -121,10 +121,7 @@ export class KardexComponent implements OnInit {
 
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
-        item.fechaMovimiento = (new Date(item.fechaMovimiento).toUTCString()).replace(" 00:00:00 GMT", "");
-        let datepipe = new DatePipe("es-MX");
-        item.fechaMovimiento = datepipe.transform(item.fechaMovimiento , 'dd-MMM-y')?.replace(".","");
-
+        item.fechaMovimiento = new DatePipe("es-MX").transform(new Date(new Date(item.fechaMovimiento).toUTCString().replace("GMT","")), 'dd-MMM-y');
         item.tipoMovimiento= item.movimiento;
         item.registroPatronal= item.registroDescripcion;
       }
