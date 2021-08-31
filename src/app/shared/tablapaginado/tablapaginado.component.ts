@@ -12,11 +12,11 @@ export class TablapaginadoComponent implements OnInit {
 
   public tooltipText = "";
   @Input() public cargando: any = false;
-  @Input() public datosExtras:any;
+  @Input() public datosExtras: any;
   public arreglo: any = [];
   public numeroitems: number = 5;
   public total: any = 0;
-  public filterby : any = "0";
+  public filterby: any = "0";
 
 
   public arreglopaginas: Array<any> = [];
@@ -29,43 +29,43 @@ export class TablapaginadoComponent implements OnInit {
   }
 
   @Input() arreglotablaDesglose: any;
-  
+
 
   @Input() public ver: any;
   @Input() public editar: any;
   @Input() public eliminar: any;
-  @Input() public descargar: any;  
+  @Input() public descargar: any;
   @Input() public recalcular: any;
   @Input() public desglosar: any;
   @Input() public checkbox: any;
   @Input() public filter: any;
-  @Input() public esTransferencia:string = '';
+  @Input() public esTransferencia: string = '';
 
   @Input() public imagen: any;
   @Input() public porcentaje: boolean = false;
   @Input() public tablabeneficios: boolean = false;
   @Input() public timbrado: boolean = false;
-  @Input() public llave:boolean = false;
-  @Input() public chat:boolean = false;
-  @Input() public esNominaHistorica:boolean = false;
+  @Input() public llave: boolean = false;
+  @Input() public chat: boolean = false;
+  @Input() public esNominaHistorica: boolean = false;
 
   @Input() public icondefault: string = "default";
 
   @Output() public salida = new EventEmitter();
-  @Input() public nominacalculo:boolean = false;
-  @Input() public nominatimbrar:boolean = false;
-  @Input() public imss:boolean = false;
+  @Input() public nominacalculo: boolean = false;
+  @Input() public nominatimbrar: boolean = false;
+  @Input() public imss: boolean = false;
 
-  @Input() public esnomina:boolean = false;
-  @Input() public patronal:any = {datos:[]};
+  @Input() public esnomina: boolean = false;
+  @Input() public patronal: any = { datos: [] };
 
 
-  public seleccionarGlobal:boolean = false;
+  public seleccionarGlobal: boolean = false;
 
-  
+
 
   public arreglotemp: any = [];
-  public verpatronal:boolean = false;
+  public verpatronal: boolean = false;
 
 
 
@@ -78,14 +78,14 @@ export class TablapaginadoComponent implements OnInit {
   };
 
 
-  constructor(private configuracionPrd:ConfiguracionesService) { }
+  constructor(private configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
 
 
     this.numeroitems = Number(this.configuracionPrd.getElementosSesionDirecto(this.configuracionPrd.ELEMENTOSTABLA) || "5");
 
-      
+
 
   }
 
@@ -94,7 +94,7 @@ export class TablapaginadoComponent implements OnInit {
 
     this.paginar();
 
-    this.configuracionPrd.setElementosSesion(this.configuracionPrd.ELEMENTOSTABLA,this.numeroitems)
+    this.configuracionPrd.setElementosSesion(this.configuracionPrd.ELEMENTOSTABLA, this.numeroitems)
 
 
   }
@@ -109,11 +109,11 @@ export class TablapaginadoComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
 
- 
+
     if (this.datos.filas !== undefined) {
-  
+
       this.arreglotemp = this.datos.filas;
-      if(this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined ){
+      if (this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined) {
         this.tooltipText = "editarUsuario";
       }
       this.total = this.arreglotemp.length;
@@ -130,7 +130,7 @@ export class TablapaginadoComponent implements OnInit {
     }
 
 
-    
+
   }
 
 
@@ -193,7 +193,7 @@ export class TablapaginadoComponent implements OnInit {
     this.activarAntes = !(indice === 0 && this.indice === 0);
 
     const elementosTotalArreglo = this.arreglotemp.length;
-   
+
 
     if (indice == 2) {
       let totalElementosPaginado = ((this.indice + 1) * 3) * Number(this.numeroitems);
@@ -297,23 +297,23 @@ export class TablapaginadoComponent implements OnInit {
     this.salida.emit({ type: "llave", datos: item, indice: indice });
   }
 
-  public btnresponder(item:any,indice:number){
+  public btnresponder(item: any, indice: number) {
     this.salida.emit({ type: "responder", datos: item, indice: indice });
   }
-  public btnDefault(item:any,indice:number){
+  public btnDefault(item: any, indice: number) {
     this.salida.emit({ type: "default", datos: item, indice: indice });
   }
   public btnDesglosar(item: any, indice: number) {
 
     if (item.desglosarDown) {
-      
+
       for (let item of this.datos.filas) {
         item.desglosarDown = true;
         item.cargandoDetalle = false;
       }
 
 
-      
+
       item.desglosarDown = false;
       item.cargandoDetalle = true;
       this.salida.emit({ type: "desglosar", datos: item, indice: indice });
@@ -355,43 +355,43 @@ export class TablapaginadoComponent implements OnInit {
 
 
   public ordenar(item: any) {
-    debugger;
+    
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
-    this.ordInsercion(this.arreglotemp,item.id,item.acomodar);
+    this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
     this.paginar();
   }
 
-  public  ordInsercion(a:any,llave:string,tipoAcomodo:boolean) {
-    debugger;
+  public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
+    
     let i, j;
     let aux;
     for (i = 1; i < a.length; i++) {
       j = i;
       aux = a[i];
 
-      console.log(aux[llave]+"  "+a[j - 1][llave]+"="+(`${aux[llave] < a[j - 1][llave]}`));
-     if(tipoAcomodo){
-       
-      debugger;
-      while (j > 0 && ((`${aux[llave] || ' '}`)?.toUpperCase() < (`${a[j - 1][llave] || ' '}`)?.toUpperCase())) {
+      console.log(aux[llave] + "  " + a[j - 1][llave] + "=" + (`${aux[llave] < a[j - 1][llave]}`));
+      if (tipoAcomodo) {
 
-        a[j] = a[j - 1];
-        j--;
+        
+        while (j > 0 && ((`${aux[llave] || ' '}`)?.toUpperCase() < (`${a[j - 1][llave] || ' '}`)?.toUpperCase())) {
+
+          a[j] = a[j - 1];
+          j--;
+        }
+        
+      } else {
+        while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() > (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
+          a[j] = a[j - 1];
+          j--;
+        }
       }
-        debugger;
-     }else{
-      while (j > 0 && (aux[llave]==undefined?" ":`${aux[llave]}`)?.toUpperCase() > (a[j - 1][llave] == undefined?" ":`${a[j - 1][llave]}`)?.toUpperCase()) {
-        a[j] = a[j - 1];
-        j--;
-      }
-     }
       a[j] = aux;
     }
   }
 
 
 
-  public definirFecha(tipo:string,item:any,indice:number){
+  public definirFecha(tipo: string, item: any, indice: number) {
     switch (tipo) {
       case "polizacontable":
         this.salida.emit({ type: "polizacontable", datos: item, indice: indice });
@@ -417,30 +417,36 @@ export class TablapaginadoComponent implements OnInit {
       case "cancelartimbrado":
         this.salida.emit({ type: "cancelartimbrado", datos: item, indice: indice });
         break;
+      case "reporteAcumuladosPorMes":
+        this.salida.emit({ type: "reporteAcumuladosPorMes", datos: item, indice: indice });
+        break;
+      case "reporteAcumuladosPorConcepto":
+        this.salida.emit({ type: "reporteAcumuladosPorConcepto", datos: item, indice: indice });
+        break;
     }
   }
 
 
-  public seleccionarTodos(){
-    for(let item of this.arreglotemp){
-        item.seleccionado = !this.seleccionarGlobal;
+  public seleccionarTodos() {
+    for (let item of this.arreglotemp) {
+      item.seleccionado = !this.seleccionarGlobal;
     }
 
-    this.salida.emit({type:'filaseleccionada',datos:!this.seleccionarGlobal});
+    this.salida.emit({ type: 'filaseleccionada', datos: !this.seleccionarGlobal });
   }
 
-  public verRegistroPatronal(item:any){
-    
-    
+  public verRegistroPatronal(item: any) {
+
+
     this.verpatronal = !this.verpatronal;
-    this.salida.emit({type:'patronal',datos:item});
+    this.salida.emit({ type: 'patronal', datos: item });
   }
 
-  public iniciarDescarga(item:any){
+  public iniciarDescarga(item: any) {
     this.verpatronal = !this.verpatronal;
-    this.salida.emit({type:'patronal',datos:item});
+    this.salida.emit({ type: 'patronal', datos: item });
   }
-  
+
 
 
 }

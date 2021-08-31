@@ -27,6 +27,15 @@ export class NominaHistoricasComponent implements OnInit {
   public periodo: string = "";
   public fecha: string = "";
 
+  public anioactual:number = new Date().getFullYear();
+
+  public mes:string[] = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+  public reporteindex:number = 1;
+  public mesIndex:number = 0;
+   
+
+
+
 
   constructor(private nominashistoricasPrd: NominasHistoricasService, private usuarioSistemaPrd: UsuarioSistemaService,
     public configuracionPrd: ConfiguracionesService, private reportesPrd: ReportesService,
@@ -36,18 +45,14 @@ export class NominaHistoricasComponent implements OnInit {
     let objEnviar = {
       clienteId: this.usuarioSistemaPrd.getIdEmpresa()
     }
-
     this.cargando = true;
-
     this.nominashistoricasPrd.getNominasHistoricas(objEnviar).subscribe(datos => {
       this.rellenarTablas(datos);
-
       this.cargando = false;
-
-    });
+    });    
   }
 
-  public rellenarTablas(datos:any){
+  public rellenarTablas(datos: any) {
     let columnas: Array<tabla> = [new tabla("nombre_nomina", "Nombre de nómina"),
     new tabla("clave_periodo", "Clave de periodo"),
     new tabla("anio", "Año"),
@@ -57,7 +62,7 @@ export class NominaHistoricasComponent implements OnInit {
     if (datos.datos !== undefined) {
       for (let item of datos.datos) {
         item["anio"] = new DatePipe("es-MX").transform(item.fecha_inicio, "yyyy");
-        item["fechai"] = new DatePipe("es-MX").transform(new Date(new Date(item.fecha_inicio).toUTCString().replace("GMT","")), 'dd/MM/yyyy');
+        item["fechai"] = new DatePipe("es-MX").transform(new Date(new Date(item.fecha_inicio).toUTCString().replace("GMT", "")), 'dd/MM/yyyy');
       }
     }
 
@@ -73,36 +78,29 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
+    
     obj.datos.cargandoDetalle = false;
-
-    
-
     let objEnviar: any;
-
-    
-
-
-
     switch (obj.type) {
       case "polizacontable":
         alert("Poliza contable");
         break;
       case "detallenomina":
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.reportesPrd.nominaHistorica(obj.datos.nomina_xperiodo_id).subscribe(objrecibido =>{
+        this.reportesPrd.nominaHistorica(obj.datos.nomina_xperiodo_id).subscribe(objrecibido => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            if(!objrecibido.resultado){
-                this.modalPrd.showMessageDialog(objrecibido.resultado,objrecibido.mensaje);
-            }else{
-              this.reportesPrd.crearArchivo(objrecibido.datos, `Detallenomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "pdf");
-            }
+          if (!objrecibido.resultado) {
+            this.modalPrd.showMessageDialog(objrecibido.resultado, objrecibido.mensaje);
+          } else {
+            this.reportesPrd.crearArchivo(objrecibido.datos, `Detallenomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "pdf");
+          }
         });
         break;
       case "nomina":
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.reportesPrd.nominaReporteRaya(obj.datos.nomina_xperiodo_id).subscribe(objrecibido=>{
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        this.reportesPrd.nominaReporteRaya(obj.datos.nomina_xperiodo_id).subscribe(objrecibido => {
           if (objrecibido.resultado) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.reportesPrd.crearArchivo(objrecibido.datos, `reportenomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "pdf");
           } else {
             this.modalPrd.showMessageDialog(objrecibido.resultado, objrecibido.mensaje);
@@ -113,14 +111,14 @@ export class NominaHistoricasComponent implements OnInit {
         objEnviar = {
           nominaXperiodoId: obj.datos.nomina_xperiodo_id,
           listaIdPersona: [
-    
+
           ]
         }
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.reportesPrd.getFoliosnominaConcluir(objEnviar).subscribe(objrecibido => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if (objrecibido.resultado) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.reportesPrd.crearArchivo(objrecibido.datos, `Foliosfiscales_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "pdf");
           } else {
             this.modalPrd.showMessageDialog(objrecibido.resultado, objrecibido.mensaje);
@@ -128,35 +126,35 @@ export class NominaHistoricasComponent implements OnInit {
         });
         break;
       case "reportenomina":
-         objEnviar = {
-      nominaPeriodoId: obj.datos.nomina_xperiodo_id
-    }
+        objEnviar = {
+          nominaPeriodoId: obj.datos.nomina_xperiodo_id
+        }
 
 
-    let esnormal:boolean = true;
-    this.modalPrd.showMessageDialog(this.modalPrd.loading);
-  
-    if (esnormal) {
-      this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "xlsx");
-      });
-    } else {
-      this.reportesPrd.getReporteNominasTabCalculadosEspeciales(objEnviar).subscribe(datos => {
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "xlsx");
-      });
-    }
+        let esnormal: boolean = true;
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+        if (esnormal) {
+          this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "xlsx");
+          });
+        } else {
+          this.reportesPrd.getReporteNominasTabCalculadosEspeciales(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.reportesPrd.crearArchivo(datos.datos, `ReporteNomina_${obj.datos.nombre_nomina}_${obj.datos.clave_periodo}`, "xlsx");
+          });
+        }
         break;
       case "reportepolizacontable":
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.reportesPrd.getHistoricoPolizaContable(obj.datos.nomina_xperiodo_id).subscribe(datos => {
-            if(datos.resultado){
-              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-              this.reportesPrd.crearArchivo(datos.datos, `ReportePólizaContable_${obj.datos.clavePeriodo}_${obj.datos.nombreNomina}`, "xlsx");
-            }else{
-                this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
-            }
+          if (datos.resultado) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.reportesPrd.crearArchivo(datos.datos, `ReportePólizaContable_${obj.datos.clavePeriodo}_${obj.datos.nombreNomina}`, "xlsx");
+          } else {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+          }
         });
         break;
       case "recibonominazip":
@@ -166,40 +164,118 @@ export class NominaHistoricasComponent implements OnInit {
           nominaPeriodoId: obj.datos.nomina_xperiodo_id,
           esVistaPrevia: false,
           esTimbrado: true,
-          esSubida:true
+          esSubida: true
         };
 
         this.reportesPrd.getComprobanteFiscalXMLOrdinarias(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          if(datos.resultado){
+          if (datos.resultado) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.reportesPrd.crearArchivo(datos.datos, `RecibosNómina_${obj.datos.clave_periodo}_${obj.datos.nombre_nomina}`, "zip");
-          }else{
-            this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+          } else {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           }
         });
         break;
-      case "cancelartimbrado":
-        alert("cancelartimbrado");
+      case "reporteAcumuladosPorMes":
+         objEnviar = {
+          mes:new DatePipe("es-MX").transform(obj.datos.fecha_inicio,"MM"),
+          clienteId:this.usuarioSistemaPrd.getIdEmpresa()
+        }
+
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos =>{
+          if (datos.resultado) {
+            console.log(datos);
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${new DatePipe("es-MX").transform(obj.datos.fecha_inicio,"MM")}`, "xlxs");
+          } else {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+          }
+        });
+        break;
+      case "reporteAcumuladosPorConcepto":
+        objEnviar = {
+          mes:new DatePipe("es-MX").transform(obj.datos.fecha_inicio,"MM"),
+          centroCostoClienteId:this.usuarioSistemaPrd.getIdEmpresa()
+        }
+
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos =>{
+          if (datos.resultado) {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${new DatePipe("es-MX").transform(obj.datos.fecha_inicio,"MM")}`, "pdf");
+          } else {
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+          }
+        });
         break;
     }
   }
 
 
+  public obtenerReportes(){
+
+  
+
+
+    let objEnviar:any;
+       switch(this.reporteindex){
+        case 1:
+          objEnviar = {
+           mes:this.mesIndex,
+           clienteId:this.usuarioSistemaPrd.getIdEmpresa()
+         }
+ 
+ 
+         this.modalPrd.showMessageDialog(this.modalPrd.loading);
+         this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos =>{
+           if (datos.resultado) {
+             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+             this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${this.mesIndex}`, "xlxs");
+           } else {
+             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+           }
+         });
+         break;
+       case 2:
+         objEnviar = {
+           mes:this.mesIndex,
+           centroCostoClienteId:this.usuarioSistemaPrd.getIdEmpresa()
+         }
+ 
+ 
+         this.modalPrd.showMessageDialog(this.modalPrd.loading);
+         this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos =>{
+           if (datos.resultado) {
+             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+             this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${this.mesIndex}`, "pdf");
+           } else {
+             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+           }
+         });
+         break;
+       }
+  }
+
+
   public filtrar() {
 
-      let objEnviar = {
-        centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
-        estadoNominaIdActual: 5,
-        nombreNomina: this.nombreNomina || null,
-        clavePeriodo: this.periodo || null,
-        fechaInicio: this.fecha || null
+    let objEnviar = {
+      centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
+      estadoNominaIdActual: 5,
+      nombreNomina: this.nombreNomina || null,
+      clavePeriodo: this.periodo || null,
+      fechaInicio: this.fecha || null
     }
 
-      this.cargando = true;
-      this.nominashistoricasPrd.filtrado(objEnviar).subscribe(datos =>{
+    this.cargando = true;
+    this.nominashistoricasPrd.filtrado(objEnviar).subscribe(datos => {
 
-        this.rellenarTablas(datos);
-        this.cargando = false;
-      });
+      this.rellenarTablas(datos);
+      this.cargando = false;
+    });
   }
 }

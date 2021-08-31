@@ -39,7 +39,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   ngOnInit(): void {
     
-debugger;
+
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -129,7 +129,7 @@ debugger;
 
 
   public validarPercepcion(tipo:any){
-    debugger;
+    
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
       this.arregloTipoPercepcion = datos.datos 
       
@@ -158,7 +158,7 @@ debugger;
   }
   public validarTipoConcepto(tipo:any){
   
-    debugger;
+    
     this.limpiarTipopercepcion = false;
     let type = String(tipo).substring(0,3)
     for(let item of this.arregloTipoPercepcion){
@@ -245,7 +245,7 @@ debugger;
 }
   public validarTipoConceptoMod(tipo:any){
   
-      debugger;
+      
       this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{ 
         this.arregloTipoPercepcionMod = datos.datos 
 
@@ -354,7 +354,7 @@ debugger;
         
         
         if (valor) {
-          debugger;
+          
           
           let obj = this.myForm.getRawValue();
           if(obj.tipoConcepto == null){

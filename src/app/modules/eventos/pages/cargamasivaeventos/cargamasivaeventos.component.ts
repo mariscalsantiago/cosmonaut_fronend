@@ -151,7 +151,7 @@ export class CargaMasivaEventosComponent implements OnInit {
   }
 
   public recibirEtiquetas(obj: any) {
-    debugger;
+    
     this.etiquetas = obj;
  }
 

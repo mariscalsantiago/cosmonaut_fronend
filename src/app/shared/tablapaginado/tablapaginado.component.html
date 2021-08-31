@@ -217,22 +217,23 @@
                                 style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
                                 class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Reporte de Póliza Contable</a>
-                            <a (click)="definirFecha('reportepolizacontable',item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
-                                class="dropdown-toggle">
-                                <img src="assets/Iconos24/download.png" alt="" srcset="">Descargar acumulados por
-                                mes</a>
-                            <a (click)="definirFecha('reportepolizacontable',item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
-                                class="dropdown-toggle">
-                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Descargar acumulados por
-                                concepto</a>
                         </td>
                         <td colspan="2">
                             <a (click)="definirFecha('recibonominazip',item,indice)"
                                 style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
                                 class="dropdown-toggle">
                                 <img src="assets/Iconos24/download.png" alt="" srcset=""> Recibos de nómina en ZIP</a>
+
+                                <a (click)="definirFecha('reporteAcumuladosPorMes',item,indice)"
+                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
+                                class="dropdown-toggle">
+                                <img src="assets/Iconos24/download.png" alt="" srcset="">Descargar acumulados por
+                                mes</a>
+                            <a (click)="definirFecha('reporteAcumuladosPorConcepto',item,indice)"
+                                style="color:#56dfd4;text-decoration: underline;line-height: 26px;"
+                                class="dropdown-toggle">
+                                <img src="assets/Iconos24/download.png" alt="" srcset=""> Descargar acumulados por
+                                concepto</a>
 
                         </td>
                     </tr>

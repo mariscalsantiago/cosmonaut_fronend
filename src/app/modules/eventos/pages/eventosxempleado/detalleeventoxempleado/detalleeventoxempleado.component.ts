@@ -149,7 +149,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public guardarEvento() {
 
-    debugger;
+    
 
     let obj = this.myForm.getRawValue();
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
