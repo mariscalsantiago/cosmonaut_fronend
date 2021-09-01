@@ -264,7 +264,7 @@ export class PersonalComponent implements OnInit {
       fechaNacimiento: [fechaNacimiento,Validators.required],
       rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
-      nss: obj.nss,
+      nss: [obj.nss,[Validators.required]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
       emailCorporativo: [{value:obj.emailCorporativo?.toLowerCase(),disabled:false}, [Validators.email,Validators.required]],
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId || 1, [Validators.required]],
@@ -474,13 +474,16 @@ export class PersonalComponent implements OnInit {
 
     if (this.insertarDomicilio) {
       this.domicilioPrd.save(objenviar).subscribe(datos => {
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-        this.myForm = this.createForm(this.empleado);
-        this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
-          this.domicilioArreglo = datosnativo?.datos[0];
-        });
+        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
 
+          if(datos.resultado){
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+            this.ngOnInit();
+          }
+
+        });
+     
+        this.myForm = this.createForm(this.empleado);
       });
     } else {
 
