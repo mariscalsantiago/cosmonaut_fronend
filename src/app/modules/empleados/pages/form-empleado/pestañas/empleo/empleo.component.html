@@ -180,7 +180,7 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Grupo de nómina*</label>
-                    <select placement="top" [mdbTooltip]="'grupoNomina' | tooltip" (change)="cambiarGrupoNomina()" formControlName="grupoNominaId" class="form-control" [ngClass]="{'is-invalid':f.grupoNominaId.errors && f.grupoNominaId.touched}">
+                    <select placement="top" [mdbTooltip]="'grupoNomina' | tooltip" (change)="cambiarGrupoNomina(false)" formControlName="grupoNominaId" class="form-control" [ngClass]="{'is-invalid':f.grupoNominaId.errors && f.grupoNominaId.touched}">
                         <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
                     </select>
                     <div class="invalid-feedback">

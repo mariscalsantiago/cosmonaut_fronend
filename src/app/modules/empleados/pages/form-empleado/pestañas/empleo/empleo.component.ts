@@ -43,7 +43,6 @@ export class EmpleoComponent implements OnInit {
   public textoArea: string = "";
   public mensajeModalito: string = "";
   public desabilitarinput: boolean = false;
-  public noRestablecer:boolean = false;
   public grupoNominaSeleccionado: any = {
     pagoComplementario: false
   };
@@ -120,8 +119,7 @@ export class EmpleoComponent implements OnInit {
 
     this.gruponominaPrd.getAll(this.id_empresa).subscribe(datos => {
       this.arreglogruponominas = datos.datos;
-      this.noRestablecer = true;
-      this.cambiarGrupoNomina();
+      this.cambiarGrupoNomina(true);
       if (this.typeppp) {
         this.myForm.controls.sueldonetomensualppp.setValue(this.tabsDatos[3].pppSnm || 0);
         this.myForm.controls.salarioDiarioIntegrado.setValue(this.tabsDatos[3].sbc);
@@ -743,16 +741,16 @@ export class EmpleoComponent implements OnInit {
     }
   }
 
-  public cambiarGrupoNomina() {
+  public cambiarGrupoNomina(noRestablecer:boolean) {
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
     
 
     let aux = this.pagoComplementario(gruponominaId);
     
+    debugger;
 
-    if(!this.noRestablecer){
-      this.limpiarMontos()
-      this.noRestablecer = true;
+    if(!noRestablecer){
+      this.limpiarMontos();
     }
 
     this.grupoNominaSeleccionado = aux;
@@ -877,6 +875,7 @@ export class EmpleoComponent implements OnInit {
     } else {
 
      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+     this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede calcular sueldo Neto mensual, verificar servicio con soporte.");
       //Se calcula sueldo neto a sueldo bruto.....
 
     }
