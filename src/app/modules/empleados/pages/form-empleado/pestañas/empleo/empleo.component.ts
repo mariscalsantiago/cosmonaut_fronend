@@ -876,7 +876,7 @@ export class EmpleoComponent implements OnInit {
       });
     } else {
 
-
+     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       //Se calcula sueldo neto a sueldo bruto.....
 
     }
