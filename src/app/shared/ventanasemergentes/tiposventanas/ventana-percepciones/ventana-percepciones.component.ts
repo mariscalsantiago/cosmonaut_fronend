@@ -145,7 +145,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.myForm.updateValueAndValidity();
 
     if (Boolean(tipo)) {
-      
+      debugger;
       if (tipo == 1) {
         
         this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
@@ -182,6 +182,7 @@ export class VentanaPercepcionesComponent implements OnInit {
             this.myForm.controls.nomPercepcion.enable();
           });
         } else {
+          debugger;
           this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
             for (let item of datos.datos) {
               item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
@@ -223,7 +224,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         }
         this.periodica = false;
         this.estandar = true;
-        if (Boolean(this.politica)) {
+        if(Boolean(this.politica)) {
           this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
             for (let item of datos.datos) {
               item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
@@ -235,8 +236,8 @@ export class VentanaPercepcionesComponent implements OnInit {
 
           });
         } else {
-          //getObtenerPeriodicidad <--- estaba antes esto
-          this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+          
+          this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
             for (let item of datos.datos) {
               item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
 

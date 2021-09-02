@@ -89,8 +89,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     this.objdetrep = {
       ...this.objdetrep,
-      //clave: this.idCatalogo,
-      //nombreCorto: this.descripcion,
       esActivo: this.objdetrep.esActivo,
       tipoPersona: this.objdetrep.indPersonaFisica
     };
@@ -203,9 +201,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 15){
+      debugger;
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.tipoValorReferenciaId?.descripcion;
       this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => this.arregloValoresReferencia = datos.datos);
+      this.objdetrep.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(this.objdetrep.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+      this.objdetrep.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(this.objdetrep.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd'); 
       this.clave();
 
     }
@@ -291,6 +292,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 16){
+      debugger;
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
@@ -308,6 +310,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public createForm(obj: any) {
+    debugger;
 
     const pipe = new DatePipe("es-MX");
     return this.formBuilder.group({
@@ -583,12 +586,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
       else if(this.detCatalogos.listaCatalogosId == 9){
         this.activaClaveCuatro = true;
       }
-      else if(this.detCatalogos.listaCatalogosId == 12 || this.detCatalogos.listaCatalogosId == 3 || this.detCatalogos.listaCatalogosId == 8){
-        this.activaClaveDos = true;
-      }
       else if(this.detCatalogos.listaCatalogosId == 4){
         this.activaClave = true;
         this.percepcion = true;
+      }
+      else if(this.detCatalogos.listaCatalogosId == 5){
+        this.activaClave = true;
       }
       else if(this.detCatalogos.listaCatalogosId == 15){
         this.referencia = true;
@@ -616,7 +619,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
       }
       else{
-        this.activaClave = true;
+        this.activaClaveDos = true;
       }
       
     }else{
@@ -841,12 +844,19 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
+            let esIncidencia;
+            if(!obj.esActivo){
+              esIncidencia = false;
+            }else{
+              esIncidencia = true;
+            }
+
             this.objEnviar = {
 
               tipoIncidenciaId: obj.clave,
               descripcion: obj.nombreCorto,
               nombreCorto: this.objdetrep.nombreCorto,
-              esIncidencia: true,
+              esIncidencia: esIncidencia,
               esActivo: obj.esActivo,
             }
   
@@ -1615,14 +1625,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 this.valorestab.push(this.valores);
   
               }
-            this.objEnviar = {
-
-              valoresTablaPeriodicaISR: this.valorestab,
-
-            }
 
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.adminCatalogosPrd.modificarTarifaPeriodicaISR(this.objEnviar).subscribe(datos => {
+            this.adminCatalogosPrd.modificarTarifaPeriodicaISR(this.valorestab).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                 if(datos.resultado){
@@ -1710,15 +1715,15 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 this.valorestab.push(this.valores);
   
               }
-            this.objEnviar = {
+/*             this.objEnviar = {
 
               valoresTablaPeriodicaISR: this.valorestab,
 
-            }
+            } */
   
   
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.adminCatalogosPrd.modificarAplicableISN(this.objEnviar).subscribe(datos => {
+            this.adminCatalogosPrd.modificarAplicableISN(this.valorestab).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                 if(datos.resultado){
@@ -1808,17 +1813,15 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
                 }
                 this.valorestab.push(this.valores);
-                console.log('item.fechainicio', item.fechaInicio)
-                console.log('fechainicio', fechainicio)
 
               }
-            this.objEnviar = {
+/*             this.objEnviar = {
               valoresTablaPeriodicaSubsidio: this.valorestab,
-            }
-            console.log('18 objEnviar', this.objEnviar)
+            } */
+
   
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.adminCatalogosPrd.modificarTarifaPeriodicaSubsidio(this.objEnviar).subscribe(datos => {
+            this.adminCatalogosPrd.modificarTarifaPeriodicaSubsidio(this.valorestab).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                 if(datos.resultado){
