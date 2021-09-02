@@ -191,7 +191,7 @@ export class CargaMasivaEventosComponent implements OnInit {
   
       if(obj.reporteEventoIncidencia.listaIdEmpleados.length === 0){
   
-        this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha seleccionado ningun empledo");
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha seleccionado ningun empleado");
         return;
       }
 
@@ -301,7 +301,7 @@ export class CargaMasivaEventosComponent implements OnInit {
     
     /*if(this.valor == "2"){
       if(this.etiquetas.length === 0){
-        this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha seleccionado ningun empledo");
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha seleccionado ningun empleado");
         return;  
       }
     }*/

@@ -239,7 +239,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
   public seleccionarItem() {
     if(this.valor == "3"){
       if(this.etiquetas.length === 0){
-        this.modal.showMessageDialog(this.modal.error,"No se ha seleccionado ningun empledo");
+        this.modal.showMessageDialog(this.modal.error,"No se ha seleccionado ningun empleado");
         return;  
       }
     }
