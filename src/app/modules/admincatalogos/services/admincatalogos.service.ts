@@ -80,6 +80,10 @@ export class AdminCatalogosService {
   public getListaReferencia(anio:number):Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia/true/${anio}`);
   }
+
+  public getListaReferenciaInactivos(anio:number):Observable<any>{
+    return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia/false/${anio}`);
+  }
   public getListaTipoIncapacidad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/tipoIncapacidad/listar/todosActivo/${estatus}`);
   }
