@@ -1,5 +1,12 @@
 {
   "hosting": {
-    "public": "dist/cosmonaut-front"
+    "public": "dist/cosmonaut-front",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
   }
 }
