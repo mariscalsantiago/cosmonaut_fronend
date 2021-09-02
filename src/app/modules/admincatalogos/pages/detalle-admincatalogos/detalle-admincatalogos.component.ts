@@ -325,7 +325,6 @@ export class DetalleAdminCatalogosComponent implements OnInit {
         if(datos.datos != undefined){
           this.listaTablas = datos.datos
           }  
-
         this.adminCatalogosPrd.getListaReferenciaInactivos(anio).subscribe(datosFa => {
           if(datosFa.datos != undefined){
             this.listaTablasFinal = datosFa.datos

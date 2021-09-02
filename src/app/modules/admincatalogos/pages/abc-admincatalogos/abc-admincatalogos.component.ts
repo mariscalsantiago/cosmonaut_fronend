@@ -531,6 +531,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.myForm.controls.razonSocial.setValidators([]);
     this.myForm.controls.razonSocial.updateValueAndValidity();
   }
+
   else if(this.detCatalogos.listaCatalogosId == 20){
     this.myForm.controls.clave.setValidators([]);
     this.myForm.controls.clave.updateValueAndValidity();
@@ -615,7 +616,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.nuevoaplicableISN = true;
 
       }
-      else if(this.detCatalogos.listaCatalogosId == 13 || this.detCatalogos.listaCatalogosId == 2 || this.detCatalogos.listaCatalogosId == 11 || this.detCatalogos.listaCatalogosId == 10 || this.detCatalogos.listaCatalogosId == 16){
+      else if(this.detCatalogos.listaCatalogosId == 21 || this.detCatalogos.listaCatalogosId == 22 || this.detCatalogos.listaCatalogosId == 14 || this.detCatalogos.listaCatalogosId == 20 || this.detCatalogos.listaCatalogosId == 13 || this.detCatalogos.listaCatalogosId == 2 || this.detCatalogos.listaCatalogosId == 11 || this.detCatalogos.listaCatalogosId == 10 || this.detCatalogos.listaCatalogosId == 16){
 
       }
       else{

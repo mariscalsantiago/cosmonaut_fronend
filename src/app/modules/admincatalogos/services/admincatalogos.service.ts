@@ -25,6 +25,7 @@ export class AdminCatalogosService {
   public getListaFacultad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catFacultadPoder/listar/todosActivo/${estatus}`);
   }
+  
   public getListaDispersion(): Observable<any> {
     return this.http.get(`${direcciones.proveedores}/proveedor-dispersion/listar/todos`);
   }
