@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - samv
+    - RJR
 
 jobs:
   firebase-deploy:
