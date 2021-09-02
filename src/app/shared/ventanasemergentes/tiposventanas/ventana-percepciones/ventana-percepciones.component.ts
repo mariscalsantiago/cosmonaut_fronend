@@ -235,8 +235,7 @@ export class VentanaPercepcionesComponent implements OnInit {
 
           });
         } else {
-          //getObtenerPeriodicidad <--- estaba antes esto
-          this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+          this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
             for (let item of datos.datos) {
               item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
 
