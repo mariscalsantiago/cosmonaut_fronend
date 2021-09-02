@@ -139,6 +139,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo: any) {
+    debugger;
     this.myForm.controls.nomPercepcion.disable();
     this.myForm.clearValidators();
     this.myForm.updateValueAndValidity();
@@ -157,13 +158,19 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.myForm.controls.montoPorPeriodo.updateValueAndValidity();
 
 
-        // this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
+        this.myForm.controls.porcentaje.setValue('');
+        this.myForm.controls.porcentaje.setValidators([]);
+        this.myForm.controls.porcentaje.updateValueAndValidity();
 
         this.nombrePer = "P";
         this.periodica = true;
         this.estandar = false;
         this.myForm.controls.baseCalculoId.disable();
         this.myForm.controls.baseCalculoId.setValue(2);
+        if(this.esInsert){
+          this.myForm.controls.nomPercepcion.setValue('');
+          this.myForm.controls.nomPercepcion.updateValueAndValidity();
+        }
 
         if (this.politica) {
 
@@ -186,12 +193,22 @@ export class VentanaPercepcionesComponent implements OnInit {
           });
         }
       } else {
-      
         this.myForm.controls.porcentaje.setValidators([Validators.required]);
+
+        this.myForm.controls.baseCalculoId.setValue('');
+        this.myForm.controls.montoPercepcion.setValue('');
+        this.myForm.controls.numeroPeriodos.setValue('');
+        this.myForm.controls.montoPorPeriodo.setValue('');
+
+        this.myForm.controls.baseCalculoId.setValidators([]);
+        this.myForm.controls.baseCalculoId.updateValueAndValidity();
+        this.myForm.controls.montoPercepcion.setValidators([]);
+        this.myForm.controls.montoPercepcion.updateValueAndValidity();
         this.myForm.controls.numeroPeriodos.setValidators([]);
         this.myForm.controls.numeroPeriodos.updateValueAndValidity();
         this.myForm.controls.montoPorPeriodo.setValidators([]);
         this.myForm.controls.montoPorPeriodo.updateValueAndValidity();
+
         this.nombrePer = "E";
         this.myForm.controls.baseCalculoId.enable();
         if (!this.esInsert) {
@@ -199,6 +216,9 @@ export class VentanaPercepcionesComponent implements OnInit {
           this.myForm.controls.baseCalculoId.setValue(tipoMonto);
           this.validarNomMonto(tipoMonto);
         } else {
+            this.myForm.controls.nomPercepcion.setValue('');
+            this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
           this.myForm.controls.baseCalculoId.setValue("");
         }
         this.periodica = false;

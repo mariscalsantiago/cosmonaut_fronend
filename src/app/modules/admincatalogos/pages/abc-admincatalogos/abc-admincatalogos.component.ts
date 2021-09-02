@@ -80,6 +80,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    debugger;
     this.periodo = "";
     
     
@@ -582,7 +583,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       else if(this.detCatalogos.listaCatalogosId == 9){
         this.activaClaveCuatro = true;
       }
-      else if(this.detCatalogos.listaCatalogosId == 12 || this.detCatalogos.listaCatalogosId == 3){
+      else if(this.detCatalogos.listaCatalogosId == 12 || this.detCatalogos.listaCatalogosId == 3 || this.detCatalogos.listaCatalogosId == 8){
         this.activaClaveDos = true;
       }
       else if(this.detCatalogos.listaCatalogosId == 4){
