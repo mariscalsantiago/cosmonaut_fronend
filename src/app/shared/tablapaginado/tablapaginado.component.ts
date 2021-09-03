@@ -386,10 +386,19 @@ export class TablapaginadoComponent implements OnInit {
       }
         
       } else {
+
+        if( aux[llave].charAt(0) === '$'){
+          while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) > Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
+          a[j] = a[j - 1];
+          j--;
+          
+          }
+        }else{
         while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() > (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
           a[j] = a[j - 1];
           j--;
         }
+      }
       }
       a[j] = aux;
     }
