@@ -233,11 +233,9 @@ export class DetalleUsuarioComponent implements OnInit {
           rolId: obj.rol,
           esMulticliente:obj.multicliente,
           usuarioId:obj.usuarioId,
-          esActivo:obj.esActivo
+          esActivo:obj.esActivo,
+          version:this.usuariosSistemaPrd.getVersionSistema()
         }
-
-
-
 
         if (this.insertar) {
           delete objAuthEnviar.usuarioId;
