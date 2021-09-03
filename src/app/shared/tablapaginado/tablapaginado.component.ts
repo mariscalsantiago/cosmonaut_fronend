@@ -369,7 +369,6 @@ export class TablapaginadoComponent implements OnInit {
       j = i;
       aux = a[i];
 
-      console.log(aux[llave] + "  " + a[j - 1][llave] + "=" + (`${aux[llave] < a[j - 1][llave]}`));
       if (tipoAcomodo) {
 
         

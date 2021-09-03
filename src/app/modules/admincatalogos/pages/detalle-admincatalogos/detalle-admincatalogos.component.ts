@@ -296,7 +296,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 11){
-      debugger;
+      
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoEvento(true).subscribe(datos => {

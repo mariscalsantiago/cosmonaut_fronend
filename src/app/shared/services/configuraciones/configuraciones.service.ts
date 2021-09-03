@@ -233,7 +233,6 @@ export class ConfiguracionesService {
 
 
   public getPermisosBySubmodulo(moduloId:number,submoduloId:number){
-    console.log(JSON.stringify(this.MENUPRINCIPAL));
         return this.MENUPRINCIPAL.find((o:any) => o.moduloId == moduloId).submodulos.find((o:any) => o.submoduloId == submoduloId).permisos;
   }
 }

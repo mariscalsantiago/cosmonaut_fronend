@@ -83,7 +83,7 @@ export class DetalleconfrontaComponent implements OnInit {
       if(this.myForm.controls.mes.value === "0"){
         this.myForm.controls.mes.setErrors({required: true})
       }
-console.log(this.myForm.value)
+
     if (this.myForm.invalid) {
      this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -130,7 +130,6 @@ console.log(this.myForm.value)
 
     input.onchange = () => {
       let imagenInput: any = input.files;
-      console.log('archivo',imagenInput)
       this.inputFile.nativeElement.value = imagenInput![0].name;
      /* for (let item in Object.getOwnPropertyNames(imagenInput)) {
         let archivo: File = imagenInput[item];

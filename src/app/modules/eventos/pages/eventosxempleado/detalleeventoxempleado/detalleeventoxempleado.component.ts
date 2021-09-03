@@ -43,7 +43,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     this.suscribirse();
     this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => this.arregloIncidenciaTipo = datos.datos);
     this.catalogosPrd.getTipoIncapacidad(true).subscribe(datos => this.arregloTipoIncapacidad = datos.datos);
-    console.log('eventos',this.arregloIncidenciaTipo)
     this.catalogosPrd.getUnidadMedida(true).subscribe(datos => {
       this.arregloUnidadMedida = [];
       if (datos.datos) {

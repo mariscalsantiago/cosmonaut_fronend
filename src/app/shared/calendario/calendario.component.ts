@@ -38,7 +38,6 @@ export class CalendarioComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     let arregloResagado = [];
     let primerapasada:boolean = false;
-    console.log("NGONCHANGES CALDENARIIO",JSON.stringify(this.eventos));
     if(this.arregloArreglos[0] == undefined) return;
     
    let datepipe = new DatePipe("es-MX");

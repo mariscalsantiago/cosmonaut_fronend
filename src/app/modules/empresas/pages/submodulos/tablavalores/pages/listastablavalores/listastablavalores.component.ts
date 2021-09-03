@@ -220,8 +220,7 @@ export class ListasTablaValoresComponent implements OnInit {
     
      
     this.arregloNomina = datos.datos;
-    
-console.log('arregloNomina', this.arregloNomina)
+  
     let columnas: Array<tabla> = [
       new tabla("tabla", "Tipo tabla"),
       new tabla("limiteInferior", "Límite inferior"),

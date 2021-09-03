@@ -63,7 +63,7 @@ export class DetalleUsuarioComponent implements OnInit {
     this.objusuario = history.state.usuario;
     this.objusuario = this.objusuario == undefined ? {}:this.objusuario;
 
-    console.log(this.objusuario);
+    
 
     this.verificarCompaniasExista();
 
@@ -115,8 +115,6 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public suscripciones(){
     this.myForm.controls.rol.valueChanges.subscribe(valor =>{
-      console.log(this.usuariosSistemaPrd.getVersionSistema())
-      
       if(this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1){
           if(valor != 1){
             this.myForm.controls.multicliente.disable();

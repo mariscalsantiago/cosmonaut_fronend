@@ -134,8 +134,6 @@ export class InformacionbasicaComponent implements OnInit {
 
     this.submitEnviado = true;
 
-    console.log(this.myform.getRawValue());
-
 
     if (this.myform.invalid) {
 

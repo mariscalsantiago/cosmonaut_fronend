@@ -17,7 +17,7 @@ export class NotificacionesService {
 
 
       this.webSocket.onopen = ()=>{
-        console.log("Conexión establecida");
+        
       }
       
   }

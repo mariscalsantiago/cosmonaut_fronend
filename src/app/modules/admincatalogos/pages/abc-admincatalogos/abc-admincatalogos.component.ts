@@ -80,7 +80,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    debugger;
+    
     this.periodo = "";
     
     
@@ -94,7 +94,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
       esActivo: this.objdetrep.esActivo,
       tipoPersona: this.objdetrep.indPersonaFisica
     };
-    console.log('94' , this.detCatalogos)
     if(this.detCatalogos.listaCatalogosId == 1){
         this.catBanco();
         this.idCatalogo = this.objdetrep.codBanco;
@@ -561,14 +560,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
   
     this.arregloTablaValores[id][property] = editField;
-    console.log('editField', editField)
   }
 
 
   public changeValue(id: number, property: string, event: any) {
     this.editField = event.target.textContent;
-
-    console.log('changeValue',id, property, event)
     if (property.includes('fecha')){
       this.editField = event.target.value;
      }
@@ -683,8 +679,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
     const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catalogo?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
-        console.log('despues del modal',valor, this.myForm.getRawValue())
-        debugger;
         let obj = this.myForm.getRawValue();
         if(obj.esActivo == "true"){
           obj.esActivo = true;
@@ -1566,7 +1560,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
            fechaInicio: fechainicio,
            fechaFin: fechafin
          }
-          console.log('this.objEnviar', this.objEnviar)
           if (this.insertar) {
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.saveTarifaPeriodicaISR(this.objEnviar).subscribe(datos => {
@@ -1582,7 +1575,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
           } else {
 
             for(let item of this.arregloTablaValores){
-              console.log(item)
               let fechainicio = "";
               let fechafin = "";
               if (item.fechaFin != undefined || item.fechaFin != null) {
@@ -1636,10 +1628,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 19){
-          
-          console.log('pasa por aqui', obj)
-
-          
           let fechainicio = "";
           let fechafin = "";
           if (obj.fechaFin != undefined || obj.fechaFin != null) {
@@ -1731,8 +1719,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
         }
         else if(this.detCatalogos.listaCatalogosId == 18){
-          console.log('entro a 18')
-          
           let fechainicio = "";
           let fechafin = "";
           if (obj.fechaFin != undefined || obj.fechaFin != null) {
@@ -1777,7 +1763,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
           } else {
             
             for(let item of this.arregloTablaValores){
-              console.log('this.arregloTablaValores', this.arregloTablaValores)
               let fechainicio = "";
               let fechafin = "";
               if (item.fechaFin != undefined || item.fechaFin != null) {
@@ -1808,14 +1793,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
                 }
                 this.valorestab.push(this.valores);
-                console.log('item.fechainicio', item.fechaInicio)
-                console.log('fechainicio', fechainicio)
 
               }
             this.objEnviar = {
               valoresTablaPeriodicaSubsidio: this.valorestab,
             }
-            console.log('18 objEnviar', this.objEnviar)
   
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarTarifaPeriodicaSubsidio(this.objEnviar).subscribe(datos => {

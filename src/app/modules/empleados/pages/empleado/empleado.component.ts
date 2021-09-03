@@ -167,7 +167,6 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas reactivar el empleado?").then(valor => {
       if (valor) {
         let isInsertar: boolean = false;
-        console.log(this.empleado)
         let fechaContrato = { ...this.empleado };
         delete fechaContrato.fechaContrato;
         this.router.navigate(['empleados/empleado'], { state: { datos: this.empleado.personaId, insertar: isInsertar, reactivarCuenta: true, contrato: fechaContrato } });
