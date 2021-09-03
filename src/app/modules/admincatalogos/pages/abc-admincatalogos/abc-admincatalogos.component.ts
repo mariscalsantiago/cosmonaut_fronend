@@ -204,8 +204,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.tipoValorReferenciaId?.descripcion;
       this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => this.arregloValoresReferencia = datos.datos);
+      if(this.objdetrep.fechaInicio != undefined || this.objdetrep.fechaFin != undefined){
       this.objdetrep.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(this.objdetrep.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
       this.objdetrep.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(this.objdetrep.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd'); 
+      }
       this.clave();
 
     }
