@@ -199,14 +199,14 @@ export class VentanaPercepcionesComponent implements OnInit {
         }
       } else {
         this.myForm.controls.porcentaje.setValidators([Validators.required]);
+        this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+        this.myForm.controls.baseCalculoId.updateValueAndValidity();
 
         this.myForm.controls.baseCalculoId.setValue('');
         this.myForm.controls.montoPercepcion.setValue('');
         this.myForm.controls.numeroPeriodos.setValue('');
         this.myForm.controls.montoPorPeriodo.setValue('');
 
-        this.myForm.controls.baseCalculoId.setValidators([]);
-        this.myForm.controls.baseCalculoId.updateValueAndValidity();
         this.myForm.controls.montoPercepcion.setValidators([]);
         this.myForm.controls.montoPercepcion.updateValueAndValidity();
         this.myForm.controls.numeroPeriodos.setValidators([]);
