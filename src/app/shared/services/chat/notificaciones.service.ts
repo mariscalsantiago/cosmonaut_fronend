@@ -14,10 +14,11 @@ export class NotificacionesService {
 
   public conectar(conexion:string){
       this.webSocket = new WebSocket(conexion);
-
-
       this.webSocket.onopen = ()=>{
-        
+        console.log("Se abre el socker");
+      }
+      this.webSocket.onclose = ()=>{
+        console.log("Se cierra la comunicación");
       }
       
   }

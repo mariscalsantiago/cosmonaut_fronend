@@ -24,7 +24,7 @@ const CryptoJS = require("crypto-js");
   styleUrls: ['./contenido.component.scss']
 })
 export class ContenidoComponent implements OnInit {
-  @ViewChild("#elemento1") elemento1!:ElementRef;
+  @ViewChild("#elemento1") elemento1!: ElementRef;
 
   private secretKey: string = "llavesecreta@por@santiagoantoniomariscal";
 
@@ -65,7 +65,7 @@ export class ContenidoComponent implements OnInit {
     subirdocumento: false,
     nuevanominaextraordinaria: false,
     nuevanominaptu: false,
-    tablaisr: false, 
+    tablaisr: false,
     tablaisn: false,
     subcidio: false,
     nuevanominafiniquitoliquidacion: false,
@@ -111,18 +111,18 @@ export class ContenidoComponent implements OnInit {
     private ventana: VentanaemergenteService, private navigate: Router,
     private chatPrd: ChatSocketService, private authPrd: AuthService, public configuracionPrd: ConfiguracionesService,
     private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private charComponentPrd: ChatService,private notificacionesPrd:NotificacionesService) {
+    private charComponentPrd: ChatService, private notificacionesPrd: NotificacionesService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
 
-    
+
   }
 
   ngOnInit(): void {
 
-   
-    
-    
+
+
+
 
 
     this.chat = this.chatPrd.getChatDatos();
@@ -141,13 +141,13 @@ export class ContenidoComponent implements OnInit {
 
 
     if (this.authPrd.isAuthenticated()) {
-      
+
       this.mostrandoChatBoot();
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
 
         this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
           this.PRINCIPAL_MENU = this.configuracionPrd.traerDatosMenu(this.usuariosSistemaPrd.getUsuario().submodulosXpermisos, datos, this.usuariosSistemaPrd.getVersionSistema(), this.usuariosSistemaPrd.esCliente());
-          
+
           this.PRINCIPAL_MENU.unshift({ moduloId: 0, nombreModulo: "Inicio", seleccionado: true, checked: true, pathServicio: '/inicio', icono: 'icon_home' });
           this.configuracionPrd.setElementosSesion(this.configuracionPrd.MENUUSUARIO, this.PRINCIPAL_MENU);
           this.establecericons();
@@ -161,10 +161,10 @@ export class ContenidoComponent implements OnInit {
           this.usuariosSistemaPrd.setUsuario(usuario as usuarioClass);
 
           this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-          
+
 
           if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-              this.notificaciones();
+            this.notificaciones();
           } else {
             if (!this.usuariosSistemaPrd.usuario.esCliente) {
               this.darClickChat(true);
@@ -172,30 +172,24 @@ export class ContenidoComponent implements OnInit {
               this.configuracionPrd.ocultarChat = true;
             }
           }
-
-
         });
 
       } else {
 
-
-        
-
-
         if (!Boolean(this.configuracionPrd.MENUPRINCIPAL)) {
           this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
             this.PRINCIPAL_MENU = datos;
-            
-            
+
+
             this.establecericons();
             this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-            
+
             if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
               this.notificaciones();
             } else {
               if (!this.usuariosSistemaPrd.usuario.esCliente) {
-                
+
                 this.darClickChat(true);
               } else {
                 this.configuracionPrd.ocultarChat = true;
@@ -203,7 +197,7 @@ export class ContenidoComponent implements OnInit {
             }
           });
         } else {
-          
+
           this.PRINCIPAL_MENU = this.configuracionPrd.MENUPRINCIPAL;
           if ((this.configuracionPrd.ocultarChat) == undefined) {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
@@ -211,7 +205,7 @@ export class ContenidoComponent implements OnInit {
               this.notificaciones();
             } else {
               if (!this.usuariosSistemaPrd.usuario.esCliente) {
-                
+
                 this.darClickChat(true);
               } else {
                 this.configuracionPrd.ocultarChat = true;
@@ -225,7 +219,7 @@ export class ContenidoComponent implements OnInit {
   }
 
   public limpiando() {
-    
+
 
     for (let item of this.PRINCIPAL_MENU) {
       item.seleccionado = false;
@@ -236,10 +230,10 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public seleccionado(obj: any, indice: number,elemento:any) {
-    
+  public seleccionado(obj: any, indice: number, elemento: any) {
 
-    
+
+
     if (!obj.seleccionadosubmenu) {
 
       this.limpiando();
@@ -252,23 +246,23 @@ export class ContenidoComponent implements OnInit {
     obj.seleccionadosubmenu = !obj.seleccionadosubmenu;
 
     setTimeout(() => {
-      let mm1:any = document.getElementById("elemento1");
-      mm1.style.top = ( elemento.getBoundingClientRect().y ) + "px";
-     let ventanaPosition = window.innerHeight - (elemento.getBoundingClientRect().y + mm1.offsetHeight);
-     if(ventanaPosition < 0){
-      mm1.style.top = (( elemento.getBoundingClientRect().y )+ventanaPosition) + "px";
-     }
+      let mm1: any = document.getElementById("elemento1");
+      mm1.style.top = (elemento.getBoundingClientRect().y) + "px";
+      let ventanaPosition = window.innerHeight - (elemento.getBoundingClientRect().y + mm1.offsetHeight);
+      if (ventanaPosition < 0) {
+        mm1.style.top = ((elemento.getBoundingClientRect().y) + ventanaPosition) + "px";
+      }
     }, 10);
 
 
-    
+
 
   }
 
 
   public seleccionarSubmenu(obj: any, obj2: any) {
 
-    if(obj2){
+    if (obj2) {
 
       obj2 = {
         ...obj2,
@@ -333,7 +327,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public establecericons() {
-    
+
     for (let item of this.PRINCIPAL_MENU) {
       switch (item.moduloId) {
         case 1:
@@ -377,11 +371,11 @@ export class ContenidoComponent implements OnInit {
       this.chat.datos.numeromensajes = 0;
       this.chat.datos.mensajeRecibido = false;
       if (autoconectable) {
-        
+
         if (!this.chatPrd.isConnect()) {
 
           this.chatPrd.getMensajesrecibidosPorEmpleado(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getUsuario().usuarioId).subscribe(datos => {
-            
+
             if (datos.datos) {
               let obj = datos.datos[0];
               let mensajes = obj.mensajes;
@@ -421,7 +415,7 @@ export class ContenidoComponent implements OnInit {
   public irRuta(item: any) {
 
 
-    
+
 
     this.configuracionPrd.accesoRuta = true;
     this.navigate.navigate([item.pathServicio]);
@@ -432,7 +426,7 @@ export class ContenidoComponent implements OnInit {
           this.configuracionPrd.accesoRuta = false;
         }, 10);
       }
-  
+
     }, 10);
   }
   public entraComponente(obj: any) {
@@ -449,7 +443,7 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public mostrandoChatBoot(){
+  public mostrandoChatBoot() {
     let mm = interval(100).subscribe(() => {
       try {
         let mm: any = document.getElementsByClassName("LandbotLivechat")
@@ -461,18 +455,18 @@ export class ContenidoComponent implements OnInit {
   }
 
 
-  public notificaciones(){
-    this.notificacionesPrd.conectar(`${environment.rutaSocket}/notificaciones/${this.usuariosSistemaPrd.getIdEmpresa()}`);
-    this.notificacionesPrd.recibirNotificacion().subscribe((valor)=>{
-      
-      if(valor.data != "CONNECT" && valor.data!="CLOSE"){
-          this.configuracionPrd.notificaciones += 1;
+  public notificaciones() {
+    this.notificacionesPrd.conectar(`${environment.rutaSocket}/notificaciones/${this.usuariosSistemaPrd.getIdEmpresa()}/usuario/${this.usuariosSistemaPrd.getUsuario().usuarioId}`);
+    this.notificacionesPrd.recibirNotificacion().subscribe((valor) => {
+      console.log("Esto recibo en el chat", valor.data);
+      if (valor.data != "CONNECT" && valor.data != "CLOSE") {
+        this.configuracionPrd.notificaciones += 1;
       }
     });
   }
 
 
- 
+
 }
 
 

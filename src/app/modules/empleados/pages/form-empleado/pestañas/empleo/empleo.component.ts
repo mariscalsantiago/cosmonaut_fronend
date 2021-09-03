@@ -647,6 +647,7 @@ export class EmpleoComponent implements OnInit {
   public cambiarSueldoField() {
 
 
+    debugger;
 
     this.sueldoBruto = this.myForm.controls.tiposueldo.value == 'b';
     this.sueldoNeto = this.myForm.controls.tiposueldo.value == 'n';
@@ -751,6 +752,7 @@ export class EmpleoComponent implements OnInit {
 
     if(!noRestablecer){
       this.limpiarMontos();
+
     }
 
     this.grupoNominaSeleccionado = aux;
@@ -984,6 +986,8 @@ export class EmpleoComponent implements OnInit {
     this.myForm.controls.salarioNetoMensualImss.setValue("");
     this.myForm.controls.pagoComplementario.setValue("");
     this.myForm.controls.sueldoBrutoMensualPPP.setValue("");
+
+    this.cambiarSueldoField();
 
   }
 
