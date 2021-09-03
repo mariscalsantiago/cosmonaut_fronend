@@ -11,6 +11,9 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
 import { interval, Subscription } from 'rxjs';
 import { ChatService } from 'src/app/modules/chat/services/chat.service';
+import { NotificacionesService } from 'src/app/shared/services/chat/notificaciones.service';
+import { environment } from 'src/environments/environment';
+import { ValueTransformer } from '@angular/compiler/src/util';
 
 
 const CryptoJS = require("crypto-js");
@@ -38,7 +41,6 @@ export class ContenidoComponent implements OnInit {
   public botonsalir: boolean = false;
 
 
-  public suscripcion!: Subscription;
 
 
 
@@ -109,7 +111,7 @@ export class ContenidoComponent implements OnInit {
     private ventana: VentanaemergenteService, private navigate: Router,
     private chatPrd: ChatSocketService, private authPrd: AuthService, public configuracionPrd: ConfiguracionesService,
     private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private charComponentPrd: ChatService) {
+    private charComponentPrd: ChatService,private notificacionesPrd:NotificacionesService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
 
@@ -162,9 +164,7 @@ export class ContenidoComponent implements OnInit {
           
 
           if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-            this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-
-            });
+              this.notificaciones();
           } else {
             if (!this.usuariosSistemaPrd.usuario.esCliente) {
               this.darClickChat(true);
@@ -183,7 +183,6 @@ export class ContenidoComponent implements OnInit {
 
 
         if (!Boolean(this.configuracionPrd.MENUPRINCIPAL)) {
-          console.log("!Boolean(this.configuracionPrd.MENUPRINCIPAL)");
           this.configuracionPrd.getElementosSesion(this.configuracionPrd.MENUUSUARIO).subscribe(datos => {
             this.PRINCIPAL_MENU = datos;
             
@@ -193,8 +192,7 @@ export class ContenidoComponent implements OnInit {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
             
             if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-              });
+              this.notificaciones();
             } else {
               if (!this.usuariosSistemaPrd.usuario.esCliente) {
                 
@@ -210,10 +208,7 @@ export class ContenidoComponent implements OnInit {
           if ((this.configuracionPrd.ocultarChat) == undefined) {
             this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
             if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-
-              this.suscripcion = this.charComponentPrd.getListaChatActivos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-
-              });
+              this.notificaciones();
             } else {
               if (!this.usuariosSistemaPrd.usuario.esCliente) {
                 
@@ -257,28 +252,12 @@ export class ContenidoComponent implements OnInit {
     obj.seleccionadosubmenu = !obj.seleccionadosubmenu;
 
     setTimeout(() => {
-     
       let mm1:any = document.getElementById("elemento1");
       mm1.style.top = ( elemento.getBoundingClientRect().y ) + "px";
-
-      
-      console.log(window.innerHeight - (elemento.getBoundingClientRect().y + mm1.offsetHeight) );
-
      let ventanaPosition = window.innerHeight - (elemento.getBoundingClientRect().y + mm1.offsetHeight);
      if(ventanaPosition < 0){
       mm1.style.top = (( elemento.getBoundingClientRect().y )+ventanaPosition) + "px";
      }
-    // 
-    // 
-    //  if(ventanaPosition < 0){
-     
-    //   
-    //   
-    
-      
-    //   
-     
-    //  }
     }, 10);
 
 
@@ -340,7 +319,7 @@ export class ContenidoComponent implements OnInit {
 
 
         this.chatPrd.desconectarSocket();
-        if (this.suscripcion) this.suscripcion.unsubscribe();
+        this.notificacionesPrd.close();
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.sistemaUsuarioPrd.logout().subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -400,7 +379,6 @@ export class ContenidoComponent implements OnInit {
       if (autoconectable) {
         
         if (!this.chatPrd.isConnect()) {
-          console.log("!this.chatPrd.isConnect()");
 
           this.chatPrd.getMensajesrecibidosPorEmpleado(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getUsuario().usuarioId).subscribe(datos => {
             
@@ -421,7 +399,6 @@ export class ContenidoComponent implements OnInit {
                     this.chatPrd.datos.datos.mensajeRecibido = true;
                   }
                 } catch {
-                  console.log("No es el primer mensaje")
                 }
               });
             }
@@ -480,6 +457,17 @@ export class ContenidoComponent implements OnInit {
       } catch {
       }
       mm.unsubscribe();
+    });
+  }
+
+
+  public notificaciones(){
+    this.notificacionesPrd.conectar(`${environment.rutaSocket}/notificaciones/${this.usuariosSistemaPrd.getIdEmpresa()}`);
+    this.notificacionesPrd.recibirNotificacion().subscribe((valor)=>{
+      
+      if(valor.data != "CONNECT" && valor.data!="CLOSE"){
+          this.configuracionPrd.notificaciones += 1;
+      }
     });
   }
 

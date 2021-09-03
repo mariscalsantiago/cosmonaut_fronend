@@ -113,7 +113,6 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.tipoValor ="Monto"
     }
     this.especializacion =obj.tipoDeduccionId?.especializacion;
-    // console.log('obj',obj.tipoDeduccionId?.especializacion)
     return this.formBuild.group({
 
       nomDeduccion: [obj.tipoDeduccionId?.tipoDeduccionId, Validators.required],
@@ -745,8 +744,7 @@ export class VentanaDeduccionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-    
-    console.log('myForm', this.myForm.value)
+  
     this.submitEnviado = true;
     this.myForm.updateValueAndValidity();
     if (this.myForm.invalid) {
@@ -971,10 +969,7 @@ export class VentanaDeduccionesComponent implements OnInit {
           };
 
         }
-          
-
         }
-        console.log('this.objEnviar',this.objEnviar)
           this.salida.emit({type:"guardar",datos:this.objEnviar});
         }
       });

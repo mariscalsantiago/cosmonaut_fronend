@@ -187,7 +187,7 @@ export class NominaHistoricasComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos =>{
           if (datos.resultado) {
-            console.log(datos);
+            
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${new DatePipe("es-MX").transform(obj.datos.fecha_inicio,"MM")}`, "xlxs");
           } else {

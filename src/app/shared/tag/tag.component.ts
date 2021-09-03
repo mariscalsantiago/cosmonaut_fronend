@@ -115,8 +115,6 @@ export class TagComponent implements OnInit,OnChanges {
 
       if(this.dominical){
         let fecha = new Date(this.elementoSeleccionado)
-
-        console.log(fecha.getUTCDay());
         if(fecha.getUTCDay() !== 0){
             this.salida.emit({type:"error",datos:true});
             return;

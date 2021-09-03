@@ -10,7 +10,7 @@ export const environment = {
   //rutaNomina:'http://6d54a7bea215.ngrok.io',
   rutaAdmin: '/admin',
   rutaReportes:'/reportes',
-  rutaSocket:'wss://cosmonautdev.wintermute.services/empresa'
+  rutaSocket:'ws://192.168.1.120:8080'
 };
 
 /*

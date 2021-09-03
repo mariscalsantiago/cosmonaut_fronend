@@ -747,7 +747,7 @@ export class EmpleoComponent implements OnInit {
 
     let aux = this.pagoComplementario(gruponominaId);
     
-    debugger;
+    
 
     if(!noRestablecer){
       this.limpiarMontos();

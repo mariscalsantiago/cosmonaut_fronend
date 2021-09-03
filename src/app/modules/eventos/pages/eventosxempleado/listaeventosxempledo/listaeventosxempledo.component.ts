@@ -92,7 +92,6 @@ export class ListaeventosxempledoComponent implements OnInit {
       columnas:[],
       filas:[]
     }
-    console.log('arr', this.arreglo)
     if(this.arreglo !== undefined){
         for(let item of this.arreglo){
             item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
@@ -190,8 +189,6 @@ export class ListaeventosxempledoComponent implements OnInit {
         esActivo: true,
         clienteId: this.usuariosSistemaPrd.getIdEmpresa()
       };
-      console.log('197',this.objFiltro)
-      
       this.eventosPrd.filtro(this.objFiltro).subscribe(datos =>{
 
         this.arreglo = datos.datos;

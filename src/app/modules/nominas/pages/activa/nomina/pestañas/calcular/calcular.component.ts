@@ -154,10 +154,6 @@ export class CalcularComponent implements OnInit {
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
-
-
-        console.log("Esta es la fecha contrato",new DatePipe("es-MX").transform(new Date(new Date(item[llave].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'));
-
         item["nombrecompleto"] = `${item[llave].nombre} ${item[llave].apellidoPat} ${item[llave].apellidoMat || ''}`;
         item["numeroEmpleado"] = item[llave].numEmpleado;
         item["diaslaborados"] = item[llave].diasLaborados;
