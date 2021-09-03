@@ -501,7 +501,9 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.porcentual = true;
       this.fijo = false;
       this.valorDescuento = false;
-    
+      
+      this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+      this.myForm.controls.valor.setValidators([Validators.required]);   
       this.myForm.controls.valor.enable();
       this.myForm.controls.baseCalculoId.enable();
       }else{
