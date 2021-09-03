@@ -255,6 +255,9 @@ export class PersonalComponent implements OnInit {
     }
 
 
+    console.log("create form",obj);
+
+
     
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
@@ -286,7 +289,8 @@ export class PersonalComponent implements OnInit {
       numExterior: [{ value: obj.numExterior, disabled: true }, [Validators.required]],
       numInterior: { value: obj.numInterior, disabled: true },
       celular:[obj.celular],
-      domicilioId:obj.domicilioId
+      domicilioId:obj.domicilioId,
+      imagen:obj.imagen
 
     });
   }
@@ -374,7 +378,8 @@ export class PersonalComponent implements OnInit {
         curp: obj.curp,
         rfc: obj.rfc,
         nss: obj.nss,
-        personaId:this.idEmpleado
+        personaId:this.idEmpleado,
+        imagen:obj.imagen
       }
 
       if(!obj.contactoEmergenciaParentesco){
