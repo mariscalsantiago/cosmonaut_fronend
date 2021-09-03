@@ -40,7 +40,7 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input formatos [letras]="true" [especial]="true" type="text" [(ngModel)]="numeroEmpleado" class="form-control" placeholder="Número de empleado">
+                                        <input appAlfanumerico type="text" maxlength="20" [(ngModel)]="numeroEmpleado" class="form-control" placeholder="Número de empleado">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <input type="text" [(ngModel)]="nombreEmpleado" formatos [especial]="true" [control]="nombreEmpleado" class="form-control" placeholder="Nombre">

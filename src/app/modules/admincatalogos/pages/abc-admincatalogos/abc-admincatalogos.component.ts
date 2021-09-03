@@ -344,6 +344,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public validaForm(){
+    debugger;
 
     if(this.detCatalogos.listaCatalogosId == 1){
       this.myForm.controls.codBanco.setValidators([Validators.required]);
@@ -532,8 +533,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   else if(this.detCatalogos.listaCatalogosId == 20){
-    this.myForm.controls.clave.setValidators([]);
-    this.myForm.controls.clave.updateValueAndValidity();
+    this.myForm.controls.clave.setValidators([Validators.required]);
     this.myForm.controls.codBanco.setValidators([]);
     this.myForm.controls.codBanco.updateValueAndValidity();
     this.myForm.controls.razonSocial.setValidators([]);
