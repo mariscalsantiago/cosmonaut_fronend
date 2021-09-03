@@ -78,9 +78,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
           this.adminCatalogosPrd.getListaBanco(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaBanco(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaBanco(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -97,9 +97,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
         this.adminCatalogosPrd.getListaFacultad(true).subscribe(datos => {
           this.listaTablas = datos.datos;
-          this.adminCatalogosPrd.getListaFacultad(false).subscribe(datos => {
-            if(datos.datos != undefined){
-              this.listaTablasFinal = datos.datos
+          this.adminCatalogosPrd.getListaFacultad(false).subscribe(datosFa => {
+            if(datosFa.datos != undefined){
+              this.listaTablasFinal = datosFa.datos
               } 
             for(let item of this.listaTablas){
               this.listaTablasFinal.push(item);
@@ -135,9 +135,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
           this.adminCatalogosPrd.getListaMotivoBaja(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaMotivoBaja(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaMotivoBaja(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -152,9 +152,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
           this.adminCatalogosPrd.getListaParentesco(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaParentesco(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaParentesco(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -169,9 +169,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
            this.adminCatalogosPrd.getListaRegimenContratacion(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaRegimenContratacion(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaRegimenContratacion(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -186,9 +186,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
           this.adminCatalogosPrd.getListaRegimenFiscal(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaRegimenFiscal(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaRegimenFiscal(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -228,13 +228,14 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 7){
+      debugger;
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoContrato(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoContrato(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaTipoContrato(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -245,11 +246,12 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 5){
+      debugger;
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
-          this.adminCatalogosPrd.getListaTipoContrato(true).subscribe(datos => {
+          this.adminCatalogosPrd.getListaTipoDeduccion(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoContrato(false).subscribe(datos => {
+            this.adminCatalogosPrd.getListaTipoDeduccion(false).subscribe(datos => {
               if(datos.datos != undefined){
                 this.listaTablasFinal = datos.datos
                 } 
@@ -266,9 +268,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoIncapacidad(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoIncapacidad(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaTipoIncapacidad(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -283,9 +285,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoPercepcion(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoPercepcion(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaTipoPercepcion(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -301,9 +303,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoEvento(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoEvento(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaTipoEvento(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -319,9 +321,19 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
       let fecha = new Date();
       let anio = fecha.getFullYear();
-        this.adminCatalogosPrd.getListaReferencia(anio).subscribe(datos => {
-          this.listaTablasFinal  = datos.datos;
-          this.crearTabla(this.listaTablasFinal);
+       this.adminCatalogosPrd.getListaReferencia(anio).subscribe(datos => {
+        if(datos.datos != undefined){
+          this.listaTablas = datos.datos
+          }  
+        this.adminCatalogosPrd.getListaReferenciaInactivos(anio).subscribe(datosFa => {
+          if(datosFa.datos != undefined){
+            this.listaTablasFinal = datosFa.datos
+            } 
+          for(let item of this.listaTablas){
+            this.listaTablasFinal.push(item);
+          }  
+        this.crearTabla(this.listaTablasFinal);
+        });
        });
 
     }
@@ -331,9 +343,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
           this.adminCatalogosPrd.getListaFuncionCuenta(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaFuncionCuenta(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaFuncionCuenta(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -350,9 +362,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
         
           this.adminCatalogosPrd.getListaMetodoPago(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaMetodoPago(false).subscribe(datos => {
-              if(datos.datos != undefined){
-              this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaMetodoPago(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+              this.listaTablasFinal = datosFa.datos
               } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -369,9 +381,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
         
           this.adminCatalogosPrd.getListaMoneda(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaMoneda(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaMoneda(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -386,9 +398,9 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
           this.adminCatalogosPrd.getListaNacionalidad(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaNacionalidad(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaNacionalidad(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);
@@ -399,14 +411,15 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 16){
+      debugger;
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
         
           this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => {
             this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoValorReferencia(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
+            this.adminCatalogosPrd.getListaTipoValorReferencia(false).subscribe(datosFa => {
+              if(datosFa.datos != undefined){
+                this.listaTablasFinal = datosFa.datos
                 } 
               for(let item of this.listaTablas){
                 this.listaTablasFinal.push(item);

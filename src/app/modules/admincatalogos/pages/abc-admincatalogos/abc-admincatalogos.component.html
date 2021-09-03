@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group row margen">
-            <div *ngIf="activaClave && this.detCatalogos.listaCatalogosId != 3 && this.detCatalogos.listaCatalogosId != 12 && this.detCatalogos.listaCatalogosId != 20 && this.detCatalogos.listaCatalogosId != 14 && this.detCatalogos.listaCatalogosId != 21 && this.detCatalogos.listaCatalogosId != 22" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="activaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Clave *</label>
                 <input formControlName="clave" maxlength="3" type="text" class="form-control"
                 [ngClass]="{'is-invalid':f.clave.errors && submitEnviado}">
@@ -40,7 +40,6 @@
                     Campo requerido
                 </div>
             </div>
-
 
             <div *ngIf="inactivaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Clave *</label>
@@ -137,7 +136,7 @@
             </div>
             <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Valor *</label>
-                <input formControlName="valor" type="text" class="form-control" placeholder=""
+                <input formControlName="valor" maxlength="10" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.valor.errors && submitEnviado}">
                 <div *ngIf="f.valor.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido

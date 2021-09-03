@@ -25,6 +25,7 @@ export class AdminCatalogosService {
   public getListaFacultad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catFacultadPoder/listar/todosActivo/${estatus}`);
   }
+  
   public getListaDispersion(): Observable<any> {
     return this.http.get(`${direcciones.proveedores}/proveedor-dispersion/listar/todos`);
   }
@@ -79,6 +80,10 @@ export class AdminCatalogosService {
 
   public getListaReferencia(anio:number):Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia/true/${anio}`);
+  }
+
+  public getListaReferenciaInactivos(anio:number):Observable<any>{
+    return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia/false/${anio}`);
   }
   public getListaTipoIncapacidad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/tipoIncapacidad/listar/todosActivo/${estatus}`);
