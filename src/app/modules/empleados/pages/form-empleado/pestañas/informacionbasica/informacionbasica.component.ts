@@ -172,7 +172,7 @@ export class InformacionbasicaComponent implements OnInit {
 
     if (this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != '') {
       const fecha1 = new Date(this.myform.controls.fechaNacimiento.value).toUTCString().replace("GMT", "");
-      fechanacimiento = `${new Date(fecha1).getTime()}`;
+    //  fechanacimiento = `${new Date(fecha1).getTime()}`;
     }
 
 
@@ -181,7 +181,7 @@ export class InformacionbasicaComponent implements OnInit {
       apellidoPaterno: obj.apellidoPaterno,
       apellidoMaterno: obj.apellidoMaterno,
       genero: obj.genero,
-      fechaNacimiento: fechanacimiento,
+      fechaNacimiento: obj.fechaNacimiento,
       tieneCurp: obj.tieneCurp,
       contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
       emailCorporativo: obj.emailCorporativo,
@@ -210,6 +210,8 @@ export class InformacionbasicaComponent implements OnInit {
       rfc: obj.rfc,
       nss: obj.nss
     }
+
+    debugger;
 
     if(!Boolean(obj.contactoEmergenciaParentesco)){
       delete objenviar.parentescoId;

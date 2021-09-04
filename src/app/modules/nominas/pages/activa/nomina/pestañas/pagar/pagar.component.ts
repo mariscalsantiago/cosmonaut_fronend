@@ -233,9 +233,9 @@ export class PagarComponent implements OnInit {
                 personaId: {
                   personaId: item[this.llave2].personaId
                 },
-                fechaContrato:new DatePipe("es-MX").transform(new Date(new Date(item[this.llave2].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'),
+                fechaContrato:new DatePipe("es-MX").transform(new Date(new Date(item[this.llave2].fechaContratoNogrupo).toUTCString().replace("GMT","")), 'yyyy-MM-dd'),
                 clienteId:{
-                  clienteId:this.usuariosSistemaPrd.getIdEmpresa()
+                  centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa()
               }
               });
 
