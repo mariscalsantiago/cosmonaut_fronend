@@ -43,6 +43,7 @@ import { HighlightPipe } from './pipes/highlight.pipe';
 import { CentrarPipe } from './pipes/centrar.pipe';
 import { ShowPipe } from './pipes/show.pipe';
 import { TooltipModule } from 'ng-uikit-pro-standard';
+import { ListaEmpleadosComponent } from './ventanasemergentes/tiposventanas/lista-empleados/lista-empleados.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { TooltipModule } from 'ng-uikit-pro-standard';
     FilterPipe,
     HighlightPipe,
     CentrarPipe,
-    ShowPipe
+    ShowPipe,
+    ListaEmpleadosComponent
 
   ],
   imports: [

@@ -30,6 +30,7 @@
             <app-ventana-subcidio *ngIf="mostrar.subcidio" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-subcidio>
             <app-ventana-nominanuevafiniquitoliquidacion  *ngIf="mostrar.nuevanominafiniquitoliquidacion" (salida)="recibirEmergente($event)"></app-ventana-nominanuevafiniquitoliquidacion>
             <app-editarmensaje-chat *ngIf="mostrar.mensajechat" (salida)="recibirEmergente($event)" [datos]="datos"></app-editarmensaje-chat>
+            <app-lista-empleados *ngIf="mostrar.listaempleados" [datos]="datos"></app-lista-empleados>
 
         </div>
     </div>

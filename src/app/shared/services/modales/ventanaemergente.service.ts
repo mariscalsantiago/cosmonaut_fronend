@@ -23,6 +23,7 @@ export class VentanaemergenteService {
   public nuevanominafiniquitoliquidacion: string = "nuevanominafiniquitoliquidacion";
   public mensajechat: string = "mensajechat";
   public adminTimbradoDispersion: string = "adminTimbradoDispersion";
+  public listadoEmpleados: string = "listadoEmpleados";
 
 
 
@@ -53,7 +54,8 @@ export class VentanaemergenteService {
     nuevanominaextraordinaria: false,
     nuevanominafiniquitoliquidacion: false,
     mensajechat: false,
-    adminTimbradoDispersion: false
+    adminTimbradoDispersion: false,
+    listaempleados: false
   }
 
   constructor() { }
@@ -111,15 +113,15 @@ export class VentanaemergenteService {
       case this.nuevanominaptu:
         this.mostrar.nuevanominaptu = true;
         this.emergente.titulo = "Nómina de PTU";
-        break; 
+        break;
       case this.tablaisr:
         this.mostrar.tablaisr = true;
         this.emergente.titulo = "";
         break;
-        case this.tablaisn:
-          this.mostrar.tablaisn = true;
-          this.emergente.titulo = "";
-          break;
+      case this.tablaisn:
+        this.mostrar.tablaisn = true;
+        this.emergente.titulo = "";
+        break;
       case this.subcidio:
         this.mostrar.subcidio = true;
         this.emergente.titulo = "";
@@ -137,12 +139,17 @@ export class VentanaemergenteService {
         this.mostrar.mensajechat = true;
         this.emergente.titulo = "Editar mensaje";
         break;
-        case this.adminTimbradoDispersion:
+      case this.adminTimbradoDispersion:
 
-          this.mostrar.adminTimbradoDispersion = true;
-          this.emergente.titulo = "Seleccionar proveedor";
-          break;
-        
+        this.mostrar.adminTimbradoDispersion = true;
+        this.emergente.titulo = "Seleccionar proveedor";
+        break;
+      case this.listadoEmpleados:
+
+        this.mostrar.listaempleados = true;
+        this.emergente.titulo = "Lista de empleados ya considerados en otra nómina";
+        break;
+
 
     }
 
