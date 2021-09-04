@@ -129,7 +129,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
-    
+    debugger;
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
       this.arregloTipoPercepcion = datos.datos 
       
@@ -157,7 +157,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
   }
   public validarTipoConcepto(tipo:any){
-  
+  debugger;
     
     this.limpiarTipopercepcion = false;
     let type = String(tipo).substring(0,3)

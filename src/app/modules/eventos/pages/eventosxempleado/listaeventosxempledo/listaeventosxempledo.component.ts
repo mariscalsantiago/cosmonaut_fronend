@@ -121,6 +121,7 @@ export class ListaeventosxempledoComponent implements OnInit {
              this.eliminarIncidencia(obj.datos,obj.indice);
            break;
            case "ver":
+             debugger;
              this.evento = obj.datos;
              
             this.traerModal(obj.indice);
