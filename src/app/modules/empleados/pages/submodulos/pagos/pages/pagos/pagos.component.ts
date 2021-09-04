@@ -201,6 +201,7 @@ export class PagosComponent implements OnInit {
 
 
     if (this.arreglotablaDed !== undefined) {
+      debugger;
       for (let item of this.arreglotablaDed) {
         if (item.fechaInicioDescto !== undefined) {
           item.fechaInicioDescto = (new Date(item.fechaInicioDescto).toUTCString()).replace(" 00:00:00 GMT", "");
@@ -208,6 +209,10 @@ export class PagosComponent implements OnInit {
           item.fechaInicioDesctoDed = datepipe.transform(item.fechaInicioDescto, 'dd-MMM-y')?.replace(".", "");
         }
         item.nombre = item.conceptoDeduccionId?.nombre;
+
+        if(item.tipoDeduccionId.noEditable == true){
+          item.tipoDeduccionId.noEditable = false;
+        }
 
         if (item.esActivo) {
           item.activo = 'Activo';
