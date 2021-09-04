@@ -148,7 +148,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
             //centrocClienteId: this.empresa,
             //personaId: this.empleado,
             //usuarioId: this.empleado,
-            documentosEmpleadoId: obj.idTipoDocumento,
+            documentosEmpleadoId: this.datos.documentosEmpleadoId,
             //nombreArchivo: obj.nombre,
             documento: obj.documento
             };

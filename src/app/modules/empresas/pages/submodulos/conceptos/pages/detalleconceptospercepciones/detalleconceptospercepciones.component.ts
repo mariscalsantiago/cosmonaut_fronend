@@ -38,7 +38,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    
+    debugger;
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
@@ -88,8 +88,8 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       this.obj.tipoPeriodicidad = "A"
     }
 
-    this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{ 
-      this.arregloTipoPercepcion = datos.datos 
+    this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{
+    this.arregloTipoPercepcion = datos.datos 
     this.mostrarAmbas(this.obj.tipoPeriodicidad);
     });
     this.myForm = this.createForm(this.obj);
@@ -129,14 +129,20 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
-    
+    debugger;
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
       this.arregloTipoPercepcion = datos.datos 
       
     if(this.arregloTipoPercepcion == undefined){
+
       this.mensajePercepcion = true;
       this.noMensajePercepcion = false;
     }else{
+      for(let item of this.arregloTipoPercepcion){
+        if(item.tipoPercepcionId != undefined)
+          item.tipoPercepcionId = item.especializacion;
+
+      }
       this.mensajePercepcion = false;
       this.noMensajePercepcion = true;
     }
@@ -157,7 +163,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
   }
   public validarTipoConcepto(tipo:any){
-  
+  debugger;
     
     this.limpiarTipopercepcion = false;
     let type = String(tipo).substring(0,3)
