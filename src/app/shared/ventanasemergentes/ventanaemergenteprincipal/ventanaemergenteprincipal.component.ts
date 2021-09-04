@@ -42,7 +42,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     subcidio: false,
     nuevanominafiniquitoliquidacion: false,
     mensajechat:false,
-    adminTimbradoDispersion: false
+    adminTimbradoDispersion: false,
+    listaempleados:false
   }
 
   @HostListener('window:resize', ['$event'])
@@ -71,6 +72,9 @@ export class VentanaemergenteprincipalComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+    console.log(this.datos,"LOS DATOS");
+    console.log("EL MOSTRAR",this.mostrar);
 
     
     

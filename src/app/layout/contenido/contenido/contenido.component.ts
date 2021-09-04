@@ -70,7 +70,8 @@ export class ContenidoComponent implements OnInit {
     subcidio: false,
     nuevanominafiniquitoliquidacion: false,
     mensajechat: false,
-    adminTimbradoDispersion: false
+    adminTimbradoDispersion: false,
+    listaempleados:false
   }
 
   public emergente = {

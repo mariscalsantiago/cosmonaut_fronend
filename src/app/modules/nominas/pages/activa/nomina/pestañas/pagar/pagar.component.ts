@@ -225,13 +225,18 @@ export class PagarComponent implements OnInit {
           for (let item of this.arreglotablaconpago.filas) {
             if (item.seleccionado && this.continuarTitulo.includes("Guardar como pagados") && item.tipopago !== 'Transferencia' && item.status == 'Sin pagar') {
 
+              debugger;
               objEnviar.push({
                 nominaXperiodoId: {
                   nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId
                 },
                 personaId: {
                   personaId: item[this.llave2].personaId
-                }
+                },
+                fechaContrato:new DatePipe("es-MX").transform(new Date(new Date(item[this.llave2].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'),
+                clienteId:{
+                  clienteId:this.usuariosSistemaPrd.getIdEmpresa()
+              }
               });
 
             }

@@ -99,6 +99,22 @@ export class NominasActivasComponent implements OnInit {
 
 
 
+  //   this.ventana.showVentana(this.ventana.listadoEmpleados,{datos:[
+  //     {
+  //         "numeroEmpleado": "1126",
+  //         "nombreCompleto": "Lynda Carter Segunda"
+  //     },
+  //     {
+  //         "numeroEmpleado": "1127",
+  //     },
+  //     {
+  //         "numeroEmpleado": "1125",
+  //         "nombreCompleto": "Lynda Carter "
+  //     }
+  // ]});
+
+
+  //   return;
     
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         let objEnviar = {
