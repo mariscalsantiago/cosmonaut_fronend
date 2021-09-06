@@ -175,3 +175,18 @@ padding-bottom: 15px;
       background-color: #f3f3f3;
   }
 }
+
+
+.flechas{
+    font-size: 12px;
+    font-family: monospace;
+    display: block;
+    position: absolute;
+    top:25px;
+    right:0; 
+    color:rgb(204, 204, 204);
+}
+
+.flechas:first-child{
+    top:15px;
+}

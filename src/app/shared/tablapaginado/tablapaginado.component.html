@@ -33,10 +33,13 @@
                 <th id="" (click)="ordenar(item)" style="position: relative;cursor:pointer" scope="col"
                     *ngFor="let item of datos.columnas"
                     [ngClass]="{'ocultarcolumna':item.id == 'url' || item.id =='porcentaje'}">
-                    {{item.nombre}}<i aria-hidden="true" class="fas fa-caret-up flechaarriba"
-                        [ngClass]="{'colorear':item.acomodar == true}"></i>
-                    <i aria-hidden="true" class="fas fa-caret-down flechaabajo"
-                        [ngClass]="{'colorear':item.acomodar == false}"></i>
+                    {{item.nombre}} 
+                    
+                    <i aria-hidden="true" class="flechas"
+                        [ngClass]="{'colorear':item.acomodar == true}">	&#9650;
+                    </i>
+                    <i aria-hidden="true" class="flechas"
+                        [ngClass]="{'colorear':item.acomodar == false}">&#9660;                    </i>
                 </th>
                 <th id="" *ngIf="tablabeneficios">
                     Tabla de beneficios

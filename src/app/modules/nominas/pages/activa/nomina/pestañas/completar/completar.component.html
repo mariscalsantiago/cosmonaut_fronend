@@ -43,7 +43,7 @@
 
 <div class="row">
     <div class="col-12 text-center mt-2">
-        <button (click)="concluirnomina()"  [class.botondisabled]="!concluida" [disabled]="!concluida" class="btn btn-primary button-outlet mr-2">Concluir la nómina</button>
+        <button (click)="concluirnomina()"  [class.botondisabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" [disabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" class="btn btn-primary button-outlet mr-2">Concluir la nómina</button>
     </div>
 </div>
 

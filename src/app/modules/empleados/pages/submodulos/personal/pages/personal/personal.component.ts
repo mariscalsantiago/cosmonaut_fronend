@@ -382,6 +382,11 @@ export class PersonalComponent implements OnInit {
         imagen:obj.imagen
       }
 
+
+      if(!Boolean(objenviar.imagen)){
+          delete objenviar.imagen;
+      }
+
       if(!obj.contactoEmergenciaParentesco){
         delete objenviar.parentescoId;
       }

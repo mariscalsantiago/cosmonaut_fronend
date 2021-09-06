@@ -211,12 +211,14 @@ export class InformacionbasicaComponent implements OnInit {
       nss: obj.nss
     }
 
-    debugger;
 
     if(!Boolean(obj.contactoEmergenciaParentesco)){
       delete objenviar.parentescoId;
     }
 
+
+    console.log(JSON.stringify(objenviar));
+    debugger;
 
     
     
