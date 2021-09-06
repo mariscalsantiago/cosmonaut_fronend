@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -64,6 +65,8 @@ export class InformacionbasicaComponent implements OnInit {
       }
 
 
+      console.log(obj);
+
   
 
       
@@ -73,7 +76,7 @@ export class InformacionbasicaComponent implements OnInit {
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: [obj.apellidoMaterno],
       genero: [{value:obj.genero,disabled:true}],
-      fechaNacimiento: [{value:(obj.fechaNacimiento !== undefined && obj.fechaNacimiento !== "") ? pipe.transform(new Date(Number(obj.fechaNacimiento)), "yyyy-MM-dd") : obj.fechaNacimiento,disabled:true}],
+      fechaNacimiento: [{value: obj.fechaNacimiento || "",disabled:true}],
       tieneCurp: [true],
       contactoInicialEmailPersonal: [obj?.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
       emailCorporativo: [obj?.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
@@ -81,7 +84,7 @@ export class InformacionbasicaComponent implements OnInit {
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
       estadoCivil: obj.estadoCivil,
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      tieneHijos: obj.tieneHijos == undefined ? "false" : `${obj.tieneHijos}`,
+      tieneHijos: obj.tieneHijos || "false",
       numeroHijos: { value: obj.numeroHijos, disabled: true },
       url: obj.urlLinkedin,
       contactoEmergenciaNombre: [obj.contactoEmergenciaNombre],
@@ -92,8 +95,8 @@ export class InformacionbasicaComponent implements OnInit {
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail?.toLowerCase(), [Validators.email]],
       contactoEmergenciaTelefono: [obj.contactoEmergenciaTelefono, []],
       nss: [obj.nss, [validacionesForms.nssValido,Validators.required]],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
-      curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]]
+      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
+      curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]]
     });
 
   }
@@ -164,18 +167,6 @@ export class InformacionbasicaComponent implements OnInit {
 
   public guardarCambios() {
     let obj = this.myform.getRawValue();
-
-  
-
-    let fechanacimiento = '';
-
-
-    if (this.myform.controls.fechaNacimiento.value != null && this.myform.controls.fechaNacimiento.value != '') {
-      const fecha1 = new Date(this.myform.controls.fechaNacimiento.value).toUTCString().replace("GMT", "");
-    //  fechanacimiento = `${new Date(fecha1).getTime()}`;
-    }
-
-
     let objenviar:any = {
       nombre: obj.nombre,
       apellidoPaterno: obj.apellidoPaterno,
@@ -215,13 +206,6 @@ export class InformacionbasicaComponent implements OnInit {
     if(!Boolean(obj.contactoEmergenciaParentesco)){
       delete objenviar.parentescoId;
     }
-
-
-    console.log(JSON.stringify(objenviar));
-    debugger;
-
-    
-    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     if(this.datosPersona[0].personaId == undefined){

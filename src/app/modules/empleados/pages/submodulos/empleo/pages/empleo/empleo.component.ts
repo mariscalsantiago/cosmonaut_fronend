@@ -78,8 +78,7 @@ export class EmpleoComponent implements OnInit {
       this.idEmpleado = params["id"];
 
       this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-        this.empleado = datos.datos;
-        this.empleado.fechaContrato = new Date(new Date(this.empleado.fechaContrato).toUTCString().replace("GMT",""));
+        this.empleado = datos.datos;        
         this.contratoDesc = this.arregloTipoContrato.find((item: any) => item.tipoContratoId === this.empleado.tipoContratoId.tipoContratoId)?.descripcion;
 
         this.myForm = this.createForm(this.empleado);
@@ -119,9 +118,9 @@ export class EmpleoComponent implements OnInit {
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
       sedeId: obj.sedeId?.sedeId,
       estadoId: obj.estadoId?.estadoId,
-      fechaAntiguedad: [datePipe.transform(obj.fechaAntiguedad, 'yyyy-MM-dd'), [Validators.required]],
-      fechaInicio: [{value:datePipe.transform(obj.fechaContrato, 'yyyy-MM-dd'),disabled:true}, [Validators.required]],
-      fechaFin: [datePipe.transform(obj.fechaFin, 'yyyy-MM-dd')],
+      fechaAntiguedad: [obj.fechaAntiguedad, [Validators.required]],
+      fechaInicio: [{value:obj.fechaContrato,disabled:true}, [Validators.required]],
+      fechaFin: [obj.fechaFin],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       puesto_id_reporta: [`${obj.jefeInmediatoId?.nombre || ''} ${obj.jefeInmediatoId?.apellidoPaterno || ''} ${obj.jefeInmediatoId?.apellidoMaterno || ''}`.trim()],
@@ -174,26 +173,6 @@ export class EmpleoComponent implements OnInit {
           }
         }
         //******************************************* */
-
-
-        if (obj.fechaAntiguedad != null && obj.fechaAntiguedad != '') {
-          const fecha1 = new Date(obj.fechaAntiguedad).toUTCString().replace("GMT", "");
-          obj.fechaAntiguedad = `${new Date(fecha1).getTime()}`;
-        }
-
-        if (obj.fechaInicio != null && obj.fechaInicio != '') {
-          const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
-          obj.fechaInicio = `${new Date(fecha1).getTime()}`;
-        }
-        if (obj.fechaFin != null && obj.fechaFin != '') {
-          const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
-          obj.fechaFin = `${new Date(fecha1).getTime()}`;
-        }
-
-        if (obj.fechaAltaImss != null && obj.fechaAltaImss != '') {
-          const fecha1 = new Date(obj.fechaAltaImss).toUTCString().replace("GMT", "");
-          obj.fechaAltaImss = `${new Date(fecha1).getTime()}`;
-        }
 
 
 

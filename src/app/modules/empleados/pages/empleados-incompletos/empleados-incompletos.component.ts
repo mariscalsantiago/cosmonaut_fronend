@@ -32,6 +32,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
     this.cargando = true;
 
     this.empleadosPrd.getEmpleadosIncompletos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+      console.log("empleados incompletos",datos);
       
       const columnas:Array<tabla> = [
         new tabla("rfc","RFC"),

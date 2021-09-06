@@ -614,7 +614,7 @@ export class PagosComponent implements OnInit {
       salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []],
       tiposueldo: ['b', [Validators.required]],
       politicaId: [obj.politicaId?.politicaId],
-      fechaAntiguedad: [new DatePipe("es-MX").transform(obj.fechaAntiguedad, "yyyy-MM-dd")],
+      fechaAntiguedad: [obj.fechaAntiguedad],
       fecIniPeriodo: [],
       salarioNetoMensualImss: [obj.salarioNetoMensualImss],
       pagoComplementario: [{ value: obj.pagoComplementario, disabled: true }],

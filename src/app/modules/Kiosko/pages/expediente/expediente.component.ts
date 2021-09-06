@@ -62,7 +62,6 @@ export class ExpedienteComponent implements OnInit {
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
-        item.fechaCarga = (new Date(item.fechaCarga).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fechaCargaDocumento = datepipe.transform(item.fechaCarga, 'dd-MMM-y')?.replace(".", "");
 

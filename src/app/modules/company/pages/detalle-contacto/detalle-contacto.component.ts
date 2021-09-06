@@ -94,11 +94,11 @@ export class DetalleContactoComponent implements OnInit {
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: [obj.apellidoMaterno],
       celular: [obj.celular],
-      curp: [obj.curp, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)],
+      curp: [obj.curp, Validators.pattern(ConfiguracionesService.regexCurp)],
       emailCorporativo: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(this.fechaActual, "dd-MMM-yyyy") : obj.fechaAlta), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(this.fechaActual, "yyyy-MM-dd") : obj.fechaAlta), disabled: true }, [Validators.required]],
       personaId: obj.personaId,
       contactoInicialPuesto: obj.contactoInicialPuesto,
       usuarioinicial: [obj.usuarioinicial]
@@ -163,7 +163,8 @@ export class DetalleContactoComponent implements OnInit {
                       apellidoMat: obj.apellidoMaterno,
                       email: obj.emailCorporativo?.toLowerCase(),
                       centrocClienteIds: [this.datosEmpresa.centrocClienteId],
-                      rolId: 1
+                      rolId: 1,
+                      version:this.usuarioSistemaPrd.getVersionSistema()
                     }
 
                     this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
@@ -206,7 +207,8 @@ export class DetalleContactoComponent implements OnInit {
                     apellidoMat: obj.apellidoMaterno,
                     email: obj.emailCorporativo?.toLowerCase(),
                     centrocClienteIds: [this.datosEmpresa.centrocClienteId],
-                    rolId: 1
+                    rolId: 1,
+                    version:this.usuarioSistemaPrd.getVersionSistema()
                   }
 
                   this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {

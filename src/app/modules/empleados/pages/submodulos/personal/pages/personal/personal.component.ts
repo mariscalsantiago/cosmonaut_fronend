@@ -238,33 +238,13 @@ export class PersonalComponent implements OnInit {
     else if (obj.genero == "M")
       genero = "false";
 
-
-    let fechaNacimiento = "";
-    if (obj.fechaNacimiento != undefined || obj.fechaNacimiento != null) {
-
-
-
-      try {
-        const l1 = obj.fechaNacimiento.split("/");
-        fechaNacimiento = `${l1[2]}-${l1[1]}-${l1[0]}`;
-
-      } catch {
-
-      }
-
-    }
-
-
-    console.log("create form",obj);
-
-
-    
+  
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: obj.apellidoMaterno,
       genero: [{ value: genero, disabled: true }],
-      fechaNacimiento: [fechaNacimiento,Validators.required],
+      fechaNacimiento: [obj.fechaNacimiento,Validators.required],
       rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
       nss: [obj.nss,[Validators.required]],
@@ -329,14 +309,6 @@ export class PersonalComponent implements OnInit {
 
     let obj = this.myForm.value;
 
-    let fechanacimiento = '';
-
-    if (this.myForm.controls?.fechaNacimiento.value != null && this.myForm.controls?.fechaNacimiento.value != '') {
-      const date: String = new Date(`${obj.fechaNacimiento}`).toUTCString();
-      let aux = new Date(date.replace("GMT", ""));
-      fechanacimiento = `${aux.getTime()}`;
-    }
-
 
     let genero = "";
     if (obj.genero == "true")
@@ -350,7 +322,7 @@ export class PersonalComponent implements OnInit {
         apellidoPaterno: obj.apellidoPaterno,
         apellidoMaterno: obj.apellidoMaterno,
         genero: genero,
-        fechaNacimiento: fechanacimiento,
+        fechaNacimiento: obj.fechaNacimiento,
         tieneCurp: obj.tieneCurp,
         contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,
         emailCorporativo: obj.emailCorporativo,

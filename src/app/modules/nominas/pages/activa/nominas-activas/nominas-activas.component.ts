@@ -113,8 +113,6 @@ export class NominasActivasComponent implements OnInit {
   //     }
   // ]});
 
-
-  //   return;
     
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         let objEnviar = {

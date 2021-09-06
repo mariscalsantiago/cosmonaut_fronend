@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApoderadoLegalService } from '../services/apoderadoLegal.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
-import { DatePipe } from '@angular/common';
+
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-detalleapoderadoLegal',
@@ -72,7 +73,7 @@ export class DetalleapoderadoLegalComponent implements OnInit {
 
   public createFormrep(obj: any) {
     
-    let datePipe = new DatePipe("en-MX");
+    
     if(!this.insertar){
 
         if(obj.esActivo== 'Activo'){
@@ -91,9 +92,9 @@ export class DetalleapoderadoLegalComponent implements OnInit {
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       celular: [obj.celular, []],
       apellidoMaterno: [obj.apellidoMaterno],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId, [Validators.required]],
-      curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
+      curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
       emailCorporativo: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],

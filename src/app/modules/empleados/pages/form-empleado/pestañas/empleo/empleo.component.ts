@@ -239,7 +239,7 @@ export class EmpleoComponent implements OnInit {
 
 
 
-    if (fecha != "") {
+    if (Boolean(fecha)) {
       if (`${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "" && `${this.myForm.controls.fechaAntiguedad.value}`.trim() !== "null") {
         var fecha = fecha.split("-");
         this.fechaIC.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
@@ -390,11 +390,11 @@ export class EmpleoComponent implements OnInit {
       estadoId: [obj.estadoId?.estadoId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       personaId: [this.datosPersona.personaId, [Validators.required]],
-      esSindicalizado: [obj.esSindicalizado == undefined ? 'false' : `${obj.esSindicalizado}`],
-      fechaAntiguedad: [(obj.fechaAntiguedad !== undefined && obj.fechaAntiguedad !== "") ? pipe.transform(new Date(Number(obj.fechaAntiguedad)), "yyyy-MM-dd") : obj.fechaAntiguedad, [Validators.required]],
+      esSindicalizado: [obj.esSindicalizado|| 'false'],
+      fechaAntiguedad: [obj.fechaAntiguedad, [Validators.required]],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
-      fechaInicio: [(obj.fechaInicio !== undefined && obj.fechaInicio !== "") ? pipe.transform(new Date(Number(obj.fechaInicio)), "yyyy-MM-dd") : obj.fechaInicio, Validators.required],
-      fechaFin: [{ value: (obj.fechaFin !== undefined && obj.fechaFin !== "") ? pipe.transform(new Date(Number(obj.fechaFin)), "yyyy-MM-dd") : obj.fechaFin, disabled: false }],
+      fechaInicio: [obj.fechaInicio, Validators.required],
+      fechaFin: [{ value: obj.fechaFin , disabled: false }],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
@@ -408,7 +408,7 @@ export class EmpleoComponent implements OnInit {
       esSubcontratado: [obj.esSubcontratado],
       tiposueldo: ['b', [Validators.required]],
       subcontratistaId: obj.subcontratistaId,
-      fechaAltaImss: [(obj.fechaAltaImss !== undefined && obj.fechaAltaImss !== "") ? pipe.transform(new Date(Number(obj.fechaAltaImss)), "yyyy-MM-dd") : obj.fechaAltaImss],
+      fechaAltaImss: [obj.fechaAltaImss],
       sbc: [{ value: obj.sbc, disabled: true }],
       salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []],
       salarioNetoMensualImss: [obj.salarioNetoMensualImss],
@@ -450,24 +450,6 @@ export class EmpleoComponent implements OnInit {
           }
         }
         //******************************************* */
-
-
-        if (obj.fechaAntiguedad != undefined && obj.fechaAntiguedad != '') {
-          obj.fechaAntiguedad = new Date((new Date(obj.fechaAntiguedad).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-        }
-
-        if (obj.fechaInicio != undefined && obj.fechaInicio != '') {
-          obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-        }
-        if (obj.fechaFin != undefined && obj.fechaFin != '') {
-          obj.fechaFin = new Date((new Date(obj.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-        }
-
-        if (obj.fechaAltaImss != undefined && obj.fechaAltaImss != '') {
-          obj.fechaAltaImss = new Date((new Date(obj.fechaAltaImss).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-        }
-
-
         let objEnviar: any = {
           ...this.tabsDatos[3],
           areaId: { areaId: obj.areaId },

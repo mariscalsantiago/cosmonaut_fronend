@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariocontactorrhService } from '../services/usuariocontactorrh.service';
 import { DatePipe } from '@angular/common';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-detallecontactosrrh',
@@ -54,15 +55,15 @@ export class DetallecontactosrrhComponent implements OnInit {
   public createForm(obj: any) {
     let fecha = new Date();
     this.fechaActual = fecha.toLocaleDateString();
-    let datePipe = new DatePipe("en-MX");
+    
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
       apellidoPat: [obj.apellidoPaterno, [Validators.required]],
       apellidoMat: [obj.apellidoMaterno],
       celular: [obj.celular, []],
-      curp: [obj.curp, [Validators.required, Validators.pattern(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/)]],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
+      curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
       emailCorp: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
       ciEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],

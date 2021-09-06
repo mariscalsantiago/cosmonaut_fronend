@@ -95,7 +95,7 @@ export class ListaEmpresasComponent implements OnInit {
     if(this.arreglo !== undefined){
       debugger;
       for(let item of this.arreglo){
-        item.fechaAlta = new DatePipe("es-MX").transform(new Date(new Date(item.fechaAlta).toUTCString().replace("GMT","")), 'dd-MMM-y');
+        item.fechaAlta = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
       }
     }
 

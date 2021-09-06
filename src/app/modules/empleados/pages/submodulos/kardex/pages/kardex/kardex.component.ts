@@ -1,5 +1,4 @@
 import { Component, HostListener, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KardexService } from 'src/app/modules/empleados/services/kardex.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -121,7 +120,7 @@ export class KardexComponent implements OnInit {
 
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
-        item.fechaMovimiento = new DatePipe("es-MX").transform(new Date(new Date(item.fechaMovimiento).toUTCString().replace("GMT","")), 'dd-MMM-y');
+        item.fechaMovimiento = new DatePipe("es-MX").transform(item.fechaMovimiento, 'dd-MMM-y');
         item.tipoMovimiento= item.movimiento;
         item.registroPatronal= item.registroDescripcion;
       }
