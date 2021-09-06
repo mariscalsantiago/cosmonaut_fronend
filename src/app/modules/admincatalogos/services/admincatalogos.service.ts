@@ -343,6 +343,18 @@ export class AdminCatalogosService {
     return this.http.put(`${this.url}/csTipoDeduccion/guardar`, json, httpOptions);
   }
 
+  public modificarTipoDeduccion(obj: any): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTipoDeduccion/modificar`, json, httpOptions);
+  }
+
   public saveRegimenFiscal(obj: any): Observable<any> {
 
     const httpOptions = {

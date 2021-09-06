@@ -1107,6 +1107,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             tipoDeduccionId: obj.clave,
             descripcion: obj.nombreCorto,
             esActivo: obj.esActivo,
+            especializacion: obj.clave
           }
           if (this.insertar) {
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
@@ -1122,13 +1123,14 @@ export class ABCAdminCatalogosComponent implements OnInit {
   
           } else {
             this.objEnviar = {
+              tipoDeduccionId: obj.clave,
               descripcion: obj.nombreCorto,
               esActivo: obj.esActivo,
+              especializacion: obj.clave
             }
-  
-  
+    
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.adminCatalogosPrd.modificarMotivoBaja(this.objEnviar).subscribe(datos => {
+            this.adminCatalogosPrd.modificarTipoDeduccion(this.objEnviar).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                 if(datos.resultado){
@@ -1410,7 +1412,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
               integraSdi: obj.integraSdi,
               tipoPeriodicidad: obj.tipoPeriodicidad,
               integraIsr: obj.integraIsr,
-              integraIsn: obj.integraIsn
+              integraIsn: obj.integraIsn,
+              especializacion: obj.clave
+
             }
           
         if (this.insertar) {
@@ -1706,15 +1710,15 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 this.valorestab.push(this.valores);
   
               }
-/*             this.objEnviar = {
+            this.objEnviar = {
 
               valoresTablaPeriodicaISR: this.valorestab,
 
-            } */
+            } 
   
   
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.adminCatalogosPrd.modificarAplicableISN(this.valorestab).subscribe(datos => {
+            this.adminCatalogosPrd.modificarAplicableISN(this.objEnviar).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                 if(datos.resultado){
@@ -1803,14 +1807,13 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 this.valorestab.push(this.valores);
 
               }
-/*             this.objEnviar = {
+            this.objEnviar = {
               valoresTablaPeriodicaSubsidio: this.valorestab,
             }
-            } */
 
   
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            this.adminCatalogosPrd.modificarTarifaPeriodicaSubsidio(this.valorestab).subscribe(datos => {
+            this.adminCatalogosPrd.modificarTarifaPeriodicaSubsidio(this.objEnviar).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                 if(datos.resultado){
