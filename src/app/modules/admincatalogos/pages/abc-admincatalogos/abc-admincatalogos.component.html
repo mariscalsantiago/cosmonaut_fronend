@@ -365,21 +365,27 @@
                 </select>
             </div>
             
-            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-3 col-lg-3">
                 <label class="contenedorInputCheckRadio"> Integra SDI
                     <input formControlName="integraSdi" id="integraSdi" type="checkbox">
                     <span class="checkmark"></span>
                 </label>
             </div>
-            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-3 col-lg-3">
                 <label class="contenedorInputCheckRadio"> Integra ISR
                     <input formControlName="integraIsr" id="integraIsr" type="checkbox">
                     <span class="checkmark"></span>
                 </label>
             </div>
-            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-3 col-lg-3">
                 <label class="contenedorInputCheckRadio"> Integra ISN
                     <input formControlName="integraIsn" id="integraIsn" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-3 col-lg-3">
+                <label class="contenedorInputCheckRadio"> Es por defecto
+                    <input formControlName="porDefecto" id="porDefecto" type="checkbox">
                     <span class="checkmark"></span>
                 </label>
             </div>
