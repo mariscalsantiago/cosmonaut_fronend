@@ -29,13 +29,28 @@
                     Campo requerido
                 </div>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
+<!--             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
                 <label>Catálogo SAT *</label>
                 <input *ngIf="mensajePercepcion" formControlName="tipoPercepcionMensaje" class="form-control disabled bg-light" >
-                <input formatos [letras]="true" [especial]="true" *ngIf="noMensajePercepcion" [value] = "f.tipoPercepcionId.value | show: arregloTipoPercepcion : 'tipoPercepcionId': 'descripcion'" #tipoPercepcionId (focusout)="validarTipoConcepto(tipoPercepcionId.value)" autocomplete="on" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
+                <input formatos [letras]="true" [especial]="true" *ngIf="noMensajePercepcion" [value] = "f.tipoPercepcionId.value | show: arregloTipoPercepcion : 'tipoPercepcionId': 'descripcion'" #tipoPercepcionId (focusout)="validarTipoConcepto(tipoPercepcionId.value)" 
+                autocomplete="on" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" formControlName="tipoPercepcionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
                 <datalist id="catalogoSAT">
                         <option *ngFor="let item of arregloTipoPercepcion" [value]="item.tipoPercepcionId">
                             {{item.descripcion}}</option>
+                </datalist>
+                <div *ngIf="f.tipoPercepcionId.errors && submitInvalido" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div> -->
+
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Catálogo SAT *</label>
+                <input *ngIf="mensajePercepcion" formControlName="tipoPercepcionMensaje" class="form-control disabled bg-light" >
+                <input autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" *ngIf="noMensajePercepcion" #tipoPercepcionId (focusout)="validarTipoConcepto(tipoPercepcionId.value)"
+                list="catalogoSAT" class="form-control" formControlName="tipoPercepcionId" name="browser" id="browser">
+                    
+                <datalist id="catalogoSAT">
+                    <option *ngFor="let item of arregloTipoPercepcion" [value]="item.descripcion"></option>
                 </datalist>
                 <div *ngIf="f.tipoPercepcionId.errors && submitInvalido" class="invalid-feedback">
                     Campo requerido

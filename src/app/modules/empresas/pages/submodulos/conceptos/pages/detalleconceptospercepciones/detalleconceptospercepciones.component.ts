@@ -52,6 +52,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     if(!this.esInsert){
       
     this.obj = history.state.data == undefined ? {} : history.state.data;
+    this.obj.descripcion = this.obj.tipoPercepcionId?.tipoPercepcionId + "-" + this.obj.tipoPercepcionId?.descripcion;
     
     
     if (this.obj.tipoPeriodicidad == "Periodica") {
@@ -91,9 +92,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{
     this.arregloTipoPercepcion = datos.datos 
     this.mostrarAmbas(this.obj.tipoPeriodicidad);
+
     });
+    
+    debugger;
+    this.validarTipoConceptoMod(this.obj.descripcion);
     this.myForm = this.createForm(this.obj);
-    this.validarTipoConceptoMod(this.obj.tipoPercepcionId?.tipoPercepcionId);
      }else{
     this.obj = {};
     this.myForm = this.createForm(this.obj);
@@ -110,7 +114,8 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      tipoPercepcionId: [obj.tipoPercepcionId?.tipoPercepcionId, [Validators.required]],
+      //tipoPercepcionId: [obj.tipoPercepcionId?.tipoPercepcionId, [Validators.required]],
+      tipoPercepcionId: [obj.descripcion, [Validators.required]],//
       tipoPeriodicidad: [obj.tipoPeriodicidad, [Validators.required]],
       gravaIsr: obj.gravaIsr,
       ajustarBaseGravableFaltantes: [obj.ajustarBaseGravableFaltantes],
@@ -138,11 +143,6 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       this.mensajePercepcion = true;
       this.noMensajePercepcion = false;
     }else{
-      for(let item of this.arregloTipoPercepcion){
-        if(item.tipoPercepcionId != undefined)
-          item.tipoPercepcionId = item.especializacion;
-
-      }
       this.mensajePercepcion = false;
       this.noMensajePercepcion = true;
     }
@@ -166,10 +166,15 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   debugger;
     
     this.limpiarTipopercepcion = false;
-    let type = String(tipo).substring(0,3)
-    for(let item of this.arregloTipoPercepcion){
-      
-      if(item.tipoPercepcionId == Number(type)){
+    //let type = String(tipo).substring(0,3)
+    const nombreCapturado = tipo;
+    if (nombreCapturado !== undefined) {
+      if (nombreCapturado.trim() !== "") {
+        for(let item of this.arregloTipoPercepcion){
+
+            const nombreCompleto = item.descripcion;
+        if (nombreCapturado.includes(nombreCompleto)) {
+
         this.limpiarTipopercepcion = true;
         this.tipoPercepcion = item.tipoPercepcionId + "-" + item.especializacion;
         if(item.tipoConcepto == "N"){
@@ -245,7 +250,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
       }
     }
-    if(!this.limpiarTipopercepcion){
+  }
+}
+      if(!this.limpiarTipopercepcion){
       this.myForm.controls.tipoPercepcionId.setValue('');
     }
 }
@@ -255,10 +262,17 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
       this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{ 
         this.arregloTipoPercepcionMod = datos.datos 
 
-        let type = String(tipo).substring(0,3)
-      for(let item of this.arregloTipoPercepcionMod){
+        const nombreCapturado = tipo;
+        if (nombreCapturado !== undefined) {
+          if (nombreCapturado.trim() !== "") {
+          for(let item of this.arregloTipoPercepcionMod){
+    
+          const nombreCompleto = item.descripcion;
+          if (nombreCapturado.includes(nombreCompleto)) {
+        //let type = String(tipo).substring(0,3)
+        //for(let item of this.arregloTipoPercepcionMod){
         
-        if(item.tipoPercepcionId == Number(type)){
+        //if(item.tipoPercepcionId == Number(type)){
           
           if(item.tipoConcepto == "N"){
             this.mostrartipoConcepto = false;
@@ -337,6 +351,8 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
         }
       }
+    }
+  }
 
     });
   }
@@ -358,9 +374,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
         
-        
+        debugger;
         if (valor) {
-          
+        debugger;  
           
           let obj = this.myForm.getRawValue();
           if(obj.tipoConcepto == null){
@@ -372,8 +388,11 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
           let especializacion;
           let tipoPercepcion;
           if(this.tipoPercepcion == ""){
+            //let type = String(obj.tipoPercepcionId).substring(0,3)
+            const nombreCapturado = obj.tipoPercepcionId;
             for(let item of this.arregloTipoPercepcion){
-              if(item.tipoPercepcionId == obj.tipoPercepcionId){
+                const nombreCompleto = item.descripcion;
+                if (nombreCapturado.includes(nombreCompleto)) {
                 especializacion = item.especializacion;
                 tipoPercepcion = item.tipoPercepcionId;
               }  
