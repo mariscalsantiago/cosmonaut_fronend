@@ -65,15 +65,15 @@
                 </article>
                 <article *ngIf="!editarcampos" class="titulo col">
                     Año
-                    <article>{{anio}}</article>
+                    <article>{{empleado.fechaNacimiento | date:'yyyy'}}</article>
                 </article>
                 <article *ngIf="!editarcampos" class="titulo  col">
                     Mes
-                    <article>{{mes}}</article>
+                    <article>{{empleado.fechaNacimiento | date:'MM'}}</article>
                 </article>
                 <article *ngIf="!editarcampos" class="titulo  col">
                     Día
-                    <article>{{dia}}</article>
+                    <article>{{empleado.fechaNacimiento| date :'dd'}}</article>
                 </article>
 
             </div>

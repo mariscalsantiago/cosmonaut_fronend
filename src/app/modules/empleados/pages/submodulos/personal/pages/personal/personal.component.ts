@@ -29,9 +29,7 @@ export class PersonalComponent implements OnInit {
   public empleado: any = {
     nacionalidadId: { descripcion: "" }
   };
-  public anio!: string;
-  public mes!: string;
-  public dia!: string;
+ 
 
 
   public idEmpleado: number = -1;
@@ -168,30 +166,7 @@ export class PersonalComponent implements OnInit {
 
 
   public parsearInformacion() {
-    if (this.empleado?.fechaNacimiento != null || this.empleado?.fechaNacimiento != undefined) {
-
-      if (Number.isInteger(this.empleado.fechaNacimiento)) {
-
-        let date: Date = new Date(this.empleado.fechaNacimiento);
-        let dia = (date.getDate() < 10) ? `0${date.getDate()}` : `${date.getDate()}`;
-        let mes = (date.getMonth() + 1) < 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-        let anio = date.getFullYear();
-        this.empleado.fechaNacimiento = `${dia}/${mes}/${anio}`;
-
-      }
-
-      if (this.empleado.fechaNacimiento.trim() !== "") {
-
-        let split = this.empleado.fechaNacimiento.split("/");
-
-        this.anio = split[2];
-        let mesint: number = Number(split[1]);
-        let arreglo = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
-        this.mes = arreglo[mesint];
-        this.dia = split[0];
-
-      }
-
+    
       switch (this.empleado.estadoCivil) {
         case "S":
           this.empleado.estadoCivilDescripcion = "Soltero(a)";
@@ -207,7 +182,7 @@ export class PersonalComponent implements OnInit {
           break;
       }
 
-    }
+    
   }
 
 
