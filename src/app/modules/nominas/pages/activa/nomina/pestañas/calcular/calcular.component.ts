@@ -159,7 +159,7 @@ export class CalcularComponent implements OnInit {
         item["nombrecompleto"] = `${item[llave].nombre} ${item[llave].apellidoPat} ${item[llave].apellidoMat || ''}`;
         item["numeroEmpleado"] = item[llave].numEmpleado;
         item["diaslaborados"] = item[llave].diasLaborados;
-        item["fecha"] = new DatePipe("es-MX").transform(new Date(new Date(item[llave].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'),
+        item["fecha"] = item[llave].fechaContrato,
         item["percepciones"] = this.cp.transform(item[llave].totalPercepciones);
         item["deducciones"] = this.cp.transform(item[llave].totalDeducciones);
         item["total"] = this.cp.transform(item[llave].total);
@@ -194,13 +194,13 @@ export class CalcularComponent implements OnInit {
         let item = obj.datos;
         let objEnviar = {
           nominaXperiodoId: this.nominaSeleccionada[this.llave]?.nominaXperiodoId,
-          fechaContrato:new DatePipe("es-MX").transform(new Date(new Date(item[this.llave2].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'),
+          fechaContrato:item[this.llave2].fechaContrato,
           personaId: item[this.llave2].personaId,
           clienteId: item[this.llave2].centrocClienteId
         }
 
         this.patronalSeleccionado.nominaXperiodoId = this.nominaSeleccionada[this.llave]?.nominaXperiodoId;
-        this.patronalSeleccionado.fechaContrato = new DatePipe("es-MX").transform(new Date(new Date(item[this.llave2].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
+        this.patronalSeleccionado.fechaContrato = item[this.llave2].fechaContrato;
         this.patronalSeleccionado.personaId = item[this.llave2].personaId;
         this.patronalSeleccionado.clienteId = item[this.llave2].centrocClienteId;
         this.patronalSeleccionado.usuarioId = this.usuariSistemaPrd.usuario.usuarioId;

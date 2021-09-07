@@ -72,8 +72,6 @@ export class NominasActivasComponent implements OnInit {
       if(this.arreglo){
         for (let item of this.arreglo) {
           item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto);
-         item.nominaOrdinaria.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(item.nominaOrdinaria.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
-         item.nominaOrdinaria.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.nominaOrdinaria.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd')
           item.esCalculada = item.nominaOrdinaria?.estadoActualNomina === 'Calculada';
           item.esPagada = (item.nominaOrdinaria?.estadoActualNomina === 'Pagada' || item.nominaOrdinaria?.estadoActualNomina === 'En proceso pago');
           item.esTimbrada = item.nominaOrdinaria?.estadoActualNomina === 'Timbrada' || item.nominaOrdinaria?.estadoActualNomina === 'En proceso timbrado';

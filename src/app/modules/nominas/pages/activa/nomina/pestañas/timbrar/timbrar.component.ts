@@ -244,7 +244,7 @@ export class TimbrarComponent implements OnInit {
       item["nombrecompleto"] = item[this.llave]?.nombre + " " + item[this.llave]?.apellidoPat + " "+(item[this.llave]?.apellidoMat || '');
       item["tipo"] = item[this.llave]?.metodoPago;
       item["total"] = this.cp.transform(item[this.llave]?.totalNeto);
-      item["fecha"] = new DatePipe("es-MX").transform(item[this.llave]?.fechaPagoTimbrado, "dd/MM/yyyy");
+      item["fecha"] = item[this.llave]?.fechaPagoTimbrado;
       item["status"] = item[this.llave]?.estatusTimbre;
       item["statuspago"] = item[this.llave]?.estadoPagoDescripcion;
     }
@@ -287,7 +287,7 @@ export class TimbrarComponent implements OnInit {
             obj.push({
               nominaPeriodoId: this.nominaSeleccionada[this.llave2].nominaXperiodoId,
               personaId: item[this.llave].personaId,
-              fechaContrato: new DatePipe("es-MX").transform(new Date(new Date(item[this.llave].fechaContrato).toUTCString().replace("GMT","")), 'yyyy-MM-dd'),
+              fechaContrato: item[this.llave].fechaContrato,
               centroClienteId:  item[this.llave].centroClienteId || this.usuarioSistemaPrd.getIdEmpresa(),//Posiblemente cambio desde el backend con el centro costo cliente...
               usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
               servicio: "facturacion_sw"
