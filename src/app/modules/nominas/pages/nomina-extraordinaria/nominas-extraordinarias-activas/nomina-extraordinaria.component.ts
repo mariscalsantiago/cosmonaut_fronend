@@ -66,8 +66,6 @@ export class NominaExtraordinariaComponent implements OnInit {
       if(this.arreglo){
         for (let item of this.arreglo) {
           item["inicial"] = !Boolean(item.nominaExtraordinaria.totalNeto);
-          item.nominaExtraordinaria.fechaInicio = new DatePipe("es-MX").transform(new Date(new Date(item.nominaExtraordinaria.fechaInicio).toUTCString().replace("GMT","")), 'yyyy-MM-dd');
-          item.nominaExtraordinaria.fechaFin = new DatePipe("es-MX").transform(new Date(new Date(item.nominaExtraordinaria.fechaFin).toUTCString().replace("GMT","")), 'yyyy-MM-dd')
         }
       }
     })
