@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
@@ -20,6 +21,7 @@ export class CalcularComponent implements OnInit {
   @Input() nominaSeleccionada: any;
   @Input() esEliminar: boolean = false;
   @Input() esDescargar: boolean = false;
+  @Input() empleados:any;
   public cargando: boolean = false;
   public nominaOrdinaria: boolean = false;
   public nominaExtraordinaria: boolean = false;
@@ -56,7 +58,7 @@ export class CalcularComponent implements OnInit {
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaFiniquito: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
     private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService,
-    private usuariSistemaPrd: UsuarioSistemaService) { }
+    private usuariSistemaPrd: UsuarioSistemaService,private ventana:VentanaemergenteService) { }
 
   ngOnInit(): void {
     
@@ -459,6 +461,10 @@ export class CalcularComponent implements OnInit {
         }
       }
     });
+  }
+
+  public verListado(){
+   this.ventana.showVentana(this.ventana.listadoEmpleados,{datos:this.empleados});
   }
 
 }

@@ -187,6 +187,11 @@ export class NominaordinariaService {
     return this.http.post(`${direcciones.dispersion}/modifica/estatus/empleado/dispersado`, json);
   }
 
+
+  public getUsuariosContempladosOtrasNominas(idNomina:number):Observable<any>{
+      return this.http.get(`${direcciones.nominaOrdinaria}/lista/empleados/calulados/${idNomina}`);
+  }
+
   public creandoObservable(obj: any): Subject<any> {
     let subject = new Subject();
     setTimeout(() => {

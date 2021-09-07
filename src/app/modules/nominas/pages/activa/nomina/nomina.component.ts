@@ -39,6 +39,9 @@ export class NominaComponent implements OnInit {
   public tabTimbrado: boolean = false;
   public tabConcluida: boolean = false;
 
+
+  public listadoEmpleadosExistentes = undefined;
+
   constructor(public configuracionPrd: ConfiguracionesService,
     private modalPrd: ModalService, private usuariSistemaPrd: UsuarioSistemaService,
     private nominaOrdinariaPrd: NominaordinariaService) { }
@@ -118,6 +121,8 @@ export class NominaComponent implements OnInit {
     }
 
 
+
+    this.nominaOrdinariaPrd.getUsuariosContempladosOtrasNominas(this.nominaSeleccionada[this.llave].nominaXperiodoId).subscribe(datos =>this.listadoEmpleadosExistentes = datos.datos);;
 
 
   }
