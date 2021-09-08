@@ -1455,7 +1455,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
             tipoPeriodicidad: obj.tipoPeriodicidad,
             integraIsr: obj.integraIsr,
             integraIsn: obj.integraIsn,
-            especializacion: this.objdetrep.especializacion
+            especializacion: this.objdetrep.especializacion,
+            tipoPago: this.objdetrep.tipoPago,
+            porDefecto: obj.porDefecto
 
           }
 
