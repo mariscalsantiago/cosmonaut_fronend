@@ -263,6 +263,8 @@ export class NominaHistoricasComponent implements OnInit {
 
   public filtrar() {
 
+    console.log(this.fecha,"Esta es la fecha");
+
     let objEnviar = {
       centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
       estadoNominaIdActual: 5,
@@ -270,6 +272,8 @@ export class NominaHistoricasComponent implements OnInit {
       clavePeriodo: this.periodo || null,
       fechaInicio: this.fecha || null
     }
+
+    console.log("Fcha de inicio",objEnviar);
 
     this.cargando = true;
     this.nominashistoricasPrd.filtrado(objEnviar).subscribe(datos => {
