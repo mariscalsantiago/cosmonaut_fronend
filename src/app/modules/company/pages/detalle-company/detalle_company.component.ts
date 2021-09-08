@@ -175,7 +175,7 @@ export class DetalleCompanyComponent implements OnInit {
         new tabla("nombrecompleto", "Nombre contacto"),
         new tabla("emailCorporativo", "Correo empresarial"),
         new tabla("contactoInicialTelefono", "Teléfono"),
-        new tabla("fechaAlta", "Fecha de registro en el sistema")
+        new tabla("fechaAltab", "Fecha de registro en el sistema")
       ]
 
 
@@ -186,7 +186,7 @@ export class DetalleCompanyComponent implements OnInit {
       if (this.arreglo !== undefined){
         for (let item of this.arreglo){
           item.nombrecompleto = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? '':item.apellidoMaterno}`;
-          item.fechaAlta = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
+          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
         }
       }
 

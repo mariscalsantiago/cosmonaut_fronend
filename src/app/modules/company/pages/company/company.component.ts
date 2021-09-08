@@ -80,12 +80,12 @@ export class CompanyComponent implements OnInit {
         new tabla("razonSocial", "Razón social	"),
         new tabla("nombre", "Nombre de cliente"),
         new tabla("rfc", "RFC"),
-        new tabla("fechaAlta", "Fecha de registro en el sistema"),
+        new tabla("fechaAltab", "Fecha de registro en el sistema"),
         new tabla("esActivo", "Estatus")
       ]
       if (this.arreglo !== undefined) {
         for (let item of this.arreglo) {
-          item.fechaAlta = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
+          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
         }
       }
 
@@ -173,13 +173,13 @@ export class CompanyComponent implements OnInit {
         new tabla("razonSocial", "Razón social	"),
         new tabla("nombre", "Nombre de cliente"),
         new tabla("rfc", "RFC"),
-        new tabla("fechaAlta", "Fecha de registro en el sistema"),
+        new tabla("fechaAltab", "Fecha de registro en el sistema"),
         new tabla("esActivo", "Estatus")
       ];
 
       if (this.arreglo !== undefined) {
         for (let item of this.arreglo) {
-          item.fechaAlta = new DatePipe("es-MX").transform(new Date(new Date(item.fechaAlta).toUTCString().replace("GMT","")), 'dd-MMM-y');
+          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
         }
       }
       this.arreglotabla.columnas = columnas;

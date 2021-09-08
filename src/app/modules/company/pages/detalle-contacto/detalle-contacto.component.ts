@@ -87,7 +87,8 @@ export class DetalleContactoComponent implements OnInit {
 
 
   public createFormcont(obj: any) {
-    let datePipe = new DatePipe("es-MX");
+    
+    console.log("Esta es el obj",obj);
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -98,7 +99,7 @@ export class DetalleContactoComponent implements OnInit {
       emailCorporativo: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(this.fechaActual, "yyyy-MM-dd") : obj.fechaAlta), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: obj.fechaAlta, disabled: true }, [Validators.required]],
       personaId: obj.personaId,
       contactoInicialPuesto: obj.contactoInicialPuesto,
       usuarioinicial: [obj.usuarioinicial]
@@ -121,7 +122,7 @@ export class DetalleContactoComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
       if (valor) {
-        let obj = this.myFormcont.value;
+        let obj = this.myFormcont.getRawValue();
         obj = {
           ...obj,
           fechaAlta: this.fechaActual,

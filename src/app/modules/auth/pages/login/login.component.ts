@@ -174,6 +174,7 @@ export class LoginComponent implements OnInit {
           usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : objRecibido.centroCostosCentrocClienteId.centrocClienteId;
           
           this.usuarioSistemaPrd.setUsuario(usuario);
+          console.log(usuario);
           this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
             let obj = datos.datos;
 
