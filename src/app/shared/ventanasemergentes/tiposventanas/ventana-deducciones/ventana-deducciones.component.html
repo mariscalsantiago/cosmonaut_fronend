@@ -4,7 +4,7 @@
 
         <div class="input-group-sm mb-3 col-4">
             <label for="exampleFormControlSelect1">Nombre de deducción *</label>
-            <select #conceptoDeduccionId (focusout)="validarConceptoDeduccion(conceptoDeduccionId.value)" formControlName="nomDeduccion" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.nomDeduccion.errors && submitEnviado}">
+            <select formControlName="nomDeduccion" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.nomDeduccion.errors && submitEnviado}">
             <option value=""></option>
             <option *ngFor="let item of obtenerPercepcion"  [value]="item.tipoDeduccionId?.tipoDeduccionId">{{item.nombre}}</option>
         </select>
@@ -60,7 +60,8 @@
         </div>
         <div *ngIf="prestamo" class="  input-group-sm mb-3 col-4">
             <label>Monto *</label>
-            <input #monto (focusout)="validarMontoTotal(monto.value)" formatos [moneda]="true" [control]="f.montoTotal" formControlName="montoTotal" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.montoTotal.errors && submitEnviado}">
+            <input formatos [moneda]="true" [control]="f.montoTotal" formControlName="montoTotal" type="text" class="form-control" 
+            [ngClass]="{'is-invalid':myForm.controls.montoTotal.errors && submitEnviado}">
             <div *ngIf="myForm.controls.montoTotal.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
@@ -68,7 +69,7 @@
 
         <div *ngIf="prestamo" class="  input-group-sm mb-3 col-4">
             <label>Número de cuotas *</label>
-            <input #numero appSolonumeros (focusout)="validarNumeroCuotas(numero.value)" formControlName="numeroCuotas" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.numeroCuotas.errors && submitEnviado}">
+            <input appSolonumeros formControlName="numeroCuotas" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.numeroCuotas.errors && submitEnviado}">
             <div *ngIf="myForm.controls.numeroCuotas.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>

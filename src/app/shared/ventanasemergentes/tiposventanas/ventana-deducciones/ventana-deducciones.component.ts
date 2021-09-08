@@ -159,6 +159,17 @@ export class VentanaDeduccionesComponent implements OnInit {
 
   public suscripciones() {
     this.myForm.value;
+    this.myForm.controls.nomDeduccion.valueChanges.subscribe(valor => {
+      this.validarConceptoDeduccion(valor)
+    });
+
+    this.myForm.controls.montoTotal.valueChanges.subscribe(valor => {
+      this.validarMontoTotal(valor)
+    });
+    
+    this.myForm.controls.numeroCuotas.valueChanges.subscribe(valor => {
+      this.validarNumeroCuotas(valor)
+    });
 
     this.myForm.controls.fechaInicioDescto.valueChanges.subscribe(valor => {
       this.fechaFinDescuento.nativeElement.min = valor;
@@ -763,7 +774,7 @@ export class VentanaDeduccionesComponent implements OnInit {
           let  obj = this.myForm.getRawValue();
           
 
-          let fechaIniDesc = "";
+/*           let fechaIniDesc = "";
           if (obj.fechaInicioDescto != undefined || obj.fechaInicioDescto != null) {
       
             if (obj.fechaInicioDescto != "") {
@@ -771,8 +782,8 @@ export class VentanaDeduccionesComponent implements OnInit {
               const fecha1 = new Date(obj.fechaInicioDescto).toUTCString().replace("GMT", "");
               fechaIniDesc = `${new Date(fecha1).getTime()}`;
             }
-          }
-          let fechaFinDesc = "";
+          } */
+/*           let fechaFinDesc = "";
           if (obj.fechaFinDescuento != undefined || obj.fechaFinDescuento != null) {
       
             if (obj.fechaFinDescuento != "") {
@@ -780,8 +791,8 @@ export class VentanaDeduccionesComponent implements OnInit {
               const fecha1 = new Date(obj.fechaFinDescuento).toUTCString().replace("GMT", "");
               fechaFinDesc = `${new Date(fecha1).getTime()}`;
             }
-          }
-          let fechaRecepAviRetencion = "";
+          } */
+/*           let fechaRecepAviRetencion = "";
           if (obj.fechaRecepcionAvisoRetencion != undefined || obj.fechaRecepcionAvisoRetencion != null) {
       
             if (obj.fechaRecepcionAvisoRetencion != "") {
@@ -789,8 +800,8 @@ export class VentanaDeduccionesComponent implements OnInit {
               const fecha1 = new Date(obj.fechaRecepcionAvisoRetencion).toUTCString().replace("GMT", "");
               fechaRecepAviRetencion = `${new Date(fecha1).getTime()}`;
             }
-          }
-          let fechaRecAviSuspension = "";
+          } */
+/*           let fechaRecAviSuspension = "";
           if (obj.fechaRecepcionAvisoSuspension != undefined || obj.fechaRecepcionAvisoSuspension != null) {
       
             if (obj.fechaRecepcionAvisoSuspension != "") {
@@ -798,7 +809,7 @@ export class VentanaDeduccionesComponent implements OnInit {
               const fecha1 = new Date(obj.fechaRecepcionAvisoSuspension).toUTCString().replace("GMT", "");
               fechaRecAviSuspension = `${new Date(fecha1).getTime()}`;
             }
-          }
+          } */
           
           if(this.esInsert){
           if(this.politica !== undefined){
@@ -821,16 +832,16 @@ export class VentanaDeduccionesComponent implements OnInit {
               baseCalculoId: obj.baseCalculoId
             },
             valor: obj.valor,
-            fechaInicioDescto: fechaIniDesc,
+            fechaInicioDescto: obj.fechaInicioDescto,
             numeroFolio: obj.numeroFolio,
             montoTotal: obj.montoTotal,
             numeroCuotas: obj.numeroCuotas,
             interesPorcentaje: obj.interesPorcentaje,
-            fechaFinDescuento: fechaFinDesc,
+            fechaFinDescuento: obj.fechaFinDescuento,
             folioAvisoRetencion: obj.folioAvisoRetencion,
-            fechaRecepcionAvisoRetencion: fechaRecepAviRetencion,
+            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
             folioAvisoSuspension: obj.folioAvisoSuspension,
-            fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
+            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
             esActivo: obj.esActivo,
             numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
@@ -859,16 +870,16 @@ export class VentanaDeduccionesComponent implements OnInit {
               baseCalculoId: obj.baseCalculoId
             },
             valor: obj.valor,
-            fechaInicioDescto: fechaIniDesc,
+            fechaInicioDescto: obj.fechaInicioDescto,
             numeroFolio: obj.numeroFolio,
             montoTotal: obj.montoTotal,
             numeroCuotas: obj.numeroCuotas,
             interesPorcentaje: obj.interesPorcentaje,
-            fechaFinDescuento: fechaFinDesc,
+            fechaFinDescuento: obj.fechaFinDescuento,
             folioAvisoRetencion: obj.folioAvisoRetencion,
-            fechaRecepcionAvisoRetencion: fechaRecepAviRetencion,
+            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
             folioAvisoSuspension: obj.folioAvisoSuspension,
-            fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
+            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
             esActivo: obj.esActivo,
             nombreretencion: this.nombreretencion,
             nombresuspension: this.nombresuspension,
@@ -908,16 +919,16 @@ export class VentanaDeduccionesComponent implements OnInit {
               baseCalculoId: obj.baseCalculoId
             },
             valor: obj.valor,
-            fechaInicioDescto: fechaIniDesc,
+            fechaInicioDescto: obj.fechaInicioDescto,
             numeroFolio: obj.numeroFolio,
             montoTotal: obj.montoTotal,
             numeroCuotas: obj.numeroCuotas,
             interesPorcentaje: obj.interesPorcentaje,
-            fechaFinDescuento: fechaFinDesc,
+            fechaFinDescuento: obj.fechaFinDescuento,
             folioAvisoRetencion: obj.folioAvisoRetencion,
-            fechaRecepcionAvisoRetencion: fechaRecepAviRetencion,
+            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
             folioAvisoSuspension: obj.folioAvisoSuspension,
-            fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
+            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
             esActivo: obj.esActivo,
             numPlazosMensuales:obj.numPlazosMensuales,
             tipoDescuentoInfonavitId: {
@@ -947,16 +958,16 @@ export class VentanaDeduccionesComponent implements OnInit {
               baseCalculoId: obj.baseCalculoId
             },
             valor: obj.valor,
-            fechaInicioDescto: fechaIniDesc,
+            fechaInicioDescto: obj.fechaInicioDescto,
             numeroFolio: obj.numeroFolio,
             montoTotal: obj.montoTotal,
             numeroCuotas: obj.numeroCuotas,
             interesPorcentaje: obj.interesPorcentaje,
-            fechaFinDescuento: fechaFinDesc,
+            fechaFinDescuento: obj.fechaFinDescuento,
             folioAvisoRetencion: obj.folioAvisoRetencion,
-            fechaRecepcionAvisoRetencion: fechaRecepAviRetencion,
+            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
             folioAvisoSuspension: obj.folioAvisoSuspension,
-            fechaRecepcionAvisoSuspension: fechaRecAviSuspension,
+            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
             esActivo: obj.esActivo,
             nombreretencion: this.nombreretencion,
             nombresuspension: this.nombresuspension,
