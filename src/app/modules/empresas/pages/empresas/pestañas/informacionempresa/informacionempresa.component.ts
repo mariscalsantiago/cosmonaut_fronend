@@ -217,6 +217,9 @@ export class InformacionempresaComponent implements OnInit {
 
     
 
+    console.log(JSON.stringify(objenviar));
+    
+
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     if (this.datos.insertar) {
       this.empresaPrd.save(objenviar).subscribe(datos => {
