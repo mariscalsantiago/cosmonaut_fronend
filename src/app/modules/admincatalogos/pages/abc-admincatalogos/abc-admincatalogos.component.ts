@@ -331,7 +331,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       fechaInicio: [obj.fechaInicio], 
       fechaFin: [obj.fechaFin],
       tipoConcepto: [obj.tipoConcepto],
-      especializacion: [obj.especializacion],
+      //especializacion: [obj.especializacion],
       tipoPeriodicidad: [obj.tipoPeriodicidad],
       razonSocial: [obj.razonSocial],
       limiteInferior:[obj.limiteInferior],
@@ -445,12 +445,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.myForm.controls.razonSocial.updateValueAndValidity();
   }
   else if(this.detCatalogos.listaCatalogosId == 4){
-    if(!this.insertar){
-      this.myForm.controls.especializacion.disable();
-    } 
+    //if(!this.insertar){
+      //this.myForm.controls.especializacion.disable();
+    //} 
     this.myForm.controls.clave.setValidators([Validators.required]);
     this.myForm.controls.tipoConcepto.setValidators([Validators.required]);
-    this.myForm.controls.especializacion.setValidators([Validators.required]);
+    //this.myForm.controls.especializacion.setValidators([Validators.required]);
     this.myForm.controls.tipoPeriodicidad.setValidators([Validators.required]);
     this.myForm.controls.codBanco.setValidators([]);
     this.myForm.controls.codBanco.updateValueAndValidity();
@@ -1425,7 +1425,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
               tipoPeriodicidad: obj.tipoPeriodicidad,
               integraIsr: obj.integraIsr,
               integraIsn: obj.integraIsn,
-              especializacion: obj.especializacion,
+              especializacion: obj.clave,
               tipoPago: "D",
               porDefecto: obj.porDefecto
 
