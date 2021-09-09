@@ -356,7 +356,8 @@ export class PersonalComponent implements OnInit {
           centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
           rolId: 2,
           esMulticliente:false,
-          usuarioId:obj.usuarioId
+          usuarioId:obj.usuarioId,
+          version:this.usuarioSistemaPrd.getVersionSistema()
         }
         
         if(!Boolean(esUsuario)){

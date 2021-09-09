@@ -4,11 +4,12 @@
         <div class="col-8">
 
             <span (click)="anteriorMes()" class="primary cursor">
-                <i aria-hidden="true" class="fas fa-chevron-left" style="cursor: pointer;"></i>
+                <i aria-hidden="true"  style="cursor: pointer;font-family: -webkit-pictograph;"> &#60; </i>
             </span><span class="primary ml-5 mr-5">
                 {{(fecha | date:'MMMM' | uppercase)?.replace('.','')}} {{fecha | date:'yyyy'}}
-            </span><span (click)="siguienteMes()" class="primary cursor"><i aria-hidden="true" class="fas fa-chevron-right "
-                    style="cursor: pointer;"></i></span>
+            </span><span (click)="siguienteMes()" class="primary cursor"><i aria-hidden="true" 
+                    style="cursor: pointer;font-family: -webkit-pictograph;">&#62;
+                </i></span>
 
         </div>
     </div>
