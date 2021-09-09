@@ -223,7 +223,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         if (datos.datos !== undefined) {
           for (let item of datos.datos) {
             
-            item.fecInicio = new DatePipe("es-MX").transform((item.fechaInicio), 'yyyy-MM-dd');
+            item.fechaInicio = new DatePipe("es-MX").transform((item.fechaInicio), 'yyyy-MM-dd');
             item.fechaFin = new DatePipe("es-MX").transform((item.fechaFin), 'yyyy-MM-dd');
            }
         }
@@ -571,16 +571,18 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
+    debugger;
     let editField = event.target.textContent;
     if (property.includes('fecha')){
      editField = event.target.value;
     }
-  
+      
     this.arregloTablaValores[id][property] = editField;
   }
 
 
   public changeValue(id: number, property: string, event: any) {
+    debugger;
     this.editField = event.target.textContent;
     if (property.includes('fecha')){
       this.editField = event.target.value;
@@ -1720,10 +1722,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
             
             for(let item of this.arregloTablaValores){
 
-              if (item.fechaInicio != "") {
+/*               if (item.fechaInicio != "") {
                 const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
                 item.fechaInicio = `${new Date(fecha1).getTime()}`;
-              }
+              } */
               this.valores = 
                 {
                   tasaAplicableIsnId: item.tasaAplicableIsnId,
@@ -1762,7 +1764,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
         }
         else if(this.detCatalogos.listaCatalogosId == 18){
-          let fechainicio = "";
+/*           let fechainicio = "";
           let fechafin = "";
           if (obj.fechaFin != undefined || obj.fechaFin != null) {
       
@@ -1778,7 +1780,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
               const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
               fechainicio = `${new Date(fecha1).getTime()}`;
             }
-          }
+          } */
           this.objEnviar = {
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
