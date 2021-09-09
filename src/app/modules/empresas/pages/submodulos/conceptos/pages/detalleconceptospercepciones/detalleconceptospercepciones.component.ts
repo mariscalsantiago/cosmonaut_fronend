@@ -432,7 +432,6 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
               tipoPercepcionId: tipoPercepcion,
               especializacion: especializacion
             },
-
             tipoPeriodicidad: obj.tipoPeriodicidad,
             cuentaContable: obj.cuentaContable,
             tipoConcepto: obj.tipoConcepto,

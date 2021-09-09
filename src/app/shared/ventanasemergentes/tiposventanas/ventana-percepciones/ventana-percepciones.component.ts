@@ -300,7 +300,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     if (periodo < '1') {
       debugger
       //this.myForm.controls.numeroPeriodos.setValue([]);
-      this.myForm.controls.montoPorPeriodo.setValue([]);
+      this.myForm.controls.montoPorPeriodo.setValue('');
 
     }
     else if (this.monto != null && periodo != null && periodo >= '1') {
@@ -330,6 +330,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
 
       if (valor) {
+        debugger;
 
         let obj = this.myForm.getRawValue();
 

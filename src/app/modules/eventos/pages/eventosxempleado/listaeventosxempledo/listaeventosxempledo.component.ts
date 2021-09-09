@@ -95,9 +95,7 @@ export class ListaeventosxempledoComponent implements OnInit {
     if(this.arreglo !== undefined){
         for(let item of this.arreglo){
             item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
-            var datePipe = new DatePipe("es-MX");
-            item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
-            item.fechaInicio = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".","");
+            item.fechaInicio = new DatePipe("es-MX").transform((item.fechaInicio), 'dd-MMM-y');
         }
     }
 
