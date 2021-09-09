@@ -61,18 +61,18 @@
             <input #monto (focusout)="validarMonto(monto.value)" formatos [moneda]="true" [control]="f.montoPercepcion"
                 formControlName="montoPercepcion" type="text" class="form-control"
                 [ngClass]="{'is-invalid':myForm.controls.montoPercepcion.errors && submitEnviado}">
-            <div class="invalid-feedback">
-                Campo requerido
-            </div>
+                <div *ngIf="myForm.controls.montoPercepcion.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
         </div>
         <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
             <label>Número de períodos *</label>
             <input appSolonumeros #numPeriodos (focusout)="validarNumPeriodo(numPeriodos.value)" formControlName="numeroPeriodos"
                 type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':myForm.controls.numeroPeriodos.errors && submitEnviado}">
-            <div class="invalid-feedback">
-                Campo requerido
-            </div>
+                <div *ngIf="myForm.controls.numeroPeriodos.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
         </div>
         <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
             <label>Monto por período *</label>

@@ -84,6 +84,17 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public suscripciones() {
+
+    this.myForm.value;
+
+    this.myForm.controls.montoPercepcion.valueChanges.subscribe(valor => {
+      this.validarMonto(valor)
+    });
+
+    this.myForm.controls.numeroPeriodos.valueChanges.subscribe(valor => {
+      this.validarNumPeriodo(valor)
+    });
+
     this.myForm.controls.tipoPeriodicidadId.valueChanges.subscribe(valor => {
       this.validarTipoPercepcion(valor)
     });
@@ -105,7 +116,7 @@ export class VentanaPercepcionesComponent implements OnInit {
 
     return this.formBuild.group({
 
-      numeroPeriodos: [obj.numeroPeriodos, Validators.required],
+      numeroPeriodos: [obj.numeroPeriodos],
       tipoPeriodicidadId: [obj.tipoPeriodicidadId, Validators.required],
       baseCalculoId: [obj.baseCalculoId?.baseCalculoId],
       porcentaje: [obj.valor],
@@ -256,7 +267,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     }
   }
 
-  public validarMonto(monto: any) {
+  public validarMonto(monto:any) {
 
     this.monto = this.myForm.value.montoPercepcion;
     if (this.monto != null && this.numPeriodo != null) {
@@ -281,8 +292,8 @@ export class VentanaPercepcionesComponent implements OnInit {
 
   }
 
-  public validarNumPeriodo(periodo: any) {
-
+  public validarNumPeriodo(periodo:any) {
+    debugger;
     this.numPeriodo = periodo;
 
     if (this.numPeriodo < 1) {
@@ -329,7 +340,7 @@ export class VentanaPercepcionesComponent implements OnInit {
           }
         }
 
-        let fechar = "";
+/*         let fechar = "";
         if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
 
           if (obj.fechaInicio != "") {
@@ -337,7 +348,7 @@ export class VentanaPercepcionesComponent implements OnInit {
             const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
             fechar = `${new Date(fecha1).getTime()}`;
           }
-        }
+        } */
 
         if (this.esInsert) {
 
@@ -361,7 +372,7 @@ export class VentanaPercepcionesComponent implements OnInit {
               },
               esActivo: obj.esActivo,
               referencia: obj.referencia,
-              fechaInicio: fechar,
+              fechaInicio: obj.fechaInicio,
               montoTotal: obj.montoPercepcion,
               numeroPeriodos: obj.numeroPeriodos,
               montoPorPeriodo: obj.montoPorPeriodo
@@ -388,7 +399,7 @@ export class VentanaPercepcionesComponent implements OnInit {
               },
               esActivo: obj.esActivo,
               referencia: obj.referencia,
-              fechaInicio: fechar,
+              fechaInicio: obj.fechaInicio,
               montoTotal: obj.montoPercepcion,
               numeroPeriodos: obj.numeroPeriodos,
               montoPorPeriodo: obj.montoPorPeriodo
@@ -420,7 +431,7 @@ export class VentanaPercepcionesComponent implements OnInit {
               },
               esActivo: obj.esActivo,
               referencia: obj.referencia,
-              fechaInicio: fechar,
+              fechaInicio: obj.fechaInicio,
               montoTotal: obj.montoPercepcion,
               numeroPeriodos: obj.numeroPeriodos,
               montoPorPeriodo: obj.montoPorPeriodo
@@ -448,7 +459,7 @@ export class VentanaPercepcionesComponent implements OnInit {
               },
               esActivo: obj.esActivo,
               referencia: obj.referencia,
-              fechaInicio: fechar,
+              fechaInicio: obj.fechaInicio,
               montoTotal: obj.montoPercepcion,
               numeroPeriodos: obj.numeroPeriodos,
               montoPorPeriodo: obj.montoPorPeriodo

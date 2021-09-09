@@ -110,7 +110,7 @@ export class CompanyComponent implements OnInit {
     
     this.cargando = true;
 
-    let fechar = "";
+/*     let fechar = "";
 
     if (this.fechaAlta != undefined || this.fechaAlta != null) {
 
@@ -122,7 +122,7 @@ export class CompanyComponent implements OnInit {
 
       }
 
-    }
+    } */
     delete this.peticion.multiempresa;
     if(this.multiempresa == '1'){
       this.multiempresaFin = true;
@@ -155,7 +155,7 @@ export class CompanyComponent implements OnInit {
       rfc: this.rfc,
       nombre: this.nombre,
       razonSocial: this.razonSocial,
-      fechaAlta: fechar,
+      fechaAlta: this.fechaAlta,
       esActivo: actboo,
     }
     
