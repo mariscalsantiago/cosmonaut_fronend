@@ -116,6 +116,7 @@ export class VentanaPercepcionesComponent implements OnInit {
 
     return this.formBuild.group({
 
+      //numeroCargo: [obj.numeroPeriodos],
       numeroPeriodos: [obj.numeroPeriodos],
       tipoPeriodicidadId: [obj.tipoPeriodicidadId, Validators.required],
       baseCalculoId: [obj.baseCalculoId?.baseCalculoId],
@@ -296,12 +297,13 @@ export class VentanaPercepcionesComponent implements OnInit {
     debugger;
     this.numPeriodo = periodo;
 
-    if (this.numPeriodo < 1) {
-      this.myForm.controls.numeroPeriodos.setValue('');
-      this.myForm.controls.montoPorPeriodo.setValue('');
+    if (periodo < '1') {
+      debugger
+      //this.myForm.controls.numeroPeriodos.setValue([]);
+      this.myForm.controls.montoPorPeriodo.setValue([]);
 
     }
-    else if (this.monto != null && this.numPeriodo != null && this.numPeriodo != 1) {
+    else if (this.monto != null && periodo != null && periodo >= '1') {
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos => {
         this.montoPercepcion = datos.datos;
         var monto = this.montoPercepcion.toFixed(4);
