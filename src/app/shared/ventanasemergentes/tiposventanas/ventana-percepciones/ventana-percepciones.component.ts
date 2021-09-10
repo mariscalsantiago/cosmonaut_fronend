@@ -269,8 +269,9 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarMonto(monto:any) {
-
-    this.monto = this.myForm.value.montoPercepcion;
+    debugger;
+    //this.monto = this.myForm.value.montoPercepcion;
+    this.monto = monto;
     if (this.monto != null && this.numPeriodo != null) {
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos => {
         this.montoPercepcion = datos.datos;

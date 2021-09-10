@@ -592,7 +592,8 @@ export class VentanaDeduccionesComponent implements OnInit {
 
    public validarMontoTotal(monto:any){
     
-      this.monto = this.myForm.value.montoTotal;
+      //this.monto = this.myForm.value.montoTotal;
+      this.monto = monto;
       if(this.monto != null && this.numPeriodo != null){
         this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
           this.montoPercepcion = datos.datos;
