@@ -172,6 +172,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
             });
           } else {
 
+            debugger;
             this.peticion.conceptoDeduccionId = obj.conceptoDeduccionId;
 
 
