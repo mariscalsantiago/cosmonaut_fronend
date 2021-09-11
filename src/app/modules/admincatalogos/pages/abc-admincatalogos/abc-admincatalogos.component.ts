@@ -1536,7 +1536,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
           fechaRef.setFullYear(anioRef, mesF - 1, dia); */
       
           if (x > fechaRef) {
-
              this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser menor o igual a la fecha actual')
               .then(() => {
                 this.myForm.controls.fechaInicio.setValue("");
