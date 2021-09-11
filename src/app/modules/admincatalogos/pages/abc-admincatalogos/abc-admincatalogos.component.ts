@@ -61,6 +61,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public fechaAlta: number = 0;
   public activaClaveCuatro : boolean = false;
   public activaClaveDos : boolean = false;
+  public todayF : string = '';
 
   public arreglotabla: any = {
     columnas: [],
@@ -1518,26 +1519,32 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 15){
-          
+          debugger;
           let fecha = new Date();
           let anio = fecha.getFullYear();
-/*           let fechainicio = "";
-          let fechafin = "";
-          if (obj.fechaFin != undefined || obj.fechaFin != null) {
+
+          var x = new Date();
+          var fechal = obj.fechaFin.split("-");
+          x.setFullYear(fechal[0], fechal[1] - 1, fechal[2]);
+
+          let fechaRef = new Date();
+/*           let dia = fechaRef.getDate() - 1;
+          let mes = fechaRef.getMonth() + 1 < 10 ? `0${fechaRef.getMonth() + 1}` : fechaRef.getMonth() + 1;
+          let mestring = mes.toString();
+          let mesF = parseInt(mestring);
+          let anioRef = fechaRef.getFullYear();
+          fechaRef.setFullYear(anioRef, mesF - 1, dia); */
       
-            if (obj.fechaFin != "") {
-              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
-              fechafin = `${new Date(fecha1).getTime()}`;
-            }
-          }
-          
-          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
-      
-            if (obj.fechaInicio != "") {
-              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
-              fechainicio = `${new Date(fecha1).getTime()}`;
-            }
-          } */
+          if (x > fechaRef) {
+
+             this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser menor o igual a la fecha actual')
+              .then(() => {
+                this.myForm.controls.fechaInicio.setValue("");
+                this.myForm.controls.fechaFin.setValue("");
+              });
+    
+          }else{
+
           this.objEnviar = {
             valor: obj.valor,
             fechaInicio: obj.fechaInicio,
@@ -1577,6 +1584,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   
             });
           }
+        }
     
         }
         else if(this.detCatalogos.listaCatalogosId == 17){
