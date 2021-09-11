@@ -6,7 +6,7 @@
             <label for="exampleFormControlSelect1">Nombre de deducción *</label>
             <select formControlName="nomDeduccion" type="text" class="form-control" [ngClass]="{'is-invalid':myForm.controls.nomDeduccion.errors && submitEnviado}">
             <option value=""></option>
-            <option *ngFor="let item of obtenerPercepcion"  [value]="item.tipoDeduccionId?.tipoDeduccionId">{{item.nombre}}</option>
+            <option *ngFor="let item of obtenerPercepcion"  [value]="item.conceptoDeduccionId">{{item.nombre}}</option>
         </select>
             <div *ngIf="myForm.controls.nomDeduccion.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
