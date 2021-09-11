@@ -230,7 +230,9 @@ export class FormEmpleadoComponent implements OnInit {
     this.ventana.showVentana(this.ventana.fotoperfil,{ventanaalerta:true}).then(valor =>{
       if(valor.datos != "" && valor.datos != undefined){
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          console.log("subir foto perfil",this.tabsEnviar);
           this.empleadosPrd.getEmpleadoById(this.tabsEnviar[0].personaId).subscribe(datos =>{
+            console.log("SUBIR FOTO PERFIL",datos);
             let objEnviar = {
               ...datos.datos,
               imagen:valor.datos
