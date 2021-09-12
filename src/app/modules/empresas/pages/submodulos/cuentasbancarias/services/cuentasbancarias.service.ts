@@ -221,6 +221,10 @@ public getListaDeduccionesPolitica(id_politica:number,id_empresa:number):Observa
     return  this.http.get(`${direcciones.conceptos}/obtener/deduccion/${id_empresa}`);
   }
 
+  public getObtenerDeduccionEmpleados(id_empresa:number, estatus : boolean):Observable<any>{
+    return  this.http.get(`${direcciones.conceptos}/obtener/deduccion/empresa/estatus/${id_empresa}/${estatus}`);
+  }
+
   public getObtenerDeduccionPolitica(id_empresa:number):Observable<any>{
     return  this.http.get(`${direcciones.conceptos}/obtener/deduccion/politica/${id_empresa}`);
   }

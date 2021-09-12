@@ -81,7 +81,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     this.bancosPrd.getObtenerDeduccionPolitica(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
     }else{
     
-    this.bancosPrd.getObtenerDeduccion(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
+    this.bancosPrd.getObtenerDeduccionEmpleados(this.empresa, true).subscribe(datos => this.obtenerPercepcion = datos.datos);
     }
     if(this.datos.idEmpleado != undefined){
       this.datos = {};
