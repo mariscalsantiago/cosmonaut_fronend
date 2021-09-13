@@ -194,7 +194,8 @@ export class TimbrarComponent implements OnInit {
         let enviarObj = {
           nominaPeriodoId: this.nominaSeleccionada[this.llave2]?.nominaXperiodoId,
           idEmpleado: item[this.llave].numEmpleado,
-          esVistaPrevia: true
+          esZip: false,
+          clienteId:this.usuarioSistemaPrd.getIdEmpresa()
         }
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);

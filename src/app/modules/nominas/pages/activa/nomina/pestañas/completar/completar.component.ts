@@ -103,11 +103,10 @@ export class CompletarComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas descargar los recibos?").then(valor =>{
       if(valor){
 
+    
         let enviarObj = {
           nominaPeriodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId,
-          esVistaPrevia: false,
-          esTimbrado : true,
-          esSubida : true
+          esZip: true
         }
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
