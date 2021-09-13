@@ -78,7 +78,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     this.catalogosPrd.getTipoDescuentoInfonavit(true).subscribe(datos => this.arregloDescuentoInfonavit = datos.datos);
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
     if(this.politica !== undefined){
-    this.bancosPrd.getObtenerDeduccionPolitica(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
+    this.bancosPrd.getObtenerDeduccionPoliticaActivos(this.empresa, true).subscribe(datos => this.obtenerPercepcion = datos.datos);
     }else{
     
     this.bancosPrd.getObtenerDeduccionEmpleados(this.empresa, true).subscribe(datos => this.obtenerPercepcion = datos.datos);
@@ -89,7 +89,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
 
     }else{
-      
+
       this.esInsert = false;
       this.myForm = this.createForm(this.datos);
       this.validarConceptoDeduccion(this.datos.tipoDeduccionId?.tipoDeduccionId);
@@ -794,6 +794,13 @@ export class VentanaDeduccionesComponent implements OnInit {
               obj.nomDeduccion = item.tipoDeduccionId?.tipoDeduccionId;
             }
       
+          }
+
+          if(obj.suspension == 'Aviso de suspensión cargado'){
+            obj.suspension = '';
+          }
+          if(obj.retencion == 'Aviso de retención cargado'){
+            obj.retencion = '';
           }
 
 /*           let fechaIniDesc = "";
