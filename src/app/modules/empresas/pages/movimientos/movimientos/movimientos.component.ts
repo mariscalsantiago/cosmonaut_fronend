@@ -67,9 +67,9 @@ export class MovimientosComponent implements OnInit {
       for(let item of this.arreglo){
         item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
 
-        if(item.fechaMovimiento !== undefined ){
+        //if(item.fechaMovimiento !== undefined ){
         //item.fecha = new DatePipe("es-MX").transform(item.fechaMovimiento, 'dd-MMM-y');
-        }
+        //}
       }
     }
    
