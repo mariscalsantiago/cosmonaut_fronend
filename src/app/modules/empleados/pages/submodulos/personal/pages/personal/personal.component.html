@@ -103,7 +103,7 @@
                     </article>
                     <article *ngIf="editarcampos">
                         <input formatos [nochar]="true" [rfc]="true" [control]="f.rfc" [ngClass]="{'is-invalid':(f.rfc.errors?.required && submitEnviado) || (f.rfc.errors?.pattern && f.rfc.touched)}" formControlName="rfc" maxlength="13" type="text" name="" class="form-control">
-                        <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
+                        <div *ngIf="f.rfc.errors?.required && f.rfc.touched" class="invalid-feedback">
                             Campo requerido
                         </div>
                         <div *ngIf="f.rfc.errors?.pattern && f.rfc.touched" class="invalid-feedback">
@@ -119,8 +119,13 @@
                         {{empleado.nss}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="nss" [class.is-invalid]="f.nss.errors" type="text" name="" class="form-control">
-                        <div class="invalid-feedback">Campo requerido</div>
+                        <input formControlName="nss" maxlength="11" [class.is-invalid]="f.nss.errors" type="text" name="" class="form-control">
+                        <div *ngIf="(f.nss.errors?.required && submitEnviado)" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                        <div *ngIf="(f.nss.errors && f.nss.touched)" class="invalid-feedback">
+                            Número de seguro social invalido.
+                        </div>
                     </article>
                 </article>
             </div>

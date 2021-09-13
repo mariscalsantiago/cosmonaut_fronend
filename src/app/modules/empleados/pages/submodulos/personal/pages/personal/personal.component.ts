@@ -1,8 +1,10 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
+import { ObservadorEmpleadosService } from 'src/app/modules/empleados/services/observador-empleados.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -44,11 +46,13 @@ export class PersonalComponent implements OnInit {
   public noCoincide = '';
   public esKiosko:boolean = false;
 
+  public cambioFotoPerfil!:Subscription;
+
   constructor(private formBuilder: FormBuilder,
     private navparams: ActivatedRoute, private empleadoPrd: EmpleadosService,
     private catalogosPrd: CatalogosService, private usuarioSistemaPrd: UsuarioSistemaService,
     private modalPrd: ModalService, private domicilioPrd: DomicilioService,private router:Router,
-    private usuarioAuthPrd:UsuariosauthService) { }
+    private usuarioAuthPrd:UsuariosauthService,private cambioFotoPerfilPrd:ObservadorEmpleadosService) { }
 
   ngOnInit(): void {
     this.esKiosko = this.router.url.includes("/kiosko/perfil");
@@ -56,46 +60,7 @@ export class PersonalComponent implements OnInit {
     this.navparams.params.subscribe(param => {
 
       this.idEmpleado = param["id"];
-      this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datoscontrato => {
-
-
-        
-        this.empleado = datoscontrato.datos;
-        this.parsearInformacion();
-        this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
-          this.domicilioArreglo = datosnativo?.datos == undefined ?undefined:datosnativo?.datos[0];
-          
-        });
-
-        this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datosdomicilio => {
-          
-          if (datosdomicilio.datos !== undefined) {
-
-            
-            for (let llave in datosdomicilio.datos[0]) {
-              this.empleado[llave] = datosdomicilio.datos[0][llave];
-            }
-            this.myForm = this.createForm(this.empleado);
-            this.buscar(undefined);
-
-            
-          } else {
-           this.myForm =  this.createForm(this.empleado);
-          }
-
-          this.insertarDomicilio = datosdomicilio.datos == undefined;
-
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        });
-
-
-
-
-
-      });
-
-
-
+      this.traerInformacionDelEmpleado();
 
     });
 
@@ -104,6 +69,54 @@ export class PersonalComponent implements OnInit {
     this.arreglonacionalidad = this.catalogosPrd.getNacinalidades(true).toPromise();
 
     this.arregloParenteesco = this.catalogosPrd.getCatalogoParentezco(true).toPromise();
+
+
+  this.cambioFotoPerfil =   this.cambioFotoPerfilPrd.CambioFotoPerfil().subscribe(dato =>{
+      if(dato){
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.traerInformacionDelEmpleado();
+      }
+    });
+  }
+
+
+  public traerInformacionDelEmpleado(){
+    this.empleadoPrd.getEmpleadoById(this.idEmpleado).subscribe(datoscontrato => {
+
+
+        
+      this.empleado = datoscontrato.datos;
+      this.parsearInformacion();
+      this.domicilioPrd.getDomicilioPorEmpleadoNativo(this.idEmpleado).subscribe(datosnativo => {
+        this.domicilioArreglo = datosnativo?.datos == undefined ?undefined:datosnativo?.datos[0];
+      });
+
+      this.domicilioPrd.getDomicilioPorEmpleado(this.idEmpleado).subscribe(datosdomicilio => {
+        
+        if (datosdomicilio.datos !== undefined) {
+
+          
+          for (let llave in datosdomicilio.datos[0]) {
+            this.empleado[llave] = datosdomicilio.datos[0][llave];
+          }
+          this.myForm = this.createForm(this.empleado);
+          this.buscar(undefined);
+
+          
+        } else {
+         this.myForm =  this.createForm(this.empleado);
+        }
+
+        this.insertarDomicilio = datosdomicilio.datos == undefined;
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      });
+
+
+
+
+
+    });
   }
 
 
@@ -222,7 +235,7 @@ export class PersonalComponent implements OnInit {
       fechaNacimiento: [obj.fechaNacimiento,Validators.required],
       rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
-      nss: [obj.nss,[Validators.required]],
+      nss: [obj.nss,[Validators.required,validacionesForms.nssValido]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
       emailCorporativo: [{value:obj.emailCorporativo?.toLowerCase(),disabled:false}, [Validators.email,Validators.required]],
       nacionalidadId: [obj.nacionalidadId?.nacionalidadId || 1, [Validators.required]],
@@ -344,6 +357,7 @@ export class PersonalComponent implements OnInit {
 
 //rh4
     this.empleadoPrd.update(objenviar).subscribe(datos => {
+      this.accionarCancelar();
 
       if (datos.resultado) {
 
@@ -480,6 +494,12 @@ export class PersonalComponent implements OnInit {
 
   public accionarCancelar() {
     this.myForm.controls.genero.disable();
+  }
+
+  public ngOnDestroy(){
+    if(this.cambioFotoPerfil){
+        this.cambioFotoPerfil.unsubscribe();
+    }
   }
 
 }

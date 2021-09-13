@@ -7,6 +7,7 @@ import { ReportesService } from 'src/app/shared/services/reportes/reportes.servi
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { ContratocolaboradorService } from '../../services/contratocolaborador.service';
 import { EmpleadosService } from '../../services/empleados.service';
+import { ObservadorEmpleadosService } from '../../services/observador-empleados.service';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class EmpleadoComponent implements OnInit {
     private empledoContratoPrd: ContratocolaboradorService, private ventana: VentanaemergenteService,
     private modalPrd: ModalService, public configuracionPrd: ConfiguracionesService,
     private router: Router,
-    private usuariosSistemaPrd: UsuarioSistemaService) { }
+    private usuariosSistemaPrd: UsuarioSistemaService,private cambioFotoPerfil:ObservadorEmpleadosService) { }
 
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
@@ -152,8 +153,8 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           }
 
           this.empleadosPrd.update(objEnviar).subscribe(actualizado => {
-            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(actualizado.resultado, actualizado.mensaje);
+            this.cambioFotoPerfil.setFotoPerfil(true);
             this.ngOnInit();
 
           });
