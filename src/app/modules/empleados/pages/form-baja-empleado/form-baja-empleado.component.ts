@@ -243,7 +243,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
         
         let obj = this.myFormcomp.value;
 
-        let fechar = "";
+/*         let fechar = "";
         if (obj.ultimoDia != undefined || obj.ultimoDia != null) {
     
           if (obj.ultimoDia != "") {
@@ -251,9 +251,9 @@ export class FormBajaEmpleadoComponent implements OnInit {
             const fecha1 = new Date(obj.ultimoDia).toUTCString().replace("GMT", "");
             fechar = `${new Date(fecha1).getTime()}`;
           }
-        }
+        } */
 
-        let fecharUltimoPago = "";
+/*         let fecharUltimoPago = "";
         if (obj.fechaFinUltimoPago != undefined || obj.fechaFinUltimoPago != null) {
     
           if (obj.fechaFinUltimoPago != "") {
@@ -261,7 +261,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
             const fecha1 = new Date(obj.fechaFinUltimoPago).toUTCString().replace("GMT", "");
             fecharUltimoPago = `${new Date(fecha1).getTime()}`;
           }
-        }
+        } */
 
 
         if(obj.pagosXliquidacionIdPrima == true && obj.tipoBajaId != "2"){
@@ -341,7 +341,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
         let objEnviar: any ={
           fechaContrato: this.fechaContrato,
           notas: obj.notas,
-          fecharUltimoPago: fecharUltimoPago,
+          fecharUltimoPago: obj.fechaFinUltimoPago,
           personaId: {
               personaId: this.personaId,
           },
@@ -355,7 +355,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
               motivoBajaId: obj.motivoBajaId
           },
           pagosLiquidacionColaborador: this.arregloLiquidacion,
-          ultimoDia: fechar,
+          ultimoDia: obj.ultimoDia,
           fechaParaCalculo: antiguedad,
           estatusBajaId:1
       }

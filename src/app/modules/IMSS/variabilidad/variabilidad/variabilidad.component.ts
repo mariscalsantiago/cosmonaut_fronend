@@ -86,7 +86,7 @@ export class VariabilidadComponent implements OnInit {
 
   ngOnInit(): void {
     
-    
+    debugger;
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     this.idUsuario = this.usauriosSistemaPrd.getUsuario();
     this.idUsuario = this.idUsuario.usuarioId;
@@ -136,6 +136,13 @@ export class VariabilidadComponent implements OnInit {
           item.fecha = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
           if(item.bimestre == undefined || item.bimestre == null){
 
+            this.bimestreLeyenda = "1er Bimestre"
+            this.bimestreCalcular = 1;
+            let anio = this.fecha.getFullYear();
+            this.fechaActual = `01/03/${anio}`;
+          }
+          else if(item.bimestre == 1 && item.bimestre == null){
+            
             this.bimestreLeyenda = "1er Bimestre"
             this.bimestreCalcular = 1;
             let anio = this.fecha.getFullYear();
@@ -251,7 +258,7 @@ export class VariabilidadComponent implements OnInit {
     }
 
     public createForm(obj: any) {
-
+   debugger;   
    if(this.esREcalcular){
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){

@@ -63,6 +63,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
+    debugger;
     
     if(this.datos.idEmpleado != undefined){
       this.empresa = this.datos.idEmpresa;
@@ -77,10 +78,10 @@ export class VentanaDeduccionesComponent implements OnInit {
     this.catalogosPrd.getTipoDescuentoInfonavit(true).subscribe(datos => this.arregloDescuentoInfonavit = datos.datos);
     this.catalogosPrd.getTipoBaseCalculo(true).subscribe(datos => this.arregloTipoMonto = datos.datos);
     if(this.politica !== undefined){
-    this.bancosPrd.getObtenerDeduccionPolitica(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
+    this.bancosPrd.getObtenerDeduccionPoliticaActivos(this.empresa, true).subscribe(datos => this.obtenerPercepcion = datos.datos);
     }else{
     
-    this.bancosPrd.getObtenerDeduccion(this.empresa).subscribe(datos => this.obtenerPercepcion = datos.datos);
+    this.bancosPrd.getObtenerDeduccionEmpleados(this.empresa, true).subscribe(datos => this.obtenerPercepcion = datos.datos);
     }
     if(this.datos.idEmpleado != undefined){
       this.datos = {};
@@ -88,6 +89,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
 
     }else{
+
       this.esInsert = false;
       this.myForm = this.createForm(this.datos);
       this.validarConceptoDeduccion(this.datos.tipoDeduccionId?.tipoDeduccionId);
@@ -115,7 +117,8 @@ export class VentanaDeduccionesComponent implements OnInit {
     this.especializacion =obj.tipoDeduccionId?.especializacion;
     return this.formBuild.group({
 
-      nomDeduccion: [obj.tipoDeduccionId?.tipoDeduccionId, Validators.required],
+      //nomDeduccion: [obj.tipoDeduccionId?.tipoDeduccionId, Validators.required],
+      nomDeduccion: [obj.conceptoDeduccionId?.conceptoDeduccionId, Validators.required],
       fechaFinDescuento: [datePipe.transform(obj.fechaFinDescuento, 'yyyy-MM-dd')],
       fechaRecepcionAvisoRetencion: [datePipe.transform(obj.fechaRecepcionAvisoRetencion, 'yyyy-MM-dd')],
       baseCalculoId:[obj.baseCalculoId?.baseCalculoId],
@@ -185,8 +188,36 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-     debugger;
-     
+    debugger;
+
+    if(this.esInsert ){
+      
+      for(let item of this.obtenerPercepcion){
+        if(concepto == item.conceptoDeduccionId){
+            this.conceptodeduccion= item.conceptoDeduccionId;
+        }
+      }
+      }
+      else if(!this.esInsert && this.cambioEstatus == false){
+        
+      for(let item of this.obtenerPercepcion){
+        if(concepto == item.conceptoDeduccionId){
+            this.conceptodeduccion= item.conceptoDeduccionId;
+        }
+      }
+      }
+      else{
+        this.conceptodeduccion = this.datos.conceptoDeduccionId?.conceptoDeduccionId;
+        this.cambioEstatus = false;
+      }
+    for(let item of this.obtenerPercepcion){
+      if(concepto == item.conceptoDeduccionId){
+        concepto = item.tipoDeduccionId?.tipoDeduccionId;
+      }
+
+    }
+
+    
     this.submitEnviado = false;
     this.myForm.clearValidators();
     this.myForm.updateValueAndValidity();
@@ -568,26 +599,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       }
       
     }
-    if(this.esInsert ){
-      
-    for(let item of this.obtenerPercepcion){
-      if(concepto == item.tipoDeduccionId.tipoDeduccionId){
-          this.conceptodeduccion= item.conceptoDeduccionId;
-      }
-    }
-    }
-    else if(!this.esInsert && this.cambioEstatus == false){
-      
-    for(let item of this.obtenerPercepcion){
-      if(concepto == item.tipoDeduccionId.tipoDeduccionId){
-          this.conceptodeduccion= item.conceptoDeduccionId;
-      }
-    }
-    }
-    else{
-      this.conceptodeduccion = this.datos.conceptoDeduccionId?.conceptoDeduccionId;
-      this.cambioEstatus = false;
-    }
+    
    }
 
    public validarMontoTotal(monto:any){
@@ -774,9 +786,22 @@ export class VentanaDeduccionesComponent implements OnInit {
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
-          
+          debugger;
           let  obj = this.myForm.getRawValue();
-          
+
+          for(let item of this.obtenerPercepcion){
+            if(obj.nomDeduccion == item.conceptoDeduccionId){
+              obj.nomDeduccion = item.tipoDeduccionId?.tipoDeduccionId;
+            }
+      
+          }
+
+          if(obj.suspension == 'Aviso de suspensión cargado'){
+            obj.suspension = '';
+          }
+          if(obj.retencion == 'Aviso de retención cargado'){
+            obj.retencion = '';
+          }
 
 /*           let fechaIniDesc = "";
           if (obj.fechaInicioDescto != undefined || obj.fechaInicioDescto != null) {
