@@ -89,6 +89,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
 
     }else{
+      
       this.esInsert = false;
       this.myForm = this.createForm(this.datos);
       this.validarConceptoDeduccion(this.datos.tipoDeduccionId?.tipoDeduccionId);
