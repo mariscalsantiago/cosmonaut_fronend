@@ -47,7 +47,7 @@
             </div>
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Correo electrónico *</label>
-                <input formatos [correo]="true" [control]="f.correoelectronico" formControlName="correoelectronico" type="email" class="form-control" [ngClass]="{'is-invalid':(f.correoelectronico.errors?.email && f.correoelectronico.touched) || (f.correoelectronico.errors?.required && summitenviado) }"
+                <input formatos [correo]="true" [control]="f.correoelectronico" formControlName="correoelectronico" type="email" class="form-control text-lowercase" [ngClass]="{'is-invalid':(f.correoelectronico.errors?.email && f.correoelectronico.touched) || (f.correoelectronico.errors?.required && summitenviado) }"
                     placeholder="">
                 <div *ngIf="f.correoelectronico.errors?.required && summitenviado" class="invalid-feedback">
                     Campo requerido
@@ -57,6 +57,7 @@
                 </div>
 
             </div>
+
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha de registro en el sistema</label>
                 <input formControlName="fechaAlta" type="text" class="form-control" placeholder="">
