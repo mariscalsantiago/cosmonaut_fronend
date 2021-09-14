@@ -14,6 +14,8 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
   styleUrls: ['./abc-admincatalogos.component.scss']
 })
 export class ABCAdminCatalogosComponent implements OnInit {
+  @ViewChild("fechaFin") fechaFinRef!: ElementRef;
+  @ViewChild("fechaInicio") fechaInicioRef!: ElementRef;
 
   public cargando: Boolean = false;
   public tipoguardad: boolean = false;
@@ -83,7 +85,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
   ngOnInit(): void {
     
     this.periodo = "";
-    
     
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
     this.objdetrep = history.state.data == undefined ? {} : history.state.data;
@@ -352,6 +353,23 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     });
   }
+
+  ngAfterViewInit(): void {
+
+    const datepipe = new DatePipe("es-MX");
+    let diamaximo = datepipe.transform(new Date, "yyyy-MM-dd")
+    this.fechaInicioRef.nativeElement.max = diamaximo;
+    this.fechaFinRef.nativeElement.max = diamaximo;
+
+
+  }
+
+  public validarfechaFinRef() {
+    debugger;
+    let fechaInicio = this.myForm.controls.fechaInicio.value;
+    this.fechaFinRef.nativeElement.min = fechaInicio;
+    this.myForm.controls.fechaFin.setValue("");
+  }  
 
   public validaForm(){
     debugger;
@@ -1523,27 +1541,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
           let fecha = new Date();
           let anio = fecha.getFullYear();
 
-          var x = new Date();
-          var fechal = obj.fechaFin.split("-");
-          x.setFullYear(fechal[0], fechal[1] - 1, fechal[2]);
-
-          let fechaRef = new Date();
-/*           let dia = fechaRef.getDate() - 1;
-          let mes = fechaRef.getMonth() + 1 < 10 ? `0${fechaRef.getMonth() + 1}` : fechaRef.getMonth() + 1;
-          let mestring = mes.toString();
-          let mesF = parseInt(mestring);
-          let anioRef = fechaRef.getFullYear();
-          fechaRef.setFullYear(anioRef, mesF - 1, dia); */
-      
-          if (x > fechaRef) {
-             this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser menor o igual a la fecha actual')
-              .then(() => {
-                this.myForm.controls.fechaInicio.setValue("");
-                this.myForm.controls.fechaFin.setValue("");
-              });
-    
-          }else{
-
           this.objEnviar = {
             valor: obj.valor,
             fechaInicio: obj.fechaInicio,
@@ -1583,7 +1580,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
   
             });
           }
-        }
     
         }
         else if(this.detCatalogos.listaCatalogosId == 17){
