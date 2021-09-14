@@ -42,7 +42,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
   public myFormFile!:FormGroup;
 
-  public nominaCreada = {nominaXperiodoId:null}
+  public nominaCreada = {nominaPeriodoId:null}
 
   public myForm!: FormGroup;
 
@@ -66,7 +66,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
       this.activado[0].form = false;
       this.activado[1].tab = true;
       this.activado[1].form = true;
-      this.nominaCreada.nominaXperiodoId = this.datos.datos.nominaXperiodoId;
+      this.nominaCreada.nominaPeriodoId = this.datos.datos.nominaXperiodoId;
     }
 
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
@@ -358,8 +358,9 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
         this.modal.showMessageDialog(this.modal.loading);
 
+        debugger;
         let objEnviar = {
-          nominaPeriodoId: this.nominaCreada.nominaXperiodoId,
+          nominaPeriodoId: this.nominaCreada.nominaPeriodoId,
           centrocClienteId: this.usuariosPrd.getIdEmpresa(),
           archivo: this.myFormFile.controls.archivo.value}
 
