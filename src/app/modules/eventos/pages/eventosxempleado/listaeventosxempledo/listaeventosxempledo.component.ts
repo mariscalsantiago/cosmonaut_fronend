@@ -158,6 +158,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public filtrar(){
+    debugger;
     this.objFiltro = [];
     this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => {this.arregloIncidenciaTipo = datos.datos;});
 
@@ -167,17 +168,20 @@ export class ListaeventosxempledoComponent implements OnInit {
         ...this.objFiltro,
         nombre: this.nombre
       };
-      }else if(this.apellidoPaterno != ''){
+      }
+      if(this.apellidoPaterno != ''){
         this.objFiltro = {
           ...this.objFiltro,
           apellidoPaterno: this.apellidoPaterno
         };
-      } else if(this.apellidoMaterno != ''){
+      } 
+      if(this.apellidoMaterno != ''){
           this.objFiltro = {
             ...this.objFiltro,
             apellidoMaterno: this.apellidoMaterno
           };
-      } else if(this.tipoIncidenciaId != "0"){
+      }
+      if(this.tipoIncidenciaId != "0"){
         this.objFiltro = {
           ...this.objFiltro,
           tipoIncidenciaId: Number(this.tipoIncidenciaId)

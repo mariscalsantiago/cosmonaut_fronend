@@ -545,7 +545,7 @@ export class VariabilidadComponent implements OnInit {
                 bimestre: obj.bimestre,
                 fechaAplicacion: fecha,
                 anioFiscal: this.anioFiscal,
-                usuarioId: 1
+                usuarioId: this.idUsuario
               };
 
                 

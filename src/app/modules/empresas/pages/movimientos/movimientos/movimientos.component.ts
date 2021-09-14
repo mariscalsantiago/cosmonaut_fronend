@@ -82,7 +82,7 @@ export class MovimientosComponent implements OnInit {
 
   public filtrar() {
     debugger
-            
+    this.objFiltro = [];        
     if (this.fechaMovimiento != "" && this.fechaMovimiento != undefined) {
     
 /*       const fecha1 = new Date(this.fechaMovimiento).toUTCString().replace("GMT", "");
@@ -100,12 +100,14 @@ export class MovimientosComponent implements OnInit {
           ...this.objFiltro,
           nombre: this.nombre
         };
-        }else if(this.apellidoPaterno != ''){
+        }
+        if(this.apellidoPaterno != ''){
           this.objFiltro = {
             ...this.objFiltro,
             apellidoPaterno: this.apellidoPaterno
           };
-        } else if(this.apellidoMaterno != ''){
+        } 
+        if(this.apellidoMaterno != ''){
             this.objFiltro = {
               ...this.objFiltro,
               apellidoMaterno: this.apellidoMaterno
@@ -120,7 +122,7 @@ export class MovimientosComponent implements OnInit {
         };
       this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
       this.traerTabla(datos);
-      this.objFiltro = [];
+
       });
     }
 

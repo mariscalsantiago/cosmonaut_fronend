@@ -133,7 +133,7 @@
             </div>
 
             <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label for="exampleFormControlSelect1">Tipo de valor de referancia *</label>
+                <label for="exampleFormControlSelect1">Tipo de valor de referencia *</label>
                 <select formControlName="valorReferencia" class="form-control"
                 [ngClass]="{'is-invalid':f.valorReferencia.errors && submitEnviado}">
                     <option value=""></option>
@@ -154,7 +154,7 @@
             </div>
             <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Fecha inicio *</label>
-                <input formControlName="fechaInicio" type="date" class="form-control"
+                <input formControlName="fechaInicio" #fechaInicio (focusout)="validarfechaFinRef()" type="date" class="form-control"
                 [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}">
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -163,7 +163,7 @@
             </div>
             <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Fecha fin *</label>
-                <input formControlName="fechaFin" type="date" class="form-control"
+                <input formControlName="fechaFin" [min]="f.fechaInicio.value" #fechaFin type="date" class="form-control"
                 [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}">
                 <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
