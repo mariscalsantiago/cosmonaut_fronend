@@ -54,7 +54,7 @@ export class MovimientosComponent implements OnInit {
       new tabla("rol", "Rol"),
       new tabla("modulo", "Módulo"),
       new tabla("movimiento", "Movimiento"),
-      new tabla("fecha", "Fecha de movimiento")
+      new tabla("fechaMovimiento", "Fecha de movimiento")
     ];
 
 
@@ -62,13 +62,14 @@ export class MovimientosComponent implements OnInit {
       columnas:[],
       filas:[]
     }
+    debugger;
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
         item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
 
-        if(item.fechaMovimiento !== undefined ){
-        item.fecha = new DatePipe("es-MX").transform(item.fechaMovimiento, 'dd-MMM-y');
-        }
+        //if(item.fechaMovimiento !== undefined ){
+        //item.fecha = new DatePipe("es-MX").transform(item.fechaMovimiento, 'dd-MMM-y');
+        //}
       }
     }
    
@@ -80,6 +81,7 @@ export class MovimientosComponent implements OnInit {
 
 
   public filtrar() {
+    debugger
             
     if (this.fechaMovimiento != "" && this.fechaMovimiento != undefined) {
     
