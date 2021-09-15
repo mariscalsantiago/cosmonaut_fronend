@@ -195,12 +195,17 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 4){
+      debugger;
       this.objdetrep.integraSdi = this.objdetrep.integraSdi == "S"  ? true : false;
       this.objdetrep.integraIsr = this.objdetrep.integraIsr == "S"  ? true : false;
       this.objdetrep.integraIsn = this.objdetrep.integraIsn == "S"  ? true : false;
       
-      if(this.objdetrep.fechaInicio != undefined || this.objdetrep.fechaFin != undefined){
-        this.objdetrep.fechaInicio = new DatePipe("es-MX").transform((this.objdetrep.fechaInicio), 'yyyy-MM-dd');
+      if(this.objdetrep.fechaInicio){
+        //this.objdetrep.fechaInicio = new DatePipe("es-MX").transform((this.objdetrep.fechaInicio), 'yyyy-MM-dd');
+        this.objdetrep.fechaInicio = this.objdetrep.fechaInicio;
+      }else{
+        var fechaI = new Date();
+        this.objdetrep.fechaInicio = new Date((new Date(fechaI).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
       }
       this.idCatalogo = this.objdetrep.tipoPercepcionId;
       this.descripcion = this.objdetrep.descripcion;
