@@ -47,12 +47,14 @@ export class NominaHistoricasComponent implements OnInit {
     }
     this.cargando = true;
     this.nominashistoricasPrd.getNominasHistoricas(objEnviar).subscribe(datos => {
+      console.log("Nominas historicas",datos);
       this.rellenarTablas(datos);
       this.cargando = false;
     });    
   }
 
   public rellenarTablas(datos: any) {
+    
     let columnas: Array<tabla> = [new tabla("nombre_nomina", "Nombre de nómina"),
     new tabla("clave_periodo", "Clave de periodo"),
     new tabla("anio", "Año"),
@@ -61,8 +63,9 @@ export class NominaHistoricasComponent implements OnInit {
 
     if (datos.datos !== undefined) {
       for (let item of datos.datos) {
+        console.log(item);
         item["anio"] = new DatePipe("es-MX").transform(item.fecha_inicio, "yyyy");
-        item["fechai"] = new DatePipe("es-MX").transform(new Date(item.fecha_inicio), 'dd/MM/yyyy');
+        item["fechai"] = new DatePipe("es-MX").transform(item.fecha_inicio, 'dd/MM/yyyy');
       }
     }
 

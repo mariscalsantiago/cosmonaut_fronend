@@ -153,9 +153,13 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           }
 
           this.empleadosPrd.update(objEnviar).subscribe(actualizado => {
-            this.modalPrd.showMessageDialog(actualizado.resultado, actualizado.mensaje);
-            this.cambioFotoPerfil.setFotoPerfil(true);
-            this.ngOnInit();
+              if(actualizado.resultado){
+                this.modalPrd.showMessageDialog(actualizado.resultado, actualizado.mensaje);
+                this.cambioFotoPerfil.setFotoPerfil(true);
+                this.ngOnInit();
+              }else{
+                this.modalPrd.showMessageDialog(actualizado.resultado,"No se puede subir/actualizar foto. Completar los datos del perfil del usuario para completar la acción");
+              }
 
           });
         });

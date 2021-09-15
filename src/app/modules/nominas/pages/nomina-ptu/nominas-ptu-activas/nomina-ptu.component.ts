@@ -70,15 +70,8 @@ export class NominaPTUComponent implements OnInit {
   
     public agregar() {
       this.ventana.showVentana(this.ventana.nuevanominaptu).then(valor => {
-  
-        if (valor.datos) {
-          //this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
-          
-        //  this.arreglo.push({ nominaPtu: { ...valor.datos.datos },inicial:true });
           
         this.traerListaNomina();
-          
-        }
       });
     }
   
@@ -103,18 +96,10 @@ export class NominaPTUComponent implements OnInit {
                 item.nominaPtu.totalNeto = datos.datos.total;
                 this.router.navigate(['/nominas/nomina'], { state: { datos: {nominaPtu:item.nominaPtu} } });
               }else{
-                debugger;
                 item.nominaPtu.nominaPeriodoId= item.nominaPtu.nominaXperiodoId;
                 this.ventana.showVentana(this.ventana.nuevanominaptu,{datos:{editar:true,datos:item.nominaPtu}}).then(valor => {
   
-                  if (valor.datos) {
-                    //this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
-                    
-                  //  this.arreglo.push({ nominaPtu: { ...valor.datos.datos },inicial:true });
-                    
                   this.traerListaNomina();
-                    
-                  }
                 });
               }
             });

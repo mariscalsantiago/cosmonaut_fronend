@@ -194,6 +194,9 @@ export class DetalleContactoComponent implements OnInit {
           objEnviar.personaId = obj.personaId;
 
 
+          objEnviar.tipoPersonaId = {
+            tipoPersonaId:2
+          }
 
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
