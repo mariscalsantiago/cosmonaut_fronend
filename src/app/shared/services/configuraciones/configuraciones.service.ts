@@ -13,6 +13,8 @@ const CryptoJS = require("crypto-js");
 })
 export class ConfiguracionesService {
 
+  public activa:number = 1;
+
   public scrollCompany: number = 1;
 
   public readonly MODULOS: string = "modulos";

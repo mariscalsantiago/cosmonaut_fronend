@@ -120,6 +120,7 @@ export class ListaempleadosComponent implements OnInit {
 
       case "columna":
         this.routerPrd.navigate(['empleados', obj.datos.idPersona, 'personal']);
+        this.configuracionPrd.activa = 1;
         break;
 
     }

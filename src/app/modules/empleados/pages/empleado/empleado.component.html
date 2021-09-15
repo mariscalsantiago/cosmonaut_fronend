@@ -63,23 +63,23 @@
 
 
         <ul class="nav nav-tabs" id="navegadorTabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true" (click)="navegando('personal')">Personal</a>
+            <li class="nav-item" >
+                <a class="nav-link active" [class.active]="configuracionPrd.activa == 1"  id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true" (click)="configuracionPrd.activa = 1;navegando('personal')">Personal</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" (click)="navegando('empleo')">Empleo</a>
+            <li class="nav-item" >
+                <a class="nav-link" [class.active]="configuracionPrd.activa == 2"  id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" (click)="configuracionPrd.activa = 2;navegando('empleo')">Empleo</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="navegando('pagos')">Pago</a>
+            <li class="nav-item" >
+                <a class="nav-link" [class.active]="configuracionPrd.activa == 3"  id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 3;navegando('pagos');">Pago</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="navegando('eventos')">Eventos</a>
+            <li class="nav-item" >
+                <a class="nav-link" [class.active]="configuracionPrd.activa == 4" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 4;navegando('eventos');">Eventos</a>
             </li>
-            <li *ngIf="!esKiosko" class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="navegando('documentos')">Documentos</a>
+            <li *ngIf="!esKiosko" class="nav-item" >
+                <a class="nav-link" [class.active]="configuracionPrd.activa == 5"  id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 5;navegando('documentos');">Documentos</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="navegando('kardex')">Kardex</a>
+            <li class="nav-item" >
+                <a class="nav-link" [class.active]="configuracionPrd.activa == 6"  id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 6;navegando('kardex');">Kardex</a>
             </li>
         </ul>
 

@@ -182,6 +182,8 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
    }else{
     this.router.navigate([`/kiosko/perfil/${this.idEmpleado}/${item}`]); 
    }
+
+   
   }
 
 
