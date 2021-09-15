@@ -63,6 +63,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public fechaAlta: number = 0;
   public activaClaveCuatro : boolean = false;
   public activaClaveDos : boolean = false;
+  public activaClaveNumerica: boolean = false;
   public todayF : string = '';
 
   public arreglotabla: any = {
@@ -83,7 +84,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    
+    debugger;
     this.periodo = "";
     
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
@@ -565,7 +566,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   else if(this.detCatalogos.listaCatalogosId == 20){
-    this.myForm.controls.clave.setValidators([Validators.required]);
+    //this.myForm.controls.clave.setValidators([Validators.required]);
     this.myForm.controls.codBanco.setValidators([]);
     this.myForm.controls.codBanco.updateValueAndValidity();
     this.myForm.controls.razonSocial.setValidators([]);
@@ -611,18 +612,18 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public clave(){
     if(this.insertar){
       if(this.detCatalogos.listaCatalogosId == 6){
-        this.activaClave = true;
+        this.activaClaveNumerica = true;
         this.regimen = true;
       }
       else if(this.detCatalogos.listaCatalogosId == 9){
         this.activaClaveCuatro = true;
       }
       else if(this.detCatalogos.listaCatalogosId == 4){
-        this.activaClave = true;
+        this.activaClaveNumerica = true;
         this.percepcion = true;
       }
       else if(this.detCatalogos.listaCatalogosId == 5){
-        this.activaClave = true;
+        this.activaClaveNumerica = true;
       }
       else if(this.detCatalogos.listaCatalogosId == 15){
         this.referencia = true;
@@ -1222,7 +1223,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
           
           this.objEnviar = {
-            metodoPagoId: obj.clave,
+            //metodoPagoId: obj.clave,
             descripcion: obj.nombreCorto,
             esActivo: obj.esActivo,
           }
