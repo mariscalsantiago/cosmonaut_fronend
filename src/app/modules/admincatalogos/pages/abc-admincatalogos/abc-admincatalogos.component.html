@@ -32,6 +32,14 @@
                     Campo requerido
                 </div>
             </div>
+            <div *ngIf="activaClaveNumerica" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Clave *</label>
+                <input appSolonumeros formControlName="clave" maxlength="3" type="text" class="form-control"
+                [ngClass]="{'is-invalid':f.clave.errors && submitEnviado}">
+                <div *ngIf="f.clave.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
             <div *ngIf="activaClaveCuatro" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Clave *</label>
                 <input formControlName="clave" maxlength="4" type="text" class="form-control"
