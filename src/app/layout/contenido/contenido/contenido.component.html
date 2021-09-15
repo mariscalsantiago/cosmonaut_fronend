@@ -71,7 +71,7 @@
     </div>
     <div *ngIf="!configuracionPrd.ocultarChat" class="chaticon" [class.heartbeat]="chat.datos?.mensajeRecibido">
         <span *ngIf="chat.datos?.mensajeRecibido" class="badge badge-danger">{{chat.datos?.numeromensajes}}</span>
-        <img (click)="darClickChat()" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
+        <img (click)="chat.ocultar = !chat.ocultar" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
     </div>
     <app-chatboot *ngIf="!chat.ocultar" [datos]="chat.datos" (salida)="recibirchat($event)"></app-chatboot>
 </div>

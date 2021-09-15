@@ -1,6 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, HostListener, OnInit, EventEmitter, Output, ViewChild, ElementRef, Input, AfterViewInit } from '@angular/core';
-import { ChatService } from 'src/app/modules/chat/services/chat.service';
-import { ChatSocketService } from '../services/chat/ChatSocket.service';
+import { environment } from 'src/environments/environment';
+import { NotificacionesService } from '../services/chat/notificaciones.service';
 import { UsuarioSistemaService } from '../services/usuariosistema/usuario-sistema.service';
 
 
@@ -15,7 +16,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit {
   public tamanio: number = 0;
   public modalWidth: string = "350px";
 
-  public arreglomensajes: any = [];
+  public arreglomensajes:any = [];
 
 
   public fecha: Date = new Date();
@@ -51,98 +52,39 @@ export class ChatbootComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(private chatPrd: ChatSocketService, private usuarioSistemaPrd: UsuarioSistemaService) { }
+  constructor(private notificacionesPrd:NotificacionesService,private usuarioSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
-
+    this.arreglomensajes = this.notificacionesPrd.mensajes || [];
     this.usuarioId = this.usuarioSistemaPrd.getUsuario().usuarioId;
-
-
-    this.datos.nombre = this.datos.nombre.replace('undefined', '');
-    let documento: any = document.defaultView;
-    this.tamanio = documento.innerWidth;
-
-
-
-    this.arreglomensajes = this.chatPrd.getMensajes();
-
-
-
-    if (!this.chatPrd.isConnect()) {
-
-      this.chatPrd.conectarSocket(this.chatPrd.getChatDatos().datos.socket);
-      this.chatPrd.recibiendoMensajeServer().subscribe(datos => {
-        this.procesandoMensajesRecibidos(datos);
-
+    if(this.usuarioSistemaPrd.getUsuario().esRecursosHumanos){
+      this.notificacionesPrd.recibirNotificacionEspecifico().subscribe(datos =>{
+        if (datos.data != "CONNECT" && datos.data != "CLOSE") {
+          this.arreglomensajes = (JSON.parse(datos.data));
+          console.log("Esto son los datos de la notificacion",(JSON.parse(datos.data)));
+        }
+    
       });
-    } else {
-      if (!this.chatPrd.yaRecibeMensajes) {
-        this.chatPrd.recibiendoMensajeServer(true).subscribe(datos => {
-          
-
-          this.procesandoMensajesRecibidos(datos);
-        });
-      }
+    }else{
+      this.notificacionesPrd.recibirNotificacion().subscribe(datos =>{
+        if(datos.data.includes(`ACCEPTMESSAGEFROM${this.usuarioSistemaPrd.getUsuario().usuarioId}`)){
+             this.arreglomensajes.push({mensaje:"El usuario RRH ha aceptado su mensaje...",fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd"),usuarioId:-1,nombre:this.usuarioSistemaPrd.getUsuario().nombre});
+             const rutaSocket:string = `${environment.rutaSocket}/notificaciones/${this.usuarioSistemaPrd.getIdEmpresa()}${this.usuarioSistemaPrd.getUsuario().usuarioId}/usuario/${this.usuarioSistemaPrd.getUsuario().usuarioId}`;
+             this.notificacionesPrd.close();
+             this.notificacionesPrd.conectar(rutaSocket);
+             this.notificacionesPrd.recibirNotificacion().subscribe(datos =>{
+               this.arreglomensajes = JSON.parse(datos.data);
+             })
+        }
+      });
     }
-
   }
 
 
 
   public procesandoMensajesRecibidos(datos: any) {
 
-    let body;
-    let mensajedefecto: boolean = true;
-    try {
-      let aux = JSON.parse(datos.data);
-      let ultimoMensaje = aux[aux.length - 1];
-      body = ultimoMensaje;
-      mensajedefecto = false;
-    } catch {
-      mensajedefecto = true;
-      body = datos.data;
-      if (this.arreglomensajes.some((valor: any) => valor.mensaje.includes("Bienvenid@")) || this.usuarioSistemaPrd.getUsuario().esRecursosHumanos) {
-        return;
-      }
-
-    }
-
-    if (!mensajedefecto) {
-
-
-
-
-      if ((Number(body.usuarioId) !== this.usuarioSistemaPrd.getUsuario().usuarioId)) {
-        this.arreglomensajes.push(body);
-
-        this.chatPrd.setMensajes(this.arreglomensajes);
-        this.acomodandoVentanaChat();
-
-
-        if (!this.usuarioSistemaPrd.getUsuario().esRecursosHumanos) {
-          this.chatPrd.datos.datos.numeromensajes += 1;
-          this.chatPrd.datos.datos.mensajeRecibido = true;
-        }
-
-        if (!this.usuarioSistemaPrd.usuario.esRecursosHumanos) {
-          this.chatPrd.setNombreRecursosHumanos("Lo atiende " + body.nombre);
-        }
-      }
-
-    } else {
-
-      let objEnviado = {
-        mensaje: body,
-        fecha: new Date(),
-        idUsuario: this.usuarioSistemaPrd.getUsuario().usuarioId
-      };
-
-      this.arreglomensajes = this.chatPrd.getMensajes();
-      this.arreglomensajes.push(objEnviado);
-
-      this.chatPrd.setMensajes(this.arreglomensajes);
-      this.acomodandoVentanaChat();
-    }
+   
   }
 
 
@@ -159,26 +101,15 @@ export class ChatbootComponent implements OnInit, AfterViewInit {
   }
 
   public enviarMensaje() {
-
-    let objEnviado = {
-      mensaje: this.mensaje,
-      fecha: new Date(),
-      usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
-      nombre: `${this.usuarioSistemaPrd.getUsuario().nombre} ${this.usuarioSistemaPrd.getUsuario().apellidoPat}`
-    };
-
-    
-
-    this.arreglomensajes.push(objEnviado);
-    
-    let body = JSON.stringify(this.arreglomensajes.slice(1));
-
-    this.chatPrd.enviarMensaje(body);
-    this.mensaje = "";
-
-
-
-    this.acomodandoVentanaChat();
+      let mensaje = {mensaje:this.mensaje,fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd"),usuarioId:this.usuarioId,nombre:this.usuarioSistemaPrd.getUsuario().nombre};
+      this.arreglomensajes.push(mensaje);
+      let json = JSON.stringify(this.arreglomensajes);
+      if(this.usuarioSistemaPrd.usuario.esRecursosHumanos){
+        this.notificacionesPrd.enviarMensajeEspecifico(json);
+      }else{
+        this.notificacionesPrd.enviarMensaje(json);
+      }
+      this.mensaje = "";
   }
 
   public acomodandoVentanaChat() {

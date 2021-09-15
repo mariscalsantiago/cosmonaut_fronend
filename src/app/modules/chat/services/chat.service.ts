@@ -50,4 +50,8 @@ export class ChatService {
       return this.subject;
       
   }
+
+  public getListaChat(idEmpresa:number):Observable<any>{
+    return this.http.get(`${direcciones.chat}/listar/${idEmpresa}`)  
+  }
 }
