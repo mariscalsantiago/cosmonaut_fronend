@@ -71,7 +71,7 @@ export class ContenidoComponent implements OnInit {
     nuevanominafiniquitoliquidacion: false,
     mensajechat: false,
     adminTimbradoDispersion: false,
-    listaempleados:false
+    listaempleados: false
   }
 
   public emergente = {
@@ -161,18 +161,7 @@ export class ContenidoComponent implements OnInit {
 
           this.usuariosSistemaPrd.setUsuario(usuario as usuarioClass);
 
-          this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-
-
-          if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-            this.notificaciones();
-          } else {
-            if (!this.usuariosSistemaPrd.usuario.esCliente) {
-              this.darClickChat(true);
-            } else {
-              this.configuracionPrd.ocultarChat = true;
-            }
-          }
+          this.metodoChat();
         });
 
       } else {
@@ -184,34 +173,13 @@ export class ContenidoComponent implements OnInit {
 
             this.establecericons();
             this.configuracionPrd.MENUPRINCIPAL = this.PRINCIPAL_MENU;
-            this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-
-            if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-              this.notificaciones();
-            } else {
-              if (!this.usuariosSistemaPrd.usuario.esCliente) {
-
-                this.darClickChat(true);
-              } else {
-                this.configuracionPrd.ocultarChat = true;
-              }
-            }
+            this.metodoChat();
           });
         } else {
 
           this.PRINCIPAL_MENU = this.configuracionPrd.MENUPRINCIPAL;
           if ((this.configuracionPrd.ocultarChat) == undefined) {
-            this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos;
-            if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-              this.notificaciones();
-            } else {
-              if (!this.usuariosSistemaPrd.usuario.esCliente) {
-
-                this.darClickChat(true);
-              } else {
-                this.configuracionPrd.ocultarChat = true;
-              }
-            }
+            this.metodoChat();
           }
         }
       }
@@ -365,51 +333,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public darClickChat(autoconectable: boolean = false) {
-    if (!this.usuariosSistemaPrd.getUsuario().esRecursosHumanos) {
-      this.chatPrd.getChatDatos().datos.socket = `/websocket/chat/${this.usuariosSistemaPrd.getIdEmpresa()}${this.usuariosSistemaPrd.usuario.usuarioId}/${this.usuariosSistemaPrd.getIdEmpresa()}/${this.usuariosSistemaPrd.usuario.usuarioId}`;
-      this.chat.ocultar = autoconectable ? autoconectable : !this.chat.ocultar
-      this.chat.datos.nombre = this.chatPrd.getNombreRecursosHumanos();
-      this.chat.datos.numeromensajes = 0;
-      this.chat.datos.mensajeRecibido = false;
-      if (autoconectable) {
 
-        if (!this.chatPrd.isConnect()) {
-
-          this.chatPrd.getMensajesrecibidosPorEmpleado(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getUsuario().usuarioId).subscribe(datos => {
-
-            if (datos.datos) {
-              let obj = datos.datos[0];
-              let mensajes = obj.mensajes;
-              this.chatPrd.setMensajes(JSON.parse(mensajes));
-
-              this.chatPrd.conectarSocket(this.chatPrd.getChatDatos().datos.socket);
-              this.chatPrd.recibiendoMensajeServer().subscribe(socketrespuesta => {
-
-                try {
-                  if (!this.chatPrd.yaRecibeMensajes) {
-
-                    this.chatPrd.setMensajes(JSON.parse(socketrespuesta.data));
-
-                    this.chatPrd.datos.datos.numeromensajes += 1;
-                    this.chatPrd.datos.datos.mensajeRecibido = true;
-                  }
-                } catch {
-                }
-              });
-            }
-          });
-        }
-      }
-
-    } else {
-      this.chat.ocultar = !this.chat.ocultar;
-      this.chat.datos.numeromensajes = 0;
-      this.chat.datos.mensajeRecibido = false;
-    }
-
-
-    this.chatPrd.datos.datos.numeromensajes = 0;
-    this.chatPrd.datos.datos.mensajeRecibido = false;
   }
 
 
@@ -457,13 +381,24 @@ export class ContenidoComponent implements OnInit {
 
 
   public notificaciones() {
-    this.notificacionesPrd.conectar(`${environment.rutaSocket}/notificaciones/${this.usuariosSistemaPrd.getIdEmpresa()}/usuario/${this.usuariosSistemaPrd.getUsuario().usuarioId}`);
+    const rutaSocket:string = `${environment.rutaSocket}/notificaciones/${this.usuariosSistemaPrd.getIdEmpresa()}/usuario/${this.usuariosSistemaPrd.getUsuario().usuarioId}`;
+    this.notificacionesPrd.conectar(rutaSocket);
     this.notificacionesPrd.recibirNotificacion().subscribe((valor) => {
-      console.log("Esto recibo en el chat", valor.data);
       if (valor.data != "CONNECT" && valor.data != "CLOSE") {
-        this.configuracionPrd.notificaciones += 1;
+        if(this.usuariosSistemaPrd.usuario.esRecursosHumanos){
+          this.configuracionPrd.notificaciones += 1;
+        }
+        
       }
+
+      console.log("ESTO ES AFUERA DEL SERVICES");
     });
+  }
+
+
+  public metodoChat() {
+    this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos || this.usuariosSistemaPrd.usuario.esCliente;
+    this.notificaciones();
   }
 
 

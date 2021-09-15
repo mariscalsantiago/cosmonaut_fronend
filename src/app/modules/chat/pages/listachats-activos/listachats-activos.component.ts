@@ -3,10 +3,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { tabla } from 'src/app/core/data/tabla';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
+import { NotificacionesService } from 'src/app/shared/services/chat/notificaciones.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { environment } from 'src/environments/environment';
 import { ChatService } from '../../services/chat.service';
 
 @Component({
@@ -14,7 +16,7 @@ import { ChatService } from '../../services/chat.service';
   templateUrl: './listachats-activos.component.html',
   styleUrls: ['./listachats-activos.component.scss']
 })
-export class ListachatsActivosComponent implements OnInit,OnDestroy {
+export class ListachatsActivosComponent implements OnInit {
 
   public arreglotabla: any = {
     columnas: [],
@@ -22,10 +24,8 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
   }
 
 
-  public suscripcion!:Subscription;
 
-
-  public cantidad:number = 0;
+  
 
 
 
@@ -34,21 +34,37 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
   public cargando: boolean = false;
   constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
     private usuariossistemaPrd: UsuarioSistemaService, private socket: ChatSocketService,
-    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService,
+    private notificacionesPrd:NotificacionesService) { }
 
   ngOnInit(): void {
     this.configuracionPrd.notificaciones = 0;
     this.cargando = true;
     
-    this.suscripcion = this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
-      
+  
+    this.obtieneListaChat();
+
+    this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
+      this.mensajes = datos.datos
+    });
+
+
+    this.notificacionesPrd.recibirNotificacion().subscribe(valor =>{
+      if (valor.data != "CONNECT" && valor.data != "CLOSE") {
+          this.obtieneListaChat();
+      }
+    });
+
+
+
+
+  }
+
+  public obtieneListaChat(){
+    
+    this.chatPrd.getListaChat(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
       if(Boolean(datos.datos)){
-        if(this.cantidad !== datos.datos.length){
-          this.cantidad = datos.datos.length;
-          
-          
-          this.construirTabla(datos.datos);
-        }
+        this.construirTabla(datos.datos);
       }else{
         this.arreglotabla = {
           filas:undefined
@@ -58,21 +74,11 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
 
       
       this.cargando = false;
-    });
-
-    this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
-      this.mensajes = datos.datos
-    });
-
-
-
-
+    });  
   }
 
 
-  ngOnDestroy(){
-    this.suscripcion.unsubscribe();
-  }
+ 
 
 
   public construirTabla(obj: any) {
@@ -88,13 +94,10 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
     if (obj) {
       for (let item of obj) {
 
-        let arreglomensajes = [];
-
-        try{
-          arreglomensajes = JSON.parse((item.mensajes || "[{}]"))
-        }catch{
-          arreglomensajes = [{mensaje:""}];
-        }
+        console.log("item",item);
+        let arreglomensajes = item.mensajes;
+        arreglomensajes = JSON.parse(arreglomensajes);
+        console.log("ULTIMO MENSAJE",arreglomensajes[arreglomensajes.length-1]?.mensaje);
 
         item["nombreempleado"] = item.usuarioId?.nombre + " " + item.usuarioId.apellidoPat + " ";
         item["nombreempleado"] += item.personaId?.apellidoMat ? "" : item.usuarioId?.apellidoMat || ""
@@ -122,30 +125,7 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
     
     switch (obj.type) {
       case "responder":
-
-      
-        this.socket.desconectarSocket();
-      
-        this.socket.getChatDatos().datos.nombre = obj.datos.nombreempleado;
-        this.socket.getChatDatos().datos.socket = obj.datos.conversacionId;
-        this.socket.getChatDatos().ocultar = false;
-
-        this.configuracionPrd.ocultarChat = false;
-
-
-
-        if(this.socket.getMensajes().length === 0){
-            this.socket.setMensajes(JSON.parse(obj.datos.mensajes))
-        }
-
-        let objEnviar = {
-          chatColaboradorId: obj.datos.chatColaboradorId,
-          esActual: false,
-          fechaRespuesta: new Date().getTime()
-        };
-        this.socket.modificarMensaje(objEnviar).subscribe(datos => {
-            
-        });
+        this.responderEmpleado(obj.datos);
         break;
       case "default":
         
@@ -186,6 +166,18 @@ export class ListachatsActivosComponent implements OnInit,OnDestroy {
              this.mensajes = [datos.datos]
           });
 
+  }
+
+  public responderEmpleado(datos:any){
+      
+      const mensaje = `ACCEPTMESSAGEFROM${datos.usuarioId.usuarioId}`;
+      this.notificacionesPrd.enviarMensaje(mensaje);
+      this.notificacionesPrd.mensajes = JSON.parse(datos.mensajes);
+      
+      this.notificacionesPrd.closeEspecifico();
+      this.notificacionesPrd.conectarEspecifico(`${environment.rutaSocket}${datos.conversacionId}`);
+      this.socket.datos.ocultar = false;  
+      this.configuracionPrd.ocultarChat = false;
   }
 
 }
