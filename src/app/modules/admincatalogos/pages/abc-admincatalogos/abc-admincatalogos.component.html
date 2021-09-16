@@ -63,12 +63,12 @@
             </div>
 
             <div *ngIf="banco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label>Codigo *</label>
-                <input formControlName="codBanco" maxlength="3" type="text" class="form-control disabled bg-light">
+                <label>Código *</label>
+                <input appSolonumeros formControlName="codBanco" maxlength="3" type="text" class="form-control disabled bg-light">
             </div>
             <div *ngIf="habilitarbanco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label>Codigo *</label>
-                <input formControlName="codBanco" maxlength="3" type="text" class="form-control "
+                <label>Código *</label>
+                <input appSolonumeros formControlName="codBanco" maxlength="3" type="text" class="form-control "
                 [ngClass]="{'is-invalid':f.codBanco.errors && submitEnviado}">
                 <div *ngIf="f.codBanco.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -154,7 +154,7 @@
             </div>
             <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Valor *</label>
-                <input formControlName="valor" maxlength="10" type="text" class="form-control" placeholder=""
+                <input appSolonumeros formControlName="valor" maxlength="10" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.valor.errors && submitEnviado}">
                 <div *ngIf="f.valor.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -191,7 +191,7 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite inferior *</label>
-                <input formControlName="limiteInferior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteInferior.errors && submitEnviado}">
                 <div *ngIf="f.limiteInferior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -200,7 +200,7 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite superior *</label>
-                <input formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteSuperior.errors && submitEnviado}">
                 <div *ngIf="f.limiteSuperior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -208,7 +208,7 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Cuota fija *</label>
-                <input formControlName="cuotaFija" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" formControlName="cuotaFija" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.cuotaFija.errors && submitEnviado}">
                 <div *ngIf="f.cuotaFija.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -217,7 +217,7 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Porcentaje Excedente *</label>
-                <input formControlName="porcExcedenteLimInf" type="text" class="form-control" placeholder=""
+                <input appSolonumeros formControlName="porcExcedenteLimInf" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.porcExcedenteLimInf.errors && submitEnviado}">
                 <div *ngIf="f.porcExcedenteLimInf.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -256,7 +256,7 @@
             </div>
             <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite inferior *</label>
-                <input formControlName="limiteInferior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteInferior.errors && submitEnviado}">
                 <div *ngIf="f.limiteInferior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -264,7 +264,7 @@
             </div>
             <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite superior *</label>
-                <input formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteSuperior.errors && submitEnviado}">
                 <div *ngIf="f.limiteSuperior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -273,7 +273,7 @@
             </div>
             <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Monto subsidio *</label>
-                <input formControlName="montoSubsidio" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" formControlName="montoSubsidio" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.montoSubsidio.errors && submitEnviado}">
                 <div *ngIf="f.montoSubsidio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -312,7 +312,7 @@
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite inferior *</label>
-                <input formControlName="limiteInferior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteInferior.errors && submitEnviado}">
                 <div *ngIf="f.limiteInferior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -321,7 +321,7 @@
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite superior *</label>
-                <input formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteSuperior.errors && submitEnviado}">
                 <div *ngIf="f.limiteSuperior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -338,7 +338,7 @@
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Tasa *</label>
-                <input formControlName="tasa" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" formControlName="tasa" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.tasa.errors && submitEnviado}">
                 <div *ngIf="f.tasa.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
