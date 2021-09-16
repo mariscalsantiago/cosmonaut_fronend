@@ -215,14 +215,18 @@
                 </div>
 
             </div>
+
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label>Porcentaje Excedente *</label>
-                <input formatos [numerosDecimales]="true" maxlength="3" formControlName="porcExcedenteLimInf" type="text" class="form-control" placeholder=""
-                [ngClass]="{'is-invalid':f.porcExcedenteLimInf.errors && submitEnviado}">
-                <div *ngIf="f.porcExcedenteLimInf.errors && submitEnviado" class="invalid-feedback">
+                <label>Porcentaje excedente *</label>
+                <input formControlName="porcExcedenteLimInf" maxlength="5" type="text" class="form-control" 
+                [ngClass]="{'is-invalid':(submitEnviado && f.porcExcedenteLimInf.errors?.required) || (f.porcExcedenteLimInf.errors?.pattern && f.porcExcedenteLimInf.touched)}"
+                    placeholder="">
+                <div *ngIf="submitEnviado && f.porcExcedenteLimInf.errors?.required" class="invalid-feedback">
                     Campo requerido
                 </div>
-                
+                <div *ngIf="f.porcExcedenteLimInf.errors?.pattern && f.porcExcedenteLimInf.touched" class="invalid-feedback">
+                    Porcentaje excedente no es válido
+                </div>
             </div>
 
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">

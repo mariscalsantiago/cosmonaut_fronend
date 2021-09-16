@@ -503,7 +503,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.myForm.controls.limiteInferior.setValidators([Validators.required]);
     this.myForm.controls.limiteSuperior.setValidators([Validators.required]);
     this.myForm.controls.cuotaFija.setValidators([Validators.required]);
-    this.myForm.controls.porcExcedenteLimInf.setValidators([Validators.required]);
+    this.myForm.controls.porcExcedenteLimInf.setValidators([Validators.required, Validators.pattern(/^[0-9]{1,2}([.][0-9]{1,2})?$/)]); 
     this.myForm.controls.fechaInicio.setValidators([Validators.required]);
     this.myForm.controls.fechaFin.setValidators([Validators.required]);
     this.myForm.controls.nombreCorto.setValidators([]);
