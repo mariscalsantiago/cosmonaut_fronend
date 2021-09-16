@@ -217,11 +217,12 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Porcentaje Excedente *</label>
-                <input appSolonumeros maxlength="2" formControlName="porcExcedenteLimInf" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="3" formControlName="porcExcedenteLimInf" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.porcExcedenteLimInf.errors && submitEnviado}">
                 <div *ngIf="f.porcExcedenteLimInf.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
                 </div>
+                
             </div>
 
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -329,8 +330,8 @@
 
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label>Cuota Fija *</label>
-                <input formControlName="cuotaFija" type="text" class="form-control" placeholder=""
+                <label>Cuota fija *</label>
+                <input formatos [numerosDecimales]="true" formControlName="cuotaFija" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.cuotaFija.errors && submitEnviado}">
                 <div *ngIf="f.cuotaFija.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
