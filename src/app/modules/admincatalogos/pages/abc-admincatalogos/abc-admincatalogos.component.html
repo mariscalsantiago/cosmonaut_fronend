@@ -217,7 +217,7 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Porcentaje Excedente *</label>
-                <input appSolonumeros formControlName="porcExcedenteLimInf" type="text" class="form-control" placeholder=""
+                <input appSolonumeros maxlength="2" formControlName="porcExcedenteLimInf" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.porcExcedenteLimInf.errors && submitEnviado}">
                 <div *ngIf="f.porcExcedenteLimInf.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
