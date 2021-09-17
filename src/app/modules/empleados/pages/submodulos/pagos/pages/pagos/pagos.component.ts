@@ -201,7 +201,7 @@ export class PagosComponent implements OnInit {
 
 
     if (this.arreglotablaDed !== undefined) {
-      debugger;
+      
       for (let item of this.arreglotablaDed) {
         if (item.fechaInicioDescto !== undefined) {
           item.fechaInicioDescto = (new Date(item.fechaInicioDescto).toUTCString()).replace(" 00:00:00 GMT", "");

@@ -76,7 +76,9 @@ export class KardexComponent implements OnInit {
       this.cargando = true;
     
       this.kardexPrd.getListaMovimientos(this.peticion).subscribe(datos => {
+        if(datos.datos != undefined){
         for(let item of datos.datos){
+          
 
           if(this.arregloMovimientos.length != 0 ){
               this.contratoDesc = this.arregloMovimientos.find((itemmov: any) => itemmov.movimientoId === item.movimientoId)?.movimiento;
@@ -89,6 +91,7 @@ export class KardexComponent implements OnInit {
               this.arregloMovimientos.push(item);
           }
         } 
+      }
           this.crearTabla(datos);
       });
    

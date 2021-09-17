@@ -119,7 +119,7 @@ export class ListaeventosxempledoComponent implements OnInit {
              this.eliminarIncidencia(obj.datos,obj.indice);
            break;
            case "ver":
-             debugger;
+             
              this.evento = obj.datos;
              
             this.traerModal(obj.indice);
@@ -158,7 +158,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public filtrar(){
-    debugger;
+    
     this.objFiltro = [];
     this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => {this.arregloIncidenciaTipo = datos.datos;});
 

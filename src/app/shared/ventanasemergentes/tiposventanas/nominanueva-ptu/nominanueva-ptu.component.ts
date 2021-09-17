@@ -358,7 +358,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
         this.modal.showMessageDialog(this.modal.loading);
 
-        debugger;
+        
         let objEnviar = {
           nominaPeriodoId: this.nominaCreada.nominaPeriodoId,
           centrocClienteId: this.usuariosPrd.getIdEmpresa(),
