@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, HostListener, OnInit, EventEmitter, Output, ViewChild, ElementRef, Input, AfterViewInit } from '@angular/core';
+import { Component, HostListener, OnInit,OnDestroy, EventEmitter, Output, ViewChild, ElementRef, Input, AfterViewInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { NotificacionesService } from '../services/chat/notificaciones.service';
+import { ConfiguracionesService } from '../services/configuraciones/configuraciones.service';
 import { UsuarioSistemaService } from '../services/usuariosistema/usuario-sistema.service';
 
 
@@ -10,7 +11,7 @@ import { UsuarioSistemaService } from '../services/usuariosistema/usuario-sistem
   templateUrl: './chatboot.component.html',
   styleUrls: ['./chatboot.component.scss']
 })
-export class ChatbootComponent implements OnInit, AfterViewInit {
+export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
   @ViewChild("ventanaprincipal") ventana!: ElementRef;
   public scrolly: string = '250px';
   public tamanio: number = 0;
@@ -52,29 +53,47 @@ export class ChatbootComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(private notificacionesPrd:NotificacionesService,private usuarioSistemaPrd:UsuarioSistemaService) { }
+  constructor(public notificacionesPrd:NotificacionesService,private usuarioSistemaPrd:UsuarioSistemaService,
+    private configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    this.configuracionPrd.notificacionesglobito = 0;
+
+    this.notificacionesPrd.nombreEmpleado = this.notificacionesPrd.nombreEmpleado || "Recursos humanos";
+    
     this.arreglomensajes = this.notificacionesPrd.mensajes || [];
     this.usuarioId = this.usuarioSistemaPrd.getUsuario().usuarioId;
     if(this.usuarioSistemaPrd.getUsuario().esRecursosHumanos){
       this.notificacionesPrd.recibirNotificacionEspecifico().subscribe(datos =>{
         if (datos.data != "CONNECT" && datos.data != "CLOSE") {
           this.arreglomensajes = (JSON.parse(datos.data));
-          console.log("Esto son los datos de la notificacion",(JSON.parse(datos.data)));
+          this.configuracionPrd.notificacionesglobito += 1;
         }
     
       });
     }else{
       this.notificacionesPrd.recibirNotificacion().subscribe(datos =>{
+      
         if(datos.data.includes(`ACCEPTMESSAGEFROM${this.usuarioSistemaPrd.getUsuario().usuarioId}`)){
+
              this.arreglomensajes.push({mensaje:"El usuario RRH ha aceptado su mensaje...",fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd"),usuarioId:-1,nombre:this.usuarioSistemaPrd.getUsuario().nombre});
              const rutaSocket:string = `${environment.rutaSocket}/notificaciones/${this.usuarioSistemaPrd.getIdEmpresa()}${this.usuarioSistemaPrd.getUsuario().usuarioId}/usuario/${this.usuarioSistemaPrd.getUsuario().usuarioId}`;
+             this.notificacionesPrd.verificarMensajes(this.usuarioId).subscribe(vv =>{
+               this.notificacionesPrd.nombreEmpleado = vv.datos.nombreRrh;
+             });
              this.notificacionesPrd.close();
              this.notificacionesPrd.conectar(rutaSocket);
              this.notificacionesPrd.recibirNotificacion().subscribe(datos =>{
                this.arreglomensajes = JSON.parse(datos.data);
+               this.configuracionPrd.notificacionesglobito += 1;
+               
              })
+        }else{
+          if (datos.data != "CONNECT" && datos.data != "CLOSE") {
+            this.arreglomensajes = JSON.parse(datos.data);
+            this.configuracionPrd.notificacionesglobito += 1;
+          }
         }
       });
     }
@@ -101,7 +120,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit {
   }
 
   public enviarMensaje() {
-      let mensaje = {mensaje:this.mensaje,fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd"),usuarioId:this.usuarioId,nombre:this.usuarioSistemaPrd.getUsuario().nombre};
+      let mensaje = {mensaje:this.mensaje,fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd hh:mm"),usuarioId:this.usuarioId,nombre:this.usuarioSistemaPrd.getUsuario().nombre};
       this.arreglomensajes.push(mensaje);
       let json = JSON.stringify(this.arreglomensajes);
       if(this.usuarioSistemaPrd.usuario.esRecursosHumanos){
@@ -122,5 +141,9 @@ export class ChatbootComponent implements OnInit, AfterViewInit {
       this.enviarMensaje();
     }
   }
+
+ public ngOnDestroy(){
+   this.configuracionPrd.notificacionesglobito = 0;
+ }
 
 }

@@ -68,9 +68,9 @@
 
             </div>
         </div>
-    </div>
-    <div *ngIf="!configuracionPrd.ocultarChat" class="chaticon" [class.heartbeat]="chat.datos?.mensajeRecibido">
-        <span *ngIf="chat.datos?.mensajeRecibido" class="badge badge-danger">{{chat.datos?.numeromensajes}}</span>
+    </div>   
+    <div *ngIf="!configuracionPrd.ocultarChat" class="chaticon" [class.heartbeat]="configuracionPrd.notificacionesglobito !== 0">
+        <span *ngIf="configuracionPrd.notificacionesglobito !== 0" class="badge badge-danger">{{configuracionPrd.notificacionesglobito}}</span>
         <img (click)="chat.ocultar = !chat.ocultar" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
     </div>
     <app-chatboot *ngIf="!chat.ocultar" [datos]="chat.datos" (salida)="recibirchat($event)"></app-chatboot>

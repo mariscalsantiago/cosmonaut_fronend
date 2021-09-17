@@ -487,7 +487,9 @@ export class PagosComponent implements OnInit {
           }
         }
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        debugger;
         this.contratoColaboradorPrd.update(objContrato).subscribe((respContrato) => {
+          debugger;
           if (respContrato.resultado) {
           
           
