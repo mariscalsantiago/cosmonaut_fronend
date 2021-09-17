@@ -93,12 +93,8 @@ export class ListachatsActivosComponent implements OnInit {
 
     if (obj) {
       for (let item of obj) {
-
-        console.log("item",item);
         let arreglomensajes = item.mensajes;
         arreglomensajes = JSON.parse(arreglomensajes);
-        console.log("ULTIMO MENSAJE",arreglomensajes[arreglomensajes.length-1]?.mensaje);
-
         item["nombreempleado"] = item.usuarioId?.nombre + " " + item.usuarioId.apellidoPat + " ";
         item["nombreempleado"] += item.personaId?.apellidoMat ? "" : item.usuarioId?.apellidoMat || ""
         item["mensajeultimo"]=arreglomensajes[arreglomensajes.length-1]?.mensaje;
@@ -125,7 +121,7 @@ export class ListachatsActivosComponent implements OnInit {
     
     switch (obj.type) {
       case "responder":
-        this.responderEmpleado(obj.datos);
+         this.responderEmpleado(obj.datos);
         break;
       case "default":
         
@@ -149,9 +145,14 @@ export class ListachatsActivosComponent implements OnInit {
                 
                 let body = JSON.stringify(arregloMensajes);
 
-              
-            
-                  this.socket.enviarMensajeGenerico(body,obj.datos.conversacionId);
+                let rutaSocket:string = `${environment.rutaSocket}/notificaciones/${this.usuariossistemaPrd.getIdEmpresa()}/usuario/${obj.datos.usuarioId}`;
+
+                this.notificacionesPrd.closeEspecifico();
+                this.notificacionesPrd.conectarEspecifico(`${rutaSocket}`);
+                this.notificacionesPrd.enviarMensajeEspecifico(body);
+                setTimeout(() => {
+                  this.notificacionesPrd.closeEspecifico();
+                }, 1000);
               }
           }
         });
@@ -168,16 +169,31 @@ export class ListachatsActivosComponent implements OnInit {
 
   }
 
-  public responderEmpleado(datos:any){
-      
-      const mensaje = `ACCEPTMESSAGEFROM${datos.usuarioId.usuarioId}`;
-      this.notificacionesPrd.enviarMensaje(mensaje);
-      this.notificacionesPrd.mensajes = JSON.parse(datos.mensajes);
-      
-      this.notificacionesPrd.closeEspecifico();
-      this.notificacionesPrd.conectarEspecifico(`${environment.rutaSocket}${datos.conversacionId}`);
-      this.socket.datos.ocultar = false;  
-      this.configuracionPrd.ocultarChat = false;
+  public responderEmpleado(valorConversacion:any){
+    
+    if(!valorConversacion.atendido){
+      valorConversacion.nombreRrh = `${this.usuariossistemaPrd.usuario.nombre} ${this.usuariossistemaPrd.usuario.apellidoPat}`;
+    valorConversacion.atendido = true;
+      this.notificacionesPrd.modificar(valorConversacion).subscribe(valor =>{
+        if(valor.resultado){
+            this.atiendeChat(valorConversacion);
+        }
+      }); 
+    }else{
+      this.atiendeChat(valorConversacion);
+    }
+  }
+
+  public atiendeChat(valorConversacion:any){
+    const mensaje = `ACCEPTMESSAGEFROM${valorConversacion.usuarioId.usuarioId}`;
+    this.notificacionesPrd.enviarMensaje(mensaje);
+    this.notificacionesPrd.mensajes = JSON.parse(valorConversacion.mensajes);
+    this.notificacionesPrd.nombreEmpleado = valorConversacion.nombreempleado;
+    
+    this.notificacionesPrd.closeEspecifico();
+    this.notificacionesPrd.conectarEspecifico(`${environment.rutaSocket}${valorConversacion.conversacionId}`);
+    this.socket.datos.ocultar = false;  
+    this.configuracionPrd.ocultarChat = false;
   }
 
 }

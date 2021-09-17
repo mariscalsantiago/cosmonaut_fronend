@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
+import { direcciones } from 'src/assets/direcciones';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +14,9 @@ export class NotificacionesService {
   public socketGeneral!:string;
   public socketEspecifico!:string;
   public mensajes:any;
+  public nombreEmpleado:string = "";
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
 
   public conectar(conexion:string){
@@ -77,5 +80,16 @@ export class NotificacionesService {
     if(this.webSocketEspecifico){
       this.webSocketEspecifico.close();
     }
+  }
+
+
+  public verificarMensajes(usuario:number):Observable<any>{
+      return this.http.get(`${direcciones.chat}/empleado/mensajes/${usuario}`);
+  }
+
+
+  public modificar(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.chat}/modificar`,json);
   }
 }

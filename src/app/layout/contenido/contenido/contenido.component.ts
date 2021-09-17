@@ -14,6 +14,7 @@ import { ChatService } from 'src/app/modules/chat/services/chat.service';
 import { NotificacionesService } from 'src/app/shared/services/chat/notificaciones.service';
 import { environment } from 'src/environments/environment';
 import { ValueTransformer } from '@angular/compiler/src/util';
+import { Socket } from 'dgram';
 
 
 const CryptoJS = require("crypto-js");
@@ -142,6 +143,9 @@ export class ContenidoComponent implements OnInit {
 
 
     if (this.authPrd.isAuthenticated()) {
+
+
+
 
       this.mostrandoChatBoot();
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
@@ -381,24 +385,47 @@ export class ContenidoComponent implements OnInit {
 
 
   public notificaciones() {
-    const rutaSocket:string = `${environment.rutaSocket}/notificaciones/${this.usuariosSistemaPrd.getIdEmpresa()}/usuario/${this.usuariosSistemaPrd.getUsuario().usuarioId}`;
-    this.notificacionesPrd.conectar(rutaSocket);
+    let rutaSocket: string = `${environment.rutaSocket}/notificaciones/${this.usuariosSistemaPrd.getIdEmpresa()}/usuario/${this.usuariosSistemaPrd.getUsuario().usuarioId}`;
+
+    if (!this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
+      this.notificacionesPrd.verificarMensajes(this.usuariosSistemaPrd.getUsuario().usuarioId).subscribe(datos => {
+        if (datos.datos) {
+          this.notificacionesPrd.nombreEmpleado = datos.datos.nombreRrh;
+          this.notificacionesPrd.mensajes = JSON.parse(datos.datos.mensajes);
+          rutaSocket = `${environment.rutaSocket}${datos.datos.conversacionId}`;
+          this.continuarNotificaciones(rutaSocket);
+
+        } else {
+          this.continuarNotificaciones(rutaSocket);
+        }
+      });
+    } else {
+      this.continuarNotificaciones(rutaSocket);
+    }
+  }
+
+
+  public continuarNotificaciones(ruta: string) {
+    this.notificacionesPrd.conectar(ruta);
     this.notificacionesPrd.recibirNotificacion().subscribe((valor) => {
       if (valor.data != "CONNECT" && valor.data != "CLOSE") {
-        if(this.usuariosSistemaPrd.usuario.esRecursosHumanos){
+        if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
           this.configuracionPrd.notificaciones += 1;
+        } else {
+          this.configuracionPrd.notificacionesglobito += 1;
+          this.notificacionesPrd.mensajes = JSON.parse(valor.data);
         }
-        
-      }
 
-      console.log("ESTO ES AFUERA DEL SERVICES");
+      }
     });
   }
 
 
   public metodoChat() {
     this.configuracionPrd.ocultarChat = this.usuariosSistemaPrd.getUsuario().esRecursosHumanos || this.usuariosSistemaPrd.usuario.esCliente;
-    this.notificaciones();
+    if (!this.usuariosSistemaPrd.getUsuario().esCliente) {
+      this.notificaciones();
+    }
   }
 
 
