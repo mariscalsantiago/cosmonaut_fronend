@@ -17,7 +17,6 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
   public tamanio: number = 0;
   public modalWidth: string = "350px";
 
-  public arreglomensajes:any = [];
 
 
   public fecha: Date = new Date();
@@ -57,46 +56,10 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
     private configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-
     this.configuracionPrd.notificacionesglobito = 0;
-
     this.notificacionesPrd.nombreEmpleado = this.notificacionesPrd.nombreEmpleado || "Recursos humanos";
-    
-    this.arreglomensajes = this.notificacionesPrd.mensajes || [];
     this.usuarioId = this.usuarioSistemaPrd.getUsuario().usuarioId;
-    if(this.usuarioSistemaPrd.getUsuario().esRecursosHumanos){
-      this.notificacionesPrd.recibirNotificacionEspecifico().subscribe(datos =>{
-        if (datos.data != "CONNECT" && datos.data != "CLOSE") {
-          this.arreglomensajes = (JSON.parse(datos.data));
-          this.configuracionPrd.notificacionesglobito += 1;
-        }
-    
-      });
-    }else{
-      this.notificacionesPrd.recibirNotificacion().subscribe(datos =>{
-      
-        if(datos.data.includes(`ACCEPTMESSAGEFROM${this.usuarioSistemaPrd.getUsuario().usuarioId}`)){
 
-             this.arreglomensajes.push({mensaje:"El usuario RRH ha aceptado su mensaje...",fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd"),usuarioId:-1,nombre:this.usuarioSistemaPrd.getUsuario().nombre});
-             const rutaSocket:string = `${environment.rutaSocket}/notificaciones/${this.usuarioSistemaPrd.getIdEmpresa()}${this.usuarioSistemaPrd.getUsuario().usuarioId}/usuario/${this.usuarioSistemaPrd.getUsuario().usuarioId}`;
-             this.notificacionesPrd.verificarMensajes(this.usuarioId).subscribe(vv =>{
-               this.notificacionesPrd.nombreEmpleado = vv.datos.nombreRrh;
-             });
-             this.notificacionesPrd.close();
-             this.notificacionesPrd.conectar(rutaSocket);
-             this.notificacionesPrd.recibirNotificacion().subscribe(datos =>{
-               this.arreglomensajes = JSON.parse(datos.data);
-               this.configuracionPrd.notificacionesglobito += 1;
-               
-             })
-        }else{
-          if (datos.data != "CONNECT" && datos.data != "CLOSE") {
-            this.arreglomensajes = JSON.parse(datos.data);
-            this.configuracionPrd.notificacionesglobito += 1;
-          }
-        }
-      });
-    }
   }
 
 
@@ -121,8 +84,8 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
 
   public enviarMensaje() {
       let mensaje = {mensaje:this.mensaje,fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd hh:mm"),usuarioId:this.usuarioId,nombre:this.usuarioSistemaPrd.getUsuario().nombre};
-      this.arreglomensajes.push(mensaje);
-      let json = JSON.stringify(this.arreglomensajes);
+      this.notificacionesPrd.mensajes.push(mensaje);
+      let json = JSON.stringify(this.notificacionesPrd.mensajes);
       if(this.usuarioSistemaPrd.usuario.esRecursosHumanos){
         this.notificacionesPrd.enviarMensajeEspecifico(json);
       }else{

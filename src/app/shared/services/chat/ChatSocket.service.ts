@@ -32,7 +32,6 @@ export class ChatSocketService {
 
   public mensajes:any = [];
 
-  private nombreRecursos:string = "Recursos humanos";
 
 
   constructor(private http:HttpClient) { }
@@ -157,13 +156,7 @@ public getMensajesrecibidosPorEmpleado(idEmpresa:number,idUsuario:number):Observ
   }
 
 
-  public getNombreRecursosHumanos(){
-      return this.nombreRecursos;
-  }
-
-  public setNombreRecursosHumanos(nombre:string){
-      this.nombreRecursos = nombre;
-  }
+ 
 
   
 

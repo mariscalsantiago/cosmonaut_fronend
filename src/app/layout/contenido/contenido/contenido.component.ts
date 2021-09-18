@@ -9,12 +9,10 @@ import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.servi
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
-import { interval, Subscription } from 'rxjs';
+import { interval } from 'rxjs';
 import { ChatService } from 'src/app/modules/chat/services/chat.service';
 import { NotificacionesService } from 'src/app/shared/services/chat/notificaciones.service';
 import { environment } from 'src/environments/environment';
-import { ValueTransformer } from '@angular/compiler/src/util';
-import { Socket } from 'dgram';
 
 
 const CryptoJS = require("crypto-js");
@@ -113,7 +111,7 @@ export class ContenidoComponent implements OnInit {
     private ventana: VentanaemergenteService, private navigate: Router,
     private chatPrd: ChatSocketService, private authPrd: AuthService, public configuracionPrd: ConfiguracionesService,
     private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private charComponentPrd: ChatService, private notificacionesPrd: NotificacionesService) {
+    private charComponentPrd: ChatService, public notificacionesPrd: NotificacionesService) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
 
@@ -407,17 +405,8 @@ export class ContenidoComponent implements OnInit {
 
   public continuarNotificaciones(ruta: string) {
     this.notificacionesPrd.conectar(ruta);
-    this.notificacionesPrd.recibirNotificacion().subscribe((valor) => {
-      if (valor.data != "CONNECT" && valor.data != "CLOSE") {
-        if (this.usuariosSistemaPrd.usuario.esRecursosHumanos) {
-          this.configuracionPrd.notificaciones += 1;
-        } else {
-          this.configuracionPrd.notificacionesglobito += 1;
-          this.notificacionesPrd.mensajes = JSON.parse(valor.data);
-        }
 
-      }
-    });
+    this.notificacionesPrd.notificacionNormal(this.usuariosSistemaPrd.usuario, this.usuariosSistemaPrd.getIdEmpresa());
   }
 
 

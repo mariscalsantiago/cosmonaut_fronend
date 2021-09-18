@@ -180,8 +180,9 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
       return this.http.get(`${direcciones.reportes}/dispersion/lista/errores/${idNomina}`);
   }
 
-  public getErroresTimbradoEmpleados(idNomina:number):Observable<any>{
-    return this.http.get(`${direcciones.reportes}/timbrado/lista/errores/${idNomina}`);
+  public getErroresTimbradoEmpleados(idNomina:number,empleados:any):Observable<any>{
+    let json = JSON.stringify(empleados);
+    return this.http.post(`${direcciones.reportes}/timbrado/lista/errores/${idNomina}`,json);
 }
 
 

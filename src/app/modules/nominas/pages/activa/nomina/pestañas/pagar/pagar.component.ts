@@ -226,7 +226,7 @@ export class PagarComponent implements OnInit {
           for (let item of this.arreglotablaconpago.filas) {
             if (item.seleccionado && this.continuarTitulo.includes("Guardar como pagados") && item.tipopago !== 'Transferencia' && item.status == 'Sin pagar') {
 
-              debugger;
+              
               objEnviar.push({
                 nominaXperiodoId: {
                   nominaXperiodoId: this.nominaSeleccionada[this.llave].nominaXperiodoId

@@ -38,7 +38,7 @@ export class ListachatsActivosComponent implements OnInit {
     private notificacionesPrd:NotificacionesService) { }
 
   ngOnInit(): void {
-    this.configuracionPrd.notificaciones = 0;
+    this.notificacionesPrd.notificacionesMenu = 0;
     this.cargando = true;
     
   
@@ -172,7 +172,7 @@ export class ListachatsActivosComponent implements OnInit {
   public responderEmpleado(valorConversacion:any){
     
     if(!valorConversacion.atendido){
-      valorConversacion.nombreRrh = `${this.usuariossistemaPrd.usuario.nombre} ${this.usuariossistemaPrd.usuario.apellidoPat}`;
+    valorConversacion.nombreRrh = `${this.usuariossistemaPrd.usuario.nombre} ${this.usuariossistemaPrd.usuario.apellidoPat}`;
     valorConversacion.atendido = true;
       this.notificacionesPrd.modificar(valorConversacion).subscribe(valor =>{
         if(valor.resultado){

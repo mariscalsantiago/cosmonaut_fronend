@@ -218,13 +218,9 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public obtenerReportes(){
-
-  
-
-
     let objEnviar:any;
-       switch(this.reporteindex){
-        case 1:
+       switch(`${this.reporteindex}`){
+        case "1":
           objEnviar = {
            mes:this.mesIndex,
            clienteId:this.usuarioSistemaPrd.getIdEmpresa()
@@ -235,13 +231,13 @@ export class NominaHistoricasComponent implements OnInit {
          this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos =>{
            if (datos.resultado) {
              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-             this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${this.mesIndex}`, "xlxs");
+             this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${this.mesIndex}`, "xlsx");
            } else {
              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
            }
          });
          break;
-       case 2:
+       case "2":
          objEnviar = {
            mes:this.mesIndex,
            centroCostoClienteId:this.usuarioSistemaPrd.getIdEmpresa()
