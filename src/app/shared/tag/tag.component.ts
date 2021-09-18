@@ -37,16 +37,18 @@ export class TagComponent implements OnInit,OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-
+    
     
   }
 
   public  ngOnChanges(changes: SimpleChanges): void{
-
+    
     if(this.calendario){
-        if(this.dias == undefined || this.dias == ""){
+      
+/*         if(this.dias == undefined || this.dias == ""){
           this.arregloEtiquetas = [];
-        }
+        } */
+        this.arregloEtiquetas = [];
     }
   }
 
@@ -114,6 +116,7 @@ export class TagComponent implements OnInit,OnChanges {
 
 
       if(this.dominical){
+        
         let fecha = new Date(this.elementoSeleccionado)
         if(fecha.getUTCDay() !== 0){
             this.salida.emit({type:"error",datos:true});
