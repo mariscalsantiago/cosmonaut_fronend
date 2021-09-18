@@ -51,7 +51,7 @@ export class ChatService {
       
   }
 
-  public getListaChat(idEmpresa:number):Observable<any>{
-    return this.http.get(`${direcciones.chat}/listar/${idEmpresa}`)  
+  public getListaChat(idEmpresa:number,usuarioId:number):Observable<any>{
+    return this.http.get(`${direcciones.chat}/listar/${idEmpresa}/usuario/${usuarioId}`)  
   }
 }
