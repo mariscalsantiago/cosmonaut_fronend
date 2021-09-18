@@ -269,19 +269,13 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       objEnviarArray = [];
       for (let item of this.arregloFechas) {
         let aux = JSON.parse(JSON.stringify(objEnviar));
-
-        aux.fechaInicio = new Date((new Date(item).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+        aux.fechaInicio = new DatePipe("es-MX").transform(item,"yyyy-MM-dd");
         aux.duracion = 1;
         objEnviarArray.push(aux);
       }
     } else {
       objEnviarArray = [objEnviar]
     }
-
-
-
-
-
 
     //  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     //return;

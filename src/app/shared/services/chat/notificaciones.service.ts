@@ -124,9 +124,11 @@ export class NotificacionesService {
            });
            this.close();
            this.conectar(rutaSocket);
+           this.notificacionesglobito += 1;
            this.recibirNotificacion().subscribe(datos =>{
              this.mensajes = JSON.parse(datos.data);
              this.notificacionesglobito += 1;
+             console.log("DEPSUES DEL CANAL PRINCIPAL");
              
            })
       }else{
@@ -134,6 +136,7 @@ export class NotificacionesService {
           if(!usuario.esRecursosHumanos){
             this.mensajes = JSON.parse(datos.data);
             this.notificacionesglobito += 1;
+            console.log("En el canal principal");
           }else{
             this.notificacionesMenu += 1;
           }

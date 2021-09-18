@@ -192,6 +192,7 @@ export class ListachatsActivosComponent implements OnInit {
     
     this.notificacionesPrd.closeEspecifico();
     this.notificacionesPrd.conectarEspecifico(`${environment.rutaSocket}${valorConversacion.conversacionId}`);
+    this.notificacionesPrd.notificacionEspecifica();
     this.socket.datos.ocultar = false;  
     this.configuracionPrd.ocultarChat = false;
   }
