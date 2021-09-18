@@ -84,7 +84,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    debugger;
+    
     this.periodo = "";
     
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
@@ -195,7 +195,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 4){
-      debugger;
+      
       this.objdetrep.integraSdi = this.objdetrep.integraSdi == "S"  ? true : false;
       this.objdetrep.integraIsr = this.objdetrep.integraIsr == "S"  ? true : false;
       this.objdetrep.integraIsn = this.objdetrep.integraIsn == "S"  ? true : false;
@@ -213,7 +213,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 15){
-      debugger;
+      
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.tipoValorReferenciaId?.descripcion;
       this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => this.arregloValoresReferencia = datos.datos);
@@ -306,7 +306,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 16){
-      debugger;
+      
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
@@ -324,7 +324,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    debugger;
+    
 
     const pipe = new DatePipe("es-MX");
     return this.formBuilder.group({
@@ -371,14 +371,14 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public validarfechaFinRef() {
-    debugger;
+    
     let fechaInicio = this.myForm.controls.fechaInicio.value;
     this.fechaFinRef.nativeElement.min = fechaInicio;
     this.myForm.controls.fechaFin.setValue("");
   }  
 
   public validaForm(){
-    debugger;
+    
 
     if(this.detCatalogos.listaCatalogosId == 1){
       this.myForm.controls.codBanco.setValidators([Validators.required]);
@@ -596,7 +596,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    debugger;
+    
     let editField = event.target.textContent;
     if (property.includes('fecha')){
      editField = event.target.value;
@@ -607,7 +607,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public changeValue(id: number, property: string, event: any) {
-    debugger;
+    
     this.editField = event.target.textContent;
     if (property.includes('fecha')){
       this.editField = event.target.value;
@@ -724,7 +724,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catalogo?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
-        debugger;
+        
         let obj = this.myForm.getRawValue();
         if(obj.esActivo == "true"){
           obj.esActivo = true;
@@ -1543,7 +1543,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 15){
-          debugger;
+          
           let fecha = new Date();
           let anio = fecha.getFullYear();
 

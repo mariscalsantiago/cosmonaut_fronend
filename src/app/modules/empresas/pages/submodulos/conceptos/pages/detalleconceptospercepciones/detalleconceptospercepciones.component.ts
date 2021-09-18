@@ -38,7 +38,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
@@ -95,7 +95,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     });
     
-    debugger;
+    
     this.validarTipoConceptoMod(this.obj.descripcion);
     this.myForm = this.createForm(this.obj);
      }else{
@@ -134,7 +134,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
-    debugger;
+    
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
       this.arregloTipoPercepcion = datos.datos 
       
@@ -163,7 +163,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
   }
   public validarTipoConcepto(tipo:any){
-  debugger;
+  
     
     this.limpiarTipopercepcion = false;
     //let type = String(tipo).substring(0,3)
@@ -374,9 +374,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
         
-        debugger;
+        
         if (valor) {
-        debugger;  
+          
           
           let obj = this.myForm.getRawValue();
           if(obj.tipoConcepto == null){

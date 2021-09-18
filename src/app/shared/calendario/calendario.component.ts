@@ -198,6 +198,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
   public aparecerModalEvento(evento: any, mouse: any) {
     
+    
     this.eventoActual = evento;
     console.log("Este es el evento actual",this.eventoActual);
 

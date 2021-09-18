@@ -573,9 +573,10 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public perderFoco() {
-
+    
 
     const totalDias = this.myForm.controls.duracion.value;
+    
     if (totalDias) {
       if (this.myForm.controls.fechaInicio.value) {
         var datePipe = new DatePipe("es-MX");

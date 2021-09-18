@@ -245,7 +245,7 @@ export class DocumentosComponent implements OnInit {
   }
 
   public modificarDocumento(obj:any){
-    debugger;
+    
     
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
     

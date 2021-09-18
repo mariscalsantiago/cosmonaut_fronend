@@ -154,7 +154,7 @@ export class PagarComponent implements OnInit {
     if (this.arreglo !== undefined) {
       arregloTemp = new Array<any>();
       for (let item of this.arreglo) {
-        debugger;
+        
         item["nombrecompleto"] = item[llave].nombre + " " + item[llave].apellidoPat + " ";
         item["nombrecompleto"] += item[llave].apellidoMat || "";
         item["rfc"] = item[llave].rfc;

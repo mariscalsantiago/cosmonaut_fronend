@@ -63,7 +63,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     
     if(this.datos.idEmpleado != undefined){
       this.empresa = this.datos.idEmpresa;
@@ -188,7 +188,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    debugger;
+    
 
     if(this.esInsert ){
       
@@ -786,7 +786,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){
-          debugger;
+          
           let  obj = this.myForm.getRawValue();
 
           for(let item of this.obtenerPercepcion){

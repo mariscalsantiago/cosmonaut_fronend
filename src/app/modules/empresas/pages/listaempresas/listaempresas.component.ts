@@ -93,7 +93,7 @@ export class ListaEmpresasComponent implements OnInit {
       new tabla("esActivo", "Estatus")
     ];
     if(this.arreglo !== undefined){
-      debugger;
+      
       for(let item of this.arreglo){
         item.fechaAlta = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
       }

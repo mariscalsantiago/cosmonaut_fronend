@@ -630,7 +630,7 @@ export class EmpleoComponent implements OnInit {
   public cambiarSueldoField() {
 
 
-    debugger;
+    
 
     this.sueldoBruto = this.myForm.controls.tiposueldo.value == 'b';
     this.sueldoNeto = this.myForm.controls.tiposueldo.value == 'n';

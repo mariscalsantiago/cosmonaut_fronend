@@ -62,7 +62,7 @@ export class MovimientosComponent implements OnInit {
       columnas:[],
       filas:[]
     }
-    debugger;
+    
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
         item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;

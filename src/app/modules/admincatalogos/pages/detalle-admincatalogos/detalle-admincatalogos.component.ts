@@ -228,7 +228,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 7){
-      debugger;
+      
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoContrato(true).subscribe(datos => {
@@ -246,7 +246,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 5){
-      debugger;
+      
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoDeduccion(true).subscribe(datos => {
@@ -411,7 +411,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 16){
-      debugger;
+      
       this.id_catalogo = this.objdetcat.listaCatalogosId;
       this.cargando = true;
         

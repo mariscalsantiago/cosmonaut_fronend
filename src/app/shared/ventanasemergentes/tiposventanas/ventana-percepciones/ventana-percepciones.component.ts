@@ -152,7 +152,7 @@ export class VentanaPercepcionesComponent implements OnInit {
 
   public validarTipoPercepcion(tipo: any) {
     
-    debugger;
+    
     if(!this.esInsert){
       this.myForm.controls.nomPercepcion.enable();
     }else{
@@ -162,7 +162,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.myForm.updateValueAndValidity();
 
     if (Boolean(tipo)) {
-      debugger;
+      
       if (tipo == 1) {
         
         this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
@@ -199,7 +199,7 @@ export class VentanaPercepcionesComponent implements OnInit {
             this.myForm.controls.nomPercepcion.enable();
           });
         } else {
-          debugger;
+          
           this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
             for (let item of datos.datos) {
               item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
@@ -269,7 +269,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarMonto(monto:any) {
-    debugger;
+    
     this.monto = monto;
     if(!this.esInsert){
     this.numPeriodo = this.myForm.value.numeroPeriodos;
@@ -298,7 +298,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarNumPeriodo(periodo:any) {
-    debugger;
+    
     this.numPeriodo = periodo;
 
     if(!this.esInsert){
@@ -338,7 +338,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
 
       if (valor) {
-        debugger;
+        
 
         let obj = this.myForm.getRawValue();
 
