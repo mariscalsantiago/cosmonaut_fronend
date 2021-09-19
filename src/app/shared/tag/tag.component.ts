@@ -133,9 +133,8 @@ export class TagComponent implements OnInit,OnChanges {
         return;
       };
       this.arregloEtiquetas.push(this.elementoSeleccionado);
-      this.elementoSeleccionado = "";
       this.salida.emit(this.arregloEtiquetas);
-      
+      this.elementoSeleccionado = "";
     }
 
    
