@@ -176,8 +176,9 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
   }
 
 
-  public getErroresDispersionEmpleados(idNomina:number):Observable<any>{
-      return this.http.get(`${direcciones.reportes}/dispersion/lista/errores/${idNomina}`);
+  public getErroresDispersionEmpleados(idNomina:number,empleados:any):Observable<any>{
+    let json = JSON.stringify(empleados);
+      return this.http.post(`${direcciones.reportes}/dispersion/lista/errores/${idNomina}`,json);
   }
 
   public getErroresTimbradoEmpleados(idNomina:number,empleados:any):Observable<any>{
