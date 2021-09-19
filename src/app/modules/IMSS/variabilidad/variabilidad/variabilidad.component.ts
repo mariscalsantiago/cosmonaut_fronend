@@ -127,56 +127,45 @@ export class VariabilidadComponent implements OnInit {
         columnas:[],
         filas:[]
       }
-  
+      
+      this.bimestreCalcular = 0;
       if(this.arreglo !== undefined){
         for(let item of this.arreglo){
           if(item.fechaAplicacion !== undefined ){
           item.fechaAplicacion = (new Date(item.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
           item.fecha = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
+          if(item.bimestre > this.bimestreCalcular){
+            this.bimestreCalcular = item.bimestre
+            if(this.bimestreCalcular == 1){this.bimestreLeyenda = "2do Bimestre"}
+            else if(this.bimestreCalcular == 2){this.bimestreLeyenda = "3er Bimestre"}
+            else if(this.bimestreCalcular == 3){this.bimestreLeyenda = "4to Bimestre"}
+            else if(this.bimestreCalcular == 4){this.bimestreLeyenda = "5to Bimestre"}
+            else if(this.bimestreCalcular == 5){this.bimestreLeyenda = "6to Bimestre"}
+          }
           if(item.bimestre == undefined || item.bimestre == null){
 
             this.bimestreLeyenda = "1er Bimestre"
-            this.bimestreCalcular = 1;
-            let anio = this.fecha.getFullYear();
-            this.fechaActual = `01/03/${anio}`;
-          }
-          else if(item.bimestre == 1 && item.bimestre == null){
-            
-            this.bimestreLeyenda = "1er Bimestre"
-            this.bimestreCalcular = 1;
             let anio = this.fecha.getFullYear();
             this.fechaActual = `01/03/${anio}`;
           }
           else if(item.bimestre ==1){
-            this.bimestreLeyenda = "2do Bimestre"
-            this.bimestreCalcular = 2;
             let anio = this.fecha.getFullYear();
             this.fechaActual = `01/05/${anio}`;
           }
           else if(item.bimestre ==2){
-            this.bimestreLeyenda = "3er Bimestre"
-            this.bimestreCalcular = 3;
             let anio = this.fecha.getFullYear();
             this.fechaActual = `01/07/${anio}`;
           }
           else if(item.bimestre ==3){
-            this.bimestreLeyenda = "4to Bimestre"
-            this.bimestreCalcular = 4;
             let anio = this.fecha.getFullYear();
             this.fechaActual = `01/09/${anio}`;
-            
           }
           else if(item.bimestre ==4){
-            this.bimestreLeyenda = "5to Bimestre"
-            this.bimestreCalcular = 5;
             let anio = this.fecha.getFullYear();
             this.fechaActual = `01/11/${anio}`;
-            
           }
           else if(item.bimestre ==5){
-            this.bimestreLeyenda = "6to Bimestre"
-            this.bimestreCalcular = 6;
             let anio = this.fecha.getFullYear();
             anio = anio + 1; 
             this.fechaActual = `01/01/${anio}`;
@@ -260,29 +249,27 @@ export class VariabilidadComponent implements OnInit {
     public createForm(obj: any) {
       
    if(this.esREcalcular){
-    if(this.arreglo !== undefined){
-      for(let item of this.arreglo){
-          if(item.bimestre == 1){
+    if(obj !== undefined){
+          if(obj.bimestre == 1){
             this.bimestreLeyenda = "1er Bimestre"
           }
-          else if(item.bimestre ==2){
+          else if(obj.bimestre ==2){
             this.bimestreLeyenda = "2do Bimestre"
           }
-          else if(item.bimestre ==3){
+          else if(obj.bimestre ==3){
             this.bimestreLeyenda = "3er Bimestre"
            
           }
-          else if(item.bimestre ==4){
+          else if(obj.bimestre ==4){
             this.bimestreLeyenda = "4to Bimestre"
       
           }
-          else if(item.bimestre ==5){
+          else if(obj.bimestre ==5){
             this.bimestreLeyenda = "5to Bimestre"
           }
-          else if(item.bimestre ==6){
+          else if(obj.bimestre ==6){
             this.bimestreLeyenda = "6to Bimestre"
           }
-      }
     }
      this.fechaActual= obj.fecha;
      this.diasCalcular = obj.diasBimestre; 
@@ -301,7 +288,9 @@ export class VariabilidadComponent implements OnInit {
     }
 
   public filtrar() {
+    debugger;
     this.cargando = true;
+    this.objFiltro = [];
     if(this.anioFiltro != ''){
       this.objFiltro = {
         ...this.objFiltro,
@@ -384,7 +373,9 @@ export class VariabilidadComponent implements OnInit {
     });
   }
   public promedioVariabilidad(){
-    this.reportesPrd.getCalcularDías(this.bimestreCalcular).subscribe(archivo => {
+    debugger;
+    let bimCalcular = this.bimestreCalcular + 1;
+    this.reportesPrd.getCalcularDías(bimCalcular).subscribe(archivo => {
 
       this.diasCalcular = archivo.datos.diasTotales;
       this.myForm.controls.diaspromediar.setValue(this.diasCalcular);
@@ -442,20 +433,20 @@ export class VariabilidadComponent implements OnInit {
               this.varibilidadRecalculoID = this.variabilidad
             }
             
-               
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
                 this.empresasPrd.recalculoPromedioVariables(this.varibilidadRecalculoID).subscribe(datos => {
                     
-                  this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Recalculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
+                  //this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Recalculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
                   
-                  let intervalo = interval(1000);
-                  intervalo.pipe(take(10));
-                  let subscribe = intervalo.subscribe(valor =>{
-                  this.configuracionPrd.setCantidad(valor*10);
-                  if(valor == 10){
-                  subscribe.unsubscribe()
-                  setTimeout(()=> {
-                  valor = 0;    
-                  this.configuracionPrd.setCantidad(0);  
+                  //let intervalo = interval(1000);
+                  //intervalo.pipe(take(10));
+                  //let subscribe = intervalo.subscribe(valor =>{
+                  //this.configuracionPrd.setCantidad(valor*10);
+                  //if(valor == 10){
+                  //subscribe.unsubscribe()
+                  //setTimeout(()=> {
+                  //valor = 0;    
+                  //this.configuracionPrd.setCantidad(0);  
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                      if (datos.resultado) {
                       
@@ -475,11 +466,11 @@ export class VariabilidadComponent implements OnInit {
                       this.crearTablaListaEmpleadosPromedio(datos.datos);
                     });
                   }
-                },1000);
-                }
+                 //},1000);
+                //}
                 
 
-                });
+                //});
               });     
 
           }
@@ -548,7 +539,7 @@ export class VariabilidadComponent implements OnInit {
                 usuarioId: this.idUsuario
               };
 
-                
+              this.modalPrd.showMessageDialog(this.modalPrd.loading);
                 this.empresasPrd.calculoPromedioVariables(objEnviar).subscribe(datos => {
                   
                   if(!datos.resultado){
@@ -558,15 +549,15 @@ export class VariabilidadComponent implements OnInit {
                     this.fromPromediar = true;
                     });
                   } else{
-                  this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
-                  let intervalo = interval(1000);
-                  intervalo.pipe(take(11));
-                  intervalo.subscribe((valor)=>{
-                  this.configuracionPrd.setCantidad(valor*10);
+                  //this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
+                  //let intervalo = interval(1000);
+                  //intervalo.pipe(take(11));
+                  //intervalo.subscribe((valor)=>{
+                  //this.configuracionPrd.setCantidad(valor*10);
                 
-                  if(valor == 11){
-                    valor = 0;
-                  this.configuracionPrd.setCantidad(0);
+                  //if(valor == 11){
+                  //valor = 0;
+                  //this.configuracionPrd.setCantidad(0);
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                      if (datos.resultado) {
                       
@@ -587,11 +578,10 @@ export class VariabilidadComponent implements OnInit {
                       this.crearTablaListaEmpleadosPromedio(datos.datos);
                     });
                   } 
-                }
-                  });
+                //}
+                  //});
                 }  
               });     
-
           }
         });
         
@@ -605,7 +595,7 @@ export class VariabilidadComponent implements OnInit {
           this.desgargarArchivo(obj);
          break;
       case "recalcular":
-          
+          debugger;
           this.esREcalcular = true;
           this.objRecalculo = obj.datos;
           this.myForm = this.createForm(this.objRecalculo);
