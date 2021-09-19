@@ -435,18 +435,6 @@ export class VariabilidadComponent implements OnInit {
             
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
                 this.empresasPrd.recalculoPromedioVariables(this.varibilidadRecalculoID).subscribe(datos => {
-                    
-                  //this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Recalculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
-                  
-                  //let intervalo = interval(1000);
-                  //intervalo.pipe(take(10));
-                  //let subscribe = intervalo.subscribe(valor =>{
-                  //this.configuracionPrd.setCantidad(valor*10);
-                  //if(valor == 10){
-                  //subscribe.unsubscribe()
-                  //setTimeout(()=> {
-                  //valor = 0;    
-                  //this.configuracionPrd.setCantidad(0);  
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                      if (datos.resultado) {
                       
@@ -466,11 +454,6 @@ export class VariabilidadComponent implements OnInit {
                       this.crearTablaListaEmpleadosPromedio(datos.datos);
                     });
                   }
-                 //},1000);
-                //}
-                
-
-                //});
               });     
 
           }
@@ -549,15 +532,6 @@ export class VariabilidadComponent implements OnInit {
                     this.fromPromediar = true;
                     });
                   } else{
-                  //this.modalPrd.showMessageDialog(this.modalPrd.dispersar,"Calculando promedio de variables","Espere un momento, el proceso se tardara varios minutos.");
-                  //let intervalo = interval(1000);
-                  //intervalo.pipe(take(11));
-                  //intervalo.subscribe((valor)=>{
-                  //this.configuracionPrd.setCantidad(valor*10);
-                
-                  //if(valor == 11){
-                  //valor = 0;
-                  //this.configuracionPrd.setCantidad(0);
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                      if (datos.resultado) {
                       
@@ -568,7 +542,6 @@ export class VariabilidadComponent implements OnInit {
                       this.cargando = true;
                       let objLista : any ={
                         variabilidad: datos.datos.variabilidadId
-                        //variabilidad: 86
                         
                       }
                       this.variabilidad = objLista.variabilidad;
@@ -578,8 +551,6 @@ export class VariabilidadComponent implements OnInit {
                       this.crearTablaListaEmpleadosPromedio(datos.datos);
                     });
                   } 
-                //}
-                  //});
                 }  
               });     
           }
