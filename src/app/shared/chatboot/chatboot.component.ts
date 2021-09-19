@@ -56,7 +56,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
     private configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    this.configuracionPrd.notificacionesglobito = 0;
+    this.notificacionesPrd.notificacionesglobito = 0;
     this.notificacionesPrd.nombreEmpleado = this.notificacionesPrd.nombreEmpleado || "Recursos humanos";
     this.usuarioId = this.usuarioSistemaPrd.getUsuario().usuarioId;
 
@@ -83,6 +83,11 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
   }
 
   public enviarMensaje() {
+
+    if(!Boolean(`${this.mensaje}`.trim())){
+      return;
+    }
+
       let mensaje = {mensaje:this.mensaje,fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd hh:mm"),usuarioId:this.usuarioId,nombre:this.usuarioSistemaPrd.getUsuario().nombre};
       this.notificacionesPrd.mensajes.push(mensaje);
       let json = JSON.stringify(this.notificacionesPrd.mensajes);
@@ -106,7 +111,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
   }
 
  public ngOnDestroy(){
-   this.configuracionPrd.notificacionesglobito = 0;
+   this.notificacionesPrd.notificacionesglobito = 0;
  }
 
 }

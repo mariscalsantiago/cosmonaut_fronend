@@ -39,7 +39,7 @@ export class ConfiguracionesService {
 
   public notificaciones: number = 0;
 
-  public notificacionesglobito: number = 0;
+  
 
   public menu: boolean = false;
   public MENUPRINCIPAL:any = undefined;

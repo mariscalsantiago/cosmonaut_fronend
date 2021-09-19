@@ -62,7 +62,7 @@ export class ListachatsActivosComponent implements OnInit {
 
   public obtieneListaChat(){
     
-    this.chatPrd.getListaChat(this.usuariossistemaPrd.getIdEmpresa()).subscribe(datos => {
+    this.chatPrd.getListaChat(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
       if(Boolean(datos.datos)){
         this.construirTabla(datos.datos);
       }else{
@@ -174,6 +174,7 @@ export class ListachatsActivosComponent implements OnInit {
     if(!valorConversacion.atendido){
     valorConversacion.nombreRrh = `${this.usuariossistemaPrd.usuario.nombre} ${this.usuariossistemaPrd.usuario.apellidoPat}`;
     valorConversacion.atendido = true;
+    valorConversacion.idUsuarioRrh = this.usuariossistemaPrd.usuario.usuarioId;
       this.notificacionesPrd.modificar(valorConversacion).subscribe(valor =>{
         if(valor.resultado){
             this.atiendeChat(valorConversacion);
@@ -192,6 +193,7 @@ export class ListachatsActivosComponent implements OnInit {
     
     this.notificacionesPrd.closeEspecifico();
     this.notificacionesPrd.conectarEspecifico(`${environment.rutaSocket}${valorConversacion.conversacionId}`);
+    this.notificacionesPrd.notificacionEspecifica();
     this.socket.datos.ocultar = false;  
     this.configuracionPrd.ocultarChat = false;
   }
