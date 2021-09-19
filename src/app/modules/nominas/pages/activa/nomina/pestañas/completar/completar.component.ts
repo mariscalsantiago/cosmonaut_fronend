@@ -20,6 +20,8 @@ export class CompletarComponent implements OnInit {
 
   public cargandoIcon: boolean = false;
   public datos:any = {};
+
+  private esOrdinaria:boolean = false;
   constructor(private modalPrd: ModalService,
     private reportesPrd:ReportesService,private nominaPrd:NominaordinariaService,
     private usuarioSistemaPrd:UsuarioSistemaService,
@@ -27,7 +29,9 @@ export class CompletarComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.esOrdinaria = false;
     if (this.nominaSeleccionada.nominaOrdinaria) {
+      this.esOrdinaria = true;
      this.llave = "nominaOrdinaria";
     } else if (this.nominaSeleccionada.nominaExtraordinaria) {
       this.llave = "nominaExtraordinaria";
@@ -110,11 +114,22 @@ export class CompletarComponent implements OnInit {
         }
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.reportesPrd.getComprobanteFiscalXMLOrdinarias(enviarObj).subscribe(valor => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          
-          this.reportesPrd.crearArchivo(valor.datos,"recibospago_"+ `${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`,"zip")
-        });
+
+        if(this.esOrdinaria){
+          this.reportesPrd.getComprobanteFiscalXMLOrdinarias(enviarObj).subscribe(valor => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            
+            this.reportesPrd.crearArchivo(valor.datos,"recibospago_"+ `${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`,"zip")
+          });
+        }else{
+          this.reportesPrd.getComprobanteFiscalXMLExtraordinarias(enviarObj).subscribe(valor => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            
+            this.reportesPrd.crearArchivo(valor.datos,"recibospago_"+ `${this.nominaSeleccionada[this.llave].nombreNomina}_${this.nominaSeleccionada[this.llave].periodo}`,"zip")
+          });
+        }
+
+      
 
       }
     });
