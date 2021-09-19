@@ -132,6 +132,7 @@ export class TimbrarComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
+    console.log("TABKLAS",obj.datos);
 
     this.continuarTitulo = (this.arreglo.some((m:any)=>m.seleccionado && m.status !== 'Correcto' && m.statuspago === 'Pagado'))? "Timbrar":"Continuar";
 
