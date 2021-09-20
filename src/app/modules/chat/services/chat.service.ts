@@ -23,11 +23,11 @@ export class ChatService {
 
 
 
-  public getListaChatActivos(idEmpresa:number):Observable<any>{
+  public getListaChatActivos(idEmpresa:number,usuarioId:number):Observable<any>{
      
       if(this.primeravez){
         this.primeravez = false;
-       let suscripcion:Subscription =  timer(0,2000).pipe(concatMap(()=>this.http.get(`${direcciones.chat}/listar/${idEmpresa}`)),
+       let suscripcion:Subscription =  timer(0,2000).pipe(concatMap(()=>this.http.get(`${direcciones.chat}/listar/${idEmpresa}/usuario/${usuarioId}`)),
         tap((valor:any) =>{
           if(valor.datos !== undefined){
               if(this.arreglo?.length !== valor.datos?.length){

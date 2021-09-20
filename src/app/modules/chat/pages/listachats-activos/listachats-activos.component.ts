@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { tabla } from 'src/app/core/data/tabla';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
@@ -30,6 +30,7 @@ export class ListachatsActivosComponent implements OnInit {
 
 
   public mensajes:any = [];
+  public suscripcion!:Subscription;
 
   public cargando: boolean = false;
   constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
@@ -57,6 +58,20 @@ export class ListachatsActivosComponent implements OnInit {
 
 
 
+
+   this.suscripcion =  this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos =>{
+      if(Boolean(datos.datos)){
+        this.construirTabla(datos.datos);
+      }else{
+        this.arreglotabla = {
+          filas:undefined
+        }
+      }
+
+
+      
+      this.cargando = false;  
+    });
 
   }
 
@@ -196,6 +211,14 @@ export class ListachatsActivosComponent implements OnInit {
     this.notificacionesPrd.notificacionEspecifica();
     this.socket.datos.ocultar = false;  
     this.configuracionPrd.ocultarChat = false;
+  }
+
+
+
+  public ngOnDestroy(){
+    if(this.suscripcion){
+        this.suscripcion.unsubscribe();
+    }
   }
 
 }

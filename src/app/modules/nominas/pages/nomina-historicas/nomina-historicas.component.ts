@@ -46,11 +46,7 @@ export class NominaHistoricasComponent implements OnInit {
       clienteId: this.usuarioSistemaPrd.getIdEmpresa()
     }
     this.cargando = true;
-    this.nominashistoricasPrd.getNominasHistoricas(objEnviar).subscribe(datos => {
-      console.log("Nominas historicas",datos);
-      this.rellenarTablas(datos);
-      this.cargando = false;
-    });    
+    this.filtrar();  
   }
 
   public rellenarTablas(datos: any) {
@@ -168,15 +164,29 @@ export class NominaHistoricasComponent implements OnInit {
           esZip: true
         };
 
-        this.reportesPrd.getComprobanteFiscalXMLOrdinarias(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          if (datos.resultado) {
+        if(Boolean(obj.datos.esExtraordinaria)){
+          this.reportesPrd.getComprobanteFiscalXMLExtraordinarias(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            this.reportesPrd.crearArchivo(datos.datos, `RecibosNómina_${obj.datos.clave_periodo}_${obj.datos.nombre_nomina}`, "zip");
-          } else {
-            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-          }
-        });
+            if (datos.resultado) {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.reportesPrd.crearArchivo(datos.datos, `RecibosNómina_${obj.datos.clave_periodo}_${obj.datos.nombre_nomina}`, "zip");
+            } else {
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+            }
+          });
+        }else{
+          this.reportesPrd.getComprobanteFiscalXMLOrdinarias(objEnviar).subscribe(datos => {
+            this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            if (datos.resultado) {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              this.reportesPrd.crearArchivo(datos.datos, `RecibosNómina_${obj.datos.clave_periodo}_${obj.datos.nombre_nomina}`, "zip");
+            } else {
+              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+            }
+          });
+        }
+
+       
         break;
       case "reporteAcumuladosPorMes":
          objEnviar = {

@@ -102,11 +102,19 @@ export class TimbradoEmpleadosComponent implements OnInit {
         
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
+       if(Boolean(obj.datos.esExtraordinaria)){
+        this.reportesPrd.getComprobanteFiscalXMLExtraordinarias(enviarObj).subscribe(valor => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+
+          this.reportesPrd.crearArchivo(valor.datos, "Timbrado_" + obj.datos.nombreNomina + this.numeroEmpleado, "pdf")
+        });
+       }else{
         this.reportesPrd.getComprobanteFiscalXMLOrdinarias(enviarObj).subscribe(valor => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
           this.reportesPrd.crearArchivo(valor.datos, "Timbrado_" + obj.datos.nombreNomina + this.numeroEmpleado, "pdf")
         });
+       }
         break;
     }
   }
