@@ -38,13 +38,18 @@ export class DetalleUsuarioComponent implements OnInit {
   public companiasenviar:any = [];
   public arregloRoles: any = [];
   public inabilitar:boolean = false;
+  public rolIdSeleciconado:number = 0;
 
   public esClienteEmpresa:boolean = false;
 
 
+  public ocultaAdministradores:boolean = false;
+  public ocultaContactoiniciales:boolean = false;
+
+
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private modalPrd: ModalService, private rolesPrd: RolesService,
-    private usuariosSistemaPrd: UsuarioSistemaService, private usuariosAuth: UsuariosauthService,public configuracionPrd:ConfiguracionesService) {
+    public usuariosSistemaPrd: UsuarioSistemaService, private usuariosAuth: UsuariosauthService,public configuracionPrd:ConfiguracionesService) {
 
     let datePipe = new DatePipe("es-MX");
 
@@ -109,6 +114,13 @@ export class DetalleUsuarioComponent implements OnInit {
             this.myForm.controls.centrocClienteId.disable();
           }
         }
+    }
+
+
+    if(this.objusuario){
+      this.rolIdSeleciconado = this.objusuario.rolId.rolId;
+      this.ocultaAdministradores = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.rolIdSeleciconado === 1;
+      this.ocultaContactoiniciales = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.rolIdSeleciconado !== 1;
     }
 
   }
