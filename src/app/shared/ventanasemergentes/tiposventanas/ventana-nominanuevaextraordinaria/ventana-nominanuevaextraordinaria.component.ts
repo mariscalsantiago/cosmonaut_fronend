@@ -71,7 +71,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     this.empleadosPrd.getEmpleadosAguinaldoByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.arregloEmpleados = datos.datos
       for (let item of this.arregloEmpleados) {
-        item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
+        item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno+(item.personaId?.apellidoMaterno|| '');
       }
     });
 

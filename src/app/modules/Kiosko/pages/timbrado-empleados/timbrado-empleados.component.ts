@@ -90,15 +90,16 @@ export class TimbradoEmpleadosComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
+    console.log(obj.datos);
     switch (obj.type) {
       case "descargar":
         let enviarObj = {
           nominaPeriodoId: obj.datos.nominaXperiodoId,
           idEmpleado: this.numeroEmpleado,
-          esVistaPrevia: true,
-          esTimbrado: false,
-          esSubida: false
+          esZip: false,
+          clienteId:this.usuariosSistemaPrd.getIdEmpresa()
         }
+        
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.reportesPrd.getComprobanteFiscalXMLOrdinarias(enviarObj).subscribe(valor => {
