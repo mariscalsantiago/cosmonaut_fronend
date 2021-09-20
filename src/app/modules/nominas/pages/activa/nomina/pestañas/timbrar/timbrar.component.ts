@@ -194,7 +194,7 @@ export class TimbrarComponent implements OnInit {
       case "descargar":
         let enviarObj = {
           nominaPeriodoId: this.nominaSeleccionada[this.llave2]?.nominaXperiodoId,
-          idEmpleado: item[this.llave].numEmpleado,
+          idEmpleado: item[this.llave].personaId,
           esZip: false,
           clienteId:this.usuarioSistemaPrd.getIdEmpresa()
         }

@@ -66,6 +66,10 @@ export class NominaExtraordinariaComponent implements OnInit {
       if(this.arreglo){
         for (let item of this.arreglo) {
           item["inicial"] = !Boolean(item.nominaExtraordinaria.totalNeto);
+          item.esCalculada = item.nominaExtraordinaria?.estadoActualNomina === 'Calculada';
+          item.esPagada = (item.nominaExtraordinaria?.estadoActualNomina === 'Pagada' || item.nominaExtraordinaria?.estadoActualNomina === 'En proceso pago');
+          item.esTimbrada = item.nominaExtraordinaria?.estadoActualNomina === 'Timbrada' || item.nominaExtraordinaria?.estadoActualNomina === 'En proceso timbrado';
+          item.esConcluir = item.nominaExtraordinaria?.estadoActualNomina === 'Pagada' && item.nominaExtraordinaria?.estadoActualNomina === 'Timbrada';
         }
       }
     })

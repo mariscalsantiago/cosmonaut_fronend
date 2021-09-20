@@ -64,6 +64,10 @@ export class NominaPTUComponent implements OnInit {
         this.arreglo = datos.datos;
         for (let item of this.arreglo) {
           item["inicial"] = !Boolean(item.nominaPtu.totalNeto);
+          item.esCalculada = item.nominaPtu?.estadoActualNomina === 'Calculada';
+          item.esPagada = (item.nominaPtu?.estadoActualNomina === 'Pagada' || item.nominaPtu?.estadoActualNomina === 'En proceso pago');
+          item.esTimbrada = item.nominaPtu?.estadoActualNomina === 'Timbrada' || item.nominaPtu?.estadoActualNomina === 'En proceso timbrado';
+          item.esConcluir = item.nominaPtu?.estadoActualNomina === 'Pagada' && item.nominaPtu?.estadoActualNomina === 'Timbrada';
         }
       });
     }
