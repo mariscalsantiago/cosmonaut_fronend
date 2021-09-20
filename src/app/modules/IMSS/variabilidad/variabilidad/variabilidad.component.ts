@@ -291,24 +291,38 @@ export class VariabilidadComponent implements OnInit {
     debugger;
     this.cargando = true;
     this.objFiltro = [];
-    if(this.anioFiltro != ''){
+    let anioFinal = Number(this.anioFiltro);
+    if(anioFinal != 0){
+      if(anioFinal > 1500){
       this.objFiltro = {
         ...this.objFiltro,
-        anio: this.anioFiltro
+        anio: anioFinal
       };
-      }
-      if(this.bimestre != ''){
+      }else{
         this.objFiltro = {
           ...this.objFiltro,
-          bimestre: this.bimestre
+          anio: 1501
         };
+      }
+      }
+      if(this.bimestre != ''){
+        if(this.bimestre == '0' && this.bimestre > '6'){
+          this.bimestre = '';
+        }else{
+          this.objFiltro = {
+            ...this.objFiltro,
+            bimestre: this.bimestre
+          };
+        }
         }
     this.objFiltro = {
       ...this.objFiltro,
       clienteId: this.idEmpresa
     };
+    debugger;
     this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
-      
+      debugger;
+
       if(datos.datos == undefined){
         this.sinPromedios = true;
         this.conPromedios = false; 
@@ -328,6 +342,10 @@ export class VariabilidadComponent implements OnInit {
       this.cargando = false;
       let obj: any  = [];
       this.myForm = this.createForm(obj);
+      }
+      if(!datos.resultado){
+
+        this.modalPrd.showMessageDialog(this.modalPrd.error,datos.mensaje).then(valor =>{});
       }
 
 
