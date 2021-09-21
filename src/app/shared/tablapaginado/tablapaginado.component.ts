@@ -368,9 +368,10 @@ export class TablapaginadoComponent implements OnInit {
     for (i = 0; i < a.length; i++) {
       j = i;
       aux = a[i];
-
+      aux[llave] = aux[llave].toString();
+      
       if (tipoAcomodo) {
-        aux[llave] = aux[llave].toString();
+        
         if( aux[llave].charAt(0) === '$'){
           while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
           a[j] = a[j - 1];
