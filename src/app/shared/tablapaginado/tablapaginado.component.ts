@@ -355,22 +355,23 @@ export class TablapaginadoComponent implements OnInit {
 
 
   public ordenar(item: any) {
-    
+    debugger;
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
     this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
     this.paginar();
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
-    
+    debugger;
     let i, j;
     let aux;
-    for (i = 1; i < a.length; i++) {
+    for (i = 0; i < a.length; i++) {
       j = i;
       aux = a[i];
-
+      aux[llave] = aux[llave].toString();
+      
       if (tipoAcomodo) {
-
+        
         if( aux[llave].charAt(0) === '$'){
           while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
           a[j] = a[j - 1];
