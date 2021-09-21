@@ -68,7 +68,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
     this.empleadosPrd.getEmpleadosFiniquitoByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.arregloEmpleados = datos.datos;
       for (let item of this.arregloEmpleados) {
-        item["nombre"] = item.personaId?.nombre + " " + item.personaId.apellidoPaterno;
+        item["nombre"] = item.personaId?.nombre + " " + item.personaId.apellidoPaterno+" "+(item.personaId.apellidoPaterno|| '');
       }
     });
 
