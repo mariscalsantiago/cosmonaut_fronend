@@ -232,7 +232,7 @@ export class NominaHistoricasComponent implements OnInit {
        switch(`${this.reporteindex}`){
         case "1":
           objEnviar = {
-           mes:this.mesIndex,
+           mes:Number(this.mesIndex)+1,
            clienteId:this.usuarioSistemaPrd.getIdEmpresa()
          }
  
@@ -249,7 +249,7 @@ export class NominaHistoricasComponent implements OnInit {
          break;
        case "2":
          objEnviar = {
-           mes:this.mesIndex,
+           mes:Number(this.mesIndex)+1,
            centroCostoClienteId:this.usuarioSistemaPrd.getIdEmpresa()
          }
  
