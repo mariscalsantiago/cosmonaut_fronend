@@ -246,7 +246,7 @@ export class EmpleoComponent implements OnInit {
     return this.myForm.controls;
   }
   public validarfechAntiguedad(fecha: any) {
-
+    debugger;
 
     let fechaInicioContra = fecha;
     var fecha = fecha.split("-");
@@ -258,11 +258,11 @@ export class EmpleoComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha debe ser igual o menor a la fecha actual')
         .then(() => {
           this.myForm.controls.fechaAntiguedad.setValue("");
-          this.myForm.controls.fechaInicio.setValue("");
+          //this.myForm.controls.fechaInicio.setValue("");
         });
 
     } else {
-      this.myForm.controls.fechaInicio.setValue(fechaInicioContra);
+      //this.myForm.controls.fechaInicio.setValue(fechaInicioContra);
     }
   }
 
