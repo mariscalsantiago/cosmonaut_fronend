@@ -90,7 +90,7 @@
             <div class="row">
                 <article class="titulo  col">
                     Tipo de contrato *
-                    <article *ngIf="!editarcampos">{{contratoDesc}}</article>
+                    <article *ngIf="!editarcampos" >{{contratoDesc}}</article>
                 </article>
             </div>
             <div class="row mb-4">
@@ -254,16 +254,45 @@
                     </article>
                 </article>
             </div>
-            <div class="row">
+            <div *ngIf="activaFechaFin" class="row">
                 <article class="titulo  col">
                     Fecha de fin de contrato <strong aria-hidden="true" *ngIf="f.tipoContratoId.value !== '10' && f.tipoContratoId.value !== '1' ">*</strong>
                     <article></article>
                 </article>
             </div>
-            <div class="row mb-4">
+            <div *ngIf="!activaFechaFin" class="row mb-4">
+                <article *ngIf="editarcampos" class="titulo col">
+                </article>
+                <article  class="titulo  col">
+                  </article>
+                <article class="titulo  col">
+                </article>
+                <article class="titulo  col">
+                </article>
+                <article class="titulo  col-12 col-lg">
+                </article>
+                <article class="titulo aparece-desktop  col">
+                    Jornada *
+                    <article *ngIf="!editarcampos">
+                        {{empleado.jornadaId?.nombre}}
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <select [ngClass]="{'is-invalid':f.jornadaId.errors && f.jornadaId.touched}" formControlName="jornadaId" name="" class="form-control">
+                            <option *ngFor="let item of arregloJornadas" [value]="item.jornadaId">{{item.nombre}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article>
+
+
+            </div>
+            <div *ngIf="activaFechaFin" class="row mb-4">
                 <article *ngIf="editarcampos" class="titulo col">
                     Elegir fecha
-                    <article>
+                    <article >
                         <input [min]="f.fechaInicio.value" #fechaFinCont (focusout)="validarfechaFinCont(fechaFinCont.value)" [ngClass]="{'is-invalid':f.fechaFin.errors && f.fechaFin.touched}" formControlName="fechaFin"
                             type="date" name="" class="form-control">
                         <div class="invalid-feedback">
