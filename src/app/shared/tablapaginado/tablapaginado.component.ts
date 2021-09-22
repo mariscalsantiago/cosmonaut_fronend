@@ -355,14 +355,14 @@ export class TablapaginadoComponent implements OnInit {
 
 
   public ordenar(item: any) {
-    debugger;
+    
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
     this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
     this.paginar();
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
-    debugger;
+    
     let i, j;
     let aux;
     for (i = 0; i < a.length; i++) {

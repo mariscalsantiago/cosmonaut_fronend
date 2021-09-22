@@ -150,6 +150,13 @@ export class DatosimssComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer, favor de elegir archivo de certificado ");
       return;
     }
+    if (obj.cerIMSS == 'Certificado IMSS digital cargado') {
+      obj.cerIMSS = null;
+      
+    }
+    if(obj.usuarioCerIMSS == "Usuario de certificado IMSS cargado"){
+      obj.usuarioCerIMSS = null;
+    }
 
     this.objenviar = {
       registroPatronal: obj.registroPatronal,

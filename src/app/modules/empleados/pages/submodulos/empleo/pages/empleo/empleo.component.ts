@@ -97,10 +97,10 @@ export class EmpleoComponent implements OnInit {
   }
 
   public suscripciones() {
-    debugger;
+    
     
     this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato: number) => {
-      debugger;
+      
       this.activaFechaFin = idContrato != 1 && idContrato != 10;
       if (this.activaFechaFin)
         this.myForm.controls.fechaFin.setValidators([Validators.required]);
@@ -112,7 +112,7 @@ export class EmpleoComponent implements OnInit {
   }
 
   public ValidaTipo(){
-    debugger;
+    
     let idContrato = this.myForm.controls.tipoContratoId.value;
     this.activaFechaFin = idContrato != 1 && idContrato != 10;
     if (this.activaFechaFin)
@@ -264,7 +264,7 @@ export class EmpleoComponent implements OnInit {
     return this.myForm.controls;
   }
   public validarfechAntiguedad(fecha: any) {
-    debugger;
+    
 
     let fechaInicioContra = fecha;
     var fecha = fecha.split("-");
