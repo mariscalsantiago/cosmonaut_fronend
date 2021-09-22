@@ -46,6 +46,8 @@ export class DetalleUsuarioComponent implements OnInit {
   public ocultaAdministradores:boolean = false;
   public ocultaContactoiniciales:boolean = false;
 
+  public desabilitarTodo:boolean = false;
+
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private modalPrd: ModalService, private rolesPrd: RolesService,
@@ -82,6 +84,10 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.objusuario.centrocClienteId = {};
 
+    if(!this.insertar){
+       this.desabilitarTodo = this.usuariosSistemaPrd.usuario.esCliente && !this.esClienteEmpresa && this.objusuario.rolId?.rolId == 1;
+    }
+
 
     this.myForm = this.createForm(this.objusuario);
 
@@ -90,8 +96,9 @@ export class DetalleUsuarioComponent implements OnInit {
         this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
         
     }
+    console.log("Este es el usuario",this.objusuario);
 
-    if(!this.esClienteEmpresa && this.objusuario.rolId?.rolId == 2){
+    if((!this.esClienteEmpresa && this.objusuario.rolId?.rolId == 2) || this.desabilitarTodo){
          this.myForm.controls.nombre.disable();
          this.myForm.controls.apellidoPaterno.disable();
          this.myForm.controls.apellidoMaterno.disable();
@@ -99,7 +106,6 @@ export class DetalleUsuarioComponent implements OnInit {
          this.myForm.controls.rol.disable();
          this.myForm.controls.centrocClienteId.disable();
          this.inabilitar = true;
-
       }
 
 

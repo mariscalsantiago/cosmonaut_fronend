@@ -147,27 +147,7 @@ export class ListachatsActivosComponent implements OnInit {
               if(this.mensajes == undefined){
                   this.modalPrd.showMessageDialog(this.modalPrd.error,"No hay mensajes genericos que enviar");
               }else{
-                let objEnviado = {
-                  mensaje: this.mensajes[0].mensajeGenerico,
-                  fecha: new Date(),
-                  usuarioId: this.usuariossistemaPrd.getUsuario().usuarioId,
-                  nombre: `${this.usuariossistemaPrd.getUsuario().nombre} ${this.usuariossistemaPrd.getUsuario().apellidoPat}`
-                };
-            
-                let arregloMensajes = JSON.parse(obj.datos.mensajes);
-                arregloMensajes.push(objEnviado);
-            
-                
-                let body = JSON.stringify(arregloMensajes);
-
-                let rutaSocket:string = `${environment.rutaSocket}/notificaciones/${this.usuariossistemaPrd.getIdEmpresa()}/usuario/${obj.datos.usuarioId}`;
-
-                this.notificacionesPrd.closeEspecifico();
-                this.notificacionesPrd.conectarEspecifico(`${rutaSocket}`);
-                this.notificacionesPrd.enviarMensajeEspecifico(body);
-                setTimeout(() => {
-                  this.notificacionesPrd.closeEspecifico();
-                }, 1000);
+                  this.responderMensajeGenerico(obj.datos);
               }
           }
         });
@@ -219,6 +199,21 @@ export class ListachatsActivosComponent implements OnInit {
     if(this.suscripcion){
         this.suscripcion.unsubscribe();
     }
+  }
+
+  public responderMensajeGenerico(valorConversacion:any){
+    if(!valorConversacion.atendido){
+      valorConversacion.nombreRrh = `${this.usuariossistemaPrd.usuario.nombre} ${this.usuariossistemaPrd.usuario.apellidoPat}`;
+      valorConversacion.atendido = true;
+      valorConversacion.idUsuarioRrh = this.usuariossistemaPrd.usuario.usuarioId;
+        this.notificacionesPrd.modificar(valorConversacion).subscribe(valor =>{
+          if(valor.resultado){
+              this.atiendeChat(valorConversacion);
+          }
+        }); 
+      }else{
+        this.atiendeChat(valorConversacion);
+      }
   }
 
 }
