@@ -23,7 +23,7 @@ export class NominafiniquitoliquidacionService {
 
   public recalcularNomina(obj: any): Observable<any> {
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominaLiquidacion}/recalculo/nomina/ptu`, json);
+    return this.http.post(`${direcciones.nominaLiquidacion}/recalcula/nomina/`, json);
 
   }
 

@@ -122,7 +122,10 @@ export class NominaComponent implements OnInit {
 
 
 
-   this.nominaOrdinariaPrd.getUsuariosContempladosOtrasNominas(this.nominaSeleccionada[this.llave].nominaXperiodoId).subscribe(datos =>this.listadoEmpleadosExistentes = datos.datos);;
+    if("nominaOrdinaria" == this.llave){
+      this.nominaOrdinariaPrd.getUsuariosContempladosOtrasNominas(this.nominaSeleccionada[this.llave].nominaXperiodoId).subscribe(datos =>this.listadoEmpleadosExistentes = datos.datos);;
+    }
+   
 
 
   }

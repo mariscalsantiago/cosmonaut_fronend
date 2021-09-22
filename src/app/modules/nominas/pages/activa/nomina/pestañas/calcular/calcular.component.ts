@@ -233,7 +233,14 @@ export class CalcularComponent implements OnInit {
                this.patronal.datos = datos.datos;
                
           });
+        }else   if (this.nominaSeleccionada.nominaLiquidacion) {
+          this.nominaOrdinariaPrd.verImssPatronal(this.patronalSeleccionado).subscribe(datos => {
+               this.patronal.datos = datos.datos;
+               
+          });
         }
+
+
         break;
     }
   }
