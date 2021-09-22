@@ -45,6 +45,7 @@ export class DetalleCompanyComponent implements OnInit {
   public cargandoImg:boolean = false;
 
   public arregloVersiones:any = [];
+  public arregloVersionesInicial:any = [];
 
   public versionEmpresa={
     versionCosmonautXclienteId:undefined
@@ -63,8 +64,18 @@ export class DetalleCompanyComponent implements OnInit {
     this.compania = true;
 
     this.cargandoImg = true;
+    debugger;
+    this.versionesPrd.getVersiones(true).subscribe(datos => {
+      debugger;
+      this.arregloVersionesInicial = datos.datos;
 
-    this.versionesPrd.getVersiones(true).subscribe(datos => this.arregloVersiones = datos.datos);
+      for(let item of this.arregloVersionesInicial){
+        if (item.versionCosmonautId == 1)
+            continue;
+            this.arregloVersiones.push(item);
+      } 
+    
+    });
    
 
     this.routerActivePrd.params.subscribe(datos => {
