@@ -288,7 +288,7 @@ export class VariabilidadComponent implements OnInit {
     }
 
   public filtrar() {
-    debugger;
+    
     this.cargando = true;
     this.objFiltro = [];
     let anioFinal = Number(this.anioFiltro);
@@ -319,9 +319,9 @@ export class VariabilidadComponent implements OnInit {
       ...this.objFiltro,
       clienteId: this.idEmpresa
     };
-    debugger;
+    
     this.empresasPrd.filtrarVariabilidad(this.objFiltro).subscribe(datos => {
-      debugger;
+      
 
       if(datos.datos == undefined){
         this.sinPromedios = true;
@@ -391,7 +391,7 @@ export class VariabilidadComponent implements OnInit {
     });
   }
   public promedioVariabilidad(){
-    debugger;
+    
     let bimCalcular = this.bimestreCalcular + 1;
     this.reportesPrd.getCalcularDías(bimCalcular).subscribe(archivo => {
 
@@ -584,7 +584,7 @@ export class VariabilidadComponent implements OnInit {
           this.desgargarArchivo(obj);
          break;
       case "recalcular":
-          debugger;
+          
           this.esREcalcular = true;
           this.objRecalculo = obj.datos;
           this.myForm = this.createForm(this.objRecalculo);

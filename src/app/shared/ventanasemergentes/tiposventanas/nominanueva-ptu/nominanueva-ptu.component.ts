@@ -91,7 +91,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
     this.empleadosPrd.getEmpleadosCompania(this.usuariosPrd.getIdEmpresa()).subscribe(datos => {
       this.arregloEmpleados = datos.datos
       for (let item of this.arregloEmpleados) {
-        debugger;
+        
         item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno+" "+(item.personaId?.apellidoMaterno || '');
       }
     });

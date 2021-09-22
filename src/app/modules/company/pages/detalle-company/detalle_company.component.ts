@@ -64,9 +64,9 @@ export class DetalleCompanyComponent implements OnInit {
     this.compania = true;
 
     this.cargandoImg = true;
-    debugger;
+    
     this.versionesPrd.getVersiones(true).subscribe(datos => {
-      debugger;
+      
       this.arregloVersionesInicial = datos.datos;
 
       for(let item of this.arregloVersionesInicial){
