@@ -40,6 +40,7 @@ export class EmpleoComponent implements OnInit {
   public fechaAntiguedad: Date = new Date();
   public arregloareasgeograficas: any = [];
   public contratoDesc: string | undefined;
+  public activaFechaFin: boolean = true;
 
   public arregloTipoContrato: any = [];
 
@@ -85,24 +86,41 @@ export class EmpleoComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.suscripciones();
         this.cambiaArea();
+        this.ValidaTipo();
 
       });;
     });
     this.myForm = this.createForm(this.empleado);
     this.suscripciones();
+    
 
   }
 
   public suscripciones() {
+    debugger;
+    
     this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato: number) => {
-
-
-      if (idContrato != 1 && idContrato != 10)
+      debugger;
+      this.activaFechaFin = idContrato != 1 && idContrato != 10;
+      if (this.activaFechaFin)
         this.myForm.controls.fechaFin.setValidators([Validators.required]);
       else
         this.myForm.controls.fechaFin.clearValidators();
       this.myForm.controls.fechaFin.updateValueAndValidity();
     });
+
+  }
+
+  public ValidaTipo(){
+    debugger;
+    let idContrato = this.myForm.controls.tipoContratoId.value;
+    this.activaFechaFin = idContrato != 1 && idContrato != 10;
+    if (this.activaFechaFin)
+      this.myForm.controls.fechaFin.setValidators([Validators.required]);
+    else
+      this.myForm.controls.fechaFin.clearValidators();
+    this.myForm.controls.fechaFin.updateValueAndValidity();
+
   }
 
 
