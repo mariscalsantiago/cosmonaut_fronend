@@ -62,6 +62,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger;
     
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
@@ -78,8 +79,12 @@ export class DetalleUsuarioComponent implements OnInit {
 
     
 
-  
-    this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos => this.arregloRoles = datos.datos);
+  debugger;
+    this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos => {
+      
+      this.arregloRoles = datos.datos
+    
+    });
     
 
     this.objusuario.centrocClienteId = {};

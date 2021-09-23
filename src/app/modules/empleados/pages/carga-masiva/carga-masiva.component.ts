@@ -65,6 +65,7 @@ export class CargaMasivaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger;
 
     this.establecerPermisos();
 

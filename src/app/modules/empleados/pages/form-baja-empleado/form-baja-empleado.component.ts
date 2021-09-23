@@ -341,7 +341,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
         let objEnviar: any ={
           fechaContrato: this.fechaContrato,
           notas: obj.notas,
-          fecharUltimoPago: obj.fechaFinUltimoPago,
+          fechaFinUltimoPago: obj.fechaFinUltimoPago,
           personaId: {
               personaId: this.personaId,
           },
