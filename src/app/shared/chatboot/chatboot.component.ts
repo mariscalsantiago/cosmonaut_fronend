@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { Component, HostListener, OnInit,OnDestroy, EventEmitter, Output, ViewChild, ElementRef, Input, AfterViewInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { NotificacionesService } from '../services/chat/notificaciones.service';
 import { ConfiguracionesService } from '../services/configuraciones/configuraciones.service';
 import { UsuarioSistemaService } from '../services/usuariosistema/usuario-sistema.service';
@@ -95,6 +94,9 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
         this.notificacionesPrd.enviarMensajeEspecifico(json);
       }else{
         this.notificacionesPrd.enviarMensaje(json);
+        if(Boolean(this.notificacionesPrd.webSocketEspecifico)){
+          this.notificacionesPrd.enviarMensajeEspecifico("READONLY");
+        }
       }
       this.mensaje = "";
   }

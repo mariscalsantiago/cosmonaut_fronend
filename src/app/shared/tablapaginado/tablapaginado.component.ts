@@ -303,6 +303,9 @@ export class TablapaginadoComponent implements OnInit {
   public btnDefault(item: any, indice: number) {
     this.salida.emit({ type: "default", datos: item, indice: indice });
   }
+  public btnConcluir(item: any, indice: number) {
+    this.salida.emit({ type: "concluir", datos: item, indice: indice });
+  }
   public btnDesglosar(item: any, indice: number) {
 
     if (item.desglosarDown) {

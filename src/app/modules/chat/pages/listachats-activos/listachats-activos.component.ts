@@ -30,9 +30,9 @@ export class ListachatsActivosComponent implements OnInit {
 
 
   public mensajes:any = [];
-  public suscripcion!:Subscription;
 
   public cargando: boolean = false;
+  public suscripcion!:Subscription;
   constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
     private usuariossistemaPrd: UsuarioSistemaService, private socket: ChatSocketService,
     private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService,
@@ -50,27 +50,13 @@ export class ListachatsActivosComponent implements OnInit {
     });
 
 
-    this.notificacionesPrd.recibirNotificacion().subscribe(valor =>{
-      if (valor.data != "CONNECT" && valor.data != "CLOSE") {
-          this.obtieneListaChat();
+  this.suscripcion =   this.notificacionesPrd.recibirNotificacion().subscribe(valor =>{
+      if (valor.data != "CONNECT" && valor.data != "CLOSE") {       
+        console.log("RECURSOS HUMANOS EN UNA SOLA EXIBICION"); 
+          setTimeout(() => {
+            this.obtieneListaChat();
+          }, 2000);
       }
-    });
-
-
-
-
-   this.suscripcion =  this.chatPrd.getListaChatActivos(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos =>{
-      if(Boolean(datos.datos)){
-        this.construirTabla(datos.datos);
-      }else{
-        this.arreglotabla = {
-          filas:undefined
-        }
-      }
-
-
-      
-      this.cargando = false;  
     });
 
   }
@@ -133,6 +119,7 @@ export class ListachatsActivosComponent implements OnInit {
   public recibirTabla(obj: any) {
 
 
+    debugger;
     
     switch (obj.type) {
       case "responder":
@@ -147,11 +134,32 @@ export class ListachatsActivosComponent implements OnInit {
               if(this.mensajes == undefined){
                   this.modalPrd.showMessageDialog(this.modalPrd.error,"No hay mensajes genericos que enviar");
               }else{
-                  this.responderMensajeGenerico(obj.datos);
+
+                let mensajeEnviar = this.mensajes[0].mensajeGenerico;
+                
+               
+                 
+                
+                
+
+                  this.responderMensajeGenerico(obj.datos,mensajeEnviar);
               }
           }
         });
         break;
+
+        case "concluir":
+          this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas terminar la conversación con el empleado?").then(valor =>{
+            if(valor){
+              this.modalPrd.showMessageDialog(this.modalPrd.loading);
+                this.notificacionesPrd.terminar(obj.datos.chatColaboradorId).subscribe(datos =>{
+                  this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
+                  this.obtieneListaChat();
+
+                });
+            }
+          });
+          break;
     }
   }
 
@@ -159,7 +167,11 @@ export class ListachatsActivosComponent implements OnInit {
 
     this.ventanaPrd.showVentana(this.ventanaPrd.mensajechat,{datos:this.mensajes || []})
           .then(datos =>{
-             this.mensajes = [datos.datos]
+             this.modalPrd.showMessageDialog(this.modalPrd.loading);
+             this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(),this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
+              this.mensajes = datos.datos
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+            });
           });
 
   }
@@ -172,15 +184,15 @@ export class ListachatsActivosComponent implements OnInit {
     valorConversacion.idUsuarioRrh = this.usuariossistemaPrd.usuario.usuarioId;
       this.notificacionesPrd.modificar(valorConversacion).subscribe(valor =>{
         if(valor.resultado){
-            this.atiendeChat(valorConversacion);
+            this.atiendeChat(valorConversacion,false);
         }
       }); 
     }else{
-      this.atiendeChat(valorConversacion);
+      this.atiendeChat(valorConversacion,false);
     }
   }
 
-  public atiendeChat(valorConversacion:any){
+  public atiendeChat(valorConversacion:any,ocultarchar:boolean){
     const mensaje = `ACCEPTMESSAGEFROM${valorConversacion.usuarioId.usuarioId}`;
     this.notificacionesPrd.enviarMensaje(mensaje);
     this.notificacionesPrd.mensajes = JSON.parse(valorConversacion.mensajes);
@@ -189,31 +201,58 @@ export class ListachatsActivosComponent implements OnInit {
     this.notificacionesPrd.closeEspecifico();
     this.notificacionesPrd.conectarEspecifico(`${environment.rutaSocket}${valorConversacion.conversacionId}`);
     this.notificacionesPrd.notificacionEspecifica();
-    this.socket.datos.ocultar = false;  
-    this.configuracionPrd.ocultarChat = false;
+    this.socket.datos.ocultar = ocultarchar;  
+    this.configuracionPrd.ocultarChat = ocultarchar;
   }
 
 
 
   public ngOnDestroy(){
     if(this.suscripcion){
-        this.suscripcion.unsubscribe();
+      this.suscripcion.unsubscribe();
     }
   }
 
-  public responderMensajeGenerico(valorConversacion:any){
-    if(!valorConversacion.atendido){
-      valorConversacion.nombreRrh = `${this.usuariossistemaPrd.usuario.nombre} ${this.usuariossistemaPrd.usuario.apellidoPat}`;
-      valorConversacion.atendido = true;
-      valorConversacion.idUsuarioRrh = this.usuariossistemaPrd.usuario.usuarioId;
-        this.notificacionesPrd.modificar(valorConversacion).subscribe(valor =>{
-          if(valor.resultado){
-              this.atiendeChat(valorConversacion);
-          }
-        }); 
-      }else{
-        this.atiendeChat(valorConversacion);
-      }
+  public responderMensajeGenerico(valorConversacion:any,mensajegenerico:any){
+    if(!Boolean(mensajegenerico)){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"No hay mensaje generico que enviar");
+
+      return;
+    }
+          this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          if(!valorConversacion.atendido){
+            valorConversacion.nombreRrh = `${this.usuariossistemaPrd.usuario.nombre} ${this.usuariossistemaPrd.usuario.apellidoPat}`;
+            valorConversacion.atendido = true;
+            valorConversacion.idUsuarioRrh = this.usuariossistemaPrd.usuario.usuarioId;
+              this.notificacionesPrd.modificar(valorConversacion).subscribe(valor =>{
+                if(valor.resultado){
+                    this.atiendeChat(valorConversacion,true);
+                    setTimeout(() => {
+                      let mensaje = {mensaje:mensajegenerico,fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd hh:mm"),usuarioId:this.usuariossistemaPrd.usuario.usuarioId,nombre:this.usuariossistemaPrd.getUsuario().nombre};
+                      let arreglo = JSON.parse(valorConversacion.mensajes)
+                      arreglo.push(mensaje);
+                        this.notificacionesPrd.enviarMensajeEspecifico(JSON.stringify(arreglo));
+                        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                        setTimeout(() => {
+                          this.obtieneListaChat();
+                        }, 500);
+                    }, 2000);
+                }
+              }); 
+            }else{
+              this.atiendeChat(valorConversacion,true);
+              setTimeout(() => {
+                let mensaje = {mensaje:mensajegenerico,fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd hh:mm"),usuarioId:this.usuariossistemaPrd.usuario.usuarioId,nombre:this.usuariossistemaPrd.getUsuario().nombre};
+                let arreglo = JSON.parse(valorConversacion.mensajes)
+                arreglo.push(mensaje);
+                  this.notificacionesPrd.enviarMensajeEspecifico(JSON.stringify(arreglo));
+                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                  setTimeout(() => {
+                    this.obtieneListaChat();
+                  }, 500);
+              }, 2000);
+            }
   }
 
 }

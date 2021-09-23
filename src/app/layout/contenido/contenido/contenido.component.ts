@@ -390,6 +390,7 @@ export class ContenidoComponent implements OnInit {
         if (datos.datos) {
           this.notificacionesPrd.nombreEmpleado = datos.datos.nombreRrh;
           this.notificacionesPrd.mensajes = JSON.parse(datos.datos.mensajes);
+          this.notificacionesPrd.conectarEspecifico(rutaSocket);
           rutaSocket = `${environment.rutaSocket}${datos.datos.conversacionId}`;
           this.continuarNotificaciones(rutaSocket);
 
@@ -405,7 +406,6 @@ export class ContenidoComponent implements OnInit {
 
   public continuarNotificaciones(ruta: string) {
     this.notificacionesPrd.conectar(ruta);
-
     this.notificacionesPrd.notificacionNormal(this.usuariosSistemaPrd.usuario, this.usuariosSistemaPrd.getIdEmpresa());
   }
 

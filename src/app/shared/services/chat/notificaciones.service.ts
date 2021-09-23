@@ -12,28 +12,35 @@ import { usuarioClass } from '../usuariosistema/usuario-sistema.service';
 })
 export class NotificacionesService {
 
-  private webSocket!:WebSocket;
-  private webSocketEspecifico!:WebSocket;
-  public socketGeneral!:string;
-  public socketEspecifico!:string;
+  public webSocket!:WebSocket;
+  public webSocketEspecifico!:WebSocket;
   public mensajes:any = [];
   public nombreEmpleado:string = "";
 
 
   public notificacionesglobito:number = 0;
   public notificacionesMenu:number = 0;
+  public  subject:Subject<any> = new Subject();
+  public  subjectEspecifico:Subject<any> = new Subject();
 
   constructor(private http:HttpClient) { }
 
 
   public conectar(conexion:string){
+    
       this.webSocket = new WebSocket(conexion);
       this.webSocket.onopen = ()=>{
         console.log("Se abre el socker");
       }
       this.webSocket.onclose = ()=>{
         console.log("Se cierra la comunicación");
+        this.conectar(conexion);
       }
+
+      this.webSocket.onmessage = (mensaje)=>{
+        this.subject.next(mensaje);
+      }
+
       
   }
 
@@ -43,30 +50,23 @@ export class NotificacionesService {
       console.log("Se abre el socker");
     }
     this.webSocketEspecifico.onclose = ()=>{
-      console.log("Se cierra la comunicación");
+      console.log("Se cierra la comunicación  especifico");
+      this.conectarEspecifico(conexion);
+    }
+
+    this.webSocketEspecifico.onmessage = (mensaje)=>{
+      this.subjectEspecifico.next(mensaje);
     }
     
 }
 
 
   public recibirNotificacion():Observable<any>{
-      let subject = new Subject();
-      this.webSocket.onmessage = (mensaje)=>{
-        subject.next(mensaje);
-      }
-
-
-      return subject;
+      return this.subject;
   }
 
   public recibirNotificacionEspecifico():Observable<any>{
-    let subject = new Subject();
-    this.webSocketEspecifico.onmessage = (mensaje)=>{
-      subject.next(mensaje);
-    }
-
-
-    return subject;
+    return this.subjectEspecifico;
 }
 
 
@@ -114,7 +114,7 @@ export class NotificacionesService {
 
   public notificacionNormal(usuario:usuarioClass,idEmpresa:number){
     this.recibirNotificacion().subscribe(datos =>{
-      
+      console.log("RECURSOS HUMANOS CONTENIDO");
       if(datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)){
 
            this.mensajes.push({mensaje:"El usuario RRH ha aceptado su mensaje...",fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd"),usuarioId:-1,nombre:usuario.nombre});
@@ -125,12 +125,11 @@ export class NotificacionesService {
            this.close();
            this.conectar(rutaSocket);
            this.notificacionesglobito += 1;
-           this.recibirNotificacion().subscribe(datos =>{
-             this.mensajes = JSON.parse(datos.data);
-             this.notificacionesglobito += 1;
-             console.log("DEPSUES DEL CANAL PRINCIPAL");
-             
-           })
+         
+           
+
+           const rutasocketnuevo:string = `${environment.rutaSocket}/notificaciones/${idEmpresa}/usuario/${usuario.usuarioId}`
+           this.conectarEspecifico(rutasocketnuevo);
       }else{
         if (datos.data != "CONNECT" && datos.data != "CLOSE") {
           if(!usuario.esRecursosHumanos){
@@ -138,10 +137,16 @@ export class NotificacionesService {
             this.notificacionesglobito += 1;
             console.log("En el canal principal");
           }else{
+            console.log("Se notifica recursos");
             this.notificacionesMenu += 1;
+            console.log(this.notificacionesMenu);
           }
         }
       }
     });
+  }
+
+  public terminar(conversacionid:number):Observable<any>{
+      return this.http.delete(`${direcciones.chat}/terminar/${conversacionid}`);
   }
 }

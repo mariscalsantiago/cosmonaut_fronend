@@ -153,6 +153,7 @@
             border: 1px solid;" class="btn btn-primary button-outlet">
                             Enviar mensaje generico
                         </button>
+                        <button *ngIf="item.atendido" (click)="btnConcluir(item,indice)"  type="button" class="btn btn-warning">Concluir</button>
                     </td>
                 </tr>
 
