@@ -107,7 +107,6 @@ export class DetallegruponominaComponent implements OnInit {
     this.catalogosPrd.getBasePeriodos(true).subscribe(datos => this.arregloBasePeriodos = datos.datos);
     this.catalogosPrd.getCatPeriodoAguinaldo(true).subscribe(datos => this.arregloCatPeriodosAguinaldo = datos.datos);
 
-
     
 
   }
@@ -160,7 +159,6 @@ export class DetallegruponominaComponent implements OnInit {
 
     });
   }
-
 
   public enviarPeticion(){
     
@@ -242,6 +240,19 @@ export class DetallegruponominaComponent implements OnInit {
 
     });
 
+
+  }
+
+  public enviarTipo(){
+    debugger;
+    if(this.myForm.controls.periodicidadPagoId.value == '01' || this.myForm.controls.periodicidadPagoId.value == '05'){
+      this.myForm.controls.ajustarBaseGravableFaltantes.setValue('false');
+    }
+
+  }
+  public limpiarTipo(){
+    debugger;
+      this.myForm.controls.ajustarBaseGravableFaltantes.setValue('false');
 
   }
 
