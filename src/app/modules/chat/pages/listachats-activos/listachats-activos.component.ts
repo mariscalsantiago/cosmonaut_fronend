@@ -149,7 +149,7 @@ export class ListachatsActivosComponent implements OnInit {
               setTimeout(() => {
                 const mensaje = `ACCEPTMESSAGEFROM${obj.datos.usuarioId.usuarioId}`;
                 this.notificacionesPrd.enviarMensajeEspecifico(mensaje);
-              }, 500);
+              }, 2000);
 
             });
           }
@@ -194,7 +194,7 @@ export class ListachatsActivosComponent implements OnInit {
     this.notificacionesPrd.nombreEmpleado = valorConversacion.nombreempleado;
     this.notificacionesPrd.closeEspecifico();
     this.notificacionesPrd.conectarEspecifico(`${environment.rutaSocket}${valorConversacion.conversacionId}`);
-    this.notificacionesPrd.notificacionEspecifica(this.usuariossistemaPrd.getUsuario());
+    this.notificacionesPrd.notificacionEspecifica(this.usuariossistemaPrd.getUsuario(),this.usuariossistemaPrd.getIdEmpresa());
     this.socket.datos.ocultar = ocultarchar;
     this.configuracionPrd.ocultarChat = ocultarchar;
 

@@ -88,14 +88,21 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
       return;
     }
 
+    if(Boolean(this.notificacionesPrd.mensajes)){
+
+      if(this.notificacionesPrd.mensajes.some((o:any)=>o.mensaje.includes("El usuario RRH ha finalizado el chat"))){
+          this.notificacionesPrd.mensajes = [];
+      }
+
+    }
+
       let mensaje = {mensaje:this.mensaje,fecha:new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd hh:mm"),usuarioId:this.usuarioId,nombre:this.usuarioSistemaPrd.getUsuario().nombre};
       this.notificacionesPrd.mensajes.push(mensaje);
       let json = JSON.stringify(this.notificacionesPrd.mensajes);
       if(this.usuarioSistemaPrd.usuario.esRecursosHumanos){
         this.notificacionesPrd.enviarMensajeEspecifico(json);
       }else{
-        
-        if(Boolean(this.notificacionesPrd.webSocketEspecifico)){
+        if(this.notificacionesPrd.conectarEspecificoBool){
           this.notificacionesPrd.enviarMensaje("READONLY");
           this.notificacionesPrd.enviarMensajeEspecifico(json);
         }else{

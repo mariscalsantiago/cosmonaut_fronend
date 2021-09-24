@@ -393,7 +393,7 @@ export class ContenidoComponent implements OnInit {
           this.continuarNotificaciones(rutaSocket);
           rutaSocket = `${environment.rutaSocket}${datos.datos.conversacionId}`;
           this.notificacionesPrd.conectarEspecifico(rutaSocket);
-          this.notificacionesPrd.notificacionEspecifica(this.usuariosSistemaPrd.getUsuario());
+          this.notificacionesPrd.notificacionEspecifica(this.usuariosSistemaPrd.getUsuario(),this.usuariosSistemaPrd.getIdEmpresa());
 
         } else {
           this.continuarNotificaciones(rutaSocket);

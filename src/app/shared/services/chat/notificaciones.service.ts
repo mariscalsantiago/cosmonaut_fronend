@@ -23,6 +23,8 @@ export class NotificacionesService {
   public subject: Subject<any> = new Subject();
   public subjectEspecifico: Subject<any> = new Subject();
 
+  public conectarEspecificoBool:boolean = false;
+
 
 
   constructor(private http: HttpClient) {
@@ -39,7 +41,7 @@ export class NotificacionesService {
     }
     this.webSocket.onclose = () => {
       console.log("Se cierra la comunicación");
-      this.conectar(conexion);
+     // this.conectar(conexion);
     }
     this.webSocket.onmessage = (mensaje) => {
       this.subject.next(mensaje);
@@ -48,18 +50,19 @@ export class NotificacionesService {
   }
 
   public conectarEspecifico(conexion: string) {
+    this.conectarEspecificoBool = true;
     this.webSocketEspecifico = new WebSocket(conexion);
     this.webSocketEspecifico.onopen = () => {
-      console.log("Se abre el socker");
+      console.log("Se abre el socker especifica");
     }
     this.webSocketEspecifico.onclose = () => {
       console.log("Se cierra la comunicación  especifico");
-      this.conectarEspecifico(conexion);
+     // this.conectarEspecifico(conexion);
     }
 
 
 
-    this.webSocketEspecifico.onmessage = (mensaje) => {
+    this.webSocketEspecifico.onmessage = (mensaje: any) => {
       this.subjectEspecifico.next(mensaje);
     }
 
@@ -106,14 +109,24 @@ export class NotificacionesService {
   }
 
 
-  public notificacionEspecifica(usuario:usuarioClass) {
+  public notificacionEspecifica(usuario: usuarioClass, idEmpresa: number) {
     this.recibirNotificacionEspecifico().subscribe(datos => {
       if (datos.data != "CONNECT" && datos.data != "CLOSE") {
-        
+
         if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
 
-          if(!usuario.esRecursosHumanos){
+          if (!usuario.esRecursosHumanos) {
+            console.log("VUELVE A ENTRAR");
+            
             this.mensajes.push({ mensaje: "El usuario RRH ha finalizado el chat...", fecha: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"), usuarioId: -1, nombre: usuario.nombre });
+            this.nombreEmpleado = "Recursos humanos";
+           this.close();
+           this.closeEspecifico();
+            let rutaSocket: string = `${environment.rutaSocket}/notificaciones/${idEmpresa}/usuario/${usuario.usuarioId}`;
+            this.conectarEspecificoBool = false;
+            this.conectar(rutaSocket);
+            this.notificacionNormal(usuario, idEmpresa);
+
           }
 
         }
@@ -143,7 +156,8 @@ export class NotificacionesService {
             });
             this.notificacionesglobito += 1;
             this.conectarEspecifico(rutaSocket);
-            this.notificacionEspecifica(usuario);
+            this.conectarEspecificoBool = true;
+            this.notificacionEspecifica(usuario, idEmpresa);
           }
 
         } else {
