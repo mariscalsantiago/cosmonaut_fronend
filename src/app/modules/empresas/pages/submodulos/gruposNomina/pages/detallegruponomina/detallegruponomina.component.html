@@ -57,7 +57,7 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Periodo de nómina *</label>
-                <select #periodopago formControlName="periodicidadPagoId" [ngClass]="{'is-invalid':f.periodicidadPagoId.errors && submitInvalido}" class="form-control">
+                <select #periodopago formControlName="periodicidadPagoId" (click)="enviarTipo()" [ngClass]="{'is-invalid':f.periodicidadPagoId.errors && submitInvalido}" class="form-control">
           <option *ngFor="let item of arregloPeriocidadPago" [value]="item.periodicidadPagoId">{{item.descripcion}}</option>
         </select>
                 <div *ngIf="submitInvalido && f.periodicidadPagoId.errors" class="invalid-feedback">
@@ -66,12 +66,12 @@
             </div>
             <div *ngIf="periodopago.value !== '01' && periodopago.value !== '05'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label class="contenedorInputCheckRadio">Ajuste de ISR
-          <input formControlName="ajustedeisr" #ajusteisr (click)="activar(ajusteisr)" id="ajustedeisr" type="checkbox">
+          <input (click)="limpiarTipo()" formControlName="ajustedeisr" #ajusteisr (click)="activar(ajusteisr)" id="ajustedeisr" type="checkbox">
           <span class="checkmark"></span>
         </label>
 
             </div>
-            <div *ngIf="activadoISR" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
+            <div *ngIf="activadoISR && periodopago.value !== '01' && periodopago.value !== '05'" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
                 <label>Ajustar base gravable del mes de periodos ordinarios faltantes.</label>
                 <label class="contenedorInputCheckRadio">Sí
           <input value="true" formControlName="ajustarBaseGravableFaltantes" checked type="radio" name="ajustarBaseGravableFaltantes" id="">
