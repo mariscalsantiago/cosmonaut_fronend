@@ -262,6 +262,8 @@ export class DetalleCompanyComponent implements OnInit {
 
               });
 
+            }else{
+              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
             }
            
 
