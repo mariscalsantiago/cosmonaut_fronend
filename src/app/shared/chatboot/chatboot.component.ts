@@ -58,6 +58,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
     this.notificacionesPrd.notificacionesglobito = 0;
     this.notificacionesPrd.nombreEmpleado = this.notificacionesPrd.nombreEmpleado || "Recursos humanos";
     this.usuarioId = this.usuarioSistemaPrd.getUsuario().usuarioId;
+    
 
   }
 
@@ -93,9 +94,12 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
       if(this.usuarioSistemaPrd.usuario.esRecursosHumanos){
         this.notificacionesPrd.enviarMensajeEspecifico(json);
       }else{
-        this.notificacionesPrd.enviarMensaje(json);
+        
         if(Boolean(this.notificacionesPrd.webSocketEspecifico)){
-          this.notificacionesPrd.enviarMensajeEspecifico("READONLY");
+          this.notificacionesPrd.enviarMensaje("READONLY");
+          this.notificacionesPrd.enviarMensajeEspecifico(json);
+        }else{
+          this.notificacionesPrd.enviarMensaje(json);
         }
       }
       this.mensaje = "";
