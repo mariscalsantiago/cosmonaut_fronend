@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Observable } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
 import { environment } from 'src/environments/environment';
@@ -24,6 +24,9 @@ export class NotificacionesService {
   public subjectEspecifico: Subject<any> = new Subject();
 
   public conectarEspecificoBool:boolean = false;
+
+  public suscripcion!:Subscription;
+  public suscripcionEspecifica!:Subscription;
 
 
 
@@ -88,12 +91,18 @@ export class NotificacionesService {
   public close() {
     if (this.webSocket) {
       this.webSocket.close();
+      if(this.suscripcion){
+        this.suscripcion.unsubscribe();
+      }
     }
   }
 
   public closeEspecifico() {
     if (this.webSocketEspecifico) {
       this.webSocketEspecifico.close();
+      if(this.subjectEspecifico){
+          this.suscripcionEspecifica.unsubscribe();
+      }
     }
   }
 
