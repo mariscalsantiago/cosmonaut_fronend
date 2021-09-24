@@ -37,11 +37,12 @@ export class ListarolesComponent implements OnInit {
     this.establecerPermisos();
 
     this.cargando = true;
+    debugger;
     this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos =>{
       this.arreglo = datos.datos;
       let columnas:Array<tabla> = [new tabla("nombreRol","Rol"),
       new tabla("noUsuarios","Número de usuarios",false,false,true),
-      new tabla("esActivo","Estatus")]
+      new tabla("esActivo","Estatus Rol")]
       this.arreglotabla = {
         columnas: columnas,
         filas: this.arreglo
@@ -70,7 +71,7 @@ export class ListarolesComponent implements OnInit {
 
                     let columnas:Array<tabla> = [new tabla("nombreRol","Rol"),
                     new tabla("","Número de usuarios"),
-                    new tabla("esActivo","Estatus")]
+                    new tabla("esActivo","Estatus Rol")]
                     this.arreglotabla = {
                       columnas: columnas,
                       filas: this.arreglo
