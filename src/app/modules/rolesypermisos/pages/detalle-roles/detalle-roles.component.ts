@@ -282,6 +282,7 @@ export class DetalleRolesComponent implements OnInit {
 
 
     let objenviar = {
+      esActivo: true,
       nombreRol: this.myForm.value.nombre,
       centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
     }
@@ -297,9 +298,9 @@ export class DetalleRolesComponent implements OnInit {
     this.rolesPrd.guardarRol(objenviar).subscribe(datos => {
       if (datos.resultado) {
         const rolId: number = datos.datos.rolId;
-
         temp.rolId = rolId;
         let enviarArray = temp;
+
 
         if (enviarArray.submodulosXpemisos.length !== 0) {
           this.rolesPrd.guardarPermisoxModulo(enviarArray).subscribe(valorDatos => {
