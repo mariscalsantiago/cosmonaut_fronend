@@ -250,7 +250,8 @@ export class NominaHistoricasComponent implements OnInit {
        case "2":
          objEnviar = {
            mes:Number(this.mesIndex)+1,
-           centroCostoClienteId:this.usuarioSistemaPrd.getIdEmpresa()
+           clienteId:this.usuarioSistemaPrd.getIdEmpresa(),
+           anio:this.anioactual
          }
  
  
