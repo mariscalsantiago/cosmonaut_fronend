@@ -58,6 +58,8 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
     this.notificacionesPrd.notificacionesglobito = 0;
     this.notificacionesPrd.nombreEmpleado = this.notificacionesPrd.nombreEmpleado || "Recursos humanos";
     this.usuarioId = this.usuarioSistemaPrd.getUsuario().usuarioId;
+
+    this.notificacionesPrd.dentroListaChat = true;
     
 
   }
@@ -101,6 +103,9 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
       let json = JSON.stringify(this.notificacionesPrd.mensajes);
       if(this.usuarioSistemaPrd.usuario.esRecursosHumanos){
         this.notificacionesPrd.enviarMensajeEspecifico(json);
+        setTimeout(() => {
+          this.notificacionesPrd.scrnotificacion.next(true);  
+        }, 100);
       }else{
         if(this.notificacionesPrd.conectarEspecificoBool){
           this.notificacionesPrd.enviarMensaje("READONLY");
@@ -124,7 +129,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
   }
 
  public ngOnDestroy(){
-   this.notificacionesPrd.notificacionesglobito = 0;
+   this.notificacionesPrd.dentroListaChat = false;
  }
 
 }
