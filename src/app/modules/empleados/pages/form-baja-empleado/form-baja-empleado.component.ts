@@ -14,6 +14,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
   styleUrls: ['./form-baja-empleado.component.scss']
 })
 export class FormBajaEmpleadoComponent implements OnInit {
+  @ViewChild("fechaFinUltimoPago") fechaFinUltimoPago!: ElementRef;
   @ViewChild("nombre") nombre: any;
 
   public myFormcomp!: FormGroup;
@@ -86,6 +87,8 @@ export class FormBajaEmpleadoComponent implements OnInit {
       this.myFormcomp = this.createFormcomp((this.objCompany));
     });
 
+    this.suscripciones();
+
 
   }
 
@@ -128,6 +131,17 @@ export class FormBajaEmpleadoComponent implements OnInit {
       identificadorPersona: [''],
 
     });
+  }
+
+  public suscripciones() {
+    this.myFormcomp.value;
+
+    this.myFormcomp.controls.ultimoDia.valueChanges.subscribe(valor => {
+      this.myFormcomp.controls.fechaFinUltimoPago.setValue('');
+      this.fechaFinUltimoPago.nativeElement.max = valor;
+      
+    });
+
   }
 
   public validarEmpleado() {

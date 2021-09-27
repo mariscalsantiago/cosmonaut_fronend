@@ -47,6 +47,8 @@ export class ListarolesComponent implements OnInit {
               this.arreglo = datosFa.datos
               } 
             for(let item of this.arregloFinal){
+              if(item.rolId == 1 || item.rolId == 2 || item.rolId == 3)
+              continue;
               this.arreglo.push(item);
             }  
 
