@@ -37,7 +37,7 @@ export class ListarolesComponent implements OnInit {
     this.establecerPermisos();
 
     this.cargando = true;
-    debugger;
+    
     this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos =>{
       this.arreglo = datos.datos;
       let columnas:Array<tabla> = [new tabla("nombreRol","Rol"),
