@@ -22,6 +22,7 @@ export class ListarolesComponent implements OnInit {
   public cargando:boolean = false;
 
   public arreglo:any = [];
+  public arregloFinal:any = [];
 
   public esRegistrar:boolean = false;
   public esConsultar:boolean = false;
@@ -37,17 +38,41 @@ export class ListarolesComponent implements OnInit {
     this.establecerPermisos();
 
     this.cargando = true;
-    debugger;
+    
     this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos =>{
-      this.arreglo = datos.datos;
+      this.arregloFinal = datos.datos;
+
+          this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), false).subscribe(datosFa => {
+            if(datosFa.datos != undefined){
+              this.arreglo = datosFa.datos
+              } 
+            for(let item of this.arregloFinal){
+              this.arreglo.push(item);
+            }  
+
+
       let columnas:Array<tabla> = [new tabla("nombreRol","Rol"),
       new tabla("noUsuarios","Número de usuarios",false,false,true),
-      new tabla("esActivo","Estatus Rol")]
+      new tabla("activo","Estatus Rol")]
+
       this.arreglotabla = {
         columnas: columnas,
         filas: this.arreglo
       };
+
+      for (let item of this.arreglo) {
+
+        if (item.esActivo) {
+          item.activo = 'Activo';
+        }
+        if (!item.esActivo) {
+          item.activo = 'Inactivo';
+        }
+      }
+
       this.cargando = false;
+      });
+
     });
 
   }

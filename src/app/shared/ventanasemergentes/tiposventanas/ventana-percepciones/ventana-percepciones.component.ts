@@ -306,7 +306,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     }
 
     if (periodo < '1') {
-      debugger
+      
       //this.myForm.controls.numeroPeriodos.setValue([]);
       this.myForm.controls.montoPorPeriodo.setValue('');
 
