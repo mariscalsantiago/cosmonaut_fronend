@@ -20,6 +20,7 @@ export class DetalleRolesComponent implements OnInit {
   public cargando: boolean = false;
   public arreglo!: Array<modulos>;
   public actualizar: boolean = false;
+  public mostrarEstatus: boolean = false;
   public objrol: any;
 
 
@@ -29,13 +30,14 @@ export class DetalleRolesComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    debugger;
     this.objrol = history.state.datos;
     this.actualizar = Boolean(this.objrol);
     this.myForm = this.createForm(this.objrol);
 
     this.cargando = true;
     if (this.objrol) {
+      this.mostrarEstatus = true;
       this.rolesPrd.getPermisosxRol(this.objrol.rolId, true).subscribe(datos => {
         this.traerDatosMenu(datos.datos);
       });
@@ -48,7 +50,8 @@ export class DetalleRolesComponent implements OnInit {
 
   public createForm(obj: any) {
     return this.fb.group({
-      nombre: [obj?.nombreRol, [Validators.required]]
+      nombre: [obj?.nombreRol, [Validators.required]],
+      esActivo: [obj?.esActivo]
     });
   }
 
@@ -176,7 +179,17 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public realizarActualización() {
+    debugger;
+    if(this.myForm.value.esActivo == 'true'){
+      this.myForm.controls.esActivo.setValue(true);
+      this.myForm.controls.esActivo.updateValueAndValidity();
+    }
+    if(this.myForm.value.esActivo == 'false'){
+      this.myForm.controls.esActivo.setValue(false);
+      this.myForm.controls.esActivo.updateValueAndValidity();
+    }
     let objenviar = {
+      esActivo: this.myForm.value.esActivo,
       nombreRol: this.myForm.value.nombre,
       centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa(),
       rolId: this.objrol.rolId,
@@ -279,10 +292,9 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public realizarGuardado() {
-
+    debugger;
 
     let objenviar = {
-      esActivo: true,
       nombreRol: this.myForm.value.nombre,
       centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
     }
