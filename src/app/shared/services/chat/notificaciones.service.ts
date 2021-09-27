@@ -1,8 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { direcciones } from 'src/assets/direcciones';
 import { environment } from 'src/environments/environment';
 import { usuarioClass } from '../usuariosistema/usuario-sistema.service';
@@ -17,16 +16,20 @@ export class NotificacionesService {
   public mensajes: any = [];
   public nombreEmpleado: string = "";
 
+  public dentroListaChat:boolean = false;
+
 
   public notificacionesglobito: number = 0;
   public notificacionesMenu: number = 0;
-  public subject: Subject<any> = new Subject();
-  public subjectEspecifico: Subject<any> = new Subject();
+  conectarEspecificoBool:boolean = false;
 
-  public conectarEspecificoBool:boolean = false;
+  public scrnotificacion:Subject<any> = new Subject();
 
-  public suscripcion!:Subscription;
-  public suscripcionEspecifica!:Subscription;
+
+
+
+
+
 
 
 
@@ -36,7 +39,7 @@ export class NotificacionesService {
   }
 
 
-  public conectar(conexion: string) {
+  public conectar(conexion: string, usuario: usuarioClass, idEmpresa: number) {
 
     this.webSocket = new WebSocket(conexion);
     this.webSocket.onopen = () => {
@@ -44,15 +47,16 @@ export class NotificacionesService {
     }
     this.webSocket.onclose = () => {
       console.log("Se cierra la comunicación");
-     // this.conectar(conexion);
+      // this.conectar(conexion);
     }
     this.webSocket.onmessage = (mensaje) => {
-      this.subject.next(mensaje);
+      this.notificacionNormal(usuario, idEmpresa, mensaje);
+      this.scrnotificacion.next(mensaje);
     }
 
   }
 
-  public conectarEspecifico(conexion: string) {
+  public conectarEspecifico(conexion: string, usuario: usuarioClass, idEmpresa: number) {
     this.conectarEspecificoBool = true;
     this.webSocketEspecifico = new WebSocket(conexion);
     this.webSocketEspecifico.onopen = () => {
@@ -60,25 +64,18 @@ export class NotificacionesService {
     }
     this.webSocketEspecifico.onclose = () => {
       console.log("Se cierra la comunicación  especifico");
-     // this.conectarEspecifico(conexion);
+      // this.conectarEspecifico(conexion);
     }
-
 
 
     this.webSocketEspecifico.onmessage = (mensaje: any) => {
-      this.subjectEspecifico.next(mensaje);
+      this.notificacionEspecifica(usuario, idEmpresa, mensaje);
     }
 
   }
 
 
-  public recibirNotificacion(): Observable<any> {
-    return this.subject;
-  }
 
-  public recibirNotificacionEspecifico(): Observable<any> {
-    return this.subjectEspecifico;
-  }
 
 
   public enviarMensaje(mensaje: string) {
@@ -91,18 +88,12 @@ export class NotificacionesService {
   public close() {
     if (this.webSocket) {
       this.webSocket.close();
-      if(this.suscripcion){
-        this.suscripcion.unsubscribe();
-      }
     }
   }
 
   public closeEspecifico() {
     if (this.webSocketEspecifico) {
       this.webSocketEspecifico.close();
-      if(this.subjectEspecifico){
-          this.suscripcionEspecifica.unsubscribe();
-      }
     }
   }
 
@@ -118,68 +109,62 @@ export class NotificacionesService {
   }
 
 
-  public notificacionEspecifica(usuario: usuarioClass, idEmpresa: number) {
-    this.recibirNotificacionEspecifico().subscribe(datos => {
-      if (datos.data != "CONNECT" && datos.data != "CLOSE") {
+  public notificacionEspecifica(usuario: usuarioClass, idEmpresa: number, datos: any) {
 
-        if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
+    if (datos.data != "CONNECT" && datos.data != "CLOSE") {
 
-          if (!usuario.esRecursosHumanos) {
-            console.log("VUELVE A ENTRAR");
-            
-            this.mensajes.push({ mensaje: "El usuario RRH ha finalizado el chat...", fecha: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"), usuarioId: -1, nombre: usuario.nombre });
-            this.nombreEmpleado = "Recursos humanos";
-           this.close();
-           this.closeEspecifico();
-            let rutaSocket: string = `${environment.rutaSocket}/notificaciones/${idEmpresa}/usuario/${usuario.usuarioId}`;
-            this.conectarEspecificoBool = false;
-            this.conectar(rutaSocket);
-            this.notificacionNormal(usuario, idEmpresa);
+      if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
 
-          }
-
+        if (!usuario.esRecursosHumanos) {
+          this.mensajes.push({ mensaje: "El usuario RRH ha finalizado el chat...", fecha: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"), usuarioId: -1, nombre: usuario.nombre });
+          this.nombreEmpleado = "Recursos humanos";
+          this.close();
+          this.closeEspecifico();
+          let rutaSocket: string = `${environment.rutaSocket}/notificaciones/${idEmpresa}/usuario/${usuario.usuarioId}`;
+          this.conectar(rutaSocket, usuario, idEmpresa);
+          this.conectarEspecificoBool = false;
         }
 
-
-        this.mensajes = (JSON.parse(datos.data));
-        this.notificacionesglobito += 1;
       }
 
-    });
+
+      this.mensajes = (JSON.parse(datos.data));
+      this.notificacionesglobito += 1;
+    }
   }
 
 
-  public notificacionNormal(usuario: usuarioClass, idEmpresa: number) {
-    this.recibirNotificacion().subscribe(datos => {
-      if (datos.data != "CONNECT" && datos.data != "CLOSE") {
+  public notificacionNormal(usuario: usuarioClass, idEmpresa: number, datos: any) {
+    if (datos.data != "CONNECT" && datos.data != "CLOSE") {
 
-        console.log("NOTIFICACION NORMAL");
+      console.log("NOTIFICACION NORMAL");
 
-        if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
+      if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
 
-          if (!usuario.esRecursosHumanos) {
-            this.mensajes.push({ mensaje: "El usuario RRH ha aceptado su mensaje...", fecha: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"), usuarioId: -1, nombre: usuario.nombre });
-            const rutaSocket: string = `${environment.rutaSocket}/notificaciones/${idEmpresa}${usuario.usuarioId}/usuario/${usuario.usuarioId}`;
-            this.verificarMensajes(usuario.usuarioId).subscribe(vv => {
-              this.nombreEmpleado = vv.datos.nombreRrh;
-            });
-            this.notificacionesglobito += 1;
-            this.conectarEspecifico(rutaSocket);
-            this.conectarEspecificoBool = true;
-            this.notificacionEspecifica(usuario, idEmpresa);
-          }
+        if (!usuario.esRecursosHumanos) {
+          this.mensajes.push({ mensaje: "El usuario RRH ha aceptado su mensaje...", fecha: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"), usuarioId: -1, nombre: usuario.nombre });
+          const rutaSocket: string = `${environment.rutaSocket}/notificaciones/${idEmpresa}${usuario.usuarioId}/usuario/${usuario.usuarioId}`;
+          this.verificarMensajes(usuario.usuarioId).subscribe(vv => {
+            this.nombreEmpleado = vv.datos.nombreRrh;
+          });
+          this.notificacionesglobito += 1;
+          this.conectarEspecifico(rutaSocket, usuario, idEmpresa);
+        }
 
-        } else {
-          if (usuario.esRecursosHumanos) {
-            this.notificacionesMenu += 1;
-          }
+      } else {
+        if (usuario.esRecursosHumanos) {
+          this.notificacionesMenu += 1;
         }
       }
-
-    });
+    }
   }
 
   public terminar(conversacionid: number): Observable<any> {
     return this.http.delete(`${direcciones.chat}/terminar/${conversacionid}`);
+  }
+
+
+  public recibirNotificacion():Observable<any>{
+      return this.scrnotificacion;
   }
 }

@@ -52,7 +52,6 @@ export class ListachatsActivosComponent implements OnInit {
 
     this.suscripcion = this.notificacionesPrd.recibirNotificacion().subscribe(valor => {
       if (valor.data != "CONNECT" && valor.data != "CLOSE") {
-        console.log("RECURSOS HUMANOS EN UNA SOLA EXIBICION");
         setTimeout(() => {
           this.obtieneListaChat();
         }, 2000);
@@ -193,8 +192,7 @@ export class ListachatsActivosComponent implements OnInit {
     this.notificacionesPrd.mensajes = JSON.parse(valorConversacion.mensajes);
     this.notificacionesPrd.nombreEmpleado = valorConversacion.nombreempleado;
     this.notificacionesPrd.closeEspecifico();
-    this.notificacionesPrd.conectarEspecifico(`${environment.rutaSocket}${valorConversacion.conversacionId}`);
-    this.notificacionesPrd.notificacionEspecifica(this.usuariossistemaPrd.getUsuario(),this.usuariossistemaPrd.getIdEmpresa());
+    this.notificacionesPrd.conectarEspecifico(`${environment.rutaSocket}${valorConversacion.conversacionId}`,this.usuariossistemaPrd.getUsuario(),this.usuariossistemaPrd.getIdEmpresa());
     this.socket.datos.ocultar = ocultarchar;
     this.configuracionPrd.ocultarChat = ocultarchar;
 
