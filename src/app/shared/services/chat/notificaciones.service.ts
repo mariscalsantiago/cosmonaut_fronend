@@ -56,7 +56,7 @@ export class NotificacionesService {
 
   }
 
-  public conectarEspecifico(conexion: string, usuario: usuarioClass, idEmpresa: number) {
+  public conectarEspecifico(conexion: string, usuario: usuarioClass, idEmpresa: number,generico:boolean = false) {
     this.conectarEspecificoBool = true;
     this.webSocketEspecifico = new WebSocket(conexion);
     this.webSocketEspecifico.onopen = () => {
@@ -137,7 +137,6 @@ export class NotificacionesService {
   public notificacionNormal(usuario: usuarioClass, idEmpresa: number, datos: any) {
     if (datos.data != "CONNECT" && datos.data != "CLOSE") {
 
-      console.log("NOTIFICACION NORMAL");
 
       if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
 
@@ -148,10 +147,10 @@ export class NotificacionesService {
             this.nombreEmpleado = vv.datos.nombreRrh;
           });
           this.notificacionesglobito += 1;
-          this.conectarEspecifico(rutaSocket, usuario, idEmpresa);
+          this.conectarEspecifico(rutaSocket, usuario, idEmpresa,datos.data.includes("ACCEPTMESSAGEFROMGENERIC"));
         }
 
-      } else {
+      }else {
         if (usuario.esRecursosHumanos) {
           this.notificacionesMenu += 1;
         }

@@ -42,6 +42,8 @@ export class ListachatsActivosComponent implements OnInit {
     this.notificacionesPrd.notificacionesMenu = 0;
     this.cargando = true;
 
+    this.notificacionesPrd.dentroListaChat = true;
+
 
     this.obtieneListaChat();
 
@@ -204,6 +206,8 @@ export class ListachatsActivosComponent implements OnInit {
     if (this.suscripcion) {
       this.suscripcion.unsubscribe();
     }
+
+    this.notificacionesPrd.dentroListaChat = false;
   }
 
   public responderMensajeGenerico(valorConversacion: any, mensajegenerico: any) {
@@ -231,7 +235,6 @@ export class ListachatsActivosComponent implements OnInit {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             setTimeout(() => {
               this.obtieneListaChat();
-              this.notificacionesPrd.closeEspecifico();
             }, 500);
           }, 2000);
         }
@@ -246,7 +249,6 @@ export class ListachatsActivosComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         setTimeout(() => {
           this.obtieneListaChat();
-          this.notificacionesPrd.closeEspecifico();
         }, 500);
       }, 2000);
     }

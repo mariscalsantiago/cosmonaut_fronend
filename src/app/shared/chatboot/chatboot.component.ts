@@ -57,10 +57,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
   ngOnInit(): void {
     this.notificacionesPrd.notificacionesglobito = 0;
     this.notificacionesPrd.nombreEmpleado = this.notificacionesPrd.nombreEmpleado || "Recursos humanos";
-    this.usuarioId = this.usuarioSistemaPrd.getUsuario().usuarioId;
-
-    this.notificacionesPrd.dentroListaChat = true;
-    
+    this.usuarioId = this.usuarioSistemaPrd.getUsuario().usuarioId;    
 
   }
 
@@ -129,7 +126,7 @@ export class ChatbootComponent implements OnInit, AfterViewInit,OnDestroy {
   }
 
  public ngOnDestroy(){
-   this.notificacionesPrd.dentroListaChat = false;
+   this.notificacionesPrd.notificacionesglobito = 0;
  }
 
 }
