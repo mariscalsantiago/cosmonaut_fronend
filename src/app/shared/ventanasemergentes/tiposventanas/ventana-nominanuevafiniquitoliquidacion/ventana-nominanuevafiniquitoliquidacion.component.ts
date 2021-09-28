@@ -52,14 +52,14 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
     this.catalogosPrd.getTiposNomina(true).subscribe(datos => this.arregloTipoNominas = datos.datos);
     this.cuentasBancariasPrd.getCuentaFuncion(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => this.arregloCuentasBancarias = datos.datos);
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
-  
 
-    if(this.usuarioSistemaPrd.esCliente()){
+
+    if (this.usuarioSistemaPrd.esCliente()) {
       this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-          this.arregloCompanias = datos.datos;
+        this.arregloCompanias = datos.datos;
       });
-    }else{
-      this.companiasPrd.getEmpresaById(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+    } else {
+      this.companiasPrd.getEmpresaById(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
         this.arregloCompanias = [datos.datos];
       });
     }
@@ -68,7 +68,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
     this.empleadosPrd.getEmpleadosFiniquitoByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.arregloEmpleados = datos.datos;
       for (let item of this.arregloEmpleados) {
-        item["nombre"] = item.personaId?.nombre + " " + item.personaId.apellidoPaterno+" "+(item.personaId.apellidoMaterno|| '');
+        item["nombre"] = item.personaId?.nombre + " " + item.personaId.apellidoPaterno + " " + (item.personaId.apellidoMaterno || '');
       }
     });
 
@@ -120,14 +120,14 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
       if (valor) {
         let obj = this.myForm.getRawValue();
         let temp = null;
-        
+
         if (obj.todos == "false") {
           temp = [];
           for (let item of this.arregloempleadosSeleccionados) {
             temp.push({
-                fecha_contrato: new DatePipe("es-MX").transform(item.fechaContrato, "yyyy-MM-dd"),
-                persona_id: item.personaId.personaId,
-                cliente_id: this.usuarioSistemaPrd.getIdEmpresa()
+              fecha_contrato: new DatePipe("es-MX").transform(item.fechaContrato, "yyyy-MM-dd"),
+              persona_id: item.personaId.personaId,
+              cliente_id: this.usuarioSistemaPrd.getIdEmpresa()
             });
           }
         }
@@ -140,8 +140,8 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
           todos: obj.todos == "true",
           monedaId: obj.monedaId,
           empleados: temp,
-          fecXReportes:obj.fecXReportes,
-          tipoNominaId:3
+          fecXReportes: obj.fecXReportes,
+          tipoNominaId: 3
         };
 
         this.guardarNomina();
@@ -155,11 +155,14 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     this.nominafiniquitoPrd.crearNomina(this.objEnviar).subscribe(datos => {
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-
-      this.salida.emit({
-        type: "guardar", datos: datos
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+        if (datos.resultado) {
+          this.salida.emit({
+            type: "guardar", datos: datos
+          });
+        }
       });
+
     });
 
   }
@@ -177,7 +180,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   public recibirEtiquetas(obj: any) {
 
     this.arregloempleadosSeleccionados = obj;
-    
+
 
   }
 
