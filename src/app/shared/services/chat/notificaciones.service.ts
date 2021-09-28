@@ -43,11 +43,11 @@ export class NotificacionesService {
 
     this.webSocket = new WebSocket(conexion);
     this.webSocket.onopen = () => {
-      console.log("Se abre el socker");
+      console.log("Se abre el socker, SAMV");
     }
     this.webSocket.onclose = () => {
       console.log("Se cierra la comunicación");
-      // this.conectar(conexion);
+      //this.conectar(conexion);
     }
     this.webSocket.onmessage = (mensaje) => {
       this.notificacionNormal(usuario, idEmpresa, mensaje);
@@ -60,7 +60,7 @@ export class NotificacionesService {
     this.conectarEspecificoBool = true;
     this.webSocketEspecifico = new WebSocket(conexion);
     this.webSocketEspecifico.onopen = () => {
-      console.log("Se abre el socker especifica");
+      console.log("Se abre el socker especifica SAMV");
     }
     this.webSocketEspecifico.onclose = () => {
       console.log("Se cierra la comunicación  especifico");
