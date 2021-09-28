@@ -86,7 +86,7 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
 
   public seguirProceso() {
-    debugger;
+    
     this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
 
       this.empleado = datos.datos;
