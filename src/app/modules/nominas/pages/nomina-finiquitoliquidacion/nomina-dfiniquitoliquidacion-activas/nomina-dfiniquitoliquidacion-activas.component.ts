@@ -63,10 +63,10 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
       if (this.arreglo !== undefined) {
         for (let item of this.arreglo) {
           item["inicial"] =  !Boolean(item.nominaLiquidacion.totalNeto);
-          item.esCalculada = item.nominaPtu?.estadoActualNomina === 'Calculada';
-          item.esPagada = (item.nominaPtu?.estadoActualNomina === 'Pagada' || item.nominaPtu?.estadoActualNomina === 'En proceso pago');
-          item.esTimbrada = item.nominaPtu?.estadoActualNomina === 'Timbrada' || item.nominaPtu?.estadoActualNomina === 'En proceso timbrado';
-          item.esConcluir = item.nominaPtu?.estadoActualNomina === 'Pagada' && item.nominaPtu?.estadoActualNomina === 'Timbrada';
+          item.esCalculada = item.nominaLiquidacion?.estadoActualNomina === 'Calculada';
+          item.esPagada = (item.nominaLiquidacion?.estadoActualNomina === 'Pagada' || item.nominaLiquidacion?.estadoActualNomina === 'En proceso pago');
+          item.esTimbrada = item.nominaLiquidacion?.estadoActualNomina === 'Timbrada' || item.nominaLiquidacion?.estadoActualNomina === 'En proceso timbrado';
+          item.esConcluir = item.nominaLiquidacion?.estadoActualNomina === 'Pagada' && item.nominaLiquidacion?.estadoActualNomina === 'Timbrada';
         
         }
       }
