@@ -133,7 +133,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("nombre", "Nombre de la deducción"),
       new tabla("tipoDeduccionIdDescripcion", "Descripción SAT"),
-      new tabla("esActivo", "Estatus"),
+      new tabla("activo", "Estatus de la deducción"),
     ];
 
 
@@ -146,6 +146,12 @@ export class ListasconceptospercepcionesComponent implements OnInit {
     if(this.arreglotablaDed !== undefined){
         for(let item of this.arreglotablaDed){
           item.tipoDeduccionIdDescripcion =  item.tipoDeduccionId.descripcion;
+          if(item.esActivo){
+            item.activo = 'Activo'
+           }
+           if(!item.esActivo){
+            item.activo = 'Inactivo'
+           }
         }
     }
 
@@ -192,7 +198,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
       new tabla("nombre", "Nombre de la percepción"),
       new tabla("tipoConcepto", "Tipo de concepto"),
       new tabla("descripciolnsat", "Descripción SAT"),
-      new tabla("esActivo", "Estatus")
+      new tabla("activo", "Estatus de la percepción")
     ];
 
 
@@ -205,6 +211,12 @@ export class ListasconceptospercepcionesComponent implements OnInit {
     if(this.arreglotablaPer !== undefined){
         for(let item of this.arreglotablaPer){
           item.descripciolnsat =  item.tipoPercepcionId.descripcion;
+          if(item.esActivo){
+            item.activo = 'Activo'
+           }
+           if(!item.esActivo){
+            item.activo = 'Inactivo'
+           }
         }
     }
 

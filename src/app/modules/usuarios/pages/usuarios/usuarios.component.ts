@@ -130,7 +130,7 @@ export class UsuariosComponent implements OnInit {
       new tabla("email", "Correo electrónico"),
       new tabla("rolnombre", "Rol"),
       ((this.esClienteEmpresa) ? new tabla("esMulticliente", "Multicliente") : new tabla("empresa", "empresa")),
-      new tabla("esActivo", "Estatus")
+      new tabla("activo", "Estatus usuario")
     ];
 
     columnas.splice(6,1);
@@ -139,6 +139,12 @@ export class UsuariosComponent implements OnInit {
       for (let item of this.arreglo) {
         item["rolnombre"] = item?.rolId?.nombreRol;
         item["esMulticliente"] = item?.esMulticliente? "Sí":"No";
+        if(item.esActivo){
+          item.activo = 'Activo'
+         }
+         if(!item.esActivo){
+          item.activo = 'Inactivo'
+         }
       }
     }
 
