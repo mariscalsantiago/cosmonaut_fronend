@@ -290,8 +290,7 @@ export class TimbrarComponent implements OnInit {
               personaId: item[this.llave].personaId,
               fechaContrato: item[this.llave].fechaContrato,
               centroClienteId:  item[this.llave].centroClienteId || this.usuarioSistemaPrd.getIdEmpresa(),//Posiblemente cambio desde el backend con el centro costo cliente...
-              usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
-              servicio: "facturacion_sw"
+              usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId
             });
             arregloaux.push(item[this.llave].personaId);
           }
