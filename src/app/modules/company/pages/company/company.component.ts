@@ -81,18 +81,20 @@ export class CompanyComponent implements OnInit {
         new tabla("nombre", "Nombre de cliente"),
         new tabla("rfc", "RFC"),
         new tabla("fechaAltab", "Fecha de registro en el sistema"),
-        new tabla("esActivo", "Estatus")
+        new tabla("activo", "Estatus de cliente")
       ]
       if (this.arreglo !== undefined) {
         for (let item of this.arreglo) {
           item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
+
+              if(item.esActivo){
+                item.activo = 'Activo'
+               }
+               if(!item.esActivo){
+               item.activo = 'Inactivo'
+               }
         }
       }
-
-     
-
-
-     
 
       this.arreglotabla.columnas = columnas;
       this.arreglotabla.filas = this.arreglo;
