@@ -118,19 +118,24 @@ export class ListarepresentantelegalComponent implements OnInit {
       new tabla("curp","CURP"),
       new tabla("emailCorporativo","Correo empresarial"),
       //new tabla("fechaAlta","Fecha de registro en el sistema"),
-      new tabla("esActivo","Estatus")
+      new tabla("activo","Estatus de representante")
     ];
    
 
-    /*if(this.arreglo !== undefined){
+    if(this.arreglo !== undefined){
       for(let item of this.arreglo){
-        item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
+/*         item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
-        item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");;
+        item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");; */
         
-      
+        if(item.esActivo){
+          item.activo = 'Activo'
+         }
+         if(!item.esActivo){
+         item.activo = 'Inactivo'
+         }
       }
-    }*/
+    }
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
     this.cargando = false;

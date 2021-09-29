@@ -154,7 +154,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
 
-    if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
+/*     if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
       obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
     }
 
@@ -164,8 +164,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
     if (obj.fechaAplicacion != undefined || obj.fechaAplicacion != '') {
       obj.fechaAplicacion = new Date((new Date(obj.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-    }
-
+    } */
 
 
 

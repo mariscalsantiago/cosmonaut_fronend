@@ -30,7 +30,7 @@ export class DetalleRolesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.objrol = history.state.datos;
     this.actualizar = Boolean(this.objrol);
     this.myForm = this.createForm(this.objrol);
@@ -179,7 +179,7 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public realizarActualización() {
-    debugger;
+    
     if(this.myForm.value.esActivo == 'true'){
       this.myForm.controls.esActivo.setValue(true);
       this.myForm.controls.esActivo.updateValueAndValidity();
@@ -292,7 +292,7 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public realizarGuardado() {
-    debugger;
+    
 
     let objenviar = {
       nombreRol: this.myForm.value.nombre,

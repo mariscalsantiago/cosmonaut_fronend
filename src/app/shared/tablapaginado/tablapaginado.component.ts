@@ -365,10 +365,10 @@ export class TablapaginadoComponent implements OnInit {
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
-    
+    debugger;
     let i, j;
     let aux;
-    for (i = 0; i < a.length; i++) {
+    for (i = 1; i < a.length; i++) {
       j = i;
       aux = a[i];
       aux[llave] = aux[llave].toString();
