@@ -1049,16 +1049,14 @@ export class ABCAdminCatalogosComponent implements OnInit {
           if(obj.nombreCorto === null ){
             this.myForm.controls.nombreCorto.setErrors({required: true});
           } 
-          if( obj.clave === null){
-            this.myForm.controls.clave.setErrors({required: true});
-          } if( this.myForm.invalid){
+          if( this.myForm.invalid){
             this.modalPrd.showMessageDialog(this.modalPrd.error);
             return; 
           }
          
           
           this.objEnviar = {
-            monedaId: obj.clave,
+            //monedaId: obj.clave,
             descripcion: obj.nombreCorto,
             esActivo: obj.esActivo,
           }
