@@ -381,7 +381,7 @@ export class TablapaginadoComponent implements OnInit {
       
       if (tipoAcomodo) {
         
-        if( aux[llave].charAt(0) === '$'){
+        if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-$' ){
           while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
           a[j] = a[j - 1];
           j--;
@@ -397,7 +397,7 @@ export class TablapaginadoComponent implements OnInit {
         
       } else {
 
-        if( aux[llave].charAt(0) === '$'){
+        if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-$'){
           while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) > Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
           a[j] = a[j - 1];
           j--;
