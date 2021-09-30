@@ -368,20 +368,17 @@ export class TablapaginadoComponent implements OnInit {
     debugger;
     let i, j;
     let aux;
-    for (i = 0; i < a.length; i++) {
+    for (i = 1; i < a.length; i++) {
       j = i;
       aux = a[i];
       
       if(aux[llave] == undefined)
       continue;
       aux[llave] = aux[llave].toString();
-      if(aux[llave].valor == ''){
-        aux[llave].valor = 0;
-      }
       
       if (tipoAcomodo) {
         
-        if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-$' ){
+        if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-' ){
           while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
           a[j] = a[j - 1];
           j--;
@@ -397,7 +394,7 @@ export class TablapaginadoComponent implements OnInit {
         
       } else {
 
-        if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-$'){
+        if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-'){
           while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) > Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
           a[j] = a[j - 1];
           j--;
