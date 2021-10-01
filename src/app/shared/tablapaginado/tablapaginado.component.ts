@@ -372,8 +372,10 @@ export class TablapaginadoComponent implements OnInit {
       j = i;
       aux = a[i];
       
-      if(aux[llave] == undefined)
-      continue;
+      if(aux[llave] == undefined){
+         aux[llave] = '$0';
+      }
+      //continue;
       aux[llave] = aux[llave].toString();
       
       if (tipoAcomodo) {
