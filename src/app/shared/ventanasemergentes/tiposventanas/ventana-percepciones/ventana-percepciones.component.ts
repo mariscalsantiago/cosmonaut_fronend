@@ -151,15 +151,16 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo: any) {
-    
-    
+    debugger;
+    this.myForm.clearValidators();
+    this.myForm.updateValueAndValidity();
+/*     
     if(!this.esInsert){
       this.myForm.controls.nomPercepcion.enable();
     }else{
     this.myForm.controls.nomPercepcion.disable();
-    }
-    this.myForm.clearValidators();
-    this.myForm.updateValueAndValidity();
+    } */
+
 
     if (Boolean(tipo)) {
       
@@ -192,22 +193,35 @@ export class VentanaPercepcionesComponent implements OnInit {
         if (this.politica) {
 
           this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
-            for (let item of datos.datos) {
-              item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+            if(datos.datos != undefined){
+              for (let item of datos.datos) {
+                item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+              }
+              this.nombrePercepcion = datos.datos;
+              this.myForm.controls.nomPercepcion.enable();
+            }else{
+              this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
             }
-            this.nombrePercepcion = datos.datos;
-            this.myForm.controls.nomPercepcion.enable();
+
           });
+
         } else {
           
           this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
-            for (let item of datos.datos) {
-              item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+            if(datos.datos != undefined){
+              for (let item of datos.datos) {
+                item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
 
-            }
-            this.nombrePercepcion = datos.datos;
-            this.myForm.controls.nomPercepcion.enable();
-
+              }
+              this.nombrePercepcion = datos.datos;
+              this.myForm.controls.nomPercepcion.enable();
+            }else{
+              this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
+            } 
           });
         }
       } else {
@@ -243,24 +257,36 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.estandar = true;
         if(Boolean(this.politica)) {
           this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
-            for (let item of datos.datos) {
-              item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+            if(datos.datos != undefined){
+              for (let item of datos.datos) {
+                item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
 
-            }
+              }
 
-            this.nombrePercepcion = datos.datos;
-            this.myForm.controls.nomPercepcion.enable();
+              this.nombrePercepcion = datos.datos;
+              this.myForm.controls.nomPercepcion.enable();
+            }else{
+              this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
+            }  
 
           });
         } else {
           
           this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+          if(datos.datos != undefined){  
             for (let item of datos.datos) {
               item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
 
             }
             this.myForm.controls.nomPercepcion.enable();
             this.nombrePercepcion = datos.datos;
+          }else{
+            this.myForm.controls.nomPercepcion.enable();
+            this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+            this.myForm.controls.nomPercepcion.updateValueAndValidity();
+          } 
           });
 
         }
