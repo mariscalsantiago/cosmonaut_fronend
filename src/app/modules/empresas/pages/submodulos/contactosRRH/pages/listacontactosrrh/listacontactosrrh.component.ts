@@ -83,7 +83,7 @@ export class ListacontactosrrhComponent implements OnInit {
           new tabla("curp", "CURP"),
           new tabla("emailCorporativo", "Correo empresarial"),
           //new tabla("fechaAlta", "Fecha de registro en el sistema"),
-          new tabla("esActivo", "Estatus de contacto rrhh")
+          new tabla("esActivo", "Estatus de contacto")
         ];
         if(datos.datos !== undefined){
           for(let item of datos.datos){

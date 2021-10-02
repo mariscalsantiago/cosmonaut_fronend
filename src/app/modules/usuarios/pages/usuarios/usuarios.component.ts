@@ -130,7 +130,7 @@ export class UsuariosComponent implements OnInit {
       new tabla("email", "Correo electrónico"),
       new tabla("rolnombre", "Rol"),
       ((this.esClienteEmpresa) ? new tabla("esMulticliente", "Multicliente") : new tabla("empresa", "empresa")),
-      new tabla("activo", "Estatus usuario")
+      new tabla("activo", "Estatus ")
     ];
 
     columnas.splice(6,1);
