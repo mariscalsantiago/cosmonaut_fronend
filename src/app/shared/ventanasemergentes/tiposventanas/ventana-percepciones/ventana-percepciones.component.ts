@@ -151,7 +151,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo: any) {
-    debugger;
+    
     this.myForm.clearValidators();
     this.myForm.updateValueAndValidity();
 /*     

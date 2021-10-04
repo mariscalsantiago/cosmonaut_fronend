@@ -76,7 +76,7 @@ export class UsuariosComponent implements OnInit {
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
 
-    debugger;
+    
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -230,7 +230,7 @@ export class UsuariosComponent implements OnInit {
 
   public filtrar() {
 
-    debugger;
+    
 
 
     let arregloenviar = [];
