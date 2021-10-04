@@ -365,7 +365,7 @@ export class TablapaginadoComponent implements OnInit {
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
-    debugger;
+    
     let i, j;
     let aux;
     for (i = 1; i < a.length; i++) {
