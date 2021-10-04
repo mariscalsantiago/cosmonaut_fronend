@@ -22,7 +22,7 @@
             <div  *ngFor="let item of notificacionesPrd.mensajes" [ngClass]="{'enviado':item.usuarioId === usuarioId,'recibido':item.usuarioId !== usuarioId}">
               <div [ngClass]="{'ajustandoenviado':item.usuarioId === usuarioId,'ajutandorecibido':item.usuarioId !== usuarioId}">
                 {{item.mensaje}}
-              <!-- <span class="hora">{{item.fecha | date:'HH:mm'}}</span> -->
+              
               </div>
             </div>
           </div>
