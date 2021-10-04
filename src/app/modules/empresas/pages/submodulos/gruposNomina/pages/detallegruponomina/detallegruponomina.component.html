@@ -18,18 +18,6 @@
                     Campo requerido
                 </div>
             </div>
-
-
-<!--             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label>Razón social *</label>
-                <select formControlName="centrocClienteId" [ngClass]="{'is-invalid':f.centrocClienteId.errors && submitInvalido}" class="form-control disabled bg-light">
-          <option *ngFor="let item of arreglocompany" [value]="item.centrocClienteId">{{item.razonSocial}}</option>
-        </select>
-                <div *ngIf="submitInvalido && f.centrocClienteId.errors" class="invalid-feedback">
-                    Campo requerido
-                </div>
-            </div> -->
-
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Razón social *</label>
                 <input formControlName="centrocClienteId" [ngClass]="{'is-invalid':f.centrocClienteId.errors && submitInvalido}" type="text" class="form-control disabled bg-light" placeholder="">

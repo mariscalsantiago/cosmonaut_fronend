@@ -100,13 +100,16 @@ export class EmpleoComponent implements OnInit {
     
     
     this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato: number) => {
-      
+      debugger;
       this.activaFechaFin = idContrato != 1 && idContrato != 10;
-      if (this.activaFechaFin)
+      if (this.activaFechaFin){
         this.myForm.controls.fechaFin.setValidators([Validators.required]);
-      else
+        this.myForm.controls.fechaFin.updateValueAndValidity();
+      }else{
+        this.myForm.controls.fechaFin.setValue('');
         this.myForm.controls.fechaFin.clearValidators();
-      this.myForm.controls.fechaFin.updateValueAndValidity();
+        this.myForm.controls.fechaFin.updateValueAndValidity();
+      }  
     });
 
   }
@@ -138,7 +141,7 @@ export class EmpleoComponent implements OnInit {
       estadoId: obj.estadoId?.estadoId,
       fechaAntiguedad: [obj.fechaAntiguedad, [Validators.required]],
       fechaInicio: [{value:obj.fechaContrato,disabled:true}, [Validators.required]],
-      fechaFin: [obj.fechaFin],
+      fechaFin: [obj.fechaFin, ],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       puesto_id_reporta: [`${obj.jefeInmediatoId?.nombre || ''} ${obj.jefeInmediatoId?.apellidoPaterno || ''} ${obj.jefeInmediatoId?.apellidoMaterno || ''}`.trim()],
@@ -181,6 +184,7 @@ export class EmpleoComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo, subtitulo).then(valor => {
       if (valor) {
+        debugger;
         let obj = this.myForm.value;
 
         let idTipoJornada = -1;
