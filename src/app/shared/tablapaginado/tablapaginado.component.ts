@@ -365,9 +365,10 @@ export class TablapaginadoComponent implements OnInit {
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
-    
+    debugger;
     let i, j;
     let aux;
+    
     for (i = 1; i < a.length; i++) {
       j = i;
       aux = a[i];
@@ -386,8 +387,8 @@ export class TablapaginadoComponent implements OnInit {
           
           }
         }else {
-          while (j > 0 && ((`${aux[llave] || ' '}`)?.toUpperCase() < (`${a[j - 1][llave] || ' '}`)?.toUpperCase())) {
-
+          while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() < (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
+            console.log("Conversion", aux[llave].toUpperCase() );
             a[j] = a[j - 1];
             j--;
         }
@@ -403,6 +404,7 @@ export class TablapaginadoComponent implements OnInit {
           }
         }else{
         while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() > (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
+          console.log("Conversion", aux[llave].toUpperCase() );
           a[j] = a[j - 1];
           j--;
         }
@@ -410,6 +412,7 @@ export class TablapaginadoComponent implements OnInit {
       }
       a[j] = aux;
     }
+    console.log("ResultadoFinal",a)
   }
 
 
