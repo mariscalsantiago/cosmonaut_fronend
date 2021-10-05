@@ -60,13 +60,14 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     filas: []
   };
 
-
+  public esRegistrar:boolean = false;
+  public esEditar:boolean = false;
 
   constructor(private routerPrd: Router, private adminCatalogosPrd: AdminCatalogosService,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    
+    this.establecerPermisos();
 
     this.objdetcat = history.state.data == undefined ? {} : history.state.data;
     this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => this.arregloListaCatalogos = datos.datos);
@@ -434,6 +435,12 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     this.tamanio = documento.innerWidth;
 
+  }
+
+  public establecerPermisos(){
+
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esEditar = this.configuracionPrd.getPermisos("Editar");
   }
 
   public crearTabla(obj:any) {

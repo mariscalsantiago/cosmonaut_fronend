@@ -84,6 +84,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    
     
     this.periodo = "";
     
@@ -711,6 +713,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
     this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
   }
+
 
 
   public enviarPeticion() {
