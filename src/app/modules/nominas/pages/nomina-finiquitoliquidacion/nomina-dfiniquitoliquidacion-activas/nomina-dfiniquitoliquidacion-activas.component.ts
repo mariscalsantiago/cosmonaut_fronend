@@ -105,7 +105,8 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
             item.nominaLiquidacion.totalDeducciones = datos.datos.totalDeduccion;
             item.nominaLiquidacion.totalNeto = datos.datos.total;
             datos.datos.nominaXperiodoId = datos.datos.nominaPeriodoId;
-            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaLiquidacion: datos.datos } } });
+            debugger;
+            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaLiquidacion: item.nominaLiquidacion } } });
           }
         });
 
