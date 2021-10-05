@@ -64,7 +64,7 @@ export class DatosbancariosComponent implements OnInit {
         new tabla("numeroCuenta", "Número de cuenta"),
         new tabla("nombrebanco", "Nombre banco"),
         new tabla("clabe", "Cuenta CLABE"),
-        new tabla("esActivo", "Estatus")
+        new tabla("activo", "Estatus ")
       ];
 
 
@@ -72,6 +72,12 @@ export class DatosbancariosComponent implements OnInit {
       if (datos.datos) {
         datos.datos.forEach((part: any) => {
           part.nombrebanco = part.bancoId?.nombreCorto;
+          if(part.esActivo){
+            part.activo = 'Activo'
+           }
+           if(!part.esActivo){
+            part.activo = 'Inactivo'
+           }
         });
       }
 

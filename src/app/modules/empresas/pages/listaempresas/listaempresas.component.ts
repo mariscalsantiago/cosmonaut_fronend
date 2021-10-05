@@ -90,12 +90,20 @@ export class ListaEmpresasComponent implements OnInit {
       new tabla("nombre", "Nombre de la empresa	"),
       new tabla("rfc", "RFC"),
       new tabla("fechaAlta", "Fecha de registro en el sistema"),
-      new tabla("esActivo", "Estatus")
+      new tabla("activo", "Estatus ")
     ];
     if(this.arreglo !== undefined){
       
       for(let item of this.arreglo){
         item.fechaAlta = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
+
+        if(item.esActivo){
+          item.activo = 'Activo'
+         }
+         if(!item.esActivo){
+          item.activo = 'Inactivo'
+         }
+
       }
     }
 
