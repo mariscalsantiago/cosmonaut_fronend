@@ -34,6 +34,7 @@ export class UsuariosComponent implements OnInit {
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
   public activo: number = 0;
+  //public peticion: any = [];
 
   /*
   
@@ -214,7 +215,36 @@ export class UsuariosComponent implements OnInit {
               }
 
               this.activarMultiseleccion = false;
+
+/*               this.cargando = true;
+              if (this.esClienteEmpresa) {
+                this.companiPrd.getAllCompany().subscribe(datos => {
+                  this.arregloCompany = datos.datos
+                  this.filtrar();
+                });
+              } else {
+                if(this.usuariosSistemaPrd.esCliente()){
+                  this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+                    
+                    if(Boolean(datos.datos)){
+                      this.arregloCompany = datos.datos;
+                      this.arregloCompany.unshift({centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),nombre:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)",razonSocial:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)"})
+                    }else{
+                      this.arregloCompany = datos.datos;
+                    }
+                    this.filtrar();
+                  
+                  });
+                }else{
+                  this.empresasProd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+                    this.arregloCompany = [datos.datos];
+                    this.filtrar();
+                  
+                  });
+                }
+              } */
             }
+
           });
         });
       }
