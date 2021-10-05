@@ -156,7 +156,7 @@ export class ListacontactosrrhComponent implements OnInit {
         new tabla("curp", "CURP"),
         new tabla("emailCorporativo", "Correo empresarial"),
         new tabla("fechaAlta", "Fecha de registro en el sistema"),
-        new tabla("activo", "Estatus")
+        new tabla("esActivo", "Estatus de contacto")
       ];
 
       if(datos.datos !== undefined){
@@ -165,14 +165,12 @@ export class ListacontactosrrhComponent implements OnInit {
           let datepipe = new DatePipe("es-MX");
           item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");
 
-          item.esActivo = item.activo;
-
-          if(item.esActivo){
-          item.esActivo = true
-          }
-          if(!item.esActivo){
-          item.esActivo = false
-          }
+          if(item.activo){
+            item.esActivo = 'Activo'
+           }
+           if(!item.activo){
+           item.esActivo = 'Inactivo'
+           }
 
         }
       }

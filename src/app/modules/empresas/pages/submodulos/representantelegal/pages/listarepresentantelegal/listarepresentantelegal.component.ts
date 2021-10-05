@@ -153,7 +153,7 @@ export class ListarepresentantelegalComponent implements OnInit {
       new tabla("apellidoMaterno","Segundo apellido"),
       new tabla("curp","CURP"),
       new tabla("emailCorporativo","Correo empresarial"),
-      new tabla("esActivo","Estatus")
+      new tabla("activo","Estatus de representante")
     ];
    
 
@@ -163,13 +163,11 @@ export class ListarepresentantelegalComponent implements OnInit {
         let datepipe = new DatePipe("es-MX");
         item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");*/
         
-        item.esActivo = item.activo;
-
         if(item.esActivo){
-          item.esActivo = true
+          item.activo = 'Activo'
          }
          if(!item.esActivo){
-         item.esActivo = false
+         item.activo = 'Inactivo'
          }
       
       }
