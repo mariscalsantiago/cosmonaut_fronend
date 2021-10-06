@@ -216,7 +216,7 @@ export class UsuariosComponent implements OnInit {
 
               this.activarMultiseleccion = false;
 
-/*               this.cargando = true;
+               this.cargando = true;
               if (this.esClienteEmpresa) {
                 this.companiPrd.getAllCompany().subscribe(datos => {
                   this.arregloCompany = datos.datos
@@ -242,7 +242,7 @@ export class UsuariosComponent implements OnInit {
                   
                   });
                 }
-              } */
+              }
             }
 
           });
