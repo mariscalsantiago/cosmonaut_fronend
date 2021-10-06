@@ -91,13 +91,13 @@
                 <label>RESULTADOS</label>
             </div>
             <div class="col text-right">
-                <button type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
+                <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetallecom(undefined)">
           <i aria-hidden="true" class="icon_24agregar primary-bg"></i>Agregar cliente
         </button>
             </div>
         </div>
         <div class="row margen margen-tabla background-panel">
-            <app-tablapaginado [datos]="arreglotabla" [editar]="true" [imagen]="true" [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+            <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [imagen]="true" [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
 

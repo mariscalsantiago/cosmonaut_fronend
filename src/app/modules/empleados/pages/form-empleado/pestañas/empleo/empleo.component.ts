@@ -72,6 +72,7 @@ export class EmpleoComponent implements OnInit {
   public fechaAntiguedad: Date = new Date();
   public activaFechaFin: boolean = true;
   public puestoIdReporta: number = 0;
+  public calculoEfectuado: boolean = false;
 
   public sueldoBruto: boolean = false;
   public sueldoNeto: boolean = false;
@@ -429,6 +430,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
+    debugger;
     if (this.myForm.invalid) {
         Object.values(this.myForm.controls).forEach(control =>{
           control.markAsTouched();
@@ -436,10 +438,16 @@ export class EmpleoComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.error);
         return;
     }
+    if(!this.calculoEfectuado){
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha realizado el cálculo de sueldo");
+      return;
+
+    }
     const titulo = "¿Deseas guardar cambios?";
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
       if (valor) {
+
         let obj = this.myForm.getRawValue();
         //Se verifica que tipo de jornada se selecciono
         let idTipoJornada = -1;
@@ -806,15 +814,7 @@ export class EmpleoComponent implements OnInit {
   public cambiasueldobruto(esBruto: boolean) {
 
 
-
-
-
-
-
     if (this.verificaCambiosNecesarios()) return;
-
-    
-
 
     if (this.grupoNominaSeleccionado.pagoComplementario) {
       if (this.myForm.controls.salarioDiario.invalid) {
@@ -828,8 +828,6 @@ export class EmpleoComponent implements OnInit {
         return;
       }
     }
-
-
     let objenviar: any = {
       clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
       politicaId: this.myForm.controls.politicaId.value,
@@ -855,6 +853,7 @@ export class EmpleoComponent implements OnInit {
           this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
           this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
           this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
+          this.calculoEfectuado = true;
         }
       });
     } else {
@@ -871,9 +870,6 @@ export class EmpleoComponent implements OnInit {
   public cambiassueldoPPP() {
 
     if (this.verificaCambiosNecesarios()) return;
-
-
-
 
     if(this.myForm.controls.sueldonetomensualppp.invalid){
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el sueldo neto PPP");
@@ -915,9 +911,7 @@ export class EmpleoComponent implements OnInit {
         this.myForm.controls.sueldoBrutoMensual.setValue(aux.sueldoBrutoMensual);
         this.myForm.controls.pagoComplementario.setValue(aux.pppMontoComplementario);
         this.myForm.controls.sueldoBrutoMensualPPP.setValue(aux.pppSbm);
-
-
-
+        this.calculoEfectuado = true;
       }
     });
 

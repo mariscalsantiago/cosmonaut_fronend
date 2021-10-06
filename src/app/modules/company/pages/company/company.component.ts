@@ -61,10 +61,16 @@ export class CompanyComponent implements OnInit {
     filas: []
   };
 
+  public esRegistrar:boolean = false;
+  public esEditar:boolean = false;
+
+
   constructor(private routerPrd: Router, private companyProd: CompanyService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
+    this.establecerPermisos();
+    
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -107,6 +113,12 @@ export class CompanyComponent implements OnInit {
 
   public verdetallecom(obj: any) {
     this.routerPrd.navigate(['company', 'detalle_company', 'nuevo'], { state: { datos: undefined } });
+  }
+
+  public establecerPermisos(){
+
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esEditar = this.configuracionPrd.getPermisos("Editar");
   }
 
   public filtrar() {
