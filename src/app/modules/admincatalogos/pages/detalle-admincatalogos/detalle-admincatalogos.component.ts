@@ -432,7 +432,6 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
 
     let documento: any = document.defaultView;
-
     this.tamanio = documento.innerWidth;
 
   }
