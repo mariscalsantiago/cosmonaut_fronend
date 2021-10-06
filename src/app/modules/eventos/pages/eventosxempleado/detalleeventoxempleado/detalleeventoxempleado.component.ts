@@ -147,13 +147,17 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public guardarEvento() {
-
+    debugger;
     
 
     let obj = this.myForm.getRawValue();
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
+    if(this.arregloFechas.length < obj.duracion){
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"El número de días no coincide con las fechas seleccionadas");
+      return;
 
+    }
 /*     if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
       obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
     }
@@ -628,6 +632,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public recibirEtiquetas(obj: any) {
+
     if(obj.type == "error"){
       this.modalPrd.showMessageDialog(this.modalPrd.error,"Para prima dominical solo seleccionar domingos");
       return;

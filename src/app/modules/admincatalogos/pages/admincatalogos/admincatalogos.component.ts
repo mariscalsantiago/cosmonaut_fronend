@@ -58,12 +58,16 @@ export class AdminCatalogosComponent implements OnInit {
     filas: []
   };
 
+  public esRegistrar:boolean = false;
+  public esEditar:boolean = false;
 
 
   constructor(private routerPrd: Router, private adminCatalogosPrd: AdminCatalogosService,
      private modalPrd: ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    this.establecerPermisos();
     
     let documento: any = document.defaultView;
 
@@ -128,7 +132,11 @@ export class AdminCatalogosComponent implements OnInit {
   }
 
 
+  public establecerPermisos(){
 
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esEditar = this.configuracionPrd.getPermisos("Editar");
+  }
 
 
   public verdetalle(obj: any) {

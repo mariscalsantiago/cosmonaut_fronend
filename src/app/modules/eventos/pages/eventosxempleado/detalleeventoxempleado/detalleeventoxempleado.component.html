@@ -61,7 +61,7 @@
             <div [ngClass]="{'ocultarCampo':verificar('fecha')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Fecha *</label>
 
-                <input *ngIf="!tagcomponente" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
+                <input  *ngIf="!tagcomponente" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
                 <app-tag [class.is-invalid]="f.fechaInicio.errors && submitEnviado" *ngIf="tagcomponente" [calendario]="true" [dias]="numerodias.value" [dominical]="esDomingo" (salida)="recibirEtiquetas($event)"></app-tag>
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido

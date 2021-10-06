@@ -7,7 +7,7 @@
                     Nombre <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.nombre}}</article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" formControlName="nombre" type="text" formatos [especial]="true" [control]="f.nombre" name="" class="form-control">
+                        <input [ngClass]="{'is-invalid':f.nombre.errors && submitEnviado}" formControlName="nombre" maxlength="32" type="text" formatos [especial]="true" [control]="f.nombre" name="" class="form-control">
                         <div *ngIf="f.nombre.errors " class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -17,7 +17,7 @@
                     Primer apellido <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.apellidoPaterno}}</article>
                     <article *ngIf="editarcampos">
-                        <input [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" formControlName="apellidoPaterno" formatos [especial]="true" [control]="f.apellidoPaterno" type="text" name="" class="form-control">
+                        <input [ngClass]="{'is-invalid':f.apellidoPaterno.errors && submitEnviado}" formControlName="apellidoPaterno" maxlength="48" formatos [especial]="true" [control]="f.apellidoPaterno" type="text" name="" class="form-control">
                         <div *ngIf="f.apellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -27,7 +27,7 @@
                     Segundo apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="apellidoMaterno" formatos [especial]="true" [control]="f.apellidoMaterno" type="text" name="" class="form-control">
+                        <input formControlName="apellidoMaterno" maxlength="48" formatos [especial]="true" [control]="f.apellidoMaterno" type="text" name="" class="form-control">
                     </article>
                 </article>
 
@@ -353,7 +353,7 @@
                         {{empleado.contactoEmergenciaNombre}} {{empleado.contactoEmergenciaApellidoPaterno}} {{empleado.contactoEmergenciaApellidoMaterno}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="contactoEmergenciaNombre" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}" class="form-control">
+                        <input formControlName="contactoEmergenciaNombre" maxlength="32" type="text" [ngClass]="{'is-invalid':f.contactoEmergenciaNombre.errors && submitEnviado}" class="form-control">
                         <div *ngIf="f.contactoEmergenciaNombre.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -362,7 +362,7 @@
                 <article *ngIf="editarcampos" [class.ajustar]="editarcampos" class="titulo col">
                     Primer apellido
                     <article>
-                        <input formControlName="contactoEmergenciaApellidoPaterno" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}" class="form-control">
+                        <input formControlName="contactoEmergenciaApellidoPaterno" maxlength="48" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}" class="form-control">
                         <div *ngIf="f.contactoEmergenciaApellidoPaterno.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -371,7 +371,7 @@
                 <article *ngIf="editarcampos" [class.ajustar]="editarcampos" class="titulo col">
                     Segundo apellido
                     <article>
-                        <input formControlName="contactoEmergenciaApellidoMaterno" type="text" name="" class="form-control">
+                        <input formControlName="contactoEmergenciaApellidoMaterno" maxlength="48" type="text" name="" class="form-control">
                     </article>
                 </article>
 

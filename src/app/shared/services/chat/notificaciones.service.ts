@@ -43,7 +43,7 @@ export class NotificacionesService {
 
     this.webSocket = new WebSocket(conexion);
     this.webSocket.onopen = () => {
-      console.log("Se abre el socker, SAMV");
+      console.log("Se abre el socker");
     }
     this.webSocket.onclose = () => {
       console.log("Se cierra la comunicación");
