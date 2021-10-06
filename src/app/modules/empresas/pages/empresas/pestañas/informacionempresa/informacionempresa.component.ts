@@ -218,6 +218,8 @@ export class InformacionempresaComponent implements OnInit {
     
 
     console.log(JSON.stringify(objenviar));
+
+    debugger;
     
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);

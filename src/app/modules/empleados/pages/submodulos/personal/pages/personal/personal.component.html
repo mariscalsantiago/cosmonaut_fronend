@@ -192,7 +192,7 @@
                         {{empleado.contactoInicialTelefono}}
                     </article>
                     <article *ngIf="editarcampos">
-                        <input formControlName="contactoInicialTelefono" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
+                        <input formControlName="contactoInicialTelefono" maxlength="10" class="form-control" appSolonumeros [ngClass]="{'is-invalid':f.contactoInicialTelefono.errors && submitEnviado}">
                         <div *ngIf="f.contactoInicialTelefono.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
