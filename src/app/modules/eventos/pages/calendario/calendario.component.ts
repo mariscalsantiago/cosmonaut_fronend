@@ -84,10 +84,8 @@ export class CalendarioComponent implements OnInit {
         for (let item of aux) {
           item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "" : item.apellidoMaterno}`;
           var datePipe = new DatePipe("es-MX");
-          item.fechaInicioTemp = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
           item.fechaInicioTemp = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".", "");
 
-          item.fechaFinTemp = (new Date(item.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "");
           item.fechaFinTemp = datePipe.transform(item.fechaFin, 'dd-MMM-y')?.replace(".", "");
         }
 

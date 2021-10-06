@@ -46,7 +46,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
         this.arregloArreglos[x][y].eventos = [];
         if (this.eventos !== undefined) {
           for (let item of this.eventos) {
-            let fechaEvento: Date = new Date(item.fechaInicio);
+            let fechaEvento: Date = new Date(`${item.fechaInicio} `);
             
             
 
@@ -54,8 +54,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
             
             if (fechaEvento.getDate() == Number(this.arregloArreglos[x][y].dia) && mes == this.arregloArreglos[x][y].mes) {
               
-              let inicio:Date = new Date(item.fechaInicio);
-              let fin:Date = new Date(item.fechaFin);
+            
              // let diascalendario = (fin.getTime()-inicio.getTime())/(1000 * 3600 * 24);
               let diascalendario = 4;
               
