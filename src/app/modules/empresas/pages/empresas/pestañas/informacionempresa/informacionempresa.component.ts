@@ -291,7 +291,14 @@ export class InformacionempresaComponent implements OnInit {
 
     input.onchange = () => {
       let imagenInput: any = input.files;
-      //this.inputcer.nativeElement.value = imagenInput![0].name;
+      
+      let extName = imagenInput![0].name;
+      let ext = extName.split('.');
+      extName = ext[1].toLowerCase();
+      if(extName != 'cer'){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"El archivo cargado no tiene una extensión correcta");
+        return;
+      }
       for (let item in Object.getOwnPropertyNames(imagenInput)) {
 
         let archivo: File = imagenInput[item];
