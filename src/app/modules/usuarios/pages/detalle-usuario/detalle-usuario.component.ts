@@ -35,100 +35,104 @@ export class DetalleUsuarioComponent implements OnInit {
   public objusuario: any = {};
   public arregloCompany: any;
   public summitenviado: boolean = false;
-  public companiasenviar:any = [];
+  public companiasenviar: any = [];
   public arregloRoles: any = [];
-  public inabilitar:boolean = false;
-  public rolIdSeleciconado:number = 0;
+  public inabilitar: boolean = false;
+  public rolIdSeleciconado: number = 0;
 
-  public esClienteEmpresa:boolean = false;
+  public esClienteEmpresa: boolean = false;
 
 
-  public ocultaAdministradores:boolean = false;
-  public ocultaContactoiniciales:boolean = false;
+  public ocultaAdministradores: boolean = false;
+  public ocultaContactoiniciales: boolean = false;
 
-  public desabilitarTodo:boolean = false;
+  public desabilitarTodo: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private modalPrd: ModalService, private rolesPrd: RolesService,
-    public usuariosSistemaPrd: UsuarioSistemaService, private usuariosAuth: UsuariosauthService,public configuracionPrd:ConfiguracionesService) {
+    public usuariosSistemaPrd: UsuarioSistemaService, private usuariosAuth: UsuariosauthService, public configuracionPrd: ConfiguracionesService) {
 
     let datePipe = new DatePipe("es-MX");
 
     let fecha = new Date();
     this.fechaActual = datePipe.transform(fecha, 'dd-MMM-y')?.replace(".", "");
 
-    
+
   }
 
   ngOnInit(): void {
-    
-    
+
+
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
     this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
-    
+
     this.insertar = !Boolean(history.state.usuario);
     this.objusuario = history.state.usuario;
-    this.objusuario = this.objusuario == undefined ? {}:this.objusuario;
+    this.objusuario = this.objusuario == undefined ? {} : this.objusuario;
 
-    
+
 
     this.verificarCompaniasExista();
 
-    
 
-    
 
-  
+
+
+
     this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos => {
-      
+
       this.arregloRoles = datos.datos
-    
+      setTimeout(() => {
+        if (this.objusuario) {
+          this.arregloRoles.push(this.objusuario.rolId);
+        }
+      }, 200);
+
     });
-    
+
 
     this.objusuario.centrocClienteId = {};
 
-    if(!this.insertar){
-       this.desabilitarTodo = this.usuariosSistemaPrd.usuario.esCliente && !this.esClienteEmpresa && this.objusuario.rolId?.rolId == 1;
+    if (!this.insertar) {
+      this.desabilitarTodo = this.usuariosSistemaPrd.usuario.esCliente && !this.esClienteEmpresa && this.objusuario.rolId?.rolId == 1;
     }
 
 
     this.myForm = this.createForm(this.objusuario);
 
-    if(!this.insertar && this.esClienteEmpresa){
-        let companiaSeleccionada = this.arregloCompany.find((o:any) => o["centrocClienteId"] == this.myForm.controls.centrocClienteId.value);
-        this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
-        
+    if (!this.insertar && this.esClienteEmpresa) {
+      let companiaSeleccionada = this.arregloCompany.find((o: any) => o["centrocClienteId"] == this.myForm.controls.centrocClienteId.value);
+      this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
+
     }
-    console.log("Este es el usuario",this.objusuario);
 
-    if((!this.esClienteEmpresa && this.objusuario.rolId?.rolId == 2) || this.desabilitarTodo){
-         this.myForm.controls.nombre.disable();
-         this.myForm.controls.apellidoPaterno.disable();
-         this.myForm.controls.apellidoMaterno.disable();
-         this.myForm.controls.correoelectronico.disable();
-         this.myForm.controls.rol.disable();
-         this.myForm.controls.centrocClienteId.disable();
-         this.inabilitar = true;
-      }
-
-
-      this.suscripciones();
+    if ((!this.esClienteEmpresa && this.objusuario.rolId?.rolId == 2) || this.desabilitarTodo) {
+      this.myForm.controls.nombre.disable();
+      this.myForm.controls.apellidoPaterno.disable();
+      this.myForm.controls.apellidoMaterno.disable();
+      this.myForm.controls.correoelectronico.disable();
+      this.myForm.controls.rol.disable();
+      this.myForm.controls.centrocClienteId.disable();
+      this.inabilitar = true;
+    }
 
 
-      if(this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1){
-        if(this.objusuario){
-          if(this.objusuario.rolId.rolId != 1){
-            this.myForm.controls.multicliente.disable();
-            this.myForm.controls.multicliente.setValue(false);
-            this.myForm.controls.centrocClienteId.disable();
-          }
+    this.suscripciones();
+
+
+    if (this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1) {
+      if (this.objusuario) {
+        if (this.objusuario.rolId.rolId != 1) {
+          this.myForm.controls.multicliente.disable();
+          this.myForm.controls.multicliente.setValue(false);
+          this.myForm.controls.centrocClienteId.disable();
         }
+      }
     }
 
 
-    if(this.objusuario){
+    if (this.objusuario) {
       this.rolIdSeleciconado = this.objusuario.rolId.rolId;
       this.ocultaAdministradores = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.rolIdSeleciconado === 1;
       this.ocultaContactoiniciales = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.rolIdSeleciconado !== 1;
@@ -136,17 +140,17 @@ export class DetalleUsuarioComponent implements OnInit {
 
   }
 
-  public suscripciones(){
-    this.myForm.controls.rol.valueChanges.subscribe(valor =>{
-      if(this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1){
-          if(valor != 1){
-            this.myForm.controls.multicliente.disable();
-            this.myForm.controls.multicliente.setValue(false);
-            let companiaSeleccionada = this.arregloCompany.find((o:any) => o["centrocClienteId"] == this.usuariosSistemaPrd.usuario.centrocClienteId);
-            this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
-            this.myForm.controls.centrocClienteId.disable();
-            return;
-          }
+  public suscripciones() {
+    this.myForm.controls.rol.valueChanges.subscribe(valor => {
+      if (this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1) {
+        if (valor != 1) {
+          this.myForm.controls.multicliente.disable();
+          this.myForm.controls.multicliente.setValue(false);
+          let companiaSeleccionada = this.arregloCompany.find((o: any) => o["centrocClienteId"] == this.usuariosSistemaPrd.usuario.centrocClienteId);
+          this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
+          this.myForm.controls.centrocClienteId.disable();
+          return;
+        }
       }
 
 
@@ -175,12 +179,21 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public createForm(obj: any) {
 
-    if(!this.insertar){
-      let verificador = obj.esMulticliente == undefined ? false:obj.esMulticliente=="Sí";
-      if(verificador){
-          this.companiasenviar = obj.centrocClientes;
-      }else{
+    if (!this.insertar) {
+      let verificador = obj.esMulticliente == undefined ? false : obj.esMulticliente == "Sí";
+      if (verificador) {
+        this.companiasenviar = obj.centrocClientes;
+      } else {
         this.companiasenviar = [];
+      }
+    }
+
+    if (obj) {
+      if (!this.esClienteEmpresa && obj.centrocClientes.length > 1) {
+        let filtrado = obj.centrocClientes.filter((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa());
+        obj.centrocClientes.splice(obj.centrocClientes.indexOf(filtrado[0]), 1);
+        obj.centrocClientes.unshift(filtrado[0]);
+
       }
     }
 
@@ -193,14 +206,14 @@ export class DetalleUsuarioComponent implements OnInit {
       apellidoPaterno: [obj.apellidoPat, [Validators.required]],
       apellidoMaterno: [obj.apellidoMat],
       correoelectronico: [obj.email?.toLowerCase(), [Validators.required, Validators.email]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta,"dd/MM/yyyy")), disabled: true }, [Validators.required]],
-      centrocClienteId: [this.insertar?"":obj.centrocClientes[0].centrocClienteId, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta, "dd/MM/yyyy")), disabled: true }, [Validators.required]],
+      centrocClienteId: [this.insertar ? "" : obj.centrocClientes[0].centrocClienteId, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: [{ value: obj.usuarioId, disabled: true }],
-      multicliente: obj.esMulticliente == undefined ? false:obj.esMulticliente=="Sí",
-      rol:[obj.rolId?.rolId,Validators.required],
-      nombrecliente:{value:this.usuariosSistemaPrd.getUsuario().nombreEmpresa,disabled:true},
-      usuarioId:obj.usuarioId
+      multicliente: obj.esMulticliente == undefined ? false : obj.esMulticliente == "Sí",
+      rol: [obj.rolId?.rolId, Validators.required],
+      nombrecliente: { value: this.usuariosSistemaPrd.getUsuario().nombreEmpresa, disabled: true },
+      usuarioId: obj.usuarioId
 
 
     });
@@ -212,8 +225,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public enviarPeticion() {
 
-    let companiaSeleccionada = this.arregloCompany.find((o:any)=>o["razonSocial"].includes(this.myForm.value.centrocClienteId));
-    
+    let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"].includes(this.myForm.value.centrocClienteId));
+
 
 
 
@@ -229,22 +242,22 @@ export class DetalleUsuarioComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
       if (valor) {
 
-       
+
 
         let obj = this.myForm.getRawValue();
 
         let companysend = [];
-        if(obj.multicliente){
-          for(let item of this.companiasenviar){
+        if (obj.multicliente) {
+          for (let item of this.companiasenviar) {
             companysend.push(item.centrocClienteId);
           }
-        }else{
-           if(this.esClienteEmpresa){
-            let companiaSeleccionada = this.arregloCompany.find((o:any)=>o["razonSocial"].includes(obj.centrocClienteId));
+        } else {
+          if (this.esClienteEmpresa) {
+            let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"].includes(obj.centrocClienteId));
             obj.idRazonSocial = companiaSeleccionada.centrocClienteId;
-           }else{
+          } else {
             obj.idRazonSocial = obj.centrocClienteId;
-           }
+          }
         }
 
         let objAuthEnviar = {
@@ -252,12 +265,12 @@ export class DetalleUsuarioComponent implements OnInit {
           apellidoPat: obj.apellidoPaterno,
           apellidoMat: obj.apellidoMaterno,
           email: obj.correoelectronico?.toLowerCase(),
-          centrocClienteIds:obj.multicliente?companysend : [obj.idRazonSocial],
+          centrocClienteIds: obj.multicliente ? companysend : [obj.idRazonSocial],
           rolId: obj.rol,
-          esMulticliente:obj.multicliente,
-          usuarioId:obj.usuarioId,
-          esActivo:obj.esActivo,
-          version:this.usuariosSistemaPrd.getVersionSistema()
+          esMulticliente: obj.multicliente,
+          usuarioId: obj.usuarioId,
+          esActivo: obj.esActivo,
+          version: this.usuariosSistemaPrd.getVersionSistema()
         }
 
         if (this.insertar) {
@@ -270,9 +283,9 @@ export class DetalleUsuarioComponent implements OnInit {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
               .then(() => {
                 if (datos.resultado) {
-                  if(this.esClienteEmpresa){
+                  if (this.esClienteEmpresa) {
                     this.routerPrd.navigate(["/cliente/usuarios"])
-                  }else{
+                  } else {
                     this.routerPrd.navigate(["/usuarios"])
                   }
                 }
@@ -282,15 +295,15 @@ export class DetalleUsuarioComponent implements OnInit {
 
         } else {
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        
-          this.usuariosAuth.modificar(objAuthEnviar).subscribe(datos =>{
+
+          this.usuariosAuth.modificar(objAuthEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
               .then(() => {
                 if (datos.resultado) {
-                  if(this.esClienteEmpresa){
+                  if (this.esClienteEmpresa) {
                     this.routerPrd.navigate(["/cliente/usuarios"])
-                  }else{
+                  } else {
                     this.routerPrd.navigate(["/usuarios"])
                   }
                 }
@@ -313,9 +326,9 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public cancelar() {
 
-    if(this.esClienteEmpresa){
+    if (this.esClienteEmpresa) {
       this.routerPrd.navigate(["/cliente/usuarios"])
-    }else{
+    } else {
       this.routerPrd.navigate(["/usuarios"])
     }
   }
