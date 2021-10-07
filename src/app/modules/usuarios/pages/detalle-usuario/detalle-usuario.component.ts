@@ -36,7 +36,7 @@ export class DetalleUsuarioComponent implements OnInit {
   public arregloCompany: any;
   public summitenviado: boolean = false;
   public companiasenviar: any = [];
-  public arregloRoles: any = [];
+  public arregloRoles:any = [];
   public inabilitar: boolean = false;
   public rolIdSeleciconado: number = 0;
 
@@ -84,8 +84,10 @@ export class DetalleUsuarioComponent implements OnInit {
 
       this.arregloRoles = datos.datos
       setTimeout(() => {
-        if (this.objusuario) {
-          this.arregloRoles.push(this.objusuario.rolId);
+        if (this.objusuario.centrocClientes) {
+          if(!this.arregloRoles.some((o:any)=> o["rolId"]==this.objusuario.rolId.rolId)){
+            this.arregloRoles.push(this.objusuario.rolId);
+          }
         }
       }, 200);
 
@@ -122,7 +124,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     if (this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1) {
-      if (this.objusuario) {
+      if (this.objusuario.centrocClientes) {
         if (this.objusuario.rolId.rolId != 1) {
           this.myForm.controls.multicliente.disable();
           this.myForm.controls.multicliente.setValue(false);
@@ -187,8 +189,7 @@ export class DetalleUsuarioComponent implements OnInit {
         this.companiasenviar = [];
       }
     }
-
-    if (obj) {
+    if (obj.centrocClientes) {
       if (!this.esClienteEmpresa && obj.centrocClientes.length > 1) {
         let filtrado = obj.centrocClientes.filter((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa());
         obj.centrocClientes.splice(obj.centrocClientes.indexOf(filtrado[0]), 1);
