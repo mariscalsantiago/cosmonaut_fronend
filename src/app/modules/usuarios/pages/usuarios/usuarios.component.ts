@@ -148,8 +148,6 @@ export class UsuariosComponent implements OnInit {
          }
       }
     }
-
-    debugger;
     this.arreglotabla = {
       columnas: columnas,
       filas: this.arreglo
