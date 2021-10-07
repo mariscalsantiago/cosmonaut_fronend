@@ -159,7 +159,7 @@ export class CalcularComponent implements OnInit {
         item["nombrecompleto"] = `${item[llave].nombre} ${item[llave].apellidoPat} ${item[llave].apellidoMat || ''}`;
         item["numeroEmpleado"] = item[llave].numEmpleado;
         item["diaslaborados"] = item[llave].diasLaborados;
-        item["fecha"] = item[llave].fechaContrato,
+        item["fecha"] = item[llave].fechaCalculo,
         item["percepciones"] = this.cp.transform(item[llave].totalPercepciones);
         item["deducciones"] = this.cp.transform(item[llave].totalDeducciones);
         item["total"] = this.cp.transform(item[llave].total);
