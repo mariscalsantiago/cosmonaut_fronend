@@ -133,7 +133,11 @@ export class DatosimssComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
-
+    let obj = this.myForm.getRawValue();
+    if (!Boolean(obj.cerIMSS)) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer, favor de elegir archivo de certificado ");
+      return;
+    }
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, '¿Deseas guardar cambios?').then(valor => {
       if (valor) {
@@ -153,10 +157,6 @@ export class DatosimssComponent implements OnInit {
     this.datos.activarGuardaMod = true;
 
     let obj = this.myForm.getRawValue();
-    if (!Boolean(obj.cerIMSS)) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer, favor de elegir archivo de certificado ");
-      return;
-    }
     if (obj.cerIMSS == 'Certificado IMSS digital cargado') {
       obj.cerIMSS = null;
       
