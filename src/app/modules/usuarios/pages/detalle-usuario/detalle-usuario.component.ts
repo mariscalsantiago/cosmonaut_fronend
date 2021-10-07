@@ -134,7 +134,7 @@ export class DetalleUsuarioComponent implements OnInit {
     }
 
 
-    if (this.objusuario) {
+    if (this.objusuario.rolId) {
       this.rolIdSeleciconado = this.objusuario.rolId.rolId;
       this.ocultaAdministradores = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.rolIdSeleciconado === 1;
       this.ocultaContactoiniciales = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.rolIdSeleciconado !== 1;
