@@ -32,7 +32,7 @@ export class DetallegruponominaComponent implements OnInit {
   public arregloBasePeriodos:any = [];
   public arregloCatPeriodosAguinaldo:any = [];
   public obj:any = [];
-  public ajustedeisr:boolean = false;
+  //public ajustedeisr:boolean = false;
   public empresaRazon: string = '';
 
 
@@ -77,27 +77,24 @@ export class DetallegruponominaComponent implements OnInit {
         periodoAguinaldoId:{}
       }
   
-      this.myForm = this.crearForm(this.obj);
+       
 
     
+          if(!this.esInsert){
+            this.obj = history.state.data;
+                if(this.obj == undefined){
+                  this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
+                    return;
+                }else{
+                  this.grupoNominaPrd.getGroupNomina(this.obj.id).subscribe(datos =>{  
+                    this.myForm = this.crearForm(datos.datos);
+            
+                });;
+            }
+          }else{
 
-    
-    if(!this.esInsert){
-      
-      this.obj = history.state.data;
-      
-      if(this.obj == undefined){
-        this.routerPrd.navigate(['/empresa', 'detalle', this.id_empresa, 'gruposnomina']);
-          return;
-      }else{
-        this.grupoNominaPrd.getGroupNomina(this.obj.id).subscribe(datos =>{  
-          this.myForm = this.crearForm(datos.datos);
-  
-        });;
-  
-      }
-    }
-
+          this.myForm = this.crearForm(this.obj);
+          }  
     });
 
 
@@ -119,25 +116,19 @@ export class DetallegruponominaComponent implements OnInit {
 
   public crearForm(obj:any){
 
+    if(obj.periodicidadPagoId?.periodicidadPagoId !== "01" && obj.periodicidadPagoId?.periodicidadPagoId !== "05" ){
+      this.activarISR();
+    }
     if(!this.esInsert){
-      
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
-      if(obj.ajustarBaseGravableFaltantes){
-        this.ajustedeisr = true;
-        this.activarISR();
-      }
       obj.ajustarBaseGravableFaltantes = obj.ajustarBaseGravableFaltantes ? "true" : "false";
-
-/*       if(obj.periodicidadPagoId?.periodicidadPagoId !== "01" && obj.periodicidadPagoId?.periodicidadPagoId !== "05" ){
-        this.ajustedeisr = true;
-        this.activarISR();
-      } */
-
+        //if(obj.ajustarBaseGravableFaltantes){
+        //this.ajustedeisr = true;
+        //this.activarISR();
+        //}
     }else{
-      //obj.centrocClienteId.centrocClienteId = this.id_empresa;
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio = "periodica";
       obj.ajustarBaseGravableFaltantes = "false";
-
     }
     
     return this.formbuilder.group({
@@ -146,7 +137,7 @@ export class DetallegruponominaComponent implements OnInit {
       //esquemaPagoId:[obj.esquemaPagoId?.esquemaPagoId,[Validators.required]],
       ajustarBaseGravableFaltantes: [obj.ajustarBaseGravableFaltantes],
       monedaId:[obj.monedaId?.monedaId,[Validators.required]],
-      ajustedeisr: [this.ajustedeisr],
+      //ajustedeisr: [this.ajustedeisr],
       centrocClienteId:[this.empresaRazon,[Validators.required]],
       clabe:[obj.cuentaBancoId?.cuentaBancoId,[Validators.required]],
       periodicidadPagoId:[obj.periodicidadPagoId?.periodicidadPagoId,[Validators.required]],

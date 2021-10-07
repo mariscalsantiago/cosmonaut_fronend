@@ -32,6 +32,16 @@
                     Campo requerido
                 </div>
             </div>
+            <div [ngClass]="{'ocultarCampo':verificar('unidadDia')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Unidad de medida *</label>
+
+                <select [ngClass]="{'is-invalid':f.unidadmedida.errors && submitEnviado}" formControlName="unidadmedida" class="form-control">
+                    <option *ngFor="let item of arregloUnidadMedidaDia" [value]="item.unidadMedidaId">{{item.descripcion}}</option>
+                </select>
+                <div *ngIf="f.unidadmedida.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
             <div [ngClass]="{'ocultarCampo':verificar('unidad')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Unidad de medida *</label>
 
@@ -50,7 +60,7 @@
                     Campo requerido
                 </div>
             </div>
-            <div [ngClass]="{'ocultarCampo':verificar('dias')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <div [ngClass]="{'ocultarCampo':verificar('dias') || ocultarDiasTemp}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Días *</label>
 
                 <input appSolonumeros #numerodias (blur)="perderFoco()" formatos [numeros]="true" [ngClass]="{'is-invalid':f.duracion.errors && submitEnviado}" formControlName="duracion" type="text" class="form-control">

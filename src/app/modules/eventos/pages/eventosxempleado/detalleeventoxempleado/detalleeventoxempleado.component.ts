@@ -24,6 +24,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public arregloTipoIncapacidad: any = [];
   public tagcomponente: boolean = false;
   public arregloUnidadMedida: any = [];
+  public arregloUnidadMedidaDia: any = [];
   public arregloFechas: any = [];
   public archivo: string = '';
   public nombreArchivo: string = "";
@@ -45,12 +46,19 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     this.catalogosPrd.getTipoIncapacidad(true).subscribe(datos => this.arregloTipoIncapacidad = datos.datos);
     this.catalogosPrd.getUnidadMedida(true).subscribe(datos => {
       this.arregloUnidadMedida = [];
+      this.arregloUnidadMedidaDia = [];
       if (datos.datos) {
         for (let item of datos.datos) {
           if (item.unidadMedidaId == 2) {
             continue;
           }
           this.arregloUnidadMedida.push(item);
+        }
+        for (let itemDia of datos.datos) {
+          if (itemDia.unidadMedidaId == 1) {
+            continue;
+          }
+          this.arregloUnidadMedidaDia.push(itemDia);
         }
       }
 
@@ -69,12 +77,16 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public ocultarMontoTemp:boolean = false;
   public ocultarHorasTemp:boolean = false;
+  public ocultarDiasTemp:boolean = false;
 
   public suscribirse() {
     this.myForm.controls.unidadmedida.valueChanges.subscribe(valor => {
+      debugger;
 
       this.ocultarHorasTemp = false;
       this.ocultarMontoTemp = false;
+      this.ocultarDiasTemp = false;
+
       switch (valor) {
         case "1":
           this.myForm.controls.numerohoras.setValidators([Validators.required]);
@@ -83,14 +95,29 @@ export class DetalleeventoxempleadoComponent implements OnInit {
           this.myForm.controls.monto.clearValidators();
           this.myForm.controls.monto.updateValueAndValidity();
           this.ocultarMontoTemp = true;
+          
           break;
+        case "2":
+          
+            this.myForm.controls.monto.clearValidators();
+            this.myForm.controls.monto.updateValueAndValidity();
+            this.myForm.controls.duracion.setValidators([Validators.required]);
+            this.myForm.controls.duracion.updateValueAndValidity();
+            this.ocultarMontoTemp = true;
+            this.tagcomponente = true;
+            
+            break;
         case "3":
 
-          this.myForm.controls.numerohoras.clearValidators();
+          this.myForm.controls.duracion.setValidators([]);
+          this.myForm.controls.duracion.updateValueAndValidity();
+          this.myForm.controls.numerohoras.setValidators([]);
           this.myForm.controls.numerohoras.updateValueAndValidity();
           this.myForm.controls.monto.setValidators([Validators.required]);
           this.myForm.controls.monto.updateValueAndValidity();
           this.ocultarHorasTemp = true;
+          this.ocultarDiasTemp = true;
+          this.tagcomponente = false;
           break;
       }
     });
@@ -129,8 +156,12 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
+    let obj = this.myForm.getRawValue();
+    if(this.arregloFechas.length < Number(obj.duracion)){
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"El número de días no coincide con las fechas seleccionadas");
+      return;
 
-
+    }
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas registrar el evento?").then(valor => {
       if (valor) {
@@ -153,11 +184,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     let obj = this.myForm.getRawValue();
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-    if(this.arregloFechas.length < obj.duracion){
-      this.modalPrd.showMessageDialog(this.modalPrd.error,"El número de días no coincide con las fechas seleccionadas");
-      return;
 
-    }
 /*     if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
       obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
     }
@@ -194,16 +221,28 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       case 1:
       case 2:
       case 5:
+
         delete objEnviar.fechaFin;
-        delete objEnviar.monto;
         delete objEnviar.urlArchivo;
         delete objEnviar.archivo; 
         delete objEnviar.nombreArchivo; 
         delete objEnviar.numeroFolio;
-        delete objEnviar.unidadmedida;
-        delete objEnviar.numerohoras;
         delete objEnviar.tipoIncapacidadId;
-        multifechas = true;
+
+        if(!this.tagcomponente){
+          multifechas = false;
+          delete objEnviar.duracion;
+          objEnviar.unidadMedidaId = {
+            unidadMedidaId: obj.unidadmedida
+          }
+          objEnviar.heTiempo = obj.numerohoras;
+
+        }else{
+          multifechas = true;
+          delete objEnviar.monto;
+          delete objEnviar.unidadmedida;
+          delete objEnviar.numerohoras;
+        }
         break;
       case 11:
       case 16:
@@ -336,6 +375,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public verificar(cadena: string) {
 
+
     let ocultar = true;
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
@@ -379,6 +419,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         switch (seleccionado) {
           case 4:
           case 8:
+          case 5:  
           case 13:
           case 14:
             ocultar = false;
@@ -455,6 +496,13 @@ export class DetalleeventoxempleadoComponent implements OnInit {
             break;
         }
         break;
+      case "unidadDia":
+          switch (seleccionado) {
+            case 5:
+              ocultar = false;
+              break;
+          }
+         break;  
       case "horas":
         switch (seleccionado) {
           case 13:
@@ -470,6 +518,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   }
 
   public configurandoRestricciones() {
+    debugger;
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
 
@@ -506,6 +555,12 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.myForm.controls.fechaFin.updateValueAndValidity();
       this.myForm.controls.fechaAplicacion.setValidators([Validators.required]);
       this.myForm.controls.fechaAplicacion.updateValueAndValidity();
+    }
+    if (seleccionado == 5) {
+      this.myForm.controls.unidadmedida.setValidators([Validators.required]);
+      this.myForm.controls.unidadmedida.updateValueAndValidity();
+      this.myForm.controls.monto.setValidators([Validators.required]);
+      this.myForm.controls.monto.updateValueAndValidity();
     }
     if (seleccionado == 4) {
       this.myForm.controls.fechaInicio.setValidators([Validators.required]);
