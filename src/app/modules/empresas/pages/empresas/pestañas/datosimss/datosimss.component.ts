@@ -14,6 +14,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 export class DatosimssComponent implements OnInit {
 
   @ViewChild("nombre") nombre!: ElementRef;
+  @ViewChild("inputcer") inputcer!: ElementRef;
   @Output() enviado = new EventEmitter();
   @Input() datos: any;
   public show = false;
@@ -90,8 +91,9 @@ export class DatosimssComponent implements OnInit {
     input.click();
 
     input.onchange = () => {
+      debugger;
       let imagenInput: any = input.files;
-      //this.inputcer.nativeElement.value = imagenInput![0].name;
+      this.inputcer.nativeElement.value = imagenInput![0].name;
       for (let item in Object.getOwnPropertyNames(imagenInput)) {
 
         let archivo: File = imagenInput[item];

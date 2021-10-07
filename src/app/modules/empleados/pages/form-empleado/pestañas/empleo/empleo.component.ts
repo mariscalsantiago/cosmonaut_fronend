@@ -847,14 +847,20 @@ export class EmpleoComponent implements OnInit {
 
         let aux = datos.datos;
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        if (datos.datos !== undefined) {
+        if(datos.resultado){
+          if (datos.datos !== undefined) {
 
 
-          this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
-          this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
-          this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
-          this.calculoEfectuado = true;
-        }
+            this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
+            this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
+            this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
+            this.calculoEfectuado = true;
+          }
+        }else{
+            this.modalPrd.showMessageDialog(this.modalPrd.error, datos.mensaje);
+            return;
+        }  
+
       });
     } else {
 
@@ -903,15 +909,20 @@ export class EmpleoComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       let aux = datos.datos;
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      if (datos.datos !== undefined) {
+      if(datos.resultado){
+          if (datos.datos !== undefined) {
 
-        this.myForm.controls.salarioDiarioIntegrado.setValue(aux.sbc);
-        this.myForm.controls.salarioNetoMensualImss.setValue(aux.sueldoNetoMensual);
-        this.myForm.controls.sueldoNetoMensual.setValue(aux.sueldoNetoMensual);
-        this.myForm.controls.sueldoBrutoMensual.setValue(aux.sueldoBrutoMensual);
-        this.myForm.controls.pagoComplementario.setValue(aux.pppMontoComplementario);
-        this.myForm.controls.sueldoBrutoMensualPPP.setValue(aux.pppSbm);
-        this.calculoEfectuado = true;
+            this.myForm.controls.salarioDiarioIntegrado.setValue(aux.sbc);
+            this.myForm.controls.salarioNetoMensualImss.setValue(aux.sueldoNetoMensual);
+            this.myForm.controls.sueldoNetoMensual.setValue(aux.sueldoNetoMensual);
+            this.myForm.controls.sueldoBrutoMensual.setValue(aux.sueldoBrutoMensual);
+            this.myForm.controls.pagoComplementario.setValue(aux.pppMontoComplementario);
+            this.myForm.controls.sueldoBrutoMensualPPP.setValue(aux.pppSbm);
+            this.calculoEfectuado = true;
+          }
+      }else{
+        this.modalPrd.showMessageDialog(this.modalPrd.error, datos.mensaje);
+        return;
       }
     });
 
