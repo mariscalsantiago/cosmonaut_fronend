@@ -67,7 +67,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       centrocClienteId: {
         centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
       },
-      esActivo: "true"
+      esActivo: null
     }
 
     this.empleadosPrd.filtrar(objenviar).subscribe(datos => this.arregloEmpleados = datos.datos);

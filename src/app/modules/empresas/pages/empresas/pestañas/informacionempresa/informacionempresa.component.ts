@@ -291,7 +291,6 @@ export class InformacionempresaComponent implements OnInit {
 
     input.onchange = () => {
       let imagenInput: any = input.files;
-      
       let extName = imagenInput![0].name;
       let ext = extName.split('.');
       extName = ext[1].toLowerCase();
