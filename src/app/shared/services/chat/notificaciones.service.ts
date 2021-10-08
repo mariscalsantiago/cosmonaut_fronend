@@ -116,7 +116,7 @@ export class NotificacionesService {
       if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
 
         if (!usuario.esRecursosHumanos) {
-          this.mensajes.push({ mensaje: "El usuario RRH ha finalizado el chat...", fecha: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"), usuarioId: -1, nombre: usuario.nombre });
+          this.mensajes.push({ mensaje: "El usuario RRH ha finalizado el chat...", usuarioId: -1, nombre: usuario.nombre });
           this.nombreEmpleado = "Recursos humanos";
           this.close();
           this.closeEspecifico();
@@ -141,7 +141,7 @@ export class NotificacionesService {
       if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
 
         if (!usuario.esRecursosHumanos) {
-          this.mensajes.push({ mensaje: "El usuario RRH ha aceptado su mensaje...", fecha: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd"), usuarioId: -1, nombre: usuario.nombre });
+          this.mensajes.push({ mensaje: "El usuario RRH ha aceptado su mensaje...", usuarioId: -1, nombre: usuario.nombre });
           const rutaSocket: string = `${environment.rutaSocket}/notificaciones/${idEmpresa}${usuario.usuarioId}/usuario/${usuario.usuarioId}`;
           this.verificarMensajes(usuario.usuarioId).subscribe(vv => {
             this.nombreEmpleado = vv.datos.nombreRrh;

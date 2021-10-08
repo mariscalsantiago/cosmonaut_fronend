@@ -228,7 +228,7 @@ export class ListachatsActivosComponent implements OnInit {
           this.notificacionesPrd.enviarMensaje(mensaje);
           this.atiendeChat(valorConversacion, true);
           setTimeout(() => {
-            let mensaje = { mensaje: mensajegenerico, fecha: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd hh:mm"), usuarioId: this.usuariossistemaPrd.usuario.usuarioId, nombre: this.usuariossistemaPrd.getUsuario().nombre };
+            let mensaje = { mensaje: mensajegenerico, usuarioId: this.usuariossistemaPrd.usuario.usuarioId, nombre: this.usuariossistemaPrd.getUsuario().nombre };
             let arreglo = JSON.parse(valorConversacion.mensajes)
             arreglo.push(mensaje);
             this.notificacionesPrd.enviarMensajeEspecifico(JSON.stringify(arreglo));
@@ -242,7 +242,7 @@ export class ListachatsActivosComponent implements OnInit {
     } else {
       this.atiendeChat(valorConversacion, true);
       setTimeout(() => {
-        let mensaje = { mensaje: mensajegenerico, fecha: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd hh:mm"), usuarioId: this.usuariossistemaPrd.usuario.usuarioId, nombre: this.usuariossistemaPrd.getUsuario().nombre };
+        let mensaje = { mensaje: mensajegenerico, usuarioId: this.usuariossistemaPrd.usuario.usuarioId, nombre: this.usuariossistemaPrd.getUsuario().nombre };
         let arreglo = JSON.parse(valorConversacion.mensajes)
         arreglo.push(mensaje);
         this.notificacionesPrd.enviarMensajeEspecifico(JSON.stringify(arreglo));
