@@ -33,6 +33,7 @@ export class TagComponent implements OnInit,OnChanges {
 
   public elementoSeleccionado:string = "";
   public errorSeleccionado:boolean = false;
+  public noChange:boolean = false;
 
   constructor() { }
 
@@ -65,18 +66,28 @@ export class TagComponent implements OnInit,OnChanges {
 
   public evento(evento:any){
     this.errorSeleccionado = false;
-      if (evento.which==13 ) {
+      if (evento.which==13) {
         this.eventoSeleccionando();
-      
         evento.preventDefault()
       }else if(evento.which == undefined){
           setTimeout(() => {
               this.eventoSeleccionando();
           }, 20);
       }  
+
+      if (evento.which!==13) {
+         this.noChange = true;
+         setTimeout(() => {
+           this.noChange = false;
+         }, 50);
+      }
   }
 
   public eventoSeleccionando(){
+    if(this.noChange) {
+      this.noChange = false;
+      return
+    };
 
     if(!this.calendario){
       if(this.elementoSeleccionado.trim() !== ""){
@@ -90,9 +101,7 @@ export class TagComponent implements OnInit,OnChanges {
                   break;
             }
         }
-  
         if(encontrado){
-  
           let repetido:boolean = false;
           for(let item of this.arregloEtiquetas){
             if(item[this.llave].trim() == this.elementoSeleccionado.trim()){
@@ -100,30 +109,23 @@ export class TagComponent implements OnInit,OnChanges {
                   break;
             }
           }
-  
-          
-  
         if(!repetido)   this.arregloEtiquetas.push(elementoencontrado);
-          
           this.elementoSeleccionado = "";
         }else{
           this.errorSeleccionado = true;
         }
         this.salida.emit(this.arregloEtiquetas);
-       
       }
     }else{
-
+      if(!Boolean(this.elementoSeleccionado)) return;
 
       if(this.dominical){
-        
         let fecha = new Date(this.elementoSeleccionado)
         if(fecha.getUTCDay() !== 0){
             this.salida.emit({type:"error",datos:true});
             return;
         }
       }
-
       if(this.arregloEtiquetas.length >= Number(this.dias)){
           return;
       }

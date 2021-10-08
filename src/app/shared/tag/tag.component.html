@@ -19,7 +19,7 @@
     </datalist>
 </div>
 <div *ngIf="calendario">
-    <input [(ngModel)]="elementoSeleccionado" type="date" (change)="eventoSeleccionando()" (keydown)="evento($event)" class="form-control">
+    <input [(ngModel)]="elementoSeleccionado" type="date" (change)="eventoSeleccionando()" (keydown)="evento($event)" (focusout)="eventoSeleccionando()" class="form-control">
 </div>
 
    
