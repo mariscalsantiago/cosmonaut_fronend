@@ -52,7 +52,13 @@ export class FormatosDirective implements OnInit {
   @HostListener("focus", ["$event"])
   public enter() {
     if (this.moneda) {
-      this.el.nativeElement.value = this.el.nativeElement.value.replace("$", "").replaceAll(",", "");
+      if(this.el.nativeElement.value.includes("$0.00")){
+        this.el.nativeElement.value = "";
+      }else{
+        this.el.nativeElement.value = this.el.nativeElement.value.replace("$", "").replaceAll(",", "");
+      }
+      debugger;
+      
     }
   }
 
