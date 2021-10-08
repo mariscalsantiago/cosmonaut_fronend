@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
@@ -38,6 +38,7 @@ export class EmpleoComponent implements OnInit {
   public arregloPoliticas: any = [];
   public fechaIC: Date = new Date();
   public fechaAntiguedad: Date = new Date();
+  public fechaInicioContra: Date = new Date();
   public arregloareasgeograficas: any = [];
   public contratoDesc: string | undefined;
   public activaFechaFin: boolean = true;
@@ -95,6 +96,7 @@ export class EmpleoComponent implements OnInit {
     
 
   }
+
 
   public suscripciones() {
     
@@ -268,16 +270,18 @@ export class EmpleoComponent implements OnInit {
     return this.myForm.controls;
   }
   public validarfechAntiguedad(fecha: any) {
-    
+    debugger;
 
-    let fechaInicioContra = fecha;
+    let fechaInicioContra = this.myForm.controls.fechaInicio.value;
+    let fechaInicioSplit = fechaInicioContra.split("-");
+    this.fechaInicioContra.setFullYear(fechaInicioSplit[0], fechaInicioSplit[1] - 1, fechaInicioSplit[2]);
+    
     var fecha = fecha.split("-");
     this.fechaAntiguedad.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
-    var today = new Date();
 
-    if (this.fechaAntiguedad > today) {
+    if (this.fechaAntiguedad > this.fechaInicioContra) {
 
-      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha debe ser igual o menor a la fecha actual')
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha debe ser igual o menor a la fecha inicio')
         .then(() => {
           this.myForm.controls.fechaAntiguedad.setValue("");
           //this.myForm.controls.fechaInicio.setValue("");

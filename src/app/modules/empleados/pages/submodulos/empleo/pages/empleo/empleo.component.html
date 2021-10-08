@@ -150,7 +150,7 @@
                 <article *ngIf="editarcampos" class="titulo col">
                     Elegir fecha
                     <article>
-                        <input id="fechaantiguedad" #fechaAntiguedad (focusout)="validarfechAntiguedad(fechaAntiguedad.value)" [max]="date" [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && f.fechaAntiguedad.touched}" formControlName="fechaAntiguedad" type="date" name="" class="form-control">
+                        <input [max]="f.fechaInicio.value" #fechaAntiguedad (focusout)="validarfechAntiguedad(fechaAntiguedad.value)"  [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && f.fechaAntiguedad.touched}" formControlName="fechaAntiguedad" type="date" name="" class="form-control">
                         <div  class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -204,7 +204,7 @@
                 <article class="titulo  col" *ngIf="editarcampos">
                     Elegir fecha
                     <article>
-                        <input [min]="f.fechaAntiguedad.value" #fechaInicioCont (focusout)="validarfechaInicioCont(fechaInicioCont.value)" [ngClass]="{'is-invalid':f.fechaInicio.errors && f.fechaInicio.touched}" formControlName="fechaInicio" type="date" name="" class="form-control">
+                        <input #fechaInicioCont (focusout)="validarfechaInicioCont(fechaInicioCont.value)" [ngClass]="{'is-invalid':f.fechaInicio.errors && f.fechaInicio.touched}" formControlName="fechaInicio" type="date" name="" class="form-control">
                         <div  class="invalid-feedback">
                             Campo requerido
                         </div>
