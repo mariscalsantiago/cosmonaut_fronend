@@ -36,7 +36,7 @@ export class DetalleUsuarioComponent implements OnInit {
   public arregloCompany: any;
   public summitenviado: boolean = false;
   public companiasenviar: any = [];
-  public arregloRoles:any = [];
+  public arregloRoles: any = [];
   public inabilitar: boolean = false;
   public rolIdSeleciconado: number = 0;
 
@@ -85,7 +85,7 @@ export class DetalleUsuarioComponent implements OnInit {
       this.arregloRoles = datos.datos
       setTimeout(() => {
         if (this.objusuario.centrocClientes) {
-          if(!this.arregloRoles.some((o:any)=> o["rolId"]==this.objusuario.rolId.rolId)){
+          if (!this.arregloRoles.some((o: any) => o["rolId"] == this.objusuario.rolId.rolId)) {
             this.arregloRoles.push(this.objusuario.rolId);
           }
         }
@@ -174,6 +174,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     if (this.arregloCompany.length == 0) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Aún no existen empresas registradas, no es posible agregar o modificar usuarios.");
       this.cancelar();
     }
   }

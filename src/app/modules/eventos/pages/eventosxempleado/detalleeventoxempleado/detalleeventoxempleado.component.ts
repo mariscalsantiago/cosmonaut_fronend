@@ -81,7 +81,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public suscribirse() {
     this.myForm.controls.unidadmedida.valueChanges.subscribe(valor => {
-      debugger;
 
       this.ocultarHorasTemp = false;
       this.ocultarMontoTemp = false;
@@ -518,7 +517,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   }
 
   public configurandoRestricciones() {
-    debugger;
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
 
