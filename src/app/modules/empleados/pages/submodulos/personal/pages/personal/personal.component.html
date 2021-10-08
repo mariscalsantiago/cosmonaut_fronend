@@ -32,22 +32,31 @@
                 </article>
 
             </div>
-            <div class="row mb-4">
+            <div class="row">
                 <article [class.ajustar]="editarcampos" class="titulo col">
                     Genero
-                    <article>
-                        <label style="margin-top: 10px;" class="contenedorInputCheckRadio">Femenino
+                </article>
+            </div>
+
+            <div class="row">  
+                <article *ngIf="!editarcampos" class="titulo col">
+                    <article>{{generoName}}</article>
+                </article>
+ 
+                    <article *ngIf="editarcampos">
+                        <label style="margin-top: 10px; margin-inline-start: 15px;" class="contenedorInputCheckRadio">Femenino
                             <input formControlName="genero" id="femenino"  name="genero" value="true"  type="radio">
                             <span class="radiomark"></span>
                         </label>
-                        <label class="contenedorInputCheckRadio">Masculino
+                        <label style="margin-inline-start: 15px;" class="contenedorInputCheckRadio">Masculino
                             <input formControlName="genero" id="masculino" type="radio" name="genero" value="false">
                             <span class="radiomark"></span>
                         </label>
                     </article>
 
-                </article>
-            </div>
+                </div>      
+                
+
             <div class="row">
                 <article [class.ajustar]="editarcampos" class="titulo mr-1 col">
                     Fecha de nacimiento <span *ngIf="editarcampos">*</span>

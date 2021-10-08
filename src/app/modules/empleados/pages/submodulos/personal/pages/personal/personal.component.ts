@@ -45,7 +45,7 @@ export class PersonalComponent implements OnInit {
   public idMunicipio: number = 0;
   public noCoincide = '';
   public esKiosko:boolean = false;
-
+  public generoName: string = '';
   public cambioFotoPerfil!:Subscription;
 
   constructor(private formBuilder: FormBuilder,
@@ -221,11 +221,14 @@ export class PersonalComponent implements OnInit {
 
 
     let genero = "";
-    if (obj.genero == "F")
+    if (obj.genero == "F"){
       genero = "true";
-    else if (obj.genero == "M")
+      this.generoName= 'Femenino';
+    }  
+    else if (obj.genero == "M"){
       genero = "false";
-
+      this.generoName= 'Masculino';
+    }  
   
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],

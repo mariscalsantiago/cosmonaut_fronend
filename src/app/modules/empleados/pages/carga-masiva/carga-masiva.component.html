@@ -28,7 +28,7 @@
                 <option value="0" selected ></option>
                 <option *ngFor="let item of arregloTipoCarga"  [value]="item.tipoCargaId">{{item.descripcion}}</option>
               </select>
-                        <div *ngIf="f.tipoCargaId.errors" class="invalid-feedback">nac Campo requerido
+                        <div *ngIf="f.tipoCargaId.errors" class="invalid-feedback">Campo requerido
                         </div>
                         <br>
 

@@ -117,6 +117,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public establecerPermisos(){
+    debugger;
     this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
     this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
     this.esEditar = this.configuracionPrd.getPermisos("Editar");
