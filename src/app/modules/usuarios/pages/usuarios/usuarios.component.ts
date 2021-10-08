@@ -59,6 +59,7 @@ export class UsuariosComponent implements OnInit {
   public esEditar:boolean = false;
 
 
+  public cargandoBotones:boolean = false;
 
 
 
@@ -72,11 +73,13 @@ export class UsuariosComponent implements OnInit {
     private empresasProd: EmpresasService, private usuariosAuthPrd: UsuariosauthService) { }
 
   ngOnInit(): void {
+    
 
     this.establecerPermisos();
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
 
+    this.cargandoBotones = true;
     
     let documento: any = document.defaultView;
 
@@ -86,6 +89,7 @@ export class UsuariosComponent implements OnInit {
       this.companiPrd.getAllCompany().subscribe(datos => {
         this.arregloCompany = datos.datos
         this.filtrar();
+        this.cargandoBotones = false;
       });
     } else {
       if(this.usuariosSistemaPrd.esCliente()){
@@ -98,12 +102,14 @@ export class UsuariosComponent implements OnInit {
             this.arregloCompany = datos.datos;
           }
           this.filtrar();
+          this.cargandoBotones = false;
         
         });
       }else{
         this.empresasProd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
           this.arregloCompany = [datos.datos];
           this.filtrar();
+          this.cargandoBotones = false;
         
         });
       }
