@@ -66,9 +66,14 @@ export class TagComponent implements OnInit,OnChanges {
 
   public evento(evento:any){
     this.errorSeleccionado = false;
-      if (evento.which==13) {
+    console.log(evento.which);
+      if (evento.which==13 || evento.which==9) {
         this.eventoSeleccionando();
-        evento.preventDefault()
+
+        if(evento.which!==9){
+          evento.preventDefault()
+        }
+        
       }else if(evento.which == undefined){
           setTimeout(() => {
               this.eventoSeleccionando();

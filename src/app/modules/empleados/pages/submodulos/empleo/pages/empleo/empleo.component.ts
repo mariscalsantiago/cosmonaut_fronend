@@ -102,7 +102,7 @@ export class EmpleoComponent implements OnInit {
     
     
     this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato: number) => {
-      debugger;
+      
       this.activaFechaFin = idContrato != 1 && idContrato != 10;
       if (this.activaFechaFin){
         this.myForm.controls.fechaFin.setValidators([Validators.required]);
@@ -186,7 +186,7 @@ export class EmpleoComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo, subtitulo).then(valor => {
       if (valor) {
-        debugger;
+        
         let obj = this.myForm.value;
 
         let idTipoJornada = -1;
@@ -270,7 +270,7 @@ export class EmpleoComponent implements OnInit {
     return this.myForm.controls;
   }
   public validarfechAntiguedad(fecha: any) {
-    debugger;
+    
 
     let fechaInicioContra = this.myForm.controls.fechaInicio.value;
     let fechaInicioSplit = fechaInicioContra.split("-");

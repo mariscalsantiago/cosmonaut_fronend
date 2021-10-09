@@ -430,7 +430,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
-    debugger;
+    
     if (this.myForm.invalid) {
         Object.values(this.myForm.controls).forEach(control =>{
           control.markAsTouched();

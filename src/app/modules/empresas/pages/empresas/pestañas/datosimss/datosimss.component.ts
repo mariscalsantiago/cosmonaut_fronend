@@ -90,7 +90,7 @@ export class DatosimssComponent implements OnInit {
     input.click();
 
     input.onchange = () => {
-      debugger;
+      
       let imagenInput: any = input.files;
       let extName = imagenInput![0].name;
       let ext = extName.split('.');

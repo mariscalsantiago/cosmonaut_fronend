@@ -57,7 +57,7 @@ export class FormatosDirective implements OnInit {
       }else{
         this.el.nativeElement.value = this.el.nativeElement.value.replace("$", "").replaceAll(",", "");
       }
-      debugger;
+      
       
     }
   }
