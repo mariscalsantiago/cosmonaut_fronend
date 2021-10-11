@@ -158,8 +158,11 @@ export class FormBajaEmpleadoComponent implements OnInit {
             this.personaId = item.personaId?.personaId;
             if(this.personaId != null){
 
+              debugger;
               this.EmpleadosService.getEmpleadoValidarFecha(this.personaId).subscribe(datos => {
                   this.arregloEmpleado = datos.datos;
+                  console.log(this.arregloEmpleado);
+                  debugger;
                   if(this.arregloEmpleado.mostrarFechaFinUltimoPago == true){
                       this.ultimaNomina = true;
                       this.myFormcomp.controls.fechaFinUltimoPago.setValidators([Validators.required]);
