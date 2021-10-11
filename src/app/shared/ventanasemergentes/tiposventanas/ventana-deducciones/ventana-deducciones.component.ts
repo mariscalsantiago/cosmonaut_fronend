@@ -52,6 +52,8 @@ export class VentanaDeduccionesComponent implements OnInit {
   public nombresuspension: string = "";
   public tipoDescuentoInfonavitId : number = 0;
   public cambioEstatus : boolean = true;
+  public fechaInicioDescu: Date = new Date();
+  public fechaFinDescu: Date = new Date();
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -183,6 +185,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   public validarFechaIniDesc(){
 
     this.myForm.controls.fechaFinDescuento.setValue("");
+    
 
   }
 
@@ -771,6 +774,7 @@ export class VentanaDeduccionesComponent implements OnInit {
  
 
   public enviarPeticion(){
+    debugger;
   
     this.submitEnviado = true;
     this.myForm.updateValueAndValidity();
@@ -781,6 +785,27 @@ export class VentanaDeduccionesComponent implements OnInit {
       return;
 
     }
+
+  
+
+      let fechaInicioDescu = this.myForm.controls.fechaInicioDescto.value;
+      let fechaInicioSplit = fechaInicioDescu.split("-");
+      this.fechaInicioDescu.setFullYear(fechaInicioSplit[0], fechaInicioSplit[1] - 1, fechaInicioSplit[2]);
+      
+      let fechaFinDescu = this.myForm.controls.fechaFinDescuento.value;
+      let fecha = fechaFinDescu.split("-");
+      this.fechaFinDescu.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
+  
+      if (fechaInicioDescu > fechaFinDescu) {
+  
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio de descuento debe ser igual o menor a la fecha fin de descuento')
+          .then(() => {
+            this.myForm.controls.fechaInicioDescto.setValue("");
+            this.myForm.controls.fechaFinDescuento.setValue("");
+          });
+        return;  
+      } 
+
 
     let mensaje = this.esInsert ? "¿Deseas registrar la deducción" : "¿Deseas actualizar la deducción?";
     
