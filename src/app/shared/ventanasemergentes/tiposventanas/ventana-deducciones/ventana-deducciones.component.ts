@@ -91,7 +91,6 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
 
     }else{
-
       this.esInsert = false;
       this.myForm = this.createForm(this.datos);
       this.validarConceptoDeduccion(this.datos.tipoDeduccionId?.tipoDeduccionId);
@@ -99,6 +98,9 @@ export class VentanaDeduccionesComponent implements OnInit {
     
     
     this.suscripciones();
+    if(!this.esInsert){
+      this.validaFechaDescu();
+    }
   }
 
   public createForm(obj: any) {
@@ -177,9 +179,16 @@ export class VentanaDeduccionesComponent implements OnInit {
     });
 
     this.myForm.controls.fechaInicioDescto.valueChanges.subscribe(valor => {
+    
       this.fechaFinDescuento.nativeElement.min = valor;
     });
 
+  }
+
+  public validaFechaDescu(){
+    debugger;
+    let valorFecha = this.myForm.controls.fechaInicioDescto.value
+    this.fechaFinDescuento.nativeElement.min = valorFecha;
   }
 
   public validarFechaIniDesc(){
@@ -785,18 +794,18 @@ export class VentanaDeduccionesComponent implements OnInit {
       return;
 
     }
-
-  
+      let fechaFinDescu = this.myForm.controls.fechaFinDescuento.value;
+      if(fechaFinDescu != null ){
 
       let fechaInicioDescu = this.myForm.controls.fechaInicioDescto.value;
       let fechaInicioSplit = fechaInicioDescu.split("-");
       this.fechaInicioDescu.setFullYear(fechaInicioSplit[0], fechaInicioSplit[1] - 1, fechaInicioSplit[2]);
       
-      let fechaFinDescu = this.myForm.controls.fechaFinDescuento.value;
+      
       let fecha = fechaFinDescu.split("-");
       this.fechaFinDescu.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
 
-      if(fechaFinDescu != undefined){
+
       if (fechaInicioDescu > fechaFinDescu) {
   
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio de descuento debe ser igual o menor a la fecha fin de descuento')
