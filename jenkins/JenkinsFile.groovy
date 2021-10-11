@@ -47,6 +47,7 @@ pipeline {
                     git url: 'https://github.com/ASG-BPM/cosmonaut-front',branch:'main',credentialsId: 'winter_user'
 				    sh "git checkout $tag"
                     sh 'npm install'
+					sh 'npm install -g @angular/cli'
                     sh 'npm run test-headless'
                 }
             }
@@ -85,6 +86,7 @@ pipeline {
                     git url: 'https://github.com/ASG-BPM/cosmonaut-front',branch:'main',credentialsId: 'winter_user'
 				    sh "git checkout $tag"
                     sh 'npm install'
+					sh 'npm install -g @angular/cli'
                     sh 'ng build --prod --base-href /cosmonaut-public-front/'
                     sh 'tar -cvzf dist.tar.gz dist'
                     stash includes: 'dist/cosmonaut-front/**/*', name:'distbuild'
