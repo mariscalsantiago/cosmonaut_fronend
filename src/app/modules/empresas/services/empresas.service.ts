@@ -73,6 +73,17 @@ public recalculoPromedioVariables(id_Variabilidad:number):Observable<any>{
     return this.http.put(`${this.url}/guardar`,json,httpOptions);
   }
 
+  public afiliaRecepcionIdse(obj:any):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json:string = JSON.stringify(obj);
+
+    return this.http.post(`${direcciones.tectel}/afiliaRecepcion`,json,httpOptions);
+  }
+
  
 
   public modificar(obj:any):Observable<any>{

@@ -14,6 +14,7 @@ export const direcciones = {
     usuarios:`${ip}/persona`,
     empleado:`${ip}/empleado`,
     centroCostosCliente: `${ip}/centroCostosCliente`,
+    tectel:`${ip}/tectel`,
     area: `${ip}/area`,
     politica: `${ip}/Politica`,
     jornada: `${ip}/jornadas`,

@@ -795,7 +795,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       let fechaFinDescu = this.myForm.controls.fechaFinDescuento.value;
       let fecha = fechaFinDescu.split("-");
       this.fechaFinDescu.setFullYear(fecha[0], fecha[1] - 1, fecha[2]);
-  
+
+      if(fechaFinDescu != undefined){
       if (fechaInicioDescu > fechaFinDescu) {
   
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio de descuento debe ser igual o menor a la fecha fin de descuento')
@@ -805,7 +806,7 @@ export class VentanaDeduccionesComponent implements OnInit {
           });
         return;  
       } 
-
+      }
 
     let mensaje = this.esInsert ? "¿Deseas registrar la deducción" : "¿Deseas actualizar la deducción?";
     

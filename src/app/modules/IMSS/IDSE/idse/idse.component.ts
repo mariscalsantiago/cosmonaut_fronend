@@ -27,6 +27,7 @@ export class IDSEComponent implements OnInit {
   public objFiltro: any = [];
   public activarMultiseleccion: boolean = false;
   public arregloIDSE : any = [];
+  public arregloEnvioIDSE : any = [];
   public movimientoImssId : number = 0;
   public registroPatronalIdse : string = '';
   public idCsd : string = '';
@@ -275,7 +276,7 @@ export class IDSEComponent implements OnInit {
           }
         }
 
-        this.arregloIDSE = { 
+        this.arregloEnvioIDSE = { 
           clienteId: this.idEmpresa,
           registroPatronal: this.registroPatronalIdse,
           idCsd: '',
@@ -285,33 +286,35 @@ export class IDSEComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-        this.reportesPrd.getDescargaLayaoutIDSE(this.arregloIDSE).subscribe(archivo => {
+        this.empresasPrd.afiliaRecepcionIdse(this.arregloEnvioIDSE).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
-          const downloadLink = document.createElement("a");
-          const fileName = `${"Layaout  IDSE"}.txt`;
-  
-          downloadLink.href = linkSource;
-          downloadLink.download = fileName;
-          downloadLink.click();
-          if (archivo) {
-            for (let item of this.arregloIDSE.idKardex) {
-              for (let item2 of this.arreglo) {
-                if (item2.kardex_colaborador_id === item) {
-                  item2["seleccionado"] = false;
-                  break;
+          if(archivo.resultado){
+
+/*               for (let item of this.arregloEnvioIDSE.movimientosKardexIds) {
+                for (let item2 of this.arreglo) {
+                  if (item2.kardex_colaborador_id === item) {
+                    item2["seleccionado"] = false;
+                    break;
+                  }
                 }
-              }
-            }
+              } */
+              this.modalPrd.showMessageDialog(archivo.resultado,archivo.mensaje)
+              .then(()=> {
             
-            this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
-              this.arreglo = datos.datos;
-          
-              this.traerTabla({ datos: this.arreglo });
-          
-              this.cargando = false;
-            });
-            this.activarMultiseleccion = false;
+                  this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
+                    this.arreglo = datos.datos;
+                
+                    this.traerTabla({ datos: this.arreglo });
+                
+                    this.cargando = false;
+                  });
+                  this.activarMultiseleccion = false;
+              });    
+
+          }else{
+
+              this.modalPrd.showMessageDialog(archivo.resultado,archivo.mensaje);
+
           }
         });
      
