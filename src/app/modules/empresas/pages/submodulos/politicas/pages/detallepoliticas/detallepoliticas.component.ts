@@ -362,7 +362,7 @@ export class DetallepoliticasComponent implements OnInit {
       new tabla("fechaInicioDesctoDed", 'Fecha inicio de descuento'),
       //new tabla("", "Tipo de descuento"),
       new tabla("valorMonto", 'Valor (porcentaje/monto)'),
-      new tabla("esActivo", "Estatus")
+      new tabla("activo", "Estatus de deducción"),
     ]
 
 
@@ -381,12 +381,12 @@ export class DetallepoliticasComponent implements OnInit {
         }
         item.nombre = item.conceptoDeduccionId?.nombre;
 
-        if (item.esActivo) {
-          item.esActivo = true
-        }
-        if (!item.esActivo) {
-          item.esActivo = false
-        }
+        if(item.esActivo){
+          item.activo = 'Activo'
+         }
+         if(!item.esActivo){
+          item.activo = 'Inactivo'
+         }
 
         if(item.valor !== undefined){
           item.valorMonto = item.valor; 
@@ -417,7 +417,7 @@ export class DetallepoliticasComponent implements OnInit {
       new tabla("fechaInicioPer", 'Fecha inicio percepción'),
       new tabla("tipoMonto", "Tipo de monto"),
       new tabla("valorMonto", 'Valor (porcentaje/monto)'),
-      new tabla("esActivo", "Estatus")
+      new tabla("activo", "Estatus de percepción"),
     ]
 
 
@@ -437,12 +437,12 @@ export class DetallepoliticasComponent implements OnInit {
 
         item.tipoMonto = (item.baseCalculoId?.baseCalculoId == '1') ? 'Porcentual' : 'Fijo';
 
-        if (item.esActivo) {
-          item.esActivo = true;
-        }
-        if (!item.esActivo) {
-          item.esActivo = false;
-        }
+        if(item.esActivo){
+          item.activo = 'Activo'
+         }
+         if(!item.esActivo){
+          item.activo = 'Inactivo'
+         }
 
         if(item.tipoPercepcionId?.noEditable !== undefined ){
           item.tipoPercepcionId.noEditable = false;
