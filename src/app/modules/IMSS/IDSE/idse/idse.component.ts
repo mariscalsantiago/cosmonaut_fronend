@@ -275,10 +275,11 @@ export class IDSEComponent implements OnInit {
 
           }
         }
+
         this.arregloIDSE = { 
           clienteId: this.idEmpresa,
           registroPatronal: this.registroPatronalIdse,
-          idCsd: '1234FRE',
+          idCsd: '',
           movimientosKardexIds: valor
         }
 
