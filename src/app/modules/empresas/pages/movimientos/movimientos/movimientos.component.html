@@ -21,20 +21,20 @@
 
                     <div class="form group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="nombre" formatos [especial]="true" [control]="nombre" placeholder="Nombre">
+                            <input id="nombreb" type="text" class="form-control" [(ngModel)]="nombre" formatos [especial]="true" [control]="nombre" placeholder="Nombre">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="apellidoPaterno" formatos [especial]="true" [control]="apellidoPaterno" placeholder="Primer apellido">
+                            <input id="apellidoPaternob" type="text" class="form-control" [(ngModel)]="apellidoPaterno" formatos [especial]="true" [control]="apellidoPaterno" placeholder="Primer apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="apellidoMaterno" formatos [especial]="true" [control]="apellidoMaterno" placeholder="Segundo apellido">
+                            <input id="apellidoMaternob" type="text" class="form-control" [(ngModel)]="apellidoMaterno" formatos [especial]="true" [control]="apellidoMaterno" placeholder="Segundo apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="date" class="form-control" [(ngModel)]="fechaMovimiento" placeholder="Fecha de movimiento">
+                            <input id="fechamovimientob" type="date" class="form-control" [(ngModel)]="fechaMovimiento" placeholder="Fecha de movimiento">
                         </div>
 
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                            <button id="btnFiltrado" type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                         </div>
 
 
