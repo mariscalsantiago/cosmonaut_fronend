@@ -794,8 +794,9 @@ export class VentanaDeduccionesComponent implements OnInit {
       return;
 
     }
+    debugger;
       let fechaFinDescu = this.myForm.controls.fechaFinDescuento.value;
-      if(fechaFinDescu != null ){
+      if(fechaFinDescu != null && fechaFinDescu != ""){
 
       let fechaInicioDescu = this.myForm.controls.fechaInicioDescto.value;
       let fechaInicioSplit = fechaInicioDescu.split("-");
