@@ -276,7 +276,6 @@ export class DetalleRolesComponent implements OnInit {
             if ((item2.checked)) {
               if (item2.permisos) {
                 for (let item3 of item2.permisos) {
-
                   if (item3.checked) {
                      return true;
                   }
