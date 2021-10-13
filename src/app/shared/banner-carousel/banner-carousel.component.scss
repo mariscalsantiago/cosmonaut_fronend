@@ -1,0 +1,64 @@
+
+
+div.cn-banner-kiosko {
+  
+  div.cn-banner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: end;
+    align-items: flex-end;
+    width: 100%;
+    flex-shrink: 0;
+  }
+  
+  div.cn-banner-card-section {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  div.cn-banner-content {
+      
+      width: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      transition: transform 0.7s ease-in-out;
+      max-height: 16vw;
+
+      img.cn-carousel-image {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  div.cn-banner-navigator {
+    display: flex;
+    align-self: center;
+    padding-bottom: 1.5rem;
+    z-index: 99;
+  }
+  
+  div.cn-banner-navigator > :not(:first-child) {
+    margin-left: 0.5rem;
+  }
+  div.cn-banner-navigator > :not(:last-child) {
+    margin-right: 0.5rem;
+  }
+  
+  div.cn-banner-navigator-step {
+    border-radius: 100%;
+    width: 0.6rem;
+    height: 0.6rem;
+    background-color: #00C1AF;
+  }
+  
+  div.cn-banner-navigator-step.Selected {
+    background-color: #022538;
+    border: solid 1px #022538;
+    transform: scale(1.5);
+  }
+}

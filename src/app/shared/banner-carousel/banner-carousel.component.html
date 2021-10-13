@@ -1,0 +1,16 @@
+<div class="row margen cn-banner-kiosko">
+    <div class="cn-banner-card-section background-panel">
+        <div class="cn-banner-card-section">
+            <div class="cn-banner-content" [style.transform]="clientCarrouselTranslation">
+                <div class="cn-banner-container" *ngFor="let banner of banners; let indice = index">
+                    <img class="cn-carousel-image" [src]="banner" alt="banner-image">
+                </div>
+            </div>
+            <div class="cn-banner-navigator">
+                <div class="cn-banner-navigator-step" *ngFor="let banner of banners; let indice = index"
+                    [ngClass]="{'Selected': stepClientCarrousel == indice}" (click)="chooseClientCarrouselStep(indice)">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

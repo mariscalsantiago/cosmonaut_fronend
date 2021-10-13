@@ -1,0 +1,21 @@
+<div class="background-panel">
+    <div class="col-5 titulo-outlet-inicio">
+        <label>NOVEDADES</label>
+    </div>
+    <div class="cn-anuncios">
+        <div class="cn-anuncio-listado" *ngFor="let anuncio of anuncios; let indice = index">
+            <div class="cn-status-container">
+                <div class="cn-anuncio-status" [ngClass]="{'selected': anuncio.seleccionado}"></div>
+            </div>
+            <div class="cn-content-container">
+                <div class="cn-content">
+                    <span class="cn-content-title">{{anuncio.titulo}}</span>
+                    <span class="cn-content-subtitle">{{anuncio.subtitulo}}</span>
+                </div>
+                <div class="cn-type">
+                    <span>{{anuncio.tipo}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
