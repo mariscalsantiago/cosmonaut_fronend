@@ -91,17 +91,11 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
   public seguirProceso() {
     
     this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-
-      console.log(this.empleado);
-      debugger;
       this.empleado = datos.datos;
-
-
     });
 
     this.empleadosPrd.getPorcentajeavance(this.idEmpleado).subscribe(datos => {
       this.porcentaje = datos;
-
     });
   }
 

@@ -70,9 +70,7 @@ export class DetalleUsuarioComponent implements OnInit {
     this.insertar = !Boolean(history.state.usuario);
     this.objusuario = history.state.usuario;
     this.objusuario = this.objusuario == undefined ? {} : this.objusuario;
-
-
-
+    
     this.verificarCompaniasExista();
 
 
