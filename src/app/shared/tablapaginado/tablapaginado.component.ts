@@ -388,7 +388,6 @@ export class TablapaginadoComponent implements OnInit {
           }
         }else {
           while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() < (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
-            console.log("Conversion", aux[llave].toUpperCase() );
             a[j] = a[j - 1];
             j--;
         }
@@ -404,7 +403,6 @@ export class TablapaginadoComponent implements OnInit {
           }
         }else{
         while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() > (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
-          console.log("Conversion", aux[llave].toUpperCase() );
           a[j] = a[j - 1];
           j--;
         }
@@ -412,7 +410,6 @@ export class TablapaginadoComponent implements OnInit {
       }
       a[j] = aux;
     }
-    console.log("ResultadoFinal",a)
   }
 
 
