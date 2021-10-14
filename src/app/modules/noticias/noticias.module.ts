@@ -7,9 +7,10 @@ import { NoticiasRoutingModule } from './noticias-routing.module';
 import { NoticiasDetalleComponent } from './pages/noticias-detalle/noticias-detalle.component';
 import { NoticiasComponent } from './pages/noticias/noticias.component';
 import { NoticiasService } from './services/noticias.service';
+import { NoticiasContenidoComponent } from './pages/noticias-contenido/noticias-contenido.component';
 
 @NgModule({
-  declarations: [NoticiasComponent, NoticiasDetalleComponent],
+  declarations: [NoticiasComponent, NoticiasDetalleComponent, NoticiasContenidoComponent],
   imports: [
     CommonModule,
     NoticiasRoutingModule,
@@ -21,4 +22,4 @@ import { NoticiasService } from './services/noticias.service';
     NoticiasService
   ]
 })
-export class UsuariosModule { }
+export class NoticiasModule { }

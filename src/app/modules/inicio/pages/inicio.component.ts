@@ -1,7 +1,6 @@
 import { CursoListado } from './../../../core/modelos/curso-listado';
 import { AnuncioListado } from './../../../core/modelos/anuncio-listado';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
@@ -10,6 +9,7 @@ import { ReportesService } from 'src/app/shared/services/reportes/reportes.servi
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
 import { interval, Observable, Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -79,8 +79,6 @@ export class InicioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.usuariosSistemaPrd.getUsuario());
-
     this.cargando = true;
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
@@ -117,6 +115,10 @@ export class InicioComponent implements OnInit {
 
   puedeConsultarKiosko(): boolean {
     return this.usuariosSistemaPrd.getUsuario().rolId == 2;
+  }
+
+  mostrarContenido(banner: any): void {
+    this.routerPrd.navigate(['noticias', 'contenido_noticia', '100']);
   }
 
   public iniciarDescarga() {

@@ -1,5 +1,6 @@
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 @Component({
   selector: 'app-banner-carousel',
@@ -14,6 +15,7 @@ export class BannerCarouselComponent implements OnInit, OnDestroy {
 
   @Input() public intervalo: number = 4000;
   @Input() public banners: string[] = [];
+  @Input() onClicked: (banner: any) => void;
 
   constructor() { }
 

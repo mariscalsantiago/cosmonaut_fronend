@@ -1,1 +1,108 @@
-<p>noticias-detalle works!</p>
+<div class="row margen">
+    <div class="col titulo-outlet">
+        <div (click)="cfgService.menu = !cfgService.menu" class="col-2 menu-hamburgesa">
+            <button disabled>
+                <img src="assets/imgs/menu.png" alt="" srcset="">
+            </button>
+        </div>
+        <label>
+            <i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block"
+                routerLink="/company"></i>CONFIGURACIÓN DE NOTICIA
+        </label>
+    </div>
+</div>
+
+<hr>
+
+<form [formGroup]="formulario" (ngSubmit)="enviarPeticioncomp()">
+
+    <div class="background-panel margen background-ajustar" appTamanioVentana>
+
+        <div class="form-group row margen">
+            <label class="titulo">DETALLE DE LA NOTICIA</label>
+        </div>
+
+        <div class="form-group row margen">
+
+            <div class="col-12 col-md-12 col-xl-9">
+                <div class="row">
+
+                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4  ">
+                        <label for="titulo">Título de la noticia *</label>
+                        <input #titulo id="titulo" formControlName="titulo" type="text" class="form-control"
+                            [ngClass]="{'is-invalid':f.titulo.errors && submitEnviado}"
+                            placeholder="{ej. !Feliz cumpleaños Parguitaaaaaaa!}">
+                        <div *ngIf="f.titulo.errors && submitEnviado" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </div>
+
+                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4  ">
+                        <label for="subtitulo">Subtítulo de la noticia</label>
+                        <input id="subtitulo" formControlName="subtitulo" type="text" class="form-control"
+                            [ngClass]="{'is-invalid':f.subtitulo.errors && submitEnviado}"
+                            placeholder="{ej. University of Michigan}">
+                    </div>
+
+                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
+                        <label for="fechaAlta">Fecha de registro en el sistema *</label>
+                        <input formControlName="fechaAlta" type="text" class="form-control" placeholder="">
+                    </div>
+
+                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
+                        <label for="fechaInicio">Fecha de inicio de publicación *</label>
+                        <input formControlName="fechaInicio" type="text" class="form-control" placeholder="">
+                    </div>
+
+                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
+                        <label for="fechaFin">Fecha de fin de publicación *</label>
+                        <input formControlName="fechaFin" type="text" class="form-control" placeholder="">
+                    </div>
+
+                    <div class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
+                        <label for="categoria">Categoría *</label>
+                        <select formControlName="categoria" class="form-control">
+                            <option value="banner" selected>BANNER</option>
+                            <option value="celebraciones">CELEBRACIONES</option>
+                            <option value="noticias">NOTICIAS</option>
+                            <option value="estilo de vida">ESTILO DE VIDA</option>
+                            <option value="curso">CURSO</option>
+                            <option value="capacitacion">CAPACITACION</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Campo requerido.
+                        </div>
+                    </div>
+
+                    <div class=" input-group-sm col-12">
+                        <label for="contenido">Contenido de de la noticia</label>
+                        <textarea (ngModelChange)="actualizarPreview()" id="contenido" formControlName="contenido"
+                            rows="8" class="form-control" [ngClass]="{'is-invalid':f.contenido.errors && submitEnviado}"
+                            placeholder="{ej. <h3>HOLA MUNDOOOOOOOO</h3>}"></textarea>
+                    </div>
+
+
+                    <div *ngIf="!!noticia" class=" input-group-sm col-12">
+                        <div class="cm-noticia-detalle" [innerHTML]="noticia">
+                        </div>
+                    </div>
+
+                    <div class="input-group-sm mb-3 col-12 col-sm-12 col-md-4 col-lg-4"></div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-xl-2">
+                <div class=" input-group-sm mb-3 col-12">
+                    <label>Logo</label>
+                    <app-subirarchivo [cargando]="cargandoImg" (emiteimagen)="recibirImagen($event)"
+                        [recibiendoImagen]=""></app-subirarchivo>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center margin" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
+            (click)="cancelarcomp()">Cancelar</button>
+        <button (click)="enviarPeticioncomp()" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>
+
+</form>
