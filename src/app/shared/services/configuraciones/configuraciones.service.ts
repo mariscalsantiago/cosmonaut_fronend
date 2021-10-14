@@ -151,7 +151,7 @@ export class ConfiguracionesService {
             //
           }
 
-          if ((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9 || valor2.submoduloId == 33) || version === 1) {
+          if ((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9 || valor2.submoduloId == 33 ||  valor2.submoduloId == 37) || version === 1) {
             valor2.permisos?.forEach((valor3: any[any]) => {
 
               valor3.checked = this.encontrarConcidencias(filtrar, valor3);

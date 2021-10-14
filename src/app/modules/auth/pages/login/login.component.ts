@@ -178,6 +178,7 @@ export class LoginComponent implements OnInit {
           this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
             let obj = datos.datos;
 
+            console.log("VERSION COSMONAUT",obj.versionCosmonautId?.versionCosmonautId);
             this.usuarioSistemaPrd.setVersionSistema(obj.versionCosmonautId?.versionCosmonautId);
 
           });
