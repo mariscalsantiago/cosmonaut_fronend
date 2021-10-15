@@ -50,7 +50,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     });
 
     if(!this.esInsert){
-      
+      debugger;
     this.obj = history.state.data == undefined ? {} : history.state.data;
     this.obj.descripcion = this.obj.tipoPercepcionId?.tipoPercepcionId + "-" + this.obj.tipoPercepcionId?.descripcion;
     
