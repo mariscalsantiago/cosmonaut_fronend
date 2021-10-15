@@ -4,58 +4,59 @@ pipeline {
 		label 'docker-agent'
 	}
 
-	stages {
-		stage("Protractor test") {
-			agent{
-				docker {
-					label 'docker-agent'
-                    image 'wintermutetec/protractor:v5.4.x'  
-                    args "-e WEBDRIVER_VERSION=12.1.7 -e RUNDIR=${env.WORKSPACE} -u root"  
-				}
-			}
-		   steps {
-			   script{
-				   git url: 'https://github.com/ASG-BPM/cosmonaut-front',branch:'main',credentialsId: 'winter_user'
-				   tag = sh(script:'git describe --tags --always `git rev-list --tags` | grep DEV | head -1',returnStdout: true ).trim()
-				   sh "git checkout $tag"
-				   sh '/usr/bin/run_project.sh'
-			   }
-		   }
-		   post {
-				always{
-                    publishHTML target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll: true,
-                        reportDir: 'e2e/reports',
-                        reportFiles: 'report.html',
-                        reportName: 'Protractor Report'
-                      ]
-                }
-		   }
-		}
-		stage('Karma test') {
-            agent{
-                docker {
-                    label 'docker-agent'
-                    image 'teracy/angular-cli:8.3'
-                    args '--dns 192.168.0.154'                    
-                }
-            }
-            steps {
-                script{
-                    git url: 'https://github.com/ASG-BPM/cosmonaut-front',branch:'main',credentialsId: 'winter_user'
-				    sh "git checkout $tag"
-                    sh 'npm install'
-                    sh 'npm run test-headless'
-                }
-            }
-            post {
-                always{
-                    junit 'test-reports/**/*.xml'
-                }
-            }
-        }
+//	stages {
+//		stage("Protractor test") {
+//			agent{
+//				docker {
+//					label 'docker-agent'
+//                   image 'wintermutetec/protractor:v5.4.x'  
+//                    args "-e WEBDRIVER_VERSION=12.1.7 -e RUNDIR=${env.WORKSPACE} -u root"  
+//				}
+//			}
+//		   steps {
+//			   script{
+//				   git url: 'https://github.com/ASG-BPM/cosmonaut-front',branch:'main',credentialsId: 'winter_user'
+//				   tag = sh(script:'git describe --tags --always `git rev-list --tags` | grep DEV | head -1',returnStdout: true ).trim()
+//				   sh "git checkout $tag"
+//				   sh '/usr/bin/run_project.sh'
+//			   }
+//		   }
+//		   post {
+//				always{
+//                   publishHTML target: [
+//                        allowMissing: false,
+//                        alwaysLinkToLastBuild: false,
+//                        keepAll: true,
+//                        reportDir: 'e2e/reports',
+//                        reportFiles: 'report.html',
+//                        reportName: 'Protractor Report'
+//                      ]
+//                }
+//		   }
+//		}
+//		stage('Karma test') {
+//            agent{
+//                docker {
+//                    label 'docker-agent'
+//                    image 'teracy/angular-cli:8.3'
+//                    args '--dns 192.168.0.154'                    
+//                }
+//            }
+//            steps {
+//                script{
+//                    git url: 'https://github.com/ASG-BPM/cosmonaut-front',branch:'main',credentialsId: 'winter_user'
+//				    sh "git checkout $tag"
+//                    sh 'npm install'
+//                    sh 'npm run test-headless'
+//                }
+//            }
+//            post {
+//                always{
+//                    junit 'test-reports/**/*.xml'
+//                }
+//            }
+//       }
+
 		stage('Sonarqube') {
 			agent{
 				docker {
