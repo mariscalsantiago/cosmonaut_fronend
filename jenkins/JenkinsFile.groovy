@@ -4,7 +4,7 @@ pipeline {
 		label 'docker-agent'
 	}
 
-//	stages {
+stages {
 //		stage("Protractor test") {
 //			agent{
 //				docker {
