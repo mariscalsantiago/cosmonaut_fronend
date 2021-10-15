@@ -1,6 +1,6 @@
 <div class="row margen">
     <div class="col titulo-outlet">
-        <div (click)="cfgService.menu = !cfgService.menu" class="col-2 menu-hamburgesa">
+        <div (click)="configuracion.menu = !configuracion.menu" class="col-2 menu-hamburgesa">
             <button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
             </button>
@@ -65,7 +65,7 @@
                             <option value="banner" selected>BANNER</option>
                             <option value="celebraciones">CELEBRACIONES</option>
                             <option value="noticias">NOTICIAS</option>
-                            <option value="estilo de vida">ESTILO DE VIDA</option>
+                            <option value="estilo-vida">ESTILO DE VIDA</option>
                             <option value="curso">CURSO</option>
                             <option value="capacitacion">CAPACITACION</option>
                         </select>
@@ -83,8 +83,12 @@
 
 
                     <div *ngIf="!!noticia" class=" input-group-sm col-12">
-                        <div class="cm-noticia-detalle" [innerHTML]="noticia">
+                        <div class="cm-noticia-preview" [innerHTML]="noticia">
                         </div>
+                    </div>
+                    <div class="input-group-sm col-12">
+                        <img [src]="imagen" />
+                        <img [src]="thumbnail" />
                     </div>
 
                     <div class="input-group-sm mb-3 col-12 col-sm-12 col-md-4 col-lg-4"></div>

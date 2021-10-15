@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
-
 @Component({
   selector: 'app-noticias-detalle',
   templateUrl: './noticias-detalle.component.html',
@@ -22,14 +21,12 @@ export class NoticiasDetalleComponent implements OnInit {
 
   noticia: string = ``;
 
-  public objcont: any;
   public fechaAlta: string = "";
   public cargando: Boolean = false;
-  public multiseleccion: Boolean = false;
-  public multiseleccionloading: boolean = false;
-  public objCompany: any;
   public submitEnviado: boolean = false;
   public imagen: any = undefined;
+  public thumbnail: any = undefined;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -43,7 +40,7 @@ export class NoticiasDetalleComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private navigator: Router,
-    public cfgService: ConfiguracionesService) { }
+    public configuracion: ConfiguracionesService) { }
 
   ngOnInit(): void {
 
@@ -92,7 +89,8 @@ export class NoticiasDetalleComponent implements OnInit {
     this.navigator.navigate(['/noticias']);
   }
 
-  public recibirImagen(imagen: any) {
+  public async recibirImagen(imagen: any) {
+
     this.imagen = imagen;
   }
 }

@@ -1,24 +1,27 @@
 <div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
     <div class="col titulo-outlet">
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa">
+            <button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
-            </button></div> <label>INICIO</label>
+            </button>
+        </div>
+        <label>INICIO</label>
     </div>
 </div>
-<app-banner-carousel *ngIf="puedeConsultarKiosko()" [banners]="bannersCliente" [intervalo]=4000
+<app-banner-carousel *ngIf="puedeConsultarKiosko()" [noticias]="noticiasAdministrador" [intervalo]=4000
     [onClicked]="mostrarContenido"></app-banner-carousel>
-<app-banner-carousel *ngIf="puedeConsultarKiosko()" [banners]="bannersEmpleado" [intervalo]=6000
+<app-banner-carousel *ngIf="puedeConsultarKiosko()" [noticias]="noticiasEmpresa" [intervalo]=6000
     [onClicked]="mostrarContenido"></app-banner-carousel>
 
 <div class="row margen cn-anuncios-kiosko" *ngIf="puedeConsultarKiosko()">
     <div class="col-md-6 col-12 nopadding">
-        <app-anuncio-listado [anuncios]="anunciosListado"></app-anuncio-listado>
+        <app-anuncio-listado [noticias]="noticiasListado"></app-anuncio-listado>
     </div>
     <div class="col-md-6 col-12 nopadding">
-        <app-curso-listado [cursos]="cursosListado"></app-curso-listado>
+        <app-curso-listado [noticias]="noticiasCursos"></app-curso-listado>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="puedeConsultarCalendario()">
     <div class="col-7">
         <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="320">
             <div style="background-color: transparent;">
@@ -72,7 +75,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="puedeConsultarCalendario()">
     <div class="col-7">
         <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="440">
             <div style="background-color: transparent;">
@@ -103,5 +106,4 @@
     </div>
 </div>
 
-
-<button (click)="enbase()">Click</button>
+<button (click)="enbase()" *ngIf="puedeConsultarCalendario()">Click</button>

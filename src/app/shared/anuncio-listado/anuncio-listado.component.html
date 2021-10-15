@@ -3,17 +3,17 @@
         <label>NOVEDADES</label>
     </div>
     <div class="cn-anuncios">
-        <div class="cn-anuncio-listado" *ngFor="let anuncio of anuncios; let indice = index">
+        <div class="cn-anuncio-listado" *ngFor="let noticia of noticias; let indice = index">
             <div class="cn-status-container">
-                <div class="cn-anuncio-status" [ngClass]="{'selected': anuncio.seleccionado}"></div>
+                <div class="cn-anuncio-status" [ngClass]="{'selected': indice == 0}"></div>
             </div>
             <div class="cn-content-container">
                 <div class="cn-content">
-                    <span class="cn-content-title">{{anuncio.titulo}}</span>
-                    <span class="cn-content-subtitle">{{anuncio.subtitulo}}</span>
+                    <span class="cn-content-title">{{noticia.titulo}}</span>
+                    <span class="cn-content-subtitle">{{noticia.subtitulo}}</span>
                 </div>
                 <div class="cn-type">
-                    <span>{{anuncio.tipo}}</span>
+                    <span>{{noticia.categoria}}</span>
                 </div>
             </div>
         </div>

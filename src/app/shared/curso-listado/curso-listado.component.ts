@@ -1,5 +1,5 @@
-import { CursoListado } from './../../core/modelos/curso-listado';
 import { Component, Input, OnInit } from '@angular/core';
+import { Noticia } from 'src/app/core/modelos/noticia';
 
 @Component({
   selector: 'app-curso-listado',
@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CursoListadoComponent implements OnInit {
 
-  @Input() public cursos: CursoListado[] = [];
+  @Input() public noticias: Noticia[] = [];
 
   constructor() { }
 

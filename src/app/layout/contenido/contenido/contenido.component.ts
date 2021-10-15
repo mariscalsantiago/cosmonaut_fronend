@@ -392,7 +392,7 @@ export class ContenidoComponent implements OnInit {
           this.notificacionesPrd.mensajes = JSON.parse(datos.datos.mensajes);
           this.continuarNotificaciones(rutaSocket);
           rutaSocket = `${environment.rutaSocket}${datos.datos.conversacionId}`;
-          this.notificacionesPrd.conectarEspecifico(rutaSocket,this.usuariosSistemaPrd.getUsuario(),this.usuariosSistemaPrd.getIdEmpresa());
+          this.notificacionesPrd.conectarEspecifico(rutaSocket, this.usuariosSistemaPrd.getUsuario(), this.usuariosSistemaPrd.getIdEmpresa());
 
         } else {
           this.continuarNotificaciones(rutaSocket);
@@ -405,7 +405,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public continuarNotificaciones(ruta: string) {
-    this.notificacionesPrd.conectar(ruta,this.usuariosSistemaPrd.usuario, this.usuariosSistemaPrd.getIdEmpresa());
+    this.notificacionesPrd.conectar(ruta, this.usuariosSistemaPrd.usuario, this.usuariosSistemaPrd.getIdEmpresa());
   }
 
 

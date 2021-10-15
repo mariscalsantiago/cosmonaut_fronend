@@ -1,15 +1,13 @@
-import { CursoListado } from './../../../core/modelos/curso-listado';
-import { AnuncioListado } from './../../../core/modelos/anuncio-listado';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Noticia } from 'src/app/core/modelos/noticia';
+import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
+import { EventosService } from 'src/app/modules/eventos/services/eventos.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { EventosService } from 'src/app/modules/eventos/services/eventos.service';
-import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
-import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
-import { interval, Observable, Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 
 @Component({
@@ -43,34 +41,34 @@ export class InicioComponent implements OnInit {
   public contratoDesc: string | undefined;
 
 
-  bannersCliente = [
-    "assets/imgs/banner_01.jpg",
-    "assets/imgs/banner_02.jpg",
-    "assets/imgs/banner_03.jpg",
-    "assets/imgs/banner_04.jpg",
+  noticiasAdministrador: Noticia[] = [
+    { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_01.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_02.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_03.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_04.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
   ];
 
-  bannersEmpleado = [
-    "assets/imgs/banner_05.jpg",
-    "assets/imgs/banner_06.jpg",
-    "assets/imgs/banner_07.jpg",
-    "assets/imgs/banner_08.jpg",
-    "assets/imgs/banner_09.jpg",
+  noticiasEmpresa: Noticia[] = [
+    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_05.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_07.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_08.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_09.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
   ];
 
-  anunciosListado = [
-    { titulo: '!Feliz Cumpleaños Raúl!', subtitulo: 'Hace 4 horas', tipo: 'Celebraciones', seleccionado: true } as AnuncioListado,
-    { titulo: 'COVID 19: Toda la información', subtitulo: 'Hace 2 días', tipo: 'Noticias' } as AnuncioListado,
-    { titulo: '¿Obsesionado con los detalles?', subtitulo: 'Hace 4 días', tipo: 'Estilo de vida' } as AnuncioListado,
-    { titulo: '¿No sabes qué mas escribir?', subtitulo: 'Hace 6 días', tipo: 'Estilo de vida' } as AnuncioListado,
-    { titulo: '!Feliz Cumpleaños Parguitaaa!', subtitulo: 'Hace 10 horas', tipo: 'Celebraciones' } as AnuncioListado,
+  noticiasListado: Noticia[] = [
+    { idUsuario: 100, titulo: "!Feliz Cumpleaños Raúl!", subtitulo: 'Hace 4 horas', categoria: 'Celebraciones', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "COVID 19: Toda la información", subtitulo: 'Hace 2 días', categoria: 'Noticias', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "¿Obsesionado con los detalles?", subtitulo: 'Hace 4 días', categoria: 'Estilo de vida', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "¿No sabes qué mas escribir?", subtitulo: 'Hace 6 días', categoria: 'Estilo de vida', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "!Feliz Cumpleaños Parguitaaa!", subtitulo: 'Hace 10 horas', categoria: 'Celebraciones', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
   ];
 
-  cursosListado = [
-    { titulo: 'Financial Markets', subtitulo: 'Yale University', imagen: 'assets/imgs/anuncio_01.jpg' } as CursoListado,
-    { titulo: 'Successful Negotiation', subtitulo: 'University of Michigan', imagen: 'assets/imgs/anuncio_02.jpg' } as CursoListado,
-    { titulo: 'Google Spanner', subtitulo: 'University of Google', imagen: 'assets/imgs/anuncio_03.jpg' } as CursoListado,
-    { titulo: 'Gaming Level Up', subtitulo: 'Parguita Systems', imagen: 'assets/imgs/anuncio_04.jpg' } as CursoListado,
+  noticiasCursos: Noticia[] = [
+    { idUsuario: 100, titulo: "Financial Markets", subtitulo: 'Yale University', categoria: 'cursos', imagen: 'assets/imgs/anuncio_01.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "Successful Negotiation", subtitulo: 'University of Michigan', categoria: 'cursos', imagen: 'assets/imgs/anuncio_02.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "Google Spanner", subtitulo: 'University of Google', categoria: 'cursos', imagen: 'assets/imgs/anuncio_03.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    { idUsuario: 100, titulo: "Gaming Level Up", subtitulo: 'Parguita Systems', categoria: 'cursos', imagen: 'assets/imgs/anuncio_04.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
   ];
 
   constructor(private eventoPrd: EventosService,
@@ -81,6 +79,10 @@ export class InicioComponent implements OnInit {
 
     this.cargando = true;
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
+
+    this.reportesPrd.getDescargaListaEmpleados(this.idEmpresa).subscribe(archivo => {
+      console.log(archivo)
+    });
 
     if (this.configuracionPrd.VISTOS_RECIENTE.length != 0) {
       this.vistosTrue = true;
@@ -117,6 +119,10 @@ export class InicioComponent implements OnInit {
     return this.usuariosSistemaPrd.getUsuario().rolId == 2;
   }
 
+  puedeConsultarCalendario(): boolean {
+    return this.usuariosSistemaPrd.getUsuario().rolId != 2;
+  }
+
   mostrarContenido(banner: any): void {
     this.routerPrd.navigate(['noticias', 'contenido_noticia', '100']);
   }
@@ -124,7 +130,6 @@ export class InicioComponent implements OnInit {
   public iniciarDescarga() {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
 
     this.reportesPrd.getDescargaListaEmpleados(this.idEmpresa).subscribe(archivo => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

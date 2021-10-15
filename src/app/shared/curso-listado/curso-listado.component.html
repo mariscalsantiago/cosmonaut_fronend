@@ -4,14 +4,14 @@
     </div>
     <div class="cn-cursos">
         <div class="cn-cursos-listado">
-            <div class="cn-content-container" *ngFor="let curso of cursos; let indice = index">
+            <div class="cn-content-container" *ngFor="let noticia of noticias; let indice = index">
                 <div class="cn-image">
-                    <img class="cn-cursos-image" [src]="curso.imagen" alt="banner-image">
+                    <img class="cn-cursos-image" [src]="noticia.imagen" alt="banner-image">
                     <div class="cn-overlay"></div>
                 </div>
                 <div class="cn-content">
-                    <span class="cn-content-title">{{curso.titulo}}</span>
-                    <span class="cn-content-subtitle">{{curso.subtitulo}}</span>
+                    <span class="cn-content-title">{{noticia.titulo}}</span>
+                    <span class="cn-content-subtitle">{{noticia.subtitulo}}</span>
                 </div>
             </div>
         </div>

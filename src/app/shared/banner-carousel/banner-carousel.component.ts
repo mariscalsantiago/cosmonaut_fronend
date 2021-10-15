@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
+import { Noticia } from 'src/app/core/modelos/noticia';
 
 @Component({
   selector: 'app-banner-carousel',
@@ -14,8 +14,8 @@ export class BannerCarouselComponent implements OnInit, OnDestroy {
   clientCarrouselTimer: Subscription | undefined = undefined;
 
   @Input() public intervalo: number = 4000;
-  @Input() public banners: string[] = [];
-  @Input() onClicked: (banner: any) => void;
+  @Input() public noticias: Noticia[] = [];
+  @Input() onClicked: (noticia: Noticia) => void = () => { };
 
   constructor() { }
 
@@ -24,7 +24,7 @@ export class BannerCarouselComponent implements OnInit, OnDestroy {
     this.clientCarrouselTimer = interval(this.intervalo).subscribe(() => {
 
       let step = this.stepClientCarrousel + 1;
-      if (step >= this.banners.length) {
+      if (step >= this.noticias.length) {
         step = 0;
       }
       this.chooseClientCarrouselStep(step);

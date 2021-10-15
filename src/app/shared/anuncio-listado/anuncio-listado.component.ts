@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AnuncioListado } from "../../core/modelos/anuncio-listado";
+import { Noticia } from 'src/app/core/modelos/noticia';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { AnuncioListado } from "../../core/modelos/anuncio-listado";
 export class AnuncioListadoComponent implements OnInit {
 
 
-  @Input() public anuncios: AnuncioListado[] = [];
+  @Input() public noticias: Noticia[] = [];
 
   constructor() { }
 
