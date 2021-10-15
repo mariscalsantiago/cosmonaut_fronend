@@ -365,7 +365,7 @@ export class TablapaginadoComponent implements OnInit {
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
-    
+    debugger;
     let i, j;
     let aux;
     
@@ -379,13 +379,19 @@ export class TablapaginadoComponent implements OnInit {
       aux[llave] = aux[llave].toString();
       
       if (tipoAcomodo) {
-        
-        if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-' ){
-          while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
-          a[j] = a[j - 1];
-          j--;
-          
-          }
+        if(!isNaN(parseFloat(aux[llave])) && isFinite(aux[llave] )){
+            if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-' ){
+              while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
+              a[j] = a[j - 1];
+              j--;
+              
+              }
+            }else{    
+              while (j > 0 && ( Number(aux[llave]) < Number(a[j - 1][llave]) )){
+                a[j] = a[j - 1];
+                j--;
+              } 
+            }  
         }else {
           while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() < (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
             a[j] = a[j - 1];
@@ -394,14 +400,21 @@ export class TablapaginadoComponent implements OnInit {
       }
         
       } else {
-
-        if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-'){
-          while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) > Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
-          a[j] = a[j - 1];
-          j--;
-          
-          }
-        }else{
+        if(!isNaN(parseFloat(aux[llave])) && isFinite(aux[llave] )){
+          if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-' ){
+            while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) > Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
+            a[j] = a[j - 1];
+            j--;
+            
+            }
+          }else{
+            //while (j > 0 && ( (aux[llave]).getTime() > (a[j - 1][llave]).getTime() )){    
+            while (j > 0 && ( Number(aux[llave]) > Number(a[j - 1][llave]) )){
+              a[j] = a[j - 1];
+              j--;
+            } 
+          }  
+      }else{
         while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() > (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
           a[j] = a[j - 1];
           j--;
