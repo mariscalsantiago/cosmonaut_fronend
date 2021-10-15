@@ -136,7 +136,7 @@ export class UsuariosComponent implements OnInit {
       new tabla("apellidoPat", "Primer apellido"),
       new tabla("apellidoMat", "Segundo apellido"),
       new tabla("email", "Correo electrónico"),
-      new tabla("rolnombre", "Rol"),
+      new tabla("nameRol", "Rol"),
       ((this.esClienteEmpresa) ? new tabla("esMulticliente", "Multicliente") : new tabla("empresa", "empresa")),
       new tabla("activo", "Estatus ")
     ];
@@ -145,7 +145,7 @@ export class UsuariosComponent implements OnInit {
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
-        item["rolnombre"] = item?.rolId?.nombreRol;
+        item["nameRol"] = item?.rolId?.nombreRol;
         item["esMulticliente"] = item?.esMulticliente? "Sí":"No";
         if(item.esActivo){
           item.activo = 'Activo'

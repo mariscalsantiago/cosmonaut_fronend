@@ -105,16 +105,14 @@ export class DetalleUsuarioComponent implements OnInit {
       let companiaSeleccionada = this.arregloCompany.find((o: any) => o["centrocClienteId"] == this.myForm.controls.centrocClienteId.value);
       this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
 
+      this.desabilitarTodo 
+
     }
 
     if ((!this.esClienteEmpresa && this.objusuario.rolId?.rolId == 2) || this.desabilitarTodo) {
-      this.myForm.controls.nombre.disable();
-      this.myForm.controls.apellidoPaterno.disable();
-      this.myForm.controls.apellidoMaterno.disable();
-      this.myForm.controls.correoelectronico.disable();
-      this.myForm.controls.rol.disable();
-      this.myForm.controls.centrocClienteId.disable();
-      this.inabilitar = true;
+      this.desabilitarInputs();
+    }else if(!this.esClienteEmpresa && this.objusuario.centrocClientes[0].centrocClienteId == this.usuariosSistemaPrd.getIdEmpresa()){
+      this.desabilitarInputs();
     }
 
 
@@ -138,6 +136,16 @@ export class DetalleUsuarioComponent implements OnInit {
       this.ocultaContactoiniciales = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.rolIdSeleciconado !== 1;
     }
 
+  }
+
+  public desabilitarInputs():void{
+    this.myForm.controls.nombre.disable();
+    this.myForm.controls.apellidoPaterno.disable();
+    this.myForm.controls.apellidoMaterno.disable();
+    this.myForm.controls.correoelectronico.disable();
+    this.myForm.controls.rol.disable();
+    this.myForm.controls.centrocClienteId.disable();
+    this.inabilitar = true;
   }
 
   public suscripciones() {
@@ -193,7 +201,6 @@ export class DetalleUsuarioComponent implements OnInit {
         let filtrado = obj.centrocClientes.filter((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa());
         obj.centrocClientes.splice(obj.centrocClientes.indexOf(filtrado[0]), 1);
         obj.centrocClientes.unshift(filtrado[0]);
-
       }
     }
 

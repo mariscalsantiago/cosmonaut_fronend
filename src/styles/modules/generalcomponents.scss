@@ -161,6 +161,7 @@ p.interlineado{
         width: 170px;
         button{
             background-color: transparent;
+            display: inline-block !important;
         }
         text-align: right !important;
     }
