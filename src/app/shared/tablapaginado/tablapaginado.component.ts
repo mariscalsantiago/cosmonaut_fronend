@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { DatePipe } from '@angular/common';
 import { ConfiguracionesService } from '../services/configuraciones/configuraciones.service';
 
 @Component({
@@ -379,6 +380,12 @@ export class TablapaginadoComponent implements OnInit {
       aux[llave] = aux[llave].toString();
       
       if (tipoAcomodo) {
+/*         let fecha = new DatePipe("es-MX").transform(aux[llave], 'dd-mm-yy');
+        var RegExPattern = /^\d{1,2}\/\d{1,3}\/\d{2,4}$/;
+        if ((aux[llave].match(RegExPattern))) {
+          alert("Entra");
+
+        } */
         if(!isNaN(parseFloat(aux[llave])) && isFinite(aux[llave] )){
             if( aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-' ){
               while (j > 0 && ( Number(aux[llave].replace(/[^0-9.-]+/g,"")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g,"")) )){
@@ -408,7 +415,6 @@ export class TablapaginadoComponent implements OnInit {
             
             }
           }else{
-            //while (j > 0 && ( (aux[llave]).getTime() > (a[j - 1][llave]).getTime() )){    
             while (j > 0 && ( Number(aux[llave]) > Number(a[j - 1][llave]) )){
               a[j] = a[j - 1];
               j--;
