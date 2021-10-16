@@ -80,9 +80,7 @@ export class InicioComponent implements OnInit {
     this.cargando = true;
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
-    this.reportesPrd.getDescargaListaEmpleados(this.idEmpresa).subscribe(archivo => {
-      console.log(archivo)
-    });
+    console.log(this.usuariosSistemaPrd.getUsuario());
 
     if (this.configuracionPrd.VISTOS_RECIENTE.length != 0) {
       this.vistosTrue = true;

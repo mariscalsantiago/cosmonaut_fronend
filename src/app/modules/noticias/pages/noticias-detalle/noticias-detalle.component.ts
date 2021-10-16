@@ -18,6 +18,7 @@ export class NoticiasDetalleComponent implements OnInit {
   get f() { return this.formulario.controls; }
 
   public insertar: boolean = false;
+  private esClienteEmpresa: boolean = false;
 
   noticia: string = ``;
 
@@ -44,10 +45,13 @@ export class NoticiasDetalleComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.esClienteEmpresa = this.navigator.url.includes("/detalle_noticia/cliente");
+
     this.cargandoImg = true;
 
     this.router.params.subscribe(datos => {
 
+      console.log(datos);
       this.cargandoImg = false;
     });
 
@@ -86,7 +90,7 @@ export class NoticiasDetalleComponent implements OnInit {
   }
 
   public cancelarcomp() {
-    this.navigator.navigate(['/noticias']);
+    this.navigator.navigateByUrl(`/noticias${this.esClienteEmpresa ? '/cliente' : ''}`);
   }
 
   public async recibirImagen(imagen: any) {

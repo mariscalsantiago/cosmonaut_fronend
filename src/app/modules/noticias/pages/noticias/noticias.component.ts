@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
+import { Noticia } from 'src/app/core/modelos/noticia';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
@@ -135,12 +136,12 @@ export class NoticiasComponent implements OnInit {
 
 
 
-  public verdetalle(obj: any) {
-    if (obj == undefined) {
-      this.routerPrd.navigate(['noticias', 'detalle_noticia', 'nuevo']);
-    } else {
-      this.routerPrd.navigate(['noticias', 'detalle_noticia', 'nuevo']);
-    }
+  public crearNoticia() {
+    this.routerPrd.navigateByUrl(`noticias/detalle_noticia${this.esClienteEmpresa ? '/cliente' : ''}/nuevo`);
+  }
+
+  public mostrarDetalleNoticia(noticia: Noticia) {
+    this.routerPrd.navigateByUrl(`noticias/detalle_noticia${this.esClienteEmpresa ? '/cliente' : ''}/editar`, { state: { noticia: noticia } });
   }
 
 
@@ -244,7 +245,7 @@ export class NoticiasComponent implements OnInit {
 
     switch (obj.type) {
       case "editar":
-        this.verdetalle(obj.datos);
+        this.mostrarDetalleNoticia(obj.datos);
         break;
       case "filaseleccionada":
         this.activarMultiseleccion = obj.datos;
