@@ -316,7 +316,7 @@ export class DetallejornadalaboralComponent implements OnInit {
       if(horaComidaFin != null && horaComidaFin != 0 ){
         let horaSalidaFin = Number(this.myForm.controls.horaSalida.value.substring(0,2));
 
-          if (horaComidaFin > horaSalidaFin) {
+          if (horaComidaFin >= horaSalidaFin) {
                 this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de comida esta fuera del horario laboral')
               .then(() => {
                 this.myForm.controls.horaFinComida.setValue("");
