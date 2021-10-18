@@ -37,8 +37,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
       const columnas:Array<tabla> = [
         new tabla("rfc","RFC"),
         new tabla("nombre","Nombre"),
-        new tabla("apellidoPaterno","Primer apellido"),
-        new tabla("esActivo","Estatus")
+        new tabla("apellidoPaterno","Primer apellido")
       ]; 
 
 
