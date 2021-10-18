@@ -21,12 +21,8 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <label style="color:white">Catálogo</label>
-                                        <select name="" class="form-control disabled bg-light" [(ngModel)]="id_catalogo">
-                        <option value="0" selected>Seleccionar catalogo</option>
-                        <option *ngFor="let item of arregloListaCatalogos" [value]="item.listaCatalogosId">{{item.nombreCatalogo}}
-                        </option>
-                      </select>
+                                        <label style="color:white">Catálogo :</label>
+                                        <input type="text" class="form-control disabled bg-light" [(ngModel)]="id_catalogo" >
                                     </div>
                                 </div>
                             </div>

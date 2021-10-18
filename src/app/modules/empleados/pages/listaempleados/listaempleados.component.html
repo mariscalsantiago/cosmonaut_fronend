@@ -20,35 +20,35 @@
                             <input type="text" appAlfanumerico class="form-control" [(ngModel)]="personaId" placeholder="Número de empleado">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="nombre" formatos [especial]="true" [control]="nombre" placeholder="Nombre">
+                            <input type="text" class="form-control" [(ngModel)]="nombre" id="nombreES" formatos [especial]="true" [control]="nombre" placeholder="Nombre">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="apellidoPaterno" formatos [especial]="true" [control]="apellidoPaterno" placeholder="Primer apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoPaterno" id="apellidoPaternoES" formatos [especial]="true" [control]="apellidoPaterno" placeholder="Primer apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="apellidoMaterno" formatos [especial]="true" [control]="apellidoMaterno" placeholder="Segundo apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoMaterno" id="apellidoMaternoES" formatos [especial]="true" [control]="apellidoMaterno" placeholder="Segundo apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" [(ngModel)]="idarea">
-                                <option value="">Seleccionar área</option>
-                                <option *ngFor="let item of arregloAreas " [value]="item.areaId">{{item.descripcion}}</option>
+                            <select class="form-control" [(ngModel)]="idarea" id="idareaS">
+                                <option id="idareaID0S" value="">Seleccionar área</option>
+                                <option id="idareaIDS" *ngFor="let item of arregloAreas " [value]="item.areaId">{{item.descripcion}}</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" [(ngModel)]="idPuesto">
-                                <option value="">Seleccionar puesto</option>
-                                <option *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}</option>
+                            <select class="form-control" [(ngModel)]="idPuesto" id="idPuestoS">
+                                <option id="idPuestoID0S" value="">Seleccionar puesto</option>
+                                <option id="idPuestoIDS" *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" [(ngModel)]="estatus">
-                                <option value="">Estatus</option>
-                                <option value="true">Activo</option>
-                                <option value="false">Inactivo</option>
+                            <select class="form-control" [(ngModel)]="estatus" id="statusES">
+                                <option id="statusE0S" value="">Estatus</option>
+                                <option id="statusE1S" value="true">Activo</option>
+                                <option id="statusE2S" value="false">Inactivo</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                            <button type="button" id="btnFiltrarEmpleados" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                         </div>
 
 

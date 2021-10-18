@@ -15,13 +15,13 @@
                     <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
                     <div class="form group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select [(ngModel)]="tipodocumento" class="form-control">
-                                <option value="">Seleccionar tipo documento</option>
-                                <option *ngFor="let item of arregloDocumentos" [value]="item.id">{{item.nombre}}</option>
+                            <select [(ngModel)]="tipodocumento" class="form-control" id="tipodocumentoExpediente">
+                                <option id="tipodocumentoExpedienteId0" value="">Seleccionar tipo documento</option>
+                                <option id="tipodocumentoExpedienteId1" *ngFor="let item of arregloDocumentos" [value]="item.id">{{item.nombre}}</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                            <button type="button" id="btnFiltrarExpediente" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                         </div>
                     </div>
                     <div class="row margen">

@@ -40,27 +40,27 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input appAlfanumerico type="text" maxlength="20" [(ngModel)]="numeroEmpleado" class="form-control" placeholder="Número de empleado">
+                                        <input appAlfanumerico type="text" maxlength="20" [(ngModel)]="numeroEmpleado" id="numeroEmpleadoPPPS" class="form-control" placeholder="Número de empleado">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="nombreEmpleado" formatos [especial]="true" [control]="nombreEmpleado" class="form-control" placeholder="Nombre">
+                                        <input type="text" [(ngModel)]="nombreEmpleado" formatos [especial]="true" [control]="nombreEmpleado" id="nombreEmpleadoPPPS" class="form-control" placeholder="Nombre">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="primerApellidoEmpleado" formatos [especial]="true" [control]="primerApellidoEmpleado" class="form-control" placeholder="Primer apellido">
+                                        <input type="text" [(ngModel)]="primerApellidoEmpleado" formatos [especial]="true" [control]="primerApellidoEmpleado" id="primerApellidoEmpleadoPPPS" class="form-control" placeholder="Primer apellido">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
-                                        <input type="text" [(ngModel)]="segundoApellidoEmpleado" formatos [especial]="true" [control]="segundoApellidoEmpleado" class="form-control" placeholder="Segundo apellido">
+                                        <input type="text" [(ngModel)]="segundoApellidoEmpleado" formatos [especial]="true" [control]="segundoApellidoEmpleado" id="segundoApellidoEmpleadoPPPS" class="form-control" placeholder="Segundo apellido">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <select name="" class="form-control" [(ngModel)]="grupoNomina">
-                      <option value="0" selected>Grupo de nómina</option>
-                      <option *ngFor="let item of arregloGrupoNomina" [value]="item.idGrupoNomina">{{item.nombreGrupoNomina}}
+                                        <select name="" class="form-control" [(ngModel)]="grupoNomina" id="grupoNominaPPPS">
+                      <option id="grupoNomina0PPPS" value="0" selected>Grupo de nómina</option>
+                      <option id="grupoNomina1PPPS" *ngFor="let item of arregloGrupoNomina" [value]="item.idGrupoNomina">{{item.nombreGrupoNomina}}
                       </option>
                     </select>
                                     </div>
 
                                     <div class="input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                                        <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                        <button type="submit" class="btn btn-primary button-outlet" id="btnFiltrarPPP" (click)="filtrar()">Filtrar</button>
                                     </div>
                                 </div>
                             </div>
