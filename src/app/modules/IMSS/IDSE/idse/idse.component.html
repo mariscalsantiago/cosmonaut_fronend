@@ -32,32 +32,32 @@
     
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input formatos [letras]="true" [especial]="true" type="text" class="form-control" [(ngModel)]="nombre"  placeholder="Nombre">
+                            <input formatos [letras]="true" [especial]="true" type="text" class="form-control" [(ngModel)]="nombre" id="nombreIDSE"  placeholder="Nombre">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input formatos [letras]="true" [especial]="true" type="text" class="form-control" [(ngModel)]="apellidoPat"  placeholder="Primer apellido">
+                            <input formatos [letras]="true" [especial]="true" type="text" class="form-control" [(ngModel)]="apellidoPat" id="apellidoPatIDSE"  placeholder="Primer apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input formatos [letras]="true" [especial]="true" type="text" class="form-control" [(ngModel)]="apellidoMat"  placeholder="Segundo apellido">
+                            <input formatos [letras]="true" [especial]="true" type="text" class="form-control" [(ngModel)]="apellidoMat" id="apellidoMatIDSE"  placeholder="Segundo apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" [(ngModel)]="movimiento" name="">
-                                <option value="0" selected >Movimiento</option>
-                                <option *ngFor="let item of arregloMovimientos" [value]="item.movimientoImssId">{{item.descripcionMovimiento}}</option>
+                            <select class="form-control" [(ngModel)]="movimiento" id="movimientoIDSE" name="">
+                                <option id="movimientoId0IDSE" value="0" selected >Movimiento</option>
+                                <option id="movimientoId1IDSE" *ngFor="let item of arregloMovimientos" [value]="item.movimientoImssId">{{item.descripcionMovimiento}}</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
-                            <select class="form-control" [(ngModel)]="esActivo" placeholder="Estatus">
+                            <select class="form-control" [(ngModel)]="esActivo" id="esActivoIDSE" placeholder="Estatus">
 
-                            <option value="0" selected>Estatus</option>
-                            <option value="1">Activo</option>
-                            <option value="2">Inactivo</option>
+                            <option id="esActivoIDSE0" value="0" selected>Estatus</option>
+                            <option id="esActivoIDSE1" value="1">Activo</option>
+                            <option id="esActivoIDSE2" value="2">Inactivo</option>
                             </select>
                         </div>
 
                       
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                            <button type="button" id="btonFiltrarIDSE" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                           </div>
     
                         

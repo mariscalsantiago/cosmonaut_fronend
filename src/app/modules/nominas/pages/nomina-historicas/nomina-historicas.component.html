@@ -16,16 +16,16 @@
         <div class="form-group margen row  mt-3 " style="width: 100%;"><label class="titulo">BÚSQUEDA</label></div>
                     <div style="width: 100%;" class="form group row margen">
                         <div class=" input-group-sm mb-3 col-4 ">
-                            <input type="text" class="form-control" [(ngModel)]="nombreNomina" placeholder="Nombre nómina">
+                            <input type="text" class="form-control" [(ngModel)]="nombreNomina" id="nombreNominaHS" placeholder="Nombre nómina">
                         </div>
                         <div class=" input-group-sm mb-3 col-4 ">
-                            <input type="text" class="form-control" [(ngModel)]="periodo" placeholder="Clave período">
+                            <input type="text" class="form-control" [(ngModel)]="periodo" id="periodoHS" placeholder="Clave período">
                         </div>
                         <div class=" input-group-sm mb-3 col-4 ">
-                            <input type="date" class="form-control" [(ngModel)]="fecha" placeholder="Fecha inicio">
+                            <input type="date" class="form-control" [(ngModel)]="fecha" id="fechaHS" placeholder="Fecha inicio">
                         </div>
                         <div class=" input-group-sm mb-1 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="button"class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                            <button type="button"class="btn btn-primary button-outlet " id="btnFiltrarHistoricas" (click)="filtrar()">Filtrar</button>
                         </div>
                     </div>
 
@@ -33,19 +33,19 @@
 
                     <div class="form group row margen">
                         <div class="col-3">
-                            <input type="text" maxlength="4" name="" appSolonumeros [(ngModel)]="anioactual" placeholder="Ingresa año" id="" class="form-control">
+                            <input type="text" maxlength="4" name="" appSolonumeros [(ngModel)]="anioactual" placeholder="Ingresa año" id="anioactualHS" class="form-control">
                         </div>
                         <div class="col-3">
                             
-                            <select name="" [(ngModel)]="mesIndex"  id="" class="form-control">
-                                <option value="">Seleccionar mes</option>
-                                <option *ngFor ="let item of mes;let indice = index;" [value]="indice">{{item}}</option>
+                            <select name="" [(ngModel)]="mesIndex"  id="mesIndexHS" class="form-control">
+                                <option id="mesIndex0HS" value="">Seleccionar mes</option>
+                                <option id="mesIndex1HS" *ngFor ="let item of mes;let indice = index;" [value]="indice">{{item}}</option>
                             </select>
                         </div>
                         <div class="col-6">
-                            <select name="" id="" [(ngModel)]="reporteindex" class="form-control">
-                                <option value="1">Acumulados por mes</option>
-                                <option value="2">Acumulados por concepto</option>
+                            <select name="" id="reporteindexHS" [(ngModel)]="reporteindex" class="form-control">
+                                <option id="reporteindex1HS" value="1">Acumulados por mes</option>
+                                <option id="reporteindex2HS" value="2">Acumulados por concepto</option>
                             </select>
                         </div>
                         <div class="col-12 text-right mt-2">

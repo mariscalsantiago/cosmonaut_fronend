@@ -44,14 +44,14 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <select name="" class="form-control" [(ngModel)]="id_catalogo">
-                      <option value = "0" selected>Seleccionar catálogo</option>
-                      <option *ngFor="let item of arreglo" [value]="item.listaCatalogosId">{{item.nombreCatalogo}}
+                                        <select name="" id="id_catalogoAdminCat" class="form-control" [(ngModel)]="id_catalogo">
+                      <option id="id_catalogoAdminCatId0" value = "0" selected>Seleccionar catálogo</option>
+                      <option id="id_catalogoAdminCatId1" *ngFor="let item of arreglo" [value]="item.listaCatalogosId">{{item.nombreCatalogo}}
                       </option>
                     </select>
                                     </div>
                                     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                                        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                        <button type="button" id="btoFiltarCatalogos" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                                     </div>
                                 </div>
                             </div>

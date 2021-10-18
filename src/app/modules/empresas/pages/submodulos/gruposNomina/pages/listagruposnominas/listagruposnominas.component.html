@@ -33,17 +33,17 @@
                         <div class="card-body">
                             <div class="form group row margen">
                                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                    <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre grupo de nómina">
+                                    <input type="text" [(ngModel)]="nombre" id="nombreNomS" class="form-control" placeholder="Nombre grupo de nómina">
                                 </div>
                                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                    <select [(ngModel)]="periodonomina" class="form-control">
-                    <option value="" checked>Período de nómina</option>
-                    <option *ngFor="let item of arregloperiodo" [value]="item.periodicidadPagoId">{{item.descripcion}}
+                                    <select [(ngModel)]="periodonomina" id="periodonominaS" class="form-control">
+                    <option id="periodonomina0S" value="" checked>Período de nómina</option>
+                    <option id="periodonominaIDS" *ngFor="let item of arregloperiodo" [value]="item.periodicidadPagoId">{{item.descripcion}}
                     </option>
                   </select>
                                 </div>
                                 <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                                    <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                    <button type="button" id="btnFiltrarGrupNomina" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                                 </div>
 
                             </div>

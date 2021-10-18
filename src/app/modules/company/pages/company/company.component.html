@@ -40,40 +40,40 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" appSolonumeros maxlength="10" [(ngModel)]="centrocClienteId" class="form-control" placeholder="Id cliente">
+                                        <input type="text" appSolonumeros maxlength="10" [(ngModel)]="centrocClienteId" class="form-control" id="centrocClienteIdS" placeholder="Id cliente">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" appAlfanumericoRFC maxlength="13"  [(ngModel)]="rfc" placement="top" [mdbTooltip]="'rfc' | tooltip" class="form-control" formatos [nochar]="true" [rfc]="true" [control]="rfc" placeholder="RFC">
+                                        <input type="text" appAlfanumericoRFC maxlength="13"  [(ngModel)]="rfc" id="rfcS" placement="top" [mdbTooltip]="'rfc' | tooltip" class="form-control" formatos [nochar]="true" [rfc]="true" [control]="rfc" placeholder="RFC">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="nombre" class="form-control" placeholder="Nombre cliente">
+                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="nombre" id="nombreS" class="form-control" placeholder="Nombre cliente">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
-                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
+                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="razonSocial" id="razonSocialS" class="form-control" placeholder="Razón social">
                                     </div>
                                     
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="fechaAlta" class="form-control" placeholder="Fecha de registro" onfocus="(this.type='date')" onblur="(this.type='date')">
+                                        <input type="text" [(ngModel)]="fechaAlta" id="fechaAltaS" class="form-control" placeholder="Fecha de registro" onfocus="(this.type='date')" onblur="(this.type='date')">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
-                                        <select class="form-control" [(ngModel)]="esActivo" placeholder="Estatus">
+                                        <select class="form-control" id="esActivoS" [(ngModel)]="esActivo" placeholder="Estatus">
   
-                      <option value="" selected>Estatus</option>
-                      <option value="1">Activo</option>
-                      <option value="2">Inactivo</option>
+                      <option id="status0Com" value="" selected>Estatus</option>
+                      <option id="status1Com" value="1">Activo</option>
+                      <option id="status2Com" value="2">Inactivo</option>
   
                     </select>
                                     </div>
 
                                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
-                                        <select class="form-control" [(ngModel)]="multiempresa" placeholder="multiempresa">
-                                        <option value="0" selected>Multiempresa</option>
-                                        <option value="1">Si</option>
-                                        <option value="2">No</option>
+                                        <select class="form-control" id="multiempresaS" [(ngModel)]="multiempresa" placeholder="multiempresa">
+                                        <option id="multiempresa0" value="0" selected>Multiempresa</option>
+                                        <option id="multiempresa1" value="1">Si</option>
+                                        <option id="multiempresa2" value="2">No</option>
                                         </select>
                                     </div>
                                     <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                                        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                        <button type="button" id="btonFiltrarCompany" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                                     </div>
                                 </div>
                             </div>
