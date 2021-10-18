@@ -14,7 +14,7 @@
 
 <hr>
 
-<form [formGroup]="formulario" (ngSubmit)="enviarPeticioncomp()">
+<form [formGroup]="formulario" (ngSubmit)="enviarPeticion()">
 
     <div class="background-panel margen background-ajustar" appTamanioVentana>
 
@@ -42,6 +42,9 @@
                         <input id="subtitulo" formControlName="subtitulo" type="text" class="form-control"
                             [ngClass]="{'is-invalid':f.subtitulo.errors && submitEnviado}"
                             placeholder="{ej. University of Michigan}">
+                        <div *ngIf="f.subtitulo.errors && submitEnviado" class="invalid-feedback">
+                            Campo requerido
+                        </div>
                     </div>
 
                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
@@ -51,23 +54,42 @@
 
                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
                         <label for="fechaInicio">Fecha de inicio de publicación *</label>
-                        <input formControlName="fechaInicio" type="text" class="form-control" placeholder="">
+                        <input formControlName="fechaInicio" type="date" class="form-control" placeholder="">
+                        <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
+                            Campo requerido
+                        </div>
                     </div>
 
                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
                         <label for="fechaFin">Fecha de fin de publicación *</label>
-                        <input formControlName="fechaFin" type="text" class="form-control" placeholder="">
+                        <input formControlName="fechaFin" type="date" class="form-control" placeholder="">
+                        <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
+                            Campo requerido
+                        </div>
                     </div>
 
                     <div class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
                         <label for="categoria">Categoría *</label>
                         <select formControlName="categoria" class="form-control">
-                            <option value="banner" selected>BANNER</option>
-                            <option value="celebraciones">CELEBRACIONES</option>
-                            <option value="noticias">NOTICIAS</option>
-                            <option value="estilo-vida">ESTILO DE VIDA</option>
-                            <option value="curso">CURSO</option>
-                            <option value="capacitacion">CAPACITACION</option>
+                            <option value="1">BANNER</option>
+                            <option value="2">CELEBRACIONES</option>
+                            <option value="3">NOTICIAS</option>
+                            <option value="4">ESTILO DE VIDA</option>
+                            <option value="5">CURSO</option>
+                            <option value="6">CAPACITACION</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Campo requerido.
+                        </div>
+                    </div>
+
+                    <div [style.display]="puedeSeleccionarEmpresa() ? 'block' : 'none'"
+                        class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
+                        <label for="empresa">Empresa *</label>
+                        <select [class.is-invalid]="f.empresa.errors && submitEnviado" formControlName="empresa"
+                            class="form-control">
+                            <option *ngFor="let empresa of empresas" [value]="empresa.centrocClienteId">
+                                {{empresa.razonSocial}}</option>
                         </select>
                         <div class="invalid-feedback">
                             Campo requerido.
@@ -75,7 +97,7 @@
                     </div>
 
                     <div class=" input-group-sm col-12">
-                        <label for="contenido">Contenido de de la noticia</label>
+                        <label for="contenido">Contenido de la noticia</label>
                         <textarea (ngModelChange)="actualizarPreview()" id="contenido" formControlName="contenido"
                             rows="8" class="form-control" [ngClass]="{'is-invalid':f.contenido.errors && submitEnviado}"
                             placeholder="{ej. <h3>HOLA MUNDOOOOOOOO</h3>}"></textarea>
@@ -105,8 +127,9 @@
     </div>
     <div class="text-center margin" style="margin-bottom: 20px;">
         <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
-            (click)="cancelarcomp()">Cancelar</button>
-        <button (click)="enviarPeticioncomp()" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+            (click)="cancelar()">Cancelar</button>
+        <button type="submit" [disabled]="!formulario.valid || submitEnviado"
+            class="btn btn-primary button-fill agrandarloading">Guardar</button>
     </div>
 
 </form>

@@ -1,7 +1,7 @@
 export interface Noticia {
-    idNoticia: number,
-    idUsuario: number,
-    idCompania: number,
+    noticiaId: number,
+    usuarioId: number,
+    centrocClienteId: number,
     titulo: string,
     subtitulo?: string,
     categoria: string,
@@ -11,4 +11,5 @@ export interface Noticia {
     fechaCarga: number,
     fechaInicio: number,
     fechaFin: number,
+    esActivo: boolean
 }

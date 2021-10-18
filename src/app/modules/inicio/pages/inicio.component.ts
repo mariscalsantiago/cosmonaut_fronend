@@ -1,3 +1,4 @@
+import { NoticiasService } from './../../noticias/services/noticias.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Noticia } from 'src/app/core/modelos/noticia';
@@ -42,45 +43,58 @@ export class InicioComponent implements OnInit {
 
 
   noticiasAdministrador: Noticia[] = [
-    { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_01.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_02.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_03.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_04.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    /*  { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_01.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_02.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_03.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_04.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    */
   ];
 
   noticiasEmpresa: Noticia[] = [
-    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_05.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_07.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_08.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_09.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    /*  { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_05.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_07.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_08.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_09.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    */
   ];
 
-  noticiasListado: Noticia[] = [
-    { idUsuario: 100, titulo: "!Feliz Cumpleaños Raúl!", subtitulo: 'Hace 4 horas', categoria: 'Celebraciones', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "COVID 19: Toda la información", subtitulo: 'Hace 2 días', categoria: 'Noticias', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "¿Obsesionado con los detalles?", subtitulo: 'Hace 4 días', categoria: 'Estilo de vida', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "¿No sabes qué mas escribir?", subtitulo: 'Hace 6 días', categoria: 'Estilo de vida', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "!Feliz Cumpleaños Parguitaaa!", subtitulo: 'Hace 10 horas', categoria: 'Celebraciones', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-  ];
+  noticiasListado: Noticia[] = [];
 
   noticiasCursos: Noticia[] = [
-    { idUsuario: 100, titulo: "Financial Markets", subtitulo: 'Yale University', categoria: 'cursos', imagen: 'assets/imgs/anuncio_01.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "Successful Negotiation", subtitulo: 'University of Michigan', categoria: 'cursos', imagen: 'assets/imgs/anuncio_02.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "Google Spanner", subtitulo: 'University of Google', categoria: 'cursos', imagen: 'assets/imgs/anuncio_03.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    { idUsuario: 100, titulo: "Gaming Level Up", subtitulo: 'Parguita Systems', categoria: 'cursos', imagen: 'assets/imgs/anuncio_04.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    /*  { idUsuario: 100, titulo: "Financial Markets", subtitulo: 'Yale University', categoria: 'cursos', imagen: 'assets/imgs/anuncio_01.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "Successful Negotiation", subtitulo: 'University of Michigan', categoria: 'cursos', imagen: 'assets/imgs/anuncio_02.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "Google Spanner", subtitulo: 'University of Google', categoria: 'cursos', imagen: 'assets/imgs/anuncio_03.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+      { idUsuario: 100, titulo: "Gaming Level Up", subtitulo: 'Parguita Systems', categoria: 'cursos', imagen: 'assets/imgs/anuncio_04.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
+    */
   ];
 
-  constructor(private eventoPrd: EventosService,
-    private catalogos: CatalogosService, private routerPrd: Router, private reportesPrd: ReportesService, private modalPrd: ModalService,
-    private usuariosSistemaPrd: UsuarioSistemaService, public ContenidoComponent: ContenidoComponent, public configuracionPrd: ConfiguracionesService) { }
+  constructor(
+    private eventoPrd: EventosService,
+    private catalogos: CatalogosService,
+    private routerPrd: Router,
+    private reportesPrd: ReportesService,
+    private modalPrd: ModalService,
+    private serviceNoticia: NoticiasService,
+    private usuariosSistemaPrd: UsuarioSistemaService,
+    public ContenidoComponent: ContenidoComponent,
+    public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
 
     this.cargando = true;
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
-    console.log(this.usuariosSistemaPrd.getUsuario());
+    this.serviceNoticia.getNoticiasEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(
+      (response) => {
+        console.log(response)
+        if (!!response) {
+          (response.datos as Noticia[]).forEach(noticia => {
+            this.noticiasListado.push(noticia as Noticia);
+          });
+        }
+      }
+    );
 
     if (this.configuracionPrd.VISTOS_RECIENTE.length != 0) {
       this.vistosTrue = true;

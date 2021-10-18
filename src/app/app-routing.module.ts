@@ -27,7 +27,7 @@ export const routes: Routes = [
   { path: 'rolesypermisos', component: ContenidoComponent, canActivate: [ProteccionRutasService], canLoad: [LoadingRutasService], loadChildren: () => import('./modules/rolesypermisos/rolesypermisos.module').then(m => ConfiguracionesService.establecerMenu(m).RolesypermisosModule) },
   { path: 'chat', component: ContenidoComponent, canActivate: [ProteccionRutasService], canLoad: [LoadingRutasService], loadChildren: () => import('./modules/chat/chats.module').then(m => ConfiguracionesService.establecerMenu(m).ChatsModule) },
   { path: 'kiosko', component: ContenidoComponent, canActivate: [ProteccionRutasService], canLoad: [LoadingRutasService], loadChildren: () => import('./modules/Kiosko/kiosko.module').then(m => ConfiguracionesService.establecerMenu(m).kioskoModule) },
-  { path: 'noticias', component: ContenidoComponent, loadChildren: () => import('./modules/noticias/noticias.module').then(m => ConfiguracionesService.establecerMenu(m).NoticiasModule) },
+  { path: 'noticias', component: ContenidoComponent, canActivate: [ProteccionRutasService], canLoad: [LoadingRutasService], loadChildren: () => import('./modules/noticias/noticias.module').then(m => ConfiguracionesService.establecerMenu(m).NoticiasModule) },
   { path: 'auth', component: AuthComponent, canActivate: [ProteccionRutasLoginService], loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
   { path: '**', redirectTo: '/auth/login', pathMatch: 'full' }
 ]

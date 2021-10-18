@@ -8,6 +8,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { NoticiasService } from '../../services/noticias.service';
 
 @Component({
   selector: 'app-noticias',
@@ -30,21 +31,17 @@ export class NoticiasComponent implements OnInit {
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
   public activo: number = 0;
-  //public peticion: any = [];
 
-  /*
-  
-    Resultados desplegados en un array
 
-  */
 
-  public arreglo: any = [];
   public arregloCompany: any = [];
   public tamanio = 0;
   public changeIconDown: boolean = false;
 
   public esClienteEmpresa: boolean = false;
-  public arreglotabla: any = {
+
+  public noticias: any = [];
+  public noticiasTabla: any = {
     columnas: [],
     filas: []
   };
@@ -64,12 +61,17 @@ export class NoticiasComponent implements OnInit {
   public activarMultiseleccion: boolean = false;
 
 
-  constructor(private routerPrd: Router, public configuracion: ConfiguracionesService,
-    private companiPrd: SharedCompaniaService, private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private empresasProd: EmpresasService, private usuariosAuthPrd: UsuariosauthService) { }
+  constructor(
+    private routerPrd: Router,
+    public configuracion: ConfiguracionesService,
+    private companiPrd: SharedCompaniaService,
+    private modalPrd: ModalService,
+    private usuariosSistemaPrd: UsuarioSistemaService,
+    private empresasProd: EmpresasService,
+    private usuariosAuthPrd: UsuariosauthService,
+    private serviceNoticia: NoticiasService) { }
 
   ngOnInit(): void {
-
 
     this.establecerPermisos();
 
@@ -81,54 +83,43 @@ export class NoticiasComponent implements OnInit {
     this.tamanio = documento.innerWidth;
 
     this.cargando = true;
-    if (this.esClienteEmpresa) {
-      this.cargandoBotones = false;
-    } else {
-      this.cargandoBotones = false;
-    }
 
-    this.cargando = false;
+    this.serviceNoticia.getNoticiasEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(
+      (response) => {
+        if (!!response.resultado && !!response.datos) {
+          this.noticias = response.datos;
+          this.procesarTabla();
+        }
+        this.cargando = false;
+        this.cargandoBotones = false;
+      }
+    );
   }
-
-
 
   public establecerPermisos() {
 
-    this.esRegistrar = true;//this.configuracion.getPermisos("Registrar");
-    this.esConsultar = true;//this.configuracion.getPermisos("Consultar");
-    this.esEditar = true;//this.configuracion.getPermisos("Editar");
+    this.esRegistrar = this.configuracion.getPermisos("Registrar");
+    this.esConsultar = this.configuracion.getPermisos("Consultar");
+    this.esEditar = this.configuracion.getPermisos("Editar");
   }
 
   public procesarTabla() {
 
     let columnas: Array<tabla> = [
-      new tabla("usuarioId", "ID"),
-      new tabla("nombre", "Nombre"),
-      new tabla("apellidoPat", "Primer apellido"),
-      new tabla("apellidoMat", "Segundo apellido"),
-      new tabla("email", "Correo electrónico"),
-      new tabla("rolnombre", "Rol"),
-      ((this.esClienteEmpresa) ? new tabla("esMulticliente", "Multicliente") : new tabla("empresa", "empresa")),
-      new tabla("activo", "Estatus ")
+      new tabla("titulo", "Título"),
+      new tabla("subtitulo", "Subtítulo"),
+      new tabla("fechaInicio", "Fecha inicio"),
+      new tabla("fechaFin", "Fecha fin"),
+      new tabla("categoria", "Categoría"),
     ];
 
-    columnas.splice(6, 1);
+    for (let noticia of this.noticias) {
 
-    if (this.arreglo !== undefined) {
-      for (let item of this.arreglo) {
-        item["rolnombre"] = item?.rolId?.nombreRol;
-        item["esMulticliente"] = item?.esMulticliente ? "Sí" : "No";
-        if (item.esActivo) {
-          item.activo = 'Activo'
-        }
-        if (!item.esActivo) {
-          item.activo = 'Inactivo'
-        }
-      }
     }
-    this.arreglotabla = {
+
+    this.noticiasTabla = {
       columnas: columnas,
-      filas: this.arreglo
+      filas: this.noticias
     }
   }
 
@@ -160,7 +151,7 @@ export class NoticiasComponent implements OnInit {
       if (valor) {
         let arregloUsuario: any = [];
 
-        for (let item of this.arreglo) {
+        for (let item of this.noticias) {
 
           if (item["seleccionado"]) {
 
@@ -182,7 +173,7 @@ export class NoticiasComponent implements OnInit {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(valor => {
             if (valor) {
               for (let item of arregloUsuario) {
-                for (let item2 of this.arreglo) {
+                for (let item2 of this.noticias) {
                   if (item2.usuarioId === item) {
                     item2["esActivo"] = tipoguardad;
                     item2["seleccionado"] = false;
@@ -241,7 +232,6 @@ export class NoticiasComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-
 
     switch (obj.type) {
       case "editar":

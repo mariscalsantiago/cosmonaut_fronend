@@ -1,6 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { direcciones } from '../../../../assets/direcciones';
 
 @Injectable({
@@ -8,27 +8,33 @@ import { direcciones } from '../../../../assets/direcciones';
 })
 export class NoticiasService {
 
-
-
   constructor(private http: HttpClient) { }
 
-
-
-
-
-  /*public getAllUsers(activo:any):Observable<any>{
-   return this.http.get(`${direcciones.usuariosAuth}/listar/todosActivo/${activo}`);
+  public getNoticiasEmpresa(idEmpresa: number): Observable<any> {
+    return this.http.get(`${direcciones.noticias}/${idEmpresa}`);
   }
 
+  public createNoticia(request: any): Observable<any> {
 
-  public filtrar(obj: any): Observable<any> {
-    let json: string = JSON.stringify(obj);
-    
-    
-    return this.http.post(`${direcciones.usuarios}/lista/dinamica`, json);
-  }*/
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
+    let json = JSON.stringify(request);
+    return this.http.post(`${direcciones.noticias}`, json, httpOptions);
+  }
 
+  public editNoticia(request: any, idNoticia: number): Observable<any> {
 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
+    let json = JSON.stringify(request);
+    return this.http.put(`${direcciones.noticias}/${idNoticia}`, json, httpOptions);
+  }
 }
