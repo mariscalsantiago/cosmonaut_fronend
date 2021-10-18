@@ -89,6 +89,7 @@ export class DetalleContactoComponent implements OnInit {
   public createFormcont(obj: any) {
     
     console.log("Esta es el obj",obj);
+    let fechaActual = new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd");
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -99,7 +100,7 @@ export class DetalleContactoComponent implements OnInit {
       emailCorporativo: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: obj.fechaAlta, disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: this.insertar?fechaActual:obj.fechaAlta, disabled: true }, [Validators.required]],
       personaId: obj.personaId,
       contactoInicialPuesto: obj.contactoInicialPuesto,
       usuarioinicial: [obj.usuarioinicial]

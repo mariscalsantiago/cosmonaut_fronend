@@ -103,7 +103,7 @@ html{
    .active {
     color: $primary !important;
     background-color: transparent !important;
-    border: 0 !important;
+    border: 1 !important;
     border-bottom: 6px solid $primary !important;
   }
 
@@ -161,6 +161,7 @@ p.interlineado{
         width: 170px;
         button{
             background-color: transparent;
+            display: inline-block !important;
         }
         text-align: right !important;
     }

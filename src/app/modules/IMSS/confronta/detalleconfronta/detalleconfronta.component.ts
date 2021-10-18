@@ -72,6 +72,7 @@ export class DetalleconfrontaComponent implements OnInit {
   }
 
   public enviarPeticion() {
+    debugger;
     this.submitEnviado = true;
 
       if(this.myForm.controls.idregistroPatronal.value === "0"){
@@ -122,6 +123,7 @@ export class DetalleconfrontaComponent implements OnInit {
   }
 
   public abrirArchivo() {
+    debugger;
     let input = document.createElement("input");
     input.type = "file";
     input.accept = ".zip";
@@ -131,12 +133,12 @@ export class DetalleconfrontaComponent implements OnInit {
     input.onchange = () => {
       let imagenInput: any = input.files;
       this.inputFile.nativeElement.value = imagenInput![0].name;
-     /* for (let item in Object.getOwnPropertyNames(imagenInput)) {
+      for (let item in Object.getOwnPropertyNames(imagenInput)) {
         let archivo: File = imagenInput[item];
         archivo.arrayBuffer().then(datos => {
-          this.myForm.controls.urlArchivo.setValue(this.arrayBufferToBase64(datos));
+          this.myForm.controls.archivo.setValue(this.arrayBufferToBase64(datos));
         });
-      }*/
+      }
 
     }
   }

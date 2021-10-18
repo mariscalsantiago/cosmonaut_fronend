@@ -23,6 +23,9 @@ export class DetalleRolesComponent implements OnInit {
   public mostrarEstatus: boolean = false;
   public objrol: any;
 
+  public numeroEmpleados!: number;
+  public previoStatusRol: boolean = false;
+
 
   constructor(private rolesPrd: RolesService, private fb: FormBuilder,
     private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
@@ -30,14 +33,19 @@ export class DetalleRolesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+
     this.objrol = history.state.datos;
+
+    console.log("tiene empleados", this.objrol);
+
     this.actualizar = Boolean(this.objrol);
     this.myForm = this.createForm(this.objrol);
 
     this.cargando = true;
     if (this.objrol) {
       this.mostrarEstatus = true;
+      this.numeroEmpleados = this.objrol.noUsuarios;
+      this.previoStatusRol = this.objrol.esActivo;
       this.rolesPrd.getPermisosxRol(this.objrol.rolId, true).subscribe(datos => {
         this.traerDatosMenu(datos.datos);
       });
@@ -58,6 +66,7 @@ export class DetalleRolesComponent implements OnInit {
   public traerDatosMenu(obj?: any) {
 
     let modificar = Boolean(obj);
+    debugger;
     this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
       this.arreglo = datos;
       this.arreglo.forEach(valor => {
@@ -68,7 +77,7 @@ export class DetalleRolesComponent implements OnInit {
         if (Number(valor.moduloId) == 8) {
           valor.mostrar = false;
         }
-        
+
         if (valor.submodulos) {
           valor.submodulos.forEach(valor2 => {
             let primerAuxSubmodulo = true;
@@ -155,14 +164,24 @@ export class DetalleRolesComponent implements OnInit {
       return;
     }
 
+
     this.guardar();
+    
 
   }
 
 
   public guardar() {
+
+    let mensajeExtra:string = "";
+    if(this.actualizar){
+        if(this.previoStatusRol && this.myForm.value.esActivo == 'false' ){
+            mensajeExtra = "NOTA: AL DESACTIVAR EL ROL LOS USUARIOS ASOCIADOS NO TENDRÀN ACCESO AL SISTEMA.";
+        }
+    }
+
     let titulo: string = this.actualizar ? "¿Deseas actualizar los datos del rol?" : "¿Deseas guardar el rol?";
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo, "").then(valor => {
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo, mensajeExtra).then(valor => {
 
       if (valor) {
 
@@ -179,12 +198,12 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public realizarActualización() {
-    
-    if(this.myForm.value.esActivo == 'true'){
+
+    if (this.myForm.value.esActivo == 'true') {
       this.myForm.controls.esActivo.setValue(true);
       this.myForm.controls.esActivo.updateValueAndValidity();
     }
-    if(this.myForm.value.esActivo == 'false'){
+    if (this.myForm.value.esActivo == 'false') {
       this.myForm.controls.esActivo.setValue(false);
       this.myForm.controls.esActivo.updateValueAndValidity();
     }
@@ -197,14 +216,14 @@ export class DetalleRolesComponent implements OnInit {
 
     if (!this.verificandoSeleccionadoAlguno()) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha seleccionado ningun permiso");
-        return;
+      return;
     }
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.rolesPrd.modificarRol(objenviar).subscribe(datos => {
       if (datos.resultado) {
         const rolId: number = datos.datos.rolId;
-       
+
         let enviarArray = this.formandoPermisos(rolId);
         let enviarArraySinPermiso = this.quitandoPermisos(rolId);
 
@@ -276,9 +295,8 @@ export class DetalleRolesComponent implements OnInit {
             if ((item2.checked)) {
               if (item2.permisos) {
                 for (let item3 of item2.permisos) {
-
                   if (item3.checked) {
-                     return true;
+                    return true;
                   }
                 }
               }
@@ -292,7 +310,7 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public realizarGuardado() {
-    
+
 
     let objenviar = {
       nombreRol: this.myForm.value.nombre,
@@ -449,7 +467,7 @@ export class DetalleRolesComponent implements OnInit {
 
   public cambiarStatus(numero: number) {
 
-    if(!this.arreglo[numero].checked) return;
+    if (!this.arreglo[numero].checked) return;
 
     this.arreglo[numero].seleccionado = !this.arreglo[numero].seleccionado;
   }
@@ -460,7 +478,7 @@ export class DetalleRolesComponent implements OnInit {
   }
 
 
-  public desplegar(indice:any){
+  public desplegar(indice: any) {
     setTimeout(() => {
       this.arreglo[indice].seleccionado = this.arreglo[indice].checked;
     }, 10);

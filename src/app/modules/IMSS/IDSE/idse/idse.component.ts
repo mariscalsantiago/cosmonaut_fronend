@@ -268,7 +268,7 @@ export class IDSEComponent implements OnInit {
         let valor = [];
         for (let item of this.arreglo) {
           this.registroPatronalIdse = item.registro_patronal;
-          this.idCsd = item.idCsd;
+          this.idCsd = item.credencialesImssId;
           if (item["seleccionado"]) {
 
             valor.push(item.kardex_colaborador_id);
@@ -279,7 +279,7 @@ export class IDSEComponent implements OnInit {
         this.arregloEnvioIDSE = { 
           clienteId: this.idEmpresa,
           registroPatronal: this.registroPatronalIdse,
-          idCsd: '',
+          idCsd: this.idCsd,
           movimientosKardexIds: valor
         }
 

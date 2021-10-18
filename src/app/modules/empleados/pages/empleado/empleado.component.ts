@@ -41,9 +41,12 @@ export class EmpleadoComponent implements OnInit {
       this.esKiosko = this.router.url.includes("/kiosko/perfil");
 
 
+
+      
       
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
       if (!this.esKiosko) {
+        this.empleado = {esActivo:true};
         this.idEmpleado = params["id"];
        
         this.traerInfoBasica();
@@ -88,15 +91,11 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
   public seguirProceso() {
     
     this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-
       this.empleado = datos.datos;
-
-
     });
 
     this.empleadosPrd.getPorcentajeavance(this.idEmpleado).subscribe(datos => {
       this.porcentaje = datos;
-
     });
   }
 
