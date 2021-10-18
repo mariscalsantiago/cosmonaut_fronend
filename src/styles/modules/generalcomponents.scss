@@ -350,19 +350,21 @@ form{
     overflow-y:auto;
 
     &::-webkit-scrollbar {
-        width: 10px;
-        height: 5px;
+        width: 12px;
+        height: 10px;
         cursor: pointer;
       }
 
       &::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px grey; 
         border-radius: 3px;
+        border-right: 25px;
       }
 
       &::-webkit-scrollbar-thumb {
         background: $primary; 
         border-radius: 3px;
+        border-right: 25px;
       }
 
 
@@ -397,11 +399,13 @@ form{
       &::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px grey; 
         border-radius: 3px;
+        border-right: 17px;
       }
 
       &::-webkit-scrollbar-thumb {
         background: $primary; 
         border-radius: 3px;
+        border-right: 17px;
       }
 
 
