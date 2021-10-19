@@ -14,16 +14,19 @@
             margin: 8px;" class="sidebar-header imgescritorio">
                 <img src="assets/imgs/logo2.png" alt="" srcset="">
             </div>
-            <div class="tituloabajoimg">
+            <div class="tituloabajoimg" style="margin: 9px">
                 <article>
                     {{nombre}}
                     <article >
                         {{nombreRol}}
                     </article>
+                    <article >
+                        {{nombreEmpresa}}
+                    </article>
                     
                 </article>
             </div>
-            <br>
+            <br><br>
             <ul id="listanavegadora" class="list-unstyled components">
                 <ng-container *ngFor="let item of PRINCIPAL_MENU;let indice = index">
                     <li #liselection *ngIf="item.checked" style="text-align: right; background-color: #f6f7f9;" [ngClass]="{'active':item.seleccionado}">

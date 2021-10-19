@@ -46,10 +46,11 @@ export class InicioComponent implements OnInit {
     private usuariosSistemaPrd: UsuarioSistemaService,public ContenidoComponent:ContenidoComponent, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
+    debugger;
     
     this.cargando = true;
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
-
+    
     if(this.configuracionPrd.VISTOS_RECIENTE.length != 0){
       this.vistosTrue = true;
       this.vistosFalse = false;

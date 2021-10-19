@@ -105,6 +105,7 @@ export class ContenidoComponent implements OnInit {
 
   public nombre: string = "";
   public nombreRol: string = "";
+  public nombreEmpresa: string = "";
 
 
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
@@ -130,9 +131,10 @@ export class ContenidoComponent implements OnInit {
     this.rol = this.sistemaUsuarioPrd.getRol();
 
     this.arreglo = this.menuPrd.getMenu();
-
+    debugger;
     this.nombre = this.sistemaUsuarioPrd.getUsuario().nombre + " " + this.sistemaUsuarioPrd.getUsuario().apellidoPat;
     this.nombreRol = this.sistemaUsuarioPrd.getUsuario().nombreRol;
+    this.nombreEmpresa = this.sistemaUsuarioPrd.getUsuario().nombreEmpresa;
 
 
     this.chatPrd.setChatDatos(this.chat);

@@ -76,7 +76,7 @@
         <div *ngIf="periodica" class="  input-group-sm mb-3 col-4">
             <label>Monto por período *</label>
             <input formatos [moneda]="true" [control]="f.montoPorPeriodo" formControlName="montoPorPeriodo" type="text"
-                class="form-control disabled bg-light"
+                class="form-control"
                 [ngClass]="{'is-invalid':myForm.controls.montoPorPeriodo.errors && submitEnviado}">
                 <div *ngIf="myForm.controls.montoPorPeriodo.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido

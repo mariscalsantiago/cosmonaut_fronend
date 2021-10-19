@@ -173,6 +173,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.myForm.controls.numeroPeriodos.setValidators([Validators.required]);
         this.myForm.controls.numeroPeriodos.updateValueAndValidity();
         this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
+        this.myForm.controls.montoPorPeriodo.disable();
         this.myForm.controls.montoPorPeriodo.updateValueAndValidity();
 
 
@@ -306,6 +307,7 @@ export class VentanaPercepcionesComponent implements OnInit {
         this.montoPercepcion = datos.datos;
         var monto = this.montoPercepcion.toFixed(4);
         this.myForm.controls.montoPorPeriodo.setValue(monto);
+        this.myForm.controls.montoPorPeriodo.disable();
       });
 
     }
@@ -335,13 +337,14 @@ export class VentanaPercepcionesComponent implements OnInit {
       
       //this.myForm.controls.numeroPeriodos.setValue([]);
       this.myForm.controls.montoPorPeriodo.setValue('');
-
+      this.myForm.controls.montoPorPeriodo.disable();
     }
     else if (this.monto != null && periodo != null && periodo >= '1') {
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos => {
         this.montoPercepcion = datos.datos;
         var monto = this.montoPercepcion.toFixed(4);
         this.myForm.controls.montoPorPeriodo.setValue(monto);
+        this.myForm.controls.montoPorPeriodo.disable();
       });
 
     }
