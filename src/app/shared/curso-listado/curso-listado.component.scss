@@ -21,8 +21,6 @@ div.cn-cursos {
             padding: 1rem;
             
             div.cn-image {
-                
-              cursor: pointer;
               
               img.cn-cursos-image {
                 width: 100%;
@@ -38,6 +36,10 @@ div.cn-cursos {
               img.cn-cursos-image:hover {
                 filter: none;
               }
+            }
+
+            div.cn-image.with-content {
+              cursor: pointer;
             }
   
             div.cn-content {

@@ -41,21 +41,10 @@ export class InicioComponent implements OnInit {
   public arreglosIdSubmodulo: any = [];
   public contratoDesc: string | undefined;
 
-
-  noticiasAdministrador: Noticia[] = [
-    //    { noticiaId: 110, titulo: "banner-empresa", imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia
-  ];
-
-  noticiasEmpresa: Noticia[] = [
-    //    { noticiaId: 110, titulo: "banner-empresa", imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia
-  ];
-
-  noticiasListado: Noticia[] = [
-    //    { noticiaId: 110, titulo: "banner-empresa", imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia
-  ];
-  noticiasCursos: Noticia[] = [
-    //    { noticiaId: 110, titulo: "banner-empresa", imagen: 'assets/imgs/anuncio_1.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia
-  ];
+  noticiasAdministrador: Noticia[] = [];
+  noticiasEmpresa: Noticia[] = [];
+  noticiasListado: Noticia[] = [];
+  noticiasCursos: Noticia[] = [];
 
   constructor(
     private eventoPrd: EventosService,
@@ -75,11 +64,11 @@ export class InicioComponent implements OnInit {
 
     if (this.puedeConsultarKiosko()) {
 
-      this.serviceNoticia.getNoticiasEmpresa(this.idEmpresa).subscribe(
+      this.serviceNoticia.getNoticiasEmpleado(this.idEmpresa).subscribe(
 
         (response) => {
 
-          console.log(response);
+          //console.log(response);
           if (!!response.resultado) {
 
             if (!!response.datos.noticiasCosmonaut) {

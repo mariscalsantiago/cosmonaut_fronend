@@ -54,19 +54,30 @@ export class NoticiasDetalleComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.esClienteEmpresa = this.navigator.url.includes("/detalle_noticia/cliente");
     this.usuario = this.serviceUsuario.getUsuario();
 
-    this.esClienteEmpresa = this.navigator.url.includes("/detalle_noticia/cliente");
-
-    this.cargandoImg = true;
+    this.formulario = this.crearFormulario();
 
     this.editando = !!history.state && !!history.state.noticia ? history.state.noticia as Noticia : undefined;
+    if (!!this.editando) {
 
-    if (!!this.editando?.thumbnail) this.imagenCargada = this.editando.thumbnail;
+      this.cargandoImg = true;
+      this.serviceNoticias.getNoticia(this.editando.noticiaId).subscribe(
+        (response) => {
 
-    this.cargandoImg = false;
+          //console.log("getNoticia", response);
+          if (response.resultado || !!response.datos) {
+            this.editando = response.datos as Noticia;
+          }
 
-    this.formulario = this.crearFormulario();
+          if (!!this.editando?.thumbnail) this.imagenCargada = this.editando.thumbnail;
+          this.cargandoImg = false;
+
+          this.llenarFormulario();
+        }
+      );
+    }
 
     this.cargando = true;
     if (this.puedeSeleccionarEmpresa()) {
@@ -84,8 +95,6 @@ export class NoticiasDetalleComponent implements OnInit {
         this.cargando = false;
       });
     }
-
-    this.actualizarPreview();
   }
 
   ngAfterViewInit(): void {
@@ -98,18 +107,31 @@ export class NoticiasDetalleComponent implements OnInit {
 
   public crearFormulario() {
 
-    console.log(this.editando);
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
-      titulo: [!!this.editando ? this.editando.titulo : '', [Validators.required]],
-      subtitulo: [!!this.editando ? this.editando.subtitulo : ''],
-      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd/MM/yyyy') : datePipe.transform(new Date(), 'dd/MM/yyyy')), disabled: true }, [Validators.required]],
-      fechaInicio: [!!this.editando ? datePipe.transform(new Date(this.editando.fechaInicio), 'yyyy-MM-dd') : '', [Validators.required]],
-      fechaFin: [!!this.editando ? datePipe.transform(new Date(this.editando.fechaFin), 'yyyy-MM-dd') : '', [Validators.required]],
-      categoria: [{ value: !!this.editando ? this.editando.categoriaId.categoriaNoticiaId : 1, disabled: this.usuario?.rolId == 3 }, Validators.required],
-      empresa: [!!this.editando ? this.editando.centrocClienteId : (this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId), Validators.required],
-      contenido: [!!this.editando ? this.editando.contenido : '']
+      titulo: ['', [Validators.required]],
+      subtitulo: [''],
+      fechaAlta: [{ value: datePipe.transform(new Date(), 'dd/MM/yyyy'), disabled: true }, [Validators.required]],
+      fechaInicio: ['', [Validators.required]],
+      fechaFin: ['', [Validators.required]],
+      categoria: [{ value: 1, disabled: this.usuario?.rolId == 3 }, Validators.required],
+      empresa: [this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId, Validators.required],
+      contenido: ['']
     });
+  }
+
+  private llenarFormulario() {
+
+    let datePipe = new DatePipe("en-MX");
+
+    this.formulario.controls.titulo.setValue(!!this.editando ? this.editando.titulo : '');
+    this.formulario.controls.subtitulo.setValue(!!this.editando ? this.editando.subtitulo : '');
+    this.formulario.controls.fechaAlta.setValue(!!this.editando ? datePipe.transform(new Date(this.editando.fechaAlta), 'yyyy-MM-dd') : datePipe.transform(new Date(), 'dd/MM/yyyy'));
+    this.formulario.controls.fechaInicio.setValue(!!this.editando ? datePipe.transform(new Date(this.editando.fechaInicio), 'yyyy-MM-dd') : '');
+    this.formulario.controls.fechaFin.setValue(!!this.editando ? datePipe.transform(new Date(this.editando.fechaFin), 'yyyy-MM-dd') : '');
+    this.formulario.controls.categoria.setValue(!!this.editando ? this.editando.categoriaId.categoriaNoticiaId : 1);
+    this.formulario.controls.empresa.setValue(!!this.editando ? this.editando.centrocClienteId : (this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId));
+    this.formulario.controls.contenido.setValue(!!this.editando ? this.editando.contenido : '');
   }
 
   public actualizarPreview() {
@@ -123,19 +145,19 @@ export class NoticiasDetalleComponent implements OnInit {
     if (!!this.editando) {
 
       const json = {
-        noticiaId: this.editando?.noticiaId,
+        noticiaId: this.editando.noticiaId,
         usuarioId: this.usuario?.usuarioId,
         centrocClienteId: Number(this.formulario.controls.empresa.value),
         titulo: this.formulario.controls.titulo.value,
         subtitulo: this.formulario.controls.subtitulo.value,
         categoriaId: { categoriaNoticiaId: Number(this.formulario.controls.categoria.value) },
         contenido: this.formulario.controls.contenido.value,
-        imagen: !!this.imagen ? this.imagen : this.editando?.imagen,
+        imagen: !!this.imagen ? this.imagen : this.editando.imagen,
         fechaInicio: new Date(this.formulario.controls.fechaInicio.value).getTime(),
         fechaFin: new Date(this.formulario.controls.fechaFin.value).getTime()
       }
 
-      console.log('editNoticia', json);
+      //console.log('editNoticia', json);
       this.serviceNoticias.editNoticia(json).subscribe(
         (response) => {
           if (!!response.resultado) {
@@ -157,7 +179,7 @@ export class NoticiasDetalleComponent implements OnInit {
         fechaFin: new Date(this.formulario.controls.fechaFin.value).getTime()
       }
 
-      console.log('createNoticia', json);
+      //console.log('createNoticia', json);
       this.serviceNoticias.createNoticia(json).subscribe(
         (response) => {
           if (!!response.resultado) {

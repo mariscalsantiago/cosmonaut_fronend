@@ -12,11 +12,11 @@ export interface Noticia {
     contenido?: string,
     thumbnail?: string,
     imagen?: string,
-    fechaCarga: number,
+    fechaAlta: number,
     fechaInicio: number,
     fechaFin: number,
 
-    fechaInicioFormato?: string,
-    fechaFinFormato?: string,
-    categoriaFormato?: string,
+    __fechaInicioFormato?: string,
+    __fechaFinFormato?: string,
+    __categoriaFormato?: string,
 }

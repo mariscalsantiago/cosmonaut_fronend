@@ -5,7 +5,8 @@
     <div class="cn-cursos">
         <div class="cn-cursos-listado">
             <div class="cn-content-container" *ngFor="let noticia of noticias; let indice = index">
-                <div class="cn-image" (click)="onClicked(noticia)">
+                <div [ngClass]="{'cn-image': true, 'with-content': tieneContenido(noticia)}"
+                    (click)="tieneContenido(noticia) ? onClicked(noticia) : undefined">
                     <img class="cn-cursos-image" [src]="noticia.thumbnail" alt="banner-image">
                     <div class="cn-overlay"></div>
                 </div>

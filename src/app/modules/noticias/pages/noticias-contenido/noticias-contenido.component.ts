@@ -30,7 +30,7 @@ export class NoticiasContenidoComponent implements OnInit {
     }
 
     this.router.params.subscribe(datos => {
-      console.log(datos);
+      //  console.log(datos);
     });
   }
 }

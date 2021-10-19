@@ -10,7 +10,23 @@ export class NoticiasService {
 
   constructor(private http: HttpClient) { }
 
+  public getNoticia(idNoticia: number): Observable<any> {
+    return this.http.get(`${direcciones.noticias}/detalle/${idNoticia}`);
+  }
+
+  public getNoticiasCosmonaut(): Observable<any> {
+    return this.http.get(`${direcciones.noticias}/cosmonaut`);
+  }
+
+  public getNoticiasCliente(idEmpresa: number): Observable<any> {
+    return this.http.get(`${direcciones.noticias}/cliente/${idEmpresa}`);
+  }
+
   public getNoticiasEmpresa(idEmpresa: number): Observable<any> {
+    return this.http.get(`${direcciones.noticias}/empresa/${idEmpresa}`);
+  }
+
+  public getNoticiasEmpleado(idEmpresa: number): Observable<any> {
     return this.http.get(`${direcciones.noticias}/${idEmpresa}`);
   }
 

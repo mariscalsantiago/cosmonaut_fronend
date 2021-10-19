@@ -9,7 +9,8 @@
             </div>
             <div class="cn-content-container">
                 <div class="cn-content">
-                    <span class="cn-content-title" (click)="onClicked(noticia)">{{noticia.titulo}}</span>
+                    <span [ngClass]="{'cn-content-title': true, 'with-content': tieneContenido(noticia)}"
+                        (click)="tieneContenido(noticia) ? onClicked(noticia) : undefined">{{noticia.titulo}}</span>
                     <span class="cn-content-subtitle">{{noticia.subtitulo}}</span>
                 </div>
                 <div class="cn-type">

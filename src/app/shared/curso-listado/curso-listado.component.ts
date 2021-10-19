@@ -16,6 +16,10 @@ export class CursoListadoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  tieneContenido(noticia: Noticia): boolean {
+    return !!noticia.contenido;
+  }
+
   onClicked(noticia: Noticia) {
     this.onClick.emit(noticia);
   }

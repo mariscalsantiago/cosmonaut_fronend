@@ -7,8 +7,7 @@ import { EmpresasService } from 'src/app/modules/empresas/services/empresas.serv
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
-import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
-import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { usuarioClass, UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { NoticiasService } from '../../services/noticias.service';
 
 @Component({
@@ -17,6 +16,8 @@ import { NoticiasService } from '../../services/noticias.service';
   styleUrls: ['./noticias.component.scss']
 })
 export class NoticiasComponent implements OnInit {
+
+  private usuario: usuarioClass | undefined = undefined;
 
   public cargando: Boolean = false;
   public tipoguardad: boolean = false;
@@ -62,12 +63,13 @@ export class NoticiasComponent implements OnInit {
     public configuracion: ConfiguracionesService,
     private companiPrd: SharedCompaniaService,
     private modalPrd: ModalService,
-    private usuariosSistemaPrd: UsuarioSistemaService,
+    private serviceUsuario: UsuarioSistemaService,
     private empresasProd: EmpresasService,
-    private usuariosAuthPrd: UsuariosauthService,
     private serviceNoticia: NoticiasService) { }
 
   ngOnInit(): void {
+
+    this.usuario = this.serviceUsuario.getUsuario();
 
     this.establecerPermisos();
 
@@ -80,16 +82,49 @@ export class NoticiasComponent implements OnInit {
 
     this.cargando = true;
 
-    this.serviceNoticia.getNoticiasEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(
-      (response) => {
-        if (!!response.resultado && !!response.datos) {
-          this.noticias = response.datos.noticiasGeneral;
-          this.procesarTabla();
-        }
-        this.cargando = false;
-        this.cargandoBotones = false;
+    if (this.esClienteEmpresa) {
+
+      if (this.usuario?.esCliente && this.usuario?.centrocClienteIdPadre == 0) {
+
+        this.serviceNoticia.getNoticiasCliente(this.usuario?.centrocClienteId).subscribe(
+          (response) => {
+            if (!!response.resultado && !!response.datos) {
+              this.noticias = response.datos;
+              this.procesarTabla();
+            }
+
+            this.cargando = false;
+            this.cargandoBotones = false;
+          }
+        );
+      } else {
+
+        this.serviceNoticia.getNoticiasEmpresa(this.usuario?.centrocClienteId).subscribe(
+          (response) => {
+            if (!!response.resultado && !!response.datos) {
+              this.noticias = response.datos;
+              this.procesarTabla();
+            }
+
+            this.cargando = false;
+            this.cargandoBotones = false;
+          }
+        );
       }
-    );
+    } else {
+
+      this.serviceNoticia.getNoticiasCosmonaut().subscribe(
+        (response) => {
+          if (!!response.resultado && !!response.datos) {
+            this.noticias = response.datos;
+            this.procesarTabla();
+          }
+
+          this.cargando = false;
+          this.cargandoBotones = false;
+        }
+      );
+    }
   }
 
   public establecerPermisos() {
@@ -104,16 +139,16 @@ export class NoticiasComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("titulo", "Título"),
       new tabla("subtitulo", "Subtítulo"),
-      new tabla("fechaInicioFormato", "Fecha inicio", false, false, true),
-      new tabla("fechaFinFormato", "Fecha fin", false, false, true),
-      new tabla("categoriaFormato", "Categoría", false, false, true),
+      new tabla("__fechaInicioFormato", "Fecha inicio", false, false, true),
+      new tabla("__fechaFinFormato", "Fecha fin", false, false, true),
+      new tabla("__categoriaFormato", "Categoría", false, false, true),
     ];
 
     let datePipe = new DatePipe("en-MX");
     this.noticias.forEach(noticia => {
-      noticia["fechaInicioFormato"] = datePipe.transform(new Date(noticia.fechaInicio), 'dd/MM/yyyy') as string;
-      noticia["fechaFinFormato"] = datePipe.transform(new Date(noticia.fechaFin), 'dd/MM/yyyy') as string;
-      noticia["categoriaFormato"] = noticia.categoriaId.descripcion as string;
+      noticia.__fechaInicioFormato = datePipe.transform(new Date(noticia.fechaInicio), 'dd/MM/yyyy') as string;
+      noticia.__fechaFinFormato = datePipe.transform(new Date(noticia.fechaFin), 'dd/MM/yyyy') as string;
+      noticia.__categoriaFormato = noticia.categoriaId.descripcion as string;
     });
 
     this.noticiasTabla = {
