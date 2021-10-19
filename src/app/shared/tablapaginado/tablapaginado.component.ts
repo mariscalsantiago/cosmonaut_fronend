@@ -357,6 +357,9 @@ export class TablapaginadoComponent implements OnInit {
     this.salida.emit({ type: "tablabeneficio", datos: item, indice: indice });
   }
 
+  public verTxtImss(item: any, indice: number) {
+    this.salida.emit({ type: "txtImss", datos: item, indice: indice });
+  }
 
   public ordenar(item: any) {
     
@@ -478,8 +481,6 @@ export class TablapaginadoComponent implements OnInit {
   }
 
   public verRegistroPatronal(item: any) {
-
-
     this.verpatronal = !this.verpatronal;
     this.salida.emit({ type: 'patronal', datos: item });
   }

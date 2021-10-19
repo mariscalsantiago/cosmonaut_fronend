@@ -83,7 +83,8 @@ export class IDSEComponent implements OnInit {
       new tabla("nombre", "Nombre completo del empleado"),
       new tabla("sbcDecimal", "SBC"),
       new tabla("movimiento", "Movimiento"),
-      new tabla("fechamovimiento", "Fecha de movimiento")
+      new tabla("fechamovimiento", "Fecha de movimiento"),
+      new tabla("estatus", "Estatus de movimiento")
     ];
 
     this.arreglotabla = {
@@ -199,7 +200,7 @@ export class IDSEComponent implements OnInit {
 
 
   public guardarMultiseleccion() {
-
+    debugger;
     
     let mensaje = `¿Deseas descargar el archivo de lo seleccionado?`;
 
@@ -376,7 +377,10 @@ export class IDSEComponent implements OnInit {
           this.activarMultiseleccion = obj.datos;
           
         break;
-
+        case "txtImss":
+          debugger;
+          this.guardarMultiseleccion();
+          break;
 
         
     }
