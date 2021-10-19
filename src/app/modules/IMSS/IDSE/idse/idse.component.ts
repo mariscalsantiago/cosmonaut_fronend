@@ -198,9 +198,61 @@ export class IDSEComponent implements OnInit {
       }
 
 
+      public descargaArchivoTxtItem(obj: any) {
+
+        let mensaje = `¿Deseas descargar el archivo?`;
+    
+        this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
+          if (valor) {
+    
+            let valor = [];
+  
+            valor.push(obj.kardex_colaborador_id);
+    
+            this.arregloIDSE = { 
+              idEmpresa: this.idEmpresa,
+              idKardex: valor
+            }
+    
+    
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    
+            this.reportesPrd.getDescargaLayaoutIDSE(this.arregloIDSE).subscribe(archivo => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
+              const downloadLink = document.createElement("a");
+              const fileName = `${"Layaout  IDSE"}.txt`;
+      
+              downloadLink.href = linkSource;
+              downloadLink.download = fileName;
+              downloadLink.click();
+              if (archivo) {
+                for (let item of this.arregloIDSE.idKardex) {
+                  for (let item2 of this.arreglo) {
+                    if (item2.kardex_colaborador_id === item) {
+                      item2["seleccionado"] = false;
+                      break;
+                    }
+                  }
+                }
+                
+                this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
+                  this.arreglo = datos.datos;
+              
+                  this.traerTabla({ datos: this.arreglo });
+              
+                  this.cargando = false;
+                });
+                this.activarMultiseleccion = false;
+              }
+            });
+         
+    
+          }
+        });
+      }
 
   public guardarMultiseleccion() {
-    debugger;
     
     let mensaje = `¿Deseas descargar el archivo de lo seleccionado?`;
 
@@ -378,8 +430,8 @@ export class IDSEComponent implements OnInit {
           
         break;
         case "txtImss":
-          debugger;
-          this.guardarMultiseleccion();
+          
+          this.descargaArchivoTxtItem(obj.datos);
           break;
 
         
