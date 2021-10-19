@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Noticia } from 'src/app/core/modelos/noticia';
 
 @Component({
@@ -9,10 +9,15 @@ import { Noticia } from 'src/app/core/modelos/noticia';
 export class CursoListadoComponent implements OnInit {
 
   @Input() public noticias: Noticia[] = [];
+  @Output() onClick = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onClicked(noticia: Noticia) {
+    this.onClick.emit(noticia);
   }
 
 }

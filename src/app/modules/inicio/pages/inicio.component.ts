@@ -1,7 +1,7 @@
+import { Noticia } from './../../../core/modelos/noticia';
 import { NoticiasService } from './../../noticias/services/noticias.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Noticia } from 'src/app/core/modelos/noticia';
 import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
 import { EventosService } from 'src/app/modules/eventos/services/eventos.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -43,30 +43,18 @@ export class InicioComponent implements OnInit {
 
 
   noticiasAdministrador: Noticia[] = [
-    /*  { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_01.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_02.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_03.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "banner-administracion", categoria: 'banner-administracion', imagen: 'assets/imgs/banner_04.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    */
+    //    { noticiaId: 110, titulo: "banner-empresa", imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia
   ];
 
   noticiasEmpresa: Noticia[] = [
-    /*  { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_05.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_07.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_08.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "banner-empresa", categoria: 'banner-empresa', imagen: 'assets/imgs/banner_09.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    */
+    //    { noticiaId: 110, titulo: "banner-empresa", imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia
   ];
 
-  noticiasListado: Noticia[] = [];
-
+  noticiasListado: Noticia[] = [
+    //    { noticiaId: 110, titulo: "banner-empresa", imagen: 'assets/imgs/banner_06.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia
+  ];
   noticiasCursos: Noticia[] = [
-    /*  { idUsuario: 100, titulo: "Financial Markets", subtitulo: 'Yale University', categoria: 'cursos', imagen: 'assets/imgs/anuncio_01.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "Successful Negotiation", subtitulo: 'University of Michigan', categoria: 'cursos', imagen: 'assets/imgs/anuncio_02.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "Google Spanner", subtitulo: 'University of Google', categoria: 'cursos', imagen: 'assets/imgs/anuncio_03.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-      { idUsuario: 100, titulo: "Gaming Level Up", subtitulo: 'Parguita Systems', categoria: 'cursos', imagen: 'assets/imgs/anuncio_04.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia,
-    */
+    //    { noticiaId: 110, titulo: "banner-empresa", imagen: 'assets/imgs/anuncio_1.jpg', fechaCarga: new Date().getTime(), fechaInicio: new Date().getTime(), fechaFin: new Date().getTime() } as Noticia
   ];
 
   constructor(
@@ -85,16 +73,46 @@ export class InicioComponent implements OnInit {
     this.cargando = true;
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
-    this.serviceNoticia.getNoticiasEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(
-      (response) => {
-        console.log(response)
-        if (!!response) {
-          (response.datos as Noticia[]).forEach(noticia => {
-            this.noticiasListado.push(noticia as Noticia);
-          });
+    if (this.puedeConsultarKiosko()) {
+
+      this.serviceNoticia.getNoticiasEmpresa(this.idEmpresa).subscribe(
+
+        (response) => {
+
+          console.log(response);
+          if (!!response.resultado) {
+
+            if (!!response.datos.noticiasCosmonaut) {
+              (response.datos.noticiasCosmonaut as Noticia[]).forEach(noticia => {
+                this.noticiasAdministrador.push(noticia);
+              });
+            }
+
+            if (!!response.datos.noticiasGeneral) {
+              (response.datos.noticiasGeneral as Noticia[]).forEach(noticia => {
+
+                switch (noticia.categoriaId.categoriaNoticiaId) {
+                  case 1:
+                    this.noticiasEmpresa.push(noticia);
+                    break;
+                  case 2:
+                  case 3:
+                  case 4:
+                    this.noticiasListado.push(noticia);
+                    break;
+                  case 5:
+                  case 6:
+                    this.noticiasCursos.push(noticia);
+                    break;
+                  default:
+                    break;
+                }
+              });
+            }
+          }
         }
-      }
-    );
+      );
+    }
 
     if (this.configuracionPrd.VISTOS_RECIENTE.length != 0) {
       this.vistosTrue = true;
@@ -128,6 +146,7 @@ export class InicioComponent implements OnInit {
   }
 
   puedeConsultarKiosko(): boolean {
+    return true;
     return this.usuariosSistemaPrd.getUsuario().rolId == 2;
   }
 
@@ -135,8 +154,18 @@ export class InicioComponent implements OnInit {
     return this.usuariosSistemaPrd.getUsuario().rolId != 2;
   }
 
-  mostrarContenido(banner: any): void {
-    this.routerPrd.navigate(['noticias', 'contenido_noticia', '100']);
+  mostrarContenido(noticia: Noticia) {
+
+    this.configuracionPrd.accesoRuta = true;
+    this.routerPrd.navigate(['noticias', 'contenido_noticia', noticia.noticiaId], { state: { noticia: noticia } });
+
+    setTimeout(() => {
+      if (!this.configuracionPrd.cargandomodulo) {
+        setTimeout(() => {
+          this.configuracionPrd.accesoRuta = false;
+        }, 10);
+      }
+    }, 10);
   }
 
   public iniciarDescarga() {

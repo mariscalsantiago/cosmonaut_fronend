@@ -26,7 +26,7 @@ export class NoticiasService {
     return this.http.post(`${direcciones.noticias}`, json, httpOptions);
   }
 
-  public editNoticia(request: any, idNoticia: number): Observable<any> {
+  public editNoticia(request: any): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -35,6 +35,6 @@ export class NoticiasService {
     };
 
     let json = JSON.stringify(request);
-    return this.http.put(`${direcciones.noticias}/${idNoticia}`, json, httpOptions);
+    return this.http.put(`${direcciones.noticias}`, json, httpOptions);
   }
 }

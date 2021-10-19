@@ -8,17 +8,18 @@
         <label>INICIO</label>
     </div>
 </div>
-<app-banner-carousel *ngIf="puedeConsultarKiosko()" [noticias]="noticiasAdministrador" [intervalo]=4000
-    [onClicked]="mostrarContenido"></app-banner-carousel>
-<app-banner-carousel *ngIf="puedeConsultarKiosko()" [noticias]="noticiasEmpresa" [intervalo]=6000
-    [onClicked]="mostrarContenido"></app-banner-carousel>
+<app-banner-carousel *ngIf="puedeConsultarKiosko() && !!noticiasAdministrador.length" [noticias]="noticiasAdministrador"
+    [intervalo]=4000 (onClick)="mostrarContenido($event)"></app-banner-carousel>
+<app-banner-carousel *ngIf="puedeConsultarKiosko() && !!noticiasEmpresa.length" [noticias]="noticiasEmpresa"
+    [intervalo]=6000 (onClick)="mostrarContenido($event)"></app-banner-carousel>
 
-<div class="row margen cn-anuncios-kiosko" *ngIf="puedeConsultarKiosko()">
-    <div class="col-md-6 col-12 nopadding">
-        <app-anuncio-listado [noticias]="noticiasListado"></app-anuncio-listado>
+<div class="row margen cn-anuncios-kiosko"
+    *ngIf="puedeConsultarKiosko() && (!!noticiasListado.length || !!noticiasCursos.length)">
+    <div class="col-md-6 col-12 nopadding" *ngIf="puedeConsultarKiosko() && !!noticiasListado.length">
+        <app-anuncio-listado [noticias]="noticiasListado" (onClick)="mostrarContenido($event)"></app-anuncio-listado>
     </div>
-    <div class="col-md-6 col-12 nopadding">
-        <app-curso-listado [noticias]="noticiasCursos"></app-curso-listado>
+    <div class="col-md-6 col-12 nopadding" *ngIf="puedeConsultarKiosko() && !!noticiasCursos.length">
+        <app-curso-listado [noticias]="noticiasCursos" (onClick)="mostrarContenido($event)"></app-curso-listado>
     </div>
 </div>
 <div class="row" *ngIf="puedeConsultarCalendario()">

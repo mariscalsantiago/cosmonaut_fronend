@@ -1,5 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { Noticia } from 'src/app/core/modelos/noticia';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
@@ -40,7 +41,7 @@ export class NoticiasComponent implements OnInit {
 
   public esClienteEmpresa: boolean = false;
 
-  public noticias: any = [];
+  public noticias: Noticia[] = [];
   public noticiasTabla: any = {
     columnas: [],
     filas: []
@@ -53,11 +54,6 @@ export class NoticiasComponent implements OnInit {
 
 
   public cargandoBotones: boolean = false;
-
-
-
-
-
   public activarMultiseleccion: boolean = false;
 
 
@@ -87,7 +83,7 @@ export class NoticiasComponent implements OnInit {
     this.serviceNoticia.getNoticiasEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(
       (response) => {
         if (!!response.resultado && !!response.datos) {
-          this.noticias = response.datos;
+          this.noticias = response.datos.noticiasGeneral;
           this.procesarTabla();
         }
         this.cargando = false;
@@ -108,24 +104,23 @@ export class NoticiasComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("titulo", "Título"),
       new tabla("subtitulo", "Subtítulo"),
-      new tabla("fechaInicio", "Fecha inicio"),
-      new tabla("fechaFin", "Fecha fin"),
-      new tabla("categoria", "Categoría"),
+      new tabla("fechaInicioFormato", "Fecha inicio", false, false, true),
+      new tabla("fechaFinFormato", "Fecha fin", false, false, true),
+      new tabla("categoriaFormato", "Categoría", false, false, true),
     ];
 
-    for (let noticia of this.noticias) {
-
-    }
+    let datePipe = new DatePipe("en-MX");
+    this.noticias.forEach(noticia => {
+      noticia["fechaInicioFormato"] = datePipe.transform(new Date(noticia.fechaInicio), 'dd/MM/yyyy') as string;
+      noticia["fechaFinFormato"] = datePipe.transform(new Date(noticia.fechaFin), 'dd/MM/yyyy') as string;
+      noticia["categoriaFormato"] = noticia.categoriaId.descripcion as string;
+    });
 
     this.noticiasTabla = {
       columnas: columnas,
       filas: this.noticias
     }
   }
-
-
-
-
 
   public crearNoticia() {
     this.routerPrd.navigateByUrl(`noticias/detalle_noticia${this.esClienteEmpresa ? '/cliente' : ''}/nuevo`);
@@ -135,101 +130,13 @@ export class NoticiasComponent implements OnInit {
     this.routerPrd.navigateByUrl(`noticias/detalle_noticia${this.esClienteEmpresa ? '/cliente' : ''}/editar`, { state: { noticia: noticia } });
   }
 
-
-
-
-
-
-
   public guardarMultiseleccion(tipoguardad: boolean) {
 
-
-    this.tipoguardad = tipoguardad;
-    let mensaje = `¿Deseas ${tipoguardad ? "activar" : "desactivar"} estos usuarios?`;
-
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
-      if (valor) {
-        let arregloUsuario: any = [];
-
-        for (let item of this.noticias) {
-
-          if (item["seleccionado"]) {
-
-            arregloUsuario.push(item["usuarioId"]);
-
-          }
-        }
-
-        let objEnviar = {
-          ids: arregloUsuario,
-          esActivo: tipoguardad
-        }
-
-
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
-        this.usuariosAuthPrd.usuariosActivarDesactivar(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(valor => {
-            if (valor) {
-              for (let item of arregloUsuario) {
-                for (let item2 of this.noticias) {
-                  if (item2.usuarioId === item) {
-                    item2["esActivo"] = tipoguardad;
-                    item2["seleccionado"] = false;
-                    break;
-                  }
-                }
-              }
-
-              this.activarMultiseleccion = false;
-
-              this.cargando = true;
-              if (this.esClienteEmpresa) {
-                this.companiPrd.getAllCompany().subscribe(datos => {
-                  this.arregloCompany = datos.datos
-                  this.filtrar();
-                });
-              } else {
-                if (this.usuariosSistemaPrd.esCliente()) {
-                  this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-
-                    if (Boolean(datos.datos)) {
-                      this.arregloCompany = datos.datos;
-                      this.arregloCompany.unshift({ centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa(), nombre: this.usuariosSistemaPrd.usuario.nombreEmpresa + "(" + "Cliente)", razonSocial: this.usuariosSistemaPrd.usuario.nombreEmpresa + "(" + "Cliente)" })
-                    } else {
-                      this.arregloCompany = datos.datos;
-                    }
-                    this.filtrar();
-
-                  });
-                } else {
-                  this.empresasProd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-                    this.arregloCompany = [datos.datos];
-                    this.filtrar();
-
-                  });
-                }
-              }
-            }
-
-          });
-        });
-      }
-    });
-
-
-
   }
-
-
-
-
 
   public filtrar() {
 
   }
-
 
   public recibirTabla(obj: any) {
 
@@ -240,32 +147,10 @@ export class NoticiasComponent implements OnInit {
       case "filaseleccionada":
         this.activarMultiseleccion = obj.datos;
         break;
-      case "llave":
-        this.generarllave(obj.datos);
+      case "eliminar":
+        console.log("dasjdaskdhajks");
         break;
     }
-
   }
-
-
-  public generarllave(obj: any) {
-
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas resetear y reenviar la clave de este usuario?").then((valor) => {
-      if (valor) {
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        let objenviar = {
-          username: obj.email?.toLowerCase()
-        }
-
-        this.usuariosSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-        });
-
-      }
-    });
-  }
-
-
 
 }

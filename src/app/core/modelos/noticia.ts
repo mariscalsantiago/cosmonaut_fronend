@@ -4,12 +4,19 @@ export interface Noticia {
     centrocClienteId: number,
     titulo: string,
     subtitulo?: string,
-    categoria: string,
+    categoriaId: {
+        categoriaNoticiaId: number,
+        descripcion: string,
+        nombre: string,
+    },
     contenido?: string,
     thumbnail?: string,
     imagen?: string,
     fechaCarga: number,
     fechaInicio: number,
     fechaFin: number,
-    esActivo: boolean
+
+    fechaInicioFormato?: string,
+    fechaFinFormato?: string,
+    categoriaFormato?: string,
 }

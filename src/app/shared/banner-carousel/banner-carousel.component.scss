@@ -12,6 +12,10 @@ div.cn-banner-kiosko {
     flex-shrink: 0;
     cursor: pointer;
   }
+
+  div.cn-banner-container.with-content {
+    cursor: pointer;
+  }
   
   div.cn-banner-card-section {
     width: 100%;

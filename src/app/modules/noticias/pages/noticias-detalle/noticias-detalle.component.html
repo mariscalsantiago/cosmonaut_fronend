@@ -31,7 +31,7 @@
                         <label for="titulo">Título de la noticia *</label>
                         <input #titulo id="titulo" formControlName="titulo" type="text" class="form-control"
                             [ngClass]="{'is-invalid':f.titulo.errors && submitEnviado}"
-                            placeholder="{ej. !Feliz cumpleaños Parguitaaaaaaa!}">
+                            placeholder="{ej. !Feliz cumpleaños!}">
                         <div *ngIf="f.titulo.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -100,7 +100,7 @@
                         <label for="contenido">Contenido de la noticia</label>
                         <textarea (ngModelChange)="actualizarPreview()" id="contenido" formControlName="contenido"
                             rows="8" class="form-control" [ngClass]="{'is-invalid':f.contenido.errors && submitEnviado}"
-                            placeholder="{ej. <h3>HOLA MUNDOOOOOOOO</h3>}"></textarea>
+                            placeholder="{ej. <h3>Encabezado de publicidad</h3>}"></textarea>
                     </div>
 
 
@@ -108,19 +108,15 @@
                         <div class="cm-noticia-preview" [innerHTML]="noticia">
                         </div>
                     </div>
-                    <div class="input-group-sm col-12">
-                        <img [src]="imagen" />
-                        <img [src]="thumbnail" />
-                    </div>
 
                     <div class="input-group-sm mb-3 col-12 col-sm-12 col-md-4 col-lg-4"></div>
                 </div>
             </div>
             <div class="col-12 col-md-12 col-xl-2">
                 <div class=" input-group-sm mb-3 col-12">
-                    <label>Logo</label>
+                    <label>Imagen</label>
                     <app-subirarchivo [cargando]="cargandoImg" (emiteimagen)="recibirImagen($event)"
-                        [recibiendoImagen]=""></app-subirarchivo>
+                        [recibiendoImagen]="imagenCargada"></app-subirarchivo>
                 </div>
             </div>
         </div>

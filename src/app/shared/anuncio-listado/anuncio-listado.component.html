@@ -9,11 +9,11 @@
             </div>
             <div class="cn-content-container">
                 <div class="cn-content">
-                    <span class="cn-content-title">{{noticia.titulo}}</span>
+                    <span class="cn-content-title" (click)="onClicked(noticia)">{{noticia.titulo}}</span>
                     <span class="cn-content-subtitle">{{noticia.subtitulo}}</span>
                 </div>
                 <div class="cn-type">
-                    <span>{{noticia.categoria}}</span>
+                    <span>{{noticia.categoriaId.descripcion}}</span>
                 </div>
             </div>
         </div>

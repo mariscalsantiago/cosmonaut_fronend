@@ -31,6 +31,7 @@ export class NoticiasDetalleComponent implements OnInit {
   public cargando: boolean = true;
   public submitEnviado: boolean = false;
 
+  public imagenCargada: any = undefined;
   public imagen: any = undefined;
   public thumbnail: any = undefined;
 
@@ -60,6 +61,8 @@ export class NoticiasDetalleComponent implements OnInit {
     this.cargandoImg = true;
 
     this.editando = !!history.state && !!history.state.noticia ? history.state.noticia as Noticia : undefined;
+
+    if (!!this.editando?.thumbnail) this.imagenCargada = this.editando.thumbnail;
 
     this.cargandoImg = false;
 
@@ -95,14 +98,15 @@ export class NoticiasDetalleComponent implements OnInit {
 
   public crearFormulario() {
 
+    console.log(this.editando);
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
       titulo: [!!this.editando ? this.editando.titulo : '', [Validators.required]],
       subtitulo: [!!this.editando ? this.editando.subtitulo : ''],
       fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd/MM/yyyy') : datePipe.transform(new Date(), 'dd/MM/yyyy')), disabled: true }, [Validators.required]],
-      fechaInicio: [!!this.editando ? new Date(this.editando.fechaInicio) : '', [Validators.required]],
-      fechaFin: [!!this.editando ? datePipe.transform(new Date(this.editando.fechaFin), 'dd/MM/yyyy') : '', [Validators.required]],
-      categoria: [{ value: 1, disabled: this.usuario?.rolId == 3 }, Validators.required],
+      fechaInicio: [!!this.editando ? datePipe.transform(new Date(this.editando.fechaInicio), 'yyyy-MM-dd') : '', [Validators.required]],
+      fechaFin: [!!this.editando ? datePipe.transform(new Date(this.editando.fechaFin), 'yyyy-MM-dd') : '', [Validators.required]],
+      categoria: [{ value: !!this.editando ? this.editando.categoriaId.categoriaNoticiaId : 1, disabled: this.usuario?.rolId == 3 }, Validators.required],
       empresa: [!!this.editando ? this.editando.centrocClienteId : (this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId), Validators.required],
       contenido: [!!this.editando ? this.editando.contenido : '']
     });
@@ -121,18 +125,18 @@ export class NoticiasDetalleComponent implements OnInit {
       const json = {
         noticiaId: this.editando?.noticiaId,
         usuarioId: this.usuario?.usuarioId,
-        centrocClienteId: this.usuario?.centrocClienteId,
+        centrocClienteId: Number(this.formulario.controls.empresa.value),
         titulo: this.formulario.controls.titulo.value,
         subtitulo: this.formulario.controls.subtitulo.value,
-        categoriaId: { categoriaNoticiaId: this.formulario.controls.categoria.value },
+        categoriaId: { categoriaNoticiaId: Number(this.formulario.controls.categoria.value) },
         contenido: this.formulario.controls.contenido.value,
-        imagen: this.imagen,
+        imagen: !!this.imagen ? this.imagen : this.editando?.imagen,
         fechaInicio: new Date(this.formulario.controls.fechaInicio.value).getTime(),
         fechaFin: new Date(this.formulario.controls.fechaFin.value).getTime()
       }
 
       console.log('editNoticia', json);
-      this.serviceNoticias.editNoticia(json, this.editando?.noticiaId).subscribe(
+      this.serviceNoticias.editNoticia(json).subscribe(
         (response) => {
           if (!!response.resultado) {
             this.cancelar();
@@ -143,10 +147,10 @@ export class NoticiasDetalleComponent implements OnInit {
 
       const json = {
         usuarioId: this.usuario?.usuarioId,
-        centrocClienteId: this.usuario?.centrocClienteId,
+        centrocClienteId: Number(this.formulario.controls.empresa.value),
         titulo: this.formulario.controls.titulo.value,
         subtitulo: this.formulario.controls.subtitulo.value,
-        categoriaId: { categoriaNoticiaId: this.formulario.controls.categoria.value },
+        categoriaId: { categoriaNoticiaId: Number(this.formulario.controls.categoria.value) },
         contenido: this.formulario.controls.contenido.value,
         imagen: this.imagen,
         fechaInicio: new Date(this.formulario.controls.fechaInicio.value).getTime(),
