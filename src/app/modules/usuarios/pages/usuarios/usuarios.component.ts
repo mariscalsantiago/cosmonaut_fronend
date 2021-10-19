@@ -50,7 +50,8 @@ export class UsuariosComponent implements OnInit {
   public esClienteEmpresa: boolean = false;
   public arreglotabla: any = {
     columnas: [],
-    filas: []
+    filas: [],
+    totalRegistros:0
   };
 
 
@@ -60,7 +61,8 @@ export class UsuariosComponent implements OnInit {
 
 
   public cargandoBotones:boolean = false;
-
+  public elementos:number = 0;
+  public pagina:number = 0;
 
 
 
@@ -73,7 +75,6 @@ export class UsuariosComponent implements OnInit {
     private empresasProd: EmpresasService, private usuariosAuthPrd: UsuariosauthService) { }
 
   ngOnInit(): void {
-    
 
     this.establecerPermisos();
 
@@ -85,6 +86,7 @@ export class UsuariosComponent implements OnInit {
 
     this.tamanio = documento.innerWidth;
     this.cargando = true;
+    
     if (this.esClienteEmpresa) {
       this.companiPrd.getAllCompany().subscribe(datos => {
         this.arregloCompany = datos.datos
@@ -142,6 +144,7 @@ export class UsuariosComponent implements OnInit {
     ];
 
     columnas.splice(6,1);
+  
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
@@ -157,7 +160,8 @@ export class UsuariosComponent implements OnInit {
     }
     this.arreglotabla = {
       columnas: columnas,
-      filas: this.arreglo
+      filas: this.arreglo,
+      totalRegistros:this.arreglotabla.totalRegistros
     }
   }
 
@@ -300,9 +304,16 @@ export class UsuariosComponent implements OnInit {
     
 
     this.cargando = true;
-    this.usuariosAuthPrd.filtrarUsuarios(peticion).subscribe(datos => {
-      this.arreglo = datos.datos;
+    this.usuariosAuthPrd.filtrarUsuariosPaginado(peticion,this.elementos,this.pagina).subscribe(datos => {
+      if(datos.datos){
+        let arreglo:Array<any> = datos.datos.usuarios;
+        if(arreglo)
+            arreglo.forEach(o => this.arreglo.push(o));
+
+        this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
+      }
       this.procesarTabla();
+      console.log(this.arreglo);
       this.cargando = false;
     });
   }
@@ -320,6 +331,13 @@ export class UsuariosComponent implements OnInit {
         break;
       case "llave":
         this.generarllave(obj.datos);
+        break;
+      case "paginado_cantidad":
+        this.elementos = obj.datos.elementos;
+        this.pagina = obj.datos.pagina;
+        if(!this.cargando){
+          this.filtrar();
+        }
         break;
     }
 
