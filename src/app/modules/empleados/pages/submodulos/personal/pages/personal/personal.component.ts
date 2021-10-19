@@ -236,7 +236,7 @@ export class PersonalComponent implements OnInit {
       apellidoMaterno: obj.apellidoMaterno,
       genero: [{ value: genero, disabled: true }],
       fechaNacimiento: [obj.fechaNacimiento,Validators.required],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFCFisica)]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
       nss: [obj.nss,[Validators.required,validacionesForms.nssValido]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],

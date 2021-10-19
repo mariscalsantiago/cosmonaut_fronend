@@ -95,7 +95,7 @@ export class InformacionbasicaComponent implements OnInit {
       contactoEmergenciaEmail: [obj.contactoEmergenciaEmail?.toLowerCase(), [Validators.email]],
       contactoEmergenciaTelefono: [obj.contactoEmergenciaTelefono, []],
       nss: [obj.nss, [validacionesForms.nssValido,Validators.required]],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFCFisica)]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]]
     });
 
