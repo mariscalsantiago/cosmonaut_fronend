@@ -77,7 +77,7 @@ export class NominasActivasComponent implements OnInit {
           item.esTimbrada = item.nominaOrdinaria?.estadoActualNomina === 'Timbrada' || item.nominaOrdinaria?.estadoActualNomina === 'En proceso timbrado';
           item.esConcluir = item.nominaOrdinaria?.estadoActualNomina === 'Pagada' && item.nominaOrdinaria?.estadoActualNomina === 'Timbrada';
           item.mensajePensando = item.nominaOrdinaria.estadoProcesoNominaId == 4 ? item.nominaOrdinaria.procesoNominaObservaciones : "";
-          item.estadoPensando = item.nominaOrdinaria.estadoProcesoNominaId == 2 || item.nominaOrdinaria.estadoProcesoNominaId == 4;
+          item.estadoPensando = item.nominaOrdinaria.estadoProcesoNominaId == 1 || item.nominaOrdinaria.estadoProcesoNominaId == 2 || item.nominaOrdinaria.estadoProcesoNominaId == 4;
 
         }
       }
@@ -111,11 +111,10 @@ export class NominasActivasComponent implements OnInit {
     this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       if (datos.resultado) {
-        // item.nominaOrdinaria.numEmpleados = datos.datos.cantidadEmpleados;
-        // item.nominaOrdinaria.totalPercepciones = datos.datos.totalPercepcion;
-        // item.nominaOrdinaria.totalDeducciones = datos.datos.totalDeduccion;
-        // item.nominaOrdinaria.totalNeto = datos.datos.total;
-        // this.router.navigate(['nominas', 'nomina'], { state: { datos: { nominaOrdinaria: item.nominaOrdinaria } } });
+        item.nominaOrdinaria.estadoProcesoNominaId = 1;
+        item.nominaOrdinaria.estadoProcesoDescripcion = "Pendiente";
+        item.mensajePensando = item.nominaOrdinaria.estadoProcesoNominaId == 4 ? item.nominaOrdinaria.procesoNominaObservaciones : "";
+        item.estadoPensando = item.nominaOrdinaria.estadoProcesoNominaId == 1 || item.nominaOrdinaria.estadoProcesoNominaId == 2 || item.nominaOrdinaria.estadoProcesoNominaId == 4;
       }
     }, e => {
       if (e?.error?.mensaje.include("No has calculado ")) {
@@ -171,13 +170,14 @@ export class NominasActivasComponent implements OnInit {
 
 
   public vermensaje(item: any) {
-
     if (item.nominaOrdinaria.estadoProcesoNominaId == 4) {
       this.modalPrd.showMessageDialog(this.modalPrd.warning, item.mensajePensando, "¿Deseas calcular de nuevo la nómina?").then(valor => {
         if (valor) {
           this.calcularNomina(item);
         }
       });
+    } else if (item.nominaOrdinaria.estadoProcesoNominaId == 1) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
     }
 
   }

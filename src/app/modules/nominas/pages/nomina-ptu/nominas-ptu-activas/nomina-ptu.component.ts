@@ -68,6 +68,8 @@ export class NominaPTUComponent implements OnInit {
           item.esPagada = (item.nominaPtu?.estadoActualNomina === 'Pagada' || item.nominaPtu?.estadoActualNomina === 'En proceso pago');
           item.esTimbrada = item.nominaPtu?.estadoActualNomina === 'Timbrada' || item.nominaPtu?.estadoActualNomina === 'En proceso timbrado';
           item.esConcluir = item.nominaPtu?.estadoActualNomina === 'Pagada' && item.nominaPtu?.estadoActualNomina === 'Timbrada';
+          item.mensajePensando = item.nominaPtu.estadoProcesoNominaId == 4 ? item.nominaPtu.procesoNominaObservaciones : "";
+          item.estadoPensando = item.nominaPtu.estadoProcesoNominaId == 1 || item.nominaPtu.estadoProcesoNominaId == 2 || item.nominaPtu.estadoProcesoNominaId == 4;
         }
       });
     }
@@ -94,17 +96,11 @@ export class NominaPTUComponent implements OnInit {
           this.nominaPtuPrd.calcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
               if(datos.resultado){
-                item.nominaPtu.numEmpleados = datos.datos.cantidadEmpleados;
-                item.nominaPtu.totalPercepciones = datos.datos.totalPercepcion;
-                item.nominaPtu.totalDeducciones = datos.datos.totalDeduccion;
-                item.nominaPtu.totalNeto = datos.datos.total;
-                this.router.navigate(['/nominas/nomina'], { state: { datos: {nominaPtu:item.nominaPtu} } });
-              }else{
-                item.nominaPtu.nominaPeriodoId= item.nominaPtu.nominaXperiodoId;
-                this.ventana.showVentana(this.ventana.nuevanominaptu,{datos:{editar:true,datos:item.nominaPtu}}).then(valor => {
-  
-                  this.traerListaNomina();
-                });
+                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+                  item.nominaPtu.estadoProcesoNominaId = 1;
+                  item.nominaPtu.estadoProcesoDescripcion = "Pendiente";
+                  item.mensajePensando = item.nominaPtu.estadoProcesoNominaId == 4 ? item.nominaPtu.procesoNominaObservaciones : "";
+                  item.estadoPensando = item.nominaPtu.estadoProcesoNominaId == 1 || item.nominaPtu.estadoProcesoNominaId == 2 || item.nominaPtu.estadoProcesoNominaId == 4;
               }
             });
             
@@ -141,4 +137,23 @@ export class NominaPTUComponent implements OnInit {
       });
   
     }
+
+    public vermensaje(item: any) {
+      if (item.nominaPtu.estadoProcesoNominaId == 4) {
+        this.modalPrd.showMessageDialog(this.modalPrd.warning, item.mensajePensando, "¿Deseas calcular de nuevo la nómina?").then(valor => {
+          if (valor) {
+            
+              // item.nominaPtu.nominaPeriodoId= item.nominaPtu.nominaXperiodoId;
+              // this.ventana.showVentana(this.ventana.nuevanominaptu,{datos:{editar:true,datos:item.nominaPtu}}).then(valor => {
+              //   this.traerListaNomina();
+              // });
+              this.calcularNomina(item);
+          }
+        });
+      } else if (item.nominaPtu.estadoProcesoNominaId == 1) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
+      }
+  
+    }
+    
 }

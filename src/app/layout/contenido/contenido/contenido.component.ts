@@ -133,7 +133,6 @@ export class ContenidoComponent implements OnInit {
     this.rol = this.sistemaUsuarioPrd.getRol();
 
     this.arreglo = this.menuPrd.getMenu();
-    debugger;
     this.nombre = this.sistemaUsuarioPrd.getUsuario().nombre + " " + this.sistemaUsuarioPrd.getUsuario().apellidoPat;
     this.nombreRol = this.sistemaUsuarioPrd.getUsuario().nombreRol;
     this.nombreEmpresa = this.sistemaUsuarioPrd.getUsuario().nombreEmpresa;

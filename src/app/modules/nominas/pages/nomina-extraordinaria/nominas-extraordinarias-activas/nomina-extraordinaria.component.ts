@@ -70,6 +70,8 @@ export class NominaExtraordinariaComponent implements OnInit {
           item.esPagada = (item.nominaExtraordinaria?.estadoActualNomina === 'Pagada' || item.nominaExtraordinaria?.estadoActualNomina === 'En proceso pago');
           item.esTimbrada = item.nominaExtraordinaria?.estadoActualNomina === 'Timbrada' || item.nominaExtraordinaria?.estadoActualNomina === 'En proceso timbrado';
           item.esConcluir = item.nominaExtraordinaria?.estadoActualNomina === 'Pagada' && item.nominaExtraordinaria?.estadoActualNomina === 'Timbrada';
+          item.mensajePensando = item.nominaExtraordinaria.estadoProcesoNominaId == 4 ? item.nominaExtraordinaria.procesoNominaObservaciones : "";
+          item.estadoPensando = item.nominaExtraordinaria.estadoProcesoNominaId == 1 || item.nominaExtraordinaria.estadoProcesoNominaId == 2 || item.nominaExtraordinaria.estadoProcesoNominaId == 4;
         }
       }
     })
@@ -98,14 +100,12 @@ export class NominaExtraordinariaComponent implements OnInit {
           usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
         } 
         this.nominaAguinaldoPrd.calcularNomina(objEnviar).subscribe(datos => {
-          item.nominaExtraordinaria.numEmpleados = datos.datos.cantidadEmpleados;
-            item.nominaExtraordinaria.totalPercepciones = datos.datos.totalPercepcion;
-            item.nominaExtraordinaria.totalDeducciones = datos.datos.totalDeduccion;
-            item.nominaExtraordinaria.totalNeto = datos.datos.total;
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
-            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaExtraordinaria: item.nominaExtraordinaria } } });
+            item.nominaExtraordinaria.estadoProcesoNominaId = 1;
+            item.nominaExtraordinaria.estadoProcesoDescripcion = "Pendiente";
+            item.mensajePensando = item.nominaExtraordinaria.estadoProcesoNominaId == 4 ? item.nominaExtraordinaria.procesoNominaObservaciones : "";
+            item.estadoPensando = item.nominaExtraordinaria.estadoProcesoNominaId == 1 || item.nominaExtraordinaria.estadoProcesoNominaId == 2 || item.nominaExtraordinaria.estadoProcesoNominaId == 4;
           }
         });
       }
@@ -139,6 +139,20 @@ export class NominaExtraordinariaComponent implements OnInit {
     });
 
   }
+
+  public vermensaje(item: any) {
+    if (item.nominaExtraordinaria.estadoProcesoNominaId == 4) {
+      this.modalPrd.showMessageDialog(this.modalPrd.warning, item.mensajePensando, "¿Deseas calcular de nuevo la nómina?").then(valor => {
+        if (valor) {
+          this.calcularNomina(item);
+        }
+      });
+    } else if (item.nominaExtraordinaria.estadoProcesoNominaId == 1) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
+    }
+
+  }
+  
 
 
 
