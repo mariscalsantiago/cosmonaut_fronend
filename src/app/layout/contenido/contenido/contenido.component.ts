@@ -12,6 +12,7 @@ import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.serv
 import { interval } from 'rxjs';
 import { ChatService } from 'src/app/modules/chat/services/chat.service';
 import { NotificacionesService } from 'src/app/shared/services/chat/notificaciones.service';
+import { CompanyService } from 'src/app/modules/company/services/company.service';
 import { environment } from 'src/environments/environment';
 
 
@@ -105,10 +106,12 @@ export class ContenidoComponent implements OnInit {
 
   public nombre: string = "";
   public nombreRol: string = "";
+  public nombreEmpresa: string = "";
+  public centrocClienteIdPadre: string = "";
 
 
   constructor(private menuPrd: MenuService, private modalPrd: ModalService, private sistemaUsuarioPrd: UsuarioSistemaService,
-    private ventana: VentanaemergenteService, private navigate: Router,
+    private ventana: VentanaemergenteService, private navigate: Router, private companyProd: CompanyService,
     private chatPrd: ChatSocketService, private authPrd: AuthService, public configuracionPrd: ConfiguracionesService,
     private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService,
     private charComponentPrd: ChatService, public notificacionesPrd: NotificacionesService) {
@@ -130,10 +133,14 @@ export class ContenidoComponent implements OnInit {
     this.rol = this.sistemaUsuarioPrd.getRol();
 
     this.arreglo = this.menuPrd.getMenu();
-
+    debugger;
     this.nombre = this.sistemaUsuarioPrd.getUsuario().nombre + " " + this.sistemaUsuarioPrd.getUsuario().apellidoPat;
     this.nombreRol = this.sistemaUsuarioPrd.getUsuario().nombreRol;
-
+    this.nombreEmpresa = this.sistemaUsuarioPrd.getUsuario().nombreEmpresa;
+    this.companyProd.getEmpresaById(this.sistemaUsuarioPrd.getUsuario().centrocClienteIdPadre).subscribe(datos => {
+      this.centrocClienteIdPadre = datos.datos.nombre;
+     
+    });
 
     this.chatPrd.setChatDatos(this.chat);
 
