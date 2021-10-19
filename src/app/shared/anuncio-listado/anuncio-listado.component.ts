@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Noticia } from 'src/app/core/modelos/noticia';
 
 
@@ -9,12 +9,19 @@ import { Noticia } from 'src/app/core/modelos/noticia';
 })
 export class AnuncioListadoComponent implements OnInit {
 
-
   @Input() public noticias: Noticia[] = [];
+  @Output() onClick = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  tieneContenido(noticia: Noticia): boolean {
+    return !!noticia.contenido;
+  }
+
+  onClicked(noticia: Noticia) {
+    this.onClick.emit(noticia);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { Noticia } from 'src/app/core/modelos/noticia';
 
@@ -15,7 +15,7 @@ export class BannerCarouselComponent implements OnInit, OnDestroy {
 
   @Input() public intervalo: number = 4000;
   @Input() public noticias: Noticia[] = [];
-  @Input() onClicked: (noticia: Noticia) => void = () => { };
+  @Output() onClick = new EventEmitter();
 
   constructor() { }
 
@@ -33,6 +33,14 @@ export class BannerCarouselComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (!!this.clientCarrouselTimer) this.clientCarrouselTimer.unsubscribe;
+  }
+
+  tieneContenido(noticia: Noticia): boolean {
+    return !!noticia.contenido;
+  }
+
+  onClicked(noticia: Noticia) {
+    this.onClick.emit(noticia);
   }
 
   chooseClientCarrouselStep(step: number) {

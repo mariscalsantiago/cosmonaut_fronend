@@ -10,7 +10,7 @@
 </div>
 
 <div class="scrooll-design">
-    <div class="margen">
+    <div class="margen" *ngIf="false">
         <div id="accordionFiltro">
 
             <div id="accordion">
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
                                     <select class="form-control" [(ngModel)]="activo">
-                                        <option value="todos" selected>--TODOS--</option>
+                                        <option value="0">--TODAS--</option>
                                         <option value="banner">BANNER</option>
                                         <option value="celebraciones">CELEBRACIONES</option>
                                         <option value="noticias">NOTICIAS</option>
@@ -121,7 +121,7 @@
     </div>
 
     <div class="row margen margen-tabla background-panel ">
-        <app-tablapaginado [datos]="noticiasTabla" [llave]="esEditar" [editar]="esEditar" [checkbox]="esEditar"
-            [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+        <app-tablapaginado [datos]="noticiasTabla" [editar]="esEditar" [eliminar]="esEditar" [cargando]="cargando"
+            (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
 </div>

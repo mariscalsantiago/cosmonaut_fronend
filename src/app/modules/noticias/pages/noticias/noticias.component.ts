@@ -1,13 +1,13 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { Noticia } from 'src/app/core/modelos/noticia';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
-import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
-import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { usuarioClass, UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { NoticiasService } from '../../services/noticias.service';
 
 @Component({
@@ -16,6 +16,8 @@ import { NoticiasService } from '../../services/noticias.service';
   styleUrls: ['./noticias.component.scss']
 })
 export class NoticiasComponent implements OnInit {
+
+  private usuario: usuarioClass | undefined = undefined;
 
   public cargando: Boolean = false;
   public tipoguardad: boolean = false;
@@ -40,7 +42,7 @@ export class NoticiasComponent implements OnInit {
 
   public esClienteEmpresa: boolean = false;
 
-  public noticias: any = [];
+  public noticias: Noticia[] = [];
   public noticiasTabla: any = {
     columnas: [],
     filas: []
@@ -53,11 +55,6 @@ export class NoticiasComponent implements OnInit {
 
 
   public cargandoBotones: boolean = false;
-
-
-
-
-
   public activarMultiseleccion: boolean = false;
 
 
@@ -65,13 +62,14 @@ export class NoticiasComponent implements OnInit {
     private routerPrd: Router,
     public configuracion: ConfiguracionesService,
     private companiPrd: SharedCompaniaService,
-    private modalPrd: ModalService,
-    private usuariosSistemaPrd: UsuarioSistemaService,
+    private servicioModales: ModalService,
+    private serviceUsuario: UsuarioSistemaService,
     private empresasProd: EmpresasService,
-    private usuariosAuthPrd: UsuariosauthService,
     private serviceNoticia: NoticiasService) { }
 
   ngOnInit(): void {
+
+    this.usuario = this.serviceUsuario.getUsuario();
 
     this.establecerPermisos();
 
@@ -84,16 +82,49 @@ export class NoticiasComponent implements OnInit {
 
     this.cargando = true;
 
-    this.serviceNoticia.getNoticiasEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(
-      (response) => {
-        if (!!response.resultado && !!response.datos) {
-          this.noticias = response.datos;
-          this.procesarTabla();
-        }
-        this.cargando = false;
-        this.cargandoBotones = false;
+    if (this.esClienteEmpresa) {
+
+      if (this.usuario?.esCliente && this.usuario?.centrocClienteIdPadre == 0) {
+
+        this.serviceNoticia.getNoticiasCliente(this.usuario?.centrocClienteId).subscribe(
+          (response) => {
+            if (!!response.resultado && !!response.datos) {
+              this.noticias = response.datos;
+              this.procesarTabla();
+            }
+
+            this.cargando = false;
+            this.cargandoBotones = false;
+          }
+        );
+      } else {
+
+        this.serviceNoticia.getNoticiasEmpresa(this.usuario?.centrocClienteId).subscribe(
+          (response) => {
+            if (!!response.resultado && !!response.datos) {
+              this.noticias = response.datos;
+              this.procesarTabla();
+            }
+
+            this.cargando = false;
+            this.cargandoBotones = false;
+          }
+        );
       }
-    );
+    } else {
+
+      this.serviceNoticia.getNoticiasCosmonaut().subscribe(
+        (response) => {
+          if (!!response.resultado && !!response.datos) {
+            this.noticias = response.datos;
+            this.procesarTabla();
+          }
+
+          this.cargando = false;
+          this.cargandoBotones = false;
+        }
+      );
+    }
   }
 
   public establecerPermisos() {
@@ -108,24 +139,23 @@ export class NoticiasComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("titulo", "Título"),
       new tabla("subtitulo", "Subtítulo"),
-      new tabla("fechaInicio", "Fecha inicio"),
-      new tabla("fechaFin", "Fecha fin"),
-      new tabla("categoria", "Categoría"),
+      new tabla("__fechaInicioFormato", "Fecha inicio", false, false, true),
+      new tabla("__fechaFinFormato", "Fecha fin", false, false, true),
+      new tabla("__categoriaFormato", "Categoría", false, false, true),
     ];
 
-    for (let noticia of this.noticias) {
-
-    }
+    let datePipe = new DatePipe("en-MX");
+    this.noticias.forEach(noticia => {
+      noticia.__fechaInicioFormato = datePipe.transform(new Date(noticia.fechaInicio), 'dd/MM/yyyy') as string;
+      noticia.__fechaFinFormato = datePipe.transform(new Date(noticia.fechaFin), 'dd/MM/yyyy') as string;
+      noticia.__categoriaFormato = noticia.categoriaId.descripcion as string;
+    });
 
     this.noticiasTabla = {
       columnas: columnas,
       filas: this.noticias
     }
   }
-
-
-
-
 
   public crearNoticia() {
     this.routerPrd.navigateByUrl(`noticias/detalle_noticia${this.esClienteEmpresa ? '/cliente' : ''}/nuevo`);
@@ -135,101 +165,13 @@ export class NoticiasComponent implements OnInit {
     this.routerPrd.navigateByUrl(`noticias/detalle_noticia${this.esClienteEmpresa ? '/cliente' : ''}/editar`, { state: { noticia: noticia } });
   }
 
-
-
-
-
-
-
   public guardarMultiseleccion(tipoguardad: boolean) {
 
-
-    this.tipoguardad = tipoguardad;
-    let mensaje = `¿Deseas ${tipoguardad ? "activar" : "desactivar"} estos usuarios?`;
-
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
-      if (valor) {
-        let arregloUsuario: any = [];
-
-        for (let item of this.noticias) {
-
-          if (item["seleccionado"]) {
-
-            arregloUsuario.push(item["usuarioId"]);
-
-          }
-        }
-
-        let objEnviar = {
-          ids: arregloUsuario,
-          esActivo: tipoguardad
-        }
-
-
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
-        this.usuariosAuthPrd.usuariosActivarDesactivar(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(valor => {
-            if (valor) {
-              for (let item of arregloUsuario) {
-                for (let item2 of this.noticias) {
-                  if (item2.usuarioId === item) {
-                    item2["esActivo"] = tipoguardad;
-                    item2["seleccionado"] = false;
-                    break;
-                  }
-                }
-              }
-
-              this.activarMultiseleccion = false;
-
-              this.cargando = true;
-              if (this.esClienteEmpresa) {
-                this.companiPrd.getAllCompany().subscribe(datos => {
-                  this.arregloCompany = datos.datos
-                  this.filtrar();
-                });
-              } else {
-                if (this.usuariosSistemaPrd.esCliente()) {
-                  this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-
-                    if (Boolean(datos.datos)) {
-                      this.arregloCompany = datos.datos;
-                      this.arregloCompany.unshift({ centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa(), nombre: this.usuariosSistemaPrd.usuario.nombreEmpresa + "(" + "Cliente)", razonSocial: this.usuariosSistemaPrd.usuario.nombreEmpresa + "(" + "Cliente)" })
-                    } else {
-                      this.arregloCompany = datos.datos;
-                    }
-                    this.filtrar();
-
-                  });
-                } else {
-                  this.empresasProd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-                    this.arregloCompany = [datos.datos];
-                    this.filtrar();
-
-                  });
-                }
-              }
-            }
-
-          });
-        });
-      }
-    });
-
-
-
   }
-
-
-
-
 
   public filtrar() {
 
   }
-
 
   public recibirTabla(obj: any) {
 
@@ -237,35 +179,41 @@ export class NoticiasComponent implements OnInit {
       case "editar":
         this.mostrarDetalleNoticia(obj.datos);
         break;
-      case "filaseleccionada":
-        this.activarMultiseleccion = obj.datos;
-        break;
-      case "llave":
-        this.generarllave(obj.datos);
+      case "eliminar":
+        this.eliminarNoticia(obj.datos);
         break;
     }
-
   }
 
 
-  public generarllave(obj: any) {
+  public eliminarNoticia(noticia: Noticia) {
 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas resetear y reenviar la clave de este usuario?").then((valor) => {
-      if (valor) {
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        let objenviar = {
-          username: obj.email?.toLowerCase()
-        }
+    console.log("eliminarNoticia", noticia);
+    let mensajeExtra = "Ningún empleado pordrá ver la noticia aunque no haya expirado la publicación"
+    let titulo: string = "¿Está seguro que desea eliminar la noticia?";
 
-        this.usuariosSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-        });
-
-      }
+    this.servicioModales.showMessageDialog(this.servicioModales.question, titulo, mensajeExtra).then(valor => {
+      if (valor) { this.eliminiar(noticia); }
     });
   }
 
+  private eliminiar(noticia: Noticia) {
 
+    this.serviceNoticia.eliminarNoticia(noticia.noticiaId).subscribe(
+      (response) => {
+        if (!!response.resultado) {
+          this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+          this.servicioModales.showMessageDialog(response.resultado, response.mensaje).then(() => {
+            this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+            this.quitarNoticia(noticia);
+          });
+        }
+      }
+    );
+  }
 
+  private quitarNoticia(noticia: Noticia) {
+    this.noticias = this.noticias.filter(n => n.noticiaId != noticia.noticiaId);
+    this.procesarTabla();
+  }
 }

@@ -6,6 +6,7 @@ import { Noticia } from 'src/app/core/modelos/noticia';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { NoticiasService } from '../../services/noticias.service';
 import { usuarioClass } from './../../../../shared/services/usuariosistema/usuario-sistema.service';
@@ -31,6 +32,7 @@ export class NoticiasDetalleComponent implements OnInit {
   public cargando: boolean = true;
   public submitEnviado: boolean = false;
 
+  public imagenCargada: any = undefined;
   public imagen: any = undefined;
   public thumbnail: any = undefined;
 
@@ -44,6 +46,7 @@ export class NoticiasDetalleComponent implements OnInit {
     private router: ActivatedRoute,
     private navigator: Router,
     public configuracion: ConfiguracionesService,
+    private servicioModales: ModalService,
     private serviceNoticias: NoticiasService,
     private serviceCompania: SharedCompaniaService,
     private serviceEmpresa: EmpresasService,
@@ -53,17 +56,30 @@ export class NoticiasDetalleComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.esClienteEmpresa = this.navigator.url.includes("/detalle_noticia/cliente");
     this.usuario = this.serviceUsuario.getUsuario();
 
-    this.esClienteEmpresa = this.navigator.url.includes("/detalle_noticia/cliente");
-
-    this.cargandoImg = true;
+    this.formulario = this.crearFormulario();
 
     this.editando = !!history.state && !!history.state.noticia ? history.state.noticia as Noticia : undefined;
+    if (!!this.editando) {
 
-    this.cargandoImg = false;
+      this.cargandoImg = true;
+      this.serviceNoticias.getNoticia(this.editando.noticiaId).subscribe(
+        (response) => {
 
-    this.formulario = this.crearFormulario();
+          //console.log("getNoticia", response);
+          if (response.resultado || !!response.datos) {
+            this.editando = response.datos as Noticia;
+          }
+
+          if (!!this.editando?.thumbnail) this.imagenCargada = this.editando.thumbnail;
+          this.cargandoImg = false;
+
+          this.llenarFormulario();
+        }
+      );
+    }
 
     this.cargando = true;
     if (this.puedeSeleccionarEmpresa()) {
@@ -81,8 +97,6 @@ export class NoticiasDetalleComponent implements OnInit {
         this.cargando = false;
       });
     }
-
-    this.actualizarPreview();
   }
 
   ngAfterViewInit(): void {
@@ -97,15 +111,29 @@ export class NoticiasDetalleComponent implements OnInit {
 
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
-      titulo: [!!this.editando ? this.editando.titulo : '', [Validators.required]],
-      subtitulo: [!!this.editando ? this.editando.subtitulo : ''],
-      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd/MM/yyyy') : datePipe.transform(new Date(), 'dd/MM/yyyy')), disabled: true }, [Validators.required]],
-      fechaInicio: [!!this.editando ? new Date(this.editando.fechaInicio) : '', [Validators.required]],
-      fechaFin: [!!this.editando ? datePipe.transform(new Date(this.editando.fechaFin), 'dd/MM/yyyy') : '', [Validators.required]],
+      titulo: ['', [Validators.required]],
+      subtitulo: [''],
+      fechaAlta: [{ value: datePipe.transform(new Date(), 'dd/MM/yyyy'), disabled: true }, [Validators.required]],
+      fechaInicio: ['', [Validators.required]],
+      fechaFin: ['', [Validators.required]],
       categoria: [{ value: 1, disabled: this.usuario?.rolId == 3 }, Validators.required],
-      empresa: [!!this.editando ? this.editando.centrocClienteId : (this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId), Validators.required],
-      contenido: [!!this.editando ? this.editando.contenido : '']
+      empresa: [this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId, Validators.required],
+      contenido: ['']
     });
+  }
+
+  private llenarFormulario() {
+
+    let datePipe = new DatePipe("en-MX");
+
+    this.formulario.controls.titulo.setValue(!!this.editando ? this.editando.titulo : '');
+    this.formulario.controls.subtitulo.setValue(!!this.editando ? this.editando.subtitulo : '');
+    this.formulario.controls.fechaAlta.setValue(!!this.editando ? datePipe.transform(new Date(this.editando.fechaAlta), 'yyyy-MM-dd') : datePipe.transform(new Date(), 'dd/MM/yyyy'));
+    this.formulario.controls.fechaInicio.setValue(!!this.editando ? datePipe.transform(new Date(this.editando.fechaInicio), 'yyyy-MM-dd') : '');
+    this.formulario.controls.fechaFin.setValue(!!this.editando ? datePipe.transform(new Date(this.editando.fechaFin), 'yyyy-MM-dd') : '');
+    this.formulario.controls.categoria.setValue(!!this.editando ? this.editando.categoriaId.categoriaNoticiaId : 1);
+    this.formulario.controls.empresa.setValue(!!this.editando ? this.editando.centrocClienteId : (this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId));
+    this.formulario.controls.contenido.setValue(!!this.editando ? this.editando.contenido : '');
   }
 
   public actualizarPreview() {
@@ -114,28 +142,44 @@ export class NoticiasDetalleComponent implements OnInit {
 
   public enviarPeticion() {
 
+    let mensajeExtra = this.esClienteEmpresa ? "La noticia será visible para todos los empleados de la empresa" : "La noticia será visible para todos los empleados de la empresa"
+    let titulo: string = !!this.editando ? "¿Deseas actualizar los datos de la noticia?" : "¿Deseas guardar la noticia?";
+
+    this.servicioModales.showMessageDialog(this.servicioModales.question, titulo, mensajeExtra).then(valor => {
+      if (valor) { this.guardar(); }
+    });
+  }
+
+  private guardar() {
+
+    this.servicioModales.showMessageDialog(this.servicioModales.loading);
+
     this.submitEnviado = true;
 
     if (!!this.editando) {
 
       const json = {
-        noticiaId: this.editando?.noticiaId,
+        noticiaId: this.editando.noticiaId,
         usuarioId: this.usuario?.usuarioId,
-        centrocClienteId: this.usuario?.centrocClienteId,
+        centrocClienteId: Number(this.formulario.controls.empresa.value),
         titulo: this.formulario.controls.titulo.value,
         subtitulo: this.formulario.controls.subtitulo.value,
-        categoriaId: { categoriaNoticiaId: this.formulario.controls.categoria.value },
+        categoriaId: { categoriaNoticiaId: Number(this.formulario.controls.categoria.value) },
         contenido: this.formulario.controls.contenido.value,
-        imagen: this.imagen,
+        imagen: !!this.imagen ? this.imagen : this.editando.imagen,
         fechaInicio: new Date(this.formulario.controls.fechaInicio.value).getTime(),
         fechaFin: new Date(this.formulario.controls.fechaFin.value).getTime()
       }
 
-      console.log('editNoticia', json);
-      this.serviceNoticias.editNoticia(json, this.editando?.noticiaId).subscribe(
+      //console.log('editNoticia', json);
+      this.serviceNoticias.editNoticia(json).subscribe(
         (response) => {
           if (!!response.resultado) {
-            this.cancelar();
+            this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+            this.servicioModales.showMessageDialog(response.resultado, response.mensaje).then(() => {
+              this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+              this.regresar();
+            });
           }
         }
       );
@@ -143,28 +187,32 @@ export class NoticiasDetalleComponent implements OnInit {
 
       const json = {
         usuarioId: this.usuario?.usuarioId,
-        centrocClienteId: this.usuario?.centrocClienteId,
+        centrocClienteId: Number(this.formulario.controls.empresa.value),
         titulo: this.formulario.controls.titulo.value,
         subtitulo: this.formulario.controls.subtitulo.value,
-        categoriaId: { categoriaNoticiaId: this.formulario.controls.categoria.value },
+        categoriaId: { categoriaNoticiaId: Number(this.formulario.controls.categoria.value) },
         contenido: this.formulario.controls.contenido.value,
         imagen: this.imagen,
         fechaInicio: new Date(this.formulario.controls.fechaInicio.value).getTime(),
         fechaFin: new Date(this.formulario.controls.fechaFin.value).getTime()
       }
 
-      console.log('createNoticia', json);
+      //console.log('createNoticia', json);
       this.serviceNoticias.createNoticia(json).subscribe(
         (response) => {
           if (!!response.resultado) {
-            this.cancelar();
+            this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+            this.servicioModales.showMessageDialog(response.resultado, response.mensaje).then(() => {
+              this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+              this.regresar();
+            });
           }
         }
       );
     }
   }
 
-  public cancelar() {
+  public regresar() {
     this.navigator.navigateByUrl(`/noticias${this.esClienteEmpresa ? '/cliente' : ''}`);
   }
 

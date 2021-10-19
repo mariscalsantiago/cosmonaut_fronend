@@ -2,9 +2,10 @@
     <div class="cn-banner-card-section background-panel">
         <div class="cn-banner-card-section">
             <div class="cn-banner-content" [style.transform]="clientCarrouselTranslation">
-                <div class="cn-banner-container" *ngFor="let noticia of noticias; let indice = index"
-                    (click)="onClicked(noticia)">
-                    <img class="cn-carousel-image" [src]="noticia.imagen" alt="banner-image">
+                <div [ngClass]="{'cn-banner-container': true, 'with-content': tieneContenido(noticia)}"
+                    *ngFor="let noticia of noticias; let indice = index"
+                    (click)="tieneContenido(noticia) ? onClicked(noticia) : undefined">
+                    <img class="cn-carousel-image" [src]="noticia.thumbnail" alt="banner-image">
                 </div>
             </div>
             <div class="cn-banner-navigator">
