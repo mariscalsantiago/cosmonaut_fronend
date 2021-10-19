@@ -53,7 +53,8 @@
 
                 <tr class="fade-in-second">
                     <td *ngIf="checkbox && !esnomina && !timbrado">
-                        <label class="contenedorInputCheckRadio">
+                        <label 
+                            *ngIf="(item.estatus !== 'Pendiente' && item.estatus !== 'Enviado' && item.estatus !== 'Aceptado')" class="contenedorInputCheckRadio" >
                             <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name=""
                                 id="ajusteirs">
                             <span class="checkmark"></span>
@@ -114,7 +115,7 @@
                                 class="icon_24ver primary-bg"></i></button>
                         <button *ngIf="editar && (item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado' && item.tipoPercepcionId?.noEditable !== true && item.tipoDeduccionId?.noEditable !== true )" (click)="btnEditar(item,indice)"><i aria-hidden="true"
                                 class="icon_24editar primary-bg" placement="top" [mdbTooltip]="tooltipText | tooltip"></i></button>
-                        <button *ngIf="eliminar && (item.es_imss !== true && item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i aria-hidden="true"
+                        <button *ngIf="eliminar && (item.es_imss !== true && item.estatus !== 'Pendiente' && item.estatus !== 'Enviado' && item.estatus !== 'Aceptado' && item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i aria-hidden="true"
                                 class="icon_24eliminar danger-bg"></i></button>
                         <button *ngIf="llave " (click)="btnLlave(item,indice)">
                             <i aria-hidden="true" class="icon_24llave primary-bg" placement="top"
@@ -161,19 +162,19 @@
                             </article>
                         </div>
                         <div class="row mb-4">
-                            <article class="titulo  col-4 mb-3" *ngIf="imss">
-                                <a (click)="iniciarDescarga(item)" class="botonestilo  estiloextralink"><i
-                                        aria-hidden="true" class="fas fa-download"></i> Acuse de envío de movimiento
+                            <article class="col-4 mb-3" *ngIf="imss && (item.estatus !== 'Pendiente' && item.estatus !== 'Inicial')">
+                                <a class="botonestilo  estiloextralink"><i
+                                        class="fas fa-download" style="font-size: 15px;"></i>Descarga acuse de envío de movimiento
                                 </a>
                             </article>
-                            <article class="titulo  col-4 mb-3" *ngIf="imss">
+                            <article class="col-4 mb-3" *ngIf="imss && (item.estatus !== 'Pendiente' && item.estatus !== 'Inicial')">
                                 <a class="botonestilo  estiloextralink"><i aria-hidden="true"
-                                        class="fas fa-download"></i> Acuse de respuesta de movimiento
+                                        class="fas fa-download" style="font-size: 15px;"></i>Descarga acuse de respuesta de movimiento
                                 </a>
                             </article>
-                            <article class="titulo  col-4 mb-3" *ngIf="imss">
-                                <a class="botonestilo  estiloextralink"><i aria-hidden="true"
-                                        class="fas fa-download"></i> Txt
+                            <article class="col-4 mb-3" *ngIf="imss">
+                                <a (click)="verTxtImss(item,indice)" class="botonestilo  estiloextralink"><i aria-hidden="true"
+                                        class="fas fa-download" style="font-size: 15px;"></i>Descarga txt
                                 </a>
                             </article>
                         </div>
