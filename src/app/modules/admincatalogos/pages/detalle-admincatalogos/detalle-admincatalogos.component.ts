@@ -94,7 +94,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     else if(this.objdetcat.listaCatalogosId == 13){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
         this.adminCatalogosPrd.getListaFacultad(true).subscribe(datos => {
           this.listaTablas = datos.datos;
@@ -113,7 +113,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 21){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
         this.adminCatalogosPrd.getListaDispersion().subscribe(datos => {
         this.listaTablasFinal  = datos.datos;
@@ -123,7 +123,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 22){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
         this.adminCatalogosPrd.getListaTimbrado().subscribe(datos => {
           this.listaTablasFinal  = datos.datos;
@@ -132,7 +132,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 9){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaMotivoBaja(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -149,7 +149,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 12){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaParentesco(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -166,7 +166,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 8){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
            this.adminCatalogosPrd.getListaRegimenContratacion(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -183,7 +183,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 6){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaRegimenFiscal(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -200,7 +200,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 17){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
         this.adminCatalogosPrd.getListatablasPeriodicasISR().subscribe(datos => {
           this.listaTablasFinal  = datos.datos;
@@ -210,7 +210,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 18){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
         this.adminCatalogosPrd.getListaTablasSubsidioISR().subscribe(datos => {
           this.listaTablasFinal  = datos.datos;
@@ -220,7 +220,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 19){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
         this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => {
           this.listaTablasFinal  = datos.datos;
@@ -230,7 +230,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 7){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoContrato(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -248,7 +248,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 5){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoDeduccion(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -265,7 +265,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 10){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoIncapacidad(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -282,7 +282,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 4){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoPercepcion(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -300,7 +300,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 11){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaTipoEvento(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -318,7 +318,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 15){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
       let fecha = new Date();
       let anio = fecha.getFullYear();
@@ -340,7 +340,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
 
     else if(this.objdetcat.listaCatalogosId == 14){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaFuncionCuenta(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -358,7 +358,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 20){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
         
           this.adminCatalogosPrd.getListaMetodoPago(true).subscribe(datos => {
@@ -377,7 +377,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 3){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
         
           this.adminCatalogosPrd.getListaMoneda(true).subscribe(datos => {
@@ -395,7 +395,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 2){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
           this.adminCatalogosPrd.getListaNacionalidad(true).subscribe(datos => {
             this.listaTablas = datos.datos;
@@ -413,7 +413,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 16){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion;
       this.cargando = true;
         
           this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => {

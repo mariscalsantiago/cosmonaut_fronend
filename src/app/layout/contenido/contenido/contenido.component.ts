@@ -239,7 +239,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public seleccionarSubmenu(obj: any, obj2: any) {
-
+    debugger;
     if (obj2) {
 
       obj2 = {
