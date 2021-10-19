@@ -135,7 +135,6 @@ export class InicioComponent implements OnInit {
   }
 
   puedeConsultarKiosko(): boolean {
-    return true;
     return this.usuariosSistemaPrd.getUsuario().rolId == 2;
   }
 

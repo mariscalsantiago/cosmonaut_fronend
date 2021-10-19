@@ -6,6 +6,7 @@ import { Noticia } from 'src/app/core/modelos/noticia';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { NoticiasService } from '../../services/noticias.service';
 import { usuarioClass } from './../../../../shared/services/usuariosistema/usuario-sistema.service';
@@ -45,6 +46,7 @@ export class NoticiasDetalleComponent implements OnInit {
     private router: ActivatedRoute,
     private navigator: Router,
     public configuracion: ConfiguracionesService,
+    private servicioModales: ModalService,
     private serviceNoticias: NoticiasService,
     private serviceCompania: SharedCompaniaService,
     private serviceEmpresa: EmpresasService,
@@ -140,6 +142,18 @@ export class NoticiasDetalleComponent implements OnInit {
 
   public enviarPeticion() {
 
+    let mensajeExtra = this.esClienteEmpresa ? "La noticia será visible para todos los empleados de la empresa" : "La noticia será visible para todos los empleados de la empresa"
+    let titulo: string = !!this.editando ? "¿Deseas actualizar los datos de la noticia?" : "¿Deseas guardar la noticia?";
+
+    this.servicioModales.showMessageDialog(this.servicioModales.question, titulo, mensajeExtra).then(valor => {
+      if (valor) { this.guardar(); }
+    });
+  }
+
+  private guardar() {
+
+    this.servicioModales.showMessageDialog(this.servicioModales.loading);
+
     this.submitEnviado = true;
 
     if (!!this.editando) {
@@ -161,7 +175,11 @@ export class NoticiasDetalleComponent implements OnInit {
       this.serviceNoticias.editNoticia(json).subscribe(
         (response) => {
           if (!!response.resultado) {
-            this.cancelar();
+            this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+            this.servicioModales.showMessageDialog(response.resultado, response.mensaje).then(() => {
+              this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+              this.regresar();
+            });
           }
         }
       );
@@ -183,14 +201,18 @@ export class NoticiasDetalleComponent implements OnInit {
       this.serviceNoticias.createNoticia(json).subscribe(
         (response) => {
           if (!!response.resultado) {
-            this.cancelar();
+            this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+            this.servicioModales.showMessageDialog(response.resultado, response.mensaje).then(() => {
+              this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+              this.regresar();
+            });
           }
         }
       );
     }
   }
 
-  public cancelar() {
+  public regresar() {
     this.navigator.navigateByUrl(`/noticias${this.esClienteEmpresa ? '/cliente' : ''}`);
   }
 

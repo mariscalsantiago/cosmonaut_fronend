@@ -96,15 +96,14 @@
                         </div>
                     </div>
 
-                    <div class=" input-group-sm col-12">
+                    <div class=" input-group-sm col-12" style="display: none;">
                         <label for="contenido">Contenido de la noticia</label>
                         <textarea (ngModelChange)="actualizarPreview()" id="contenido" formControlName="contenido"
                             rows="8" class="form-control" [ngClass]="{'is-invalid':f.contenido.errors && submitEnviado}"
                             placeholder="{ej. <h3>Encabezado de publicidad</h3>}"></textarea>
                     </div>
 
-
-                    <div *ngIf="!!noticia" class=" input-group-sm col-12">
+                    <div *ngIf="!!noticia" class=" input-group-sm col-12" style="display: none;">
                         <div class="cm-noticia-preview" [innerHTML]="noticia">
                         </div>
                     </div>
@@ -123,7 +122,7 @@
     </div>
     <div class="text-center margin" style="margin-bottom: 20px;">
         <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
-            (click)="cancelar()">Cancelar</button>
+            (click)="regresar()">Cancelar</button>
         <button type="submit" [disabled]="!formulario.valid || submitEnviado"
             class="btn btn-primary button-fill agrandarloading">Guardar</button>
     </div>

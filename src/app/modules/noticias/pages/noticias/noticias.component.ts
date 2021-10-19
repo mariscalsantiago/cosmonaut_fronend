@@ -62,7 +62,7 @@ export class NoticiasComponent implements OnInit {
     private routerPrd: Router,
     public configuracion: ConfiguracionesService,
     private companiPrd: SharedCompaniaService,
-    private modalPrd: ModalService,
+    private servicioModales: ModalService,
     private serviceUsuario: UsuarioSistemaService,
     private empresasProd: EmpresasService,
     private serviceNoticia: NoticiasService) { }
@@ -179,13 +179,41 @@ export class NoticiasComponent implements OnInit {
       case "editar":
         this.mostrarDetalleNoticia(obj.datos);
         break;
-      case "filaseleccionada":
-        this.activarMultiseleccion = obj.datos;
-        break;
       case "eliminar":
-        console.log("dasjdaskdhajks");
+        this.eliminarNoticia(obj.datos);
         break;
     }
   }
 
+
+  public eliminarNoticia(noticia: Noticia) {
+
+    console.log("eliminarNoticia", noticia);
+    let mensajeExtra = "Ningún empleado pordrá ver la noticia aunque no haya expirado la publicación"
+    let titulo: string = "¿Está seguro que desea eliminar la noticia?";
+
+    this.servicioModales.showMessageDialog(this.servicioModales.question, titulo, mensajeExtra).then(valor => {
+      if (valor) { this.eliminiar(noticia); }
+    });
+  }
+
+  private eliminiar(noticia: Noticia) {
+
+    this.serviceNoticia.eliminarNoticia(noticia.noticiaId).subscribe(
+      (response) => {
+        if (!!response.resultado) {
+          this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+          this.servicioModales.showMessageDialog(response.resultado, response.mensaje).then(() => {
+            this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
+            this.quitarNoticia(noticia);
+          });
+        }
+      }
+    );
+  }
+
+  private quitarNoticia(noticia: Noticia) {
+    this.noticias = this.noticias.filter(n => n.noticiaId != noticia.noticiaId);
+    this.procesarTabla();
+  }
 }

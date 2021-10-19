@@ -53,4 +53,8 @@ export class NoticiasService {
     let json = JSON.stringify(request);
     return this.http.put(`${direcciones.noticias}`, json, httpOptions);
   }
+
+  public eliminarNoticia(idNoticia: number): Observable<any> {
+    return this.http.delete(`${direcciones.noticias}/${idNoticia}`);
+  }
 }
