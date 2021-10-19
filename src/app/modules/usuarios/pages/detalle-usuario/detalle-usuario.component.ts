@@ -109,14 +109,11 @@ export class DetalleUsuarioComponent implements OnInit {
 
     }
 
-    console.log(this.esClienteEmpresa && this.objusuario.centrocClientes[0].centrocClienteId == this.usuariosSistemaPrd.getIdEmpresa());
-    console.log(this.esClienteEmpresa);
-    console.log( this.objusuario.centrocClientes[0].centrocClienteId);
-    console.log(this.usuariosSistemaPrd.getIdEmpresa());
-    debugger;
-
     if ((!this.esClienteEmpresa && this.objusuario.rolId?.rolId == 2) || this.desabilitarTodo) {
       this.desabilitarInputs();
+      if(this.usuariosSistemaPrd.getUsuario().usuarioId === this.objusuario.usuarioId){
+          this.myForm.controls.esActivo.disable();
+      }
     }else if(this.esClienteEmpresa && this.objusuario.centrocClientes[0].centrocClienteId !== this.usuariosSistemaPrd.getIdEmpresa()){
       this.desabilitarInputs();
     }
