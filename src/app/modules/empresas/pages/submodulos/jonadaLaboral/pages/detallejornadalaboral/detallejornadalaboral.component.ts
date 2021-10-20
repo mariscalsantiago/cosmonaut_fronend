@@ -49,14 +49,15 @@ export class DetallejornadalaboralComponent implements OnInit {
 
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     if (!this.esInsert) {
-
+      debugger;
       this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa, objdetrep.jornadaId).subscribe(datos => {
         this.arreglodetalleJornada = datos.datos
         console.log(this.arreglodetalleJornada);
         this.myForm = this.crearForm(this.arreglodetalleJornada);
 
         this.selectJornada(this.myForm.controls.sumaHorasJornadaId)
-        //this.hrDeSalida(undefined);
+        this.hrDeSalida(undefined);
+        this.hrInicio(undefined);
 
       });;
     } else {
@@ -307,6 +308,20 @@ export class DetallejornadalaboralComponent implements OnInit {
   public correctoHoraComida(): Boolean {
     let respuesta: boolean = true;
     let horaComidaFin = Number(this.myForm.controls.horaFinComida.value.substring(0, 2));
+    if(this.myForm.controls.tipoJornadaId.value === '02'){
+      
+      let horaInicioComida = Number(this.myForm.controls.horaInicioComida.value.substring(0, 2));
+      if (horaInicioComida != null && horaInicioComida != 0) {
+  
+  
+        if (horaComidaFin <= horaInicioComida) {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de comida debe ser mayor que la hora de inicio de comida');
+          this.myForm.controls.horaFinComida.setValue("");
+          respuesta = false;
+        }
+      }
+    
+    }else{  
     if (horaComidaFin != null && horaComidaFin != 0) {
       let horaSalidaFin = Number(this.myForm.controls.horaSalida.value.substring(0, 2));
 
@@ -326,7 +341,7 @@ export class DetallejornadalaboralComponent implements OnInit {
         respuesta = false;
       }
     }
-
+    }
     return respuesta;
   }
 
@@ -629,6 +644,10 @@ export class DetallejornadalaboralComponent implements OnInit {
     }
 
     if (this.jornada == '3') {
+      if(!this.esInsert){
+          this.myForm.controls.horaInicioComida.enable();
+          this.myForm.controls.horaFinComida.enable();
+      }
       this.myForm.controls.horaSalida.enable();
       this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();
@@ -659,31 +678,50 @@ export class DetallejornadalaboralComponent implements OnInit {
 
 
   public hrInicioComida(response: any) {
-
+    debugger;
 
     if (response.value !== undefined) {
       this.hrComida = Number(response.value.substring(0, 2));
       this.newValueComida = response.value.replace(response.value.substring(0, 2), Number(response.value.substring(0, 2)) + 1)
 
+      if(this.myForm.controls.tipoJornadaId.value === '02'){
+
+        if (this.hrComida >= this.hrEntrada) {
+          this.myForm.controls.horaFinComida.enable();
+          this.myForm.controls.horaFinComida.setValue(this.newValueComida);
+          this.myForm.value.horaFinComida = this.newValueComida;
+          this.hrDeSalida(undefined);
+  
+        } else {
+          this.myForm.controls.horaInicioComida.setValue('');
+        }
+
+      }else{  
       if (this.hrComida >= this.hrEntrada && this.hrComida < this.hrSalida) {
         this.myForm.controls.horaFinComida.enable();
         this.myForm.controls.horaFinComida.setValue(this.newValueComida);
         this.myForm.value.horaFinComida = this.newValueComida;
-        //this.hrDeSalida(undefined);
+        this.hrDeSalida(undefined);
 
       } else {
         this.myForm.controls.horaInicioComida.setValue('');
       }
+    }
 
     }
   }
 
   public hrInicio(response: any) {
-
+    let horaSalida;
+    if(response == undefined){
+      horaSalida = this.myForm.controls.horaEntrada.value;
+    }else{
+      horaSalida = response.value;
+    }
     if (this.jornada === '1') {
       this.myForm.controls.horaSalida.disable();
       if (response.value !== undefined) {
-        this.hrEntrada = Number(response.value.substring(0, 2));
+        this.hrEntrada = Number(horaSalida.substring(0, 2));
         this.hr = Number(response.value.substring(0, 2)) + 8;
         this.newValue = response.value.replace(response.value.substring(0, 2), Number(response.value.substring(0, 2)) + 8)
 
@@ -706,8 +744,8 @@ export class DetallejornadalaboralComponent implements OnInit {
       this.horaSalida = this.newValue;
 
     } else {
-      if (response.value !== undefined) {
-        this.hrEntrada = Number(response.value.substring(0, 2));
+      if (horaSalida !== undefined) {
+        this.hrEntrada = Number(horaSalida.substring(0, 2));
       }
     }
 
