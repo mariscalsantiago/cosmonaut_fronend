@@ -30,6 +30,8 @@ export class ListaEmpresasComponent implements OnInit {
   };
   public indexSeleccionado: number = 0;
 
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public esRegistrar:boolean = false;
   public esConsultar:boolean = false;
@@ -49,6 +51,9 @@ export class ListaEmpresasComponent implements OnInit {
     public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
     this.establecerPermisos();
 

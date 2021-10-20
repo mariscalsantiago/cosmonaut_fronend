@@ -95,10 +95,10 @@ export class DatosimssComponent implements OnInit {
       let extName = imagenInput![0].name;
       let ext = extName.split('.');
       extName = ext[1].toLowerCase();
-/*       if(extName != 'cer'){
+       if(extName != 'pfx'){
         this.modalPrd.showMessageDialog(this.modalPrd.error,"El archivo cargado no tiene una extensión correcta");
         return;
-      } */
+      } 
       for (let item in Object.getOwnPropertyNames(imagenInput)) {
 
         let archivo: File = imagenInput[item];

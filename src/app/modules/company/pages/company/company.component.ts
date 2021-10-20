@@ -68,7 +68,9 @@ export class CompanyComponent implements OnInit {
   constructor(private routerPrd: Router, private companyProd: CompanyService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-
+    debugger;
+    let breadcrum = this.configuracionPrd.breadcrum;
+    
     this.establecerPermisos();
     
     let documento: any = document.defaultView;

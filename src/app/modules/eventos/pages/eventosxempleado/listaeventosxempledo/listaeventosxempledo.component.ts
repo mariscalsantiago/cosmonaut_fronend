@@ -39,9 +39,8 @@ export class ListaeventosxempledoComponent implements OnInit {
   public esConsultar:boolean = false;
   public arregloIncidenciaTipo: any = [];
 
-
-
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public evento:any;
 
@@ -68,6 +67,8 @@ export class ListaeventosxempledoComponent implements OnInit {
   ngOnInit(): void {
 
     this.establecerPermisos();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
     let documento: any = document.defaultView;
 

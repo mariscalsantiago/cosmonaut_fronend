@@ -238,6 +238,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public seleccionarSubmenu(obj: any, obj2: any) {
+    debugger;
     if (obj2) {
 
       obj2 = {
@@ -250,10 +251,7 @@ export class ContenidoComponent implements OnInit {
     }
     this.limpiando();
     obj.seleccionado = true;
-
-
-    // Aqui esta boquet
-
+    this.configuracionPrd.breadcrum = obj2;
     this.configuracionPrd.setPermisos(obj2.permisos);
   }
 

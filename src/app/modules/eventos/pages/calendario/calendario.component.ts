@@ -31,12 +31,16 @@ export class CalendarioComponent implements OnInit {
 
   public arreglo: any = [];
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(private ventana: VentanaemergenteService, private eventoPrd: EventosService,
     private areasPrd: SharedAreasService, private catalogos: CatalogosService,
     private usuariosSistemaPrd: UsuarioSistemaService, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
-
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
 
     this.cargando = true;
