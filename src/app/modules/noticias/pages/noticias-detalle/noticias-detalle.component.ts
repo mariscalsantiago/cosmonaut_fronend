@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { Noticia } from 'src/app/core/modelos/noticia';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
@@ -10,7 +11,6 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { NoticiasService } from '../../services/noticias.service';
 import { usuarioClass } from './../../../../shared/services/usuariosistema/usuario-sistema.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-noticias-detalle',
@@ -19,6 +19,9 @@ import * as moment from 'moment';
   encapsulation: ViewEncapsulation.None
 })
 export class NoticiasDetalleComponent implements OnInit {
+
+  private static TAMANIO_RECOMENDADO_BANNER = "1800 x 350";
+  private static TAMANIO_RECOMENDADO_CURSO = "340 x 200";
 
   @ViewChild("titulo") titulo: any;
 
@@ -32,6 +35,7 @@ export class NoticiasDetalleComponent implements OnInit {
   minimo = new Date();
   requiereImagen = false;
   tieneImagen = false;
+  tamanioRecomendado = NoticiasDetalleComponent.TAMANIO_RECOMENDADO_BANNER;
 
   public cargando: boolean = true;
   public submitEnviado: boolean = false;
@@ -131,29 +135,26 @@ export class NoticiasDetalleComponent implements OnInit {
       subtitulo: ['', [Validators.maxLength(50)]],
       fechaAlta: [{ value: datePipe.transform(new Date(), 'dd/MM/yyyy'), disabled: true }, [Validators.required]],
       fechaInicio: ['', [Validators.required, this.validarFecha]],
-      fechaFin: ['', [Validators.required, this.validarFecha]],
+      fechaFin: ['', [Validators.required, this.validarFecha, this.validarFechaMin]],
       categoria: [{ value: 1, disabled: this.usuario?.rolId == 3 }, Validators.required],
       empresa: [this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId, Validators.required],
       contenido: ['']
-    }, { validator: this.validarFechaMin });
+    });
   }
 
   private validarFecha(AC: AbstractControl) {
 
-    if (AC && AC.value && (
-      !moment(AC.value, 'YYYY-MM-DD', true).isValid() ||
-      moment().add(-1, 'days').diff(moment(AC.value, 'YYYY-MM-DD', true)) > 0
-    )) {
+    if (AC && AC.value && !moment(AC.value, 'YYYY-MM-DD', true).isValid()) {
       return { 'datevaidator': true };
     }
     return null;
   }
 
-  private validarFechaMin(group: any) {
+  private validarFechaMin(AC: AbstractControl) {
 
-    if (group.controls["fechaInicio"].valid && group.controls["fechaFin"].valid) {
+    if (!!AC && !!AC.parent && AC.parent.controls["fechaInicio"].valid && AC.parent.controls["fechaFin"].valid) {
 
-      if (moment(group.controls["fechaInicio"].value, 'YYYY-MM-DD', true).diff(moment(group.controls["fechaFin"].value, 'YYYY-MM-DD', true)) >= 0) {
+      if (moment(AC.parent.controls["fechaInicio"].value, 'YYYY-MM-DD', true).diff(moment(AC.parent.controls["fechaFin"].value, 'YYYY-MM-DD', true)) >= 0) {
         return { 'datevaidatormin': true };
       }
     }
@@ -169,7 +170,10 @@ export class NoticiasDetalleComponent implements OnInit {
       return `Máximo ${errors.maxlength.requiredLength} caracteres`;
     }
     if (!!errors.datevaidator) {
-      return `Fecha inválida`;
+      return `Fecha inválida (formato inválido)`;
+    }
+    if (!!errors.datevaidatormin) {
+      return `Fecha inválida (menor a fecha de inicio)`;
     }
 
     return '';
@@ -209,6 +213,8 @@ export class NoticiasDetalleComponent implements OnInit {
     let categoria = this.formulario.controls.categoria.value;
     this.requiereImagen = (categoria == 1 || categoria == 5 || categoria == 6);
     this.tieneImagen = !!this.imagen;
+
+    this.tamanioRecomendado = categoria == 1 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_BANNER : (categoria == 5 || categoria == 6 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_CURSO : 'NA')
   }
 
   public actualizarPreview() {
@@ -216,6 +222,12 @@ export class NoticiasDetalleComponent implements OnInit {
   }
 
   public enviarPeticion() {
+
+    this.submitEnviado = true;
+
+    if (!this.formulario.valid || (this.requiereImagen && !this.tieneImagen)) {
+      return;
+    }
 
     let mensajeExtra = this.esClienteEmpresa ? "La noticia será visible para todos los empleados de la empresa" : "La noticia será visible para todos los empleados de la empresa"
     let titulo: string = !!this.editando ? "¿Deseas actualizar los datos de la noticia?" : "¿Deseas guardar la noticia?";
@@ -228,8 +240,6 @@ export class NoticiasDetalleComponent implements OnInit {
   private guardar() {
 
     this.servicioModales.showMessageDialog(this.servicioModales.loading);
-
-    this.submitEnviado = true;
 
     let datePipe = new DatePipe("en-MX");
     if (!!this.editando) {

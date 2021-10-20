@@ -1,7 +1,6 @@
-import { Noticia } from './../../../core/modelos/noticia';
-import { NoticiasService } from './../../noticias/services/noticias.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
 import { EventosService } from 'src/app/modules/eventos/services/eventos.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -9,7 +8,8 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-
+import { Noticia } from './../../../core/modelos/noticia';
+import { NoticiasService } from './../../noticias/services/noticias.service';
 
 @Component({
   selector: 'app-inicio',
@@ -72,13 +72,13 @@ export class InicioComponent implements OnInit {
           if (!!response.resultado) {
 
             if (!!response.datos.noticiasCosmonaut) {
-              (response.datos.noticiasCosmonaut as Noticia[]).forEach(noticia => {
+              (response.datos.noticiasCosmonaut as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
                 this.noticiasAdministrador.push(noticia);
               });
             }
 
             if (!!response.datos.noticiasGeneral) {
-              (response.datos.noticiasGeneral as Noticia[]).forEach(noticia => {
+              (response.datos.noticiasGeneral as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
 
                 switch (noticia.categoriaId.categoriaNoticiaId) {
                   case 1:
