@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Noticia } from 'src/app/core/modelos/noticia';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
@@ -10,6 +10,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { NoticiasService } from '../../services/noticias.service';
 import { usuarioClass } from './../../../../shared/services/usuariosistema/usuario-sistema.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-noticias-detalle',
@@ -28,6 +29,9 @@ export class NoticiasDetalleComponent implements OnInit {
   private esClienteEmpresa: boolean = false;
   private usuario: usuarioClass | undefined = undefined;
   noticia: string = ``;
+  minimo = new Date();
+  requiereImagen = false;
+  tieneImagen = false;
 
   public cargando: boolean = true;
   public submitEnviado: boolean = false;
@@ -56,6 +60,8 @@ export class NoticiasDetalleComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.servicioModales.showMessageDialog(this.servicioModales.loading);
+
     this.esClienteEmpresa = this.navigator.url.includes("/detalle_noticia/cliente");
     this.usuario = this.serviceUsuario.getUsuario();
 
@@ -73,13 +79,23 @@ export class NoticiasDetalleComponent implements OnInit {
             this.editando = response.datos as Noticia;
           }
 
-          if (!!this.editando?.thumbnail) this.imagenCargada = this.editando.thumbnail;
+          this.imagenCargada = this.editando?.thumbnail;
+          this.imagen = this.editando?.imagen;
+
           this.cargandoImg = false;
 
           this.llenarFormulario();
+          this.validarImagen();
+
+          this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
         }
       );
+    } else {
+
+      this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
     }
+
+    this.validarImagen();
 
     this.cargando = true;
     if (this.puedeSeleccionarEmpresa()) {
@@ -111,15 +127,52 @@ export class NoticiasDetalleComponent implements OnInit {
 
     let datePipe = new DatePipe("en-MX");
     return this.formBuilder.group({
-      titulo: ['', [Validators.required]],
-      subtitulo: [''],
+      titulo: ['', [Validators.required, Validators.maxLength(50)]],
+      subtitulo: ['', [Validators.maxLength(50)]],
       fechaAlta: [{ value: datePipe.transform(new Date(), 'dd/MM/yyyy'), disabled: true }, [Validators.required]],
-      fechaInicio: ['', [Validators.required]],
-      fechaFin: ['', [Validators.required]],
+      fechaInicio: ['', [Validators.required, this.validarFecha]],
+      fechaFin: ['', [Validators.required, this.validarFecha]],
       categoria: [{ value: 1, disabled: this.usuario?.rolId == 3 }, Validators.required],
       empresa: [this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId, Validators.required],
       contenido: ['']
-    });
+    }, { validator: this.validarFechaMin });
+  }
+
+  private validarFecha(AC: AbstractControl) {
+
+    if (AC && AC.value && (
+      !moment(AC.value, 'YYYY-MM-DD', true).isValid() ||
+      moment().add(-1, 'days').diff(moment(AC.value, 'YYYY-MM-DD', true)) > 0
+    )) {
+      return { 'datevaidator': true };
+    }
+    return null;
+  }
+
+  private validarFechaMin(group: any) {
+
+    if (group.controls["fechaInicio"].valid && group.controls["fechaFin"].valid) {
+
+      if (moment(group.controls["fechaInicio"].value, 'YYYY-MM-DD', true).diff(moment(group.controls["fechaFin"].value, 'YYYY-MM-DD', true)) >= 0) {
+        return { 'datevaidatormin': true };
+      }
+    }
+    return null;
+  }
+
+  public parseErrors(errors: any) {
+
+    if (!!errors.required) {
+      return "Campo necesario";
+    }
+    if (!!errors.maxlength) {
+      return `Máximo ${errors.maxlength.requiredLength} caracteres`;
+    }
+    if (!!errors.datevaidator) {
+      return `Fecha inválida`;
+    }
+
+    return '';
   }
 
   private llenarFormulario() {
@@ -127,13 +180,35 @@ export class NoticiasDetalleComponent implements OnInit {
     let datePipe = new DatePipe("en-MX");
 
     this.formulario.controls.titulo.setValue(!!this.editando ? this.editando.titulo : '');
+    this.formulario.controls.titulo.updateValueAndValidity();
+
     this.formulario.controls.subtitulo.setValue(!!this.editando ? this.editando.subtitulo : '');
-    this.formulario.controls.fechaAlta.setValue(!!this.editando ? datePipe.transform(new Date(this.editando.fechaAlta), 'yyyy-MM-dd') : datePipe.transform(new Date(), 'dd/MM/yyyy'));
-    this.formulario.controls.fechaInicio.setValue(!!this.editando ? datePipe.transform(new Date(this.editando.fechaInicio), 'yyyy-MM-dd') : '');
-    this.formulario.controls.fechaFin.setValue(!!this.editando ? datePipe.transform(new Date(this.editando.fechaFin), 'yyyy-MM-dd') : '');
+    this.formulario.controls.subtitulo.updateValueAndValidity();
+
+    this.formulario.controls.fechaAlta.setValue(!!this.editando ? datePipe.transform(this.editando.fechaAlta, 'yyyy-MM-dd') : datePipe.transform(new Date(), 'dd/MM/yyyy'));
+    this.formulario.controls.fechaAlta.updateValueAndValidity();
+
+    this.formulario.controls.fechaInicio.setValue(!!this.editando ? datePipe.transform(this.editando.fechaInicio, 'yyyy-MM-dd') : '');
+    this.formulario.controls.fechaInicio.updateValueAndValidity();
+
+    this.formulario.controls.fechaFin.setValue(!!this.editando ? datePipe.transform(this.editando.fechaFin, 'yyyy-MM-dd') : '');
+    this.formulario.controls.fechaFin.updateValueAndValidity();
+
     this.formulario.controls.categoria.setValue(!!this.editando ? this.editando.categoriaId.categoriaNoticiaId : 1);
+    this.formulario.controls.categoria.updateValueAndValidity();
+
     this.formulario.controls.empresa.setValue(!!this.editando ? this.editando.centrocClienteId : (this.puedeSeleccionarEmpresa() ? '' : this.usuario?.centrocClienteId));
+    this.formulario.controls.empresa.updateValueAndValidity();
+
     this.formulario.controls.contenido.setValue(!!this.editando ? this.editando.contenido : '');
+    this.formulario.controls.contenido.updateValueAndValidity();
+  }
+
+  validarImagen() {
+
+    let categoria = this.formulario.controls.categoria.value;
+    this.requiereImagen = (categoria == 1 || categoria == 5 || categoria == 6);
+    this.tieneImagen = !!this.imagen;
   }
 
   public actualizarPreview() {
@@ -156,6 +231,7 @@ export class NoticiasDetalleComponent implements OnInit {
 
     this.submitEnviado = true;
 
+    let datePipe = new DatePipe("en-MX");
     if (!!this.editando) {
 
       const json = {
@@ -166,9 +242,9 @@ export class NoticiasDetalleComponent implements OnInit {
         subtitulo: this.formulario.controls.subtitulo.value,
         categoriaId: { categoriaNoticiaId: Number(this.formulario.controls.categoria.value) },
         contenido: this.formulario.controls.contenido.value,
-        imagen: !!this.imagen ? this.imagen : this.editando.imagen,
-        fechaInicio: new Date(this.formulario.controls.fechaInicio.value).getTime(),
-        fechaFin: new Date(this.formulario.controls.fechaFin.value).getTime()
+        imagen: this.imagen,
+        fechaInicio: this.formulario.controls.fechaInicio.value,
+        fechaFin: this.formulario.controls.fechaFin.value,
       }
 
       //console.log('editNoticia', json);
@@ -193,8 +269,8 @@ export class NoticiasDetalleComponent implements OnInit {
         categoriaId: { categoriaNoticiaId: Number(this.formulario.controls.categoria.value) },
         contenido: this.formulario.controls.contenido.value,
         imagen: this.imagen,
-        fechaInicio: new Date(this.formulario.controls.fechaInicio.value).getTime(),
-        fechaFin: new Date(this.formulario.controls.fechaFin.value).getTime()
+        fechaInicio: this.formulario.controls.fechaInicio.value,
+        fechaFin: this.formulario.controls.fechaFin.value,
       }
 
       //console.log('createNoticia', json);
@@ -218,5 +294,6 @@ export class NoticiasDetalleComponent implements OnInit {
 
   public async recibirImagen(imagen: any) {
     this.imagen = imagen;
+    this.validarImagen();
   }
 }
