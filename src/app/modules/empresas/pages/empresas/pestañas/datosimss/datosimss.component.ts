@@ -26,6 +26,7 @@ export class DatosimssComponent implements OnInit {
   public objenviar: any = [];
   public insertarMof: boolean = false;
   public resultado: boolean = false;
+  public cerCargado: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private imssPrd: ImssService, private routerPrd: Router,
     private modalPrd: ModalService) { }
@@ -44,6 +45,7 @@ export class DatosimssComponent implements OnInit {
   public createForm(obj: any) {
 
     if (this.arregloImss.credencialesImssId != undefined) {
+      this.cerCargado = true;
       obj.cerIMSS = 'Certificado IMSS digital cargado';
       obj.contrasenaCerIMSS = "12345";
       obj.usuarioCerIMSS = "Usuario de certificado IMSS cargado";
@@ -76,6 +78,54 @@ export class DatosimssComponent implements OnInit {
     this.activadoCer = false;
   }
 
+
+  public validarUsuarioCerIMSS(obj:any){
+    debugger;
+    if(this.cerCargado === true && obj !==  "Usuario de certificado IMSS cargado"){
+      if(this.myForm.controls.contrasenaCerIMSS.value ===  "12345"){
+      this.myForm.controls.contrasenaCerIMSS.setValue('');
+      this.myForm.controls.contrasenaCerIMSS.setValidators([Validators.required]);
+      }
+      if(this.myForm.controls.cerIMSS.value ===  "Certificado IMSS digital cargado"){
+      this.myForm.controls.cerIMSS.setValue('');
+      this.myForm.controls.cerIMSS.setValidators([Validators.required]);
+      }
+
+    }
+
+  }
+
+  public validarCerIMSS(obj:any){
+    debugger;
+    if(this.cerCargado === true && obj !==  "Certificado IMSS digital cargado"){
+
+      if(this.myForm.controls.contrasenaCerIMSS.value ===  "12345"){
+      this.myForm.controls.contrasenaCerIMSS.setValue('');
+      this.myForm.controls.contrasenaCerIMSS.setValidators([Validators.required]);
+      }
+      if(this.myForm.controls.usuarioCerIMSS.value ===  "Usuario de certificado IMSS cargado"){
+      this.myForm.controls.usuarioCerIMSS.setValue('');
+      this.myForm.controls.usuarioCerIMSS.setValidators([Validators.required]);
+      }
+    }
+
+  }
+
+  public validarContrasenaCerIMSS(obj:any){
+    debugger;
+    if(this.cerCargado === true && obj !==  "12345"){
+
+      if(this.myForm.controls.usuarioCerIMSS.value ===  "Usuario de certificado IMSS cargado"){
+      this.myForm.controls.usuarioCerIMSS.setValue('');
+      this.myForm.controls.usuarioCerIMSS.setValidators([Validators.required]);
+      }
+      if(this.myForm.controls.cerIMSS.value ===  "Certificado IMSS digital cargado"){
+      this.myForm.controls.cerIMSS.setValue('');
+      this.myForm.controls.cerIMSS.setValidators([Validators.required]);
+      }
+    }
+
+  }
   public cancelar() {
     this.enviado.emit({type:"cancelar"});
 
