@@ -19,8 +19,8 @@
         <button (click)="filtrar()" type="button" class="btn btn-primary button-outlet ">Filtrar</button>
     </div>
 
-    <div *ngIf="!ocultarEliminar" class="col-11 text-left">
-        <a (click)="recalcular()" *ngIf="esEliminar" style="color:#56dfd4;" class="dropdown-toggle mt-3">
+    <div *ngIf="!ocultarEliminar"  class="col-11 text-left">
+        <a style="width: fit-content;" (click)="recalcular()" *ngIf="esEliminar" style="color:#56dfd4;" class="dropdown-toggle mt-3">
             <i aria-hidden="true" class="fas fa-sync"></i>&nbsp;&nbsp;Recalcular</a>
     </div>
     <div *ngIf="esDescargar" class="col-10 text-right">
@@ -34,7 +34,7 @@
    
 </div>
 
-<div *ngIf="empleados && esnormal" class="row">
+<div *ngIf="empleados && esnormal"  class="row">
     <div class=" col-12 text-center">
         <button (click)="verListado()" type="button" class="btn btn-primary personalizado heartbeathand">Aviso</button>
     </div>

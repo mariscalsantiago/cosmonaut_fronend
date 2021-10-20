@@ -134,6 +134,8 @@ export class PagarComponent implements OnInit {
         this.crearTabla(datos, "empleadoApagoPtu");
       });
     }
+
+    this.ocultarEliminar = this.nominaSeleccionada[this.llave].estadoActualNomina !== "Calculada" && this.nominaSeleccionada[this.llave].estadoActualNomina !== "Nueva";
   }
 
 
