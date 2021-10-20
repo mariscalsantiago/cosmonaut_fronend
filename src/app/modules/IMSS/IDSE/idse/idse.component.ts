@@ -312,12 +312,12 @@ export class IDSEComponent implements OnInit {
   }
   
   public enviarIdse() {
-    debugger;
+    
     let mensaje = `¿Deseas enviar estos registros a IDSE?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
       if (valor) {
-        debugger;
+        
         let valor = [];
         for (let item of this.arreglo) {
           this.registroPatronalIdse = item.registro_patronal;

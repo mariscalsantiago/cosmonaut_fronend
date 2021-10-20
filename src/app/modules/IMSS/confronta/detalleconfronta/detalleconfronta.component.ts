@@ -72,7 +72,7 @@ export class DetalleconfrontaComponent implements OnInit {
   }
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
 
       if(this.myForm.controls.idregistroPatronal.value === "0"){
@@ -123,7 +123,7 @@ export class DetalleconfrontaComponent implements OnInit {
   }
 
   public abrirArchivo() {
-    debugger;
+    
     let input = document.createElement("input");
     input.type = "file";
     input.accept = ".zip";

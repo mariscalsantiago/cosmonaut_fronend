@@ -68,7 +68,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
   ngOnInit(): void {
     this.establecerPermisos();
-    debugger;
+    
     this.objdetcat = history.state.data == undefined ? {} : history.state.data;
     this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => this.arregloListaCatalogos = datos.datos);
     this.listaTablasFinal =[];

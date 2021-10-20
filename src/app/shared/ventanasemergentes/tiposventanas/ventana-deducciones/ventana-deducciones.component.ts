@@ -186,7 +186,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   }
 
   public validaFechaDescu(){
-    debugger;
+    
     let valorFecha = this.myForm.controls.fechaInicioDescto.value
     this.fechaFinDescuento.nativeElement.min = valorFecha;
   }
@@ -783,7 +783,7 @@ export class VentanaDeduccionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-    debugger;
+    
   
     this.submitEnviado = true;
     this.myForm.updateValueAndValidity();
@@ -794,7 +794,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       return;
 
     }
-    debugger;
+    
       let fechaFinDescu = this.myForm.controls.fechaFinDescuento.value;
       if(fechaFinDescu != null && fechaFinDescu != ""){
 

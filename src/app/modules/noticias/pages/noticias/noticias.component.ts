@@ -146,8 +146,8 @@ export class NoticiasComponent implements OnInit {
 
     let datePipe = new DatePipe("en-MX");
     this.noticias.forEach(noticia => {
-      noticia.__fechaInicioFormato = datePipe.transform(new Date(noticia.fechaInicio), 'dd/MM/yyyy') as string;
-      noticia.__fechaFinFormato = datePipe.transform(new Date(noticia.fechaFin), 'dd/MM/yyyy') as string;
+      noticia.__fechaInicioFormato = datePipe.transform(noticia.fechaInicio, 'dd/MM/yyyy') as string;
+      noticia.__fechaFinFormato = datePipe.transform(noticia.fechaFin, 'dd/MM/yyyy') as string;
       noticia.__categoriaFormato = noticia.categoriaId.descripcion as string;
     });
 
@@ -188,7 +188,7 @@ export class NoticiasComponent implements OnInit {
 
   public eliminarNoticia(noticia: Noticia) {
 
-    console.log("eliminarNoticia", noticia);
+    //console.log("eliminarNoticia", noticia);
     let mensajeExtra = "Ningún empleado pordrá ver la noticia aunque no haya expirado la publicación"
     let titulo: string = "¿Está seguro que desea eliminar la noticia?";
 

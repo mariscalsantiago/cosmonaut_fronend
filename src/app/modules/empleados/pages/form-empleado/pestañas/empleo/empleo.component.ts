@@ -562,7 +562,7 @@ export class EmpleoComponent implements OnInit {
 
 
     console.log(JSON.stringify(objEnviar));
-    debugger;
+    
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.colaboradorPrd.save(objEnviar).subscribe(datos => {

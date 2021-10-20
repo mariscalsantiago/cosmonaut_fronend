@@ -66,7 +66,7 @@ export class DetalleRolesComponent implements OnInit {
   public traerDatosMenu(obj?: any) {
 
     let modificar = Boolean(obj);
-    debugger;
+    
     this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
       this.arreglo = datos;
       this.arreglo.forEach(valor => {
