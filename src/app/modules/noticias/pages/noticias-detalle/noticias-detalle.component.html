@@ -32,7 +32,7 @@
                         <input #titulo id="titulo" formControlName="titulo" type="text" class="form-control"
                             [ngClass]="{'is-invalid':f.titulo.errors && submitEnviado}"
                             placeholder="{ej. !Feliz cumpleaños!}">
-                        <div *ngIf="f.titulo.errors" class="invalid-feedback" style="display: block">
+                        <div *ngIf="f.titulo.errors && submitEnviado" class="invalid-feedback" style="display: block">
                             {{parseErrors(f.titulo.errors)}}
                         </div>
                     </div>
@@ -42,7 +42,8 @@
                         <input id="subtitulo" formControlName="subtitulo" type="text" class="form-control"
                             [ngClass]="{'is-invalid':f.subtitulo.errors && submitEnviado}"
                             placeholder="{ej. University of Michigan}">
-                        <div *ngIf="f.subtitulo.errors" class="invalid-feedback" style="display: block">
+                        <div *ngIf="f.subtitulo.errors && submitEnviado" class="invalid-feedback"
+                            style="display: block">
                             {{parseErrors(f.subtitulo.errors)}}
                         </div>
                     </div>
@@ -54,9 +55,9 @@
 
                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
                         <label for="fechaInicio">Fecha de inicio de publicación *</label>
-                        <input formControlName="fechaInicio" type="date" min="{{minimo | date:'yyyy-MM-dd'}}"
-                            class="form-control" placeholder="">
-                        <div *ngIf="f.fechaInicio.errors" class="invalid-feedback" style="display: block">
+                        <input formControlName="fechaInicio" type="date" class="form-control" placeholder="">
+                        <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback"
+                            style="display: block">
                             {{parseErrors(f.fechaInicio.errors)}}
                         </div>
                     </div>
@@ -65,7 +66,7 @@
                         <label for="fechaFin">Fecha de fin de publicación *</label>
                         <input formControlName="fechaFin" type="date" min="{{minimo | date:'yyyy-MM-dd'}}"
                             class="form-control" placeholder="">
-                        <div *ngIf="f.fechaFin.errors" class="invalid-feedback" style="display: block">
+                        <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback" style="display: block">
                             {{parseErrors(f.fechaFin.errors)}}
                         </div>
                     </div>
@@ -80,7 +81,8 @@
                             <option value="5">CURSO</option>
                             <option value="6">CAPACITACION</option>
                         </select>
-                        <div *ngIf="f.categoria.errors" class="invalid-feedback" style="display: block">
+                        <div *ngIf="f.categoria.errors && submitEnviado" class="invalid-feedback"
+                            style="display: block">
                             {{parseErrors(f.categoria.errors)}}
                         </div>
                     </div>
@@ -92,7 +94,7 @@
                             <option *ngFor="let empresa of empresas" [value]="empresa.centrocClienteId">
                                 {{empresa.razonSocial}}</option>
                         </select>
-                        <div *ngIf="f.empresa.errors" class="invalid-feedback" style="display: block">
+                        <div *ngIf="f.empresa.errors && submitEnviado" class="invalid-feedback" style="display: block">
                             {{parseErrors(f.empresa.errors)}}
                         </div>
                     </div>
@@ -116,10 +118,11 @@
                 <div class=" input-group-sm mb-3 col-12"
                     style="display: flex; flex-direction: column; align-items: center;">
                     <label>Imagen</label>
+                    <span style="font-size: 8pt;">Tamaño recomendado: {{tamanioRecomendado}}</span>
                     <app-subirarchivo [cargando]="cargandoImg" (emiteimagen)="recibirImagen($event)"
                         [recibiendoImagen]="imagenCargada"></app-subirarchivo>
                 </div>
-                <div *ngIf="requiereImagen && !tieneImagen" class="invalid-feedback"
+                <div *ngIf="requiereImagen && !tieneImagen && submitEnviado" class="invalid-feedback"
                     style="display: block; text-align: center;">
                     Campo requerido.
                 </div>
@@ -129,8 +132,7 @@
     <div class="text-center margin" style="margin-bottom: 20px;">
         <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red"
             (click)="regresar()">Cancelar</button>
-        <button type="submit" [disabled]="!formulario.valid || (requiereImagen && !tieneImagen) || submitEnviado"
-            class="btn btn-primary button-fill agrandarloading">Guardar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
     </div>
 
 </form>
