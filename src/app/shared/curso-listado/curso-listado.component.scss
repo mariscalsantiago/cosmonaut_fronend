@@ -1,0 +1,57 @@
+
+div.cn-cursos {
+    
+    max-height: 15rem;
+    overflow-y: auto;
+  
+    div.cn-cursos-listado {
+  
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 1rem 1.5rem;
+        flex-wrap: wrap;
+        justify-content: space-between;
+  
+        div.cn-content-container {
+            
+            display: flex;
+            flex-direction: column;
+            max-width: 14rem;
+            padding: 1rem;
+            
+            div.cn-image {
+              
+              img.cn-cursos-image {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                -webkit-transition: all 0.2s ease-in-out;
+                -moz-transition: all 0.2s ease-in-out;
+                -o-transition: all 0.2s ease-in-out;
+                transition: all 0.2s ease-in-out;
+                filter: sepia(60%);
+              }
+  
+              img.cn-cursos-image:hover {
+                filter: none;
+              }
+            }
+
+            div.cn-image.with-content {
+              cursor: pointer;
+            }
+  
+            div.cn-content {
+  
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                
+                span.cn-content-subtitle {
+                    font-weight: 300 !important;
+                }
+            }
+        }
+    }
+  }

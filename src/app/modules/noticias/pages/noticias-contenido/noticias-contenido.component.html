@@ -1,0 +1,15 @@
+<div class="row margen">
+    <div class="col titulo-outlet">
+        <div (click)="configuracion.menu = !configuracion.menu" class="col-2 menu-hamburgesa">
+            <button disabled>
+                <img src="assets/imgs/menu.png" alt="" srcset="">
+            </button>
+        </div>
+        <label>{{titulo}}</label>
+    </div>
+</div>
+
+<hr>
+
+<div class="cm-noticia-detalle" [innerHTML]="contenido">
+</div>

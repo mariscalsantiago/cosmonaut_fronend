@@ -135,7 +135,7 @@
 
         <div class="row margen margen-tabla background-panel ">
             <app-tablapaginado [datos]="arreglotabla" [llave]="esEditar" [editar]="esEditar" [checkbox]="esEditar"
-                [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                [cargando]="cargando" [paginado_server]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
 </div>

@@ -67,6 +67,8 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
           item.esPagada = (item.nominaLiquidacion?.estadoActualNomina === 'Pagada' || item.nominaLiquidacion?.estadoActualNomina === 'En proceso pago');
           item.esTimbrada = item.nominaLiquidacion?.estadoActualNomina === 'Timbrada' || item.nominaLiquidacion?.estadoActualNomina === 'En proceso timbrado';
           item.esConcluir = item.nominaLiquidacion?.estadoActualNomina === 'Pagada' && item.nominaLiquidacion?.estadoActualNomina === 'Timbrada';
+          item.mensajePensando = item.nominaLiquidacion.estadoProcesoNominaId == 4 ? item.nominaLiquidacion.procesoNominaObservaciones : "";
+          item.estadoPensando = item.nominaLiquidacion.estadoProcesoNominaId == 1 || item.nominaLiquidacion.estadoProcesoNominaId == 2 || item.nominaLiquidacion.estadoProcesoNominaId == 4;
         
         }
       }
@@ -100,13 +102,10 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
         this.nominaFiniquitoPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
-            item.nominaLiquidacion.numEmpleados = datos.datos.cantidadEmpleados;
-            item.nominaLiquidacion.totalPercepciones = datos.datos.totalPercepcion;
-            item.nominaLiquidacion.totalDeducciones = datos.datos.totalDeduccion;
-            item.nominaLiquidacion.totalNeto = datos.datos.total;
-            datos.datos.nominaXperiodoId = datos.datos.nominaPeriodoId;
-            
-            this.router.navigate(['/nominas/nomina'], { state: { datos: { nominaLiquidacion: item.nominaLiquidacion } } });
+            item.nominaLiquidacion.estadoProcesoNominaId = 1;
+            item.nominaLiquidacion.estadoProcesoDescripcion = "Pendiente";
+            item.mensajePensando = item.nominaLiquidacion.estadoProcesoNominaId == 4 ? item.nominaLiquidacion.procesoNominaObservaciones : "";
+            item.estadoPensando = item.nominaLiquidacion.estadoProcesoNominaId == 1 || item.nominaLiquidacion.estadoProcesoNominaId == 2 || item.nominaLiquidacion.estadoProcesoNominaId == 4;
           }
         });
 
@@ -143,7 +142,19 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
 
   }
 
+  public vermensaje(item: any) {
+    if (item.nominaLiquidacion.estadoProcesoNominaId == 4) {
+      this.modalPrd.showMessageDialog(this.modalPrd.warning, item.mensajePensando, "¿Deseas calcular de nuevo la nómina?").then(valor => {
+        if (valor) {
+          this.calcularNomina(item);
+        }
+      });
+    } else if (item.nominaLiquidacion.estadoProcesoNominaId == 1) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
+    }
 
+  }
+  
 
 
 }

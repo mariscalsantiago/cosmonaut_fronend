@@ -1,0 +1,19 @@
+div.cm-noticia-detalle {
+    
+    display: flex;
+    flex: 1;
+    padding: 2rem;
+    flex-direction: column;
+
+    h1, h2, h3, h4, h5 {
+        color: #00C1AF
+    }
+    span, p {
+        color: white;
+    }
+
+    hr {
+        width: 100%;
+        background-color: white;
+    }
+}

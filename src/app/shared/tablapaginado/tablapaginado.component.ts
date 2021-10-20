@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { DatePipe } from '@angular/common';
 import { ConfiguracionesService } from '../services/configuraciones/configuraciones.service';
@@ -8,7 +8,7 @@ import { ConfiguracionesService } from '../services/configuraciones/configuracio
   templateUrl: './tablapaginado.component.html',
   styleUrls: ['./tablapaginado.component.scss']
 })
-export class TablapaginadoComponent implements OnInit {
+export class TablapaginadoComponent implements OnInit,OnDestroy {
   public textFilter = '';
 
   public tooltipText = "";
@@ -18,6 +18,8 @@ export class TablapaginadoComponent implements OnInit {
   public numeroitems: number = 5;
   public total: any = 0;
   public filterby: any = "0";
+
+  @Input() public paginado_server:boolean = false;
 
 
   public arreglopaginas: Array<any> = [];
@@ -85,6 +87,10 @@ export class TablapaginadoComponent implements OnInit {
 
 
     this.numeroitems = Number(this.configuracionPrd.getElementosSesionDirecto(this.configuracionPrd.ELEMENTOSTABLA) || "5");
+    if(this.paginado_server){
+      this.salida.emit({type:"paginado_cantidad",datos:{elementos:this.numeroitems,pagina:0}});
+      localStorage["paginado"]=JSON.stringify([0]);
+    }
 
 
 
@@ -117,7 +123,7 @@ export class TablapaginadoComponent implements OnInit {
       if (this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined) {
         this.tooltipText = "editarUsuario";
       }
-      this.total = this.arreglotemp.length;
+      this.total = this.paginado_server?this.datos.totalRegistros: this.arreglotemp.length;
       for (let item of this.datos.filas) {
         item.seleccionado = false;
         item.desglosarDown = true;
@@ -140,7 +146,7 @@ export class TablapaginadoComponent implements OnInit {
     this.arreglopaginas = [];
 
     if (this.arreglotemp != undefined) {
-      let paginas = this.arreglotemp.length / Number(this.numeroitems);
+      let paginas = (this.paginado_server?this.total:this.arreglotemp.length) / Number(this.numeroitems);
 
 
       let primero = true;
@@ -180,13 +186,22 @@ export class TablapaginadoComponent implements OnInit {
 
   public paginacambiar(item: any) {
 
+    console.log("INDICES",item.numeropagina,item.llavepagina);
+    if(this.paginado_server){
+      let bitacoraPaginado:Array<number> = JSON.parse(localStorage["paginado"]);
+      if(!bitacoraPaginado.some(o => o == item.numeropagina)){
+        this.salida.emit({type:"paginado_cantidad",datos:{elementos:this.numeroitems,pagina:item.numeropagina}}); 
+        bitacoraPaginado.push(item.numeropagina);
+        localStorage["paginado"] = JSON.stringify(bitacoraPaginado);
+      }
+    }
+
     this.arreglo = this.arreglotemp.slice(item.numeropagina, item.llavepagina);
     for (let item of this.arreglopaginas) {
       item.activado = false;
     }
 
     item.activado = true;
-
 
 
     const indice = this.verificarIndice();//Se verifica el indice pero del arreglo del páginado
@@ -211,6 +226,7 @@ export class TablapaginadoComponent implements OnInit {
 
   public mostrarListaPaginaSiguiente() {
     this.indice++;
+
 
     this.arreglopaginas = this.arregloTemporalPaginas.slice((this.indice * 3), (this.indice * 3) + 3);
     this.activarMenos = true;
@@ -488,6 +504,16 @@ export class TablapaginadoComponent implements OnInit {
   public iniciarDescarga(item: any) {
     this.verpatronal = !this.verpatronal;
     this.salida.emit({ type: 'patronal', datos: item });
+  }
+
+
+  ngOnDestroy():void{
+
+    if(this.paginado_server){
+        localStorage.removeItem("paginado");
+    }
+
+
   }
 
 

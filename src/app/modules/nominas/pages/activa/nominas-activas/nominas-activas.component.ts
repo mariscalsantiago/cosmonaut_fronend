@@ -21,18 +21,18 @@ export class NominasActivasComponent implements OnInit {
   public arreglo: any = [];
   public arregloPersonas: any = [];
 
-  public esRegistrar:boolean = false;
-  public esCalcular:boolean = false;
-  public esConsultar:boolean = false;
-  public esConcluir:boolean = false;
-  public esDispersar:boolean = false;
-  public esEliminar:boolean = false;
-  public esTimbrar:boolean = false;
-  public esDescargar:boolean = false;
+  public esRegistrar: boolean = false;
+  public esCalcular: boolean = false;
+  public esConsultar: boolean = false;
+  public esConcluir: boolean = false;
+  public esDispersar: boolean = false;
+  public esEliminar: boolean = false;
+  public esTimbrar: boolean = false;
+  public esDescargar: boolean = false;
 
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService, private usuariSistemaPrd: UsuarioSistemaService,
-    private nominaOrdinariaPrd: NominaordinariaService,public configuracionPrd:ConfiguracionesService) { }
+    private nominaOrdinariaPrd: NominaordinariaService, public configuracionPrd: ConfiguracionesService) { }
 
 
 
@@ -41,12 +41,12 @@ export class NominasActivasComponent implements OnInit {
 
     this.traerListaNomina();
     this.establecerPermisos();
-    
+
 
   }
 
 
-  public establecerPermisos(){
+  public establecerPermisos() {
     this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
     this.esCalcular = this.configuracionPrd.getPermisos("Calcular");
     this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
@@ -69,18 +69,20 @@ export class NominasActivasComponent implements OnInit {
     this.nominaOrdinariaPrd.getListaNominas(objenviar).subscribe(datos => {
       this.cargando = false;
       this.arreglo = datos.datos;
-      if(this.arreglo){
+      if (this.arreglo) {
         for (let item of this.arreglo) {
           item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto);
           item.esCalculada = item.nominaOrdinaria?.estadoActualNomina === 'Calculada';
           item.esPagada = (item.nominaOrdinaria?.estadoActualNomina === 'Pagada' || item.nominaOrdinaria?.estadoActualNomina === 'En proceso pago');
           item.esTimbrada = item.nominaOrdinaria?.estadoActualNomina === 'Timbrada' || item.nominaOrdinaria?.estadoActualNomina === 'En proceso timbrado';
           item.esConcluir = item.nominaOrdinaria?.estadoActualNomina === 'Pagada' && item.nominaOrdinaria?.estadoActualNomina === 'Timbrada';
+          item.mensajePensando = item.nominaOrdinaria.estadoProcesoNominaId == 4 ? item.nominaOrdinaria.procesoNominaObservaciones : "";
+          item.estadoPensando = item.nominaOrdinaria.estadoProcesoNominaId == 1 || item.nominaOrdinaria.estadoProcesoNominaId == 2 || item.nominaOrdinaria.estadoProcesoNominaId == 4;
 
         }
       }
 
-      
+
     });
   }
 
@@ -97,47 +99,46 @@ export class NominasActivasComponent implements OnInit {
 
 
 
- 
 
-    
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        let objEnviar = {
-          nominaXperiodoId: item.nominaOrdinaria.nominaXperiodoId,
-          clienteId: this.usuariSistemaPrd.getIdEmpresa(),
-          usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
-        }
-        this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
-          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-          if (datos.resultado) {
-             item.nominaOrdinaria.numEmpleados = datos.datos.cantidadEmpleados;
-             item.nominaOrdinaria.totalPercepciones = datos.datos.totalPercepcion;
-             item.nominaOrdinaria.totalDeducciones = datos.datos.totalDeduccion;
-             item.nominaOrdinaria.totalNeto = datos.datos.total;
-              this.router.navigate(['nominas','nomina'], { state: { datos: { nominaOrdinaria: item.nominaOrdinaria } } });
+
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    let objEnviar = {
+      nominaXperiodoId: item.nominaOrdinaria.nominaXperiodoId,
+      clienteId: this.usuariSistemaPrd.getIdEmpresa(),
+      usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
+    }
+    this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+      if (datos.resultado) {
+        item.nominaOrdinaria.estadoProcesoNominaId = 1;
+        item.nominaOrdinaria.estadoProcesoDescripcion = "Pendiente";
+        item.mensajePensando = item.nominaOrdinaria.estadoProcesoNominaId == 4 ? item.nominaOrdinaria.procesoNominaObservaciones : "";
+        item.estadoPensando = item.nominaOrdinaria.estadoProcesoNominaId == 1 || item.nominaOrdinaria.estadoProcesoNominaId == 2 || item.nominaOrdinaria.estadoProcesoNominaId == 4;
+      }
+    }, e => {
+      if (e?.error?.mensaje.include("No has calculado ")) {
+        this.modalPrd.showMessageDialog(this.modalPrd.success, "¿Deseas promediar las variables?").then(valor => {
+          if (valor) {
+            alert("Se va a redireccionar");
+            this.configuracionPrd.accesoRuta = true;
+            this.router.navigate(['/imss/variabilidad']);
+
+
+            setTimeout(() => {
+              if (!this.configuracionPrd.cargandomodulo) {
+                setTimeout(() => {
+                  this.configuracionPrd.accesoRuta = false;
+                }, 10);
+              }
+
+            }, 10);
+
           }
-        },e =>{
-          if(e?.error?.mensaje.include("No has calculado ")){
-              this.modalPrd.showMessageDialog(this.modalPrd.success,"¿Deseas promediar las variables?").then(valor =>{
-                if(valor){
-                    alert("Se va a redireccionar");
-                    this.configuracionPrd.accesoRuta = true;
-                    this.router.navigate(['/imss/variabilidad']);
-
-
-                    setTimeout(() => {
-                      if (!this.configuracionPrd.cargandomodulo) {
-                        setTimeout(() => {
-                          this.configuracionPrd.accesoRuta = false;
-                        }, 10);
-                      }
-                  
-                    }, 10);
-
-                  }
-              });
-          }
-         
         });
+      }
+
+    });
   }
 
   public continuar(item: any) {
@@ -164,6 +165,20 @@ export class NominasActivasComponent implements OnInit {
         });
       }
     });
+
+  }
+
+
+  public vermensaje(item: any) {
+    if (item.nominaOrdinaria.estadoProcesoNominaId == 4) {
+      this.modalPrd.showMessageDialog(this.modalPrd.warning, item.mensajePensando, "¿Deseas calcular de nuevo la nómina?").then(valor => {
+        if (valor) {
+          this.calcularNomina(item);
+        }
+      });
+    } else if (item.nominaOrdinaria.estadoProcesoNominaId == 1) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
+    }
 
   }
 
