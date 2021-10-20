@@ -142,20 +142,19 @@ export class NoticiasDetalleComponent implements OnInit {
     });
   }
 
-  private validarFecha(AC: AbstractControl) {
+  private validarFecha(field: any) {
 
-    if (AC && AC.value && !moment(AC.value, 'YYYY-MM-DD', true).isValid()) {
+    if (field && field.value && !moment(field.value, 'YYYY-MM-DD', true).isValid()) {
       return { 'datevaidator': true };
     }
     return null;
   }
 
-  private validarFechaMin(AC: AbstractControl) {
+  private validarFechaMin(field: any) {
 
-  
-    if (!!AC && !!AC.parent && AC.parent.controls["fechaInicio"].valid && AC.parent.controls["fechaFin"].valid) {
+    if (!!field && !!field.parent && field.parent.controls["fechaInicio"].valid && field.parent.controls["fechaFin"].valid) {
 
-      if (moment(AC.parent.controls["fechaInicio"].value, 'YYYY-MM-DD', true).diff(moment(AC.parent.controls["fechaFin"].value, 'YYYY-MM-DD', true)) >= 0) {
+      if (moment(field.parent.controls["fechaInicio"].value, 'YYYY-MM-DD', true).diff(moment(field.parent.controls["fechaFin"].value, 'YYYY-MM-DD', true)) >= 0) {
         return { 'datevaidatormin': true };
       }
     }
