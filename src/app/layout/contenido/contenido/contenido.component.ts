@@ -252,7 +252,7 @@ export class ContenidoComponent implements OnInit {
     obj.seleccionado = true;
 
 
-
+    // Aqui esta boquet
 
     this.configuracionPrd.setPermisos(obj2.permisos);
   }
