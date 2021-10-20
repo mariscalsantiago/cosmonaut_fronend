@@ -227,7 +227,7 @@ export class LoginComponent implements OnInit {
             this.mensajeDanger = err.error.message;
             this.restablecer = !err.error.message.includes("El usuario se encuentra dado de baja");
             let rolInactivo = err.error.message.includes("Usuario sin accesso al sistema");
-            debugger;
+            
             if(rolInactivo){
               this.restablecer = false;
             }            

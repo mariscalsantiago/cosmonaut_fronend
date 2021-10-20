@@ -304,7 +304,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitInvalido = true;
     //this.myForm.updateValueAndValidity();
     if (this.myForm.invalid) {
@@ -631,7 +631,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   public hrDeSalida(response : any){
     
-      debugger;
+      
       let horaSalidaFin;
       let horaSalida =  this.myForm.controls.horaSalida.value;
       if(response !== undefined){
@@ -648,7 +648,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
 
   public hrInicioComida(response : any){
-    debugger;
+    
       
       if(response.value !== undefined){
         this.hrComida = Number(response.value.substring(0,2));
@@ -668,7 +668,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public hrInicio(response : any){
-    debugger;
+    
     if(this.jornada === '1') {
       this.myForm.controls.horaSalida.disable();
       if(response.value !== undefined){
