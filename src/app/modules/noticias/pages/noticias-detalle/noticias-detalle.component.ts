@@ -152,6 +152,7 @@ export class NoticiasDetalleComponent implements OnInit {
 
   private validarFechaMin(AC: AbstractControl) {
 
+  
     if (!!AC && !!AC.parent && AC.parent.controls["fechaInicio"].valid && AC.parent.controls["fechaFin"].valid) {
 
       if (moment(AC.parent.controls["fechaInicio"].value, 'YYYY-MM-DD', true).diff(moment(AC.parent.controls["fechaFin"].value, 'YYYY-MM-DD', true)) >= 0) {
