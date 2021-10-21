@@ -64,11 +64,17 @@ export class CompanyComponent implements OnInit {
   public esRegistrar:boolean = false;
   public esEditar:boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(private routerPrd: Router, private companyProd: CompanyService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+    debugger;
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
+    
     this.establecerPermisos();
     
     let documento: any = document.defaultView;

@@ -56,6 +56,9 @@ export class IDSEComponent implements OnInit {
     public movimiento: number = 0;
     public esActivo : number = 0;
 
+    
+    public modulo: string = "";
+    public subModulo: string = "";
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
@@ -63,7 +66,9 @@ export class IDSEComponent implements OnInit {
 
   ngOnInit(): void {
     
-
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);

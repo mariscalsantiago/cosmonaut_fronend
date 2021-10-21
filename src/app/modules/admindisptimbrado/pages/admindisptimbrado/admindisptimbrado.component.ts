@@ -58,13 +58,18 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   public esEditar:boolean = false;
   public esEliminar:boolean = false;
 
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(private ventana: VentanaemergenteService,private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService,private formBuild: FormBuilder, private admintimbradoDispersion: AdminDispercionTimbradoService,
     public configuracionPrd:ConfiguracionesService, private companyPrd: CompanyService) { }
 
   ngOnInit() {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    
    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
    this.establecerPermisos();
    this.companyPrd.getAllSimple().subscribe(datos => this.arregloCompania = datos.datos);

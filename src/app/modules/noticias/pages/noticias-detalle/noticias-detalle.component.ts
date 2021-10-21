@@ -47,6 +47,9 @@ export class NoticiasDetalleComponent implements OnInit {
   private editando: Noticia | undefined = undefined;
   public empresas: any = [];
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   public cargandoImg: boolean = false;
 
   constructor(
@@ -63,6 +66,9 @@ export class NoticiasDetalleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracion.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracion.breadcrum.nombreSubmodulo.toUpperCase();
 
     this.servicioModales.showMessageDialog(this.servicioModales.loading);
 

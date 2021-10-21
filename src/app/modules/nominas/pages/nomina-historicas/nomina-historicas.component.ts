@@ -29,6 +29,9 @@ export class NominaHistoricasComponent implements OnInit {
 
   public anioactual:number = new Date().getFullYear();
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   public mes:string[] = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
   public reporteindex:number = 1;
   public mesIndex:number = 0;
@@ -42,6 +45,10 @@ export class NominaHistoricasComponent implements OnInit {
     private modalPrd: ModalService) { }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    
     let objEnviar = {
       clienteId: this.usuarioSistemaPrd.getIdEmpresa()
     }

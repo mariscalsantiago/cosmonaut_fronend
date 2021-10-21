@@ -31,7 +31,8 @@ export class EmpresasComponent implements OnInit {
   public objModificar: any = [];
 
 
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public datosempresa: any = {
     clienteId: this.usuarioSistemaPrd.getIdEmpresa()
@@ -44,6 +45,10 @@ export class EmpresasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    
     this.datosempresa.empresa = history.state.data == undefined ? {} : history.state.data;
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');

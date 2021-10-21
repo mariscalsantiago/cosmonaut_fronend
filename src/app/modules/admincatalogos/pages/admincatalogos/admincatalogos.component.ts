@@ -61,11 +61,16 @@ export class AdminCatalogosComponent implements OnInit {
   public esRegistrar:boolean = false;
   public esEditar:boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(private routerPrd: Router, private adminCatalogosPrd: AdminCatalogosService,
      private modalPrd: ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
     this.establecerPermisos();
     

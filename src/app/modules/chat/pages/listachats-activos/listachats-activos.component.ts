@@ -31,6 +31,9 @@ export class ListachatsActivosComponent implements OnInit {
 
   public mensajes: any = [];
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   public cargando: boolean = false;
   public suscripcion!: Subscription;
   constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
@@ -39,6 +42,10 @@ export class ListachatsActivosComponent implements OnInit {
     private notificacionesPrd: NotificacionesService) { }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    
     this.notificacionesPrd.notificacionesMenu = 0;
     this.cargando = true;
 

@@ -31,13 +31,17 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public esDomingo:boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService,
     public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
-
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
     this.myForm = this.createForms({});
 

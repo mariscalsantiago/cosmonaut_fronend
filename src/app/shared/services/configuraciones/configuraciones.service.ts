@@ -44,6 +44,7 @@ export class ConfiguracionesService {
   public menu: boolean = false;
   public MENUPRINCIPAL:any = undefined;
   public VISTOS_RECIENTE:any = [];
+  public breadcrum: any = [];
   public modulosCargados!:Array<Number>;
 
   public static referencia:ConfiguracionesService;

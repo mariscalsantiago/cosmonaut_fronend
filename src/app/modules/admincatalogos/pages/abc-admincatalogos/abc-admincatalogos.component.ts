@@ -66,6 +66,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public activaClaveNumerica: boolean = false;
   public todayF : string = '';
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -86,7 +89,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   ngOnInit(): void {
 
     
-    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo;
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo;
     this.periodo = "";
     
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;

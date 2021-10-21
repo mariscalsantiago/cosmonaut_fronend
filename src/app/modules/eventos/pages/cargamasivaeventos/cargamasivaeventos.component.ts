@@ -48,6 +48,8 @@ export class CargaMasivaEventosComponent implements OnInit {
   public idArea: number = 0;
   public personaId: number = 0;
   public nomEmpleado: string="";
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public arreglotabla:any = {
     columnas:[],
@@ -66,6 +68,8 @@ export class CargaMasivaEventosComponent implements OnInit {
  
   ngOnInit(): void {
     this.establecerPermisos();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.obj = history.state.datos == undefined ? {} : history.state.datos;
