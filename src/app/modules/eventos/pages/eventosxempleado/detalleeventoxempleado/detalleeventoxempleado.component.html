@@ -1,20 +1,10 @@
 <div class="row margen">
-      <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+    <div class="col titulo-outlet">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button>
-        </div>  
-        <li ><a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab"> 
-            {{modulo}} ></a>
-        </li>
-        <li >
-            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
-            (click)="cancelar()" >{{subModulo}} ></a>
-        </li>
-        <li><a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab"> 
-            AGREGAR EVENTO </a>
-        </li>
-    </ul> 
+        </button></div>
+        <label>{{modulo}} > {{subModulo}} > AGREGAR EVENTO</label>
+    </div>
 </div>
 <hr>
 
