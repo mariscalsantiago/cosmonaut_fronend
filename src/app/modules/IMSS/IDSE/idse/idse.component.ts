@@ -317,7 +317,7 @@ export class IDSEComponent implements OnInit {
   }
   
   public enviarIdse() {
-    
+    debugger;
     let mensaje = `¿Deseas enviar estos registros a IDSE?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
@@ -333,17 +333,13 @@ export class IDSEComponent implements OnInit {
 
           }
         }
-
+        this.arregloEnvioIDSE = [];
         this.arregloEnvioIDSE = { 
           clienteId: this.idEmpresa,
           registroPatronal: this.registroPatronalIdse,
           idCsd: this.idCsd,
           movimientosKardexIds: valor
         }
-
-
-
-        console.log(JSON.stringify(this.arregloEnvioIDSE));
 
         debugger;
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
