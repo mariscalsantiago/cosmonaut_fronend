@@ -344,7 +344,7 @@ export class IDSEComponent implements OnInit {
         debugger;
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-        this.empresasPrd.filtrarVariabilidad(this.arregloEnvioIDSE).subscribe(archivo => {
+        this.empresasPrd.afiliaRecepcionIdse(this.arregloEnvioIDSE).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if(archivo.resultado){
 
