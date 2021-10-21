@@ -29,12 +29,18 @@ export class NominaPTUComponent implements OnInit {
   public esTimbrar: boolean = false;
   public esDescargar: boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService, private empleadoPrd: EmpleadosService, private usuariSistemaPrd: UsuarioSistemaService,
     private nominaPtuPrd: NominaptuService, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
 
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    
     this.traerListaNomina();
     this.establecerPermisos();
   }

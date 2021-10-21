@@ -78,6 +78,8 @@ export class VariabilidadComponent implements OnInit {
     public anioFiltro: string = "";
     public bimestre: string = "";
 
+    public modulo: string = "";
+    public subModulo: string = "";
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
@@ -86,7 +88,9 @@ export class VariabilidadComponent implements OnInit {
 
   ngOnInit(): void {
     
-    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     this.idUsuario = this.usauriosSistemaPrd.getUsuario();
     this.idUsuario = this.idUsuario.usuarioId;

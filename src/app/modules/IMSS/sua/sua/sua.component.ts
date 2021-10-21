@@ -51,12 +51,17 @@ export class SuaComponent implements OnInit {
     public fechaMax: Date =  new Date('0000-00-00');
     public movimiento: number = 0;
 
+    public modulo: string = "";
+    public subModulo: string = "";
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);

@@ -48,6 +48,8 @@ export class NoticiasComponent implements OnInit {
     filas: []
   };
 
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public esRegistrar: boolean = false;
   public esConsultar: boolean = false;
@@ -56,6 +58,7 @@ export class NoticiasComponent implements OnInit {
 
   public cargandoBotones: boolean = false;
   public activarMultiseleccion: boolean = false;
+  
 
 
   constructor(
@@ -68,6 +71,10 @@ export class NoticiasComponent implements OnInit {
     private serviceNoticia: NoticiasService) { }
 
   ngOnInit(): void {
+
+
+    this.modulo = this.configuracion.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracion.breadcrum.nombreSubmodulo.toUpperCase();
 
     this.usuario = this.serviceUsuario.getUsuario();
 

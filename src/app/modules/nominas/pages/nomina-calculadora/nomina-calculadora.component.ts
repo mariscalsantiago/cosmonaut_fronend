@@ -39,11 +39,17 @@ export class NominaCalculadoraComponent implements OnInit {
   public titulosueldo:string = "bruto";
   public resultCalculo: any = [];
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(private modalPrd: ModalService, private formbuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private politicaPrd: PoliticasService, private usuarioSistemaPrd: UsuarioSistemaService,
     public configuracionPrd:ConfiguracionesService, private grupoNominaPrd: GruponominasService,) { }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
     
     this.myForm = this.crearFormulario();
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();

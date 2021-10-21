@@ -35,12 +35,17 @@ export class MovimientosComponent implements OnInit {
       filas:[]
   };
 
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit() {
+    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     this.filtrar();
   }

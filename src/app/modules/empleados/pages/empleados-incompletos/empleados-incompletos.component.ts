@@ -22,12 +22,16 @@ export class EmpleadosIncompletosComponent implements OnInit {
   public esConsultar:boolean = false;
   public esEditar:boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(private empleadosPrd:EmpleadosService,private usuariosSistemaPrd:UsuarioSistemaService ,
     private router:Router,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
-    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
     this.cargando = true;
 

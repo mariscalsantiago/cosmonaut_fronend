@@ -26,6 +26,8 @@ export class DetalleRolesComponent implements OnInit {
   public numeroEmpleados!: number;
   public previoStatusRol: boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(private rolesPrd: RolesService, private fb: FormBuilder,
     private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
@@ -34,9 +36,11 @@ export class DetalleRolesComponent implements OnInit {
   ngOnInit(): void {
 
 
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+
     this.objrol = history.state.datos;
 
-    console.log("tiene empleados", this.objrol);
 
     this.actualizar = Boolean(this.objrol);
     this.myForm = this.createForm(this.objrol);

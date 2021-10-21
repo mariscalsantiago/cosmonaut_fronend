@@ -64,8 +64,8 @@ export class UsuariosComponent implements OnInit {
   public elementos:number = 0;
   public pagina:number = 0;
 
-
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public activarMultiseleccion: boolean = false;
 
@@ -76,6 +76,9 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    
     this.establecerPermisos();
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");

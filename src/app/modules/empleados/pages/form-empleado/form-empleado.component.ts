@@ -44,6 +44,9 @@ export class FormEmpleadoComponent implements OnInit {
     insertar: this.insertar
   };
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   public cambiaValor: boolean = false;
 
   constructor(private routerPrd: Router, private reportesPrd: ReportesService,
@@ -51,6 +54,9 @@ export class FormEmpleadoComponent implements OnInit {
     private ventana:VentanaemergenteService,private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
     
     let temp =  history.state.datos;
     

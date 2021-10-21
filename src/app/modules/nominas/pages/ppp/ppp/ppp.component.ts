@@ -45,7 +45,8 @@ export class PPPComponent implements OnInit {
   public tamanio = 0;
   public changeIconDown: boolean = false;
 
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public arreglotabla: any = {
     columnas: [],
@@ -61,6 +62,9 @@ export class PPPComponent implements OnInit {
     private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    
     let documento: any = document.defaultView;
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.tamanio = documento.innerWidth;

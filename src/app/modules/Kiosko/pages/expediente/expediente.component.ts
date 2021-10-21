@@ -27,6 +27,8 @@ export class ExpedienteComponent implements OnInit {
   public arreglo: any = [];
   public arregloDocumentos:any = [];
   public tipodocumento:string = "";
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(public configuracionPrd: ConfiguracionesService, private empleadosPrd: EmpleadosService,
     private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
@@ -35,6 +37,9 @@ export class ExpedienteComponent implements OnInit {
   ngOnInit(): void {
 
     this.cargando = true;
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
     this.documentosPrd.getDocumentosEmpleado().subscribe(datos => this.arregloDocumentos = datos.datos);
     this.empleadosPrd.getPersonaByCorreo(this.usuariosSistemaPrd.usuario.correo, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {

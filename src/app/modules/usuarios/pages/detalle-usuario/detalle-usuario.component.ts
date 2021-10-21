@@ -48,6 +48,9 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public desabilitarTodo: boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
 
   constructor(private formBuilder: FormBuilder, private usuariosPrd: UsuarioService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private modalPrd: ModalService, private rolesPrd: RolesService,
@@ -62,6 +65,9 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");

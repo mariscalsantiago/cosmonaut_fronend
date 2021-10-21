@@ -27,12 +27,18 @@ export class TimbradoEmpleadosComponent implements OnInit {
 
   public arreglo: any = [];
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(public configuracionPrd: ConfiguracionesService, private empleadosPrd: EmpleadosService,
     private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
     private documentosPrd: DocumentosService, private sobrePadoPrd: TimbradoEmpleadoService,
     private contratoColaboradorPrd: ContratocolaboradorService, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 
     this.cargando = true;
     this.empleadosPrd.getPersonaByCorreo(this.usuariosSistemaPrd.usuario.correo, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {

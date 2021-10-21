@@ -17,6 +17,8 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 export class DetalleempresasComponent implements OnInit {
 
   public titulo:string = `CONFIGURACIÓN EMPRESA`;
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(public configuracionPrd:ConfiguracionesService) {
 
@@ -24,6 +26,9 @@ export class DetalleempresasComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+
     let mm:any = document.getElementById("navegadorTabs");
     mm.scrollLeft = this.configuracionPrd.getScrollCompany(mm.scrollLeft);
     mm.addEventListener('scroll', ()=> {
