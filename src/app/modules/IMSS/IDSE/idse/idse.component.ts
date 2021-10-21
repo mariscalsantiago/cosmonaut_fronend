@@ -337,6 +337,10 @@ export class IDSEComponent implements OnInit {
         }
 
 
+
+        console.log(JSON.stringify(this.arregloEnvioIDSE));
+
+        debugger;
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
         this.empresasPrd.afiliaRecepcionIdse(this.arregloEnvioIDSE).subscribe(archivo => {
