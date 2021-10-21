@@ -327,7 +327,7 @@ export class IDSEComponent implements OnInit {
         for (let item of this.arreglo) {
           this.registroPatronalIdse = item.registro_patronal;
           this.idCsd = item.credencialesImssId;
-          if (item["seleccionado"]) {
+          if (item["seleccionado"] && item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Aceptado') {
 
             valor.push(item.kardex_colaborador_id);
 
@@ -431,6 +431,7 @@ export class IDSEComponent implements OnInit {
         
         break;
         case "filaseleccionada":
+          debugger;
           this.activarMultiseleccion = obj.datos;
           
         break;

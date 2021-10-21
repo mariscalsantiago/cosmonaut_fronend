@@ -489,6 +489,7 @@ export class TablapaginadoComponent implements OnInit,OnDestroy {
 
 
   public seleccionarTodos() {
+    debugger;
     for (let item of this.arreglotemp) {
       item.seleccionado = !this.seleccionarGlobal;
     }
