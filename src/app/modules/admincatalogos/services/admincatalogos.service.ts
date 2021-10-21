@@ -79,7 +79,7 @@ export class AdminCatalogosService {
   }
 
   public getListaReferencia():Observable<any>{
-    return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia/true`);
+    return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia`);
   }
 
   public getListaReferenciaInactivos(anio:number):Observable<any>{
