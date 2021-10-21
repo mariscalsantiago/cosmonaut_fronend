@@ -15,7 +15,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 })
 export class ABCAdminCatalogosComponent implements OnInit {
   @ViewChild("fechaFin") fechaFinRef!: ElementRef;
-  @ViewChild("fechaInicio") fechaInicioRef!: ElementRef;
+  //@ViewChild("fechaInicio") fechaInicioRef!: ElementRef;
 
   public cargando: Boolean = false;
   public tipoguardad: boolean = false;
@@ -370,8 +370,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     const datepipe = new DatePipe("es-MX");
     let diamaximo = datepipe.transform(new Date, "yyyy-MM-dd")
-    this.fechaInicioRef.nativeElement.max = diamaximo;
-    this.fechaFinRef.nativeElement.max = diamaximo;
+    //this.fechaInicioRef.nativeElement.max = diamaximo;
+    //this.fechaFinRef.nativeElement.max = diamaximo;
 
 
   }
