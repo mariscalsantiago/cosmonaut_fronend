@@ -225,37 +225,68 @@ export class IDSEComponent implements OnInit {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
               const downloadLink = document.createElement("a");
-              const fileName = `${"Layaout  IDSE"}.txt`;
+              const fileName = `${"Txt de envio IDSE"}.txt`;
       
               downloadLink.href = linkSource;
               downloadLink.download = fileName;
               downloadLink.click();
-              if (archivo) {
-                for (let item of this.arregloIDSE.idKardex) {
-                  for (let item2 of this.arreglo) {
-                    if (item2.kardex_colaborador_id === item) {
-                      item2["seleccionado"] = false;
-                      break;
-                    }
-                  }
-                }
-                
-                this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
-                  this.arreglo = datos.datos;
-              
-                  this.traerTabla({ datos: this.arreglo });
-              
-                  this.cargando = false;
-                });
-                this.activarMultiseleccion = false;
-              }
             });
-         
-    
           }
         });
       }
 
+      public descargaAcuseRespuesta(obj: any) {
+
+        let mensaje = `¿Deseas descargar el acuse de respuesta?`;
+    
+        this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
+          if (valor) {
+    
+            let ID = obj.kardex_colaborador_id;
+  
+    
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    
+            this.empresasPrd.getAcuseRespuesta(ID).subscribe(archivo => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
+              const downloadLink = document.createElement("a");
+              const fileName = `${"Acuse de respuesta"}.pdf`;
+      
+              downloadLink.href = linkSource;
+              downloadLink.download = fileName;
+              downloadLink.click();
+            });
+          }
+        });
+      }
+
+      public descargaAcuseMovimiento(obj: any) {
+
+        let mensaje = `¿Deseas descargar el acuse de envio?`;
+    
+        this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
+          if (valor) {
+    
+            let ID = obj.kardex_colaborador_id;
+  
+    
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    
+            this.empresasPrd.getAcuseMovimiento(ID).subscribe(archivo => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
+              const downloadLink = document.createElement("a");
+              const fileName = `${"Acuse de envio"}.pdf`;
+      
+              downloadLink.href = linkSource;
+              downloadLink.download = fileName;
+              downloadLink.click();
+            });
+          }
+        });
+      }
+      
   public guardarMultiseleccion() {
     
     let mensaje = `¿Deseas descargar el archivo de lo seleccionado?`;
@@ -352,15 +383,6 @@ export class IDSEComponent implements OnInit {
         this.empresasPrd.afiliaRecepcionIdse(this.arregloEnvioIDSE).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           if(archivo.resultado){
-
-/*               for (let item of this.arregloEnvioIDSE.movimientosKardexIds) {
-                for (let item2 of this.arreglo) {
-                  if (item2.kardex_colaborador_id === item) {
-                    item2["seleccionado"] = false;
-                    break;
-                  }
-                }
-              } */
               this.modalPrd.showMessageDialog(archivo.resultado,archivo.mensaje)
               .then(()=> {
             
@@ -444,7 +466,14 @@ export class IDSEComponent implements OnInit {
           
           this.descargaArchivoTxtItem(obj.datos);
           break;
-
+        case "acuseRespuesta":
+          
+          this.descargaAcuseRespuesta(obj.datos);
+          break;     
+        case "acuseMovimiento":
+          
+          this.descargaAcuseMovimiento(obj.datos);
+          break;
         
     }
 
