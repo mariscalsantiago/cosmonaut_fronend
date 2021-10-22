@@ -491,6 +491,8 @@ export class TablapaginadoComponent implements OnInit,OnDestroy {
   public seleccionarTodos() {
     debugger;
     for (let item of this.arreglotemp) {
+      if(item.estatus === 'En proceso' && item.estatus === 'En validación' && item.estatus === 'Aceptado')
+      continue;
       item.seleccionado = !this.seleccionarGlobal;
     }
 
