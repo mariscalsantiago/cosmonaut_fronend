@@ -26,8 +26,8 @@ export class DetalleempresasComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
-    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     let mm:any = document.getElementById("navegadorTabs");
     mm.scrollLeft = this.configuracionPrd.getScrollCompany(mm.scrollLeft);
@@ -35,9 +35,17 @@ export class DetalleempresasComponent implements OnInit {
       
       mm.scrollLeft = this.configuracionPrd.getScrollCompany(mm.scrollLeft);
     })
+
+
+
+
+
   }
 
   public getConfiguracion(){
+
+
+    
     
     
   }
