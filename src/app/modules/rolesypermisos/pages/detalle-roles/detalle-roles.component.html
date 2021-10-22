@@ -3,7 +3,8 @@
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
         </button></div>
-        <label>{{modulo}} > {{subModulo}} > ROLES</label>    
+
+            <label>{{modulo}} > {{subModulo}} > ROLES</label>    
     </div>
 </div>
 
@@ -49,6 +50,12 @@
                                 <button type="button" style="margin-left: 10px;" (click)="cambiarStatus(indice)" class="btn btn-link"  aria-controls="detallepago">
 
                                     {{item.nombreModulo}}
+                                    <!-- <i aria-hidden="true" *ngIf="!item.seleccionado" 
+                                        aria-expanded="true" aria-controls="collapseOne"
+                                        class="icon_24flechaabajo bg-primary "></i>
+                                        
+                                    <i aria-hidden="true" *ngIf="item.seleccionado" 
+                                        aria-expanded="true" aria-controls="collapseOne" class="icon_24flechaarriba bg-primary"></i> -->
                                 </button>
                             </h5>
                         </div>
