@@ -377,6 +377,14 @@ export class TablapaginadoComponent implements OnInit,OnDestroy {
     this.salida.emit({ type: "txtImss", datos: item, indice: indice });
   }
 
+  public verAcuseRespuesta(item: any, indice: number) {
+    this.salida.emit({ type: "acuseRespuesta", datos: item, indice: indice });
+  }
+
+  public verAcuseMovimiento(item: any, indice: number) {
+    this.salida.emit({ type: "acuseMovimiento", datos: item, indice: indice });
+  }
+
   public ordenar(item: any) {
     
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
