@@ -55,13 +55,13 @@ export class EmpresasService {
 
   public getAcuseRespuesta(idKardex:number):Observable<any>{
     
-    return this.http.get(`${this.url}/tectel/comprobante/constancia/${idKardex}`);
+    return this.http.get(`${direcciones.tectel}/comprobante/constancia/${idKardex}`);
   
 
   }
   public getAcuseMovimiento(idKardex:number):Observable<any>{
     
-    return this.http.get(`${this.url}/tectel/comprobante/acuse/${idKardex}`);
+    return this.http.get(`${direcciones.tectel}/comprobante/acuse/${idKardex}`);
   
 
   }
