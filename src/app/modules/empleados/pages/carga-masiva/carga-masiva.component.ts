@@ -61,8 +61,8 @@ export class CargaMasivaComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
-    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.establecerPermisos();
 

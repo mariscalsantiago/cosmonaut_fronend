@@ -37,8 +37,8 @@ export class TimbradoEmpleadosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
-    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.cargando = true;
     this.empleadosPrd.getPersonaByCorreo(this.usuariosSistemaPrd.usuario.correo, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {

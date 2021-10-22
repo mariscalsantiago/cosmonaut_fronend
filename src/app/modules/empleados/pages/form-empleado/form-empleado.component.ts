@@ -55,8 +55,8 @@ export class FormEmpleadoComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
-    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     
     let temp =  history.state.datos;
     

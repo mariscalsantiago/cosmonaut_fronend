@@ -67,8 +67,8 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
-    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     
    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
    this.establecerPermisos();
