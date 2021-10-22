@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from "moment";
 import { tabla } from 'src/app/core/data/tabla';
 import { Noticia } from 'src/app/core/modelos/noticia';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
@@ -96,7 +97,7 @@ export class NoticiasComponent implements OnInit {
         this.serviceNoticia.getNoticiasCliente(this.usuario?.centrocClienteId).subscribe(
           (response) => {
             if (!!response.resultado && !!response.datos) {
-              this.noticias = response.datos;
+              this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
               this.procesarTabla();
             }
 
@@ -109,7 +110,7 @@ export class NoticiasComponent implements OnInit {
         this.serviceNoticia.getNoticiasEmpresa(this.usuario?.centrocClienteId).subscribe(
           (response) => {
             if (!!response.resultado && !!response.datos) {
-              this.noticias = response.datos;
+              this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
               this.procesarTabla();
             }
 
@@ -123,7 +124,7 @@ export class NoticiasComponent implements OnInit {
       this.serviceNoticia.getNoticiasCosmonaut().subscribe(
         (response) => {
           if (!!response.resultado && !!response.datos) {
-            this.noticias = response.datos;
+            this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
             this.procesarTabla();
           }
 

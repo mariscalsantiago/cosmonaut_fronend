@@ -232,6 +232,8 @@ export class DatosimssComponent implements OnInit {
     }
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
+    debugger;
+
     if (!Boolean(this.arregloImss?.registroPatronalId)) {
 
       this.imssPrd.save(this.objenviar).subscribe(datos => {
@@ -245,6 +247,8 @@ export class DatosimssComponent implements OnInit {
     } else {
 
       this.objenviar.registroPatronalId = this.arregloImss.registroPatronalId;
+      console.log(JSON.stringify(this.objenviar));
+      debugger;
       this.imssPrd.modificar(this.objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
             if (datos.resultado) {
