@@ -78,8 +78,8 @@ export class AdminCatalogosService {
     return this.http.get(`${this.url}/csTipoDeduccion/listar/todosActivo/${estatus}`);
   }
 
-  public getListaReferencia(anio:number):Observable<any>{
-    return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia/true/${anio}`);
+  public getListaReferencia():Observable<any>{
+    return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia`);
   }
 
   public getListaReferenciaInactivos(anio:number):Observable<any>{

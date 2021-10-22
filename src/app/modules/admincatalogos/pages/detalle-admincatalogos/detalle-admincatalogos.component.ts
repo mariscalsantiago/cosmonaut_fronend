@@ -322,19 +322,20 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       this.cargando = true;
       let fecha = new Date();
       let anio = fecha.getFullYear();
-       this.adminCatalogosPrd.getListaReferencia(anio).subscribe(datos => {
+       this.adminCatalogosPrd.getListaReferencia().subscribe(datos => {
+         debugger;
         if(datos.datos != undefined){
           this.listaTablas = datos.datos
           }  
-        this.adminCatalogosPrd.getListaReferenciaInactivos(anio).subscribe(datosFa => {
+/*         this.adminCatalogosPrd.getListaReferenciaInactivos(anio).subscribe(datosFa => {
           if(datosFa.datos != undefined){
             this.listaTablasFinal = datosFa.datos
             } 
           for(let item of this.listaTablas){
             this.listaTablasFinal.push(item);
-          }  
-        this.crearTabla(this.listaTablasFinal);
-        });
+          } */ 
+        this.crearTabla(this.listaTablas);
+        //}); 
        });
 
     }

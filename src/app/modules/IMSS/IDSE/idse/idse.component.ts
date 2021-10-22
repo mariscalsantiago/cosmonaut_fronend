@@ -327,14 +327,20 @@ export class IDSEComponent implements OnInit {
         for (let item of this.arreglo) {
           this.registroPatronalIdse = item.registro_patronal;
           this.idCsd = item.credencialesImssId;
-          if (item["seleccionado"]) {
+          if (item["seleccionado"] && item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Aceptado') {
 
             valor.push(item.kardex_colaborador_id);
 
           }
         }
+        if(valor === undefined){
+          this.modalPrd.showMessageDialog(this.modalPrd.error,"No es ha seleccionado ningun archivo a enviar");
+            return;
+        }
+
         this.arregloEnvioIDSE = [];
         this.arregloEnvioIDSE = { 
+
           clienteId: this.idEmpresa,
           registroPatronal: this.registroPatronalIdse,
           idCsd: this.idCsd,
@@ -431,6 +437,7 @@ export class IDSEComponent implements OnInit {
         
         break;
         case "filaseleccionada":
+          debugger;
           this.activarMultiseleccion = obj.datos;
           
         break;
