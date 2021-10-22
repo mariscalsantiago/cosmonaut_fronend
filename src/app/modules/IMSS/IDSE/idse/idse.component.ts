@@ -6,7 +6,6 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { DatePipe } from '@angular/common';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({
