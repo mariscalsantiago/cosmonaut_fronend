@@ -208,7 +208,7 @@ export class TablapaginadoComponent implements OnInit,OnDestroy {
 
     this.activarAntes = !(indice === 0 && this.indice === 0);
 
-    const elementosTotalArreglo = this.arreglotemp.length;
+    const elementosTotalArreglo = this.paginado_server?this.total:this.arreglotemp.length;
 
 
     if (indice == 2) {
@@ -261,7 +261,9 @@ export class TablapaginadoComponent implements OnInit,OnDestroy {
 
   public pasarSiguienteItem(tipoSiguiente: boolean) {
 
+    debugger;
     let indicePagina = this.verificarIndice();
+    
 
     if (tipoSiguiente) {
       if (indicePagina == 2) {
