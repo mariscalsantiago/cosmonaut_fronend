@@ -51,7 +51,7 @@ export class IDSEComponent implements OnInit {
     public apellidoPat: string = "";
     public apellidoMat: string = "";
     public numeroEmpleado: string = "";
-    public fechaMovimiento: Date =  new Date('0000-00-00');
+    public fechaMovimiento: Date = new  Date('0000-00-00');
     public movimiento: number = 0;
     public esActivo : number = 0;
 
@@ -123,7 +123,7 @@ export class IDSEComponent implements OnInit {
 
   public filtrar() {
 
-    
+    debugger;
 
     this.cargando = true;
     this.objFiltro = {};
@@ -137,7 +137,6 @@ export class IDSEComponent implements OnInit {
       ...this.objFiltro,
       registroPatronal: this.registroPatronal
     };
-     this.registroPatronal = '';
     }
 
     if(this.nombre != ''){
@@ -145,28 +144,24 @@ export class IDSEComponent implements OnInit {
         ...this.objFiltro,
         nombre: this.nombre
       };
-      this.nombre = '';
       }
       if(this.apellidoPat != ''){
         this.objFiltro = {
           ...this.objFiltro,
           apellidoPat: this.apellidoPat
         };
-        this.apellidoPat = '';
         }
         if(this.apellidoMat != ''){
           this.objFiltro = {
             ...this.objFiltro,
             apellidoMat: this.apellidoMat
           };
-          this.apellidoMat = '';
         }
         if(this.numeroEmpleado != ''){
           this.objFiltro = {
             ...this.objFiltro,
             numeroEmpleado: this.numeroEmpleado
           };
-          this.numeroEmpleado = '';
         }
         if(this.movimiento != 0){
           this.objFiltro = {
@@ -180,8 +175,7 @@ export class IDSEComponent implements OnInit {
           clienteId: this.idEmpresa,
           fechaMovimiento: this.fechaMovimiento
         };
-        this.fechaMovimiento = new Date('0000-00-00');
-  
+
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 
