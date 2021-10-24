@@ -70,7 +70,7 @@ export class CompanyComponent implements OnInit {
   constructor(private routerPrd: Router, private companyProd: CompanyService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
 

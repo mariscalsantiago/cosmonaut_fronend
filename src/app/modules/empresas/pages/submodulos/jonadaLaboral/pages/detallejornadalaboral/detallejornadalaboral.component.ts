@@ -49,7 +49,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
     let objdetrep = history.state.data == undefined ? {} : history.state.data;
     if (!this.esInsert) {
-      debugger;
+      
       this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa, objdetrep.jornadaId).subscribe(datos => {
         this.arreglodetalleJornada = datos.datos
         console.log(this.arreglodetalleJornada);
@@ -678,7 +678,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
 
   public hrInicioComida(response: any) {
-    debugger;
+    
 
     if (response.value !== undefined) {
       this.hrComida = Number(response.value.substring(0, 2));

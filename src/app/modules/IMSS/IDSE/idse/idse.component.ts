@@ -347,7 +347,7 @@ export class IDSEComponent implements OnInit {
   }
   
   public enviarIdse() {
-    debugger;
+    
     let mensaje = `¿Deseas enviar estos registros a IDSE?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
@@ -377,7 +377,7 @@ export class IDSEComponent implements OnInit {
           movimientosKardexIds: valor
         }
 
-        debugger;
+        
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
         this.empresasPrd.afiliaRecepcionIdse(this.arregloEnvioIDSE).subscribe(archivo => {
@@ -458,7 +458,7 @@ export class IDSEComponent implements OnInit {
         
         break;
         case "filaseleccionada":
-          debugger;
+          
           this.activarMultiseleccion = obj.datos;
           
         break;

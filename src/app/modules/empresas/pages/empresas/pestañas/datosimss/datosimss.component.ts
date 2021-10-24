@@ -80,7 +80,7 @@ export class DatosimssComponent implements OnInit {
 
 
   public validarUsuarioCerIMSS(obj:any){
-    debugger;
+    
     if(this.cerCargado === true && obj !==  "Usuario de certificado IMSS cargado"){
       if(this.myForm.controls.contrasenaCerIMSS.value ===  "12345"){
       this.myForm.controls.contrasenaCerIMSS.setValue('');
@@ -96,7 +96,7 @@ export class DatosimssComponent implements OnInit {
   }
 
   public validarCerIMSS(obj:any){
-    debugger;
+    
     if(this.cerCargado === true && obj !==  "Certificado IMSS digital cargado"){
 
       if(this.myForm.controls.contrasenaCerIMSS.value ===  "12345"){
@@ -112,7 +112,7 @@ export class DatosimssComponent implements OnInit {
   }
 
   public validarContrasenaCerIMSS(obj:any){
-    debugger;
+    
     if(this.cerCargado === true && obj !==  "12345"){
 
       if(this.myForm.controls.usuarioCerIMSS.value ===  "Usuario de certificado IMSS cargado"){
@@ -232,7 +232,7 @@ export class DatosimssComponent implements OnInit {
     }
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-    debugger;
+    
 
     if (!Boolean(this.arregloImss?.registroPatronalId)) {
 
@@ -248,7 +248,7 @@ export class DatosimssComponent implements OnInit {
 
       this.objenviar.registroPatronalId = this.arregloImss.registroPatronalId;
       console.log(JSON.stringify(this.objenviar));
-      debugger;
+      
       this.imssPrd.modificar(this.objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
             if (datos.resultado) {

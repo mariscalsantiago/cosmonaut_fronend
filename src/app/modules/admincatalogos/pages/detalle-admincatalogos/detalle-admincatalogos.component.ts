@@ -323,7 +323,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       let fecha = new Date();
       let anio = fecha.getFullYear();
        this.adminCatalogosPrd.getListaReferencia().subscribe(datos => {
-         debugger;
+         
         if(datos.datos != undefined){
           this.listaTablas = datos.datos
           }  

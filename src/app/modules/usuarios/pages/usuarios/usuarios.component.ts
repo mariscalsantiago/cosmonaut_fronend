@@ -271,7 +271,7 @@ export class UsuariosComponent implements OnInit {
 
 
 
-  public filtrar() {
+  public filtrar(repetir:boolean = false) {
 
     
 
@@ -311,12 +311,15 @@ export class UsuariosComponent implements OnInit {
       if(datos.datos){
         let arreglo:Array<any> = datos.datos.usuarios;
         if(arreglo)
-            arreglo.forEach(o => this.arreglo.push(o));
+           if(!repetir)
+              arreglo.forEach(o => this.arreglo.push(o));   
+            else 
+              this.arreglo = arreglo;
+              
 
         this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
       }
       this.procesarTabla();
-      console.log(this.arreglo);
       this.cargando = false;
     });
   }
@@ -339,7 +342,7 @@ export class UsuariosComponent implements OnInit {
         this.elementos = obj.datos.elementos;
         this.pagina = obj.datos.pagina;
         if(!this.cargando){
-          this.filtrar();
+          this.filtrar(obj.nuevos);
         }
         break;
     }

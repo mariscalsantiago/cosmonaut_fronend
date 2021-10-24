@@ -190,3 +190,21 @@ padding-bottom: 15px;
 .flechas:first-child{
     top:10px;
 }
+
+
+.cargandoPaginadoServer{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: #ffffffd9;
+    top: 51px;
+    height: 100px;
+    font-size: x-large;
+    padding-top: 33px;
+    z-index: 1;
+}
+
+.posicionRelativa{
+    position: relative;
+}
