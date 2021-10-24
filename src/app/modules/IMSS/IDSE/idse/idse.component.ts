@@ -123,7 +123,7 @@ export class IDSEComponent implements OnInit {
 
   public filtrar() {
 
-    
+    debugger;
 
     this.cargando = true;
     this.objFiltro = {};
@@ -165,7 +165,6 @@ export class IDSEComponent implements OnInit {
             ...this.objFiltro,
             numeroEmpleado: this.numeroEmpleado
           };
-          this.numeroEmpleado = '';
         }
         if(this.movimiento != 0){
           this.objFiltro = {
