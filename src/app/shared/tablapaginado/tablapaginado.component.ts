@@ -186,7 +186,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         primero = false;
       }
       this.acomodarPaginado();
-      debugger;
+      
       if (!this.paginado_server) {
         this.arreglo = this.arreglotemp.slice(0, Number(this.numeroitems));
       } else {

@@ -68,8 +68,8 @@ export class CargaMasivaEventosComponent implements OnInit {
  
   ngOnInit(): void {
     this.establecerPermisos();
-    this.modulo = this.configuracionPrd.breadcrum.nombreModulo.toUpperCase();
-    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo.toUpperCase();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.obj = history.state.datos == undefined ? {} : history.state.datos;
