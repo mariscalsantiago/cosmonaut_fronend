@@ -617,29 +617,41 @@ export class ABCAdminCatalogosComponent implements OnInit {
     let fechaFin = itemFecha.fechaFin; 
     if(property === 'fechaFin' ){
         fechaFin = editField;
+
+        if (fechaFin < fechaIn) {
+  
+          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser igual o mayor a la fecha inicio')
+            .then(() => {
+              editField= '';
+              this.arregloTablaValores[id][property] = editField;
+              this.valFecha = false;
+            });
+          return;  
+        }else{   
+          this.arregloTablaValores[id][property] = editField;
+          this.valFecha = true;
+          }
     }
     if(property === 'fechaInicio' ){
       fechaIn = editField;
-    }
-    if (fechaFin < fechaIn) {
+      if (fechaIn > fechaFin) {
   
-      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser igual o mayor a la fecha inicio')
-        .then(() => {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio debe ser igual o menor a la fecha fin')
+          .then(() => {
+            editField= '';
+            this.arregloTablaValores[id][property] = editField;
+            this.valFecha = false;
+          });
+        return;  
+      }
+      else{   
+        this.arregloTablaValores[id][property] = editField;
+        this.valFecha = true;
+        }
+    }
+        if (fechaIn === '' || fechaFin === '') {
           this.valFecha = false;
-        });
-      return;  
-    }
-    if (fechaIn > fechaFin) {
-  
-      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio debe ser igual o menor a la fecha fin')
-        .then(() => {
-          this.valFecha = false;
-        });
-      return;  
-    }
-    if (fechaIn === '' || fechaFin === '') {
-      this.valFecha = false;
-    }
+        }
     }else{   
     this.arregloTablaValores[id][property] = editField;
     this.valFecha = true;
