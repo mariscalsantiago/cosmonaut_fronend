@@ -66,6 +66,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public activaClaveDos : boolean = false;
   public activaClaveNumerica: boolean = false;
   public todayF : string = '';
+  public valFecha : boolean = true;
 
   public modulo: string = "";
   public subModulo: string = "";
@@ -604,18 +605,50 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    
+    debugger;
     let editField = event.target.textContent;
     if (property.includes('fecha')){
      editField = event.target.value;
     }
-      
+
+    let itemFecha = this.arregloTablaValores[id];
+    if(itemFecha.fechaFin !== undefined){
+    let fechaIn = itemFecha.fechaInicio;
+    let fechaFin = itemFecha.fechaFin; 
+    if(property === 'fechaFin' ){
+        fechaFin = editField;
+    }
+    if(property === 'fechaInicio' ){
+      fechaIn = editField;
+  }
+    if (fechaFin < fechaIn) {
+  
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser igual o mayor a la fecha inicio')
+        .then(() => {
+          editField= '';
+          this.arregloTablaValores[id][property] = editField;
+          this.valFecha = false;
+        });
+      return;  
+    }
+    if (fechaIn > fechaFin) {
+  
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio debe ser igual o menor a la fecha fin')
+        .then(() => {
+          editField= '';
+          this.arregloTablaValores[id][property] = editField;
+          this.valFecha = false;
+        });
+      return;  
+    }
+    }   
     this.arregloTablaValores[id][property] = editField;
+    this.valFecha = true;
   }
 
 
   public changeValue(id: number, property: string, event: any) {
-    
+    debugger;
     this.editField = event.target.textContent;
     if (property.includes('fecha')){
       this.editField = event.target.value;
@@ -721,9 +754,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
 
-
   public enviarPeticion() {
-    
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
