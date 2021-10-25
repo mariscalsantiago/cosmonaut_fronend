@@ -59,6 +59,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public nuevoaplicableISN : boolean = false;
   public submitActive = false;
   public periodo:string = "";
+  public estado:string = "";
   public especializacion = '';
   public fechaAlta: number = 0;
   public activaClaveCuatro : boolean = false;
@@ -268,8 +269,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      
+      debugger;
       this.descripcion = this.objdetrep.estado;
+      this.estado = this.objdetrep.estado;
       if(this.objdetrep.estadoId !== undefined){
       this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => {
          if (datos.datos !== undefined) {
