@@ -163,6 +163,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     } else {
       this.arreglo = undefined;
       this.arreglotemp = undefined;
+      this.paginadoServer_primeravez = false;
     }
 
 

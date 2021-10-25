@@ -20,6 +20,11 @@ export class NominasHistoricasService {
     return this.http.post(`${direcciones.nominasHistoricas}/filtrado`, json);
   }
 
+  public filtradoPaginado(obj: any,elementos:number,pagina:number): Observable<any> {
+    let json = JSON.stringify(obj);
+    return this.http.post(`${direcciones.nominasHistoricas}/filtrado/paginado/${elementos}/${pagina}`, json);
+  }
+
 
   public acumuladosPorConceptos(obj:any):Observable<any>{
     let json = JSON.stringify(obj);

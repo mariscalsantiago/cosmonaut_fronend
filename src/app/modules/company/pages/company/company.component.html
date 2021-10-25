@@ -73,7 +73,7 @@
                                         </select>
                                     </div>
                                     <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                                        <button type="button" id="btonFiltrarCompany" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                        <button type="button" id="btonFiltrarCompany" class="btn btn-primary button-outlet " (click)="filtrar(true)">Filtrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
             </div>
         </div>
         <div class="row margen margen-tabla background-panel">
-            <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [imagen]="true" [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+            <app-tablapaginado [datos]="arreglotabla" [paginado_server]="true" [editar]="esEditar" [imagen]="true" [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
 

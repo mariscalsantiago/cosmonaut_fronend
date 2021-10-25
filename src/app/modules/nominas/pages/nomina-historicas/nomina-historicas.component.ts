@@ -21,6 +21,8 @@ export class NominaHistoricasComponent implements OnInit {
       filas: []
     }
 
+    public arreglo:any = [];
+
   public cargando: boolean = false;
 
   public nombreNomina: string = "";
@@ -39,6 +41,10 @@ export class NominaHistoricasComponent implements OnInit {
 
 
 
+  public elementos:number = 0;
+  public pagina:number = 0;
+
+  public primeraVes:boolean = false;
 
   constructor(private nominashistoricasPrd: NominasHistoricasService, private usuarioSistemaPrd: UsuarioSistemaService,
     public configuracionPrd: ConfiguracionesService, private reportesPrd: ReportesService,
@@ -48,12 +54,9 @@ export class NominaHistoricasComponent implements OnInit {
 
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
-    
-    let objEnviar = {
-      clienteId: this.usuarioSistemaPrd.getIdEmpresa()
-    }
     this.cargando = true;
-    this.filtrar();  
+    this.primeraVes = true;
+        
   }
 
   public rellenarTablas(datos: any) {
@@ -64,9 +67,8 @@ export class NominaHistoricasComponent implements OnInit {
     new tabla("fechai", "Fecha")
     ];
 
-    if (datos.datos !== undefined) {
-      for (let item of datos.datos) {
-        console.log(item);
+    if (datos !== undefined) {
+      for (let item of datos) {
         item["anio"] = new DatePipe("es-MX").transform(item.fecha_inicio, "yyyy");
         item["fechai"] = new DatePipe("es-MX").transform(item.fecha_inicio, 'dd/MM/yyyy');
       }
@@ -75,7 +77,8 @@ export class NominaHistoricasComponent implements OnInit {
 
     this.arreglotabla = {
       columnas: columnas,
-      filas: datos.datos
+      filas: datos.datos,
+      totalRegistros:this.arreglotabla.totalRegistros
     }
   }
 
@@ -230,6 +233,14 @@ export class NominaHistoricasComponent implements OnInit {
           }
         });
         break;
+        case "paginado_cantidad":
+        this.elementos = obj.datos.elementos;
+        this.pagina = obj.datos.pagina;
+        if (!this.cargando || this.primeraVes) {
+          this.primeraVes = false;
+          this.filtrar(obj.nuevos);
+        }
+        break;
     }
   }
 
@@ -277,9 +288,8 @@ export class NominaHistoricasComponent implements OnInit {
   }
 
 
-  public filtrar() {
+  public filtrar(repetir:boolean = false) {
 
-    console.log(this.fecha,"Esta es la fecha");
 
     let objEnviar = {
       centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
@@ -289,13 +299,21 @@ export class NominaHistoricasComponent implements OnInit {
       fechaInicio: this.fecha || null
     }
 
-    console.log("Fcha de inicio",objEnviar);
-
-    this.cargando = true;
-    this.nominashistoricasPrd.filtrado(objEnviar).subscribe(datos => {
-
-      this.rellenarTablas(datos);
+    this.nominashistoricasPrd.filtradoPaginado(objEnviar,this.elementos,this.pagina).subscribe(datos => {
       this.cargando = false;
+      if(datos.datos){
+        let arreglo:Array<any> = datos.datos.lista;
+        if(arreglo)
+           if(!repetir)
+              arreglo.forEach(o => this.arreglo.push(o));   
+            else 
+              this.arreglo = arreglo;
+              
+
+        this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
+      }
+
+      this.rellenarTablas(this.arreglo);
     });
   }
 }
