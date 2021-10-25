@@ -68,6 +68,7 @@ export class UsuariosComponent implements OnInit {
   public subModulo: string = "";
 
   public activarMultiseleccion: boolean = false;
+  public primeraVez:boolean = false;
 
 
   constructor(private routerPrd: Router, public configuracionPrd:ConfiguracionesService,
@@ -273,7 +274,7 @@ export class UsuariosComponent implements OnInit {
 
 
 
-  public filtrar(repetir:boolean = false) {
+  public filtrar(repetir:boolean = false,desdeFiltrado:boolean = false) {
 
     
 
@@ -309,21 +310,30 @@ export class UsuariosComponent implements OnInit {
     
 
     this.cargando = true;
-    this.usuariosAuthPrd.filtrarUsuariosPaginado(peticion,this.elementos,this.pagina).subscribe(datos => {
-      if(datos.datos){
-        let arreglo:Array<any> = datos.datos.usuarios;
-        if(arreglo)
-           if(!repetir)
-              arreglo.forEach(o => this.arreglo.push(o));   
-            else 
-              this.arreglo = arreglo;
-              
+    if(!desdeFiltrado){
+      this.usuariosAuthPrd.filtrarUsuariosPaginado(peticion,this.elementos,this.pagina).subscribe(datos => {
+        if(datos.datos){
+          let arreglo:Array<any> = datos.datos.usuarios;
+          if(arreglo)
+             if(!repetir)
+                arreglo.forEach(o => this.arreglo.push(o));   
+              else 
+                this.arreglo = arreglo;
+                
+  
+          this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
+        }
+        this.procesarTabla();
+        this.cargando = false;
+      });
+    }else{
+      this.arreglotabla = {
+        reiniciar:desdeFiltrado || undefined
+      };
 
-        this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
-      }
-      this.procesarTabla();
-      this.cargando = false;
-    });
+      this.cargando = true;
+      this.primeraVez = true;
+    }
   }
 
 
@@ -343,7 +353,8 @@ export class UsuariosComponent implements OnInit {
       case "paginado_cantidad":
         this.elementos = obj.datos.elementos;
         this.pagina = obj.datos.pagina;
-        if(!this.cargando){
+        if(!this.cargando || this.primeraVez){
+          this.primeraVez = false;
           this.filtrar(obj.nuevos);
         }
         break;
