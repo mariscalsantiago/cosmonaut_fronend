@@ -473,14 +473,15 @@
     <div class="text-center margin" style="margin-bottom: 20px;">
 
         <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-        <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="!valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill disabled">Guardar</button>
     </div>
 
 </div>
 <div *ngIf="aplicableISN">
     <div class="card margen margen-tabla background-panel ">
         <div class="form-group row margen">
-            <label class="titulo">IMPUESTO SOBRE NOMINA {{estado | uppercase}}</label>
+            <label class="titulo">IMPUESTO SOBRE NÓMINA {{estado | uppercase}}</label>
         </div>
         <div class="card-body">
             <div id="table" class="table-editable ">
@@ -510,7 +511,6 @@
                         <td>
                             <input #isn id="isn" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tasaAplicableIsnId, 'fechaInicio', $event)" (blur)="updateList(tasaAplicableIsnId, 'fechaInicio', $event)">
                         </td>
-
                     </tr>
 
                 </table>
@@ -581,7 +581,8 @@
     <div class="text-center margin" style="margin-bottom: 20px;">
 
         <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-        <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="!valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill disabled">Guardar</button>
     </div>
 
 </div>
