@@ -393,13 +393,13 @@
                         <div *ngFor="let item of arregloareasgeograficas">
 
                             <label class="contenedorInputCheckRadio">{{item.descripcion}}
-                                <input  [ngClass]="{'is-invalid':f.areaGeograficaId.errors && f.areaGeograficaId.touched}"
+                                <input  style="border: 1px solid #df4351;" [ngClass]="{'is-invalid':f.areaGeograficaId.errors && f.areaGeograficaId.touched}"
                                     formControlName="areaGeograficaId" name="areaGeograficaId" type="radio"
                                     [value]="item.areaGeograficaId" [id]="item.nombreCorto">
                                 <span class="radiomark"></span>
                             </label>
 
-                            <div class="invalid-feedback">
+                            <div *ngIf="f.areaGeograficaId.errors && f.areaGeograficaId.touched" style="display: block;" class="invalid-feedback">
                                 Campo requerido
                             </div>
                         </div>

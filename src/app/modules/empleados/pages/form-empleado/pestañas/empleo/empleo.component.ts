@@ -28,7 +28,7 @@ export class EmpleoComponent implements OnInit {
   @ViewChild("fechaAntiguedad") fechaAntiguedadElemento!: ElementRef;
   @ViewChild("fechaInicioCont") fechaInicioCont!: ElementRef;
   @ViewChild("fechaFinCont") fechaFinCont!: ElementRef;
-  @ViewChild("sueldoppp") sueldoppp!:ElementRef;
+  @ViewChild("sueldoppp") sueldoppp!: ElementRef;
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;
   @Input() arregloEnviar: any;
@@ -95,8 +95,8 @@ export class EmpleoComponent implements OnInit {
 
 
 
-    
-    
+
+
 
 
 
@@ -106,13 +106,13 @@ export class EmpleoComponent implements OnInit {
 
     if (this.tabsDatos[3] !== undefined) {
       this.myForm = this.createForm(this.tabsDatos[3]);
-      
+
       this.areasPrd.getPuestoByArea(this.id_empresa, this.myForm.controls.areaId.value).subscribe(datos => {
 
         this.arregloPuestos = datos.datos;
         this.myForm.controls.puestoId.enable();
       });
-      
+
     } else {
       this.myForm = this.createForm(this.obj);
     }
@@ -126,7 +126,7 @@ export class EmpleoComponent implements OnInit {
         this.myForm.controls.salarioDiarioIntegrado.setValue(this.tabsDatos[3].sbc);
         this.myForm.controls.salarioNetoMensualImss.setValue(this.tabsDatos[3].sueldoNetoMensual);
         this.myForm.controls.pagoComplementario.setValue(this.tabsDatos[3].pppMontoComplementario);
-  
+
       }
     });
 
@@ -144,7 +144,7 @@ export class EmpleoComponent implements OnInit {
     this.catalogosPrd.getAllEstados(true).subscribe(datos => this.arregloEstados = datos.datos);
     this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
 
-    
+
     this.suscripciones();
 
   }
@@ -161,7 +161,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public suscripciones() {
-    
+
     this.myForm.value;
 
     this.myForm.controls.sueldoBrutoMensual.valueChanges.subscribe(valor => {
@@ -191,7 +191,7 @@ export class EmpleoComponent implements OnInit {
           });
 
       } else {
-        
+
         this.myForm.controls.fechaInicio.setValue(fechaInicioContra);
       }
     });
@@ -257,11 +257,11 @@ export class EmpleoComponent implements OnInit {
   public validarfechaFinCont() {
 
 
-    
 
-    let fechaFin:Date = new Date(this.myForm.controls.fechaFin.value);
-    let fechaInicio:Date = new Date(this.myForm.controls.fechaInicio.value);
-     
+
+    let fechaFin: Date = new Date(this.myForm.controls.fechaFin.value);
+    let fechaInicio: Date = new Date(this.myForm.controls.fechaInicio.value);
+
     if (this.myForm.controls.fechaInicio.value) {
       if (fechaFin < fechaInicio) {
 
@@ -391,11 +391,11 @@ export class EmpleoComponent implements OnInit {
       estadoId: [obj.estadoId?.estadoId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
       personaId: [this.datosPersona.personaId, [Validators.required]],
-      esSindicalizado: [obj.esSindicalizado|| 'false'],
+      esSindicalizado: [obj.esSindicalizado || 'false'],
       fechaAntiguedad: [obj.fechaAntiguedad, [Validators.required]],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
       fechaInicio: [obj.fechaInicio, Validators.required],
-      fechaFin: [{ value: obj.fechaFin , disabled: false }],
+      fechaFin: [{ value: obj.fechaFin, disabled: false }],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
@@ -430,16 +430,16 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
-    
+
     if (this.myForm.invalid) {
-        Object.values(this.myForm.controls).forEach(control =>{
-          control.markAsTouched();
-        })
-        this.modalPrd.showMessageDialog(this.modalPrd.error);
-        return;
+      Object.values(this.myForm.controls).forEach(control => {
+        control.markAsTouched();
+      })
+      this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
     }
-    if(!this.calculoEfectuado){
-      this.modalPrd.showMessageDialog(this.modalPrd.error,"No se ha realizado el cálculo de sueldo");
+    if (!this.calculoEfectuado) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha realizado el cálculo de sueldo");
       return;
 
     }
@@ -507,12 +507,12 @@ export class EmpleoComponent implements OnInit {
         if (this.tabsDatos[3]?.fechaContrato == undefined) {
           this.guardarContratoColaborador(objEnviar);
         } else {
-          if(!Boolean(objEnviar.jefeInmediatoId.personaId)){
+          if (!Boolean(objEnviar.jefeInmediatoId.personaId)) {
             objEnviar.jefeInmediatoId = null;
-        }
+          }
 
-        if(!Boolean(objEnviar.sedeId.sedeId)){
-          objEnviar.sedeId = null;
+          if (!Boolean(objEnviar.sedeId.sedeId)) {
+            objEnviar.sedeId = null;
           }
 
           objEnviar.fechaContrato = this.tabsDatos[3]?.fechaContrato;
@@ -562,7 +562,7 @@ export class EmpleoComponent implements OnInit {
 
 
     console.log(JSON.stringify(objEnviar));
-    
+
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.colaboradorPrd.save(objEnviar).subscribe(datos => {
@@ -582,7 +582,7 @@ export class EmpleoComponent implements OnInit {
             email: this.datosPersona.emailCorporativo,
             centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
             rolId: 2,
-            version:this.usuarioSistemaPrd.getVersionSistema()
+            version: this.usuarioSistemaPrd.getVersionSistema()
           }
 
           this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
@@ -618,7 +618,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public cambiaArea($event: any) {
-    
+
     this.myForm.controls.puestoId.disable();
 
 
@@ -640,7 +640,7 @@ export class EmpleoComponent implements OnInit {
   public cambiarSueldoField() {
 
 
-    
+
 
     this.sueldoBruto = this.myForm.controls.tiposueldo.value == 'b';
     this.sueldoNeto = this.myForm.controls.tiposueldo.value == 'n';
@@ -735,15 +735,15 @@ export class EmpleoComponent implements OnInit {
     }
   }
 
-  public cambiarGrupoNomina(noRestablecer:boolean) {
+  public cambiarGrupoNomina(noRestablecer: boolean) {
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
-    
+
 
     let aux = this.pagoComplementario(gruponominaId);
-    
-    
 
-    if(!noRestablecer){
+
+
+    if (!noRestablecer) {
       this.limpiarMontos();
 
     }
@@ -796,7 +796,7 @@ export class EmpleoComponent implements OnInit {
 
   }
 
-  public pagoComplementario(gruponominaId:number){
+  public pagoComplementario(gruponominaId: number) {
     let aux;
     for (let item of this.arreglogruponominas) {
       if (item.id == gruponominaId) {
@@ -824,9 +824,9 @@ export class EmpleoComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el salario diario");
         return;
       }
-    }else{
-      if(this.myForm.controls.sueldoBrutoMensual.invalid){
-        this.modalPrd.showMessageDialog(this.modalPrd.error,"Falta sueldo bruto mensual");
+    } else {
+      if (this.myForm.controls.sueldoBrutoMensual.invalid) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "Falta sueldo bruto mensual");
         return;
       }
     }
@@ -841,6 +841,9 @@ export class EmpleoComponent implements OnInit {
       fecIniPeriodo: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd")
     }
 
+
+
+
     this.modalPrd.showMessageDialog(this.modalPrd.loading, "Calculando");
 
     if (esBruto) {
@@ -849,26 +852,52 @@ export class EmpleoComponent implements OnInit {
 
         let aux = datos.datos;
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-        if(datos.resultado){
+        if (datos.resultado) {
           if (datos.datos !== undefined) {
-
-
             this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
             this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
             this.myForm.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
             this.calculoEfectuado = true;
           }
-        }else{
-            this.modalPrd.showMessageDialog(this.modalPrd.error, datos.mensaje);
-            return;
-        }  
+        } else {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, datos.mensaje);
+          return;
+        }
 
       });
     } else {
+      console.warn("SE VA A CALCULAR EL SUELDO NETO MENSUAL A BRUTO MENSUAL");
 
-     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-     this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede calcular sueldo Neto mensual, verificar servicio con soporte.");
-      //Se calcula sueldo neto a sueldo bruto.....
+      let objenviarMensual = {
+        centroClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
+        politicaId: this.myForm.controls.politicaId.value,
+        grupoNominaId: this.myForm.controls.grupoNominaId.value,
+        periodicidadId: "05",
+        sueldoNeto: this.myForm.controls.sueldoNetoMensual.value,
+        fechaAntiguedad: this.myForm.controls.fechaAntiguedad.value,
+        fechaInicio: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd")
+      };
+
+
+      this.calculoPrd.calculoSueldoNetoabruto(objenviarMensual).subscribe(datos => {
+
+        let aux = datos.datos;
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        if (datos.resultado) {
+          if (datos.datos !== undefined) {
+            this.myForm.controls.salarioDiario.setValue(aux.salarioDiario);
+            this.myForm.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
+            this.myForm.controls.sueldoBrutoMensual.setValue(aux.salarioBrutoMensual);
+            this.calculoEfectuado = true;
+          }
+        } else {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, datos.mensaje);
+          return;
+        }
+
+      });
+
+
 
     }
 
@@ -879,7 +908,7 @@ export class EmpleoComponent implements OnInit {
 
     if (this.verificaCambiosNecesarios()) return;
 
-    if(this.myForm.controls.sueldonetomensualppp.invalid){
+    if (this.myForm.controls.sueldonetomensualppp.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el sueldo neto PPP");
       return;
     }
@@ -911,18 +940,18 @@ export class EmpleoComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       let aux = datos.datos;
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      if(datos.resultado){
-          if (datos.datos !== undefined) {
+      if (datos.resultado) {
+        if (datos.datos !== undefined) {
 
-            this.myForm.controls.salarioDiarioIntegrado.setValue(aux.sbc);
-            this.myForm.controls.salarioNetoMensualImss.setValue(aux.sueldoNetoMensual);
-            this.myForm.controls.sueldoNetoMensual.setValue(aux.sueldoNetoMensual);
-            this.myForm.controls.sueldoBrutoMensual.setValue(aux.sueldoBrutoMensual);
-            this.myForm.controls.pagoComplementario.setValue(aux.pppMontoComplementario);
-            this.myForm.controls.sueldoBrutoMensualPPP.setValue(aux.pppSbm);
-            this.calculoEfectuado = true;
-          }
-      }else{
+          this.myForm.controls.salarioDiarioIntegrado.setValue(aux.sbc);
+          this.myForm.controls.salarioNetoMensualImss.setValue(aux.sueldoNetoMensual);
+          this.myForm.controls.sueldoNetoMensual.setValue(aux.sueldoNetoMensual);
+          this.myForm.controls.sueldoBrutoMensual.setValue(aux.sueldoBrutoMensual);
+          this.myForm.controls.pagoComplementario.setValue(aux.pppMontoComplementario);
+          this.myForm.controls.sueldoBrutoMensualPPP.setValue(aux.pppSbm);
+          this.calculoEfectuado = true;
+        }
+      } else {
         this.modalPrd.showMessageDialog(this.modalPrd.error, datos.mensaje);
         return;
       }
@@ -964,7 +993,7 @@ export class EmpleoComponent implements OnInit {
   }
 
 
-  public limpiarMontos(){
+  public limpiarMontos() {
     this.myForm.controls.tipoCompensacionId.setValue("");
     this.myForm.controls.tiposueldo.setValue("b");
     this.myForm.controls.sueldoNetoMensual.setValue("");
@@ -982,14 +1011,14 @@ export class EmpleoComponent implements OnInit {
   }
 
 
- 
 
 
-  public calcularsueldo(){
-   
-    if(!this.grupoNominaSeleccionado.pagoComplementario){
-        this.cambiasueldobruto(true);
-    }else{
+
+  public calcularsueldo() {
+
+    if (!this.grupoNominaSeleccionado.pagoComplementario) {
+      this.cambiasueldobruto(this.f.tiposueldo.value == 'b');
+    } else {
       this.cambiassueldoPPP();
     }
   }

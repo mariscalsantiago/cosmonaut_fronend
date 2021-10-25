@@ -61,6 +61,7 @@ export class PagosComponent implements OnInit {
   public esKiosko: boolean = false;
 
   public primeraVez:boolean = false;
+  public calculoEfectuado:boolean = false;
 
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private ventana: VentanaemergenteService,
@@ -567,11 +568,13 @@ export class PagosComponent implements OnInit {
   }
 
   public cancelarEspecial(){
+    this.recalcular = false;
     this.primeraVez = true;
    // this.createFormCompensacion(this.empleado);
    this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
     this.cambiarGrupoNomina();
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
+    
     
     
    this.detallecompensacionbool = false;
@@ -636,6 +639,17 @@ export class PagosComponent implements OnInit {
         control.markAsTouched();
       })
       return;
+
+
+
+    }
+
+  
+
+    if (this.recalcular) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe calcular de nuevo el sueldo");
+      return;
+
     }
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas actualizar los datos del usuario?").then(valor => {
@@ -722,6 +736,7 @@ export class PagosComponent implements OnInit {
         this.myFormCompensacion.controls.sueldoBrutoMensual.setValue(aux.sueldoBrutoMensual);
         this.myFormCompensacion.controls.pagoComplementario.setValue(aux.pppMontoComplementario);
         this.myFormCompensacion.controls.sueldoBrutoMensualPPP.setValue(aux.pppSbm);
+        this.recalcular = false;
 
 
 
@@ -734,6 +749,7 @@ export class PagosComponent implements OnInit {
 
 
   public verDetalleCompensacion() {
+    this.recalcular = false;
     this.detallecompensacionbool = true
     this.suscribirseCompensacion();
     if (this.typeppp) {
@@ -746,8 +762,22 @@ export class PagosComponent implements OnInit {
   }
 
 
+  public recalcular:boolean = false;
+
   public suscribirseCompensacion() {
     this.cambiarSueldoField();
+
+    this.myFormCompensacion.controls.sueldoBrutoMensual.valueChanges.subscribe(valor =>{
+        if(this.myFormCompensacion.controls.tiposueldo.value == 'b'){
+            this.recalcular = true;
+        }
+    })
+    this.myFormCompensacion.controls.sueldoNetoMensual.valueChanges.subscribe(valor =>{
+      if(this.myFormCompensacion.controls.tiposueldo.value == 'n'){
+          this.recalcular = true;
+      }
+  })
+
   }
 
 
@@ -929,18 +959,53 @@ export class PagosComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading, "Calculando");
 
-    this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos => {
+   
+    if(esBruto){
+      this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos => {
+        
 
-      let aux = datos.datos;
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      if (datos.datos) {
+        let aux = datos.datos;
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        if (datos.datos) {
+  
+  
+          this.myFormCompensacion.controls.salarioDiario.setValue(aux.salarioDiario);
+          this.myFormCompensacion.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
+          this.myFormCompensacion.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
+          this.recalcular = false;
+        }else{
+          this.modalPrd.showMessageDialog(this.modalPrd.error, datos.mensaje);
+          return;
+        }
+      });  
+    }else{
+      console.warn("SE VA A CALCULAR EL SUELDO NETO MENSUAL A BRUTO MENSUAL");
 
-
-        this.myFormCompensacion.controls.salarioDiario.setValue(aux.salarioDiario);
-        this.myFormCompensacion.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
-        this.myFormCompensacion.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
-      }
-    });
+      let objenviarMensual = {
+        centroClienteId: this.usuariosSistemaPrd.getIdEmpresa(),
+        politicaId: this.fc.politicaId.value,
+        grupoNominaId: this.fc.grupoNominaId.value,
+        periodicidadId: "05",
+        sueldoNeto: this.fc.sueldoNetoMensual.value,
+        fechaAntiguedad: this.fc.fechaAntiguedad.value,
+        fechaInicio: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd")
+      };
+      this.calculoPrd.calculoSueldoNetoabruto(objenviarMensual).subscribe(datos => {
+        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+        let aux = datos.datos;
+        if (datos.resultado) {
+          if (datos.datos !== undefined) {
+            this.myFormCompensacion.controls.salarioDiario.setValue(aux.salarioDiario);
+            this.myFormCompensacion.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
+            this.myFormCompensacion.controls.sueldoBrutoMensual.setValue(aux.salarioBrutoMensual);
+            this.recalcular = false;
+          }
+        } else {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, datos.mensaje);
+          return;
+        }
+      });
+    }
 
   }
 
@@ -965,9 +1030,9 @@ export class PagosComponent implements OnInit {
 
 
   public calcularSueldo(){
-     
+    
     if(!this.grupoNominaSeleccionado.pagoComplementario){
-      this.cambiasueldobruto(true);
+      this.cambiasueldobruto(this.fc.tiposueldo.value == 'b');
   }else{
     this.cambiassueldoPPP();
   }
