@@ -185,7 +185,7 @@ export class DatosimssComponent implements OnInit {
     }
     let obj = this.myForm.getRawValue();
     if (!Boolean(obj.cerIMSS)) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer, favor de elegir archivo de certificado ");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Archivo de Certificado IMSS .pfx obligatorio");
       return;
     }
 
