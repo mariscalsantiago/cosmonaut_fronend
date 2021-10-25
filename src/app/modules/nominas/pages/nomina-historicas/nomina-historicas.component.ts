@@ -288,7 +288,7 @@ export class NominaHistoricasComponent implements OnInit {
   }
 
 
-  public filtrar(repetir:boolean = false) {
+  public filtrar(repetir:boolean = false,desdeFiltrado:boolean = false) {
 
 
     let objEnviar = {
@@ -299,21 +299,32 @@ export class NominaHistoricasComponent implements OnInit {
       fechaInicio: this.fecha || null
     }
 
-    this.nominashistoricasPrd.filtradoPaginado(objEnviar,this.elementos,this.pagina).subscribe(datos => {
-      this.cargando = false;
-      if(datos.datos){
-        let arreglo:Array<any> = datos.datos.lista;
-        if(arreglo)
-           if(!repetir)
-              arreglo.forEach(o => this.arreglo.push(o));   
-            else 
-              this.arreglo = arreglo;
-              
+    if(!desdeFiltrado){
+      this.nominashistoricasPrd.filtradoPaginado(objEnviar,this.elementos,this.pagina).subscribe(datos => {
+        this.cargando = false;
+        if(datos.datos){
+          let arreglo:Array<any> = datos.datos.lista;
+          if(arreglo)
+             if(!repetir)
+                arreglo.forEach(o => this.arreglo.push(o));   
+              else 
+                this.arreglo = arreglo;
+                
+  
+          this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
+        }
+  
+        this.rellenarTablas(this.arreglo);
+      });
+    }else{
 
-        this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
+      this.arreglotabla = {
+        reiniciar:desdeFiltrado || undefined
       }
+      this.cargando = true;
+      this.primeraVes = true;
 
-      this.rellenarTablas(this.arreglo);
-    });
+    }
+   
   }
 }
