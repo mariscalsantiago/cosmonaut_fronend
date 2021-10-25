@@ -171,6 +171,10 @@ export class NominaordinariaService {
     return this.http.post(`${direcciones.nominaOrdinaria}/detalle/montos/imms/patronal`, json);
   }
 
+  public verIsn(nominaPeriodoId:number,personaId:number): Observable<any> {
+    return this.http.get(`${environment.rutaNomina}/percepciones/listar/empleado/${nominaPeriodoId}/${personaId}`);
+  }
+
   public concluir(nominaPeriodoId: number, companiaid: number): Observable<any> {
     
     return this.http.get(`${environment.rutaNomina}/concluir/${nominaPeriodoId}/${companiaid}`);

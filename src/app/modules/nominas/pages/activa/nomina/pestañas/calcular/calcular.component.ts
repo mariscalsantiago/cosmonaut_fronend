@@ -21,7 +21,7 @@ export class CalcularComponent implements OnInit {
   @Input() nominaSeleccionada: any;
   @Input() esEliminar: boolean = false;
   @Input() esDescargar: boolean = false;
-  @Input() empleados:any;
+  @Input() empleados: any;
   public cargando: boolean = false;
   public nominaOrdinaria: boolean = false;
   public nominaExtraordinaria: boolean = false;
@@ -36,7 +36,7 @@ export class CalcularComponent implements OnInit {
   public llave: string = "";
   public llave2: string = "";
 
-  public ocultarEliminar:boolean = false;
+  public ocultarEliminar: boolean = false;
 
   public datosDetalleEmpleadoNomina: any = [];
 
@@ -58,10 +58,10 @@ export class CalcularComponent implements OnInit {
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaFiniquito: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
     private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService,
-    private usuariSistemaPrd: UsuarioSistemaService,private ventana:VentanaemergenteService) { }
+    private usuariSistemaPrd: UsuarioSistemaService, private ventana: VentanaemergenteService) { }
 
   ngOnInit(): void {
-    
+
     if (this.nominaSeleccionada.nominaOrdinaria) {
       this.esnormal = true;
       this.llave = "nominaOrdinaria";
@@ -73,7 +73,7 @@ export class CalcularComponent implements OnInit {
         nominaXperiodoId: this.nominaSeleccionada.nominaOrdinaria?.nominaXperiodoId
       }
 
-      
+
 
       this.nominaOrdinariaPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
         this.cargando = false;
@@ -92,7 +92,7 @@ export class CalcularComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaExtraordinaria?.nominaXperiodoId
       }
-      
+
 
       this.nominaAguinaldoPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
@@ -127,7 +127,7 @@ export class CalcularComponent implements OnInit {
       this.objEnviar = {
         nominaXperiodoId: this.nominaSeleccionada.nominaPtu?.nominaXperiodoId
       }
-      
+
       this.nominaPtuPrd.getUsuariosCalculados(this.objEnviar).subscribe(datos => {
 
 
@@ -146,7 +146,7 @@ export class CalcularComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("nombrecompleto", "Nombre"),
       new tabla("numeroEmpleado", "Número de empleado", false, false, true),
-      new tabla("fecha","Fecha antigüedad"),
+      new tabla("fecha", "Fecha antigüedad"),
       new tabla("diaslaborados", "Días laborados", false, false, true),
       new tabla("percepciones", "Percepciones", false, false, true),
       new tabla("deducciones", "Deducciones", false, false, true),
@@ -160,7 +160,7 @@ export class CalcularComponent implements OnInit {
         item["numeroEmpleado"] = item[llave].numEmpleado;
         item["diaslaborados"] = item[llave].diasLaborados;
         item["fecha"] = item[llave].fechaCalculo,
-        item["percepciones"] = this.cp.transform(item[llave].totalPercepciones);
+          item["percepciones"] = this.cp.transform(item[llave].totalPercepciones);
         item["deducciones"] = this.cp.transform(item[llave].totalDeducciones);
         item["total"] = this.cp.transform(item[llave].total);
       }
@@ -175,7 +175,7 @@ export class CalcularComponent implements OnInit {
   }
 
 
-  private patronalSeleccionado:any = {
+  private patronalSeleccionado: any = {
     nominaXperiodoId: 722,
     fechaContrato: "string",
     personaId: 0,
@@ -183,18 +183,16 @@ export class CalcularComponent implements OnInit {
     usuarioId: 0
   };
 
-  public patronal:any = {datos:[]};
+  public patronal: any = { datos: [] };
 
   public recibirTabla(obj: any) {
-    
-
     switch (obj.type) {
       case "desglosar":
 
         let item = obj.datos;
         let objEnviar = {
           nominaXperiodoId: this.nominaSeleccionada[this.llave]?.nominaXperiodoId,
-          fechaContrato:item[this.llave2].fechaContrato,
+          fechaContrato: item[this.llave2].fechaContrato,
           personaId: item[this.llave2].personaId,
           clienteId: item[this.llave2].centrocClienteId
         }
@@ -230,17 +228,22 @@ export class CalcularComponent implements OnInit {
       case 'patronal':
         if (this.nominaSeleccionada.nominaOrdinaria) {
           this.nominaOrdinariaPrd.verImssPatronal(this.patronalSeleccionado).subscribe(datos => {
-               this.patronal.datos = datos.datos;
-               
+            this.patronal.datos = datos.datos;
+
           });
-        }else   if (this.nominaSeleccionada.nominaLiquidacion) {
+        } else if (this.nominaSeleccionada.nominaLiquidacion) {
           this.nominaOrdinariaPrd.verImssPatronal(this.patronalSeleccionado).subscribe(datos => {
-               this.patronal.datos = datos.datos;
-               
+            this.patronal.datos = datos.datos;
+
           });
         }
 
 
+        break;
+      case 'isn':
+        this.nominaOrdinariaPrd.verIsn(this.patronalSeleccionado.nominaXperiodoId, this.patronalSeleccionado.personaId).subscribe(datos => {
+          this.patronal.datos = datos.datos;
+        });
         break;
     }
   }
@@ -280,7 +283,7 @@ export class CalcularComponent implements OnInit {
     let otros: any = [];
     for (let llave in aux) {
       if (llave.includes("percepciones") || llave.includes("deducciones")) continue;
-      if (llave.includes("dias") || llave.includes("horas") ) {
+      if (llave.includes("dias") || llave.includes("horas")) {
         dias.push({ valor: llave.replace(/([A-Z])/g, ' $1'), dato: aux[llave] });
       } else {
         otros.push({ valor: llave.replace(/([A-Z])/g, ' $1'), dato: aux[llave] });
@@ -301,7 +304,7 @@ export class CalcularComponent implements OnInit {
     }
 
 
-    
+
     this.cargandoIcon = true;
     if (this.esnormal) {
       this.reportesPrd.getReporteNominasTabCalculados(objEnviar).subscribe(datos => {
@@ -438,7 +441,7 @@ export class CalcularComponent implements OnInit {
               }
             });
           });
-        }else  if (this.llave == "nominaExtraordinaria") {
+        } else if (this.llave == "nominaExtraordinaria") {
 
           this.nominaAguinaldoPrd.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
@@ -447,7 +450,7 @@ export class CalcularComponent implements OnInit {
               }
             });
           });
-        }else  if (this.llave == "nominaLiquidacion") {
+        } else if (this.llave == "nominaLiquidacion") {
 
           this.nominaFiniquito.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
@@ -456,7 +459,7 @@ export class CalcularComponent implements OnInit {
               }
             });
           });
-        }else  if (this.llave == "nominaPtu") {
+        } else if (this.llave == "nominaPtu") {
 
           this.nominaPtuPrd.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
@@ -470,8 +473,8 @@ export class CalcularComponent implements OnInit {
     });
   }
 
-  public verListado(){
-   this.ventana.showVentana(this.ventana.listadoEmpleados,{datos:this.empleados});
+  public verListado() {
+    this.ventana.showVentana(this.ventana.listadoEmpleados, { datos: this.empleados });
   }
 
 }
