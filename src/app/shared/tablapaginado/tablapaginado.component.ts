@@ -108,17 +108,19 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
   public cambia() {
 
-    if(!this.paginado_server){
+    if (!this.paginado_server) {
       this.paginar();
-    }else{
-      this.salida.emit({ type: "paginado_cantidad", datos: { elementos: this.numeroitems, pagina: 0 },nuevos:true });
+    } else {
+      this.salida.emit({ type: "paginado_cantidad", datos: { elementos: this.numeroitems, pagina: 0 }, nuevos: true });
       localStorage["paginado"] = JSON.stringify([0]);
       this.paginadoServer_primeravez = true;
       this.ultimaPaginaConsultadaAnterior = 0;
       this.ultimaPaginaConsultada = 0;
       this.tamanioArreglo = 0;
       this.contadorPaginado = 0;
-      
+      this.indice = 0;
+      this.activarMenos = false;
+
     }
 
 
@@ -137,9 +139,15 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
 
+    if (this.paginado_server) {
+      if (this.datos?.reiniciar) {
+        this.arreglo = undefined;
+        this.cambia();
+        return;
+      }
+    }
 
     if (this.datos.filas !== undefined) {
-
       this.arreglotemp = this.datos.filas;
       if (this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined) {
         this.tooltipText = "editarUsuario";
@@ -151,6 +159,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         item.cargandoDetalle = false;
       }
       this.paginadoServer_primeravez = false;
+
 
 
 
@@ -187,7 +196,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         primero = false;
       }
       this.acomodarPaginado();
-      
+
       if (!this.paginado_server) {
         this.arreglo = this.arreglotemp.slice(0, Number(this.numeroitems));
       } else {
@@ -209,7 +218,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   public activarAntes: boolean = false;
   public indice: number = 0;
   public acomodarPaginado() {
-    
+
     if (this.arreglopaginas !== undefined) {
       if (this.arreglopaginas.length > 3) {
         this.arregloTemporalPaginas = this.arreglopaginas;
@@ -222,16 +231,16 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         this.arregloTemporalPaginas = this.arreglopaginas;
       }
       if (this.paginado_server) {
-        for(let obj of this.arreglopaginas){
-            obj.activado = false;
+        for (let obj of this.arreglopaginas) {
+          obj.activado = false;
         }
         this.arreglopaginas[this.contadorPaginado].activado = true;
       }
     }
   }
 
-  public paginacambiar(item: any,esdirecto:boolean = false) {
-    if(this.cargando || (esdirecto && this.paginado_server)) return;
+  public paginacambiar(item: any, esdirecto: boolean = false) {
+    if (this.cargando || (esdirecto && this.paginado_server)) return;
     console.log("INDICES", item.numeropagina, item.llavepagina);
     if (this.paginado_server) {
       let bitacoraPaginado: Array<number> = JSON.parse(localStorage["paginado"]);
@@ -274,8 +283,8 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
   }
 
-  public mostrarListaPaginaSiguiente(esdirecto:boolean = false) {
-    if(this.cargando || (this.paginado_server && esdirecto ))return;
+  public mostrarListaPaginaSiguiente(esdirecto: boolean = false) {
+    if (this.cargando || (this.paginado_server && esdirecto)) return;
     this.indice++;
 
 
@@ -292,8 +301,8 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     this.paginacambiar(this.arreglopaginas[0]);
   }
 
-  public mostrarListaPaginaAnterior(esdirecto:boolean =false) {
-    if(this.cargando || (this.paginado_server && esdirecto))return;
+  public mostrarListaPaginaAnterior(esdirecto: boolean = false) {
+    if (this.cargando || (this.paginado_server && esdirecto)) return;
     this.indice--;
     if (this.indice >= 0) {
       this.arreglopaginas = this.arregloTemporalPaginas.slice((this.indice * 3), (this.indice * 3) + 3);
@@ -312,14 +321,14 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   public pasarSiguienteItem(tipoSiguiente: boolean) {
-    if(this.cargando)return;
+    if (this.cargando) return;
 
     let indicePagina = this.verificarIndice();
     if (tipoSiguiente) {
       if (indicePagina == 2) {
         this.mostrarListaPaginaSiguiente();
-        if(this.paginado_server){
-            this.contadorPaginado = 0;
+        if (this.paginado_server) {
+          this.contadorPaginado = 0;
         }
 
       } else {

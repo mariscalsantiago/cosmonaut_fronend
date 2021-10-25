@@ -101,7 +101,7 @@ export class CompanyComponent implements OnInit {
     this.esEditar = this.configuracionPrd.getPermisos("Editar");
   }
 
-  public filtrar(repetir: boolean = false) {
+  public filtrar(repetir: boolean = false,desdefiltrado:boolean = false) {
     
 
     this.cargando = true;
@@ -143,53 +143,60 @@ export class CompanyComponent implements OnInit {
     }
 
 
-    this.companyProd.filtrarPaginado(this.peticion, this.elementos, this.pagina).subscribe(datos => {
+    if(!desdefiltrado){
+      this.companyProd.filtrarPaginado(this.peticion, this.elementos, this.pagina).subscribe(datos => {
       
-      let arreglo: Array<any> = datos.datos.lista;
-      if (arreglo)
-        if (!repetir)
-          arreglo.forEach(o => this.arreglo.push(o));
-        else
-          this.arreglo = arreglo;
-
-
-      this.arreglotabla.totalRegistros = datos.datos.totalResgistros;
-
-
-      let columnas: Array<tabla> = [
-        new tabla("url", "imagen"),
-        new tabla("centrocClienteId", "ID cliente"),
-        new tabla("razonSocial", "Razón social	"),
-        new tabla("nombre", "Nombre de cliente"),
-        new tabla("rfc", "RFC"),
-        new tabla("fechaAltab", "Fecha de registro en el sistema"),
-        new tabla("activo", "Estatus de cliente")
-      ];
-
-      if (this.arreglo !== undefined) {
-        debugger;
-        for (let item of this.arreglo) {
-          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
-
-          if (item.esActivo) {
-            item.activo = 'Activo'
+        let arreglo: Array<any> = datos.datos.lista;
+        if (arreglo)
+          if (!repetir)
+            arreglo.forEach(o => this.arreglo.push(o));
+          else
+            this.arreglo = arreglo;
+  
+  
+        this.arreglotabla.totalRegistros = datos.datos.totalResgistros;
+  
+  
+        let columnas: Array<tabla> = [
+          new tabla("url", "imagen"),
+          new tabla("centrocClienteId", "ID cliente"),
+          new tabla("razonSocial", "Razón social	"),
+          new tabla("nombre", "Nombre de cliente"),
+          new tabla("rfc", "RFC"),
+          new tabla("fechaAltab", "Fecha de registro en el sistema"),
+          new tabla("activo", "Estatus de cliente")
+        ];
+  
+        if (this.arreglo !== undefined) {
+          for (let item of this.arreglo) {
+            item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
+  
+            if (item.esActivo) {
+              item.activo = 'Activo'
+            }
+            if (!item.esActivo) {
+              item.activo = 'Inactivo'
+            }
+  
           }
-          if (!item.esActivo) {
-            item.activo = 'Inactivo'
-          }
-
         }
-      }
-
-
+  
+  
+        this.arreglotabla = {
+          columnas: columnas,
+          filas: this.arreglo,
+          totalRegistros:this.arreglotabla.totalRegistros
+        }
+        this.cargando = false;
+  
+      });
+    }else{
       this.arreglotabla = {
-        columnas: columnas,
-        filas: this.arreglo,
-        totalRegistros:this.arreglotabla.totalRegistros
+        reiniciar:desdefiltrado||undefined
       }
-      this.cargando = false;
-
-    });
+      this.cargando = true;
+      this.primeraVez = true;
+    }
 
 
 
