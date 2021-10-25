@@ -620,23 +620,34 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
     if(property === 'fechaInicio' ){
       fechaIn = editField;
-    }
+  }
     if (fechaFin < fechaIn) {
   
       this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser igual o mayor a la fecha inicio')
         .then(() => {
+          editField= '';
+          this.arregloTablaValores[id][property] = editField;
           this.valFecha = false;
         });
       return;  
-    }
+    }else{   
+      this.arregloTablaValores[id][property] = editField;
+      this.valFecha = true;
+      }
     if (fechaIn > fechaFin) {
   
       this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio debe ser igual o menor a la fecha fin')
         .then(() => {
+          editField= '';
+          this.arregloTablaValores[id][property] = editField;
           this.valFecha = false;
         });
       return;  
     }
+    else{   
+      this.arregloTablaValores[id][property] = editField;
+      this.valFecha = true;
+      }
     if (fechaIn === '' || fechaFin === '') {
       this.valFecha = false;
     }
