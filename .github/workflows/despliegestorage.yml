@@ -22,7 +22,5 @@ jobs:
     - uses: mathieu-bour/setup-gcloud@1.3.0
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.ARCHIVO_GOOGLECLOUD }}
-        export_default_credentials: true
-    - run: gcloud auth activate-service-account github-actions@cosmonaut-299500.iam.gserviceaccount.com --key-file=${{ secrets.ARCHIVO_GOOGLECLOUD }}
+        service-account-key: ${{ secrets.ARCHIVO_GOOGLECLOUD }}
     - run: cd dist/cosmonaut-front/ && gsutil cp -r *  gs://cosmonaut-public-front/
