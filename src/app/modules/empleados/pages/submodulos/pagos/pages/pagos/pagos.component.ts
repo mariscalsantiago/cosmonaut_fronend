@@ -64,8 +64,7 @@ export class PagosComponent implements OnInit {
   public calculoEfectuado: boolean = false;
 
 
-  constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private ventana: VentanaemergenteService,
-    private gruponominaPrd: GruponominasService, private usuariosSistemaPrd: UsuarioSistemaService,
+  constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private ventana: VentanaemergenteService, private usuariosSistemaPrd: UsuarioSistemaService,
     private formbuilder: FormBuilder, private router: ActivatedRoute, private routerPrd: Router, private contratoColaboradorPrd: ContratocolaboradorService,
     private bancosPrd: CuentasbancariasService, private calculoPrd: CalculosService) {
 
@@ -74,12 +73,15 @@ export class PagosComponent implements OnInit {
   ngOnInit(): void {
 
     this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
+    
+    this.arreglogrupoNomina = this.router.snapshot.data.gruponomina;
+    this.empleado = this.router.snapshot.data.contratoColaborador;
+
 
     this.myFormMetodoPago = this.formbuilder.group({});
     this.myFormCompensacion = this.createFormCompensacion({});
 
     this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
-    this.gruponominaPrd.getAll(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arreglogrupoNomina = datos.datos);
     this.catalogosPrd.getCompensacion(true).subscribe(datos => this.arregloCompensacion = datos.datos);
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arreglobancos = datos.datos);
 
@@ -91,7 +93,6 @@ export class PagosComponent implements OnInit {
 
         this.primeraVez = true;
         this.myFormCompensacion = this.createFormCompensacion(this.empleado);
-        this.cambiarGrupoNomina();
 
         if (this.empleado.metodoPagoId.metodoPagoId == 4) {
           this.detalleCuenta = true;

@@ -76,6 +76,7 @@ export class DetalleUsuarioComponent implements OnInit {
     this.insertar = !Boolean(history.state.usuario);
     this.objusuario = history.state.usuario;
     this.objusuario = this.objusuario == undefined ? {} : this.objusuario;
+    console.log(this.objusuario);
     
     this.verificarCompaniasExista();
 
@@ -128,8 +129,12 @@ export class DetalleUsuarioComponent implements OnInit {
       if(this.usuariosSistemaPrd.getUsuario().usuarioId === this.objusuario.usuarioId){
           this.myForm.controls.esActivo.disable();
       }
-    }else if(this.esClienteEmpresa && this.objusuario.centrocClientes[0].centrocClienteId !== this.usuariosSistemaPrd.getIdEmpresa()){
-      this.desabilitarInputs();
+    }else if(this.esClienteEmpresa){
+      if(this.objusuario.centrocClientes){
+        if(this.objusuario.centrocClientes[0]?.centrocClienteId !== this.usuariosSistemaPrd.getIdEmpresa()){
+          this.desabilitarInputs();   
+        }
+      }
     }
 
 
@@ -180,7 +185,9 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   public suscripciones() {
+    console.log("Entra el tema de roles suscripcion");
     this.myForm.controls.rol.valueChanges.subscribe(valor => {
+      console.log("ELEMENTO QUE CAMBIA");
       debugger;
       if (this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1) {
         if (valor != 1) {

@@ -72,7 +72,7 @@
                                             <option id="id_companyUsuario0"  value="" selected>Seleccionar
                                                 {{esClienteEmpresa?'cliente':'empresa'}}</option>
                                             <option id="id_companyUsuario1" *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
-                                                {{item.nombre}}
+                                                {{item.razonSocial}}
                                             </option>
                                         </select>
                                     </div>
