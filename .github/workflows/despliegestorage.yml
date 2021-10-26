@@ -1,4 +1,4 @@
-name: desplieguegooglestorage
+name: despliegegooglestorage
 
 on:
   push:
@@ -24,4 +24,5 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_key: ${{ secrets.ARCHIVO_GOOGLECLOUD }}
         export_default_credentials: true
+    - run: gcloud auth activate-service-account github-actions@cosmonaut-299500.iam.gserviceaccount.com --key-file=${{ secrets.ARCHIVO_GOOGLECLOUD }}
     - run: cd dist/cosmonaut-front/ && gsutil cp -r *  gs://cosmonaut-public-front/
