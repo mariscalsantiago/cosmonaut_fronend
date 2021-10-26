@@ -76,6 +76,7 @@ export class DetalleUsuarioComponent implements OnInit {
     this.insertar = !Boolean(history.state.usuario);
     this.objusuario = history.state.usuario;
     this.objusuario = this.objusuario == undefined ? {} : this.objusuario;
+    console.log(this.objusuario);
     
     this.verificarCompaniasExista();
 
@@ -93,7 +94,16 @@ export class DetalleUsuarioComponent implements OnInit {
             this.arregloRoles.push(this.objusuario.rolId);
           }
         }
+       
       }, 200);
+
+      if(this.insertar){
+        if(this.usuariosSistemaPrd.getVersionSistema() == 1){
+          let  rolid = this.myForm.value.rol;
+          
+          this.desabilitarAgregarUsuarios(rolid);
+      }
+      }
 
     });
 
@@ -105,13 +115,12 @@ export class DetalleUsuarioComponent implements OnInit {
     }
 
 
+
     this.myForm = this.createForm(this.objusuario);
 
     if (!this.insertar && this.esClienteEmpresa) {
       let companiaSeleccionada = this.arregloCompany.find((o: any) => o["centrocClienteId"] == this.myForm.controls.centrocClienteId.value);
       this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
-
-      this.desabilitarTodo 
 
     }
 
@@ -120,8 +129,12 @@ export class DetalleUsuarioComponent implements OnInit {
       if(this.usuariosSistemaPrd.getUsuario().usuarioId === this.objusuario.usuarioId){
           this.myForm.controls.esActivo.disable();
       }
-    }else if(this.esClienteEmpresa && this.objusuario.centrocClientes[0].centrocClienteId !== this.usuariosSistemaPrd.getIdEmpresa()){
-      this.desabilitarInputs();
+    }else if(this.esClienteEmpresa){
+      if(this.objusuario.centrocClientes){
+        if(this.objusuario.centrocClientes[0]?.centrocClienteId !== this.usuariosSistemaPrd.getIdEmpresa()){
+          this.desabilitarInputs();   
+        }
+      }
     }
 
 
@@ -147,6 +160,20 @@ export class DetalleUsuarioComponent implements OnInit {
 
   }
 
+  public desabilitarAgregarUsuarios(idRol:number){
+    debugger;
+    if(idRol == 1){
+      this.myForm.controls.multicliente.enable();
+      this.myForm.controls.centrocClienteId.setValue("");
+      this.myForm.controls.centrocClienteId.enable();
+    }else{
+      this.myForm.controls.multicliente.disable();
+      this.myForm.controls.centrocClienteId.setValue("GA");
+      this.myForm.controls.centrocClienteId.disable();
+
+    }
+  }
+
   public desabilitarInputs():void{
     this.myForm.controls.nombre.disable();
     this.myForm.controls.apellidoPaterno.disable();
@@ -158,7 +185,10 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   public suscripciones() {
+    console.log("Entra el tema de roles suscripcion");
     this.myForm.controls.rol.valueChanges.subscribe(valor => {
+      console.log("ELEMENTO QUE CAMBIA");
+      debugger;
       if (this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1) {
         if (valor != 1) {
           this.myForm.controls.multicliente.disable();
@@ -168,11 +198,17 @@ export class DetalleUsuarioComponent implements OnInit {
           this.myForm.controls.centrocClienteId.disable();
           return;
         }
+      }else if(this.esClienteEmpresa && this.insertar && this.usuariosSistemaPrd.getVersionSistema() == 1){
+        let  rolid = this.myForm.value.rol;
+          this.desabilitarAgregarUsuarios(rolid);
       }
 
 
       this.myForm.controls.multicliente.enable();
       this.myForm.controls.centrocClienteId.enable();
+
+
+
     });
   }
 

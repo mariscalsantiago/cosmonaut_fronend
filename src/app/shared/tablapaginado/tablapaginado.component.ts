@@ -69,6 +69,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
   public arreglotemp: any = [];
   public verpatronal: boolean = false;
+  public verIsnBool:boolean = false;
 
 
 
@@ -577,6 +578,10 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   public verRegistroPatronal(item: any) {
     this.verpatronal = !this.verpatronal;
     this.salida.emit({ type: 'patronal', datos: item });
+  }
+  public verIsn(item: any) {
+    this.verIsnBool = !this.verIsnBool;
+    this.salida.emit({ type: 'isn', datos: item });
   }
 
   public iniciarDescarga(item: any) {

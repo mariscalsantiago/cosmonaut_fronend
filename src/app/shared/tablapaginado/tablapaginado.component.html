@@ -289,20 +289,23 @@
 
 
                 <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominacalculo">
-                    <tr style="background-color: white; position: relative;" class="slide-in-bck-center">
+                    <tr style="background-color: white; position: relative;height: max-content;" class="slide-in-bck-center">
                         <td colspan="3">
 
                             <article *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
                                 {{item.valor}} <i (click)="verRegistroPatronal(item)" aria-hidden="true"
                                     class="far fa-eye" style="    color: #3ca29a;
                                 cursor: pointer;" *ngIf="item.valor == 'imss Patronal'"></i>
+                                <i (click)="verIsn(item)" aria-hidden="true"
+                                class="far fa-eye" style="    color: #3ca29a;
+                            cursor: pointer;" *ngIf="item.valor == 'provision Isn'"></i>
                                 <article>{{item.dato | currency}}
 
                                 </article>
-                                <div *ngIf="item.valor == 'imss Patronal' && verpatronal" class="estiloemergente">
-                                    <div class="cabecera">Imss patronal
+                                <div *ngIf="((item.valor == 'imss Patronal' && verpatronal) || (verIsnBool && item.valor == 'provision Isn'))" style="position: inherit;" class="estiloemergente">
+                                    <div class="cabecera">{{verpatronal?'Imss patronal':'Provisión ISN'}}
 
-                                        <button (click)="verpatronal = false" type="button" class="close btnclosemodal"
+                                        <button (click)="verpatronal = false;verIsnBool = false;" type="button" class="close btnclosemodal"
                                             aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -313,15 +316,23 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Monto</th>
+                                                    <th *ngIf="item.valor == 'imss Patronal'" scope="col">Nombre</th>
+                                                    <th *ngIf="item.valor == 'imss Patronal'" scope="col">Monto</th>
+                                                    <th *ngIf="item.valor == 'provision Isn'" scope="col">Concepto</th>
+                                                    <th *ngIf="item.valor == 'provision Isn'" scope="col">Importe exento</th>
+                                                    <th *ngIf="item.valor == 'provision Isn'" scope="col">Importe gravable</th>
+                                                    <th *ngIf="item.valor == 'provision Isn'" scope="col">Monto total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let mm of patronal?.datos;let indice = index;">
                                                     <th scope="row">{{indice+1}}</th>
-                                                    <td>{{mm.conceptoPatronal}}</td>
-                                                    <td>{{mm.monto | currency}}</td>
+                                                    <td *ngIf="item.valor == 'imss Patronal'">{{mm.conceptoPatronal}}</td>
+                                                    <td *ngIf="item.valor == 'imss Patronal'">{{mm.monto | currency}}</td>
+                                                    <td *ngIf="item.valor == 'provision Isn'">{{mm.concepto}}</td>
+                                                    <td *ngIf="item.valor == 'provision Isn'">{{mm.importeExento | currency}}</td>
+                                                    <td *ngIf="item.valor == 'provision Isn'">{{mm.importeGravable | currency}}</td>
+                                                    <td *ngIf="item.valor == 'provision Isn'">{{mm.montoTotal | currency}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

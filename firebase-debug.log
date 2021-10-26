@@ -1,0 +1,20 @@
+[debug] [2021-09-06T22:20:47.159Z] ----------------------------------------------------------------------
+[debug] [2021-09-06T22:20:47.162Z] Command:       /usr/local/bin/node /usr/local/bin/firebase open
+[debug] [2021-09-06T22:20:47.163Z] CLI Version:   9.17.0
+[debug] [2021-09-06T22:20:47.163Z] Platform:      darwin
+[debug] [2021-09-06T22:20:47.163Z] Node Version:  v14.16.1
+[debug] [2021-09-06T22:20:47.185Z] Time:          Mon Sep 06 2021 17:20:47 GMT-0500 (Central Daylight Time)
+[debug] [2021-09-06T22:20:47.186Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-09-06T22:20:47.191Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-09-06T22:20:47.290Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-09-06T22:20:47.290Z] > authorizing via signed-in user (santiago.mariscal@advisoryservicesg.tech)
+[debug] [2021-09-06T22:20:47.290Z] [iam] checking project cosmonaut-front for permissions ["firebase.projects.get"]
+[debug] [2021-09-06T22:20:47.291Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-09-06T22:20:47.292Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-09-06T22:20:47.542Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Mon, 06 Sep 2021 22:20:47 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-09-06T22:20:47.607Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/cosmonaut-front:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-09-06T22:20:47.618Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-09-06T22:20:47.619Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}

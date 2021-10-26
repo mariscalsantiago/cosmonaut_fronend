@@ -60,38 +60,40 @@ export class PagosComponent implements OnInit {
 
   public esKiosko: boolean = false;
 
-  public primeraVez:boolean = false;
-  public calculoEfectuado:boolean = false;
+  public primeraVez: boolean = false;
+  public calculoEfectuado: boolean = false;
 
 
-  constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private ventana: VentanaemergenteService,
-    private gruponominaPrd: GruponominasService, private usuariosSistemaPrd: UsuarioSistemaService,
+  constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private ventana: VentanaemergenteService, private usuariosSistemaPrd: UsuarioSistemaService,
     private formbuilder: FormBuilder, private router: ActivatedRoute, private routerPrd: Router, private contratoColaboradorPrd: ContratocolaboradorService,
     private bancosPrd: CuentasbancariasService, private calculoPrd: CalculosService) {
 
   }
 
   ngOnInit(): void {
-    
+
     this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
+    
+    this.arreglogrupoNomina = this.router.snapshot.data.gruponomina;
+    this.empleado = this.router.snapshot.data.contratoColaborador;
+
 
     this.myFormMetodoPago = this.formbuilder.group({});
     this.myFormCompensacion = this.createFormCompensacion({});
 
     this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
-    this.gruponominaPrd.getAll(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => this.arreglogrupoNomina = datos.datos);;
     this.catalogosPrd.getCompensacion(true).subscribe(datos => this.arregloCompensacion = datos.datos);
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arreglobancos = datos.datos);
-
 
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
 
       this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
         this.empleado = datos.datos;
-        
+
         this.primeraVez = true;
         this.myFormCompensacion = this.createFormCompensacion(this.empleado);
+
         if (this.empleado.metodoPagoId.metodoPagoId == 4) {
           this.detalleCuenta = true;
         } else {
@@ -161,16 +163,16 @@ export class PagosComponent implements OnInit {
         }
         if (item.tipoPercepcionId?.noEditable !== undefined) {
           item.tipoPercepcionId.noEditable = false;
-          }
-          if(item.tipoPercepcionId?.porDefecto !== undefined ){
-            item.tipoPercepcionId.porDefecto = false;
-          }
-          if(item.valor !== undefined){
-            item.valorMonto = item.valor; 
-          }
-          else if(item.montoTotal !== undefined){
-            item.valorMonto = item.montoTotal
-          }  
+        }
+        if (item.tipoPercepcionId?.porDefecto !== undefined) {
+          item.tipoPercepcionId.porDefecto = false;
+        }
+        if (item.valor !== undefined) {
+          item.valorMonto = item.valor;
+        }
+        else if (item.montoTotal !== undefined) {
+          item.valorMonto = item.montoTotal
+        }
       }
     }
 
@@ -181,8 +183,8 @@ export class PagosComponent implements OnInit {
   }
 
   public crearTablaDeduccion(datos: any) {
-    
-    
+
+
     this.arreglotablaDed = datos.datos;
 
 
@@ -202,7 +204,7 @@ export class PagosComponent implements OnInit {
 
 
     if (this.arreglotablaDed !== undefined) {
-      
+
       for (let item of this.arreglotablaDed) {
         if (item.fechaInicioDescto !== undefined) {
           item.fechaInicioDescto = (new Date(item.fechaInicioDescto).toUTCString()).replace(" 00:00:00 GMT", "");
@@ -211,7 +213,7 @@ export class PagosComponent implements OnInit {
         }
         item.nombre = item.conceptoDeduccionId?.nombre;
 
-        if(item.tipoDeduccionId.noEditable == true){
+        if (item.tipoDeduccionId.noEditable == true) {
           item.tipoDeduccionId.noEditable = false;
         }
 
@@ -224,19 +226,19 @@ export class PagosComponent implements OnInit {
 
         if (item.tipoPercepcionId?.noEditable !== undefined) {
           item.tipoPercepcionId.noEditable = false;
-          }
-          if(item.tipoPercepcionId?.porDefecto !== undefined ){
-            item.tipoPercepcionId.porDefecto = false;
-          }
-          if(item.valor !== undefined){
-            item.valorMonto = item.valor; 
-          }
-          else if(item.montoTotal !== undefined){
-            item.valorMonto = item.montoTotal
-          }
-          else if(item.interesPorcentaje !== undefined){
-            item.valorMonto = item.interesPorcentaje
-          }
+        }
+        if (item.tipoPercepcionId?.porDefecto !== undefined) {
+          item.tipoPercepcionId.porDefecto = false;
+        }
+        if (item.valor !== undefined) {
+          item.valorMonto = item.valor;
+        }
+        else if (item.montoTotal !== undefined) {
+          item.valorMonto = item.montoTotal
+        }
+        else if (item.interesPorcentaje !== undefined) {
+          item.valorMonto = item.interesPorcentaje
+        }
       }
     }
 
@@ -247,6 +249,17 @@ export class PagosComponent implements OnInit {
 
 
   public cambiarStatus(valor: any) {
+    if (!(!!this.arreglogrupoNomina)) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Esperar, cargando cátalogos necesarios");
+      return;
+    } else if (this.arreglogrupoNomina.length == 0) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Esperar, cargando cátalogos necesarios");
+      return;
+    }
+
+  
+
+
 
     for (let x = 0; x < this.arreglopintar.length; x++) {
 
@@ -386,7 +399,7 @@ export class PagosComponent implements OnInit {
   }
 
   public recibirTablaPer(obj: any) {
-    
+
 
     if (obj.type == "editar") {
       let datosPer = obj.datos;
@@ -488,20 +501,20 @@ export class PagosComponent implements OnInit {
           }
         }
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        
+
         this.contratoColaboradorPrd.update(objContrato).subscribe((respContrato) => {
-          
+
           if (respContrato.resultado) {
-          
-          
-          
-            if(this.indexMetodoSeleccionado != 4){
+
+
+
+            if (this.indexMetodoSeleccionado != 4) {
               this.cancelar();
               this.ngOnInit();
               return;
             }
 
-          
+
 
             let obj = this.myFormMetodoPago.value;
             let objEnviar: any = {
@@ -567,17 +580,17 @@ export class PagosComponent implements OnInit {
     this.detallecompensacionbool = false;
   }
 
-  public cancelarEspecial(){
+  public cancelarEspecial() {
     this.recalcular = false;
     this.primeraVez = true;
-   // this.createFormCompensacion(this.empleado);
-   this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
+    // this.createFormCompensacion(this.empleado);
+    this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
     this.cambiarGrupoNomina();
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
-    
-    
-    
-   this.detallecompensacionbool = false;
+
+
+
+    this.detallecompensacionbool = false;
 
 
   }
@@ -608,7 +621,7 @@ export class PagosComponent implements OnInit {
 
 
   public createFormCompensacion(obj: any) {
-    
+
     return this.formbuilder.group({
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
@@ -644,7 +657,7 @@ export class PagosComponent implements OnInit {
 
     }
 
-  
+
 
     if (this.recalcular) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe calcular de nuevo el sueldo");
@@ -671,7 +684,7 @@ export class PagosComponent implements OnInit {
       sueldoNetoMensual: obj.sueldoNetoMensual,
       sueldoBrutoMensual: obj.sueldoBrutoMensual,
       salarioDiario: obj.salarioDiario,
-      
+
     }
 
 
@@ -751,6 +764,7 @@ export class PagosComponent implements OnInit {
   public verDetalleCompensacion() {
     this.recalcular = false;
     this.detallecompensacionbool = true
+    console.log("DETALLE COMPENSACION", this.typeppp);
     this.suscribirseCompensacion();
     if (this.typeppp) {
       this.myFormCompensacion.controls.sueldonetomensualppp.setValue(this.empleado.pppSnm || 0);
@@ -762,21 +776,27 @@ export class PagosComponent implements OnInit {
   }
 
 
-  public recalcular:boolean = false;
+  public recalcular: boolean = false;
 
   public suscribirseCompensacion() {
     this.cambiarSueldoField();
 
-    this.myFormCompensacion.controls.sueldoBrutoMensual.valueChanges.subscribe(valor =>{
-        if(this.myFormCompensacion.controls.tiposueldo.value == 'b'){
-            this.recalcular = true;
-        }
-    })
-    this.myFormCompensacion.controls.sueldoNetoMensual.valueChanges.subscribe(valor =>{
-      if(this.myFormCompensacion.controls.tiposueldo.value == 'n'){
-          this.recalcular = true;
+    this.myFormCompensacion.controls.sueldoBrutoMensual.valueChanges.subscribe(valor => {
+      if (this.myFormCompensacion.controls.tiposueldo.value == 'b') {
+        this.recalcular = true;
       }
-  })
+    })
+    this.myFormCompensacion.controls.sueldoNetoMensual.valueChanges.subscribe(valor => {
+      if (this.myFormCompensacion.controls.tiposueldo.value == 'n') {
+        this.recalcular = true;
+      }
+    })
+
+    this.myFormCompensacion.controls.sueldonetomensualppp.valueChanges.subscribe(valor =>{
+      if(this.detallecompensacionbool && this.typeppp){
+        this.recalcular = true;
+      }
+    });
 
   }
 
@@ -788,22 +808,28 @@ export class PagosComponent implements OnInit {
   public cambiarGrupoNomina() {
 
 
-    
+
 
     const gruponominaId = this.myFormCompensacion.controls.grupoNominaId.value;
+    console.log(gruponominaId);
+
+    
+    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
 
     let aux = this.verificandoGruponomina(gruponominaId);
 
-    
 
-    if(!this.primeraVez){ 
-      
+
+
+    if (!this.primeraVez) {
+
       this.limpiarMontos()
     }
     this.primeraVez = false;
     this.grupoNominaSeleccionado = aux;
     //this.grupoNominaSeleccionado.pagoComplementario = true;
+
 
     
 
@@ -859,7 +885,7 @@ export class PagosComponent implements OnInit {
 
   }
 
-  public verificandoGruponomina(gruponominaId:number){
+  public verificandoGruponomina(gruponominaId: number) {
     let aux;
     for (let item of this.arreglogrupoNomina) {
       if (item.id == gruponominaId) {
@@ -874,7 +900,7 @@ export class PagosComponent implements OnInit {
     return aux;
   }
 
-  public limpiarMontos(){
+  public limpiarMontos() {
     this.myFormCompensacion.controls.tipoCompensacionId.setValue("");
     this.myFormCompensacion.controls.tiposueldo.setValue("b");
     this.myFormCompensacion.controls.sueldoNetoMensual.setValue("");
@@ -927,11 +953,11 @@ export class PagosComponent implements OnInit {
   }
 
 
-  public cambiasueldobruto(esBruto:boolean) {
+  public cambiasueldobruto(esBruto: boolean) {
 
     if (this.verificaCambiosNecesarios()) return;
 
-    
+
 
 
     if (this.grupoNominaSeleccionado.pagoComplementario) {
@@ -940,9 +966,9 @@ export class PagosComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe ingresar el salario diario");
         return;
       }
-    }else{
-      if(this.myFormCompensacion.controls.sueldoBrutoMensual.invalid){
-        this.modalPrd.showMessageDialog(this.modalPrd.error,"Falta sueldo bruto mensual");
+    } else {
+      if (this.myFormCompensacion.controls.sueldoBrutoMensual.invalid) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "Falta sueldo bruto mensual");
         return;
       }
     }
@@ -959,26 +985,26 @@ export class PagosComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading, "Calculando");
 
-   
-    if(esBruto){
+
+    if (esBruto) {
       this.calculoPrd.calculoSueldoBruto(objenviar).subscribe(datos => {
-        
+
 
         let aux = datos.datos;
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         if (datos.datos) {
-  
-  
+
+
           this.myFormCompensacion.controls.salarioDiario.setValue(aux.salarioDiario);
           this.myFormCompensacion.controls.sbc.setValue(aux.salarioBaseDeCotizacion);
           this.myFormCompensacion.controls.sueldoNetoMensual.setValue(aux.salarioNetoMensual);
           this.recalcular = false;
-        }else{
+        } else {
           this.modalPrd.showMessageDialog(this.modalPrd.error, datos.mensaje);
           return;
         }
-      });  
-    }else{
+      });
+    } else {
       console.warn("SE VA A CALCULAR EL SUELDO NETO MENSUAL A BRUTO MENSUAL");
 
       let objenviarMensual = {
@@ -1013,7 +1039,7 @@ export class PagosComponent implements OnInit {
   public verificaCambiosNecesarios(): boolean {
     let variable: boolean = false;
 
-   
+
     if (this.myFormCompensacion.controls.grupoNominaId.invalid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe seleccionar un grupo de  nómina");
@@ -1029,13 +1055,13 @@ export class PagosComponent implements OnInit {
 
 
 
-  public calcularSueldo(){
-    
-    if(!this.grupoNominaSeleccionado.pagoComplementario){
+  public calcularSueldo() {
+
+    if (!this.grupoNominaSeleccionado.pagoComplementario) {
       this.cambiasueldobruto(this.fc.tiposueldo.value == 'b');
-  }else{
-    this.cambiassueldoPPP();
-  }
+    } else {
+      this.cambiassueldoPPP();
+    }
   }
 
 
