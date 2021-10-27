@@ -8,6 +8,7 @@ import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaag
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
+import { ServerSentEventService } from 'src/app/shared/services/nominas/server-sent-event.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
@@ -58,7 +59,8 @@ export class CalcularComponent implements OnInit {
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaFiniquito: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
     private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService,
-    private usuariSistemaPrd: UsuarioSistemaService, private ventana: VentanaemergenteService) { }
+    private usuariSistemaPrd: UsuarioSistemaService, private ventana: VentanaemergenteService,
+    private SEE:ServerSentEventService) { }
 
   ngOnInit(): void {
 
@@ -437,6 +439,9 @@ export class CalcularComponent implements OnInit {
           this.nominaOrdinariaPrd.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
+                this.SEE.iniciar(objEnviar.nominaXperiodoId).subscribe(datos =>{
+                  this.SEE.showNotification(datos.mensaje,datos.exito);
+               })
                 this.regresarExtraordinaria();
               }
             });
