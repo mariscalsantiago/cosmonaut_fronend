@@ -87,7 +87,8 @@ export class CargaMasivaEventosComponent implements OnInit {
       
       this.arregloEmpleados = datos.datos;
       for (let item of this.arregloEmpleados) {
-        item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
+        item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno + " " + (item.personaId.apellidoMaterno == undefined ? "" : item.personaId.apellidoMaterno);
+        
       }
 
     });
