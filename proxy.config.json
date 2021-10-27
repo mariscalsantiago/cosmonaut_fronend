@@ -47,6 +47,14 @@
             "^/reportes": ""
           },
          "changeOrigin": true
+    },
+    "/webevent/*":{
+        "target":"https://08eb-2806-107e-20-3c25-bd69-1a76-ab6b-248a.ngrok.io",
+        "secure":false,
+        "pathRewrite": {
+            "^/webevent": ""
+          },
+         "changeOrigin": true
     }
 
 

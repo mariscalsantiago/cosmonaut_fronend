@@ -1,5 +1,7 @@
 <div style="margin-left: 10px;background-color: #f6f7f9;" class="contenido_component">
 
+
+
     <div class="wrapper">
         <div (click)="mostrarmenu = false" class="backgroundresponsive" [ngClass]="{'backgroundresponsive':mostrarmenu}"></div>
         <nav style="background-color: #f6f7f9;" *ngIf="configuracionPrd.menu" aria-label="cosmonaut" id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
@@ -72,6 +74,7 @@
 
                 <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [subtitulo]="modal.strSubtitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
                 <app-ventanaemergenteprincipal [ventanaalerta]="emergente.ventanaalerta" *ngIf="emergente.modal" [titulo]="emergente.titulo" [mostrar]="mostrar" (salida)="recibirEmergente($event)" [datos]="emergente.datos"></app-ventanaemergenteprincipal>
+               
 
             </div>
         </div>
