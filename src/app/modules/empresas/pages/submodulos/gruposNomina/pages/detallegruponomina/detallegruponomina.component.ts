@@ -116,16 +116,16 @@ export class DetallegruponominaComponent implements OnInit {
 
   public crearForm(obj:any){
 
-    if(obj.periodicidadPagoId?.periodicidadPagoId !== "01" && obj.periodicidadPagoId?.periodicidadPagoId !== "05" ){
-      this.activarISR();
-    }
+    //if(obj.periodicidadPagoId?.periodicidadPagoId !== "01" && obj.periodicidadPagoId?.periodicidadPagoId !== "05" ){
+      //this.activarISR();
+    //}
     if(!this.esInsert){
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio == "P"?"periodica":"diaria";
       obj.ajustarBaseGravableFaltantes = obj.ajustarBaseGravableFaltantes ? "true" : "false";
-        //if(obj.ajustarBaseGravableFaltantes){
+        if(obj.esAjusteMensualIsr == true){
         //this.ajustedeisr = true;
-        //this.activarISR();
-        //}
+          this.activarISR();
+        }
     }else{
       obj.maneraCalcularSubsidio = obj.maneraCalcularSubsidio = "periodica";
       obj.ajustarBaseGravableFaltantes = "false";
@@ -137,7 +137,7 @@ export class DetallegruponominaComponent implements OnInit {
       //esquemaPagoId:[obj.esquemaPagoId?.esquemaPagoId,[Validators.required]],
       ajustarBaseGravableFaltantes: [obj.ajustarBaseGravableFaltantes],
       monedaId:[obj.monedaId?.monedaId,[Validators.required]],
-      //ajustedeisr: [this.ajustedeisr],
+      esAjusteMensualIsr: [obj.esAjusteMensualIsr],
       centrocClienteId:[this.empresaRazon,[Validators.required]],
       clabe:[obj.cuentaBancoId?.cuentaBancoId,[Validators.required]],
       periodicidadPagoId:[obj.periodicidadPagoId?.periodicidadPagoId,[Validators.required]],
@@ -168,7 +168,7 @@ export class DetallegruponominaComponent implements OnInit {
 
 
       if(valor){
-
+      debugger;  
 
         let obj = this.myForm.value;
 
@@ -179,6 +179,7 @@ export class DetallegruponominaComponent implements OnInit {
           esAutomatica:obj.esAutomatica,
           maneraCalcularSubsidio:subsidio,
           ajustarBaseGravableFaltantes: obj.ajustarBaseGravableFaltantes,
+          esAjusteMensualIsr: obj.esAjusteMensualIsr,
           monedaId:{monedaId:obj.monedaId},
           pagoComplementario: obj.pagoComplementario,
           centrocClienteId:{centrocClienteId:this.id_empresa},
@@ -257,8 +258,12 @@ export class DetallegruponominaComponent implements OnInit {
 
 
   public activar(obj:any){
-    
+    debugger;
         this.activadoISR = obj.checked;
+        if(!obj.checked){
+          this.myForm.controls.ajustarBaseGravableFaltantes.setValue('false');
+          this.myForm.controls.ajustarBaseGravableFaltantes.updateValueAndValidity();
+        }
   }
 
   public activarISR(){

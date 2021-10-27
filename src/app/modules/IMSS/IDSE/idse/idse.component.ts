@@ -123,7 +123,7 @@ export class IDSEComponent implements OnInit {
 
   public filtrar() {
 
-    debugger;
+    
 
     this.cargando = true;
     this.objFiltro = {};
@@ -369,7 +369,7 @@ export class IDSEComponent implements OnInit {
 
 
         console.log(JSON.stringify(this.arregloEnvioIDSE));
-        debugger;
+        
 
         
         this.modalPrd.showMessageDialog(this.modalPrd.loading);

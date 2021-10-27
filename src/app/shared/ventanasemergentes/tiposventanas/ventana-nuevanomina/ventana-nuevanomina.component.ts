@@ -40,7 +40,7 @@ export class VentanaNuevanominaComponent implements OnInit {
 
 
     this.f.fechaIniPeriodo.valueChanges.subscribe(valor => {
-      debugger;
+      
       if (valor) {
         this.f.fechaFinPeriodo.setValue("");
         if (this.f.fechaIniPeriodo.valid) {
@@ -111,7 +111,7 @@ export class VentanaNuevanominaComponent implements OnInit {
 
 
   public validaFechaFinal(): Boolean{
-    debugger;
+    
     let respuesta: boolean = true;
     let fechaInicioP = this.myForm.controls.fechaIniPeriodo.value;
     let fechafinP = this.myForm.controls.fechaFinPeriodo.value;
@@ -156,7 +156,7 @@ export class VentanaNuevanominaComponent implements OnInit {
 
 
   public guardarNomina() {
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     let objEnviar = {

@@ -358,6 +358,7 @@ export class ListagruposnominasComponent implements OnInit {
             new tabla("baseperiododescripcion", "Calcular periodo de nómina con base a:"),
             new tabla("periodoaguinaldodescripcion", "Periodo para pago de aguinaldo"),
             new tabla("isrAguinaldoReglamentodescripcion", "Calcular ISR de aguinaldo aplicando reglamento:"),
+            new tabla("AjusteMensualIsr", "Ajuste de ISR"),
             new tabla("ajustarBaseGravableFaltantesISR", "Ajustar base gravable del mes de periodos ordinarios faltantes"),
             new tabla("maneraCalcularSubsidiodescripcion", "Calcular subsidio al empleo de manera:"),
             new tabla("pagoComplementarioDes", "Pago complementario")
@@ -367,6 +368,7 @@ export class ListagruposnominasComponent implements OnInit {
           item.nombrecuenta = item.cuentaBancoId?.nombreCuenta;
           item.nombremoneda = item.monedaId?.descripcion;
           item.baseperiododescripcion = item.basePeriodoId?.nombreCorto;
+          item.AjusteMensualIsr = item.esAjusteMensualIsr ? "Si" : "No";
           item.ajustarBaseGravableFaltantesISR = item.ajustarBaseGravableFaltantes ? "Si" : "No";
           item.periodoaguinaldodescripcion = item.periodoAguinaldoId?.descripcion;
           item.isrAguinaldoReglamentodescripcion = item.esIsrAguinaldoReglamento ? "Si" : "No";
