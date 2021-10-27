@@ -360,7 +360,7 @@
 
             </div>
 
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="catEstatus" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Estatus</label>
                 <select name="" class="form-control" formControlName="esActivo">
                     <option value="true">Activo</option>

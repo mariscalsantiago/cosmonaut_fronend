@@ -67,6 +67,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public activaClaveNumerica: boolean = false;
   public todayF : string = '';
   public valFecha : boolean = true;
+  public catEstatus : boolean = true;
 
   public modulo: string = "";
   public subModulo: string = "";
@@ -723,6 +724,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.percepcion = true;
       }
       else if(this.detCatalogos.listaCatalogosId == 15){
+        this.catEstatus = false;
         this.referencia = true;
         this.descripcionGeneral = false;
       }
