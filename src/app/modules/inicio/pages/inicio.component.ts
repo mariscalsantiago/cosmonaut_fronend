@@ -6,8 +6,10 @@ import { EventosService } from 'src/app/modules/eventos/services/eventos.service
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { ServerSentEventService } from 'src/app/shared/services/nominas/server-sent-event.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { environment } from 'src/environments/environment';
 import { Noticia } from './../../../core/modelos/noticia';
 import { NoticiasService } from './../../noticias/services/noticias.service';
 
@@ -239,14 +241,9 @@ export class InicioComponent implements OnInit {
   }
 
   public enbase() {
-    console.log("Se ejecuta la funcion");
-    var evtSource = new EventSource("http://192.168.1.68:8080/prueba/nomina", { withCredentials: true});
-
-    evtSource.onmessage = function (e) {
-        console.log("Se puede");
-        console.log(e.data);
-        console.log(e);
-    };
+    
+    let mm:any = document.getElementById("ventanaEmergente");
+    mm.style.display = "block"
   }
 
 }

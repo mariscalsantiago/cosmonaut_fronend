@@ -6,7 +6,10 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
+import { ServerSentEventService } from 'src/app/shared/services/nominas/server-sent-event.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-nominas-activas',
@@ -35,7 +38,8 @@ export class NominasActivasComponent implements OnInit {
 
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService, private usuariSistemaPrd: UsuarioSistemaService,
-    private nominaOrdinariaPrd: NominaordinariaService, public configuracionPrd: ConfiguracionesService) { }
+    private nominaOrdinariaPrd: NominaordinariaService, public configuracionPrd: ConfiguracionesService,
+    private SEE:ServerSentEventService) { }
 
 
 
@@ -47,6 +51,16 @@ export class NominasActivasComponent implements OnInit {
     this.traerListaNomina();
     this.establecerPermisos();
 
+
+    console.log("Iniciara la suscripcion");
+    this.SEE.iniciar(3).subscribe(datos =>{
+      console.log("ESTA BIEN",datos);
+      //alert(datos.mensaje);
+
+    })
+
+
+  
 
   }
 

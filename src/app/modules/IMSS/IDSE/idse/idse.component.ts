@@ -366,6 +366,11 @@ export class IDSEComponent implements OnInit {
           movimientosKardexIds: valor
         }
 
+
+
+        console.log(JSON.stringify(this.arregloEnvioIDSE));
+        debugger;
+
         
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
