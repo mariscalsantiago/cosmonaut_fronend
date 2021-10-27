@@ -6,5 +6,5 @@ export const environment = {
   rutaReportes:'https://cosmonautdev.wintermute.services/reportes',
   rutaNomina:'https://cosmonautdev.wintermute.services/nomina',
   rutaSocket:'wss://cosmonautdev.wintermute.services/empresa',
-  rutaEvents:'/webevent'
+  rutaEvents:'https://cosmonautdev.wintermute.services/task'
 };

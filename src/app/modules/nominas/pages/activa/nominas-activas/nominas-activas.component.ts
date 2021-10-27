@@ -49,19 +49,7 @@ export class NominasActivasComponent implements OnInit {
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.traerListaNomina();
-    this.establecerPermisos();
-
-
-    console.log("Iniciara la suscripcion");
-    this.SEE.iniciar(3).subscribe(datos =>{
-      console.log("ESTA BIEN",datos);
-      //alert(datos.mensaje);
-
-    })
-
-
-  
-
+    this.establecerPermisos();  
   }
 
 
@@ -130,6 +118,10 @@ export class NominasActivasComponent implements OnInit {
     this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       if (datos.resultado) {
+        this.SEE.iniciar(objEnviar.nominaXperiodoId).subscribe(datos =>{
+           this.SEE.showNotification(datos.mensaje,datos.exito);
+           this.traerListaNomina();
+        })
         item.nominaOrdinaria.estadoProcesoNominaId = 1;
         item.nominaOrdinaria.estadoProcesoDescripcion = "Pendiente";
         item.mensajePensando = item.nominaOrdinaria.estadoProcesoNominaId == 4 ? item.nominaOrdinaria.procesoNominaObservaciones : "";
