@@ -41,7 +41,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   ngOnInit(): void {
 
 
-    
+    debugger;
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
@@ -385,7 +385,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
 
-    
+    debugger;
 
     var datePipe = new DatePipe("es-MX");
     switch (cadena) {

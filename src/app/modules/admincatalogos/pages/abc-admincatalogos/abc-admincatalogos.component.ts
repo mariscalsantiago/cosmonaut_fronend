@@ -42,6 +42,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public referencia: boolean = false;
   public arregloTablaValores: any = [];
   public editField: string = "";
+  public editFieldNum: Number = 0;
   public tablaISR: boolean = false;
   public formGeneral: boolean = true;
   public subsidioISR: boolean = false;
@@ -271,7 +272,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      
+      debugger;
       this.descripcion = this.objdetrep.estado;
       this.estado = this.objdetrep.estado;
       if(this.objdetrep.estadoId !== undefined){
@@ -606,12 +607,32 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    
+    debugger;
     let editField = event.target.textContent; 
 
     if (property.includes('cuotaFija')){
-      Number(editField);
-    }  
+
+      this.editFieldNum = Number(editField);
+    } 
+    
+    if (property.includes('limiteInferior')){
+      this.editFieldNum = Number(editField);
+    } 
+
+    if (property.includes('limiteSuperior')){
+      this.editFieldNum = Number(editField);
+    }
+    if (property.includes('montoSubsidio')){ 
+      this.editFieldNum = Number(editField);
+    }
+
+    if (property.includes('porcExcedenteLimInf')){ 
+      this.editFieldNum = Number(editField);
+    }
+
+    if (property.includes('tasa')){ 
+      this.editFieldNum = Number(editField);
+    }   
 
     if (property.includes('fecha')){
      editField = event.target.value;
@@ -659,6 +680,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
         }
     }
   }
+
+    if(this.editFieldNum !== 0){
+      editField = this.editFieldNum;
+    }
        
     this.arregloTablaValores[id][property] = editField;
     this.valFecha = true;
@@ -667,63 +692,31 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public changeValue(id: number, property: string, event: any) {
-    
-    let editField = event.target.textContent; 
-
-    if (property.includes('cuotaFija')){
-      Number(editField);
-    }  
-
+    debugger;
+    this.editField = event.target.textContent;
     if (property.includes('fecha')){
-     editField = event.target.value;
+      this.editField = event.target.value;
+     }
 
-    let itemFecha = this.arregloTablaValores[id];
-    if(itemFecha.fechaFin !== undefined){
-    let fechaIn = itemFecha.fechaInicio;
-    let fechaFin = itemFecha.fechaFin; 
-    if(property === 'fechaFin' ){
-        fechaFin = editField;
+     if (property.includes('cuotaFija')){
+      Number(this.editField);
+    }
+    if (property.includes('limiteInferior')){
+      Number(this.editField);
+    } 
 
-        if (fechaFin < fechaIn) {
-  
-          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser igual o mayor a la fecha inicio')
-            .then(() => {
-              editField= '';
-              this.arregloTablaValores[id][property] = editField;
-              this.valFecha = false;
-            });
-          return;  
-        }else{   
-          this.arregloTablaValores[id][property] = editField;
-          this.valFecha = true;
-          }
+    if (property.includes('limiteSuperior')){
+      Number(this.editField);
     }
-    if(property === 'fechaInicio' ){
-      fechaIn = editField;
-      if (fechaIn > fechaFin) {
-  
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio debe ser igual o menor a la fecha fin')
-          .then(() => {
-            editField= '';
-            this.arregloTablaValores[id][property] = editField;
-            this.valFecha = false;
-          });
-        return;  
-      }
-      else{   
-        this.arregloTablaValores[id][property] = editField;
-        this.valFecha = true;
-        }
+    if (property.includes('montoSubsidio')){
+      Number(this.editField);
     }
-        if (fechaIn === '' || fechaFin === '') {
-          this.valFecha = false;
-        }
-    }
-  }
-       
-    this.arregloTablaValores[id][property] = editField;
-    this.valFecha = true;
-    
+    if (property.includes('porcExcedenteLimInf')){ 
+      Number(this.editField);
+    }   
+    if (property.includes('tasa')){ 
+      Number(this.editField);
+    }   
   }
 
   public clave(){
@@ -826,7 +819,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public validaFechaFinal(): Boolean{
-    
+    debugger;
     let respuesta: boolean = true;
     let fechaInicioP = this.myForm.controls.fechaInicio.value;
     let fechafinP = this.myForm.controls.fechaFin.value;
@@ -1763,22 +1756,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   
           } else {
 
+            this.valorestab = [];
             for(let item of this.arregloTablaValores){
-/*               let fechainicio = "";
-              let fechafin = "";
-              if (item.fechaFin != undefined || item.fechaFin != null) {
-                if (item.fechaFin != "") {
-                  const fecha1 = new Date(item.fechaFin).toUTCString().replace("GMT", "");
-                  fechafin = `${new Date(fecha1).getTime()}`;
-                }
-              }
-              if (item.fechaInicio != undefined || item.fechaInicio != null) {
-          
-                if (item.fechaInicio != "") {
-                  const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
-                  fechainicio = `${new Date(fecha1).getTime()}`;
-                }
-              } */
               this.valores = 
                 {
                   tarifaPeriodicaIsrId: item.tarifaPeriodicaIsrId,
@@ -1790,13 +1769,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
                   esActivo: item.esActivo,
                   fechaInicio: item.fechaInicio,
                   fechaFin: item.fechaFin
-
                 }
-
                 this.valorestab.push(this.valores);
   
               }
-
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarTarifaPeriodicaISR(this.valorestab).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -1857,14 +1833,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-            
+            this.valorestab = [];
             
             for(let item of this.arregloTablaValores){
-
-/*               if (item.fechaInicio != "") {
-                const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
-                item.fechaInicio = `${new Date(fecha1).getTime()}`;
-              } */
               this.valores = 
                 {
                   tasaAplicableIsnId: item.tasaAplicableIsnId,
@@ -1882,13 +1853,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 this.valorestab.push(this.valores);
   
               }
-/*             this.objEnviar = {
-
-              valoresTablaPeriodicaISR: this.valorestab,
-
-            } */ 
-  
-  
+ 
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarAplicableISN(this.valorestab).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -1903,23 +1868,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
         }
         else if(this.detCatalogos.listaCatalogosId == 18){
-/*           let fechainicio = "";
-          let fechafin = "";
-          if (obj.fechaFin != undefined || obj.fechaFin != null) {
-      
-            if (obj.fechaFin != "") {
-              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
-              fechafin = `${new Date(fecha1).getTime()}`;
-            }
-          }
-          
-          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
-      
-            if (obj.fechaInicio != "") {
-              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
-              fechainicio = `${new Date(fecha1).getTime()}`;
-            }
-          } */
+
           this.objEnviar = {
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
@@ -1945,25 +1894,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-            
+            this.valorestab = [];
             for(let item of this.arregloTablaValores){
-/*               let fechainicio = "";
-              let fechafin = "";
-              if (item.fechaFin != undefined || item.fechaFin != null) {
-          
-                if (item.fechaFin != "") {
-                  const fecha1 = new Date(item.fechaFin).toUTCString().replace("GMT", "");
-                  fechafin = `${new Date(fecha1).getTime()}`;
-                }
-              }
-              
-              if (item.fechaInicio != undefined || item.fechaInicio != null) {
-          
-                if (item.fechaInicio != "") {
-                  const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
-                  fechainicio = `${new Date(fecha1).getTime()}`;
-                }
-              } */
               this.valores = 
                 {
                   tarifaPeriodicaSubsidioId: item.tarifaPeriodicaSubsidioId,
@@ -1979,11 +1911,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 this.valorestab.push(this.valores);
 
               }
-/*             this.objEnviar = {
-              valoresTablaPeriodicaSubsidio: this.valorestab,
-            } */
 
-  
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarTarifaPeriodicaSubsidio(this.valorestab).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
