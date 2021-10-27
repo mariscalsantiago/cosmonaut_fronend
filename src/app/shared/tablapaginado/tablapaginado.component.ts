@@ -493,7 +493,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
 
     for (i = 0; i < this.arreglotemp.length; i++) {
-      debugger;
+      
       j = i;
       aux = this.arreglotemp[i];
       let fechar : string = '';

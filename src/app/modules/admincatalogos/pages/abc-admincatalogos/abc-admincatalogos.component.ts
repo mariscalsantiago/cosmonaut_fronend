@@ -271,7 +271,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      debugger;
+      
       this.descripcion = this.objdetrep.estado;
       this.estado = this.objdetrep.estado;
       if(this.objdetrep.estadoId !== undefined){
@@ -606,11 +606,15 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    debugger;
-    let editField = event.target.textContent;
+    
+    let editField = event.target.textContent; 
+
+    if (property.includes('cuotaFija')){
+      Number(editField);
+    }  
+
     if (property.includes('fecha')){
      editField = event.target.value;
-    }
 
     let itemFecha = this.arregloTablaValores[id];
     if(itemFecha.fechaFin !== undefined){
@@ -653,19 +657,73 @@ export class ABCAdminCatalogosComponent implements OnInit {
         if (fechaIn === '' || fechaFin === '') {
           this.valFecha = false;
         }
-    }else{   
+    }
+  }
+       
     this.arregloTablaValores[id][property] = editField;
     this.valFecha = true;
-    }
+    
   }
 
 
   public changeValue(id: number, property: string, event: any) {
-    debugger;
-    this.editField = event.target.textContent;
+    
+    let editField = event.target.textContent; 
+
+    if (property.includes('cuotaFija')){
+      Number(editField);
+    }  
+
     if (property.includes('fecha')){
-      this.editField = event.target.value;
-     }
+     editField = event.target.value;
+
+    let itemFecha = this.arregloTablaValores[id];
+    if(itemFecha.fechaFin !== undefined){
+    let fechaIn = itemFecha.fechaInicio;
+    let fechaFin = itemFecha.fechaFin; 
+    if(property === 'fechaFin' ){
+        fechaFin = editField;
+
+        if (fechaFin < fechaIn) {
+  
+          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser igual o mayor a la fecha inicio')
+            .then(() => {
+              editField= '';
+              this.arregloTablaValores[id][property] = editField;
+              this.valFecha = false;
+            });
+          return;  
+        }else{   
+          this.arregloTablaValores[id][property] = editField;
+          this.valFecha = true;
+          }
+    }
+    if(property === 'fechaInicio' ){
+      fechaIn = editField;
+      if (fechaIn > fechaFin) {
+  
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio debe ser igual o menor a la fecha fin')
+          .then(() => {
+            editField= '';
+            this.arregloTablaValores[id][property] = editField;
+            this.valFecha = false;
+          });
+        return;  
+      }
+      else{   
+        this.arregloTablaValores[id][property] = editField;
+        this.valFecha = true;
+        }
+    }
+        if (fechaIn === '' || fechaFin === '') {
+          this.valFecha = false;
+        }
+    }
+  }
+       
+    this.arregloTablaValores[id][property] = editField;
+    this.valFecha = true;
+    
   }
 
   public clave(){
@@ -767,6 +825,20 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
   }
 
+  public validaFechaFinal(): Boolean{
+    
+    let respuesta: boolean = true;
+    let fechaInicioP = this.myForm.controls.fechaInicio.value;
+    let fechafinP = this.myForm.controls.fechaFin.value;
+    if (fechafinP < fechaInicioP) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser mayor a la fecha de inicio');
+      this.myForm.controls.fechaFin.setValue("");
+      respuesta = false;
+    }
+
+    return respuesta;
+
+  }  
 
   public enviarPeticion() {
     this.submitEnviado = true;
@@ -775,6 +847,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
       return;
 
     }
+    if(this.detCatalogos.listaCatalogosId == 15){
+
+      if (!this.validaFechaFinal()) {
+        return;
+      }
+    }  
     const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catalogo?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){

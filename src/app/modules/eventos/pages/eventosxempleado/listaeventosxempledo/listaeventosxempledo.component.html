@@ -29,7 +29,7 @@
 
                 <div class="row">
                     <div *ngIf="evento.duracion" class=" col-12 ">
-                        <label>Días: <span class="letramenos">{{evento.duracion}}</span></label>
+                        <label> {{evento.unidadMedidaId == 2?'Monto: ':'Días: '}}<span class="letramenos">{{evento.duracion}}</span></label>
                     </div>
                     <div class=" col-12 ">
                         <label>Fecha de inicio: <span class="letramenos">{{evento.fechaInicio}}</span></label>
