@@ -105,11 +105,12 @@ export class VariabilidadComponent implements OnInit {
     this.cargando = true;
     
     this.EmpleadosService.getEmpleadosCompania(this.idEmpresa).subscribe(datos => {
-      
+      if(datos.datos[0] !== undefined){
       let obj = datos.datos[0];
       this.razonSocial = obj.centrocClienteId?.razonSocial;
+      }
       this.filtrar();
-
+        
     });
     
   }

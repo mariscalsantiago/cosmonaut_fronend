@@ -64,6 +64,9 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   public seleccionarGlobal: boolean = false;
+  public anio : number = 0;
+  public mes : number = 0;
+  public dia : number = 0;
 
 
 
@@ -455,8 +458,38 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordenar(item: any) {
-
+    debugger;
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
+
+/*     let i, j;
+    let aux;
+    let llave = item.id;
+    for (i = 1; i < this.arreglotemp.length; i++) {
+      j = i;
+      aux = this.arreglotemp[i];
+      //let fechaAlta: number = 0;
+      let fechar : string = '';
+      //"2021-10-01"  31-ago.-2021 
+      let fechaFinDescu: Date = new Date();
+      fechar = aux[llave].split("-");
+      this.dia = Number(fechar[0]);
+      this.anio = Number(fechar[2]);
+
+      if(fechar[1].includes('oct')){
+        this.mes = Number(10); 
+      }
+      fechaFinDescu.setFullYear(this.anio, this.mes - 1, this.dia);
+
+      //let fechaActual = new Date();
+      //fechaActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate());
+     
+      //var fechaFC = new Date(aux[llave]);
+      //var IPOfecha = new Date();
+      //IPOfecha.setTime(Date.parse(aux[llave]));
+      //var fechaFC = Date.parse(aux[llave]);
+      aux[llave] = new Date((new Date(fechaFinDescu).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
+    } */
+
     this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
     this.paginar();
   }
@@ -474,28 +507,40 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         aux[llave] = '';
       }
       aux[llave] = aux[llave].toString();
+      debugger;
 
       if (tipoAcomodo) {
-        /*         let fecha = new DatePipe("es-MX").transform(aux[llave], 'dd-mm-yy');
-                var RegExPattern = /^\d{1,2}\/\d{1,3}\/\d{2,4}$/;
-                if ((aux[llave].match(RegExPattern))) {
-                  alert("Entra");
-        
-                } */
-        if (!isNaN(parseFloat(aux[llave])) && isFinite(aux[llave])) {
-          if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-') {
+        debugger;
+              //let fecha = new DatePipe("es-MX").transform(aux[llave], 'dd-mm-yy');
+              let fechaActual = new Date(aux[llave]);
+              let fechaFinal: string = "";
+              fechaActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate());
+              fechaFinal  = String(new DatePipe("es-MX").transform(fechaActual, "yyyy-MM-dd"));
+              fechaFinal = aux[llave].split("-");
+              //var anio = new Date().getFullYear();
+              if (fechaFinal.length == 3) {
+                 //anio = fechaSp[2];
+              
+              while (j > 0 && ( new Date(aux[llave]).getTime() <  new Date(a[j - 1][llave]).getTime())) {
+                
+                a[j] = a[j - 1];
+                j--;
+              }
+            }
+          else if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-') {
             while (j > 0 && (Number(aux[llave].replace(/[^0-9.-]+/g, "")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g, "")))) {
               a[j] = a[j - 1];
               j--;
 
             }
-          } else {
+          }
+          else if (!isNaN(parseFloat(aux[llave])) && isFinite(aux[llave])) {
             while (j > 0 && (Number(aux[llave]) < Number(a[j - 1][llave]))) {
               a[j] = a[j - 1];
               j--;
             }
           }
-        } else {
+          else {
           while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() < (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
             a[j] = a[j - 1];
             j--;
@@ -503,20 +548,20 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         }
 
       } else {
-        if (!isNaN(parseFloat(aux[llave])) && isFinite(aux[llave])) {
-          if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-') {
+           if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-') {
             while (j > 0 && (Number(aux[llave].replace(/[^0-9.-]+/g, "")) > Number(a[j - 1][llave].replace(/[^0-9.-]+/g, "")))) {
               a[j] = a[j - 1];
               j--;
 
             }
-          } else {
+          } 
+          else if (!isNaN(parseFloat(aux[llave])) && isFinite(aux[llave])) {
             while (j > 0 && (Number(aux[llave]) > Number(a[j - 1][llave]))) {
               a[j] = a[j - 1];
               j--;
             }
           }
-        } else {
+          else {
           while (j > 0 && (aux[llave] == undefined ? " " : `${aux[llave]}`)?.toUpperCase() > (a[j - 1][llave] == undefined ? " " : `${a[j - 1][llave]}`)?.toUpperCase()) {
             a[j] = a[j - 1];
             j--;
