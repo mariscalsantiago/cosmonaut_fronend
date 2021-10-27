@@ -767,6 +767,20 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
   }
 
+  public validaFechaFinal(): Boolean{
+    debugger;
+    let respuesta: boolean = true;
+    let fechaInicioP = this.myForm.controls.fechaInicio.value;
+    let fechafinP = this.myForm.controls.fechaFin.value;
+    if (fechafinP < fechaInicioP) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser mayor a la fecha de inicio');
+      this.myForm.controls.fechaFin.setValue("");
+      respuesta = false;
+    }
+
+    return respuesta;
+
+  }  
 
   public enviarPeticion() {
     this.submitEnviado = true;
@@ -775,6 +789,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
       return;
 
     }
+    if(this.detCatalogos.listaCatalogosId == 15){
+
+      if (!this.validaFechaFinal()) {
+        return;
+      }
+    }  
     const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catalogo?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
