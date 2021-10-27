@@ -607,10 +607,14 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
   public updateList(id: number, property: string, event: any) {
     debugger;
-    let editField = event.target.textContent;
+    let editField = event.target.textContent; 
+
+    if (property.includes('cuotaFija')){
+      Number(editField);
+    }  
+
     if (property.includes('fecha')){
      editField = event.target.value;
-    }
 
     let itemFecha = this.arregloTablaValores[id];
     if(itemFecha.fechaFin !== undefined){
@@ -653,19 +657,73 @@ export class ABCAdminCatalogosComponent implements OnInit {
         if (fechaIn === '' || fechaFin === '') {
           this.valFecha = false;
         }
-    }else{   
+    }
+  }
+       
     this.arregloTablaValores[id][property] = editField;
     this.valFecha = true;
-    }
+    
   }
 
 
   public changeValue(id: number, property: string, event: any) {
     debugger;
-    this.editField = event.target.textContent;
+    let editField = event.target.textContent; 
+
+    if (property.includes('cuotaFija')){
+      Number(editField);
+    }  
+
     if (property.includes('fecha')){
-      this.editField = event.target.value;
-     }
+     editField = event.target.value;
+
+    let itemFecha = this.arregloTablaValores[id];
+    if(itemFecha.fechaFin !== undefined){
+    let fechaIn = itemFecha.fechaInicio;
+    let fechaFin = itemFecha.fechaFin; 
+    if(property === 'fechaFin' ){
+        fechaFin = editField;
+
+        if (fechaFin < fechaIn) {
+  
+          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser igual o mayor a la fecha inicio')
+            .then(() => {
+              editField= '';
+              this.arregloTablaValores[id][property] = editField;
+              this.valFecha = false;
+            });
+          return;  
+        }else{   
+          this.arregloTablaValores[id][property] = editField;
+          this.valFecha = true;
+          }
+    }
+    if(property === 'fechaInicio' ){
+      fechaIn = editField;
+      if (fechaIn > fechaFin) {
+  
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio debe ser igual o menor a la fecha fin')
+          .then(() => {
+            editField= '';
+            this.arregloTablaValores[id][property] = editField;
+            this.valFecha = false;
+          });
+        return;  
+      }
+      else{   
+        this.arregloTablaValores[id][property] = editField;
+        this.valFecha = true;
+        }
+    }
+        if (fechaIn === '' || fechaFin === '') {
+          this.valFecha = false;
+        }
+    }
+  }
+       
+    this.arregloTablaValores[id][property] = editField;
+    this.valFecha = true;
+    
   }
 
   public clave(){
