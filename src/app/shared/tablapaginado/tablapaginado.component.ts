@@ -458,39 +458,50 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordenar(item: any) {
-    debugger;
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
 
-/*     let i, j;
+    let i, j;
     let aux;
     let llave = item.id;
-    for (i = 1; i < this.arreglotemp.length; i++) {
+    for (i = 0; i < this.arreglotemp.length; i++) {
       j = i;
       aux = this.arreglotemp[i];
-      //let fechaAlta: number = 0;
       let fechar : string = '';
-      //"2021-10-01"  31-ago.-2021 
       let fechaFinDescu: Date = new Date();
       fechar = aux[llave].split("-");
+      if (fechar.length == 3) {
       this.dia = Number(fechar[0]);
       this.anio = Number(fechar[2]);
-
-      if(fechar[1].includes('oct')){
-        this.mes = Number(10); 
-      }
+      if(fechar[1].includes('ene')){this.mes = Number('01');}
+      if(fechar[1].includes('feb')){this.mes = Number('02');}
+      if(fechar[1].includes('mar')){this.mes = Number('03');}
+      if(fechar[1].includes('abr')){this.mes = Number('04');}
+      if(fechar[1].includes('may')){this.mes = Number('05');}
+      if(fechar[1].includes('jun')){this.mes = Number('06');}
+      if(fechar[1].includes('jul')){this.mes = Number('07');}
+      if(fechar[1].includes('ago')){this.mes = Number('08');}
+      if(fechar[1].includes('sep')){this.mes = Number('09');}
+      if(fechar[1].includes('oct')){this.mes = Number('10');}
+      if(fechar[1].includes('nov')){this.mes = Number('11');}
+      if(fechar[1].includes('dic')){this.mes = Number('12');}
       fechaFinDescu.setFullYear(this.anio, this.mes - 1, this.dia);
 
-      //let fechaActual = new Date();
-      //fechaActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate());
-     
-      //var fechaFC = new Date(aux[llave]);
-      //var IPOfecha = new Date();
-      //IPOfecha.setTime(Date.parse(aux[llave]));
-      //var fechaFC = Date.parse(aux[llave]);
-      aux[llave] = new Date((new Date(fechaFinDescu).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-    } */
+      aux[llave] = String(new DatePipe("es-MX").transform(fechaFinDescu, "yyyy-MM-dd"));
+    }
+    }
 
     this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
+
+    for (i = 0; i < this.arreglotemp.length; i++) {
+      debugger;
+      j = i;
+      aux = this.arreglotemp[i];
+      let fechar : string = '';
+      fechar = aux[llave].split("-");
+      if (fechar.length == 3) {
+        aux[llave] = new DatePipe("es-MX").transform(aux[llave], 'dd-MMM-y');
+    }
+    }
     this.paginar();
   }
 
@@ -507,26 +518,18 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         aux[llave] = '';
       }
       aux[llave] = aux[llave].toString();
-      debugger;
 
       if (tipoAcomodo) {
-        debugger;
-              //let fecha = new DatePipe("es-MX").transform(aux[llave], 'dd-mm-yy');
-              let fechaActual = new Date(aux[llave]);
-              let fechaFinal: string = "";
-              fechaActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate());
-              fechaFinal  = String(new DatePipe("es-MX").transform(fechaActual, "yyyy-MM-dd"));
-              fechaFinal = aux[llave].split("-");
-              //var anio = new Date().getFullYear();
-              if (fechaFinal.length == 3) {
-                 //anio = fechaSp[2];
+          let fechaFinal: string = "";
+          fechaFinal = aux[llave].split("-");
+          if (fechaFinal.length == 3) {
               
               while (j > 0 && ( new Date(aux[llave]).getTime() <  new Date(a[j - 1][llave]).getTime())) {
                 
                 a[j] = a[j - 1];
                 j--;
               }
-            }
+          }
           else if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-') {
             while (j > 0 && (Number(aux[llave].replace(/[^0-9.-]+/g, "")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g, "")))) {
               a[j] = a[j - 1];
@@ -548,7 +551,18 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         }
 
       } else {
-           if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-') {
+
+            let fechaFinal: string = "";
+            fechaFinal = aux[llave].split("-");
+            if (fechaFinal.length == 3) {
+                
+                while (j > 0 && ( new Date(aux[llave]).getTime() >  new Date(a[j - 1][llave]).getTime())) {
+                  
+                  a[j] = a[j - 1];
+                  j--;
+                }
+            }
+           else if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-') {
             while (j > 0 && (Number(aux[llave].replace(/[^0-9.-]+/g, "")) > Number(a[j - 1][llave].replace(/[^0-9.-]+/g, "")))) {
               a[j] = a[j - 1];
               j--;
