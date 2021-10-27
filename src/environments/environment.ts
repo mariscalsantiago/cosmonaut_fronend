@@ -11,8 +11,8 @@ export const environment = {
   rutaAdmin: '/admin',
   rutaReportes:'/reportes',
   rutaSocket:'wss://cosmonautdev.wintermute.services/empresa',
-  rutaEvents:'/webevent'
   //rutaSocket:'ws://192.168.1.67:8080'
+  rutaEvents:'/webevent'
 };
 
 /*
