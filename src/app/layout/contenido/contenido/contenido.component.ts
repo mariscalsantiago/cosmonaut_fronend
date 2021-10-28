@@ -360,16 +360,29 @@ export class ContenidoComponent implements OnInit {
     }, 10);
   }
   public entraComponente(obj: any) {
+    debugger;
     for (let item of this.PRINCIPAL_MENU) {
       item.labelflotante = false;
     }
 
     obj.labelflotante = true;
+
+    if (!obj.seleccionadosubmenu) {
+
+      this.limpiando();
+
+    }
   }
   public saleComponente(item: any) {
+    debugger;
     for (let item of this.PRINCIPAL_MENU) {
       item.labelflotante = false;
     }
+
+    if(item == undefined){
+      this.limpiando();
+    }
+
   }
 
 
