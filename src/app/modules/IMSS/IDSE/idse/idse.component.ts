@@ -59,11 +59,17 @@ export class IDSEComponent implements OnInit {
     public modulo: string = "";
     public subModulo: string = "";
 
+    public esRegistrar:boolean = false;
+    public esEliminar:boolean = false;
+    public esDescargar:boolean = false;
+
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    this.establecerPermisos();
     
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
@@ -120,6 +126,12 @@ export class IDSEComponent implements OnInit {
     this.cargando = false;
   }
 
+  public establecerPermisos(){
+    
+    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
+    this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
+    this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
+  }
 
   public filtrar() {
 

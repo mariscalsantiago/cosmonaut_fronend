@@ -52,14 +52,14 @@
                         </div>
                         <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
                             <div class="col-12">
-                                <button (click)="enviarIdse()" type="button"
+                                <button *ngIf="esRegistrar" (click)="enviarIdse()" type="button"
                                   class="btn heartbeathand btn-light button-outlet "><span>Enviar a IDSE</span>
                                 </button>
                               </div>
                           </div>
                           <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
                             <div class="col-12">
-                              <button (click)="guardarMultiseleccion()" type="button"
+                              <button *ngIf="esDescargar" (click)="guardarMultiseleccion()" type="button"
                                 class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar archivo</span>
                               </button>
                             </div>
@@ -69,7 +69,7 @@
     
                       <div class="   margen-tabla background-panel ">
                         <br>
-                        <app-tablapaginado [checkbox]="true" [imss]="true" [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
+                        <app-tablapaginado [checkbox]="true" [imss]="true" [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="esEliminar" (salida)="recibirTabla($event)" ></app-tablapaginado>
                       </div>
     
                 </div>

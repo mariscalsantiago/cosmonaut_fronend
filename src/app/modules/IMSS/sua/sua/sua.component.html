@@ -70,9 +70,9 @@
                         <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
 
                             <div class="col-12">
-                                <button (click)="guardarMultiseleccion(1)" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar altas</span>
+                                <button *ngIf="esDescargar" (click)="guardarMultiseleccion(1)" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar altas</span>
                               </button>
-                                <button (click)="guardarMultiseleccion(2)" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar modificaciones</span>
+                                <button *ngIf="esDescargar" (click)="guardarMultiseleccion(2)" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar modificaciones</span>
                             </button>
 
                             </div>

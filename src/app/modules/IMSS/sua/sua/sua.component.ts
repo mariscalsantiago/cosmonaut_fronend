@@ -54,6 +54,8 @@ export class SuaComponent implements OnInit {
     public modulo: string = "";
     public subModulo: string = "";
 
+    public esDescargar:boolean = false;
+
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
 
@@ -99,6 +101,10 @@ export class SuaComponent implements OnInit {
       this.arreglotabla.filas = this.arreglo
     }
 
+    public establecerPermisos(){
+    
+      this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
+    }
 
   public filtrar() {
     this.cargando = true;
