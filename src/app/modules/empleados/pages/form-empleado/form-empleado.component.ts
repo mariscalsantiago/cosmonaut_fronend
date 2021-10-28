@@ -49,6 +49,8 @@ export class FormEmpleadoComponent implements OnInit {
 
   public cambiaValor: boolean = false;
 
+  public esReactivar:boolean = false;
+
   constructor(private routerPrd: Router, private reportesPrd: ReportesService,
     private domicilioPrd:DomicilioService,private empleadosPrd: EmpleadosService,private empledoContratoPrd:ContratocolaboradorService,
     private ventana:VentanaemergenteService,private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
@@ -59,7 +61,6 @@ export class FormEmpleadoComponent implements OnInit {
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     
     let temp =  history.state.datos;
-    
     
     if(temp !== undefined){
       this.titulo = "COMPLETAR DATOS DEL EMPLEADO";

@@ -503,9 +503,12 @@ export class EmpleoComponent implements OnInit {
           objEnviar.pppSnm = obj.sueldonetomensualppp;
         }
 
-
         if (this.tabsDatos[3]?.fechaContrato == undefined) {
-          this.guardarContratoColaborador(objEnviar);
+          if(this.datosPersona?.reactivarCuenta){
+              this.guardarReactivarContratoColaborador(objEnviar);
+          }else{
+            this.guardarContratoColaborador(objEnviar);
+          }
         } else {
           if (!Boolean(objEnviar.jefeInmediatoId.personaId)) {
             objEnviar.jefeInmediatoId = null;
@@ -515,6 +518,7 @@ export class EmpleoComponent implements OnInit {
             objEnviar.sedeId = null;
           }
 
+          console.log(this.datosPersona);
           objEnviar.fechaContrato = this.tabsDatos[3]?.fechaContrato;
           this.actualizarContratoColaborador(objEnviar);
         }
@@ -558,57 +562,16 @@ export class EmpleoComponent implements OnInit {
 
 
   public guardarContratoColaborador(objEnviar: any) {
-
-
-
-    console.log(JSON.stringify(objEnviar));
-
-
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.colaboradorPrd.save(objEnviar).subscribe(datos => {
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+       this.datosDespuesGuardar(datos);
+    });
+  }
 
-
-
-      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-        if (datos.resultado) {
-
-
-
-          let objAuthEnviar = {
-            nombre: this.datosPersona.nombre,
-            apellidoPat: this.datosPersona.apellidoPaterno,
-            apellidoMat: this.datosPersona.apellidoMaterno,
-            email: this.datosPersona.emailCorporativo,
-            centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
-            rolId: 2,
-            version: this.usuarioSistemaPrd.getVersionSistema()
-          }
-
-          this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
-            if (!vv.resultado) {
-              this.modalPrd.showMessageDialog(vv.resultado, vv.mensaje);
-            }
-          });
-
-          let metodopago = {};
-
-          for (let item of this.arregloMetodosPago) {
-
-            if (item.metodoPagoId == this.myForm.value.metodo_pago_id) {
-
-              metodopago = item;
-              break;
-            }
-
-          }
-
-
-          this.enviado.emit({ type: "empleo", datos: datos.datos, metodopago: metodopago });
-        }
-      });
-
-
+  public guardarReactivarContratoColaborador(objEnviar: any) {
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    this.colaboradorPrd.saveReactivar(objEnviar).subscribe(datos => {
+       this.datosDespuesGuardar(datos);
     });
   }
 
@@ -1021,5 +984,45 @@ export class EmpleoComponent implements OnInit {
     } else {
       this.cambiassueldoPPP();
     }
+  }
+
+  private datosDespuesGuardar(datos:any){
+    this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+      if (datos.resultado) {
+
+
+
+        let objAuthEnviar = {
+          nombre: this.datosPersona.nombre,
+          apellidoPat: this.datosPersona.apellidoPaterno,
+          apellidoMat: this.datosPersona.apellidoMaterno,
+          email: this.datosPersona.emailCorporativo,
+          centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
+          rolId: 2,
+          version: this.usuarioSistemaPrd.getVersionSistema()
+        }
+
+        this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
+          if (!vv.resultado) {
+            this.modalPrd.showMessageDialog(vv.resultado, vv.mensaje);
+          }
+        });
+
+        let metodopago = {};
+
+        for (let item of this.arregloMetodosPago) {
+
+          if (item.metodoPagoId == this.myForm.value.metodo_pago_id) {
+
+            metodopago = item;
+            break;
+          }
+
+        }
+
+
+        this.enviado.emit({ type: "empleo", datos: datos.datos, metodopago: metodopago });
+      }
+    });
   }
 }
