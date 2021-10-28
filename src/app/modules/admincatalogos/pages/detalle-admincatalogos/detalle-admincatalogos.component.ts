@@ -326,16 +326,17 @@ export class DetalleAdminCatalogosComponent implements OnInit {
          
         if(datos.datos != undefined){
           this.listaTablas = datos.datos
-          }  
-/*         this.adminCatalogosPrd.getListaReferenciaInactivos(anio).subscribe(datosFa => {
-          if(datosFa.datos != undefined){
-            this.listaTablasFinal = datosFa.datos
-            } 
+           
           for(let item of this.listaTablas){
+            if(item.esActivo == false)
+            continue;
             this.listaTablasFinal.push(item);
-          } */ 
-        this.crearTabla(this.listaTablas);
-        //}); 
+          } 
+
+          }  
+
+        this.crearTabla(this.listaTablasFinal);
+        console.log('Valores finales',this.listaTablasFinal);
        });
 
     }

@@ -757,7 +757,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.nuevoaplicableISN = true;
 
       }
-      else if(this.detCatalogos.listaCatalogosId == 21 || this.detCatalogos.listaCatalogosId == 9 || this.detCatalogos.listaCatalogosId == 3 || this.detCatalogos.listaCatalogosId == 22 || this.detCatalogos.listaCatalogosId == 14 || this.detCatalogos.listaCatalogosId == 20 || this.detCatalogos.listaCatalogosId == 13 || this.detCatalogos.listaCatalogosId == 2 || this.detCatalogos.listaCatalogosId == 11 || this.detCatalogos.listaCatalogosId == 10 || this.detCatalogos.listaCatalogosId == 16){
+      else if(this.detCatalogos.listaCatalogosId == 21 || this.detCatalogos.listaCatalogosId == 22){
+        this.catEstatus = false;
+      }
+      else if(this.detCatalogos.listaCatalogosId == 9 || this.detCatalogos.listaCatalogosId == 3 || this.detCatalogos.listaCatalogosId == 14 || this.detCatalogos.listaCatalogosId == 20 || this.detCatalogos.listaCatalogosId == 13 || this.detCatalogos.listaCatalogosId == 2 || this.detCatalogos.listaCatalogosId == 11 || this.detCatalogos.listaCatalogosId == 10 || this.detCatalogos.listaCatalogosId == 16){
 
       }
       else{
