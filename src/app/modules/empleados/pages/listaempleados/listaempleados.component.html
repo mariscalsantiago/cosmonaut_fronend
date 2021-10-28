@@ -31,14 +31,14 @@
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
                             <select class="form-control" [(ngModel)]="idarea" id="idareaS">
-                                <option id="idareaID0S" value="">Seleccionar área</option>
-                                <option id="idareaIDS" *ngFor="let item of arregloAreas " [value]="item.areaId">{{item.descripcion}}</option>
+                                <option value="">Seleccionar área</option>
+                                <option *ngFor="let item of arregloAreas " [value]="item.areaId">{{item.descripcion}}</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
                             <select class="form-control" [(ngModel)]="idPuesto" id="idPuestoS">
-                                <option id="idPuestoID0S" value="">Seleccionar puesto</option>
-                                <option id="idPuestoIDS" *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}</option>
+                                <option value="">Seleccionar puesto</option>
+                                <option *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">

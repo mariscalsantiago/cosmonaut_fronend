@@ -69,9 +69,9 @@
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <select name="" class="form-control" [(ngModel)]="id_company" id="id_companyUsuario">
-                                            <option id="id_companyUsuario0"  value="" selected>Seleccionar
+                                            <option value="" selected>Seleccionar
                                                 {{esClienteEmpresa?'cliente':'empresa'}}</option>
-                                            <option id="id_companyUsuario1" *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
+                                            <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
                                                 {{item.razonSocial}}
                                             </option>
                                         </select>

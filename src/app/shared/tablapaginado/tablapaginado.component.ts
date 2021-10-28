@@ -458,11 +458,13 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordenar(item: any) {
+    debugger;
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
 
     let i, j;
     let aux;
     let llave = item.id;
+    if(llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato')){
     for (i = 0; i < this.arreglotemp.length; i++) {
       j = i;
       aux = this.arreglotemp[i];
@@ -489,7 +491,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
       aux[llave] = String(new DatePipe("es-MX").transform(fechaFinDescu, "yyyy-MM-dd"));
     }
     }
-
+    }
     this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
 
     for (i = 0; i < this.arreglotemp.length; i++) {
@@ -506,7 +508,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
-
+    debugger;
     let i, j;
     let aux;
 
