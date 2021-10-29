@@ -458,13 +458,13 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordenar(item: any) {
-    
+    debugger;
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
 
     let i, j;
     let aux;
-    let llave = item.id;
-    if(llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato')){
+    let llave = item.id; 
+    if(llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio')){
     for (i = 0; i < this.arreglotemp.length; i++) {
       j = i;
       aux = this.arreglotemp[i];
