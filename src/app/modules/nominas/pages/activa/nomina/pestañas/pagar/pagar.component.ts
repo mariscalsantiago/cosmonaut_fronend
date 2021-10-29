@@ -254,6 +254,7 @@ export class PagarComponent implements OnInit {
               if(datos.resultado){
                 this.continuarTitulo = "Continuar";
                 this.ngOnInit();
+                this.nominaSeleccionada[this.llave].estadoActualNomina = "PAGADA";
               }
             });
           });
@@ -305,7 +306,7 @@ export class PagarComponent implements OnInit {
                   this.configuracionesPrd.setCantidad(0);
                   this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
                   this.ventana.showVentana(this.ventana.ndispersion, {datos:{ nominaId: this.idnominaPeriodo,empleados:arrayPersonas }}).then(valor => {
-                    
+                    this.nominaSeleccionada[this.llave].estadoActualNomina = "PAGADA";
                     this.ngOnInit();
                   });
                 }, 2000);

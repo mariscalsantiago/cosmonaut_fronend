@@ -69,9 +69,15 @@
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <select name="" class="form-control" [(ngModel)]="id_company" id="id_companyUsuario">
+<<<<<<< HEAD
+                                            <option  value="" selected>Seleccionar
+                                                {{esClienteEmpresa?'cliente':'empresa'}}</option>
+                                            <option  *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
+=======
                                             <option value="" selected>Seleccionar
                                                 {{esClienteEmpresa?'cliente':'empresa'}}</option>
                                             <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
+>>>>>>> origin/RJR
                                                 {{item.razonSocial}}
                                             </option>
                                         </select>
@@ -83,9 +89,9 @@
                                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
                                         <select class="form-control" id="activoUsuario" [(ngModel)]="activo">
 
-                                            <option id="activoUsuario0" value="0" selected>Ambos</option>
-                                            <option id="activoUsuario1" value="1">Activo</option>
-                                            <option id="activoUsuario2" value="2">Inactivo</option>
+                                            <option  value="0" selected>Ambos</option>
+                                            <option  value="1">Activo</option>
+                                            <option  value="2">Inactivo</option>
 
                                         </select>
                                     </div>
