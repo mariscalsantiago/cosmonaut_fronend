@@ -168,7 +168,7 @@ export class DetallegruponominaComponent implements OnInit {
 
 
       if(valor){
-      debugger;  
+        
 
         let obj = this.myForm.value;
 
@@ -258,7 +258,7 @@ export class DetallegruponominaComponent implements OnInit {
 
 
   public activar(obj:any){
-    debugger;
+    
         this.activadoISR = obj.checked;
         if(!obj.checked){
           this.myForm.controls.ajustarBaseGravableFaltantes.setValue('false');

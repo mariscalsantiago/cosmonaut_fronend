@@ -27,10 +27,10 @@ export class AdminCatalogosService {
   }
   
   public getListaDispersion(): Observable<any> {
-    return this.http.get(`${direcciones.proveedores}/proveedor-dispersion/listar/todos`);
+    return this.http.get(`${direcciones.adminCatalogoDisp}/cat-proveedor-dispersion/listar/todos`);
   }
   public getListaTimbrado(): Observable<any> {
-    return this.http.get(`${direcciones.proveedores}/proveedor-timbrado/listar/todos`);
+    return this.http.get(`${direcciones.adminCatalogoDisp}/cat-proveedor-timbrado/listar/todos`);
   }
   public getListaMotivoBaja(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catMotivoBaja/listar/todosActivo/${estatus}`);
@@ -80,6 +80,7 @@ export class AdminCatalogosService {
 
   public getListaReferencia():Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia`);
+    
   }
 
   public getListaReferenciaInactivos(anio:number):Observable<any>{
