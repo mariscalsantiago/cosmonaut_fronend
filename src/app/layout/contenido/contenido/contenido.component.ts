@@ -360,7 +360,7 @@ export class ContenidoComponent implements OnInit {
     }, 10);
   }
   public entraComponente(obj: any) {
-    debugger;
+    
     for (let item of this.PRINCIPAL_MENU) {
       item.labelflotante = false;
     }
@@ -374,7 +374,7 @@ export class ContenidoComponent implements OnInit {
     }
   }
   public saleComponente(item: any) {
-    debugger;
+    
     for (let item of this.PRINCIPAL_MENU) {
       item.labelflotante = false;
     }

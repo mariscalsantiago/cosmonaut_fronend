@@ -272,7 +272,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      debugger;
+      
       this.descripcion = this.objdetrep.estado;
       this.estado = this.objdetrep.estado;
       if(this.objdetrep.estadoId !== undefined){
@@ -607,7 +607,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    debugger;
+    
     let editField = event.target.textContent; 
 
     if (property.includes('cuotaFija')){
@@ -692,7 +692,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
 
   public changeValue(id: number, property: string, event: any) {
-    debugger;
+    
     this.editField = event.target.textContent;
     if (property.includes('fecha')){
       this.editField = event.target.value;
@@ -822,7 +822,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public validaFechaFinal(): Boolean{
-    debugger;
+    
     let respuesta: boolean = true;
     let fechaInicioP = this.myForm.controls.fechaInicio.value;
     let fechafinP = this.myForm.controls.fechaFin.value;

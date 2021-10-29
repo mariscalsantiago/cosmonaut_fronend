@@ -458,7 +458,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordenar(item: any) {
-    debugger;
+    
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
 
     let i, j;
@@ -508,7 +508,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
-    debugger;
+    
     let i, j;
     let aux;
 
