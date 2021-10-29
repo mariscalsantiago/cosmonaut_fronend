@@ -205,8 +205,8 @@ export class VariabilidadComponent implements OnInit {
 
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
-                this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de varibales completo").then(valor =>{
-        
+                this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de variables completo").then(valor =>{
+                                                                            
                   if (datos.resultado) {
                       this.desgargarArchivo(undefined);
                       this.cancelar();
