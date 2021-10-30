@@ -616,11 +616,37 @@ export class ABCAdminCatalogosComponent implements OnInit {
     } 
     
     if (property.includes('limiteInferior')){
+      debugger;
       this.editFieldNum = Number(editField);
+
+      let limites = this.arregloTablaValores[id];
+      let limiteSuperior = limites.limiteSuperior;
+      if (this.editFieldNum > limiteSuperior) {
+  
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite inferior debe ser igual o menor que el límite superior')
+          .then(() => {
+            this.arregloTablaValores[id][property] = this.editFieldNum;
+            this.valFecha = false;
+          });
+        return;  
+      }
     } 
 
     if (property.includes('limiteSuperior')){
+      debugger;
       this.editFieldNum = Number(editField);
+
+      let limites = this.arregloTablaValores[id];
+      let limiteInferior = limites.limiteInferior;
+      if (this.editFieldNum < limiteInferior) {
+  
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite superior debe ser igual o mayor que el límite inferior')
+          .then(() => {
+            this.arregloTablaValores[id][property] = this.editFieldNum;
+            this.valFecha = false;
+          });
+        return;  
+      }
     }
     if (property.includes('montoSubsidio')){ 
       this.editFieldNum = Number(editField);
@@ -1715,24 +1741,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 17){
-          
-         /* let fechainicio = "";
-          let fechafin = "";
-           if (obj.fechaFin != undefined || obj.fechaFin != null) {
-      
-            if (obj.fechaFin != "") {
-              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
-              fechafin = `${new Date(fecha1).getTime()}`;
-            }
-          }
-          
-          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
-      
-            if (obj.fechaInicio != "") {
-              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
-              fechainicio = `${new Date(fecha1).getTime()}`;
-            }
-          } */
           this.objEnviar = {
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
@@ -1758,7 +1766,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-
+            debugger;
             this.valorestab = [];
             for(let item of this.arregloTablaValores){
               this.valores = 
@@ -1791,24 +1799,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 19){
-/*           let fechainicio = "";
-          let fechafin = "";
-          if (obj.fechaFin != undefined || obj.fechaFin != null) {
-      
-            if (obj.fechaFin != "") {
-              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
-              fechafin = `${new Date(fecha1).getTime()}`;
-            }
-          }
-          
-          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
-      
-            if (obj.fechaInicio != "") {
-              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
-              fechainicio = `${new Date(fecha1).getTime()}`;
-            }
-          } */
-
           this.objEnviar = {
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
@@ -1836,8 +1826,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
+            debugger;
             this.valorestab = [];
-            
             for(let item of this.arregloTablaValores){
               this.valores = 
                 {
@@ -1897,6 +1887,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
+            debugger;
             this.valorestab = [];
             for(let item of this.arregloTablaValores){
               this.valores = 
