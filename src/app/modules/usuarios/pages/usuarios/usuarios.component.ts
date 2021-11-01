@@ -315,11 +315,15 @@ export class UsuariosComponent implements OnInit {
       this.usuariosAuthPrd.filtrarUsuariosPaginado(peticion,this.elementos,this.pagina).subscribe(datos => {
         if(datos.datos){
           let arreglo:Array<any> = datos.datos.usuarios;
+          console.log("ARREGLO RECIBIDO FILTRANDO",arreglo);
           if(arreglo)
              if(!repetir)
                 arreglo.forEach(o => this.arreglo.push(o));   
               else 
                 this.arreglo = arreglo;
+
+
+              console.log("Arreglo total",this.arreglo);
                 
   
           this.arreglotabla.totalRegistros = datos.datos.totalRegistros;

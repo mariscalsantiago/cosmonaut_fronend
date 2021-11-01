@@ -157,6 +157,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
     if (this.datos.filas !== undefined) {
       this.arreglotemp = this.datos.filas;
+      debugger;
       if (this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined) {
         this.tooltipText = "editarUsuario";
       }
@@ -192,6 +193,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
     this.arreglopaginas = [];
 
+    debugger;
     if (this.arreglotemp != undefined) {
       let paginas = (this.paginado_server ? this.total : this.arreglotemp.length) / Number(this.numeroitems);
 
@@ -203,6 +205,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         this.arreglopaginas.push({ numeropagina: (x - 1) * Number(this.numeroitems), llavepagina: ((x - 1) * Number(this.numeroitems)) + Number(this.numeroitems), mostrar: x, activado: primero });
         primero = false;
       }
+      debugger;
       this.acomodarPaginado();
 
       if (!this.paginado_server) {
@@ -249,7 +252,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
   public paginacambiar(item: any, esdirecto: boolean = false) {
     if (this.cargando || (esdirecto && this.paginado_server)) return;
-    console.log("INDICES", item.numeropagina, item.llavepagina);
+    
     if (this.paginado_server) {
       let bitacoraPaginado: Array<number> = JSON.parse(localStorage["paginado"]);
       if (!bitacoraPaginado.some(o => o == item.numeropagina)) {
@@ -333,8 +336,6 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
     let mm = document.getElementById("ttt1");
     this.top = mm!.getBoundingClientRect().y;
-    console.log("Este es el top",this.top);
-    
     if(this.top < 0){
       this.top = Math.abs(this.top)+55;
     }else{
