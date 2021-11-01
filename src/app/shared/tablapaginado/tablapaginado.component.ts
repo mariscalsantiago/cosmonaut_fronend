@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { DatePipe } from '@angular/common';
 import { ConfiguracionesService } from '../services/configuraciones/configuraciones.service';
@@ -9,6 +9,8 @@ import { ConfiguracionesService } from '../services/configuraciones/configuracio
   styleUrls: ['./tablapaginado.component.scss']
 })
 export class TablapaginadoComponent implements OnInit, OnDestroy {
+
+
   public textFilter = '';
 
   public tooltipText = "";
@@ -73,6 +75,8 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   public arreglotemp: any = [];
   public verpatronal: boolean = false;
   public verIsnBool:boolean = false;
+
+  public top:number = 0;
 
 
 
@@ -153,6 +157,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
     if (this.datos.filas !== undefined) {
       this.arreglotemp = this.datos.filas;
+      debugger;
       if (this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined) {
         this.tooltipText = "editarUsuario";
       }
@@ -188,6 +193,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
     this.arreglopaginas = [];
 
+    debugger;
     if (this.arreglotemp != undefined) {
       let paginas = (this.paginado_server ? this.total : this.arreglotemp.length) / Number(this.numeroitems);
 
@@ -199,6 +205,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         this.arreglopaginas.push({ numeropagina: (x - 1) * Number(this.numeroitems), llavepagina: ((x - 1) * Number(this.numeroitems)) + Number(this.numeroitems), mostrar: x, activado: primero });
         primero = false;
       }
+      debugger;
       this.acomodarPaginado();
 
       if (!this.paginado_server) {
@@ -245,7 +252,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
   public paginacambiar(item: any, esdirecto: boolean = false) {
     if (this.cargando || (esdirecto && this.paginado_server)) return;
-    console.log("INDICES", item.numeropagina, item.llavepagina);
+    
     if (this.paginado_server) {
       let bitacoraPaginado: Array<number> = JSON.parse(localStorage["paginado"]);
       if (!bitacoraPaginado.some(o => o == item.numeropagina)) {
@@ -325,6 +332,16 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   public pasarSiguienteItem(tipoSiguiente: boolean) {
+
+
+    let mm = document.getElementById("ttt1");
+    this.top = mm!.getBoundingClientRect().y;
+    if(this.top < 0){
+      this.top = Math.abs(this.top)+55;
+    }else{
+      this.top = 55;
+    }
+    
     if (this.cargando) return;
 
     let indicePagina = this.verificarIndice();

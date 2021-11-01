@@ -20,7 +20,7 @@
 
 <div style="margin: 10px;overflow: auto;">
 
-    <table aria-hidden="true" *ngIf="(!cargando && arreglo !== undefined) || paginado_server" class="table table-hover  anchura ">
+    <table id="ttt1" aria-hidden="true" *ngIf="(!cargando && arreglo !== undefined) || paginado_server && !paginadoServer_primeravez" class="table table-hover  anchura ">
         <thead>
             <tr>
                 <th id="" *ngIf="checkbox">
@@ -49,7 +49,7 @@
             </tr>
         </thead>
         <tbody [class.posicionRelativa]="paginado_server">
-           <div *ngIf="paginado_server && cargando" class="cargandoPaginadoServer">
+           <div *ngIf="paginado_server && cargando"  [style.top]="top+'px'" id="ttt1cargando" class="cargandoPaginadoServer">
                Procesando...
                <div  class="spinner-border" role="status">
                 <span class="sr-only"></span>

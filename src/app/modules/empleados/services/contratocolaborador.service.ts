@@ -56,4 +56,8 @@ export class ContratocolaboradorService {
 
 
   }
+
+  public verEstatusReactivarEmpleado(idEmpresa:number,idPersona:number):Observable<any>{
+    return this.http.get(`${direcciones.contratoColaborador}/valida/reactivar/${idEmpresa}/${idPersona}`);
+}
 }
