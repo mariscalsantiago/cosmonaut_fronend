@@ -60,7 +60,7 @@ export class IDSEComponent implements OnInit {
     public subModulo: string = "";
 
 
-    public esEliminar:boolean = true;
+    public esEliminar:boolean = false;
     public esDescargar:boolean = false;
 
 
@@ -128,7 +128,8 @@ export class IDSEComponent implements OnInit {
 
   public establecerPermisos(){
     
-    //this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
+
+    this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
     this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
   }
 
