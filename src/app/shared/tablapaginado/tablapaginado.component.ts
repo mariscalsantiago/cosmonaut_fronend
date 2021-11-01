@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
 import { DatePipe } from '@angular/common';
 import { ConfiguracionesService } from '../services/configuraciones/configuraciones.service';
@@ -9,6 +9,8 @@ import { ConfiguracionesService } from '../services/configuraciones/configuracio
   styleUrls: ['./tablapaginado.component.scss']
 })
 export class TablapaginadoComponent implements OnInit, OnDestroy {
+
+
   public textFilter = '';
 
   public tooltipText = "";
@@ -73,6 +75,8 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   public arreglotemp: any = [];
   public verpatronal: boolean = false;
   public verIsnBool:boolean = false;
+
+  public top:number = 0;
 
 
 
@@ -325,6 +329,18 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   public pasarSiguienteItem(tipoSiguiente: boolean) {
+
+
+    let mm = document.getElementById("ttt1");
+    this.top = mm!.getBoundingClientRect().y;
+    console.log("Este es el top",this.top);
+    
+    if(this.top < 0){
+      this.top = Math.abs(this.top)+55;
+    }else{
+      this.top = 55;
+    }
+    
     if (this.cargando) return;
 
     let indicePagina = this.verificarIndice();
