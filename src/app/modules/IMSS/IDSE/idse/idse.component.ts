@@ -59,9 +59,9 @@ export class IDSEComponent implements OnInit {
     public modulo: string = "";
     public subModulo: string = "";
 
-    public esRegistrar:boolean = true;
+
     public esEliminar:boolean = true;
-    public esDescargar:boolean = true;
+    public esDescargar:boolean = false;
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
@@ -69,7 +69,7 @@ export class IDSEComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //this.establecerPermisos();
+    this.establecerPermisos();
     
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
@@ -126,12 +126,11 @@ export class IDSEComponent implements OnInit {
     this.cargando = false;
   }
 
-/*   public establecerPermisos(){
+  public establecerPermisos(){
     
-    this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
-    this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
+    //this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
     this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
-  } */
+  }
 
   public filtrar() {
 
