@@ -96,6 +96,7 @@ export class UsuariosComponent implements OnInit {
     if (this.esClienteEmpresa) {
       this.companiPrd.getAllCompany().subscribe(datos => {
         this.arregloCompany = datos.datos
+        console.log(this.arregloCompany);
         this.filtrar();
         this.cargandoBotones = false;
       });
