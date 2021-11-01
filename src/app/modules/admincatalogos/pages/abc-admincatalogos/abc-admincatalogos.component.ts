@@ -607,7 +607,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    
+    debugger;
     let editField = event.target.textContent; 
 
     if (property.includes('cuotaFija')){
@@ -709,10 +709,15 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     if(this.editFieldNum !== 0){
       editField = this.editFieldNum;
+      this.arregloTablaValores[id][property] = editField;
+      this.valFecha = true;
+      this.editFieldNum = 0;
+    }else{
+      this.arregloTablaValores[id][property] = editField;
+      this.valFecha = true;
     }
        
-    this.arregloTablaValores[id][property] = editField;
-    this.valFecha = true;
+
     
   }
 
