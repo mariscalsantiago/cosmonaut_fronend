@@ -173,7 +173,7 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas reactivar el empleado?").then(valor => {
       if (valor) {
 
-          this.contratoColaboradorPrd.verEstatusReactivarEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.empleado.personaId).subscribe(vv =>{
+          this.contratoColaboradorPrd.verEstatusReactivarEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.empleado.personaId.personaId).subscribe(vv =>{
             if(vv.resultado){
               let isInsertar: boolean = false;
               let fechaContrato = { ...this.empleado };

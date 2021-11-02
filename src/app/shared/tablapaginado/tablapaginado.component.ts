@@ -157,7 +157,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
     if (this.datos.filas !== undefined) {
       this.arreglotemp = this.datos.filas;
-      debugger;
+      
       if (this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined) {
         this.tooltipText = "editarUsuario";
       }
@@ -193,7 +193,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
     this.arreglopaginas = [];
 
-    debugger;
+    
     if (this.arreglotemp != undefined) {
       let paginas = (this.paginado_server ? this.total : this.arreglotemp.length) / Number(this.numeroitems);
 
@@ -205,7 +205,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
         this.arreglopaginas.push({ numeropagina: (x - 1) * Number(this.numeroitems), llavepagina: ((x - 1) * Number(this.numeroitems)) + Number(this.numeroitems), mostrar: x, activado: primero });
         primero = false;
       }
-      debugger;
+      
       this.acomodarPaginado();
 
       if (!this.paginado_server) {
@@ -475,7 +475,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordenar(item: any) {
-    debugger;
+    
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
 
     let i, j;
