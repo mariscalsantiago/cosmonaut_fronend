@@ -879,7 +879,20 @@ export class ABCAdminCatalogosComponent implements OnInit {
       if (!this.validaFechaFinal()) {
         return;
       }
-    }  
+    } 
+    if(this.detCatalogos.listaCatalogosId == 17 || this.detCatalogos.listaCatalogosId == 18 || this.detCatalogos.listaCatalogosId == 19){
+      let limiteSuperior = this.myForm.controls.limiteSuperior.value;
+          let limiteInferior = this.myForm.controls.limiteInferior.value;
+          if (limiteInferior > limiteSuperior) {
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite inferior debe ser igual o menor que el límite superior')
+              .then(() => {
+                this.myForm.controls.limiteInferior.setValue('');
+                this.myForm.controls.limiteInferior.updateValueAndValidity();
+              });
+            return;  
+          }
+    } 
     const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catalogo?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
@@ -1804,6 +1817,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 19){
+     
+         
           this.objEnviar = {
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
