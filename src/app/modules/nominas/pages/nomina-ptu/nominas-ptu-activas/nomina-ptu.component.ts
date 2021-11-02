@@ -1,10 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
@@ -29,12 +31,15 @@ export class NominaPTUComponent implements OnInit {
   public esTimbrar: boolean = false;
   public esDescargar: boolean = false;
 
+  private suscripcion!: Subscription;
+
   public modulo: string = "";
   public subModulo: string = "";
 
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService, private empleadoPrd: EmpleadosService, private usuariSistemaPrd: UsuarioSistemaService,
-    private nominaPtuPrd: NominaptuService, public configuracionPrd: ConfiguracionesService) { }
+    private nominaPtuPrd: NominaptuService, public configuracionPrd: ConfiguracionesService,
+    private nominaOrdinariaPrd:NominaordinariaService) { }
 
   ngOnInit(): void {
 
@@ -43,6 +48,10 @@ export class NominaPTUComponent implements OnInit {
     
     this.traerListaNomina();
     this.establecerPermisos();
+
+    this.suscripcion = this.nominaOrdinariaPrd.verificarListaActualizada().subscribe(activo => {
+      this.traerListaNomina();
+    })
   }
 
 
@@ -102,6 +111,7 @@ export class NominaPTUComponent implements OnInit {
     this.nominaPtuPrd.calcularNomina(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       if (datos.resultado) {
+        this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaPtu.nominaXperiodoId);
         item.nominaPtu.estadoProcesoNominaId = 1;
         item.nominaPtu.estadoProcesoDescripcion = "Pendiente";
         item.mensajePensando = item.nominaPtu.estadoProcesoNominaId == 4 ? item.nominaPtu.procesoNominaObservaciones : "";
@@ -168,5 +178,13 @@ export class NominaPTUComponent implements OnInit {
     }
 
   }
+
+
+  ngOnDestroy(): void {
+    if (this.suscripcion) {
+      this.suscripcion.unsubscribe();
+    }
+  }
+
 
 }

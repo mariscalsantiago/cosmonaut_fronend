@@ -1,14 +1,13 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
-import { ServerSentEventService } from 'src/app/shared/services/nominas/server-sent-event.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { environment } from 'src/environments/environment';
+
 
 
 @Component({
@@ -16,7 +15,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './nominas-activas.component.html',
   styleUrls: ['./nominas-activas.component.scss']
 })
-export class NominasActivasComponent implements OnInit {
+export class NominasActivasComponent implements OnInit,OnDestroy {
 
 
   public cargando: boolean = false;
@@ -36,10 +35,12 @@ export class NominasActivasComponent implements OnInit {
   public modulo: string = "";
   public subModulo: string = "";
 
+  public suscripcion!:Subscription;
+
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService, private usuariSistemaPrd: UsuarioSistemaService,
     private nominaOrdinariaPrd: NominaordinariaService, public configuracionPrd: ConfiguracionesService,
-    private SEE:ServerSentEventService) { }
+  ) { }
 
 
 
@@ -49,7 +50,11 @@ export class NominasActivasComponent implements OnInit {
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.traerListaNomina();
-    this.establecerPermisos();  
+    this.establecerPermisos();
+
+   this.suscripcion =  this.nominaOrdinariaPrd.verificarListaActualizada().subscribe(activo => {
+      this.traerListaNomina();
+    })
   }
 
 
@@ -118,10 +123,7 @@ export class NominasActivasComponent implements OnInit {
     this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       if (datos.resultado) {
-        this.SEE.iniciar(objEnviar.nominaXperiodoId).subscribe(datos =>{
-           this.SEE.showNotification(datos.mensaje,datos.exito);
-           this.traerListaNomina();
-        })
+        this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaOrdinaria.nominaXperiodoId);
         item.nominaOrdinaria.estadoProcesoNominaId = 1;
         item.nominaOrdinaria.estadoProcesoDescripcion = "Pendiente";
         item.mensajePensando = item.nominaOrdinaria.estadoProcesoNominaId == 4 ? item.nominaOrdinaria.procesoNominaObservaciones : "";
@@ -191,6 +193,13 @@ export class NominasActivasComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
     }
 
+  }
+
+
+  ngOnDestroy():void{
+    if(this.suscripcion){
+        this.suscripcion.unsubscribe();
+    }
   }
 
 

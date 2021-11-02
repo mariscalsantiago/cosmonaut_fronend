@@ -59,8 +59,7 @@ export class CalcularComponent implements OnInit {
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaFiniquito: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
     private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService,
-    private usuariSistemaPrd: UsuarioSistemaService, private ventana: VentanaemergenteService,
-    private SEE:ServerSentEventService) { }
+    private usuariSistemaPrd: UsuarioSistemaService, private ventana: VentanaemergenteService) { }
 
   ngOnInit(): void {
 
@@ -439,9 +438,7 @@ export class CalcularComponent implements OnInit {
           this.nominaOrdinariaPrd.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
-                this.SEE.iniciar(objEnviar.nominaXperiodoId).subscribe(datos =>{
-                  this.SEE.showNotification(datos.mensaje,datos.exito);
-               })
+                this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(),this.nominaSeleccionada[this.llave].nominaXperiodoId);
                 this.regresarExtraordinaria();
               }
             });
