@@ -33,7 +33,7 @@
                         <br>
 
                         <nav aria-label="cosmonaut">
-                            <a *ngIf="esDescargar" (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i aria-hidden="true"
+                            <a *ngIf="esDescargar || esRegistrar" (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i aria-hidden="true"
                             class="fas fa-download"></i> Descargar formato
                     </a>
                         </nav>
@@ -59,7 +59,7 @@
 
                 <div class="text-right margen" style="margin-bottom: 20px;">
                     <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()">Cancelar</button>
-                    <button *ngIf="esRegistrar" type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
+                    <button *ngIf="esDescargar || esRegistrar" type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
                 </div>
                 <br>
             </div>
