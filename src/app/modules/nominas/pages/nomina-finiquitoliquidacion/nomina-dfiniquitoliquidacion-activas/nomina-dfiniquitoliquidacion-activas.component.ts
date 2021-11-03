@@ -1,10 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominafiniquitoliquidacionService } from 'src/app/shared/services/nominas/nominafiniquitoliquidacion.service';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
 
@@ -30,12 +32,14 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
   public esTimbrar:boolean = false;
   public esDescargar:boolean = false;
 
+  private suscripcion!: Subscription;
+
   public modulo: string = "";
   public subModulo: string = "";
 
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService, private nominaFiniquitoPrd: NominafiniquitoliquidacionService, private usuariSistemaPrd: UsuarioSistemaService,
-    public configuracionPrd:ConfiguracionesService) { }
+    public configuracionPrd:ConfiguracionesService,private nominaOrdinariaPrd:NominaordinariaService) { }
 
   ngOnInit(): void {
 
@@ -44,6 +48,11 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
     
     this.traerListaNomina();
     this.establecerPermisos();
+
+
+    this.suscripcion = this.nominaOrdinariaPrd.verificarListaActualizada().subscribe(activo => {
+      this.traerListaNomina();
+    })
   }
 
 
@@ -109,6 +118,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
         this.nominaFiniquitoPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
+            this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaLiquidacion.nominaXperiodoId);
             item.nominaLiquidacion.estadoProcesoNominaId = 1;
             item.nominaLiquidacion.estadoProcesoDescripcion = "Pendiente";
             item.mensajePensando = item.nominaLiquidacion.estadoProcesoNominaId == 4 ? item.nominaLiquidacion.procesoNominaObservaciones : "";
@@ -161,6 +171,14 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
     }
 
   }
+
+
+  ngOnDestroy(): void {
+    if (this.suscripcion) {
+      this.suscripcion.unsubscribe();
+    }
+  }
+
   
 
 

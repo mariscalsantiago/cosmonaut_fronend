@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NominaordinariaService } from './shared/services/nominas/nominaordinaria.service';
 import { ServerSentEventService } from './shared/services/nominas/server-sent-event.service';
 
 @Component({
@@ -10,12 +11,15 @@ export class AppComponent {
   title = 'cosmonaut-front';
 
 
-  constructor(){
+  constructor(private SSE:ServerSentEventService){
     
   }
 
   public esconder(){
     let mm:any = document.getElementById("ventanaEmergente");
     mm.style.display = "none"
+
+    this.SSE.verificador.next(true);
+    
   }
 }

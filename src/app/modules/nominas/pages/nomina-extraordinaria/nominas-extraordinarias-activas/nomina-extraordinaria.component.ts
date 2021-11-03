@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -7,49 +7,59 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { NominaaguinaldoService } from 'src/app/shared/services/nominas/nominaaguinaldo.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { DatePipe } from '@angular/common';
+import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nomina-extraordinaria',
   templateUrl: './nomina-extraordinaria.component.html',
   styleUrls: ['./nomina-extraordinaria.component.scss']
 })
-export class NominaExtraordinariaComponent implements OnInit {
+export class NominaExtraordinariaComponent implements OnInit, OnDestroy {
 
   public cargando: boolean = false;
 
   public arreglo: any = [];
   public arregloPersonas: any = [];
 
-  public esRegistrar:boolean = false;
-  public esCalcular:boolean = false;
-  public esConsultar:boolean = false;
-  public esConcluir:boolean = false;
-  public esDispersar:boolean = false;
-  public esEliminar:boolean = false;
-  public esTimbrar:boolean = false;
-  public esDescargar:boolean = false;
+  public esRegistrar: boolean = false;
+  public esCalcular: boolean = false;
+  public esConsultar: boolean = false;
+  public esConcluir: boolean = false;
+  public esDispersar: boolean = false;
+  public esEliminar: boolean = false;
+  public esTimbrar: boolean = false;
+  public esDescargar: boolean = false;
 
   public modulo: string = "";
   public subModulo: string = "";
 
+  private suscripcion!: Subscription;
+
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService,
     private empleadoPrd: EmpleadosService, private nominaAguinaldoPrd: NominaaguinaldoService, private usuariSistemaPrd: UsuarioSistemaService,
-    public configuracionPrd:ConfiguracionesService) { }
+    public configuracionPrd: ConfiguracionesService, private nominaOrdinariaPrd: NominaordinariaService) { }
 
   ngOnInit(): void {
 
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
-   this.traerListaNomina();
+    this.traerListaNomina();
 
-   this.establecerPermisos();
+    this.establecerPermisos();
+
+
+    this.suscripcion = this.nominaOrdinariaPrd.verificarListaActualizada().subscribe(activo => {
+      this.traerListaNomina();
+    })
+
 
   }
 
 
-  public establecerPermisos(){
+  public establecerPermisos() {
     this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
     this.esCalcular = this.configuracionPrd.getPermisos("Calcular");
     this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
@@ -60,7 +70,7 @@ export class NominaExtraordinariaComponent implements OnInit {
     this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
   }
 
-  public traerListaNomina(){
+  public traerListaNomina() {
     this.cargando = true;
     let objenviar =
     {
@@ -69,7 +79,7 @@ export class NominaExtraordinariaComponent implements OnInit {
     this.nominaAguinaldoPrd.getListaNominas(objenviar).subscribe(datos => {
       this.cargando = false;
       this.arreglo = datos.datos;
-      if(this.arreglo){
+      if (this.arreglo) {
         for (let item of this.arreglo) {
           item["inicial"] = !Boolean(item.nominaExtraordinaria.totalNeto);
           item.esCalculada = item.nominaExtraordinaria?.estadoActualNomina === 'Calculada';
@@ -86,9 +96,9 @@ export class NominaExtraordinariaComponent implements OnInit {
   public agregar() {
     this.ventana.showVentana(this.ventana.nuevanominaextraordinaria).then(valor => {
 
-      
+
       if (valor.datos) {
-       // this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
+        // this.arreglo = this.arreglo == undefined ? [] : this.arreglo;
         //this.arreglo.push({ nominaExtraordinaria: { ...valor.datos.datos }, inicial: true });
         this.traerListaNomina();
       }
@@ -97,17 +107,18 @@ export class NominaExtraordinariaComponent implements OnInit {
 
   public calcularNomina(item: any) {
 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,"¿Deseas calcular la nómina?").then(valor =>{
-      if(valor){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas calcular la nómina?").then(valor => {
+      if (valor) {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         let objEnviar = {
           nominaXperiodoId: item.nominaExtraordinaria.nominaXperiodoId,
           clienteId: this.usuariSistemaPrd.getIdEmpresa(),
           usuarioId: this.usuariSistemaPrd.getUsuario().usuarioId
-        } 
+        }
         this.nominaAguinaldoPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           if (datos.resultado) {
+            this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaExtraordinaria.nominaXperiodoId);
             item.nominaExtraordinaria.estadoProcesoNominaId = 1;
             item.nominaExtraordinaria.estadoProcesoDescripcion = "Pendiente";
             item.mensajePensando = item.nominaExtraordinaria.estadoProcesoNominaId == 4 ? item.nominaExtraordinaria.procesoNominaObservaciones : "";
@@ -158,8 +169,12 @@ export class NominaExtraordinariaComponent implements OnInit {
     }
 
   }
-  
 
 
+  ngOnDestroy(): void {
+    if (this.suscripcion) {
+      this.suscripcion.unsubscribe();
+    }
+  }
 
 }

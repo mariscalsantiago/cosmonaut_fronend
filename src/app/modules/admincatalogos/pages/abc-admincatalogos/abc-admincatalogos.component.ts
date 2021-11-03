@@ -607,7 +607,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    debugger;
+    
     let editField = event.target.textContent; 
 
     if (property.includes('cuotaFija')){
@@ -616,7 +616,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     } 
     
     if (property.includes('limiteInferior')){
-      debugger;
+      
       this.editFieldNum = Number(editField);
 
       let limites = this.arregloTablaValores[id];
@@ -633,7 +633,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     } 
 
     if (property.includes('limiteSuperior')){
-      debugger;
+      
       this.editFieldNum = Number(editField);
 
       let limites = this.arregloTablaValores[id];
@@ -1784,7 +1784,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-            debugger;
+            
             this.valorestab = [];
             for(let item of this.arregloTablaValores){
               this.valores = 
@@ -1846,7 +1846,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-            debugger;
+            
             this.valorestab = [];
             for(let item of this.arregloTablaValores){
               this.valores = 
@@ -1907,7 +1907,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-            debugger;
+            
             this.valorestab = [];
             for(let item of this.arregloTablaValores){
               this.valores = 

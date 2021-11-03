@@ -33,13 +33,16 @@
                         <br>
 
                         <nav aria-label="cosmonaut">
-                            <a *ngIf="esDescargar" (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i aria-hidden="true"
+                            <a *ngIf="esDescargar || esRegistrar" (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i aria-hidden="true"
                             class="fas fa-download"></i> Descargar formato
                     </a>
                         </nav>
                         <br>
                     </div>
 
+
+
+                    
 
                     <div class="input-group-sm mb-3 col-12 col-sm-10 col-lg-10">
                         <label>Sube el formato de carga masiva con los datos modificados *</label>
@@ -59,7 +62,7 @@
 
                 <div class="text-right margen" style="margin-bottom: 20px;">
                     <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()">Cancelar</button>
-                    <button *ngIf="esRegistrar" type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
+                    <button *ngIf="esDescargar || esRegistrar" type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
                 </div>
                 <br>
             </div>
