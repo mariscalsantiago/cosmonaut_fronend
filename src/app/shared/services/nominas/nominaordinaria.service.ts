@@ -215,7 +215,7 @@ export class NominaordinariaService {
         if (datos.some((nomina: any) => this.arreglonominasEnproceso.includes(nomina.nominaXperiodoId))) {
           this.subject.next(true);
           let nominasProcesadas: any = datos.filter((nomina: any) => this.arreglonominasEnproceso.includes(nomina.nominaXperiodoId));
-          this.SSE.showNotification(nominasProcesadas[0].mensaje, nominasProcesadas[0].exito);
+          this.SSE.guardarNotificacion(nominasProcesadas[0].mensaje, nominasProcesadas[0].exito);
           let indiceFiltro = this.arreglonominasEnproceso.findIndex((indice: any) => datos.some((o: any) => o.nominaXperiodoId == indice));
           let nominaPeriodoId = this.arreglonominasEnproceso.splice(indiceFiltro, 1)[0];
           this.http.post(`${environment.rutaNomina}/nomina/actualiza/visto/${nominaPeriodoId}`, {}).subscribe(datosespecial => {
