@@ -45,8 +45,10 @@ export class ServerSentEventService {
     return this.verificador;
   }
 
-  public guardarNotificacion(mensaje:string,exitoso:boolean){
-      this.notificacionMensajes.push({mensaje:mensaje,exitoso:exitoso});
+  public guardarNotificacion(mensaje:string,exitoso:boolean,idNominaxPeriodo:number){
+      if(!this.notificacionMensajes.some((o:any) => o.idNominaxPeriodo == idNominaxPeriodo)){
+        this.notificacionMensajes.push({mensaje:mensaje,exitoso:exitoso,idNominaxPeriodo:idNominaxPeriodo}); 
+      }
       if(this.activarIntervalo){
           this.activarIntervalo = false;
           let siguienteMensaje  = true;

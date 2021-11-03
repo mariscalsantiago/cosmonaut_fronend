@@ -15,7 +15,7 @@ export class NominaordinariaService {
 
   private arreglonominasEnproceso: Array<number> = [];
   private subject = new Subject<boolean>();
-  private adentro:boolean = false;
+  private adentro: boolean = false;
 
   constructor(private http: HttpClient, private SSE: ServerSentEventService) {
   }
@@ -203,11 +203,11 @@ export class NominaordinariaService {
   }
 
 
-  public verEstatusNominasByEmpresa(idEmpresa: number, idNominaPeriodId: number){
+  public verEstatusNominasByEmpresa(idEmpresa: number, idNominaPeriodId: number) {
     this.arreglonominasEnproceso.push(idNominaPeriodId);
 
-    if(this.adentro)
-    return;
+    if (this.adentro)
+      return;
 
     const suscribe: Subscription = timer(0, 3000).pipe(concatMap(() => this.http.get(`${environment.rutaNomina}/nomina/consulta/estatus/${idEmpresa}`))).pipe(map((x: any) => x.datos)).subscribe(datos => {
       this.adentro = true;
@@ -215,7 +215,9 @@ export class NominaordinariaService {
         if (datos.some((nomina: any) => this.arreglonominasEnproceso.includes(nomina.nominaXperiodoId))) {
           this.subject.next(true);
           let nominasProcesadas: any = datos.filter((nomina: any) => this.arreglonominasEnproceso.includes(nomina.nominaXperiodoId));
-          this.SSE.guardarNotificacion(nominasProcesadas[0].mensaje, nominasProcesadas[0].exito);
+          for (let nominaProcesada of nominasProcesadas) {
+            this.SSE.guardarNotificacion(nominaProcesada.mensaje, nominaProcesada.exito, nominaProcesada.nominaXperiodoId);
+          }
           let indiceFiltro = this.arreglonominasEnproceso.findIndex((indice: any) => datos.some((o: any) => o.nominaXperiodoId == indice));
           let nominaPeriodoId = this.arreglonominasEnproceso.splice(indiceFiltro, 1)[0];
           this.http.post(`${environment.rutaNomina}/nomina/actualiza/visto/${nominaPeriodoId}`, {}).subscribe(datosespecial => {
@@ -228,7 +230,7 @@ export class NominaordinariaService {
         }
       }
     });
-   
+
   }
 
 

@@ -177,6 +177,7 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.contratoColaboradorPrd.verEstatusReactivarEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.empleado.personaId.personaId).subscribe(vv =>{
             if(vv.resultado){
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               let isInsertar: boolean = false;
               let fechaContrato = { ...this.empleado };
               delete fechaContrato.fechaContrato;
