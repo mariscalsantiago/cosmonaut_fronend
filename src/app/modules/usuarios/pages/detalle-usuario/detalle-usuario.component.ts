@@ -284,10 +284,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public enviarPeticion() {
 
-    let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"].includes(this.myForm.value.centrocClienteId));
-
-
-
+  
 
     this.summitenviado = true;
 
@@ -312,7 +309,7 @@ export class DetalleUsuarioComponent implements OnInit {
           }
         } else {
           if (this.esClienteEmpresa) {
-            let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"].includes(obj.centrocClienteId));
+            let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"]==obj.centrocClienteId);
             obj.idRazonSocial = companiaSeleccionada.centrocClienteId;
           } else {
             obj.idRazonSocial = obj.centrocClienteId;
@@ -354,6 +351,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
         } else {
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+          debugger;
 
           this.usuariosAuth.modificar(objAuthEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
