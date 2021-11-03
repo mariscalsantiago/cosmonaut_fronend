@@ -66,6 +66,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
 
+    debugger;
+
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
@@ -154,6 +156,8 @@ export class DetalleUsuarioComponent implements OnInit {
           this.myForm.controls.multicliente.disable();
           this.myForm.controls.multicliente.setValue(false);
           this.myForm.controls.centrocClienteId.disable();
+        }else if(this.objusuario.rolId.rolId == 1){
+          this.myForm.controls.rol.enable();
         }
       }
     }
