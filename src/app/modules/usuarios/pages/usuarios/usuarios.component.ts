@@ -292,8 +292,11 @@ export class UsuariosComponent implements OnInit {
     }else{
       arregloenviar.push(this.id_company);
     }
-    
 
+
+    if(this.correoempresarial !== ''){
+      this.correoempresarial?.toLowerCase();
+    }  
 
     let peticion = {
       idUsuario: this.idUsuario || null,
@@ -301,7 +304,8 @@ export class UsuariosComponent implements OnInit {
       apellidoPat: this.apellidoPat || null,
       apellidoMat: this.apellidoMat || null,
       fechaAlta: this.fechaRegistro || null,
-      email: this.correoempresarial?.toLowerCase() || null,
+      
+      email: this.correoempresarial || null,
       idClientes: arregloenviar,
       esActivo: this.activo == 0? null:this.activo == 1
     }

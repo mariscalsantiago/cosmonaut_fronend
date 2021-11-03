@@ -71,13 +71,13 @@
                                         <select name="" class="form-control" [(ngModel)]="id_company" id="id_companyUsuario">
                                             <option  value="" selected>Seleccionar
                                                 {{esClienteEmpresa?'cliente':'empresa'}}</option>
-                                            <option  *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
+                                            <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
                                                 {{item.razonSocial}}
                                             </option>
                                         </select>
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="email" [(ngModel)]="correoempresarial" id="correoempresarialUsuario" class="form-control "
+                                        <input type="email" [(ngModel)]="correoempresarial" id="correoempresarialUsuario" class="form-control"
                                             placeholder="Correo empresarial">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
