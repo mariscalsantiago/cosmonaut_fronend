@@ -66,6 +66,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
 
+    debugger;
+
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
@@ -154,6 +156,8 @@ export class DetalleUsuarioComponent implements OnInit {
           this.myForm.controls.multicliente.disable();
           this.myForm.controls.multicliente.setValue(false);
           this.myForm.controls.centrocClienteId.disable();
+        }else if(this.objusuario.rolId.rolId == 1){
+          this.myForm.controls.rol.enable();
         }
       }
     }
@@ -284,10 +288,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public enviarPeticion() {
 
-    let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"].includes(this.myForm.value.centrocClienteId));
-
-
-
+  
 
     this.summitenviado = true;
 
@@ -312,7 +313,7 @@ export class DetalleUsuarioComponent implements OnInit {
           }
         } else {
           if (this.esClienteEmpresa) {
-            let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"].includes(obj.centrocClienteId));
+            let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"]==obj.centrocClienteId);
             obj.idRazonSocial = companiaSeleccionada.centrocClienteId;
           } else {
             obj.idRazonSocial = obj.centrocClienteId;
@@ -354,6 +355,8 @@ export class DetalleUsuarioComponent implements OnInit {
 
         } else {
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+          debugger;
 
           this.usuariosAuth.modificar(objAuthEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

@@ -72,6 +72,8 @@ export class SuaComponent implements OnInit {
 
     this.filtrar();
 
+    this.establecerPermisos();
+
   }
 
     public traerTabla(datos:any) {
