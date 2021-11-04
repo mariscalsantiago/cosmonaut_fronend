@@ -669,7 +669,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
     let fechaFin = itemFecha.fechaFin; 
     if(property === 'fechaFin' ){
         fechaFin = editField;
-
         if (fechaFin < fechaIn) {
   
           this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser igual o mayor a la fecha inicio')
@@ -703,6 +702,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
         if (fechaIn === '' || fechaFin === '') {
           this.valFecha = false;
+          return;
         }
     }
   }
@@ -875,11 +875,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     if(this.detCatalogos.listaCatalogosId == 15 || this.detCatalogos.listaCatalogosId == 17 || this.detCatalogos.listaCatalogosId == 18 || this.detCatalogos.listaCatalogosId == 19){
-
+      debugger;
       if (!this.validaFechaFinal()) {
         return;
       }
-    } 
+    }
     if(this.detCatalogos.listaCatalogosId == 17 || this.detCatalogos.listaCatalogosId == 18 || this.detCatalogos.listaCatalogosId == 19){
       let limiteSuperior = this.myForm.controls.limiteSuperior.value;
           let limiteInferior = this.myForm.controls.limiteInferior.value;
