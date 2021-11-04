@@ -55,11 +55,19 @@ export class PPPComponent implements OnInit {
 
 
   public activarMultiseleccion: boolean = false;
+  public esConsultar:boolean = false;
+  public esDescargar:boolean = false;
 
 
   constructor(private routerPrd: Router,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
     private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
+
+
+    public establecerPermisos(){
+      this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+      this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
+    }
 
   ngOnInit(): void {
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
@@ -72,6 +80,7 @@ export class PPPComponent implements OnInit {
     this.filtrar();
     this.reportesPrd.getListaEmpresaPPP(this.idEmpresa).subscribe(datos => this.arregloEmpresa = datos.datos);
     this.reportesPrd.getListaGrupoNominaPPP(this.idEmpresa).subscribe(datos => this.arregloGrupoNomina = datos.datos);
+    this.establecerPermisos();
 
   }
 

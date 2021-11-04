@@ -79,7 +79,7 @@
 
         </div>
 
-        <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
+        <div *ngIf="activarMultiseleccion && esDescargar " class="row text-right margin botonmultiseleccion">
 
             <div class="col-12">
                 <button (click)="guardarMultiseleccion()" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar archivo</span>
@@ -88,7 +88,7 @@
         </div>
 
         <div class="row margen margen-tabla background-panel ">
-            <app-tablapaginado [datos]="arreglotabla" [checkbox]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+            <app-tablapaginado [datos]="arreglotabla" [checkbox]="esDescargar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
 </div>
