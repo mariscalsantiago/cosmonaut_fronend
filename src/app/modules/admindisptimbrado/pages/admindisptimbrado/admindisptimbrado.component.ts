@@ -39,7 +39,6 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   public arreglotimbresProveedores : any = [];
   public arreglotimbresProveedoresTab : any = [];
   public arregloEmpresa : any = [];
-  //filtro
   public idEmpresaFiltro : number = 0;
   public idCliente : number = 0;
 
@@ -207,14 +206,6 @@ export class AdminDispercionTimbradoComponent implements OnInit {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
 
     });
-  }
-  public validarCompania(tipo:any){
-    
-
-   // this.arregloEmpresa = [];
-    //if(tipo != 0 ){
-      //this.companyPrd.getAllEmp(tipo).subscribe(datos => this.arregloEmpresa = datos.datos);
-    //}
   }
 
   public filtrar() {
