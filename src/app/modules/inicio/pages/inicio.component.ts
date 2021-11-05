@@ -12,13 +12,15 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { environment } from 'src/environments/environment';
 import { Noticia } from './../../../core/modelos/noticia';
 import { NoticiasService } from './../../noticias/services/noticias.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss']
 })
-export class InicioComponent implements OnInit {
+
+export class InicioComponent implements OnInit   {
 
   public arreglopintar: any = [false];
   public idEmpresa: number = -1;
@@ -42,13 +44,17 @@ export class InicioComponent implements OnInit {
   public vistosRecientesFinal: any = [];
   public arreglosIdSubmodulo: any = [];
   public contratoDesc: string | undefined;
+  public dataUrl: any = []; 
 
   noticiasAdministrador: Noticia[] = [];
   noticiasEmpresa: Noticia[] = [];
   noticiasListado: Noticia[] = [];
   noticiasCursos: Noticia[] = [];
 
+  public url!: SafeResourceUrl;
+
   constructor(
+    private _sanitizer: DomSanitizer,
     private eventoPrd: EventosService,
     private catalogos: CatalogosService,
     private routerPrd: Router,
@@ -59,9 +65,14 @@ export class InicioComponent implements OnInit {
     public ContenidoComponent: ContenidoComponent,
     public configuracionPrd: ConfiguracionesService) { }
 
+
   ngOnInit(): void {
 
+    let id = 'https://datastudio.google.com/embed/reporting/9e71c6a2-a079-4fa0-8940-981068af4d77/page/OVheC';
     this.cargando = true;
+    this.url = this._sanitizer.bypassSecurityTrustResourceUrl(id);
+
+
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
     if (this.puedeConsultarKiosko()) {
