@@ -65,12 +65,6 @@ export class InformacionbasicaComponent implements OnInit {
       }
 
 
-      console.log(obj);
-
-  
-
-      
-
     return this.formBuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
@@ -151,21 +145,26 @@ export class InformacionbasicaComponent implements OnInit {
 
       if (valor) {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.myform.controls.emailCorporativo.value)).subscribe(datos =>{
-          if(Boolean(datos.datos)){
-            this.modalPrd.showMessageDialog(this.modalPrd.error,"No es posible registrar como cuenta de usuario, el correo empresarial ya existe");
-              return;
-          }
-
-          this.guardarCambios();
-        });
+       
+        if(!Boolean(this.datosPersona[0].tieneContrato)){
+          this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.myform.controls.emailCorporativo.value)).subscribe(datos =>{
+            if(Boolean(datos.datos)){
+              this.modalPrd.showMessageDialog(this.modalPrd.error,"No es posible registrar como cuenta de usuario, el correo empresarial ya existe");
+                return;
+            }
+  
+            this.guardarCambios();
+          });
+        }else{
+          this.guardarCambios(true);
+        }
       }
 
     });
 
   }
 
-  public guardarCambios() {
+  public guardarCambios(cambiaUsuarioSistema:boolean = false) {
     let obj = this.myform.getRawValue();
     let objenviar:any = {
       nombre: obj.nombre,
@@ -226,14 +225,18 @@ export class InformacionbasicaComponent implements OnInit {
     }else{
       objenviar.personaId = this.datosPersona[0].personaId;
       this.empleadosPrd.update(objenviar).subscribe(datos => {
-
-        this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
   
-        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-          if (datos.resultado) {
-            this.enviado.emit({ type: "informacion", datos: datos.datos });
-          }
-        });
+        if(cambiaUsuarioSistema){
+          this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.datosPersona[0].emailCorporativo)).subscribe(vv =>{
+            this.guardaUsuarioSistema(datos.datos,obj.emailCorporativo,vv.datos);
+          });
+        }else{
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+            if (datos.resultado) {
+              this.enviado.emit({ type: "informacion", datos: datos.datos });
+            }
+          });
+        }
   
       });
     }
@@ -283,6 +286,43 @@ export class InformacionbasicaComponent implements OnInit {
     }
   }
 
+  private guardaUsuarioSistema(datos:any,email:string,vv2:any){
+      let objAuthEnviar = {
+        nombre: this.datosPersona[0].nombre,
+        apellidoPat: this.datosPersona[0].apellidoPaterno,
+        apellidoMat: this.datosPersona[0].apellidoMaterno,
+        email: email,
+        centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
+        rolId: 2,
+        version: this.usuarioSistemaPrd.getVersionSistema(),
+        usuarioId:undefined,
+        esActivo:undefined,
+        esMulticliente:undefined
+      }
+
+      if(vv2){
+        objAuthEnviar.usuarioId=vv2.usuario.usuarioId;
+        objAuthEnviar.esActivo=vv2.usuario.esActivo;
+        objAuthEnviar.esMulticliente=vv2.usuario.esMulticliente;
+        this.usuariosAuth.modificar(objAuthEnviar).subscribe(vv => {
+          this.modalPrd.showMessageDialog(vv.resultado, vv.mensaje);
+          if (vv.resultado) {
+            datos.tieneContrato = this.datosPersona[0].tieneContrato;
+            datos.reactivarCuenta = this.datosPersona[0].reactivarCuenta;
+            this.enviado.emit({ type: "informacion", datos: datos });
+          }
+        });
+      }else{
+        this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
+          this.modalPrd.showMessageDialog(vv.resultado, vv.mensaje);
+          if (vv.resultado) {
+            datos.tieneContrato = this.datosPersona[0].tieneContrato;            
+            datos.reactivarCuenta = this.datosPersona[0].reactivarCuenta;
+            this.enviado.emit({ type: "informacion", datos: datos });
+          }
+        });
+      }
+  }
 
 }
 
