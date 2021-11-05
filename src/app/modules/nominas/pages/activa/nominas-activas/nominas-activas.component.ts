@@ -190,7 +190,7 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
         }
       });
     } else if (item.nominaOrdinaria.estadoProcesoNominaId == 1) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos.\nEl sistema te notificará cuando concluya el proceso.");
     }
 
   }
