@@ -177,6 +177,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public verdetalle(obj: any) {
+    this.cargandoBotones = true;
     if (obj == undefined) {
       this.routerPrd.navigate([(this.esClienteEmpresa) ? "cliente" : "", 'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany, usuario: obj } });
     } else {

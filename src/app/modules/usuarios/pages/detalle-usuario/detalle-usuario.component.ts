@@ -37,8 +37,6 @@ export class DetalleUsuarioComponent implements OnInit {
   public summitenviado: boolean = false;
   public companiasenviar: any = [];
   public arregloRoles: any = [];
-  public inabilitar: boolean = false;
-  public rolIdSeleciconado: number = 0;
 
   public esClienteEmpresa: boolean = false;
 
@@ -56,123 +54,40 @@ export class DetalleUsuarioComponent implements OnInit {
     private routerPrd: Router, private modalPrd: ModalService, private rolesPrd: RolesService,
     public usuariosSistemaPrd: UsuarioSistemaService, private usuariosAuth: UsuariosauthService, public configuracionPrd: ConfiguracionesService) {
 
-    let datePipe = new DatePipe("es-MX");
-
-    let fecha = new Date();
-    this.fechaActual = datePipe.transform(fecha, 'dd-MMM-y')?.replace(".", "");
-
-
   }
 
   ngOnInit(): void {
-
-    debugger;
-
+    this.fechaActual = new DatePipe("es-MX").transform(new Date(), 'dd-MMM-y')?.replace(".", "");
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
-
-
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
-    this.arregloCompany = history.state.company == undefined ? [] : history.state.company;
-
+    this.arregloCompany = this.routerActivePrd.snapshot.data.companias;
+    this.arregloRoles = this.routerActivePrd.snapshot.data.roles;
+    this.objusuario = history.state.usuario || {};
     this.insertar = !Boolean(history.state.usuario);
-    this.objusuario = history.state.usuario;
-    this.objusuario = this.objusuario == undefined ? {} : this.objusuario;
-
-    this.verificarCompaniasExista();
-
-
-
-
-
-
-    this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).subscribe(datos => {
-
-      this.arregloRoles = datos.datos
-      setTimeout(() => {
-        if (this.objusuario.centrocClientes) {
-          if (!this.arregloRoles.some((o: any) => o["rolId"] == this.objusuario.rolId.rolId)) {
-            this.arregloRoles.push(this.objusuario.rolId);
-          }
-        }
-
-      }, 200);
-
-      if (this.insertar) {
-        if (this.usuariosSistemaPrd.getVersionSistema() == 1) {
-          let rolid = this.myForm.value.rol;
-
-          this.desabilitarAgregarUsuarios(rolid);
-        }
+    
+    if (this.objusuario.centrocClientes) {
+      if (!this.arregloRoles.some((o: any) => o["rolId"] == this.objusuario.rolId.rolId)) {
+        this.arregloRoles.push(this.objusuario.rolId);
       }
-
-    });
-
-
-    this.objusuario.centrocClienteId = {};
-
-    if (!this.insertar) {
-      this.desabilitarTodo = this.usuariosSistemaPrd.usuario.esCliente && !this.esClienteEmpresa && this.objusuario.rolId?.rolId == 1;
     }
-
 
 
     this.myForm = this.createForm(this.objusuario);
 
-    if (!this.insertar && this.esClienteEmpresa) {
-      let companiaSeleccionada = this.arregloCompany.find((o: any) => o["centrocClienteId"] == this.myForm.controls.centrocClienteId.value);
-      this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
 
+    if (this.esClienteEmpresa) {
+      this.validacionesClienteCosmonaut();
+    } else if (!this.esClienteEmpresa && this.usuariosSistemaPrd.esCliente()) {
+      this.validacionesClienteEmpresa();
+    } else {
+      this.validacionesEmpresa();
     }
-
-    if ((!this.esClienteEmpresa && this.objusuario.rolId?.rolId == 2) || this.desabilitarTodo) {
-      this.desabilitarInputs();
-      if (this.usuariosSistemaPrd.getUsuario().usuarioId === this.objusuario.usuarioId) {
-        this.myForm.controls.esActivo.disable();
-      }
-    
-    } else if (this.esClienteEmpresa) {
-      if (this.objusuario.centrocClientes) {
-        if (this.objusuario.centrocClientes[0]?.centrocClienteId !== this.usuariosSistemaPrd.getIdEmpresa()) {
-          this.desabilitarInputs();
-        }
-      }
-    }
-
-
-   if(this.objusuario){
-    if(this.objusuario.rolId?.rolId == 1){
-        this.myForm.controls.correoelectronico.enable();
-    }
-   }
-
 
     this.suscripciones();
-
-
-    if (this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1) {
-      if (this.objusuario.centrocClientes) {
-        if (this.objusuario.rolId.rolId != 1) {
-          this.myForm.controls.multicliente.disable();
-          this.myForm.controls.multicliente.setValue(false);
-          this.myForm.controls.centrocClienteId.disable();
-        }else if(this.objusuario.rolId.rolId == 1){
-          this.myForm.controls.rol.enable();
-        }
-      }
-    }
-
-
-    if (this.objusuario.rolId) {
-      this.rolIdSeleciconado = this.objusuario.rolId.rolId;
-      this.ocultaAdministradores = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.rolIdSeleciconado === 1;
-      this.ocultaContactoiniciales = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.rolIdSeleciconado !== 1;
-    }
-
   }
 
-  public desabilitarAgregarUsuarios(idRol: number) {
-
+  private desabilitarAsignarCentrosClientes(idRol: number) {
     if (idRol == 1) {
       this.myForm.controls.multicliente.enable();
       this.myForm.controls.centrocClienteId.setValue("");
@@ -185,20 +100,34 @@ export class DetalleUsuarioComponent implements OnInit {
     }
   }
 
-  public desabilitarInputs(): void {
+  public desabilitarInputs(type:string = ""): void {
     this.myForm.controls.nombre.disable();
     this.myForm.controls.apellidoPaterno.disable();
     this.myForm.controls.apellidoMaterno.disable();
     this.myForm.controls.correoelectronico.disable();
     this.myForm.controls.rol.disable();
     this.myForm.controls.centrocClienteId.disable();
-    this.inabilitar = true;
+    if (this.usuariosSistemaPrd.getUsuario().usuarioId === this.objusuario.usuarioId) {
+      this.myForm.controls.esActivo.disable();
+    }
+    if (this.objusuario.rolId?.rolId == 1) {
+      this.myForm.controls.correoelectronico.enable();
+    }else{
+     switch(type){
+        case "clienteCosmonaut":
+          this.myForm.controls.multicliente.disable();
+          this.myForm.controls.multicliente.setValue(false);
+          this.myForm.controls.centrocClienteId.disable();
+          break;
+     }
+    }
   }
 
   public suscripciones() {
-    console.log("Entra el tema de roles suscripcion");
     this.myForm.controls.rol.valueChanges.subscribe(valor => {
-      console.log("ELEMENTO QUE CAMBIA");
+      
+
+
 
       if (this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1) {
         if (valor != 1) {
@@ -211,7 +140,7 @@ export class DetalleUsuarioComponent implements OnInit {
         }
       } else if (this.esClienteEmpresa && this.insertar && this.usuariosSistemaPrd.getVersionSistema() == 1) {
         let rolid = this.myForm.value.rol;
-        this.desabilitarAgregarUsuarios(rolid);
+        this.desabilitarInputs(rolid);
       }
 
 
@@ -288,7 +217,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public enviarPeticion() {
 
-  
+
 
     this.summitenviado = true;
 
@@ -313,7 +242,7 @@ export class DetalleUsuarioComponent implements OnInit {
           }
         } else {
           if (this.esClienteEmpresa) {
-            let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"]==obj.centrocClienteId);
+            let companiaSeleccionada = this.arregloCompany.find((o: any) => o["razonSocial"] == obj.centrocClienteId);
             obj.idRazonSocial = companiaSeleccionada.centrocClienteId;
           } else {
             obj.idRazonSocial = obj.centrocClienteId;
@@ -408,6 +337,38 @@ export class DetalleUsuarioComponent implements OnInit {
 
   }
 
+
+  private validacionesClienteCosmonaut() {
+    if (this.insertar) {
+      let rolid = this.myForm.value.rol;
+      this.desabilitarAsignarCentrosClientes(rolid);
+    } else if (!this.insertar) {
+      let companiaSeleccionada = this.arregloCompany.find((o: any) => o["centrocClienteId"] == this.myForm.controls.centrocClienteId.value);
+      this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
+      if (this.objusuario.centrocClientes[0]?.centrocClienteId !== this.usuariosSistemaPrd.getIdEmpresa()) {
+        this.desabilitarInputs('clienteCosmonaut');
+      }
+
+      this.ocultaAdministradores = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.objusuario.rolId.rolId === 1;
+      this.ocultaContactoiniciales = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.objusuario.rolId.rolId !== 1;
+    }
+  }
+
+  private validacionesClienteEmpresa() {
+    if (!this.insertar) {
+      if (this.objusuario.rolId?.rolId == 1) {
+        this.desabilitarInputs();
+      }
+    }
+  }
+
+  private validacionesEmpresa() {
+    if (!this.insertar) {
+      if (this.objusuario.rolId?.rolId == 2) {
+        this.desabilitarInputs();
+      }
+    }
+  }
 
 
 

@@ -108,7 +108,7 @@
                 <label>RESULTADOS</label>
             </div>
             <div class="col text-right">
-                <button *ngIf="esRegistrar && !cargandoBotones" type="button" class="btn btn-light button-outlet"
+                <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet"
                     (click)="verdetalle(undefined)">
                     <i aria-hidden="true" class="icon_24agregar primary-bg"></i>Agregar
                     <div *ngIf="cargandoBotones" class="spinner-border" role="status">
