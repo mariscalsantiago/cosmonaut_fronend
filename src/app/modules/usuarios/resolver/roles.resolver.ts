@@ -12,7 +12,7 @@ import { RolesService } from '../../rolesypermisos/services/roles.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RolesResolver implements Resolve<boolean> {
+export class RolesResolver implements Resolve<any> {
   constructor(private usuariosSistemaPrd:UsuarioSistemaService,private rolesPrd:RolesService){}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.rolesPrd.getRolesByEmpresa(this.usuariosSistemaPrd.getIdEmpresa(), this.usuariosSistemaPrd.getVersionSistema(), true).pipe(map(o => o.datos));

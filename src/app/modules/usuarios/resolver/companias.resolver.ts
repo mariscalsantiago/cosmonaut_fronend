@@ -16,15 +16,15 @@ import { EmpresasService } from '../../empresas/services/empresas.service';
 export class CompaniasResolver implements Resolve<boolean> {
   private constructor(private companiPrd: SharedCompaniaService, private usuarioSistemaPrd: UsuarioSistemaService,
     private empresasProd: EmpresasService) { }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     console.log(route.routeConfig?.path?.includes("/cliente/usuarios"));
     const esClienteEmpresa = state.url.includes("/cliente/usuarios");
     if (esClienteEmpresa) {
       return this.companiPrd.getAllCompany().pipe(map(x => x.datos));
-    } else if (!this.usuarioSistemaPrd.esCliente()) {
+    } else if (this.usuarioSistemaPrd.esCliente()) {
       return this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).pipe(map(x => x.datos));
     } else {
-      return this.empresasProd.getEmpresaById(this.usuarioSistemaPrd.getIdEmpresa()).pipe(map(x => x.datos));
+      return this.empresasProd.getEmpresaById(this.usuarioSistemaPrd.getIdEmpresa()).pipe(map(x => [x.datos]));
     }
   }
 }

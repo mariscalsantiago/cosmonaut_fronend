@@ -57,6 +57,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.fechaActual = new DatePipe("es-MX").transform(new Date(), 'dd-MMM-y')?.replace(".", "");
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
@@ -65,7 +66,10 @@ export class DetalleUsuarioComponent implements OnInit {
     this.arregloRoles = this.routerActivePrd.snapshot.data.roles;
     this.objusuario = history.state.usuario || {};
     this.insertar = !Boolean(history.state.usuario);
-    
+
+
+    console.log("COMPNAIAS",this.routerActivePrd.snapshot.data);
+
     if (this.objusuario.centrocClientes) {
       if (!this.arregloRoles.some((o: any) => o["rolId"] == this.objusuario.rolId.rolId)) {
         this.arregloRoles.push(this.objusuario.rolId);
@@ -86,6 +90,9 @@ export class DetalleUsuarioComponent implements OnInit {
 
     this.suscripciones();
   }
+
+
+
 
   private desabilitarAsignarCentrosClientes(idRol: number) {
     if (idRol == 1) {
@@ -110,25 +117,28 @@ export class DetalleUsuarioComponent implements OnInit {
     if (this.usuariosSistemaPrd.getUsuario().usuarioId === this.objusuario.usuarioId) {
       this.myForm.controls.esActivo.disable();
     }
-    if (this.objusuario.rolId?.rolId == 1) {
-      this.myForm.controls.correoelectronico.enable();
-    }else{
      switch(type){
         case "clienteCosmonaut":
+         
+          if (this.objusuario.rolId?.rolId == 1) {
+            this.myForm.controls.correoelectronico.enable();
+            this.myForm.controls.centrocClienteId.enable();
+          }else{
+            this.myForm.controls.multicliente.disable();
+            this.myForm.controls.multicliente.setValue(false);
+            this.myForm.controls.centrocClienteId.disable();
+          }
+          this.myForm.controls.rol.enable();
+          break;
+        case "clienteEmpresa":
           this.myForm.controls.multicliente.disable();
           this.myForm.controls.multicliente.setValue(false);
-          this.myForm.controls.centrocClienteId.disable();
           break;
      }
-    }
   }
 
   public suscripciones() {
     this.myForm.controls.rol.valueChanges.subscribe(valor => {
-      
-
-
-
       if (this.usuariosSistemaPrd.esCliente() && this.usuariosSistemaPrd.getVersionSistema() == 1) {
         if (valor != 1) {
           this.myForm.controls.multicliente.disable();
@@ -140,15 +150,12 @@ export class DetalleUsuarioComponent implements OnInit {
         }
       } else if (this.esClienteEmpresa && this.insertar && this.usuariosSistemaPrd.getVersionSistema() == 1) {
         let rolid = this.myForm.value.rol;
-        this.desabilitarInputs(rolid);
+        this.desabilitarAsignarCentrosClientes(rolid);
       }
 
 
       this.myForm.controls.multicliente.enable();
       this.myForm.controls.centrocClienteId.enable();
-
-
-
     });
   }
 
@@ -172,6 +179,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public createForm(obj: any) {
+    debugger;
 
     if (!this.insertar) {
       let verificador = obj.esMulticliente == undefined ? false : obj.esMulticliente == "Sí";
@@ -182,10 +190,13 @@ export class DetalleUsuarioComponent implements OnInit {
       }
     }
     if (obj.centrocClientes) {
+      debugger;
       if (!this.esClienteEmpresa && obj.centrocClientes.length > 1) {
-        let filtrado = obj.centrocClientes.filter((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa());
-        obj.centrocClientes.splice(obj.centrocClientes.indexOf(filtrado[0]), 1);
-        obj.centrocClientes.unshift(filtrado[0]);
+        if(obj.centrocClientes.some((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa())){
+          let filtrado = obj.centrocClientes.filter((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa());
+          obj.centrocClientes.splice(obj.centrocClientes.indexOf(filtrado[0]), 1);
+          obj.centrocClientes.unshift(filtrado[0]);
+        }
       }
     }
 
@@ -285,8 +296,6 @@ export class DetalleUsuarioComponent implements OnInit {
         } else {
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-          debugger;
-
           this.usuariosAuth.modificar(objAuthEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
@@ -339,25 +348,32 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   private validacionesClienteCosmonaut() {
+    debugger;
+    let rolid = this.myForm.value.rol;
     if (this.insertar) {
-      let rolid = this.myForm.value.rol;
       this.desabilitarAsignarCentrosClientes(rolid);
     } else if (!this.insertar) {
       let companiaSeleccionada = this.arregloCompany.find((o: any) => o["centrocClienteId"] == this.myForm.controls.centrocClienteId.value);
       this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
       if (this.objusuario.centrocClientes[0]?.centrocClienteId !== this.usuariosSistemaPrd.getIdEmpresa()) {
         this.desabilitarInputs('clienteCosmonaut');
+      }else{
+        this.myForm.controls.multicliente.disable();
+        this.myForm.controls.multicliente.setValue(false);
+        this.myForm.controls.centrocClienteId.disable();
       }
 
       this.ocultaAdministradores = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.objusuario.rolId.rolId === 1;
       this.ocultaContactoiniciales = this.esClienteEmpresa && this.usuariosSistemaPrd.getVersionSistema() == 1 && this.objusuario.rolId.rolId !== 1;
+
+
     }
   }
 
   private validacionesClienteEmpresa() {
     if (!this.insertar) {
-      if (this.objusuario.rolId?.rolId == 1) {
-        this.desabilitarInputs();
+      if (this.objusuario.rolId?.rolId == 1 || this.objusuario.rolId?.rolId == 2) {
+        this.desabilitarInputs("clienteEmpresa");
       }
     }
   }
