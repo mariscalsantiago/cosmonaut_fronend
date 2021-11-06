@@ -47,6 +47,9 @@ export class DetalleCompanyComponent implements OnInit {
   public arregloVersiones:any = [];
   public arregloVersionesInicial:any = [];
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   public versionEmpresa={
     versionCosmonautXclienteId:undefined
   };
@@ -59,7 +62,9 @@ export class DetalleCompanyComponent implements OnInit {
 
   ngOnInit(): void {  
     
-    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
     this.compania = true;
 
@@ -124,6 +129,9 @@ export class DetalleCompanyComponent implements OnInit {
 
   }
 
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
+  }
 
   public createFormcomp(obj: any) {
     

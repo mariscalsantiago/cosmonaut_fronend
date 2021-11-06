@@ -36,6 +36,8 @@ export class DetalleContactoComponent implements OnInit {
   public cargandoCheckbox: boolean = false;
   public tieneUsuarioInicial: boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
 
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
@@ -55,6 +57,9 @@ export class DetalleContactoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.objcontacto = history.state.datos == undefined ? {} : history.state.datos;
     this.datosEmpresa = history.state.empresa == undefined ? {} : history.state.empresa;

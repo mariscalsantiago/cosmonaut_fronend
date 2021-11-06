@@ -6,6 +6,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nomina-calculadora',
@@ -43,7 +44,7 @@ export class NominaCalculadoraComponent implements OnInit {
   public subModulo: string = "";
 
   constructor(private modalPrd: ModalService, private formbuilder: FormBuilder, private catalogosPrd: CatalogosService,
-    private politicaPrd: PoliticasService, private usuarioSistemaPrd: UsuarioSistemaService,
+    private politicaPrd: PoliticasService, private usuarioSistemaPrd: UsuarioSistemaService, private router: Router,
     public configuracionPrd:ConfiguracionesService, private grupoNominaPrd: GruponominasService,) { }
 
   ngOnInit(): void {
@@ -130,6 +131,9 @@ export class NominaCalculadoraComponent implements OnInit {
       }
   }
 
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
 
   public calcular() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas calcular?").then(valor => {

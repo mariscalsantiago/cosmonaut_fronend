@@ -342,6 +342,10 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     this.router.navigate(['/eventos/eventosxempleado']);
   }
 
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
+
   public abrirArchivo() {
     let input = document.createElement("input");
     input.type = "file";

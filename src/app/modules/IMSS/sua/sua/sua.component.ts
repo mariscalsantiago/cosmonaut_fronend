@@ -6,6 +6,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { DatePipe } from '@angular/common';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sua',
@@ -57,7 +58,8 @@ export class SuaComponent implements OnInit {
     public esDescargar:boolean = false;
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService,
+    private router: Router) { }
 
   ngOnInit(): void {
     
@@ -101,6 +103,10 @@ export class SuaComponent implements OnInit {
       }
       this.arreglotabla.columnas = columna;
       this.arreglotabla.filas = this.arreglo
+    }
+
+    public inicio(){
+      this.router.navigate(['/inicio']);
     }
 
     public establecerPermisos(){

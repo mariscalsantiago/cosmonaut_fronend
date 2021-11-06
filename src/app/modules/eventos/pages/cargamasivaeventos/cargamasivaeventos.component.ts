@@ -300,6 +300,10 @@ export class CargaMasivaEventosComponent implements OnInit {
     }
   }
 
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
+  }
+
 
   public seleccionarItem() {
     

@@ -66,6 +66,10 @@ export class EmpleadosIncompletosComponent implements OnInit {
     this.esEditar = this.configuracionPrd.getPermisos("Editar");
   }
 
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
+
   public recibirTabla(obj:any){
 
     

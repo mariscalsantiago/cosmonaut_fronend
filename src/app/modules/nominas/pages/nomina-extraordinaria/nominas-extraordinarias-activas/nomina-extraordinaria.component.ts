@@ -135,6 +135,9 @@ export class NominaExtraordinariaComponent implements OnInit, OnDestroy {
     this.router.navigate(['/nominas/nomina'], { state: { datos: item } });
   }
 
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
 
   public eliminar(obj: any, indice: number) {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas eliminar la nómina?").then(valor => {

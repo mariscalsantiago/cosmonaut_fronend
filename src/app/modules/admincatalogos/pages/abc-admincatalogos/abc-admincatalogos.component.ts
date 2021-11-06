@@ -93,8 +93,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   ngOnInit(): void {
 
     
-    this.modulo = this.configuracionPrd.breadcrum.nombreModulo;
-    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo;
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     this.periodo = "";
     
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
@@ -834,6 +834,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
       }
     }
 
+  }
+
+  public cancelar() {
+    
+    this.routerPrd.navigate(['/admincatalogos']);
   }
 
   public catBanco(){

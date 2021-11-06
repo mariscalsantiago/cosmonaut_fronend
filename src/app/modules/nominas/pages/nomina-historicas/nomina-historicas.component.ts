@@ -6,6 +6,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { NominasHistoricasService } from 'src/app/shared/services/nominas/nominas-historicas.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nomina-historicas',
@@ -48,7 +49,7 @@ export class NominaHistoricasComponent implements OnInit {
 
   constructor(private nominashistoricasPrd: NominasHistoricasService, private usuarioSistemaPrd: UsuarioSistemaService,
     public configuracionPrd: ConfiguracionesService, private reportesPrd: ReportesService,
-    private modalPrd: ModalService) { }
+    private modalPrd: ModalService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -242,6 +243,10 @@ export class NominaHistoricasComponent implements OnInit {
         }
         break;
     }
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
 

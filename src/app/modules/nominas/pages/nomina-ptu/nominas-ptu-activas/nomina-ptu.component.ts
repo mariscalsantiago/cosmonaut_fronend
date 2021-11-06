@@ -96,6 +96,10 @@ export class NominaPTUComponent implements OnInit {
     });
   }
 
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
+
   public calcularNomina(item: any) {
 
 

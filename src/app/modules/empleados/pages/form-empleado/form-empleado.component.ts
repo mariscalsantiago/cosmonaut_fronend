@@ -30,7 +30,7 @@ export class FormEmpleadoComponent implements OnInit {
   public cargandoIcon: boolean = false;
   public tabsEnviar: any = [{}, [{}], {}];
   public insertar: boolean = true;
-
+  public distEmpleado: boolean = true; 
   public elEmpleado:any = {
     url:"assets/imgs/usuario.png"
   };
@@ -61,8 +61,10 @@ export class FormEmpleadoComponent implements OnInit {
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     
     let temp =  history.state.datos;
+
     
     if(temp !== undefined){
+      this.distEmpleado = false;
       this.titulo = "COMPLETAR DATOS DEL EMPLEADO";
       this.datosPersona = temp;
       this.datosPersona.insertar = history.state.insertar;
@@ -98,7 +100,13 @@ export class FormEmpleadoComponent implements OnInit {
 
   }
 
+  public cancelar(){
+    this.routerPrd.navigate(['/empleados']);
+  }
 
+  public cancelarPendientes(){
+    this.routerPrd.navigate(['/empleados/empleadosincompletos']);
+  }
   public recibir(elemento: any) {
     switch (elemento.type) {
       case "informacion":

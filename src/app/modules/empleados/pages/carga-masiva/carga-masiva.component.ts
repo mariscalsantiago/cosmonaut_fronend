@@ -85,6 +85,9 @@ export class CargaMasivaComponent implements OnInit {
     this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
   }
 
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
+  }
 
   public crearTabla(datos:any){
     

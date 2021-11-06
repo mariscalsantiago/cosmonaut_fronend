@@ -104,6 +104,10 @@ export class ListaempleadosComponent implements OnInit {
 
   }
 
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
+  }
+
 
   public recibirTabla(obj: any) {
     let isInsertar = false;

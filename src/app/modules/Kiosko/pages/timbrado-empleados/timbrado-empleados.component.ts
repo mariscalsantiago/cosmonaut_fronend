@@ -9,6 +9,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { TimbradoEmpleadoService } from '../../services/timbrado-empleado.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-timbrado-empleados',
@@ -32,7 +33,7 @@ export class TimbradoEmpleadosComponent implements OnInit {
 
   constructor(public configuracionPrd: ConfiguracionesService, private empleadosPrd: EmpleadosService,
     private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private documentosPrd: DocumentosService, private sobrePadoPrd: TimbradoEmpleadoService,
+    private documentosPrd: DocumentosService, private sobrePadoPrd: TimbradoEmpleadoService, private router: Router,
     private contratoColaboradorPrd: ContratocolaboradorService, private reportesPrd: ReportesService) { }
 
   ngOnInit(): void {
@@ -93,6 +94,10 @@ export class TimbradoEmpleadosComponent implements OnInit {
 
   public filtrar() {
 
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
   public recibirTabla(obj: any) {
