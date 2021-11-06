@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { DatePipe } from '@angular/common';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movimientos',
@@ -39,7 +40,7 @@ export class MovimientosComponent implements OnInit {
   public subModulo: string = "";
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService, private routerPrd: Router) { }
 
   ngOnInit() {
     
@@ -129,6 +130,9 @@ export class MovimientosComponent implements OnInit {
       this.traerTabla(datos);
 
       });
+    }
+    public inicio(){
+      this.routerPrd.navigate(['/inicio']);
     }
 
   }

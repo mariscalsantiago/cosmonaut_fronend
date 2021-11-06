@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
@@ -107,12 +106,11 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
     });
   }
 
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
+
   public calcularNomina(item: any) {
-
-
-
-
-
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     let objEnviar = {

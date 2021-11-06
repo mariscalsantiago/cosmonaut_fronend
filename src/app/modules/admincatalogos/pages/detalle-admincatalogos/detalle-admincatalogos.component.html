@@ -1,12 +1,22 @@
 <div>
 
     <div class="row margen titulosfijos">
-        <div class="col titulo-outlet">
-            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
-            </button></div>
-            <label>ADMINISTRACIÓN DE CATÁLOGOS</label>
-        </div>
+            </button>
+            </div>  
+            <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                > {{modulo}} ></a>
+            </li>
+            <li >
+                <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+                (click)="cancelar()" >{{subModulo}} ></a>
+            </li>
+            <li style="padding-top: 10PX;">
+                DETALLE DE CATALOGO
+            </li>
+        </ul> 
     </div>
 
     <div class="scrooll-design">
@@ -40,6 +50,7 @@
             </div>
             <div class="row" style="margin: 10px;">
                 <div class="col-12 col-lg-12 text-right">
+                    <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Regresar</button>
                     <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
               <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar
             </button>
@@ -52,8 +63,5 @@
             <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
 
-        <div class="text-right margin" style="margin-bottom: 20px;">
-            <button (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Regresar</button>
-        </div>
     </div>
 </div>

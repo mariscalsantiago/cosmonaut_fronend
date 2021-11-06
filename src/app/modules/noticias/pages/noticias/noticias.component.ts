@@ -142,6 +142,10 @@ export class NoticiasComponent implements OnInit {
     this.esEditar = this.configuracion.getPermisos("Editar");
   }
 
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
+  }
+
   public procesarTabla() {
 
     let columnas: Array<tabla> = [

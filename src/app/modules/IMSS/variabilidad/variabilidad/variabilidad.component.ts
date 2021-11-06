@@ -9,6 +9,7 @@ import { CompanyService } from 'src/app/modules/company/services/company.service
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
@@ -84,7 +85,7 @@ export class VariabilidadComponent implements OnInit {
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService, private reportesPrd: ReportesService,private EmpleadosService:EmpleadosService, 
-    private companyProd: CompanyService, private formBuild: FormBuilder, public configuracionPrd:ConfiguracionesService) { }
+    private companyProd: CompanyService, private formBuild: FormBuilder, private router: Router, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     
@@ -113,6 +114,10 @@ export class VariabilidadComponent implements OnInit {
         
     });
     
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
     public traerTabla(datos:any) {

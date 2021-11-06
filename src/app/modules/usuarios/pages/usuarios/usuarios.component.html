@@ -1,13 +1,18 @@
 <div>
 
     <div class="row margen titulosfijos">
-        <div class="col titulo-outlet">
-            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button
-                    disabled>
-                    <img src="assets/imgs/menu.png" alt="" srcset="">
-                </button></div>
-                <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block"></i>{{modulo}} > {{subModulo}}</label>
-        </div>
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
+                <img src="assets/imgs/menu.png" alt="" srcset="">
+            </button>
+            </div>  
+            <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                > {{modulo}} ></a>
+            </li>
+            <li style="padding-top: 10PX;">
+                {{subModulo}} 
+            </li>
+        </ul>
     </div>
 
 

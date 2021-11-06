@@ -204,6 +204,9 @@ export class ListaeventosxempledoComponent implements OnInit {
       this.router.navigate(['/eventos/eventosxempleado','nuevo']);
   }
 
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
 
   public traerModal(indice: any) {
 

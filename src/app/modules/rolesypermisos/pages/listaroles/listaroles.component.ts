@@ -85,6 +85,10 @@ export class ListarolesComponent implements OnInit {
   }
 
 
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
+  }
+
 
   public detalle(obj:any){
     this.routerPrd.navigate(['rolesypermisos', 'lista', 'rol'], { state: { datos: obj } });

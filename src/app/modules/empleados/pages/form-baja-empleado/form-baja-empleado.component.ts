@@ -231,6 +231,10 @@ export class FormBajaEmpleadoComponent implements OnInit {
    
  }
 
+ public inicio(){
+  this.routerPrd.navigate(['/inicio']);
+}
+
 
   public enviarPeticion() {
     

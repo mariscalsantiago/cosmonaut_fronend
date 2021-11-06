@@ -96,6 +96,9 @@ export class EmpresasComponent implements OnInit {
     this.activado[numero].seleccionado = true;
   }
 
+  public cancelar(){
+    this.routerPrd.navigate(['/listaempresas']);  
+  }
 
 
   public recibir(elemento: any) {

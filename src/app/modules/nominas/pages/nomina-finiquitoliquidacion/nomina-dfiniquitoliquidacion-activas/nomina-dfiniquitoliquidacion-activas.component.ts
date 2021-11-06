@@ -91,6 +91,10 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
     });
   }
 
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
+
   public agregar() {
     this.ventana.showVentana(this.ventana.nuevanominafiniquitoliquidacion).then(valor => {
 

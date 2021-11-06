@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 
@@ -20,7 +21,7 @@ export class DetalleempresasComponent implements OnInit {
   public modulo: string = "";
   public subModulo: string = "";
 
-  constructor(public configuracionPrd:ConfiguracionesService) {
+  constructor(public configuracionPrd:ConfiguracionesService, private routerPrd: Router) {
 
     
    }
@@ -43,13 +44,12 @@ export class DetalleempresasComponent implements OnInit {
   }
 
   public getConfiguracion(){
-
-
-    
-    
+   
     
   }
 
-
+  public cancelar(){
+    this.routerPrd.navigate(['/listaempresas']);  
+  }
 
 }

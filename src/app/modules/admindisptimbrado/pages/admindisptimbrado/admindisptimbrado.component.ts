@@ -9,6 +9,7 @@ import { AdminDispercionTimbradoService } from 'src/app/modules/admindisptimbrad
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { CompanyService } from 'src/app/modules/company/services/company.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admindisptimbrado',
@@ -62,7 +63,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
   constructor(private ventana: VentanaemergenteService,private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService,private formBuild: FormBuilder, private admintimbradoDispersion: AdminDispercionTimbradoService,
-    public configuracionPrd:ConfiguracionesService, private companyPrd: CompanyService) { }
+    public configuracionPrd:ConfiguracionesService, private companyPrd: CompanyService, private router: Router) { }
 
   ngOnInit() {
 
@@ -206,6 +207,10 @@ export class AdminDispercionTimbradoComponent implements OnInit {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
 
     });
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
   public filtrar() {

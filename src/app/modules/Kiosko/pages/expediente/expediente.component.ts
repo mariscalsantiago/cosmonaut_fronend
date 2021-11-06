@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { tabla } from 'src/app/core/data/tabla';
+import { Router } from '@angular/router';
 import { DocumentosService } from 'src/app/modules/empleados/services/documentos.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
@@ -31,7 +32,7 @@ export class ExpedienteComponent implements OnInit {
   public subModulo: string = "";
 
   constructor(public configuracionPrd: ConfiguracionesService, private empleadosPrd: EmpleadosService,
-    private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
+    private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService, private router: Router,
     private documentosPrd: DocumentosService) { }
 
   ngOnInit(): void {
@@ -53,6 +54,7 @@ export class ExpedienteComponent implements OnInit {
       }
     });
   }
+
 
   public crearTabla(datos: any) {
 
@@ -100,6 +102,10 @@ export class ExpedienteComponent implements OnInit {
       this.iniciarDescarga(obj.datos);
       
     }
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
   public iniciarDescarga(obj:any){

@@ -63,11 +63,16 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   public esRegistrar:boolean = false;
   public esEditar:boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(private routerPrd: Router, private adminCatalogosPrd: AdminCatalogosService,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     this.establecerPermisos();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     
     this.objdetcat = history.state.data == undefined ? {} : history.state.data;
     this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => this.arregloListaCatalogos = datos.datos);
