@@ -253,7 +253,7 @@ export class DetalleContactoComponent implements OnInit {
   }
 
 
-  public redirect(obj: any) {
+  public redirect() {
     this.routerPrd.navigate(["/company"]);
   }
 
