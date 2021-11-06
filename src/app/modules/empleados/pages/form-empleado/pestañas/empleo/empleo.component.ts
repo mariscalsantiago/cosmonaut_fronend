@@ -147,6 +147,9 @@ export class EmpleoComponent implements OnInit {
 
     this.suscripciones();
 
+
+    this.tipoContratoIdValidador(this.myForm.controls.tipoContratoId.value);
+
   }
 
 
@@ -199,15 +202,19 @@ export class EmpleoComponent implements OnInit {
 
 
     this.myForm.controls.tipoContratoId.valueChanges.subscribe((idContrato: number) => {
-      this.activaFechaFin = idContrato != 1 && idContrato != 10;
-      if (this.activaFechaFin)
-        this.myForm.controls.fechaFin.setValidators([Validators.required]);
-      else
-        this.myForm.controls.fechaFin.clearValidators();
-      this.myForm.controls.fechaFin.updateValueAndValidity();
+       this.tipoContratoIdValidador(idContrato);
     });
 
 
+  }
+
+  private tipoContratoIdValidador(idContrato:number){
+    this.activaFechaFin = idContrato != 1 && idContrato != 10;
+    if (this.activaFechaFin)
+      this.myForm.controls.fechaFin.setValidators([Validators.required]);
+    else
+      this.myForm.controls.fechaFin.clearValidators();
+    this.myForm.controls.fechaFin.updateValueAndValidity();
   }
 
 
@@ -382,7 +389,6 @@ export class EmpleoComponent implements OnInit {
       obj.areaGeograficaId = 1;
     }
     const pipe = new DatePipe("es-MX");
-
     return this.formBuilder.group({
       areaId: [obj.areaId?.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
@@ -390,7 +396,7 @@ export class EmpleoComponent implements OnInit {
       sedeId: [obj.sedeId?.sedeId],
       estadoId: [obj.estadoId?.estadoId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
-      personaId: [this.datosPersona.personaId, [Validators.required]],
+      personaId: [this.datosPersona?.reactivarCuenta?obj.numEmpleado:obj.personaId?.personaId, [Validators.required]],
       esSindicalizado: [obj.esSindicalizado || 'false'],
       fechaAntiguedad: [obj.fechaAntiguedad, [Validators.required]],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
@@ -431,6 +437,7 @@ export class EmpleoComponent implements OnInit {
 
   public enviarFormulario() {
 
+    console.log(this.myForm.getRawValue());
     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach(control => {
         control.markAsTouched();
@@ -438,6 +445,7 @@ export class EmpleoComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
+    
     if (!this.calculoEfectuado) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha realizado el cálculo de sueldo");
       return;
@@ -517,8 +525,6 @@ export class EmpleoComponent implements OnInit {
           if (!Boolean(objEnviar.sedeId.sedeId)) {
             objEnviar.sedeId = null;
           }
-
-          console.log(this.datosPersona);
           objEnviar.fechaContrato = this.tabsDatos[3]?.fechaContrato;
           this.actualizarContratoColaborador(objEnviar);
         }
@@ -571,7 +577,7 @@ export class EmpleoComponent implements OnInit {
   public guardarReactivarContratoColaborador(objEnviar: any) {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.colaboradorPrd.saveReactivar(objEnviar).subscribe(datos => {
-       this.datosDespuesGuardar(datos);
+       this.datosDespuesGuardar(datos,true);
     });
   }
 
@@ -986,28 +992,31 @@ export class EmpleoComponent implements OnInit {
     }
   }
 
-  private datosDespuesGuardar(datos:any){
+  private datosDespuesGuardar(datos:any,esReactivarEmpleado:boolean = false){
     this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
       if (datos.resultado) {
 
 
-
-        let objAuthEnviar = {
-          nombre: this.datosPersona.nombre,
-          apellidoPat: this.datosPersona.apellidoPaterno,
-          apellidoMat: this.datosPersona.apellidoMaterno,
-          email: this.datosPersona.emailCorporativo,
-          centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
-          rolId: 2,
-          version: this.usuarioSistemaPrd.getVersionSistema()
+        if(!esReactivarEmpleado){
+          let objAuthEnviar = {
+            nombre: this.datosPersona.nombre,
+            apellidoPat: this.datosPersona.apellidoPaterno,
+            apellidoMat: this.datosPersona.apellidoMaterno,
+            email: this.datosPersona.emailCorporativo,
+            centrocClienteIds: [this.usuarioSistemaPrd.getIdEmpresa()],
+            rolId: 2,
+            version: this.usuarioSistemaPrd.getVersionSistema()
+          }
+  
+          this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
+            if (!vv.resultado) {
+              this.modalPrd.showMessageDialog(vv.resultado, vv.mensaje);
+            }
+          });
+  
         }
 
-        this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
-          if (!vv.resultado) {
-            this.modalPrd.showMessageDialog(vv.resultado, vv.mensaje);
-          }
-        });
-
+     
         let metodopago = {};
 
         for (let item of this.arregloMetodosPago) {
