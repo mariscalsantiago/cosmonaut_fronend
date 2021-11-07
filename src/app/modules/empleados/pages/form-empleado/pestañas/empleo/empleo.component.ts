@@ -389,6 +389,10 @@ export class EmpleoComponent implements OnInit {
       obj.areaGeograficaId = 1;
     }
     const pipe = new DatePipe("es-MX");
+
+    
+    console.log(obj,"fecha");
+
     return this.formBuilder.group({
       areaId: [obj.areaId?.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],
@@ -400,7 +404,7 @@ export class EmpleoComponent implements OnInit {
       esSindicalizado: [obj.esSindicalizado || 'false'],
       fechaAntiguedad: [obj.fechaAntiguedad, [Validators.required]],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
-      fechaInicio: [obj.fechaInicio, Validators.required],
+      fechaInicio: [obj.fechaContrato, Validators.required],
       fechaFin: [{ value: obj.fechaFin, disabled: false }],
       jornadaId: [obj.jornadaId?.jornadaId, [Validators.required]],
       grupoNominaId: [obj.grupoNominaId?.grupoNominaId, [Validators.required]],
