@@ -22,27 +22,112 @@ export class AdminCatalogosService {
   public getListaBanco(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csbanco/listar/todosActivo/${estatus}`);
 }
+
+
+  public ListaBanco(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csbanco/listar/descripcion`, json, httpOptions);
+  }
   public getListaFacultad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catFacultadPoder/listar/todosActivo/${estatus}`);
+  }
+
+  public ListaFacultad(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catFacultadPoder/listar/descripcion`, json, httpOptions);
   }
   
   public getListaDispersion(): Observable<any> {
     return this.http.get(`${direcciones.adminCatalogoDisp}/cat-proveedor-dispersion/listar/todos`);
   }
+
+  public ListaDispersion(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/cat-proveedor-dispersion/listar/descripcion`, json, httpOptions);
+  }
   public getListaTimbrado(): Observable<any> {
     return this.http.get(`${direcciones.adminCatalogoDisp}/cat-proveedor-timbrado/listar/todos`);
+  }
+
+  public ListaTimbrado(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/cat-proveedor-timbrado/listar/descripcion`, json, httpOptions);
   }
   public getListaMotivoBaja(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catMotivoBaja/listar/todosActivo/${estatus}`);
   }
+  public ListaMotivoBaja(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catMotivoBaja/listar/descripcion`, json, httpOptions);
+  }
   public getListaParentesco(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catParentesco/listar/todosActivo/${estatus}`);
+  }
+  public ListaParentesco(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catParentesco/listar/descripcion`, json, httpOptions);
   }
   public getListaRegimenContratacion(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTipoRegimenContratacion/listar/todosActivo/${estatus}`);
   }
+  public ListaRegimenContratacion(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTipoRegimenContratacion/listar/descripcion`, json, httpOptions);
+  }
   public getListaTarifaPeriodicaISR(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTarifaPeriodicaIsr/listar/todosActivo/${estatus}`);
+  }
+  public ListaTarifaPeriodicaISR(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTarifaPeriodicaIsr/listar/descripcion`, json, httpOptions);
   }
   public getListatablasPeriodicasISR():Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/tablasPeriodicasISR`);
@@ -71,48 +156,166 @@ export class AdminCatalogosService {
   public getListaRegimenFiscal(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csRegimenFiscal/listar/todosActivo/${estatus}`);
   }
+  public ListaRegimenFiscal(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csRegimenFiscal/listar/descripcion`, json, httpOptions);
+  }
   public getListaTipoContrato(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTipoContrato/listar/todosActivo/${estatus}`);
+  }
+  public ListaTipoContrato(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTipoContrato/listar/descripcion`, json, httpOptions);
   }
   public getListaTipoDeduccion(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTipoDeduccion/listar/todosActivo/${estatus}`);
   }
-
+  public ListaTipoDeduccion(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTipoDeduccion/listar/descripcion`, json, httpOptions);
+  }
   public getListaReferencia():Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia`);
     
   }
-
   public getListaReferenciaInactivos(anio:number):Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia/false/${anio}`);
   }
   public getListaTipoIncapacidad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/tipoIncapacidad/listar/todosActivo/${estatus}`);
   }
+  public ListaTipoIncapacidad(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/tipoIncapacidad/listar/descripcion`, json, httpOptions);
+  }
   public getListaFuncionCuenta(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catFuncionCuenta/listar/todosActivo/${estatus}`);
+  }
+  public ListaFuncionCuenta(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catFuncionCuenta/listar/descripcion`, json, httpOptions);
   }
   public getListaMetodoPago(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catMetodoPago/listar/todosActivo/${estatus}`);
   }
+  public ListaMetodoPago(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catMetodoPago/listar/descripcion`, json, httpOptions);
+  }
   public getListaMoneda(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/moneda/listar/todosActivo/${estatus}`);
+  }
+  public ListaMoneda(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/moneda/listar/descripcion`, json, httpOptions);
   }
   public getListaNacionalidad(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/nacionalidad/listar/todosActivo/${estatus}`);
   }
+  public ListaNacionalidad(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/nacionalidad/listar/descripcion`, json, httpOptions);
+  }
   public getListaTipoValorReferencia(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catTipoValorReferencia/listar/todosActivo/${estatus}`);
+  }
+  public ListaTipoValorReferencia(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/catTipoValorReferencia/listar/descripcion`, json, httpOptions);
   }
   public getListaTipoPercepcion(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/csTipoPercepcion/listar/todosActivo/${estatus}`);
   }
+  public ListaTipoPercepcion(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/csTipoPercepcion/listar/descripcion`, json, httpOptions);
+  }
   public getListaTipoEvento(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/tipoIncidencia/listar/todosActivo/${estatus}`);
   }
+  public ListaTipoEvento(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
   
+    return this.http.post(`${this.url}/tipoIncidencia/listar/descripcion`, json, httpOptions);
+  }
   public getListaValorReferencia(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/valorReferencia/listar/todosActivo/${estatus}`);
+  }
+
+  public ListaValorReferencia(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${this.url}/valorReferencia/listar/descripcion`, json, httpOptions);
   }
   
   public getByCompany(obj: any): Observable<any> {
