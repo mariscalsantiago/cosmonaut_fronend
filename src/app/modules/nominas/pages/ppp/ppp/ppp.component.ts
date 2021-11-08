@@ -61,7 +61,7 @@ export class PPPComponent implements OnInit {
 
   constructor(private routerPrd: Router,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
-    private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
+    private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService, private router: Router) { }
 
 
     public establecerPermisos(){
@@ -184,7 +184,9 @@ export class PPPComponent implements OnInit {
 
   }
 
-
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
 
 
 

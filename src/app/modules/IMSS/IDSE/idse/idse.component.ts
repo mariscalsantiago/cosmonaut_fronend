@@ -4,6 +4,7 @@ import { EmpresasService } from 'src/app/modules/empresas/services/empresas.serv
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
@@ -64,7 +65,7 @@ export class IDSEComponent implements OnInit {
     public esDescargar:boolean = false;
 
 
-  constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
+  constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService, private router: Router,
     private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
@@ -199,6 +200,10 @@ export class IDSEComponent implements OnInit {
     this.cargando = false;
   });
 
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
   public seleccionarTodosBool(input: any) {
