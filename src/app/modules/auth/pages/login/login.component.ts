@@ -156,6 +156,7 @@ export class LoginComponent implements OnInit {
 
 
           let objRecibido = valorusuario.datos.clientes[0];
+          console.log("Cliente actual",objRecibido);
           const usuario: usuarioClass = new usuarioClass();
           usuario.centrocClienteId = objRecibido.centrocClienteId;
           usuario.correo = encodeURIComponent(username);
@@ -169,6 +170,7 @@ export class LoginComponent implements OnInit {
           usuario.rolId = this.usuarioObj.rolId?.rolId;
           usuario.nombreRol = this.usuarioObj.rolId?.nombreRol;
           usuario.submodulosXpermisos = valorusuario.datos.submodulosXpermisos;
+          usuario.multiempresa = objRecibido.multiempresa;
           usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId);
           usuario.esRecursosHumanos = false;
           usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : objRecibido.centroCostosCentrocClienteId.centrocClienteId;
@@ -432,6 +434,7 @@ export class LoginComponent implements OnInit {
     usuario.centrocClienteId = this.clienteSeleccionado.centrocClienteId;
     usuario.nombreEmpresa = this.clienteSeleccionado.razonSocial;
     usuario.esCliente = !Boolean(this.clienteSeleccionado.centroCostosCentrocClienteId)
+    console.log("Cliente seleccionado",this.clienteSeleccionado);
     usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : this.clienteSeleccionado?.centroCostosCentrocClienteId?.centrocClienteId;
 
 
