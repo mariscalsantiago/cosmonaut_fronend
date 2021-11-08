@@ -75,6 +75,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   public arreglotemp: any = [];
   public verpatronal: boolean = false;
   public verIsnBool:boolean = false;
+  public totalSI:boolean = true; 
 
   public top:number = 0;
 
@@ -161,7 +162,12 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
       if (this.arreglotemp[0] !== undefined && this.arreglotemp[0]['usuarioId'] !== undefined) {
         this.tooltipText = "editarUsuario";
       }
+      this.total = true;
       this.total = this.paginado_server ? this.datos.totalRegistros : this.arreglotemp.length;
+      if(this.total === undefined ){
+        this.total = 'Sin registros';
+        this.totalSI = false;
+      }
       for (let item of this.datos.filas) {
         item.seleccionado = false;
         item.desglosarDown = true;

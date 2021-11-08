@@ -69,6 +69,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public todayF : string = '';
   public valFecha : boolean = true;
   public catEstatus : boolean = true;
+  public id_catalogo : string = '';
 
   public modulo: string = "";
   public subModulo: string = "";
@@ -106,6 +107,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       tipoPersona: this.objdetrep.indPersonaFisica
     };
     if(this.detCatalogos.listaCatalogosId == 1){
+        this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
         this.catBanco();
         this.idCatalogo = this.objdetrep.codBanco;
         this.descripcion = this.objdetrep.nombreCorto;
@@ -113,34 +115,35 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
     else if(this.detCatalogos.listaCatalogosId == 13){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.facultadPoderId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 9){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.motivoBajaId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 12){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 11){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 21){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       
       this.idCatalogo = this.objdetrep.proveedorDispersionId;
       this.descripcion = this.objdetrep.descripcion;
@@ -154,7 +157,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 22){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.proveedorTimbradoId;
       this.descripcion = this.objdetrep.descripcion;
       if(this.objdetrep.fechaAlta){
@@ -168,13 +171,14 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 8){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.tipoRegimenContratacionId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 6){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       if (this.objdetrep.fecInicio != undefined || this.objdetrep.fecInicio != null) {
           this.objdetrep.fecInicio = new DatePipe("es-MX").transform((this.objdetrep.fecInicio), 'yyyy-MM-dd');
       }
@@ -187,25 +191,28 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 7){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.tipoContratoId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 5){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.tipoDeduccionId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 10){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.tipoIncapacidadId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 4){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.objdetrep.integraSdi = this.objdetrep.integraSdi == "S"  ? true : false;
       this.objdetrep.integraIsr = this.objdetrep.integraIsr == "S"  ? true : false;
       this.objdetrep.integraIsn = this.objdetrep.integraIsn == "S"  ? true : false;
@@ -223,7 +230,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 15){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.tipoValorReferenciaId?.descripcion;
       this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => this.arregloValoresReferencia = datos.datos);
@@ -235,7 +242,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.periodo = this.objdetrep.tabla;
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
         if (datos.datos !== undefined) {
@@ -253,7 +260,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
      
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.periodo = this.objdetrep.tabla;
       this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => {
     
@@ -272,7 +279,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.descripcion = this.objdetrep.estado;
       this.estado = this.objdetrep.estado;
       if(this.objdetrep.estadoId !== undefined){
@@ -293,31 +300,35 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 2){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 14){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 20){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 3){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 16){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
