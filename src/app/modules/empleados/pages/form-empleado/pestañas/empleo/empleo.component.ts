@@ -392,6 +392,7 @@ export class EmpleoComponent implements OnInit {
 
     
     console.log(obj,"fecha");
+    debugger;
 
     return this.formBuilder.group({
       areaId: [obj.areaId?.areaId, [Validators.required]],
@@ -400,7 +401,7 @@ export class EmpleoComponent implements OnInit {
       sedeId: [obj.sedeId?.sedeId],
       estadoId: [obj.estadoId?.estadoId, [Validators.required]],
       politicaId: [obj.politicaId?.politicaId, [Validators.required]],
-      personaId: [this.datosPersona?.reactivarCuenta?obj.numEmpleado:obj.personaId?.personaId, [Validators.required]],
+      personaId: [this.datosPersona?.reactivarCuenta?obj.numEmpleado:(obj.personaId?.personaId || this.datosPersona.personaId), [Validators.required]],
       esSindicalizado: [obj.esSindicalizado || 'false'],
       fechaAntiguedad: [obj.fechaAntiguedad, [Validators.required]],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],

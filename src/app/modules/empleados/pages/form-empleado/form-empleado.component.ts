@@ -96,7 +96,7 @@ export class FormEmpleadoComponent implements OnInit {
 
       this.tabsEnviar[0].tieneContrato = true;
 
-      console.log("Siempre se ejecuta padre");
+      console.log("Siempre se ejecuta padre",this.datosPersona);
     }
 
 
