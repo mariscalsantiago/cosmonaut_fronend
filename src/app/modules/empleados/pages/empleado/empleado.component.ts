@@ -180,7 +180,7 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               let isInsertar: boolean = false;
               let fechaContrato = { ...this.empleado };
-              delete fechaContrato.fechaContrato;
+              //delete fechaContrato.fechaContrato;
               this.router.navigate(['empleados/empleado'], { state: { datos: this.empleado.personaId, insertar: isInsertar,reactivarEmpleado:true, reactivarCuenta: true, contrato: fechaContrato } });
             }else{
               this.modalPrd.showMessageDialog(vv.resultado,vv.mensaje);

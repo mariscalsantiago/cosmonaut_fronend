@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpresasService } from '../../services/empresas.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-empresas',
@@ -40,7 +41,8 @@ export class EmpresasComponent implements OnInit {
 
 
 
-  constructor(private usuarioSistemaPrd: UsuarioSistemaService, private routerPrd: Router, private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService, public configuracionPrd: ConfiguracionesService) {
+  constructor(private usuarioSistemaPrd: UsuarioSistemaService, private routerPrd: Router, private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService, public configuracionPrd: ConfiguracionesService,
+    private modalPrd:ModalService) {
 
   }
 
@@ -60,6 +62,19 @@ export class EmpresasComponent implements OnInit {
           this.activarPestaniasEmpresa(datos);
           
         });
+      }else{
+        console.log(this.usuarioSistemaPrd.getVersionSistema(),this.usuarioSistemaPrd.usuario);
+        if(!this.usuarioSistemaPrd.usuario.multiempresa){
+          if(this.usuarioSistemaPrd.esCliente()){
+            this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+                if(datos.datos){
+                    this.modalPrd.showMessageDialog(this.modalPrd.error,"Este cliente no es multicliente ya no se puede agregar màs empresas.").then(()=>{
+                      this.routerPrd.navigate(['/']);
+                    });
+                }
+            });
+          }
+        }
       }
     });
     
