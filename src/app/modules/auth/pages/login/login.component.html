@@ -87,6 +87,12 @@
                             class="btn btn-success button-fill"><span>CORRECTO</span></button>
 
                     </div>
+                    <div class="boton mt-2"  *ngIf="ventanapass">
+                        <button (click)="ventanapass = false" type="button" style="background-color:#cf4646" class="btn btn-info heartbeat"><span>Cancelar</span>
+                        </button>
+
+                    </div>
+                    
 
 
                 </form>
@@ -144,9 +150,9 @@
 
             </div>
             <div *ngIf="multiempresa" class="formblock mt-5 fade-in ">
-                <label class="text-center letra títulos_roboto-—-25pt ">ELEGIR CLIENTE</label>
+                <label class="text-center letra títulos_roboto-—-25pt ">ELEGIR {{usuarioSistemaPrd.usuario.esCliente?'CLIENTE':'EMPRESA'}}</label>
 
-                <div class="contenedor">
+                <div style="height: 300px; overflow: auto;" class="contenedor">
                     <div (click)="seleccionadoCompania(item)" [class.seleccionado]="item.seleccionado"
                         *ngFor="let item of arregloCompanias" class="caja">
                         <span>{{item.nombre}}</span>

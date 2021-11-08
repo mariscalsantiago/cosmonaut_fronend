@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
   public clienteSeleccionado: any;
 
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
-    private companiaPrd: SharedCompaniaService, private usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService,
+    private companiaPrd: SharedCompaniaService, public usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService,
     private authUsuarioPrd: UsuariosauthService) {
     let obj = {};
     this.myForm = this.createMyForm(obj);
