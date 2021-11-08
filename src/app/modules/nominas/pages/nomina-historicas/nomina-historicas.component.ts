@@ -76,10 +76,11 @@ export class NominaHistoricasComponent implements OnInit {
     }
 
 
+    debugger;
     this.arreglotabla = {
       columnas: columnas,
-      filas: datos.datos,
-      totalRegistros:this.arreglotabla.totalRegistros
+      filas: datos,
+      totalRegistros:this.arreglotabla.totalResgistros
     }
   }
 
@@ -308,6 +309,7 @@ export class NominaHistoricasComponent implements OnInit {
       this.nominashistoricasPrd.filtradoPaginado(objEnviar,this.elementos,this.pagina).subscribe(datos => {
         this.cargando = false;
         if(datos.datos){
+          debugger;
           let arreglo:Array<any> = datos.datos.lista;
           if(arreglo)
              if(!repetir)

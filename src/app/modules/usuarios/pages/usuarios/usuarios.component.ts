@@ -34,6 +34,7 @@ export class UsuariosComponent implements OnInit {
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
   public activo: number = 0;
+  public cargandoBotones:boolean = false;
   //public peticion: any = [];
 
   /*
@@ -60,7 +61,7 @@ export class UsuariosComponent implements OnInit {
   public esEditar:boolean = false;
 
 
-  public cargandoBotones:boolean = false;
+  
   public elementos:number = 0;
   public pagina:number = 0;
 
@@ -84,8 +85,7 @@ export class UsuariosComponent implements OnInit {
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
 
-    this.cargandoBotones = true;
-    
+  
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
@@ -98,7 +98,6 @@ export class UsuariosComponent implements OnInit {
         this.arregloCompany = datos.datos
         console.log(this.arregloCompany);
         this.filtrar();
-        this.cargandoBotones = false;
       });
     } else {
       if(this.usuariosSistemaPrd.esCliente()){
@@ -111,15 +110,12 @@ export class UsuariosComponent implements OnInit {
             this.arregloCompany = datos.datos;
           }
           this.filtrar();
-          this.cargandoBotones = false;
         
         });
       }else{
         this.empresasProd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
           this.arregloCompany = [datos.datos];
-          this.filtrar();
-          this.cargandoBotones = false;
-        
+          this.filtrar();        
         });
       }
     }
@@ -178,8 +174,10 @@ export class UsuariosComponent implements OnInit {
 
   public verdetalle(obj: any) {
     if (obj == undefined) {
+      this.cargandoBotones = true;
       this.routerPrd.navigate([(this.esClienteEmpresa) ? "cliente" : "", 'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany, usuario: obj } });
     } else {
+      this.modalPrd.showMessageDialog(this.modalPrd.loading);
       this.routerPrd.navigate([(this.esClienteEmpresa) ? "cliente" : "", 'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany, usuario: obj } });
     }
   }

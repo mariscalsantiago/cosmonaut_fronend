@@ -113,18 +113,13 @@
                 <label>RESULTADOS</label>
             </div>
             <div class="col text-right">
-                <button *ngIf="esRegistrar && !cargandoBotones" type="button" class="btn btn-light button-outlet"
+                <button *ngIf="esRegistrar" type="button" style="width: 9em;" class="btn btn-light button-outlet"
                     (click)="verdetalle(undefined)">
-                    <i aria-hidden="true" class="icon_24agregar primary-bg"></i>Agregar
+                    <i aria-hidden="true" class="icon_24agregar primary-bg" *ngIf="!cargandoBotones"></i><span *ngIf="!cargandoBotones">Agregar</span>
                     <div *ngIf="cargandoBotones" class="spinner-border" role="status">
                         <span class="sr-only"></span>
                     </div>
                 </button>
-                <button style="width: 100px;" *ngIf="esRegistrar && cargandoBotones" type="button" class="btn btn-light button-outlet">
-                <div  class="spinner-border" role="status">
-                    <span class="sr-only"></span>
-                </div>
-            </button>
             </div>
         </div>
 
