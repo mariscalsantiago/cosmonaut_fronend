@@ -318,7 +318,7 @@ export class NominaHistoricasComponent implements OnInit {
                 this.arreglo = arreglo;
                 
   
-          this.arreglotabla.totalRegistros = datos.datos.totalResgistros;
+          this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
         }
   
         this.rellenarTablas(this.arreglo);

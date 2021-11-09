@@ -68,6 +68,8 @@ export class DetalleUsuarioComponent implements OnInit {
     this.insertar = !Boolean(history.state.usuario);
 
 
+
+    console.log(this.objusuario);
     console.log("COMPNAIAS",this.routerActivePrd.snapshot.data);
 
     if (this.objusuario.centrocClientes) {
@@ -179,7 +181,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    debugger;
+    
 
     if (!this.insertar) {
       let verificador = obj.esMulticliente == undefined ? false : obj.esMulticliente == "Sí";
@@ -189,8 +191,7 @@ export class DetalleUsuarioComponent implements OnInit {
         this.companiasenviar = [];
       }
     }
-    if (obj.centrocClientes) {
-      debugger;
+    if (obj.centrocClientes) {      
       if (!this.esClienteEmpresa && obj.centrocClientes.length > 1) {
         if(obj.centrocClientes.some((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa())){
           let filtrado = obj.centrocClientes.filter((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa());
@@ -381,7 +382,11 @@ export class DetalleUsuarioComponent implements OnInit {
   private validacionesEmpresa() {
     if (!this.insertar) {
       if (this.objusuario.rolId?.rolId == 2) {
-        this.desabilitarInputs();
+        this.desabilitarInputs("");
+      }
+
+      if (this.myForm.controls.usuarioId.value == this.usuariosSistemaPrd.usuario.usuarioId) {
+          this.desabilitarInputs("");
       }
     }
   }
