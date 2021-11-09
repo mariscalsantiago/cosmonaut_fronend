@@ -309,7 +309,6 @@ export class NominaHistoricasComponent implements OnInit {
       this.nominashistoricasPrd.filtradoPaginado(objEnviar,this.elementos,this.pagina).subscribe(datos => {
         this.cargando = false;
         if(datos.datos){
-          debugger;
           let arreglo:Array<any> = datos.datos.lista;
           if(arreglo)
              if(!repetir)
