@@ -1,4 +1,4 @@
-<div *ngIf="(!cargando && arreglo !== undefined ) || paginado_server" class="row-between  margen mt-3" style="margin-bottom: -25px;">
+<div *ngIf="(!cargando && arreglo !== undefined  && !paginado_server) || (paginado_server && arreglo !== undefined && !cargando)" class="row-between  margen mt-3" style="margin-bottom: -25px;">
     <div class="input-group  mb-3 mostrarelementos ">
         <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
@@ -10,23 +10,11 @@
             <option value="100">100</option>
         </select>
     </div>
-    <div *ngIf="totalSI" class="mb-3 col-md-2 right">
+    <div  class="mb-3 col-md-2 right">
         <label>Total: </label>
         <input type="text" class="form-control-sm " [value]="total" disabled>
     </div>
-
-    <div *ngIf="!totalSI" class="row ">
-        <div class="input-group-sm mb-5 col-sm-12 col-lg-2 col-xl-2">
-            <label >Total:</label>
-        </div>
-        <div class="input-group-sm col-sm-12 col-lg-10 col-xl-10">
-            <input type="text" class="form-control" [value]="total" disabled>
-        </div>
-    </div>
-
 </div>
-
-
 <div style="margin: 10px;overflow: auto;">
 
     <table id="ttt1" aria-hidden="true" *ngIf="(!cargando && arreglo !== undefined) || paginado_server && !paginadoServer_primeravez" class="table table-hover  anchura ">
@@ -379,16 +367,14 @@
                         </td>
                     </tr>
                 </ng-container>
-
-
             </ng-container>
         </tbody>
     </table>
 </div>
-<div *ngIf="!cargando && arreglo === undefined" class="alert  col text-center">
+<div *ngIf="!cargando && arreglo == undefined" class="alert  col text-center">
     <strong>En este momento no existen registros</strong>
 </div>
-<div *ngIf="(!cargando && arreglo !== undefined) || paginado_server && !paginadoServer_primeravez" class="row" style="width: 100%;">
+<div *ngIf="(!cargando && arreglo !== undefined) || (paginado_server && !paginadoServer_primeravez)" class="row" style="width: 100%;">
     <div class="col">
         <nav aria-label="cosmonaut" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
@@ -410,6 +396,6 @@
         </nav>
     </div>
 </div>
-<div *ngIf="cargando && !paginado_server || paginadoServer_primeravez"  class="col text-center mb-5">
+<div *ngIf="cargando && !paginado_server || paginadoServer_primeravez && cargando"  class="col text-center mb-5">
     <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
 </div>

@@ -68,7 +68,7 @@ export class EmpresasComponent implements OnInit {
           if(this.usuarioSistemaPrd.esCliente()){
             this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
                 if(datos.datos){
-                    this.modalPrd.showMessageDialog(this.modalPrd.error,"Este cliente no es multicliente ya no se puede agregar màs empresas.").then(()=>{
+                    this.modalPrd.showMessageDialog(this.modalPrd.error,"Este cliente no es multiempresa, no podrás agregar más empresas.").then(()=>{
                       this.routerPrd.navigate(['/']);
                     });
                 }

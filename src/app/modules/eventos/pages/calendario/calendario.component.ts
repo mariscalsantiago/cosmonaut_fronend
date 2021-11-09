@@ -76,30 +76,30 @@ export class CalendarioComponent implements OnInit {
         new tabla("duracion", "Duraciòn", false, false, true)
       ];
 
-      this.arreglotabla = {
-        columnas: [],
-        filas: []
-      }
+    
 
-      if (this.arreglo !== undefined) {
+      let aux:any = undefined;
+      if (this.arreglo) {
         let temporal = JSON.stringify(this.arreglo);
-        let aux:any = JSON.parse(temporal);
+        aux = JSON.parse(temporal);
 
         for (let item of aux) {
           item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "" : item.apellidoMaterno}`;
-          var datePipe = new DatePipe("es-MX");
-          item.fechaInicioTemp = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".", "");
+        
+          item.fechaInicioTemp = item.fechaInicio;
 
-          item.fechaFinTemp = datePipe.transform(item.fechaFin, 'dd-MMM-y')?.replace(".", "");
+          item.fechaFinTemp = item.fechaFin;
         }
 
-        this.arreglotabla.columnas = columnas;
-        this.arreglotabla.filas = aux;
-      }else{
-        this.arreglotabla.filas = this.arreglotabla;
+       
       }
 
 
+      this.arreglotabla = {
+        columnas:columnas,
+        filas:aux
+      }
+  
       this.cargando = false;
      
 

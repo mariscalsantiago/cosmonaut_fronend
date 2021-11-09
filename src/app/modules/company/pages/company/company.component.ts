@@ -169,7 +169,8 @@ export class CompanyComponent implements OnInit {
   
         if (this.arreglo !== undefined) {
           for (let item of this.arreglo) {
-            item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
+            item.fechaAltab = new DatePipe("es-MX").transform(new Date(item.fechaAlta), 'dd-MMM-y');
+            item.fechaAlta = new DatePipe("es-MX").transform(new Date(item.fechaAlta), 'yyyy-MM-dd');
   
             if (item.esActivo) {
               item.activo = 'Activo'

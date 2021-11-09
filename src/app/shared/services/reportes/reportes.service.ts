@@ -234,7 +234,7 @@ public getFiltroDinamicoPPP(obj:any):Observable<any>{
   }
 
   public crearArchivo(base64:string,nombre:string,extension:string){
-    const linkSource = 'data:application/pdf;base64,' + `${base64}\n`;
+    const linkSource = `data:application/${extension};base64,` + `${base64}\n`;
     const downloadLink = document.createElement("a");
     const fileName = `${nombre}.${extension}`;
 
