@@ -70,7 +70,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     console.log(this.objusuario);
-    console.log("COMPNAIAS",this.routerActivePrd.snapshot.data);
+    console.log("COMPNAIAS", this.routerActivePrd.snapshot.data);
 
     if (this.objusuario.centrocClientes) {
       if (!this.arregloRoles.some((o: any) => o["rolId"] == this.objusuario.rolId.rolId)) {
@@ -109,7 +109,7 @@ export class DetalleUsuarioComponent implements OnInit {
     }
   }
 
-  public desabilitarInputs(type:string = ""): void {
+  public desabilitarInputs(type: string = ""): void {
     this.myForm.controls.nombre.disable();
     this.myForm.controls.apellidoPaterno.disable();
     this.myForm.controls.apellidoMaterno.disable();
@@ -119,24 +119,36 @@ export class DetalleUsuarioComponent implements OnInit {
     if (this.usuariosSistemaPrd.getUsuario().usuarioId === this.objusuario.usuarioId) {
       this.myForm.controls.esActivo.disable();
     }
-     switch(type){
-        case "clienteCosmonaut":
-         
-          if (this.objusuario.rolId?.rolId == 1) {
-            this.myForm.controls.correoelectronico.enable();
-            this.myForm.controls.centrocClienteId.enable();
-          }else{
-            this.myForm.controls.multicliente.disable();
-            this.myForm.controls.multicliente.setValue(false);
-            this.myForm.controls.centrocClienteId.disable();
-          }
-          this.myForm.controls.rol.enable();
-          break;
-        case "clienteEmpresa":
+    switch (type) {
+      case "clienteCosmonaut":
+
+        if (this.objusuario.rolId?.rolId == 1) {
+          this.myForm.controls.correoelectronico.enable();
+          this.myForm.controls.centrocClienteId.enable();
+          this.myForm.controls.nombre.enable();
+          this.myForm.controls.apellidoPaterno.enable();
+          this.myForm.controls.apellidoMaterno.enable();
+        } else {
           this.myForm.controls.multicliente.disable();
           this.myForm.controls.multicliente.setValue(false);
-          break;
-     }
+          this.myForm.controls.centrocClienteId.disable();
+        }
+        this.myForm.controls.rol.enable();
+        break;
+      case "clienteEmpresa":
+        this.myForm.controls.multicliente.disable();
+        this.myForm.controls.multicliente.setValue(false);
+        if(this.objusuario.rolId?.rolId == 1){
+          if (this.usuariosSistemaPrd.getUsuario().usuarioId !== this.objusuario.usuarioId) {
+            this.myForm.controls.esActivo.enable();
+            this.myForm.controls.correoelectronico.enable();
+            this.myForm.controls.nombre.enable();
+            this.myForm.controls.apellidoPaterno.enable();
+            this.myForm.controls.apellidoMaterno.enable();
+          }
+        }
+        break;
+    }
   }
 
   public suscripciones() {
@@ -181,7 +193,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    
+
 
     if (!this.insertar) {
       let verificador = obj.esMulticliente == undefined ? false : obj.esMulticliente == "Sí";
@@ -191,9 +203,9 @@ export class DetalleUsuarioComponent implements OnInit {
         this.companiasenviar = [];
       }
     }
-    if (obj.centrocClientes) {      
+    if (obj.centrocClientes) {
       if (!this.esClienteEmpresa && obj.centrocClientes.length > 1) {
-        if(obj.centrocClientes.some((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa())){
+        if (obj.centrocClientes.some((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa())) {
           let filtrado = obj.centrocClientes.filter((o: any) => Number(o["centrocClienteId"]) == this.usuariosSistemaPrd.getIdEmpresa());
           obj.centrocClientes.splice(obj.centrocClientes.indexOf(filtrado[0]), 1);
           obj.centrocClientes.unshift(filtrado[0]);
@@ -358,7 +370,7 @@ export class DetalleUsuarioComponent implements OnInit {
       this.myForm.controls.centrocClienteId.setValue(companiaSeleccionada.razonSocial);
       if (this.objusuario.centrocClientes[0]?.centrocClienteId !== this.usuariosSistemaPrd.getIdEmpresa()) {
         this.desabilitarInputs('clienteCosmonaut');
-      }else{
+      } else {
         this.myForm.controls.multicliente.disable();
         this.myForm.controls.multicliente.setValue(false);
         this.myForm.controls.centrocClienteId.disable();
@@ -386,7 +398,7 @@ export class DetalleUsuarioComponent implements OnInit {
       }
 
       if (this.myForm.controls.usuarioId.value == this.usuariosSistemaPrd.usuario.usuarioId) {
-          this.desabilitarInputs("");
+        this.desabilitarInputs("");
       }
     }
   }
