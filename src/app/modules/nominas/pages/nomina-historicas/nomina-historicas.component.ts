@@ -89,6 +89,7 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
+    debugger;
 
     obj.datos.cargandoDetalle = false;
     let objEnviar: any;
@@ -212,7 +213,7 @@ export class NominaHistoricasComponent implements OnInit {
           if (datos.resultado) {
 
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-            this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${new DatePipe("es-MX").transform(obj.datos.fecha_inicio, "MM")}`, "xlxs");
+            this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${new DatePipe("es-MX").transform(obj.datos.fecha_inicio, "MM")}`, "xlsx");
           } else {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
           }
@@ -252,6 +253,7 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public obtenerReportes() {
+    
     let objEnviar: any;
     switch (`${this.reporteindex}`) {
       case "1":
@@ -264,6 +266,7 @@ export class NominaHistoricasComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos => {
+          debugger;
           if (datos.resultado) {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${this.mesIndex}`, "xlsx");
