@@ -63,7 +63,7 @@ export class CalendarioComponent implements OnInit {
 
     this.eventoPrd.filtro(obj).subscribe(datos => {
 
-
+      
       this.arreglo = datos.datos;
 
 
@@ -76,25 +76,35 @@ export class CalendarioComponent implements OnInit {
         new tabla("duracion", "Duraciòn", false, false, true)
       ];
 
+    
 
-      if(this.arreglo){
-        for (let item of this.arreglo) {
+      let aux:any = undefined;
+      if (this.arreglo) {
+        let temporal = JSON.stringify(this.arreglo);
+        aux = JSON.parse(temporal);
+
+        for (let item of aux) {
           item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "" : item.apellidoMaterno}`;
-          var datePipe = new DatePipe("es-MX");
-          item.fechaInicioTemp = datePipe.transform(item.fechaInicio, 'dd-MMM-y')?.replace(".", "");
-  
-          item.fechaFinTemp = datePipe.transform(item.fechaFin, 'dd-MMM-y')?.replace(".", "");
+        
+          item.fechaInicioTemp = item.fechaInicio;
+
+          item.fechaFinTemp = item.fechaFin;
         }
+
+       
       }
 
 
       this.arreglotabla = {
-        columnas: columnas,
-        filas: this.arreglo
+        columnas:columnas,
+        filas:aux
       }
-
-
+  
       this.cargando = false;
+     
+
+      this.eventos = datos.datos;
+      this.eventosCopia = datos.datos;
 
       this.filtrandoEventos();
     });
@@ -142,7 +152,7 @@ export class CalendarioComponent implements OnInit {
 
     this.eventos = [];
     Object.values(this.eventosCopia).forEach((valor: any) => {
-
+     
       if (arrayFiltrado.includes(valor.tipoIncidenciaId)) {
         this.eventos.push(valor);
       }
