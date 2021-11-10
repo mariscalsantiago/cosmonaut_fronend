@@ -44,10 +44,10 @@ export class ListascuentasbancariasComponent implements OnInit {
   public esEditar:boolean = false;
   public esEliminar:boolean = false;
 
-
-
- 
-
+  //Filtros de busqueda
+  public clabe: string = '';
+  public numeroCuenta: string = '';
+  public banco: string = '';
 
 
   constructor(private routerPrd: Router, private activateRouter: ActivatedRoute,
