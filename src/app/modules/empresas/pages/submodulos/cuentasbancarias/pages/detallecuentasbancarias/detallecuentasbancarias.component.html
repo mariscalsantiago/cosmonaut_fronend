@@ -18,18 +18,6 @@
                     Campo requerido
                 </div>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
-                <label>Número de cuenta * 
-          <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No
-            tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a><i aria-hidden="true" class="far fa-times-circle"></i>
-          </div>
-
-        </label>
-                <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitInvalido}" placeholder="">
-                <div *ngIf="submitInvalido && f.numeroCuenta.errors" class="invalid-feedback">
-                    Campo requerido
-                </div>
-            </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Cuenta CLABE *</label>
                 <input appSolonumeros placement="top" [mdbTooltip]="'clabe' | tooltip" #clabe (focusout)="validarBanco(clabe.value)" maxlength="18" formControlName="clabe" type="text" class="form-control" value="" [ngClass]="{'is-invalid':(submitInvalido && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
@@ -39,6 +27,18 @@
                 </div>
                 <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
                     La CLABE no es válida
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
+                <label>Número de cuenta * 
+          <div [ngClass]="{'ocultar':!mostrartooltip,'mostrarTooltip bounce-in-top':mostrartooltip}" class="ocultar">¿No
+            tienes una cuenta bancaría? <a href="wwww.google.com">Aprende más.</a><i aria-hidden="true" class="far fa-times-circle"></i>
+          </div>
+
+        </label>
+                <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="10" class="form-control disabled bg-light" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitInvalido}" placeholder="">
+                <div *ngIf="submitInvalido && f.numeroCuenta.errors" class="invalid-feedback">
+                    Campo requerido
                 </div>
             </div>
 
@@ -52,16 +52,16 @@
                 </div>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                <label>Número de sucursal</label>
+                <input placement="top" maxlength="8" [mdbTooltip]="'numSucursal' | tooltip" appSolonumeros formControlName="num_sucursal" type="text" class="form-control" placeholder="">
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Descripción</label>
                 <input formControlName="descripcion" type="text" class="form-control" placeholder="">
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Número de información</label>
-                <input placement="top" [mdbTooltip]="'numInfo' | tooltip" appSolonumeros formControlName="num_informacion" type="text" class="form-control" placeholder="">
-            </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                <label>Número de sucursal</label>
-                <input placement="top" [mdbTooltip]="'numSucursal' | tooltip" appSolonumeros formControlName="num_sucursal" type="text" class="form-control" placeholder="">
+                <input placement="top" maxlength="12" [mdbTooltip]="'numInfo' | tooltip" appSolonumeros formControlName="num_informacion" type="text" class="form-control" placeholder="">
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Función de la cuenta *</label>

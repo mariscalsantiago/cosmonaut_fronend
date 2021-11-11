@@ -441,7 +441,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
-
+    debugger;
     console.log(this.myForm.getRawValue());
     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach(control => {
@@ -515,14 +515,14 @@ export class EmpleoComponent implements OnInit {
           objEnviar.pppSalarioBaseMensual = obj.sueldoBrutoMensualPPP;//sueldo menusal ppp
           objEnviar.pppSnm = obj.sueldonetomensualppp;
         }
-
+        debugger;
         if (this.tabsDatos[3]?.fechaContrato == undefined) {
-          if(this.datosPersona?.reactivarCuenta){
-              this.guardarReactivarContratoColaborador(objEnviar);
-          }else{
-            this.guardarContratoColaborador(objEnviar);
-          }
-        } else {
+           this.guardarContratoColaborador(objEnviar);
+        }
+        else if(this.datosPersona?.reactivarCuenta){
+          this.guardarReactivarContratoColaborador(objEnviar);
+        } 
+        else {
           if (!Boolean(objEnviar.jefeInmediatoId.personaId)) {
             objEnviar.jefeInmediatoId = null;
           }

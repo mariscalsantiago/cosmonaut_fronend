@@ -74,7 +74,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
   }
   public validarBanco(clabe:any){
-    
+    debugger;
     this.myForm.controls.idbanco.setValue("");
     this.myForm.controls.clabe.setValue("");
 
@@ -90,7 +90,9 @@ export class DetallecuentasbancariasComponent implements OnInit {
       if (datos.resultado) {
  
         this.myForm.controls.idbanco.setValue( datos.datos.bancoId);
-        this.myForm.controls.clabe.setValue( clabe);
+        this.myForm.controls.clabe.setValue(clabe);
+        this.myForm.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
+        this.myForm.controls.num_sucursal.setValue(datos.datos.sucursal);
 
       }
       else{

@@ -139,6 +139,16 @@ export class InformacionbasicaComponent implements OnInit {
       return;
     }
 
+    let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
+    if(moralFiscia === 3){
+      let rfcFisica = this.myform.controls.rfc.value.substr(0,10);
+      let curp = this.myform.controls.curp.value.substr(0,10);
+      if(curp !== rfcFisica){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Los datos de RFC y CURP no corresponden");
+  
+        return;
+      }
+    }
 
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar cambios?").then(valor => {

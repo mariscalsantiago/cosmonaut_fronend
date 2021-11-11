@@ -133,6 +133,7 @@ export class LoginComponent implements OnInit {
   }
 
   public enviarformulario() {
+    debugger;
     this.restablecer = false;
     this.myForm.value.username = this.myForm.value.username?.toLowerCase();
     this.authPrd.login(this.myForm.value).subscribe(datos => {

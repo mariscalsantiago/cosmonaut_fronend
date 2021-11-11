@@ -61,7 +61,7 @@ export class AdminCatalogosService {
     };
     let json: string = JSON.stringify(obj);
   
-    return this.http.post(`${this.url}/cat-proveedor-dispersion/listar/descripcion`, json, httpOptions);
+    return this.http.post(`${direcciones.adminCatalogoDisp}/cat-proveedor-dispersion/listar/descripcion`, json, httpOptions);
   }
   public getListaTimbrado(): Observable<any> {
     return this.http.get(`${direcciones.adminCatalogoDisp}/cat-proveedor-timbrado/listar/todos`);
@@ -75,7 +75,7 @@ export class AdminCatalogosService {
     };
     let json: string = JSON.stringify(obj);
   
-    return this.http.post(`${this.url}/cat-proveedor-timbrado/listar/descripcion`, json, httpOptions);
+    return this.http.post(`${direcciones.adminCatalogoDisp}/cat-proveedor-timbrado/listar/descripcion`, json, httpOptions);
   }
   public getListaMotivoBaja(estatus:boolean): Observable<any> {
     return this.http.get(`${this.url}/catMotivoBaja/listar/todosActivo/${estatus}`);
@@ -195,6 +195,16 @@ export class AdminCatalogosService {
   public getListaReferencia():Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia`);
     
+  }
+  public ListaReferencia(obj: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+  
+    return this.http.post(`${direcciones.tablasValores}/listar/descripcion`, json, httpOptions);
   }
   public getListaReferenciaInactivos(anio:number):Observable<any>{
     return this.http.get(`${direcciones.tablasValores}/listar/valorReferencia/false/${anio}`);
