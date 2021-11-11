@@ -32,6 +32,7 @@
                 </article>
             </div>
             <br><br>
+            
             <ul id="listanavegadora" class="list-unstyled components" >
                 <ng-container *ngFor="let item of PRINCIPAL_MENU;let indice = index">
                     <li #liselection *ngIf="item.checked" style="text-align: right; background-color: #f6f7f9;" [ngClass]="{'active':item.seleccionado}">
@@ -54,9 +55,16 @@
                 </li>
                 <li *ngIf="PRINCIPAL_MENU !== undefined" style="text-align: right;background-color: #f6f7f9;" id="salirbtn" (click)="cerrarSesion()">
                     <a (mouseover)="botonsalir=true" (mouseout)="botonsalir=false" style="display: inline-block;    border-bottom-left-radius: 19px;"> <i aria-hidden="true" class="icon_cerrarsesion danger-bg"></i>
+                        <ng-container>                            
+                       <li>
+                        <span style="display: block;color:white;font-size: 11px; white-space: pre-wrap;">Cerrar sesión</span>
+                    </li>
+                </ng-container>
+
                     </a>
                 </li>
             </ul>
+            
         </nav>
         <div id="contenido" (mouseout)="saleComponente(undefined)" class="content" [ngClass]="{'scrollhide':modal.modal || emergente.modal}" style="position: relative;">
             <nav aria-label="cosmonaut" aria-label="cosmonautnav" class="navbar navbar-expand-lg navbar-light">
