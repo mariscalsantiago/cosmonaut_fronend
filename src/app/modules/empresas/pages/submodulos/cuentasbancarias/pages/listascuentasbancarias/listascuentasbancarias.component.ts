@@ -58,6 +58,8 @@ export class ListascuentasbancariasComponent implements OnInit {
 
     this.establecerPermisos();
 
+    let documento: any = document.defaultView;
+    this.tamanio = documento.innerWidth;
     
     this.activateRouter.params.subscribe(datos => {
 
@@ -102,6 +104,54 @@ export class ListascuentasbancariasComponent implements OnInit {
 
   }
 
+  public filtrar() {
+    debugger;
+    this.cargando = true;
+    let peticion = {
+
+      clabe: this.clabe,
+      numeroCuenta: this.numeroCuenta,
+      esActivo: '',
+      bancoId: {
+      nombreCorto: this.banco
+      },
+      nclCentrocCliente: {
+      centrocClienteId: this.id_empresa
+      }
+    }
+
+      this.cuentasPrd.filtroCuentas(peticion).subscribe(datos => {
+        let columnas: Array<tabla> = [
+          new tabla("nombreCuenta", "Nombre cuenta"),
+          new tabla("numeroCuenta", "Número de cuenta"),
+          new tabla("nombrebanco", "Nombre banco"),
+          new tabla("clabe", "Cuenta CLABE"),
+          new tabla("activo", "Estatus de cuenta")
+        ];
+
+        
+
+        if(datos.datos !== undefined){
+          datos.datos.forEach((part:any) => {
+            part.nombrebanco=part.bancoId?.nombreCorto;
+
+            if(part.esActivo){
+              part.activo = 'Activo'
+             }
+             if(!part.esActivo){
+              part.activo = 'Inactivo'
+             }
+          });
+        }
+      
+
+        this.arreglotabla.columnas = columnas;
+        this.arreglotabla.filas = datos.datos;
+        this.cargando = false;
+    }); 
+
+  }
+
 
   public establecerPermisos(){
     
@@ -137,11 +187,6 @@ export class ListascuentasbancariasComponent implements OnInit {
 
   }
 
-
-  public obj: any;
- 
-
-  
 
   public recibirTabla(obj:any){
     switch(obj.type){
