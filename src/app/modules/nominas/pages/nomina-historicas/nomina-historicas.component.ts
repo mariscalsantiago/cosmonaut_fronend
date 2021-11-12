@@ -299,7 +299,8 @@ export class NominaHistoricasComponent implements OnInit {
 
   public filtrar(repetir: boolean = false, desdeFiltrado: boolean = false) {
 
-
+    debugger;
+    
     let objEnviar = {
       centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
       estadoNominaIdActual: 5,
@@ -311,14 +312,17 @@ export class NominaHistoricasComponent implements OnInit {
     if (!desdeFiltrado) {
       this.nominashistoricasPrd.filtradoPaginado(objEnviar, this.elementos, this.pagina).subscribe(datos => {
         this.cargando = false;
+
         if (datos.datos) {
           let arreglo: Array<any> = datos.datos.lista;
-          if (arreglo)
+          if (arreglo){
             if (!repetir)
               arreglo.forEach(o => this.arreglo.push(o));
             else
               this.arreglo = arreglo;
-
+          }else{
+            this.arreglo = undefined;
+          }  
 
           this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
         }

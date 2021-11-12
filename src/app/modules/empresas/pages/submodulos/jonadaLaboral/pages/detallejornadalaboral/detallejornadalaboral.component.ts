@@ -620,7 +620,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public selectJornada(op: any) {
-
+    debugger;
     this.myForm.clearValidators();
     //this.myForm.updateValueAndValidity();
     this.myForm.controls.horaFinComida.disable();
@@ -643,11 +643,17 @@ export class DetallejornadalaboralComponent implements OnInit {
 
     }
 
-    if (this.jornada == '3') {
-      if(!this.esInsert){
+      if (this.jornada == '3') {
+      let horaSalida = this.myForm.controls.horaSalida.value;
+        if(!this.esInsert){
+            this.myForm.controls.horaInicioComida.enable();
+            this.myForm.controls.horaFinComida.enable();
+        }
+        else if (horaSalida !== undefined && this.esInsert) {
+          this.hrSalida = Number(horaSalida.substring(0, 2));
           this.myForm.controls.horaInicioComida.enable();
-          this.myForm.controls.horaFinComida.enable();
-      }
+        }
+
       this.myForm.controls.horaSalida.enable();
       this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();
