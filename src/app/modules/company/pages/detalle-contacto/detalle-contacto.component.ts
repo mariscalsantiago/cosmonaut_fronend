@@ -40,6 +40,9 @@ export class DetalleContactoComponent implements OnInit {
   public subModulo: string = "";
 
 
+  private datosUsuarioSistema?:any = {};
+
+
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private modalPrd: ModalService, private usuariosAuth: UsuariosauthService, public configuracionPrd: ConfiguracionesService,
     private usuarioSistemaPrd: UsuarioSistemaService) {
@@ -75,6 +78,7 @@ export class DetalleContactoComponent implements OnInit {
         this.myFormcont.controls.usuarioinicial.setValue(Boolean(valorusuario.datos));
         this.tieneUsuarioInicial = Boolean(valorusuario.datos);
         if(this.tieneUsuarioInicial){
+          this.datosUsuarioSistema = valorusuario.datos;
           this.myFormcont.controls.usuarioinicial.disable();
           this.myFormcont.controls.emailCorporativo.disable();
         }
@@ -207,19 +211,21 @@ export class DetalleContactoComponent implements OnInit {
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {
-            
+            let objAuthEnviar = {
+              nombre: obj.nombre,
+              apellidoPat: obj.apellidoPaterno,
+              apellidoMat: obj.apellidoMaterno,
+              email: obj.emailCorporativo?.toLowerCase(),
+              centrocClienteIds: [this.datosEmpresa.centrocClienteId],
+              rolId: 1,
+              version:this.usuarioSistemaPrd.getVersionSistema(),
+              esMulticliente:false,
+              usuarioId:undefined,
+              esActivo:undefined
+            }
             if (datos.resultado) {
               if (!this.tieneUsuarioInicial) {
                 if (obj.usuarioinicial) {
-                  let objAuthEnviar = {
-                    nombre: obj.nombre,
-                    apellidoPat: obj.apellidoPaterno,
-                    apellidoMat: obj.apellidoMaterno,
-                    email: obj.emailCorporativo?.toLowerCase(),
-                    centrocClienteIds: [this.datosEmpresa.centrocClienteId],
-                    rolId: 1,
-                    version:this.usuarioSistemaPrd.getVersionSistema()
-                  }
 
                   this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
                     if (!vv.resultado) {
@@ -234,8 +240,29 @@ export class DetalleContactoComponent implements OnInit {
                     .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
                 }
               } else {
+
+               if(obj.usuarioinicial){
+                objAuthEnviar = {
+                  nombre: obj.nombre,
+                  apellidoPat: obj.apellidoPaterno,
+                  apellidoMat: obj.apellidoMaterno,
+                  email: obj.emailCorporativo?.toLowerCase(),
+                  centrocClienteIds: this.datosUsuarioSistema.clientes.map((o:any)=> o.centrocClienteId),
+                  rolId: 1,
+                  esMulticliente: this.datosUsuarioSistema.usuario.esMulticliente,
+                  usuarioId: this.datosUsuarioSistema.usuario.usuarioId,
+                  esActivo: this.datosUsuarioSistema.usuario.esActivo,
+                  version: this.usuarioSistemaPrd.getVersionSistema(),
+                }
+                this.usuariosAuth.modificar(objAuthEnviar).subscribe(vv =>{
+                  this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+                  .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));                    
+                });
+               }else{
                 this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-                  .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
+                .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));                    
+               }
+
               }
             } else {
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
