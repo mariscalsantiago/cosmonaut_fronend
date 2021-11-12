@@ -73,7 +73,7 @@ export class ListapuestosComponent implements OnInit {
       this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
 
         let columnas: Array<tabla> = [
-          new tabla("nombreCorto", "Nombre"),
+          new tabla("nombreCorto", "Nombre del área"),
           new tabla("nombre", "Empresa"),
           new tabla("count", "Número de empleados",true,true,true)
         ];

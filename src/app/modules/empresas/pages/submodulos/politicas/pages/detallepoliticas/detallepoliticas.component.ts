@@ -122,6 +122,7 @@ export class DetallepoliticasComponent implements OnInit {
 
     }else{
       obj.primaAniversario = obj.primaAniversario = "Aniversario";
+      obj.calculoAntiguedadx = 'antiguedad';
     }
     return this.formBuilder.group({
 

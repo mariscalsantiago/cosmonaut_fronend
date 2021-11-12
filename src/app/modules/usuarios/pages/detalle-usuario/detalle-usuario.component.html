@@ -82,7 +82,7 @@
                 <label for="exampleFormControlSelect1">Cliente </label>
                 <input type="text" formControlName="nombrecliente" class="form-control">
             </div>
-            <div *ngIf="usuariosSistemaPrd.esCliente()" style="padding-top: 35px;" class="input-group-sm  col-12 col-sm-12 col-md-4 col-lg-4">
+            <div *ngIf="usuariosSistemaPrd.esCliente()" style="padding-top: 35px; font-size: 15px !important;" class="input-group-sm  col-12 col-sm-12 col-md-4 col-lg-4">
                 <label class="contenedorInputCheckRadio nnn">Usuario {{!esClienteEmpresa?'Multiempresa':'Multicliente'}}
                     <input (change)="cambiarMultiempresa()" formControlName="multicliente" type="checkbox" name="" id="multiempresa">
                     <span class="checkmark"></span>

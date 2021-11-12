@@ -40,6 +40,8 @@ export class InformacionempresaComponent implements OnInit {
     private authUsuariosPrd: UsuariosauthService, private usuariosSistemaPrd: UsuarioSistemaService) { }
 
   ngOnInit(): void {
+
+    debugger;
     this.obj = this.datos.empresa;
 
     this.myform = this.createForm(this.obj);
@@ -49,6 +51,8 @@ export class InformacionempresaComponent implements OnInit {
 
     this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
     if (!this.datos.insertar) {
+      debugger;
+
       this.catalogosPrd.getActividadEconomica2(this.idNivel2, this.datos.empresa.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId).subscribe(datos => {
         this.arregloactividad2 = datos.datos
       });

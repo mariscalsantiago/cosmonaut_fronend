@@ -74,7 +74,7 @@
 
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label>Calcular periodo de nómina con base a *</label>
+                <label>Calcular periodo de nómina con base en *</label>
                 <select placement="top" [mdbTooltip]="'calculosConBase' | tooltip" formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && submitInvalido}" class="form-control">
           <option *ngFor="let item of arregloBasePeriodos" [value]="item.basePeriodoId">{{item.descripcion}}</option>
         </select>
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label>Calcular subsidio al empleo de manera :</label><br>
+                <label>Calcular subsidio al empleo de manera: *</label><br>
                 <label class="contenedorInputCheckRadio">Periódica
           <input name="maneraCalcularSubsidio" formControlName="maneraCalcularSubsidio" type="radio" value="periodica" [ngClass]="{'is-invalid':f.maneraCalcularSubsidio.errors && submitInvalido}" >
           <span class="radiomark"></span>
