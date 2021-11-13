@@ -33,6 +33,7 @@ export class InformacionempresaComponent implements OnInit {
   public cargando: Boolean = false;
   public cargandoImg: boolean = false;
   public mostrarAsterisco:boolean = false;
+  public urlLogo: string = ''; 
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
@@ -43,13 +44,7 @@ export class InformacionempresaComponent implements OnInit {
 
     debugger;
     this.obj = this.datos.empresa;
-
     this.myform = this.createForm(this.obj);
-    this.suscripciones();
-
-    this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
-
-    this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
     if (!this.datos.insertar) {
       debugger;
 
@@ -58,11 +53,18 @@ export class InformacionempresaComponent implements OnInit {
       });
       this.cargandoImg = true;
       this.companyPrd.getEmpresaById(this.datos.empresa.centrocClienteId).subscribe(datos => {
-        this.cargandoImg = false;
-        this.imagen = datos.datos?.imagen;
+      this.cargandoImg = false;
+      this.urlLogo = datos.datos?.url;
+      this.imagen = datos.datos?.imagen;
 
       });
     }
+    this.suscripciones();
+
+    this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
+
+    this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
+
 
 
   }
@@ -108,8 +110,10 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public recibirImagen(imagen: any) {
+    debugger;
     this.imagen = imagen;
   }
+
   public createForm(obj: any) {
   
     if (this.datos.empresa?.certificadoSelloDigitalId) {
