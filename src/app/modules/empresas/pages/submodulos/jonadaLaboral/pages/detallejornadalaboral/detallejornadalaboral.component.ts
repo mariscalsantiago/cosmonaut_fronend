@@ -670,10 +670,12 @@ export class DetallejornadalaboralComponent implements OnInit {
     this.myForm.controls.horaInicioComida.disable();
     this.jornada = String(op.value);
     if (this.jornada == '1') {
-      this.myForm.controls.horaSalida.disable();
-      this.myForm.controls.horaSalida.setValue('');
       this.myForm.controls.horaInicioComida.setValue('');
       this.myForm.controls.horaFinComida.setValue('');  
+      this.myForm.controls.horaEntrada.setValue('');
+      this.myForm.controls.horaSalida.setValue(''); 
+      
+      this.myForm.controls.horaSalida.disable();
       this.myForm.controls.horaInicioComida.setValidators([]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();
       this.myForm.controls.horaFinComida.setValidators([]);
@@ -682,6 +684,9 @@ export class DetallejornadalaboralComponent implements OnInit {
     if (this.jornada == '2') {
       this.myForm.controls.horaInicioComida.setValue('');
       this.myForm.controls.horaFinComida.setValue('');  
+      this.myForm.controls.horaEntrada.setValue('');
+      this.myForm.controls.horaSalida.setValue(''); 
+
       this.myForm.controls.horaSalida.enable();
       this.myForm.controls.horaInicioComida.setValidators([]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();
@@ -703,6 +708,9 @@ export class DetallejornadalaboralComponent implements OnInit {
         }
       this.myForm.controls.horaInicioComida.setValue('');
       this.myForm.controls.horaFinComida.setValue('');  
+      this.myForm.controls.horaEntrada.setValue('');
+      this.myForm.controls.horaSalida.setValue(''); 
+        
       this.myForm.controls.horaSalida.enable();
       this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();
