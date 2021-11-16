@@ -67,12 +67,22 @@ table {
     th {
         text-align: center;
     }
+ 
+    th:nth-child(1) {
+        .contenedorInputCheckRadio{
+        display: inline !important;
+        }
+    }
+
+    th:nth-child(2) {
+        text-align: left!important; 
+    }
+
     td {
         text-align: left;
         // max-width: 500px;
     }
 }
-
 .wrap {
     max-width: 150px;
     text-align: justify;
