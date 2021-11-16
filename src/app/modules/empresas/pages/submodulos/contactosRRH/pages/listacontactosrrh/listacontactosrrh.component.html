@@ -34,22 +34,22 @@
                         <div class="card-body">
                             <div class="form group row margen">
                                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                    <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Nombre">
+                                    <input type="text" [(ngModel)]="nombre" id="nombreRRHS" class="form-control" placeholder="Nombre">
                                 </div>
                                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                    <input type="text" [(ngModel)]="apellidoPaterno" class="form-control" placeholder="Primer apellido">
+                                    <input type="text" [(ngModel)]="apellidoPaterno" id="apellidoPaternoRRHS" class="form-control" placeholder="Primer apellido">
                                 </div>
                                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                    <input type="text" [(ngModel)]="apellidoMaterno" class="form-control" placeholder="Segundo apellido">
+                                    <input type="text" [(ngModel)]="apellidoMaterno" id="apellidoMaternoRRHS" class="form-control" placeholder="Segundo apellido">
                                 </div>
                                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                    <input type="text" [(ngModel)]="correoE" class="form-control" placeholder="Correo empresarial">
+                                    <input type="text" [(ngModel)]="correoE" id="correoERRHS" class="form-control" placeholder="Correo empresarial">
                                 </div>
                                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                    <input type="text" [(ngModel)]="correoP" class="form-control" placeholder="Correo personal">
+                                    <input type="text" [(ngModel)]="correoP" id="correoPRRHS" class="form-control" placeholder="Correo personal">
                                 </div>
                                 <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                                    <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                    <button type="button" id="btnFiltrarRRH" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                                 </div>
                             </div>
                         </div>

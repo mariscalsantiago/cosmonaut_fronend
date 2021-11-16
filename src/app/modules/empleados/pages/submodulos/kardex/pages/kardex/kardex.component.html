@@ -8,15 +8,15 @@
   
     <div class="form group row margen">
       <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
-        <select placeholder="Tipo de documento" name="" class="form-control" [(ngModel)]="tipoMovimineto">
-          <option value="0" selected>Selecciona tipo movimiento</option>
-          <option *ngFor="let item of arregloMovimientos"  [value]="item.movimientoId">{{item.movimiento}}
+        <select placeholder="Tipo de documento" name="" class="form-control" [(ngModel)]="tipoMovimineto" id="tipoMoviminetoKardex">
+          <option id="tipoMoviminetoKardex0" value="0" selected>Selecciona tipo movimiento</option>
+          <option id="tipoMoviminetoKardex1" *ngFor="let item of arregloMovimientos"  [value]="item.movimientoId">{{item.movimiento}}
           </option>
         </select>
       </div>
 
       <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+        <button type="button" id="btnFiltarKardex" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
       </div>
   
     </div>

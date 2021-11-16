@@ -11,11 +11,9 @@
   </ng-container>
 
 <div *ngIf="!calendario">
-
-    <input [(ngModel)]="elementoSeleccionado" style="font-size: 12px;" (keydown)="evento($event)" class="form-control" autocomplete="off"  #inputprincipal list="buscar" >
-
-    <datalist  id="buscar">
-        <option  *ngFor="let item of datos" [value]="item[llave]">
+    <input [(ngModel)]="elementoSeleccionado" style="font-size: 12px;" (change)="eventoSeleccionando()" (focusout)="eventoSeleccionando()" (keydown)="evento($event)" class="form-control" autocomplete="off"  #inputprincipal list="buscar" >
+    <datalist (change)="eventoSeleccionando()" (focusout)="eventoSeleccionando()" id="buscar">
+        <option   *ngFor="let item of datos" [value]="item[llave]">
     </datalist>
 </div>
 <div *ngIf="calendario">

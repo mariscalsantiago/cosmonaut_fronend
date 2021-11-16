@@ -43,6 +43,8 @@ export class FormBajaEmpleadoComponent implements OnInit {
   public arregloEmpleado: any = [];
   public etiquetas:any = [];
 
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
@@ -50,6 +52,10 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+    
     this.establecerPermisos();
 
     this.objCompany = history.state.datos == undefined ? {} : history.state.datos;
@@ -158,11 +164,11 @@ export class FormBajaEmpleadoComponent implements OnInit {
             this.personaId = item.personaId?.personaId;
             if(this.personaId != null){
 
-              debugger;
+              
               this.EmpleadosService.getEmpleadoValidarFecha(this.personaId).subscribe(datos => {
                   this.arregloEmpleado = datos.datos;
                   console.log(this.arregloEmpleado);
-                  debugger;
+                  
                   if(this.arregloEmpleado.mostrarFechaFinUltimoPago == true){
                       this.ultimaNomina = true;
                       this.myFormcomp.controls.fechaFinUltimoPago.setValidators([Validators.required]);
@@ -224,6 +230,10 @@ export class FormBajaEmpleadoComponent implements OnInit {
     }
    
  }
+
+ public inicio(){
+  this.routerPrd.navigate(['/inicio']);
+}
 
 
   public enviarPeticion() {

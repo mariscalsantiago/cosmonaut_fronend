@@ -34,6 +34,7 @@ export class UsuariosComponent implements OnInit {
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
   public activo: number = 0;
+  public cargandoBotones:boolean = false;
   //public peticion: any = [];
 
   /*
@@ -50,7 +51,8 @@ export class UsuariosComponent implements OnInit {
   public esClienteEmpresa: boolean = false;
   public arreglotabla: any = {
     columnas: [],
-    filas: []
+    filas: [],
+    totalRegistros:0
   };
 
 
@@ -59,13 +61,15 @@ export class UsuariosComponent implements OnInit {
   public esEditar:boolean = false;
 
 
-  public cargandoBotones:boolean = false;
+  
+  public elementos:number = 0;
+  public pagina:number = 0;
 
-
-
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public activarMultiseleccion: boolean = false;
+  public primeraVez:boolean = false;
 
 
   constructor(private routerPrd: Router, public configuracionPrd:ConfiguracionesService,
@@ -73,23 +77,27 @@ export class UsuariosComponent implements OnInit {
     private empresasProd: EmpresasService, private usuariosAuthPrd: UsuariosauthService) { }
 
   ngOnInit(): void {
-    
 
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+    
     this.establecerPermisos();
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
 
-    this.cargandoBotones = true;
-    
+  
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
     this.cargando = true;
+
+  
+    
     if (this.esClienteEmpresa) {
       this.companiPrd.getAllCompany().subscribe(datos => {
         this.arregloCompany = datos.datos
+        console.log(this.arregloCompany);
         this.filtrar();
-        this.cargandoBotones = false;
       });
     } else {
       if(this.usuariosSistemaPrd.esCliente()){
@@ -102,15 +110,12 @@ export class UsuariosComponent implements OnInit {
             this.arregloCompany = datos.datos;
           }
           this.filtrar();
-          this.cargandoBotones = false;
         
         });
       }else{
         this.empresasProd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
           this.arregloCompany = [datos.datos];
-          this.filtrar();
-          this.cargandoBotones = false;
-        
+          this.filtrar();        
         });
       }
     }
@@ -136,16 +141,17 @@ export class UsuariosComponent implements OnInit {
       new tabla("apellidoPat", "Primer apellido"),
       new tabla("apellidoMat", "Segundo apellido"),
       new tabla("email", "Correo electrónico"),
-      new tabla("rolnombre", "Rol"),
+      new tabla("nameRol", "Rol"),
       ((this.esClienteEmpresa) ? new tabla("esMulticliente", "Multicliente") : new tabla("empresa", "empresa")),
       new tabla("activo", "Estatus ")
     ];
 
     columnas.splice(6,1);
+  
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
-        item["rolnombre"] = item?.rolId?.nombreRol;
+        item["nameRol"] = item?.rolId?.nombreRol;
         item["esMulticliente"] = item?.esMulticliente? "Sí":"No";
         if(item.esActivo){
           item.activo = 'Activo'
@@ -157,7 +163,8 @@ export class UsuariosComponent implements OnInit {
     }
     this.arreglotabla = {
       columnas: columnas,
-      filas: this.arreglo
+      filas: this.arreglo,
+      totalRegistros:this.arreglotabla.totalRegistros
     }
   }
 
@@ -167,8 +174,10 @@ export class UsuariosComponent implements OnInit {
 
   public verdetalle(obj: any) {
     if (obj == undefined) {
+      this.cargandoBotones = true;
       this.routerPrd.navigate([(this.esClienteEmpresa) ? "cliente" : "", 'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany, usuario: obj } });
     } else {
+      this.modalPrd.showMessageDialog(this.modalPrd.loading);
       this.routerPrd.navigate([(this.esClienteEmpresa) ? "cliente" : "", 'usuarios', 'detalle_usuario'], { state: { company: this.arregloCompany, usuario: obj } });
     }
   }
@@ -264,7 +273,7 @@ export class UsuariosComponent implements OnInit {
 
 
 
-  public filtrar() {
+  public filtrar(repetir:boolean = false,desdeFiltrado:boolean = false) {
 
     
 
@@ -281,8 +290,11 @@ export class UsuariosComponent implements OnInit {
     }else{
       arregloenviar.push(this.id_company);
     }
-    
 
+
+    if(this.correoempresarial !== ''){
+      this.correoempresarial?.toLowerCase();
+    }  
 
     let peticion = {
       idUsuario: this.idUsuario || null,
@@ -290,7 +302,8 @@ export class UsuariosComponent implements OnInit {
       apellidoPat: this.apellidoPat || null,
       apellidoMat: this.apellidoMat || null,
       fechaAlta: this.fechaRegistro || null,
-      email: this.correoempresarial?.toLowerCase() || null,
+      
+      email: this.correoempresarial || null,
       idClientes: arregloenviar,
       esActivo: this.activo == 0? null:this.activo == 1
     }
@@ -300,11 +313,34 @@ export class UsuariosComponent implements OnInit {
     
 
     this.cargando = true;
-    this.usuariosAuthPrd.filtrarUsuarios(peticion).subscribe(datos => {
-      this.arreglo = datos.datos;
-      this.procesarTabla();
-      this.cargando = false;
-    });
+    if(!desdeFiltrado){
+      this.usuariosAuthPrd.filtrarUsuariosPaginado(peticion,this.elementos,this.pagina).subscribe(datos => {
+        if(datos.datos){
+          let arreglo:Array<any> = datos.datos.usuarios;
+          console.log("ARREGLO RECIBIDO FILTRANDO",arreglo);
+          if(arreglo)
+             if(!repetir)
+                arreglo.forEach(o => this.arreglo.push(o));   
+              else 
+                this.arreglo = arreglo;
+
+
+              console.log("Arreglo total",this.arreglo);
+                
+  
+          this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
+        }
+        this.procesarTabla();
+        this.cargando = false;
+      });
+    }else{
+      this.arreglotabla = {
+        reiniciar:desdeFiltrado || undefined
+      };
+
+      this.cargando = true;
+      this.primeraVez = true;
+    }
   }
 
 
@@ -320,6 +356,14 @@ export class UsuariosComponent implements OnInit {
         break;
       case "llave":
         this.generarllave(obj.datos);
+        break;
+      case "paginado_cantidad":
+        this.elementos = obj.datos.elementos;
+        this.pagina = obj.datos.pagina;
+        if(!this.cargando || this.primeraVez){
+          this.primeraVez = false;
+          this.filtrar(obj.nuevos);
+        }
         break;
     }
 

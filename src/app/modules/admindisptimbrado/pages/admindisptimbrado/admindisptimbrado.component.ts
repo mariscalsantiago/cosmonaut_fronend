@@ -9,6 +9,7 @@ import { AdminDispercionTimbradoService } from 'src/app/modules/admindisptimbrad
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { CompanyService } from 'src/app/modules/company/services/company.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admindisptimbrado',
@@ -39,7 +40,6 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   public arreglotimbresProveedores : any = [];
   public arreglotimbresProveedoresTab : any = [];
   public arregloEmpresa : any = [];
-  //filtro
   public idEmpresaFiltro : number = 0;
   public idCliente : number = 0;
 
@@ -58,13 +58,18 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   public esEditar:boolean = false;
   public esEliminar:boolean = false;
 
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(private ventana: VentanaemergenteService,private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService,private formBuild: FormBuilder, private admintimbradoDispersion: AdminDispercionTimbradoService,
-    public configuracionPrd:ConfiguracionesService, private companyPrd: CompanyService) { }
+    public configuracionPrd:ConfiguracionesService, private companyPrd: CompanyService, private router: Router) { }
 
   ngOnInit() {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+    
    this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
    this.establecerPermisos();
    this.companyPrd.getAllSimple().subscribe(datos => this.arregloCompania = datos.datos);
@@ -203,13 +208,9 @@ export class AdminDispercionTimbradoComponent implements OnInit {
 
     });
   }
-  public validarCompania(tipo:any){
-    
 
-   // this.arregloEmpresa = [];
-    //if(tipo != 0 ){
-      //this.companyPrd.getAllEmp(tipo).subscribe(datos => this.arregloEmpresa = datos.datos);
-    //}
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
   public filtrar() {

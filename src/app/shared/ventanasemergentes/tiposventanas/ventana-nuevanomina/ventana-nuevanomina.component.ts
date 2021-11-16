@@ -40,6 +40,7 @@ export class VentanaNuevanominaComponent implements OnInit {
 
 
     this.f.fechaIniPeriodo.valueChanges.subscribe(valor => {
+      
       if (valor) {
         this.f.fechaFinPeriodo.setValue("");
         if (this.f.fechaIniPeriodo.valid) {
@@ -57,7 +58,6 @@ export class VentanaNuevanominaComponent implements OnInit {
       }
 
     })
-
 
     this.f.grupoNomina.valueChanges.subscribe(valor => {
       let gruponomina = this.arreglogruposnomina.filter((mm: any) => valor == mm.id)[0];
@@ -110,15 +110,39 @@ export class VentanaNuevanominaComponent implements OnInit {
   }
 
 
+  public validaFechaFinal(): Boolean{
+    
+    let respuesta: boolean = true;
+    let fechaInicioP = this.myForm.controls.fechaIniPeriodo.value;
+    let fechafinP = this.myForm.controls.fechaFinPeriodo.value;
+    if (fechafinP > this.fechaMaxima) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha de fin esta fuera del periodo selecionado');
+      this.myForm.controls.fechaFinPeriodo.setValue("");
+      respuesta = false;
+    }
+    if ( fechafinP < fechaInicioP) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha de fin debe ser mayor a la fecha de inicio');
+      this.myForm.controls.fechaFinPeriodo.setValue("");
+      respuesta = false;
+    }
 
+    return respuesta;
+
+  }
 
 
   public enviarPeticion() {
+
+
     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach(control => {
         control.markAsTouched();
       });
       this.modalPrd.showMessageDialog(this.modalPrd.error);
+      return;
+    }
+
+    if (!this.validaFechaFinal()) {
       return;
     }
 
@@ -132,6 +156,7 @@ export class VentanaNuevanominaComponent implements OnInit {
 
 
   public guardarNomina() {
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
     let objEnviar = {

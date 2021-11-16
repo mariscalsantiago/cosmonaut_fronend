@@ -211,7 +211,7 @@
                 <div *ngIf="f.tiposueldo.value == 'n' && !typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
 
                     <label for="exampleFormControlSelect1">Sueldo neto mensual*</label>
-                    <input placement="top" [mdbTooltip]="'salarioNetoMensual' | tooltip" formatos [moneda]="true" [control]="f.sueldoNetoMensual" formControlName="sueldoNetoMensual" (focusout)="cambiasueldobruto(false)" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldoNetoMensual.errors && f.sueldoNetoMensual.touched,'disabled':!sueldoNeto}">
+                    <input placement="top" [mdbTooltip]="'salarioNetoMensual' | tooltip" formatos [moneda]="true" [control]="f.sueldoNetoMensual" formControlName="sueldoNetoMensual" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldoNetoMensual.errors && f.sueldoNetoMensual.touched,'disabled':!sueldoNeto}">
 
                     <div  class="invalid-feedback">
                         Campo requerido
@@ -393,13 +393,12 @@
                         <div *ngFor="let item of arregloareasgeograficas">
 
                             <label class="contenedorInputCheckRadio">{{item.descripcion}}
-                                <input  [ngClass]="{'is-invalid':f.areaGeograficaId.errors && f.areaGeograficaId.touched}"
+                                <input  style="border: 1px solid #df4351;" [ngClass]="{'is-invalid':f.areaGeograficaId.errors && f.areaGeograficaId.touched}"
                                     formControlName="areaGeograficaId" name="areaGeograficaId" type="radio"
                                     [value]="item.areaGeograficaId" [id]="item.nombreCorto">
                                 <span class="radiomark"></span>
                             </label>
-
-                            <div class="invalid-feedback">
+                            <div *ngIf="f.areaGeograficaId.errors && f.areaGeograficaId.touched" style="display: block;" class="invalid-feedback">
                                 Campo requerido
                             </div>
                         </div>
@@ -417,7 +416,7 @@
             <div class="text-right margin" style="margin-bottom: 20px;">
 
                 <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-                <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+                <button type="submit" class="btn btn-primary button-fill">{{datosPersona?.reactivarCuenta?'Reactivar':'Guardar'}}</button>
             </div>
         </div>
     </div>

@@ -1,10 +1,16 @@
 <div class="row margen">
-    <div class="col titulo-outlet">
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button></div>
-        <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block" ></i>PROMEDIO DE VARIABLES</label>
-    </div>
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;">
+            {{subModulo}} 
+        </li>
+    </ul>
 </div>
 
 <hr>
@@ -87,15 +93,15 @@
                     <div class="form-group margen row " *ngIf="listaVariable"><label class="titulo">BÚSQUEDA</label></div>
                     <div class="form group row margen" *ngIf="listaVariable">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input appSolonumeros  type="text" maxlength="4" class="form-control" [(ngModel)]="anioFiltro" placeholder="Filtrar por año">
+                            <input appSolonumeros  type="text" maxlength="4" class="form-control" [(ngModel)]="anioFiltro" id="anioFiltroVS" placeholder="Filtrar por año">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input appSolonumeros type="text" class="form-control" [(ngModel)]="bimestre" placeholder="Filtrar por bimestre">
+                            <input appSolonumeros type="text" class="form-control" [(ngModel)]="bimestre" id="bimestreVS" placeholder="Filtrar por bimestre">
 
                         </div>
 
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                            <button type="button" id="btnFiltrarVariabilidad" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                         </div>
 
 

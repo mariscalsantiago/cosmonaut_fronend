@@ -9,6 +9,7 @@ import { CompanyService } from 'src/app/modules/company/services/company.service
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
@@ -78,15 +79,19 @@ export class VariabilidadComponent implements OnInit {
     public anioFiltro: string = "";
     public bimestre: string = "";
 
+    public modulo: string = "";
+    public subModulo: string = "";
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
     private modalPrd:ModalService, private reportesPrd: ReportesService,private EmpleadosService:EmpleadosService, 
-    private companyProd: CompanyService, private formBuild: FormBuilder, public configuracionPrd:ConfiguracionesService) { }
+    private companyProd: CompanyService, private formBuild: FormBuilder, private router: Router, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     
-    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     this.idUsuario = this.usauriosSistemaPrd.getUsuario();
     this.idUsuario = this.idUsuario.usuarioId;
@@ -101,13 +106,18 @@ export class VariabilidadComponent implements OnInit {
     this.cargando = true;
     
     this.EmpleadosService.getEmpleadosCompania(this.idEmpresa).subscribe(datos => {
-      
+      if(datos.datos[0] !== undefined){
       let obj = datos.datos[0];
       this.razonSocial = obj.centrocClienteId?.razonSocial;
+      }
       this.filtrar();
-
+        
     });
     
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
     public traerTabla(datos:any) {
@@ -200,8 +210,8 @@ export class VariabilidadComponent implements OnInit {
 
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
-                this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de varibales completo").then(valor =>{
-        
+                this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de variables completo").then(valor =>{
+                                                                            
                   if (datos.resultado) {
                       this.desgargarArchivo(undefined);
                       this.cancelar();

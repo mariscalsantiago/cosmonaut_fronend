@@ -30,7 +30,7 @@ export class FormEmpleadoComponent implements OnInit {
   public cargandoIcon: boolean = false;
   public tabsEnviar: any = [{}, [{}], {}];
   public insertar: boolean = true;
-
+  public distEmpleado: boolean = true; 
   public elEmpleado:any = {
     url:"assets/imgs/usuario.png"
   };
@@ -44,7 +44,12 @@ export class FormEmpleadoComponent implements OnInit {
     insertar: this.insertar
   };
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   public cambiaValor: boolean = false;
+
+  public esReactivar:boolean = false;
 
   constructor(private routerPrd: Router, private reportesPrd: ReportesService,
     private domicilioPrd:DomicilioService,private empleadosPrd: EmpleadosService,private empledoContratoPrd:ContratocolaboradorService,
@@ -52,10 +57,14 @@ export class FormEmpleadoComponent implements OnInit {
 
   ngOnInit(): void {
     
-    let temp =  history.state.datos;
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     
+    let temp =  history.state.datos;
+
     
     if(temp !== undefined){
+      this.distEmpleado = false;
       this.titulo = "COMPLETAR DATOS DEL EMPLEADO";
       this.datosPersona = temp;
       this.datosPersona.insertar = history.state.insertar;
@@ -83,6 +92,11 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[3].seleccionado = true;
         this.tabsEnviar[3] = history.state.contrato;
       }
+
+
+      this.tabsEnviar[0].tieneContrato = true;
+
+      console.log("Siempre se ejecuta padre",this.datosPersona);
     }
 
 
@@ -91,7 +105,13 @@ export class FormEmpleadoComponent implements OnInit {
 
   }
 
+  public cancelar(){
+    this.routerPrd.navigate(['/empleados']);
+  }
 
+  public cancelarPendientes(){
+    this.routerPrd.navigate(['/empleados/empleadosincompletos']);
+  }
   public recibir(elemento: any) {
     switch (elemento.type) {
       case "informacion":
@@ -130,7 +150,9 @@ export class FormEmpleadoComponent implements OnInit {
         this.ocultarDetalleTransfrencia = elemento.metodopago.metodoPagoId !== 4;
         this.datosPersona.contratoColaborador = elemento.datos;
         this.datosPersona.metodopago = elemento.metodopago;
+        this.datosPersona.tieneContrato = true;
         this.tabsEnviar[3] = elemento.datos;
+        this.tabsEnviar[0].tieneContrato = true;
 
 
 
@@ -230,9 +252,7 @@ export class FormEmpleadoComponent implements OnInit {
     this.ventana.showVentana(this.ventana.fotoperfil,{ventanaalerta:true}).then(valor =>{
       if(valor.datos != "" && valor.datos != undefined){
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
-          console.log("subir foto perfil",this.tabsEnviar);
           this.empleadosPrd.getEmpleadoById(this.tabsEnviar[0].personaId).subscribe(datos =>{
-            console.log("SUBIR FOTO PERFIL",datos);
             let objEnviar = {
               ...datos.datos,
               imagen:valor.datos

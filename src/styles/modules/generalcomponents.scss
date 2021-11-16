@@ -103,7 +103,7 @@ html{
    .active {
     color: $primary !important;
     background-color: transparent !important;
-    border: 0 !important;
+    border: 1 !important;
     border-bottom: 6px solid $primary !important;
   }
 
@@ -113,7 +113,29 @@ html{
 
 }
 
+#navegadorTabsEncab{
 
+    background-color: $secondary;
+    color:$light;
+    padding-top: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-indent: 15px;
+    .nav-link::after {
+        content: ">";
+      }
+    .active {
+     //color: $primary !important;
+     background-color: transparent !important;
+     //border: 1 !important;
+     //border-bottom: 6px solid $primary !important;
+   }
+ 
+   a{
+       color:$light;
+   }
+ 
+ }
 
 p.interlineado{
     
@@ -161,6 +183,7 @@ p.interlineado{
         width: 170px;
         button{
             background-color: transparent;
+            display: inline-block !important;
         }
         text-align: right !important;
     }
@@ -185,7 +208,7 @@ article.titulo{
     }
 
     color:$light_titulo;
-    font-size: 10px;
+    font-size: 12px;
     display: inline-block;
 
     input[type='radio']:after {
@@ -304,6 +327,7 @@ article.titulo{
             button{
                 border: 0px solid black;
                 margin-left: 2px;
+                
             }
         }
     }
@@ -318,12 +342,12 @@ app-tablapaginado{
 form{
     label{
         color:$dark;
-        font-size: small;
+        font-size: 15px;
     }
 
 
     label[class='titulo']{
-        font-size: medium;
+        font-size: 15px;
     }
 }
 
@@ -349,19 +373,21 @@ form{
     overflow-y:auto;
 
     &::-webkit-scrollbar {
-        width: 10px;
-        height: 5px;
+        width: 12px;
+        height: 10px;
         cursor: pointer;
       }
 
       &::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px grey; 
         border-radius: 3px;
+        border-right: 3px;
       }
 
       &::-webkit-scrollbar-thumb {
         background: $primary; 
         border-radius: 3px;
+        border-right: 3px;
       }
 
 
@@ -369,7 +395,6 @@ form{
         background: $secondary; 
       }
 }
-
 
 #navegadorTabs{
     white-space: nowrap!important; /*Prevents Wrapping*/
@@ -396,11 +421,56 @@ form{
       &::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px grey; 
         border-radius: 3px;
+        border-right: 17px;
       }
 
       &::-webkit-scrollbar-thumb {
         background: $primary; 
         border-radius: 3px;
+        border-right: 17px;
+      }
+
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: $secondary; 
+      }
+
+
+}
+
+
+#navegadorTabsEncab{
+    white-space: nowrap!important; /*Prevents Wrapping*/
+
+    display: inline-block;
+    //height: 50px!important; 
+    overflow-x: auto!important; 
+    overflow-y: hidden!important; 
+    width: 100%;
+    //margin-right: 50px;
+
+    li{
+        display: inline-block!important;  /*Display inline and maintain block characteristics.*/
+        vertical-align: top!important;  /*Makes sure all the divs are correctly aligned.*/
+        white-space: normal!important;  /*Prevents child elements from inheriting nowrap.*/
+    }
+
+    &::-webkit-scrollbar {
+        width: 1px;
+        height: 10px;
+        cursor: pointer;
+      }
+
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 3px;
+        border-right: 17px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $primary; 
+        border-radius: 3px;
+        border-right: 17px;
       }
 
 
@@ -460,7 +530,7 @@ form{
 
 .labelflotantemenu{
     position: absolute;
-    left: 165px;
+    left: 158px;
     z-index: 101;
     background: $dark;
     color: white;

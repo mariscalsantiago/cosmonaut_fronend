@@ -1,0 +1,93 @@
+
+<div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
+    <div class="col titulo-outlet">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button></div> <label>INICIO</label>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-7">
+            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="320">
+                <div style="background-color: transparent;">
+                    <div class="col-5 titulo-outlet-inicio">
+                        <div class="col-2 menu-hamburgesa"></div> <label>CALENDARIO</label>
+                    </div>
+                </div>
+                <div id="collapseOne" class="collapse show " aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <app-calendario [eventos]="eventos" (salida)="recibirTabla($event)"></app-calendario>
+                            </div>
+                        </div>
+                </div>
+
+                </div>
+                <div class="col text-right">
+                    <button  type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+                  <i aria-hidden="true" class="icon_24agregar primary-bg"></i>  Eventos
+                </button>
+                </div>
+                <br>
+            </div>
+        </div>
+
+        <div class="col-5">
+            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="320">
+                <div style="background-color: transparent;">
+                    <div class="col-5 titulo-outlet-inicio">
+                        <div class="col-2 menu-hamburgesa"></div> <label>REPORTES</label>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group row margen">
+
+                    <div class="col-12" >
+                        <div class=" titulo-outlet-recuadros">
+                             <label>  Reporte de empleados</label>
+                            <div class="col text-right">    
+                                                            
+                               <button (click)="iniciarDescarga()"  type="button" class="btn btn-light button-outlet " >
+                              <i aria-hidden="true" class="fas fa-download"></i>  Descargar
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+        </div>
+
+    <div  class="row">
+        <div class="col-7">
+            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="440">
+                <div style="background-color: transparent;">
+                    <div class="col-5 titulo-outlet-inicio">
+                        <div class="col-2 menu-hamburgesa"></div> <label>VISTOS RECIENTEMENTE</label>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group row margen">
+                    <ul  class="list-unstyled components">
+                        <ng-container *ngFor="let item of arreglosIdSubmodulo; let indice = index">
+                            <li #liselection style="text-align: left " >
+                                <label *ngIf="vistosTrue" style="display: block; font-size: 16px; color:  #8d8d8d" ><i aria-hidden="true" class="iconoVisto"  [class]="item.icono"></i>
+                                    {{item.nombreModulo}} {{"-"}} {{item.nombreSubmodulo}}</label>
+                                    
+                                <label *ngIf="vistosFalse" style="display: block; font-size: 16px; color:  #8d8d8d" ><i aria-hidden="true" class="iconoVisto"  [class]="item.icono"></i>
+                                    {{item.nombreModulo}}</label>    
+
+                            </li>
+                        </ng-container>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <button (click)="enbase()">MI CLICK</button>
+

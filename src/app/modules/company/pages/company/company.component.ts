@@ -41,8 +41,8 @@ export class CompanyComponent implements OnInit {
   public multiseleccion: Boolean = false;
   public multiseleccionloading: boolean = false;
   public changeIconDown: boolean = false;
-  public multiempresa : string = '0';
-  public multiempresaFin : boolean = false;
+  public multiempresa: string = '0';
+  public multiempresaFin: boolean = false;
 
   /*
   
@@ -51,63 +51,43 @@ export class CompanyComponent implements OnInit {
   */
 
   public arreglo: any = [];
-  public arreglotabla:any = {
+  public arreglotabla: any = {
+    columnas: [],
+    filas: [],
+    totalRegistros:0
+  };
+
+  public arreglotablaDesglose: any = {
     columnas: [],
     filas: []
   };
 
-  public arreglotablaDesglose:any = {
-    columnas: [],
-    filas: []
-  };
+  public esRegistrar: boolean = false;
+  public esEditar: boolean = false;
 
-  public esRegistrar:boolean = false;
-  public esEditar:boolean = false;
+  public modulo: string = "";
+  public subModulo: string = "";
 
 
-  constructor(private routerPrd: Router, private companyProd: CompanyService,public configuracionPrd:ConfiguracionesService) { }
+  public elementos: number = 0;
+  public pagina: number = 0;
+  public primeraVez:boolean = false;
+
+  constructor(private routerPrd: Router, private companyProd: CompanyService, public configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
 
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+
+
     this.establecerPermisos();
-    
+
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
-
     this.cargando = true;
-    
-    this.companyProd.getAll().subscribe(datos => {
-      this.arreglo = datos.datos;
-
-      let columnas: Array<tabla> = [
-        new tabla("url", "imagen"),
-        new tabla("centrocClienteId", "ID cliente"),
-        new tabla("razonSocial", "Razón social	"),
-        new tabla("nombre", "Nombre de cliente"),
-        new tabla("rfc", "RFC"),
-        new tabla("fechaAltab", "Fecha de registro en el sistema"),
-        new tabla("activo", "Estatus de cliente")
-      ];
-      
-      if (this.arreglo !== undefined) {
-        for (let item of this.arreglo) {
-          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
-
-              if(item.esActivo){
-                item.activo = 'Activo'
-               }
-               if(!item.esActivo){
-               item.activo = 'Inactivo'
-               }
-        }
-      }
-
-      this.arreglotabla.columnas = columnas;
-      this.arreglotabla.filas = this.arreglo;
-      this.cargando = false;
-    });
-
+    this.primeraVez = true;
   }
 
 
@@ -115,39 +95,27 @@ export class CompanyComponent implements OnInit {
     this.routerPrd.navigate(['company', 'detalle_company', 'nuevo'], { state: { datos: undefined } });
   }
 
-  public establecerPermisos(){
+  public establecerPermisos() {
 
     this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
     this.esEditar = this.configuracionPrd.getPermisos("Editar");
   }
 
-  public filtrar() {
+  public filtrar(repetir: boolean = false,desdefiltrado:boolean = false) {
     
+
     this.cargando = true;
 
-/*     let fechar = "";
-
-    if (this.fechaAlta != undefined || this.fechaAlta != null) {
-
-      if (this.fechaAlta != "") {
-
-        const fecha1 = new Date(this.fechaAlta).toUTCString().replace("GMT", "");
-        fechar = `${new Date(fecha1).getTime()}`;
-
-
-      }
-
-    } */
     delete this.peticion.multiempresa;
-    if(this.multiempresa == '1'){
+    if (this.multiempresa == '1') {
       this.multiempresaFin = true;
       this.peticion = {
         ...this.peticion,
         multiempresa: this.multiempresaFin,
       }
-      
+
     }
-    else if(this.multiempresa == '2'){
+    else if (this.multiempresa == '2') {
       this.multiempresaFin = false;
       this.peticion = {
         ...this.peticion,
@@ -163,7 +131,7 @@ export class CompanyComponent implements OnInit {
       actboo = "false";
     }
 
-    
+
     this.peticion = {
       ...this.peticion,
       centrocClienteId: this.centrocClienteId,
@@ -173,46 +141,63 @@ export class CompanyComponent implements OnInit {
       fechaAlta: this.fechaAlta,
       esActivo: actboo,
     }
-    
-    
-    this.companyProd.filtrar(this.peticion).subscribe(datos => {
-      this.arreglo = datos.datos;
 
 
-
-      this.arreglo = datos.datos;
-
-      let columnas: Array<tabla> = [
-        new tabla("url", "imagen"),
-        new tabla("centrocClienteId", "ID cliente"),
-        new tabla("razonSocial", "Razón social	"),
-        new tabla("nombre", "Nombre de cliente"),
-        new tabla("rfc", "RFC"),
-        new tabla("fechaAltab", "Fecha de registro en el sistema"),
-        new tabla("activo", "Estatus de cliente")
-      ];
-
-      if (this.arreglo !== undefined) {
-        for (let item of this.arreglo) {
-          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
-
-          if(item.esActivo){
-            item.activo = 'Activo'
-           }
-           if(!item.esActivo){
-           item.activo = 'Inactivo'
-           }
-
+    if(!desdefiltrado){
+      this.companyProd.filtrarPaginado(this.peticion, this.elementos, this.pagina).subscribe(datos => {
+      
+        let arreglo: Array<any> = datos.datos.lista;
+        if (arreglo)
+          if (!repetir)
+            arreglo.forEach(o => this.arreglo.push(o));
+          else
+            this.arreglo = arreglo;
+  
+  
+        this.arreglotabla.totalRegistros = datos.datos.totalResgistros;
+  
+  
+        let columnas: Array<tabla> = [
+          new tabla("url", "imagen"),
+          new tabla("centrocClienteId", "ID cliente"),
+          new tabla("razonSocial", "Razón social	"),
+          new tabla("nombre", "Nombre de cliente"),
+          new tabla("rfc", "RFC"),
+          new tabla("fechaAltab", "Fecha de registro en el sistema"),
+          new tabla("activo", "Estatus de cliente")
+        ];
+  
+        if (this.arreglo !== undefined) {
+          for (let item of this.arreglo) {
+            item.fechaAltab = new DatePipe("es-MX").transform(new Date(item.fechaAlta), 'dd-MMM-y');
+            item.fechaAlta = new DatePipe("es-MX").transform(new Date(item.fechaAlta), 'yyyy-MM-dd');
+  
+            if (item.esActivo) {
+              item.activo = 'Activo'
+            }
+            if (!item.esActivo) {
+              item.activo = 'Inactivo'
+            }
+  
+          }
         }
+  
+  
+        this.arreglotabla = {
+          columnas: columnas,
+          filas: this.arreglo,
+          totalRegistros:this.arreglotabla.totalRegistros
+        }
+        this.cargando = false;
+  
+      });
+    }else{
+      this.arreglotabla = {
+        reiniciar:desdefiltrado||undefined
       }
-      this.arreglotabla.columnas = columnas;
-      this.arreglotabla.filas = this.arreglo;
-      this.cargando = false;
-
-
-      this.cargando = false;
-
-    });
+      this.cargando = true;
+      this.primeraVez = true;
+    }
 
 
 
@@ -241,8 +226,20 @@ export class CompanyComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-    if (obj.type == "editar") {
-      this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
+
+    
+    switch (obj.type) {
+      case "editar":
+        this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: obj.datos } });
+        break;
+      case "paginado_cantidad":
+        this.elementos = obj.datos.elementos;
+        this.pagina = obj.datos.pagina;
+        if (!this.cargando || this.primeraVez) {
+          this.primeraVez = false;
+          this.filtrar(obj.nuevos);
+        }
+        break;
     }
   }
 

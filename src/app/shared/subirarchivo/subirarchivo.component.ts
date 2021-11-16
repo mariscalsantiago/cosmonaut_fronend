@@ -31,8 +31,9 @@ export class SubirarchivoComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
-    if (this.recibiendoImagen !== undefined) {
+    debugger;
+    if (this.recibiendoImagen !== undefined && this.recibiendoImagen !== "") {
+      
 
       this.mostrarImagenUrl = true;
 
@@ -65,6 +66,7 @@ export class SubirarchivoComponent implements OnInit, OnChanges {
 
         break;
       case "imagen":
+        debugger;
         this.imagen = obj.valor;
         this.seleccionado = false;
         this.errorimagen = false;

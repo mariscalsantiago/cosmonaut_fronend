@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { ChatSocketService } from 'src/app/shared/services/chat/ChatSocket.service';
 import { NotificacionesService } from 'src/app/shared/services/chat/notificaciones.service';
@@ -31,14 +32,21 @@ export class ListachatsActivosComponent implements OnInit {
 
   public mensajes: any = [];
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   public cargando: boolean = false;
   public suscripcion!: Subscription;
   constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
     private usuariossistemaPrd: UsuarioSistemaService, private socket: ChatSocketService,
     private modalPrd: ModalService, public configuracionPrd: ConfiguracionesService,
-    private notificacionesPrd: NotificacionesService) { }
+    private notificacionesPrd: NotificacionesService, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+    
     this.notificacionesPrd.notificacionesMenu = 0;
     this.cargando = true;
 
@@ -80,7 +88,9 @@ export class ListachatsActivosComponent implements OnInit {
   }
 
 
-
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
 
 
   public construirTabla(obj: any) {

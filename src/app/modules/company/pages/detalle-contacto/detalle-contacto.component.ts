@@ -36,6 +36,11 @@ export class DetalleContactoComponent implements OnInit {
   public cargandoCheckbox: boolean = false;
   public tieneUsuarioInicial: boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
+
+  private datosUsuarioSistema?:any = {};
 
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
@@ -56,6 +61,9 @@ export class DetalleContactoComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+
     this.objcontacto = history.state.datos == undefined ? {} : history.state.datos;
     this.datosEmpresa = history.state.empresa == undefined ? {} : history.state.empresa;
     this.esModificaEmpresa = history.state.modificaEmpresa == undefined ? false : history.state.modificaEmpresa;
@@ -70,6 +78,7 @@ export class DetalleContactoComponent implements OnInit {
         this.myFormcont.controls.usuarioinicial.setValue(Boolean(valorusuario.datos));
         this.tieneUsuarioInicial = Boolean(valorusuario.datos);
         if(this.tieneUsuarioInicial){
+          this.datosUsuarioSistema = valorusuario.datos;
           this.myFormcont.controls.usuarioinicial.disable();
           this.myFormcont.controls.emailCorporativo.disable();
         }
@@ -89,6 +98,7 @@ export class DetalleContactoComponent implements OnInit {
   public createFormcont(obj: any) {
     
     console.log("Esta es el obj",obj);
+    let fechaActual = new DatePipe("es-MX").transform(new Date(),"yyyy-MM-dd");
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -99,7 +109,7 @@ export class DetalleContactoComponent implements OnInit {
       emailCorporativo: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: obj.fechaAlta, disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: this.insertar?fechaActual:obj.fechaAlta, disabled: true }, [Validators.required]],
       personaId: obj.personaId,
       contactoInicialPuesto: obj.contactoInicialPuesto,
       usuarioinicial: [obj.usuarioinicial]
@@ -201,19 +211,21 @@ export class DetalleContactoComponent implements OnInit {
 
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.companyPrd.modificarCont(objEnviar).subscribe(datos => {
-            
+            let objAuthEnviar = {
+              nombre: obj.nombre,
+              apellidoPat: obj.apellidoPaterno,
+              apellidoMat: obj.apellidoMaterno,
+              email: obj.emailCorporativo?.toLowerCase(),
+              centrocClienteIds: [this.datosEmpresa.centrocClienteId],
+              rolId: 1,
+              version:this.usuarioSistemaPrd.getVersionSistema(),
+              esMulticliente:false,
+              usuarioId:undefined,
+              esActivo:undefined
+            }
             if (datos.resultado) {
               if (!this.tieneUsuarioInicial) {
                 if (obj.usuarioinicial) {
-                  let objAuthEnviar = {
-                    nombre: obj.nombre,
-                    apellidoPat: obj.apellidoPaterno,
-                    apellidoMat: obj.apellidoMaterno,
-                    email: obj.emailCorporativo?.toLowerCase(),
-                    centrocClienteIds: [this.datosEmpresa.centrocClienteId],
-                    rolId: 1,
-                    version:this.usuarioSistemaPrd.getVersionSistema()
-                  }
 
                   this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
                     if (!vv.resultado) {
@@ -228,8 +240,29 @@ export class DetalleContactoComponent implements OnInit {
                     .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
                 }
               } else {
+
+               if(obj.usuarioinicial){
+                objAuthEnviar = {
+                  nombre: obj.nombre,
+                  apellidoPat: obj.apellidoPaterno,
+                  apellidoMat: obj.apellidoMaterno,
+                  email: obj.emailCorporativo?.toLowerCase(),
+                  centrocClienteIds: this.datosUsuarioSistema.clientes.map((o:any)=> o.centrocClienteId),
+                  rolId: 1,
+                  esMulticliente: this.datosUsuarioSistema.usuario.esMulticliente,
+                  usuarioId: this.datosUsuarioSistema.usuario.usuarioId,
+                  esActivo: this.datosUsuarioSistema.usuario.esActivo,
+                  version: this.usuarioSistemaPrd.getVersionSistema(),
+                }
+                this.usuariosAuth.modificar(objAuthEnviar).subscribe(vv =>{
+                  this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+                  .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));                    
+                });
+               }else{
                 this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-                  .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));
+                .then(() => this.routerPrd.navigate(['company', 'detalle_company', 'modifica'], { state: { datos: this.datosEmpresa } }));                    
+               }
+
               }
             } else {
               this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
@@ -247,7 +280,7 @@ export class DetalleContactoComponent implements OnInit {
   }
 
 
-  public redirect(obj: any) {
+  public redirect() {
     this.routerPrd.navigate(["/company"]);
   }
 

@@ -21,6 +21,11 @@ export class CompanyService {
     
    
   }
+  public getAllPaginado(elementos:Number,pagina:number):Observable<any>{
+    return this.http.get(`${this.url}/lista/compania/paginado/${elementos}/${pagina}`);
+    
+   
+  }
   public getAllSimple():Observable<any>{
     return this.http.get(`${this.url}/lista/compania/simple`);
     
@@ -116,6 +121,20 @@ export class CompanyService {
     let json: string = JSON.stringify(obj);
     
     return this.http.post(`${this.url}/lista/dinamica`, json, httpOptions);
+  }
+
+  public filtrarPaginado(obj: any,elementos:number,pagina:number): Observable<any> {
+    
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    let json: string = JSON.stringify(obj);
+    
+    return this.http.post(`${this.url}/lista/dinamica/paginado/${elementos}/${pagina}`, json, httpOptions);
   }
 
 

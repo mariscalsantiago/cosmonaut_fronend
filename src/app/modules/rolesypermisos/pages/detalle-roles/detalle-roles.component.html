@@ -1,11 +1,20 @@
 <div class="row margen">
-    <div class="col titulo-outlet">
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button></div>
-        <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/usuarios"></i>ADMINISTRACIÓN DE
-            ROLES</label>
-    </div>
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+            > {{modulo}}</a>
+        </li>
+        <li >
+            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="cancelar()">{{subModulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;">
+            ROLES
+        </li>
+    </ul> 
 </div>
 
 
@@ -13,7 +22,7 @@
 
 <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
     <div class="background-panel margen background-ajustar" appTamanioVentana>
-        <div class="form-group row margen mt-3"><label class="titulo">Administración de roles</label></div>
+        <div class="form-group row margen mt-3"><label class="titulo">ADMINISTRACIÓN DE ROLES</label></div>
         <div class="form-group row margen">
 
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
@@ -22,6 +31,10 @@
                 <div class="invalid-feedback">
                     Campo requerido
                 </div>
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
+                <label>Favor de seleccionar para elegir permisos</label>
+
             </div>
             <div *ngIf="mostrarEstatus" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Estatus</label>
@@ -50,12 +63,6 @@
                                 <button type="button" style="margin-left: 10px;" (click)="cambiarStatus(indice)" class="btn btn-link"  aria-controls="detallepago">
 
                                     {{item.nombreModulo}}
-                                    <i aria-hidden="true" *ngIf="!item.seleccionado" 
-                                        aria-expanded="true" aria-controls="collapseOne"
-                                        class="icon_24flechaabajo bg-primary "></i>
-                                        
-                                    <i aria-hidden="true" *ngIf="item.seleccionado" 
-                                        aria-expanded="true" aria-controls="collapseOne" class="icon_24flechaarriba bg-primary"></i>
                                 </button>
                             </h5>
                         </div>

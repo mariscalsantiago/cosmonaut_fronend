@@ -1,10 +1,20 @@
 <div class="row margen">
-    <div class="col titulo-outlet">
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button></div>
-        <label>Agregar evento</label>
-    </div>
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+            > {{modulo}}</a>
+        </li>
+        <li >
+            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="cancelar()" >{{subModulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;">
+            AGREGAR EVENTO
+        </li>
+    </ul> 
 </div>
 <hr>
 

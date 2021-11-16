@@ -16,7 +16,7 @@ export class SharedCompaniaService {
    }
 
    public getAllCompany(): Observable<any> {
-    return this.http.get(`${this.url}/lista/compania`);
+    return this.http.get(`${this.url}/lista/compania/combo`);
   }
 
   public getAllEmp(idEmpresA:number):Observable<any>{

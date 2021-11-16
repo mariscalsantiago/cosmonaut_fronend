@@ -45,7 +45,8 @@ export class PPPComponent implements OnInit {
   public tamanio = 0;
   public changeIconDown: boolean = false;
 
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public arreglotabla: any = {
     columnas: [],
@@ -54,13 +55,24 @@ export class PPPComponent implements OnInit {
 
 
   public activarMultiseleccion: boolean = false;
+  public esConsultar:boolean = false;
+  public esDescargar:boolean = false;
 
 
   constructor(private routerPrd: Router,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService,private usuarioSistemaPrd:UsuarioSistemaService,
-    private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
+    private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService, private router: Router) { }
+
+
+    public establecerPermisos(){
+      this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
+      this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
+    }
 
   ngOnInit(): void {
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+    
     let documento: any = document.defaultView;
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.tamanio = documento.innerWidth;
@@ -68,6 +80,7 @@ export class PPPComponent implements OnInit {
     this.filtrar();
     this.reportesPrd.getListaEmpresaPPP(this.idEmpresa).subscribe(datos => this.arregloEmpresa = datos.datos);
     this.reportesPrd.getListaGrupoNominaPPP(this.idEmpresa).subscribe(datos => this.arregloGrupoNomina = datos.datos);
+    this.establecerPermisos();
 
   }
 
@@ -171,7 +184,9 @@ export class PPPComponent implements OnInit {
 
   }
 
-
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
 
 
 

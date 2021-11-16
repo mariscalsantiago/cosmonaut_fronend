@@ -1,13 +1,16 @@
 <div class="row ml-2 mr-2 titulosfijos" style="background-color: transparent;">
-    <div class="col titulo-outlet">
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button></div>
-
-        <label>
-                EVENTOS
-            </label>
-    </div>
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;">
+            {{subModulo}} 
+        </li>
+    </ul>
 </div>
 
 
@@ -30,8 +33,8 @@
                 </div>
 
                 <div class="row">
-                    <div *ngIf="evento.duracion" class=" col-12 ">
-                        <label>Días: <span class="letramenos">{{evento.duracion}}</span></label>
+                    <div *ngIf="evento.tipoIncidenciaId !== 5 && evento.tipoIncidenciaId !== 8 && evento.tipoIncidenciaId !== 13 && evento.tipoIncidenciaId !== 14" class=" col-12 ">
+                        <label> Días: <span class="letramenos">{{evento.heTiempo}}</span></label>
                     </div>
                     <div class=" col-12 ">
                         <label>Fecha de inicio: <span class="letramenos">{{evento.fechaInicio}}</span></label>
@@ -42,14 +45,17 @@
                     <div class=" col-12 ">
                         <label>Fecha de aplicación: <span class="letramenos">{{evento.fechaAplicacion | date:'dd-MMM-yyyy'}}</span></label>
                     </div>
+                    <div *ngIf="evento.tipoIncidenciaId == 5" class=" col-12 ">
+                        <label>{{evento.unidadMedidaId == 3?'Monto: ':'Días: '}}<span class="letramenos">{{evento.unidadMedidaId == 3?evento.monto:evento.heTiempo}}</span></label>
+                    </div>
+                    <div *ngIf="evento.tipoIncidenciaId == 8" class=" col-12 ">
+                        <label>Monto: <span class="letramenos">{{evento.monto}}</span></label>
+                    </div>
                     <div *ngIf="evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14" class=" col-12 ">
                         <label>Horas extras por {{evento.unidadMedidaId == 1?'Hora':'Monto'}}</label>
                     </div>
                     <div *ngIf="evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14" class=" col-12 ">
-                        <label>{{evento.unidadMedidaId == 1?'Horas: ':'Monto: '}}<span class="letramenos">{{evento.unidadMedidaId == 1?evento.heTiempo:evento.monto}}</span></label>
-                    </div>
-                    <div *ngIf="evento.monto && (evento.tipoIncidenciaId != 13 && evento.tipoIncidenciaId != 14)" class=" col-12 ">
-                        <label>Monto: <span class="letramenos">{{evento.monto}}</span></label>
+                        <label>{{evento.unidadMedidaId == 1?'Horas: ':'Monto: '}}<span class="letramenos">{{evento.unidadMedidaId == 1?evento.duracion:evento.monto}}</span></label>
                     </div>
                     <div class=" col-12 ">
                         <label>Política: <span class="letramenos">{{evento.politicaNombre}}</span></label>
@@ -89,23 +95,23 @@
                     <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
                     <div class="form group row margen">
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input [(ngModel)]="nombre" formatos [especial]="true" [control]="nombre" type="text" class="form-control" placeholder="Nombre">
+                            <input [(ngModel)]="nombre" type="text" class="form-control" placeholder="Nombre" id="NombreEventoS">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input [(ngModel)]="apellidoPaterno" formatos [especial]="true" [control]="apellidoPaterno" type="text" class="form-control" placeholder="Primer apellido">
+                            <input [(ngModel)]="apellidoPaterno" id="apellidoPaternoEventoS" type="text" class="form-control" placeholder="Primer apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input [(ngModel)]="apellidoMaterno" formatos [especial]="true" [control]="apellidoMaterno" type="text" class="form-control" placeholder="Segundo apellido">
+                            <input [(ngModel)]="apellidoMaterno" id="apellidoMaternoEventoS" type="text" class="form-control" placeholder="Segundo apellido">
                         </div>
 
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" [(ngModel)]="tipoIncidenciaId">
-                                <option  value="0" selected>Evento</option>
-                                <option *ngFor="let item of arregloIncidenciaTipo" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
+                            <select class="form-control" [(ngModel)]="tipoIncidenciaId" id="tipoIncidenciaIdS">
+                                <option id="tipoIncidenciaId0S" value="0" selected>Evento</option>
+                                <option id="tipoIncidenciaId1S" *ngFor="let item of arregloIncidenciaTipo" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                            <button type="submit" id="btnFiltrarEventosXEmpleado" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                         </div>
 
 

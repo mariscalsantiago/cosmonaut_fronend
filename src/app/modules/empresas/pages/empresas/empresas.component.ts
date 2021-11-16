@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EmpresasService } from '../../services/empresas.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 @Component({
   selector: 'app-empresas',
@@ -31,7 +32,8 @@ export class EmpresasComponent implements OnInit {
   public objModificar: any = [];
 
 
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public datosempresa: any = {
     clienteId: this.usuarioSistemaPrd.getIdEmpresa()
@@ -39,11 +41,16 @@ export class EmpresasComponent implements OnInit {
 
 
 
-  constructor(private usuarioSistemaPrd: UsuarioSistemaService, private routerPrd: Router, private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService, public configuracionPrd: ConfiguracionesService) {
+  constructor(private usuarioSistemaPrd: UsuarioSistemaService, private routerPrd: Router, private routerActivePrd: ActivatedRoute, private empresasProd: EmpresasService, public configuracionPrd: ConfiguracionesService,
+    private modalPrd:ModalService) {
 
   }
 
   ngOnInit(): void {
+
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+    
     this.datosempresa.empresa = history.state.data == undefined ? {} : history.state.data;
     this.routerActivePrd.params.subscribe(datos => {
       this.insertar = (datos["tipoinsert"] == 'nuevo');
@@ -55,6 +62,19 @@ export class EmpresasComponent implements OnInit {
           this.activarPestaniasEmpresa(datos);
           
         });
+      }else{
+        console.log(this.usuarioSistemaPrd.getVersionSistema(),this.usuarioSistemaPrd.usuario);
+        if(!this.usuarioSistemaPrd.usuario.multiempresa){
+          if(this.usuarioSistemaPrd.esCliente()){
+            this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
+                if(datos.datos){
+                    this.modalPrd.showMessageDialog(this.modalPrd.error,"Este cliente no es multiempresa, no podrás agregar más empresas.").then(()=>{
+                      this.routerPrd.navigate(['/']);
+                    });
+                }
+            });
+          }
+        }
       }
     });
     
@@ -91,6 +111,9 @@ export class EmpresasComponent implements OnInit {
     this.activado[numero].seleccionado = true;
   }
 
+  public cancelar(){
+    this.routerPrd.navigate(['/listaempresas']);  
+  }
 
 
   public recibir(elemento: any) {

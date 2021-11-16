@@ -6,6 +6,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { DatePipe } from '@angular/common';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sua',
@@ -51,12 +52,20 @@ export class SuaComponent implements OnInit {
     public fechaMax: Date =  new Date('0000-00-00');
     public movimiento: number = 0;
 
+    public modulo: string = "";
+    public subModulo: string = "";
+
+    public esDescargar:boolean = false;
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService,
+    private router: Router) { }
 
   ngOnInit(): void {
     
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
@@ -64,6 +73,8 @@ export class SuaComponent implements OnInit {
 
 
     this.filtrar();
+
+    this.establecerPermisos();
 
   }
 
@@ -94,6 +105,14 @@ export class SuaComponent implements OnInit {
       this.arreglotabla.filas = this.arreglo
     }
 
+    public inicio(){
+      this.router.navigate(['/inicio']);
+    }
+
+    public establecerPermisos(){
+    
+      this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
+    }
 
   public filtrar() {
     this.cargando = true;

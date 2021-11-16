@@ -29,11 +29,16 @@ export class ListarolesComponent implements OnInit {
   public esEditar:boolean = false;
   public esEliminar:boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(private routerPrd:Router,private rolesPrd:RolesService,private modalPrd:ModalService,
     private usuariosSistemaPrd:UsuarioSistemaService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.establecerPermisos();
 
@@ -79,6 +84,10 @@ export class ListarolesComponent implements OnInit {
 
   }
 
+
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
+  }
 
 
   public detalle(obj:any){

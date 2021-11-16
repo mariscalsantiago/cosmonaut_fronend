@@ -31,6 +31,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public esDomingo:boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService,
     public configuracionPrd:ConfiguracionesService) { }
@@ -38,6 +41,9 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   ngOnInit(): void {
 
 
+    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.myForm = this.createForms({});
 
@@ -336,6 +342,10 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     this.router.navigate(['/eventos/eventosxempleado']);
   }
 
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
+
   public abrirArchivo() {
     let input = document.createElement("input");
     input.type = "file";
@@ -379,6 +389,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
 
+    
 
     var datePipe = new DatePipe("es-MX");
     switch (cadena) {
@@ -517,6 +528,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   }
 
   public configurandoRestricciones() {
+
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
 

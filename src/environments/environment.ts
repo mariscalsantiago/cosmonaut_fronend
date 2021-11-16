@@ -7,11 +7,12 @@ export const environment = {
   rutaEmpresa:'/empresas',
   rutaCatalogos:'/catalogos',
   rutaNomina:'/nomina',
-  //rutaNomina:'http://6d54a7bea215.ngrok.io',
+  //rutaNomina:'http://8750-2806-107e-20-3c25-2d18-86ba-692d-175a.ngrok.io',
   rutaAdmin: '/admin',
   rutaReportes:'/reportes',
-  rutaSocket:'wss://cosmonautdev.wintermute.services/empresa'
+  rutaSocket:'wss://cosmonautdev.wintermute.services/empresa',
   //rutaSocket:'ws://192.168.1.67:8080'
+  rutaEvents:'/webevent'
 };
 
 /*

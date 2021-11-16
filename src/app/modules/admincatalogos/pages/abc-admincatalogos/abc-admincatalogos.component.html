@@ -1,14 +1,24 @@
 <div class="row margen">
-
-    <div class="col titulo-outlet">
-
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button></div>
-
-        <label>ADMINISTRACIÓN DE
-            CATÁLOGOS</label>
-    </div>
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+            > {{modulo}}</a>
+        </li>
+        <li >
+            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="cancelar()" >{{subModulo}}</a>
+        </li>
+        <li >
+            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="redirect(undefined)" >{{id_catalogo}} ></a>
+        </li>
+        <li style="padding-top: 10PX;">
+            INFORMACIÓN DE CATALOGO
+        </li>
+    </ul>
 </div>
 
 
@@ -221,7 +231,7 @@
 
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Fecha inicio *</label>
-                <input formControlName="fechaInicio" type="date" class="form-control isr"
+                <input formControlName="fechaInicio" #fechaInicio (focusout)="validarfechaFinRef()" type="date" class="form-control isr"
                 [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}">
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -230,7 +240,7 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Fecha fin *</label>
-                <input formControlName="fechaFin" type="date" class="form-control isr"
+                <input formControlName="fechaFin" [min]="f.fechaInicio.value" #fechaFin type="date" class="form-control isr"
                 [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}">
                 <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -277,7 +287,7 @@
 
             <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Fecha inicio *</label>
-                <input formControlName="fechaInicio" type="date" class="form-control"
+                <input formControlName="fechaInicio" #fechaInicio (focusout)="validarfechaFinRef()" type="date" class="form-control"
                 [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}">
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -286,7 +296,7 @@
             </div>
             <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Fecha fin *</label>
-                <input formControlName="fechaFin" type="date" class="form-control"
+                <input formControlName="fechaFin" [min]="f.fechaInicio.value" #fechaFin type="date" class="form-control"
                 [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}">
                 <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -352,7 +362,7 @@
 
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Fecha inicio *</label>
-                <input formControlName="fechaInicio" type="date" class="form-control"
+                <input formControlName="fechaInicio" #fechaInicio (focusout)="validarfechaFinRef()" type="date" class="form-control"
                 [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}">
                 <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -360,7 +370,7 @@
 
             </div>
 
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="catEstatus" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Estatus</label>
                 <select name="" class="form-control" formControlName="esActivo">
                     <option value="true">Activo</option>
@@ -473,19 +483,18 @@
     <div class="text-center margin" style="margin-bottom: 20px;">
 
         <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-        <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="!valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill disabled">Guardar</button>
     </div>
 
 </div>
-
 <div *ngIf="aplicableISN">
     <div class="card margen margen-tabla background-panel ">
         <div class="form-group row margen">
-            <label class="titulo">IMPUESTO SOBRE NOMINA</label>
+            <label class="titulo">IMPUESTO SOBRE NÓMINA {{estado | uppercase}}</label>
         </div>
         <div class="card-body">
             <div id="table" class="table-editable ">
-
                 <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
                     <tr>
                         <th id="" class="text-center" scope="col">Límite inferior</th>
@@ -512,7 +521,6 @@
                         <td>
                             <input #isn id="isn" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tasaAplicableIsnId, 'fechaInicio', $event)" (blur)="updateList(tasaAplicableIsnId, 'fechaInicio', $event)">
                         </td>
-
                     </tr>
 
                 </table>
@@ -529,7 +537,8 @@
     <div class="text-center margin" style="margin-bottom: 20px;">
 
         <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-        <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="!valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill disabled">Guardar</button>
     </div>
 
 </div>
@@ -583,7 +592,8 @@
     <div class="text-center margin" style="margin-bottom: 20px;">
 
         <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
-        <button (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="!valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill disabled">Guardar</button>
     </div>
 
 </div>

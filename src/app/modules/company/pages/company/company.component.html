@@ -1,12 +1,18 @@
 <div>
 
     <div class="row margen titulosfijos">
-        <div class="col titulo-outlet">
-            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
-            </button></div>
-            <label>LISTA DE CLIENTES</label>
-        </div>
+            </button>
+            </div>  
+            <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                > {{modulo}}</a>
+            </li>
+            <li style="padding-top: 10PX;">
+                {{subModulo}} 
+            </li>
+        </ul>
     </div>
 
     <div class="scrooll-design">
@@ -40,40 +46,40 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" appSolonumeros maxlength="10" [(ngModel)]="centrocClienteId" class="form-control" placeholder="Id cliente">
+                                        <input type="text" appSolonumeros maxlength="10" [(ngModel)]="centrocClienteId" class="form-control" id="centrocClienteIdS" placeholder="Id cliente">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" appAlfanumericoRFC maxlength="13"  [(ngModel)]="rfc" placement="top" [mdbTooltip]="'rfc' | tooltip" class="form-control" formatos [nochar]="true" [rfc]="true" [control]="rfc" placeholder="RFC">
+                                        <input type="text" appAlfanumericoRFC maxlength="13"  [(ngModel)]="rfc" id="rfcS" placement="top" [mdbTooltip]="'rfc' | tooltip" class="form-control" formatos [nochar]="true" [rfc]="true" placeholder="RFC">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="nombre" class="form-control" placeholder="Nombre cliente">
+                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="nombre" id="nombreS" class="form-control" placeholder="Nombre cliente">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
-                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="razonSocial" class="form-control" placeholder="Razón social">
+                                        <input type="text" formatos [letras]="true" [especial]="true" [(ngModel)]="razonSocial" id="razonSocialS" class="form-control" placeholder="Razón social">
                                     </div>
                                     
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="fechaAlta" class="form-control" placeholder="Fecha de registro" onfocus="(this.type='date')" onblur="(this.type='date')">
+                                        <input type="text" [(ngModel)]="fechaAlta" id="fechaAltaS" class="form-control" placeholder="Fecha de registro" onfocus="(this.type='date')" onblur="(this.type='date')">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
-                                        <select class="form-control" [(ngModel)]="esActivo" placeholder="Estatus">
+                                        <select class="form-control" id="esActivoS" [(ngModel)]="esActivo" placeholder="Estatus">
   
-                      <option value="" selected>Estatus</option>
-                      <option value="1">Activo</option>
-                      <option value="2">Inactivo</option>
+                                    <option value="" selected>Estatus</option>
+                                    <option value="1">Activo</option>
+                                    <option value="2">Inactivo</option>
   
-                    </select>
+                                    </select>
                                     </div>
 
                                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
-                                        <select class="form-control" [(ngModel)]="multiempresa" placeholder="multiempresa">
+                                        <select class="form-control" id="multiempresaS" [(ngModel)]="multiempresa" placeholder="multiempresa">
                                         <option value="0" selected>Multiempresa</option>
                                         <option value="1">Si</option>
                                         <option value="2">No</option>
                                         </select>
                                     </div>
                                     <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                                        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                        <button type="button" id="btonFiltrarCompany" class="btn btn-primary button-outlet " (click)="filtrar(true,true)">Filtrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +103,7 @@
             </div>
         </div>
         <div class="row margen margen-tabla background-panel">
-            <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [imagen]="true" [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+            <app-tablapaginado [datos]="arreglotabla" [paginado_server]="true" [editar]="esEditar" [imagen]="true" [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
 

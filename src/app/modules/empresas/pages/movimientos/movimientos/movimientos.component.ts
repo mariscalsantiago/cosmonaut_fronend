@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { DatePipe } from '@angular/common';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movimientos',
@@ -35,12 +36,17 @@ export class MovimientosComponent implements OnInit {
       filas:[]
   };
 
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
-    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService, private routerPrd: Router) { }
 
   ngOnInit() {
+    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
     this.filtrar();
   }
@@ -124,6 +130,9 @@ export class MovimientosComponent implements OnInit {
       this.traerTabla(datos);
 
       });
+    }
+    public inicio(){
+      this.routerPrd.navigate(['/inicio']);
     }
 
   }

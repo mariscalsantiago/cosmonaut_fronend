@@ -10,9 +10,11 @@ export class TooltipPipe implements PipeTransform {
       return  "Clave Única de Registro de Población (CURP).\nClave alfanumérica de 18 caracteres.";
     } else if (value === 'curpRazon') {
       return "A través de esta clave alfanumérica de 13 caracteres, el SAT puede identificar quién pagó los ingresos que recibieron los empleados.";
-    } else if (value === 'rfc') {
+    } else if (value === 'rfcFisica') {
+      return "Registro Federal de Contribuyentes.\nClave alfanumérica de 13 caracteres para personas físcas"
+    }else if (value === 'rfc') {
       return "Registro Federal de Contribuyentes.\nClave alfanumérica de 13 caracteres para personas físcas y 12 caracteres para personas morales."
-    } else if (value === 'registroPatronal') {
+    }else if (value === 'registroPatronal') {
       return "Clave alfanumérica de 11 dígitos asiganda a la empresa cuando se inscribe como patrón de empleados ante el IMSS."
     }else if (value === 'primaRiesgo') {
       return "Factor de pago para cobertura de posibles riesgos derivados por las actividades de la empresa."

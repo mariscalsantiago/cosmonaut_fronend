@@ -33,6 +33,7 @@ export class InformacionempresaComponent implements OnInit {
   public cargando: Boolean = false;
   public cargandoImg: boolean = false;
   public mostrarAsterisco:boolean = false;
+  public urlLogo: string = ''; 
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
@@ -40,25 +41,30 @@ export class InformacionempresaComponent implements OnInit {
     private authUsuariosPrd: UsuariosauthService, private usuariosSistemaPrd: UsuarioSistemaService) { }
 
   ngOnInit(): void {
+
+    debugger;
     this.obj = this.datos.empresa;
-
     this.myform = this.createForm(this.obj);
-    this.suscripciones();
-
-    this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
-
-    this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
     if (!this.datos.insertar) {
+      debugger;
+
       this.catalogosPrd.getActividadEconomica2(this.idNivel2, this.datos.empresa.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId).subscribe(datos => {
         this.arregloactividad2 = datos.datos
       });
       this.cargandoImg = true;
       this.companyPrd.getEmpresaById(this.datos.empresa.centrocClienteId).subscribe(datos => {
-        this.cargandoImg = false;
-        this.imagen = datos.datos?.imagen;
+      this.cargandoImg = false;
+      this.urlLogo = datos.datos?.url;
+      this.imagen = datos.datos?.imagen;
 
       });
     }
+    this.suscripciones();
+
+    this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
+
+    this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
+
 
 
   }
@@ -104,8 +110,10 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public recibirImagen(imagen: any) {
+    debugger;
     this.imagen = imagen;
   }
+
   public createForm(obj: any) {
   
     if (this.datos.empresa?.certificadoSelloDigitalId) {
@@ -154,7 +162,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-
+    debugger;
     if (this.myform.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       Object.values(this.myform.controls).forEach(control => {
@@ -162,7 +170,27 @@ export class InformacionempresaComponent implements OnInit {
       });
       return;
     }
-
+    if(this.myform.controls.curp.value !== null && this.myform.controls.curp.value !== ''){
+    let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
+    if(moralFiscia === 3){
+      let rfcFisica = this.myform.controls.rfc.value.substr(0,10);
+      let curp = this.myform.controls.curp.value.substr(0,10);
+      if(curp !== rfcFisica){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Los datos de RFC y CURP no corresponden");
+  
+        return;
+      }
+    }
+    else if(moralFiscia === 2){
+      let rfcMoral = this.myform.controls.rfc.value.substr(0,9);
+      let curp = this.myform.controls.curp.value.substr(0,9);
+      if(curp !== rfcMoral){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Los datos de RFC y CURP no corresponden");
+  
+        return;
+      }
+    }
+    }
     let titulo: string = this.datos.insertar ? "¿Deseas guardar la empresa?" : "¿Deseas actualizar los datos de la empresa?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {
       if (valor) {

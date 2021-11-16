@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
   public clienteSeleccionado: any;
 
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
-    private companiaPrd: SharedCompaniaService, private usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService,
+    private companiaPrd: SharedCompaniaService, public usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService,
     private authUsuarioPrd: UsuariosauthService) {
     let obj = {};
     this.myForm = this.createMyForm(obj);
@@ -133,6 +133,7 @@ export class LoginComponent implements OnInit {
   }
 
   public enviarformulario() {
+    debugger;
     this.restablecer = false;
     this.myForm.value.username = this.myForm.value.username?.toLowerCase();
     this.authPrd.login(this.myForm.value).subscribe(datos => {
@@ -156,6 +157,7 @@ export class LoginComponent implements OnInit {
 
 
           let objRecibido = valorusuario.datos.clientes[0];
+          console.log("Cliente actual",objRecibido);
           const usuario: usuarioClass = new usuarioClass();
           usuario.centrocClienteId = objRecibido.centrocClienteId;
           usuario.correo = encodeURIComponent(username);
@@ -169,6 +171,7 @@ export class LoginComponent implements OnInit {
           usuario.rolId = this.usuarioObj.rolId?.rolId;
           usuario.nombreRol = this.usuarioObj.rolId?.nombreRol;
           usuario.submodulosXpermisos = valorusuario.datos.submodulosXpermisos;
+          usuario.multiempresa = objRecibido.multiempresa;
           usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId);
           usuario.esRecursosHumanos = false;
           usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : objRecibido.centroCostosCentrocClienteId.centrocClienteId;
@@ -178,6 +181,7 @@ export class LoginComponent implements OnInit {
           this.authUsuarioPrd.getVersionByEmpresa(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
             let obj = datos.datos;
 
+            console.log("VERSION COSMONAUT",obj.versionCosmonautId?.versionCosmonautId);
             this.usuarioSistemaPrd.setVersionSistema(obj.versionCosmonautId?.versionCosmonautId);
 
           });
@@ -225,6 +229,11 @@ export class LoginComponent implements OnInit {
             this.incorrectoback = false;
             this.mensajeDanger = err.error.message;
             this.restablecer = !err.error.message.includes("El usuario se encuentra dado de baja");
+            let rolInactivo = err.error.message.includes("Usuario sin accesso al sistema");
+            
+            if(rolInactivo){
+              this.restablecer = false;
+            }            
         }
       }
 
@@ -426,6 +435,7 @@ export class LoginComponent implements OnInit {
     usuario.centrocClienteId = this.clienteSeleccionado.centrocClienteId;
     usuario.nombreEmpresa = this.clienteSeleccionado.razonSocial;
     usuario.esCliente = !Boolean(this.clienteSeleccionado.centroCostosCentrocClienteId)
+    console.log("Cliente seleccionado",this.clienteSeleccionado);
     usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : this.clienteSeleccionado?.centroCostosCentrocClienteId?.centrocClienteId;
 
 

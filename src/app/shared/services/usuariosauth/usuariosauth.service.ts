@@ -80,6 +80,11 @@ export class UsuariosauthService {
       return this.http.post(`${direcciones.usuariosAuth}/filtrar`,json);
   }
 
+  public filtrarUsuariosPaginado(obj:any,registros:number,pagina:number):Observable<any>{
+    let json = JSON.stringify(obj);
+     return this.http.post(`${direcciones.usuariosAuth}/filtrar/paginado/${registros}/${pagina}`,json);
+ }
+
   public usuariosActivarDesactivar(obj:any):Observable<any>{
       let json = JSON.stringify(obj);
       return this.http.post(`${direcciones.usuariosAuth}/cambiar/estados`,json);

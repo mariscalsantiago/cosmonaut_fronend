@@ -1,5 +1,7 @@
 <div style="margin-left: 10px;background-color: #f6f7f9;" class="contenido_component">
 
+
+
     <div class="wrapper">
         <div (click)="mostrarmenu = false" class="backgroundresponsive" [ngClass]="{'backgroundresponsive':mostrarmenu}"></div>
         <nav style="background-color: #f6f7f9;" *ngIf="configuracionPrd.menu" aria-label="cosmonaut" id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
@@ -14,15 +16,24 @@
             margin: 8px;" class="sidebar-header imgescritorio">
                 <img src="assets/imgs/logo2.png" alt="" srcset="">
             </div>
-            <div class="tituloabajoimg">
+            <div class="tituloabajoimg" style="margin: 9px">
                 <article>
                     {{nombre}}
-                    <article>
+                    <article >
                         {{nombreRol}}
                     </article>
+                    <article >
+                        {{nombreEmpresa}}
+                    </article>
+                    <article >
+                        {{centrocClienteIdPadre}}
+                    </article>
+                    
                 </article>
             </div>
-            <ul id="listanavegadora" class="list-unstyled components">
+            <br><br>
+            
+            <ul id="listanavegadora" class="list-unstyled components" >
                 <ng-container *ngFor="let item of PRINCIPAL_MENU;let indice = index">
                     <li #liselection *ngIf="item.checked" style="text-align: right; background-color: #f6f7f9;" [ngClass]="{'active':item.seleccionado}">
                         <a (mouseover)="entraComponente(item)" (mouseout)="saleComponente(item)" style="display: inline-block;position: relative;" [routerLink]="item.pathServicio" (click)="seleccionado(item,indice,liselection)" [ngClass]="{'dropdown-toggle':true}">
@@ -44,11 +55,18 @@
                 </li>
                 <li *ngIf="PRINCIPAL_MENU !== undefined" style="text-align: right;background-color: #f6f7f9;" id="salirbtn" (click)="cerrarSesion()">
                     <a (mouseover)="botonsalir=true" (mouseout)="botonsalir=false" style="display: inline-block;    border-bottom-left-radius: 19px;"> <i aria-hidden="true" class="icon_cerrarsesion danger-bg"></i>
+                        <ng-container>                            
+                       <li>
+                        <span style="display: block;color:white;font-size: 11px; white-space: pre-wrap;">Cerrar sesión</span>
+                    </li>
+                </ng-container>
+
                     </a>
                 </li>
             </ul>
+            
         </nav>
-        <div id="contenido" class="content" [ngClass]="{'scrollhide':modal.modal || emergente.modal}" style="position: relative;">
+        <div id="contenido" (mouseout)="saleComponente(undefined)" class="content" [ngClass]="{'scrollhide':modal.modal || emergente.modal}" style="position: relative;">
             <nav aria-label="cosmonaut" aria-label="cosmonautnav" class="navbar navbar-expand-lg navbar-light">
 
                 <div class="col-2">
@@ -64,6 +82,7 @@
 
                 <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [subtitulo]="modal.strSubtitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
                 <app-ventanaemergenteprincipal [ventanaalerta]="emergente.ventanaalerta" *ngIf="emergente.modal" [titulo]="emergente.titulo" [mostrar]="mostrar" (salida)="recibirEmergente($event)" [datos]="emergente.datos"></app-ventanaemergenteprincipal>
+               
 
             </div>
         </div>

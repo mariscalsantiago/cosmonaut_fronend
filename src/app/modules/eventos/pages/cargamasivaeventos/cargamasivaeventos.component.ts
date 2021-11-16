@@ -48,6 +48,8 @@ export class CargaMasivaEventosComponent implements OnInit {
   public idArea: number = 0;
   public personaId: number = 0;
   public nomEmpleado: string="";
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public arreglotabla:any = {
     columnas:[],
@@ -66,6 +68,8 @@ export class CargaMasivaEventosComponent implements OnInit {
  
   ngOnInit(): void {
     this.establecerPermisos();
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.obj = history.state.datos == undefined ? {} : history.state.datos;
@@ -83,7 +87,8 @@ export class CargaMasivaEventosComponent implements OnInit {
       
       this.arregloEmpleados = datos.datos;
       for (let item of this.arregloEmpleados) {
-        item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno;
+        item["nombre"] = item.personaId?.nombre + " " + item.personaId?.apellidoPaterno + " " + (item.personaId.apellidoMaterno == undefined ? "" : item.personaId.apellidoMaterno);
+        
       }
 
     });
@@ -293,6 +298,10 @@ export class CargaMasivaEventosComponent implements OnInit {
           this.activado[0].tab = false;
         break;
     }
+  }
+
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
   }
 
 

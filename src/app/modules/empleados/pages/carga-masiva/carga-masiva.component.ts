@@ -50,13 +50,8 @@ export class CargaMasivaComponent implements OnInit {
   public esConsultar:boolean = false;
   public esDescargar:boolean = false;
 
-
-
-
-
-
-
-
+  public modulo: string = "";
+  public subModulo: string = "";
 
 
   constructor(private formBuilder: FormBuilder, private routerActivePrd: ActivatedRoute, private reportesPrd: ReportesService,
@@ -66,6 +61,8 @@ export class CargaMasivaComponent implements OnInit {
 
   ngOnInit(): void {
     
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.establecerPermisos();
 
@@ -88,6 +85,9 @@ export class CargaMasivaComponent implements OnInit {
     this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
   }
 
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
+  }
 
   public crearTabla(datos:any){
     

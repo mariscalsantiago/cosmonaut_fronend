@@ -15,7 +15,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 })
 export class ABCAdminCatalogosComponent implements OnInit {
   @ViewChild("fechaFin") fechaFinRef!: ElementRef;
-  @ViewChild("fechaInicio") fechaInicioRef!: ElementRef;
+  //@ViewChild("fechaInicio") fechaInicioRef!: ElementRef;
 
   public cargando: Boolean = false;
   public tipoguardad: boolean = false;
@@ -42,6 +42,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public referencia: boolean = false;
   public arregloTablaValores: any = [];
   public editField: string = "";
+  public editFieldNum: Number = 0;
   public tablaISR: boolean = false;
   public formGeneral: boolean = true;
   public subsidioISR: boolean = false;
@@ -59,12 +60,19 @@ export class ABCAdminCatalogosComponent implements OnInit {
   public nuevoaplicableISN : boolean = false;
   public submitActive = false;
   public periodo:string = "";
+  public estado:string = "";
   public especializacion = '';
   public fechaAlta: number = 0;
   public activaClaveCuatro : boolean = false;
   public activaClaveDos : boolean = false;
   public activaClaveNumerica: boolean = false;
   public todayF : string = '';
+  public valFecha : boolean = true;
+  public catEstatus : boolean = true;
+  public id_catalogo : string = '';
+
+  public modulo: string = "";
+  public subModulo: string = "";
 
   public arreglotabla: any = {
     columnas: [],
@@ -86,7 +94,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   ngOnInit(): void {
 
     
-    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     this.periodo = "";
     
     this.detCatalogos = history.state.datos == undefined ? {} : history.state.datos;
@@ -98,6 +107,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       tipoPersona: this.objdetrep.indPersonaFisica
     };
     if(this.detCatalogos.listaCatalogosId == 1){
+        this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
         this.catBanco();
         this.idCatalogo = this.objdetrep.codBanco;
         this.descripcion = this.objdetrep.nombreCorto;
@@ -105,34 +115,35 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
 
     else if(this.detCatalogos.listaCatalogosId == 13){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.facultadPoderId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 9){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.motivoBajaId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 12){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 11){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 21){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       
       this.idCatalogo = this.objdetrep.proveedorDispersionId;
       this.descripcion = this.objdetrep.descripcion;
@@ -146,7 +157,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 22){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.proveedorTimbradoId;
       this.descripcion = this.objdetrep.descripcion;
       if(this.objdetrep.fechaAlta){
@@ -160,13 +171,14 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 8){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.tipoRegimenContratacionId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 6){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       if (this.objdetrep.fecInicio != undefined || this.objdetrep.fecInicio != null) {
           this.objdetrep.fecInicio = new DatePipe("es-MX").transform((this.objdetrep.fecInicio), 'yyyy-MM-dd');
       }
@@ -179,25 +191,28 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 7){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.tipoContratoId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 5){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.tipoDeduccionId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 10){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.tipoIncapacidadId;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 4){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.objdetrep.integraSdi = this.objdetrep.integraSdi == "S"  ? true : false;
       this.objdetrep.integraIsr = this.objdetrep.integraIsr == "S"  ? true : false;
       this.objdetrep.integraIsn = this.objdetrep.integraIsn == "S"  ? true : false;
@@ -215,7 +230,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 15){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.tipoValorReferenciaId?.descripcion;
       this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => this.arregloValoresReferencia = datos.datos);
@@ -227,7 +242,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 17){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.periodo = this.objdetrep.tabla;
       this.adminCatalogosPrd.getListaTarifaISR(this.objdetrep.periodo).subscribe(datos => {
         if (datos.datos !== undefined) {
@@ -245,7 +260,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
      
     }
     else if(this.detCatalogos.listaCatalogosId == 18){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.periodo = this.objdetrep.tabla;
       this.adminCatalogosPrd.getListaSubcidioISR(this.objdetrep.periodo).subscribe(datos => {
     
@@ -264,8 +279,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 19){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.descripcion = this.objdetrep.estado;
+      this.estado = this.objdetrep.estado;
       if(this.objdetrep.estadoId !== undefined){
       this.adminCatalogosPrd.getListaAplicableISN(this.objdetrep.estadoId).subscribe(datos => {
          if (datos.datos !== undefined) {
@@ -284,31 +300,35 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 2){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 14){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 20){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 3){
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
 
     }
     else if(this.detCatalogos.listaCatalogosId == 16){
-      
+      this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.descripcion;
       this.clave();
@@ -366,8 +386,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     const datepipe = new DatePipe("es-MX");
     let diamaximo = datepipe.transform(new Date, "yyyy-MM-dd")
-    this.fechaInicioRef.nativeElement.max = diamaximo;
-    this.fechaFinRef.nativeElement.max = diamaximo;
+    //this.fechaInicioRef.nativeElement.max = diamaximo;
+    //this.fechaFinRef.nativeElement.max = diamaximo;
 
 
   }
@@ -599,12 +619,117 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
   public updateList(id: number, property: string, event: any) {
     
-    let editField = event.target.textContent;
+    let editField = event.target.textContent; 
+
+    if (property.includes('cuotaFija')){
+
+      this.editFieldNum = Number(editField);
+    } 
+    
+    if (property.includes('limiteInferior')){
+      
+      this.editFieldNum = Number(editField);
+
+      let limites = this.arregloTablaValores[id];
+      let limiteSuperior = limites.limiteSuperior;
+      if (this.editFieldNum > limiteSuperior) {
+  
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite inferior debe ser igual o menor que el límite superior')
+          .then(() => {
+            this.arregloTablaValores[id][property] = this.editFieldNum;
+            this.valFecha = false;
+          });
+        return;  
+      }
+    } 
+
+    if (property.includes('limiteSuperior')){
+      
+      this.editFieldNum = Number(editField);
+
+      let limites = this.arregloTablaValores[id];
+      let limiteInferior = limites.limiteInferior;
+      if (this.editFieldNum < limiteInferior) {
+  
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite superior debe ser igual o mayor que el límite inferior')
+          .then(() => {
+            this.arregloTablaValores[id][property] = this.editFieldNum;
+            this.valFecha = false;
+          });
+        return;  
+      }
+    }
+    if (property.includes('montoSubsidio')){ 
+      this.editFieldNum = Number(editField);
+    }
+
+    if (property.includes('porcExcedenteLimInf')){ 
+      this.editFieldNum = Number(editField);
+    }
+
+    if (property.includes('tasa')){ 
+      this.editFieldNum = Number(editField);
+    }   
+
     if (property.includes('fecha')){
      editField = event.target.value;
+
+    let itemFecha = this.arregloTablaValores[id];
+    if(itemFecha.fechaFin !== undefined){
+    let fechaIn = itemFecha.fechaInicio;
+    let fechaFin = itemFecha.fechaFin; 
+    if(property === 'fechaFin' ){
+        fechaFin = editField;
+        if (fechaFin < fechaIn) {
+  
+          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser igual o mayor a la fecha inicio')
+            .then(() => {
+              editField= '';
+              this.arregloTablaValores[id][property] = editField;
+              this.valFecha = false;
+            });
+          return;  
+        }else{   
+          this.arregloTablaValores[id][property] = editField;
+          this.valFecha = true;
+          }
     }
-      
-    this.arregloTablaValores[id][property] = editField;
+    if(property === 'fechaInicio' ){
+      fechaIn = editField;
+      if (fechaIn > fechaFin) {
+  
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha inicio debe ser igual o menor a la fecha fin')
+          .then(() => {
+            editField= '';
+            this.arregloTablaValores[id][property] = editField;
+            this.valFecha = false;
+          });
+        return;  
+      }
+      else{   
+        this.arregloTablaValores[id][property] = editField;
+        this.valFecha = true;
+        }
+    }
+        if (fechaIn === '' || fechaFin === '') {
+          this.valFecha = false;
+          return;
+        }
+    }
+  }
+
+    if(this.editFieldNum !== 0){
+      editField = this.editFieldNum;
+      this.arregloTablaValores[id][property] = editField;
+      this.valFecha = true;
+      this.editFieldNum = 0;
+    }else{
+      this.arregloTablaValores[id][property] = editField;
+      this.valFecha = true;
+    }
+       
+
+    
   }
 
 
@@ -614,6 +739,26 @@ export class ABCAdminCatalogosComponent implements OnInit {
     if (property.includes('fecha')){
       this.editField = event.target.value;
      }
+
+     if (property.includes('cuotaFija')){
+      Number(this.editField);
+    }
+    if (property.includes('limiteInferior')){
+      Number(this.editField);
+    } 
+
+    if (property.includes('limiteSuperior')){
+      Number(this.editField);
+    }
+    if (property.includes('montoSubsidio')){
+      Number(this.editField);
+    }
+    if (property.includes('porcExcedenteLimInf')){ 
+      Number(this.editField);
+    }   
+    if (property.includes('tasa')){ 
+      Number(this.editField);
+    }   
   }
 
   public clave(){
@@ -654,7 +799,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.nuevoaplicableISN = true;
 
       }
-      else if(this.detCatalogos.listaCatalogosId == 21 || this.detCatalogos.listaCatalogosId == 9 || this.detCatalogos.listaCatalogosId == 3 || this.detCatalogos.listaCatalogosId == 22 || this.detCatalogos.listaCatalogosId == 14 || this.detCatalogos.listaCatalogosId == 20 || this.detCatalogos.listaCatalogosId == 13 || this.detCatalogos.listaCatalogosId == 2 || this.detCatalogos.listaCatalogosId == 11 || this.detCatalogos.listaCatalogosId == 10 || this.detCatalogos.listaCatalogosId == 16){
+      else if(this.detCatalogos.listaCatalogosId == 21 || this.detCatalogos.listaCatalogosId == 22){
+        this.catEstatus = false;
+      }
+      else if(this.detCatalogos.listaCatalogosId == 9 || this.detCatalogos.listaCatalogosId == 3 || this.detCatalogos.listaCatalogosId == 14 || this.detCatalogos.listaCatalogosId == 20 || this.detCatalogos.listaCatalogosId == 13 || this.detCatalogos.listaCatalogosId == 2 || this.detCatalogos.listaCatalogosId == 11 || this.detCatalogos.listaCatalogosId == 10 || this.detCatalogos.listaCatalogosId == 16){
 
       }
       else{
@@ -672,6 +820,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.percepcion = true;
       }
       else if(this.detCatalogos.listaCatalogosId == 15){
+        this.catEstatus = false;
         this.referencia = true;
         this.descripcionGeneral = false;
       }
@@ -698,6 +847,11 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
   }
 
+  public cancelar() {
+    
+    this.routerPrd.navigate(['/admincatalogos']);
+  }
+
   public catBanco(){
     if(this.insertar){
       this.habilitarbanco = true;
@@ -714,16 +868,47 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.routerPrd.navigate(['/admincatalogos/detalle_admincatalogos/detalle'], { state: { data: this.detCatalogos} });
   }
 
+  public validaFechaFinal(): Boolean{
+    
+    let respuesta: boolean = true;
+    let fechaInicioP = this.myForm.controls.fechaInicio.value;
+    let fechafinP = this.myForm.controls.fechaFin.value;
+    if (fechafinP < fechaInicioP) {
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser mayor a la fecha de inicio');
+      this.myForm.controls.fechaFin.setValue("");
+      respuesta = false;
+    }
 
+    return respuesta;
+
+  }  
 
   public enviarPeticion() {
-    
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
 
     }
+    if(this.detCatalogos.listaCatalogosId == 15 || this.detCatalogos.listaCatalogosId == 17 || this.detCatalogos.listaCatalogosId == 18 || this.detCatalogos.listaCatalogosId == 19){
+      debugger;
+      if (!this.validaFechaFinal()) {
+        return;
+      }
+    }
+    if(this.detCatalogos.listaCatalogosId == 17 || this.detCatalogos.listaCatalogosId == 18 || this.detCatalogos.listaCatalogosId == 19){
+      let limiteSuperior = this.myForm.controls.limiteSuperior.value;
+          let limiteInferior = this.myForm.controls.limiteInferior.value;
+          if (limiteInferior > limiteSuperior) {
+  
+            this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite inferior debe ser igual o menor que el límite superior')
+              .then(() => {
+                this.myForm.controls.limiteInferior.setValue('');
+                this.myForm.controls.limiteInferior.updateValueAndValidity();
+              });
+            return;  
+          }
+    } 
     const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catalogo?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
@@ -1590,24 +1775,6 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 17){
-          
-         /* let fechainicio = "";
-          let fechafin = "";
-           if (obj.fechaFin != undefined || obj.fechaFin != null) {
-      
-            if (obj.fechaFin != "") {
-              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
-              fechafin = `${new Date(fecha1).getTime()}`;
-            }
-          }
-          
-          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
-      
-            if (obj.fechaInicio != "") {
-              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
-              fechainicio = `${new Date(fecha1).getTime()}`;
-            }
-          } */
           this.objEnviar = {
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
@@ -1633,23 +1800,9 @@ export class ABCAdminCatalogosComponent implements OnInit {
             });
   
           } else {
-
+            
+            this.valorestab = [];
             for(let item of this.arregloTablaValores){
-/*               let fechainicio = "";
-              let fechafin = "";
-              if (item.fechaFin != undefined || item.fechaFin != null) {
-                if (item.fechaFin != "") {
-                  const fecha1 = new Date(item.fechaFin).toUTCString().replace("GMT", "");
-                  fechafin = `${new Date(fecha1).getTime()}`;
-                }
-              }
-              if (item.fechaInicio != undefined || item.fechaInicio != null) {
-          
-                if (item.fechaInicio != "") {
-                  const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
-                  fechainicio = `${new Date(fecha1).getTime()}`;
-                }
-              } */
               this.valores = 
                 {
                   tarifaPeriodicaIsrId: item.tarifaPeriodicaIsrId,
@@ -1661,13 +1814,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
                   esActivo: item.esActivo,
                   fechaInicio: item.fechaInicio,
                   fechaFin: item.fechaFin
-
                 }
-
                 this.valorestab.push(this.valores);
   
               }
-
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarTarifaPeriodicaISR(this.valorestab).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -1683,24 +1833,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
         }
         else if(this.detCatalogos.listaCatalogosId == 19){
-/*           let fechainicio = "";
-          let fechafin = "";
-          if (obj.fechaFin != undefined || obj.fechaFin != null) {
-      
-            if (obj.fechaFin != "") {
-              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
-              fechafin = `${new Date(fecha1).getTime()}`;
-            }
-          }
-          
-          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
-      
-            if (obj.fechaInicio != "") {
-              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
-              fechainicio = `${new Date(fecha1).getTime()}`;
-            }
-          } */
-
+     
+         
           this.objEnviar = {
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
@@ -1729,13 +1863,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   
           } else {
             
-            
+            this.valorestab = [];
             for(let item of this.arregloTablaValores){
-
-/*               if (item.fechaInicio != "") {
-                const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
-                item.fechaInicio = `${new Date(fecha1).getTime()}`;
-              } */
               this.valores = 
                 {
                   tasaAplicableIsnId: item.tasaAplicableIsnId,
@@ -1753,13 +1882,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 this.valorestab.push(this.valores);
   
               }
-/*             this.objEnviar = {
-
-              valoresTablaPeriodicaISR: this.valorestab,
-
-            } */ 
-  
-  
+ 
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarAplicableISN(this.valorestab).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -1774,23 +1897,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
         }
         else if(this.detCatalogos.listaCatalogosId == 18){
-/*           let fechainicio = "";
-          let fechafin = "";
-          if (obj.fechaFin != undefined || obj.fechaFin != null) {
-      
-            if (obj.fechaFin != "") {
-              const fecha1 = new Date(obj.fechaFin).toUTCString().replace("GMT", "");
-              fechafin = `${new Date(fecha1).getTime()}`;
-            }
-          }
-          
-          if (obj.fechaInicio != undefined || obj.fechaInicio != null) {
-      
-            if (obj.fechaInicio != "") {
-              const fecha1 = new Date(obj.fechaInicio).toUTCString().replace("GMT", "");
-              fechainicio = `${new Date(fecha1).getTime()}`;
-            }
-          } */
+
           this.objEnviar = {
             limiteInferior: obj.limiteInferior,
             limiteSuperior: obj.limiteSuperior,
@@ -1817,24 +1924,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
   
           } else {
             
+            this.valorestab = [];
             for(let item of this.arregloTablaValores){
-/*               let fechainicio = "";
-              let fechafin = "";
-              if (item.fechaFin != undefined || item.fechaFin != null) {
-          
-                if (item.fechaFin != "") {
-                  const fecha1 = new Date(item.fechaFin).toUTCString().replace("GMT", "");
-                  fechafin = `${new Date(fecha1).getTime()}`;
-                }
-              }
-              
-              if (item.fechaInicio != undefined || item.fechaInicio != null) {
-          
-                if (item.fechaInicio != "") {
-                  const fecha1 = new Date(item.fechaInicio).toUTCString().replace("GMT", "");
-                  fechainicio = `${new Date(fecha1).getTime()}`;
-                }
-              } */
               this.valores = 
                 {
                   tarifaPeriodicaSubsidioId: item.tarifaPeriodicaSubsidioId,
@@ -1850,11 +1941,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 this.valorestab.push(this.valores);
 
               }
-/*             this.objEnviar = {
-              valoresTablaPeriodicaSubsidio: this.valorestab,
-            } */
 
-  
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
             this.adminCatalogosPrd.modificarTarifaPeriodicaSubsidio(this.valorestab).subscribe(datos => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);

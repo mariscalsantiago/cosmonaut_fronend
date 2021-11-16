@@ -24,6 +24,12 @@ export class ContratocolaboradorService {
 
   }
 
+  public saveReactivar(obj:any):Observable<any>{
+    let json = JSON.stringify(obj);
+    return this.http.put(`${direcciones.contratoColaborador}/guardar/reactivar`,json);
+
+  }
+
   public update(obj:any):Observable<any>{
 
     const httpOptions = {
@@ -50,4 +56,8 @@ export class ContratocolaboradorService {
 
 
   }
+
+  public verEstatusReactivarEmpleado(idEmpresa:number,idPersona:number):Observable<any>{
+    return this.http.get(`${direcciones.contratoColaborador}/valida/reactivar/${idEmpresa}/${idPersona}`);
+}
 }

@@ -4,9 +4,9 @@ import { EmpresasService } from 'src/app/modules/empresas/services/empresas.serv
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({
@@ -27,6 +27,7 @@ export class IDSEComponent implements OnInit {
   public objFiltro: any = [];
   public activarMultiseleccion: boolean = false;
   public arregloIDSE : any = [];
+  public arregloEnvioIDSE : any = [];
   public movimientoImssId : number = 0;
   public registroPatronalIdse : string = '';
   public idCsd : string = '';
@@ -51,18 +52,29 @@ export class IDSEComponent implements OnInit {
     public apellidoPat: string = "";
     public apellidoMat: string = "";
     public numeroEmpleado: string = "";
-    public fechaMovimiento: Date =  new Date('0000-00-00');
+    public fechaMovimiento: any = null;
     public movimiento: number = 0;
     public esActivo : number = 0;
 
+    
+    public modulo: string = "";
+    public subModulo: string = "";
 
 
-  constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService,
+    public esEliminar:boolean = false;
+    public esDescargar:boolean = false;
+
+
+  constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService, private router: Router,
     private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    
 
+    this.establecerPermisos();
+    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+    
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
@@ -82,7 +94,8 @@ export class IDSEComponent implements OnInit {
       new tabla("nombre", "Nombre completo del empleado"),
       new tabla("sbcDecimal", "SBC"),
       new tabla("movimiento", "Movimiento"),
-      new tabla("fechamovimiento", "Fecha de movimiento")
+      new tabla("fechamovimiento", "Fecha de movimiento"),
+      new tabla("estatus", "Estatus de movimiento")
     ];
 
     this.arreglotabla = {
@@ -114,6 +127,12 @@ export class IDSEComponent implements OnInit {
     this.cargando = false;
   }
 
+  public establecerPermisos(){
+    
+
+    this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
+    this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
+  }
 
   public filtrar() {
 
@@ -121,6 +140,9 @@ export class IDSEComponent implements OnInit {
 
     this.cargando = true;
     this.objFiltro = {};
+    if(this.fechaMovimiento == ''){
+      this.fechaMovimiento = null;
+    }
 
     for(let item of this.arregloRegistroPatronal){
       if(item.registroPatronalId = this.idregistroPatronal)
@@ -131,7 +153,6 @@ export class IDSEComponent implements OnInit {
       ...this.objFiltro,
       registroPatronal: this.registroPatronal
     };
-     this.registroPatronal = '';
     }
 
     if(this.nombre != ''){
@@ -139,28 +160,24 @@ export class IDSEComponent implements OnInit {
         ...this.objFiltro,
         nombre: this.nombre
       };
-      this.nombre = '';
       }
       if(this.apellidoPat != ''){
         this.objFiltro = {
           ...this.objFiltro,
           apellidoPat: this.apellidoPat
         };
-        this.apellidoPat = '';
         }
         if(this.apellidoMat != ''){
           this.objFiltro = {
             ...this.objFiltro,
             apellidoMat: this.apellidoMat
           };
-          this.apellidoMat = '';
         }
         if(this.numeroEmpleado != ''){
           this.objFiltro = {
             ...this.objFiltro,
             numeroEmpleado: this.numeroEmpleado
           };
-          this.numeroEmpleado = '';
         }
         if(this.movimiento != 0){
           this.objFiltro = {
@@ -174,7 +191,6 @@ export class IDSEComponent implements OnInit {
           clienteId: this.idEmpresa,
           fechaMovimiento: this.fechaMovimiento
         };
-        this.fechaMovimiento = new Date('0000-00-00');
   
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
@@ -184,6 +200,10 @@ export class IDSEComponent implements OnInit {
     this.cargando = false;
   });
 
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
   public seleccionarTodosBool(input: any) {
@@ -196,9 +216,92 @@ export class IDSEComponent implements OnInit {
       }
 
 
+      public descargaArchivoTxtItem(obj: any) {
 
+        let mensaje = `¿Deseas descargar el archivo?`;
+    
+        this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
+          if (valor) {
+    
+            let valor = [];
+  
+            valor.push(obj.kardex_colaborador_id);
+    
+            this.arregloIDSE = { 
+              idEmpresa: this.idEmpresa,
+              idKardex: valor
+            }
+    
+    
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    
+            this.reportesPrd.getDescargaLayaoutIDSE(this.arregloIDSE).subscribe(archivo => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
+              const downloadLink = document.createElement("a");
+              const fileName = `${"Txt de envio IDSE"}.txt`;
+      
+              downloadLink.href = linkSource;
+              downloadLink.download = fileName;
+              downloadLink.click();
+            });
+          }
+        });
+      }
+
+      public descargaAcuseRespuesta(obj: any) {
+
+        let mensaje = `¿Deseas descargar el acuse de respuesta?`;
+    
+        this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
+          if (valor) {
+    
+            let ID = obj.kardex_colaborador_id;
+  
+    
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    
+            this.empresasPrd.getAcuseRespuesta(ID).subscribe(archivo => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
+              const downloadLink = document.createElement("a");
+              const fileName = `${"Acuse de respuesta"}.pdf`;
+      
+              downloadLink.href = linkSource;
+              downloadLink.download = fileName;
+              downloadLink.click();
+            });
+          }
+        });
+      }
+
+      public descargaAcuseMovimiento(obj: any) {
+
+        let mensaje = `¿Deseas descargar el acuse de envio?`;
+    
+        this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
+          if (valor) {
+    
+            let ID = obj.kardex_colaborador_id;
+  
+    
+            this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    
+            this.empresasPrd.getAcuseMovimiento(ID).subscribe(archivo => {
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
+              const downloadLink = document.createElement("a");
+              const fileName = `${"Acuse de envio"}.pdf`;
+      
+              downloadLink.href = linkSource;
+              downloadLink.download = fileName;
+              downloadLink.click();
+            });
+          }
+        });
+      }
+      
   public guardarMultiseleccion() {
-
     
     let mensaje = `¿Deseas descargar el archivo de lo seleccionado?`;
 
@@ -240,14 +343,6 @@ export class IDSEComponent implements OnInit {
                 }
               }
             }
-            
-            this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
-              this.arreglo = datos.datos;
-          
-              this.traerTabla({ datos: this.arreglo });
-          
-              this.cargando = false;
-            });
             this.activarMultiseleccion = false;
           }
         });
@@ -258,61 +353,64 @@ export class IDSEComponent implements OnInit {
   }
   
   public enviarIdse() {
-    debugger;
     
     let mensaje = `¿Deseas enviar estos registros a IDSE?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
       if (valor) {
-        debugger;
+        
         let valor = [];
         for (let item of this.arreglo) {
           this.registroPatronalIdse = item.registro_patronal;
-          this.idCsd = item.idCsd;
-          if (item["seleccionado"]) {
+          this.idCsd = item.credencialesImssId;
+          if (item["seleccionado"] && item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Aceptado') {
 
             valor.push(item.kardex_colaborador_id);
 
           }
         }
+        if(valor === undefined){
+          this.modalPrd.showMessageDialog(this.modalPrd.error,"No es ha seleccionado ningun archivo a enviar");
+            return;
+        }
 
-        this.arregloIDSE = { 
+        this.arregloEnvioIDSE = [];
+        this.arregloEnvioIDSE = { 
+
           clienteId: this.idEmpresa,
           registroPatronal: this.registroPatronalIdse,
-          idCsd: '',
+          idCsd: this.idCsd,
           movimientosKardexIds: valor
         }
 
 
+
+        console.log(JSON.stringify(this.arregloEnvioIDSE));
+        
+
+        
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-        this.reportesPrd.getDescargaLayaoutIDSE(this.arregloIDSE).subscribe(archivo => {
+        this.empresasPrd.afiliaRecepcionIdse(this.arregloEnvioIDSE).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-          const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
-          const downloadLink = document.createElement("a");
-          const fileName = `${"Layaout  IDSE"}.txt`;
-  
-          downloadLink.href = linkSource;
-          downloadLink.download = fileName;
-          downloadLink.click();
-          if (archivo) {
-            for (let item of this.arregloIDSE.idKardex) {
-              for (let item2 of this.arreglo) {
-                if (item2.kardex_colaborador_id === item) {
-                  item2["seleccionado"] = false;
-                  break;
-                }
-              }
-            }
+          if(archivo.resultado){
+              this.modalPrd.showMessageDialog(archivo.resultado,archivo.mensaje)
+              .then(()=> {
             
-            this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
-              this.arreglo = datos.datos;
-          
-              this.traerTabla({ datos: this.arreglo });
-          
-              this.cargando = false;
-            });
-            this.activarMultiseleccion = false;
+                  this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
+                    this.arreglo = datos.datos;
+                
+                    this.traerTabla({ datos: this.arreglo });
+                
+                    this.cargando = false;
+                  });
+                  this.activarMultiseleccion = false;
+              });    
+
+          }else{
+
+              this.modalPrd.showMessageDialog(archivo.resultado,archivo.mensaje);
+
           }
         });
      
@@ -371,11 +469,22 @@ export class IDSEComponent implements OnInit {
         
         break;
         case "filaseleccionada":
+          
           this.activarMultiseleccion = obj.datos;
           
         break;
-
-
+        case "txtImss":
+          
+          this.descargaArchivoTxtItem(obj.datos);
+          break;
+        case "acuseRespuesta":
+          
+          this.descargaAcuseRespuesta(obj.datos);
+          break;     
+        case "acuseMovimiento":
+          
+          this.descargaAcuseMovimiento(obj.datos);
+          break;
         
     }
 

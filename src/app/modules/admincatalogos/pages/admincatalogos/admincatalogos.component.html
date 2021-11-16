@@ -1,13 +1,18 @@
 <div>
 
     <div class="row margen titulosfijos">
-        <div class="col titulo-outlet">
-            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
-            </button></div>
-
-            <label>ADMINISTRACIÓN DE CATÁLOGOS</label>
-        </div>
+            </button>
+            </div>  
+            <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                > {{modulo}}</a>
+            </li>
+            <li style="padding-top: 10PX;">
+                {{subModulo}} 
+            </li>
+        </ul>
     </div>
 
 
@@ -44,14 +49,14 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <select name="" class="form-control" [(ngModel)]="id_catalogo">
-                      <option value = "0" selected>Seleccionar catálogo</option>
+                                        <select name="" id="id_catalogoAdminCat" class="form-control" [(ngModel)]="id_catalogo">
+                      <option  value = "0" selected>Seleccionar catálogo</option>
                       <option *ngFor="let item of arreglo" [value]="item.listaCatalogosId">{{item.nombreCatalogo}}
                       </option>
                     </select>
                                     </div>
                                     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                                        <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                        <button type="button" id="btoFiltarCatalogos" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                                     </div>
                                 </div>
                             </div>

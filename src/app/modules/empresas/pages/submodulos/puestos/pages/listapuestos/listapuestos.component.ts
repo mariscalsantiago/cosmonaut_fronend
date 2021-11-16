@@ -73,9 +73,9 @@ export class ListapuestosComponent implements OnInit {
       this.puestosProd.getAllArea(this.id_empresa).subscribe(datos => {
 
         let columnas: Array<tabla> = [
-          new tabla("nombreCorto", "Nombre"),
+          new tabla("nombreCorto", "Nombre del área"),
           new tabla("nombre", "Empresa"),
-          new tabla("count", "Número de empleados",false,false,true)
+          new tabla("count", "Número de empleados",true,true,true)
         ];
 
         this.arreglotabla.columnas = columnas;
@@ -229,9 +229,9 @@ export class ListapuestosComponent implements OnInit {
       case "editar":
         this.verdetalle(obj.datos);
         break;
-      case "ver":
-        this.traerModal(obj.datos);
-        break;
+      case "columna":
+          this.traerModal(obj.datos);
+        break;  
       case "eliminar":
         this.eliminar(obj.datos);
         break;

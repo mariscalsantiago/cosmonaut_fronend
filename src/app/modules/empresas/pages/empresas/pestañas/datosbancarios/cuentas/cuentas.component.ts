@@ -88,8 +88,10 @@ export class CuentasComponent implements OnInit {
       } else {
         this.cuentasPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
           
-          this.myForm.controls.idbanco.setValue(datos.datos.bancoId);
+          this.myForm.controls.idbanco.setValue( datos.datos.bancoId);
           this.myForm.controls.clabe.setValue(clabe);
+          this.myForm.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
+          this.myForm.controls.num_sucursal.setValue(datos.datos.sucursal);
 
         });
 

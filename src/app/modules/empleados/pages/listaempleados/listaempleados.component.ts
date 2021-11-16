@@ -40,6 +40,9 @@ export class ListaempleadosComponent implements OnInit {
     filas: []
   };
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     event.target.innerWidth;
@@ -55,11 +58,6 @@ export class ListaempleadosComponent implements OnInit {
   public esDescargar:boolean = false;
 
 
-
- 
-
-
-
   public tamanio: number = 0;
 
   constructor(private routerPrd: Router, private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
@@ -69,6 +67,8 @@ export class ListaempleadosComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     
     this.establecerPermisos();
 
@@ -102,6 +102,10 @@ export class ListaempleadosComponent implements OnInit {
     this.routerPrd.navigate(['/empleados/empleado']);
 
 
+  }
+
+  public inicio(){
+    this.routerPrd.navigate(['/inicio']);
   }
 
 

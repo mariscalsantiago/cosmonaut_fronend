@@ -1,12 +1,18 @@
 <div>
 
     <div class="row margen titulosfijos">
-        <div class="col titulo-outlet">
-            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
-            </button></div>
-            <label>PAGO COMPLEMENTARIO</label>
-        </div>
+            </button>
+            </div>  
+            <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                (click)="inicio()"> {{modulo}}</a>
+            </li>
+            <li style="padding-top: 10PX;">
+                {{subModulo}} 
+            </li>
+        </ul>
     </div>
 
     <div class="scrooll-design">
@@ -40,19 +46,19 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input appAlfanumerico type="text" maxlength="20" [(ngModel)]="numeroEmpleado" class="form-control" placeholder="Número de empleado">
+                                        <input appAlfanumerico type="text" maxlength="20" [(ngModel)]="numeroEmpleado" id="numeroEmpleadoPPPS" class="form-control" placeholder="Número de empleado">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="nombreEmpleado" formatos [especial]="true" [control]="nombreEmpleado" class="form-control" placeholder="Nombre">
+                                        <input type="text" [(ngModel)]="nombreEmpleado" formatos [especial]="true" id="nombreEmpleadoPPPS" class="form-control" placeholder="Nombre">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="primerApellidoEmpleado" formatos [especial]="true" [control]="primerApellidoEmpleado" class="form-control" placeholder="Primer apellido">
+                                        <input type="text" [(ngModel)]="primerApellidoEmpleado" formatos [especial]="true" id="primerApellidoEmpleadoPPPS" class="form-control" placeholder="Primer apellido">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
-                                        <input type="text" [(ngModel)]="segundoApellidoEmpleado" formatos [especial]="true" [control]="segundoApellidoEmpleado" class="form-control" placeholder="Segundo apellido">
+                                        <input type="text" [(ngModel)]="segundoApellidoEmpleado" formatos [especial]="true" id="segundoApellidoEmpleadoPPPS" class="form-control" placeholder="Segundo apellido">
                                     </div>
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <select name="" class="form-control" [(ngModel)]="grupoNomina">
+                                        <select name="" class="form-control" [(ngModel)]="grupoNomina" id="grupoNominaPPPS">
                       <option value="0" selected>Grupo de nómina</option>
                       <option *ngFor="let item of arregloGrupoNomina" [value]="item.idGrupoNomina">{{item.nombreGrupoNomina}}
                       </option>
@@ -60,7 +66,7 @@
                                     </div>
 
                                     <div class="input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                                        <button type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                        <button type="submit" class="btn btn-primary button-outlet" id="btnFiltrarPPP" (click)="filtrar()">Filtrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +85,7 @@
 
         </div>
 
-        <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
+        <div *ngIf="activarMultiseleccion && esDescargar " class="row text-right margin botonmultiseleccion">
 
             <div class="col-12">
                 <button (click)="guardarMultiseleccion()" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar archivo</span>
@@ -88,7 +94,7 @@
         </div>
 
         <div class="row margen margen-tabla background-panel ">
-            <app-tablapaginado [datos]="arreglotabla" [checkbox]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+            <app-tablapaginado [datos]="arreglotabla" [checkbox]="esDescargar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
 </div>

@@ -30,13 +30,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
 
   public id_catalogo: number = 0;
-  public idUsuario: any = "";
-  public nombre: string = "";
-  public apellidoPat: string = "";
-  public apellidoMat: string = "";
-  public fechaRegistro: any = null;
-  public correoempresarial: string = "";
-  public activo: number = 0;
+  public descripcion: string = "";
 
 
   /*
@@ -62,58 +56,37 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
   public esRegistrar:boolean = false;
   public esEditar:boolean = false;
+  public envio: any = [];
+
+  public modulo: string = "";
+  public subModulo: string = "";
 
   constructor(private routerPrd: Router, private adminCatalogosPrd: AdminCatalogosService,
     private companiPrd: SharedCompaniaService, private modalPrd: ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     this.establecerPermisos();
-
+    debugger;
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
+    
     this.objdetcat = history.state.data == undefined ? {} : history.state.data;
     this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => this.arregloListaCatalogos = datos.datos);
     this.listaTablasFinal =[];
     this.listaTablas = [];
     if(this.objdetcat.listaCatalogosId == 1){
-      
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaBanco(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaBanco(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
-
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
     }
 
     else if(this.objdetcat.listaCatalogosId == 13){
-      
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.cargando = true;
-        this.adminCatalogosPrd.getListaFacultad(true).subscribe(datos => {
-          this.listaTablas = datos.datos;
-          this.adminCatalogosPrd.getListaFacultad(false).subscribe(datosFa => {
-            if(datosFa.datos != undefined){
-              this.listaTablasFinal = datosFa.datos
-              } 
-            for(let item of this.listaTablas){
-              this.listaTablasFinal.push(item);
-            }  
-          this.crearTabla(this.listaTablasFinal);
-          });
-
-       });
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 21){
-      
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.cargando = true;
         this.adminCatalogosPrd.getListaDispersion().subscribe(datos => {
         this.listaTablasFinal  = datos.datos;
@@ -123,7 +96,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 22){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.cargando = true;
         this.adminCatalogosPrd.getListaTimbrado().subscribe(datos => {
           this.listaTablasFinal  = datos.datos;
@@ -132,75 +105,27 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 9){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaMotivoBaja(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaMotivoBaja(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 12){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaParentesco(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaParentesco(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 8){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-           this.adminCatalogosPrd.getListaRegimenContratacion(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaRegimenContratacion(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 6){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaRegimenFiscal(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaRegimenFiscal(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 17){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.cargando = true;
         this.adminCatalogosPrd.getListatablasPeriodicasISR().subscribe(datos => {
           this.listaTablasFinal  = datos.datos;
@@ -210,7 +135,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 18){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.cargando = true;
         this.adminCatalogosPrd.getListaTablasSubsidioISR().subscribe(datos => {
           this.listaTablasFinal  = datos.datos;
@@ -220,7 +145,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 19){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.cargando = true;
         this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => {
           this.listaTablasFinal  = datos.datos;
@@ -230,204 +155,63 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     }
     else if(this.objdetcat.listaCatalogosId == 7){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaTipoContrato(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoContrato(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 5){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaTipoDeduccion(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoDeduccion(false).subscribe(datos => {
-              if(datos.datos != undefined){
-                this.listaTablasFinal = datos.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 10){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaTipoIncapacidad(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoIncapacidad(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 4){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaTipoPercepcion(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoPercepcion(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 11){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaTipoEvento(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoEvento(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 15){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-      let fecha = new Date();
-      let anio = fecha.getFullYear();
-       this.adminCatalogosPrd.getListaReferencia(anio).subscribe(datos => {
-        if(datos.datos != undefined){
-          this.listaTablas = datos.datos
-          }  
-        this.adminCatalogosPrd.getListaReferenciaInactivos(anio).subscribe(datosFa => {
-          if(datosFa.datos != undefined){
-            this.listaTablasFinal = datosFa.datos
-            } 
-          for(let item of this.listaTablas){
-            this.listaTablasFinal.push(item);
-          }  
-        this.crearTabla(this.listaTablasFinal);
-        });
-       });
-
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
     }
 
     else if(this.objdetcat.listaCatalogosId == 14){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaFuncionCuenta(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaFuncionCuenta(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 20){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-        
-          this.adminCatalogosPrd.getListaMetodoPago(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaMetodoPago(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-              this.listaTablasFinal = datosFa.datos
-              } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              } 
-
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 3){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-        
-          this.adminCatalogosPrd.getListaMoneda(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaMoneda(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 2){
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-          this.adminCatalogosPrd.getListaNacionalidad(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaNacionalidad(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 16){
       
-      this.id_catalogo = this.objdetcat.listaCatalogosId;
-      this.cargando = true;
-        
-          this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos => {
-            this.listaTablas = datos.datos;
-            this.adminCatalogosPrd.getListaTipoValorReferencia(false).subscribe(datosFa => {
-              if(datosFa.datos != undefined){
-                this.listaTablasFinal = datosFa.datos
-                } 
-              for(let item of this.listaTablas){
-                this.listaTablasFinal.push(item);
-              }  
-            this.crearTabla(this.listaTablasFinal);
-            });
-           });
+      this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
+      this.filtrar();
 
     }
 
@@ -443,7 +227,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
 
   public crearTabla(obj:any) {
-    
+    debugger;
     this.arreglo = obj;
 
     let columnas: Array<tabla> = [
@@ -570,54 +354,183 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
 
   public filtrar() {
-    
-    this.cargando = true;
+    debugger;
+    this.envio = {
+      "descripcion": this.descripcion
+    }  
+   this.listaTablas=undefined; 
+   this.cargando = true;
+   if(this.objdetcat.listaCatalogosId == 1){
+         this.adminCatalogosPrd.ListaBanco(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+          this.listaTablas = datos.datos;
+          }
+          this.crearTabla(this.listaTablas);
+        });
 
-    let fechar = "";
+  }
 
-    if (this.fechaRegistro !== undefined || this.fechaRegistro !== null) {
+  else if(this.objdetcat.listaCatalogosId == 13){
+      this.adminCatalogosPrd.ListaFacultad(this.envio).subscribe(datos => {
+        if(datos.datos !== undefined){ 
+          this.listaTablas = datos.datos;
+          }
+          this.crearTabla(this.listaTablas);
+        });
 
+  }
+  else if(this.objdetcat.listaCatalogosId == 21){
+      this.adminCatalogosPrd.ListaDispersion(this.envio).subscribe(datos => {
+        if(datos.datos !== undefined){ 
+          this.listaTablas = datos.datos;
+          }
+          this.crearTabla(this.listaTablas);
+        });
 
-      if (this.fechaRegistro !== "") {
-        const fecha1 = new Date(this.fechaRegistro).toUTCString().replace("GMT", "");
-        fechar = `${new Date(fecha1).getTime()}`;
-      }
-    }
+  }
+  else if(this.objdetcat.listaCatalogosId == 22){
+      this.adminCatalogosPrd.ListaTimbrado(this.envio).subscribe(datos => {
+        if(datos.datos !== undefined){ 
+          this.listaTablas = datos.datos;
+          }
+          this.crearTabla(this.listaTablas);
+        });
 
-    let actboo: string = "";
+  }
+  else if(this.objdetcat.listaCatalogosId == 9){
+        this.adminCatalogosPrd.ListaMotivoBaja(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
 
-    if (this.activo == 1) {
-      actboo = "true";
-    } else if (this.activo == 2) {
-      actboo = "false";
-    }
+  }
+  else if(this.objdetcat.listaCatalogosId == 12){
+        this.adminCatalogosPrd.ListaParentesco(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
+  }
+  else if(this.objdetcat.listaCatalogosId == 8){
+         this.adminCatalogosPrd.ListaRegimenContratacion(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
 
+  }
+  else if(this.objdetcat.listaCatalogosId == 15){
+     this.adminCatalogosPrd.ListaReferencia(this.envio).subscribe(datos => {
+      if(datos.datos !== undefined){ 
+        this.listaTablas = datos.datos;
+        }
+        this.crearTabla(this.listaTablas);
+      });
 
-    let peticion = {
-      personaId: this.idUsuario,
-      nombre: this.nombre,
-      apellidoPaterno: this.apellidoPat,
-      apellidoMaterno: this.apellidoMat,
-      fechaAlta: fechar,
-      emailCorporativo: this.correoempresarial?.toLowerCase(),
-      esActivo: actboo,
-      centrocClienteId: {
-        centrocClienteId: ""
-      },
-      tipoPersonaId: {
-        tipoPersonaId: 3
-      }
-    }
+  }
+  else if(this.objdetcat.listaCatalogosId == 6){
+        this.adminCatalogosPrd.ListaRegimenFiscal(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
 
-    this.cargando = true;
+  }
 
-    /*this.usuariosPrd.filtrar(peticion).subscribe(datos => {
-      this.arreglo = datos.datos;
+  else if(this.objdetcat.listaCatalogosId == 7){
+        this.adminCatalogosPrd.ListaTipoContrato(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
 
-      this.procesarTabla({ datos: this.arreglo });
+  }
+  else if(this.objdetcat.listaCatalogosId == 5){
+        this.adminCatalogosPrd.ListaTipoDeduccion(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
 
-      this.cargando = false;
-    });*/
+  }
+  else if(this.objdetcat.listaCatalogosId == 10){
+        this.adminCatalogosPrd.ListaTipoIncapacidad(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
+  }
+  else if(this.objdetcat.listaCatalogosId == 4){
+        this.adminCatalogosPrd.ListaTipoPercepcion(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
+
+  }
+  else if(this.objdetcat.listaCatalogosId == 11){
+        this.adminCatalogosPrd.ListaTipoEvento(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
+
+  }
+  else if(this.objdetcat.listaCatalogosId == 14){
+        this.adminCatalogosPrd.ListaFuncionCuenta(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
+
+  }
+  else if(this.objdetcat.listaCatalogosId == 20){
+        this.adminCatalogosPrd.ListaMetodoPago(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
+
+  }
+  else if(this.objdetcat.listaCatalogosId == 3){
+        this.adminCatalogosPrd.ListaMoneda(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
+
+  }
+  else if(this.objdetcat.listaCatalogosId == 2){
+        this.adminCatalogosPrd.ListaNacionalidad(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
+
+  }
+  else if(this.objdetcat.listaCatalogosId == 16){
+        this.adminCatalogosPrd.ListaTipoValorReferencia(this.envio).subscribe(datos => {
+          if(datos.datos !== undefined){ 
+            this.listaTablas = datos.datos;
+            }
+            this.crearTabla(this.listaTablas);
+          });
+
+  }
 
   }
 

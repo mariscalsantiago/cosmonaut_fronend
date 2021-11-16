@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription, timer } from 'rxjs';
+import { concatMap, map } from 'rxjs/operators';
 import { direcciones } from 'src/assets/direcciones';
 import { environment } from 'src/environments/environment';
+import { ServerSentEventService } from './server-sent-event.service';
 
 
 
@@ -11,7 +13,11 @@ import { environment } from 'src/environments/environment';
 })
 export class NominaordinariaService {
 
-  constructor(private http: HttpClient) {
+  private arreglonominasEnproceso: Array<number> = [];
+  private subject = new Subject<boolean>();
+  private adentro: boolean = false;
+
+  constructor(private http: HttpClient, private SSE: ServerSentEventService) {
   }
 
   public crearNomina(obj: any): Observable<any> {
@@ -130,19 +136,19 @@ export class NominaordinariaService {
 
   //----------------Dispersar------------------------
 
-  public dispersar(obj: any,idEmpresa:number): Observable<any> {
+  public dispersar(obj: any, idEmpresa: number): Observable<any> {
     let json = JSON.stringify(obj);
     return this.http.put(`${direcciones.dispersion}/${idEmpresa}`, json);
   }
 
   public statusProcesoDispersar(nominaPeriodoId: number, empleados: any): Observable<any> {
     let json = JSON.stringify(empleados);
-    return this.http.post(`${direcciones.dispersion}/procesando/${nominaPeriodoId}`,json);
+    return this.http.post(`${direcciones.dispersion}/procesando/${nominaPeriodoId}`, json);
   }
 
-  public resumenDispersar(idPeriodo: number,arrayEmpleados:any): Observable<any> {
+  public resumenDispersar(idPeriodo: number, arrayEmpleados: any): Observable<any> {
     let json = JSON.stringify(arrayEmpleados);
-    return this.http.post(`${direcciones.dispersion}/resume/${idPeriodo}`,json);
+    return this.http.post(`${direcciones.dispersion}/resume/${idPeriodo}`, json);
   }
 
 
@@ -159,9 +165,9 @@ export class NominaordinariaService {
     return this.http.post(`${direcciones.timbrado}/procesando/${nominaPeriodoId}`, json);
   }
 
-  public resumenTimbrado(idPeriodo: number,arrayEmpleados:any): Observable<any> {
+  public resumenTimbrado(idPeriodo: number, arrayEmpleados: any): Observable<any> {
     let json = JSON.stringify(arrayEmpleados);
-    return this.http.post(`${direcciones.timbrado}/resume/${idPeriodo}`,json);
+    return this.http.post(`${direcciones.timbrado}/resume/${idPeriodo}`, json);
   }
 
 
@@ -171,14 +177,18 @@ export class NominaordinariaService {
     return this.http.post(`${direcciones.nominaOrdinaria}/detalle/montos/imms/patronal`, json);
   }
 
+  public verIsn(nominaPeriodoId: number, personaId: number): Observable<any> {
+    return this.http.get(`${environment.rutaNomina}/percepciones/listar/empleado/${nominaPeriodoId}/${personaId}`);
+  }
+
   public concluir(nominaPeriodoId: number, companiaid: number): Observable<any> {
-    
+
     return this.http.get(`${environment.rutaNomina}/concluir/${nominaPeriodoId}/${companiaid}`);
   }
 
 
-  public concluirNomina(nominaPeriodoId:number):Observable<any>{
-      return this.http.post(`${environment.rutaNomina}/concluir/${nominaPeriodoId}`,{});
+  public concluirNomina(nominaPeriodoId: number): Observable<any> {
+    return this.http.post(`${environment.rutaNomina}/concluir/${nominaPeriodoId}`, {});
   }
 
 
@@ -188,8 +198,44 @@ export class NominaordinariaService {
   }
 
 
-  public getUsuariosContempladosOtrasNominas(idNomina:number):Observable<any>{
-      return this.http.get(`${direcciones.nominaOrdinaria}/lista/empleados/calulados/${idNomina}`);
+  public getUsuariosContempladosOtrasNominas(idNomina: number): Observable<any> {
+    return this.http.get(`${direcciones.nominaOrdinaria}/lista/empleados/calulados/${idNomina}`);
+  }
+
+
+  public verEstatusNominasByEmpresa(idEmpresa: number, idNominaPeriodId: number) {
+    this.arreglonominasEnproceso.push(idNominaPeriodId);
+
+    if (this.adentro)
+      return;
+
+    const suscribe: Subscription = timer(0, 3000).pipe(concatMap(() => this.http.get(`${environment.rutaNomina}/nomina/consulta/estatus/${idEmpresa}`))).pipe(map((x: any) => x.datos)).subscribe(datos => {
+      this.adentro = true;
+      if (datos) {
+        if (datos.some((nomina: any) => this.arreglonominasEnproceso.includes(nomina.nominaXperiodoId))) {
+          this.subject.next(true);
+          let nominasProcesadas: any = datos.filter((nomina: any) => this.arreglonominasEnproceso.includes(nomina.nominaXperiodoId));
+          for (let nominaProcesada of nominasProcesadas) {
+            this.SSE.guardarNotificacion(nominaProcesada.mensaje, nominaProcesada.exito, nominaProcesada.nominaXperiodoId);
+          }
+          let indiceFiltro = this.arreglonominasEnproceso.findIndex((indice: any) => datos.some((o: any) => o.nominaXperiodoId == indice));
+          let nominaPeriodoId = this.arreglonominasEnproceso.splice(indiceFiltro, 1)[0];
+          this.http.post(`${environment.rutaNomina}/nomina/actualiza/visto/${nominaPeriodoId}`, {}).subscribe(datosespecial => {
+            if (this.arreglonominasEnproceso.length == 0) {
+              suscribe.unsubscribe();
+              this.adentro = false;
+            }
+          });
+
+        }
+      }
+    });
+
+  }
+
+
+  public verificarListaActualizada(): Observable<boolean> {
+    return this.subject;
   }
 
   public creandoObservable(obj: any): Subject<any> {

@@ -25,6 +25,29 @@
   
 }
 
+.nopadding {
+  padding: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  
+  div.cn-anuncios-kiosko > :not(:first-child) {
+    padding-top: 0.5rem;
+  }
+  div.cn-anuncios-kiosko > :not(:last-child) {
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+
+  div.cn-anuncios-kiosko > :not(:first-child) {
+    padding-left: 0.5rem;
+  }
+  div.cn-anuncios-kiosko > :not(:last-child) {
+    padding-right: 0.5rem;
+  }
+}
 
 .sinborde{
   border:0 !important;
@@ -52,4 +75,9 @@
 
 input,select{
   font-size: small;
+}
+nav > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

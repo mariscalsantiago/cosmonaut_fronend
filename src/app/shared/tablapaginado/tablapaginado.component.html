@@ -1,4 +1,4 @@
-<div *ngIf="!cargando && arreglo !== undefined " class="row-between  margen mt-3" style="margin-bottom: -25px;">
+<div *ngIf="(!cargando && arreglo !== undefined  && !paginado_server) || (paginado_server && arreglo !== undefined && !cargando)" class="row-between  margen mt-3" style="margin-bottom: -25px;">
     <div class="input-group  mb-3 mostrarelementos ">
         <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
@@ -10,17 +10,14 @@
             <option value="100">100</option>
         </select>
     </div>
-    <div class="mb-3 col-md-2 right">
-        <label>Total:&nbsp; </label>
+    <div  class="mb-3 col-md-2 right">
+        <label>Total: </label>
         <input type="text" class="form-control-sm " [value]="total" disabled>
     </div>
-
 </div>
-
-
 <div style="margin: 10px;overflow: auto;">
 
-    <table aria-hidden="true" *ngIf="!cargando && arreglo !== undefined" class="table table-hover  anchura ">
+    <table id="ttt1" aria-hidden="true" *ngIf="(!cargando && arreglo !== undefined) || paginado_server && !paginadoServer_primeravez" class="table table-hover  anchura ">
         <thead>
             <tr>
                 <th id="" *ngIf="checkbox">
@@ -48,12 +45,19 @@
                 <th id="" *ngIf="ver || editar || eliminar || desglosar || descargar || recalcular">Acciones</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody [class.posicionRelativa]="paginado_server">
+           <div *ngIf="paginado_server && cargando"  [style.top]="top+'px'" id="ttt1cargando" class="cargandoPaginadoServer">
+               Procesando...
+               <div  class="spinner-border" role="status">
+                <span class="sr-only"></span>
+            </div>
+           </div>
             <ng-container *ngFor="let item of arreglo ; let indice = index;">
 
                 <tr class="fade-in-second">
                     <td *ngIf="checkbox && !esnomina && !timbrado">
-                        <label class="contenedorInputCheckRadio">
+                        <label 
+                            *ngIf="(item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Aceptado')" class="contenedorInputCheckRadio" >
                             <input [(ngModel)]="item.seleccionado" (click)="activar(item)" type="checkbox" name=""
                                 id="ajusteirs">
                             <span class="checkmark"></span>
@@ -114,7 +118,7 @@
                                 class="icon_24ver primary-bg"></i></button>
                         <button *ngIf="editar && (item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado' && item.tipoPercepcionId?.noEditable !== true && item.tipoDeduccionId?.noEditable !== true )" (click)="btnEditar(item,indice)"><i aria-hidden="true"
                                 class="icon_24editar primary-bg" placement="top" [mdbTooltip]="tooltipText | tooltip"></i></button>
-                        <button *ngIf="eliminar && (item.es_imss !== true && item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i aria-hidden="true"
+                        <button *ngIf="eliminar && (item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Aceptado' && item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado')" (click)="btnEliminar(item,indice)"><i aria-hidden="true"
                                 class="icon_24eliminar danger-bg"></i></button>
                         <button *ngIf="llave " (click)="btnLlave(item,indice)">
                             <i aria-hidden="true" class="icon_24llave primary-bg" placement="top"
@@ -161,19 +165,19 @@
                             </article>
                         </div>
                         <div class="row mb-4">
-                            <article class="titulo  col-4 mb-3" *ngIf="imss">
-                                <a (click)="iniciarDescarga(item)" class="botonestilo  estiloextralink"><i
-                                        aria-hidden="true" class="fas fa-download"></i> Acuse de envío de movimiento
+                            <article class="col-4 mb-3" *ngIf="imss && (item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Pendiente')">
+                                <a (click)="verAcuseMovimiento(item,indice)" class="botonestilo  estiloextralink"><em
+                                        class="fas fa-download" style="font-size: 15px;"></em>Descarga acuse de envío de movimiento
                                 </a>
                             </article>
-                            <article class="titulo  col-4 mb-3" *ngIf="imss">
-                                <a class="botonestilo  estiloextralink"><i aria-hidden="true"
-                                        class="fas fa-download"></i> Acuse de respuesta de movimiento
+                            <article class="col-4 mb-3" *ngIf="imss && (item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Pendiente' && item.estatus !== 'Rechazado')">
+                                <a (click)="verAcuseRespuesta(item,indice)" class="botonestilo  estiloextralink"><em aria-hidden="true"
+                                        class="fas fa-download" style="font-size: 15px;"></em>Descarga acuse de respuesta de movimiento
                                 </a>
                             </article>
-                            <article class="titulo  col-4 mb-3" *ngIf="imss">
-                                <a class="botonestilo  estiloextralink"><i aria-hidden="true"
-                                        class="fas fa-download"></i> Txt
+                            <article class="col-4 mb-3" *ngIf="imss">
+                                <a (click)="verTxtImss(item,indice)" class="botonestilo  estiloextralink"><em aria-hidden="true"
+                                        class="fas fa-download" style="font-size: 15px;"></em>Descarga txt
                                 </a>
                             </article>
                         </div>
@@ -282,22 +286,25 @@
 
 
                 <ng-container *ngIf="!item.desglosarDown && !item.cargandoDetalle && nominacalculo">
-                    <tr style="background-color: white; position: relative;" class="slide-in-bck-center">
+                    <tr style="background-color: white; position: relative;height: max-content;" class="slide-in-bck-center">
                         <td colspan="3">
 
                             <article *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
                                 {{item.valor}} <i (click)="verRegistroPatronal(item)" aria-hidden="true"
                                     class="far fa-eye" style="    color: #3ca29a;
                                 cursor: pointer;" *ngIf="item.valor == 'imss Patronal'"></i>
+                                <i (click)="verIsn(item)" aria-hidden="true"
+                                class="far fa-eye" style="    color: #3ca29a;
+                            cursor: pointer;" *ngIf="item.valor == 'provision Isn'"></i>
                                 <article>{{item.dato | currency}}
 
                                 </article>
-                                <div *ngIf="item.valor == 'imss Patronal' && verpatronal" class="estiloemergente">
-                                    <div class="cabecera">Imss patronal
+                                <div *ngIf="((item.valor == 'imss Patronal' && verpatronal) || (verIsnBool && item.valor == 'provision Isn'))" style="position: inherit;" class="estiloemergente">
+                                    <div class="cabecera">{{verpatronal?'Imss patronal':'Provisión ISN'}}
 
-                                        <button (click)="verpatronal = false" type="button" class="close btnclosemodal"
-                                            aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                        <button (click)="verpatronal = false;verIsnBool = false;" type="button" class="close btnclosemodal"
+                                        data-dismiss="modal" aria-label="Close">>
+                                            <span style="color: #3ca29a; font-size: 32px;" aria-hidden="true">&times;</span>
                                         </button>
 
                                     </div>
@@ -306,15 +313,23 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Monto</th>
+                                                    <th *ngIf="item.valor == 'imss Patronal'" scope="col">Nombre</th>
+                                                    <th *ngIf="item.valor == 'imss Patronal'" scope="col">Monto</th>
+                                                    <th *ngIf="item.valor == 'provision Isn'" scope="col">Concepto</th>
+                                                    <th *ngIf="item.valor == 'provision Isn'" scope="col">Importe exento</th>
+                                                    <th *ngIf="item.valor == 'provision Isn'" scope="col">Importe gravable</th>
+                                                    <th *ngIf="item.valor == 'provision Isn'" scope="col">Monto total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let mm of patronal?.datos;let indice = index;">
                                                     <th scope="row">{{indice+1}}</th>
-                                                    <td>{{mm.conceptoPatronal}}</td>
-                                                    <td>{{mm.monto | currency}}</td>
+                                                    <td *ngIf="item.valor == 'imss Patronal'">{{mm.conceptoPatronal}}</td>
+                                                    <td *ngIf="item.valor == 'imss Patronal'">{{mm.monto | currency}}</td>
+                                                    <td *ngIf="item.valor == 'provision Isn'">{{mm.concepto}}</td>
+                                                    <td *ngIf="item.valor == 'provision Isn'">{{mm.importeExento | currency}}</td>
+                                                    <td *ngIf="item.valor == 'provision Isn'">{{mm.importeGravable | currency}}</td>
+                                                    <td *ngIf="item.valor == 'provision Isn'">{{mm.montoTotal | currency}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -352,28 +367,26 @@
                         </td>
                     </tr>
                 </ng-container>
-
-
             </ng-container>
         </tbody>
     </table>
 </div>
-<div *ngIf="!cargando && arreglo === undefined" class="alert  col text-center">
+<div *ngIf="!cargando && arreglo == undefined" class="alert  col text-center">
     <strong>En este momento no existen registros</strong>
 </div>
-<div *ngIf="!cargando && arreglo !== undefined" class="row" style="width: 100%;">
+<div *ngIf="(!cargando && arreglo !== undefined) || (paginado_server && !paginadoServer_primeravez)" class="row" style="width: 100%;">
     <div class="col">
         <nav aria-label="cosmonaut" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li (click)="pasarSiguienteItem(false)" class="page-item" [ngClass]="{'disabled':!activarAntes}">
                     <a class="page-link" tabindex="-1" aria-disabled="true">Anterior</a>
                 </li>
-                <li (click)="mostrarListaPaginaAnterior()" class="page-item " *ngIf="activarMenos"><a
+                <li (click)="mostrarListaPaginaAnterior(true)" class="page-item " *ngIf="activarMenos"><a
                         class="page-link">...</a>
                 </li>
                 <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas"
-                    (click)="paginacambiar(item)"><a class="page-link">{{item.mostrar}}</a></li>
-                <li (click)="mostrarListaPaginaSiguiente()" class="page-item " *ngIf="activarMas"><a
+                    (click)="paginacambiar(item,true)"><a class="page-link">{{item.mostrar}}</a></li>
+                <li (click)="mostrarListaPaginaSiguiente(true)" class="page-item " *ngIf="activarMas"><a
                         class="page-link">...</a>
                 </li>
                 <li (click)="pasarSiguienteItem(true)" class="page-item" [ngClass]="{'disabled':!activarSiguiente}">
@@ -383,6 +396,6 @@
         </nav>
     </div>
 </div>
-<div *ngIf="cargando" class="col text-center mb-5">
+<div *ngIf="cargando && !paginado_server || paginadoServer_primeravez && cargando"  class="col text-center mb-5">
     <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
 </div>

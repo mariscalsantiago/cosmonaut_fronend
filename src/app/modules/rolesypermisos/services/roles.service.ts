@@ -18,7 +18,14 @@ export class RolesService {
     return this.http.get<modulos>(`${direcciones.roles}`);
   }
 
-  public getListaModulos(activo: boolean, idVersion: number): Observable<modulos[]> {
+  public getListaModulos(activo: boolean, idVersion: number,temp:boolean = false): Observable<modulos[]> {
+
+    if(temp){
+      return this.http.get<any>(`${direcciones.modulos}/version/4/listar/todosActivo/${activo}`).pipe(map(valor => {
+        return valor.datos;
+      }));;
+    }
+
 
     if (this.configuracionesPrd.isSession(this.configuracionesPrd.MODULOS)) {
       return this.configuracionesPrd.getElementosSesion(this.configuracionesPrd.MODULOS);

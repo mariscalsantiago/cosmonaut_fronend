@@ -177,6 +177,16 @@ public getListaDeduccionesPolitica(id_politica:number,id_empresa:number):Observa
     return this.http.post(`${this.url}/modificar`,json,httpOptions);
   }
 
+  public  filtroCuentas(obj:any):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    let json: string = JSON.stringify(obj);
+    return this.http.post(`${this.url}/listar/cuenta/cliente/dinamica`,json,httpOptions);
+  }
+
 
   public eliminar(obj:any):Observable<any>{
     const httpOptions = {

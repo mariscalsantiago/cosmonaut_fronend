@@ -80,12 +80,14 @@ export class TagComponent implements OnInit,OnChanges {
           }, 20);
       }  
 
-      if (evento.which!==13) {
-         this.noChange = true;
-         setTimeout(() => {
-           this.noChange = false;
-         }, 50);
-      }
+  if(this.calendario){
+    if (evento.which!==13) {
+      this.noChange = true;
+      setTimeout(() => {
+        this.noChange = false;
+      }, 50);
+   }  
+  }
   }
 
   public eventoSeleccionando(){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
@@ -39,10 +40,13 @@ export class NominaComponent implements OnInit {
   public tabTimbrado: boolean = false;
   public tabConcluida: boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
 
   public listadoEmpleadosExistentes = undefined;
 
-  constructor(public configuracionPrd: ConfiguracionesService,
+  constructor(public configuracionPrd: ConfiguracionesService, private router: Router, 
     private modalPrd: ModalService, private usuariSistemaPrd: UsuarioSistemaService,
     private nominaOrdinariaPrd: NominaordinariaService) { }
 
@@ -50,6 +54,8 @@ export class NominaComponent implements OnInit {
 
     this.establecerPermisos();
 
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.nominaSeleccionada = history.state.datos == undefined ? {} : history.state.datos;;
 
@@ -119,6 +125,7 @@ export class NominaComponent implements OnInit {
       this.activado[2].tab = true;
       this.activado[3].tab = true;
     }
+    
 
 
 
@@ -144,6 +151,23 @@ export class NominaComponent implements OnInit {
     
 
 
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
+  }
+
+  public regresarOrdinaria() {
+    this.router.navigate(["/nominas/activas"]);
+  }
+  public regresarExtraordinaria() {
+    this.router.navigate(["/nominas/nomina_extraordinaria"]);
+  }
+  public regresarLiquidacion() {
+    this.router.navigate(["/nominas/finiquito_liquidacion"]);
+  }
+  public regresarPtu() {
+    this.router.navigate(["/nominas/ptu"]);
   }
 
   public backTab(numero: number) {

@@ -34,16 +34,20 @@ export class EmpleadoComponent implements OnInit {
     private empledoContratoPrd: ContratocolaboradorService, private ventana: VentanaemergenteService,
     private modalPrd: ModalService, public configuracionPrd: ConfiguracionesService,
     private router: Router,
-    private usuariosSistemaPrd: UsuarioSistemaService,private cambioFotoPerfil:ObservadorEmpleadosService) { }
+    private usuariosSistemaPrd: UsuarioSistemaService,private cambioFotoPerfil:ObservadorEmpleadosService,
+    private contratoColaboradorPrd:ContratocolaboradorService) { }
 
   ngOnInit(): void {
     this.routerCan.params.subscribe(params => {
       this.esKiosko = this.router.url.includes("/kiosko/perfil");
 
 
+
+      
       
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
       if (!this.esKiosko) {
+        this.empleado = {esActivo:true};
         this.idEmpleado = params["id"];
        
         this.traerInfoBasica();
@@ -88,15 +92,11 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
   public seguirProceso() {
     
     this.empledoContratoPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-
       this.empleado = datos.datos;
-
-
     });
 
     this.empleadosPrd.getPorcentajeavance(this.idEmpleado).subscribe(datos => {
       this.porcentaje = datos;
-
     });
   }
 
@@ -172,10 +172,20 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
   public activarEmpleado() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas reactivar el empleado?").then(valor => {
       if (valor) {
-        let isInsertar: boolean = false;
-        let fechaContrato = { ...this.empleado };
-        delete fechaContrato.fechaContrato;
-        this.router.navigate(['empleados/empleado'], { state: { datos: this.empleado.personaId, insertar: isInsertar, reactivarCuenta: true, contrato: fechaContrato } });
+
+
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+          this.contratoColaboradorPrd.verEstatusReactivarEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.empleado.personaId.personaId).subscribe(vv =>{
+            if(vv.resultado){
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              let isInsertar: boolean = false;
+              let fechaContrato = { ...this.empleado };
+              //delete fechaContrato.fechaContrato;
+              this.router.navigate(['empleados/empleado'], { state: { datos: this.empleado.personaId, insertar: isInsertar,reactivarEmpleado:true, reactivarCuenta: true, contrato: fechaContrato } });
+            }else{
+              this.modalPrd.showMessageDialog(vv.resultado,vv.mensaje);
+            }
+          });
       }
     });
   }

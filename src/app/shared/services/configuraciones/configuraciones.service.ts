@@ -44,6 +44,7 @@ export class ConfiguracionesService {
   public menu: boolean = false;
   public MENUPRINCIPAL:any = undefined;
   public VISTOS_RECIENTE:any = [];
+  public breadcrum: any = [];
   public modulosCargados!:Array<Number>;
 
   public static referencia:ConfiguracionesService;
@@ -55,10 +56,8 @@ export class ConfiguracionesService {
 
   public static regexCurp = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/;
   //public static regexRFC = '^([A-ZÑ\x26]{2,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$';
-  public static regexRFC = /^([A-Z,Ñ,&]{2,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{2,3})$/;
-
-
-
+  public static regexRFC = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
+  public static regexRFCFisica = /^([A-ZÑ&]{4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
   constructor() { 
     
     ConfiguracionesService.referencia = this;
@@ -153,7 +152,7 @@ export class ConfiguracionesService {
             //
           }
 
-          if ((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9 || valor2.submoduloId == 33) || version === 1) {
+          if ((!esCliente && valor2.submoduloId !== 6) || (esCliente && (valor2.submoduloId === 6 || valor2.submoduloId === 7) || valor2.submoduloId === 8 || valor2.submoduloId === 9 || valor2.submoduloId == 33 ||  valor2.submoduloId == 37) || version === 1) {
             valor2.permisos?.forEach((valor3: any[any]) => {
 
               valor3.checked = this.encontrarConcidencias(filtrar, valor3);

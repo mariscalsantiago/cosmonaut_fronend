@@ -7,7 +7,7 @@ import { TablapaginadoComponent } from './tablapaginado/tablapaginado.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubirarchivoComponent } from './subirarchivo/subirarchivo.component';
 import { ManipularfilesDirective } from './directivas/manipularfiles.directive';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MayusculasDirective } from './directivas/mayusculas.directive';
 import { SolonumerosDirective } from './directivas/solonumeros.directive';
 import { TamanioVentanaDirective } from './directivas/tamanio-ventana.directive';
@@ -44,18 +44,20 @@ import { CentrarPipe } from './pipes/centrar.pipe';
 import { ShowPipe } from './pipes/show.pipe';
 import { TooltipModule } from 'ng-uikit-pro-standard';
 import { ListaEmpleadosComponent } from './ventanasemergentes/tiposventanas/lista-empleados/lista-empleados.component';
+import { BannerCarouselComponent } from './banner-carousel/banner-carousel.component';
+import { AnuncioListadoComponent } from './anuncio-listado/anuncio-listado.component';
+import { CursoListadoComponent } from './curso-listado/curso-listado.component';
 
 @NgModule({
   declarations: [
 
     AlertasComponent,
-
     LoadingComponent,
-
+    BannerCarouselComponent,
+    AnuncioListadoComponent,
+    CursoListadoComponent,
     AlertQuestionsComponent,
-
     TablapaginadoComponent,
-
     SubirarchivoComponent,
     ManipularfilesDirective,
     MayusculasDirective,
@@ -92,14 +94,40 @@ import { ListaEmpleadosComponent } from './ventanasemergentes/tiposventanas/list
     CentrarPipe,
     ShowPipe,
     ListaEmpleadosComponent
-
   ],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule,CoreModule, TooltipModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    CoreModule,
+    TooltipModule,
   ],
-  exports: [AlertasComponent, LoadingComponent, AlertQuestionsComponent, TablapaginadoComponent, SubirarchivoComponent, MayusculasDirective, SolonumerosDirective, TamanioVentanaDirective,
-    CalendarioComponent, VentanaemergenteprincipalComponent, ChatbootComponent,HighlightPipe,ShowPipe,CentrarPipe, AlfanumericoDirective,TagComponent,FormatosDirective, TooltipPipe, BooleanPipe, HoraPipe],
-  providers:[CurrencyPipe],
+  exports: [
+    AlertasComponent,
+    LoadingComponent,
+    AlertQuestionsComponent,
+    BannerCarouselComponent,
+    AnuncioListadoComponent,
+    CursoListadoComponent,
+    TablapaginadoComponent,
+    SubirarchivoComponent,
+    MayusculasDirective,
+    SolonumerosDirective,
+    TamanioVentanaDirective,
+    CalendarioComponent,
+    VentanaemergenteprincipalComponent,
+    ChatbootComponent,
+    HighlightPipe,
+    ShowPipe,
+    CentrarPipe,
+    AlfanumericoDirective,
+    TagComponent,
+    FormatosDirective,
+    TooltipPipe,
+    BooleanPipe,
+    HoraPipe],
+  providers: [CurrencyPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ShareModule { }

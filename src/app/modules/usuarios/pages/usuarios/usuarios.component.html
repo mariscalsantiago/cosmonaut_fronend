@@ -1,13 +1,18 @@
 <div>
 
     <div class="row margen titulosfijos">
-        <div class="col titulo-outlet">
-            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button
-                    disabled>
-                    <img src="assets/imgs/menu.png" alt="" srcset="">
-                </button></div>
-            <label>LISTA DE USUARIOS</label>
-        </div>
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
+                <img src="assets/imgs/menu.png" alt="" srcset="">
+            </button>
+            </div>  
+            <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                > {{modulo}}</a>
+            </li>
+            <li style="padding-top: 10PX;">
+                {{subModulo}} 
+            </li>
+        </ul>
     </div>
 
 
@@ -48,50 +53,49 @@
                             <div class="card-body">
                                 <div class="form group row margen">
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" appSolonumeros [(ngModel)]="idUsuario" class="form-control"
+                                        <input type="text" appSolonumeros [(ngModel)]="idUsuario" id="idUsuarioS" class="form-control"
                                             placeholder="Id usuario">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="nombre" formatos [especial]="true"
+                                        <input type="text" [(ngModel)]="nombre" id="nombreUsuario" formatos [especial]="true"
                                             [control]="nombre" class="form-control" placeholder="Nombre">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="text" [(ngModel)]="apellidoPat" formatos [especial]="true"
+                                        <input type="text" [(ngModel)]="apellidoPat" id="apellidoPatUsuario" formatos [especial]="true"
                                             [control]="apellidoPat" class="form-control" placeholder="Primer apellido">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
-                                        <input type="text" [(ngModel)]="apellidoMat" formatos [especial]="true"
+                                        <input type="text" [(ngModel)]="apellidoMat" id="apellidoMatUsaurio" formatos [especial]="true"
                                             [control]="apellidoMat" class="form-control" placeholder="Segundo apellido">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="Date" [(ngModel)]="fechaRegistro" class="form-control"
+                                        <input type="Date" [(ngModel)]="fechaRegistro" id="fechaRegistroUsaurio" class="form-control"
                                             placeholder="Fecha de registro">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <select name="" class="form-control" [(ngModel)]="id_company">
-                                            <option value="" selected>Seleccionar
-                                                {{esClienteEmpresa?'cliente':'empresa'}}</option>
+                                        <select name="" class="form-control" [(ngModel)]="id_company" id="id_companyUsuario">
+                                            <option  value="" selected>Razón social</option>
                                             <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
-                                                {{item.nombre}}
+                                                {{item.razonSocial}}
                                             </option>
                                         </select>
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
-                                        <input type="email" [(ngModel)]="correoempresarial" class="form-control "
+                                        <input type="email" [(ngModel)]="correoempresarial" id="correoempresarialUsuario" class="form-control"
                                             placeholder="Correo empresarial">
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
-                                        <select class="form-control" [(ngModel)]="activo">
+                                        <select class="form-control" id="activoUsuario" [(ngModel)]="activo">
 
-                                            <option value="0" selected>Ambos</option>
-                                            <option value="1">Activo</option>
-                                            <option value="2">Inactivo</option>
+                                            <option  value="0" selected>Estatus</option>
+                                            <option  value="1">Activo</option>
+                                            <option  value="2">Inactivo</option>
 
                                         </select>
                                     </div>
                                     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                                        <button type="button" class="btn btn-primary button-outlet "
-                                            (click)="filtrar()">Filtrar</button>
+                                        <button type="button" class="btn btn-primary button-outlet " id="btnFiltrarUsuarios"
+                                            (click)="filtrar(true,true)">Filtrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -108,18 +112,13 @@
                 <label>RESULTADOS</label>
             </div>
             <div class="col text-right">
-                <button *ngIf="esRegistrar && !cargandoBotones" type="button" class="btn btn-light button-outlet"
+                <button *ngIf="esRegistrar" type="button" style="width: 9em;" class="btn btn-light button-outlet"
                     (click)="verdetalle(undefined)">
-                    <i aria-hidden="true" class="icon_24agregar primary-bg"></i>Agregar
+                    <i aria-hidden="true" class="icon_24agregar primary-bg" *ngIf="!cargandoBotones"></i><span *ngIf="!cargandoBotones">Agregar</span>
                     <div *ngIf="cargandoBotones" class="spinner-border" role="status">
                         <span class="sr-only"></span>
                     </div>
                 </button>
-                <button style="width: 100px;" *ngIf="esRegistrar && cargandoBotones" type="button" class="btn btn-light button-outlet">
-                <div  class="spinner-border" role="status">
-                    <span class="sr-only"></span>
-                </div>
-            </button>
             </div>
         </div>
 
@@ -135,7 +134,7 @@
 
         <div class="row margen margen-tabla background-panel ">
             <app-tablapaginado [datos]="arreglotabla" [llave]="esEditar" [editar]="esEditar" [checkbox]="esEditar"
-                [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                [cargando]="cargando" [paginado_server]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
 </div>

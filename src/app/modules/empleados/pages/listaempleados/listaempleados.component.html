@@ -1,9 +1,16 @@
 <div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
-    <div class="col titulo-outlet">
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button></div> <label>LISTA DE EMPLEADOS</label>
-    </div>
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;">
+            {{subModulo}} 
+        </li>
+    </ul>
 </div>
 
 <div class="scrooll-design" style="margin-top: -22px;">
@@ -20,35 +27,35 @@
                             <input type="text" appAlfanumerico class="form-control" [(ngModel)]="personaId" placeholder="Número de empleado">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="nombre" formatos [especial]="true" [control]="nombre" placeholder="Nombre">
+                            <input type="text" class="form-control" [(ngModel)]="nombre" id="nombreES" formatos [especial]="true" placeholder="Nombre">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="apellidoPaterno" formatos [especial]="true" [control]="apellidoPaterno" placeholder="Primer apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoPaterno" id="apellidoPaternoES" formatos [especial]="true" placeholder="Primer apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <input type="text" class="form-control" [(ngModel)]="apellidoMaterno" formatos [especial]="true" [control]="apellidoMaterno" placeholder="Segundo apellido">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoMaterno" id="apellidoMaternoES" formatos [especial]="true" placeholder="Segundo apellido">
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" [(ngModel)]="idarea">
+                            <select class="form-control" [(ngModel)]="idarea" id="idareaS">
                                 <option value="">Seleccionar área</option>
                                 <option *ngFor="let item of arregloAreas " [value]="item.areaId">{{item.descripcion}}</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" [(ngModel)]="idPuesto">
+                            <select class="form-control" [(ngModel)]="idPuesto" id="idPuestoS">
                                 <option value="">Seleccionar puesto</option>
                                 <option *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 col-3 ">
-                            <select class="form-control" [(ngModel)]="estatus">
-                                <option value="">Estatus</option>
-                                <option value="true">Activo</option>
-                                <option value="false">Inactivo</option>
+                            <select class="form-control" [(ngModel)]="estatus" id="statusES">
+                                <option id="statusE0S" value="">Estatus</option>
+                                <option id="statusE1S" value="true">Activo</option>
+                                <option id="statusE2S" value="false">Inactivo</option>
                             </select>
                         </div>
                         <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                            <button type="button" id="btnFiltrarEmpleados" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
                         </div>
 
 

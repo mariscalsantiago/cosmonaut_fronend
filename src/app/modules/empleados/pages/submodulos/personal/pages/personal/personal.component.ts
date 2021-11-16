@@ -236,7 +236,7 @@ export class PersonalComponent implements OnInit {
       apellidoMaterno: obj.apellidoMaterno,
       genero: [{ value: genero, disabled: true }],
       fechaNacimiento: [obj.fechaNacimiento,Validators.required],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
+      rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFCFisica)]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
       nss: [obj.nss,[Validators.required,validacionesForms.nssValido]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
@@ -279,6 +279,16 @@ export class PersonalComponent implements OnInit {
       return;
     }
 
+    let moralFiscia = this.myForm.controls.rfc.value.substr(10,12).length;
+    if(moralFiscia === 3){
+      let rfcFisica = this.myForm.controls.rfc.value.substr(0,10);
+      let curp = this.myForm.controls.curp.value.substr(0,10);
+      if(curp !== rfcFisica){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Los datos de RFC y CURP no corresponden");
+  
+        return;
+      }
+    }
 
    
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas modificar los datos el empleado?").then(valor => {

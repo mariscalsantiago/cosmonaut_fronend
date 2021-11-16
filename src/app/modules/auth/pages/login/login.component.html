@@ -55,6 +55,13 @@
                         <label class="text-light" for="loginpassword"><small>Contraseña</small></label>
                         <input formControlName="password" type="password" class="form-control" id="loginpassword">
                     </div>
+<!--                     <div class="input-group">
+                        <input ID="txtPassword" type="Password" Class="form-control">
+                        <div class="">
+                            <button (click)="btnVer(item,indice)"><i aria-hidden="true"
+                                class="icon_24ver primary-bg"></i></button>
+                            </div>
+                        </div>   -->  
                     <div class="form-group" *ngIf="ventanapass">
                         <label class="text-light" for="exampleInputPassword1"><small>Correo electrónico</small></label>
                         <input #emailrestablecer type="email" class="form-control" id="exampleInputPassword1">
@@ -87,6 +94,12 @@
                             class="btn btn-success button-fill"><span>CORRECTO</span></button>
 
                     </div>
+                    <div class="boton mt-2"  *ngIf="ventanapass">
+                        <button (click)="ventanapass = false" type="button" style="background-color:#cf4646" class="btn btn-info heartbeat"><span>Cancelar</span>
+                        </button>
+
+                    </div>
+                    
 
 
                 </form>
@@ -144,9 +157,9 @@
 
             </div>
             <div *ngIf="multiempresa" class="formblock mt-5 fade-in ">
-                <label class="text-center letra títulos_roboto-—-25pt ">ELEGIR CLIENTE</label>
+                <label class="text-center letra títulos_roboto-—-25pt ">ELEGIR {{usuarioSistemaPrd.usuario.esCliente?'CLIENTE':'EMPRESA'}}</label>
 
-                <div class="contenedor">
+                <div style="height: 300px; overflow: auto;" class="contenedor">
                     <div (click)="seleccionadoCompania(item)" [class.seleccionado]="item.seleccionado"
                         *ngFor="let item of arregloCompanias" class="caja">
                         <span>{{item.nombre}}</span>

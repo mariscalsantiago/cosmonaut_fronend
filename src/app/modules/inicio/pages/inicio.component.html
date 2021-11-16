@@ -4,11 +4,48 @@
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
         </button></div> <label>INICIO</label>
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa">
+            <button disabled>
+                <img src="assets/imgs/menu.png" alt="" srcset="">
+            </button>
+        </div>
+        <label>INICIO</label>
     </div>
 </div>
     <div class="row">
         <div class="col-7">
             <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="320">
+<app-banner-carousel *ngIf="puedeConsultarKiosko() && !!noticiasAdministrador.length" [noticias]="noticiasAdministrador"
+    [intervalo]=4000 (onClick)="mostrarContenido($event)"></app-banner-carousel>
+<app-banner-carousel *ngIf="puedeConsultarKiosko() && !!noticiasEmpresa.length" [noticias]="noticiasEmpresa"
+    [intervalo]=6000 (onClick)="mostrarContenido($event)"></app-banner-carousel>
+
+<div class="row margen cn-anuncios-kiosko"
+    *ngIf="puedeConsultarKiosko() && (!!noticiasListado.length || !!noticiasCursos.length)">
+    <div class="col-md-6 col-12 nopadding" *ngIf="puedeConsultarKiosko() && !!noticiasListado.length">
+        <app-anuncio-listado [noticias]="noticiasListado" (onClick)="mostrarContenido($event)"></app-anuncio-listado>
+    </div>
+    <div class="col-md-6 col-12 nopadding" *ngIf="puedeConsultarKiosko() && !!noticiasCursos.length">
+        <app-curso-listado [noticias]="noticiasCursos" (onClick)="mostrarContenido($event)"></app-curso-listado>
+    </div>
+</div>
+<div class="row" *ngIf="puedeConsultarCalendario()">
+    <div class="col-12">
+        <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="350">
+            <div style="background-color: transparent;">
+                <div class="col-4 titulo-outlet-inicio">
+                    <div class="col-2 menu-hamburgesa"></div> <label>REPORTES</label>
+                </div>
+            </div>
+            <iframe width="1140" height="200" [src]="url" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+</div>
+
+<div class="row" *ngIf="puedeConsultarCalendario()">
+       <div class="col-6">
+            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="430">
                 <div style="background-color: transparent;">
                     <div class="col-5 titulo-outlet-inicio">
                         <div class="col-2 menu-hamburgesa"></div> <label>CALENDARIO</label>
@@ -19,8 +56,12 @@
                         <div class="row">
                             <div class="col-12">
                                 <app-calendario [eventos]="eventos" (salida)="recibirTabla($event)"></app-calendario>
+                                <app-calendario [eventos]="eventos" (salida)="recibirTabla($event)">
+                                </app-calendario>
                             </div>
                         </div>
+                    </div>
+    
                 </div>
 
                 </div>
@@ -28,6 +69,9 @@
                     <button  type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
                   <i aria-hidden="true" class="icon_24agregar primary-bg"></i>  Eventos
                 </button>
+                    <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+                        <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Eventos
+                    </button>
                 </div>
                 <br>
             </div>
@@ -35,6 +79,8 @@
 
         <div class="col-5">
             <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="320">
+    <div class="col-6">
+            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="430">
                 <div style="background-color: transparent;">
                     <div class="col-5 titulo-outlet-inicio">
                         <div class="col-2 menu-hamburgesa"></div> <label>REPORTES</label>
@@ -64,30 +110,46 @@
             <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="440">
                 <div style="background-color: transparent;">
                     <div class="col-5 titulo-outlet-inicio">
+                    <div class="col-7 titulo-outlet-inicio">
                         <div class="col-2 menu-hamburgesa"></div> <label>VISTOS RECIENTEMENTE</label>
                     </div>
                 </div>
                 <br>
                 <div class="form-group row margen">
                     <ul  class="list-unstyled components">
+                    <ul class="list-unstyled components">
                         <ng-container *ngFor="let item of arreglosIdSubmodulo; let indice = index">
                             <li #liselection style="text-align: left " >
                                 <label *ngIf="vistosTrue" style="display: block; font-size: 16px; color:  #8d8d8d" ><i aria-hidden="true" class="iconoVisto"  [class]="item.icono"></i>
+                            <li #liselection style="text-align: left ">
+                                <label *ngIf="vistosTrue" style="display: block; font-size: 16px; color:  #8d8d8d"><i
+                                        aria-hidden="true" class="iconoVisto" [class]="item.icono"></i>
                                     {{item.nombreModulo}} {{"-"}} {{item.nombreSubmodulo}}</label>
                                     
                                 <label *ngIf="vistosFalse" style="display: block; font-size: 16px; color:  #8d8d8d" ><i aria-hidden="true" class="iconoVisto"  [class]="item.icono"></i>
                                     {{item.nombreModulo}}</label>    
 
+    
+                                <label *ngIf="vistosFalse" style="display: block; font-size: 16px; color:  #8d8d8d"><i
+                                        aria-hidden="true" class="iconoVisto" [class]="item.icono"></i>
+                                    {{item.nombreModulo}}</label>
+    
                             </li>
                         </ng-container>
                     </ul>
 
+    
                 </div>
+    
+            </div>
 
             </div>
         </div>
     </div>
+</div>
 
+<button (click)="enbase()" *ngIf="puedeConsultarCalendario()">Event clic</button>
 
-    <button (click)="enbase()">MI CLICK</button>
+    <button (click)="enbase()">Click</button>
+
 

@@ -1,10 +1,16 @@
 <div class="row margen">
-    <div class="col titulo-outlet">
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button></div>
-        <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block"></i>CARGA MASIVA DE EVENTOS</label>
-    </div>
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;">
+            {{subModulo}} 
+        </li>
+    </ul>
 </div>
 <hr>
 
@@ -65,11 +71,13 @@
                             </div>
 
                             </div>
+
+                            
                             <div class="text-right margin" style="margin-bottom: 20px;">
 
                                 <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-                                <button *ngIf="esRegistrar" (click)="seleccionarItem()" type="button" class="btn btn-primary button-fill">Continuar</button>
+                                <button *ngIf="esDescargar || esRegistrar" (click)="seleccionarItem()" type="button" class="btn btn-primary button-fill">Continuar</button>
                             </div>
                             </form>
 
@@ -86,7 +94,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 text-left">
-                                    <a *ngIf="esDescargar" (click)="descargarArchivo()" class="botonestilo  estiloextralink"><i aria-hidden="true"
+                                    <a *ngIf="esDescargar || esRegistrar" (click)="descargarArchivo()" class="botonestilo  estiloextralink"><i aria-hidden="true"
                                         class="fas fa-download"></i> Descargar formato
                             </a>
                                 </div>
@@ -111,7 +119,7 @@
 
                                 <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
 
-                                <button *ngIf="esRegistrar" (click)="enviarPeticion()" type="button" class="btn btn-primary button-fill">Continuar</button>
+                                <button *ngIf="esDescargar || esRegistrar" (click)="enviarPeticion()" type="button" class="btn btn-primary button-fill">Continuar</button>
                             </div>
 
                             <br>
@@ -133,7 +141,7 @@
 
         <div class="form group row margen">
             <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
-                <select placeholder="Estatus" name="" class="form-control" [(ngModel)]="idEvento">
+                <select placeholder="Estatus" name="" class="form-control" [(ngModel)]="idEvento" id="idEventoCargaMas">
             <option value="0" selected>Estatus</option>
             <option value="1" selected>Exitoso</option>
             <option value="2" selected>Error</option>
@@ -141,7 +149,7 @@
 
             </div>
             <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                <button type="button" id="btnFiltrarMasivaEventos" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
             </div>
 
         </div>

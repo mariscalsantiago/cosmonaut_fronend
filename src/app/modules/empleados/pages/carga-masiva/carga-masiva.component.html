@@ -1,10 +1,16 @@
 <div class="row margen">
-    <div class="col titulo-outlet">
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button></div>
-        <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block" ></i>CARGA MASIVA DE EMPLEADOS</label>
-    </div>
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;">
+            {{subModulo}} 
+        </li>
+    </ul>
 </div>
 
 <hr>
@@ -33,13 +39,16 @@
                         <br>
 
                         <nav aria-label="cosmonaut">
-                            <a *ngIf="esDescargar" (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i aria-hidden="true"
+                            <a *ngIf="esDescargar || esRegistrar" (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i aria-hidden="true"
                             class="fas fa-download"></i> Descargar formato
                     </a>
                         </nav>
                         <br>
                     </div>
 
+
+
+                    
 
                     <div class="input-group-sm mb-3 col-12 col-sm-10 col-lg-10">
                         <label>Sube el formato de carga masiva con los datos modificados *</label>
@@ -59,7 +68,7 @@
 
                 <div class="text-right margen" style="margin-bottom: 20px;">
                     <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()">Cancelar</button>
-                    <button *ngIf="esRegistrar" type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
+                    <button *ngIf="esDescargar || esRegistrar" type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
                 </div>
                 <br>
             </div>
@@ -75,7 +84,7 @@
     <div class="row">
         <div class="form group row margen">
             <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
-                <select placeholder="Estatus" name="" class="form-control" [(ngModel)]="idEmpleado">
+                <select placeholder="Estatus" name="" class="form-control" id="idEmpleadoMasiva" [(ngModel)]="idEmpleado">
           <option value="0" selected>Estatus</option>
           <option value="1" >Exitoso</option>
           <option value="2" >Error</option>
@@ -83,7 +92,7 @@
 
             </div>
             <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
-                <button type="button" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                <button type="button" id="btnFiltrarMasiva" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
             </div>
 
         </div>

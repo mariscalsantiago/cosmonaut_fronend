@@ -26,6 +26,7 @@ export class DatosimssComponent implements OnInit {
   public objenviar: any = [];
   public insertarMof: boolean = false;
   public resultado: boolean = false;
+  public cerCargado: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private imssPrd: ImssService, private routerPrd: Router,
     private modalPrd: ModalService) { }
@@ -44,6 +45,7 @@ export class DatosimssComponent implements OnInit {
   public createForm(obj: any) {
 
     if (this.arregloImss.credencialesImssId != undefined) {
+      this.cerCargado = true;
       obj.cerIMSS = 'Certificado IMSS digital cargado';
       obj.contrasenaCerIMSS = "12345";
       obj.usuarioCerIMSS = "Usuario de certificado IMSS cargado";
@@ -76,6 +78,54 @@ export class DatosimssComponent implements OnInit {
     this.activadoCer = false;
   }
 
+
+  public validarUsuarioCerIMSS(obj:any){
+    
+    if(this.cerCargado === true && obj !==  "Usuario de certificado IMSS cargado"){
+      if(this.myForm.controls.contrasenaCerIMSS.value ===  "12345"){
+      this.myForm.controls.contrasenaCerIMSS.setValue('');
+      this.myForm.controls.contrasenaCerIMSS.setValidators([Validators.required]);
+      }
+      if(this.myForm.controls.cerIMSS.value ===  "Certificado IMSS digital cargado"){
+      this.myForm.controls.cerIMSS.setValue('');
+      this.myForm.controls.cerIMSS.setValidators([Validators.required]);
+      }
+
+    }
+
+  }
+
+  public validarCerIMSS(obj:any){
+    
+    if(this.cerCargado === true && obj !==  "Certificado IMSS digital cargado"){
+
+      if(this.myForm.controls.contrasenaCerIMSS.value ===  "12345"){
+      this.myForm.controls.contrasenaCerIMSS.setValue('');
+      this.myForm.controls.contrasenaCerIMSS.setValidators([Validators.required]);
+      }
+      if(this.myForm.controls.usuarioCerIMSS.value ===  "Usuario de certificado IMSS cargado"){
+      this.myForm.controls.usuarioCerIMSS.setValue('');
+      this.myForm.controls.usuarioCerIMSS.setValidators([Validators.required]);
+      }
+    }
+
+  }
+
+  public validarContrasenaCerIMSS(obj:any){
+    
+    if(this.cerCargado === true && obj !==  "12345"){
+
+      if(this.myForm.controls.usuarioCerIMSS.value ===  "Usuario de certificado IMSS cargado"){
+      this.myForm.controls.usuarioCerIMSS.setValue('');
+      this.myForm.controls.usuarioCerIMSS.setValidators([Validators.required]);
+      }
+      if(this.myForm.controls.cerIMSS.value ===  "Certificado IMSS digital cargado"){
+      this.myForm.controls.cerIMSS.setValue('');
+      this.myForm.controls.cerIMSS.setValidators([Validators.required]);
+      }
+    }
+
+  }
   public cancelar() {
     this.enviado.emit({type:"cancelar"});
 
@@ -85,7 +135,7 @@ export class DatosimssComponent implements OnInit {
 
     let input = document.createElement("input");
     input.type = "file";
-    input.accept = ".cer";
+    input.accept = ".pfx";
 
     input.click();
 
@@ -95,10 +145,10 @@ export class DatosimssComponent implements OnInit {
       let extName = imagenInput![0].name;
       let ext = extName.split('.');
       extName = ext[1].toLowerCase();
-      if(extName != 'cer'){
+       if(extName != 'pfx'){
         this.modalPrd.showMessageDialog(this.modalPrd.error,"El archivo cargado no tiene una extensión correcta");
         return;
-      }
+      } 
       for (let item in Object.getOwnPropertyNames(imagenInput)) {
 
         let archivo: File = imagenInput[item];
@@ -135,7 +185,7 @@ export class DatosimssComponent implements OnInit {
     }
     let obj = this.myForm.getRawValue();
     if (!Boolean(obj.cerIMSS)) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer, favor de elegir archivo de certificado ");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "Archivo de Certificado IMSS .pfx obligatorio");
       return;
     }
 
@@ -182,6 +232,8 @@ export class DatosimssComponent implements OnInit {
     }
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
+    
+
     if (!Boolean(this.arregloImss?.registroPatronalId)) {
 
       this.imssPrd.save(this.objenviar).subscribe(datos => {
@@ -195,6 +247,8 @@ export class DatosimssComponent implements OnInit {
     } else {
 
       this.objenviar.registroPatronalId = this.arregloImss.registroPatronalId;
+      console.log(JSON.stringify(this.objenviar));
+      
       this.imssPrd.modificar(this.objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
             if (datos.resultado) {

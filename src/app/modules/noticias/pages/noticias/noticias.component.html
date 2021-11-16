@@ -1,0 +1,131 @@
+<div class="row margen">
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracion.menu = !configuracion.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;">
+            {{subModulo}} 
+        </li>
+    </ul>
+</div>
+
+<div class="scrooll-design">
+    <div class="margen" *ngIf="false">
+        <div id="accordionFiltro">
+
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown"
+                                style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse"
+                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <label class="titulo"
+                                    style="width: 80%; float: left; text-align: left;">BÚSQUEDA</label>
+                                <i aria-hidden="true" *ngIf="changeIconDown" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    style="width: 10%;float: right;color:#00C1AF"
+                                    class="icon_24flechaarriba bg-primary"></i>
+                                <i aria-hidden="true" *ngIf="!changeIconDown" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    style="width: 10%;float: right;color:#00C1AF"
+                                    class="icon_24flechaabajo bg-primary "></i>
+
+                            </button>
+                            <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                                <label class="titulo">BÚSQUEDA</label>
+                            </button>
+
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}"
+                        aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="form group row margen">
+                                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <input type="text" [(ngModel)]="nombre" formatos [especial]="true"
+                                        [control]="nombre" class="form-control" placeholder="Título de la noticia">
+                                </div>
+                                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <input type="text" [(ngModel)]="apellidoPat" formatos [especial]="true"
+                                        [control]="apellidoPat" class="form-control"
+                                        placeholder="Subítulo de la noticia">
+                                </div>
+                                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
+                                    <input type="text" [(ngModel)]="apellidoMat" formatos [especial]="true"
+                                        [control]="apellidoMat" class="form-control" placeholder="Contenido de noticia">
+                                </div>
+                                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <input type="Date" [(ngModel)]="fechaRegistro" class="form-control"
+                                        placeholder="Fecha de registro">
+                                </div>
+                                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <input type="email" [(ngModel)]="correoempresarial" class="form-control "
+                                        placeholder="Correo empresarial">
+                                </div>
+                                <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
+                                    <select class="form-control" [(ngModel)]="activo">
+                                        <option value="0">--TODAS--</option>
+                                        <option value="banner">BANNER</option>
+                                        <option value="celebraciones">CELEBRACIONES</option>
+                                        <option value="noticias">NOTICIAS</option>
+                                        <option value="estilo de vida">ESTILO DE VIDA</option>
+                                        <option value="curso">CURSO</option>
+                                        <option value="capacitacion">CAPACITACION</option>
+                                    </select>
+                                </div>
+                                <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                                    <button type="button" class="btn btn-primary button-outlet "
+                                        (click)="filtrar()">Filtrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row margen">
+        <div class="col titulo">
+            <label>RESULTADOS</label>
+        </div>
+        <div class="col text-right">
+            <button *ngIf="esRegistrar && !cargandoBotones" type="button" class="btn btn-light button-outlet"
+                (click)="crearNoticia()">
+                <i aria-hidden="true" class="icon_24agregar primary-bg"></i>Agregar
+                <div *ngIf="cargandoBotones" class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </button>
+            <button style="width: 100px;" *ngIf="esRegistrar && cargandoBotones" type="button"
+                class="btn btn-light button-outlet">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary button-outlet mr-2"
+                (click)="guardarMultiseleccion(false)">Desactivar</button>
+            <button (click)="guardarMultiseleccion(true)" type="button"
+                class="btn heartbeathand btn-primary button-fill agrandarloading"><span>Activar</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="row margen margen-tabla background-panel ">
+        <app-tablapaginado [datos]="noticiasTabla" [editar]="esEditar" [eliminar]="esEditar" [cargando]="cargando"
+            (salida)="recibirTabla($event)"></app-tablapaginado>
+    </div>
+</div>

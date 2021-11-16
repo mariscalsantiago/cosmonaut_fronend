@@ -1,11 +1,17 @@
 
   <div class="row ml-3 mr-3 titulosfijos">
-    <div class="col titulo-outlet">
-      <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
-        <img src="assets/imgs/menu.png" alt="" srcset="">
-    </button></div>
-      <label>ADMINISTRACIÓN</label>
-    </div>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+      <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
+          <img src="assets/imgs/menu.png" alt="" srcset="">
+      </button>
+      </div>  
+      <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+          > {{modulo}}</a>
+      </li>
+      <li style="padding-top: 10PX;">
+          {{subModulo}} 
+      </li>
+  </ul>
   </div>
   <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
 
@@ -17,7 +23,7 @@
           <div class="col text-right">
           </div>
         </div>
-        <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [eliminar]="esEliminar" [imagen]="true"
+        <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar"  [imagen]="true"
           [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
       </div>
     </div>

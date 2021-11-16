@@ -22,12 +22,16 @@ export class EmpleadosIncompletosComponent implements OnInit {
   public esConsultar:boolean = false;
   public esEditar:boolean = false;
 
+  public modulo: string = "";
+  public subModulo: string = "";
+
   constructor(private empleadosPrd:EmpleadosService,private usuariosSistemaPrd:UsuarioSistemaService ,
     private router:Router,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
 
-    
+    this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
+    this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.cargando = true;
 
@@ -37,8 +41,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
       const columnas:Array<tabla> = [
         new tabla("rfc","RFC"),
         new tabla("nombre","Nombre"),
-        new tabla("apellidoPaterno","Primer apellido"),
-        new tabla("esActivo","Estatus")
+        new tabla("apellidoPaterno","Primer apellido")
       ]; 
 
 
@@ -61,6 +64,10 @@ export class EmpleadosIncompletosComponent implements OnInit {
   public establecerPermisos(){
     this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
     this.esEditar = this.configuracionPrd.getPermisos("Editar");
+  }
+
+  public inicio(){
+    this.router.navigate(['/inicio']);
   }
 
   public recibirTabla(obj:any){

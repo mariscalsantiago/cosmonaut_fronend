@@ -1,10 +1,16 @@
 <div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
-    <div class="col titulo-outlet">
-        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
-        </button></div>
-        <label>NÓMINA AGUINALDO</label>
-    </div>
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;">
+            {{subModulo}} 
+        </li>
+    </ul>
 </div>
 
 
@@ -78,14 +84,15 @@
                     </div>
                 </div>
             </div>
-            <a *ngIf="esEliminar" (click)="eliminar(item.nominaExtraordinaria,indice)" style="color:#56dfd4;text-decoration: underline;" class="dropdown-toggle mt-3">
+            <a *ngIf="esEliminar" (click)="eliminar(item.nominaExtraordinaria,indice)" style="color:#56dfd4;text-decoration: underline;width: fit-content;" class="dropdown-toggle mt-3">
                 <i aria-hidden="true" style="background-color: #56dfd4 !important;" class="icon_eliminar "></i> Eliminar
             </a>
 
         </div>
         <div class="col-3 text-right segundaseccion" style="    border-bottom-right-radius: 20px;">
-            <button *ngIf="!item.inicial && esConsultar" (click)="continuar(item)" class="btn btn-primary button-fill mr-2 mt-2">Continuar</button>
-            <button *ngIf="item.inicial && esCalcular" (click)="calcularNomina(item)" type="button" class="btn btn-primary button-outlet mr-2 mt-2">Calcular</button>
+            <button *ngIf="((item.nominaExtraordinaria.estadoProcesoNominaId==3) && esConsultar)" (click)="continuar(item)" class="btn btn-primary button-fill mr-2 mt-2">Continuar</button>
+            <button *ngIf="(item.nominaExtraordinaria.estadoProcesoNominaId==0 && esCalcular)" (click)="calcularNomina(item)" type="button" class="btn btn-primary button-outlet mr-2 mt-2">Calcular</button>
+            <button *ngIf="item.estadoPensando" [class.bgerror]="item.nominaExtraordinaria.estadoProcesoNominaId==4" (click)="vermensaje(item)" type="button" class="btn btn-primary button-outlet mr-2 mt-2">{{item.nominaExtraordinaria?.estadoProcesoDescripcion}}</button>
         </div>
 
     </div>
