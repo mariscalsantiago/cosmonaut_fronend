@@ -55,7 +55,7 @@ export class DetallejornadalaboralComponent implements OnInit {
         console.log(this.arreglodetalleJornada);
         this.myForm = this.crearForm(this.arreglodetalleJornada);
 
-        this.selectJornada(this.myForm.controls.sumaHorasJornadaId)
+        this.selectJornadaInicial(this.myForm.controls.sumaHorasJornadaId)
         this.hrDeSalida(undefined);
         this.hrInicio(undefined);
 
@@ -619,10 +619,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     this.activadoISR = obj.checked;
   }
 
-  public selectJornada(op: any) {
-    debugger;
-    this.myForm.clearValidators();
-    //this.myForm.updateValueAndValidity();
+  public selectJornadaInicial(op: any) {
     this.myForm.controls.horaFinComida.disable();
     this.myForm.controls.horaInicioComida.disable();
     this.jornada = String(op.value);
@@ -653,7 +650,59 @@ export class DetallejornadalaboralComponent implements OnInit {
           this.hrSalida = Number(horaSalida.substring(0, 2));
           this.myForm.controls.horaInicioComida.enable();
         }
+      this.myForm.controls.horaInicioComida.setValue('');
+      this.myForm.controls.horaFinComida.setValue('');  
+      this.myForm.controls.horaSalida.enable();
+      this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
+      this.myForm.controls.horaInicioComida.updateValueAndValidity();
+      this.myForm.controls.horaFinComida.setValidators([Validators.required]);
+      this.myForm.controls.horaFinComida.updateValueAndValidity();
 
+    }
+
+
+  }
+
+  public selectJornada(op: any) {
+    debugger;
+    this.myForm.clearValidators();
+    this.myForm.controls.horaFinComida.disable();
+    this.myForm.controls.horaInicioComida.disable();
+    this.jornada = String(op.value);
+    if (this.jornada == '1') {
+      this.myForm.controls.horaSalida.disable();
+      this.myForm.controls.horaSalida.setValue('');
+      this.myForm.controls.horaInicioComida.setValue('');
+      this.myForm.controls.horaFinComida.setValue('');  
+      this.myForm.controls.horaInicioComida.setValidators([]);
+      this.myForm.controls.horaInicioComida.updateValueAndValidity();
+      this.myForm.controls.horaFinComida.setValidators([]);
+      this.myForm.controls.horaFinComida.updateValueAndValidity();
+    }
+    if (this.jornada == '2') {
+      this.myForm.controls.horaInicioComida.setValue('');
+      this.myForm.controls.horaFinComida.setValue('');  
+      this.myForm.controls.horaSalida.enable();
+      this.myForm.controls.horaInicioComida.setValidators([]);
+      this.myForm.controls.horaInicioComida.updateValueAndValidity();
+      this.myForm.controls.horaFinComida.setValidators([]);
+      this.myForm.controls.horaFinComida.updateValueAndValidity();
+
+
+    }
+
+      if (this.jornada == '3') {
+      let horaSalida = this.myForm.controls.horaSalida.value;
+        if(!this.esInsert){
+            this.myForm.controls.horaInicioComida.enable();
+            this.myForm.controls.horaFinComida.enable();
+        }
+        else if (horaSalida !== undefined && this.esInsert) {
+          this.hrSalida = Number(horaSalida.substring(0, 2));
+          this.myForm.controls.horaInicioComida.enable();
+        }
+      this.myForm.controls.horaInicioComida.setValue('');
+      this.myForm.controls.horaFinComida.setValue('');  
       this.myForm.controls.horaSalida.enable();
       this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();
