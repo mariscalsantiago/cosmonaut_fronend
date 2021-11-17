@@ -244,6 +244,20 @@ export class LoginComponent implements OnInit {
 
   }
 
+  public mostrarContrasena(){
+    debugger;
+    let elemento: any = document.getElementById("loginpassword")
+
+    if(elemento.type == "password"){
+      elemento.type = "text";
+      $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+    }else{
+      elemento.type = "password";
+      $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+    }
+
+  }
+
 
 
   public seleccionarEmpresa(elemento: any) {
