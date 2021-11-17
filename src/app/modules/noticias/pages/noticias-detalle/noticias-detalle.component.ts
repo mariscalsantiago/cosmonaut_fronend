@@ -235,8 +235,8 @@ export class NoticiasDetalleComponent implements OnInit {
       return;
     }
 
-    let mensajeExtra = this.esClienteEmpresa ? "La noticia será visible para todos los empleados de la empresa" : "La noticia será visible para todos los empleados de la empresa"
-    let titulo: string = !!this.editando ? "¿Deseas actualizar los datos de la noticia?" : "¿Deseas guardar la noticia?";
+    let mensajeExtra = this.esClienteEmpresa ? '' : 'La noticia será visible para todos los empleados de la empresa';
+    let titulo: string = !!this.editando ? '¿Deseas actualizar los datos de la noticia?' : '¿Deseas guardar la noticia?';
 
     this.servicioModales.showMessageDialog(this.servicioModales.question, titulo, mensajeExtra).then(valor => {
       if (valor) { this.guardar(); }
