@@ -891,7 +891,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     if(this.detCatalogos.listaCatalogosId == 15 || this.detCatalogos.listaCatalogosId == 17 || this.detCatalogos.listaCatalogosId == 18 || this.detCatalogos.listaCatalogosId == 19){
-      debugger;
+      
       if (!this.validaFechaFinal()) {
         return;
       }

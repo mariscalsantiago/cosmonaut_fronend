@@ -42,11 +42,11 @@ export class InformacionempresaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.obj = this.datos.empresa;
     this.myform = this.createForm(this.obj);
     if (!this.datos.insertar) {
-      debugger;
+      
 
       this.catalogosPrd.getActividadEconomica2(this.idNivel2, this.datos.empresa.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId).subscribe(datos => {
         this.arregloactividad2 = datos.datos
@@ -110,7 +110,7 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public recibirImagen(imagen: any) {
-    debugger;
+    
     this.imagen = imagen;
   }
 
@@ -162,7 +162,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-    debugger;
+    
     if (this.myform.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       Object.values(this.myform.controls).forEach(control => {

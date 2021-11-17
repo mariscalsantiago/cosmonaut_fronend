@@ -74,7 +74,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
 
   }
   public validarBanco(clabe:any){
-    debugger;
+    
     this.myForm.controls.idbanco.setValue("");
     this.myForm.controls.clabe.setValue("");
 
