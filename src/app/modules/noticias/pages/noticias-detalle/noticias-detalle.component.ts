@@ -220,7 +220,7 @@ export class NoticiasDetalleComponent implements OnInit {
     this.requiereImagen = (categoria == 1 || categoria == 5 || categoria == 6);
     this.tieneImagen = !!this.imagen;
 
-    this.tamanioRecomendado = categoria == 1 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_BANNER : (categoria == 5 || categoria == 6 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_CURSO : 'NA')
+    this.tamanioRecomendado = categoria == 1 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_BANNER : (categoria == 5 || categoria == 6 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_CURSO : 'NA');
   }
 
   public actualizarPreview() {
