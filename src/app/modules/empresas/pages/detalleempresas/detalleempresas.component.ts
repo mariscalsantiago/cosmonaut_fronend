@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 
 
 
@@ -17,16 +19,21 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 
 export class DetalleempresasComponent implements OnInit {
 
-  public titulo:string = `CONFIGURACIÓN EMPRESA`;
+  public titulo:string = "";
   public modulo: string = "";
   public subModulo: string = "";
+  public arreglocompany: any = [];
+  public id_empresa: number = 0;
 
-  constructor(public configuracionPrd:ConfiguracionesService, private routerPrd: Router) {
+  constructor(public configuracionPrd:ConfiguracionesService, private routerPrd: Router, private CanRouterPrd:ActivatedRoute,
+    private usuariosSistemaPrd:UsuarioSistemaService, private companiaPrd:SharedCompaniaService
+    ) {
 
     
    }
 
   ngOnInit(): void {
+    debugger;
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
@@ -37,7 +44,14 @@ export class DetalleempresasComponent implements OnInit {
       mm.scrollLeft = this.configuracionPrd.getScrollCompany(mm.scrollLeft);
     })
 
+    this.CanRouterPrd.params.subscribe(datos =>{
+      this.id_empresa = datos["id"];
+    });
+    this.companiaPrd.getEmpresaById(this.id_empresa).subscribe(datos => {
+      this.arreglocompany = datos.datos;
+      this.titulo = this.arreglocompany.razonSocial?.toUpperCase();
 
+    });
 
 
 

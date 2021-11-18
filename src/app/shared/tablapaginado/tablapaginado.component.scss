@@ -104,7 +104,12 @@ table {
 }
 
 .centrar {
-    text-align: center!important;
+    text-align: center !important;
+}
+
+.centrarIconos {
+    text-align: right !important;
+    position: revert !important;
 }
 
 .table .opciones button:focus {
