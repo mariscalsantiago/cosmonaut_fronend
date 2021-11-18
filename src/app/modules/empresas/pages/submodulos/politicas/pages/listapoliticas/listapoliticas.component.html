@@ -1,4 +1,4 @@
-<br>
+<div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="170">
 <div class="scrooll-designempresa">
     <div class="col-9">
         <div *ngIf="aparecemodalitoempleado" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
@@ -103,7 +103,7 @@
     </div>
     <div class="row margen">
         <div class="col titulo">
-            <label>RESULTADOS</label>
+            <label style="margin-left: 20px;">RESULTADOS</label>
         </div>
         <div class="row" style="  margin-top: 10px;  width: 100%;">
             <div class="col text-right">
@@ -118,4 +118,5 @@
         <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesglose" [datos]="arreglotabla" [tablabeneficios]="true" [editar]="esEditar" [eliminar]="esEliminar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
 
+</div>
 </div>

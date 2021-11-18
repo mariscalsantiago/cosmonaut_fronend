@@ -1,34 +1,21 @@
-<div class="scrooll-designempresa">
-    <br><br>
-
-
-
-    <div class="col-11 col-lg-11" style="    z-index: 4;">
+<div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="170">
+    <div class="margen">
         <div id="accordionFiltro">
 
-            <div id="accordion">
+            <div >
                 <div class="card">
-                    <div class="card-header" id="headingOne">
+                    <div>
                         <h5 class="mb-0">
-                            <button *ngIf="tamanio < 600" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <label class="titulo" style="    width: 80%;
-                  float: left;
-                  text-align: left;">GRUPOS DE NÓMINA</label>
-                <i aria-hidden="true"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                  class="icon_24flechaarriba bg-primary"></i>
-                <i aria-hidden="true"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                  aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                  class="icon_24flechaabajo bg-primary "></i>
-
-              </button>
-                            <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
-                <label class="titulo">GRUPOS DE NÓMINA</label>
-              </button>
+                            <button *ngIf="tamanio < 600" style="width: 100%;" class="btn aparece-movil" aria-expanded="true">
+                                <label class="titulo" style="width: 80%; float: left; text-align: left;">BÚSQUEDA</label>
+                            </button>
+                            <button *ngIf="tamanio >=600" class="btn aparece-desktop-inline-block">
+                                <label class="titulo">BÚSQUEDA</label>
+                            </button>
 
                         </h5>
                     </div>
-
+                    <br>
                     <div id="collapseOne" style="    margin: -36px;" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
                             <div class="form group row margen">
@@ -108,16 +95,18 @@
         </div>
     </div>
 
-    <br>
-    <div class="row" style="margin: 10px;">
-        <div class="col-12 col-lg-12 text-right">
-            <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
-        <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar grupo de nómina
-      </button>
+    <div class="row margen">
+        <div class="col titulo">
+            <label>RESULTADOS</label>
+        </div>
+        <div *ngIf="!multiseleccion" class="row" style="  margin-top: 10px;  width: 100%;">
+            <div class="col text-right">
+                <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+              <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar grupo de nómina
+            </button>
+            </div>
         </div>
     </div>
-
-
     <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
         <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="esEditar" [eliminar]="esEliminar" [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>

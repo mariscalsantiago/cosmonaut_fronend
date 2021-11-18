@@ -1,10 +1,10 @@
-<br>
+
 <div class="col-7">
     <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
 
 
         <div class="adentro">
-
+            <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="235">
             <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -15,8 +15,6 @@
             </div>
             <hr>
             <div class="body">
-
-
                 <div *ngIf="cargandolistapuesto" class="col text-center mb-5">
                     <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
                 </div>
@@ -35,7 +33,7 @@
                         </tbody>
                     </table>
                 </div>
-
+                
             </div>
             <hr>
             <div class="footer">
@@ -43,17 +41,16 @@
                     <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
                 </div>
             </div>
-
+        </div>
         </div>
     </div>
 </div>
-<br><br>
 <form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
 
     <input type="hidden" formControlName="areaId">
 
 
-    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="235">
         <div id="vetanaprincipaltablapuesto" class=" background-panel scrooll" style="position: relative;">
             <br>
             <div class="form-group row margen">
