@@ -194,6 +194,25 @@ p.interlineado{
     display:none !important;
 }
 
+
+.class_check tr > :nth-child(2) {
+    display:none !important;
+}
+
+
+.class-isr tr > :nth-child(7) {
+    display:none !important;
+}
+.class-subisn tr > :nth-child(6) {
+    display:none !important;
+}
+
+.class-subsidio tr > :nth-child(6) {
+    display:none !important;
+}
+
+
+
 .responsive_letter{
     
   
@@ -243,8 +262,6 @@ article.titulo{
         border: 1px solid $secondary;
     }
 }
-
-
 
 
 
