@@ -220,7 +220,7 @@ export class NoticiasDetalleComponent implements OnInit {
     this.requiereImagen = (categoria == 1 || categoria == 5 || categoria == 6);
     this.tieneImagen = !!this.imagen;
 
-    this.tamanioRecomendado = categoria == 1 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_BANNER : (categoria == 5 || categoria == 6 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_CURSO : 'NA')
+    this.tamanioRecomendado = categoria == 1 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_BANNER : (categoria == 5 || categoria == 6 ? NoticiasDetalleComponent.TAMANIO_RECOMENDADO_CURSO : 'NA');
   }
 
   public actualizarPreview() {
@@ -235,8 +235,8 @@ export class NoticiasDetalleComponent implements OnInit {
       return;
     }
 
-    let mensajeExtra = this.esClienteEmpresa ? "La noticia será visible para todos los empleados de la empresa" : "La noticia será visible para todos los empleados de la empresa"
-    let titulo: string = !!this.editando ? "¿Deseas actualizar los datos de la noticia?" : "¿Deseas guardar la noticia?";
+    let mensajeExtra = this.esClienteEmpresa ? '' : 'La noticia será visible para todos los empleados de la empresa';
+    let titulo: string = !!this.editando ? '¿Deseas actualizar los datos de la noticia?' : '¿Deseas guardar la noticia?';
 
     this.servicioModales.showMessageDialog(this.servicioModales.question, titulo, mensajeExtra).then(valor => {
       if (valor) { this.guardar(); }

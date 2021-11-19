@@ -8,7 +8,7 @@ podTemplate(containers:[
   persistentVolumeClaim(mountPath: '/root/.m2/repository', claimName: 'maven-repo', readOnly: false),
   persistentVolumeClaim(mountPath: '/root/.gradle', claimName: 'gradle-repo', readOnly: false),
     secretVolume(secretName: 'k8s-sql-secret', mountPath: '/secret')
-  ],envVars:[envVar(key:'GOOGLE_APPLICATION_CREDENTIALS',value:'/secret/service_account.json')] ) {
+  ],envVars:[envVar(key:'GOOGLE_APPLICATION_CREDENTIALS',value:'/secret/cosmonaut-k8s-qa-sa_key.json')] ) {
   node(POD_LABEL) {
     stage("Compilacion") {
         container('angular'){
@@ -24,7 +24,8 @@ podTemplate(containers:[
      stage('Deploy to GoogleStorage') {
         container('container-registry'){
             script{
-                sh 'gcloud auth activate-service-account cosmonaut-k8s-qa-sa@cosmonaut-qa.iam.gserviceaccount.com --key-file=/secret/service_account.json'
+                sh 'gcloud auth activate-service-account cosmonaut-k8s-qa-sa@cosmonaut-uat.iam.gserviceaccount.com --key-file=/secret/cosmonaut-k8s-qa-sa_key.json'
+               sh "gcloud container clusters get-credentials qa-backend-cosmonaut --region=us-east1-b --project=cosmonaut-uat"
 				sh 'cd dist/cosmonaut-front/ && gsutil cp -r *  gs://qa-cosmonaut-public-front/'		    
 		     }
         }
