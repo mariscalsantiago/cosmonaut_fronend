@@ -129,9 +129,10 @@
                         </div>
                     </div>
 
-
+                    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="320">
                     <div class="row   margen-tabla background-panel " id="vetanaprincipaltabla">
                         <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando" (salida)="recibirTabla($event)" [eliminar]="esRegistrar" [ver]="true"></app-tablapaginado>
+                    </div>
                     </div>
 
 

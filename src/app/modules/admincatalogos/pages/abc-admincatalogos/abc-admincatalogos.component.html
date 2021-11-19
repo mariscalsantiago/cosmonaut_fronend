@@ -13,7 +13,7 @@
         </li>
         <li >
             <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
-            (click)="redirect(undefined)" >{{id_catalogo}} ></a>
+            (click)="redirect(undefined)" >{{id_catalogo}}</a>
         </li>
         <li style="padding-top: 10PX;">
             INFORMACIÓN DE CATALOGO
@@ -27,7 +27,7 @@
 
 <form *ngIf="formGeneral" [formGroup]="myForm" class="form-desing"  (ngSubmit)="enviarPeticion()">
     <input type="hidden">
-    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="340">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="210">
         <br>
         <div class="form-group row margen">
             <label class="titulo">INFORMACIÓN DE CATÁLOGO</label>

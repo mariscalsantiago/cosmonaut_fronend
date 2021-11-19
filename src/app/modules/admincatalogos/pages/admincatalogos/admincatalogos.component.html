@@ -16,7 +16,7 @@
     </div>
 
 
-
+    
     <div class="scrooll-design">
         <div class="margen">
 
@@ -24,18 +24,12 @@
 
                 <div id="accordion">
                     <div class="card">
-                        <div class="card-header" id="headingOne">
+                        <div>
                             <h5 class="mb-0">
                                 <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <label class="titulo" style="    width: 80%;
                 float: left;
                 text-align: left;">BÚSQUEDA</label>
-                  <i aria-hidden="true" *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                    class="icon_24flechaarriba bg-primary"></i>
-                  <i aria-hidden="true" *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                    class="icon_24flechaabajo bg-primary "></i>
 
                 </button>
                                 <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
@@ -73,9 +67,11 @@
                 <label>RESULTADOS</label>
             </div>
         </div>
-
+        <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="350">
         <div class="row margen margen-tabla background-panel ">
             <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
+        </div>
+
     </div>
 </div>
