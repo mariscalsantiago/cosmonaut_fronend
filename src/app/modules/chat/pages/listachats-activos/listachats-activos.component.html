@@ -21,7 +21,9 @@
           </button>
         </div>
     </div>
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="200">
     <div class="row margen margen-tabla background-panel">
         <app-tablapaginado [datos]="arreglotabla" [chat]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
+</div>
 </div>

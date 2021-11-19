@@ -124,15 +124,15 @@
 
                     </div>
 
-
-                    <div class="   margen-tabla background-panel " *ngIf="listaVariable">
-                        <br>
+                    <div *ngIf="listaVariable" class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="330">  
+                    <div class="margen-tabla background-panel " *ngIf="listaVariable">
                         <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [recalcular] = "true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                        </div>
                     </div>
-
+                    <div *ngIf="listaPromedio" class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="330">
                     <div class="   margen-tabla background-panel " *ngIf="listaPromedio">
-                        <br>
                         <app-tablapaginado [datos]="arreglotablaListaEmpleadosPromedio" [cargando]="cargando"></app-tablapaginado>
+                        </div>
                     </div>
                     <br>
 

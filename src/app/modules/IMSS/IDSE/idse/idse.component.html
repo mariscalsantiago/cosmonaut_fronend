@@ -72,12 +72,11 @@
                           </div>
                       </div>
     
-    
+                      <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="430">
                       <div class="   margen-tabla background-panel ">
-                        <br>
                         <app-tablapaginado [checkbox]="true" [imss]="true" [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="esEliminar" (salida)="recibirTabla($event)" ></app-tablapaginado>
                       </div>
-    
+                      </div>
                 </div>
     
             </div>
