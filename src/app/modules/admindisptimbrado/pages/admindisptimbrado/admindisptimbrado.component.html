@@ -1,3 +1,4 @@
+<div class="background-ajustar" appTamanioVentana [pixeles]="30">
 <div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
     <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
@@ -118,9 +119,9 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="400">
+                        
                         <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
-                        </div>    
+ 
                     </div>
 
 
@@ -135,3 +136,4 @@
 
     </div>
 </div>
+<div>

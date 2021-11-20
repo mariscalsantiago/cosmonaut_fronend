@@ -97,9 +97,9 @@
                         (click)="eventoclick(item2,item,indice)">{{(item2.nombre ==
                         'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
-                    <td *ngIf="tablabeneficios" class="opciones" style="text-align: center;">
+                    <td *ngIf="tablabeneficios" class="wrap" style="text-align: center;">
                         <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
-                                aria-hidden="true" class="icon_24ver primary-bg margin-top: 15px !important;"></i></button>
+                                aria-hidden="true" class="icon_24ver primary-bg"></i></button>
                     </td>
                     <td *ngIf="porcentaje">
                         <div class="progress">

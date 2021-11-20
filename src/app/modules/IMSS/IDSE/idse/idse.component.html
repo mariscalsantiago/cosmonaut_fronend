@@ -1,3 +1,4 @@
+<div class="background-ajustar" appTamanioVentana [pixeles]="30">
 <div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
   <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
     <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
@@ -72,10 +73,8 @@
                           </div>
                       </div>
     
-                      <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="430">
                       <div class="   margen-tabla background-panel ">
                         <app-tablapaginado [checkbox]="true" [imss]="true" [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="esEliminar" (salida)="recibirTabla($event)" ></app-tablapaginado>
-                      </div>
                       </div>
                 </div>
     
@@ -85,4 +84,5 @@
     
     
     </div>
+</div>
 </div>

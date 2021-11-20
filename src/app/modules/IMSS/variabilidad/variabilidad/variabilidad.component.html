@@ -1,4 +1,5 @@
-<div class="row margen">
+<div class="background-ajustar" appTamanioVentana [pixeles]="30">
+<div class="row margen titulosfijos">
     <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
@@ -124,15 +125,14 @@
 
                     </div>
 
-                    <div *ngIf="listaVariable" class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="330">  
+                    
                     <div class="margen-tabla background-panel " *ngIf="listaVariable">
                         <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [recalcular] = "true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
-                        </div>
                     </div>
-                    <div *ngIf="listaPromedio" class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="330">
+
+                    
                     <div class="   margen-tabla background-panel " *ngIf="listaPromedio">
                         <app-tablapaginado [datos]="arreglotablaListaEmpleadosPromedio" [cargando]="cargando"></app-tablapaginado>
-                        </div>
                     </div>
                     <br>
 
@@ -148,3 +148,4 @@
             </div>
 
         </div>
+    </div>
