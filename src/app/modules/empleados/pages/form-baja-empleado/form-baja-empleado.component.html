@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                        <label>Motivo de salida*</label>
+                        <label>Motivo de salida *</label>
                         <select formControlName="motivoBajaId" type="text" [ngClass]="{'is-invalid':f.motivoBajaId.errors && submitEnviado}" class="form-control">
                       <option value=""></option>
                       <option *ngFor="let item of arregloMotivoBaja"  [value]="item.motivoBajaId">{{item.descripcion}}</option>
