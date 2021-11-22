@@ -56,7 +56,7 @@
 
                 </div>      
                 
-
+            <br>    
             <div class="row">
                 <article [class.ajustar]="editarcampos" class="titulo mr-1 col">
                     Fecha de nacimiento <span *ngIf="editarcampos">*</span>
@@ -72,19 +72,18 @@
                         </div>
                     </article>
                 </article>
-                <article *ngIf="!editarcampos" class="titulo col">
-                    Año
-                    <article>{{empleado.fechaNacimiento | date:'yyyy'}}</article>
-                </article>
-                <article *ngIf="!editarcampos" class="titulo  col">
-                    Mes
-                    <article>{{empleado.fechaNacimiento | date:'MM'}}</article>
-                </article>
                 <article *ngIf="!editarcampos" class="titulo  col">
                     Día
                     <article>{{empleado.fechaNacimiento| date :'dd'}}</article>
                 </article>
-
+                <article *ngIf="!editarcampos" class="titulo  col">
+                    Mes
+                    <article>{{empleado.fechaNacimiento | date:'MMMM'}}</article>
+                </article>
+                <article *ngIf="!editarcampos" class="titulo col">
+                    Año
+                    <article>{{empleado.fechaNacimiento | date:'yyyy'}}</article>
+                </article>
             </div>
 
             <hr>
@@ -138,7 +137,7 @@
                     </article>
                 </article>
             </div>
-            <div class="row ">
+            <div class="row mb-2">
                 <article [class.ajustar]="editarcampos" class="titulo col">
                     Correo empresarial <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">
@@ -155,6 +154,7 @@
                     </article>
                 </article>
             </div>
+
             <div class="row mb-2">
                 <article [class.ajustar]="editarcampos" class="titulo col">
                     Correo personal
@@ -250,8 +250,11 @@
                 </article>
             </div>
             <div class="row mb-2">
+                <label class="titulo">DIRECCIÓN</label>
+            </div>    
+            <div class="row mb-2">
+                <!-- <div class="row"><label class="titulo">DIRECCIÓN</label></div>   -->  
                 <article [class.ajustar]="editarcampos" class="titulo col">
-                    Dirección
                     <article *ngIf="!editarcampos">
                         {{domicilioArreglo?.calle}} # {{domicilioArreglo?.numeroExterior}} Col. {{domicilioArreglo?.colonia}}, {{domicilioArreglo?.municipio}}, C.P. {{domicilioArreglo?.codigoPostal}} , {{domicilioArreglo?.entidadFederativa}}
                     </article>
