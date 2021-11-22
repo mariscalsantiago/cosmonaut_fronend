@@ -24,9 +24,9 @@ podTemplate(containers:[
      stage('Deploy to GoogleStorage') {
         container('container-registry'){
             script{
-                sh 'gcloud auth activate-service-account cosmonaut-k8s-qa-sa@cosmonaut-uat.iam.gserviceaccount.com --key-file=/secret/cosmonaut-k8s-qa-sa_key.json'
-               sh "gcloud container clusters get-credentials qa-backend-cosmonaut --region=us-east1-b --project=cosmonaut-uat"
-				sh 'cd dist/cosmonaut-front/ && gsutil cp -r *  gs://qa-cosmonaut-public-front/'		    
+                sh 'gcloud auth activate-service-account cosmonaut-k8s-qa-sa@cosmonaut-uat.iam.gserviceaccount.com --key-file=/secret/cosmonaut-k8s-qa-sa_key.json'		       
+
+				sh 'cd dist/cosmonaut-front/ && gsutil cp -r *  gs://uat-cosmonaut-public-front/'		    
 		     }
         }
      }
