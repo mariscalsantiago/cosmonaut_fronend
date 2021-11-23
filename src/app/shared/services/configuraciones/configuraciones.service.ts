@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { permiso } from 'src/app/core/modelos/permiso';
 
 
@@ -48,6 +48,9 @@ export class ConfiguracionesService {
   public modulosCargados!:Array<Number>;
 
   public static referencia:ConfiguracionesService;
+
+
+  public cambiarColor:Subject<any> = new Subject<any>();
   
 
 
