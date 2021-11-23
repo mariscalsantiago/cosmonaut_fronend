@@ -77,19 +77,24 @@ export class DetalleComponent implements OnInit {
       this.myForm.controls.csBanco.setValue("");
       this.myForm.controls.clabe.setValue("");
     }else{
-    this.bancosPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
-      if (datos.resultado) {
-  
-        this.myForm.controls.csBanco.setValue( datos.datos.bancoId);
-        this.myForm.controls.clabe.setValue(clabe);
-        this.myForm.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
-          
-      }
-      else{
-        this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-      }
-  
-  });
+      if(clabe.length == 18){
+        this.bancosPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
+          if (datos.resultado) {
+      
+            this.myForm.controls.csBanco.setValue( datos.datos.bancoId);
+            this.myForm.controls.clabe.setValue(clabe);
+            this.myForm.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
+              
+          }
+          else{
+            this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
+          }
+        });
+      }else{
+        this.myForm.controls.clabe.setValue("");
+        this.myForm.controls.csBanco.setValue("");
+        this.myForm.controls.numeroCuenta.setValue("");
+      }  
   
     }
   

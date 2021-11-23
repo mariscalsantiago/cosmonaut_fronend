@@ -47,12 +47,12 @@
                                             <div *ngIf="detalleCuenta" class="row mb-4 text-center">
 
                                                 <article class="titulo  col">
-                                                    Número de cuenta
-                                                    <article>{{cuentaBanco?.numeroCuenta}}</article>
-                                                </article>
-                                                <article class="titulo  col">
                                                     Cuenta CLABE
                                                     <article>{{cuentaBanco?.clabe}}</article>
+                                                </article>
+                                                <article class="titulo  col">
+                                                    Número de cuenta
+                                                    <article>{{cuentaBanco?.numeroCuenta}}</article>
                                                 </article>
                                                 <article class="titulo  col">
                                                     Banco
@@ -96,7 +96,7 @@
                                                         <input type="hidden" formControlName="cuentaBancoId">
                                                         <input appSolonumeros maxlength="10"
                                                             formControlName="numeroCuenta" type="text"
-                                                            class="form-control" placeholder=""
+                                                            class="form-control disabled bg-light" placeholder=""
                                                             [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
                                                         <div *ngIf="f.numeroCuenta.errors && submitEnviado"
                                                             class="invalid-feedback">
