@@ -117,7 +117,7 @@ export class DetallerepresentantelegalComponent implements OnInit {
 
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
 
     if (this.myFormrep.invalid) {

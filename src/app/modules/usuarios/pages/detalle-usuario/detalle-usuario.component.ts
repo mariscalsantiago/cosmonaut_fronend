@@ -361,7 +361,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   private validacionesClienteCosmonaut() {
-    debugger;
+    
     let rolid = this.myForm.value.rol;
     if (this.insertar) {
       this.desabilitarAsignarCentrosClientes(rolid);

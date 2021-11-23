@@ -76,7 +76,7 @@ export class NominaHistoricasComponent implements OnInit {
     }
 
 
-    debugger;
+    
     this.arreglotabla = {
       columnas: columnas,
       filas: datos,
@@ -89,7 +89,7 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-    debugger;
+    
 
     obj.datos.cargandoDetalle = false;
     let objEnviar: any;
@@ -237,7 +237,7 @@ export class NominaHistoricasComponent implements OnInit {
         });
         break;
       case "paginado_cantidad":
-        debugger;
+        
         this.elementos = obj.datos.elementos;
         this.pagina = obj.datos.pagina;
         if (!this.cargando || this.primeraVes) {
@@ -267,7 +267,7 @@ export class NominaHistoricasComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos => {
-          debugger;
+          
           if (datos.resultado) {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${this.mesIndex}`, "xlsx");
@@ -299,7 +299,7 @@ export class NominaHistoricasComponent implements OnInit {
 
   public filtrar(desdeFiltrado: boolean = false) {
 
-    debugger;
+    
     this.pagina = 0;
     this.elementos = 20;
     this.arreglo = []; 
@@ -349,7 +349,7 @@ export class NominaHistoricasComponent implements OnInit {
 
   public filtrarPagina(repetir: boolean = false, desdeFiltrado: boolean = false) {
 
-    debugger;
+    
 
     this.objEnviar = [];
       this.objEnviar = {

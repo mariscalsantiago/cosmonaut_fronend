@@ -664,7 +664,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public selectJornada(op: any) {
-    debugger;
+    
     this.myForm.clearValidators();
     this.myForm.controls.horaFinComida.disable();
     this.myForm.controls.horaInicioComida.disable();

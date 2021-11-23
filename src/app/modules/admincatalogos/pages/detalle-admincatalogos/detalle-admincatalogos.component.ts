@@ -66,7 +66,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
   ngOnInit(): void {
     this.establecerPermisos();
-    debugger;
+    
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     
@@ -227,7 +227,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
 
   public crearTabla(obj:any) {
-    debugger;
+    
     this.arreglo = obj;
 
     let columnas: Array<tabla> = [
@@ -354,7 +354,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
 
   public filtrar() {
-    debugger;
+    
     this.envio = {
       "descripcion": this.descripcion
     }  
