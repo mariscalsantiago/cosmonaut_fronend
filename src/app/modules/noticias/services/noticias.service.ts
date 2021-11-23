@@ -27,7 +27,7 @@ export class NoticiasService {
   }
 
   public getNoticiasEmpleado(idEmpresa: number): Observable<any> {
-    return this.http.get(`${direcciones.noticias}/${idEmpresa}`);
+    return this.http.get(`${direcciones.noticias}/${idEmpresa}?zonaHoraria=${encodeURIComponent(Intl.DateTimeFormat().resolvedOptions().timeZone)}`);
   }
 
   public createNoticia(request: any): Observable<any> {
