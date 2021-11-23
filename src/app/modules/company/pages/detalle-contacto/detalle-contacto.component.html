@@ -135,18 +135,16 @@
                   </div>
                 <label  [mdbTooltip]="'contactoinicial' | tooltip" *ngIf="!cargandoCheckbox && tieneUsuarioInicial"
                     class="contenedorInputCheckRadio ">Registrar con acceso al sistema
-                    <input formControlName="usuarioinicial" type="checkbox">
+                    <input formControlName="usuarioinicial" type="checkbox" placeholder=""> 
                     <span class="checkmark"></span>
                 </label>
                 <label  *ngIf="!cargandoCheckbox && !tieneUsuarioInicial"
                 class="contenedorInputCheckRadio ">Registrar con acceso al sistema
-                <input formControlName="usuarioinicial" type="checkbox">
+                <input formControlName="usuarioinicial" type="checkbox" placeholder="">
                 <span class="checkmark"></span>
             </label>
             </div>
-
         </div>
-
 
     </div>
 

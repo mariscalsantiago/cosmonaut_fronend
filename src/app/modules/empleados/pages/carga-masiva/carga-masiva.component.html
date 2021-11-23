@@ -29,7 +29,7 @@
                 <div class="form-group row margen">
 
                     <div class=" input-group-sm mb-3 col-12 col-sm-10 col-lg-10" style="text-align:justify !important;">
-                        <label>Selecciona y descarga el formato que requieras cargar llénalo y sube el archivo. Recuerda llenar todos los campos obligatorios *</label>
+                        <label>Selecciona y descarga el formato que requieras cargar, llénalo y sube el archivo. Recuerda llenar todos los campos obligatorios.</label>
                         <select formControlName="tipoCargaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoCargaId.errors && submitEnviado}">
                 <option value="0" selected ></option>
                 <option *ngFor="let item of arregloTipoCarga"  [value]="item.tipoCargaId">{{item.descripcion}}</option>
