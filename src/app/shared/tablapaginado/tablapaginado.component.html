@@ -382,12 +382,12 @@
                     <a class="page-link" tabindex="-1" aria-disabled="true">Anterior</a>
                 </li>
                 <li (click)="mostrarListaPaginaAnterior(true)" class="page-item " *ngIf="activarMenos"><a
-                        class="page-link">...</a>
+                        class="page-link" [class.noCursor]="paginado_server">...</a>
                 </li>
                 <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas"
-                    (click)="paginacambiar(item,true)"><a class="page-link">{{item.mostrar}}</a></li>
+                    (click)="paginacambiar(item,true)"><a class="page-link" [class.noCursor]="paginado_server && !item.activado">{{item.mostrar}}</a></li>
                 <li (click)="mostrarListaPaginaSiguiente(true)" class="page-item " *ngIf="activarMas"><a
-                        class="page-link">...</a>
+                        class="page-link" [class.noCursor]="paginado_server">...</a>
                 </li>
                 <li (click)="pasarSiguienteItem(true)" class="page-item" [ngClass]="{'disabled':!activarSiguiente}">
                     <a class="page-link">Siguiente</a>
