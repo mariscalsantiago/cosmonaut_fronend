@@ -158,6 +158,7 @@ export class ListachatsActivosComponent implements OnInit {
               this.atiendeChat(obj.datos, true);
 
               setTimeout(() => {
+                console.log("Se mandara el mensaje del chat");
                 const mensaje = `ACCEPTMESSAGEFROM${obj.datos.usuarioId.usuarioId}`;
                 this.notificacionesPrd.enviarMensajeEspecifico(mensaje);
               }, 2000);
@@ -189,8 +190,10 @@ export class ListachatsActivosComponent implements OnInit {
       valorConversacion.atendido = true;
       valorConversacion.idUsuarioRrh = this.usuariossistemaPrd.usuario.usuarioId;
       this.notificacionesPrd.modificar(valorConversacion).subscribe(valor => {
+        
         if (valor.resultado) {
           const mensaje = `ACCEPTMESSAGEFROM${valorConversacion.usuarioId.usuarioId}`;
+          console.log("mensaje",mensaje);
           this.notificacionesPrd.enviarMensaje(mensaje);
           this.atiendeChat(valorConversacion, false);
         }
