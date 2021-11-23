@@ -71,7 +71,7 @@ export class NominaHistoricasComponent implements OnInit {
     if (datos !== undefined) {
       for (let item of datos) {
         item["anio"] = new DatePipe("es-MX").transform(item.fecha_inicio, "yyyy");
-        item["fechai"] = new DatePipe("es-MX").transform(item.fecha_inicio, 'dd/MM/yyyy');
+        item["fechai"] = new DatePipe("es-MX").transform(new Date(item.fecha_inicio), 'dd-MMM-y');
       }
     }
 
