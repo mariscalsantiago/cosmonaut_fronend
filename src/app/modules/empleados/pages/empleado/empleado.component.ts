@@ -190,6 +190,7 @@ this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     });
   }
 
+
   public navegando(item: string) {
    if(!this.esKiosko){
     this.router.navigate([`/empleados/${this.idEmpleado}/${item}`]); 

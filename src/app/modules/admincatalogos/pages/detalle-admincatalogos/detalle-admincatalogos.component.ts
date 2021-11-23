@@ -232,8 +232,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     let columnas: Array<tabla> = [
       new tabla("descripcion", "Descripción"),
-      new tabla("clave", "Clave/Id"),
-      new tabla("esActivo", "Estatus")
+      new tabla("clave", "Clave/Id")
     ]
 
 
