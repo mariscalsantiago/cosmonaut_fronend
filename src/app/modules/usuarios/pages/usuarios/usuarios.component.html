@@ -7,7 +7,7 @@
             </button>
             </div>  
             <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
-                > {{modulo}} ></a>
+                > {{modulo}}</a>
             </li>
             <li style="padding-top: 10PX;">
                 {{subModulo}} 
@@ -74,8 +74,7 @@
                                     </div>
                                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <select name="" class="form-control" [(ngModel)]="id_company" id="id_companyUsuario">
-                                            <option  value="" selected>Seleccionar
-                                                {{esClienteEmpresa?'cliente':'empresa'}}</option>
+                                            <option  value="" selected>Razón social</option>
                                             <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
                                                 {{item.razonSocial}}
                                             </option>
@@ -88,7 +87,7 @@
                                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
                                         <select class="form-control" id="activoUsuario" [(ngModel)]="activo">
 
-                                            <option  value="0" selected>Ambos</option>
+                                            <option  value="0" selected>Estatus</option>
                                             <option  value="1">Activo</option>
                                             <option  value="2">Inactivo</option>
 
@@ -123,7 +122,8 @@
             </div>
         </div>
 
-        <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
+        
+        <div *ngIf="activarMultiseleccion" class="row col text-right margin botonmultiseleccion">
             <div class="col-12">
                 <button type="button" class="btn btn-primary button-outlet mr-2"
                     (click)="guardarMultiseleccion(false)">Desactivar</button>
@@ -133,7 +133,7 @@
             </div>
         </div>
 
-        <div class="row margen margen-tabla background-panel ">
+        <div class="row margen margen-tabla background-panel  class_check">
             <app-tablapaginado [datos]="arreglotabla" [llave]="esEditar" [editar]="esEditar" [checkbox]="esEditar"
                 [cargando]="cargando" [paginado_server]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>

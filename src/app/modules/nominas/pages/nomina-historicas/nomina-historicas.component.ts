@@ -23,7 +23,7 @@ export class NominaHistoricasComponent implements OnInit {
     }
 
   public arreglo: any = [];
-
+  public objEnviar: any = [];
   public cargando: boolean = false;
 
   public nombreNomina: string = "";
@@ -237,11 +237,12 @@ export class NominaHistoricasComponent implements OnInit {
         });
         break;
       case "paginado_cantidad":
+        debugger;
         this.elementos = obj.datos.elementos;
         this.pagina = obj.datos.pagina;
         if (!this.cargando || this.primeraVes) {
           this.primeraVes = false;
-          this.filtrar(obj.nuevos);
+          this.filtrarPagina(obj.nuevos);
         }
         break;
     }
@@ -296,11 +297,14 @@ export class NominaHistoricasComponent implements OnInit {
     }
   }
 
+  public filtrar(desdeFiltrado: boolean = false) {
 
-  public filtrar(repetir: boolean = false, desdeFiltrado: boolean = false) {
-
-
-    let objEnviar = {
+    debugger;
+    this.pagina = 0;
+    this.elementos = 20;
+    this.arreglo = []; 
+    this.objEnviar = [];
+      this.objEnviar = {
       centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
       estadoNominaIdActual: 5,
       nombreNomina: this.nombreNomina || null,
@@ -309,16 +313,68 @@ export class NominaHistoricasComponent implements OnInit {
     }
 
     if (!desdeFiltrado) {
-      this.nominashistoricasPrd.filtradoPaginado(objEnviar, this.elementos, this.pagina).subscribe(datos => {
+      this.nominashistoricasPrd.filtradoPaginado(this.objEnviar, this.elementos, this.pagina).subscribe(datos => {
         this.cargando = false;
+
         if (datos.datos) {
           let arreglo: Array<any> = datos.datos.lista;
-          if (arreglo)
+          if (arreglo){
+              this.arreglo = arreglo;
+          }
+          else{
+            this.arreglo = undefined;
+          }  
+
+          this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
+        }
+
+        this.arreglotabla = {
+          columnas: [],
+          filas: []
+        };
+
+        this.rellenarTablas(this.arreglo);
+      });
+    }else {
+
+      this.arreglotabla = {
+        reiniciar: desdeFiltrado || undefined
+      }
+      this.cargando = true;
+      this.primeraVes = true;
+
+    }
+
+  }
+
+  public filtrarPagina(repetir: boolean = false, desdeFiltrado: boolean = false) {
+
+    debugger;
+
+    this.objEnviar = [];
+      this.objEnviar = {
+      centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
+      estadoNominaIdActual: 5,
+      nombreNomina: this.nombreNomina || null,
+      clavePeriodo: this.periodo || null,
+      fechaInicio: this.fecha || null
+    }
+
+    if (!desdeFiltrado) {
+      this.nominashistoricasPrd.filtradoPaginado(this.objEnviar, this.elementos, this.pagina).subscribe(datos => {
+        this.cargando = false;
+
+        if (datos.datos) {
+          let arreglo: Array<any> = datos.datos.lista;
+          if (arreglo){
             if (!repetir)
               arreglo.forEach(o => this.arreglo.push(o));
             else
               this.arreglo = arreglo;
-
+          }
+          else{
+            this.arreglo = undefined;
+          }  
 
           this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
         }

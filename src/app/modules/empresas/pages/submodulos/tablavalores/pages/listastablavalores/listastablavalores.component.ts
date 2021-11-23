@@ -128,7 +128,7 @@ export class ListasTablaValoresComponent implements OnInit {
 
     let columnas: Array<tabla> = [
       new tabla("tipovalor", "Tipo de valor"),
-      new tabla("valor", "valor"),
+      new tabla("valor", "Valor"),
       new tabla("fechaFin", "Vigencia")
 
     ];

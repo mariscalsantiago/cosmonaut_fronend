@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                <label placement="top" [mdbTooltip]="'calculosConBase' | tooltip">Cálculo con base en :</label><br>
+                <label placement="top" [mdbTooltip]="'calculosConBase' | tooltip">Cálculo con base en: *</label><br>
 
                 <label class="contenedorInputCheckRadio"> Fecha de antigüedad
               <input  value="antiguedad" formControlName="calculoAntiguedadx"  type="radio" name="calculoAntiguedadx" >
@@ -120,16 +120,16 @@
                                             <th id="" class="text-center" scope="col">Prima vacacional</th>
                                         </tr>
                                         <tr *ngFor="let beneficios of arregloTablaBeneficios; let beneficioPolitica = index">
-                                            <td>
-                                                <input (blur)="updateList(beneficioPolitica, 'aniosAntiguedad', $event)" contenteditable="true" class="form-control form-control-sm" placeholder="{{beneficios.aniosAntiguedad}}" disabled>
+                                            <td class="text-center">
+                                                <input (blur)="updateList(beneficioPolitica, 'aniosAntiguedad', $event)" contenteditable="true" class="form-control form-control-sm text-center" placeholder="{{beneficios.aniosAntiguedad}}" disabled>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <span contenteditable="true" (blur)="updateList(beneficioPolitica, 'diasAguinaldo', $event)">{{beneficios.diasAguinaldo}}</span>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <span contenteditable="true" (blur)="updateList(beneficioPolitica, 'diasVacaciones', $event)">{{beneficios.diasVacaciones}}</span>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <span contenteditable="true" (blur)="updateList(beneficioPolitica, 'primaVacacional', $event)">{{beneficios.primaVacacional}}</span>
                                             </td>
                                         </tr>

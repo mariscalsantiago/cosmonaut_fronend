@@ -97,7 +97,7 @@
                         (click)="eventoclick(item2,item,indice)">{{(item2.nombre ==
                         'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
-                    <td *ngIf="tablabeneficios" style="text-align: center;">
+                    <td *ngIf="tablabeneficios" class="opciones" style="text-align: center;">
                         <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
                                 aria-hidden="true" class="icon_24ver primary-bg"></i></button>
                     </td>
@@ -303,8 +303,8 @@
                                     <div class="cabecera">{{verpatronal?'Imss patronal':'Provisión ISN'}}
 
                                         <button (click)="verpatronal = false;verIsnBool = false;" type="button" class="close btnclosemodal"
-                                            aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                        data-dismiss="modal" aria-label="Close">>
+                                            <span style="color: #3ca29a; font-size: 32px;" aria-hidden="true">&times;</span>
                                         </button>
 
                                     </div>

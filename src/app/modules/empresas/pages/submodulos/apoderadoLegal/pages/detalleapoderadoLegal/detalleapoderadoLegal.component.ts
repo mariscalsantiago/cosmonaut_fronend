@@ -138,6 +138,26 @@ export class DetalleapoderadoLegalComponent implements OnInit {
       return;
     }
 
+    let moralFiscia = this.myFormrep.controls.rfc.value.substr(10,12).length;
+    if(moralFiscia === 3){
+      let rfcFisica = this.myFormrep.controls.rfc.value.substr(0,10);
+      let curp = this.myFormrep.controls.curp.value.substr(0,10);
+      if(curp !== rfcFisica){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Los datos de RFC y CURP no corresponden");
+  
+        return;
+      }
+    }
+    else if(moralFiscia === 2){
+      let rfcMoral = this.myFormrep.controls.rfc.value.substr(0,9);
+      let curp = this.myFormrep.controls.curp.value.substr(0,9);
+      if(curp !== rfcMoral){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"Los datos de RFC y CURP no corresponden");
+  
+        return;
+      }
+    }
+
     const titulo = (this.insertar) ? "¿Desea registrar al apoderado legal" : "¿Desea actualizar los datos del apoderado legal?";
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo).then(valor => {

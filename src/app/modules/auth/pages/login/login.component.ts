@@ -133,6 +133,7 @@ export class LoginComponent implements OnInit {
   }
 
   public enviarformulario() {
+    debugger;
     this.restablecer = false;
     this.myForm.value.username = this.myForm.value.username?.toLowerCase();
     this.authPrd.login(this.myForm.value).subscribe(datos => {
@@ -240,6 +241,20 @@ export class LoginComponent implements OnInit {
 
     this.cargando = true;
 
+
+  }
+
+  public mostrarContrasena(){
+    debugger;
+    let elemento: any = document.getElementById("loginpassword")
+
+    if(elemento.type == "password"){
+      elemento.type = "text";
+      $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+    }else{
+      elemento.type = "password";
+      $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+    }
 
   }
 

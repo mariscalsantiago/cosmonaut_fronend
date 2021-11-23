@@ -67,12 +67,18 @@ table {
     th {
         text-align: center;
     }
+ 
+    th:nth-child(1) {
+        .contenedorInputCheckRadio{
+        display: inline !important;
+        }
+    }
+
     td {
         text-align: left;
         // max-width: 500px;
     }
 }
-
 .wrap {
     max-width: 150px;
     text-align: justify;
@@ -97,9 +103,10 @@ table {
     text-align: center!important;
 }
 
-.table .opciones button {
+.table .opciones button:focus {
     background-color: transparent !important;
     border: 0 !important;
+    outline: none !important;
 }
 
 .flechaarriba {
@@ -123,6 +130,16 @@ table {
 .titulo1xml {
     font-size: 10px;
     color: rgb(100, 100, 100);
+}
+
+.btnclosemodal {
+    top: 0 !important;
+    position: absolute !important;
+    right: 11px !important;
+    span {
+        color: #56dfd4;
+        font-size: 32px;
+    }
 }
 
 .tablaTimbrado {
@@ -167,12 +184,13 @@ table {
 
     margin-right: 11px;
     color: white;
-padding-bottom: 15px;
+    padding-bottom: 15px;
       }
 
   }
   .cuerpo{
       background-color: #f3f3f3;
+
   }
 }
 

@@ -21,57 +21,79 @@
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Tipo de jornada *</label>
                 <select formControlName="tipoJornadaId" [ngClass]="{'is-invalid':f.tipoJornadaId.errors && submitInvalido}" class="form-control">
-          <option *ngFor="let item of arreglotipojornadas" [value]="item.tipoJornadaId">{{item.descripcion}} </option>
-        </select>
+                    <option *ngFor="let item of arreglotipojornadas" [value]="item.tipoJornadaId">{{item.descripcion}} </option>
+                </select>
                 <div *ngIf="submitInvalido && f.tipoJornadaId.errors" class="invalid-feedback">
                     Campo requerido
                 </div>
             </div>
+
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Suma de horas para jornada *</label>
                 <select formControlName="sumaHorasJornadaId" [ngClass]="{'is-invalid':f.sumaHorasJornadaId.errors && submitInvalido}" class="form-control" (change)="selectJornada($event.target)">
-          <option *ngFor="let item of arreglosumahoras" [value]="item.sumaHorasJornadaId">{{item.descripcion}} </option>
-        </select>
+                <option *ngFor="let item of arreglosumahoras" [value]="item.sumaHorasJornadaId">{{item.descripcion}} </option>
+                </select>
                 <div *ngIf="submitInvalido && f.sumaHorasJornadaId.errors" class="invalid-feedback">
                     Campo requerido
                 </div>
             </div>
+
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-12">
-                <label>Días de trabajo :</label>
+                <label>Días de trabajo: *</label>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+
+            <div class="input-group-sm mb-3 col-12 col-sm-1 col-lg-1">            
                 <label class="contenedorInputCheckRadio">Lunes
-            <input formControlName="lunes" id="lunes" type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-                <label class="contenedorInputCheckRadio">Martes
-          <input formControlName="martes" type="checkbox" name="" id="martes">
-          <span class="checkmark"></span>
-        </label>
-                <label class="contenedorInputCheckRadio">Miércoles
-          <input formControlName="miercoles" type="checkbox" name="" id="miercoles">
-          <span class="checkmark"></span>
-        </label>
-                <label class="contenedorInputCheckRadio">Jueves
-          <input formControlName="jueves" type="checkbox" name="" id="jueves">
-          <span class="checkmark"></span>
-        </label>
+                    <input formControlName="lunes" id="lunes" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+
+            <div class="input-group-sm mb-3 col-12 col-sm-5 col-lg-5"></div> 
+            <div class="input-group-sm mb-3 col-12 col-sm-1 col-lg-1">
                 <label class="contenedorInputCheckRadio">Viernes
-          <input formControlName="viernes" type="checkbox" name="" id="viernes">
-          <span class="checkmark"></span>
-        </label>
-                <label class="contenedorInputCheckRadio">Sábado
-          <input formControlName="sabado" type="checkbox" name="" id="sabado">
-          <span class="checkmark"></span>
-        </label>
-                <label class="contenedorInputCheckRadio">Domingo
-          <input formControlName="domingo" type="checkbox" name="" id="domingo">
-          <span class="checkmark"></span>
-        </label>
+                    <input formControlName="viernes" type="checkbox" name="" id="viernes">
+                    <span class="checkmark"></span>
+                </label>
             </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-5 col-lg-5"></div>
+            <div class="input-group-sm mb-3 col-12 col-sm-1 col-lg-1">  
+                <label class="contenedorInputCheckRadio">Martes
+                    <input formControlName="martes" type="checkbox" name="" id="martes">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-5 col-lg-5"></div> 
+            <div class="input-group-sm mb-3 col-12 col-sm-1 col-lg-1">
+                <label class="contenedorInputCheckRadio">Sábado
+                    <input formControlName="sabado" type="checkbox" name="" id="sabado">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-5 col-lg-5"></div> 
+            <div class="input-group-sm mb-3 col-12 col-sm-1 col-lg-1">
+                <label class="contenedorInputCheckRadio">Miércoles
+                    <input formControlName="miercoles" type="checkbox" name="" id="miercoles">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-5 col-lg-5"></div> 
+            <div class="input-group-sm mb-3 col-12 col-sm-1 col-lg-1">
+                <label class="contenedorInputCheckRadio">Domingo
+                    <input formControlName="domingo" type="checkbox" name="" id="domingo">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-5 col-lg-5"></div> 
+            <div class="input-group-sm mb-3 col-12 col-sm-1 col-lg-1">                
+                <label class="contenedorInputCheckRadio">Jueves
+                    <input formControlName="jueves" type="checkbox" name="" id="jueves">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-9 col-lg-9"></div>
+
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Hora de entrada *</label>
                 <input #nombre formControlName="horaEntrada" [ngClass]="{'is-invalid':f.horaEntrada.errors && submitInvalido}" type="time" class="form-control" placeholder="" (focusout)="hrInicio($event.target)">
@@ -105,8 +127,8 @@
             </div>
 
         </div>
-
     </div>
+
     <div class="text-center margin" style="margin-bottom: 20px;">
         <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()">Cancelar</button>
         <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
