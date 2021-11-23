@@ -1,6 +1,4 @@
-<div class="background-ajustar" appTamanioVentana [pixeles]="30">
-<div>
-    <div class="row margen titulosfijos">
+<div class="row margen titulosfijos">
         <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
             <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
@@ -19,7 +17,7 @@
         </ul> 
     </div>
 
-    
+    <div class="background-ajustar" appTamanioVentana [pixeles]="100">
     <div class="scrooll-design">
         <div class="margen"  *ngIf="this.objdetcat.listaCatalogosId !== 17 && this.objdetcat.listaCatalogosId !== 18 && this.objdetcat.listaCatalogosId !== 19">
 
@@ -79,6 +77,5 @@
             <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
-</div>
 </div>
 

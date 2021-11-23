@@ -1,4 +1,3 @@
-<div class="background-ajustar" appTamanioVentana [pixeles]="28">
 <div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
     <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
@@ -13,11 +12,14 @@
         </li>
     </ul>
 </div>
-
+<div class="background-ajustar" appTamanioVentana [pixeles]="110">
 <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()" class="form-desing ">
-    <div class=" row margen background-panel">
-    <div class="form-group row margen mt-4"><label class="titulo">CALCULAR SUELDO</label></div>
-        <div class="form-group row margen">
+        <div class="background-panel margen">
+                <br>
+                <div class="form-group row margen">
+                    <label class="titulo">CALCULAR SUELDO</label>
+                </div>
+            <div class="form-group row margen">
             <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                 <label for="tiposueldo">Tipo de sueldo de entrada *</label>
                 <select [class.is-invalid]="f.tiposueldo.errors && f.tiposueldo.touched" id="tiposueldo" formControlName="tiposueldo" class="form-control">
