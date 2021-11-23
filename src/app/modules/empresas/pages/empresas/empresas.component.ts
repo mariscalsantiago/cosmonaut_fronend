@@ -10,7 +10,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
   templateUrl: './empresas.component.html',
   styleUrls: ['./empresas.component.scss']
 })
-export class EmpresasComponent implements OnInit {
+export class EmpresasComponent  implements OnInit {
 
   public modal: boolean = false;
 
@@ -47,6 +47,7 @@ export class EmpresasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   
 
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
@@ -64,16 +65,6 @@ export class EmpresasComponent implements OnInit {
         });
       }else{
         console.log(this.usuarioSistemaPrd.getVersionSistema(),this.usuarioSistemaPrd.usuario);
-        if(!this.usuarioSistemaPrd.usuario.multiempresa){
-          if(this.usuarioSistemaPrd.esCliente()){
-            this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-                if(datos.datos){
-                    this.modalPrd.showMessageDialog(this.modalPrd.error,"Este cliente no es multiempresa, no podrás agregar más empresas.");
-                    this.routerPrd.navigate(['/']);
-                }
-            });
-          }
-        }
       }
     });
     

@@ -7,6 +7,7 @@ import { SedeComponent } from './pages/empresas/pestañas/domicilio/sede/sede.co
 import { CuentasComponent } from './pages/empresas/pestañas/datosbancarios/cuentas/cuentas.component';
 import { MovimientosComponent } from './pages/movimientos/movimientos/movimientos.component';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import { MultiempresaResolver } from './resolvers/multiempresa.resolver';
 
 
 const routes: Routes = [{
@@ -18,7 +19,7 @@ const routes: Routes = [{
     },
     {
       path: 'empresas/:tipoinsert',
-      component: EmpresasComponent
+      component: EmpresasComponent,resolve:{esMultiempresa:MultiempresaResolver}
     },
     {
       path: 'empresas/nuevo/sede',
