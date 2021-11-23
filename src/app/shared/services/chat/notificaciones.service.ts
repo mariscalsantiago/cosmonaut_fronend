@@ -50,6 +50,7 @@ export class NotificacionesService {
       //this.conectar(conexion);
     }
     this.webSocket.onmessage = (mensaje) => {
+      console.log("mensaje normal",mensaje);
       this.notificacionNormal(usuario, idEmpresa, mensaje);
       this.scrnotificacion.next(mensaje);
     }
@@ -69,6 +70,7 @@ export class NotificacionesService {
 
 
     this.webSocketEspecifico.onmessage = (mensaje: any) => {
+      console.log("notificacion especifica",mensaje);
       this.notificacionEspecifica(usuario, idEmpresa, mensaje);
     }
 
@@ -115,6 +117,8 @@ export class NotificacionesService {
 
       if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
 
+        debugger;
+        console.log("Aqui termina");
         if (!usuario.esRecursosHumanos) {
           this.mensajes.push({ mensaje: "El usuario RRH ha finalizado el chat...", usuarioId: -1, nombre: usuario.nombre });
           this.nombreEmpleado = "Recursos humanos";
