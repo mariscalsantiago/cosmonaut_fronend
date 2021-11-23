@@ -1,113 +1,105 @@
 <div class="moduloempleados">
- 
-
-
-
    
-        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
-            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
-                <img src="assets/imgs/menu.png" alt="" srcset="">
-            </button>
-            </div>  
-            <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
-                > PERFIL DEL EMPLEADO</a>
-            </li>            
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+            > PERFIL DEL EMPLEADO</a>
+        </li>            
 
-            <li style="padding-top: 10PX;">
-                 {{empleado.personaId?.nombre | uppercase}}
-                {{empleado.personaId?.apellidoPaterno | uppercase}} {{empleado.personaId?.apellidoMaterno | uppercase}}
-            </li>   
-        </ul> 
- 
+        <li style="padding-top: 10PX;">
+             {{empleado.personaId?.nombre | uppercase}}
+            {{empleado.personaId?.apellidoPaterno | uppercase}} {{empleado.personaId?.apellidoMaterno | uppercase}}
+        </li>   
+    </ul> 
 
-
-
-
-    <div class="scrollempleado mt-2">
-        <div id="perfilEmpleada" style="    height: 70px;" class=" background-panel">
+<div class="scrollempleado mt-2">
+    <div id="perfilEmpleada" style="    height: 70px;" class=" background-panel">
 
 
-            <div (click)="subirFotoperfil();" class="marginImage alinear">
-                <img style="border-radius: 50%;" width="60px" height="60px" [src]="elEmpleado.url" alt="..." class="tableimg">
-                <br>
-                <span class="estilolink">Subir foto de perfil</span>
-            </div>
-            <div class="alinear ml-3" style="font-size: 12px;width: 50%;">
-                <div class="contenedorflex">
-                    <div class="elementoitem">
-                        
-                        <i aria-hidden="true" class="fas fa-user"></i> &nbsp;{{empleado.centrocClienteId?.nombre}}
-                    </div>
-                    <div class="elementoitem" >
-                        
-                        <i aria-hidden="true" class="fas fa-user"></i>  &nbsp; {{empleado.personaId?.rfc}}
-                    </div>
-                    
-                    <div class="elementoitem">
-                        <i aria-hidden="true" class="fas fa-user"></i> &nbsp;Empleado {{empleado.numEmpleado}}
-                    </div>
-                    <div class="elementoitem">
-                        <svg id="Capa_1" enable-background="new 0 0 512 512" height="15" viewBox="0 0 512 512" width="15" xmlns="http://www.w3.org/2000/svg"><g><path d="m436.812 75.188c-48.485-48.486-112.699-75.188-180.812-75.188s-132.327 26.702-180.812 75.188c-48.486 48.485-75.188 112.699-75.188 180.812s26.702 132.327 75.188 180.812c48.485 48.486 112.699 75.188 180.812 75.188s132.327-26.702 180.812-75.188c48.486-48.485 75.188-112.699 75.188-180.812s-26.702-132.327-75.188-180.812zm-180.812 406.812c-124.617 0-226-101.383-226-226s101.383-226 226-226 226 101.383 226 226-101.383 226-226 226z"/><path d="m256 61c-107.523 0-195 87.477-195 195s87.477 195 195 195 195-87.477 195-195-87.477-195-195-195zm0 360c-90.981 0-165-74.019-165-165s74.019-165 165-165 165 74.019 165 165-74.019 165-165 165z"/><path d="m301 210.848c0 8.284 6.716 15 15 15s15-6.716 15-15c0-16.612-8.592-32.584-23.574-43.82-10.233-7.675-22.824-12.802-36.426-14.983v-16.198c0-8.284-6.716-15-15-15s-15 6.716-15 15v16.198c-13.603 2.181-26.194 7.308-36.426 14.983-14.982 11.236-23.574 27.208-23.574 43.82s8.592 32.583 23.574 43.82c10.233 7.675 22.824 12.802 36.426 14.983v59.409c-17.28-4.223-30-15.437-30-28.212 0-8.284-6.716-15-15-15s-15 6.716-15 15c0 16.612 8.592 32.583 23.574 43.82 10.233 7.675 22.824 12.802 36.426 14.983v16.349c0 8.284 6.716 15 15 15s15-6.716 15-15v-16.349c13.603-2.181 26.194-7.308 36.426-14.983 14.982-11.236 23.574-27.208 23.574-43.82s-8.592-32.584-23.574-43.82c-10.233-7.675-22.824-12.802-36.426-14.983v-59.409c17.28 4.224 30 15.437 30 28.212zm-90 0c0-12.775 12.72-23.989 30-28.212v56.423c-17.28-4.222-30-15.436-30-28.211zm90 90c0 12.775-12.72 23.989-30 28.212v-56.423c17.28 4.223 30 15.436 30 28.211z"/></g></svg>
-                          &nbsp; {{empleado.sueldoBrutoMensual | currency:'$'}}
-                    </div>
-                    
-                    <div class="elementoitem">
-                        <i aria-hidden="true" class="fas fa-user"></i> &nbsp;{{empleado.puestoId?.descripcion}}
-                    </div>
-
-                    <div class="elementoitem">
-                       <img src="assets/imgs/telefono.png" alt="" srcset=""> &nbsp;{{empleado.personaId?.contactoInicialTelefono}}
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="alinear" style="width: 24%;    margin-top: 5px;">
-                <div class="row" style="margin-bottom: 5px;">
-                    <button *ngIf="!empleado.esActivo && !esKiosko" (click)="activarEmpleado()" style="margin:auto" class="btn btn-primary button-fill heartbeat">Activar empleado</button>
-                </div>
-                <div *ngIf="!esKiosko && porcentaje?.porcentaje!=100" class="progress">
-                    <div class="progress-bar primary-bg" role="progressbar" [style.width]="porcentaje?.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{porcentaje?.porcentaje}}%</div>
-                </div>
-            </div>            
-            </div>
-            <!-- <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div> -->
-            <a *ngIf="!esKiosko" (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" 
-            class="fas fa-download"></i> Descargar perfil</small>
-        <div *ngIf="cargandoIcon" class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
+        <div (click)="subirFotoperfil();" class="marginImage alinear">
+            <img style="border-radius: 50%;" width="60px" height="60px" [src]="elEmpleado.url" alt="..." class="tableimg">
+            <br>
+            <span class="estilolink">Subir foto de perfil</span>
         </div>
-      </a>
-     </div>
+        <div class="alinear ml-3" style="font-size: 12px;width: 50%;">
+            <div class="contenedorflex">
+                <div class="elementoitem">
+                    
+                    <i aria-hidden="true" class="fas fa-user"></i> &nbsp;{{empleado.centrocClienteId?.nombre}}
+                </div>
+                <div class="elementoitem" >
+                    
+                    <i aria-hidden="true" class="fas fa-user"></i>  &nbsp; {{empleado.personaId?.rfc}}
+                </div>
+                
+                <div class="elementoitem">
+                    <i aria-hidden="true" class="fas fa-user"></i> &nbsp;Empleado {{empleado.numEmpleado}}
+                </div>
+                <div class="elementoitem">
+                    <svg id="Capa_1" enable-background="new 0 0 512 512" height="15" viewBox="0 0 512 512" width="15" xmlns="http://www.w3.org/2000/svg"><g><path d="m436.812 75.188c-48.485-48.486-112.699-75.188-180.812-75.188s-132.327 26.702-180.812 75.188c-48.486 48.485-75.188 112.699-75.188 180.812s26.702 132.327 75.188 180.812c48.485 48.486 112.699 75.188 180.812 75.188s132.327-26.702 180.812-75.188c48.486-48.485 75.188-112.699 75.188-180.812s-26.702-132.327-75.188-180.812zm-180.812 406.812c-124.617 0-226-101.383-226-226s101.383-226 226-226 226 101.383 226 226-101.383 226-226 226z"/><path d="m256 61c-107.523 0-195 87.477-195 195s87.477 195 195 195 195-87.477 195-195-87.477-195-195-195zm0 360c-90.981 0-165-74.019-165-165s74.019-165 165-165 165 74.019 165 165-74.019 165-165 165z"/><path d="m301 210.848c0 8.284 6.716 15 15 15s15-6.716 15-15c0-16.612-8.592-32.584-23.574-43.82-10.233-7.675-22.824-12.802-36.426-14.983v-16.198c0-8.284-6.716-15-15-15s-15 6.716-15 15v16.198c-13.603 2.181-26.194 7.308-36.426 14.983-14.982 11.236-23.574 27.208-23.574 43.82s8.592 32.583 23.574 43.82c10.233 7.675 22.824 12.802 36.426 14.983v59.409c-17.28-4.223-30-15.437-30-28.212 0-8.284-6.716-15-15-15s-15 6.716-15 15c0 16.612 8.592 32.583 23.574 43.82 10.233 7.675 22.824 12.802 36.426 14.983v16.349c0 8.284 6.716 15 15 15s15-6.716 15-15v-16.349c13.603-2.181 26.194-7.308 36.426-14.983 14.982-11.236 23.574-27.208 23.574-43.82s-8.592-32.584-23.574-43.82c-10.233-7.675-22.824-12.802-36.426-14.983v-59.409c17.28 4.224 30 15.437 30 28.212zm-90 0c0-12.775 12.72-23.989 30-28.212v56.423c-17.28-4.222-30-15.436-30-28.211zm90 90c0 12.775-12.72 23.989-30 28.212v-56.423c17.28 4.223 30 15.436 30 28.211z"/></g></svg>
+                      &nbsp; {{empleado.sueldoBrutoMensual | currency:'$'}}
+                </div>
+                
+                <div class="elementoitem">
+                    <i aria-hidden="true" class="fas fa-user"></i> &nbsp;{{empleado.puestoId?.descripcion}}
+                </div>
 
-
-     <ul class="nav nav-tabs mt-1" id="navegadorTabs" role="tablist">
-            <li class="nav-item" >
-                <a class="nav-link active" [class.active]="configuracionPrd.activa == 1"  id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true" (click)="configuracionPrd.activa = 1;navegando('personal')">Personal</a>
-            </li>
-            <li class="nav-item" >
-                <a class="nav-link" [class.active]="configuracionPrd.activa == 2"  id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" (click)="configuracionPrd.activa = 2;navegando('empleo')">Empleo</a>
-            </li>
-            <li class="nav-item" >
-                <a class="nav-link" [class.active]="configuracionPrd.activa == 3"  id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 3;navegando('pagos');">Pago</a>
-            </li>
-            <li class="nav-item" >
-                <a class="nav-link" [class.active]="configuracionPrd.activa == 4" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 4;navegando('eventos');">Eventos</a>
-            </li>
-            <li *ngIf="!esKiosko" class="nav-item" >
-                <a class="nav-link" [class.active]="configuracionPrd.activa == 5"  id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 5;navegando('documentos');">Documentos</a>
-            </li>
-            <li class="nav-item" >
-                <a class="nav-link" [class.active]="configuracionPrd.activa == 6"  id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 6;navegando('kardex');">Kardex</a>
-            </li>
-        </ul>
-
-
-        <div class="row m-2 background-panel background-ajustar" appTamanioVentana>
-            <div class="col-12 m-3">
-                <router-outlet></router-outlet>
+                <div class="elementoitem">
+                   <img src="assets/imgs/telefono.png" alt="" srcset=""> &nbsp;{{empleado.personaId?.contactoInicialTelefono}}
+                </div>
             </div>
+
+        </div>
+
+
+        <div class="alinear" style="width: 24%;    margin-top: 5px;">
+            <div class="row" style="margin-bottom: 5px;">
+                <button *ngIf="!empleado.esActivo && !esKiosko" (click)="activarEmpleado()" style="margin:auto" class="btn btn-primary button-fill heartbeat">Activar empleado</button>
+            </div>
+            <div *ngIf="!esKiosko && porcentaje?.porcentaje!=100" class="progress">
+                <div class="progress-bar primary-bg" role="progressbar" [style.width]="porcentaje?.porcentaje+'%'" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{porcentaje?.porcentaje}}%</div>
+            </div>
+        </div>            
+        </div>
+        <!-- <div class="primary-bg text-white text-center bordeEmpleada ">Empleado</div> -->
+        <a *ngIf="!esKiosko" (click)="iniciarDescarga()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" 
+        class="fas fa-download"></i> Descargar perfil</small>
+    <div *ngIf="cargandoIcon" class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </a>
+ </div>
+
+
+ <ul class="nav nav-tabs mt-1" id="navegadorTabs" role="tablist">
+        <li class="nav-item" >
+            <a class="nav-link active" [class.active]="configuracionPrd.activa == 1"  id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true" (click)="configuracionPrd.activa = 1;navegando('personal')">Personal</a>
+        </li>
+        <li class="nav-item" >
+            <a class="nav-link" [class.active]="configuracionPrd.activa == 2"  id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" (click)="configuracionPrd.activa = 2;navegando('empleo')">Empleo</a>
+        </li>
+        <li class="nav-item" >
+            <a class="nav-link" [class.active]="configuracionPrd.activa == 3"  id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 3;navegando('pagos');">Pago</a>
+        </li>
+        <li class="nav-item" >
+            <a class="nav-link" [class.active]="configuracionPrd.activa == 4" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 4;navegando('eventos');">Eventos</a>
+        </li>
+        <li *ngIf="!esKiosko" class="nav-item" >
+            <a class="nav-link" [class.active]="configuracionPrd.activa == 5"  id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 5;navegando('documentos');">Documentos</a>
+        </li>
+        <li class="nav-item" >
+            <a class="nav-link" [class.active]="configuracionPrd.activa == 6"  id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" (click)="configuracionPrd.activa = 6;navegando('kardex');">Kardex</a>
+        </li>
+    </ul>
+
+
+    <div class="row m-2 background-panel background-ajustar" appTamanioVentana>
+        <div class="col-12 m-3">
+            <router-outlet></router-outlet>
         </div>
     </div>
+
 </div>
