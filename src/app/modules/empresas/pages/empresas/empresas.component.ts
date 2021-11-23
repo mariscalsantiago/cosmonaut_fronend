@@ -69,7 +69,7 @@ export class EmpresasComponent implements OnInit {
             this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
                 if(datos.datos){
                   this.routerPrd.navigate(['/']);
-                    this.modalPrd.showMessageDialog(this.modalPrd.error,"Este cliente no es multiempresa, no podrás agregar más empresas.");
+                  this.modalPrd.showMessageDialog(this.modalPrd.error,"Este cliente no es multiempresa, no podrás agregar más empresas.");
                 }
             });
           }
