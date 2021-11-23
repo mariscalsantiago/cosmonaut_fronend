@@ -225,13 +225,13 @@ p.interlineado{
 
 article.titulo{
     article{
-      font-size: 12px;
+      font-size: 15px;
       
       color:black;
     }
 
     color:$light_titulo;
-    font-size: 12px;
+    font-size: 15px;
     display: inline-block;
 
     input[type='radio']:after {
@@ -389,12 +389,11 @@ form{
 }
 
 
-
 .background-ajustar{
     overflow-y:auto;
 
     &::-webkit-scrollbar {
-        width: 12px;
+        //width: 12px;
         height: 10px;
         cursor: pointer;
       }

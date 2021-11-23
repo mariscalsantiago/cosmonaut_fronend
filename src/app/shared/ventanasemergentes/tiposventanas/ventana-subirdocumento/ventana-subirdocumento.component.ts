@@ -3,6 +3,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DocumentosService } from 'src/app/modules/empleados/services/documentos.service';
 
+
 @Component({
   selector: 'app-ventana-subirdocumento',
   templateUrl: './ventana-subirdocumento.component.html',
@@ -27,7 +28,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
 
   ngOnInit(): void {
     
-
+debugger;
     if(this.datos.esInsert){
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;
@@ -36,6 +37,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
 
       this.empresa = this.datos.centrocClienteId;
       this.empleado = this.datos.personaId;
+
     }
 
 
@@ -45,12 +47,15 @@ export class VentanaSubirDocumentoComponent implements OnInit {
     });
 
     this.myForm = this.createForm(this.datos);
+
+    if(!this.datos.esInsert){
+      this.myForm.controls.idTipoDocumento.disable();
+      this.myForm.controls.idTipoDocumento.updateValueAndValidity();
+    } 
   }
 
 
   public createForm(obj: any) {
-    
-
     return this.formBuild.group({
 
       idTipoDocumento: [obj.tipoDocumentoId],

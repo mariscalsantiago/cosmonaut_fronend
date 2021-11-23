@@ -97,7 +97,7 @@
                         (click)="eventoclick(item2,item,indice)">{{(item2.nombre ==
                         'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
-                    <td *ngIf="tablabeneficios" class="opciones" style="text-align: center;">
+                    <td *ngIf="tablabeneficios" class="wrap" style="text-align: center;">
                         <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
                                 aria-hidden="true" class="icon_24ver primary-bg"></i></button>
                     </td>
@@ -107,7 +107,7 @@
                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{item.porcentaje}}%</div>
                         </div>
                     </td>
-                    <td *ngIf="!chat" class="opciones" [ngClass]="{'centrar':item.nombre !== 'Política Estándar'}">
+                    <td *ngIf="!chat" class="opciones" [ngClass]="{'centrarIconos':item.nombre !== 'Política Estándar'}">
                         <button *ngIf="descargar && item.nombre !== 'Política Estándar'"
                             (click)="btnDescargar(item,indice)"><i aria-hidden="true"
                                 class="icon_24descargar primary-bg"></i></button>
@@ -125,11 +125,11 @@
                                 [mdbTooltip]="'resetPass' | tooltip"></i>
                         </button>
                         <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)"><i aria-hidden="true"
-                                *ngIf="item.desglosarDown" class="icon_24flechaabajo primary" style="font-size: 14px;
-                    margin: 9px; background-color: #00C1AF;"></i>
+                                *ngIf="item.desglosarDown" class="icon_24flechaabajo primary" style="font-size: 12px;
+                    margin: 0px; background-color: #00C1AF;"></i>
 
-                            <i aria-hidden="true" *ngIf="!item.desglosarDown" class="icon_24flechaarriba primary" style="font-size: 14px;
-                    margin: 9px;background-color: #00C1AF;"></i>
+                            <i aria-hidden="true" *ngIf="!item.desglosarDown" class="icon_24flechaarriba primary" style="font-size: 12px;
+                    margin: 0px; background-color: #00C1AF;"></i>
                         </button>
                     </td>
 

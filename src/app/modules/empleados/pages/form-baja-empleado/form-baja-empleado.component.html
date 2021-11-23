@@ -1,4 +1,5 @@
-<div class="row margen">
+<div class="background-ajustar" appTamanioVentana [pixeles]="30">
+<div class="row titulosfijos margen">
     <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
@@ -54,7 +55,7 @@
                         </div>
                     </div>
                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                        <label>Motivo de salida*</label>
+                        <label>Motivo de salida *</label>
                         <select formControlName="motivoBajaId" type="text" [ngClass]="{'is-invalid':f.motivoBajaId.errors && submitEnviado}" class="form-control">
                       <option value=""></option>
                       <option *ngFor="let item of arregloMotivoBaja"  [value]="item.motivoBajaId">{{item.descripcion}}</option>
@@ -65,7 +66,7 @@
                     </div>
 
                     <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                        <label>Fecha de baja*</label>
+                        <label>Fecha de baja *</label>
                         <input formControlName="ultimoDia" type="date" [ngClass]="{'is-invalid':f.ultimoDia.errors && submitEnviado}" class="form-control">
                         <div *ngIf="f.ultimoDia.errors && submitEnviado" class="invalid-feedback">
                             Campo requerido
@@ -152,3 +153,4 @@
     </div>
 
 </form>
+</div>

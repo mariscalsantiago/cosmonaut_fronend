@@ -86,14 +86,21 @@ export class CuentasComponent implements OnInit {
         this.myForm.controls.idbanco.setValue("");
         this.myForm.controls.clabe.setValue("");
       } else {
-        this.cuentasPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
-          
-          this.myForm.controls.idbanco.setValue( datos.datos.bancoId);
-          this.myForm.controls.clabe.setValue(clabe);
-          this.myForm.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
-          this.myForm.controls.num_sucursal.setValue(datos.datos.sucursal);
+        if(clabe.length == 18){
+          this.cuentasPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
+            
+            this.myForm.controls.idbanco.setValue( datos.datos.bancoId);
+            this.myForm.controls.clabe.setValue(clabe);
+            this.myForm.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
+            this.myForm.controls.num_sucursal.setValue(datos.datos.sucursal);
 
-        });
+          });
+        }else{
+          this.myForm.controls.clabe.setValue("");
+          this.myForm.controls.idbanco.setValue("");
+          this.myForm.controls.numeroCuenta.setValue("");
+          this.myForm.controls.num_sucursal.setValue("");
+        }  
 
       }
 

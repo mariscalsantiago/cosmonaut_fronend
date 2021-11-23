@@ -23,15 +23,14 @@
     </div>
 </div>
 <div class="row" *ngIf="puedeConsultarCalendario()">
-    <div class="col-12">
-        <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="300">
+    <div class="col-11 margen">
             <div style="background-color: transparent;">
-                <div class="col-4 titulo-outlet-inicio">
-                    <div class="col-2 menu-hamburgesa"></div> <label>REPORTES</label>
+                <div class="col-4 tituloPanelInicio">
+                    <label>REPORTES</label>
                 </div>
             </div>
-            <iframe width="1270" height="320" [src]="url" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
+            <iframe width="1190" height="320" [src]="url" frameborder="0" style="border:0" allowfullscreen></iframe>
+        
     </div>
 
 </div>

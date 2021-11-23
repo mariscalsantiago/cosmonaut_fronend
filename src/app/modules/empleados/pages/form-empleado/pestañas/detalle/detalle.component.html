@@ -8,15 +8,6 @@
                     <label>Método de pago</label>
                     <input placement="top" [mdbTooltip]="'metodoPago' | tooltip" [value]="datosPersona?.metodopago?.descripcion" disabled type="text" class="form-control" placeholder="">
                 </div>
-                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                    <label>Número de cuenta *</label>
-                    <input appSolonumeros maxlength="10" formControlName="numeroCuenta" type="text" class="form-control" placeholder="" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
-                    <div *ngIf="f.numeroCuenta.errors && submitEnviado" class="invalid-feedback">
-                        Campo requerido
-                    </div>
-
-
-                </div>
                 <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Cuenta CLABE *</label>
                     <input appSolonumeros placement="top" [mdbTooltip]="'clabe' | tooltip" #clabe (focusout)="validarBanco(clabe.value)" maxlength="18" formControlName="clabe" type="text" class="form-control" value="" [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
@@ -27,6 +18,15 @@
                     <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
                         La CLABE no es válida
                     </div>
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Número de cuenta *</label>
+                    <input appSolonumeros maxlength="10" formControlName="numeroCuenta" type="text" class="form-control disabled bg-light" placeholder="" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
+                    <div *ngIf="f.numeroCuenta.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+
                 </div>
                 <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                     <label>Banco *</label>

@@ -1,3 +1,4 @@
+<div class="background-ajustar" appTamanioVentana [pixeles]="30">
 <div class="row margen titulosfijos">
     <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
@@ -26,4 +27,5 @@
     <div class="row margen margen-tabla background-panel">
         <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
+</div>
 </div>

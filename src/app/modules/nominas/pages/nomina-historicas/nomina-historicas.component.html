@@ -12,13 +12,10 @@
         </li>
     </ul>
 </div>
-<div class="form-desing ">
+<div class="background-ajustar" appTamanioVentana [pixeles]="80">
+<div class="form-desing margen">
 
-
-
-    <div class="row m-1 background-panel background-ajustar" appTamanioVentana [pixeles]="160">
-
-        
+       
         <div class="form-group margen row  mt-3 " style="width: 100%;"><label class="titulo">BÚSQUEDA</label></div>
                     <div style="width: 100%;" class="form group row margen">
                         <div class=" input-group-sm mb-3 col-4 ">
@@ -60,8 +57,7 @@
                     </div>
 
 
-        <div class="row margen background-panel " style="    width: 100%;
-        margin: 50px;">
+        <div class="row margen background-panel ">
             <app-tablapaginado [paginado_server]="true" [esNominaHistorica]="true" [datos]="arreglotabla" [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>

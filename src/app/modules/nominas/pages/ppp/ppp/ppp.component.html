@@ -1,5 +1,5 @@
+<div class="background-ajustar" appTamanioVentana [pixeles]="30">
 <div>
-
     <div class="row margen titulosfijos">
         <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
             <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
@@ -27,13 +27,6 @@
                   <label class="titulo" style="    width: 80%;
                 float: left;
                 text-align: left;">BÚSQUEDA</label>
-                  <i aria-hidden="true" *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                    class="icon_24flechaarriba bg-primary"></i>
-                  <i aria-hidden="true" *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                    class="icon_24flechaabajo bg-primary "></i>
-
                 </button>
                                 <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
                   <label class="titulo">BÚSQUEDA</label>
@@ -44,7 +37,7 @@
 
                         <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
-                                <div class="form group row margen">
+                                <div class="form group row ">
                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <input appAlfanumerico type="text" maxlength="20" [(ngModel)]="numeroEmpleado" id="numeroEmpleadoPPPS" class="form-control" placeholder="Número de empleado">
                                     </div>
@@ -97,4 +90,5 @@
             <app-tablapaginado [datos]="arreglotabla" [checkbox]="esDescargar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
+</div>
 </div>

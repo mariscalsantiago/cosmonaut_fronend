@@ -102,7 +102,7 @@ export class TooltipPipe implements PipeTransform {
     } else if(value === 'fechaFinNomina'){
       return "No existen nóminas registradas para el empleado en Cosmonaut. Coloca la fecha fin de la última nómina pagada al empleado para que el sistema pueda realizar el cálculo con base a esa fecha.";
     } else if(value === 'editarUsuario'){
-      return "Editar usuario";
+      return "Editar";
     } else if(value === 'resetPass'){
       return "Resetear contraseña";
     }else if(value =='contactoinicial'){

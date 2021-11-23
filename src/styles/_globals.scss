@@ -4,8 +4,6 @@ $unnamed-color-002637: #002637;
 $unnamed-color-00ded4: #00DED4;
 $unnamed-color-00c1af: #00C1AF;
 
-
-
 /* Font/text values */
 
 $unnamed-font-family-roboto: Roboto;
@@ -46,12 +44,10 @@ $pantallamovil:600px;
     font-size: large;
 }
 
-
-
 .primary-bg {
-    background-color: $secondary;
+    background-color: $secondary !important;
 }
 
 .danger-bg {
-    background-color: $orange ;
+    background-color: $orange !important;
 }

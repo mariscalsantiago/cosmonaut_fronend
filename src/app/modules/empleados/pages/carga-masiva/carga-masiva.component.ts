@@ -112,7 +112,7 @@ export class CargaMasivaComponent implements OnInit {
 
         item.nombreCompleto = item.nombre + " " + item.apellidoPaterno+" "+(item.apellidoMaterno == undefined ? "":item.apellidoMaterno);
 
-        item.estatus = item.esCorrecto? "Exitoso":"Error";
+        item.estatus = item.esCorrecto? "Exitoso":"No guardado - registro con error";
           
       }
     }

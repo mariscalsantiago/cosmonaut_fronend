@@ -48,6 +48,7 @@ export class EmpleoComponent implements OnInit {
   public puestoIdReporta: number = 0;
 
   public esKiosko:boolean = false;
+  public areaGeo: string =''; 
 
   constructor(private formBuilder: FormBuilder, private contratoColaboradorPrd: ContratocolaboradorService,
     private router: ActivatedRoute, public catalogosPrd: CatalogosService,
@@ -131,11 +132,19 @@ export class EmpleoComponent implements OnInit {
 
 
   public createForm(obj: any) {
+    debugger;
+    if(obj.areaGeograficaId?.areaGeograficaId==1){
+      this.areaGeo = 'Área general';
+    }
+    else if(obj.areaGeograficaId?.areaGeograficaId==2){
+      this.areaGeo = 'Zona libre de la frontera norte';
+    }
     let datePipe = new DatePipe("en-MX");
 
     this.date = datePipe.transform(this.today, 'yyyy-MM-dd');
 
     return this.formBuilder.group({
+      
       numEmpleado: [{value:obj.numEmpleado,disabled:true}, [Validators.required]],
       areaId: [obj.areaId?.areaId, [Validators.required]],
       puestoId: [{ value: obj.puestoId?.puestoId, disabled: true }, [Validators.required]],

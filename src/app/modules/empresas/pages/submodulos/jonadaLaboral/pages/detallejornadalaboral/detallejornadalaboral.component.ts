@@ -283,7 +283,7 @@ export class DetallejornadalaboralComponent implements OnInit {
       obj.jueves = true;
       obj.viernes = true;
     }
-
+    
     return this.formbuilder.group({
       nombre: [obj.nombre, [Validators.required]],
       tipoJornadaId: [obj.tipoJornadaId?.tipoJornadaId, [Validators.required]],
@@ -306,22 +306,24 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public correctoHoraComida(): Boolean {
+    
     let respuesta: boolean = true;
     let horaComidaFin = Number(this.myForm.controls.horaFinComida.value.substring(0, 2));
     if(this.myForm.controls.tipoJornadaId.value === '02'){
       
       let horaInicioComida = Number(this.myForm.controls.horaInicioComida.value.substring(0, 2));
       if (horaInicioComida != null && horaInicioComida != 0) {
-  
-  
-        if (horaComidaFin <= horaInicioComida) {
+
+      if (horaComidaFin <= horaInicioComida) {
           this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de comida debe ser mayor que la hora de inicio de comida');
           this.myForm.controls.horaFinComida.setValue("");
           respuesta = false;
         }
       }
+
     
-    }else{  
+    }
+    else{  
     if (horaComidaFin != null && horaComidaFin != 0) {
       let horaSalidaFin = Number(this.myForm.controls.horaSalida.value.substring(0, 2));
 
@@ -346,9 +348,8 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public enviarPeticion() {
-
+    
     this.submitInvalido = true;
-    //this.myForm.updateValueAndValidity();
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
@@ -356,9 +357,19 @@ export class DetallejornadalaboralComponent implements OnInit {
     }
 
    if(this.myForm.controls.tipoJornadaId.value == 1 || this.myForm.controls.tipoJornadaId.value == 2){
-    if (this.myForm.controls.horaFinComida.value && this.myForm.controls.horaInicioComida.value) {
-      if (!this.correctoHoraComida()) {
+      if (this.myForm.controls.horaInicioComida.value && !this.myForm.controls.horaFinComida.value) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de comida debe ser capturada');
+        //this.myForm.controls.horaFinComida.setValue("");
         return;
+      }
+      else if (!this.myForm.controls.horaInicioComida.value && this.myForm.controls.horaFinComida.value) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora inicio de comida debe ser capturada');
+        //this.myForm.controls.horaFinComida.setValue("");
+        return;
+      }
+      else if (this.myForm.controls.horaFinComida.value && this.myForm.controls.horaInicioComida.value) {
+        if (!this.correctoHoraComida()) {
+          return;
       }
     }
    }
@@ -723,7 +734,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public hrDeSalida(response: any) {
-
+    debugger;
 
     let horaSalidaFin;
     let horaSalida = this.myForm.controls.horaSalida.value;
@@ -735,7 +746,9 @@ export class DetallejornadalaboralComponent implements OnInit {
     }
     if (horaSalidaFin !== undefined) {
       this.hrSalida = Number(horaSalidaFin.substring(0, 2));
+      if(this.jornada !== '1'){
       this.myForm.controls.horaInicioComida.enable();
+      }
     }
   }
 

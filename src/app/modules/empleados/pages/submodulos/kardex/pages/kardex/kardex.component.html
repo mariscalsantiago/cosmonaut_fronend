@@ -1,13 +1,12 @@
-<div class="container">
 
-  <div class="row">
+  <div class="row margen">
       <div class="row"><label class="titulo">MOVIMIENTOS DEL EMPLEADO</label></div>
   </div>
   
-  <div class="row">
+
   
     <div class="form group row margen">
-      <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
+      <div class=" input-group-sm mb-3 col-12 col-md-3 col-lg-3">
         <select placeholder="Tipo de documento" name="" class="form-control" [(ngModel)]="tipoMovimineto" id="tipoMoviminetoKardex">
           <option id="tipoMoviminetoKardex0" value="0" selected>Selecciona tipo movimiento</option>
           <option id="tipoMoviminetoKardex1" *ngFor="let item of arregloMovimientos"  [value]="item.movimientoId">{{item.movimiento}}
@@ -21,8 +20,6 @@
   
     </div>
   
-  
-  </div>
   
   
   <div class="row ">
@@ -38,5 +35,4 @@
         </div>
   
       </div>
-  </div>
   </div>

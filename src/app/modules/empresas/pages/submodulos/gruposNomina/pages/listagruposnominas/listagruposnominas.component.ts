@@ -50,7 +50,6 @@ export class ListagruposnominasComponent implements OnInit {
     filas: []
   };
 
-
   public esRegistrar:boolean = false;
   public esConsultar:boolean = false;
   public esEditar:boolean = false;

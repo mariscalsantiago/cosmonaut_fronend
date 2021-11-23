@@ -1,5 +1,5 @@
-<div class="ml-3 mr-3 mb-3">
-    <div class="row mb-2">
+<div class="background-ajustar" appTamanioVentana [pixeles]="30">
+    <div class="row ml-2 mr-2 titulosfijos" style="background-color: transparent;">
         <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
             <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
@@ -10,14 +10,14 @@
             </li>
             <li style="padding-top: 10PX;">
                 {{subModulo}} 
+
             </li>
         </ul>
     </div>
 
+    <br>
 
-
-    <div class="row   margen-tabla background-panel  background-ajustar" appTamanioVentana [pixeles]="145">
-        <div class="col-12">
+     <div class="margen">
 
 
             <div id="accordion" class="acordion_desplegable show">
@@ -113,14 +113,11 @@
 
         </div>
 
-        <div class="col-12">
+            <div class="row margen background-panel" >
 
             <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando" (salida)="recibirTabla($event)">
             </app-tablapaginado>
 
         </div>
-    </div>
-
-
 
 </div>

@@ -1,19 +1,15 @@
-<br>
-<div class="scrooll-designempresa">
-    <div class="row margen">
+<div class="row margen">
     <div id="accordionFiltro">
 
         <div id="accordion">
             <div class="card">
-                <div class="card-header" id="headingOne">
+                <div>
                     <h5 class="mb-0">
-                        <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" >
-                        <label class="titulo" style="    width: 80%;
-                        float: left;
-                        text-align: left;">BÚSQUEDA</label>
+                        <button *ngIf="tamanio < 600" style="width: 100%;" class="btn aparece-movil" aria-expanded="true">
+                            <label class="titulo" style="width: 80%; float: left; text-align: left;">BÚSQUEDA</label>
                         </button>
-                        <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
-                        <label class="titulo">BÚSQUEDA</label>
+                        <button *ngIf="tamanio >=600" class="btn aparece-desktop-inline-block">
+                            <label class="titulo">BÚSQUEDA</label>
                         </button>
 
                     </h5>
@@ -57,6 +53,3 @@
             <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="esEditar" [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
-
-
-</div>

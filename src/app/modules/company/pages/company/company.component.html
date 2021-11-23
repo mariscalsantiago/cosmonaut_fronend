@@ -1,6 +1,6 @@
+<div class="background-ajustar" appTamanioVentana [pixeles]="30">
 <div>
-
-    <div class="row margen titulosfijos">
+   <div class="row margen titulosfijos">
         <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
             <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
@@ -14,31 +14,22 @@
             </li>
         </ul>
     </div>
-
     <div class="scrooll-design">
         <div class="margen">
             <div id="accordionFiltro">
 
-                <div id="accordion">
+                <div>
                     <div class="card">
-                        <div class="card-header" id="headingOne">
+                        <div>
                             <h5 class="mb-0">
                                 <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  <label class="titulo" style="    width: 80%;
-                  float: left;
-                  text-align: left;">BÚSQUEDA</label>
-                  <i aria-hidden="true" *ngIf="changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                    class="icon_24flechaarriba bg-primary"></i>
-                  <i aria-hidden="true" *ngIf="!changeIconDown" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                    aria-controls="collapseOne" style="width: 10%;float: right;color:#00C1AF"
-                    class="icon_24flechaabajo bg-primary "></i>
-  
-                </button>
+                                    <label class="titulo" style="    width: 80%;
+                                    float: left;
+                                    text-align: left;">BÚSQUEDA</label>
+                                </button>
                                 <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
-                  <label class="titulo">BÚSQUEDA</label>
-                </button>
-
+                                    <label class="titulo">BÚSQUEDA</label>
+                                </button>
                             </h5>
                         </div>
 
@@ -106,5 +97,5 @@
             <app-tablapaginado [datos]="arreglotabla" [paginado_server]="true" [editar]="esEditar" [imagen]="true" [icondefault]="'empresa'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
     </div>
-
 </div>
+
