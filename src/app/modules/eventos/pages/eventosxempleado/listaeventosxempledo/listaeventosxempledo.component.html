@@ -1,4 +1,4 @@
-<div class="background-ajustar" appTamanioVentana [pixeles]="30">
+
 <div class="row ml-2 mr-2 titulosfijos" style="background-color: transparent;">
     <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
@@ -13,8 +13,8 @@
         </li>
     </ul>
 </div>
-
-
+<br>
+<div class="background-ajustar" appTamanioVentana [pixeles]="100">
 <div class="col-10" style="    z-index: 4;">
     <div *ngIf="aparecemodalito" [style.top]="scrolly" class="ventanaemergente" [style.width]="modalWidth">
         <div class="adentro">

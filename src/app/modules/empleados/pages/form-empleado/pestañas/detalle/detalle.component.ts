@@ -11,6 +11,7 @@ import { CuentasbancariasService } from '../../../../../empresas/pages/submodulo
   templateUrl: './detalle.component.html',
   styleUrls: ['./detalle.component.scss']
 })
+
 export class DetalleComponent implements OnInit {
   @Output() enviado = new EventEmitter();
   @Input() datosPersona: any;

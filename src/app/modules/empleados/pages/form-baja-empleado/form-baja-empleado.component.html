@@ -1,4 +1,4 @@
-<div class="background-ajustar" appTamanioVentana [pixeles]="30">
+
 <div class="row titulosfijos margen">
     <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
@@ -14,9 +14,7 @@
     </ul>
 </div>
 
-
-<hr>
-
+<div class="background-ajustar" appTamanioVentana [pixeles]="100">
 
 <form [formGroup]="myFormcomp" (ngSubmit)="enviarPeticion()">
 
