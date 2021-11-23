@@ -451,10 +451,10 @@ export class PagosComponent implements OnInit {
   }
 
   public validarBanco(clabe: any) {
-
+    debugger;
 
     this.myFormMetodoPago.controls.csBanco.setValue("");
-    this.myFormMetodoPago.controls.clabe.setValue("");
+    //this.myFormMetodoPago.controls.clabe.setValue("");
 
     if (this.myFormMetodoPago.controls.clabe.errors?.pattern === undefined) {
 
@@ -467,8 +467,9 @@ export class PagosComponent implements OnInit {
         this.bancosPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
           if (datos.resultado) {
 
-            this.myFormMetodoPago.controls.csBanco.setValue(datos.datos.bancoId);
+            this.myFormMetodoPago.controls.csBanco.setValue( datos.datos.bancoId);
             this.myFormMetodoPago.controls.clabe.setValue(clabe);
+            this.myFormMetodoPago.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
 
           }
           else {

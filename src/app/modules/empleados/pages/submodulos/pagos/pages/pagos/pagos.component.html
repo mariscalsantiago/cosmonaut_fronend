@@ -75,20 +75,6 @@
                                         <div class="row">
                                             <div class="col-10">
                                                 <div class="form group row  margen">
-                                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                                                        <label>Número de cuenta *</label>
-                                                        <input type="hidden" formControlName="cuentaBancoId">
-                                                        <input appSolonumeros maxlength="10"
-                                                            formControlName="numeroCuenta" type="text"
-                                                            class="form-control" placeholder=""
-                                                            [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
-                                                        <div *ngIf="f.numeroCuenta.errors && submitEnviado"
-                                                            class="invalid-feedback">
-                                                            Campo requerido
-                                                        </div>
-
-
-                                                    </div>
                                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                                         <label>Cuenta CLABE *</label>
                                                         <input appSolonumeros #clabe (focusout)="validarBanco(clabe.value)"
@@ -105,6 +91,21 @@
                                                             La CLABE no es válida
                                                         </div>
                                                     </div>
+                                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                                                        <label>Número de cuenta *</label>
+                                                        <input type="hidden" formControlName="cuentaBancoId">
+                                                        <input appSolonumeros maxlength="10"
+                                                            formControlName="numeroCuenta" type="text"
+                                                            class="form-control" placeholder=""
+                                                            [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
+                                                        <div *ngIf="f.numeroCuenta.errors && submitEnviado"
+                                                            class="invalid-feedback">
+                                                            Campo requerido
+                                                        </div>
+
+
+                                                    </div>
+
                                                     <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                                                         <label for="exampleFormControlSelect1">Banco *</label>
                                                         <select formControlName="csBanco"

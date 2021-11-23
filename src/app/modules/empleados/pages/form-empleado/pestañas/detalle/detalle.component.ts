@@ -65,9 +65,9 @@ export class DetalleComponent implements OnInit {
   }
 
   public validarBanco(clabe:any){
-    
+    debugger;
     this.myForm.controls.csBanco.setValue("");
-    this.myForm.controls.clabe.setValue("");
+    //this.myForm.controls.clabe.setValue("");
   
     if(this.myForm.controls.clabe.errors?.pattern === undefined ){
   
@@ -81,8 +81,9 @@ export class DetalleComponent implements OnInit {
       if (datos.resultado) {
   
         this.myForm.controls.csBanco.setValue( datos.datos.bancoId);
-        this.myForm.controls.clabe.setValue( clabe);
-  
+        this.myForm.controls.clabe.setValue(clabe);
+        this.myForm.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
+          
       }
       else{
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
