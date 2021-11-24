@@ -57,8 +57,8 @@
                         <div class="col titulo">
                           <label>RESULTADOS</label>
                         </div>
-                        <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
-                            <div class="col-12">
+                        <div *ngIf="activarMultiseleccion" class="row text-right margen botonmultiseleccion">
+                            <div class="col-12 ">
                                 <button (click)="enviarIdse()" type="button"
                                   class="btn heartbeathand btn-light button-outlet "><span>Enviar a IDSE</span>
                                 </button>
@@ -74,7 +74,7 @@
                       </div>
     
                       <div class="row margen-tabla background-panel ">
-                        <app-tablapaginado [checkbox]="true" [imss]="true" [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="esEliminar" (salida)="recibirTabla($event)" ></app-tablapaginado>
+                        <app-tablapaginado [checkbox]="true" [imss]="true" [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose"   [cargando]="cargando" [desglosar]="true" [eliminar]="true" (salida)="recibirTabla($event)" ></app-tablapaginado>
                       </div>
                 </div>
     

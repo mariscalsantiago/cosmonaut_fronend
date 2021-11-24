@@ -139,7 +139,7 @@ export class NoticiasDetalleComponent implements OnInit {
     return this.formBuilder.group({
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
       subtitulo: ['', [Validators.maxLength(50)]],
-      fechaAlta: [{ value: datePipe.transform(new Date(), 'dd/MM/yyyy'), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: datePipe.transform(new Date(), 'dd-MMM-y'), disabled: true }, [Validators.required]],
       fechaInicio: ['', [Validators.required, this.validarFecha]],
       fechaFin: ['', [Validators.required, this.validarFecha, this.validarFechaMin]],
       categoria: [{ value: 1, disabled: this.usuario?.rolId == 3 }, Validators.required],
@@ -195,13 +195,13 @@ export class NoticiasDetalleComponent implements OnInit {
     this.formulario.controls.subtitulo.setValue(!!this.editando ? this.editando.subtitulo : '');
     this.formulario.controls.subtitulo.updateValueAndValidity();
 
-    this.formulario.controls.fechaAlta.setValue(!!this.editando ? datePipe.transform(this.editando.fechaAlta, 'yyyy-MM-dd') : datePipe.transform(new Date(), 'dd/MM/yyyy'));
+    this.formulario.controls.fechaAlta.setValue(!!this.editando ? this.editando.fechaAlta : datePipe.transform(new Date(), 'dd/MM/yyyy'));
     this.formulario.controls.fechaAlta.updateValueAndValidity();
 
-    this.formulario.controls.fechaInicio.setValue(!!this.editando ? datePipe.transform(this.editando.fechaInicio, 'yyyy-MM-dd') : '');
+    this.formulario.controls.fechaInicio.setValue(!!this.editando ? this.editando.fechaInicio : '');
     this.formulario.controls.fechaInicio.updateValueAndValidity();
 
-    this.formulario.controls.fechaFin.setValue(!!this.editando ? datePipe.transform(this.editando.fechaFin, 'yyyy-MM-dd') : '');
+    this.formulario.controls.fechaFin.setValue(!!this.editando ? this.editando.fechaFin : '');
     this.formulario.controls.fechaFin.updateValueAndValidity();
 
     this.formulario.controls.categoria.setValue(!!this.editando ? this.editando.categoriaId.categoriaNoticiaId : 1);
