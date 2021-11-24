@@ -151,18 +151,12 @@ export class NoticiasComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("titulo", "Título"),
       new tabla("subtitulo", "Subtítulo"),
-      new tabla("__fechaInicioFormato", "Fecha inicio", false, false, true),
-      new tabla("__fechaFinFormato", "Fecha fin", false, false, true),
+      new tabla("fechaInicio", "Fecha inicio", false, false, true),
+      new tabla("fechaFin", "Fecha fin", false, false, true),
       new tabla("__categoriaFormato", "Categoría", false, false, true),
     ];
 
     this.noticias.forEach(noticia => {
-      if(noticia.fechaInicio !== undefined ){
-        noticia.__fechaInicioFormato = new DatePipe("es-MX").transform(new Date(noticia.fechaInicio), 'dd-MMM-y') as string;
-      }
-      if(noticia.fechaFin){
-        noticia.__fechaFinFormato = new DatePipe("es-MX").transform(new Date(noticia.fechaFin), 'dd-MMM-y') as string;
-      }
       noticia.__categoriaFormato = noticia.categoriaId.descripcion as string;
     });
 
