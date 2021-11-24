@@ -17,15 +17,11 @@
     </ul> 
 </div>
 
-
-<hr>
-
-
 <form [formGroup]="myFormcomp" (ngSubmit)="enviarPeticioncomp()">
 
     <input type="hidden" formControlName="centrocClienteId">
 
-    <div class="background-panel margen background-ajustar" appTamanioVentana>
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="190">
         <div class="form-group row margen">
             <label class="titulo">INFORMACIÓN DEL CLIENTE</label>
         </div>
