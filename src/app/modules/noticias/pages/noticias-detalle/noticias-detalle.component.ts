@@ -139,7 +139,7 @@ export class NoticiasDetalleComponent implements OnInit {
     return this.formBuilder.group({
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
       subtitulo: ['', [Validators.maxLength(50)]],
-      fechaAlta: [{ value: datePipe.transform(new Date(), 'dd/MM/yyyy'), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: datePipe.transform(new Date(), 'dd-MMM-y'), disabled: true }, [Validators.required]],
       fechaInicio: ['', [Validators.required, this.validarFecha]],
       fechaFin: ['', [Validators.required, this.validarFecha, this.validarFechaMin]],
       categoria: [{ value: 1, disabled: this.usuario?.rolId == 3 }, Validators.required],

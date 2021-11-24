@@ -84,13 +84,16 @@ export class CalendarioComponent implements OnInit {
         aux = JSON.parse(temporal);
 
         for (let item of aux) {
+
           item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "" : item.apellidoMaterno}`;
-        
-          item.fechaInicioTemp = item.fechaInicio;
 
-          item.fechaFinTemp = item.fechaFin;
+          if(item.fechaInicio !== undefined ){
+            item["fechaInicioTemp"] = new DatePipe("es-MX").transform(new Date(item.fechaInicio), 'dd-MMM-y');
+          }
+          if(item.fechaFin !== undefined ){
+            item["fechaFinTemp"] = new DatePipe("es-MX").transform(new Date(item.fechaFin), 'dd-MMM-y');
+          }
         }
-
        
       }
 

@@ -67,16 +67,20 @@
                         <div class="col titulo">
                             <label>RESULTADOS</label>
                         </div>
-                        <div class="col text-right">
-                            <button *ngIf="esDescargar" type="button" class="btn btn-light button-outlet" (click)="descargarEmpleados()">
-                              Descargar empleados
-                            </button>
-                        </div>
-                        <div class="col text-right">
-                            <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="agregar()">
-                              <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar empleado
-                            </button>
-                        </div>
+                        <div class="row text-right margen botonmultiseleccion">
+                            <div class="col-12">
+                                <button *ngIf="esRegistrar" style="margin-left: 10px;" type="button" class="btn btn-light button-outlet" (click)="agregar()">
+                                    <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar empleado
+                                  </button>
+                              </div>
+                          </div>
+                          <div class="row text-right botonmultiseleccion">
+                            <div class="col-12">
+                                <button *ngIf="esDescargar" type="button" class="btn btn-light button-outlet" (click)="descargarEmpleados()">
+                                    Descargar empleados
+                                  </button>
+                            </div>
+                          </div>
                     </div>
 
                     <div class="row   margen-tabla background-panel ">

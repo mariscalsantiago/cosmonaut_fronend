@@ -156,10 +156,13 @@ export class NoticiasComponent implements OnInit {
       new tabla("__categoriaFormato", "Categoría", false, false, true),
     ];
 
-    let datePipe = new DatePipe("en-MX");
     this.noticias.forEach(noticia => {
-      noticia.__fechaInicioFormato = datePipe.transform(noticia.fechaInicio, 'dd/MM/yyyy') as string;
-      noticia.__fechaFinFormato = datePipe.transform(noticia.fechaFin, 'dd/MM/yyyy') as string;
+      if(noticia.fechaInicio !== undefined ){
+        noticia.__fechaInicioFormato = new DatePipe("es-MX").transform(new Date(noticia.fechaInicio), 'dd-MMM-y') as string;
+      }
+      if(noticia.fechaFin){
+        noticia.__fechaFinFormato = new DatePipe("es-MX").transform(new Date(noticia.fechaFin), 'dd-MMM-y') as string;
+      }
       noticia.__categoriaFormato = noticia.categoriaId.descripcion as string;
     });
 
