@@ -41,7 +41,8 @@ export class TooltipPipe implements PipeTransform {
       return "Clave numérica de 11 dígitos asignada de forma única e intransferible a cada trabajador incorporado ante el IMSS.";
     }
     else if(value === 'area'){
-      return "Área de adscripción del trabajador, da clic en (+) para agregar un nuevo puesto.";
+      return "Área de adscripción del trabajador, da clic en ( + ) para agregar una nueva área.";
+
     }
     else if(value === 'puesto'){
       return "Puesto del trabajador, da clic en  (+) para agregar un nuevo puesto.";
@@ -108,7 +109,7 @@ export class TooltipPipe implements PipeTransform {
     }else if(value =='contactoinicial'){
         return "Para desactivar a este usuario es necesario hacerlo desde el módulo de Administración de usuarios.";
     }
-   
+
     return '';
   }
 
