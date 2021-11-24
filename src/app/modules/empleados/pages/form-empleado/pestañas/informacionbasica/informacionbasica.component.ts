@@ -287,7 +287,7 @@ export class InformacionbasicaComponent implements OnInit {
         const anioNacimiento:Date = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
 
         
-        this.myform.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"dd-MMM-y"));
+        this.myform.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"dd-MM-yyyy"));
 
 
     }else{
