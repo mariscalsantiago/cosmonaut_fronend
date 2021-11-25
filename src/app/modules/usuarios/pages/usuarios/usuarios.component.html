@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        <div *ngIf="activarMultiseleccion" class="row text-right margin botonmultiseleccion">
+        <div *ngIf="activarMultiseleccion"  class="row text-right mr-3 margin botonmultiseleccion">
             <div class="col-12">
                 <button type="button" class="btn btn-primary button-outlet mr-2"
                     (click)="guardarMultiseleccion(false)">Desactivar</button>
@@ -127,6 +127,5 @@
             <app-tablapaginado [datos]="arreglotabla" [llave]="esEditar" [editar]="esEditar" [checkbox]="esEditar"
                 [cargando]="cargando" [paginado_server]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
         </div>
-    </div>
-    
+    </div>    
 </div>
