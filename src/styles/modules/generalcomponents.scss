@@ -199,6 +199,9 @@ p.interlineado{
     display:none !important;
 }
 
+.class_promedio .table td, .table th {
+    vertical-align: middle !important;
+}
 
 .class-isr tr > :nth-child(7) {
     display:none !important;
