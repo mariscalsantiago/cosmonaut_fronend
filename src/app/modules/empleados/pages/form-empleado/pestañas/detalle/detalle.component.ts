@@ -55,6 +55,7 @@ export class DetalleComponent implements OnInit {
 
 
   public cancelar() {
+    debugger;
 
     if(this.myForm.invalid){
 
