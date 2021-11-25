@@ -33,14 +33,14 @@ export class VentanaSubcidioComponent implements OnInit {
     private tablasISRPrd: TablaValoresService) { }
 
   ngOnInit(): void {
-    
+
 
     this.empresa = this.datos.centrocClienteId?.centrocClienteId;
     this.empleado = this.datos.personaId?.personaId;
 
     this.cargando = true;
     this.periodo = this.datos.tabla;
-    
+
     this.tablasISRPrd.getListaSubcidioISR(this.datos.periodo).subscribe(datos => {
         this.crearTablaSubcidio(datos);
     });
@@ -48,15 +48,22 @@ export class VentanaSubcidioComponent implements OnInit {
 
   }
 
+  public formatearNumero(valor: number){
+    return valor.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  }
+
   public crearTablaSubcidio(datos:any){
-    
-     
+
+
     this.arregloSubcidioISR = datos.datos;
-    
+
     if (this.arregloSubcidioISR !== undefined) {
       for (let item of this.arregloSubcidioISR) {
         item.fechaInicio = (new Date(item.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "");
         item.fechaFin = (new Date(item.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "");
+        item.limiteInferior = this.formatearNumero(item.limiteInferior);
+        item.limiteSuperior = this.formatearNumero(item.limiteSuperior);
+        item.montoSubsidio = this.formatearNumero(item.montoSubsidio);
         let datepipe = new DatePipe("es-MX");
         item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");;
         item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");;
@@ -80,7 +87,7 @@ export class VentanaSubcidioComponent implements OnInit {
     this.arreglotablaSubcidio.columnas = columnas;
     this.arreglotablaSubcidio.filas = this.arregloSubcidioISR;
     this.cargando = false;
-  
+
   }
 
 

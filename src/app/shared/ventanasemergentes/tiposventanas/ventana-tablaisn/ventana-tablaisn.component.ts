@@ -34,12 +34,12 @@ export class VentanaTablaISNComponent implements OnInit {
     private tablasISRPrd: TablaValoresService) { }
 
   ngOnInit(): void {
-    
-    
+
+
     this.cargando = true;
     this.estadoId = this.datos.estadoId;
     this.cestado = this.datos.estado;
-    
+
     this.tablasISRPrd.getListaTarifaISN(this.estadoId).subscribe(datos => {
         this.crearTablaISN(datos);
     });
@@ -47,9 +47,13 @@ export class VentanaTablaISNComponent implements OnInit {
 
   }
 
+  public formatearNumero(valor: number){
+    return valor.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  }
+
   public crearTablaISN(datos:any){
-    
-     
+
+
     this.arreglotarifaISN = datos.datos;
     if (this.arreglotarifaISN !== undefined) {
       for (let item of this.arreglotarifaISN) {
@@ -58,6 +62,10 @@ export class VentanaTablaISNComponent implements OnInit {
         let datepipe = new DatePipe("es-MX");
         item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");;
         //item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");;
+
+        item.limiteInferior = this.formatearNumero(item.limiteInferior);
+        item.limiteSuperior = this.formatearNumero(item.limiteSuperior);
+        item.cuotaFija = this.formatearNumero(item.cuotaFija);
       }
     }
 
@@ -78,7 +86,7 @@ export class VentanaTablaISNComponent implements OnInit {
     this.arreglotablaISN.columnas = columnas;
     this.arreglotablaISN.filas = this.arreglotarifaISN;
     this.cargando = false;
-  
+
   }
 
 
