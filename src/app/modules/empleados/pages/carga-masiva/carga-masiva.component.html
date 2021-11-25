@@ -19,19 +19,20 @@
 
     <input type="hidden">
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-1"></div>
+        <div class="col-10">
             <div class="background-panel margen">
                 <br>
                 <div class="form-group row margen">
                     <label class="titulo">INFORMACIÓN PARA CARGA MASIVA DE EMPLEADOS</label>
                 </div>
                 <div class="form-group row margen">
-
-                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-12" style="text-align:justify !important;">
-                        <label>Selecciona y descarga el formato que requieras cargar, llénalo y sube el archivo. Recuerda llenar todos los campos obligatorios.</label>
+                    <div class="mb-3 col-12 col-sm-12 col-lg-12">
+                        <label>Selecciona y descarga el formato que requieras cargar, llénalo y sube el archivo. Recuerda llenar todos los campos obligatorios.</label>                        
+                    </div>
+                    <div class=" input-group-sm mb-3 col-11 col-sm-12 col-md-10 col-lg-10">
                         
-                     <div class=" input-group-sm mb-3 col-12 col-sm-10 col-lg-10" style="text-align:justify !important;">
+                     <div class=" input-group-sm mb-3">
                         <select formControlName="tipoCargaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoCargaId.errors && submitEnviado}">
                 <option value="0" selected ></option>
                 <option *ngFor="let item of arregloTipoCarga"  [value]="item.tipoCargaId">{{item.descripcion}}</option>
@@ -50,7 +51,9 @@
                     </div>
 
                     <div class="input-group-sm mb-3 col-12 col-sm-10 col-lg-10">
+                        <div class="mb-3">
                         <label>Sube el formato de carga masiva con los datos modificados *</label>
+                        </div>
                         <div class="input-group mb-3">
                             <input type="hidden" formControlName="documento" [ngClass]="{'is-invalid':f.documento.errors && submitEnviado}">
                             <input #documento type="text" class="form-control disabled bg-light" [ngClass]="{'is-invalid':f.documento.errors && submitEnviado}">
