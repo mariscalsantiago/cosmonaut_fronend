@@ -5,7 +5,7 @@
                 <div class="card" [ngClass]="{'cardselected':arreglopintar[0]}">
                     <div [ngClass]="{'fondoblanco':arreglopintar[0]}" class="card-header" id="detallepago">
                         <h5 class="mb-0">
-                            <button (click)="cambiarStatus(0)" class="btn btn-link" data-toggle="collapse"
+                            <button class="btn btn-link" data-toggle="collapse"
                                 data-target="#detallepagocolapsar" aria-expanded="false" aria-controls="detallepago">
 
                                 Detalle pago
@@ -163,7 +163,7 @@
                 <div class="card" [ngClass]="{'cardselected':arreglopintar[1]}">
                     <div class="card-header" id="compensacion">
                         <h5 class="mb-0">
-                            <button (click)="cambiarStatus(1)" class="btn btn-link collapsed" data-toggle="collapse"
+                            <button class="btn btn-link collapsed" data-toggle="collapse"
                                 data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 Detalle de compensación
                                 <i aria-hidden="true" *ngIf="!arreglopintar[1]" data-toggle="collapse"
@@ -423,7 +423,7 @@
                     [mdbTooltip]="'percepciones' | tooltip">
                     <div class="card-header" id="percepciones">
                         <h5 class="mb-0">
-                            <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" data-toggle="collapse"
+                            <button class="btn btn-link collapsed" data-toggle="collapse"
                                 data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
                                 Percepciones
                                 <i aria-hidden="true" *ngIf="!arreglopintar[2]" data-toggle="collapse"
@@ -465,7 +465,7 @@
                     [mdbTooltip]="'deducciones' | tooltip">
                     <div class="card-header" id="deducciones">
                         <h5 class="mb-0">
-                            <button (click)="cambiarStatus(3)" class="btn btn-link collapsed" data-toggle="collapse"
+                            <button class="btn btn-link collapsed" data-toggle="collapse"
                                 data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
                                 Deducciones 
                                 <i aria-hidden="true" *ngIf="!arreglopintar[3]" data-toggle="collapse"
