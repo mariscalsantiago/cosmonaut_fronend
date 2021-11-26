@@ -490,7 +490,6 @@ export class PagosComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
-
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar los datos?").then(valor => {
       if (valor) {
 
@@ -576,6 +575,9 @@ export class PagosComponent implements OnInit {
   }
 
   public cancelar() {
+    if (this.empleado.metodoPagoId.metodoPagoId == 4) {
+      this.detalleCuenta = true;
+    } 
     this.metodopagobool = false;
     this.detallecompensacionbool = false;
   }

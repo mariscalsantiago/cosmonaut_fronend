@@ -131,6 +131,7 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public preparandoTabla(datos: any) {
+    debugger;
     this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
       new tabla("nombre", "Nombre de grupo de nómina	"),
@@ -271,13 +272,11 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public traerModal(indice: any) {
-
+    debugger;
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
-
-
-    if (elemento.getBoundingClientRect().y < -40) {
+   if (elemento.getBoundingClientRect().y < -40) {
       let numero = elemento.getBoundingClientRect().y;
       numero = Math.abs(numero);
 
@@ -321,7 +320,7 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-
+  debugger;
 
     switch (obj.type) {
 

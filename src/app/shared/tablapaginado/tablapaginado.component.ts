@@ -116,6 +116,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   public cambia() {
+    debugger;
 
     if (!this.paginado_server) {
       this.paginar();
@@ -147,7 +148,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    
+    debugger;
     if (this.paginado_server) {
       if (this.datos?.reiniciar) {
         this.arreglo = undefined;
