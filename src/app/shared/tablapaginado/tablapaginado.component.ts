@@ -481,7 +481,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordenar(item: any) {
-
+    debugger;
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
 
     let i, j;

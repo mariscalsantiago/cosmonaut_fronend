@@ -81,6 +81,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public generandoTabla(){
+    debugger;
     let columnas:Array<tabla> = [
       new tabla("incidenciaDescripcion","Tipo de evento"),
       new tabla("nombrecompleado","Nombre del empleado"),
@@ -93,10 +94,15 @@ export class ListaeventosxempledoComponent implements OnInit {
       columnas:[],
       filas:[]
     }
+
     if(this.arreglo !== undefined){
         for(let item of this.arreglo){
             item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
-            item.fechaInicio = new DatePipe("es-MX").transform((item.fechaInicio), 'dd-MMM-y');
+            let datepipe = new DatePipe("es-MX");
+            item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
+            item.fechaAplicacion = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
+            item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");
+            
         }
     }
 
@@ -113,7 +119,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    
+    debugger;
     
       switch(obj.type){
          case "eliminar":

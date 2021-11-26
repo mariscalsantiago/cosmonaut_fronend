@@ -74,7 +74,8 @@ export class MovimientosComponent implements OnInit {
         item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
         
         if(item.fechaMovimiento !== undefined ){
-          item["fechaMovimiento"] = new DatePipe("es-MX").transform(new Date(item.fechaMovimiento), 'dd-MMM-y');
+          let datepipe = new DatePipe("es-MX");
+          item["fechaMovimiento"] = datepipe.transform(item.fechaMovimiento , 'dd-MMM-y')?.replace(".","");
         }
       }
     }

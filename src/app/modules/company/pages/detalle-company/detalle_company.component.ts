@@ -143,7 +143,7 @@ export class DetalleCompanyComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       razonSocial: [obj.razonSocial, [Validators.required]],
       rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFC)]],
-      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? datePipe.transform(new Date(), 'dd-MMM-y'?.replace(".","")) : obj.fechaAlta), disabled: true }, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? "true" : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       centrocClienteId: obj.centrocClienteId,
       multiempresa: obj.multiempresa,
@@ -205,7 +205,7 @@ export class DetalleCompanyComponent implements OnInit {
       if (this.arreglo !== undefined){
         for (let item of this.arreglo){
           item.nombrecompleto = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? '':item.apellidoMaterno}`;
-          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y');
+          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y'?.replace(".",""));
         }
       }
 

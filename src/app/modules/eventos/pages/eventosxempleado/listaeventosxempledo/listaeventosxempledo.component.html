@@ -41,10 +41,10 @@
                         <label>Fecha de inicio: <span class="letramenos">{{evento.fechaInicio}}</span></label>
                     </div>
                     <div class=" col-12 ">
-                        <label>Fecha de termino: <span class="letramenos">{{(evento.fechaFin | date:'dd-MMM-yyyy')?.replace(".","")}}</span></label>
+                        <label>Fecha de termino: <span class="letramenos">{{evento.fechaFin}}</span></label>
                     </div>
                     <div class=" col-12 ">
-                        <label>Fecha de aplicación: <span class="letramenos">{{evento.fechaAplicacion | date:'dd-MMM-yyyy'}}</span></label>
+                        <label>Fecha de aplicación: <span class="letramenos">{{evento.fechaAplicacion}}</span></label>
                     </div>
                     <div *ngIf="evento.tipoIncidenciaId == 5" class=" col-12 ">
                         <label>{{evento.unidadMedidaId == 3?'Monto: ':'Días: '}}<span class="letramenos">{{evento.unidadMedidaId == 3?evento.monto:evento.heTiempo}}</span></label>
