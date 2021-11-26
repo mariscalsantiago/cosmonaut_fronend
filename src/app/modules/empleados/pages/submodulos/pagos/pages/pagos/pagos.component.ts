@@ -169,9 +169,10 @@ export class PagosComponent implements OnInit {
         }
         if (item.valor !== undefined) {
           item.valorMonto = item.valor;
+          
         }
         else if (item.montoTotal !== undefined) {
-          item.valorMonto = item.montoTotal
+          item.valorMonto = '$' + item.montoTotal          
         }
       }
     }
@@ -231,10 +232,10 @@ export class PagosComponent implements OnInit {
           item.tipoPercepcionId.porDefecto = false;
         }
         if (item.valor !== undefined) {
-          item.valorMonto = item.valor;
+          item.valorMonto = item.valor + '%';
         }
         else if (item.montoTotal !== undefined) {
-          item.valorMonto = item.montoTotal
+          item.valorMonto = item.montoTotal  
         }
         else if (item.interesPorcentaje !== undefined) {
           item.valorMonto = item.interesPorcentaje
@@ -249,6 +250,7 @@ export class PagosComponent implements OnInit {
 
 
   public cambiarStatus(valor: any) {
+
     if (!(!!this.arreglogrupoNomina)) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Esperar, cargando cátalogos necesarios");
       return;
