@@ -47,16 +47,16 @@
                         <label>Fecha de aplicación: <span class="letramenos">{{evento.fechaAplicacion | date:'dd-MMM-yyyy'}}</span></label>
                     </div>
                     <div *ngIf="evento.tipoIncidenciaId == 5" class=" col-12 ">
-                        <label>{{evento.unidadMedidaId == 3?'Monto: ':'Días: '}}<span class="letramenos">{{evento.unidadMedidaId == 3?evento.monto:evento.heTiempo}}</span></label>
+                        <label>{{evento.unidadMedidaId == 3?'Monto: ':'Días: '}}<span class="letramenos">{{evento.unidadMedidaId == 3? '$' + evento.monto:evento.heTiempo}}</span></label>
                     </div>
                     <div *ngIf="evento.tipoIncidenciaId == 8" class=" col-12 ">
-                        <label>Monto: <span class="letramenos">{{evento.monto}}</span></label>
+                        <label>Monto:  <span class="letramenos">{{'$' + evento.monto}}</span></label>
                     </div>
                     <div *ngIf="evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14" class=" col-12 ">
                         <label>Horas extras por {{evento.unidadMedidaId == 1?'Hora':'Monto'}}</label>
                     </div>
                     <div *ngIf="evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14" class=" col-12 ">
-                        <label>{{evento.unidadMedidaId == 1?'Horas: ':'Monto: '}}<span class="letramenos">{{evento.unidadMedidaId == 1?evento.duracion:evento.monto}}</span></label>
+                        <label>{{evento.unidadMedidaId == 1?'Horas: ':'Monto: '}}<span class="letramenos">{{evento.unidadMedidaId == 1?evento.duracion:'$' + evento.monto}}</span></label>
                     </div>
                     <div class=" col-12 ">
                         <label>Política: <span class="letramenos">{{evento.politicaNombre}}</span></label>
