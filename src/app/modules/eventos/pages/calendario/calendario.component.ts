@@ -88,10 +88,10 @@ export class CalendarioComponent implements OnInit {
           item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "" : item.apellidoMaterno}`;
 
           if(item.fechaInicio !== undefined ){
-            item["fechaInicioTemp"] = new DatePipe("es-MX").transform(new Date(item.fechaInicio), 'dd-MMM-y'?.replace(".",""));
+            item["fechaInicioTemp"] = new DatePipe("es-MX").transform(new Date(item.fechaInicio), 'dd-MMM-y')?.replace(".","");
           }
           if(item.fechaFin !== undefined ){
-            item["fechaFinTemp"] = new DatePipe("es-MX").transform(new Date(item.fechaFin), 'dd-MMM-y'?.replace(".",""));
+            item["fechaFinTemp"] = new DatePipe("es-MX").transform(new Date(item.fechaFin), 'dd-MMM-y')?.replace(".","");
           }
         }
        
