@@ -103,7 +103,7 @@ export class DetallecuentasbancariasComponent implements OnInit {
  
         });
       }else{
-        this.myForm.controls.clabe.setValue("");
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "La cuenta clabe debe ser a 18 dijitos");
         this.myForm.controls.idbanco.setValue("");
         this.myForm.controls.numeroCuenta.setValue("");
         this.myForm.controls.num_sucursal.setValue("");

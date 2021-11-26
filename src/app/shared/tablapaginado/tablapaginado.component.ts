@@ -405,6 +405,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     this.salida.emit({ type: "ver", datos: item, indice: indice });
   }
   public btnLlave(item: any, indice: number) {
+    debugger;
     this.salida.emit({ type: "llave", datos: item, indice: indice });
   }
 

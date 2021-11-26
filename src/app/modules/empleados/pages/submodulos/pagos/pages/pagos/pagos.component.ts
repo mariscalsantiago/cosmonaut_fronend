@@ -474,7 +474,7 @@ export class PagosComponent implements OnInit {
             }
           });
         }else{
-          this.myFormMetodoPago.controls.clabe.setValue("");
+          this.modalPrd.showMessageDialog(this.modalPrd.error, "La cuenta clabe debe ser a 18 dijitos");
           this.myFormMetodoPago.controls.csBanco.setValue("");
           this.myFormMetodoPago.controls.numeroCuenta.setValue("");
         }  
