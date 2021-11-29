@@ -205,7 +205,7 @@ export class DetalleCompanyComponent implements OnInit {
       if (this.arreglo !== undefined){
         for (let item of this.arreglo){
           item.nombrecompleto = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? '':item.apellidoMaterno}`;
-          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y'?.replace(".",""));
+          item.fechaAltab = new DatePipe("es-MX").transform(item.fechaAlta, 'dd-MMM-y')?.replace(".","");
         }
       }
 
