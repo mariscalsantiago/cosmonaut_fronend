@@ -78,9 +78,9 @@ export class VentanaTablaISNComponent implements OnInit {
     ];
 
     this.arreglotablaISN = {
-      columnas:[],
-      filas:[]
-    }
+      columnas: [],
+      filas: []
+    };
 
 
     this.arreglotablaISN.columnas = columnas;

@@ -208,9 +208,9 @@ export class ListasTablaValoresComponent implements OnInit {
     ];
 
     this.arreglotablaNomina = {
-      columnas:[],
-      filas:[]
-    }
+      columnas: [],
+      filas: []
+    };
 
 
     this.arreglotablaNomina.columnas = columnas;

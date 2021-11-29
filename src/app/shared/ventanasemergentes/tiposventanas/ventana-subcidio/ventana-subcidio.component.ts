@@ -79,9 +79,9 @@ export class VentanaSubcidioComponent implements OnInit {
     ];
 
     this.arreglotablaSubcidio = {
-      columnas:[],
-      filas:[]
-    }
+      columnas: [],
+      filas: []
+    };
 
 
     this.arreglotablaSubcidio.columnas = columnas;

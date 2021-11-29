@@ -79,9 +79,9 @@ export class VentanaTablaISRComponent implements OnInit {
     ];
 
     this.arreglotablaISR = {
-      columnas:[],
-      filas:[]
-    }
+      columnas: [],
+      filas: []
+    };
 
 
     this.arreglotablaISR.columnas = columnas;
