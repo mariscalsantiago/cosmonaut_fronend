@@ -52,18 +52,18 @@
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="cuerpo">
-        <span style="color:white;font-size: small;">{{eventoActual.incidenciaDescripcion}}</span> <br>
+        <span style="color:white;font-size: medium;">{{eventoActual.incidenciaDescripcion}}</span> <br>
         <span style="    color: white;
     font-size: large;
 ">{{eventoActual.nombre}}</span> <br>
 
-        <span style="color:white;font-size: small;">Dias: {{eventoActual.duracion}}</span> <br>
-        <span style="color:white;font-size: small;">Fecha inicio: {{eventoActual.fechaInicio | date:'yyyy MMM dd'}}</span><br>
-        <span style="color:white;font-size: small;">Fecha termino: {{eventoActual.fechaFin | date:'yyyy MMM dd'}}</span><br>
-        <span style="color:white;font-size: small;">Fecha aplicación: {{eventoActual.fechaAplicacion | date:'yyyy MMM dd'}}</span><br>
-        <span *ngIf="eventoActual.monto" style="color:white;font-size: small;">Monto: {{eventoActual.monto}}</span><br>
-        <span style="color:white;font-size: small;">Politica aplicación: {{eventoActual.politicaNombre }}</span><br>
-        <span *ngIf="eventoActual.comentarios" style="color:white;font-size: small;">Comentario: {{eventoActual.comentarios }}</span>
+        <span style="color:white;font-size:medium;">Dias: {{eventoActual.duracion}}</span> <br>
+        <span style="color:white;font-size: medium;">Fecha inicio: {{eventoActual.fechaInicio | date:'dd MMM yyyy'}}</span><br>
+        <span style="color:white;font-size: medium;">Fecha termino: {{eventoActual.fechaFin | date:'dd MMM yyyy'}}</span><br>
+        <span style="color:white;font-size: medium;">Fecha aplicación: {{eventoActual.fechaAplicacion | date:'dd MMM yyyy'}}</span><br>
+        <span *ngIf="eventoActual.monto" style="color:white;font-size: medium;">Monto: {{eventoActual.monto | number :'1.2-2' | currency}}</span><br>
+        <span style="color:white;font-size: medium;">Politica aplicación: {{eventoActual.politicaNombre }}</span><br>
+        <span *ngIf="eventoActual.comentarios" style="color:white;font-size: medium;">Comentario: {{eventoActual.comentarios }}</span>
         <br>
         <div style="width: 100%; text-align: center;">
             <button (click)="aparecerModalita = false" style="background-color: white; color:black" class="btn btn-primary button-outlet mr-2">Cerrar</button>
