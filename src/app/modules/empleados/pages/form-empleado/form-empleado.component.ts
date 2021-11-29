@@ -41,6 +41,7 @@ export class FormEmpleadoComponent implements OnInit {
 
   public datosPersona: any = {
     insertar: this.insertar
+
   };
 
   public modulo: string = "";
@@ -168,6 +169,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.datosPersona.contratoColaborador = elemento.datos;
         this.datosPersona.metodopago = elemento.metodopago;
         this.datosPersona.tieneContrato = true;
+
         this.tabsEnviar[3] = elemento.datos;
         this.tabsEnviar[0].tieneContrato = true;
 
@@ -190,7 +192,7 @@ export class FormEmpleadoComponent implements OnInit {
           this.activado[0].tab = false;
           this.activado[1].tab = false;
           this.activado[2].tab = false;
-          this.activado[3].tab = false;
+          //this.activado[3].tab = false;
 
           this.ocultarempleada = false;
           this.ocultarMenuHam = false;
