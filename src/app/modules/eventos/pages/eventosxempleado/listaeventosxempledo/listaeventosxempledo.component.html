@@ -34,6 +34,9 @@
                 </div>
 
                 <div class="row">
+                    <div class=" col-12 ">
+                        <label> Nombre del empleado: <span class="letramenos">{{evento.nombre}} {{evento.apellidoPaterno}} {{evento.apellidoMaterno == undefined ? "":evento.apellidoMaterno}}</span></label>
+                    </div>
                     <div *ngIf="evento.tipoIncidenciaId !== 5 && evento.tipoIncidenciaId !== 8 && evento.tipoIncidenciaId !== 13 && evento.tipoIncidenciaId !== 14" class=" col-12 ">
                         <label> Días: <span class="letramenos">{{evento.heTiempo}}</span></label>
                     </div>
