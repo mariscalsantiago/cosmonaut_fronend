@@ -468,7 +468,10 @@ export class DetallepoliticasComponent implements OnInit {
           }
           
         if(item.valor !== undefined){
-          item.valorMonto = item.valor + '%'; 
+          if (item.baseCalculoId?.baseCalculoId == '1')
+              item.valorMonto = item.valor + '%'; 
+          else 
+              item.valorMonto = formatter.format(item.valor); 
         }
         else if(item.montoTotal !== undefined){
           item.valorMonto = formatter.format(item.montoTotal);

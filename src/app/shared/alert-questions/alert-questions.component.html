@@ -38,8 +38,8 @@
                         </div>
                     </div>
                     <div *ngIf="iconType!=='loading' && iconType!=='dispersar' && iconType!=='variabilidad' && iconType!=='recalcular'" class="modal-footer text-center">
-                        <button style="position: absolute;left: 25px; top: 76px" type="button" *ngIf="iconType!='success' && iconType != 'error'" class="btn btn-outline-primary button-outlet" data-dismiss="modal" (click)="cancelar()">Cancelar</button>                        
-                        <button *ngIf="iconType!=='success'" style="position: absolute;right: 25px;  top: 76px" type="button" class="btn btn-primary button-fill" (click)="aceptar()">Aceptar</button>
+                        <button style="margin:auto" type="button" *ngIf="iconType!='success' && iconType != 'error'" class="btn btn-outline-primary button-outlet mr-1" data-dismiss="modal" (click)="cancelar()">Cancelar</button>
+                        <button *ngIf="iconType!=='success'" style="margin:auto" type="button" class="btn btn-primary button-fill" (click)="aceptar()">Aceptar</button>
                     </div>
                     <div *ngIf="iconType=='variabilidad'" class="text-center margin" style="margin-bottom: 20px;">
                         <button type="button" class="btn btn-primary button-outlet mr-2" data-dismiss="modal" (click)="cancelar()">Cancelar</button>

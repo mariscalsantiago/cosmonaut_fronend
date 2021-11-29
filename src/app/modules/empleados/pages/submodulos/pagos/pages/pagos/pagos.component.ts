@@ -174,7 +174,10 @@ export class PagosComponent implements OnInit {
           item.tipoPercepcionId.porDefecto = false;
         }
         if (item.valor !== undefined) {
-          item.valorMonto = item.valor + '%';
+          if (item.baseCalculoId?.baseCalculoId == '1')
+              item.valorMonto = item.valor + '%';
+          else
+              item.valorMonto = formatter.format(item.valor);
           
         }
         else if (item.montoTotal !== undefined) {
@@ -245,7 +248,7 @@ export class PagosComponent implements OnInit {
           item.tipoPercepcionId.porDefecto = false;
         }
         if (item.valor !== undefined) {
-            if (item.baseCalculoId?.baseCalculoId != '1'){
+            if (item.baseCalculoId?.baseCalculoId == '1'){
               item.valorMonto = item.valor + '%';
             }else{
               item.valorMonto = formatter.format(item.valor);
