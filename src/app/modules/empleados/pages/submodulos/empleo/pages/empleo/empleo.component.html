@@ -167,22 +167,12 @@
 
             </div>
             <hr>
-            <div class="row mt-4">
+            <div class="row mb-4">
                 <article class="titulo col">
                     Fecha de Antigüedad *
-                    <article></article>
-                </article>
-                <article class="titulo col">
-                    Fecha de ingreso *
-                    <article></article>
-                </article>
-                <article class="titulo col">
-                    Fecha de IMSS
-                    <article></article>
-                </article>
-            </div>
-            <div class="row mb-4">
-                <article *ngIf="editarcampos" class="titulo col">
+
+                
+                <article *ngIf="editarcampos" style="color: #7C7C7C;">
                     Elegir fecha
                     <article>
                         <input [max]="f.fechaInicio.value" #fechaAntiguedad (focusout)="validarfechAntiguedad(fechaAntiguedad.value)"  [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && f.fechaAntiguedad.touched}" formControlName="fechaAntiguedad" type="date" name="" class="form-control">
@@ -195,57 +185,33 @@
                 </article>
 
                 <article *ngIf="!editarcampos">
-                    Día
-                    <article>
-                        {{ empleado.fechaAntiguedad | date:'dd' }} {{ empleado.fechaAntiguedad | date:'MMMM' }}
-                    </article>
+                    {{ empleado.fechaAntiguedad | date:'dd' }} {{ empleado.fechaAntiguedad | date:'MMMM' }} {{ empleado.fechaAntiguedad | date:'yyyy' }}
                 </article>
-                <article *ngIf="!editarcampos">
-                    Mes
-                    <article>
-                        {{ empleado.fechaAntiguedad | date:'MMMM' }}
-                    </article>
-                </article>
-                <article *ngIf="!editarcampos">
-                    Año
+            </article>
 
-                    <article>
-                        {{ empleado.fechaAntiguedad | date:'yyyy' }}
-                    </article>
-                </article>
-                
-                <article class="col-12 col-lg">
-                </article>
-            <article class="col" *ngIf="editarcampos">
-                Elegir fecha
+            <article class="titulo col">
+                Fecha de ingreso *
+
+                    <article *ngIf="editarcampos" style="color: #7C7C7C;">
+                        Elegir fecha
                         <article>
                             <input #fechaInicioCont (focusout)="validarfechaInicioCont(fechaInicioCont.value)" [ngClass]="{'is-invalid':f.fechaInicio.errors && f.fechaInicio.touched}" formControlName="fechaInicio" type="date" name="" class="form-control">
                             <div  class="invalid-feedback">
                                 Campo requerido
                             </div>
                         </article>
+                    </article>            
                     
                     <article *ngIf="!editarcampos" >
-                        Día
-                        <article>
-                            {{empleado.fechaContrato | date:'dd'}}
-                        </article>
-                    </article>
-                    <article *ngIf="!editarcampos">
-                        Mes
-                        <article>
-                            {{empleado.fechaContrato | date:'MMMM'}}
-                        </article>
-                    </article>
-                    <article *ngIf="!editarcampos">
-                        Año
-                        <article>
-                            {{empleado.fechaContrato | date:'yyyy'}}
-                        </article>
+                            {{empleado.fechaContrato | date:'dd'}} {{empleado.fechaContrato | date:'MMMM'}} {{empleado.fechaContrato | date:'yyyy'}}
+
                     </article>
 
                 </article>
-                <article *ngIf="editarcampos" class="col">
+                <article class="titulo col">
+                    Fecha de IMSS
+
+                <article *ngIf="editarcampos" style="color: #7C7C7C;" >
                     Elegir fecha
                     <article>
                         <input [min]="f.fechaAntiguedad.value" (focusout)="validarFechaImss()" [ngClass]="{'is-invalid':f.fechaAltaImss.errors && f.fechaAltaImss.touched}" formControlName="fechaAltaImss" type="date" name="" class="form-control">
@@ -253,32 +219,16 @@
                             Campo requerido
                         </div>
                     </article>
-                
-                <article *ngIf="!editarcampos" class="  col">
-                    Día
-                    <article>
-                        {{empleado.fechaAltaImss | date:'dd'}}
-                    </article>
                 </article>
-                <article *ngIf="!editarcampos" class="  col">
-                    Mes
-                    <article>
-                        {{empleado.fechaAltaImss | date:'MMMM'}}
-                    </article>
+                <article *ngIf="!editarcampos">
+                        {{empleado.fechaAltaImss | date:'dd'}} {{empleado.fechaAltaImss | date:'MMMM'}} {{empleado.fechaAltaImss | date:'yyyy'}}
                 </article>
-                <article *ngIf="!editarcampos" class=" col">
-                    Año
-                    <article>
-                        {{empleado.fechaAltaImss | date:'yyyy'}}
-                    </article>
-                </article>
-                <article class="titulo  col-12 col-lg">
-                </article> 
-            </article>      
+            </article>    
+                  
             </div>
             <div class="row mb-4">
                 
-                <article class="aparece-desktop  col">
+                <article class="titulo col">
                     Sindicalizado
                     <article *ngIf="!editarcampos">
                         {{empleado.esSindicalizado ? "Si":"No"}}
@@ -301,99 +251,48 @@
 
                     </article>
                 </article>
-            </div>
-            <div *ngIf="activaFechaFin" class="row">
-                <article class="col">
-                    Fecha de fin de contrato <strong aria-hidden="true" *ngIf="f.tipoContratoId.value !== '10' && f.tipoContratoId.value !== '1' ">*</strong>
-                    <article></article>
-                </article>
-            </div>
-            <div *ngIf="!activaFechaFin" class="row mb-4">
-                <article *ngIf="editarcampos" class="col">
-                </article>
-                <article  class="titulo  col">
-                  </article>
-                <article class="titulo  col">
-                </article>
-                <article class="titulo  col">
-                </article>
-                <article class="titulo  col-12 col-lg">
-                </article>
-            </div>
-            <div *ngIf="activaFechaFin" class="row mb-4">
-                <article *ngIf="editarcampos" class="col">
-                    Elegir fecha
-                    <article >
-                        <input [min]="f.fechaInicio.value" #fechaFinCont (focusout)="validarfechaFinCont(fechaFinCont.value)" [ngClass]="{'is-invalid':f.fechaFin.errors && f.fechaFin.touched}" formControlName="fechaFin"
-                            type="date" name="" class="form-control">
-                        <div class="invalid-feedback">
-                            Campo requerido
-                        </div>
-                    </article>
-                </article>
-                <article *ngIf="!editarcampos" class="  col">
-                    Día
-                    <article>
-                        {{empleado.fechaFin | date:'dd'}}
-                    </article>
-                </article>
-                <article *ngIf="!editarcampos" class="  col">
-                    Mes
-                    <article>
-                        {{empleado.fechaFin | date:'MMMM'}}
-                    </article>
-                </article>
-                <article *ngIf="!editarcampos" class=" col">
-                    Año
-                    <article>
-                        {{empleado.fechaFin | date:'yyyy'}}
-                    </article>
-                </article>
-                <article class="titulo  col-12 col-lg">
-                </article>
-                <article class="aparece-desktop  col">
-                    Jornada *
-                    <article *ngIf="!editarcampos">
-                        {{empleado.jornadaId?.nombre}}
-                    </article>
-                    <article *ngIf="editarcampos">
-                        <select [ngClass]="{'is-invalid':f.jornadaId.errors && f.jornadaId.touched}" formControlName="jornadaId" name="" class="form-control">
-                            <option *ngFor="let item of arregloJornadas" [value]="item.jornadaId">{{item.nombre}}
-                            </option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Campo requerido
-                        </div>
-                    </article>
-                </article>
-
-
-            </div>
-
-            <div class="row mb-4">
-                <article class=" aparece-desktop  col">
-                    Área geográfica *
-                    <article *ngIf="!editarcampos"class="titulo col">
-                        <article style="margin-left: -14px !important;">{{areaGeo}}</article>
-                    </article>
-                    <article *ngIf="editarcampos">
-                        <div *ngFor="let item of arregloareasgeograficas">
-
-                            <label [class.disabled]="editarcampos" class="contenedorInputCheckRadio">{{item.descripcion}}
-                                <input [ngClass]="{'is-invalid':f.areaGeograficaId.errors && f.areaGeograficaId.touched}"
-                                    formControlName="areaGeograficaId" name="areaGeograficaId" type="radio"
-                                    [value]="item.areaGeograficaId" [id]="item.nombreCorto">
-                                <span class="radiomark"></span>
-                            </label>
-
-                            <div class="invalid-feedback">
-                                Campo requerido
+                <article class="titulo col">
+                        Área geográfica *
+                        <article *ngIf="!editarcampos"class="titulo col">
+                            <article style="margin-left: -14px !important;">{{areaGeo}}</article>
+                        </article>
+                        <article *ngIf="editarcampos">
+                            <div *ngFor="let item of arregloareasgeograficas">
+    
+                                <label [class.disabled]="editarcampos" class="contenedorInputCheckRadio">{{item.descripcion}}
+                                    <input [ngClass]="{'is-invalid':f.areaGeograficaId.errors && f.areaGeograficaId.touched}"
+                                        formControlName="areaGeograficaId" name="areaGeograficaId" type="radio"
+                                        [value]="item.areaGeograficaId" [id]="item.nombreCorto">
+                                    <span class="radiomark"></span>
+                                </label>
+    
+                                <div class="invalid-feedback">
+                                    Campo requerido
+                                </div>
                             </div>
-                        </div>
+                        </article>
                     </article>
-                </article>
-            </div>
+                    <article *ngIf="!activaFechaFin" class="titulo col"></article>
+                    <article *ngIf="activaFechaFin" class="titulo col">
+                            Fecha de fin de contrato <strong aria-hidden="true" *ngIf="f.tipoContratoId.value !== '10' && f.tipoContratoId.value !== '1' ">*</strong>
 
+                        <article *ngIf="editarcampos" style="color: #7C7C7C;">
+                            Elegir fecha
+                            <article >
+                                <input [min]="f.fechaInicio.value" #fechaFinCont (focusout)="validarfechaFinCont(fechaFinCont.value)" [ngClass]="{'is-invalid':f.fechaFin.errors && f.fechaFin.touched}" formControlName="fechaFin"
+                                    type="date" name="" class="form-control">
+                                <div class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+                            </article>
+                        </article>
+                        <article *ngIf="!editarcampos">
+                            {{empleado.fechaFin | date:'dd'}} {{empleado.fechaFin | date:'MMMM'}} {{empleado.fechaFin | date:'yyyy'}}
+                        </article>
+                    </article>
+
+
+            </div>
         </div>
 
     </div>
