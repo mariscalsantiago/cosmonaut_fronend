@@ -114,7 +114,8 @@ export class ContenidoComponent implements OnInit {
     private ventana: VentanaemergenteService, private navigate: Router, private companyProd: CompanyService,
     private chatPrd: ChatSocketService, private authPrd: AuthService, public configuracionPrd: ConfiguracionesService,
     private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private charComponentPrd: ChatService, public notificacionesPrd: NotificacionesService) {
+    private charComponentPrd: ChatService, public notificacionesPrd: NotificacionesService,
+    private configuracionesPrd:ConfiguracionesService ) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
 
@@ -122,12 +123,16 @@ export class ContenidoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+        this.configuracionPrd.cambiarColor.next({
+          type:"vistaPrevia",
+          datos:{
+            colorfondo:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colorfondo || '#022538',
+            colormenu:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colormenu || '#52cdc0'
+          }
+        });
 
 
-
-
-
-
+       
     this.chat = this.chatPrd.getChatDatos();
 
     this.rol = this.sistemaUsuarioPrd.getRol();
@@ -238,7 +243,6 @@ export class ContenidoComponent implements OnInit {
 
 
   public seleccionarSubmenu(obj: any, obj2: any) {
-    
     if (obj2) {
 
       obj2 = {

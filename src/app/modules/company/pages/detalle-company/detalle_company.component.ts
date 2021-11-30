@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
@@ -17,7 +17,7 @@ import { CompanyService } from '../../services/company.service';
   templateUrl: './detalle-company.component.html',
   styleUrls: ['./detalle-company.component.scss']
 })
-export class DetalleCompanyComponent implements OnInit {
+export class DetalleCompanyComponent implements OnInit,OnDestroy {
   @ViewChild("nombre") nombre: any;
 
   public myFormcomp!: FormGroup;
@@ -54,6 +54,9 @@ export class DetalleCompanyComponent implements OnInit {
     versionCosmonautXclienteId:undefined
   };
 
+
+  public esVistaPrevia:boolean = false;
+  public fueAfectada:boolean = false;
 
   constructor(private formBuilder: FormBuilder, private companyPrd: CompanyService, private routerActivePrd: ActivatedRoute,
     private routerPrd: Router, private usuariosPrd: UsuarioService,private modalPrd:ModalService,private versionesPrd:VersionesService,
@@ -105,6 +108,13 @@ export class DetalleCompanyComponent implements OnInit {
         
         this.myFormcomp.controls.versioncosmonaut.setValue(datos.datos.versionCosmonautId?.versionCosmonautId);
         this.versionEmpresa = datos.datos;
+
+        
+        if(datos.datos.color){
+          this.myFormcomp.controls.preferenciaId.setValue(datos.datos.color.preferenciaId);
+          this.myFormcomp.controls.colormenu.setValue(datos.datos.color.colormenu);
+          this.myFormcomp.controls.colorfondo.setValue(datos.datos.color.colorfondo);
+        }
         
     });
     }     
@@ -147,7 +157,11 @@ export class DetalleCompanyComponent implements OnInit {
       esActivo: [{ value: (this.insertar) ? "true" : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       centrocClienteId: obj.centrocClienteId,
       multiempresa: obj.multiempresa,
-      versioncosmonaut:['',Validators.required]
+      versioncosmonaut:['',Validators.required],
+      colormenu:['#52cdc0'],
+      colorfondo:['#022538'],
+      mostrarlogosistema:[false],
+      preferenciaId:[]
 
     });
   }
@@ -236,6 +250,9 @@ export class DetalleCompanyComponent implements OnInit {
           imagen: this.imagen  
         };
 
+        
+
+
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
         if (this.insertar) {
@@ -249,7 +266,10 @@ export class DetalleCompanyComponent implements OnInit {
               
             let objVersionEnviar = {
               centrocClienteId:datos.datos.centrocClienteId,
-              versionId:obj.versioncosmonaut
+              versionId:obj.versioncosmonaut,
+              colormenu:obj.colormenu,
+              colorfondo:obj.colorfondo,
+              mostrarlogosistema:obj.mostrarlogosistema
             };
             this.authUsuariosPrd.guardarVersionsistema(objVersionEnviar).subscribe(datosVersion =>{
               if(!datosVersion.resultado){
@@ -286,11 +306,16 @@ export class DetalleCompanyComponent implements OnInit {
             let objEnviar =   {
                 versionCosmonautXclienteId: this.versionEmpresa.versionCosmonautXclienteId,
                 versionId: obj.versioncosmonaut,
-                centrocClienteId: obj.centrocClienteId
+                centrocClienteId: obj.centrocClienteId,
+                colormenu:obj.colormenu,
+                colorfondo:obj.colorfondo,
+                mostrarlogosistema:obj.mostrarlogosistema,
+                preferenciaId:obj.preferenciaId
                 }
 
                 if(!Boolean(objEnviar.versionCosmonautXclienteId)){
                   delete objEnviar.versionCosmonautXclienteId;
+                  delete objEnviar.preferenciaId;
                   this.authUsuariosPrd.guardarVersionsistema(objEnviar).subscribe(datosVersion =>{
                     if(!datosVersion.resultado){
                           this.modalPrd.showMessageDialog(datosVersion.resultado,datosVersion.mensaje);
@@ -356,6 +381,42 @@ export class DetalleCompanyComponent implements OnInit {
       
     }
     this.myFormcomp.controls.rfc.updateValueAndValidity();
+  }
+
+  public verVistaPrevia(){
+
+    this.fueAfectada = true;
+
+    this.esVistaPrevia = true;
+
+    this.configuracionPrd.cambiarColor.next({
+      type:"vistaPrevia",
+      datos:{
+        colorfondo:this.myFormcomp.controls.colorfondo.value,
+        colormenu:this.myFormcomp.controls.colormenu.value
+      }
+    })
+
+  }
+
+  public cancelarVistaPrevia():void{
+    
+    this.esVistaPrevia = false;
+
+    this.configuracionPrd.cambiarColor.next({
+      type:"vistaPrevia",
+      datos:{
+        colorfondo:'#022538',
+        colormenu:'#52cdc0'
+      }
+    })
+    
+
+  }
+
+  ngOnDestroy(){
+    if(!this.fueAfectada) return;
+    this.cancelarVistaPrevia();
   }
 
 
