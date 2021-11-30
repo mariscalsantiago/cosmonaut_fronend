@@ -106,6 +106,7 @@
     @include icono-imagen($dark);
     -webkit-mask: url($rutaimg) no-repeat center;
     mask: url($rutaimg) no-repeat center;
+    width: 37px;
   }
 
   .icon_editar{
