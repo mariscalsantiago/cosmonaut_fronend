@@ -10,7 +10,8 @@ export class EstilosService {
     {etiqueta:".contenido_component #sidebar ul li.active > a",selector:["background-color"]},
     {etiqueta:".labelflotantemenu",selector:["background-color"]},
     {etiqueta:".contenido_component #sidebar ul li.active > a i",selector:["background-color"],contraste:true},
-    {etiqueta:".titulosfijos",selector:["background-color"]}
+    {etiqueta:".titulosfijos",selector:["background-color"]},
+    {etiqueta:".mostrarelementos label",selector:["background"]}
   ];
   private menu:Array<estructura> = [
     {etiqueta:"#sidebar ul li a",selector:["background-color"]},
