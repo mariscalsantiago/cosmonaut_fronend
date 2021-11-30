@@ -13,7 +13,7 @@
         </li>
         <li >
             <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
-            (click)="regresarPantallaPrincipal()" >CONFIGURACIÓN DE CLIENTE ></a>
+            (click)="regresarPantallaPrincipal()" >CONFIGURACIÓN DE CLIENTE</a>
         </li>
         <li style="padding-top: 10PX;">
             CONFIGURACIÓN DE CONTACTO
@@ -130,12 +130,12 @@
                 <div *ngIf="cargandoCheckbox" class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
-                <label  [mdbTooltip]="'contactoinicial' | tooltip" *ngIf="!cargandoCheckbox && tieneUsuarioInicial" style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)"
+                <label  [mdbTooltip]="'contactoinicial' | tooltip" *ngIf="!cargandoCheckbox && tieneUsuarioInicial" style="top: 15px;font-size: 100%;"
                     class="contenedorInputCheckRadio ">Registrar con acceso al sistema
                     <input formControlName="usuarioinicial" type="checkbox">
                     <span class="checkmark"></span>
                 </label>
-                <label  *ngIf="!cargandoCheckbox && !tieneUsuarioInicial" style="top: 15px;font-size: 100%;color:rgb(145, 118, 118)"
+                <label  *ngIf="!cargandoCheckbox && !tieneUsuarioInicial" style="top: 15px;font-size: 100%;"
                 class="contenedorInputCheckRadio ">Registrar con acceso al sistema
                 <input formControlName="usuarioinicial" type="checkbox">
                 <span class="checkmark"></span>

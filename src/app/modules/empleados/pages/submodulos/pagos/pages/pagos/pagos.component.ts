@@ -138,6 +138,12 @@ export class PagosComponent implements OnInit {
       new tabla("activo", "Estatus de percepción")
     ]
 
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    })
+
 
     this.arreglotablaPert = {
       columnas: [],
@@ -168,10 +174,14 @@ export class PagosComponent implements OnInit {
           item.tipoPercepcionId.porDefecto = false;
         }
         if (item.valor !== undefined) {
-          item.valorMonto = item.valor;
+          if (item.baseCalculoId?.baseCalculoId == '1')
+              item.valorMonto = item.valor + '%';
+          else
+              item.valorMonto = formatter.format(item.valor);
+          
         }
         else if (item.montoTotal !== undefined) {
-          item.valorMonto = item.montoTotal
+          item.valorMonto = formatter.format(item.montoTotal);
         }
       }
     }
@@ -182,6 +192,8 @@ export class PagosComponent implements OnInit {
     this.cargandoPer = false;
   }
 
+
+  
   public crearTablaDeduccion(datos: any) {
 
 
@@ -196,6 +208,11 @@ export class PagosComponent implements OnInit {
       new tabla("activo", "Estatus de deducción")
     ]
 
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    })
 
     this.arreglotablaDedt = {
       columnas: [],
@@ -231,10 +248,14 @@ export class PagosComponent implements OnInit {
           item.tipoPercepcionId.porDefecto = false;
         }
         if (item.valor !== undefined) {
-          item.valorMonto = item.valor;
+            if (item.baseCalculoId?.baseCalculoId == '1'){
+              item.valorMonto = item.valor + '%';
+            }else{
+              item.valorMonto = formatter.format(item.valor);
+            }
         }
         else if (item.montoTotal !== undefined) {
-          item.valorMonto = item.montoTotal
+          item.valorMonto = item.montoTotal  
         }
         else if (item.interesPorcentaje !== undefined) {
           item.valorMonto = item.interesPorcentaje
@@ -249,6 +270,7 @@ export class PagosComponent implements OnInit {
 
 
   public cambiarStatus(valor: any) {
+
     if (!(!!this.arreglogrupoNomina)) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Esperar, cargando cátalogos necesarios");
       return;
@@ -490,7 +512,6 @@ export class PagosComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
-
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar los datos?").then(valor => {
       if (valor) {
 
@@ -576,6 +597,9 @@ export class PagosComponent implements OnInit {
   }
 
   public cancelar() {
+    if (this.empleado.metodoPagoId.metodoPagoId == 4) {
+      this.detalleCuenta = true;
+    } 
     this.metodopagobool = false;
     this.detallecompensacionbool = false;
   }

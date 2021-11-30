@@ -26,6 +26,7 @@ export class FormEmpleadoComponent implements OnInit {
   ];
 
   public ocultarDetalleTransfrencia: boolean = true;
+  public ocultarMenuHam: boolean = true;
   public ocultarempleada: boolean = false;
   public cargandoIcon: boolean = false;
   public tabsEnviar: any = [{}, [{}], {}];
@@ -36,8 +37,6 @@ export class FormEmpleadoComponent implements OnInit {
   };
   public porcentaje:any={porcentaje:0};
 
-
-
   public mostrarDetalleTransferencia: boolean = false;
 
   public datosPersona: any = {
@@ -46,7 +45,6 @@ export class FormEmpleadoComponent implements OnInit {
 
   public modulo: string = "";
   public subModulo: string = "";
-
   public cambiaValor: boolean = false;
 
   public esReactivar:boolean = false;
@@ -98,21 +96,36 @@ export class FormEmpleadoComponent implements OnInit {
 
       console.log("Siempre se ejecuta padre",this.datosPersona);
     }
+  }
 
+  public inicio(){
+    if(!this.ocultarDetalleTransfrencia){
 
-
-    
-
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede cancelar, la cuenta bancaria para un empleado de transferencia es obligatorio.");
+      return;
+    }
+    this.routerPrd.navigate(['/inicio']);
   }
 
   public cancelar(){
+    if(!this.ocultarDetalleTransfrencia){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede cancelar, la cuenta bancaria para un empleado de transferencia es obligatorio.");
+      return;
+    }
     this.routerPrd.navigate(['/empleados']);
   }
 
   public cancelarPendientes(){
+    if(!this.ocultarDetalleTransfrencia){
+
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede cancelar, la cuenta bancaria para un empleado de transferencia es obligatorio.");
+      return;
+    }
     this.routerPrd.navigate(['/empleados/empleadosincompletos']);
   }
   public recibir(elemento: any) {
+    debugger;
     switch (elemento.type) {
       case "informacion":
         this.datosPersona = elemento.datos;
@@ -125,7 +138,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.tabsEnviar[0] = elemento.datos;
 
 
-        
+        this.ocultarempleada = false;
         break;
       case "domicilio":
         this.activado[3].tab = true;
@@ -136,6 +149,8 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[1].seleccionado = false;
         
         this.tabsEnviar[1] = elemento.datos;
+
+        this.ocultarempleada = false;
         break;
       case "preferencias":
 
@@ -144,6 +159,8 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[3].disabled = false;
         this.activado[2].form = false;
         this.tabsEnviar[2] = elemento.datos;
+
+        this.ocultarempleada = false;
         break;
       case "empleo":
        
@@ -154,16 +171,13 @@ export class FormEmpleadoComponent implements OnInit {
         this.tabsEnviar[3] = elemento.datos;
         this.tabsEnviar[0].tieneContrato = true;
 
-
-
         this.empleadosPrd.getPorcentajeavance(this.datosPersona.personaId).subscribe(datos => {
           
           this.porcentaje = datos;
           
         });
 
-        this.ocultarempleada = true;
-        
+               
         
         if (!this.ocultarDetalleTransfrencia) {
           this.activado[4].tab = true;
@@ -172,11 +186,14 @@ export class FormEmpleadoComponent implements OnInit {
           this.activado[4].seleccionado = true;
           this.activado[3].seleccionado = false;
           this.activado[3].form = false;
+
+          this.ocultarempleada = false;
+          this.ocultarMenuHam = false;
         } else {
           this.routerPrd.navigate(['/empleados']);
+          this.ocultarempleada = true;
         }
 
-        this.ocultarempleada = true;
         break;
     }
 

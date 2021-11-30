@@ -125,12 +125,12 @@
                     </div>
 
                     
-                    <div class="row margen-tabla background-panel " *ngIf="listaVariable">
+                    <div class="row margen-tabla background-panel class_promedio" *ngIf="listaVariable">
                         <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [recalcular] = "true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
                     </div>
 
                     
-                    <div class="row margen-tabla background-panel " *ngIf="listaPromedio">
+                    <div class="row margen-tabla background-panel class_promedio" *ngIf="listaPromedio">
                         <app-tablapaginado [datos]="arreglotablaListaEmpleadosPromedio" [cargando]="cargando"></app-tablapaginado>
                     </div>
                     <br>

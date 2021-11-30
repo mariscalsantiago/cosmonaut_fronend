@@ -15,7 +15,7 @@
     display: inline-block !important;
     color:#56dfd4 !important;
     text-decoration: underline !important;
-    
+    font-size: 16px;
 }
 
 .btn-search {
@@ -70,9 +70,10 @@ table {
  
     th:nth-child(1) {
         .contenedorInputCheckRadio{
-        display: inline !important;
+        margin-bottom: 3;
         }
     }
+    
 
     td {
         text-align: left;
