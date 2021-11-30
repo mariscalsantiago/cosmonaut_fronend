@@ -19,14 +19,15 @@
         <button (click)="filtrar()" type="button" class="btn btn-primary button-outlet ">Filtrar</button>
     </div>
 </div>
-<div class="row mt-3">
-    <div class="col-11 text-right">
-        <a *ngIf="esDescargar" (click)="descargarDispersion()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIconDispersion"><i aria-hidden="true" class="fas fa-download"></i> Descargar dispersión</small>
+
+<div class="row mr-3">
+    <div class="col-12 text-right">
+        <a *ngIf="esDescargar" (click)="descargarDispersion()" class="botonestilo aparece-desktop estiloextralink  mr-3" ><small *ngIf="!cargandoIconDispersion"><i aria-hidden="true" class="fas fa-download" style="font-size: 17px; color: rgb(7 165 156); text-decoration-line: underline;">&nbsp;Descargar dispersión</i></small>
             <div *ngIf="cargandoIconDispersion" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </a>
-        <a *ngIf="esDescargar" (click)="descargarRfc()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" class="fas fa-download"></i> Descargar RFC's</small>
+        <a *ngIf="esDescargar" (click)="descargarRfc()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" class="fas fa-download" style="font-size: 17px; color: rgb(7 165 156); text-decoration-line: underline;">&nbsp;Descargar RFC's</i></small>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -34,6 +35,7 @@
     </div>
 
 </div>
+
 <div class="row especialrow">
     <div class="col-6">
         <article>Empleados
@@ -69,7 +71,7 @@
           <div class="tab-content" id="myTabContent">
               <div class="row">
                   <div class="col-12">
-                    <a *ngIf="esDescargar" style="margin-top: 18px;font-size: 20px;" (click)="actualizarLista()" class="botonestilo aparece-desktop estiloextralink"><small class="underline" style="color:rgb(7 165 156);    text-decoration-line: underline;" *ngIf="!cargandoIcon"><i aria-hidden="true" class="fas fa-redo-alt"></i> Actualizar listados</small>
+                    <a *ngIf="esDescargar" style="margin-top: 18px;font-size: 20px;" (click)="actualizarLista()" class="botonestilo aparece-desktop estiloextralink"><small class="underline" style="color:rgb(7 165 156);    text-decoration-line: underline;" *ngIf="!cargandoIcon"><i aria-hidden="true" class="fas fa-redo-alt"></i>&nbsp;Actualizar listados</small>
                         <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
