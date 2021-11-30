@@ -177,7 +177,17 @@ export class usuarioClass {
   public esRecursosHumanos!: boolean;
   public nombreRol!:string;
   public correo!:string;
+  public coloresSistema?:coloresclass;
+  public listaColores?:Array<coloresclass>;
 
+}
+
+export class coloresclass{
+  preferenciaId!:Number;
+  colormenu!:string;
+  colorfondo!:string;
+  mostrarlogosistema!:boolean;
+  clienteId!:Number;
 }
 
 

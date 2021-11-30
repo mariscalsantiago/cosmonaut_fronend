@@ -366,6 +366,11 @@ export class DetallepoliticasComponent implements OnInit {
       new tabla("activo", "Estatus de deducción"),
     ]
 
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    })
 
     this.arreglotablaDedt = {
       columnas: [],
@@ -390,10 +395,15 @@ export class DetallepoliticasComponent implements OnInit {
          }
 
         if(item.valor !== undefined){
-          item.valorMonto = item.valor; 
+          {
+            if (item.baseCalculoId?.baseCalculoId != '1')
+                item.valorMonto = formatter.format(item.valor); 
+            else
+                item.valorMonto = item.valor + '%'; 
+          }
         }
         else if(item.montoTotal !== undefined){
-          item.valorMonto = item.montoTotal
+          item.valorMonto = item.montoTotal;
         }
         if(item.tipoPercepcionId?.noEditable !== undefined ){
           item.tipoPercepcionId.noEditable = false;
@@ -421,6 +431,11 @@ export class DetallepoliticasComponent implements OnInit {
       new tabla("activo", "Estatus de percepción"),
     ]
 
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    })
 
     this.arreglotablaPert = {
       columnas: [],
@@ -453,10 +468,13 @@ export class DetallepoliticasComponent implements OnInit {
           }
           
         if(item.valor !== undefined){
-          item.valorMonto = item.valor; 
+          if (item.baseCalculoId?.baseCalculoId == '1')
+              item.valorMonto = item.valor + '%'; 
+          else 
+              item.valorMonto = formatter.format(item.valor); 
         }
         else if(item.montoTotal !== undefined){
-          item.valorMonto = item.montoTotal
+          item.valorMonto = formatter.format(item.montoTotal);
         }
 
       }
