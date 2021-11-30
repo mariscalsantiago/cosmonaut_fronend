@@ -195,7 +195,7 @@ export class NoticiasDetalleComponent implements OnInit {
     this.formulario.controls.subtitulo.setValue(!!this.editando ? this.editando.subtitulo : '');
     this.formulario.controls.subtitulo.updateValueAndValidity();
 
-    this.formulario.controls.fechaAlta.setValue(!!this.editando ? this.editando.fechaAlta : datePipe.transform(new Date(), 'dd/MM/yyyy'));
+    this.formulario.controls.fechaAlta.setValue(!!this.editando ? this.editando.fechaAlta : datePipe.transform(new Date(), 'dd-MMM-y')?.replace(".",""));
     this.formulario.controls.fechaAlta.updateValueAndValidity();
 
     this.formulario.controls.fechaInicio.setValue(!!this.editando ? this.editando.fechaInicio : '');
