@@ -222,7 +222,7 @@ export class DetalleUsuarioComponent implements OnInit {
       apellidoPaterno: [obj.apellidoPat, [Validators.required]],
       apellidoMaterno: [obj.apellidoMat],
       correoelectronico: [obj.email?.toLowerCase(), [Validators.required, Validators.email]],
-      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta, "dd/MM/yyyy")), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: ((this.insertar) ? this.fechaActual : new DatePipe("es-MX").transform(obj.fechaAlta, 'dd-MMM-y')?.replace(".", "")), disabled: true }, [Validators.required]],
       centrocClienteId: [this.insertar ? "" : obj.centrocClientes[0].centrocClienteId, [Validators.required]],
       esActivo: [{ value: (this.insertar) ? true : obj.esActivo, disabled: this.insertar }, [Validators.required]],
       personaId: [{ value: obj.usuarioId, disabled: true }],
@@ -240,8 +240,6 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
   public enviarPeticion() {
-
-
 
     this.summitenviado = true;
 
