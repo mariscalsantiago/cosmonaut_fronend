@@ -25,9 +25,8 @@ export class ModalService {
   }
 
   constructor() { }
-
+  
   public showMessageDialog(alerta: any, titulo?: string,subtitulo?:string): Promise<any> {
-
     if (alerta == this.loadingfinish) {
 
       this.modal.iconType = "";
@@ -38,9 +37,6 @@ export class ModalService {
     if (typeof (alerta) == "boolean") {
       alerta = alerta ? "success" : "error";
     }
-
-
-
 
     this.modal.modal = true;
     this.modal.iconType = alerta;

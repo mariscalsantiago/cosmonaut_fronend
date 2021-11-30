@@ -7,6 +7,7 @@ import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-c
 import { ValidarPasswordService } from 'src/app/shared/services/configuracion/validar-password.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService, usuarioClass } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { ModalService } from 'src/app/shared/services/modales/modal.service';
 
 
 declare var $: any;
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
   public cargandoLogin: boolean = false;
   public mensajeSucess: string = "Contraseña actualizada correctamente";
   public restablecer:boolean = false;
+  
 
   public usuarioObj: any;
 
@@ -63,7 +65,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, private routerPrd: Router,
     private companiaPrd: SharedCompaniaService, public usuarioSistemaPrd: UsuarioSistemaService, private authPrd: AuthService,
-    private authUsuarioPrd: UsuariosauthService) {
+    private authUsuarioPrd: UsuariosauthService, private modalPrd:ModalService) {
     let obj = {};
     this.myForm = this.createMyForm(obj);
 
@@ -175,10 +177,10 @@ export class LoginComponent implements OnInit {
           usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId);
           usuario.esRecursosHumanos = false;
           usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : objRecibido.centroCostosCentrocClienteId.centrocClienteId;
-          usuario.listaColores = valorusuario.datos.coloresDefecto;
+/*           usuario.listaColores = valorusuario.datos.coloresDefecto;
           if(usuario.listaColores){
             usuario.coloresSistema = usuario.listaColores.find(o=> o.clienteId == (usuario.centrocClienteIdPadre == 0 ? usuario.centrocClienteId : usuario.centrocClienteIdPadre))
-          }
+          } */
 
           
           this.usuarioSistemaPrd.setUsuario(usuario);
@@ -410,7 +412,7 @@ export class LoginComponent implements OnInit {
 
   public olvidastetupassword(valor:any) {
     
-    
+    debugger;
     if (this.correo?.nativeElement.value || Boolean(valor)) {
       let objenviar = {
         username: (!Boolean(valor))? this.correo.nativeElement.value?.toLowerCase():this.myForm.value.username?.toLowerCase()
@@ -420,6 +422,8 @@ export class LoginComponent implements OnInit {
       
       
       this.cargando = true;
+      //let mensaje = "Se ha enviado un correo electrónico con su contraseña de recuperación";
+      //this.modalPrd.showMessageDialog(this.modalPrd.error,mensaje);
       this.usuarioSistemaPrd.enviarCorreorecuperacion(objenviar).subscribe(datos => {
         this.cargando = false;
         
@@ -430,6 +434,9 @@ export class LoginComponent implements OnInit {
           if(Boolean(this.correo)){
             this.correo.nativeElement.value = "";
           }
+
+          
+          //this.modalPrd.showMessageDialog(this.modalPrd.error,"Se ha enviado un correo electrónico con su contraseña de recuperación");
           this.mensajeSucess = !Boolean(valor)? "Se ha enviado un correo electrónico con su contraseña de recuperación":valor;
 
           this.mensajesuccess = true;
@@ -445,6 +452,7 @@ export class LoginComponent implements OnInit {
         }
       })
     }
+    
   }
 
 
@@ -456,9 +464,9 @@ export class LoginComponent implements OnInit {
     usuario.esCliente = !Boolean(this.clienteSeleccionado.centroCostosCentrocClienteId)
     console.log("Cliente seleccionado",this.clienteSeleccionado);
     usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : this.clienteSeleccionado?.centroCostosCentrocClienteId?.centrocClienteId;
-    if(usuario.listaColores){
+/*     if(usuario.listaColores){
       usuario.coloresSistema = usuario.listaColores.find(o=> o.clienteId == (usuario.centrocClienteIdPadre == 0 ? usuario.centrocClienteId : usuario.centrocClienteIdPadre))
-    }
+    } */
 
 
     this.usuarioSistemaPrd.setUsuario(usuario);
