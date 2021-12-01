@@ -34,6 +34,7 @@ export class InformacionempresaComponent implements OnInit {
   public cargandoImg: boolean = false;
   public mostrarAsterisco:boolean = false;
   public urlLogo: string = ''; 
+  public valCurp: boolean = true;
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
@@ -58,9 +59,10 @@ export class InformacionempresaComponent implements OnInit {
       this.imagen = datos.datos?.imagen;
 
       });
+      this.validarRFCCurp();
     }
     this.suscripciones();
-
+    
     this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
 
     this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
@@ -70,6 +72,7 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public suscripciones() {
+    debugger;
     this.myform.controls.regimenfiscalId.valueChanges.subscribe(valor => {
       let permitido: boolean = (valor == 606 || valor == 612 || valor == 621);
       this.realizarValidacionRegimen(permitido);
@@ -81,7 +84,8 @@ export class InformacionempresaComponent implements OnInit {
     this.realizarValidacionRegimen(permitido);
 
 
-    this.myform.controls.key.valueChanges.subscribe(datos => {
+    this.myform.controls.rfc.valueChanges.subscribe(datos => {
+      this.validarRFCCurp();
       
     });
 
@@ -140,6 +144,16 @@ export class InformacionempresaComponent implements OnInit {
     });
   }
 
+  public validarRFCCurp(){
+    debugger;
+    let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
+    if(moralFiscia ===3){ 
+    this.valCurp = true;
+    }else{
+    this.valCurp = false;
+    }
+  } 
+  
   public validarActividad2(actividad: any) {
     
     

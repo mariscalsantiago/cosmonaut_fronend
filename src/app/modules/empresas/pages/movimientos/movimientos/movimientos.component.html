@@ -38,8 +38,10 @@
                             <input id="fechamovimientob" type="date" class="form-control" [(ngModel)]="fechaMovimiento" placeholder="Fecha de movimiento">
                         </div>
 
-                        <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-                            <button id="btnFiltradoMovimientos" type="submit" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                        <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12">
+                            <button id="btnLimpiarMovimientos" type="submit" class="btn btn-primary button-outlet margen" (click)="limpiar()">Limpiar</button>
+                            <button id="btnFiltradoMovimientos" type="submit" class="btn btn-primary button-outlet margen" style="margin-right: 2px;" (click)="filtrar()">Filtrar</button>
+                            
                         </div>
 
 

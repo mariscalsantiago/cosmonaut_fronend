@@ -86,6 +86,27 @@ export class MovimientosComponent implements OnInit {
     this.cargando = false;
   }
 
+  public limpiar() {
+    debugger;
+    this.cargando = true;
+    
+    this.objFiltro = [];        
+      this.fechaMovimiento = ''; 
+      this.nombre = '';
+      this.apellidoPaterno = '';
+      this.apellidoMaterno = '';
+
+      this.objFiltro = {
+          ...this.objFiltro,
+          centroClienteId: this.idEmpresa,
+          fechaMovimiento: this.fechaMovimientoFinal
+        };
+      this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
+      this.traerTabla(datos);
+
+      });
+    }
+
 
   public filtrar() {
     
@@ -132,6 +153,7 @@ export class MovimientosComponent implements OnInit {
 
       });
     }
+
     public inicio(){
       this.routerPrd.navigate(['/inicio']);
     }
