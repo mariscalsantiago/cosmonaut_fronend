@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, ElementRef, OnInit } from '@angular/core';
 import { ConfiguracionesService } from './shared/services/configuraciones/configuraciones.service';
+import { EstilosService, estructura } from './shared/services/configuraciones/estilos.service';
 import { NominaordinariaService } from './shared/services/nominas/nominaordinaria.service';
 import { ServerSentEventService } from './shared/services/nominas/server-sent-event.service';
 
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit,AfterContentInit {
 
 
   constructor(private SSE:ServerSentEventService,private element:ElementRef,
-    private configuracionesPrd:ConfiguracionesService){
+    private configuracionesPrd:ConfiguracionesService,private estilosPrd:EstilosService){
     
   }
 
@@ -24,24 +25,13 @@ export class AppComponent implements OnInit,AfterContentInit {
 
   ngAfterContentInit():void{
     this.configuracionesPrd.cambiarColor.subscribe(valor =>{
-     if(valor.type){
-      for(let item of Object.values(document.styleSheets)){
-        let stylesheet:any = item;
-        for(let i = 0; i < stylesheet.cssRules.length; i++) {
-  
-          let reglas:any = ["#sidebar ul li a","titulo-outlet","#navegadorTabsEncab"];
-  
-          for(let regla of reglas){
-            if(stylesheet.cssRules[i].selectorText?.includes(regla)) {
-              console.log(stylesheet.cssRules[i].selectorText);
-              console.log(stylesheet.cssRules[i]);
-              stylesheet.cssRules[i].style.setProperty("background-color",valor.color);
-              
-            }
-          }
-        }
-      }   
-    }
+      switch(valor.type){
+        case "vistaPrevia":
+             this.cambiarColor(valor.datos.colormenu,valor.datos.colorfondo);
+          break;
+        case 'defecto':
+          this.cambiarColor('','');
+      }
     });
 
   }
@@ -56,5 +46,32 @@ export class AppComponent implements OnInit,AfterContentInit {
 
     this.SSE.verificador.next(true);
     
+  }
+
+  private cambiarColor(colormenu:string,colorfondo:string):void{
+    
+    for(let item of Object.values(document.styleSheets)){
+      let stylesheet:any = item;
+      for(let i = 0; i < stylesheet.cssRules.length; i++) {
+
+        let menu:Array<estructura> = this.estilosPrd.getMenu();
+        for(let regla of menu){
+          if(stylesheet.cssRules[i].selectorText?.includes(regla.etiqueta)) {
+            for(let selector of regla.selector){
+              stylesheet.cssRules[i].style.removeProperty(selector,"background-color");
+              stylesheet.cssRules[i].style.setProperty(selector,regla.contraste?"white":colormenu);
+            }
+          }
+        }
+        let fondo:Array<estructura> = this.estilosPrd.getFondo();
+        for(let regla of fondo){
+          if(stylesheet.cssRules[i].selectorText?.includes(regla.etiqueta)) {
+            for(let selector of regla.selector){
+              stylesheet.cssRules[i].style.setProperty(selector,regla.contraste?"white":colorfondo);
+            }
+          }
+        }
+      }
+    } 
   }
 }
