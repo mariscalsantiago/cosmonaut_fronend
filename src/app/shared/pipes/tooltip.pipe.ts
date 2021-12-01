@@ -40,12 +40,11 @@ export class TooltipPipe implements PipeTransform {
     else if(value === 'seguroSocial'){
       return "Clave numérica de 11 dígitos asignada de forma única e intransferible a cada trabajador incorporado ante el IMSS.";
     }
-    else if(value === 'area'){
+    else if (value === 'area'){
       return "Área de adscripción del trabajador, da clic en ( + ) para agregar una nueva área.";
-
     }
     else if(value === 'puesto'){
-      return "Puesto del trabajador, da clic en  (+) para agregar un nuevo puesto.";
+      return "Puesto del trabajador, da clic en  ( + ) para agregar un nuevo puesto.";
     }
     else if(value === 'jefe'){
       return "Nombre del superior jerárquico inmediato a quien el trabajador reporta sus actividades.";

@@ -36,7 +36,7 @@ export class ListasTablaValoresComponent implements OnInit {
     filas: []
   };
 
-  
+
   public arreglotablaISR: any = {
     columnas: [],
     filas: []
@@ -77,9 +77,9 @@ export class ListasTablaValoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.establecerPermisos();
-    
+
     this.activateRouter.params.subscribe(datos => {
-      
+
       this.id_empresa = datos["id"];
       let fecha = new Date();
       let anio = fecha.getFullYear();
@@ -99,7 +99,7 @@ export class ListasTablaValoresComponent implements OnInit {
       });
 
       this.cargandoNomina = true;
-      
+
       this.tablavaloresProd.getListaEstadosISN().subscribe(datos => {
           this.crearTablaISN(datos);
       });
@@ -121,23 +121,22 @@ export class ListasTablaValoresComponent implements OnInit {
 
 
   public crearTablaReferencia(datos:any){
-    
-    
+
+
     this.arregloRef = datos.datos;
-    
+
 
     let columnas: Array<tabla> = [
       new tabla("tipovalor", "Tipo de valor"),
       new tabla("valor", "Valor"),
       new tabla("fechaFin", "Vigencia")
-
     ];
 
 
     this.arreglotablaRef = {
-      columnas:[],
-      filas:[]
-    }
+      columnas: [],
+      filas: []
+    };
 
 
     if(this.arregloRef !== undefined){
@@ -145,41 +144,48 @@ export class ListasTablaValoresComponent implements OnInit {
         item.fechaFin = (new Date(item.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");
-
-        item.tipovalor= item.tipoValorReferenciaId?.descripcion;
+        item.valor = this.formatearNumero(item.valor);
+        item.tipovalor = item.tipoValorReferenciaId?.descripcion;
       }
     }
 
     this.arreglotablaRef.columnas = columnas;
     this.arreglotablaRef.filas = this.arregloRef;
     this.cargandoRef = false;
-  
+
+  }
+
+  public formatearNumero(valor: number){
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+    });
+    return formatter.format(valor);
   }
 
   public crearTablaISR(datos:any){
-    
-     
+
+
     this.arregloISR = datos.datos;
     let columnas: Array<tabla> = [
       new tabla("tabla", "Tipo tabla")
-
     ];
 
     this.arreglotablaISR = {
-      columnas:[],
-      filas:[]
-    }
+      columnas: [],
+      filas: []
+    };
 
 
     this.arreglotablaISR.columnas = columnas;
     this.arreglotablaISR.filas = this.arregloISR;
     this.cargandoISR = false;
-  
+
   }
 
   public crearTablaSubcidio(datos:any){
-    
-     
+
+
     this.arregloSubsidio = datos.datos;
     let columnas: Array<tabla> = [
       new tabla("tabla", "Tipo tabla")
@@ -187,18 +193,18 @@ export class ListasTablaValoresComponent implements OnInit {
     ];
 
     this.arreglotablaSubcidio = {
-      columnas:[],
-      filas:[]
-    }
+      columnas: [],
+      filas: []
+    };
 
     this.arreglotablaSubcidio.columnas = columnas;
     this.arreglotablaSubcidio.filas = this.arregloSubsidio;
     this.cargandoSubcidio = false;
-  
+
   }
   public crearTablaISN(datos:any){
-    
-     
+
+
     this.arregloNomina = datos.datos;
     let columnas: Array<tabla> = [
       new tabla("estado", "Tipo tabla")
@@ -206,21 +212,21 @@ export class ListasTablaValoresComponent implements OnInit {
     ];
 
     this.arreglotablaNomina = {
-      columnas:[],
-      filas:[]
-    }
+      columnas: [],
+      filas: []
+    };
 
 
     this.arreglotablaNomina.columnas = columnas;
     this.arreglotablaNomina.filas = this.arregloNomina;
     this.cargandoNomina = false;
-  
+
   }
   public crearTablaNomina(datos:any){
-    
-     
+
+
     this.arregloNomina = datos.datos;
-  
+
     let columnas: Array<tabla> = [
       new tabla("tabla", "Tipo tabla"),
       new tabla("limiteInferior", "Límite inferior"),
@@ -240,7 +246,7 @@ export class ListasTablaValoresComponent implements OnInit {
     this.arreglotablaNomina.columnas = columnas;
     this.arreglotablaNomina.filas = this.arregloNomina;
     this.cargandoNomina = false;
-  
+
   }
 
 
@@ -259,21 +265,21 @@ export class ListasTablaValoresComponent implements OnInit {
   }
 
     public recibirTablaISR(obj:any){
-    
+
     let datosDed = obj.datos;
     this.ventana.showVentana(this.ventana.tablaisr,{datos:datosDed}).then(valor =>{
     });
   }
 
   public recibirTablaSubcidio(obj:any){
-    
+
     let datosDed = obj.datos;
     this.ventana.showVentana(this.ventana.subcidio,{datos:datosDed}).then(valor =>{
     });
   }
 
   public recibirTablaISN(obj:any){
-    
+
     let datos = obj.datos;
     this.ventana.showVentana(this.ventana.tablaisn,{datos:datos}).then(valor =>{
     });
