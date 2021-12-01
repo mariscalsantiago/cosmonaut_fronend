@@ -48,7 +48,11 @@ export class VentanaTablaISNComponent implements OnInit {
   }
 
   public formatearNumero(valor: number){
-    return valor.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+    });
+    return formatter.format(valor);
   }
 
   public crearTablaISN(datos:any){
