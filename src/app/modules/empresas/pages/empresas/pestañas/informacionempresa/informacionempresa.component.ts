@@ -94,11 +94,14 @@ export class InformacionempresaComponent implements OnInit {
 
   public realizarValidacionRegimen(permitido: boolean) {
     if (permitido) {
+      this.valCurp = true;
       this.myform.controls.razonSocial.clearValidators();
       this.myform.controls.razonSocial.updateValueAndValidity();
       this.myform.controls.curp.setValidators([Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]);
       this.myform.controls.curp.updateValueAndValidity();
+
     } else {
+      this.valCurp = false;
       this.myform.controls.razonSocial.setValidators([Validators.required]);
       this.myform.controls.razonSocial.updateValueAndValidity();
       this.myform.controls.curp.setValidators([Validators.pattern(ConfiguracionesService.regexCurp)]);
@@ -146,11 +149,24 @@ export class InformacionempresaComponent implements OnInit {
 
   public validarRFCCurp(){
     debugger;
-    let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
-    if(moralFiscia ===3){ 
-    this.valCurp = true;
-    }else{
-    this.valCurp = false;
+    let valor = this.myform.controls.regimenfiscalId.value
+    let permitido: boolean = (valor == 606 || valor == 612 || valor == 621);
+    let moralFiscia = this.myform.controls.rfc.value.length;
+    if(permitido){ 
+      if(moralFiscia < 12){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"El RFC debe ser persona moral (12 caracteres)");
+        this.myform.controls.rfc.setValue('');
+        this.myform.controls.rfc.updateValueAndValidity();
+        return;
+      }
+    } 
+    else if(!permitido){ 
+      if(moralFiscia < 13)
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"El RFC debe ser persona física (13 caracteres)");
+      this.myform.controls.rfc.setValue('');
+      this.myform.controls.rfc.updateValueAndValidity();
+      return; 
+    
     }
   } 
   
