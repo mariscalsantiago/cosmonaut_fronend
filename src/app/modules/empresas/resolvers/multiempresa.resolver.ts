@@ -22,6 +22,8 @@ export class MultiempresaResolver implements Resolve<boolean> {
 
 
 
+  debugger;
+
 
     let sujeto: Subject<boolean> = new Subject<boolean>();
 
@@ -41,6 +43,11 @@ export class MultiempresaResolver implements Resolve<boolean> {
             }
           });
         }
+      }else{
+       setTimeout(() => {
+        sujeto.next(true);
+        sujeto.complete();
+       }, 20);
       }
     } else {
       setTimeout(() => {

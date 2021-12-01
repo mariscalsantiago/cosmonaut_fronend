@@ -19,19 +19,22 @@
         <button (click)="filtrar()" type="button" class="btn btn-primary button-outlet ">Filtrar</button>
     </div>
 
-    <div *ngIf="!ocultarEliminar"  class="col-11 text-left">
-        <a (click)="recalcular()" *ngIf="esEliminar" style="color:#56dfd4;width: fit-content;" class="dropdown-toggle mt-3">
-            <i aria-hidden="true" class="fas fa-sync"></i>&nbsp;&nbsp;Recalcular</a>
+    <div class="container">
+<div class="row float-right">
+
+    <div *ngIf="!ocultarEliminar">
+        <a (click)="recalcular()" *ngIf="esEliminar" style="color:#56dfd4;width: fit-content;" class="dropdown-toggle">
+            <i aria-hidden="true" class="fas fa-sync mr-3" style="font-size: 17px; color: rgb(7 165 156); text-decoration-line: underline;">&nbsp;Recalcular</i></a>
     </div>
-    <div *ngIf="esDescargar" class="col-10 text-right">
-        <a (click)="descargarNomina()" class="botonestilo aparece-desktop estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true" class="fas fa-download"></i> Descargar nómina</small>
+    <div *ngIf="esDescargar">
+        <a (click)="descargarNomina()"><small *ngIf="!cargandoIcon"><i aria-hidden="true" style="font-size: 17px; color: rgb(7 165 156); text-decoration-line: underline;" class="fas fa-download">&nbsp;Descargar nómina</i> </small>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </a>
     </div>
-  
-   
+</div>
+</div>   
 </div>
 
 <div *ngIf="empleados && esnormal"  class="row">
