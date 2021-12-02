@@ -26,6 +26,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
   public arregloCompanias: any = [];
   public arregloEmpleados: any = [];
   public arregloMonedas: any = [];
+  public monedaPeso: number = 1;
 
   public mostrarAlgunosEmpleados: boolean = false;
   public seleccionarUsuariosCheck: boolean = false;
@@ -89,7 +90,7 @@ export class VentanaNominaNuevaFiniquitoLiquidacionComponent implements OnInit {
         usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
         fecXReportes: [, [Validators.required]],
         nombreNomina: [, [Validators.required]],
-        monedaId: [],
+        monedaId: [this.monedaPeso],
         centrocClienteId: [, Validators.required],
         cuentaBancoId: [, [Validators.required]],
         todos: ["true", Validators.required],
