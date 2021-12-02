@@ -58,6 +58,7 @@ export class CalendarioComponent implements OnInit {
 
 
   public calcularFechasEventos(fechaActual: Date) {
+    debugger;
     let inicioMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
     let finalMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
 
@@ -89,16 +90,16 @@ export class CalendarioComponent implements OnInit {
         };
     }
 
-    let obj = {
+    this.objFiltro = {
+      ...this.objFiltro,
       clienteId: this.usuariosSistemaPrd.getIdEmpresa(),
       fechaInicio: inicioMes.getTime(),
       fechaFin: finalMes.getTime(),
       esActivo: true
-    }
+    };
 
 
-
-    this.eventoPrd.filtro(obj).subscribe(datos => {
+    this.eventoPrd.filtro(this.objFiltro).subscribe(datos => {
 
       
       this.arreglo = datos.datos;
@@ -164,6 +165,7 @@ export class CalendarioComponent implements OnInit {
   }
 
   public filtrar(){
+    debugger;
     
     this.calcularFechasEventos(this.objFecha);
   }
