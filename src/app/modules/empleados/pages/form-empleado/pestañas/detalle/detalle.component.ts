@@ -55,7 +55,7 @@ export class DetalleComponent implements OnInit {
 
 
   public cancelar() {
-    debugger;
+    
 
     if(this.myForm.invalid){
 
@@ -67,7 +67,7 @@ export class DetalleComponent implements OnInit {
   }
 
   public validarBanco(clabe:any){
-    debugger;
+    
     this.myForm.controls.csBanco.setValue("");
     //this.myForm.controls.clabe.setValue("");
   

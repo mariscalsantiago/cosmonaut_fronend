@@ -473,7 +473,7 @@ export class PagosComponent implements OnInit {
   }
 
   public validarBanco(clabe: any) {
-    debugger;
+    
 
     this.myFormMetodoPago.controls.csBanco.setValue("");
     if (this.myFormMetodoPago.controls.clabe.errors?.pattern === undefined) {

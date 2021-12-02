@@ -22,7 +22,7 @@ export class MultiempresaResolver implements Resolve<boolean> {
 
 
 
-  debugger;
+  
 
 
     let sujeto: Subject<boolean> = new Subject<boolean>();

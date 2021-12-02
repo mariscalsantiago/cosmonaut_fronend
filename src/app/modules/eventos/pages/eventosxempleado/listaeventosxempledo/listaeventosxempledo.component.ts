@@ -87,7 +87,8 @@ export class ListaeventosxempledoComponent implements OnInit {
       new tabla("nombrecompleado","Nombre del empleado"),
       new tabla("numeroEmpleado","Número de empleado",false,false,true),
       new tabla("fechaInicio","Fecha de inicio",false,false,true),
-      new tabla("tiempo","Tiempo",false,false,true)
+      new tabla("tiempo","Tiempo",false,false,true),
+     // new tabla("tiempo","Unidad de Medida",false,false,true)
     ];
 
     this.arreglotabla = {
@@ -119,7 +120,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    debugger;
+    
     
       switch(obj.type){
          case "eliminar":

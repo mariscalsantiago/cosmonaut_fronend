@@ -22,11 +22,19 @@ export class CalendarioComponent implements OnInit {
   }
 
 
-
+  public arregloIncidenciaTipo: any = [];
   public cargando: boolean = false;
   public eventos: any;
   public eventosCopia: any;
   public colapsar: boolean = false;
+
+  //filtros
+  public objFiltro: any = [];
+  public nombre: any = "";
+  public apellidoPaterno: any = "";
+  public apellidoMaterno: any = "";
+  public tipoIncidenciaId : any = "0";
+  public objFecha: any = [];
 
 
   public arreglo: any = [];
@@ -52,6 +60,35 @@ export class CalendarioComponent implements OnInit {
   public calcularFechasEventos(fechaActual: Date) {
     let inicioMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
     let finalMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
+
+    this.objFiltro = [];
+    this.catalogos.getTipoIncidencia(true).subscribe(datos => {this.arregloIncidenciaTipo = datos.datos;});
+
+    if(this.nombre != ''){
+      this.objFiltro = {
+        ...this.objFiltro,
+        nombre: this.nombre
+      };
+      }
+      if(this.apellidoPaterno != ''){
+        this.objFiltro = {
+          ...this.objFiltro,
+          apellidoPaterno: this.apellidoPaterno
+        };
+      } 
+      if(this.apellidoMaterno != ''){
+          this.objFiltro = {
+            ...this.objFiltro,
+            apellidoMaterno: this.apellidoMaterno
+          };
+      }
+      if(this.tipoIncidenciaId != "0"){
+        this.objFiltro = {
+          ...this.objFiltro,
+          tipoIncidenciaId: Number(this.tipoIncidenciaId)
+        };
+    }
+
     let obj = {
       clienteId: this.usuariosSistemaPrd.getIdEmpresa(),
       fechaInicio: inicioMes.getTime(),
@@ -113,14 +150,22 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
-  public recibirTabla(obj: any) {
 
+  public recibirTabla(obj: any) {
+    debugger;
+    this.objFecha = obj.datos;
     switch (obj.type) {
+      
       case "fecha":
-        this.calcularFechasEventos(obj.datos);
+        this.calcularFechasEventos(this.objFecha);
         break;
     }
 
+  }
+
+  public filtrar(){
+    
+    this.calcularFechasEventos(this.objFecha);
   }
 
 

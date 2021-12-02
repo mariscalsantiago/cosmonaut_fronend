@@ -58,7 +58,7 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    debugger;
+    
     const pipe = new DatePipe("es-MX");
 
     if(obj.nacionalidadId.nacionalidadId === undefined){
@@ -176,7 +176,7 @@ export class InformacionbasicaComponent implements OnInit {
   }
 
   public guardarCambios(cambiaUsuarioSistema:boolean = false) {
-    debugger;
+    
     let obj = this.myform.getRawValue();
     obj.fechaNacimiento = new DatePipe("es-MX").transform(new Date(obj.fechaNacimiento), 'yyyy-MM-dd');
 

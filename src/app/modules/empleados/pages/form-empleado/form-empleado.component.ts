@@ -126,7 +126,7 @@ export class FormEmpleadoComponent implements OnInit {
     this.routerPrd.navigate(['/empleados/empleadosincompletos']);
   }
   public recibir(elemento: any) {
-    debugger;
+    
     switch (elemento.type) {
       case "informacion":
         this.datosPersona = elemento.datos;

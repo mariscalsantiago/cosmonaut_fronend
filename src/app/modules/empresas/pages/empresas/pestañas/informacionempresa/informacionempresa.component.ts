@@ -94,7 +94,7 @@ export class InformacionempresaComponent implements OnInit {
 
   public realizarValidacionRegimen(permitido: boolean) {
     debugger;
-    let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
+
     if (permitido) {
       this.valCurp = true;
       this.myform.controls.razonSocial.clearValidators();
@@ -102,10 +102,12 @@ export class InformacionempresaComponent implements OnInit {
       this.myform.controls.curp.setValidators([Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]);
       this.myform.controls.curp.updateValueAndValidity();
       //this.validarRFCCurp();
-      
+      if(this.myform.controls.rfc.value){
+        let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
         if(moralFiscia !== 3){
           this.myform.controls.rfc.setValue('');
         }
+      }  
     } else {
       this.valCurp = false;
       this.myform.controls.razonSocial.setValidators([Validators.required]);
@@ -113,9 +115,12 @@ export class InformacionempresaComponent implements OnInit {
       this.myform.controls.curp.setValidators([Validators.pattern(ConfiguracionesService.regexCurp)]);
       this.myform.controls.curp.updateValueAndValidity();
       //this.validarRFCCurp();
-      if(moralFiscia !== 2){
-        this.myform.controls.rfc.setValue('');
-      }
+      if(this.myform.controls.rfc.value){
+        let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
+        if(moralFiscia !== 2){
+          this.myform.controls.rfc.setValue('');
+        }
+      }  
     }
   }
 
@@ -158,7 +163,7 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public validarRFCCurp(){
-    debugger;
+    
     let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
     if(!this.permitido){ 
       if(moralFiscia !== 2){
@@ -198,7 +203,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-    debugger;
+    
     if (this.myform.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       Object.values(this.myform.controls).forEach(control => {

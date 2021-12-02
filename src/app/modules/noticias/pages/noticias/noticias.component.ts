@@ -147,7 +147,7 @@ export class NoticiasComponent implements OnInit {
   }
 
   public procesarTabla() {
-    debugger;
+    
     this.arreglo = this.noticias;
     let columnas: Array<tabla> = [
       new tabla("titulo", "Título"),

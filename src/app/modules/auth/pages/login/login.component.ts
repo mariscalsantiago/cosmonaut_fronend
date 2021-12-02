@@ -412,7 +412,7 @@ export class LoginComponent implements OnInit {
 
   public olvidastetupassword(valor:any) {
     
-    debugger;
+    
     if (this.correo?.nativeElement.value || Boolean(valor)) {
       let objenviar = {
         username: (!Boolean(valor))? this.correo.nativeElement.value?.toLowerCase():this.myForm.value.username?.toLowerCase()

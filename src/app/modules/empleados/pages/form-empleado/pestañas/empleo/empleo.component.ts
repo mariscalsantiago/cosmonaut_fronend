@@ -92,7 +92,7 @@ export class EmpleoComponent implements OnInit {
     private calculoPrd: CalculosService, private usuariosAuth: UsuariosauthService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.id_empresa = this.usuarioSistemaPrd.getIdEmpresa();
 
 

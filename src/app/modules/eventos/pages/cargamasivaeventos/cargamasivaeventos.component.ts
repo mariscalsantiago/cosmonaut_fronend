@@ -160,6 +160,8 @@ export class CargaMasivaEventosComponent implements OnInit {
     this.etiquetas = obj;
  }
 
+ 
+
  public validarEmpleado() {
   
 

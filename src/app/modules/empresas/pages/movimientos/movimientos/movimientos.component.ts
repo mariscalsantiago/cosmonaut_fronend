@@ -87,7 +87,7 @@ export class MovimientosComponent implements OnInit {
   }
 
   public limpiar() {
-    debugger;
+    
     this.cargando = true;
     
     this.objFiltro = [];        
