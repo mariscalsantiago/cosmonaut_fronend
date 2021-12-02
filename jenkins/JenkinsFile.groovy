@@ -88,7 +88,7 @@ stages {
                     git url: 'https://github.com/ASG-BPM/cosmonaut-front',branch:'main',credentialsId: 'winter_user'
 				    sh "git checkout $tag"
                     sh 'npm install'
-                    sh 'ng build --prod'
+                    sh 'ng build --configuration qa'
                     sh 'tar -cvzf dist.tar.gz dist'
                     stash includes: 'dist/cosmonaut-front/**/*', name:'distbuild'
                 }

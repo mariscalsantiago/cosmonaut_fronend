@@ -105,7 +105,7 @@ export class IDSEComponent implements OnInit {
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
         if(item.fecha_movimiento !== undefined ){
-        item.fechamovimiento = new DatePipe("es-MX").transform(new Date(new Date(item.fecha_movimiento).toUTCString().replace("GMT","")), 'dd-MMM-y');
+        item.fechamovimiento = new DatePipe("es-MX").transform(item.fecha_movimiento, 'dd-MMM-y')?.replace(".","");
         item.sbcDecimal = item.sbc.toFixed(2);  
         item.salarioDiario = item.salario_diario.toFixed(2);
         item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);

@@ -109,7 +109,7 @@ export class DetalleContactoComponent implements OnInit {
       emailCorporativo: [obj.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
       contactoInicialEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [Validators.email]],
       contactoInicialTelefono: [obj.contactoInicialTelefono, [Validators.required]],
-      fechaAlta: [{ value: this.insertar?fechaActual:new DatePipe("es-MX").transform(obj.fechaAlta, "dd-MMM-y"), disabled: true }, [Validators.required]],
+      fechaAlta: [{ value: this.insertar?fechaActual:new DatePipe("es-MX").transform(obj.fechaAlta, "dd-MMM-y")?.replace(".",""), disabled: true }, [Validators.required]],
       personaId: obj.personaId,
       contactoInicialPuesto: obj.contactoInicialPuesto,
       usuarioinicial: [obj.usuarioinicial]

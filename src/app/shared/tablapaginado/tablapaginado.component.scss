@@ -82,6 +82,7 @@ table {
 
     td {
         text-align: left;
+        outline: none !important;
         // max-width: 500px;
     }
 }
@@ -120,11 +121,14 @@ table {
     outline: none !important;
 }
 
+
 .flechaarriba {
     position: absolute;
     right: 0;
     top: calc(50% - 10px);
     color: #b7b7b7;
+    outline: none !important;
+
 }
 
 .flechaabajo {
@@ -132,6 +136,7 @@ table {
     right: 0;
     bottom: calc(50% - 10px);
     color: #b7b7b7;
+    outline: none !important;
 }
 
 .colorear {
@@ -214,10 +219,12 @@ table {
     top:20px;
     right:0; 
     color:rgb(204, 204, 204);
+    outline: none !important;
 }
 
 .flechas:first-child{
     top:10px;
+    outline: none !important;
 }
 
 

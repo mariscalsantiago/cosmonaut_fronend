@@ -112,7 +112,7 @@ export class ListachatsActivosComponent implements OnInit {
         item["mensajeultimo"] = arreglomensajes[arreglomensajes.length - 1]?.mensaje;
         var datePipe = new DatePipe("es-MX");
         item["fecha"] = (new Date(item.fechaUltimoMensaje).toUTCString()).replace(" 00:00:00 GMT", "");
-        item["fecha"] = datePipe.transform(item["fecha"], 'dd-MMM-y')?.replace(".", "");
+        item["fecha"] = datePipe.transform(item["fecha"], 'dd-MMM-y')?.replace(".","");
 
       }
     }

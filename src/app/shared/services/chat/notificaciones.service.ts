@@ -117,7 +117,7 @@ export class NotificacionesService {
 
       if (datos.data.includes(`ACCEPTMESSAGEFROM${usuario.usuarioId}`)) {
 
-        debugger;
+        
         console.log("Aqui termina");
         if (!usuario.esRecursosHumanos) {
           this.mensajes.push({ mensaje: "El usuario RRH ha finalizado el chat...", usuarioId: -1, nombre: usuario.nombre });

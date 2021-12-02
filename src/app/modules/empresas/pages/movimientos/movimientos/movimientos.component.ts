@@ -74,7 +74,8 @@ export class MovimientosComponent implements OnInit {
         item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
         
         if(item.fechaMovimiento !== undefined ){
-          item["fechaMovimiento"] = new DatePipe("es-MX").transform(new Date(item.fechaMovimiento), 'dd-MMM-y');
+          let datepipe = new DatePipe("es-MX");
+          item["fechaMovimiento"] = datepipe.transform(item.fechaMovimiento , 'dd-MMM-y')?.replace(".","");
         }
       }
     }
@@ -84,6 +85,27 @@ export class MovimientosComponent implements OnInit {
     this.arreglotabla.filas = this.arreglo;
     this.cargando = false;
   }
+
+  public limpiar() {
+    
+    this.cargando = true;
+    
+    this.objFiltro = [];        
+      this.fechaMovimiento = ''; 
+      this.nombre = '';
+      this.apellidoPaterno = '';
+      this.apellidoMaterno = '';
+
+      this.objFiltro = {
+          ...this.objFiltro,
+          centroClienteId: this.idEmpresa,
+          fechaMovimiento: this.fechaMovimientoFinal
+        };
+      this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
+      this.traerTabla(datos);
+
+      });
+    }
 
 
   public filtrar() {
@@ -131,6 +153,7 @@ export class MovimientosComponent implements OnInit {
 
       });
     }
+
     public inicio(){
       this.routerPrd.navigate(['/inicio']);
     }

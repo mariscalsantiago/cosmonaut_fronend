@@ -58,6 +58,7 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public createForm(obj: any) {
+    
     const pipe = new DatePipe("es-MX");
 
     if(obj.nacionalidadId.nacionalidadId === undefined){
@@ -70,7 +71,7 @@ export class InformacionbasicaComponent implements OnInit {
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: [obj.apellidoMaterno],
       genero: [{value:obj.genero,disabled:true}],
-      fechaNacimiento: [{value: obj.fechaNacimiento || "",disabled:true}],
+      fechaNacimiento: [{value: new DatePipe("es-MX").transform(obj.fechaNacimiento, 'dd-MMM-y')?.replace(".", "") || "",disabled:true}],
       tieneCurp: [true],
       contactoInicialEmailPersonal: [obj?.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
       emailCorporativo: [obj?.emailCorporativo?.toLowerCase(), [Validators.required, Validators.email]],
@@ -175,7 +176,10 @@ export class InformacionbasicaComponent implements OnInit {
   }
 
   public guardarCambios(cambiaUsuarioSistema:boolean = false) {
+    
     let obj = this.myform.getRawValue();
+    obj.fechaNacimiento = new DatePipe("es-MX").transform(new Date(obj.fechaNacimiento), 'yyyy-MM-dd');
+
     let objenviar:any = {
       nombre: obj.nombre,
       apellidoPaterno: obj.apellidoPaterno,
@@ -287,7 +291,7 @@ export class InformacionbasicaComponent implements OnInit {
         const anioNacimiento:Date = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
 
         
-        this.myform.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"yyyy-MM-dd"));
+        this.myform.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"dd-MMM-y")?.replace(".",""));
 
 
     }else{

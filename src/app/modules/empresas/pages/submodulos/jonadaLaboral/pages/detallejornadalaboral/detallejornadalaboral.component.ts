@@ -734,7 +734,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public hrDeSalida(response: any) {
-    debugger;
+    
 
     let horaSalidaFin;
     let horaSalida = this.myForm.controls.horaSalida.value;

@@ -25,7 +25,6 @@
   }
 
 
-  
 
   .icon_empleados{
     $rutaimg:'../../assets/icons/ICO_empleados.svg';
@@ -107,6 +106,7 @@
     @include icono-imagen($dark);
     -webkit-mask: url($rutaimg) no-repeat center;
     mask: url($rutaimg) no-repeat center;
+    width: 37px;
   }
 
   .icon_editar{
@@ -163,4 +163,5 @@
     mask: url($rutaimg) no-repeat center;
 
   }
+
 

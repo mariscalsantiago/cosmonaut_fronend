@@ -76,7 +76,7 @@ export class EmpleoComponent implements OnInit {
 
   public sueldoBruto: boolean = false;
   public sueldoNeto: boolean = false;
-
+  public esTransferencia: boolean = true; 
   public id_empresa!: number;
 
 
@@ -92,19 +92,16 @@ export class EmpleoComponent implements OnInit {
     private calculoPrd: CalculosService, private usuariosAuth: UsuariosauthService) { }
 
   ngOnInit(): void {
-
-
-
-
-
-
-
-
+    
     this.id_empresa = this.usuarioSistemaPrd.getIdEmpresa();
+
 
     this.obj = {};
 
     if (this.tabsDatos[3] !== undefined) {
+      if(this.tabsDatos[3].metodoPagoId.metodoPagoId == 4){
+        this.esTransferencia = false;
+      }
       this.myForm = this.createForm(this.tabsDatos[3]);
 
       this.areasPrd.getPuestoByArea(this.id_empresa, this.myForm.controls.areaId.value).subscribe(datos => {

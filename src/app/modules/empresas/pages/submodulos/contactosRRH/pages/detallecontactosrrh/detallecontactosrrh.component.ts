@@ -53,6 +53,17 @@ export class DetallecontactosrrhComponent implements OnInit {
   }
 
   public createForm(obj: any) {
+
+    if(!this.esInsert){
+
+      if(obj.esActivo== 'Activo'){
+        obj.esActivo= 'true';
+      }else{
+        obj.esActivo= 'false';
+      }
+      
+    }
+
     let fecha = new Date();
     this.fechaActual = fecha.toLocaleDateString();
     
@@ -68,6 +79,7 @@ export class DetallecontactosrrhComponent implements OnInit {
       ciEmailPersonal: [obj.contactoInicialEmailPersonal?.toLowerCase(), [ Validators.email]],
       ciTelefono: [obj.contactoInicialTelefono, [Validators.required]],
       ciExtension: [obj.contactoInicialExtension],
+      esActivo: [{ value: (this.esInsert) ? true : obj.esActivo, disabled: this.esInsert }, [Validators.required]],
       //fechaAlta: [{ value: ((this.esInsert) ? datePipe.transform(new Date(), 'dd-MMM-y') : obj.fechaAlta), disabled: true }, [Validators.required]],
       personaId: [obj.personaId]
 
@@ -126,7 +138,7 @@ export class DetallecontactosrrhComponent implements OnInit {
           curp: obj.curp,
           celular: obj.celular,
           rfc: obj.rfc,
-          esActivo: true,
+          esActivo: obj.esActivo,
           emailCorporativo: obj.emailCorp?.toLowerCase(),
           contactoInicialEmailPersonal: obj.ciEmailPersonal?.toLowerCase(),
           contactoInicialTelefono: obj.ciTelefono,

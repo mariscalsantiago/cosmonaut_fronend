@@ -19,6 +19,7 @@
   @include icono-imagen($dark);
   -webkit-mask: url($rutaimg) no-repeat center;
   mask: url($rutaimg) no-repeat center;
+  outline: none !important;
 
 }
 
@@ -27,6 +28,7 @@
   @include icono-imagen($dark);
   -webkit-mask: url($rutaimg) no-repeat center;
   mask: url($rutaimg) no-repeat center;
+  outline: none !important;
 
 }
 

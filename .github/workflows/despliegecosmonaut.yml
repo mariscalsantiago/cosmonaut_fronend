@@ -18,7 +18,7 @@ jobs:
         node-version: '14.x'
     - run: npm install
     - run: npm install -g @angular/cli
-    - run: ng build --prod
+    - run: ng build --configuration qa
     - uses: w9jds/firebase-action@master
       with:
         args: deploy --only hosting
@@ -35,7 +35,7 @@ jobs:
         node-version: '14.x'
     - run: npm install
     - run: npm install -g @angular/cli
-    - run: ng build --prod
+    - run: ng build --configuration qa
     - uses: mathieu-bour/setup-gcloud@1.3.0
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
