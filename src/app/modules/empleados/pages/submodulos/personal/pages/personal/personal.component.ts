@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { ObservadorEmpleadosService } from 'src/app/modules/empleados/services/observador-empleados.service';
@@ -198,8 +199,37 @@ export class PersonalComponent implements OnInit {
     
   }
 
+  public cambiaCurp(){
+    debugger;
+    if(this.myForm.controls.curp.valid){
+      const datePipe = new DatePipe("es-MX");
+        let genero = this.myForm.value.curp.slice(10,11);
+        this.myForm.controls.genero.setValue(genero=="M"?"F":"M");
 
-  public validarfechNacimiento(fecha: any) {
+        let anio:number = this.myForm.value.curp.slice(4,6);
+        let mes:number = this.myForm.value.curp.slice(6,8);
+        let dia:number = this.myForm.value.curp.slice(8,10);
+
+        let anioactual = new Date();
+        let anioCalculado = new Date(anioactual.getFullYear()-70,anioactual.getMonth(),anioactual.getDate());
+        let anioCalculado_year:number = Number(datePipe.transform(anioCalculado,"yy"))
+        
+
+
+        const anioNacimiento:Date = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
+
+        
+        this.myForm.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"yyyy-MM-dd"));
+
+
+    }else{  
+      this.myForm.controls.genero.setValue("");
+      this.myForm.controls.fechaNacimiento.setValue("");
+    }
+  }
+
+
+/*   public validarfechNacimiento(fecha: any) {
 
 
 
@@ -215,18 +245,18 @@ export class PersonalComponent implements OnInit {
           this.myForm.controls.fechaNacimiento.setValue("");
         });
     }
-  }
+  } */
 
   public createForm(obj: any) {
 
-
-    let genero = "";
+    debugger;
+    //let genero = "";
     if (obj.genero == "F"){
-      genero = "true";
+      //genero = "true";
       this.generoName= 'Femenino';
     }  
     else if (obj.genero == "M"){
-      genero = "false";
+      //genero = "false";
       this.generoName= 'Masculino';
     }  
   
@@ -234,8 +264,8 @@ export class PersonalComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: obj.apellidoMaterno,
-      genero: [{ value: genero, disabled: true }],
-      fechaNacimiento: [obj.fechaNacimiento,Validators.required],
+      genero: [{ value: obj.genero, disabled: true }],
+      fechaNacimiento: [new DatePipe("es-MX").transform(obj.fechaNacimiento, 'yyyy-MM-dd'),Validators.required],
       rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFCFisica)]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
       nss: [obj.nss,[Validators.required,validacionesForms.nssValido]],
@@ -307,22 +337,16 @@ export class PersonalComponent implements OnInit {
 
 
   public realizarOperacion(esUsuario:any) {
+    debugger;
 
     let obj = this.myForm.value;
-
-
-    let genero = "";
-    if (obj.genero == "true")
-      genero = "F";
-    else if (obj.genero == "false")
-      genero = "M";
-
+    //obj.fechaNacimiento = new DatePipe("es-MX").transform(new Date(obj.fechaNacimiento), 'yyyy-MM-dd');
 
       let objenviar:any = {
         nombre: obj.nombre,
         apellidoPaterno: obj.apellidoPaterno,
         apellidoMaterno: obj.apellidoMaterno,
-        genero: genero,
+        genero: obj.genero,
         fechaNacimiento: obj.fechaNacimiento,
         tieneCurp: obj.tieneCurp,
         contactoInicialEmailPersonal: obj.contactoInicialEmailPersonal,

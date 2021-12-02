@@ -37,7 +37,7 @@
                     CURP <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.curp}}</article>
                     <article *ngIf="editarcampos">
-                        <input formatos [nochar]="true" [curp]="true" [control]="f.curp" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" name="" class="form-control">
+                        <input formatos [nochar]="true" [curp]="true" [control]="f.curp" (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" name="" class="form-control">
                         <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -85,10 +85,7 @@
                     Fecha de nacimiento <span *ngIf="editarcampos">*</span>
                     <article *ngIf="editarcampos">
                         <article>
-                            <input [class.is-invalid]="f.fechaNacimiento.errors && submitEnviado" #fechaNacimiento (focusout)="validarfechNacimiento(fechaNacimiento.value)" formControlName="fechaNacimiento" type="date" name="" id="fn1" class="form-control">
-                            <div class="invalid-feedback">
-                                Campo requerido
-                            </div>
+                            <input formControlName="fechaNacimiento" type="date" class="form-control disabled bg-light">
                         </article>
                     </article>
                     <article *ngIf="!editarcampos">
@@ -122,14 +119,10 @@
                     </article>
  
                     <article *ngIf="editarcampos">
-                        <label style="margin-top: 10px; margin-inline-start: 15px;" class="contenedorInputCheckRadio">Femenino
-                            <input formControlName="genero" id="femenino"  name="genero" value="true"  type="radio">
-                            <span class="radiomark"></span>
-                        </label>
-                        <label style="margin-inline-start: 15px;" class="contenedorInputCheckRadio">Masculino
-                            <input formControlName="genero" id="masculino" type="radio" name="genero" value="false">
-                            <span class="radiomark"></span>
-                        </label>
+                        <select formControlName="genero" class="form-control disabled bg-light">
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
                     </article>
             </article>  
                 <article class="titulo col-8">
