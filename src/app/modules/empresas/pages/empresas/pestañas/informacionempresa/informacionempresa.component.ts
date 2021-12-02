@@ -61,12 +61,12 @@ export class InformacionempresaComponent implements OnInit {
 
       });
     }
-    this.suscripciones();
+    
     
     this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
 
     this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
-
+    this.suscripciones();
 
 
   }
