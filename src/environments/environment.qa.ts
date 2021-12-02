@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
+    production: false,
     rutaEmpresa:'https://cosmonautdev.wintermute.services/empresa',
     rutaCatalogos:'https://cosmonautdev.wintermute.services/catalogos',
     rutaAdmin:'https://cosmonautdev.wintermute.services/admin',
