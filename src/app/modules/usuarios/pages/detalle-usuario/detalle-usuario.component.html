@@ -24,7 +24,7 @@
 
     <input type="hidden" formControlName="personaId">
     <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="190">
-        <div class="form-group row margen"><label class="titulo">INFORMACIÓN DE USUARIO</label></div>
+        <div class="form-group row margen"><label class="titulo">Información de Usuario</label></div>
 
         <div *ngIf="!insertar" class="form-group row margen">
             <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
@@ -84,7 +84,6 @@
             </div>
             
 
-
             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                 <label for="exampleFormControlSelect1">Rol *</label>
                 <select [class.is-invalid]="f.rol.errors && summitenviado" formControlName="rol" class="form-control">
@@ -104,14 +103,10 @@
             </div>
 
 
-
-
             <div *ngIf="f.multicliente.value && usuariosSistemaPrd.esCliente()" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>{{!esClienteEmpresa?'Empresas':'Clientes'}} *</label>
                 <app-tag [datos]="arregloCompany" [llave]="'razonSocial'" [arregloEtiquetas]="companiasenviar" (salida)="recibirEtiquetas($event)"></app-tag>
             </div>
-
-
 
 
             <div *ngIf="!f.multicliente.value && esClienteEmpresa" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
