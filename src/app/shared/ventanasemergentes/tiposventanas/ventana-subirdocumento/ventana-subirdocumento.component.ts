@@ -28,7 +28,7 @@ export class VentanaSubirDocumentoComponent implements OnInit {
 
   ngOnInit(): void {
     
-debugger;
+
     if(this.datos.esInsert){
       this.empresa = this.datos.idEmpresa;
       this.empleado = this.datos.idEmpleado;

@@ -98,7 +98,7 @@
                         'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
                     <td *ngIf="tablabeneficios" class="wrap" style="text-align: center;">
-                        <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
+                        <button style="background-color: transparent; outline: none !important;" (click)="verTablabeneficios(item,indice)"><i
                                 aria-hidden="true" class="icon_24ver primary-bg"></i></button>
                     </td>
                     <td *ngIf="porcentaje">
@@ -124,8 +124,8 @@
                             <i aria-hidden="true" class="icon_24llave primary-bg" placement="top"
                                 [mdbTooltip]="'resetPass' | tooltip"></i>
                         </button>
-                        <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)"><i aria-hidden="true"
-                                *ngIf="item.desglosarDown" class="icon_24flechaabajo primary" style="font-size: 12px;
+                        <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)">
+                            <i aria-hidden="true" *ngIf="item.desglosarDown" class="icon_24flechaabajo primary" style="font-size: 12px;
                     margin: 0px; background-color: #00C1AF;"></i>
 
                             <i aria-hidden="true" *ngIf="!item.desglosarDown" class="icon_24flechaarriba primary" style="font-size: 12px;

@@ -81,22 +81,29 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public generandoTabla(){
+    debugger;
     let columnas:Array<tabla> = [
       new tabla("incidenciaDescripcion","Tipo de evento"),
       new tabla("nombrecompleado","Nombre del empleado"),
       new tabla("numeroEmpleado","Número de empleado",false,false,true),
       new tabla("fechaInicio","Fecha de inicio",false,false,true),
-      new tabla("tiempo","Tiempo",false,false,true)
+      new tabla("tiempo","Tiempo",false,false,true),
+     // new tabla("tiempo","Unidad de Medida",false,false,true)
     ];
 
     this.arreglotabla = {
       columnas:[],
       filas:[]
     }
+
     if(this.arreglo !== undefined){
         for(let item of this.arreglo){
             item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
-            item.fechaInicio = new DatePipe("es-MX").transform((item.fechaInicio), 'dd-MMM-y');
+            let datepipe = new DatePipe("es-MX");
+            item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
+            item.fechaAplicacion = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
+            item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");
+            
         }
     }
 

@@ -123,7 +123,8 @@ export class KardexComponent implements OnInit {
 
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
-        item.fechaMovimiento = new DatePipe("es-MX").transform(item.fechaMovimiento, 'dd-MMM-y');
+        let datepipe = new DatePipe("es-MX");
+        item.fechaMovimiento = datepipe.transform(item.fechaMovimiento , 'dd-MMM-y')?.replace(".","");
         item.tipoMovimiento= item.movimiento;
         item.registroPatronal= item.registroDescripcion;
       }

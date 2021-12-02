@@ -57,6 +57,19 @@
                                 Campo requerido
                             </div>
                         </div>
+                        <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label>Régimen fiscal * </label>
+                            <select formControlName="regimenfiscalId" type="text" class="form-control"
+                                [class.is-invalid]="f.regimenfiscalId.errors && f.regimenfiscalId.touched">
+                                <option value=""></option>
+                                <option *ngFor="let item of arregloregimen" [value]="item.regimenfiscalId">
+                                    {{item.descripcion}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Campo requerido
+                            </div>
+                        </div>
+                        
                         <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                             <label>RFC *</label>
                             <input placement="top" [mdbTooltip]="'rfc' | tooltip" formatos [nochar]="true" [rfc]="true"
@@ -71,19 +84,7 @@
                             </div>
 
                         </div>
-                        <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
-                            <label>Régimen fiscal * </label>
-                            <select formControlName="regimenfiscalId" type="text" class="form-control"
-                                [class.is-invalid]="f.regimenfiscalId.errors && f.regimenfiscalId.touched">
-                                <option value=""></option>
-                                <option *ngFor="let item of arregloregimen" [value]="item.regimenfiscalId">
-                                    {{item.descripcion}}</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Campo requerido
-                            </div>
-                        </div>
-                        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                        <div *ngIf="valCurp" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                             <label>CURP de la razón social <span *ngIf="mostrarAsterisco">*</span></label>
                             <input formatos [nochar]="true" [curp]="true" [control]="f.curp" maxlength="18"
                                 [class.is-invalid]="f.curp.errors && f.curp.touched" formControlName="curp" type="text"

@@ -132,7 +132,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public createForm(obj: any) {
-    debugger;
+    
     if(obj.areaGeograficaId?.areaGeograficaId==1){
       this.areaGeo = 'Área general';
     }
