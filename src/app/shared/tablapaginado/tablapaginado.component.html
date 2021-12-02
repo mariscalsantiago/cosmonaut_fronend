@@ -167,17 +167,17 @@
                         <div class="row mb-4">
                             <article class="col-4 mb-3" *ngIf="imss && (item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Pendiente')">
                                 <a (click)="verAcuseMovimiento(item,indice)" class="botonestilo  estiloextralink"><em
-                                        class="fas fa-download" style="font-size: 15px;"></em>Descarga acuse de envío de movimiento
+                                        class="fas fa-download mr-1" style="font-size: 15px;"></em>Descarga acuse de envío de movimiento
                                 </a>
                             </article>
                             <article class="col-4 mb-3" *ngIf="imss && (item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Pendiente' && item.estatus !== 'Rechazado')">
                                 <a (click)="verAcuseRespuesta(item,indice)" class="botonestilo  estiloextralink"><em aria-hidden="true"
-                                        class="fas fa-download" style="font-size: 15px;"></em>Descarga acuse de respuesta de movimiento
+                                        class="fas fa-download mr-1" style="font-size: 15px;"></em>Descarga acuse de respuesta de movimiento
                                 </a>
                             </article>
                             <article class="col-4 mb-3" *ngIf="imss">
                                 <a (click)="verTxtImss(item,indice)" class="botonestilo  estiloextralink"><em aria-hidden="true"
-                                        class="fas fa-download" style="font-size: 15px;"></em>Descarga txt
+                                        class="fas fa-download mr-1" style="font-size: 15px;"></em>Descarga txt
                                 </a>
                             </article>
                         </div>
