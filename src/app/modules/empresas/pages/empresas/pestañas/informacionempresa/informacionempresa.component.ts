@@ -114,6 +114,7 @@ export class InformacionempresaComponent implements OnInit {
       this.myform.controls.razonSocial.updateValueAndValidity();
       this.myform.controls.curp.setValidators([Validators.pattern(ConfiguracionesService.regexCurp)]);
       this.myform.controls.curp.updateValueAndValidity();
+      this.myform.controls.curp.setValue('');
       //this.validarRFCCurp();
       if(this.myform.controls.rfc.value){
         let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
