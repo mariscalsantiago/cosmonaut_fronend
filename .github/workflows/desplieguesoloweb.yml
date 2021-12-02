@@ -17,7 +17,7 @@ jobs:
         node-version: '14.x'
     - run: npm install
     - run: npm install -g @angular/cli
-    - run: ng build --prod
+    - run: ng build --configuration qa
     - uses: w9jds/firebase-action@master
       with:
         args: deploy --only hosting
