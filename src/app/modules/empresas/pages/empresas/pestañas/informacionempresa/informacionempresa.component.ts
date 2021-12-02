@@ -217,6 +217,7 @@ export class InformacionempresaComponent implements OnInit {
       }
       
     } 
+    
     else if(this.permitido){ 
       if(moralFiscia !== 3){
       this.modalPrd.showMessageDialog(this.modalPrd.error,"El RFC debe ser persona física (13 caracteres)");
