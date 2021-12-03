@@ -17,7 +17,7 @@ podTemplate(containers:[
 			   tag = sh(script:'git describe --tags --always `git rev-list --tags` | grep DEV | head -1',returnStdout: true ).trim()
 			   sh "git checkout $tag"
 			   sh 'npm install'
-               sh 'ng build --prod'
+               sh 'ng build configuration uat'
 		   }
         }
      }     

@@ -58,7 +58,7 @@ stages {
 //            }
 //       }
 
-		stage('Sonarqube') {
+		stage('Sonarqube now') {
 			agent{
 				docker {
 					label 'docker-agent'
