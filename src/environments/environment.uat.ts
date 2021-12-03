@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
+    production: true,
     rutaEmpresa:'https://back.cosmonaut.tech/empresa',
     rutaCatalogos:'https://back.cosmonaut.tech/catalogos',
     rutaAdmin:'https://back.cosmonaut.tech/admin',
