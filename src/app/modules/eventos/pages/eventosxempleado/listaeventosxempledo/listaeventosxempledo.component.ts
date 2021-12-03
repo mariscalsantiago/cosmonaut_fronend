@@ -88,7 +88,7 @@ export class ListaeventosxempledoComponent implements OnInit {
       new tabla("numeroEmpleado","Número de empleado",false,false,true),
       new tabla("fechaInicio","Fecha de inicio",false,false,true),
       new tabla("tiempo","Tiempo",false,false,true),
-     // new tabla("tiempo","Unidad de Medida",false,false,true)
+      new tabla("unidad","Unidad de Medida")
     ];
 
     this.arreglotabla = {
@@ -103,6 +103,11 @@ export class ListaeventosxempledoComponent implements OnInit {
             item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
             item.fechaAplicacion = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
             item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");
+            if(item.unidadMedidaId !== undefined){
+              if(item.unidadMedidaId == 1){item.unidad = 'Hora'}
+              else if(item.unidadMedidaId == 2){item.unidad = 'Día'}
+              else if(item.unidadMedidaId == 3){item.unidad = 'Monto'}
+            }
             
         }
     }
@@ -154,7 +159,8 @@ export class ListaeventosxempledoComponent implements OnInit {
                     new tabla("nombrecompleado","Nombre del empleado"),
                     new tabla("numeroEmpleado","Número de empleado",false,false,true),
                     new tabla("fechaInicio","Fecha de inicio",false,false,true),
-                    new tabla("tiempo","Tiempo",false,false,true)
+                    new tabla("tiempo","Tiempo",false,false,true),
+                    new tabla("unidad","Unidad de Medida")
                   ],
                   filas:this.arreglo
                 }
