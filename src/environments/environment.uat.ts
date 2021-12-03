@@ -9,3 +9,6 @@ export const environment = {
     rutaEvents:'https://back.cosmonaut.tech/task',
     mensaje:"Es UAT"
   };
+
+
+  
