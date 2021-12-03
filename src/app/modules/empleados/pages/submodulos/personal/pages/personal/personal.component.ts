@@ -265,7 +265,7 @@ export class PersonalComponent implements OnInit {
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: obj.apellidoMaterno,
       genero: [{ value: obj.genero, disabled: true }],
-      fechaNacimiento: [new DatePipe("es-MX").transform(obj.fechaNacimiento, 'yyyy-MM-dd'),Validators.required],
+      fechaNacimiento: [{ value: new DatePipe("es-MX").transform(obj.fechaNacimiento, 'yyyy-MM-dd'), disabled: true },Validators.required],
       rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFCFisica)]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
       nss: [obj.nss,[Validators.required,validacionesForms.nssValido]],
@@ -525,12 +525,8 @@ export class PersonalComponent implements OnInit {
   }
 
 
-  public accionarMostrar() {
-    this.myForm.controls.genero.enable();
-  }
-
   public accionarCancelar() {
-    this.myForm.controls.genero.disable();
+    this.ngOnInit();
   }
 
   public ngOnDestroy(){
