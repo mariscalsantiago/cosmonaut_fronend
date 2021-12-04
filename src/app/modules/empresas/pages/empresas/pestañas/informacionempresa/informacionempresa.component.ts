@@ -234,7 +234,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-    
+    debugger;
     if (this.myform.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       Object.values(this.myform.controls).forEach(control => {

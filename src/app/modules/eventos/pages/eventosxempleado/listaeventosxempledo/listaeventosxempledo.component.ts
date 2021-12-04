@@ -88,7 +88,7 @@ export class ListaeventosxempledoComponent implements OnInit {
       new tabla("numeroEmpleado","Número de empleado",false,false,true),
       new tabla("fechaInicio","Fecha de inicio",false,false,true),
       new tabla("tiempo","Tiempo",false,false,true),
-      new tabla("unidad","Unidad de Medida")
+      //new tabla("unidad","Unidad de Medida")
     ];
 
     this.arreglotabla = {
