@@ -68,7 +68,7 @@ export class InicioComponent implements OnInit   {
 
   ngOnInit(): void {
 
-    let id = 'https://datastudio.google.com/embed/reporting/dedc7f55-7b8a-44da-b92b-5cd6ddbedb60/page/4NseC';
+    let id = 'https://datastudio.google.com/embed/reporting/d60a5a01-b359-4963-82af-e67370d81203/page/odxgC';
     this.cargando = true;
     this.url = this._sanitizer.bypassSecurityTrustResourceUrl(id);
 

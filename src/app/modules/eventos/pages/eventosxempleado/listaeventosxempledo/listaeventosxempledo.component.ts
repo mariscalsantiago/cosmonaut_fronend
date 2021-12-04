@@ -81,7 +81,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public generandoTabla(){
-    debugger;
+    
     let columnas:Array<tabla> = [
       new tabla("incidenciaDescripcion","Tipo de evento"),
       new tabla("nombrecompleado","Nombre del empleado"),
