@@ -200,7 +200,7 @@ export class PersonalComponent implements OnInit {
   }
 
   public cambiaCurp(){
-    debugger;
+    
     if(this.myForm.controls.curp.valid){
       const datePipe = new DatePipe("es-MX");
         let genero = this.myForm.value.curp.slice(10,11);
@@ -249,7 +249,7 @@ export class PersonalComponent implements OnInit {
 
   public createForm(obj: any) {
 
-    debugger;
+    
     //let genero = "";
     if (obj.genero == "F"){
       //genero = "true";
@@ -264,8 +264,8 @@ export class PersonalComponent implements OnInit {
       nombre: [obj.nombre, [Validators.required]],
       apellidoPaterno: [obj.apellidoPaterno, [Validators.required]],
       apellidoMaterno: obj.apellidoMaterno,
-      genero: [{ value: obj.genero, disabled: true }],
-      fechaNacimiento: [new DatePipe("es-MX").transform(obj.fechaNacimiento, 'yyyy-MM-dd'),Validators.required],
+      genero: [{ value: obj.genero, disabled: true}],
+      fechaNacimiento: [{ value: new DatePipe("es-MX").transform(obj.fechaNacimiento, 'yyyy-MM-dd'), disabled: true},Validators.required],
       rfc: [obj.rfc, [Validators.required, Validators.pattern(ConfiguracionesService.regexRFCFisica)]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
       nss: [obj.nss,[Validators.required,validacionesForms.nssValido]],
@@ -337,9 +337,11 @@ export class PersonalComponent implements OnInit {
 
 
   public realizarOperacion(esUsuario:any) {
-    debugger;
+    
 
     let obj = this.myForm.value;
+    obj.genero = this.myForm.controls.genero.value;
+    obj.fechaNacimiento = this.myForm.controls.fechaNacimiento.value;
     //obj.fechaNacimiento = new DatePipe("es-MX").transform(new Date(obj.fechaNacimiento), 'yyyy-MM-dd');
 
       let objenviar:any = {
@@ -394,7 +396,7 @@ export class PersonalComponent implements OnInit {
 
 //rh4
     this.empleadoPrd.update(objenviar).subscribe(datos => {
-      this.accionarCancelar();
+      //this.accionarCancelar();
 
       if (datos.resultado) {
 
@@ -525,12 +527,9 @@ export class PersonalComponent implements OnInit {
   }
 
 
-  public accionarMostrar() {
-    this.myForm.controls.genero.enable();
-  }
-
   public accionarCancelar() {
-    this.myForm.controls.genero.disable();
+    //this.myForm.controls.genero.disable();
+    this.ngOnInit();
   }
 
   public ngOnDestroy(){

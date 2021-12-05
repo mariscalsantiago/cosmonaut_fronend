@@ -1,7 +1,7 @@
 <form [formGroup]="myForm" (ngSubmit)="enviandoFormulario()">
     <div class="row">
         <div class="col-12 col-lg-6 col-xl-6 mb-3 mt-3 ">
-            <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i aria-hidden="true" *ngIf="!editarcampos && !esKiosko" class="icon_24editar primary-bg" (click)="editarcampos = true;accionarMostrar()" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+            <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i aria-hidden="true" *ngIf="!editarcampos && !esKiosko" class="icon_24editar primary-bg" (click)="editarcampos = true" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
             <div class="row mb-4">
                 <article class="titulo  col">
                     Nombre <span *ngIf="editarcampos">*</span>
@@ -85,7 +85,7 @@
                     Fecha de nacimiento <span *ngIf="editarcampos">*</span>
                     <article *ngIf="editarcampos">
                         <article>
-                            <input formControlName="fechaNacimiento" type="date" class="form-control disabled bg-light">
+                            <input formControlName="fechaNacimiento" type="email" class="form-control disabled bg-light">
                         </article>
                     </article>
                     <article *ngIf="!editarcampos">
@@ -113,7 +113,7 @@
             <div class="row mb-4">
 
                 <article class="titulo col-4">
-                    Genero
+                    Género
                     <article *ngIf="!editarcampos">
                         <article>{{generoName}}</article>
                     </article>

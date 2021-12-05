@@ -262,6 +262,10 @@ export class EmpleoComponent implements OnInit {
     });
   }
 
+  public accionarCancelar() {
+    this.ngOnInit();
+  }
+
 
   public cambiaArea() {
     this.myForm.controls.puestoId.disable();
