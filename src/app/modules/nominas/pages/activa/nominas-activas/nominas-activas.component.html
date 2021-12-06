@@ -29,7 +29,7 @@
     <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo;let indice = index;">
         <div class="col-6 mt-3">
             <article>{{item.nominaOrdinaria?.nombreNomina}}
-                <article>Período de {{item.nominaOrdinaria?.fechaInicio | date:'dd MMM'}} al {{item.nominaOrdinaria?.fechaFin | date:'dd MMM'}}</article>
+                <article>Período de {{item.nominaOrdinaria?.fechaInicio | date:'dd MMMM'}} al {{item.nominaOrdinaria?.fechaFin | date:'dd MMMM'}}</article>
                 <article>Clave: {{item.nominaOrdinaria?.clavePeriodo}}</article>
                 <article>Grupo de nómina: {{item.nominaOrdinaria?.nombreGrupoNomina}}</article>
             </article>
