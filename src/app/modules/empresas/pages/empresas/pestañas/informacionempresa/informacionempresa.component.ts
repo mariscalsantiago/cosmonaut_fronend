@@ -49,6 +49,12 @@ export class InformacionempresaComponent implements OnInit {
     
     this.obj = this.datos.empresa;
 
+    if(this.obj){
+      if(!this.usuariosSistemaPrd.usuario.multiempresa){
+        this.multiempresa = true;
+      } 
+    }
+
     this.myform = this.createForm(this.obj);
     if (!this.datos.insertar) {
       
@@ -63,6 +69,7 @@ export class InformacionempresaComponent implements OnInit {
       this.imagen = datos.datos?.imagen;
 
       });
+ 
     }else{
 
       if(!this.usuariosSistemaPrd.usuario.multiempresa){

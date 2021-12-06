@@ -81,14 +81,15 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public generandoTabla(){
-    
+    debugger;
     let columnas:Array<tabla> = [
       new tabla("incidenciaDescripcion","Tipo de evento"),
       new tabla("nombrecompleado","Nombre del empleado"),
       new tabla("numeroEmpleado","Número de empleado",false,false,true),
       new tabla("fechaInicio","Fecha de inicio",false,false,true),
-      new tabla("tiempo","Tiempo",false,false,true),
-      //new tabla("unidad","Unidad de Medida")
+      new tabla("unidadM","Unidad de Medida",false,false,true),
+      new tabla("cantidad","Cantidad",false,false,true)
+      
     ];
 
     this.arreglotabla = {
@@ -104,9 +105,29 @@ export class ListaeventosxempledoComponent implements OnInit {
             item.fechaAplicacion = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
             item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");
             if(item.unidadMedidaId !== undefined){
-              if(item.unidadMedidaId == 1){item.unidad = 'Hora'}
-              else if(item.unidadMedidaId == 2){item.unidad = 'Día'}
-              else if(item.unidadMedidaId == 3){item.unidad = 'Monto'}
+              if(item.unidadMedidaId == 1){
+                item.unidadM = 'Horas';
+              }
+              else if(item.unidadMedidaId == 2 || item.duracion == 'duracion'){
+                item.unidadM = 'Días';
+              }
+              else if(item.unidadMedidaId == 3){
+                item.unidadM = 'Monto';
+              }
+              if(item.heTiempo !== undefined){
+                item.cantidad = item.heTiempo;
+              }
+              if(item.monto !== undefined){
+                item.cantidad = item.monto;
+              }  
+            }
+            else if(item.duracion !== undefined){
+              item.unidadM = 'Días';
+              item.cantidad = item.duracion;
+            }
+            else if(item.monto !== undefined){
+              item.unidadM = 'Monto';
+              item.cantidad = item.monto;
             }
             
         }
@@ -159,8 +180,9 @@ export class ListaeventosxempledoComponent implements OnInit {
                     new tabla("nombrecompleado","Nombre del empleado"),
                     new tabla("numeroEmpleado","Número de empleado",false,false,true),
                     new tabla("fechaInicio","Fecha de inicio",false,false,true),
+                    new tabla("unidad","Unidad de Medida",false,false,true),
                     new tabla("tiempo","Tiempo",false,false,true),
-                    new tabla("unidad","Unidad de Medida")
+                    
                   ],
                   filas:this.arreglo
                 }
@@ -172,7 +194,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public filtrar(){
-    
+    debugger;
     this.objFiltro = [];
     this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => {this.arregloIncidenciaTipo = datos.datos;});
 
