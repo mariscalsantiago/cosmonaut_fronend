@@ -58,7 +58,7 @@ export class CalendarioComponent implements OnInit {
 
 
   public calcularFechasEventos(fechaActual: Date) {
-    debugger;
+    
     let inicioMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
     let finalMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
 
@@ -153,7 +153,7 @@ export class CalendarioComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-    debugger;
+    
     this.objFecha = obj.datos;
     switch (obj.type) {
       
@@ -165,7 +165,7 @@ export class CalendarioComponent implements OnInit {
   }
 
   public filtrar(){
-    debugger;
+    
     
     this.calcularFechasEventos(this.objFecha);
   }

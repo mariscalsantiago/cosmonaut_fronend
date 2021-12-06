@@ -151,7 +151,8 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcionEditar(tipo: any) {
-    debugger;
+    
+    this.nombrePercepcion = [];
     this.myForm.clearValidators();
     this.myForm.updateValueAndValidity();
 
@@ -306,7 +307,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   }
 
   public validarTipoPercepcion(tipo: any) {
-    debugger;
+    
     this.myForm.clearValidators();
     this.myForm.updateValueAndValidity();
 /*     
@@ -521,7 +522,7 @@ export class VentanaPercepcionesComponent implements OnInit {
 
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
 
     if (this.myForm.invalid) {
