@@ -8,6 +8,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from '../../../services/eventos.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import {Utilidades} from '../../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-listaeventosxempledo',
@@ -77,11 +78,11 @@ export class ListaeventosxempledoComponent implements OnInit {
 
     this.cargando = true;
     this.filtrar();
-    
+
   }
 
   public generandoTabla(){
-    debugger;
+    
     let columnas:Array<tabla> = [
       new tabla("incidenciaDescripcion","Tipo de evento"),
       new tabla("nombrecompleado","Nombre del empleado"),
@@ -121,14 +122,6 @@ export class ListaeventosxempledoComponent implements OnInit {
                 item.cantidad = item.monto;
               }  
             }
-            else if(item.duracion !== undefined){
-              item.unidadM = 'Días';
-              item.cantidad = item.duracion;
-            }
-            else if(item.monto !== undefined){
-              item.unidadM = 'Monto';
-              item.cantidad = item.monto;
-            }
             
         }
     }
@@ -146,18 +139,18 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    
-    
+
+
       switch(obj.type){
          case "eliminar":
              this.eliminarIncidencia(obj.datos,obj.indice);
            break;
            case "ver":
-             
+
              this.evento = obj.datos;
-             
+
             this.traerModal(obj.indice);
-            
+
              break;
       }
   }
@@ -168,7 +161,7 @@ export class ListaeventosxempledoComponent implements OnInit {
         if(valor){
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.eventosPrd.delete(obj.incidenciaId).subscribe(datos =>{
-            
+
              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                if(datos.resultado){
@@ -194,7 +187,8 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public filtrar(){
-    debugger;
+
+    const util = new Utilidades();
     this.objFiltro = [];
     this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => {this.arregloIncidenciaTipo = datos.datos;});
 
@@ -210,7 +204,7 @@ export class ListaeventosxempledoComponent implements OnInit {
           ...this.objFiltro,
           apellidoPaterno: this.apellidoPaterno
         };
-      } 
+      }
       if(this.apellidoMaterno != ''){
           this.objFiltro = {
             ...this.objFiltro,
@@ -228,6 +222,11 @@ export class ListaeventosxempledoComponent implements OnInit {
         esActivo: true,
         clienteId: this.usuariosSistemaPrd.getIdEmpresa()
       };
+
+      this.nombre = util.quitarAcentosYEspacios(this.nombre);
+      this.apellidoPaterno = util.quitarAcentosYEspacios(this.apellidoPaterno);
+      this.apellidoMaterno = util.quitarAcentosYEspacios(this.apellidoMaterno);
+
       this.eventosPrd.filtro(this.objFiltro).subscribe(datos =>{
 
         this.arreglo = datos.datos;
@@ -249,7 +248,7 @@ export class ListaeventosxempledoComponent implements OnInit {
     this.aparecemodalito = true;
 
 
-    
+
 
     if (elemento.getBoundingClientRect().y < -40) {
       let numero = elemento.getBoundingClientRect().y;

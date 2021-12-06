@@ -9,6 +9,7 @@ import { ReportesService } from 'src/app/shared/services/reportes/reportes.servi
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ContratocolaboradorService } from '../../services/contratocolaborador.service';
+import {Utilidades} from '../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-listaempleados',
@@ -69,7 +70,7 @@ export class ListaempleadosComponent implements OnInit {
 
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
-    
+
     this.establecerPermisos();
 
     let documento: any = document.defaultView;
@@ -112,13 +113,13 @@ export class ListaempleadosComponent implements OnInit {
   public recibirTabla(obj: any) {
     let isInsertar = false;
     // this.empledoContratoPrd.getContratoColaboradorById(obj.datos.idPersona).subscribe(datos => {
- 
-      
+
+
     //   this.routerPrd.navigate(['empleados/empleado'],{ state: { datos: datos.datos, insertar: isInsertar } });
 
 
     // });
-    
+
     // return;
     switch (obj.type) {
 
@@ -137,25 +138,27 @@ export class ListaempleadosComponent implements OnInit {
   }
 
   public descargarEmpleados(){
-    
+
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-  
+
         this.reportesPrd.getDescargaListaEmpleados(this.idEmpresa).subscribe(archivo => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
           const fileName = `${"Empleados"}.xlsx`;
-  
+
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
           downloadLink.click();
         });
-  
+
   }
 
   public filtrar() {
-   let objenviar =  {
+
+    const util = new Utilidades();
+    const objenviar =  {
       areaId: {
           areaId: this.idarea
       },
@@ -172,13 +175,16 @@ export class ListaempleadosComponent implements OnInit {
       },
       esActivo:this.estatus,
       numEmpleado:this.personaId
-  }
+  };
 
+    this.nombre = util.quitarAcentosYEspacios(this.nombre);
+    this.apellidoPaterno = util.quitarAcentosYEspacios(this.apellidoPaterno);
+    this.apellidoMaterno = util.quitarAcentosYEspacios(this.apellidoMaterno);
 
 
     this.cargando = true;
     this.empleadosPrd.filtrar(objenviar).subscribe(datos =>{
-      
+
       let columnas: Array<tabla> = [
         new tabla("nombre", "Nombre", this.esConsultar, this.esConsultar),
         new tabla("numeroEmpleado", "Número de empleado",false,false,true),

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { RepresentanteLegalService } from '../services/representantelegal.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import {log} from 'util';
+import { Utilidades } from '../../../../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-listarepresentantelegal',
@@ -12,7 +14,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 })
 export class ListarepresentantelegalComponent implements OnInit {
 
-  
+
   public tamanio:number = 0;
   public cargando:Boolean = false;
   public id_empresa:number = 0;
@@ -53,7 +55,7 @@ export class ListarepresentantelegalComponent implements OnInit {
   }
 
   /*
-  
+
     Resultados desplegados en un array
 
   */
@@ -83,14 +85,14 @@ export class ListarepresentantelegalComponent implements OnInit {
         }
       }
 
-      
+
 
 
       this.representanteProd.getAllUsersRep(peticion).subscribe(datos => {
           this.realizarTabla(datos);
       });
 
-  
+
 
     });
 
@@ -106,10 +108,10 @@ export class ListarepresentantelegalComponent implements OnInit {
 
 
   public realizarTabla(datos:any){
-    
+
     this.arreglo = datos.datos;
 
-    
+
     let columnas:Array<tabla> = [
       new tabla("personaId","ID"),
       new tabla("nombre","Nombre"),
@@ -120,14 +122,14 @@ export class ListarepresentantelegalComponent implements OnInit {
       //new tabla("fechaAlta","Fecha de registro en el sistema"),
       new tabla("activo","Estatus de representante")
     ];
-   
+
 
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
 /*         item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");; */
-        
+
         if(item.esActivo){
           item.activo = 'Activo'
          }
@@ -142,10 +144,10 @@ export class ListarepresentantelegalComponent implements OnInit {
   }
 
   public realizarTablaFiltro(datos:any){
-    
+
     this.arreglo = datos.datos;
 
-    
+
     let columnas:Array<tabla> = [
       new tabla("personaId","ID"),
       new tabla("nombre","Nombre"),
@@ -155,21 +157,21 @@ export class ListarepresentantelegalComponent implements OnInit {
       new tabla("emailCorporativo","Correo empresarial"),
       new tabla("activo","Estatus de representante")
     ];
-   
+
 
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
         /*item.fechaAlta = (new Date(item.fechaAlta).toUTCString()).replace(" 00:00:00 GMT", "");
         let datepipe = new DatePipe("es-MX");
         item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");*/
-        
+
         if(item.esActivo){
           item.activo = 'Activo'
          }
          if(!item.esActivo){
          item.activo = 'Inactivo'
          }
-      
+
       }
     }
     this.arreglotabla.columnas = columnas;
@@ -181,11 +183,18 @@ export class ListarepresentantelegalComponent implements OnInit {
     this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal', 'nuevo'],{state:{data:obj}});
   }
 
+  // public quitarAcentosYEspacios = (str: string) => {
+  //   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, "");
+  // }
+
+
+
   public filtrar() {
-    
+
+    const util = new Utilidades();
     this.cargando = true;
 
-    let peticion = {
+    const peticion = {
 
       nombre: this.nombre,
       apellidoPaterno: this.apellidoPaterno,
@@ -198,11 +207,17 @@ export class ListarepresentantelegalComponent implements OnInit {
       tipoPersonaId: {
         tipoPersonaId: 1
       }
-    }
+    };
+
+    this.nombre                       = util.quitarAcentosYEspacios(this.nombre);
+    this.apellidoPaterno              = util.quitarAcentosYEspacios(this.apellidoPaterno);
+    this.apellidoPaterno              = util.quitarAcentosYEspacios(this.apellidoMaterno);
+    this.emailCorporativo             = util.quitarAcentosYEspacios(this.emailCorporativo);
+    this.contactoInicialEmailPersonal = util.quitarAcentosYEspacios(this.contactoInicialEmailPersonal);
 
     this.cargando = true;
     this.representanteProd.filtrar(peticion).subscribe(datos => {
-      
+
       this.realizarTablaFiltro(datos);
     });
 
@@ -213,7 +228,7 @@ export class ListarepresentantelegalComponent implements OnInit {
       this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'representantelegal', 'modifica'],{state:{data:obj.datos}});
     }
   }
-  
+
 
 }
 
