@@ -27,6 +27,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
     { tab: false, form: false, disabled: false, seleccionado: false }];
   @Output() salida = new EventEmitter();
 
+  public monedaPeso: number = 1;
   public valor: string = "1";
   public cargandoIcon: boolean = false;
   public arregloMonedas: any = [];
@@ -49,6 +50,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
   public editar:boolean = false;
 
   public maximo:any;
+  public arreglonacionalidad: any = [];
 
   constructor(private formbuilder: FormBuilder, private modal: ModalService, private cuentasBancariasPrd: CuentasbancariasService,
     private catalogosPrd: CatalogosService, private usuariosPrd: UsuarioSistemaService,
@@ -58,8 +60,8 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
   ngOnInit(): void {
 
     this.maximo = (new DatePipe("es-MX").transform((new Date(new Date().getFullYear(),11,31)),"yyyy-MM-dd"));
-    
 
+        
     this.editar = Boolean(this.datos?.editar)
     if(this.editar){
       this.activado[0].tab = false;
@@ -70,6 +72,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
     }
 
     this.catalogosPrd.getMonedas(true).subscribe(datos => this.arregloMonedas = datos.datos);
+    
     this.cuentasBancariasPrd.getCuentaFuncion(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.cuentasBancarias = datos.datos);
 
     this.myFormFile = this.formbuilder.group({
@@ -97,13 +100,17 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
     });
 
     this.myForm = this.createEtapa1();
+
+    
   }
 
   public createEtapa1() {
+
+
     return this.formbuilder.group({
       nombre: ['', Validators.required],
       bancoId: ['', Validators.required],
-      monedaId: ['', Validators.required],
+      monedaId: [this.monedaPeso, Validators.required],
       centrocClienteId: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],

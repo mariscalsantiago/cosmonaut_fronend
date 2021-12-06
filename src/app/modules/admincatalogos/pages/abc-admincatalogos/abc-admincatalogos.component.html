@@ -23,8 +23,6 @@
 
 
 <hr>
-
-
 <form *ngIf="formGeneral" [formGroup]="myForm" class="form-desing"  (ngSubmit)="enviarPeticion()">
     <input type="hidden">
     <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="200">
@@ -406,7 +404,7 @@
             <div *ngIf="regimen" class="input-group-sm mb-3 col-12 col-sm-12 col-md-12 col-lg-12">
                 <label>Persona *</label>
 
-                <label class="contenedorInputCheckRadio"> Fisica
+                <label class="contenedorInputCheckRadio"> Física
                     <input value="indPersonaFisica" formControlName="tipoPersona" type="radio" name="tipoPersona">
                     <span class="radiomark"></span>
                 </label>

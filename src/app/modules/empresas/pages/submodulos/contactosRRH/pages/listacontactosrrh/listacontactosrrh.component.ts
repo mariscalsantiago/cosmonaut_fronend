@@ -4,6 +4,7 @@ import { tabla } from 'src/app/core/data/tabla';
 import { UsuariocontactorrhService } from '../services/usuariocontactorrh.service';
 import { DatePipe } from '@angular/common';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import {Utilidades} from '../../../../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-listacontactosrrh',
@@ -69,7 +70,7 @@ export class ListacontactosrrhComponent implements OnInit {
       }
 
 
-    
+
 
 
 
@@ -111,7 +112,7 @@ export class ListacontactosrrhComponent implements OnInit {
 
 
 
- 
+
 
 
 
@@ -123,7 +124,7 @@ export class ListacontactosrrhComponent implements OnInit {
   }
 
 
-  
+
     public filtrar() {
 
 
@@ -131,21 +132,26 @@ export class ListacontactosrrhComponent implements OnInit {
 
     this.cargando = true;
 
-
-
+    const util = new Utilidades();
     let peticion = {
       nombre: this.nombre,
       apellidoPaterno: this.apellidoPaterno,
       apellidoMaterno: this.apellidoMaterno,
-      contactoInicialEmailPersonal:this.correoP?.toLowerCase(),
-      emailCorporativo:this.correoE?.toLowerCase(),
+      contactoInicialEmailPersonal: this.correoP?.toLowerCase(),
+      emailCorporativo: this.correoE?.toLowerCase(),
       centrocClienteId: {
         centrocClienteId: this.id_empresa
       },
       tipoPersonaId: {
         tipoPersonaId: 4
       }
-    }
+    };
+
+      this.nombre = util.quitarAcentosYEspacios(this.nombre);
+      this.apellidoPaterno = util.quitarAcentosYEspacios(this.apellidoPaterno);
+      this.apellidoMaterno = util.quitarAcentosYEspacios(this.apellidoMaterno);
+      this.correoE = util.quitarAcentosYEspacios(this.correoE);
+      this.correoP = util.quitarAcentosYEspacios(this.correoP);
 
     this.usuariosPrd.filtrar(peticion).subscribe(datos => {
       let columnas: Array<tabla> = [
@@ -161,7 +167,7 @@ export class ListacontactosrrhComponent implements OnInit {
 
       if(datos.datos !== undefined){
         for(let item of datos.datos){
-          
+
           let datepipe = new DatePipe("es-MX");
           item.fechaAlta = datepipe.transform(item.fechaAlta , 'dd-MMM-y')?.replace(".","");
 

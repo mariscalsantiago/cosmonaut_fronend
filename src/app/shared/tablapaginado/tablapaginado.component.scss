@@ -11,6 +11,11 @@
     max-width: 15px;
 }
 
+.fa, .fas {
+    font-weight: 600 !important;
+}
+
+
 .estiloextralink{
     display: inline-block !important;
     color:#56dfd4 !important;
@@ -77,6 +82,7 @@ table {
 
     td {
         text-align: left;
+        outline: none !important;
         // max-width: 500px;
     }
 }
@@ -115,11 +121,14 @@ table {
     outline: none !important;
 }
 
+
 .flechaarriba {
     position: absolute;
     right: 0;
     top: calc(50% - 10px);
     color: #b7b7b7;
+    outline: none !important;
+
 }
 
 .flechaabajo {
@@ -127,6 +136,7 @@ table {
     right: 0;
     bottom: calc(50% - 10px);
     color: #b7b7b7;
+    outline: none !important;
 }
 
 .colorear {
@@ -209,10 +219,12 @@ table {
     top:20px;
     right:0; 
     color:rgb(204, 204, 204);
+    outline: none !important;
 }
 
 .flechas:first-child{
     top:10px;
+    outline: none !important;
 }
 
 
@@ -241,3 +253,10 @@ table {
 .hipervinculo{
     background-color: red;
 } 
+
+
+.slide-in-bck-center{
+    .titulo{
+      text-transform: capitalize;    
+    }
+}

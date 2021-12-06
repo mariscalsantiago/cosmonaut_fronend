@@ -2,7 +2,7 @@
 
     <input formControlName="personaId" type="hidden">
 
-    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="235">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="225">
         <br>
 
         <div class="form-group row margen">
@@ -83,6 +83,15 @@
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
                 <label>Extensión</label>
                 <input appSolonumeros maxlength="8" formControlName="ciExtension" type="text" class="form-control" placeholder="">
+            </div>
+
+            
+            <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <label for="exampleFormControlSelect1">Estatus de contacto*</label>
+                <select formControlName="esActivo" class="form-control">
+                    <option value="true" selected >ACTIVO</option>
+                    <option value="false">INACTIVO</option>
+                </select>
             </div>
 
 

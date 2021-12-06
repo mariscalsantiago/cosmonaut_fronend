@@ -7,6 +7,7 @@ import { NominasHistoricasService } from 'src/app/shared/services/nominas/nomina
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { Router } from '@angular/router';
+import {Utilidades} from '../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-nomina-historicas',
@@ -71,12 +72,12 @@ export class NominaHistoricasComponent implements OnInit {
     if (datos !== undefined) {
       for (let item of datos) {
         item["anio"] = new DatePipe("es-MX").transform(item.fecha_inicio, "yyyy");
-        item["fechai"] = new DatePipe("es-MX").transform(new Date(item.fecha_inicio), 'dd-MMM-y');
+        item["fechai"] = new DatePipe("es-MX").transform(new Date(item.fecha_inicio), 'dd-MMM-y')?.replace(".","");
       }
     }
 
 
-    
+
     this.arreglotabla = {
       columnas: columnas,
       filas: datos,
@@ -89,7 +90,7 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-    
+
 
     obj.datos.cargandoDetalle = false;
     let objEnviar: any;
@@ -237,7 +238,7 @@ export class NominaHistoricasComponent implements OnInit {
         });
         break;
       case "paginado_cantidad":
-        
+
         this.elementos = obj.datos.elementos;
         this.pagina = obj.datos.pagina;
         if (!this.cargando || this.primeraVes) {
@@ -254,7 +255,7 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public obtenerReportes() {
-    
+
     let objEnviar: any;
     switch (`${this.reporteindex}`) {
       case "1":
@@ -267,7 +268,7 @@ export class NominaHistoricasComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos => {
-          
+
           if (datos.resultado) {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${this.mesIndex}`, "xlsx");
@@ -299,10 +300,10 @@ export class NominaHistoricasComponent implements OnInit {
 
   public filtrar(desdeFiltrado: boolean = false) {
 
-    
+    const util = new Utilidades();
     this.pagina = 0;
     this.elementos = 20;
-    this.arreglo = []; 
+    this.arreglo = [];
     this.objEnviar = [];
       this.objEnviar = {
       centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
@@ -310,7 +311,10 @@ export class NominaHistoricasComponent implements OnInit {
       nombreNomina: this.nombreNomina || null,
       clavePeriodo: this.periodo || null,
       fechaInicio: this.fecha || null
-    }
+    };
+
+    this.nombreNomina = util.quitarAcentosYEspacios(this.nombreNomina);
+    this.periodo = util.quitarAcentosYEspacios(this.periodo);
 
     if (!desdeFiltrado) {
       this.nominashistoricasPrd.filtradoPaginado(this.objEnviar, this.elementos, this.pagina).subscribe(datos => {
@@ -323,7 +327,9 @@ export class NominaHistoricasComponent implements OnInit {
           }
           else{
             this.arreglo = undefined;
-          }  
+          };
+
+
 
           this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
         }
@@ -349,7 +355,7 @@ export class NominaHistoricasComponent implements OnInit {
 
   public filtrarPagina(repetir: boolean = false, desdeFiltrado: boolean = false) {
 
-    
+
 
     this.objEnviar = [];
       this.objEnviar = {
@@ -374,7 +380,7 @@ export class NominaHistoricasComponent implements OnInit {
           }
           else{
             this.arreglo = undefined;
-          }  
+          }
 
           this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
         }

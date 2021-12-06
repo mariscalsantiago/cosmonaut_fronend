@@ -8,6 +8,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { EventosService } from '../../../services/eventos.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import {Utilidades} from '../../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-listaeventosxempledo',
@@ -77,26 +78,51 @@ export class ListaeventosxempledoComponent implements OnInit {
 
     this.cargando = true;
     this.filtrar();
-    
+
   }
 
   public generandoTabla(){
+    
     let columnas:Array<tabla> = [
       new tabla("incidenciaDescripcion","Tipo de evento"),
       new tabla("nombrecompleado","Nombre del empleado"),
       new tabla("numeroEmpleado","Número de empleado",false,false,true),
       new tabla("fechaInicio","Fecha de inicio",false,false,true),
-      new tabla("tiempo","Tiempo",false,false,true)
+      new tabla("unidadM","Unidad de Medida",false,false,true),
+      new tabla("cantidad","Cantidad",false,false,true)
+      
     ];
 
     this.arreglotabla = {
       columnas:[],
       filas:[]
     }
+
     if(this.arreglo !== undefined){
         for(let item of this.arreglo){
             item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
-            item.fechaInicio = new DatePipe("es-MX").transform((item.fechaInicio), 'dd-MMM-y');
+            let datepipe = new DatePipe("es-MX");
+            item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
+            item.fechaAplicacion = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
+            item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");
+            if(item.unidadMedidaId !== undefined){
+              if(item.unidadMedidaId == 1){
+                item.unidadM = 'Horas';
+              }
+              else if(item.unidadMedidaId == 2 || item.duracion == 'duracion'){
+                item.unidadM = 'Días';
+              }
+              else if(item.unidadMedidaId == 3){
+                item.unidadM = 'Monto';
+              }
+              if(item.heTiempo !== undefined){
+                item.cantidad = item.heTiempo;
+              }
+              if(item.monto !== undefined){
+                item.cantidad = item.monto;
+              }  
+            }
+            
         }
     }
 
@@ -113,18 +139,18 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    
-    
+
+
       switch(obj.type){
          case "eliminar":
              this.eliminarIncidencia(obj.datos,obj.indice);
            break;
            case "ver":
-             
+
              this.evento = obj.datos;
-             
+
             this.traerModal(obj.indice);
-            
+
              break;
       }
   }
@@ -135,7 +161,7 @@ export class ListaeventosxempledoComponent implements OnInit {
         if(valor){
           this.modalPrd.showMessageDialog(this.modalPrd.loading);
           this.eventosPrd.delete(obj.incidenciaId).subscribe(datos =>{
-            
+
              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
              this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
                if(datos.resultado){
@@ -147,7 +173,9 @@ export class ListaeventosxempledoComponent implements OnInit {
                     new tabla("nombrecompleado","Nombre del empleado"),
                     new tabla("numeroEmpleado","Número de empleado",false,false,true),
                     new tabla("fechaInicio","Fecha de inicio",false,false,true),
-                    new tabla("tiempo","Tiempo",false,false,true)
+                    new tabla("unidad","Unidad de Medida",false,false,true),
+                    new tabla("tiempo","Tiempo",false,false,true),
+                    
                   ],
                   filas:this.arreglo
                 }
@@ -159,7 +187,8 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public filtrar(){
-    
+
+    const util = new Utilidades();
     this.objFiltro = [];
     this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => {this.arregloIncidenciaTipo = datos.datos;});
 
@@ -175,7 +204,7 @@ export class ListaeventosxempledoComponent implements OnInit {
           ...this.objFiltro,
           apellidoPaterno: this.apellidoPaterno
         };
-      } 
+      }
       if(this.apellidoMaterno != ''){
           this.objFiltro = {
             ...this.objFiltro,
@@ -193,6 +222,11 @@ export class ListaeventosxempledoComponent implements OnInit {
         esActivo: true,
         clienteId: this.usuariosSistemaPrd.getIdEmpresa()
       };
+
+      this.nombre = util.quitarAcentosYEspacios(this.nombre);
+      this.apellidoPaterno = util.quitarAcentosYEspacios(this.apellidoPaterno);
+      this.apellidoMaterno = util.quitarAcentosYEspacios(this.apellidoMaterno);
+
       this.eventosPrd.filtro(this.objFiltro).subscribe(datos =>{
 
         this.arreglo = datos.datos;
@@ -214,7 +248,7 @@ export class ListaeventosxempledoComponent implements OnInit {
     this.aparecemodalito = true;
 
 
-    
+
 
     if (elemento.getBoundingClientRect().y < -40) {
       let numero = elemento.getBoundingClientRect().y;

@@ -1,4 +1,5 @@
 import { AfterContentInit, Component, ElementRef, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { ConfiguracionesService } from './shared/services/configuraciones/configuraciones.service';
 import { EstilosService, estructura } from './shared/services/configuraciones/estilos.service';
 import { NominaordinariaService } from './shared/services/nominas/nominaordinaria.service';
@@ -19,6 +20,8 @@ export class AppComponent implements OnInit,AfterContentInit {
   }
 
   ngOnInit(){
+
+    console.log("ENVIOREMENT DISPONIBLE",environment.mensaje);
 
   }
 

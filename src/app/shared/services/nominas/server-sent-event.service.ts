@@ -38,7 +38,36 @@ export class ServerSentEventService {
     let mm:any = document.getElementById("ventanaEmergente");
     mm.style.display = "block";
     let titulo =  mm.getElementsByClassName("contenido");
-    titulo[0].innerText=mensaje;
+    //titulo[0].innerText=mensaje;
+
+    //Code nuevo
+    let aux = mensaje.split("\n");
+    let mensaje1 = aux[0];
+    let mensaje2 = aux[1];
+    let p1 = document.createElement("p");
+    p1.innerText = mensaje1;
+    let p2 = document.createElement("p");
+    p2.innerText = mensaje2;
+
+    if(exitoso){
+      let tituloPrincipal =mm.getElementsByClassName("titulo");
+      tituloPrincipal[0].className="direccionizquierda";
+      p1.className = "direccionderecha";
+      p2.className="operacioneexitosa";
+    }
+
+
+
+    
+
+
+    titulo[0].appendChild(p1);
+    titulo[0].appendChild(p2);
+
+
+
+
+
 
     let cuerpo:any = document.getElementById("cuerpoventanaEmergente");
     cuerpo.className= "cuerpo slide-in-blurred-top "+(exitoso?'exitoso':'error');

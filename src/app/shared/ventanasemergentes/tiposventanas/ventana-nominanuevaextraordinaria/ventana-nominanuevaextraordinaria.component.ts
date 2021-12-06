@@ -22,7 +22,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   @Output() salida = new EventEmitter<any>();
   @ViewChild("fechafin") fechafin!: ElementRef;
 
-
+  public monedaPeso: number = 1;
   public arregloTipoNominas: any = [];
   public arregloCuentasBancarias: any = [];
   public arregloCompanias: any = [];
@@ -88,12 +88,13 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   public creandoForm() {
 
+
     return this.formbuilder.group(
       {
         clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
         usuarioId: this.usuarioSistemaPrd.getUsuario().usuarioId,
         nombreNomina: [, [Validators.required]],
-        monedaId: [, [Validators.required]],
+        monedaId: [this.monedaPeso, [Validators.required]],
         centrocClienteId: [, [Validators.required]],
         tipoNominaId: [this.tiponomina],
         clabe: [, [Validators.required]],

@@ -12,7 +12,8 @@ export const environment = {
   rutaReportes:'/reportes',
   rutaSocket:'wss://cosmonautdev.wintermute.services/empresa',
   //rutaSocket:'ws://192.168.1.67:8080'
-  rutaEvents:'/webevent'
+  rutaEvents:'/webevent',
+  mensaje:"Es DEFECTO"
 };
 
 /*

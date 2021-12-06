@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { Router } from '@angular/router';
+import {Utilidades} from '../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-sua',
@@ -62,7 +63,7 @@ export class SuaComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    
+
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
@@ -85,19 +86,19 @@ export class SuaComponent implements OnInit {
         new tabla("movimiento", "Movimiento"),
         new tabla("fechamovimiento", "Fecha de movimiento")
       ];
-      
+
       this.arreglotabla = {
         columnas:[],
         filas:[]
       }
-  
+
       if(this.arreglo !== undefined){
         for(let item of this.arreglo){
           if(item.fecha_movimiento !== undefined ){
-          item.fechamovimiento = new DatePipe("es-MX").transform(new Date(new Date(item.fecha_movimiento).toUTCString().replace("GMT","")), 'dd-MMM-y');
+          item.fechamovimiento = new DatePipe("es-MX").transform(item.fecha_movimiento, 'dd-MMM-y')?.replace(".","");
           item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
-          item.sbcDecimal = item.sbc.toFixed(2); 
- 
+          item.sbcDecimal = item.sbc.toFixed(2);
+
           }
         }
       }
@@ -110,13 +111,16 @@ export class SuaComponent implements OnInit {
     }
 
     public establecerPermisos(){
-    
+
       this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
     }
 
   public filtrar() {
+
+    const util = new Utilidades();
     this.cargando = true;
     this.objFiltro = [];
+
     for(let item of this.arregloRegistroPatronal){
       if(item.registroPatronalId = this.idregistroPatronal)
       this.registroPatronal = item.registroPatronal;
@@ -166,8 +170,12 @@ export class SuaComponent implements OnInit {
         };
         this.fechaMax = new Date('0000-00-00');
         this.fechaMin = new Date('0000-00-00');
-  
-  this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
+
+        this.nombre = util.quitarAcentosYEspacios(this.nombre);
+        this.apellidoPat = util.quitarAcentosYEspacios(this.apellidoPat);
+        this.apellidoMat = util.quitarAcentosYEspacios(this.apellidoMat);
+
+    this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 
     this.traerTabla({ datos: this.arreglo });
@@ -180,7 +188,7 @@ export class SuaComponent implements OnInit {
 
   public guardarMultiseleccion(obj:any) {
 
-    
+
     if(obj == 1){
       this.mensaje = `¿Deseas descargar el archivo de altas?`;
     }
@@ -211,14 +219,14 @@ export class SuaComponent implements OnInit {
           }
         }
         if(obj==1){
-          this.arregloSUA = { 
+          this.arregloSUA = {
             idEmpresa: this.idEmpresa,
             idKardex: valorAltas
           }
         }
 
         if(obj==2){
-          this.arregloSUA = { 
+          this.arregloSUA = {
             idEmpresa: this.idEmpresa,
             idKardex: valorModif
           }
@@ -232,7 +240,7 @@ export class SuaComponent implements OnInit {
           const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
           const fileName = `${"Layaout reingresos/altas SUA"}.txt`;
-  
+
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
           downloadLink.click();
@@ -255,7 +263,7 @@ export class SuaComponent implements OnInit {
           const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
           const fileName = `${"Layaout modificacion SUA"}.txt`;
-  
+
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
           downloadLink.click();
@@ -275,7 +283,7 @@ export class SuaComponent implements OnInit {
 
       }
     });
-    
+
 
 
 

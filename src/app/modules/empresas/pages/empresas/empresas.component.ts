@@ -48,7 +48,7 @@ export class EmpresasComponent  implements OnInit {
 
   ngOnInit(): void {
    
-
+    debugger;
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     
@@ -64,7 +64,10 @@ export class EmpresasComponent  implements OnInit {
           
         });
       }else{
+        debugger;
         console.log(this.usuarioSistemaPrd.getVersionSistema(),this.usuarioSistemaPrd.usuario);
+      
+
       }
     });
     

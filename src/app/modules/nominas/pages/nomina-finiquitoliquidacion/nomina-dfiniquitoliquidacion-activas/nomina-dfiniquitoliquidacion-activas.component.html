@@ -14,8 +14,8 @@
 </div>
 
 <div class="background-ajustar" appTamanioVentana [pixeles]="120">
-<div class="row ml-1">
-    <div class="col text-left">
+<div class="row ml-1 margen">
+    <div class="col text-right">
         <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="agregar()">
             <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Nueva nómina
         </button>
@@ -28,7 +28,7 @@
     <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo; let indice = index;">
         <div class="col-6 mt-3">
             <article>{{item.nominaLiquidacion?.nombreNomina}}
-                <article>Período De {{item.nominaLiquidacion?.fechaInicio | date:'dd MMM'}} hasta {{item.nominaLiquidacion?.fechaFin | date:'dd MMM'}}</article>
+                <article>Período De {{item.nominaLiquidacion?.fechaInicio | date:'dd MMMM'}} al {{item.nominaLiquidacion?.fechaFin | date:'dd MMMM'}}</article>
                 <article>Clave: {{item.nominaLiquidacion?.clavePeriodo}}</article>
             </article>
 

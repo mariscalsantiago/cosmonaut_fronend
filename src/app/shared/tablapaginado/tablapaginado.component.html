@@ -98,7 +98,7 @@
                         'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
                     <td *ngIf="tablabeneficios" class="wrap" style="text-align: center;">
-                        <button style="background-color: transparent;" (click)="verTablabeneficios(item,indice)"><i
+                        <button style="background-color: transparent; outline: none !important;" (click)="verTablabeneficios(item,indice)"><i
                                 aria-hidden="true" class="icon_24ver primary-bg"></i></button>
                     </td>
                     <td *ngIf="porcentaje">
@@ -124,8 +124,8 @@
                             <i aria-hidden="true" class="icon_24llave primary-bg" placement="top"
                                 [mdbTooltip]="'resetPass' | tooltip"></i>
                         </button>
-                        <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)"><i aria-hidden="true"
-                                *ngIf="item.desglosarDown" class="icon_24flechaabajo primary" style="font-size: 12px;
+                        <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)">
+                            <i aria-hidden="true" *ngIf="item.desglosarDown" class="icon_24flechaabajo primary" style="font-size: 12px;
                     margin: 0px; background-color: #00C1AF;"></i>
 
                             <i aria-hidden="true" *ngIf="!item.desglosarDown" class="icon_24flechaarriba primary" style="font-size: 12px;
@@ -167,17 +167,17 @@
                         <div class="row mb-4">
                             <article class="col-4 mb-3" *ngIf="imss && (item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Pendiente')">
                                 <a (click)="verAcuseMovimiento(item,indice)" class="botonestilo  estiloextralink"><em
-                                        class="fas fa-download" style="font-size: 15px;"></em>Descarga acuse de envío de movimiento
+                                        class="fas fa-download mr-1" style="font-size: 15px;"></em>Descarga acuse de envío de movimiento
                                 </a>
                             </article>
                             <article class="col-4 mb-3" *ngIf="imss && (item.estatus !== 'En proceso' && item.estatus !== 'En validación' && item.estatus !== 'Pendiente' && item.estatus !== 'Rechazado')">
                                 <a (click)="verAcuseRespuesta(item,indice)" class="botonestilo  estiloextralink"><em aria-hidden="true"
-                                        class="fas fa-download" style="font-size: 15px;"></em>Descarga acuse de respuesta de movimiento
+                                        class="fas fa-download mr-1" style="font-size: 15px;"></em>Descarga acuse de respuesta de movimiento
                                 </a>
                             </article>
                             <article class="col-4 mb-3" *ngIf="imss">
                                 <a (click)="verTxtImss(item,indice)" class="botonestilo  estiloextralink"><em aria-hidden="true"
-                                        class="fas fa-download" style="font-size: 15px;"></em>Descarga txt
+                                        class="fas fa-download mr-1" style="font-size: 15px;"></em>Descarga txt
                                 </a>
                             </article>
                         </div>

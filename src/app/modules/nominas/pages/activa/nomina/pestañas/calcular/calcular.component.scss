@@ -34,3 +34,18 @@ article{
     color: #0054bf;
 }
 
+
+
+.color-hiperlink{
+    color: #03a59c !important;
+    width: fit-content !important;
+    margin-right: 16px !important;
+    text-decoration: underline !important;
+    width: fit-content;
+    i{
+        color: #03a59c;
+    }
+    span{
+        margin-left: auto;
+    }
+}

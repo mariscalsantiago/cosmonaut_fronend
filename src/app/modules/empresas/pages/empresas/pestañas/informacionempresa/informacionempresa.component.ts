@@ -9,6 +9,7 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 
+
 @Component({
   selector: 'app-informacionempresa',
   templateUrl: './informacionempresa.component.html',
@@ -34,6 +35,9 @@ export class InformacionempresaComponent implements OnInit {
   public cargandoImg: boolean = false;
   public mostrarAsterisco:boolean = false;
   public urlLogo: string = ''; 
+  public valCurp: boolean = true;
+  public permitido: boolean | undefined;
+  public multiempresa: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
@@ -41,9 +45,16 @@ export class InformacionempresaComponent implements OnInit {
     private authUsuariosPrd: UsuariosauthService, private usuariosSistemaPrd: UsuarioSistemaService) { }
 
   ngOnInit(): void {
-
+    debugger;
     
     this.obj = this.datos.empresa;
+
+    if(this.obj){
+      if(!this.usuariosSistemaPrd.usuario.multiempresa){
+        this.multiempresa = true;
+      } 
+    }
+
     this.myform = this.createForm(this.obj);
     if (!this.datos.insertar) {
       
@@ -58,47 +69,96 @@ export class InformacionempresaComponent implements OnInit {
       this.imagen = datos.datos?.imagen;
 
       });
-    }
-    this.suscripciones();
+ 
+    }else{
 
+      if(!this.usuariosSistemaPrd.usuario.multiempresa){
+        this.multiempresa = true;
+        this.myform = this.createForm(this.obj);
+        let peticion = {
+          centrocClienteId: this.usuariosSistemaPrd.usuario.centrocClienteId
+        }
+        this.companyPrd.filtrarPaginado(peticion, 5, 0).subscribe(datos => {
+
+         if(datos.datos !== undefined){
+          let arreglo = datos.datos.lista[0];
+            this.myform.controls.nombre.setValue(arreglo.nombre);
+            this.myform.controls.razonSocial.setValue(arreglo.razonSocial);
+            this.myform.controls.rfc.setValue(arreglo.rfc);
+            this.myform.controls.nombre.disable;
+            this.myform.controls.nombre.updateValueAndValidity;
+            this.myform.controls.razonSocial.disable;
+            this.myform.controls.razonSocial.updateValueAndValidity
+            this.myform.controls.rfc.disable;
+            this.myform.controls.rfc.updateValueAndValidity
+
+        }
+        
+        
+      });
+      }
+    }
+    
+    
     this.catalogosPrd.getRegimenFiscal(true).subscribe(datos => this.arregloregimen = datos.datos);
 
     this.catalogosPrd.getActividadEconomica(this.idNivel).subscribe(datos => this.arregloactividad = datos.datos);
-
+    this.suscripciones();
 
 
   }
 
   public suscripciones() {
+    
     this.myform.controls.regimenfiscalId.valueChanges.subscribe(valor => {
-      let permitido: boolean = (valor == 606 || valor == 612 || valor == 621);
-      this.realizarValidacionRegimen(permitido);
-      this.mostrarAsterisco = permitido;
+      this.permitido = (valor == 606 || valor == 612 || valor == 621);
+      this.realizarValidacionRegimen(this.permitido);
+      this.mostrarAsterisco = this.permitido;
     });
 
 
-    let permitido: boolean = (this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
-    this.realizarValidacionRegimen(permitido);
+    this.permitido = (this.myform.controls.regimenfiscalId.value == 606 || this.myform.controls.regimenfiscalId.value == 612 || this.myform.controls.regimenfiscalId.value == 621);
+    this.realizarValidacionRegimen(this.permitido);
 
-
-    this.myform.controls.key.valueChanges.subscribe(datos => {
+/* 
+     this.myform.controls.rfc.valueChanges.subscribe(datos => {
+      this.validarRFCCurp();
       
-    });
+    });  */
 
 
   }
 
   public realizarValidacionRegimen(permitido: boolean) {
+    
+
     if (permitido) {
+      this.valCurp = true;
       this.myform.controls.razonSocial.clearValidators();
       this.myform.controls.razonSocial.updateValueAndValidity();
       this.myform.controls.curp.setValidators([Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]);
       this.myform.controls.curp.updateValueAndValidity();
+      //this.validarRFCCurp();
+      if(this.myform.controls.rfc.value){
+        let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
+        if(moralFiscia !== 3){
+          //this.myform.controls.rfc.setValue('');
+        }
+      }  
     } else {
+      this.valCurp = false;
       this.myform.controls.razonSocial.setValidators([Validators.required]);
       this.myform.controls.razonSocial.updateValueAndValidity();
       this.myform.controls.curp.setValidators([Validators.pattern(ConfiguracionesService.regexCurp)]);
       this.myform.controls.curp.updateValueAndValidity();
+      this.myform.controls.curp.setValue('');
+      //this.validarRFCCurp();
+      if(this.myform.controls.rfc.value){
+        let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
+        if(moralFiscia !== 2){
+          //this.myform.controls.rfc.setValue('');
+        }
+      }  
     }
   }
 
@@ -123,11 +183,11 @@ export class InformacionempresaComponent implements OnInit {
     }
 
     return this.formBuilder.group({
-      nombre: [obj.nombre, [Validators.required]],
-      razonSocial: [obj.razonSocial, [Validators.required]],
+      nombre: [{value: obj.nombre, disabled: this.multiempresa}, [Validators.required]],
+      razonSocial: [{value: obj.razonSocial, disabled: this.multiempresa}, [Validators.required]],
       actividadEconomicaId: [obj.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId, [Validators.required]],
       actividadEconomicaId2: [obj.actividadEconomicaId?.actividadEconomicaId, [Validators.required]],
-      rfc: [obj.rfc, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
+      rfc: [{value: obj.rfc, disabled: this.multiempresa}, [Validators.required, Validators.pattern('^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$')]],
       curp: [obj.curp, [Validators.required, Validators.pattern(ConfiguracionesService.regexCurp)]],
       regimenfiscalId: [obj.regimenfiscalId?.regimenfiscalId, [Validators.required]],
       centrocClienteId: obj.centrocClienteId,
@@ -140,6 +200,25 @@ export class InformacionempresaComponent implements OnInit {
     });
   }
 
+  public validarRFCCurp(){
+    
+    let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
+    if(!this.permitido){ 
+      if(moralFiscia !== 2){
+        this.myform.controls.rfc.setValue('');
+        return;
+      }
+      
+    } 
+    else if(this.permitido){ 
+      if(moralFiscia !== 3){
+      this.myform.controls.rfc.setValue('');
+      return;
+    }
+  }
+  } 
+
+  
   public validarActividad2(actividad: any) {
     
     
@@ -162,7 +241,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-    
+    debugger;
     if (this.myform.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       Object.values(this.myform.controls).forEach(control => {
@@ -170,6 +249,26 @@ export class InformacionempresaComponent implements OnInit {
       });
       return;
     }
+
+    let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
+    
+    if(!this.permitido){ 
+      if(moralFiscia !== 2){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"El RFC debe ser persona moral (12 caracteres)");
+        //this.myform.controls.rfc.setValue('');
+        return;
+      }
+      
+    } 
+    
+    else if(this.permitido){ 
+      if(moralFiscia !== 3){
+      this.modalPrd.showMessageDialog(this.modalPrd.error,"El RFC debe ser persona física (13 caracteres)");
+      //this.myform.controls.rfc.setValue('');
+      return;
+      }
+    }
+
     if(this.myform.controls.curp.value !== null && this.myform.controls.curp.value !== ''){
     let moralFiscia = this.myform.controls.rfc.value.substr(10,12).length;
     if(moralFiscia === 3){
@@ -211,6 +310,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public guardarCambios() {
+    debugger;
     let obj = this.myform.getRawValue();
     if (!Boolean(obj.key) && !Boolean(obj.cer)) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer y .key, favor de elegir archivos de certificado ");

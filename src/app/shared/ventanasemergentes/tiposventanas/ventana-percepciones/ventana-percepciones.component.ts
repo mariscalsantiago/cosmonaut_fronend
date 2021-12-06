@@ -96,7 +96,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     });
 
     this.myForm.controls.tipoPeriodicidadId.valueChanges.subscribe(valor => {
-      this.validarTipoPercepcion(valor)
+      this.validarTipoPercepcionEditar(valor)
     });
     this.myForm.controls.nomPercepcion.valueChanges.subscribe(valor => {
       this.validarPercepcion(valor);
@@ -150,6 +150,162 @@ export class VentanaPercepcionesComponent implements OnInit {
 
   }
 
+  public validarTipoPercepcionEditar(tipo: any) {
+    
+    this.nombrePercepcion = [];
+    this.myForm.clearValidators();
+    this.myForm.updateValueAndValidity();
+
+    if (Boolean(tipo)) {
+      
+      if (tipo == 1) {
+        
+        this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+        this.myForm.controls.baseCalculoId.updateValueAndValidity();
+        this.myForm.controls.montoPercepcion.setValidators([Validators.required]);
+        this.myForm.controls.montoPercepcion.updateValueAndValidity();
+        this.myForm.controls.numeroPeriodos.setValidators([Validators.required]);
+        this.myForm.controls.numeroPeriodos.updateValueAndValidity();
+        this.myForm.controls.montoPorPeriodo.setValidators([Validators.required]);
+        this.myForm.controls.montoPorPeriodo.disable();
+        this.myForm.controls.montoPorPeriodo.updateValueAndValidity();
+
+
+        this.myForm.controls.porcentaje.setValue('');
+        this.myForm.controls.porcentaje.setValidators([]);
+        this.myForm.controls.porcentaje.updateValueAndValidity();
+
+        this.nombrePer = "P";
+        this.periodica = true;
+        this.estandar = false;
+        this.myForm.controls.baseCalculoId.disable();
+        this.myForm.controls.baseCalculoId.setValue(2);
+        if(this.esInsert){
+          this.myForm.controls.nomPercepcion.setValue('');
+          this.myForm.controls.nomPercepcion.updateValueAndValidity();
+        }
+
+        if (this.politica) {
+
+          this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+            if(datos.datos != undefined){
+              for (let item of datos.datos) {
+                item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+              }
+              this.nombrePercepcion = datos.datos;
+              this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValue('');
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
+            }else{
+              this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
+            }
+
+          });
+
+        } else {
+          
+          this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+            if(datos.datos != undefined){
+              for (let item of datos.datos) {
+                item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+
+              }
+              this.nombrePercepcion = datos.datos;
+              this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValue('');
+
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
+            }else{
+              this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
+            } 
+          });
+        }
+      } else {
+        this.myForm.controls.porcentaje.setValidators([Validators.required]);
+        this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+        this.myForm.controls.baseCalculoId.updateValueAndValidity();
+
+        this.myForm.controls.baseCalculoId.setValue('');
+        this.myForm.controls.montoPercepcion.setValue('');
+        this.myForm.controls.numeroPeriodos.setValue('');
+        this.myForm.controls.montoPorPeriodo.setValue('');
+
+        this.myForm.controls.montoPercepcion.setValidators([]);
+        this.myForm.controls.montoPercepcion.updateValueAndValidity();
+        this.myForm.controls.numeroPeriodos.setValidators([]);
+        this.myForm.controls.numeroPeriodos.updateValueAndValidity();
+        this.myForm.controls.montoPorPeriodo.setValidators([]);
+        this.myForm.controls.montoPorPeriodo.updateValueAndValidity();
+
+        this.nombrePer = "E";
+        this.myForm.controls.baseCalculoId.enable();
+        if (!this.esInsert) {
+          let tipoMonto = this.datos.baseCalculoId?.baseCalculoId;
+          this.myForm.controls.baseCalculoId.setValue(tipoMonto);
+          this.validarNomMonto(tipoMonto);
+        } else {
+            this.myForm.controls.nomPercepcion.setValue('');
+            this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
+          this.myForm.controls.baseCalculoId.setValue("");
+        }
+        this.periodica = false;
+        this.estandar = true;
+        if(Boolean(this.politica)) {
+          this.bancosPrd.getObtenerPoliticaPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+            if(datos.datos != undefined){
+              for (let item of datos.datos) {
+                item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+
+              }
+
+              this.nombrePercepcion = datos.datos;
+              this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValue('');
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
+            }else{
+              this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
+            }  
+
+          });
+        } else {
+          
+          this.bancosPrd.getObtenerPeriodicidad(this.empresa, this.nombrePer).subscribe(datos => {
+          if(datos.datos != undefined){  
+            for (let item of datos.datos) {
+              item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
+
+            }
+            this.nombrePercepcion = datos.datos;
+            this.myForm.controls.nomPercepcion.enable();
+            this.myForm.controls.nomPercepcion.setValue('');
+            this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+            this.myForm.controls.nomPercepcion.updateValueAndValidity();
+          }else{
+            this.myForm.controls.nomPercepcion.enable();
+            this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+            this.myForm.controls.nomPercepcion.updateValueAndValidity();
+          } 
+          });
+
+        }
+      }
+    }
+  }
+
   public validarTipoPercepcion(tipo: any) {
     
     this.myForm.clearValidators();
@@ -200,10 +356,13 @@ export class VentanaPercepcionesComponent implements OnInit {
               }
               this.nombrePercepcion = datos.datos;
               this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
             }else{
               this.myForm.controls.nomPercepcion.enable();
               this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
               this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
             }
 
           });
@@ -218,10 +377,14 @@ export class VentanaPercepcionesComponent implements OnInit {
               }
               this.nombrePercepcion = datos.datos;
               this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
             }else{
               this.myForm.controls.nomPercepcion.enable();
               this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
               this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
             } 
           });
         }
@@ -266,10 +429,13 @@ export class VentanaPercepcionesComponent implements OnInit {
 
               this.nombrePercepcion = datos.datos;
               this.myForm.controls.nomPercepcion.enable();
+              this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+              this.myForm.controls.nomPercepcion.updateValueAndValidity();
             }else{
               this.myForm.controls.nomPercepcion.enable();
               this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
               this.myForm.controls.nomPercepcion.updateValueAndValidity();
+
             }  
 
           });
@@ -281,8 +447,10 @@ export class VentanaPercepcionesComponent implements OnInit {
               item.tipoPercepcion = item.tipoPercepcionId.tipoPercepcionId + "-" + item.conceptoPercepcionId;
 
             }
-            this.myForm.controls.nomPercepcion.enable();
             this.nombrePercepcion = datos.datos;
+            this.myForm.controls.nomPercepcion.enable();
+            this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
+            this.myForm.controls.nomPercepcion.updateValueAndValidity();
           }else{
             this.myForm.controls.nomPercepcion.enable();
             this.myForm.controls.nomPercepcion.setValidators([Validators.required]);
@@ -354,7 +522,9 @@ export class VentanaPercepcionesComponent implements OnInit {
 
 
   public enviarPeticion() {
+    
     this.submitEnviado = true;
+
     if (this.myForm.invalid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error);

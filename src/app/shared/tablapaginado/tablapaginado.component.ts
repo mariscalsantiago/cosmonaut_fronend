@@ -116,7 +116,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   public cambia() {
-    debugger;
+    
 
     if (!this.paginado_server) {
       this.paginar();
@@ -148,7 +148,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    debugger;
+    
     if (this.paginado_server) {
       if (this.datos?.reiniciar) {
         this.arreglo = undefined;
@@ -405,6 +405,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     this.salida.emit({ type: "ver", datos: item, indice: indice });
   }
   public btnLlave(item: any, indice: number) {
+    
     this.salida.emit({ type: "llave", datos: item, indice: indice });
   }
 
@@ -480,7 +481,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordenar(item: any) {
-
+    
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
 
     let i, j;

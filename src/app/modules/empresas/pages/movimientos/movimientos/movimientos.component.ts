@@ -6,6 +6,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { DatePipe } from '@angular/common';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { Router } from '@angular/router';
+import {Utilidades} from '../../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-movimientos',
@@ -22,7 +23,7 @@ export class MovimientosComponent implements OnInit {
   public cargandoIcon: boolean = false;
   public cargando: boolean = false;
   public fechaMovimiento: any;
-  public fechaMovimientoFinal: string = ""; 
+  public fechaMovimientoFinal: string = "";
   public objFiltro: any = [];
   public nombre: any = "";
   public apellidoPaterno: any = "";
@@ -43,7 +44,7 @@ export class MovimientosComponent implements OnInit {
     private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService, private routerPrd: Router) { }
 
   ngOnInit() {
-    
+
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
@@ -68,32 +69,55 @@ export class MovimientosComponent implements OnInit {
       columnas:[],
       filas:[]
     }
-    
+
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
         item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
-        
+
         if(item.fechaMovimiento !== undefined ){
-          item["fechaMovimiento"] = new DatePipe("es-MX").transform(new Date(item.fechaMovimiento), 'dd-MMM-y');
+          let datepipe = new DatePipe("es-MX");
+          item["fechaMovimiento"] = datepipe.transform(item.fechaMovimiento , 'dd-MMM-y')?.replace(".","");
         }
       }
     }
-   
-    
+
+
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
     this.cargando = false;
   }
 
+  public limpiar() {
+
+    this.cargando = true;
+
+    this.objFiltro = [];
+      this.fechaMovimiento = '';
+      this.nombre = '';
+      this.apellidoPaterno = '';
+      this.apellidoMaterno = '';
+
+      this.objFiltro = {
+          ...this.objFiltro,
+          centroClienteId: this.idEmpresa,
+          fechaMovimiento: this.fechaMovimientoFinal
+        };
+      this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
+      this.traerTabla(datos);
+
+      });
+    }
+
 
   public filtrar() {
-    
-    this.objFiltro = [];        
+
+    const util = new Utilidades();
+    this.objFiltro = [];
     if (this.fechaMovimiento != "" && this.fechaMovimiento != undefined) {
-    
+
 /*       const fecha1 = new Date(this.fechaMovimiento).toUTCString().replace("GMT", "");
       this.fechaMovimientoFinal = `${new Date(fecha1).getTime()}`; */
-      this.fechaMovimientoFinal = this.fechaMovimiento; 
+      this.fechaMovimientoFinal = this.fechaMovimiento;
 
     }else{
 
@@ -112,7 +136,7 @@ export class MovimientosComponent implements OnInit {
             ...this.objFiltro,
             apellidoPaterno: this.apellidoPaterno
           };
-        } 
+        }
         if(this.apellidoMaterno != ''){
             this.objFiltro = {
               ...this.objFiltro,
@@ -120,17 +144,23 @@ export class MovimientosComponent implements OnInit {
             };
         }
 
-       
+
         this.objFiltro = {
           ...this.objFiltro,
           centroClienteId: this.idEmpresa,
           fechaMovimiento: this.fechaMovimientoFinal
         };
+
+        this.nombre = util.quitarAcentosYEspacios(this.nombre);
+        this.apellidoPaterno = util.quitarAcentosYEspacios(this.apellidoPaterno);
+        this.apellidoMaterno = util.quitarAcentosYEspacios(this.apellidoMaterno);
+
       this.empresasPrd.bitacoraMovimientoslistar(this.objFiltro).subscribe(datos => {
       this.traerTabla(datos);
 
       });
     }
+
     public inicio(){
       this.routerPrd.navigate(['/inicio']);
     }

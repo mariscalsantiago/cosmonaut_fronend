@@ -34,7 +34,7 @@ export class NoticiasComponent implements OnInit {
   public fechaRegistro: any = null;
   public correoempresarial: string = "";
   public activo: number = 0;
-
+  public arreglo : any = [];
 
 
   public arregloCompany: any = [];
@@ -147,7 +147,8 @@ export class NoticiasComponent implements OnInit {
   }
 
   public procesarTabla() {
-
+    
+    this.arreglo = this.noticias;
     let columnas: Array<tabla> = [
       new tabla("titulo", "Título"),
       new tabla("subtitulo", "Subtítulo"),
@@ -156,14 +157,26 @@ export class NoticiasComponent implements OnInit {
       new tabla("__categoriaFormato", "Categoría", false, false, true),
     ];
 
-    this.noticias.forEach(noticia => {
-      noticia.__categoriaFormato = noticia.categoriaId.descripcion as string;
-    });
-
     this.noticiasTabla = {
-      columnas: columnas,
-      filas: this.noticias
+      columnas:[],
+      filas:[]
     }
+
+    if(this.arreglo !== undefined){
+      for(let item of this.arreglo){
+        if(item.fechaInicio !== undefined ){
+        item.fechaInicio = new DatePipe("es-MX").transform(item.fechaInicio, 'dd-MMM-y')?.replace(".","");
+        }
+        if(item.fechaFin !== undefined ){
+          item.fechaFin = new DatePipe("es-MX").transform(item.fechaFin, 'dd-MMM-y')?.replace(".","");
+          }
+        item.__categoriaFormato = item.categoriaId.descripcion; 
+      }
+    }    
+
+    this.noticiasTabla.columnas = columnas;
+    this.noticiasTabla.filas = this.arreglo
+    this.cargando = false;
   }
 
   public crearNoticia() {

@@ -1,9 +1,9 @@
 <form [formGroup]="myForm" (ngSubmit)="enviandoFormulario()">
     <div class="row">
         <div class="col-12 col-lg-6 col-xl-6 mb-3 mt-3 ">
-            <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i aria-hidden="true" *ngIf="!editarcampos && !esKiosko" class="icon_24editar primary-bg" (click)="editarcampos = true;accionarMostrar()" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+            <div class="row"><label class="titulo">INFORMACIÓN BÁSICA</label><i aria-hidden="true" *ngIf="!editarcampos && !esKiosko" class="icon_24editar primary-bg" (click)="editarcampos = true" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
             <div class="row mb-4">
-                <article [class.ajustar]="editarcampos" class="titulo  col">
+                <article class="titulo  col">
                     Nombre <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.nombre}}</article>
                     <article *ngIf="editarcampos">
@@ -13,7 +13,7 @@
                         </div>
                     </article>
                 </article>
-                <article [class.ajustar]="editarcampos" class="titulo   col">
+                <article class="titulo   col">
                     Primer apellido <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.apellidoPaterno}}</article>
                     <article *ngIf="editarcampos">
@@ -23,7 +23,7 @@
                         </div>
                     </article>
                 </article>
-                <article [class.ajustar]="editarcampos" class="titulo   col">
+                <article class="titulo   col">
                     Segundo apellido
                     <article *ngIf="!editarcampos">{{empleado.apellidoMaterno}}</article>
                     <article *ngIf="editarcampos">
@@ -32,68 +32,12 @@
                 </article>
 
             </div>
-            <div class="row">
-                <article [class.ajustar]="editarcampos" class="titulo col">
-                    Genero
-                </article>
-            </div>
-
-            <div class="row">  
-                <article *ngIf="!editarcampos" class="titulo col">
-                    <article>{{generoName}}</article>
-                </article>
- 
-                    <article *ngIf="editarcampos">
-                        <label style="margin-top: 10px; margin-inline-start: 15px;" class="contenedorInputCheckRadio">Femenino
-                            <input formControlName="genero" id="femenino"  name="genero" value="true"  type="radio">
-                            <span class="radiomark"></span>
-                        </label>
-                        <label style="margin-inline-start: 15px;" class="contenedorInputCheckRadio">Masculino
-                            <input formControlName="genero" id="masculino" type="radio" name="genero" value="false">
-                            <span class="radiomark"></span>
-                        </label>
-                    </article>
-
-                </div>      
-                
-            <br>    
-            <div class="row">
-                <article [class.ajustar]="editarcampos" class="titulo mr-1 col">
-                    Fecha de nacimiento <span *ngIf="editarcampos">*</span>
-                </article>
-
-            </div>
-            <div class="row">
-                <article *ngIf="editarcampos" class="titulo col">
-                    <article>
-                        <input [class.is-invalid]="f.fechaNacimiento.errors && submitEnviado" #fechaNacimiento (focusout)="validarfechNacimiento(fechaNacimiento.value)" formControlName="fechaNacimiento" type="date" name="" id="fn1" class="form-control">
-                        <div class="invalid-feedback">
-                            Campo requerido
-                        </div>
-                    </article>
-                </article>
-                <article *ngIf="!editarcampos" class="titulo  col">
-                    Día
-                    <article>{{empleado.fechaNacimiento| date :'dd'}}</article>
-                </article>
-                <article *ngIf="!editarcampos" class="titulo  col">
-                    Mes
-                    <article>{{empleado.fechaNacimiento | date:'MMMM'}}</article>
-                </article>
-                <article *ngIf="!editarcampos" class="titulo col">
-                    Año
-                    <article>{{empleado.fechaNacimiento | date:'yyyy'}}</article>
-                </article>
-            </div>
-
-            <hr>
-
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+            <div class="row mb-4">
+                <article class="titulo col">
                     CURP <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.curp}}</article>
                     <article *ngIf="editarcampos">
-                        <input formatos [nochar]="true" [curp]="true" [control]="f.curp" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" name="" class="form-control">
+                        <input formatos [nochar]="true" [curp]="true" [control]="f.curp" (change)="cambiaCurp()" [ngClass]="{'is-invalid':(f.curp.errors?.required && submitEnviado) || f.curp.errors?.pattern && f.curp.touched}" formControlName="curp" type="text" name="" class="form-control">
                         <div *ngIf="f.curp.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
@@ -102,9 +46,8 @@
                         </div>
                     </article>
                 </article>
-            </div>
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+
+                <article class="titulo col">
                     RFC <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">
                         {{empleado.rfc}}
@@ -119,9 +62,7 @@
                         </div>
                     </article>
                 </article>
-            </div>
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+                <article class="titulo col">
                     Seguro Social <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">
                         {{empleado.nss}}
@@ -136,9 +77,23 @@
                         </div>
                     </article>
                 </article>
+
             </div>
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+  
+            <div class="row mb-4">
+                <article class="titulo col-4">
+                    Fecha de nacimiento <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="editarcampos">
+                        <article>
+                            <input formControlName="fechaNacimiento" type="email" class="form-control disabled bg-light">
+                        </article>
+                    </article>
+                    <article *ngIf="!editarcampos">
+                        {{empleado.fechaNacimiento| date :'dd'}} {{empleado.fechaNacimiento | date:'MMMM'}} {{empleado.fechaNacimiento | date:'yyyy'}}
+                    </article>
+                </article>
+
+                <article class="titulo col-8">
                     Correo empresarial <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">
                         {{empleado.emailCorporativo}}
@@ -155,8 +110,22 @@
                 </article>
             </div>
 
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+            <div class="row mb-4">
+
+                <article class="titulo col-4">
+                    Género
+                    <article *ngIf="!editarcampos">
+                        <article>{{generoName}}</article>
+                    </article>
+ 
+                    <article *ngIf="editarcampos">
+                        <select formControlName="genero" class="form-control disabled bg-light">
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
+                    </article>
+            </article>  
+                <article class="titulo col-8">
                     Correo personal
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoInicialEmailPersonal}}
@@ -172,15 +141,14 @@
                         </div>
                     </article>
                 </article>
-            </div>
-
-
-        </div>
-        <div class="col-12 col-lg-6 col-xl-6  mb-3 mt-3">
+     
+            </div>  
+            
+            <hr>
             <div class="row"><label class="titulo">INFORMACIÓN ADICIONAL</label></div>
 
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+            <div class="row mb-4">
+                <article class="titulo col">
                     Nacionalidad <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">
                         {{empleado.nacionalidadId?.descripcion}}
@@ -195,7 +163,7 @@
                         </div>
                     </article>
                 </article>
-                <article [class.ajustar]="editarcampos" class="titulo col">
+                <article class="titulo col">
                     Teléfono <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoInicialTelefono}}
@@ -207,10 +175,22 @@
                         </div>
                     </article>
                 </article>
+                <article class="titulo col">
+                    Celular
+                    <article *ngIf="!editarcampos">
+                        {{empleado.celular}}
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <input type="text" formControlName="celular" appSolonumeros maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}">
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article>
 
             </div>
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+            <div class="row mb-4">
+                <article class="titulo col-4">
                     Estado Civil
                     <article *ngIf="!editarcampos">
                         {{empleado.estadoCivilDescripcion}}
@@ -225,7 +205,7 @@
                         </select>
                     </article>
                 </article>
-                <article [class.ajustar]="editarcampos" class="titulo col">
+                <article class="titulo col-4">
                     Hijos
                     <article *ngIf="!editarcampos">
                         {{empleado.numeroHijos}}
@@ -234,116 +214,104 @@
                         <input formControlName="numeroHijos" type="number" name="" class="form-control">
                     </article>
                 </article>
+                
             </div>
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
-                    Celular
-                    <article *ngIf="!editarcampos">
-                        {{empleado.celular}}
-                    </article>
+
+
+        </div>
+        <div class="col-12 col-lg-6 col-xl-6  mb-3 mt-3">
+
+            <div class="row"><label class="titulo">DIRECCIÓN</label></div> 
+
+            <div class="row mb-4">
+                <article class="titulo   col">
+                    Código postal <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{domicilioArreglo?.codigoPostal}}</article>
                     <article *ngIf="editarcampos">
-                        <input type="text" formControlName="celular" appSolonumeros maxlength="10" class="form-control" [ngClass]="{'is-invalid':f.celular.errors && submitEnviado}">
-                        <div class="invalid-feedback">
+                        <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control" [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
+                        placeholder="">
+                        <div *ngIf="f.codigo.errors?.required && submitEnviado" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                        <div *ngIf="f.codigo.errors?.pattern && f.codigo.touched" class="invalid-feedback">
+                            Código postal incorrecto, formato númerico
+                        </div>
+
+                        <div *ngIf="noCoincide !== ''" class="mt-2"> {{noCoincide}}</div>
+
+                    </article>
+                </article> 
+                <article class="titulo   col">
+                    Entidad federativa <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{domicilioArreglo?.entidadFederativa}}</article>
+                    <article *ngIf="editarcampos">
+                            <input formControlName="estado" type="email" [ngClass]="{'is-invalid':f.estado.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
+                            <div *ngIf="f.estado.errors?.required && submitEnviado" class="invalid-feedback">
+                                Campo requerido
+                            </div>
+                    </article>
+                </article>  
+                <article class="titulo   col">
+                    Municipio o alcadía <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{domicilioArreglo?.municipio}}</article>
+                    <article *ngIf="editarcampos">
+                        <input formControlName="municipio" type="email" [ngClass]="{'is-invalid':f.municipio.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
+                        <div *ngIf="f.municipio.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
                     </article>
-                </article>
+                </article>           
             </div>
-            <div class="row mb-2">
-                <label class="titulo">DIRECCIÓN</label>
-            </div>    
-            <div class="row mb-2">
-                <!-- <div class="row"><label class="titulo">DIRECCIÓN</label></div>   -->  
-                <article [class.ajustar]="editarcampos" class="titulo col">
-                    <article *ngIf="!editarcampos">
-                        {{domicilioArreglo?.calle}} # {{domicilioArreglo?.numeroExterior}} Col. {{domicilioArreglo?.colonia}}, {{domicilioArreglo?.municipio}}, C.P. {{domicilioArreglo?.codigoPostal}} , {{domicilioArreglo?.entidadFederativa}}
-                    </article>
 
+            <div class="row mb-4">
+                <article class="titulo   col-8">
+                    Colonia <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{domicilioArreglo?.colonia}}</article>
                     <article *ngIf="editarcampos">
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form group row  ">
-
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                                        <label>Código postal *</label>
-                                        <input maxlength="5" #codigopostal formControlName="codigo" (focusout)="buscar(codigopostal.value)" type="text" class="form-control" [ngClass]="{'is-invalid':(f.codigo.errors?.required && submitEnviado) || f.codigo.errors?.pattern && f.codigo.touched}"
-                                            placeholder="">
-                                        <div *ngIf="f.codigo.errors?.required && submitEnviado" class="invalid-feedback">
-                                            Campo requerido
-                                        </div>
-                                        <div *ngIf="f.codigo.errors?.pattern && f.codigo.touched" class="invalid-feedback">
-                                            Código postal incorrecto, formato númerico
-                                        </div>
-
-                                        <div *ngIf="noCoincide !== ''" class="mt-2"> {{noCoincide}}</div>
-
-
-                                    </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                                        <label>Entidad federativa *</label>
-                                        <input formControlName="estado" type="email" [ngClass]="{'is-invalid':f.estado.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
-                                        <div *ngIf="f.estado.errors?.required && submitEnviado" class="invalid-feedback">
-                                            Campo requerido
-                                        </div>
-
-                                    </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                                        <label>Municipio o alcadía *</label>
-                                        <input formControlName="municipio" type="email" [ngClass]="{'is-invalid':f.municipio.errors?.required && submitEnviado}" class="form-control disabled bg-light" placeholder="">
-                                        <div *ngIf="f.municipio.errors?.required && submitEnviado" class="invalid-feedback">
-                                            Campo requerido
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="form group row ">
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                                        <label>Colonia *</label>
-                                        <select formControlName="asentamientoId" name="" [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
-                                            <option *ngFor="let item of domicilioCodigoPostal" [value]="item.asentamientoCpCons">{{item.asentamiento}}</option>
-                                        </select>
-                                        <div *ngIf="f.asentamientoId.errors && submitEnviado" class="invalid-feedback">
-                                            Campo requerido
-                                        </div>
-
-                                    </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-8">
-                                        <label>Calle *</label>
-                                        <input maxlength="86" formControlName="calle" type="text" [ngClass]="{'is-invalid':f.calle.errors && submitEnviado}" class="form-control" placeholder="">
-                                        <div *ngIf="f.calle.errors && submitEnviado" class="invalid-feedback">
-                                            Campo requerido
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form group row ">
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                                        <label>Número exterior *</label>
-                                        <input maxlength="10" formControlName="numExterior" type="text" name="" [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
-                                        <div *ngIf="f.numExterior.errors && submitEnviado" class="invalid-feedback">
-                                            Campo requerido
-                                        </div>
-                                    </div>
-                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
-                                        <label>Número interior</label>
-                                        <input maxlength="10" formControlName="numInterior" type="text" class="form-control" placeholder="">
-
-                                    </div>
-                                </div>
-
-                            </div>
+                        <select formControlName="asentamientoId" name="" [ngClass]="{'is-invalid':f.asentamientoId.errors && submitEnviado}" class="form-control">
+                            <option *ngFor="let item of domicilioCodigoPostal" [value]="item.asentamientoCpCons">{{item.asentamiento}}</option>
+                        </select>
+                        <div *ngIf="f.asentamientoId.errors && submitEnviado" class="invalid-feedback">
+                            Campo requerido
                         </div>
-
-
-
                     </article>
-                </article>
+                </article> 
+                <article class="titulo   col">
+                    Número exterior <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{domicilioArreglo?.numeroExterior}}</article>
+                    <article *ngIf="editarcampos">
+                        <input maxlength="10" formControlName="numExterior" type="text" name="" [ngClass]="{'is-invalid':f.numExterior.errors && submitEnviado}" class="form-control">
+                        <div *ngIf="f.numExterior.errors && submitEnviado" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article> 
+
+           
             </div>
-            <div class="row">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+            <div class="row mb-4">
+
+                <article class="titulo   col-8">
+                    Calle <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{domicilioArreglo?.calle}}</article>
+                    <article *ngIf="editarcampos">
+                        <input maxlength="86" formControlName="calle" type="text" [ngClass]="{'is-invalid':f.calle.errors && submitEnviado}" class="form-control" placeholder="">
+                        <div *ngIf="f.calle.errors && submitEnviado" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article> 
+                <article class="titulo   col">
+                    Número interior 
+                    <article *ngIf="!editarcampos">{{domicilioArreglo?.numeroInterior}}</article>
+                    <article *ngIf="editarcampos">
+                        <input maxlength="10" formControlName="numInterior" type="text" class="form-control" placeholder="">
+                    </article>
+                </article> 
+
+            </div>    
+            <div class="row mb-4">
+                <article class="titulo col">
                     Perfil de Linkedin
                     <article *ngIf="!editarcampos">
                         {{empleado.urlLinkedin}}
@@ -352,14 +320,14 @@
                         <input formControlName="url" type="text" name="" class="form-control">
                     </article>
                 </article>
-            </div>
+            </div>    
+            <br  *ngIf="editarcampos">
+            <hr>
+            
+            <div class="row"><label class="titulo">CONTACTO DE EMERGENCIA</label></div> 
 
-
-
-            <div class="row mt-5"><label class="titulo">CONTACTO DE EMERGENCIA</label></div>
-
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+            <div class="row mb-4">
+                <article class="titulo col">
                     Nombre
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoEmergenciaNombre}} {{empleado.contactoEmergenciaApellidoPaterno}} {{empleado.contactoEmergenciaApellidoMaterno}}
@@ -371,7 +339,7 @@
                         </div>
                     </article>
                 </article>
-                <article *ngIf="editarcampos" [class.ajustar]="editarcampos" class="titulo col">
+                <article *ngIf="editarcampos" class="titulo col">
                     Primer apellido
                     <article>
                         <input formControlName="contactoEmergenciaApellidoPaterno" maxlength="48" type="text" name="" [ngClass]="{'is-invalid':f.contactoEmergenciaApellidoPaterno.errors && submitEnviado}" class="form-control">
@@ -380,7 +348,7 @@
                         </div>
                     </article>
                 </article>
-                <article *ngIf="editarcampos" [class.ajustar]="editarcampos" class="titulo col">
+                <article *ngIf="editarcampos" class="titulo col">
                     Segundo apellido
                     <article>
                         <input formControlName="contactoEmergenciaApellidoMaterno" maxlength="48" type="text" name="" class="form-control">
@@ -389,8 +357,8 @@
 
             </div>
 
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+            <div class="row mb-4">
+                <article class="titulo col">
                     Parentesco
                     <article *ngIf="!editarcampos">
                         {{empleado.parentescoId?.descripcion}}
@@ -401,10 +369,7 @@
                         </select>
                     </article>
                 </article>
-            </div>
-
-            <div class="row mb-2">
-                <article [class.ajustar]="editarcampos" class="titulo col">
+                <article class="titulo col">
                     Correo
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoEmergenciaEmail}}
@@ -416,7 +381,7 @@
                         </div>
                     </article>
                 </article>
-                <article [class.ajustar]="editarcampos" class="titulo col">
+                <article class="titulo col">
                     Celular
                     <article *ngIf="!editarcampos">
                         {{empleado.contactoEmergenciaTelefono}}
@@ -426,8 +391,6 @@
                     </article>
                 </article>
             </div>
-
-
         </div>
 
     </div>

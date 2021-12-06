@@ -12,6 +12,7 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
+import {Utilidades} from '../../../../shared/utilidades/utilidades';
 registerLocaleData(localeEn, 'es-MX');
 
 @Component({
@@ -38,7 +39,7 @@ export class UsuariosComponent implements OnInit {
   //public peticion: any = [];
 
   /*
-  
+
     Resultados desplegados en un array
 
   */
@@ -61,7 +62,7 @@ export class UsuariosComponent implements OnInit {
   public esEditar:boolean = false;
 
 
-  
+
   public elementos:number = 0;
   public pagina:number = 0;
 
@@ -80,19 +81,19 @@ export class UsuariosComponent implements OnInit {
 
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
-    
+
     this.establecerPermisos();
 
     this.esClienteEmpresa = this.routerPrd.url.includes("/cliente/usuarios");
 
-  
+
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
     this.cargando = true;
 
-  
-    
+
+
     if (this.esClienteEmpresa) {
       this.companiPrd.getAllCompany().subscribe(datos => {
         this.arregloCompany = datos.datos
@@ -102,7 +103,7 @@ export class UsuariosComponent implements OnInit {
     } else {
       if(this.usuariosSistemaPrd.esCliente()){
         this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-          
+
           if(Boolean(datos.datos)){
             this.arregloCompany = datos.datos;
             this.arregloCompany.unshift({centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),nombre:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)",razonSocial:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)"})
@@ -110,12 +111,12 @@ export class UsuariosComponent implements OnInit {
             this.arregloCompany = datos.datos;
           }
           this.filtrar();
-        
+
         });
       }else{
         this.empresasProd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
           this.arregloCompany = [datos.datos];
-          this.filtrar();        
+          this.filtrar();
         });
       }
     }
@@ -128,7 +129,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public establecerPermisos(){
-    
+
     this.esRegistrar = this.configuracionPrd.getPermisos("Registrar");
     this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
     this.esEditar = this.configuracionPrd.getPermisos("Editar");
@@ -147,7 +148,7 @@ export class UsuariosComponent implements OnInit {
     ];
 
     columnas.splice(6,1);
-  
+
 
     if (this.arreglo !== undefined) {
       for (let item of this.arreglo) {
@@ -240,7 +241,7 @@ export class UsuariosComponent implements OnInit {
               } else {
                 if(this.usuariosSistemaPrd.esCliente()){
                   this.empresasProd.getAllEmp(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-                    
+
                     if(Boolean(datos.datos)){
                       this.arregloCompany = datos.datos;
                       this.arregloCompany.unshift({centrocClienteId:this.usuariosSistemaPrd.getIdEmpresa(),nombre:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)",razonSocial:this.usuariosSistemaPrd.usuario.nombreEmpresa+"("+"Cliente)"})
@@ -248,13 +249,13 @@ export class UsuariosComponent implements OnInit {
                       this.arregloCompany = datos.datos;
                     }
                     this.filtrar();
-                  
+
                   });
                 }else{
                   this.empresasProd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
                     this.arregloCompany = [datos.datos];
                     this.filtrar();
-                  
+
                   });
                 }
               }
@@ -275,11 +276,9 @@ export class UsuariosComponent implements OnInit {
 
   public filtrar(repetir:boolean = false,desdeFiltrado:boolean = false) {
 
-    
-
-
+    const util = new Utilidades();
     let arregloenviar = [];
-    
+
     if(!Boolean(this.id_company)){
       arregloenviar.push(this.usuariosSistemaPrd.getIdEmpresa());
       if(this.arregloCompany !== undefined){
@@ -294,7 +293,7 @@ export class UsuariosComponent implements OnInit {
 
     if(this.correoempresarial !== ''){
       this.correoempresarial?.toLowerCase();
-    }  
+    };
 
     let peticion = {
       idUsuario: this.idUsuario || null,
@@ -302,15 +301,16 @@ export class UsuariosComponent implements OnInit {
       apellidoPat: this.apellidoPat || null,
       apellidoMat: this.apellidoMat || null,
       fechaAlta: this.fechaRegistro || null,
-      
+
       email: this.correoempresarial || null,
       idClientes: arregloenviar,
       esActivo: this.activo == 0? null:this.activo == 1
-    }
+    };
 
-
-
-    
+    this.nombre = util.quitarAcentosYEspacios(this.nombre);
+    this.apellidoPat = util.quitarAcentosYEspacios(this.apellidoPat);
+    this.apellidoMat = util.quitarAcentosYEspacios(this.apellidoMat);
+    this.correoempresarial = util.quitarAcentosYEspacios(this.correoempresarial);
 
     this.cargando = true;
     if(!desdeFiltrado){
@@ -320,14 +320,14 @@ export class UsuariosComponent implements OnInit {
           console.log("ARREGLO RECIBIDO FILTRANDO",arreglo);
           if(arreglo)
              if(!repetir)
-                arreglo.forEach(o => this.arreglo.push(o));   
-              else 
+                arreglo.forEach(o => this.arreglo.push(o));
+              else
                 this.arreglo = arreglo;
 
 
               console.log("Arreglo total",this.arreglo);
-                
-  
+
+
           this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
         }
         this.procesarTabla();
@@ -371,7 +371,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public generarllave(obj: any) {
-    
+
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas resetear y reenviar la clave de este usuario?").then((valor) => {
       if (valor) {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
