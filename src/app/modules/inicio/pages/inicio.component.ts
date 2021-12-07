@@ -261,4 +261,8 @@ export class InicioComponent implements OnInit   {
 
     this.reportesPrd.crearArchivo(base64,"pocoyo","xlsx");
   }
+
+
+  
+
 }
