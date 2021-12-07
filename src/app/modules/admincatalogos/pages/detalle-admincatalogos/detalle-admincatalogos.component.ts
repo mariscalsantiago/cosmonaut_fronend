@@ -6,6 +6,7 @@ import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-c
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { AdminCatalogosService } from '../../services/admincatalogos.service';
+import {Utilidades} from '../../../../shared/utilidades/utilidades';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { AdminCatalogosService } from '../../services/admincatalogos.service';
 export class DetalleAdminCatalogosComponent implements OnInit {
 
 
- 
+
 
 
   public cargando: Boolean = false;
@@ -34,7 +35,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
 
   /*
-  
+
     Resultados desplegados en un array
 
   */
@@ -66,10 +67,10 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
   ngOnInit(): void {
     this.establecerPermisos();
-    
+
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
-    
+
     this.objdetcat = history.state.data == undefined ? {} : history.state.data;
     this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => this.arregloListaCatalogos = datos.datos);
     this.listaTablasFinal =[];
@@ -95,7 +96,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 22){
-      
+
       this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.cargando = true;
         this.adminCatalogosPrd.getListaTimbrado().subscribe(datos => {
@@ -134,7 +135,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 18){
-      
+
       this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.cargando = true;
         this.adminCatalogosPrd.getListaTablasSubsidioISR().subscribe(datos => {
@@ -144,7 +145,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 19){
-      
+
       this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.cargando = true;
         this.adminCatalogosPrd.getListaEstadosISN().subscribe(datos => {
@@ -154,13 +155,13 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 7){
-      
+
       this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 5){
-      
+
       this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.filtrar();
 
@@ -176,13 +177,13 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 11){
-      
+
       this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.filtrar();
 
     }
     else if(this.objdetcat.listaCatalogosId == 15){
-      
+
       this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.filtrar();
     }
@@ -193,7 +194,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 20){
-      
+
       this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.filtrar();
 
@@ -209,7 +210,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.objdetcat.listaCatalogosId == 16){
-      
+
       this.id_catalogo = this.objdetcat.descripcion?.toUpperCase();
       this.filtrar();
 
@@ -227,7 +228,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
 
   public crearTabla(obj:any) {
-    
+
     this.arreglo = obj;
 
     let columnas: Array<tabla> = [
@@ -244,7 +245,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     };
 
     if(this.arreglo !== undefined){
-    for(let item of this.arreglo){ 
+    for(let item of this.arreglo){
       if(item.tipoValorReferenciaId?.descripcion !== undefined){
         item.descripcion = item.tipoValorReferenciaId?.descripcion;
       }
@@ -261,7 +262,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
         item.descripcion = item.descripcion;
       }else {
         item.descripcion = item.nombreCorto;
-      
+
       }
 
       if(item.codBanco !== undefined){
@@ -273,10 +274,10 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       else if(item.facultadPoderId !== undefined){
         item.clave = item.facultadPoderId;
       }
-      else if(item.proveedorDispersionId !== undefined){ 
+      else if(item.proveedorDispersionId !== undefined){
         item.clave = item.proveedorDispersionId;
       }
-      else if(item.proveedorTimbradoId !== undefined){ 
+      else if(item.proveedorTimbradoId !== undefined){
         item.clave = item.proveedorTimbradoId;
       }
       else if(item.motivoBajaId !== undefined){
@@ -303,7 +304,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       else if(item.tipoValorReferenciaId?.tipoValorReferenciaId !== undefined){
         item.clave = item.tipoValorReferenciaId?.tipoValorReferenciaId;
       }
-      
+
       else if(item.tasaAplicableIsnId !== undefined){
         item.clave = item.tasaAplicableIsnId;
       }
@@ -330,7 +331,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
       }
     }
   }
-    
+
 
     this.arreglotabla.columnas = columnas;
     this.arreglotabla.filas = this.arreglo;
@@ -339,14 +340,14 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
 
   public cancelar() {
-    
+
     this.routerPrd.navigate(['/admincatalogos']);
   }
 
 
 
   public verdetalle(obj: any) {
-    
+
     this.cargando = true;
     let tipoinsert = (obj == undefined) ? 'nuevo' : 'modifica';
     this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', tipoinsert], { state: { datos: this.objdetcat, data: obj } });
@@ -355,15 +356,19 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
 
   public filtrar() {
-    
+    const util = new Utilidades();
     this.envio = {
       "descripcion": this.descripcion
-    }  
-   this.listaTablas=undefined; 
+    }
+   this.listaTablas=undefined;
    this.cargando = true;
+
+   this.descripcion = util.quitarAcentosYEspacios(this.descripcion);
+
+
    if(this.objdetcat.listaCatalogosId == 1){
          this.adminCatalogosPrd.ListaBanco(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
           this.listaTablas = datos.datos;
           }
           this.crearTabla(this.listaTablas);
@@ -373,7 +378,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
   else if(this.objdetcat.listaCatalogosId == 13){
       this.adminCatalogosPrd.ListaFacultad(this.envio).subscribe(datos => {
-        if(datos.datos !== undefined){ 
+        if(datos.datos !== undefined){
           this.listaTablas = datos.datos;
           }
           this.crearTabla(this.listaTablas);
@@ -382,7 +387,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 21){
       this.adminCatalogosPrd.ListaDispersion(this.envio).subscribe(datos => {
-        if(datos.datos !== undefined){ 
+        if(datos.datos !== undefined){
           this.listaTablas = datos.datos;
           }
           this.crearTabla(this.listaTablas);
@@ -391,7 +396,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 22){
       this.adminCatalogosPrd.ListaTimbrado(this.envio).subscribe(datos => {
-        if(datos.datos !== undefined){ 
+        if(datos.datos !== undefined){
           this.listaTablas = datos.datos;
           }
           this.crearTabla(this.listaTablas);
@@ -400,7 +405,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 9){
         this.adminCatalogosPrd.ListaMotivoBaja(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -409,7 +414,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 12){
         this.adminCatalogosPrd.ListaParentesco(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -417,7 +422,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 8){
          this.adminCatalogosPrd.ListaRegimenContratacion(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -426,7 +431,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 15){
      this.adminCatalogosPrd.ListaReferencia(this.envio).subscribe(datos => {
-      if(datos.datos !== undefined){ 
+      if(datos.datos !== undefined){
         this.listaTablas = datos.datos;
         }
         this.crearTabla(this.listaTablas);
@@ -435,7 +440,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 6){
         this.adminCatalogosPrd.ListaRegimenFiscal(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -445,7 +450,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
 
   else if(this.objdetcat.listaCatalogosId == 7){
         this.adminCatalogosPrd.ListaTipoContrato(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -454,7 +459,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 5){
         this.adminCatalogosPrd.ListaTipoDeduccion(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -463,7 +468,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 10){
         this.adminCatalogosPrd.ListaTipoIncapacidad(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -471,7 +476,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 4){
         this.adminCatalogosPrd.ListaTipoPercepcion(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -480,7 +485,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 11){
         this.adminCatalogosPrd.ListaTipoEvento(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -489,7 +494,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 14){
         this.adminCatalogosPrd.ListaFuncionCuenta(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -498,7 +503,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 20){
         this.adminCatalogosPrd.ListaMetodoPago(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -507,7 +512,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 3){
         this.adminCatalogosPrd.ListaMoneda(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -516,7 +521,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 2){
         this.adminCatalogosPrd.ListaNacionalidad(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
@@ -525,7 +530,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
   }
   else if(this.objdetcat.listaCatalogosId == 16){
         this.adminCatalogosPrd.ListaTipoValorReferencia(this.envio).subscribe(datos => {
-          if(datos.datos !== undefined){ 
+          if(datos.datos !== undefined){
             this.listaTablas = datos.datos;
             }
             this.crearTabla(this.listaTablas);
