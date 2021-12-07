@@ -8,7 +8,6 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { GruponominasService } from '../../services/gruponominas.service';
-import {Utilidades} from '../../../../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-listagruposnominas',
@@ -83,7 +82,7 @@ export class ListagruposnominasComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.establecerPermisos();
+    this.establecerPermisos(); 
 
     let documento: any = document.defaultView;
 
@@ -132,7 +131,7 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public preparandoTabla(datos: any) {
-
+    
     this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
       new tabla("nombre", "Nombre de grupo de nómina	"),
@@ -162,8 +161,8 @@ export class ListagruposnominasComponent implements OnInit {
   }
 
   public filtrar() {
+    
 
-    const util = new Utilidades();
     let objEnviar = {
 
       nombre: this.nombre,
@@ -173,9 +172,7 @@ export class ListagruposnominasComponent implements OnInit {
       periodicidadPagoId: {
         periodicidadPagoId: this.periodonomina
       }
-    };
-
-    this.nombre = util.quitarAcentosYEspacios(this.nombre);
+    }
 
 
     this.cargando = true;
@@ -252,7 +249,7 @@ export class ListagruposnominasComponent implements OnInit {
 
       }
 
-
+      
 
 
 
@@ -275,7 +272,7 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public traerModal(indice: any) {
-
+    
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -314,7 +311,7 @@ export class ListagruposnominasComponent implements OnInit {
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
 
 
-
+      
 
 
     });
@@ -323,7 +320,7 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-
+  
 
     switch (obj.type) {
 
@@ -338,7 +335,7 @@ export class ListagruposnominasComponent implements OnInit {
         break;
       case "desglosar":
         let item = obj.datos;
-
+        
         this.gruposnominaPrd.getGroupNomina(item.id).subscribe((datos) => {
           let temp = datos.datos;
           if (temp != undefined) {
@@ -363,7 +360,7 @@ export class ListagruposnominasComponent implements OnInit {
             new tabla("ajustarBaseGravableFaltantesISR", "Ajustar base gravable del mes de periodos ordinarios faltantes"),
             new tabla("maneraCalcularSubsidiodescripcion", "Calcular subsidio al empleo de manera:"),
             new tabla("pagoComplementarioDes", "Pago complementario")
-
+            
           ];
           item.pagoComplementarioDes = item.pagoComplementario ? "Si" : "No";
           item.nombrecuenta = item.cuentaBancoId?.nombreCuenta;

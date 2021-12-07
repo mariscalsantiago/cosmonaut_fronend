@@ -6,7 +6,6 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import {Utilidades} from '../../../../../shared/utilidades/utilidades';
 
 
 @Component({
@@ -35,7 +34,7 @@ export class PPPComponent implements OnInit {
   public grupoNomina: number = 0;
 
   /*
-
+  
     Resultados desplegados en un array
 
   */
@@ -73,7 +72,7 @@ export class PPPComponent implements OnInit {
   ngOnInit(): void {
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
-
+    
     let documento: any = document.defaultView;
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.tamanio = documento.innerWidth;
@@ -86,7 +85,7 @@ export class PPPComponent implements OnInit {
   }
 
   public procesarTabla(datos: any) {
-
+    
     this.arreglo = datos.datos;
     let columnas: Array<tabla> = [
       //new tabla("personaId", "ID", false, false, true),
@@ -122,7 +121,7 @@ export class PPPComponent implements OnInit {
 
 
   public seleccionarTodosBool(input: any) {
-
+    
     for (let item of this.arreglo)
         if(item.personaId){
         input.checkbox = input.checked;
@@ -134,7 +133,7 @@ export class PPPComponent implements OnInit {
 
   public guardarMultiseleccion() {
 
-
+    
     let mensaje = `¿Deseas descargar el layout con los empleados seleccionados?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
@@ -149,7 +148,7 @@ export class PPPComponent implements OnInit {
 
           }
         }
-        this.arregloUsuario = {
+        this.arregloUsuario = { 
           idEmpresa: this.idEmpresa,
           listaIdEmpleados: valor
         }
@@ -162,7 +161,7 @@ export class PPPComponent implements OnInit {
           const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
           const fileName = `${"Layaout PPP"}.xlsx`;
-
+  
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
           downloadLink.click();
@@ -192,8 +191,7 @@ export class PPPComponent implements OnInit {
 
 
   public filtrar() {
-
-    const util = new Utilidades();
+    
     this.cargando = true;
       let peticion = {
       numeroEmpleado: this.numeroEmpleado,
@@ -203,13 +201,10 @@ export class PPPComponent implements OnInit {
       grupoNomina: this.grupoNomina,
       idEmpresa: this.idEmpresa,
       idEmpresaActual: this.idEmpresaActual
-    };
-
-    this.numeroEmpleado = util.quitarAcentosYEspacios(this.numeroEmpleado);
-    this.nombreEmpleado = util.quitarAcentosYEspacios(this.nombreEmpleado);
-    this.primerApellidoEmpleado = util.quitarAcentosYEspacios(this.primerApellidoEmpleado);
-    this.segundoApellidoEmpleado = util.quitarAcentosYEspacios(this.segundoApellidoEmpleado);
-
+    }
+    
+    
+    
     this.reportesPrd.getFiltroDinamicoPPP(peticion).subscribe(datos => {
       this.arreglo = datos.datos;
 
@@ -222,7 +217,7 @@ export class PPPComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-
+    
 
     switch (obj.type) {
       case "filaseleccionada":

@@ -7,7 +7,6 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-import {Utilidades} from '../../../../shared/utilidades/utilidades';
 
 
 @Component({
@@ -57,7 +56,7 @@ export class IDSEComponent implements OnInit {
     public movimiento: number = 0;
     public esActivo : number = 0;
 
-
+    
     public modulo: string = "";
     public subModulo: string = "";
 
@@ -71,10 +70,10 @@ export class IDSEComponent implements OnInit {
   ngOnInit(): void {
 
     this.establecerPermisos();
-
+    
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
-
+    
     this.idEmpresa = this.usauriosSistemaPrd.getIdEmpresa();
 
     this.empresasPrd.getListarMovimientosIDSE().subscribe(datos => this.arregloMovimientos = datos.datos);
@@ -88,7 +87,7 @@ export class IDSEComponent implements OnInit {
   }
 
   public traerTabla(datos:any) {
-
+    
     this.arreglo = datos.datos;
     const columna: Array<tabla> = [
       new tabla("nombre", "Nombre completo del empleado"),
@@ -107,7 +106,7 @@ export class IDSEComponent implements OnInit {
       for(let item of this.arreglo){
         if(item.fecha_movimiento !== undefined ){
         item.fechamovimiento = new DatePipe("es-MX").transform(item.fecha_movimiento, 'dd-MMM-y')?.replace(".","");
-        item.sbcDecimal = item.sbc.toFixed(2);
+        item.sbcDecimal = item.sbc.toFixed(2);  
         item.salarioDiario = item.salario_diario.toFixed(2);
         item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
         item.esActivo = item.es_activo;
@@ -133,7 +132,8 @@ export class IDSEComponent implements OnInit {
 
   public filtrar() {
 
-    const util = new Utilidades();
+    
+
     this.cargando = true;
     this.objFiltro = {};
     if(this.fechaMovimiento == ''){
@@ -187,11 +187,7 @@ export class IDSEComponent implements OnInit {
           clienteId: this.idEmpresa,
           fechaMovimiento: this.fechaMovimiento
         };
-
-    this.nombre = util.quitarAcentosYEspacios(this.nombre);
-    this.apellidoPat = util.quitarAcentosYEspacios(this.apellidoPat);
-    this.apellidoMat = util.quitarAcentosYEspacios(this.apellidoMat);
-
+  
   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
     this.arreglo = datos.datos;
 
@@ -207,7 +203,7 @@ export class IDSEComponent implements OnInit {
   }
 
   public seleccionarTodosBool(input: any) {
-
+    
     for (let item of this.arreglo)
         if(item.personaId){
         input.checkbox = input.checked;
@@ -219,28 +215,28 @@ export class IDSEComponent implements OnInit {
       public descargaArchivoTxtItem(obj: any) {
 
         let mensaje = `¿Deseas descargar el archivo?`;
-
+    
         this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
           if (valor) {
-
+    
             let valor = [];
-
+  
             valor.push(obj.kardex_colaborador_id);
-
-            this.arregloIDSE = {
+    
+            this.arregloIDSE = { 
               idEmpresa: this.idEmpresa,
               idKardex: valor
             }
-
-
+    
+    
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
+    
             this.reportesPrd.getDescargaLayaoutIDSE(this.arregloIDSE).subscribe(archivo => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
               const downloadLink = document.createElement("a");
               const fileName = `${"Txt de envio IDSE"}.txt`;
-
+      
               downloadLink.href = linkSource;
               downloadLink.download = fileName;
               downloadLink.click();
@@ -252,21 +248,21 @@ export class IDSEComponent implements OnInit {
       public descargaAcuseRespuesta(obj: any) {
 
         let mensaje = `¿Deseas descargar el acuse de respuesta?`;
-
+    
         this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
           if (valor) {
-
+    
             let ID = obj.kardex_colaborador_id;
-
-
+  
+    
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
+    
             this.empresasPrd.getAcuseRespuesta(ID).subscribe(archivo => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
               const downloadLink = document.createElement("a");
               const fileName = `${"Acuse de respuesta"}.pdf`;
-
+      
               downloadLink.href = linkSource;
               downloadLink.download = fileName;
               downloadLink.click();
@@ -278,21 +274,21 @@ export class IDSEComponent implements OnInit {
       public descargaAcuseMovimiento(obj: any) {
 
         let mensaje = `¿Deseas descargar el acuse de envio?`;
-
+    
         this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
           if (valor) {
-
+    
             let ID = obj.kardex_colaborador_id;
-
-
+  
+    
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
+    
             this.empresasPrd.getAcuseMovimiento(ID).subscribe(archivo => {
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
               const downloadLink = document.createElement("a");
               const fileName = `${"Acuse de envio"}.pdf`;
-
+      
               downloadLink.href = linkSource;
               downloadLink.download = fileName;
               downloadLink.click();
@@ -300,9 +296,9 @@ export class IDSEComponent implements OnInit {
           }
         });
       }
-
+      
   public guardarMultiseleccion() {
-
+    
     let mensaje = `¿Deseas descargar el archivo de lo seleccionado?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
@@ -317,7 +313,7 @@ export class IDSEComponent implements OnInit {
 
           }
         }
-        this.arregloIDSE = {
+        this.arregloIDSE = { 
           idEmpresa: this.idEmpresa,
           idKardex: valor
         }
@@ -330,7 +326,7 @@ export class IDSEComponent implements OnInit {
           const linkSource = 'data:application/txt;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
           const fileName = `${"Layaout  IDSE"}.txt`;
-
+  
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
           downloadLink.click();
@@ -346,19 +342,19 @@ export class IDSEComponent implements OnInit {
             this.activarMultiseleccion = false;
           }
         });
-
+     
 
       }
     });
   }
-
+  
   public enviarIdse() {
-
+    
     let mensaje = `¿Deseas enviar estos registros a IDSE?`;
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
       if (valor) {
-
+        
         let valor = [];
         for (let item of this.arreglo) {
           this.registroPatronalIdse = item.registro_patronal;
@@ -375,7 +371,7 @@ export class IDSEComponent implements OnInit {
         }
 
         this.arregloEnvioIDSE = [];
-        this.arregloEnvioIDSE = {
+        this.arregloEnvioIDSE = { 
 
           clienteId: this.idEmpresa,
           registroPatronal: this.registroPatronalIdse,
@@ -386,9 +382,9 @@ export class IDSEComponent implements OnInit {
 
 
         console.log(JSON.stringify(this.arregloEnvioIDSE));
+        
 
-
-
+        
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
         this.empresasPrd.afiliaRecepcionIdse(this.arregloEnvioIDSE).subscribe(archivo => {
@@ -396,16 +392,16 @@ export class IDSEComponent implements OnInit {
           if(archivo.resultado){
               this.modalPrd.showMessageDialog(archivo.resultado,archivo.mensaje)
               .then(()=> {
-
+            
                   this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
                     this.arreglo = datos.datos;
-
+                
                     this.traerTabla({ datos: this.arreglo });
-
+                
                     this.cargando = false;
                   });
                   this.activarMultiseleccion = false;
-              });
+              });    
 
           }else{
 
@@ -413,42 +409,42 @@ export class IDSEComponent implements OnInit {
 
           }
         });
-
+     
 
       }
     });
   }
 
   public recibirTabla(obj: any) {
-
+    
 
     switch (obj.type) {
       case "eliminar":
-
+        
         let mensaje = "¿Estás seguro de eliminar el registro?";
         this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
 
         if(valor){
         let idKardex = obj.datos.kardex_colaborador_id;
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
+    
         this.empresasPrd.eliminarPPP(idKardex).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
           if(datos.resultado){
             this.filtrar();
           }
-
+          
         });
       }
-
+  
       });
 
       break;
       case "desglosar":
 
         let item = obj.datos;
-
+       
          let columnas: Array<tabla> = [
           new tabla("politica", "Política"),
           new tabla("registro_patronal", "Registro patronal"),
@@ -457,35 +453,35 @@ export class IDSEComponent implements OnInit {
           new tabla("sbcDecimal", "SBC"),
           //new tabla("salario_diario_integrado", "Salario diario integrado"),
 
-
+          
         ];
-
+       
 
 
         this.arreglotablaDesglose.columnas = columnas;
         this.arreglotablaDesglose.filas = item;
 
         item.cargandoDetalle = false;
-
+        
         break;
         case "filaseleccionada":
-
+          
           this.activarMultiseleccion = obj.datos;
-
+          
         break;
         case "txtImss":
-
+          
           this.descargaArchivoTxtItem(obj.datos);
           break;
         case "acuseRespuesta":
-
+          
           this.descargaAcuseRespuesta(obj.datos);
-          break;
+          break;     
         case "acuseMovimiento":
-
+          
           this.descargaAcuseMovimiento(obj.datos);
           break;
-
+        
     }
 
   }

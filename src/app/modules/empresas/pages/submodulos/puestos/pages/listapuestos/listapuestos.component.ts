@@ -4,7 +4,6 @@ import { tabla } from 'src/app/core/data/tabla';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { PuestosService } from '../services/puestos.service';
-import {Utilidades} from '../../../../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-listapuestos',
@@ -13,7 +12,7 @@ import {Utilidades} from '../../../../../../../shared/utilidades/utilidades';
 })
 export class ListapuestosComponent implements OnInit {
 
-
+  
   public insertar: boolean = false;
   public tamanio: number = 0;
   public cargando: Boolean = false;
@@ -81,7 +80,7 @@ export class ListapuestosComponent implements OnInit {
 
         this.arreglotabla.columnas = columnas;
         this.arreglotabla.filas = datos.datos;
-
+        
 
 
         this.cargando = false;
@@ -112,7 +111,7 @@ export class ListapuestosComponent implements OnInit {
 
   public eliminar(obj: any) {
 
-
+    
     this.objEnviar = {
       areaId: obj.areaId,
       descripcion: obj.descripcion,
@@ -122,16 +121,16 @@ export class ListapuestosComponent implements OnInit {
       centrocClienteId: obj.nclCentrocCliente.centrocClienteId
     }
 
-
+    
     const titulo = "¿Deseas eliminar el área?";
-
+    
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
 
       if(valor){
 
 
         this.puestosProd.eliminar(this.objEnviar).subscribe(datos => {
-
+         
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
           if (datos.resultado) {
             this.ngOnInit();
@@ -188,7 +187,7 @@ export class ListapuestosComponent implements OnInit {
       if (this.arreglodetalle !== undefined){
         for (let item of this.arreglodetalle){
           item.nombrecompleto = `${item.nombre == undefined ? '':item.nombre} ${item.apellidoPat == undefined ? '':item.apellidoPat} ${item.apellidoMat == undefined ? '':item.apellidoMat}`;
-
+          
         }
       }
     });
@@ -197,17 +196,15 @@ export class ListapuestosComponent implements OnInit {
 
   public filtrar() {
 
-    const util = new Utilidades();
+
     this.cargando = true;
+    
+    let peticion = 
 
-    let peticion =
-
-      {
+      { 
         nombreCorto: this.nombreCorto,
-        nclCentrocCliente: { centrocClienteId: this.id_empresa}
-      };
-
-    this.nombreCorto = util.quitarAcentosYEspacios(this.nombreCorto);
+        nclCentrocCliente:{ centrocClienteId: this.id_empresa}
+      }
 
     this.puestosProd.filtrar(peticion).subscribe(datos => {
       let columnas: Array<tabla> = [
@@ -234,7 +231,7 @@ export class ListapuestosComponent implements OnInit {
         break;
       case "columna":
           this.traerModal(obj.datos);
-        break;
+        break;  
       case "eliminar":
         this.eliminar(obj.datos);
         break;

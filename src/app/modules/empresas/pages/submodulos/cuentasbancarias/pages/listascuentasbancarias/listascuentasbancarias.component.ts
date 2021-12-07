@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { CuentasbancariasService } from '../../services/cuentasbancarias.service';
-import {Utilidades} from '../../../../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-listascuentasbancarias',
@@ -61,7 +60,7 @@ export class ListascuentasbancariasComponent implements OnInit {
 
     let documento: any = document.defaultView;
     this.tamanio = documento.innerWidth;
-
+    
     this.activateRouter.params.subscribe(datos => {
 
       this.id_empresa = datos["id"];
@@ -78,7 +77,7 @@ export class ListascuentasbancariasComponent implements OnInit {
           new tabla("activo", "Estatus de cuenta")
         ];
 
-
+        
 
         if(datos.datos !== undefined){
           datos.datos.forEach((part:any) => {
@@ -92,12 +91,12 @@ export class ListascuentasbancariasComponent implements OnInit {
              }
           });
         }
-
+      
 
         this.arreglotabla.columnas = columnas;
         this.arreglotabla.filas = datos.datos;
         this.cargando = false;
-
+        
       });
 
 
@@ -106,8 +105,7 @@ export class ListascuentasbancariasComponent implements OnInit {
   }
 
   public filtrar() {
-
-    const util = new Utilidades();
+    
     this.cargando = true;
     let peticion = {
 
@@ -120,10 +118,7 @@ export class ListascuentasbancariasComponent implements OnInit {
       nclCentrocCliente: {
       centrocClienteId: this.id_empresa
       }
-    };
-
-    this.clabe = util.quitarAcentosYEspacios(this.clabe);
-    this.numeroCuenta = util.quitarAcentosYEspacios(this.numeroCuenta);
+    }
 
       this.cuentasPrd.filtroCuentas(peticion).subscribe(datos => {
         let columnas: Array<tabla> = [
@@ -134,7 +129,7 @@ export class ListascuentasbancariasComponent implements OnInit {
           new tabla("activo", "Estatus de cuenta")
         ];
 
-
+        
 
         if(datos.datos !== undefined){
           datos.datos.forEach((part:any) => {
@@ -148,18 +143,18 @@ export class ListascuentasbancariasComponent implements OnInit {
              }
           });
         }
-
+      
 
         this.arreglotabla.columnas = columnas;
         this.arreglotabla.filas = datos.datos;
         this.cargando = false;
-    });
+    }); 
 
   }
 
 
   public establecerPermisos(){
-
+    
     this.esRegistrar = this.configuracionesPrd.getPermisos("Registrar");
     this.esConsultar = this.configuracionesPrd.getPermisos("Consultar");
     this.esEditar = this.configuracionesPrd.getPermisos("Editar");
@@ -167,7 +162,7 @@ export class ListascuentasbancariasComponent implements OnInit {
   }
 
   apagando(indice:number){
-
+    
     for(let x = 0;x < this.arreglo.length; x++){
       if(x == indice)
             continue;
@@ -177,7 +172,7 @@ export class ListascuentasbancariasComponent implements OnInit {
 
 
     this.arreglo[indice].seleccionado = !this.arreglo[indice].seleccionado;
-
+  
   }
 
   public verdetalle(obj: any) {
@@ -207,33 +202,33 @@ export class ListascuentasbancariasComponent implements OnInit {
 
             this.cuentasPrd.getCuentaBancariaByEmpresa(this.id_empresa).subscribe(datos => {
               let temp = datos.datos;
-
+              
               if (temp != undefined) {
-
+    
                 for (let llave in temp) {
                   item[llave] = temp[llave];
                 }
-
+    
               }
-
-
+    
+    
               let columnas: Array<tabla> = [
                 new tabla("descripcion", "Descripcion"),
                 new tabla("funcionCuenta", "Función de la cuenta "),
                 new tabla("numInformacion", "Número de información"),
                 new tabla("numSucursal", "Número de sucursal")
               ];
-
+              
               item.funcionCuenta = item.funcionCuentaId?.descripcion;
-
-
+    
+    
               this.arreglotablaDesglose.columnas = columnas;
               this.arreglotablaDesglose.filas = item;
-
+    
               item.cargandoDetalle = false;
-
+    
             });
-
+    
             break;
 
     }

@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
 import { ApoderadoLegalService } from '../services/apoderadoLegal.service';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
-import {Utilidades} from '../../../../../../../shared/utilidades/utilidades';
 
 @Component({
   selector: 'app-listaapoderadoLegal',
@@ -13,7 +12,7 @@ import {Utilidades} from '../../../../../../../shared/utilidades/utilidades';
 })
 export class ListaapoderadoLegalComponent implements OnInit {
 
-
+  
   public tamanio:number = 0;
   public cargando:Boolean = false;
   public id_empresa:number = 0;
@@ -49,7 +48,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
   }
 
   /*
-
+  
     Resultados desplegados en un array
 
   */
@@ -81,14 +80,14 @@ export class ListaapoderadoLegalComponent implements OnInit {
         }
       }
 
-
+      
 
 
       this.apoderadoProd.getAllUsersRep(peticion).subscribe(datos => {
           this.realizarTabla(datos);
       });
 
-
+  
 
     });
 
@@ -96,7 +95,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
 
 
 
-
+ 
 
 
 
@@ -108,10 +107,10 @@ export class ListaapoderadoLegalComponent implements OnInit {
   }
 
   public realizarTabla(datos:any){
-
+    
     this.arreglo = datos.datos;
 
-
+    
     let columnas:Array<tabla> = [
       new tabla("personaId","ID"),
       new tabla("nombre","Nombre"),
@@ -122,7 +121,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
       new tabla("poderNotarial","Poder notarial"),
       new tabla("esActivo","Estatus de apoderado")
     ];
-
+   
 
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
@@ -134,7 +133,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
         if(!item.esActivo){
         item.esActivo = 'Inactivo'
         }
-
+      
       }
     }
     this.arreglotabla.columnas = columnas;
@@ -155,7 +154,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
       new tabla("poderNotarial","Poder notarial"),
       new tabla("esActivo","Estatus de apoderado")
     ];
-
+   
 
     if(this.arreglo !== undefined){
       for(let item of this.arreglo){
@@ -168,7 +167,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
         if(!item.esActivo){
         item.esActivo = 'Inactivo'
         }
-
+      
       }
     }
     this.arreglotabla.columnas = columnas;
@@ -182,8 +181,7 @@ export class ListaapoderadoLegalComponent implements OnInit {
   }
 
   public filtrar() {
-
-    const util = new Utilidades();
+    
     this.cargando = true;
 
     let peticion = {
@@ -199,29 +197,23 @@ export class ListaapoderadoLegalComponent implements OnInit {
       tipoPersonaId: {
         tipoPersonaId: 6
       }
-    };
-
-    this.nombre = util.quitarAcentosYEspacios(this.nombre);
-    this.apellidoPaterno = util.quitarAcentosYEspacios(this.apellidoPaterno);
-    this.apellidoMaterno = util.quitarAcentosYEspacios(this.apellidoMaterno);
-    this.emailCorporativo = util.quitarAcentosYEspacios(this.emailCorporativo);
-    this.contactoInicialEmailPersonal = util.quitarAcentosYEspacios(this.contactoInicialEmailPersonal);
+    }
 
     this.cargando = true;
     this.apoderadoProd.filtrar(peticion).subscribe(datos => {
-
+      
       this.realizarTablaFiltro(datos);
     });
 
   }
 
   public recibirTabla(obj:any){
-
+    
     if(obj.type == "editar"){
       this.routerPrd.navigate(['empresa/detalle',this.id_empresa,'apoderadoLegal', 'modifica'],{state:{data:obj.datos}});
     }
   }
-
+  
 
 }
 
