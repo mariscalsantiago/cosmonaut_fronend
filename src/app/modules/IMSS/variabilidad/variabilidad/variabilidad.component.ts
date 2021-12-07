@@ -194,7 +194,7 @@ export class VariabilidadComponent implements OnInit {
 
 
     public aplicarPromedio(){
-
+      debugger;
       this.modalPrd.showMessageDialog(this.modalPrd.warning,"Aplicar promedio de variables","Este cálculo afectará a las futuras nóminas del bimestre y permanecerá sin ser editable.").then(valor =>{
         
           if(valor){
@@ -203,6 +203,7 @@ export class VariabilidadComponent implements OnInit {
               let objEnviar : any = 
               {
                 variabilidad: this.variabilidad
+                
               };
 
               this.modalPrd.showMessageDialog(this.modalPrd.loading);
@@ -211,12 +212,18 @@ export class VariabilidadComponent implements OnInit {
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
                 this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de variables completo").then(valor =>{
-                                                                            
-                  if (datos.resultado) {
-                      this.desgargarArchivo(undefined);
+                  if(valor){                                                            
+                      if (datos.resultado) {
+                          this.desgargarArchivo(undefined);
+                          this.variabilidad = 0;
+                          
+                      }
+                  }else{
                       this.cancelar();
+                      this.variabilidad = 0;
                   }
                   });
+                  
               });     
 
           }
@@ -365,7 +372,7 @@ export class VariabilidadComponent implements OnInit {
 
 
   public desgargarArchivo(obj:any) {
-    
+    debugger;
     if(this.variabilidad == 0){
       this.varibilidadID = obj.datos.variabilidadId;
     }else{
@@ -416,7 +423,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public cancelar(){
-    
+    debugger;
     this.recalcularPromedio = false;
     this.calcularPromedio = true;
     this.esREcalcular = false;
@@ -595,10 +602,11 @@ export class VariabilidadComponent implements OnInit {
           this.desgargarArchivo(obj);
          break;
       case "recalcular":
-          
+          debugger;
           this.esREcalcular = true;
           this.objRecalculo = obj.datos;
           this.myForm = this.createForm(this.objRecalculo);
+          this.variabilidad = this.objRecalculo.variabilidadId;
           this.listaVariabilidad = false;
           this.calcularPromedio = false;
           this.recalcularPromedio = true;
