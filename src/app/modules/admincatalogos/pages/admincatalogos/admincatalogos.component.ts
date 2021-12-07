@@ -6,6 +6,7 @@ import { tabla } from 'src/app/core/data/tabla';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { AdminCatalogosService } from '../../services/admincatalogos.service';
+import {Utilidades} from '../../../../shared/utilidades/utilidades';
 
 
 
@@ -41,7 +42,7 @@ export class AdminCatalogosComponent implements OnInit {
 
 
   /*
-  
+
     Resultados desplegados en un array
 
   */
@@ -73,22 +74,22 @@ export class AdminCatalogosComponent implements OnInit {
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
     this.establecerPermisos();
-    
+
     let documento: any = document.defaultView;
 
     this.tamanio = documento.innerWidth;
     this.cargando = true;
-    
+
       this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => {
       this.procesarTabla(datos);
     });
 
-    
+
 
   }
 
   public procesarTablaFiltro(obj:any) {
-    
+
     this.arregloFiltro= obj;
     let columnas: Array<tabla> = [
       new tabla("descripcion", "Catálogo")
@@ -112,9 +113,9 @@ export class AdminCatalogosComponent implements OnInit {
   }
 
   public procesarTabla(obj:any) {
-    
+
     this.arreglo = obj.datos;
-    
+
     let columnas: Array<tabla> = [
       new tabla("descripcion", "Catálogo")
     ]
@@ -145,39 +146,32 @@ export class AdminCatalogosComponent implements OnInit {
 
 
   public verdetalle(obj: any) {
-      
+
       this.routerPrd.navigate(['admincatalogos', 'detalle_admincatalogos', "detalle"],{state:{data:obj}});
   }
 
 
   public filtrar() {
-    
-    
     this.cargando = true;
-    
     this.adminCatalogosPrd.getListaCatalgos(true).subscribe(datos => {
-      
-      if(this.id_catalogo !== "0"){
+      if (this.id_catalogo !== "0"){
       this.arregloFiltro = datos.datos;
       this.filtroCatalogo();
       this.procesarTablaFiltro(this.objFiltro);
       }else{
-
-      this.procesarTabla(datos);
+        this.procesarTabla(datos);
       }
-
     });
+
+
   }
 
   public filtroCatalogo(){
-
-    for(let item of this.arregloFiltro){
-      if(item.listaCatalogosId == this.id_catalogo){
-
+    for (let item of this.arregloFiltro){
+      if (item.listaCatalogosId == this.id_catalogo){
         this.objFiltro = [
-            item
-        
-      ]
+          item
+        ];
       }
     }
   }
