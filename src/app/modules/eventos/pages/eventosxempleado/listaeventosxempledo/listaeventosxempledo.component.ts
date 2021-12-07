@@ -87,8 +87,8 @@ export class ListaeventosxempledoComponent implements OnInit {
       new tabla("nombrecompleado","Nombre del empleado"),
       new tabla("numeroEmpleado","Número de empleado",false,false,true),
       new tabla("fechaInicio","Fecha de inicio",false,false,true),
-      new tabla("unidadM","Unidad de Medida",false,false,true),
-      new tabla("cantidad","Cantidad",false,false,true)
+      new tabla("cantidad","Cantidad",false,false,true),
+      new tabla("unidadM","Unidad de Medida",false,false,true)
       
     ];
 
@@ -180,8 +180,8 @@ export class ListaeventosxempledoComponent implements OnInit {
                     new tabla("nombrecompleado","Nombre del empleado"),
                     new tabla("numeroEmpleado","Número de empleado",false,false,true),
                     new tabla("fechaInicio","Fecha de inicio",false,false,true),
-                    new tabla("unidad","Unidad de Medida",false,false,true),
-                    new tabla("tiempo","Tiempo",false,false,true),
+                    new tabla("tiempo","Cantidad",false,false,true),
+                    new tabla("unidad","Unidad de Medida",false,false,true)
                     
                   ],
                   filas:this.arreglo

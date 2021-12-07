@@ -244,9 +244,10 @@ export class VariabilidadComponent implements OnInit {
   
       if(this.arregloListaEmpleadosPromedio !== undefined){
         for(let item of this.arregloListaEmpleadosPromedio){
-          item.nombreCompleto = item.calculoEmpleadoVariabilidad.nombre + " " + item.calculoEmpleadoVariabilidad.apellidoPat+" "+(item.calculoEmpleadoVariabilidad.apellidoMat == undefined ? "":item.calculoEmpleadoVariabilidad.apellidoMat);
-          item.diasLaboradosBimestre = item.calculoEmpleadoVariabilidad.diasLaboradosBimestre;
-          item.diferencia = item.calculoEmpleadoVariabilidad.diferencia.toFixed(2);
+          item.nombreCompleto = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
+          item.diasLaboradosBimestre = item.diasLaboradosBimestre;
+          //item.diferencia = item.diferencia.toFixed(2);
+          item.diferencia = item.diferencia;
 
         }
       }
@@ -491,7 +492,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
   public calculoVariabilidad() {
-    
+    debugger;
     if (this.myForm.invalid) {
 
       this.modalPrd.showMessageDialog(this.modalPrd.error);
