@@ -71,6 +71,7 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
 
 
   public traerListaNomina() {
+    debugger;
 
     this.cargando = true;
     let objenviar =
@@ -90,6 +91,11 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
           item.mensajePensando = item.nominaOrdinaria.estadoProcesoNominaId == 4 ? item.nominaOrdinaria.procesoNominaObservaciones : "";
           item.estadoPensando = item.nominaOrdinaria.estadoProcesoNominaId == 1 || item.nominaOrdinaria.estadoProcesoNominaId == 2 || item.nominaOrdinaria.estadoProcesoNominaId == 4;
 
+          if(item.nominaOrdinaria?.estadoActualNomina !==	"Calculada"){
+            item.eliminarBut = false;
+          }else{
+            item.eliminarBut = true;
+          }
         }
       }
 

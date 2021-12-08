@@ -250,12 +250,13 @@ export class PagarComponent implements OnInit {
           
 
           this.nominaOrdinariaPrd.dispersarOtrosTiposMetodosPago(objEnviar).subscribe(datos => {
+            debugger;
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
               if(datos.resultado){
                 this.continuarTitulo = "Continuar";
                 this.ngOnInit();
-                this.ocultarEliminar = Boolean(this.nominaSeleccionada[this.llave].estadoActualNomina = "PAGADA");
-                
+                this.nominaSeleccionada[this.llave].estadoActualNomina = "PAGADA";
+                this.ocultarEliminar = this.nominaSeleccionada[this.llave].estadoActualNomina !== "Calculada" && this.nominaSeleccionada[this.llave].estadoActualNomina !== "Nueva";
               }
             });
           });
