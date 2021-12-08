@@ -157,6 +157,7 @@ export class InformacionbasicaComponent implements OnInit {
       if (valor) {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
        
+        debugger;
         if(!Boolean(this.datosPersona[0].tieneContrato)){
           this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.myform.controls.emailCorporativo.value)).subscribe(datos =>{
             if(Boolean(datos.datos)){

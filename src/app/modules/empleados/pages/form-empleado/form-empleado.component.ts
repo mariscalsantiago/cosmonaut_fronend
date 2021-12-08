@@ -90,11 +90,8 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[3].form = true;
         this.activado[3].seleccionado = true;
         this.tabsEnviar[3] = history.state.contrato;
+        this.tabsEnviar[0].tieneContrato = true;
       }
-
-
-      this.tabsEnviar[0].tieneContrato = true;
-
       console.log("Siempre se ejecuta padre",this.datosPersona);
     }
   }
@@ -189,9 +186,9 @@ export class FormEmpleadoComponent implements OnInit {
           this.activado[3].seleccionado = false;
           this.activado[3].form = false;
 
-          this.activado[0].tab = false;
-          this.activado[1].tab = false;
-          this.activado[2].tab = false;
+          // this.activado[0].tab = false;
+          // this.activado[1].tab = false;
+          // this.activado[2].tab = false;
           //this.activado[3].tab = false;
 
           this.ocultarempleada = false;
