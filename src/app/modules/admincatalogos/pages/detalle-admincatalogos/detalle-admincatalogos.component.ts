@@ -234,7 +234,7 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("descripcion", "Descripción"),
       new tabla("clave", "Clave/Id"),
-      new tabla("esActivo", "Estatus")
+      new tabla("activo", "Estatus ")
     ]
 
 
@@ -245,7 +245,15 @@ export class DetalleAdminCatalogosComponent implements OnInit {
     };
 
     if(this.arreglo !== undefined){
+
     for(let item of this.arreglo){
+      if (item.esActivo) {
+        item.activo = 'Activo'
+      }
+      if (!item.esActivo) {
+        item.activo = 'Inactivo'
+      }
+
       if(item.tipoValorReferenciaId?.descripcion !== undefined){
         item.descripcion = item.tipoValorReferenciaId?.descripcion;
       }
