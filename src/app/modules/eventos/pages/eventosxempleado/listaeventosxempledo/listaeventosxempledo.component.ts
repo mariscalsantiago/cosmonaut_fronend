@@ -104,32 +104,38 @@ export class ListaeventosxempledoComponent implements OnInit {
             item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
             item.fechaAplicacion = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
             item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");
-            if(item.unidadMedidaId !== undefined){
-              if(item.unidadMedidaId == 1){
-                item.unidadM = 'Horas';
-              }
-              else if(item.unidadMedidaId == 2 || item.duracion == 'duracion'){
-                item.unidadM = 'Días';
-              }
-              else if(item.unidadMedidaId == 3){
+            if(item.tipoIncidenciaId == 5){
+                if(item.unidadMedidaId !== undefined){
+                    if(item.unidadMedidaId == 2){
+                      item.unidadM = 'Días';
+                      item.cantidad = item.heTiempo;
+                    }
+                    else if(item.unidadMedidaId == 3){
+                      item.unidadM = 'Monto';
+                      item.cantidad = item.monto;
+                    }
+                }  
+            }   
+            else if(item.tipoIncidenciaId == 8){
                 item.unidadM = 'Monto';
-              }
-              if(item.heTiempo !== undefined){
-                item.cantidad = item.heTiempo;
-              }
-              if(item.monto !== undefined){
                 item.cantidad = item.monto;
+            }  
+            
+            else if(item.tipoIncidenciaId == 13 || item.tipoIncidenciaId == 14){
+              if(item.unidadMedidaId !== undefined){
+                if(item.unidadMedidaId == 1){
+                  item.unidadM = 'Horas';
+                  item.cantidad = item.heTiempo;
+                }
+                else if(item.unidadMedidaId == 3){
+                  item.unidadM = 'Monto';
+                  item.cantidad = item.monto;
+                }
               }  
-            }
-            else if(item.duracion !== undefined){
+            }else{
               item.unidadM = 'Días';
               item.cantidad = item.duracion;
-            }
-            else if(item.monto !== undefined){
-              item.unidadM = 'Monto';
-              item.cantidad = item.monto;
-            }
-            
+            }           
         }
     }
 
