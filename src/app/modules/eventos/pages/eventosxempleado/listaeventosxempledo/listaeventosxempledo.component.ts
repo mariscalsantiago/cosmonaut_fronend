@@ -81,7 +81,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public generandoTabla(){
-    debugger;
+    
     let columnas:Array<tabla> = [
       new tabla("incidenciaDescripcion","Tipo de evento"),
       new tabla("nombrecompleado","Nombre del empleado"),
@@ -200,7 +200,7 @@ export class ListaeventosxempledoComponent implements OnInit {
   }
 
   public filtrar(){
-    debugger;
+    
     this.objFiltro = [];
     this.catalogosPrd.getTipoIncidencia(true).subscribe(datos => {this.arregloIncidenciaTipo = datos.datos;});
 

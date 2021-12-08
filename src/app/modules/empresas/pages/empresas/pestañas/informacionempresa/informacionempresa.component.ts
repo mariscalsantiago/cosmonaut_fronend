@@ -45,7 +45,7 @@ export class InformacionempresaComponent implements OnInit {
     private authUsuariosPrd: UsuariosauthService, private usuariosSistemaPrd: UsuarioSistemaService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     
     this.obj = this.datos.empresa;
 
@@ -241,7 +241,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public enviarFormulario() {
-    debugger;
+    
     if (this.myform.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       Object.values(this.myform.controls).forEach(control => {
@@ -310,7 +310,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public guardarCambios() {
-    debugger;
+    
     let obj = this.myform.getRawValue();
     if (!Boolean(obj.key) && !Boolean(obj.cer)) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer y .key, favor de elegir archivos de certificado ");

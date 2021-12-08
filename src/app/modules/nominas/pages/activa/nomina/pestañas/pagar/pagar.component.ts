@@ -211,7 +211,7 @@ export class PagarComponent implements OnInit {
   }
 
   public dispersar() {
-    debugger;
+    
     if (this.continuarTitulo.includes("Continuar")) {
       this.salida.emit({ type: "dispersar" });
       return;

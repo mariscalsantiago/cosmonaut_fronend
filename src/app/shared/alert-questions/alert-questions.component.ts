@@ -49,7 +49,7 @@ export class AlertQuestionsComponent implements OnInit,OnChanges {
 
 
   public cancelar(){
-    debugger;
+    
     this.content.style.overflow = "auto";
     this.eventoFunciones.emit(false);
   }
