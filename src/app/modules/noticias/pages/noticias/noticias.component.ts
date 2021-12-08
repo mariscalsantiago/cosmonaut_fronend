@@ -162,14 +162,8 @@ export class NoticiasComponent implements OnInit {
       filas:[]
     }
 
-    if(this.arreglo !== undefined){
-      for(let item of this.arreglo){
-        if(item.fechaInicio !== undefined ){
-        item.fechaInicio = new DatePipe("es-MX").transform(item.fechaInicio, 'dd-MMM-y')?.replace(".","");
-        }
-        if(item.fechaFin !== undefined ){
-          item.fechaFin = new DatePipe("es-MX").transform(item.fechaFin, 'dd-MMM-y')?.replace(".","");
-          }
+    if(this.arreglo !== undefined) {
+      for(let item of this.arreglo) {
         item.__categoriaFormato = item.categoriaId.descripcion; 
       }
     }    
