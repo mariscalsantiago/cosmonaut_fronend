@@ -37,8 +37,11 @@
                     <div class=" col-12 ">
                         <label> Nombre del empleado: <span class="letramenos">{{evento.nombre}} {{evento.apellidoPaterno}} {{evento.apellidoMaterno == undefined ? "":evento.apellidoMaterno}}</span></label>
                     </div>
-                    <div *ngIf="evento.tipoIncidenciaId !== 5 && evento.tipoIncidenciaId !== 8 && evento.tipoIncidenciaId !== 13 && evento.tipoIncidenciaId !== 14" class=" col-12 ">
+                    <div *ngIf="evento.duracion !== 0 && evento.tipoIncidenciaId !== 5 && evento.tipoIncidenciaId !== 8 && evento.tipoIncidenciaId !== 13 && evento.tipoIncidenciaId !== 14" class=" col-12 ">
                         <label> Días: <span class="letramenos">{{evento.duracion}}</span></label>
+                    </div>
+                    <div *ngIf="evento.duracion == 0 && evento.tipoIncidenciaId !== 5 && evento.tipoIncidenciaId !== 8 && evento.tipoIncidenciaId !== 13 && evento.tipoIncidenciaId !== 14" class=" col-12 ">
+                        <label> Días: <span class="letramenos">{{evento.heTiempo}}</span></label>
                     </div>
                     <div class=" col-12 ">
                         <label>Fecha de inicio: <span class="letramenos">{{evento.fechaInicio}}</span></label>
@@ -49,8 +52,11 @@
                     <div class=" col-12 ">
                         <label>Fecha de aplicación: <span class="letramenos">{{evento.fechaAplicacion}}</span></label>
                     </div>
-                    <div *ngIf="evento.tipoIncidenciaId == 5" class=" col-12 ">
+                    <div *ngIf="evento.tipoIncidenciaId == 5 && evento.unidadMedidaId !== undefined" class=" col-12 ">
                         <label>{{evento.unidadMedidaId == 3?'Monto: ':'Días: '}}<span class="letramenos">{{evento.unidadMedidaId == 3? '$' + evento.monto:evento.heTiempo}}</span></label>
+                    </div>
+                    <div *ngIf="evento.tipoIncidenciaId == 5 && evento.unidadMedidaId == undefined" class=" col-12 ">
+                        <label>Días:<span class="letramenos">{{evento.duracion}}</span></label>
                     </div>
                     <div *ngIf="evento.tipoIncidenciaId == 8" class=" col-12 ">
                         <label>Monto:  <span class="letramenos">{{'$' + evento.monto}}</span></label>

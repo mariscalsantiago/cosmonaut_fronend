@@ -662,8 +662,6 @@ export class DetallejornadalaboralComponent implements OnInit {
           this.hrSalida = Number(horaSalida.substring(0, 2));
           this.myForm.controls.horaInicioComida.enable();
         }
-      //this.myForm.controls.horaInicioComida.setValue('');
-      //this.myForm.controls.horaFinComida.setValue('');  
       this.myForm.controls.horaSalida.enable();
       this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();
