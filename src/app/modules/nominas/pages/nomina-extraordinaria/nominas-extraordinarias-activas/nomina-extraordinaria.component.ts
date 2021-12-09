@@ -88,6 +88,12 @@ export class NominaExtraordinariaComponent implements OnInit, OnDestroy {
           item.esConcluir = item.nominaExtraordinaria?.estadoActualNomina === 'Pagada' && item.nominaExtraordinaria?.estadoActualNomina === 'Timbrada';
           item.mensajePensando = item.nominaExtraordinaria.estadoProcesoNominaId == 4 ? item.nominaExtraordinaria.procesoNominaObservaciones : "";
           item.estadoPensando = item.nominaExtraordinaria.estadoProcesoNominaId == 1 || item.nominaExtraordinaria.estadoProcesoNominaId == 2 || item.nominaExtraordinaria.estadoProcesoNominaId == 4;
+
+          if(item.nominaExtraordinaria?.estadoActualNomina !==	"Calculada" && item.nominaExtraordinaria?.estadoActualNomina !==	"Nueva"){
+            item.eliminarBut = false;
+          }else{
+            item.eliminarBut = true;
+          }
         }
       }
     })
