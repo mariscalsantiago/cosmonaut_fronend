@@ -157,6 +157,7 @@ export class InformacionbasicaComponent implements OnInit {
       if (valor) {
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
        
+        debugger;
         if(!Boolean(this.datosPersona[0].tieneContrato)){
           this.usuarioSistemaPrd.getInformacionAdicionalUser(encodeURIComponent(this.myform.controls.emailCorporativo.value)).subscribe(datos =>{
             if(Boolean(datos.datos)){
@@ -177,7 +178,7 @@ export class InformacionbasicaComponent implements OnInit {
 
   public guardarCambios(cambiaUsuarioSistema:boolean = false) {
     
-    debugger;
+    
     let obj = this.myform.getRawValue();
     obj.fechaNacimiento = new DatePipe("es-MX").transform(new Date(obj.fechaNacimiento), 'yyyy-MM-dd');
 
@@ -274,7 +275,7 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public cambiaCurp(){
-    debugger;
+    
     if(this.myform.controls.curp.valid){
       const datePipe = new DatePipe("es-MX");
         let genero = this.myform.value.curp.slice(10,11);

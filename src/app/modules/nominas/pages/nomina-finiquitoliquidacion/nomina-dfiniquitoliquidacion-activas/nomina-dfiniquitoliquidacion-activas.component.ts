@@ -68,6 +68,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
   }
 
   public traerListaNomina() {
+    debugger;
     this.cargando = true;
     let objenviar =
     {
@@ -85,7 +86,12 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
           item.esConcluir = item.nominaLiquidacion?.estadoActualNomina === 'Pagada' && item.nominaLiquidacion?.estadoActualNomina === 'Timbrada';
           item.mensajePensando = item.nominaLiquidacion.estadoProcesoNominaId == 4 ? item.nominaLiquidacion.procesoNominaObservaciones : "";
           item.estadoPensando = item.nominaLiquidacion.estadoProcesoNominaId == 1 || item.nominaLiquidacion.estadoProcesoNominaId == 2 || item.nominaLiquidacion.estadoProcesoNominaId == 4;
-        
+          
+          if(item.nominaLiquidacion?.estadoActualNomina !==	"Calculada" && item.nominaLiquidacion?.estadoActualNomina !==	"Nueva"){
+            item.eliminarBut = false;
+          }else{
+            item.eliminarBut = true;
+          }
         }
       }
     });

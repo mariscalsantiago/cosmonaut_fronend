@@ -35,13 +35,43 @@ export class ServerSentEventService {
   }
 
   public showNotification(mensaje:string,exitoso:boolean):Observable<boolean>{
-    let mm:any = document.getElementById("ventanaEmergente");
-    mm.style.display = "block";
-    let titulo =  mm.getElementsByClassName("contenido");
-    titulo[0].innerText=mensaje;
-
+    let ventanaemergente:any = document.getElementById("ventanaEmergente");
+    ventanaemergente.style.display = "block";
+    let contenido =  ventanaemergente.getElementsByClassName("contenido");
     let cuerpo:any = document.getElementById("cuerpoventanaEmergente");
     cuerpo.className= "cuerpo slide-in-blurred-top "+(exitoso?'exitoso':'error');
+    let aux = mensaje.split("\n");
+    let mensaje1 = aux[0];
+    let mensaje2 = aux[1];
+    let p1 = document.createElement("span");
+    p1.innerText = mensaje1;
+    let p2 = document.createElement("span");
+    p2.innerText = mensaje2;
+
+    p1.className = "direccionderecha";
+    p2.className ="operacioneexitosa";
+    let tituloPrincipal =ventanaemergente.getElementsByClassName("titulo");
+    tituloPrincipal[0].className="direccionizquierda titulo";
+    if(exitoso){
+      let imagen:any = document.getElementById("errorimg");
+      imagen.style.display = "none";
+    }else{
+      tituloPrincipal[0].style.color = "gray";
+      tituloPrincipal[0].innerText = "Resultado de cálculo";
+      let imagen:any = document.getElementById("successimg");
+      imagen.style.display = "none";
+      p1.style.color = "gray";
+      p2.style.color = "gray";
+    }
+
+    let existeElemento = contenido[0].getElementsByTagName("span");
+    debugger;
+    if(existeElemento.length != 0) {
+      contenido[0].innerHTML = ""
+    };
+
+    contenido[0].appendChild(p1);
+    contenido[0].appendChild(p2);
     return this.verificador;
   }
 

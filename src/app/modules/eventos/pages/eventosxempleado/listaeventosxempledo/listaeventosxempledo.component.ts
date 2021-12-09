@@ -87,8 +87,9 @@ export class ListaeventosxempledoComponent implements OnInit {
       new tabla("nombrecompleado","Nombre del empleado"),
       new tabla("numeroEmpleado","Número de empleado",false,false,true),
       new tabla("fechaInicio","Fecha de inicio",false,false,true),
-      new tabla("tiempo","Tiempo",false,false,true),
-      //new tabla("unidad","Unidad de Medida")
+      new tabla("cantidad","Cantidad",false,false,true),
+      new tabla("unidadM","Unidad de Medida",false,false,true)
+      
     ];
 
     this.arreglotabla = {
@@ -103,12 +104,38 @@ export class ListaeventosxempledoComponent implements OnInit {
             item.fechaInicio = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
             item.fechaAplicacion = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
             item.fechaFin = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");
-            if(item.unidadMedidaId !== undefined){
-              if(item.unidadMedidaId == 1){item.unidad = 'Hora'}
-              else if(item.unidadMedidaId == 2){item.unidad = 'Día'}
-              else if(item.unidadMedidaId == 3){item.unidad = 'Monto'}
-            }
+            if(item.tipoIncidenciaId == 5){
+                if(item.unidadMedidaId !== undefined){
+                    if(item.unidadMedidaId == 2){
+                      item.unidadM = 'Días';
+                      item.cantidad = item.heTiempo;
+                    }
+                    else if(item.unidadMedidaId == 3){
+                      item.unidadM = 'Monto';
+                      item.cantidad = item.monto;
+                    }
+                }  
+            }   
+            else if(item.tipoIncidenciaId == 8){
+                item.unidadM = 'Monto';
+                item.cantidad = item.monto;
+            }  
             
+            else if(item.tipoIncidenciaId == 13 || item.tipoIncidenciaId == 14){
+              if(item.unidadMedidaId !== undefined){
+                if(item.unidadMedidaId == 1){
+                  item.unidadM = 'Horas';
+                  item.cantidad = item.heTiempo;
+                }
+                else if(item.unidadMedidaId == 3){
+                  item.unidadM = 'Monto';
+                  item.cantidad = item.monto;
+                }
+              }  
+            }else{
+              item.unidadM = 'Días';
+              item.cantidad = item.duracion;
+            }           
         }
     }
 
@@ -159,8 +186,9 @@ export class ListaeventosxempledoComponent implements OnInit {
                     new tabla("nombrecompleado","Nombre del empleado"),
                     new tabla("numeroEmpleado","Número de empleado",false,false,true),
                     new tabla("fechaInicio","Fecha de inicio",false,false,true),
-                    new tabla("tiempo","Tiempo",false,false,true),
-                    new tabla("unidad","Unidad de Medida")
+                    new tabla("tiempo","Cantidad",false,false,true),
+                    new tabla("unidad","Unidad de Medida",false,false,true)
+                    
                   ],
                   filas:this.arreglo
                 }

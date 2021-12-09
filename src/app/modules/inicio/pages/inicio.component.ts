@@ -63,7 +63,8 @@ export class InicioComponent implements OnInit   {
     private serviceNoticia: NoticiasService,
     private usuariosSistemaPrd: UsuarioSistemaService,
     public ContenidoComponent: ContenidoComponent,
-    public configuracionPrd: ConfiguracionesService) { }
+    public configuracionPrd: ConfiguracionesService,
+    private notificaciones:ServerSentEventService) { }
 
 
   ngOnInit(): void {
@@ -260,5 +261,8 @@ export class InicioComponent implements OnInit   {
 
     this.reportesPrd.crearArchivo(base64,"pocoyo","xlsx");
   }
+
+
+  
 
 }

@@ -23,14 +23,15 @@
 <div class="row float-right">
 
     <div *ngIf="!ocultarEliminar">
-        <a (click)="recalcular()" *ngIf="esEliminar" style="color:#56dfd4;width: fit-content;" class="dropdown-toggle">
-            <i aria-hidden="true" class="fas fa-sync mr-3" style="font-size: 17px; color: rgb(7 165 156); text-decoration-line: underline;">&nbsp;Recalcular</i></a>
+        <a (click)="recalcular()" *ngIf="esEliminar"  class="dropdown-toggle color-hiperlink">
+            <i aria-hidden="true" class="fas fa-sync mr-3"></i><span style="margin-left: -12px;">Recalcular</span></a>
     </div>
     <div *ngIf="esDescargar">
-        <a (click)="descargarNomina()"><small *ngIf="!cargandoIcon"><i aria-hidden="true" style="font-size: 17px; color: rgb(7 165 156); text-decoration-line: underline;" class="fas fa-download">&nbsp;Descargar nómina</i> </small>
+        <a class="color-hiperlink" (click)="descargarNomina()"><small *ngIf="!cargandoIcon"><i aria-hidden="true" style="margin-left: 2px;" class="fas fa-download"></i></small>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
+            <span>Descargar nómina</span>
         </a>
     </div>
 </div>

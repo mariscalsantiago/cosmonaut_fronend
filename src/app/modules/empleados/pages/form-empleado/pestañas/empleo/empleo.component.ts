@@ -1012,6 +1012,7 @@ export class EmpleoComponent implements OnInit {
   
           this.usuariosAuth.guardar(objAuthEnviar).subscribe(vv => {
             if (!vv.resultado) {
+              console.log(" this.usuariosAuth.guardar(objAuthEnviar)",vv);
               this.modalPrd.showMessageDialog(vv.resultado, vv.mensaje);
             }
           });

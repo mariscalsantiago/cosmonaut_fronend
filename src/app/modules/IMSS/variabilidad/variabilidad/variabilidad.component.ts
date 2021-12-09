@@ -194,7 +194,7 @@ export class VariabilidadComponent implements OnInit {
 
 
     public aplicarPromedio(){
-
+      
       this.modalPrd.showMessageDialog(this.modalPrd.warning,"Aplicar promedio de variables","Este cálculo afectará a las futuras nóminas del bimestre y permanecerá sin ser editable.").then(valor =>{
         
           if(valor){
@@ -203,6 +203,7 @@ export class VariabilidadComponent implements OnInit {
               let objEnviar : any = 
               {
                 variabilidad: this.variabilidad
+                
               };
 
               this.modalPrd.showMessageDialog(this.modalPrd.loading);
@@ -211,12 +212,18 @@ export class VariabilidadComponent implements OnInit {
                 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     
                 this.modalPrd.showMessageDialog(this.modalPrd.variabilidad,"Proceso de promedio de variables completo").then(valor =>{
-                                                                            
-                  if (datos.resultado) {
-                      this.desgargarArchivo(undefined);
+                  if(valor){                                                            
+                      if (datos.resultado) {
+                          this.desgargarArchivo(undefined);
+                          this.variabilidad = 0;
+                          
+                      }
+                  }else{
                       this.cancelar();
+                      this.variabilidad = 0;
                   }
                   });
+                  
               });     
 
           }
@@ -244,9 +251,10 @@ export class VariabilidadComponent implements OnInit {
   
       if(this.arregloListaEmpleadosPromedio !== undefined){
         for(let item of this.arregloListaEmpleadosPromedio){
-          item.nombreCompleto = item.calculoEmpleadoVariabilidad.nombre + " " + item.calculoEmpleadoVariabilidad.apellidoPat+" "+(item.calculoEmpleadoVariabilidad.apellidoMat == undefined ? "":item.calculoEmpleadoVariabilidad.apellidoMat);
-          item.diasLaboradosBimestre = item.calculoEmpleadoVariabilidad.diasLaboradosBimestre;
-          item.diferencia = item.calculoEmpleadoVariabilidad.diferencia.toFixed(2);
+          item.nombreCompleto = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
+          item.diasLaboradosBimestre = item.diasLaboradosBimestre;
+          //item.diferencia = item.diferencia.toFixed(2);
+          item.diferencia = item.diferencia;
 
         }
       }
@@ -598,6 +606,7 @@ export class VariabilidadComponent implements OnInit {
           this.esREcalcular = true;
           this.objRecalculo = obj.datos;
           this.myForm = this.createForm(this.objRecalculo);
+          this.variabilidad = this.objRecalculo.variabilidadId;
           this.listaVariabilidad = false;
           this.calcularPromedio = false;
           this.recalcularPromedio = true;

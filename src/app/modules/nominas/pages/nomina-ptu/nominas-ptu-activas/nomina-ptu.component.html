@@ -29,7 +29,7 @@
     <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo; let indice = index;">
         <div class="col-6 mt-3">
             <article>{{item.nominaPtu?.nombreNomina}}
-                <article>Período de {{item.nominaPtu?.fechaInicio | date:'dd MMM'}} al {{item.nominaPtu?.fechaFin | date:'dd MMM'}}</article>
+                <article>Período de {{item.nominaPtu?.fechaInicio | date:'dd MMMM'}} al {{item.nominaPtu?.fechaFin | date:'dd MMMM'}}</article>
                 <article>Clave: {{item.nominaPtu?.clavePeriodo}}</article>
             </article>
 
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            <a *ngIf="esEliminar" (click)="eliminar(item.nominaPtu,indice)" style="color:#56dfd4;text-decoration: underline;width: fit-content;" class="dropdown-toggle mt-3">
+            <a *ngIf="esEliminar && item.eliminarBut" (click)="eliminar(item.nominaPtu,indice)" style="color:#56dfd4;text-decoration: underline;width: fit-content;" class="dropdown-toggle mt-3">
                 <i aria-hidden="true" style="background-color: #56dfd4 !important;" class="icon_eliminar "></i><span> </span>   Eliminar
             </a>
 

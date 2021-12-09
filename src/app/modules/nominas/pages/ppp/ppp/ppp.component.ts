@@ -160,7 +160,7 @@ export class PPPComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           const linkSource = 'data:application/xlsx;base64,' + `${archivo.datos}\n`;
           const downloadLink = document.createElement("a");
-          const fileName = `${"Layaout PPP"}.xlsx`;
+          const fileName = `${"Layout pago complementario"}.xlsx`;
   
           downloadLink.href = linkSource;
           downloadLink.download = fileName;

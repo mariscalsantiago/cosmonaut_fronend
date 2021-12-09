@@ -49,6 +49,7 @@ export class AlertQuestionsComponent implements OnInit,OnChanges {
 
 
   public cancelar(){
+    
     this.content.style.overflow = "auto";
     this.eventoFunciones.emit(false);
   }

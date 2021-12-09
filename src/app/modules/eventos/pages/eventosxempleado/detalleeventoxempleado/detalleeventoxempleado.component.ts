@@ -161,11 +161,14 @@ export class DetalleeventoxempleadoComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
     }
-    let obj = this.myForm.getRawValue();
-    if(this.arregloFechas.length < Number(obj.duracion)){
-      this.modalPrd.showMessageDialog(this.modalPrd.error,"El número de días no coincide con las fechas seleccionadas");
-      return;
 
+    if(this.arregloFechas.length !== 0){
+      let duracion = this.myForm.controls.duracion.value;
+      if(this.arregloFechas.length < Number(duracion)){
+        this.modalPrd.showMessageDialog(this.modalPrd.error,"El número de días no coincide con las fechas seleccionadas");
+        return;
+
+      }
     }
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas registrar el evento?").then(valor => {

@@ -160,7 +160,7 @@ export class CalcularComponent implements OnInit {
         item["nombrecompleto"] = `${item[llave].nombre} ${item[llave].apellidoPat} ${item[llave].apellidoMat || ''}`;
         item["numeroEmpleado"] = item[llave].numEmpleado;
         item["diaslaborados"] = item[llave].diasLaborados;
-        item["fecha"] = item[llave].fechaCalculo,
+        item["fecha"] = new DatePipe("es-MX").transform(item[llave].fechaCalculo,"dd-MMM-yyyy")?.replace(".",""),
           item["percepciones"] = this.cp.transform(item[llave].totalPercepciones);
         item["deducciones"] = this.cp.transform(item[llave].totalDeducciones);
         item["total"] = this.cp.transform(item[llave].total);
@@ -448,6 +448,7 @@ export class CalcularComponent implements OnInit {
           this.nominaAguinaldoPrd.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
+                this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(),this.nominaSeleccionada[this.llave].nominaXperiodoId);
                 this.regresarExtraordinaria();
               }
             });
@@ -457,6 +458,7 @@ export class CalcularComponent implements OnInit {
           this.nominaFiniquito.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
+                this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(),this.nominaSeleccionada[this.llave].nominaXperiodoId);
                 this.regresarExtraordinaria();
               }
             });
@@ -466,6 +468,7 @@ export class CalcularComponent implements OnInit {
           this.nominaPtuPrd.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
+                this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(),this.nominaSeleccionada[this.llave].nominaXperiodoId);
                 this.regresarExtraordinaria();
               }
             });

@@ -249,16 +249,15 @@
                         Campo requerido
                     </div>
                 </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <button  (click)="calcularsueldo()" style="margin-top: 28px;" type="button" class="btn btn-primary button-fill">Calcular sueldo</button>
+                </div>
                 <div *ngIf="!grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Salario base cotización *</label>
                     <input formatos [moneda]="true" [control]="f.sbc" [ngClass]="{'is-invalid':f.sbc.errors && f.sbc.touched}" formControlName="sbc" type="text" name="" id="" class="form-control">
                     <div class="invalid-feedback">
                         Campo requerido
                     </div>
-                </div>
-                <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Pago IMSS *</label>
-                    <input formControlName="salarioNetoMensualImss" formatos [moneda]="true" [control]="f.salarioNetoMensualImss" type="text" name="" id="" class="form-control">
                 </div>
                 <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Pago complementario *</label>
@@ -284,6 +283,11 @@
                     </div>
 
                 </div>
+
+                <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Pago IMSS *</label>
+                    <input formControlName="salarioNetoMensualImss" formatos [moneda]="true" [control]="f.salarioNetoMensualImss" type="text" name="" id="" class="form-control">
+                </div>
                 <div *ngIf="typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Sueldo bruto mensual *</label>
                     <input formControlName="sueldoBrutoMensualPPP" formatos [moneda]="true" [control]="f.sueldoBrutoMensualPPP" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && f.sueldoBrutoMensual.touched}">
@@ -292,9 +296,7 @@
                     </div>
 
                 </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <button  (click)="calcularsueldo()" type="button" class="btn btn-primary button-fill">Calcular sueldo</button>
-                </div>
+
             </div>
 
 
