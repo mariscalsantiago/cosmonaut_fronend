@@ -82,7 +82,7 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
       this.arreglo = datos.datos;
       if (this.arreglo) {
         for (let item of this.arreglo) {
-          item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto);
+          item["inicial"] = !Boolean(item.nominaOrdinaria.totalNeto) || !(item.nominaOrdinaria.estadoProcesoDescripcion !== "Error");
           item.esCalculada = item.nominaOrdinaria?.estadoActualNomina === 'Calculada';
           item.esPagada = (item.nominaOrdinaria?.estadoActualNomina === 'Pagada' || item.nominaOrdinaria?.estadoActualNomina === 'En proceso pago');
           item.esTimbrada = item.nominaOrdinaria?.estadoActualNomina === 'Timbrada' || item.nominaOrdinaria?.estadoActualNomina === 'En proceso timbrado';

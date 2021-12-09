@@ -38,19 +38,8 @@ export class ServerSentEventService {
     let ventanaemergente:any = document.getElementById("ventanaEmergente");
     ventanaemergente.style.display = "block";
     let contenido =  ventanaemergente.getElementsByClassName("contenido");
-    //titulo[0].innerText=mensaje;
-
-    //Code nuevo
-    
-
-
-
-
-
     let cuerpo:any = document.getElementById("cuerpoventanaEmergente");
     cuerpo.className= "cuerpo slide-in-blurred-top "+(exitoso?'exitoso':'error');
-
-
     let aux = mensaje.split("\n");
     let mensaje1 = aux[0];
     let mensaje2 = aux[1];
@@ -75,15 +64,14 @@ export class ServerSentEventService {
       p2.style.color = "gray";
     }
 
-
-
-
-    
-
+    let existeElemento = contenido[0].getElementsByTagName("span");
+    debugger;
+    if(existeElemento.length != 0) {
+      contenido[0].innerHTML = ""
+    };
 
     contenido[0].appendChild(p1);
     contenido[0].appendChild(p2);
-
     return this.verificador;
   }
 

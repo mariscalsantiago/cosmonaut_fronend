@@ -448,6 +448,7 @@ export class CalcularComponent implements OnInit {
           this.nominaAguinaldoPrd.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
+                this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(),this.nominaSeleccionada[this.llave].nominaXperiodoId);
                 this.regresarExtraordinaria();
               }
             });
@@ -457,6 +458,7 @@ export class CalcularComponent implements OnInit {
           this.nominaFiniquito.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
+                this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(),this.nominaSeleccionada[this.llave].nominaXperiodoId);
                 this.regresarExtraordinaria();
               }
             });
@@ -466,6 +468,7 @@ export class CalcularComponent implements OnInit {
           this.nominaPtuPrd.recalcularNomina(objEnviar).subscribe(datos => {
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
               if (datos.resultado) {
+                this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(),this.nominaSeleccionada[this.llave].nominaXperiodoId);
                 this.regresarExtraordinaria();
               }
             });
