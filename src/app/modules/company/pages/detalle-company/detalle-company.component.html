@@ -4,14 +4,14 @@
             <img src="assets/imgs/menu.png" alt="" srcset="">
         </button>
         </div>  
-        <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+        <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
             > {{modulo}}</a>
         </li>
-        <li >
+        <li class="float-left">
             <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
             (click)="cancelarcomp()" >{{subModulo}}</a>
         </li>
-        <li style="padding-top: 10PX;">
+        <li style="padding-top: 10PX;" class="float-left">
             CONFIGURACIÓN DE CLIENTE
         </li>
     </ul> 
@@ -53,7 +53,7 @@
                     </div>
                     <div class=" input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
                         <label>RFC {{(objCompany.multiempresa)?'':'*'}}</label>
-                        <input placement="top" [mdbTooltip]="'rfc' | tooltip" formatos [nochar]="true" [rfc]="true" [control]="f.rfc" formControlName="rfc" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}">
+                        <input placement="top" [mdbTooltip]="'rfc' | tooltip" formatos [nochar]="true" [rfc]="true"  ng-focus="onFocusName='focusOn'" ng-blur="onFocusName=''" [control]="f.rfc" formControlName="rfc" maxlength="13" type="text" class="form-control" [ngClass]="{'is-invalid':f.rfc.errors && submitEnviado}">
                         <div *ngIf="f.rfc.errors?.required && submitEnviado" class="invalid-feedback">
                             Campo requerido
                         </div>
