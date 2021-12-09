@@ -85,6 +85,12 @@ export class NominaPTUComponent implements OnInit {
         item.esConcluir = item.nominaPtu?.estadoActualNomina === 'Pagada' && item.nominaPtu?.estadoActualNomina === 'Timbrada';
         item.mensajePensando = item.nominaPtu.estadoProcesoNominaId == 4 ? item.nominaPtu.procesoNominaObservaciones : "";
         item.estadoPensando = item.nominaPtu.estadoProcesoNominaId == 1 || item.nominaPtu.estadoProcesoNominaId == 2 || item.nominaPtu.estadoProcesoNominaId == 4;
+
+        if(item.estadoActualNomina?.estadoActualNomina !==	"Calculada" || item.estadoActualNomina?.estadoActualNomina !==	"Nueva"){
+          item.eliminarBut = false;
+        }else{
+          item.eliminarBut = true;
+        }
       }
     });
   }
