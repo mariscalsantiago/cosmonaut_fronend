@@ -235,7 +235,7 @@
                     </div>
 
                 </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Salario diario *</label>
                     <input formatos [moneda]="true" [control]="f.salarioDiario" [ngClass]="{'is-invalid':f.salarioDiario.errors && f.salarioDiario.touched}"  formControlName="salarioDiario" type="text" name="" id="" class="form-control">
                     <div class="invalid-feedback">
@@ -250,7 +250,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <button  (click)="calcularsueldo()" style="margin-top: 28px;" type="button" class="btn btn-primary button-fill">Calcular sueldo</button>
+                    <button  (click)="calcularsueldo()" style="margin-top: 28px; margin-left: 30px;" type="button" class="btn btn-primary button-fill">Calcular sueldo</button>
                 </div>
                 <div *ngIf="!grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Salario base cotización *</label>
@@ -271,6 +271,13 @@
                         Campo requerido
                     </div>
 
+                </div>
+                <div *ngIf="!grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
+                    <label for="exampleFormControlSelect1">Salario diario *</label>
+                    <input formatos [moneda]="true" [control]="f.salarioDiario" [ngClass]="{'is-invalid':f.salarioDiario.errors && f.salarioDiario.touched}"  formControlName="salarioDiario" type="text" name="" id="" class="form-control">
+                    <div class="invalid-feedback">
+                        Campo requerido
+                    </div>
                 </div>
 
                 <div *ngIf="f.tiposueldo.value== 'n' && !typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
