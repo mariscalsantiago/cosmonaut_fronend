@@ -1,15 +1,26 @@
 <div class="moduloempleados">
-    <div class="ml-3 mr-3">
-        <div class="row">
-            <div class="col titulo-outlet">
-                <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa"><button disabled>
-                    <img src="assets/imgs/menu.png" alt="" srcset="">
-                </button></div>
-                <label><i aria-hidden="true" class="fas fa-chevron-left aparece-movil-inline-block" routerLink="/empleados"></i>Perfil del empleado > {{empleado.personaId?.nombre|uppercase}}
-          {{empleado.personaId?.apellidoPaterno|uppercase}} {{empleado.personaId?.apellidoMaterno|uppercase}}</label>
-            </div>
-        </div>
+
+    <div class="row ml-2 mr-2 titulosfijos" style="background-color: transparent;">
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+                <img src="assets/imgs/menu.png" alt="" srcset="">
+            </button>
+            </div>  
+            <li class="float-left"><a routerLinkActive="active"  routerLink="/empleados" class="nav-link" data-toggle="tab"  role="tab" 
+                > PERFIL DEL EMPLEADO</a>
+            </li>
+            <li style="padding-top: 10PX;" class="float-left">
+                {{empleado.personaId?.nombre|uppercase}}
+          {{empleado.personaId?.apellidoPaterno|uppercase}} {{empleado.personaId?.apellidoMaterno|uppercase}}
+
+            </li>
+        </ul>
     </div>
+
+
+
+
+
 
 
     <div class="scrollempleado mt-2">
