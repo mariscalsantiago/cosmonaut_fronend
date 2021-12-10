@@ -326,10 +326,13 @@ export class DetallejornadalaboralComponent implements OnInit {
     else{  
     if (horaComidaFin != null && horaComidaFin != 0) {
       let horaSalidaFin = Number(this.myForm.controls.horaSalida.value.substring(0, 2));
+      let horaEntrada = Number(this.myForm.controls.horaEntrada.value.substring(0, 2));
 
-      if (horaComidaFin >= horaSalidaFin) {
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de comida esta fuera del horario laboral');
+      let horaInicioComida = Number(this.myForm.controls.horaInicioComida.value.substring(0, 2));
+      if ((horaInicioComida >= horaSalidaFin) || (horaInicioComida <= horaEntrada)) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida esta fuera del horario laboral');
         this.myForm.controls.horaFinComida.setValue("");
+        this.myForm.controls.horaInicioComida.setValue("");
         respuesta = false;
       }
     }
