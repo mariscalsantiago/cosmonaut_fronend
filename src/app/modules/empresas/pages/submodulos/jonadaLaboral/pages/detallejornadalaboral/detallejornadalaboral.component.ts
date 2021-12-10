@@ -306,7 +306,8 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public correctoHoraComida(): Boolean {
-    
+
+
     let respuesta: boolean = true;
     let horaComidaFin = Number(this.myForm.controls.horaFinComida.value.substring(0, 2));
     if(this.myForm.controls.tipoJornadaId.value === '02'){
@@ -326,10 +327,13 @@ export class DetallejornadalaboralComponent implements OnInit {
     else{  
     if (horaComidaFin != null && horaComidaFin != 0) {
       let horaSalidaFin = Number(this.myForm.controls.horaSalida.value.substring(0, 2));
+      let horaEntrada = Number(this.myForm.controls.horaEntrada.value.substring(0, 2));
 
-      if (horaComidaFin >= horaSalidaFin) {
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de comida esta fuera del horario laboral');
+      let horaInicioComida = Number(this.myForm.controls.horaInicioComida.value.substring(0, 2));
+      if ((horaInicioComida >= horaSalidaFin) || (horaInicioComida <= horaEntrada)) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida esta fuera del horario laboral');
         this.myForm.controls.horaFinComida.setValue("");
+        this.myForm.controls.horaInicioComida.setValue("");
         respuesta = false;
       }
     }
@@ -662,6 +666,8 @@ export class DetallejornadalaboralComponent implements OnInit {
           this.hrSalida = Number(horaSalida.substring(0, 2));
           this.myForm.controls.horaInicioComida.enable();
         }
+     // this.myForm.controls.horaInicioComida.setValue('');
+     // this.myForm.controls.horaFinComida.setValue('');  
       this.myForm.controls.horaSalida.enable();
       this.myForm.controls.horaInicioComida.setValidators([Validators.required]);
       this.myForm.controls.horaInicioComida.updateValueAndValidity();

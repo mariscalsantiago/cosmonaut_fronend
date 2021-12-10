@@ -1,20 +1,20 @@
 <div class="m-3">
     <div class="row">
         <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
-            <div *ngIf="ocultarMenuHam" (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
+            <div *ngIf="ocultarMenuHam" (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
                 <img src="assets/imgs/menu.png" alt="" srcset="">
             </button>
             </div>  
-            <li ><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            <li class="float-left"><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
                 (click)="inicio()"> {{modulo}}</a>
             </li>
-            <li >
+            <li class="float-left">
                 <a *ngIf="distEmpleado" routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
                 (click)="cancelar()" >{{subModulo}}</a>
                 <a *ngIf="!distEmpleado" routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
                 (click)="cancelarPendientes()" >{{subModulo}}</a>
             </li>
-            <li style="padding-top: 10PX;">
+            <li style="padding-top: 10PX;" class="float-left">
                 {{titulo}}
             </li>
         </ul> 

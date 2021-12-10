@@ -3,30 +3,30 @@
 
         <div class="col-12 mt-3  mb-3 ">
             <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
-                <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa" style="margin-left: 13px;"><button disabled>
+                <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
                     <img src="assets/imgs/menu.png" alt="" srcset="">
                 </button>
                 </div>  
-                <li ><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
                     > {{modulo}}</a>
                 </li>
-                <li >
+                <li class="float-left">
                     <a routerLinkActive="active" *ngIf="llave == 'nominaOrdinaria'" class="nav-link" data-toggle="tab"  role="tab" 
                     (click)="regresarOrdinaria()" >{{subModulo}}</a>
                 </li>
-                <li >
+                <li class="float-left">
                     <a routerLinkActive="active" *ngIf="llave == 'nominaExtraordinaria'" class="nav-link" data-toggle="tab"  role="tab" 
                     (click)="regresarExtraordinaria()" >{{subModulo}}</a>
                 </li>
-                <li >
+                <li class="float-left">
                     <a routerLinkActive="active" *ngIf="llave == 'nominaLiquidacion'" class="nav-link" data-toggle="tab"  role="tab" 
                     (click)="regresarLiquidacion()" >{{subModulo}}</a>
                 </li>
-                <li >
+                <li class="float-left">
                     <a routerLinkActive="active" *ngIf="llave == 'nominaPtu'" class="nav-link" data-toggle="tab"  role="tab" 
                     (click)="regresarPtu()" >{{subModulo}}</a>
                 </li>
-                <li style="padding-top: 10PX;">
+                <li style="padding-top: 10PX;" class="float-left">
                     DETALLE DE NÓMINA
                 </li>
             </ul>  
