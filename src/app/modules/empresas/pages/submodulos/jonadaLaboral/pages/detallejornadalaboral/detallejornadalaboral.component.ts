@@ -306,7 +306,8 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public correctoHoraComida(): Boolean {
-    
+
+
     let respuesta: boolean = true;
     let horaComidaFin = Number(this.myForm.controls.horaFinComida.value.substring(0, 2));
     if(this.myForm.controls.tipoJornadaId.value === '02'){
