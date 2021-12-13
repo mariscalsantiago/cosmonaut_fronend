@@ -98,6 +98,7 @@ export class ListaeventosxempledoComponent implements OnInit {
     }
 
     if(this.arreglo !== undefined){
+      debugger;
         for(let item of this.arreglo){
             item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
             let datepipe = new DatePipe("es-MX");
@@ -131,7 +132,11 @@ export class ListaeventosxempledoComponent implements OnInit {
               if(item.unidadMedidaId !== undefined){
                 if(item.unidadMedidaId == 1){
                   item.unidadM = 'Horas';
-                  item.cantidad = item.heTiempo;
+                  if(item.heTiempo !== 0 && item.heTiempo !== undefined){
+                    item.cantidad = item.heTiempo;
+                  }else{
+                    item.cantidad = item.duracion;  
+                  }
                 }
                 else if(item.unidadMedidaId == 3){
                   item.unidadM = 'Monto';
@@ -196,8 +201,8 @@ export class ListaeventosxempledoComponent implements OnInit {
                     new tabla("nombrecompleado","Nombre del empleado"),
                     new tabla("numeroEmpleado","Número de empleado",false,false,true),
                     new tabla("fechaInicio","Fecha de inicio",false,false,true),
-                    new tabla("tiempo","Cantidad",false,false,true),
-                    new tabla("unidad","Unidad de Medida",false,false,true)
+                    new tabla("cantidad","Cantidad",false,false,true),
+                    new tabla("unidadM","Unidad de Medida",false,false,true)
                     
                   ],
                   filas:this.arreglo
