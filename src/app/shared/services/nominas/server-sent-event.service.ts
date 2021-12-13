@@ -65,7 +65,6 @@ export class ServerSentEventService {
     }
 
     let existeElemento = contenido[0].getElementsByTagName("span");
-    debugger;
     if(existeElemento.length != 0) {
       contenido[0].innerHTML = ""
     };
