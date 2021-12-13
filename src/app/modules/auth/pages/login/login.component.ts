@@ -462,7 +462,6 @@ export class LoginComponent implements OnInit {
     usuario.centrocClienteId = this.clienteSeleccionado.centrocClienteId;
     usuario.nombreEmpresa = this.clienteSeleccionado.razonSocial;
     usuario.esCliente = !Boolean(this.clienteSeleccionado.centroCostosCentrocClienteId)
-    console.log("Cliente seleccionado",this.clienteSeleccionado);
     usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : this.clienteSeleccionado?.centroCostosCentrocClienteId?.centrocClienteId;
     usuario.multiempresa = this.clienteSeleccionado.multiempresa;
 /*     if(usuario.listaColores){
