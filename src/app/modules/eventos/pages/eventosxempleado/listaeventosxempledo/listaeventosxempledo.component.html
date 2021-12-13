@@ -62,8 +62,11 @@
                     <div *ngIf="evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14" class=" col-12 ">
                         <label>Horas extras por {{evento.unidadMedidaId == 1?'Hora':'Monto'}}</label>
                     </div>
+                    
                     <div *ngIf="evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14" class=" col-12 ">
-                        <label>{{evento.unidadMedidaId == 1?'Horas: ':'Monto: '}}<span class="letramenos">{{evento.unidadMedidaId == 1?evento.heTiempo:'$' + evento.monto}}</span></label>
+                        <label *ngIf="evento.heTiempo !== 0">Horas:<span class="letramenos">{{evento.heTiempo}}</span></label>
+                        <label *ngIf="evento.monto !== 0">Monto:<span class="letramenos">{{'$' + evento.monto}}</span></label>
+                        <label *ngIf="evento.heTiempo == 0 && evento.monto == 0">Horas:<span class="letramenos">{{evento.duracion}}</span></label>
                     </div>
                     <div class=" col-12 ">
                         <label>Política: <span class="letramenos">{{evento.politicaNombre}}</span></label>
