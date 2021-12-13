@@ -95,6 +95,14 @@ export class ListaempleadosComponent implements OnInit {
     this.esConsultar = this.configuracionPrd.getPermisos("Consultar");
     this.esEditar = this.configuracionPrd.getPermisos("Editar");
     this.esDescargar = this.configuracionPrd.getPermisos("Descargar");
+
+    for (let item of this.configuracionPrd.breadcrum.permisos) {
+        if (item.perfilesPendientes == true ) {
+            this.esRegistrar = true; 
+            this.esDescargar = true; 
+            item.perfilesPendientes = false;
+        }
+    }
   }
 
 

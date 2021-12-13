@@ -12,6 +12,7 @@ import { SharedPoliticasService } from 'src/app/shared/services/politicas/shared
 import { SharedSedesService } from 'src/app/shared/services/sedes/shared-sedes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { Router } from '@angular/router';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { DatePipe } from '@angular/common';
 import { CalculosService } from 'src/app/shared/services/nominas/calculos.service';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
@@ -87,6 +88,7 @@ export class EmpleoComponent implements OnInit {
     private empleadosPrd: EmpleadosService, private catalogosPrd: CatalogosService,
     private colaboradorPrd: ContratocolaboradorService,
     private usuarioSistemaPrd: UsuarioSistemaService,
+    public configuracionPrd:ConfiguracionesService,
     private jornadaPrd: JornadalaboralService, private sedesPrd: SharedSedesService,
     private modalPrd: ModalService, private puestosPrd: PuestosService,
     private calculoPrd: CalculosService, private usuariosAuth: UsuariosauthService) { }
@@ -410,7 +412,7 @@ export class EmpleoComponent implements OnInit {
       sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
       sueldoNetoMensual: obj.sueldoNetoMensual,
       salarioDiario: [{ value: obj.salarioDiario, disabled: true }, []],
-      dias_vacaciones: [obj.diasVacaciones, [Validators.required]],
+      dias_vacaciones: [obj.diasVacaciones],
       metodo_pago_id: [obj.metodoPagoId?.metodoPagoId, [Validators.required]],
       tipoRegimenContratacionId: [obj.tipoRegimenContratacionId?.tipoRegimenContratacionId, [Validators.required]],
       areaGeograficaId: [obj.areaGeograficaId?.areaGeograficaId, [Validators.required]],
@@ -432,7 +434,10 @@ export class EmpleoComponent implements OnInit {
 
 
   public cancelar() {
-
+    let obj = {
+      perfilesPendientes: true
+    }
+    this.configuracionPrd.breadcrum.permisos.push(obj);
     this.routerPrd.navigate(['/empleados']);
   }
 
@@ -572,7 +577,12 @@ export class EmpleoComponent implements OnInit {
   public guardarContratoColaborador(objEnviar: any) {
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.colaboradorPrd.save(objEnviar).subscribe(datos => {
-       this.datosDespuesGuardar(datos);
+      let obj = {
+        perfilesPendientes: true
+      }
+      this.configuracionPrd.breadcrum.permisos.push(obj);
+      this.datosDespuesGuardar(datos);
+
     });
   }
 

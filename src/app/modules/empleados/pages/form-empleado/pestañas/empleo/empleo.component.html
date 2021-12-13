@@ -173,6 +173,20 @@
                     </div>
 
                 </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                        <label for="exampleFormControlSelect1">Días de vacaciones no disfrutados</label>
+                        <input placement="top" [mdbTooltip]="'diasVacaciones' | tooltip" appSolonumeros formControlName="dias_vacaciones" type="text" class="form-control">
+                    </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                        <label for="exampleFormControlSelect1">Método de pago *</label>
+                        <select placement="top" [mdbTooltip]="'metodoPago' | tooltip" formControlName="metodo_pago_id" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.metodo_pago_id.errors && f.metodo_pago_id.touched}">
+                            <option *ngFor="let item of arregloMetodosPago" [value]="item.metodoPagoId">{{item.descripcion}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                </div>
             </div>
             <hr>
             <div class="form-group mt-3 row margen"><label class="titulo">PARÁMETROS DE NÓMINA</label>
@@ -308,26 +322,6 @@
 
 
             <hr>
-            <div class="row">
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Días de vacaciones no disfrutados *</label>
-                    <input placement="top" [mdbTooltip]="'diasVacaciones' | tooltip" appSolonumeros formControlName="dias_vacaciones" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.dias_vacaciones.errors && f.dias_vacaciones.touched}">
-                    <div class="invalid-feedback">
-                        Campo requerido
-                    </div>
-                </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
-                    <label for="exampleFormControlSelect1">Método de pago *</label>
-                    <select placement="top" [mdbTooltip]="'metodoPago' | tooltip" formControlName="metodo_pago_id" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.metodo_pago_id.errors && f.metodo_pago_id.touched}">
-                        <option *ngFor="let item of arregloMetodosPago" [value]="item.metodoPagoId">{{item.descripcion}}
-                        </option>
-                    </select>
-                    <div class="invalid-feedback">
-                        Campo requerido
-                    </div>
-                </div>
-            </div>
-
         </div>
         <div class="col-6">
             <div class="form-group mt-3 row margen"><label class="titulo">CONTRATO</label></div>
