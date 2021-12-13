@@ -109,12 +109,18 @@ export class ListaeventosxempledoComponent implements OnInit {
                     if(item.unidadMedidaId == 2){
                       item.unidadM = 'Días';
                       item.cantidad = item.heTiempo;
+                      
                     }
                     else if(item.unidadMedidaId == 3){
                       item.unidadM = 'Monto';
                       item.cantidad = item.monto;
                     }
-                }  
+                }else{
+                  if(item.duracion !== undefined){
+                    item.cantidad = item.duracion;
+                    item.unidadM = 'Días';
+                  }
+                }
             }   
             else if(item.tipoIncidenciaId == 8){
                 item.unidadM = 'Monto';
@@ -134,7 +140,11 @@ export class ListaeventosxempledoComponent implements OnInit {
               }  
             }else{
               item.unidadM = 'Días';
-              item.cantidad = item.duracion;
+              if(item.duracion !== 0){
+                item.cantidad = item.duracion;
+              }else{
+                item.cantidad = item.heTiempo;
+              }
             }           
         }
     }

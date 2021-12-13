@@ -307,7 +307,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   public correctoHoraComida(): Boolean {
 
-
+    debugger;
     let respuesta: boolean = true;
     let horaComidaFin = Number(this.myForm.controls.horaFinComida.value.substring(0, 2));
     if(this.myForm.controls.tipoJornadaId.value === '02'){
@@ -325,6 +325,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     
     }
     else{  
+      debugger;
     if (horaComidaFin != null && horaComidaFin != 0) {
       let horaSalidaFin = Number(this.myForm.controls.horaSalida.value.substring(0, 2));
       let horaEntrada = Number(this.myForm.controls.horaEntrada.value.substring(0, 2));
@@ -359,7 +360,7 @@ export class DetallejornadalaboralComponent implements OnInit {
       return;
 
     }
-
+debugger;
    if(this.myForm.controls.tipoJornadaId.value == 1 || this.myForm.controls.tipoJornadaId.value == 2){
       if (this.myForm.controls.horaInicioComida.value && !this.myForm.controls.horaFinComida.value) {
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de comida debe ser capturada');
@@ -385,7 +386,7 @@ export class DetallejornadalaboralComponent implements OnInit {
       }
       if (valor) {
 
-
+        debugger;
         let obj = this.myForm.getRawValue();
 
         if (!obj.lunes) { obj.lunes = false }
@@ -500,7 +501,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
           });
         } else {
-
+          debugger;
 
           if (String(obj.sumaHorasJornadaId) === '1') {
 
@@ -635,6 +636,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public selectJornadaInicial(op: any) {
+    debugger;
     this.myForm.controls.horaFinComida.disable();
     this.myForm.controls.horaInicioComida.disable();
     this.jornada = String(op.value);
@@ -679,7 +681,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   }
 
   public selectJornada(op: any) {
-    
+    debugger;
     this.myForm.clearValidators();
     this.myForm.controls.horaFinComida.disable();
     this.myForm.controls.horaInicioComida.disable();
@@ -712,6 +714,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     }
 
       if (this.jornada == '3') {
+        debugger;
       let horaSalida = this.myForm.controls.horaSalida.value;
         if(!this.esInsert){
             this.myForm.controls.horaInicioComida.enable();
@@ -758,7 +761,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
 
   public hrInicioComida(response: any) {
-    
+    debugger;
 
     if (response.value !== undefined) {
       this.hrComida = Number(response.value.substring(0, 2));
@@ -766,14 +769,16 @@ export class DetallejornadalaboralComponent implements OnInit {
 
       if(this.myForm.controls.tipoJornadaId.value === '02'){
 
-        if (this.hrComida >= this.hrEntrada) {
+        if (this.hrComida >= this.hrEntrada && this.hrComida < this.hrSalida) {
           this.myForm.controls.horaFinComida.enable();
           this.myForm.controls.horaFinComida.setValue(this.newValueComida);
           this.myForm.value.horaFinComida = this.newValueComida;
           this.hrDeSalida(undefined);
   
         } else {
-          this.myForm.controls.horaInicioComida.setValue('');
+          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida esta fuera del horario laboral');
+          this.myForm.controls.horaFinComida.setValue("");
+          this.myForm.controls.horaInicioComida.setValue("");
         }
 
       }else{  
@@ -784,7 +789,9 @@ export class DetallejornadalaboralComponent implements OnInit {
         this.hrDeSalida(undefined);
 
       } else {
-        this.myForm.controls.horaInicioComida.setValue('');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida esta fuera del horario laboral');
+        this.myForm.controls.horaFinComida.setValue("");
+        this.myForm.controls.horaInicioComida.setValue("");
       }
     }
 
