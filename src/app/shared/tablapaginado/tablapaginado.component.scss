@@ -260,3 +260,25 @@ table {
       text-transform: capitalize;    
     }
 }
+
+
+.letrablanca{
+    color:white;
+}
+.estiloLinnk{
+    color: #56dfd4 !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+    top: 40%;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: calc(50%);
+    i{
+        background: #57ded4;
+        /* margin-top: 1px; */
+        display: inherit;
+        margin: -5px;
+        margin-right: 2px;
+    }
+}

@@ -98,7 +98,7 @@ export class ListaeventosxempledoComponent implements OnInit {
     }
 
     if(this.arreglo !== undefined){
-      debugger;
+      
         for(let item of this.arreglo){
             item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "":item.apellidoMaterno}`;
             let datepipe = new DatePipe("es-MX");

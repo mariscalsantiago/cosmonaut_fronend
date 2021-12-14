@@ -164,7 +164,7 @@ export class NominaPTUComponent implements OnInit {
   public vermensaje(item: any) {
     if (item.nominaPtu.estadoProcesoNominaId == 4) {
 
-      const accionador: boolean = item.mensajePensando.includes("La nómina no contiene empleados para calcular.");
+      const accionador: boolean = item.mensajePensando.includes("No se encontraron empleados a los cuales calcular el PTU.");
       const mensaje: string = accionador ? "¿Deseas agregar empleados?" : "¿Deseas calcular de nuevo la nómina?";
 
       this.modalPrd.showMessageDialog(this.modalPrd.warning, item.mensajePensando, mensaje).then(valor => {

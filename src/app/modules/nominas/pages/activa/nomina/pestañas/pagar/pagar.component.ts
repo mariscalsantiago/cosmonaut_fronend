@@ -250,7 +250,7 @@ export class PagarComponent implements OnInit {
           
 
           this.nominaOrdinariaPrd.dispersarOtrosTiposMetodosPago(objEnviar).subscribe(datos => {
-            debugger;
+            
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(()=>{
               if(datos.resultado){
                 this.continuarTitulo = "Continuar";

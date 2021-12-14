@@ -67,7 +67,7 @@ export class ListaempleadosComponent implements OnInit {
 
   ngOnInit(): void {
     
-    debugger;
+    
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     //this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
     this.subModulo = 'REGISTRO DE EMPLEADOS';

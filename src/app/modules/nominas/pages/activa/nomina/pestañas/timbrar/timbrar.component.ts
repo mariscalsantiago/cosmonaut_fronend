@@ -151,18 +151,22 @@ export class TimbrarComponent implements OnInit {
 
           this.nominaOrdinariaPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminar = datos.datos[0].xmlPreliminar;
+            xmlPreliminar = this.alineandoDinamicoPagos(xmlPreliminar);
 
             this.datosExtras.datos = xmlPreliminar;
             item.cargandoDetalle = false;
+            console.log(xmlPreliminar);
+            console.log("jojoi");
           });
 
         } else if (this.nominaSeleccionada.nominaExtraordinaria) {
 
           this.nominaAguinaldoPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminarAguinaldo = datos.datos[0].xmlPreliminarAguinaldo;
-
+            xmlPreliminarAguinaldo = this.alineandoDinamicoPagos(xmlPreliminarAguinaldo);
             this.datosExtras.datos = xmlPreliminarAguinaldo;
             item.cargandoDetalle = false;
+            console.log(xmlPreliminarAguinaldo);
           });
 
 
@@ -170,9 +174,10 @@ export class TimbrarComponent implements OnInit {
 
           this.nominaLiquidacionPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
             let xmlPreliminarLiquidacion = datos.datos[0].xmlPreliminarLiquidacion;
-
+            xmlPreliminarLiquidacion = this.alineandoDinamicoPagos(xmlPreliminarLiquidacion);
             this.datosExtras.datos = xmlPreliminarLiquidacion;
             item.cargandoDetalle = false;
+            console.log(xmlPreliminarLiquidacion);
           });
 
 
@@ -182,9 +187,10 @@ export class TimbrarComponent implements OnInit {
           this.nominaPtuPrd.getUsuariosTimbradoDetalle(objEnviar).subscribe(datos => {
 
             let xmlPreliminarPtu = datos.datos[0].xmlPreliminarPtu;
-
+            xmlPreliminarPtu = this.alineandoDinamicoPagos(xmlPreliminarPtu);
             this.datosExtras.datos = xmlPreliminarPtu;
             item.cargandoDetalle = false;
+            console.log(xmlPreliminarPtu);
           });
 
 
@@ -410,6 +416,32 @@ export class TimbrarComponent implements OnInit {
 
   public actualizarLista(){
     this.ngOnInit();
+  }
+
+  private alineandoDinamicoPagos(obj:any){
+    if(obj.percepciones && obj.deducciones){
+      if(obj.percepciones.length > (obj.deducciones.length) || 0){
+        let cantidad = obj.percepciones.length;
+        this.acomodando(cantidad,obj.deducciones);
+      }else if(obj.deducciones.length > (obj.percepciones.length) || 0){
+        let cantidad = obj.deducciones.length;
+        this.acomodando(cantidad,obj.percepciones);
+      }
+    }
+    return obj;
+  }
+
+  private acomodando(cantidad:number,obj:any){
+    let indice = cantidad - obj.length;
+    for(let x = 0; x < indice; x++){
+        obj.push({
+          concepto:'',
+          montoCuota:'',
+          montoTotal:'',
+          montoGravable:'',
+          montoExento:''
+        });
+    }
   }
 
 }

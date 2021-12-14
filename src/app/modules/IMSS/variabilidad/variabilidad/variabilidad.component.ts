@@ -90,7 +90,7 @@ export class VariabilidadComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
@@ -124,7 +124,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
     public traerTabla(datos:any) {
-      debugger;
+      
       
       const columna: Array<tabla> = [
         new tabla("razonSocial", "Razón Social"),
@@ -459,7 +459,7 @@ export class VariabilidadComponent implements OnInit {
     });
   }
   public promedioVariabilidad(){
-    debugger;
+    
     let bimCalcular = this.bimestreCalcular + 1;
     this.reportesPrd.getCalcularDías(bimCalcular).subscribe(archivo => {
 
