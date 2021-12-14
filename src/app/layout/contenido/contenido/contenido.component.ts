@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MenuService } from '../../../core/services/menu.service';
 import { menuprincipal } from '../../../core/data/estructuramenu';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -289,6 +289,7 @@ export class ContenidoComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Estás seguro de cerrar la sesión?").then(valor => {
       if (valor) {
 
+        this.configuracionPrd.VISTOS_RECIENTE = [];
 
         this.chatPrd.desconectarSocket();
         this.notificacionesPrd.close();
@@ -435,6 +436,8 @@ export class ContenidoComponent implements OnInit {
       this.notificaciones();
     }
   }
+
+ 
 
 
 
