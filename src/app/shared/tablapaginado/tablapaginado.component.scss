@@ -282,3 +282,7 @@ table {
         margin-right: 2px;
     }
 }
+
+.recalcularclass::after{
+    content:'Recalcular'
+}

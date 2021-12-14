@@ -111,9 +111,25 @@
                         <button *ngIf="descargar && item.nombre !== 'Política Estándar'"
                             (click)="btnDescargar(item,indice)"><i aria-hidden="true"
                                 class="icon_24descargar primary-bg"></i></button>
-                        <button *ngIf="recalcular && item.recalcula !== false" style="color:#00C1AF"
-                            class="dropdown-toggle mt-3" (click)="btnRecalcular(item,indice)"><i aria-hidden="true"
-                                class="fas fa-sync"></i>&nbsp;&nbsp;Recalcular</button>
+                        <button  *ngIf="recalcular && item.recalcula !== false" style="color:#00C1AF;position: relative;    width: 78px;"
+                            class="dropdown-toggle mt-3 " (click)="btnRecalcular(item,indice)">
+                            <i style="position: absolute;
+                            font-size: 11px;
+                            top: 4px;
+                            display: inline-block;
+                            width: 69px;
+                            padding: -5px;
+                            left: -33px;" class="fas fa-sync"></i>
+                            <i style="     position: absolute;
+                            font-size: 12px;
+                            top: 1px;
+                            display: inline-block;
+                            width: 69px;
+                            padding: -5px;
+                            left: 5px;
+                            font-family: 'Roboto';
+                            font-style: normal;" aria-hidden="true"
+                                class="recalcularclass"></i></button>
                         <button *ngIf="ver" (click)="btnVer(item,indice)"><i aria-hidden="true"
                                 class="icon_24ver primary-bg"></i></button>
                         <button *ngIf="editar && (item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado' && item.tipoPercepcionId?.noEditable !== true && item.tipoDeduccionId?.noEditable !== true )" (click)="btnEditar(item,indice)"><i aria-hidden="true"
