@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DomicilioService } from 'src/app/modules/empleados/services/domicilio.service';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 
 @Component({
   selector: 'app-domicilio',
@@ -28,7 +29,7 @@ export class DomicilioComponent implements OnInit {
   public idMunicipio: number = 0;
   public noCoincide = '';
 
-  constructor(private formBuilder: FormBuilder, private domicilioPrd: DomicilioService,
+  constructor(private formBuilder: FormBuilder, private domicilioPrd: DomicilioService, public configuracionPrd:ConfiguracionesService,
     private catalogosPrd: CatalogosService, private routerPrd: Router, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
@@ -70,6 +71,10 @@ export class DomicilioComponent implements OnInit {
     this.enviado.emit({ type: "domicilio", valor: true });
   }
   public cancelar() {
+    let obj = {
+      perfilesPendientes: true
+    }
+    this.configuracionPrd.breadcrum.permisos.push(obj);
     this.routerPrd.navigate(['/empleados']);
   }
 

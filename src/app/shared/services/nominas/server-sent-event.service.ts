@@ -59,13 +59,12 @@ export class ServerSentEventService {
       tituloPrincipal[0].style.color = "gray";
       tituloPrincipal[0].innerText = "Resultado de cálculo";
       let imagen:any = document.getElementById("successimg");
-      imagen.style.display = "none";
+      imagen.style.display = "block";
       p1.style.color = "gray";
       p2.style.color = "gray";
     }
 
     let existeElemento = contenido[0].getElementsByTagName("span");
-    debugger;
     if(existeElemento.length != 0) {
       contenido[0].innerHTML = ""
     };

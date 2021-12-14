@@ -34,7 +34,6 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
   public cuentasBancarias: any = [];
   public arregloCompanias: any = [];
   public arregloareas: any = [];
-
   public etiquetas:any = [];
 
   public arregloEmpleados: any = [];
@@ -171,7 +170,9 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
       return;
     }
 
-
+    if (!this.validaFechaFinal()) {
+      return;
+    }
 
 
     this.modal.showMessageDialog(this.modal.warning, "¿Deseas guardar la nòmina?").then(valor => {
@@ -386,6 +387,21 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
         }  
       
     });
+
+  }
+
+  public validaFechaFinal(): Boolean{
+    
+    let respuesta: boolean = true;
+    let fechaInicioP = this.myForm.controls.fechaInicio.value;
+    let fechafinP = this.myForm.controls.fechaFin.value;
+    if ( fechafinP < fechaInicioP) {
+      this.modal.showMessageDialog(this.modal.error, 'La fecha de fin debe ser mayor a la fecha de inicio');
+      this.myForm.controls.fechaFin.setValue("");
+      respuesta = false;
+    }
+
+    return respuesta;
 
   }
 

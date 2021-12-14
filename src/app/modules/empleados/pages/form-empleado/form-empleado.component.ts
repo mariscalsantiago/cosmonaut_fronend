@@ -194,6 +194,7 @@ export class FormEmpleadoComponent implements OnInit {
           this.ocultarempleada = false;
           this.ocultarMenuHam = false;
         } else {
+
           this.routerPrd.navigate(['/empleados']);
           this.ocultarempleada = true;
         }

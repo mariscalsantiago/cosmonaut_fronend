@@ -53,6 +53,7 @@ export class VariabilidadComponent implements OnInit {
   public esREcalcular : boolean = false;
   public sinPromedios : boolean = false;
   public conPromedios : boolean = true; 
+  public numeroBim: number = 0;
 
 
   public arreglotabla: any = {
@@ -88,6 +89,8 @@ export class VariabilidadComponent implements OnInit {
     private companyProd: CompanyService, private formBuild: FormBuilder, private router: Router, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    debugger;
     
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
@@ -121,7 +124,7 @@ export class VariabilidadComponent implements OnInit {
   }
 
     public traerTabla(datos:any) {
-
+      debugger;
       
       const columna: Array<tabla> = [
         new tabla("razonSocial", "Razón Social"),
@@ -139,20 +142,28 @@ export class VariabilidadComponent implements OnInit {
       }
       
       this.bimestreCalcular = 0;
+      this.numeroBim = 0;
       if(this.arreglo !== undefined){
+        
         for(let item of this.arreglo){
+
+
           if(item.fechaAplicacion !== undefined ){
           item.fechaAplicacion = (new Date(item.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
           item.fecha = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
+          this.numeroBim = this.numeroBim + item.bimestre;
           if(item.bimestre > this.bimestreCalcular){
+            
             this.bimestreCalcular = item.bimestre
             if(this.bimestreCalcular == 1){this.bimestreLeyenda = "2do Bimestre"}
             else if(this.bimestreCalcular == 2){this.bimestreLeyenda = "3er Bimestre"}
             else if(this.bimestreCalcular == 3){this.bimestreLeyenda = "4to Bimestre"}
             else if(this.bimestreCalcular == 4){this.bimestreLeyenda = "5to Bimestre"}
             else if(this.bimestreCalcular == 5){this.bimestreLeyenda = "6to Bimestre"}
+            else if(this.bimestreCalcular == 6){this.bimestreLeyenda = "1er Bimestre"}
           }
+
           if(item.bimestre == undefined || item.bimestre == null){
 
             this.bimestreLeyenda = "1er Bimestre"
@@ -180,9 +191,47 @@ export class VariabilidadComponent implements OnInit {
             anio = anio + 1; 
             this.fechaActual = `01/01/${anio}`;
           }
+          else if(item.bimestre ==6){
+            let anio = this.fecha.getFullYear();
+            anio = anio + 1; 
+            this.fechaActual = `01/03/${anio}`;
+          }
   
           }
         }
+        let bimfaltante;
+        if(this.numeroBim == 20){
+          bimfaltante = this.numeroBim-(+21);
+          if(bimfaltante !== this.bimestreCalcular){
+          this.bimestreCalcular == 1; 
+          this.bimestreLeyenda = "1er Bimestre"
+          }
+        }
+        else if(this.numeroBim == 19){
+          bimfaltante = this.numeroBim-(+21);
+          if(bimfaltante !== this.bimestreCalcular){
+          this.bimestreCalcular = 2; this.bimestreLeyenda = "2do Bimestre"
+          }
+        }
+        else if(this.numeroBim == 18){
+          bimfaltante = this.numeroBim-(+21);
+          if(bimfaltante !== this.bimestreCalcular){
+          this.bimestreCalcular = 3; this.bimestreLeyenda = "3er Bimestre"
+          }
+        }
+        else if(this.numeroBim == 17){
+          bimfaltante = this.numeroBim-(+21);
+          if(bimfaltante !== this.bimestreCalcular){
+          this.bimestreCalcular = 4; this.bimestreLeyenda = "4to Bimestre"
+          }
+        }
+        else if(this.numeroBim == 16){
+          bimfaltante = this.numeroBim-(+21);
+          if(bimfaltante !== this.bimestreCalcular){
+          this.bimestreCalcular = 5; this.bimestreLeyenda = "5to Bimestre"
+          }
+        }
+
       }
   
       this.arreglotabla.columnas = columna;
@@ -216,6 +265,7 @@ export class VariabilidadComponent implements OnInit {
                       if (datos.resultado) {
                           this.desgargarArchivo(undefined);
                           this.variabilidad = 0;
+                          this.cancelar();
                           
                       }
                   }else{
@@ -409,7 +459,7 @@ export class VariabilidadComponent implements OnInit {
     });
   }
   public promedioVariabilidad(){
-    
+    debugger;
     let bimCalcular = this.bimestreCalcular + 1;
     this.reportesPrd.getCalcularDías(bimCalcular).subscribe(archivo => {
 

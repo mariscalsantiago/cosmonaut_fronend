@@ -638,6 +638,7 @@ debugger;
   }
 
   public selectJornadaInicial(op: any) {
+    debugger;
     this.myForm.controls.horaFinComida.disable();
     this.myForm.controls.horaInicioComida.disable();
     this.jornada = String(op.value);
@@ -682,7 +683,7 @@ debugger;
   }
 
   public selectJornada(op: any) {
-    
+    debugger;
     this.myForm.clearValidators();
     this.myForm.controls.horaFinComida.disable();
     this.myForm.controls.horaInicioComida.disable();
