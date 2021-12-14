@@ -1,3 +1,4 @@
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,6 +32,7 @@ export class DetallejornadalaboralComponent implements OnInit {
   public hrComida: number = 0;
   public newValueComida: any;
   public hrSalida: number = 0;
+  public hrInicioComidaTemporar: number = 0;
 
 
   constructor(private formbuilder: FormBuilder, private activeprd: ActivatedRoute,
@@ -740,8 +742,29 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   }
 
+
+  public hrDeOpcionalJornadaOcho(response: any) {
+debugger;
+    let horaSalidaFin;
+    let horaSalida = this.myForm.controls.horaSalida.value;
+    if (response !== undefined) {
+      horaSalidaFin = response.value;
+    }
+    if (horaSalida !== undefined) {
+      horaSalidaFin = horaSalida;
+    }
+    if (horaSalidaFin !== undefined) {     
+      if(this.jornada === '1'){
+      this.myForm.controls.horaInicioComida.enable();
+      this.myForm.controls.horaFinComida.enable();
+      }
+    }
+  }
+
+
+
   public hrDeSalida(response: any) {
-    
+    debugger;    
 
     let horaSalidaFin;
     let horaSalida = this.myForm.controls.horaSalida.value;
@@ -764,9 +787,14 @@ export class DetallejornadalaboralComponent implements OnInit {
     
 
     if (response.value !== undefined) {
-      this.hrComida = Number(response.value.substring(0, 2));
-      this.newValueComida = response.value.replace(response.value.substring(0, 2), Number(response.value.substring(0, 2)) + 1)
+    
 
+      this.hrComida = Number(response.value.substring(0, 2));
+      this.newValueComida = response.value.replace(response.value.substring(0, 2), Number(response.value.substring(0, 2)) + 1)      
+      if (this.hrSalida ===0){
+        let horaSalida = this.myForm.controls.horaSalida.value;
+        this.hrSalida= Number(horaSalida.substring(0, 2));;
+    }
       if(this.myForm.controls.tipoJornadaId.value === '02'){
 
         if (this.hrComida >= this.hrEntrada && this.hrComida < this.hrSalida) {
@@ -789,7 +817,7 @@ export class DetallejornadalaboralComponent implements OnInit {
         this.hrDeSalida(undefined);
 
       } else {
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida esta fuera del horario laboral');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida debe ser mayor a la hora de entrada y menor a la hora de salida');
         this.myForm.controls.horaFinComida.setValue("");
         this.myForm.controls.horaInicioComida.setValue("");
       }
@@ -797,6 +825,45 @@ export class DetallejornadalaboralComponent implements OnInit {
 
     }
   }
+
+
+  public hrFinComida(response: any) {
+    debugger;
+    if (response.value !== undefined) {
+
+    
+      this.hrComida = Number(response.value.substring(0, 2));
+      let horaInicioComida = Number(this.myForm.controls.horaInicioComida.value.substring(0, 2));
+      this.newValueComida = response.value.replace(response.value.substring(0, 2), Number(response.value.substring(0, 2)) + 1)
+
+      if(this.myForm.controls.tipoJornadaId.value === '02'){
+
+        if (this.hrComida >= this.hrEntrada && this.hrComida < this.hrSalida && this.hrComida > horaInicioComida) {
+          this.myForm.controls.horaFinComida.setValue(this.newValueComida);
+          this.myForm.value.horaFinComida = this.newValueComida;
+          this.hrDeSalida(undefined);
+  
+        } else {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida esta fuera del horario laboral');
+          this.myForm.controls.horaFinComida.setValue("");
+        }
+
+      }else{  
+      if (this.hrComida >= this.hrEntrada && this.hrComida < this.hrSalida && this.hrComida > horaInicioComida) {
+        this.newValueComida = response.value.replace(response.value.substring(0, 2), Number(response.value.substring(0, 2)))
+        this.myForm.controls.horaFinComida.setValue(this.newValueComida);
+        this.myForm.value.horaFinComida = this.newValueComida;
+        this.hrDeSalida(undefined);
+
+      } else {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de la comida debe ser menor a la hora de salida y mayor a la hora de entrada e inicio de ásta');
+        this.myForm.controls.horaFinComida.setValue("");        
+      }
+    }
+
+    }
+  }
+
 
   public hrInicio(response: any) {
     let horaSalida;

@@ -10,6 +10,7 @@ import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuari
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { validacionesForms } from 'src/app/shared/validaciones/validaciones';
 
+
 @Component({
   selector: 'app-informacionbasica',
   templateUrl: './informacionbasica.component.html',
@@ -36,7 +37,7 @@ export class InformacionbasicaComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private empleadosPrd: EmpleadosService, private usuarioSistemaPrd: UsuarioSistemaService,
-    private routerPrd: Router, private modalPrd: ModalService,
+    private routerPrd: Router, private modalPrd: ModalService, public configuracionPrd:ConfiguracionesService,
     private usuariosAuth:UsuariosauthService) { }
 
   ngOnInit(): void {
@@ -120,7 +121,10 @@ export class InformacionbasicaComponent implements OnInit {
   }
 
   public cancelar() {
-
+    let obj = {
+      perfilesPendientes: true
+    }
+    this.configuracionPrd.breadcrum.permisos.push(obj);
     this.routerPrd.navigate(['/empleados']);
 
   }
