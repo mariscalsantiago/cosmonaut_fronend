@@ -307,7 +307,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
   public correctoHoraComida(): Boolean {
 
-    debugger;
+    
     let respuesta: boolean = true;
     let horaComidaFin = Number(this.myForm.controls.horaFinComida.value.substring(0, 2));
     if(this.myForm.controls.tipoJornadaId.value === '02'){
@@ -325,7 +325,7 @@ export class DetallejornadalaboralComponent implements OnInit {
     
     }
     else{  
-      debugger;
+      
     if (horaComidaFin != null && horaComidaFin != 0) {
       let horaSalidaFin = Number(this.myForm.controls.horaSalida.value.substring(0, 2));
       let horaEntrada = Number(this.myForm.controls.horaEntrada.value.substring(0, 2));
@@ -360,7 +360,7 @@ export class DetallejornadalaboralComponent implements OnInit {
       return;
 
     }
-debugger;
+
    if(this.myForm.controls.tipoJornadaId.value == 1 || this.myForm.controls.tipoJornadaId.value == 2){
       if (this.myForm.controls.horaInicioComida.value && !this.myForm.controls.horaFinComida.value) {
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de comida debe ser capturada');
@@ -386,7 +386,7 @@ debugger;
       }
       if (valor) {
 
-        debugger;
+        
         let obj = this.myForm.getRawValue();
 
         if (!obj.lunes) { obj.lunes = false }
@@ -501,7 +501,7 @@ debugger;
 
           });
         } else {
-          debugger;
+          
 
           if (String(obj.sumaHorasJornadaId) === '1') {
 
@@ -636,7 +636,7 @@ debugger;
   }
 
   public selectJornadaInicial(op: any) {
-    debugger;
+    
     this.myForm.controls.horaFinComida.disable();
     this.myForm.controls.horaInicioComida.disable();
     this.jornada = String(op.value);
@@ -681,7 +681,7 @@ debugger;
   }
 
   public selectJornada(op: any) {
-    debugger;
+    
     this.myForm.clearValidators();
     this.myForm.controls.horaFinComida.disable();
     this.myForm.controls.horaInicioComida.disable();
@@ -714,7 +714,7 @@ debugger;
     }
 
       if (this.jornada == '3') {
-        debugger;
+        
       let horaSalida = this.myForm.controls.horaSalida.value;
         if(!this.esInsert){
             this.myForm.controls.horaInicioComida.enable();
@@ -761,7 +761,7 @@ debugger;
 
 
   public hrInicioComida(response: any) {
-    debugger;
+    
 
     if (response.value !== undefined) {
       this.hrComida = Number(response.value.substring(0, 2));

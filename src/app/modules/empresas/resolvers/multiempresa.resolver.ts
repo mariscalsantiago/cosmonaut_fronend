@@ -28,7 +28,7 @@ export class MultiempresaResolver implements Resolve<boolean> {
     let sujeto: Subject<boolean> = new Subject<boolean>();
 
     if (route.params["tipoinsert"] == 'nuevo') {
-      debugger;
+      
       if (!this.usuarioSistemaPrd.usuario.multiempresa) {
         if (this.usuarioSistemaPrd.esCliente()) {
           this.empresasProd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {

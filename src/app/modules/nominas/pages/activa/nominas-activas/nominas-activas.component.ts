@@ -71,7 +71,7 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
 
 
   public traerListaNomina() {
-    debugger;
+    
 
     this.cargando = true;
     let objenviar =

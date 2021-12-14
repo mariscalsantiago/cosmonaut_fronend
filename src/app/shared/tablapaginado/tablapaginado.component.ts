@@ -683,6 +683,10 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
   }
 
+  public isBlank(elemento:string):boolean{
+      return !Boolean(elemento);
+  }
+
 
 
 }

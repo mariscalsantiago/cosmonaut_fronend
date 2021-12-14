@@ -29,7 +29,7 @@ export class EmpleadosIncompletosComponent implements OnInit {
     private router:Router,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 

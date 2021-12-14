@@ -68,7 +68,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
   }
 
   public traerListaNomina() {
-    debugger;
+    
     this.cargando = true;
     let objenviar =
     {

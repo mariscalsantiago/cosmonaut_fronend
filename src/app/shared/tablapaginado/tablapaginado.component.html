@@ -236,10 +236,10 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of datosExtras.datos.percepciones">
-                                        <td>{{item.concepto}}</td>
-                                        <td>{{item.montoTotal | currency}}</td>
-                                        <td>{{item.montoGravable | currency}}</td>
-                                        <td>{{item.montoExento | currency}}</td>
+                                        <td style="white-space: pre;" [class.letrablanca]="isBlank(item.concepto)">{{item.concepto || '-'}}</td>
+                                        <td [class.letrablanca]="isBlank(item.concepto)">{{item.montoTotal | currency}}</td>
+                                        <td [class.letrablanca]="isBlank(item.concepto)">{{item.montoGravable | currency}}</td>
+                                        <td [class.letrablanca]="isBlank(item.concepto)">{{item.montoExento | currency}}</td>
                                     </tr>
                                     <tr class="totalesTimbrado">
                                         <th id="">Total</th>
@@ -262,8 +262,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of datosExtras.datos.deducciones">
-                                        <td>{{item.concepto}}</td>
-                                        <td>{{item.montoCuota | currency}}</td>
+                                        <td style="white-space: pre;" [class.letrablanca]="isBlank(item.concepto)">{{item.concepto|| '-'}}</td>
+                                        <td [class.letrablanca]="isBlank(item.concepto)">{{item.montoCuota || 0 | currency}}</td>
                                     </tr>
                                     <tr class="totalesTimbrado">
                                         <th id="">Total</th>
@@ -273,10 +273,9 @@
                             </table>
 
                         </td>
-                        <td span="7">
+                        <td  span="7">
                             <a (click)="btnDescargar(item,indice)"
-                                style="color:#56dfd4;text-decoration: underline;cursor: pointer;"
-                                class="dropdown-toggle">
+                                class="dropdown-toggle estiloLinnk">
                                 <i aria-hidden="true" class="icon_eventos "></i> Vista preliminar de recibo de pago
 
                             </a>
