@@ -57,6 +57,7 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger;
     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
     this.fechaActual = new DatePipe("es-MX").transform(new Date(), 'dd-MMM-y')?.replace(".", "");
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
@@ -119,7 +120,9 @@ export class DetalleUsuarioComponent implements OnInit {
     if (this.usuariosSistemaPrd.getUsuario().usuarioId === this.objusuario.usuarioId) {
       this.myForm.controls.esActivo.disable();
     }
+    debugger;
     switch (type) {
+      
       case "clienteCosmonaut":
 
         if (this.objusuario.rolId?.rolId == 1) {
@@ -379,6 +382,17 @@ export class DetalleUsuarioComponent implements OnInit {
 
 
     }
+  }
+
+  public limpiarClientes(){
+    debugger;
+    if(Number(this.myForm.controls.rol.value) === 1){
+      if(this.insertar){
+      this.myForm.controls.centrocClienteId.setValue('');
+      this.myForm.controls.centrocClienteId.updateValueAndValidity();
+      }  
+    }
+    
   }
 
   private validacionesClienteEmpresa() {

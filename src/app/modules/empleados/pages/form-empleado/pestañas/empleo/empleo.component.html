@@ -212,7 +212,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <label for="exampleFormControlSelect1">Tipo sueldo de entrada *</label>
+                    <label for="exampleFormControlSelect1">Tipo sueldo de entrada <span *ngIf="!grupoNominaSeleccionado.pagoComplementario">*</span></label>
                     <select formControlName="tiposueldo" (change)="cambiarSueldoField()" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.tiposueldo.errors && f.tiposueldo.touched}">
                         <option value="b">Bruto</option>
                         <option value="n">Neto</option>
