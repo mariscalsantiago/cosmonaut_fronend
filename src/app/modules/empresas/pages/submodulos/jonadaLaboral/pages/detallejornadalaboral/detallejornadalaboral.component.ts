@@ -827,6 +827,7 @@ debugger;
   }
 
 
+  
   public hrFinComida(response: any) {
     debugger;
     if (response.value !== undefined) {
