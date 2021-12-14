@@ -817,7 +817,7 @@ debugger;
         this.hrDeSalida(undefined);
 
       } else {
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida debe ser mayor a la hora de entrada y menor a la hora de salida');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida debe ser mayor a la hora de entrada y menor a la hora de salida.');
         this.myForm.controls.horaFinComida.setValue("");
         this.myForm.controls.horaInicioComida.setValue("");
       }
@@ -857,7 +857,7 @@ debugger;
         this.hrDeSalida(undefined);
 
       } else {
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de la comida debe ser menor a la hora de salida y mayor a la hora de entrada e inicio de ásta');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora fin de la comida debe ser menor a la hora de salida y mayor a la hora de entrada e inicio de ésta.');
         this.myForm.controls.horaFinComida.setValue("");        
       }
     }
