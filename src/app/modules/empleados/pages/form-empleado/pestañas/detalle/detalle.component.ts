@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
+import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { CuentasbancariasService } from '../../../../../empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
@@ -25,7 +26,7 @@ export class DetalleComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private catalogosPrd: CatalogosService,
     private bancosPrd: CuentasbancariasService,private usuariosSistemaPrd:UsuarioSistemaService,
-    private modalPrd:ModalService,private navigate:Router) { }
+    private modalPrd:ModalService,private navigate:Router, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
     this.myForm = this.createForm({});
@@ -143,7 +144,11 @@ export class DetalleComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
             if(datos.resultado){
-                this.navigate.navigate(['/empleados']);
+              let obj = {
+                perfilesPendientes: true
+              }
+              this.configuracionPrd.breadcrum.permisos.push(obj);
+              this.navigate.navigate(['/empleados']);
             }
           });
 

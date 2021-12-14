@@ -64,8 +64,8 @@
                     </div>
                     
                     <div *ngIf="evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14" class=" col-12 ">
-                        <label *ngIf="evento.heTiempo !== 0">Horas:<span class="letramenos">{{evento.heTiempo}}</span></label>
-                        <label *ngIf="evento.monto !== 0">Monto:<span class="letramenos">{{'$' + evento.monto}}</span></label>
+                        <label *ngIf="evento.heTiempo !== 0 && evento.unidadMedidaId == 1">Horas:<span class="letramenos">{{evento.heTiempo}}</span></label>
+                        <label *ngIf="evento.monto !== 0 && evento.unidadMedidaId == 3">Monto:<span class="letramenos">{{'$' + evento.monto}}</span></label>
                         <label *ngIf="evento.heTiempo == 0 && evento.monto == 0">Horas:<span class="letramenos">{{evento.duracion}}</span></label>
                     </div>
                     <div class=" col-12 ">
