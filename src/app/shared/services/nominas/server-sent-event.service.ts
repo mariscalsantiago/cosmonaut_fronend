@@ -59,7 +59,7 @@ export class ServerSentEventService {
       tituloPrincipal[0].style.color = "gray";
       tituloPrincipal[0].innerText = "Resultado de cálculo";
       let imagen:any = document.getElementById("successimg");
-      imagen.style.display = "block";
+      imagen.style.display = "none";
       p1.style.color = "gray";
       p2.style.color = "gray";
     }
