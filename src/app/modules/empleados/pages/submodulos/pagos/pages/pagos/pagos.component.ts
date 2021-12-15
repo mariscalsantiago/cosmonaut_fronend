@@ -76,52 +76,45 @@ export class PagosComponent implements OnInit {
     
     this.arreglogrupoNomina = this.router.snapshot.data.gruponomina;
     this.empleado = this.router.snapshot.data.contratoColaborador;
+    this.idEmpleado = this.empleado.personaId.personaId;
+    this.primeraVez = true;
+    this.myFormCompensacion = this.createFormCompensacion(this.empleado);
+    if (this.empleado.metodoPagoId.metodoPagoId == 4) {
+      this.detalleCuenta = true;
+    } else {
+      this.detalleCuenta = false;
+    }
+
+
+    this.cambiarGrupoNomina();
+
+
+    this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+
+      this.cuentaBanco = datos.datos;
+
+    });
+
+
+
+    this.cargandoPer = true;
+    this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.crearTablaPercepcion(datos);
+    });
+
+
+    this.cargandoDed = true;
+    this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.crearTablaDeduccion(datos);
+    });
 
 
     this.myFormMetodoPago = this.formbuilder.group({});
-    this.myFormCompensacion = this.createFormCompensacion({});
-
     this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
     this.catalogosPrd.getCompensacion(true).subscribe(datos => this.arregloCompensacion = datos.datos);
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arreglobancos = datos.datos);
 
-    this.router.params.subscribe(params => {
-      this.idEmpleado = params["id"];
-
-      this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
-        this.empleado = datos.datos;
-
-        this.primeraVez = true;
-        this.myFormCompensacion = this.createFormCompensacion(this.empleado);
-
-        if (this.empleado.metodoPagoId.metodoPagoId == 4) {
-          this.detalleCuenta = true;
-        } else {
-          this.detalleCuenta = false;
-        }
-      });
-
-      this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
-
-        this.cuentaBanco = datos.datos;
-
-      });
-
-
-
-      this.cargandoPer = true;
-      this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-        this.crearTablaPercepcion(datos);
-      });
-
-
-      this.cargandoDed = true;
-      this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-        this.crearTablaDeduccion(datos);
-      });
-
-    });
-
+   
 
   }
 
