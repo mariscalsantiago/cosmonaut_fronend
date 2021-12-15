@@ -93,7 +93,7 @@ export class PPPComponent implements OnInit {
       new tabla("nombreEmpresa", "Empresa"),
       new tabla("grupoNomina", "Grupo de nómina"),
       new tabla("nombreEmpleado", "Nombre"),
-      new tabla("pagoComplementario", "Pago complementario"),
+      new tabla("pagoComplementario", "Pago complementario ",false,false,false),
     ]
 
 
@@ -109,6 +109,7 @@ export class PPPComponent implements OnInit {
             style: 'currency',
             currency: 'USD',
             minimumFractionDigits: 2
+
           })
           item.pagoComplementario = formatter.format(item.pagoComplementario)
         }
