@@ -294,7 +294,7 @@ export class PagarComponent implements OnInit {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       if(valor.resultado){
         if (valor.datos.exito) {
-          this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento se está llevando a cabo el proceso de dispersión.");
+          this.modalPrd.showMessageDialog(this.modalPrd.dispersar, "Dispersando", "Espere un momento, el proceso se tardara varios minutos.");
           let suscribe = timer(0, 1500).pipe(concatMap(() =>
             this.nominaOrdinariaPrd
               .statusProcesoDispersar(this.idnominaPeriodo,arrayPersonas )))

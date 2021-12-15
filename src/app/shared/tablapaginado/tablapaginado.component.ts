@@ -100,7 +100,6 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   constructor(private configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
-    debugger;
 
 
     this.numeroitems = Number(this.configuracionPrd.getElementosSesionDirecto(this.configuracionPrd.ELEMENTOSTABLA) || "5");

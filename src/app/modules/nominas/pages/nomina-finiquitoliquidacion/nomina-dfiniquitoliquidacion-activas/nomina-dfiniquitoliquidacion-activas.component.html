@@ -28,7 +28,7 @@
     <div class="row   m-2 background-panel fade-in" *ngFor="let item of arreglo; let indice = index;">
         <div class="col-6 mt-3">
             <article>{{item.nominaLiquidacion?.nombreNomina}}
-                <article>Período del {{item.nominaLiquidacion?.fechaInicio | date:'dd MMMM'}} al {{item.nominaLiquidacion?.fechaFin | date:'dd MMMM'}}</article>
+                <article>Período De {{item.nominaLiquidacion?.fechaInicio | date:'dd MMMM'}} al {{item.nominaLiquidacion?.fechaFin | date:'dd MMMM'}}</article>
                 <article>Clave: {{item.nominaLiquidacion?.clavePeriodo}}</article>
             </article>
 

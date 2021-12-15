@@ -152,7 +152,7 @@
             </div>
             <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Valor *</label>
-                <input formControlName="valor" maxlength="10" type="text" class="form-control" placeholder=""
+                <input appSolonumeros formControlName="valor" maxlength="10" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.valor.errors && submitEnviado}">
                 <div *ngIf="f.valor.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido

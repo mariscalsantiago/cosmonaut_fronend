@@ -22,8 +22,7 @@
     <div class="col-2"></div>
 </div>
 <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8 text-right mt-2">
+    <div class="col-12 text-center mt-2">
         <button (click)="enviarRecibos()"  [disabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" [class.botondisabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0"  class="btn btn-primary button-outlet mr-2"> <span *ngIf="!cargandoIcon">Enviar recibos a empleados</span> 
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
@@ -34,18 +33,17 @@
                 <span class="sr-only">Loading...</span>
             </div>
         </button>
-        <button *ngIf="esDescargar" [disabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" [class.botondisabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" (click)="descargarFolios()" class="btn btn-primary button-fill mr-2"><span *ngIf="!cargandoIcon">Descargar folios</span>
-            <div *ngIf="cargandoIcon" class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </button>
-        <button (click)="concluirnomina()"  [disabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" [class.botondisabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0"  class="btn btn-primary button-outlet mr-2"> <span *ngIf="!cargandoIcon">Cerrar nómina</span> 
+        <button *ngIf="esDescargar" [disabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" [class.botondisabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" (click)="descargarFolios()" class="btn btn-primary button-fill"><span *ngIf="!cargandoIcon">Descargar folios</span>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </button>
     </div>
-    <div class="col-2"></div>
 </div>
 
+<div class="row">
+    <div class="col-12 text-center mt-2">
+        <button (click)="concluirnomina()"  [class.botondisabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" [disabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" class="btn btn-primary button-outlet mr-2">Concluir la nómina</button>
+    </div>
+</div>
 
