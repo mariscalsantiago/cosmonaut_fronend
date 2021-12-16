@@ -92,7 +92,7 @@
                         <img alt="" *ngIf="item.url == undefined" width="45px" height="45px"
                             [src]="rutaimagenes[icondefault]" class="tableimg">
                     </td>
-                    <td class="wrap" *ngFor="let item2 of datos.columnas" [class.td-center]="item2.id | centrar "
+                    <td class="wrap" *ngFor="let item2 of datos.columnas" [class.td-center]="item2.id | centrar"
                         [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
                         (click)="eventoclick(item2,item,indice)">{{(item2.nombre ==
                         'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
@@ -397,9 +397,9 @@
                     <a class="page-link" tabindex="-1" aria-disabled="true">Anterior</a>
                 </li>
                 <li (click)="mostrarListaPaginaAnterior(true)" class="page-item " *ngIf="activarMenos"><a
-                        class="page-link" [class.noCursor]="paginado_server">...</a>
+                        class="page-link " [class.noCursor]="paginado_server">...</a>
                 </li>
-                <li class="page-item " [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas"
+                <li class="page-item disabled" [ngClass]="{'active':item.activado}" *ngFor="let item of arreglopaginas"
                     (click)="paginacambiar(item,true)"><a class="page-link" [class.noCursor]="paginado_server && !item.activado">{{item.mostrar}}</a></li>
                 <li (click)="mostrarListaPaginaSiguiente(true)" class="page-item " *ngIf="activarMas"><a
                         class="page-link" [class.noCursor]="paginado_server">...</a>
