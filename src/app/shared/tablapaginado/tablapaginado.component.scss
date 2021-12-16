@@ -153,9 +153,13 @@ table {
     position: absolute !important;
     right: 11px !important;
     outline: none;
+
     span {
         color: #56dfd4;
         font-size: 32px;
+        border: 0 !important;
+        outline: none !important;
+        margin: 0px;
     }
 }
 .btnclosemodal:focus{

@@ -19,6 +19,8 @@
 
 
                     <form [formGroup]="myForm" (ngSubmit)="enviarEtapa1()">
+                        <br>
+
                         <div class="row">
                             <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                                 <label for="nombre">Razón social *</label>
@@ -71,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <br>
 
                         <div class="text-right margin" style="margin-bottom: 20px;">
 
@@ -85,31 +87,34 @@
                 </div>
                 <div class="tab-pane fade" [ngClass]="{'show active':activado[1].form}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-
+                    <br>
                     <div class="row">
                         <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
-                            <label for="moneda">Seleccionar los empleados a incluir en el formato</label>
-                            <label class="contenedorInputCheckRadio">Todos los empleados
+                            <label style="font-size: 15px !important;">Seleccionar los empleados a incluir en el formato</label>
+                        </div>
+                        <br> 
+                            <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">    
+                            <label style="font-size: 15px !important;" class="contenedorInputCheckRadio">Todos los empleados
                                 <input [(ngModel)]="valor" name="seleccion" type="radio" value="1">
                                 <span class="radiomark"></span>
                             </label>
-                            <label class="contenedorInputCheckRadio">Filtrar por área
+                            <label style="font-size: 15px !important;" class="contenedorInputCheckRadio">Filtrar por área
                                 <input [(ngModel)]="valor" name="seleccion" type="radio" value="2">
                                 <span class="radiomark"></span>
                             </label>
                             <div *ngIf="valor == '2'">
-                                <select #inputarea style="font-size: 12px;" name="" class="form-control mb-2">
+                                <select #inputarea style="font-size: 15px;" name="" class="form-control mb-2">
                                     <option *ngFor="let item of arregloareas" [value]="item.areaId">{{item.descripcion}}</option>
                                 </select>
 
                             </div>
-                            <label class="contenedorInputCheckRadio">Filtrar por empleados especificos
+                            <label style="font-size: 15px !important;" class="contenedorInputCheckRadio">Filtrar por empleados especificos
                                 <input [(ngModel)]="valor" name="seleccion" type="radio" value="3">
                                 <span class="radiomark"></span>
                             </label>
                             <div *ngIf="valor == '3'">
                                 <div class="input-group-sm mb-3 col-8">
-                                    <label for="exampleFormControlSelect1" style="font-size: 12px;">Empleados *</label>
+                                    <label for="exampleFormControlSelect1" style="font-size: 15px;">Empleados *</label>
                                     <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
                                 </div>
 
@@ -117,6 +122,7 @@
                         </div>
 
                     </div>
+                    <br>
                     <div class="text-right margin" style="margin-bottom: 20px;">
 
                         <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
@@ -128,15 +134,15 @@
                 </div>
                 <div class="tab-pane fade" [ngClass]="{'show active':activado[2].form}" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-
+                    <br>
                     <div class="row">
                         <div class="input-group-sm mb-4 mt-3 col-12 col-sm-12 col-lg-12">
-                            <label style="font-size: 12px;">Descargar el formato, llénalo y ve al siguiente paso. Recuerda llenar todos los campos obligatorios.</label>
+                            <label style="font-size: 15px;">Descargar el formato, llénalo y ve al siguiente paso. Recuerda llenar todos los campos obligatorios.</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 text-left">
-                            <a (click)="descargarArchivo()" class="botonestilo  estiloextralink"><small *ngIf="!cargandoIcon"><i aria-hidden="true"
+                            <a (click)="descargarArchivo()" class="botonestilo  estiloextralink"><small style="font-size: 15px;" *ngIf="!cargandoIcon"><i aria-hidden="true"
                                         class="fas fa-download mr-1"></i> Descargar formato</small>
                                 <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                                     <span class="sr-only">Loading...</span>
@@ -144,10 +150,11 @@
                             </a>
                         </div>
                     </div>
+                    <br>
                     <form [formGroup]="myFormFile" (ngSubmit)="guardarArchivoDispersion()">
                         <div class="row">
                             <div class="input-group-sm mb-3 col-12 col-sm-7 col-lg-7">
-                                <label style="font-size: 12px;">Sube el formato con los datos modificados</label>
+                                <label style="font-size: 15px;">Sube el formato con los datos modificados</label>
                                 <div class="input-group mb-3">
                                     <input type="hidden">
                                     <input formControlName="archivo" [class.is-invalid]="myFormFile.controls.archivo.errors && myFormFile.controls.archivo.touched" #inputFile type="text" class="form-control disabled bg-light">
@@ -160,6 +167,7 @@
                                 </div>
                             </div>
                         </div>
+                        <br>
                         <div class="text-right margin" style="margin-bottom: 20px;">
 
                             <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
