@@ -39,7 +39,7 @@ export class DomicilioComponent implements OnInit {
   public noCoincide = '';
   public verSedes: boolean = false;
   public esContinuar: boolean = false;
-
+  public mostarSede: boolean = false;
   public sedeSeleccionada: any;
 
   public arreglotabla: any = {
@@ -222,6 +222,10 @@ export class DomicilioComponent implements OnInit {
       this.domicilioPrd.save(objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        if (datos.resultado)
+        {
+          this.mostarSede= true;
+        }
         this.ngOnInit();
         this.verSedes = false;
       });
