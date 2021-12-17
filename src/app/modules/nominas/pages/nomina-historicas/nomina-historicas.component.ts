@@ -28,7 +28,8 @@ export class NominaHistoricasComponent implements OnInit {
 
   public nombreNomina: string = "";
   public periodo: string = "";
-  public fecha: string = "";
+  public fechaInc: string = "";
+  public fechaFin: string = "";
 
   public anioactual: number = new Date().getFullYear();
 
@@ -309,7 +310,8 @@ export class NominaHistoricasComponent implements OnInit {
       estadoNominaIdActual: 5,
       nombreNomina: this.nombreNomina || null,
       clavePeriodo: this.periodo || null,
-      fechaInicio: this.fecha || null
+      fechaInicio: this.fechaInc || null,
+      fechaFin: this.fechaFin || null,
     }
 
     if (!desdeFiltrado) {
@@ -357,7 +359,8 @@ export class NominaHistoricasComponent implements OnInit {
       estadoNominaIdActual: 5,
       nombreNomina: this.nombreNomina || null,
       clavePeriodo: this.periodo || null,
-      fechaInicio: this.fecha || null
+      fechaInicio: this.fechaInc || null, 
+      fechaFin: this.fechaFin || null
     }
 
     if (!desdeFiltrado) {

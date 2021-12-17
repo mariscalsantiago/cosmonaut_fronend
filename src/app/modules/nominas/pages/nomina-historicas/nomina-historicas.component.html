@@ -26,7 +26,15 @@
                             <input type="text" class="form-control" [(ngModel)]="periodo" id="periodoHS" placeholder="Clave período">
                         </div>
                         <div class=" input-group-sm mb-3 col-4 ">
-                            <input type="date" class="form-control" [(ngModel)]="fecha" id="fechaHS" placeholder="Fecha inicio">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-4 ">
+                            <label style="color:white">Desde</label>
+                            <input type="date" placeholder="desde" [(ngModel)]="fechaInc" id="fechaIncHis" class="form-control">
+                        </div>
+
+                        <div class=" input-group-sm mb-3 col-4 ">
+                            <label style="color:white" for="">Hasta</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaFin" id="fechaFinHis" placeholder="Hasta">
                         </div>
                         <div class=" input-group-sm mb-1 text-right col-12 col-lg-2  col-xl-12 ">
                             <button type="button"class="btn btn-primary button-outlet " id="btnFiltrarHistoricas" (click)="filtrar(true)">Filtrar</button>
