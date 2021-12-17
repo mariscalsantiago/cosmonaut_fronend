@@ -744,7 +744,7 @@ export class DetallejornadalaboralComponent implements OnInit {
 
 
   public hrDeOpcionalJornadaOcho(response: any) {
-debugger;
+
     let horaSalidaFin;
     let horaSalida = this.myForm.controls.horaSalida.value;
     if (response !== undefined) {
@@ -764,7 +764,7 @@ debugger;
 
 
   public hrDeSalida(response: any) {
-    debugger;    
+        
 
     let horaSalidaFin;
     let horaSalida = this.myForm.controls.horaSalida.value;
@@ -829,7 +829,7 @@ debugger;
 
   
   public hrFinComida(response: any) {
-    debugger;
+    
     if (response.value !== undefined) {
 
     

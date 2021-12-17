@@ -186,8 +186,9 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   }
 
   public listaEmpresa(){
-    debugger;
-    this.objFiltro = {};
+    
+    this.objFiltro = [];
+    this.arregloEmpresa = [];
 
     this.objFiltro = {
       clienteId: this.idCliente
@@ -234,8 +235,8 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   }
 
   public filtrar() {
-
-    this.objFiltro = {};
+    
+    this.objFiltro = [];
     if(this.idEmpresaFiltro != 0){
       this.objFiltro = {
         ...this.objFiltro,

@@ -75,7 +75,7 @@ export class NominaPTUComponent implements OnInit {
       clienteId: this.usuariSistemaPrd.getIdEmpresa()
     }
     this.nominaPtuPrd.getListaNominas(objenviar).subscribe(datos => {
-      debugger;
+      
       this.cargando = false;
       this.arreglo = datos.datos;
       for (let item of this.arreglo) {
@@ -86,7 +86,7 @@ export class NominaPTUComponent implements OnInit {
         item.esConcluir = item.nominaPtu?.estadoActualNomina === 'Pagada' && item.nominaPtu?.estadoActualNomina === 'Timbrada';
         item.mensajePensando = item.nominaPtu.estadoProcesoNominaId == 4 ? item.nominaPtu.procesoNominaObservaciones : "";
         item.estadoPensando = item.nominaPtu.estadoProcesoNominaId == 1 || item.nominaPtu.estadoProcesoNominaId == 2 || item.nominaPtu.estadoProcesoNominaId == 4;
-        debugger;
+        
         if(item.nominaPtu.estadoActualNomina !==	"Calculada" && item.nominaPtu.estadoActualNomina !==	"Nueva"){
           item.eliminarBut = false;
         }else{

@@ -200,7 +200,7 @@ export class PersonalComponent implements OnInit {
   }
 
   public cambiaCurp(){
-    debugger;
+    
     if(this.myForm.controls.curp.valid){
       const datePipe = new DatePipe("es-MX");
         let genero = this.myForm.value.curp.slice(10,11);
@@ -249,7 +249,7 @@ export class PersonalComponent implements OnInit {
 
   public createForm(obj: any) {
 
-    debugger;
+    
     //let genero = "";
     if (obj.genero == "F"){
       //genero = "true";
@@ -337,7 +337,7 @@ export class PersonalComponent implements OnInit {
 
 
   public realizarOperacion(esUsuario:any) {
-    debugger;
+    
 
     let obj = this.myForm.value;
     obj.genero = this.myForm.controls.genero.value;
