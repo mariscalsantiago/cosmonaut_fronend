@@ -145,7 +145,7 @@ export class VariabilidadComponent implements OnInit {
       if(this.arreglo !== undefined){
         
         for(let item of this.arreglo){
-          debugger;
+          
 
           if(item.fechaAplicacion !== undefined ){
           item.fechaAplicacion = (new Date(item.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "");
@@ -282,7 +282,7 @@ export class VariabilidadComponent implements OnInit {
     }
 
     public createForm(obj: any) {
-   debugger;   
+      
    if(this.esREcalcular){
     if(obj !== undefined){
           if(obj.bimestre == 1){

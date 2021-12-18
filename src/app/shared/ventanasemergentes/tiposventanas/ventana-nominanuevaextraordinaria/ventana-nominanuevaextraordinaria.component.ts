@@ -56,13 +56,17 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
     
 
-    if(this.usuarioSistemaPrd.esCliente()){
-      this.companiasPrd.getAllEmp(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos => {
-          this.arregloCompanias = datos.datos;
+    if(this.usuariosPrd.esCliente()){
+      
+      this.companiasPrd.getAllEmp(this.usuariosPrd.getIdEmpresa()).subscribe(datos => {
+          //this.arregloCompanias = datos.datos;
+          this.myForm.controls.centrocClienteId.setValue(datos.datos.razonSocial);
       });
     }else{
-      this.companiasPrd.getEmpresaById(this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
-        this.arregloCompanias = [datos.datos];
+      this.companiasPrd.getEmpresaById(this.usuariosPrd.getIdEmpresa()).subscribe(datos =>{
+        //this.arregloCompanias = [datos.datos];
+        this.myForm.controls.centrocClienteId.setValue(datos.datos.razonSocial);
+      
       });
     }
 

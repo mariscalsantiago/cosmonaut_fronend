@@ -57,7 +57,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
     private empleadosPrd: EmpleadosService, private nominaPrd: NominaptuService) { }
 
   ngOnInit(): void {
-
+    
     this.maximo = (new DatePipe("es-MX").transform((new Date(new Date().getFullYear(),11,31)),"yyyy-MM-dd"));
 
         
@@ -78,16 +78,6 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
         archivo:[{value:'',disabled:false},Validators.required]
     });
 
-    if(this.usuariosPrd.esCliente()){
-      this.companiasPrd.getAllEmp(this.usuariosPrd.getIdEmpresa()).subscribe(datos => {
-          this.arregloCompanias = datos.datos;
-      });
-    }else{
-      this.companiasPrd.getEmpresaById(this.usuariosPrd.getIdEmpresa()).subscribe(datos =>{
-        this.arregloCompanias = [datos.datos];
-      });
-    }
-
     this.areasPrd.getAreasByEmpresa(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.arregloareas = datos.datos);
 
     this.empleadosPrd.getEmpleadosCompania(this.usuariosPrd.getIdEmpresa()).subscribe(datos => {
@@ -99,6 +89,20 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
     });
 
     this.myForm = this.createEtapa1();
+    
+    if(this.usuariosPrd.esCliente()){
+      
+      this.companiasPrd.getAllEmp(this.usuariosPrd.getIdEmpresa()).subscribe(datos => {
+          //this.arregloCompanias = datos.datos;
+          this.myForm.controls.centrocClienteId.setValue(datos.datos.razonSocial);
+      });
+    }else{
+      this.companiasPrd.getEmpresaById(this.usuariosPrd.getIdEmpresa()).subscribe(datos =>{
+        //this.arregloCompanias = [datos.datos];
+        this.myForm.controls.centrocClienteId.setValue(datos.datos.razonSocial);
+      
+      });
+    }
 
     
   }
