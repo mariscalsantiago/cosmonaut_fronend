@@ -42,6 +42,8 @@ export class DomicilioComponent implements OnInit {
 
   public sedeSeleccionada: any;
 
+  public mostarSede: boolean = false;
+
   public arreglotabla: any = {
     columnas: [],
     filas: []
@@ -69,6 +71,7 @@ export class DomicilioComponent implements OnInit {
 
       this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
         if (datos.datos) {
+          this.mostarSede = true;
           this.esContinuar = true;
           let obj = datos.datos[0];
           
@@ -230,6 +233,10 @@ export class DomicilioComponent implements OnInit {
       this.domicilioPrd.modificar(objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        if (datos.resultado)
+        {
+          this.mostarSede= true;
+        }
         this.ngOnInit();
         this.verSedes = false;
       });
