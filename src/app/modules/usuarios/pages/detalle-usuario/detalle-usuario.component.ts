@@ -122,6 +122,7 @@ export class DetalleUsuarioComponent implements OnInit {
     }
     
     switch (type) {
+      
       case "clienteCosmonaut":
 
         if (this.objusuario.rolId?.rolId == 1) {

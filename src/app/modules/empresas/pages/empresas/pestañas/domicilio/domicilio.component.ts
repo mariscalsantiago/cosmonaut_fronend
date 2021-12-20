@@ -39,7 +39,7 @@ export class DomicilioComponent implements OnInit {
   public noCoincide = '';
   public verSedes: boolean = false;
   public esContinuar: boolean = false;
-  public mostarSede: boolean = false;
+
   public sedeSeleccionada: any;
 
   public arreglotabla: any = {
@@ -66,9 +66,9 @@ export class DomicilioComponent implements OnInit {
 
     this.datos.activarGuardaMod = true;
     this.id_empresa = this.datos.empresa.centrocClienteId;
+
       this.domicilioPrd.getDetDom(this.id_empresa).subscribe(datos => {
-        if (datos.datos) {  
-          this.mostarSede = true;     
+        if (datos.datos) {
           this.esContinuar = true;
           let obj = datos.datos[0];
           
@@ -87,6 +87,7 @@ export class DomicilioComponent implements OnInit {
 
                 obj.municipio = this.nombreMunicipio;
                 obj.estado = this.nombreEstado;
+
 
               }
 
@@ -125,12 +126,12 @@ export class DomicilioComponent implements OnInit {
 
     });
 
+
   }
 
   public createForm(obj?: any) {
 
     return this.formBuilder.group({
-
       codigo: [obj.codigo, [Validators.required, Validators.pattern('[0-9]+')]],
       estado: [obj.estado, [Validators.required]],
       municipio: [obj.municipio, [Validators.required]],
@@ -140,13 +141,15 @@ export class DomicilioComponent implements OnInit {
       numInterior: obj.numInterior,
       domicilioId: obj.domicilioId
     });
+
   }
 
 
 
   public recibirTabla(obj?: any) {
+
     switch (obj.type) {
-      case "editar":  
+      case "editar":
         this.verdetalle(obj.datos);
         break;
       case "eliminar":
@@ -219,10 +222,6 @@ export class DomicilioComponent implements OnInit {
       this.domicilioPrd.save(objenviar).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-        if (datos.resultado)
-        {
-          this.mostarSede= true;
-        }
         this.ngOnInit();
         this.verSedes = false;
       });
@@ -254,7 +253,7 @@ export class DomicilioComponent implements OnInit {
 
 
   public buscar() {
- 
+
     this.myForm.controls.estado.setValue("");
     this.myForm.controls.municipio.setValue("");
     this.noCoincide = '';
@@ -268,6 +267,7 @@ export class DomicilioComponent implements OnInit {
 
           if (datos.resultado) {
             this.domicilioCodigoPostal = datos.datos;
+
             for (let item of datos.datos) {
               this.nombreEstado = item.dedo;
               this.nombreMunicipio = item.dmnpio;
@@ -301,6 +301,7 @@ export class DomicilioComponent implements OnInit {
 
 
   public eventoDetalleSede(evento: any) {
+    
     this.verSedes = false;
     switch (evento.type) {
       case "guardar":

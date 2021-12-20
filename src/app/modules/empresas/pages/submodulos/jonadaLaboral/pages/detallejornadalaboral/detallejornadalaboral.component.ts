@@ -817,7 +817,7 @@ export class DetallejornadalaboralComponent implements OnInit {
         this.hrDeSalida(undefined);
 
       } else {
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida debe ser mayor a la hora de entrada y menor a la hora de salida.');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La hora de la comida debe ser mayor a la hora de entrada y menor a la hora de salida');
         this.myForm.controls.horaFinComida.setValue("");
         this.myForm.controls.horaInicioComida.setValue("");
       }
@@ -861,6 +861,7 @@ export class DetallejornadalaboralComponent implements OnInit {
         this.myForm.controls.horaFinComida.setValue("");        
       }
     }
+
     }
   }
 

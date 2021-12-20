@@ -74,6 +74,7 @@ export class AdminDispercionTimbradoComponent implements OnInit {
    this.establecerPermisos();
    this.companyPrd.getAllSimple().subscribe(datos => this.arregloCompania = datos.datos);
    this.companyPrd.getAllEmpSimple().subscribe(datos => this.arregloEmpresa = datos.datos);
+   console.log(this.arregloEmpresa);
   
    
     this.filtrar();

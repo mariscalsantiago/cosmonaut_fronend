@@ -152,6 +152,7 @@ table {
     top: 0 !important;
     position: absolute !important;
     right: 11px !important;
+    outline: none;
 
     span {
         color: #56dfd4;
@@ -289,28 +290,5 @@ table {
 }
 
 .recalcularclass::after{
-    content:'Recalcular'
-}
-
-.posicionIcon{
-    position: absolute;
-                            font-size: 11px;
-                            top: 4px;
-                            display: inline-block;
-                            width: 69px;
-                            padding: -5px;
-    left: -33px;
-
-}
-
-.posicionText {
-    position: absolute;
-                            font-size: 12px;
-                            top: 1px;
-                            display: inline-block;
-                            width: 69px;
-                            padding: -5px;
-                            left: 5px;
-                            font-family: 'Roboto';
-                            font-style: normal;
+    content:'Recalcular';
 }
