@@ -184,6 +184,26 @@ export class AdminDispercionTimbradoComponent implements OnInit {
     this.esEliminar = this.configuracionPrd.getPermisos("Eliminar");
   }
 
+  public listaEmpresa(){
+    
+    this.objFiltro = [];
+    this.arregloEmpresa = [];
+
+    this.objFiltro = {
+      clienteId: this.idCliente
+
+    };
+
+    this.admintimbradoDispersion.proveedoresTimbres(this.objFiltro).subscribe(datos => {
+
+     if(datos.datos !== undefined){
+       this.arregloEmpresa = datos.datos;
+    }
+    
+    
+  });
+  }
+
   public recibirTabla(obj:any){
     
     if(obj.type == "editar"){
@@ -214,8 +234,8 @@ export class AdminDispercionTimbradoComponent implements OnInit {
   }
 
   public filtrar() {
-
-    this.objFiltro = {};
+    
+    this.objFiltro = [];
     if(this.idEmpresaFiltro != 0){
       this.objFiltro = {
         ...this.objFiltro,

@@ -104,7 +104,7 @@ export class VariabilidadComponent implements OnInit {
     let mes = fecha.getMonth() + 1 < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
     this.anioFiscal = fecha.getFullYear();
 
-    this.fechaActual = `${dia}/${mes}/${this.anioFiscal}`;
+    this.fechaActual = `01/03/${this.anioFiscal}`;
 
     this.cargando = true;
     
@@ -142,96 +142,63 @@ export class VariabilidadComponent implements OnInit {
       }
       
       this.bimestreCalcular = 0;
-      this.numeroBim = 0;
       if(this.arreglo !== undefined){
         
         for(let item of this.arreglo){
-
+          
 
           if(item.fechaAplicacion !== undefined ){
           item.fechaAplicacion = (new Date(item.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
           item.fecha = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
-          this.numeroBim = this.numeroBim + item.bimestre;
-          if(item.bimestre > this.bimestreCalcular){
-            
-            this.bimestreCalcular = item.bimestre
-            if(this.bimestreCalcular == 1){this.bimestreLeyenda = "2do Bimestre"}
-            else if(this.bimestreCalcular == 2){this.bimestreLeyenda = "3er Bimestre"}
-            else if(this.bimestreCalcular == 3){this.bimestreLeyenda = "4to Bimestre"}
-            else if(this.bimestreCalcular == 4){this.bimestreLeyenda = "5to Bimestre"}
-            else if(this.bimestreCalcular == 5){this.bimestreLeyenda = "6to Bimestre"}
-            else if(this.bimestreCalcular == 6){this.bimestreLeyenda = "1er Bimestre"}
-          }
 
-          if(item.bimestre == undefined || item.bimestre == null){
+/*           if(item.bimestre == undefined || item.bimestre == null){
+            let anio;
+            if(item.anioFiscal === undefined){
+              anio = this.fecha.getFullYear();
+            }else{
+              anio = item.anioFiscal;
+            }
 
             this.bimestreLeyenda = "1er Bimestre"
-            let anio = this.fecha.getFullYear();
             this.fechaActual = `01/03/${anio}`;
-          }
-          else if(item.bimestre ==1){
-            let anio = this.fecha.getFullYear();
-            this.fechaActual = `01/05/${anio}`;
+            this.bimestreCalcular = 1;
+          } */
+          if(item.bimestre == 1){
+            this.fechaActual = `01/05/${item.anioFiscal}`;
+            this.bimestreLeyenda = "2do Bimestre"
           }
           else if(item.bimestre ==2){
-            let anio = this.fecha.getFullYear();
-            this.fechaActual = `01/07/${anio}`;
+            this.fechaActual = `01/07/${item.anioFiscal}`;
+            this.bimestreCalcular = 3;
+            this.bimestreLeyenda = "3er Bimestre";
           }
           else if(item.bimestre ==3){
-            let anio = this.fecha.getFullYear();
-            this.fechaActual = `01/09/${anio}`;
+            this.fechaActual = `01/09/${item.anioFiscal}`;
+            this.bimestreCalcular = 4;
+            this.bimestreLeyenda = "4to Bimestre";
           }
           else if(item.bimestre ==4){
-            let anio = this.fecha.getFullYear();
-            this.fechaActual = `01/11/${anio}`;
+            this.fechaActual = `01/11/${item.anioFiscal}`;
+            this.bimestreCalcular = 5;
+            this.bimestreLeyenda = "5to Bimestre";
           }
           else if(item.bimestre ==5){
-            let anio = this.fecha.getFullYear();
-            anio = anio + 1; 
+            let anio = item.anioFiscal + 1; 
             this.fechaActual = `01/01/${anio}`;
+            this.bimestreCalcular = 6;
+            this.bimestreLeyenda = "6to Bimestre";
           }
           else if(item.bimestre ==6){
-            let anio = this.fecha.getFullYear();
-            anio = anio + 1; 
+            let anio = item.anioFiscal + 1; 
+            this.anioFiscal = anio;
             this.fechaActual = `01/03/${anio}`;
+            this.bimestreCalcular = 1;
+            this.bimestreLeyenda = "1er Bimestre";
           }
   
           }
         }
-        let bimfaltante;
-        if(this.numeroBim == 20){
-          bimfaltante = this.numeroBim-(+21);
-          if(bimfaltante !== this.bimestreCalcular){
-          this.bimestreCalcular == 1; 
-          this.bimestreLeyenda = "1er Bimestre"
-          }
-        }
-        else if(this.numeroBim == 19){
-          bimfaltante = this.numeroBim-(+21);
-          if(bimfaltante !== this.bimestreCalcular){
-          this.bimestreCalcular = 2; this.bimestreLeyenda = "2do Bimestre"
-          }
-        }
-        else if(this.numeroBim == 18){
-          bimfaltante = this.numeroBim-(+21);
-          if(bimfaltante !== this.bimestreCalcular){
-          this.bimestreCalcular = 3; this.bimestreLeyenda = "3er Bimestre"
-          }
-        }
-        else if(this.numeroBim == 17){
-          bimfaltante = this.numeroBim-(+21);
-          if(bimfaltante !== this.bimestreCalcular){
-          this.bimestreCalcular = 4; this.bimestreLeyenda = "4to Bimestre"
-          }
-        }
-        else if(this.numeroBim == 16){
-          bimfaltante = this.numeroBim-(+21);
-          if(bimfaltante !== this.bimestreCalcular){
-          this.bimestreCalcular = 5; this.bimestreLeyenda = "5to Bimestre"
-          }
-        }
-
       }
   
       this.arreglotabla.columnas = columna;
@@ -420,6 +387,37 @@ export class VariabilidadComponent implements OnInit {
     });
   }
 
+  public validarfechaAplicacion(bim: any){
+
+    if(this.arreglo === undefined ){
+      if(bim == '1'){
+          let anio = this.fecha.getFullYear();
+          this.myForm.controls.fecha.setValue(`01/03/${anio}`);
+      }
+      if(bim == '2'){
+        let anio = this.fecha.getFullYear();
+        this.myForm.controls.fecha.setValue(`01/05/${anio}`);
+        
+      }
+      if(bim == '3'){
+        let anio = this.fecha.getFullYear();
+        this.myForm.controls.fecha.setValue(`01/07/${anio}`);
+      }
+      if(bim == '4'){
+        let anio = this.fecha.getFullYear();
+        this.myForm.controls.fecha.setValue(`01/09/${anio}`);
+      }
+      if(this.myForm.controls.bimestre.value == '5'){
+        let anio = this.fecha.getFullYear();
+        this.myForm.controls.fecha.setValue(`01/11/${anio}`); 
+      }
+      if(bim == '6'){
+        let anio = this.fecha.getFullYear();
+        anio = anio + 1;
+        this.myForm.controls.fecha.setValue(`01/01/${anio}`);
+      }
+    }
+  }
 
   public desgargarArchivo(obj:any) {
     
@@ -447,6 +445,8 @@ export class VariabilidadComponent implements OnInit {
   public suscripciones() {
     this.myForm.controls.bimestre.valueChanges.subscribe(valor => {
       this.calcularDias(valor);
+      this.validarfechaAplicacion(valor);
+
     });
   }
 
@@ -459,9 +459,9 @@ export class VariabilidadComponent implements OnInit {
     });
   }
   public promedioVariabilidad(){
-    
-    let bimCalcular = this.bimestreCalcular + 1;
-    this.reportesPrd.getCalcularDías(bimCalcular).subscribe(archivo => {
+        
+    //let bimCalcular = this.bimestreCalcular + 1;
+    this.reportesPrd.getCalcularDías(this.bimestreCalcular).subscribe(archivo => {
 
       this.diasCalcular = archivo.datos.diasTotales;
       this.myForm.controls.diaspromediar.setValue(this.diasCalcular);
@@ -576,7 +576,7 @@ export class VariabilidadComponent implements OnInit {
             let dia = fecha[0];
             fecha = anio + "-" + mes + "-" + dia;
             
-            if(obj.bimestre == "1er Bimestre" ||obj.bimestre == "1"){
+            if(obj.bimestre == "1er Bimestre" || obj.bimestre == "1"){
               obj.bimestre = 1;
             }
             else if(obj.bimestre == "2do Bimestre" || obj.bimestre == "2"){
