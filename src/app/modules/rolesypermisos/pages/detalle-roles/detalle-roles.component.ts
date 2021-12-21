@@ -68,7 +68,7 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public traerDatosMenu(obj?: any) {
-
+    debugger;
     let modificar = Boolean(obj);
     
     this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
@@ -83,15 +83,17 @@ export class DetalleRolesComponent implements OnInit {
         }
 
         if (valor.submodulos) {
+          debugger;
           valor.submodulos.forEach(valor2 => {
             let primerAuxSubmodulo = true;
-            valor2.checked = false;
+            valor2.checked = true;
             valor2.previo = false;
             valor2.mostrar = true;
             let filtrar: any = [];
             if (modificar) filtrar = Object.values(obj).filter((x: any) => x.submoduloId == valor2.submoduloId);
 
             valor2.permisos?.forEach(valor3 => {
+              debugger;
 
               valor3.checked = this.encontrarConcidencias(filtrar, valor3);
               valor3.mostrar = true;
@@ -146,6 +148,7 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public encontrarConcidencias(obj: any, valor3: permiso): boolean {
+    debugger;
     let tieneModulo = Boolean(obj);
     if (tieneModulo) {
       tieneModulo = Object.values(obj).filter((x: any) => x.permisoId == valor3.permisoId).length > 0

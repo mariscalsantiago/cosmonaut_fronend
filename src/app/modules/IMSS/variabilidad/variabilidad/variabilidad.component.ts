@@ -53,7 +53,7 @@ export class VariabilidadComponent implements OnInit {
   public esREcalcular : boolean = false;
   public sinPromedios : boolean = false;
   public conPromedios : boolean = true; 
-  public numeroBim: number = 0;
+  //public anioinical: number = 0;
 
 
   public arreglotabla: any = {
@@ -140,8 +140,9 @@ export class VariabilidadComponent implements OnInit {
         columnas:[],
         filas:[]
       }
-      
+      debugger;
       this.bimestreCalcular = 0;
+      //this.anioinical = 0;
       if(this.arreglo !== undefined){
         
         for(let item of this.arreglo){
@@ -151,51 +152,48 @@ export class VariabilidadComponent implements OnInit {
           item.fechaAplicacion = (new Date(item.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "");
           let datepipe = new DatePipe("es-MX");
           item.fecha = datepipe.transform(item.fechaAplicacion , 'dd-MMM-y')?.replace(".","");
-
-/*           if(item.bimestre == undefined || item.bimestre == null){
-            let anio;
-            if(item.anioFiscal === undefined){
-              anio = this.fecha.getFullYear();
-            }else{
-              anio = item.anioFiscal;
-            }
-
-            this.bimestreLeyenda = "1er Bimestre"
-            this.fechaActual = `01/03/${anio}`;
-            this.bimestreCalcular = 1;
-          } */
+          
+          //if(item.anioFiscal >= this.anioinical){
           if(item.bimestre == 1){
+            //this.anioinical = item.anioFiscal;
             this.fechaActual = `01/05/${item.anioFiscal}`;
+            this.bimestreCalcular = 2;
             this.bimestreLeyenda = "2do Bimestre"
           }
           else if(item.bimestre ==2){
+            //this.anioinical = item.anioFiscal;
             this.fechaActual = `01/07/${item.anioFiscal}`;
             this.bimestreCalcular = 3;
             this.bimestreLeyenda = "3er Bimestre";
           }
-          else if(item.bimestre ==3){
+          else if(item.bimestre == 3){
+            //this.anioinical = item.anioFiscal;
             this.fechaActual = `01/09/${item.anioFiscal}`;
             this.bimestreCalcular = 4;
             this.bimestreLeyenda = "4to Bimestre";
           }
           else if(item.bimestre ==4){
+            //this.anioinical = item.anioFiscal;
             this.fechaActual = `01/11/${item.anioFiscal}`;
             this.bimestreCalcular = 5;
             this.bimestreLeyenda = "5to Bimestre";
           }
           else if(item.bimestre ==5){
+            //this.anioinical = item.anioFiscal;
             let anio = item.anioFiscal + 1; 
             this.fechaActual = `01/01/${anio}`;
             this.bimestreCalcular = 6;
             this.bimestreLeyenda = "6to Bimestre";
           }
           else if(item.bimestre ==6){
+            //this.anioinical = item.anioFiscal;
             let anio = item.anioFiscal + 1; 
             this.anioFiscal = anio;
             this.fechaActual = `01/03/${anio}`;
             this.bimestreCalcular = 1;
             this.bimestreLeyenda = "1er Bimestre";
           }
+          //}
   
           }
         }
@@ -282,7 +280,7 @@ export class VariabilidadComponent implements OnInit {
     }
 
     public createForm(obj: any) {
-      
+   debugger;   
    if(this.esREcalcular){
     if(obj !== undefined){
           if(obj.bimestre == 1){
@@ -459,7 +457,7 @@ export class VariabilidadComponent implements OnInit {
     });
   }
   public promedioVariabilidad(){
-        
+    debugger;    
     //let bimCalcular = this.bimestreCalcular + 1;
     this.reportesPrd.getCalcularDías(this.bimestreCalcular).subscribe(archivo => {
 
