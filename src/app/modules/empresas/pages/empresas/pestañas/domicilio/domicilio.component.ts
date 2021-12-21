@@ -322,7 +322,6 @@ export class DomicilioComponent implements OnInit {
     this.enviado.emit({ type: 'domicilio' });
   }
 
-
 }
 
 
