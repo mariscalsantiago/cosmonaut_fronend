@@ -102,7 +102,7 @@
                     <label>RESULTADOS</label>
                 </div>
                 <div class="col text-right">
-                    <button type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+                    <button type="button"  *ngIf="mostarSede" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
                 <i aria-hidden="true" class="icon_24agregar primary-bg margin-right"></i> Agregar sede
               </button>
                 </div>
