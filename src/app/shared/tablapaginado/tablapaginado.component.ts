@@ -512,7 +512,8 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
           if (fechar[1].includes('dic')) { this.mes = Number('12'); }
           fechaFinDescu.setFullYear(this.anio, this.mes - 1, this.dia);
 
-          aux[llave] = String(new DatePipe("es-MX").transform(fechaFinDescu, "yyyy-MM-dd"));
+          aux[llave] = String(new DatePipe("es-MX").transform(fechaFinDescu, "yyyy-MM-dd")?.replace(".",""));
+          
         }
       }
     }
@@ -525,7 +526,8 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
       let fechar: string = '';
       fechar = aux[llave].split("-");
       if (fechar.length == 3) {
-        aux[llave] = new DatePipe("es-MX").transform(aux[llave], 'dd-MMM-y');
+        aux[llave] = new DatePipe("es-MX").transform(aux[llave], 'dd-MMM-y')?.replace(".","");
+        
       }
     }
     this.paginar();
