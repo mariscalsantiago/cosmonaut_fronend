@@ -186,21 +186,20 @@ export class ListapoliticasComponent implements OnInit {
 
     }
 
-    let politicaitem = this.arreglo[indice];
+    //let politicaitem = this.arreglo[indice];
     this.cargandodetallearea = true;
 
-    this.politicasProd.getTabBen(politicaitem.politicaId, this.id_empresa).subscribe(datos => {
+    this.politicasProd.getTabBen(indice.politicaId, this.id_empresa).subscribe(datos => {
       this.cargandodetallearea = false;
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
     });
 
   }
   public traerModalEmpleo(indice: any) {
-
+    debugger;
+    this.arreglodetalleemp = [];
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalitoempleado = true;
-
-
 
     if (elemento.getBoundingClientRect().y < -40) {
       let numero = elemento.getBoundingClientRect().y;
@@ -225,10 +224,10 @@ export class ListapoliticasComponent implements OnInit {
 
     }
 
-    let politicaitem = this.arreglo[indice];
+    //let politicaitem = this.arreglo[indice];
     this.cargandodetallearea = true;
 
-    this.politicasProd.getdetallePolitica(politicaitem.politicaId, this.id_empresa).subscribe(datos => {
+    this.politicasProd.getdetallePolitica(indice.politicaId, this.id_empresa).subscribe(datos => {
       this.cargandodetallearea = false;
       this.arreglodetalleemp = datos.datos == undefined ? [] : datos.datos;
       if (this.arreglodetalleemp !== undefined){
@@ -294,10 +293,10 @@ export class ListapoliticasComponent implements OnInit {
         
         break;
       case "tablabeneficio":
-        this.traerModal(obj.indice);
+        this.traerModal(obj.datos);
         break;
       case "columna":
-        this.traerModalEmpleo(obj.indice);
+        this.traerModalEmpleo(obj.datos);
         break;
     }
 

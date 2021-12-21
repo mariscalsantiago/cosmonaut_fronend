@@ -272,7 +272,8 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public traerModal(indice: any) {
-    
+    debugger;
+    this.arreglodetalle = [];
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -300,19 +301,13 @@ export class ListagruposnominasComponent implements OnInit {
     }
 
 
-    let gruponominaitem = this.arreglo[indice];
+    //let gruponominaitem = this.arreglo[indice];
 
     this.cargandodetallegrupo = true;
-    this.gruposnominaPrd.getGroupNominaEmpleado(gruponominaitem.id).subscribe(datos => {
+    this.gruposnominaPrd.getGroupNominaEmpleado(indice.id).subscribe(datos => {
 
       this.cargandodetallegrupo = false;
-
-
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
-
-
-      
-
 
     });
 
@@ -320,12 +315,12 @@ export class ListagruposnominasComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-  
+    debugger;
 
     switch (obj.type) {
 
       case "columna":
-        this.traerModal(obj.indice)
+        this.traerModal(obj.datos)
         break;
       case "editar":
         this.verdetalle(obj.datos);

@@ -184,11 +184,10 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
   public traerModal(indice: any) {
-    
+    debugger;
+    this.arreglodetalle = [];
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
-
-
 
     if (elemento.getBoundingClientRect().y < -40) {
       let numero = elemento.getBoundingClientRect().y;
@@ -214,11 +213,11 @@ export class ListajornadalaboralComponent implements OnInit {
     }
 
 
-    let jornadaitem = this.arreglo[indice];
+    //let jornadaitem = this.arreglo[indice];
 
     this.cargandodetallegrupo = true;
     
-    this.jornadaPrd.getdetalleJornada(this.id_empresa, jornadaitem.jornadaId).subscribe(datos => {
+    this.jornadaPrd.getdetalleJornada(this.id_empresa, indice.jornadaId).subscribe(datos => {
       
       this.cargandodetallegrupo = false;
       
@@ -243,7 +242,7 @@ export class ListajornadalaboralComponent implements OnInit {
         this.eliminar(obj.datos);
         break;
       case "columna":
-          this.traerModal(obj.indice);
+          this.traerModal(obj.datos);
         break;
       case "desglosar":
         let item = obj.datos;

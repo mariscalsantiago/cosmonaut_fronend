@@ -488,7 +488,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     let i, j;
     let aux;
     let llave = item.id;
-    if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio')) {
+    if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio') || llave.includes('fechaFin')) {
       for (i = 0; i < this.arreglotemp.length; i++) {
         j = i;
         aux = this.arreglotemp[i];
@@ -512,7 +512,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
           if (fechar[1].includes('dic')) { this.mes = Number('12'); }
           fechaFinDescu.setFullYear(this.anio, this.mes - 1, this.dia);
 
-          aux[llave] = String(new DatePipe("es-MX").transform(fechaFinDescu, "yyyy-MM-dd")?.replace(".",""));
+          aux[llave] = String(new DatePipe("es-MX").transform(fechaFinDescu, "yyyy-MM-dd"));
           
         }
       }
