@@ -97,6 +97,7 @@ export class ListarolesComponent implements OnInit {
   }
 
   public verRolesModal(obj : any){
+
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
 
@@ -118,7 +119,8 @@ export class ListarolesComponent implements OnInit {
 
     let idRoles = obj.datos;
     this.cargandodetallearea = true;
-    this.rolesPrd.getdetalleRoles(632, idRoles.rolId).subscribe(datos => {
+
+    this.rolesPrd.getdetalleRoles(this.usuariosSistemaPrd.getIdEmpresa(),this.usuariosSistemaPrd.getVersionSistema(), idRoles.rolId).subscribe(datos => {
 
       this.cargandodetallearea = false;
 
@@ -163,7 +165,7 @@ export class ListarolesComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
-    console.log(obj.type);
+
       switch(obj.type){
         case "editar":
           this.detalle(obj.datos);
