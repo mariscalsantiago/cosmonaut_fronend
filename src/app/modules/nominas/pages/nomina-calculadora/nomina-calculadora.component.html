@@ -102,9 +102,10 @@
             </div>
         </div>
 
-        <div *ngIf="calculado">
-
-            <div class="form-group row margen mt-4"><label class="titulo">DETALLES DE SUELDO</label></div>
+        <div class="background-panel margen" *ngIf="calculado">
+            <br>
+            <div class="form-group row margen">
+                <label class="titulo">DETALLES DE SUELDO</label></div>
 
             <div class="form-group row margen">
                 <div class="input-group-sm mb-3 ">
@@ -118,10 +119,10 @@
                                 <th id="" class="text-left" scope="col">Excedente de limite inferior</th>
                                 <td>{{excedente}}</td>
                             </tr>
-                            <tr>
+<!--                             <tr>
                                 <th id="" class="text-left" scope="col">Impuesto marginal</th>
                                 <td>{{impuestoMarginal}}</td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <th id="" class="text-left" scope="col">Salario base de Cotización</th>
                                 <td>{{salarioBaseDeCotizacion}}</td>
@@ -135,13 +136,13 @@
                                 <td>{{salarioNetoMensual}}</td>
                             </tr>
                             <tr>
-                                <th id="" class="text-left" scope="col">Excedente de Limite inferior</th>
+                                <th id="" class="text-left" scope="col">Porcentaje excedente de limite inferior</th>
                                 <td>{{excedente_limiteInferior}}</td>
                             </tr>
-                            <tr>
+<!--                             <tr>
                                 <th id="" class="text-left" scope="col">ISR determinado</th>
                                 <td>{{isrDeterminado}}</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
