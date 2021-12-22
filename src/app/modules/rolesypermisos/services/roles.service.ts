@@ -64,6 +64,10 @@ export class RolesService {
     return this.http.get(`${direcciones.roles}/cliente/${idEmpresa}/version/${version}/listar/todosActivo/${activo}`);
   }
 
+  public getdetalleRoles(id_empresa:any, id_rol:number):Observable<any>{
+    return this.http.get(`${direcciones.roles}/cliente/${id_empresa}/rol/${id_rol}/listar`);
+
+  }
 
   public guardarRol(obj: any): Observable<any> {
 

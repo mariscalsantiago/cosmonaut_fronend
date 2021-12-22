@@ -28,9 +28,16 @@ export class ListarolesComponent implements OnInit {
   public esConsultar:boolean = false;
   public esEditar:boolean = false;
   public esEliminar:boolean = false;
-
+  public aparecemodalito: boolean = false;
+  public scrolly: string = '5%';
+  public modalWidth: string = "55%";
+  public cargandodetallearea: boolean = false;
   public modulo: string = "";
   public subModulo: string = "";
+  public tamanio: number = 0;
+
+
+  public arreglodetalle: any = [];
 
   constructor(private routerPrd:Router,private rolesPrd:RolesService,private modalPrd:ModalService,
     private usuariosSistemaPrd:UsuarioSistemaService,public configuracionPrd:ConfiguracionesService) { }
@@ -59,7 +66,7 @@ export class ListarolesComponent implements OnInit {
 
 
       let columnas:Array<tabla> = [new tabla("nombreRol","Rol"),
-      new tabla("noUsuarios","Número de usuarios",false,false,true),
+      new tabla("noUsuarios","Número de usuarios",true,true,true),
       new tabla("activo","Estatus Rol")]
 
       this.arreglotabla = {
@@ -87,6 +94,47 @@ export class ListarolesComponent implements OnInit {
 
   public inicio(){
     this.routerPrd.navigate(['/inicio']);
+  }
+
+  public verRolesModal(obj : any){
+    let elemento: any = document.getElementById("vetanaprincipaltabla")
+    this.aparecemodalito = true;
+
+    if (elemento.getBoundingClientRect().y < -40) {
+      let numero = elemento.getBoundingClientRect().y;
+      numero = Math.abs(numero);
+
+      this.scrolly = numero + 100 + "px";
+
+
+    } else {
+
+      this.scrolly = "5%";
+    }
+
+
+
+    if (this.tamanio < 600) {
+      this.modalWidth = "90%";
+    } else {
+      this.modalWidth = "55%";
+    }
+
+    let idRoles = obj.datos;
+    this.cargandodetallearea = true;
+    this.rolesPrd.getdetalleRoles(632, idRoles.rolId).subscribe(datos => {
+
+      this.cargandodetallearea = false;
+
+debugger;
+      this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
+      if (this.arreglodetalle !== undefined){
+        for (let item of this.arreglodetalle){
+          item.nombrecompleto = `${item.nombre == undefined ? '':item.nombre} ${item.apellidoPat == undefined ? '':item.apellidoPat} ${item.apellidoMat == undefined ? '':item.apellidoMat}`;
+          
+        }
+      }
+    });
   }
 
 
@@ -120,6 +168,8 @@ export class ListarolesComponent implements OnInit {
   }
 
   public recibirTabla(obj:any){
+    console.log(obj.type);
+    debugger;
       switch(obj.type){
         case "editar":
           this.detalle(obj.datos);
@@ -127,7 +177,11 @@ export class ListarolesComponent implements OnInit {
         case "eliminar":
           this.eliminar(obj.datos,obj.indice);
           break;
+        case "columna":
+            this.verRolesModal(obj);
+            break;
         }
+        
   }
 
 

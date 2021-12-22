@@ -167,7 +167,7 @@ export class ListapuestosComponent implements OnInit {
 
     if (this.tamanio < 600) {
 
-      this.modalWidth = "90%";
+      this.modalWidth = "70%";
 
     } else {
       this.modalWidth = "55%";

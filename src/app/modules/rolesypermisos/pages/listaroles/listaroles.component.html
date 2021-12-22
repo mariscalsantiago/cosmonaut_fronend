@@ -12,18 +12,67 @@
         </li>
     </ul>
 </div>
+<div class="col-6">
+    <div *ngIf="aparecemodalito" [style.top]="scrolly" style="z-index: 4;" class="ventanaemergente" [style.width]="modalWidth">
+        <div class="adentro">
+            <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+            <div class="header">
+                <h5 class="titulo">Usuarios</h5>
+
+
+            </div>
+            <hr>
+            <div class="body">
+
+
+                <div *ngIf="cargandodetallearea" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                </div>
+
+                <div *ngIf="!cargandodetallearea">
+                    <table aria-hidden="true" class="table m-3 table-hober table-sm " style="width: 90%;">
+                        <thead>
+                            <tr>
+                                <th id="" class="text-center" scope="col">ID</th>       
+                                <th id="" class="text-center" scope="col">Nombre completo</th>                             
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of arreglodetalle">
+                                <td  class="text-center">{{item.usuarioId}}</td>
+                                <td>{{item.nombrecompleto}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <hr>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <div class="background-ajustar" appTamanioVentana [pixeles]="100">
 <div class="scrooll-design">
-    <div class="row margen">
 
+    
+    <div class="row margen">
         <div class="col text-right">
             <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="detalle(undefined)">
           <i aria-hidden="true" class="icon_24agregar primary-bg"></i>Agregar rol
         </button>
         </div>
     </div>
-    <div class="row margen margen-tabla background-panel">
+    <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">  
         <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
 </div>
