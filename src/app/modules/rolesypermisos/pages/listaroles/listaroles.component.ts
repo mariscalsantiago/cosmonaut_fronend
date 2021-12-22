@@ -103,16 +103,12 @@ export class ListarolesComponent implements OnInit {
     if (elemento.getBoundingClientRect().y < -40) {
       let numero = elemento.getBoundingClientRect().y;
       numero = Math.abs(numero);
-
       this.scrolly = numero + 100 + "px";
-
 
     } else {
 
       this.scrolly = "5%";
     }
-
-
 
     if (this.tamanio < 600) {
       this.modalWidth = "90%";
@@ -126,7 +122,6 @@ export class ListarolesComponent implements OnInit {
 
       this.cargandodetallearea = false;
 
-debugger;
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
       if (this.arreglodetalle !== undefined){
         for (let item of this.arreglodetalle){
@@ -169,7 +164,6 @@ debugger;
 
   public recibirTabla(obj:any){
     console.log(obj.type);
-    debugger;
       switch(obj.type){
         case "editar":
           this.detalle(obj.datos);
