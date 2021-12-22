@@ -9,7 +9,6 @@ import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { ServerSentEventService } from 'src/app/shared/services/nominas/server-sent-event.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
-import { environment } from 'src/environments/environment';
 import { Noticia } from './../../../core/modelos/noticia';
 import { NoticiasService } from './../../noticias/services/noticias.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
@@ -263,6 +262,14 @@ export class InicioComponent implements OnInit   {
   }
 
 
-  
+  public vermensaje(){
+    let mensaje:any = {
+      "mensaje":"prueba 30nov2021\nCódigo 1: Se calculó la nómina ordinaria 1706 correctamente.",
+      "nominaXperiodoId":1706,
+      "centroClienteId":678,
+      "exito":true
+      }
+    this.notificaciones.showNotification(mensaje.mensaje,mensaje.exito);
+  }
 
 }
