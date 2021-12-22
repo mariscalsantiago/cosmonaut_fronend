@@ -262,14 +262,5 @@ export class InicioComponent implements OnInit   {
   }
 
 
-  public vermensaje(){
-    let mensaje:any = {
-      "mensaje":"prueba 30nov2021\nCódigo 1: Se calculó la nómina ordinaria 1706 correctamente.",
-      "nominaXperiodoId":1706,
-      "centroClienteId":678,
-      "exito":true
-      }
-    this.notificaciones.showNotification(mensaje.mensaje,mensaje.exito);
-  }
 
 }

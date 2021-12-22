@@ -52,14 +52,17 @@ export class ServerSentEventService {
     p2.className ="operacioneexitosa";
     let tituloPrincipal =ventanaemergente.getElementsByClassName("titulo");
     tituloPrincipal[0].className="direccionizquierda titulo";
+    let imagen:any = document.getElementById("errorimg");
+    let imagen2:any = document.getElementById("successimg");
+    imagen.style.display = "block";
+    imagen2.style.display = "block";
     if(exitoso){
-      let imagen:any = document.getElementById("errorimg");
+      tituloPrincipal[0].style.color = "white";
       imagen.style.display = "none";
     }else{
       tituloPrincipal[0].style.color = "gray";
       tituloPrincipal[0].innerText = "Resultado de cálculo";
-      let imagen:any = document.getElementById("successimg");
-      imagen.style.display = "none";
+      imagen2.style.display = "none";
       p1.style.color = "gray";
       p2.style.color = "gray";
     }
