@@ -176,8 +176,7 @@ export class ListarolesComponent implements OnInit {
         case "columna":
             this.verRolesModal(obj);
             break;
-        }
-        
+        }        
   }
 
 
