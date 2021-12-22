@@ -253,6 +253,20 @@ export class NominaHistoricasComponent implements OnInit {
     this.router.navigate(['/inicio']);
   }
 
+  public validarFecha(){
+    debugger;
+    if(this.fechaFin !== "" && this.fechaInc !== ""){
+      if(this.fechaFin < this.fechaInc){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha hasta no puede ser menor a la fecha desde");
+        this.fechaFin = '';
+      }
+      else if(this.fechaInc > this.fechaFin){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha desde no puede ser mayor a la fecha hasta");
+        this.fechaInc = '';
+      }
+    }
+  }
+
 
   public obtenerReportes() {
     

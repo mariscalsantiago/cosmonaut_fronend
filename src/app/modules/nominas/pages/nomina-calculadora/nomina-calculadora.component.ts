@@ -155,7 +155,7 @@ export class NominaCalculadoraComponent implements OnInit {
 
         
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        
+            debugger;
             this.grupoNominaPrd.calculadoraBruto(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -164,16 +164,17 @@ export class NominaCalculadoraComponent implements OnInit {
             
               .then(()=> {
                  if (datos.resultado) {
-                  this.resultCalculo = datos.datos.desgloseSalario.desgloseSalario;
+                  this.calculado = true; 
+                  this.resultCalculo = datos.datos;
                   this.limiteInferior = this.resultCalculo.limiteInferior;
-                  this.excedente = this.resultCalculo.excedente_limiteInferior;
+                  this.excedente = this.resultCalculo.excedenteLimiteInferior;
                   this.impuestoMarginal = this.resultCalculo.impuestoMarginal;
                   this.salarioBaseDeCotizacion = this.resultCalculo.salarioBaseDeCotizacion;
                   this.salarioDiario = this.resultCalculo.salarioDiario;
                   this.salarioNetoMensual = this.resultCalculo.salarioNetoMensual;
-                  this.excedente_limiteInferior = this.resultCalculo.excedente_limiteInferior;
-                  this.isrDeterminado = this.resultCalculo.isrDeterminado;
-                  this.calculado = true;
+                  this.excedente_limiteInferior = this.resultCalculo.porcentajeExcedenteLimiteInferior;
+                  //this.isrDeterminado = this.resultCalculo.isrDeterminado;
+                  
               } 
               });
           });     
