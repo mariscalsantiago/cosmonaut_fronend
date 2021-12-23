@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
@@ -47,6 +47,8 @@ export class PagosComponent implements OnInit {
 
   public arreglotablaDed: any = [];
   public arreglotablaPer: any = [];
+  public datoscuenta: any = [];
+  public respoContrato: any = [];
   public arreglotablaPert: any = {
     columnas: [],
     filas: []
@@ -79,6 +81,7 @@ export class PagosComponent implements OnInit {
     this.idEmpleado = this.empleado.personaId.personaId;
     this.primeraVez = true;
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
+    debugger;
     if (this.empleado.metodoPagoId.metodoPagoId == 4) {
       this.detalleCuenta = true;
     } else {
@@ -310,8 +313,8 @@ export class PagosComponent implements OnInit {
 
   public editandoMetodoPago(obj: any) {
     debugger;
+
     this.detalleCuenta = false;
-    this.myFormMetodoPago = this.createMyFormMetodoPago({});
     this.metodopagobool = true;
     if (obj == undefined) {
       this.indexMetodoSeleccionado = this.empleado.metodoPagoId?.metodoPagoId;
@@ -330,27 +333,34 @@ export class PagosComponent implements OnInit {
   }
 
   public editandoMetodoPagoNew(obj: any) {
+
     debugger;
+    //this.detalleCuenta = false;
+    //this.myFormMetodoPago = this.createMyFormMetodoPago({});
+    //this.metodopagobool = true;
+
     if (obj == undefined) {
       this.indexMetodoSeleccionado = this.empleado.metodoPagoId?.metodoPagoId;
     }
-    this.esTransferencia = this.indexMetodoSeleccionado == 4;
+    //this.esTransferencia = this.indexMetodoSeleccionado == 4;
 
-    if (this.esTransferencia) {
+    //if (this.esTransferencia) {
       this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+        
         if (datos.resultado) {
+          this.datoscuenta = datos.datos;
 
           let datosEnv : any = {
             metodoPagoId: this.indexMetodoSeleccionado,
             idEmpleado: this.idEmpleado,
-            idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
-            datoscuenta: datos.datos
+            idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
+            datoscuenta: this.datoscuenta
           };
       
           this.ventana.showVentana(this.ventana.detallecuenta,{datos:datosEnv}).then(valor =>{
+            debugger;
             if(valor.datos){
-              
-                //this.agregarDocumento(valor.datos);
+                this.enviandoMetodoPagoNew(valor.datos);
             }
           });
 
@@ -358,7 +368,7 @@ export class PagosComponent implements OnInit {
 
       });
 
-    }
+    //}
 
   }
 
@@ -534,6 +544,7 @@ export class PagosComponent implements OnInit {
   }
 
   public enviandoMetodoPago() { //Método guardar transferencia bancaría...
+    debugger;
     this.submitEnviado = true;
     if (this.myFormMetodoPago.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -562,8 +573,6 @@ export class PagosComponent implements OnInit {
               return;
             }
 
-
-
             let obj = this.myFormMetodoPago.value;
             let objEnviar: any = {
               numeroCuenta: obj.numeroCuenta,
@@ -589,7 +598,7 @@ export class PagosComponent implements OnInit {
                 this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
                   if (datos.resultado) {
                     this.cancelar();
-                    this.ngOnInit();
+                    //this.ngOnInit();
                   } else {
                     this.modalPrd.showMessageDialog(datos.resultado);
                   }
@@ -623,10 +632,67 @@ export class PagosComponent implements OnInit {
     });
   }
 
+  public enviandoMetodoPagoNew(objEn : any) { 
+    debugger;
+
+        let objContrato = {
+          ...this.empleado,
+          metodoPagoId: {
+            metodoPagoId: Number(objEn.idMetodoPago)
+          }
+        }
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        this.contratoColaboradorPrd.update(objContrato).subscribe((respContrato) => {
+
+          if (respContrato.resultado) {
+            this.empleado = respContrato.datos;
+            if (Number(objEn.idMetodoPago) != 4) {
+              this.cancelar();
+              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+              return;
+            }
+
+
+            if (!Boolean(this.datoscuenta.cuentaBancoId)) {
+              delete objEn.idMetodoPago;  
+              this.bancosPrd.save(objEn).subscribe(datos => {
+                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+                  if (datos.resultado) {
+                    this.cancelar();
+                    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                  } else {
+                    this.modalPrd.showMessageDialog(datos.resultado);
+                  }
+                });
+
+              });
+            } else {
+              delete objEn.idMetodoPago; 
+              objEn.cuentaBancoId = this.datoscuenta.cuentaBancoId;
+              objEn.esActivo = true;
+              this.bancosPrd.modificar(objEn).subscribe(datos => {
+                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+                  this.cancelar();
+                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                });
+
+              });
+            }
+
+          } else {
+            this.modalPrd.showMessageDialog(respContrato.resultado, respContrato.mensaje)
+          }
+        });
+
+  }
+
   public cancelar() {
+    debugger;
     if (this.empleado.metodoPagoId.metodoPagoId == 4) {
       this.detalleCuenta = true;
-    } 
+    }else{
+      this.detalleCuenta = false;
+    }
     this.metodopagobool = false;
     this.detallecompensacionbool = false;
   }

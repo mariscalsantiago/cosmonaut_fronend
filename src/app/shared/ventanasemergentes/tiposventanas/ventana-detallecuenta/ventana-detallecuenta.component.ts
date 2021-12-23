@@ -14,8 +14,6 @@ export class VentanaDetalleCuentaComponent implements OnInit {
 
   public myForm!: FormGroup;
   public nomDocumento: boolean = false;
-  public empresa: number = 0;
-  public empleado: number = 0;
   public objEnviar: any = [];
   public arregloMetodosPago: any = [];
   public arreglobancos: any = [];
@@ -93,8 +91,12 @@ export class VentanaDetalleCuentaComponent implements OnInit {
 
   public validarTipoPago(idPago:any){
     debugger;
-    if(idPago === 4){
+    if(idPago === '4'){
       this.metodoPago = true;
+      this.myForm.controls.clabe.setValue('');
+      this.myForm.controls.numeroCuenta.setValue('');
+      this.myForm.controls.csBanco.setValue('');
+      this.myForm.controls.numInformacion.setValue('');
     }else{
       this.metodoPago = false;
     }
@@ -120,37 +122,27 @@ export class VentanaDetalleCuentaComponent implements OnInit {
 
     }
 
-    let mensaje = this.datos.esInsert? "¿Deseas guardar el documento" : "¿Deseas actualizar el documento?";
-    
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
-      
-        if(valor){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar los datos?").then(valor => {
+      if (valor) {
           
           let  obj = this.myForm.getRawValue();
-          
-          if(this.datos.esInsert){
-            this.objEnviar = {
-            centrocClienteId: this.empresa,
-            personaId: this.empleado,
-            usuarioId: this.empleado,
-            tipoDocumentoId: obj.idTipoDocumento,
-            nombreArchivo: obj.nombre,
-            documento: obj.documento
-            };
-                  
-        }else{
 
             this.objEnviar = {
-            //cmsArchivoId: this.datos.cmsArchivoId,
-            //centrocClienteId: this.empresa,
-            //personaId: this.empleado,
-            //usuarioId: this.empleado,
-            documentosEmpleadoId: this.datos.documentosEmpleadoId,
-            nombreArchivo: obj.nombre,
-            documento: obj.documento
+              numeroCuenta: obj.numeroCuenta,
+              clabe: obj.clabe,
+              bancoId: {
+                bancoId: obj.csBanco
+              },
+              numInformacion: obj.numInformacion,
+              ncoPersona: {
+                personaId: this.datos.idEmpleado
+              },
+              nclCentrocCliente: {
+                centrocClienteId: this.datos.idEmpresa
+              },
+              nombreCuenta: '  ',
+              idMetodoPago: obj.idMetodoPago
             };
-
-        }
           
           this.salida.emit({type:"guardar",datos:this.objEnviar});
         }
