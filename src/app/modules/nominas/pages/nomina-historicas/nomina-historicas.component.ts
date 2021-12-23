@@ -259,10 +259,12 @@ export class NominaHistoricasComponent implements OnInit {
       if(this.fechaFin < this.fechaInc){
         this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha hasta no puede ser menor a la fecha desde");
         this.fechaFin = '';
+        return;
       }
       else if(this.fechaInc > this.fechaFin){
         this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha desde no puede ser mayor a la fecha hasta");
         this.fechaInc = '';
+        return;
       }
     }
   }
@@ -314,6 +316,8 @@ export class NominaHistoricasComponent implements OnInit {
 
   public filtrar(desdeFiltrado: boolean = false) {
 
+
+    this.validarFecha();
     
     this.pagina = 0;
     this.elementos = 20;

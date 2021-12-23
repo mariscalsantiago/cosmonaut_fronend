@@ -25,6 +25,7 @@ import { VentanaDeduccionesComponent } from './ventanasemergentes/tiposventanas/
 import { VentanaResumenDispersionComponent } from './ventanasemergentes/tiposventanas/ventana-resumen-dispersion/ventana-resumen-dispersion.component';
 import { VentanaResumenTimbradoComponent } from './ventanasemergentes/tiposventanas/ventana-resumen-timbrado/ventana-resumen-timbrado.component';
 import { VentanaSubirDocumentoComponent } from './ventanasemergentes/tiposventanas/ventana-subirdocumento/ventana-subirdocumento.component'
+import { VentanaDetalleCuentaComponent} from './ventanasemergentes/tiposventanas/ventana-detallecuenta/ventana-detallecuenta.component'
 import { VentanaNominanuevaextraordinariaComponent } from './ventanasemergentes/tiposventanas/ventana-nominanuevaextraordinaria/ventana-nominanuevaextraordinaria.component';
 import { NominanuevaPtuComponent } from './ventanasemergentes/tiposventanas/nominanueva-ptu/nominanueva-ptu.component';
 import { VentanaTablaISRComponent } from './ventanasemergentes/tiposventanas/ventana-tablaisr/ventana-tablaisr.component';
@@ -84,6 +85,7 @@ import { CursoListadoComponent } from './curso-listado/curso-listado.component';
     VentanaSubcidioComponent,
     TagComponent,
     VentanaNominaNuevaFiniquitoLiquidacionComponent,
+    VentanaDetalleCuentaComponent,
     FormatosDirective,
     EditarmensajeChatComponent,
     TooltipPipe,

@@ -24,6 +24,7 @@ export class VentanaemergenteService {
   public mensajechat: string = "mensajechat";
   public adminTimbradoDispersion: string = "adminTimbradoDispersion";
   public listadoEmpleados: string = "listadoEmpleados";
+  public detallecuenta: string = "detallecuenta";
 
 
 
@@ -55,7 +56,8 @@ export class VentanaemergenteService {
     nuevanominafiniquitoliquidacion: false,
     mensajechat: false,
     adminTimbradoDispersion: false,
-    listaempleados: false
+    listaempleados: false,
+    detallecuenta: false
   }
 
   constructor() { }
@@ -149,6 +151,11 @@ export class VentanaemergenteService {
         this.mostrar.listaempleados = true;
         this.emergente.titulo = "Lista de empleados ya considerados en otra nómina";
         break;
+      case this.detallecuenta:
+
+        this.mostrar.detallecuenta = true;
+        this.emergente.titulo = "Detalle de la cuenta";
+        break;        
 
 
     }

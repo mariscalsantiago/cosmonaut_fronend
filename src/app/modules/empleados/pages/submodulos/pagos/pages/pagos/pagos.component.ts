@@ -309,6 +309,7 @@ export class PagosComponent implements OnInit {
   }
 
   public editandoMetodoPago(obj: any) {
+    debugger;
     this.detalleCuenta = false;
     this.myFormMetodoPago = this.createMyFormMetodoPago({});
     this.metodopagobool = true;
@@ -322,6 +323,39 @@ export class PagosComponent implements OnInit {
         if (datos.resultado) {
           this.myFormMetodoPago = this.createMyFormMetodoPago(datos.datos);
         }
+      });
+
+    }
+
+  }
+
+  public editandoMetodoPagoNew(obj: any) {
+    debugger;
+    if (obj == undefined) {
+      this.indexMetodoSeleccionado = this.empleado.metodoPagoId?.metodoPagoId;
+    }
+    this.esTransferencia = this.indexMetodoSeleccionado == 4;
+
+    if (this.esTransferencia) {
+      this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+        if (datos.resultado) {
+
+          let datosEnv : any = {
+            metodoPagoId: this.indexMetodoSeleccionado,
+            idEmpleado: this.idEmpleado,
+            idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
+            datoscuenta: datos.datos
+          };
+      
+          this.ventana.showVentana(this.ventana.detallecuenta,{datos:datosEnv}).then(valor =>{
+            if(valor.datos){
+              
+                //this.agregarDocumento(valor.datos);
+            }
+          });
+
+        }
+
       });
 
     }

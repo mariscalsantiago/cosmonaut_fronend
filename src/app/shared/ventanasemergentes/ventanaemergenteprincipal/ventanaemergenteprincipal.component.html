@@ -31,6 +31,7 @@
             <app-ventana-nominanuevafiniquitoliquidacion  *ngIf="mostrar.nuevanominafiniquitoliquidacion" (salida)="recibirEmergente($event)"></app-ventana-nominanuevafiniquitoliquidacion>
             <app-editarmensaje-chat *ngIf="mostrar.mensajechat" (salida)="recibirEmergente($event)" [datos]="datos"></app-editarmensaje-chat>
             <app-lista-empleados *ngIf="mostrar.listaempleados" [datos]="datos"></app-lista-empleados>
+            <app-ventana-detallecuenta *ngIf="mostrar.detallecuenta" [datos]="datos"></app-ventana-detallecuenta>
 
         </div>
     </div>

@@ -43,7 +43,8 @@ export class VentanaemergenteprincipalComponent implements OnInit {
     nuevanominafiniquitoliquidacion: false,
     mensajechat:false,
     adminTimbradoDispersion: false,
-    listaempleados:false
+    listaempleados:false,
+    detallecuenta: false
   }
 
   @HostListener('window:resize', ['$event'])
