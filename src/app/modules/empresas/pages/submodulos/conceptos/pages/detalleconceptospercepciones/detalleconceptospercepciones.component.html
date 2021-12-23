@@ -16,7 +16,7 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Tipo de percepción *</label>
-                <select #tipoPercepcion (focusout)="validarPercepcion(tipoPercepcion.value)" formControlName="tipoPeriodicidad" name="" class="form-control" [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitInvalido}">
+                <select #tipoPercepcion (change)="validarPercepcion(tipoPercepcion.value)" formControlName="tipoPeriodicidad" name="" class="form-control" [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitInvalido}">
                     <option value="A">Ambas</option>
                     <option value="E">Estándar</option>
                     <option value="P">Periódica</option>
