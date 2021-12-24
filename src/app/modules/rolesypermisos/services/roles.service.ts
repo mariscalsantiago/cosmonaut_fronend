@@ -59,6 +59,10 @@ export class RolesService {
     return this.http.get(`${direcciones.roles}/listar/todosActivo/true`);
   }
 
+  public getIframe(usuario:number, cliente:number, version:number): Observable<any> {
+    return this.http.get(`${direcciones.modulos}/dataStudio/getUrl/${usuario}/${cliente}/${version}`);
+  }
+
   public getRolesByEmpresa(idEmpresa: any, version: number, activo: boolean): Observable<any> {
     
     return this.http.get(`${direcciones.roles}/cliente/${idEmpresa}/version/${version}/listar/todosActivo/${activo}`);
