@@ -647,9 +647,9 @@ export class PagosComponent implements OnInit {
           if (respContrato.resultado) {
             this.empleado = respContrato.datos;
             if (Number(objEn.idMetodoPago) != 4) {
-              this.cancelar();
-              this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-              return;
+                  this.modalPrd.showMessageDialog(respContrato.resultado,respContrato.mensaje);
+                  this.cancelar();
+                  return;
             }
 
             if (!Boolean(objEn.cuentaBancoId)) {

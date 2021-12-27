@@ -196,13 +196,20 @@ export class ListaempleadosComponent implements OnInit {
         new tabla("puesto", "Puesto"),
         new tabla("area", "Área"),
         new tabla("sede", "Sede"),
-        new tabla("estatus", "Estatus",false,false,true),
+        new tabla("activo", "Estatus ",false,false,true),
         new tabla("porcentaje","Porcentaje de avance")
       ];
 
       if(datos.datos !== undefined){
         for(let item of datos.datos){
             item["nombre"]=`${item["nombre"]} ${item["apellidoPaterno"]} ${item["apellidoMaterno"]==undefined?"":item["apellidoMaterno"]}`;
+
+            if (item.estatus) {
+              item.activo = 'Activo'
+            }
+            if (!item.estatus) {
+              item.activo = 'Inactivo'
+            }
         }
       }
 
