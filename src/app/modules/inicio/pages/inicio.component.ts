@@ -31,6 +31,7 @@ export class InicioComponent implements OnInit   {
   public apareceListadoEventos: boolean = false;
   public vistosTrue: boolean = false;
   public vistosFalse: boolean = false;
+  public moduloId: boolean = false;
 
   public arreglotabla: any = {
     columnas: [],
@@ -78,17 +79,25 @@ export class InicioComponent implements OnInit   {
     debugger;
 
     this.authUsuarioPrd.getVersionByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      let objVersion = datos.datos.versionCosmonautId;
-      this.datosIframe = this.usuariosSistemaPrd.usuario;
+      if(datos.datos !== undefined){
+        let objVersion = datos.datos.versionCosmonautId;
+        if(datos.datos.versionCosmonautId?.versionCosmonautId === 1){
+          this.moduloId = true;
+        }
+        else if(datos.datos.versionCosmonautId?.versionCosmonautId === 4){
+          this.moduloId = true;
+        }
+        this.datosIframe = this.usuariosSistemaPrd.usuario;
 
-      this.rolesPrd.getIframe(this.datosIframe.usuarioId,this.datosIframe.centrocClienteId,objVersion.versionCosmonautId).subscribe(datos => {
-      if(datos.datos !== undefined){  
-        this.iframe = datos.datos;  
-        //'https://datastudio.google.com/embed/reporting/d60a5a01-b359-4963-82af-e67370d81203/page/odxgC';
-        this.cargando = true;
-        this.url = this._sanitizer.bypassSecurityTrustResourceUrl(this.iframe);
+        this.rolesPrd.getIframe(this.datosIframe.usuarioId,this.datosIframe.centrocClienteId,objVersion.versionCosmonautId).subscribe(datos => {
+          if(datos.datos !== undefined){  
+            this.iframe = datos.datos;  
+            //'https://datastudio.google.com/embed/reporting/d60a5a01-b359-4963-82af-e67370d81203/page/odxgC';
+            this.cargando = true;
+            this.url = this._sanitizer.bypassSecurityTrustResourceUrl(this.iframe);
+          }
+        });
       }
-      });
 
     });
     

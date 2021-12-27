@@ -22,11 +22,10 @@
         <app-curso-listado [noticias]="noticiasCursos" (onClick)="mostrarContenido($event)"></app-curso-listado>
     </div>
 </div>
-<div class="row" *ngIf="puedeConsultarCalendario()">
+<div class="row" *ngIf="!moduloId && puedeConsultarCalendario()">
     <div class="col-12">
         <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="250">
             <div style="background-color: transparent;">
-                <!-- <div class="col-4 tituloPanelInicio"> -->
                 <div class="col-4 titulo-outlet-inicio">   
                     <label>REPORTES</label>
                 </div>
@@ -37,8 +36,22 @@
     </div>
 
 </div>
+<div class="row" *ngIf="puedeConsultarCalendario() && moduloId">
+    <div class="col-12">
+        <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="110">
+            <div style="background-color: transparent;">
+                <div class="col-4 titulo-outlet-inicio">   
+                    <label>REPORTES</label>
+                </div>
+            </div>
+            <iframe width="1160" height="430" [src]="url" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>   
+        
+    </div>
 
-<div class="row" *ngIf="puedeConsultarCalendario()">
+</div>
+
+<div class="row"  *ngIf="!moduloId && puedeConsultarCalendario()">
        <div class="col-6">
             <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="430">
                 <div style="background-color: transparent;">
