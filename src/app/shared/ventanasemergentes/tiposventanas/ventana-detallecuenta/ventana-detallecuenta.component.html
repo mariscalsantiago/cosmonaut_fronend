@@ -6,7 +6,7 @@
 
                 <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
                     <label for="exampleFormControlSelect1">Método de pago *</label>
-                    <select formControlName="idMetodoPago" #idmetodoPago (change)="validarTipoPago(idmetodoPago.value)" class="form-control">
+                    <select formControlName="idMetodoPago" #idmetodoPago (change)="validarTipoPagoSelct(idmetodoPago.value)" class="form-control">
                     <option *ngFor="let item of arregloMetodosPago" [value]="item.metodoPagoId">{{item.descripcion}}</option>
                 </select>
                 </div>

@@ -652,14 +652,20 @@ export class PagosComponent implements OnInit {
               return;
             }
 
-
-            if (!Boolean(this.datoscuenta.cuentaBancoId)) {
-              delete objEn.idMetodoPago;  
+            if (!Boolean(objEn.cuentaBancoId)) {
+              delete objEn.idMetodoPago; 
+              delete objEn.cuentaBancoId; 
               this.bancosPrd.save(objEn).subscribe(datos => {
                 this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
                   if (datos.resultado) {
-                    this.cancelar();
-                    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                    this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+                      this.cuentaBanco = datos.datos;
+
+                      this.cancelar();
+                      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+             
+                    });
+
                   } else {
                     this.modalPrd.showMessageDialog(datos.resultado);
                   }
@@ -668,12 +674,17 @@ export class PagosComponent implements OnInit {
               });
             } else {
               delete objEn.idMetodoPago; 
-              objEn.cuentaBancoId = this.datoscuenta.cuentaBancoId;
+              objEn.cuentaBancoId = objEn.cuentaBancoId;
               objEn.esActivo = true;
               this.bancosPrd.modificar(objEn).subscribe(datos => {
                 this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-                  this.cancelar();
-                  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+                  this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+                    this.cuentaBanco = datos.datos;
+
+                    this.cancelar();
+                    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+           
+                  });
                 });
 
               });
