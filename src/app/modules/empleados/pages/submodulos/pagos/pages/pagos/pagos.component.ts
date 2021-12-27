@@ -311,41 +311,14 @@ export class PagosComponent implements OnInit {
     });
   }
 
-  public editandoMetodoPago(obj: any) {
-    debugger;
-
-    this.detalleCuenta = false;
-    this.metodopagobool = true;
-    if (obj == undefined) {
-      this.indexMetodoSeleccionado = this.empleado.metodoPagoId?.metodoPagoId;
-    }
-    this.esTransferencia = this.indexMetodoSeleccionado == 4;
-
-    if (this.esTransferencia) {
-      this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
-        if (datos.resultado) {
-          this.myFormMetodoPago = this.createMyFormMetodoPago(datos.datos);
-        }
-      });
-
-    }
-
-  }
 
   public editandoMetodoPagoNew(obj: any) {
 
     debugger;
-    //this.detalleCuenta = false;
-    //this.myFormMetodoPago = this.createMyFormMetodoPago({});
-    //this.metodopagobool = true;
-
     if (obj == undefined) {
       this.indexMetodoSeleccionado = this.empleado.metodoPagoId?.metodoPagoId;
     }
-    //this.esTransferencia = this.indexMetodoSeleccionado == 4;
-
-    //if (this.esTransferencia) {
-      this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+    this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
         
         if (datos.resultado) {
           this.datoscuenta = datos.datos;
@@ -367,8 +340,6 @@ export class PagosComponent implements OnInit {
         }
 
       });
-
-    //}
 
   }
 
@@ -509,130 +480,8 @@ export class PagosComponent implements OnInit {
     });
   }
 
-  public validarBanco(clabe: any) {
-    
 
-    this.myFormMetodoPago.controls.csBanco.setValue("");
-    if (this.myFormMetodoPago.controls.clabe.errors?.pattern === undefined) {
-
-
-      if (clabe == '' || clabe == null || clabe == undefined) {
-
-        this.myFormMetodoPago.controls.csBanco.setValue("");
-        this.myFormMetodoPago.controls.clabe.setValue("");
-      } else {
-        if(clabe.length == 18){
-          this.bancosPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
-            if (datos.resultado) {
-              this.myFormMetodoPago.controls.csBanco.setValue( datos.datos.bancoId);
-              this.myFormMetodoPago.controls.clabe.setValue(clabe);
-              this.myFormMetodoPago.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
-            }
-            else {
-              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-            }
-          });
-        }else{
-          this.modalPrd.showMessageDialog(this.modalPrd.error, "La cuenta clabe debe ser a 18 dijitos");
-          this.myFormMetodoPago.controls.csBanco.setValue("");
-          this.myFormMetodoPago.controls.numeroCuenta.setValue("");
-        }  
-      }
-
-    }
-
-  }
-
-  public enviandoMetodoPago() { //Método guardar transferencia bancaría...
-    debugger;
-    this.submitEnviado = true;
-    if (this.myFormMetodoPago.invalid) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error);
-      return;
-    }
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar los datos?").then(valor => {
-      if (valor) {
-
-        let objContrato = {
-          ...this.empleado,
-          metodoPagoId: {
-            metodoPagoId: this.indexMetodoSeleccionado
-          }
-        }
-        this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
-        this.contratoColaboradorPrd.update(objContrato).subscribe((respContrato) => {
-
-          if (respContrato.resultado) {
-
-
-
-            if (this.indexMetodoSeleccionado != 4) {
-              this.cancelar();
-              this.ngOnInit();
-              return;
-            }
-
-            let obj = this.myFormMetodoPago.value;
-            let objEnviar: any = {
-              numeroCuenta: obj.numeroCuenta,
-              clabe: obj.clabe,
-              bancoId: {
-                bancoId: obj.csBanco
-              },
-              numInformacion: obj.numInformacion,
-              ncoPersona: {
-                personaId: this.idEmpleado
-              },
-              nclCentrocCliente: {
-                centrocClienteId: this.empleado.centrocClienteId.centrocClienteId
-              },
-              nombreCuenta: '  '
-
-            };
-
-
-            if (!Boolean(obj.cuentaBancoId)) {
-
-              this.bancosPrd.save(objEnviar).subscribe(datos => {
-                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-                  if (datos.resultado) {
-                    this.cancelar();
-                    //this.ngOnInit();
-                  } else {
-                    this.modalPrd.showMessageDialog(datos.resultado);
-                  }
-                });
-
-              });
-            } else {
-
-
-              objEnviar.cuentaBancoId = obj.cuentaBancoId;
-              objEnviar.esActivo = true;
-              this.bancosPrd.modificar(objEnviar).subscribe(datos => {
-                this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-                  this.cancelar();
-                  this.ngOnInit();
-                });
-
-              });
-            }
-
-          } else {
-            this.modalPrd.showMessageDialog(respContrato.resultado, respContrato.mensaje)
-          }
-        });
-
-
-
-
-
-      }
-    });
-  }
-
-  public enviandoMetodoPagoNew(objEn : any) { 
+  public enviandoMetodoPagoNew(objEn : any) { //Método guardar transferencia bancaría...
     debugger;
 
         let objContrato = {
@@ -723,9 +572,6 @@ export class PagosComponent implements OnInit {
 
   }
 
-  public cambiaValorMetodo() {
-    this.editandoMetodoPago("");
-  }
   public get f() {
     return this.myFormMetodoPago.controls;
   }
@@ -890,6 +736,7 @@ export class PagosComponent implements OnInit {
 
 
   public verDetalleCompensacion() {
+    debugger;
     this.recalcular = false;
     this.detallecompensacionbool = true
     console.log("DETALLE COMPENSACION", this.typeppp);
@@ -901,6 +748,25 @@ export class PagosComponent implements OnInit {
       this.myFormCompensacion.controls.pagoComplementario.setValue(this.empleado.pppMontoComplementario);
 
     }
+  }
+
+  public verDetalleCompensacionNew() {
+    this.recalcular = false;
+    this.detallecompensacionbool = true
+    this.suscribirseCompensacion();
+    if (this.typeppp) {
+      let datosEnv : any = {
+        idEmpleado: this.idEmpleado,
+        idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
+        datoscompensacion: this.empleado
+      };
+      this.ventana.showVentana(this.ventana.detallecompesacion,{datos:datosEnv}).then(valor =>{
+        if(valor.datos){
+            this.enviandoMetodoPagoNew(valor.datos);
+        }
+      });
+    }
+
   }
 
 
