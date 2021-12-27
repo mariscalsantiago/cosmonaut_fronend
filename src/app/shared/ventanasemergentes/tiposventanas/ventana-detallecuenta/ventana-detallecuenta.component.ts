@@ -99,9 +99,9 @@ export class VentanaDetalleCuentaComponent implements OnInit {
       this.metodoPago = true;
       this.myForm.controls.clabe.setValidators([Validators.required]);
       this.myForm.controls.clabe.updateValueAndValidity();
-      this.myForm.controls.csBanco.setValidators([Validators.required]);
+      this.myForm.controls.csBanco.setValidators([]);
       this.myForm.controls.csBanco.updateValueAndValidity();
-      this.myForm.controls.numeroCuenta.setValidators([Validators.required]);
+      this.myForm.controls.numeroCuenta.setValidators([]);
       this.myForm.controls.numeroCuenta.updateValueAndValidity();
     }else{
       this.metodoPago = false;
@@ -126,9 +126,9 @@ export class VentanaDetalleCuentaComponent implements OnInit {
       this.myForm.controls.numInformacion.setValue('');
       this.myForm.controls.clabe.setValidators([Validators.required]);
       this.myForm.controls.clabe.updateValueAndValidity();
-      this.myForm.controls.csBanco.setValidators([Validators.required]);
+      this.myForm.controls.csBanco.setValidators([]);
       this.myForm.controls.csBanco.updateValueAndValidity();
-      this.myForm.controls.numeroCuenta.setValidators([Validators.required]);
+      this.myForm.controls.numeroCuenta.setValidators([]);
       this.myForm.controls.numeroCuenta.updateValueAndValidity();
     }else{
       this.metodoPago = false;

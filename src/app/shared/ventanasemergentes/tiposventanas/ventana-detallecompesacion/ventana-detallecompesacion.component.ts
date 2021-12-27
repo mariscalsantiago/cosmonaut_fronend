@@ -55,7 +55,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
     this.gruponominaPrd.getAll(this.id_empresa).subscribe(datos => {
       this.arreglogruponominas = datos.datos;
-      this.cambiarGrupoNomina(true);
+      //this.cambiarGrupoNomina(true);
       if (this.typeppp) {
         //this.myForm.controls.sueldonetomensualppp.setValue(this.tabsDatos[3].pppSnm || 0);
         //this.myForm.controls.salarioDiarioIntegrado.setValue(this.tabsDatos[3].sbc);
@@ -78,6 +78,8 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
       tipoCompensacionId: [obj.tipoCompensacionId?.tipoCompensacionId, [Validators.required]],
       sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
       sueldoNetoMensual: obj.sueldoNetoMensual,
+      sueldonetomensualppp: obj.sueldonetomensualppp,
+      tiposueldo: obj.tiposueldo,
       salarioDiario: [{ value: obj.salarioDiario, disabled: true }, []],
 
     });
