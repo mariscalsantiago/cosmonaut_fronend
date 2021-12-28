@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
@@ -47,6 +47,8 @@ export class PagosComponent implements OnInit {
 
   public arreglotablaDed: any = [];
   public arreglotablaPer: any = [];
+  public datoscuenta: any = [];
+  public respoContrato: any = [];
   public arreglotablaPert: any = {
     columnas: [],
     filas: []
@@ -79,6 +81,7 @@ export class PagosComponent implements OnInit {
     this.idEmpleado = this.empleado.personaId.personaId;
     this.primeraVez = true;
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
+    debugger;
     if (this.empleado.metodoPagoId.metodoPagoId == 4) {
       this.detalleCuenta = true;
     } else {
@@ -308,57 +311,35 @@ export class PagosComponent implements OnInit {
     });
   }
 
-  public editandoMetodoPago(obj: any) {
-    debugger;
-    this.detalleCuenta = false;
-    this.myFormMetodoPago = this.createMyFormMetodoPago({});
-    this.metodopagobool = true;
-    if (obj == undefined) {
-      this.indexMetodoSeleccionado = this.empleado.metodoPagoId?.metodoPagoId;
-    }
-    this.esTransferencia = this.indexMetodoSeleccionado == 4;
-
-    if (this.esTransferencia) {
-      this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
-        if (datos.resultado) {
-          this.myFormMetodoPago = this.createMyFormMetodoPago(datos.datos);
-        }
-      });
-
-    }
-
-  }
 
   public editandoMetodoPagoNew(obj: any) {
+
     debugger;
     if (obj == undefined) {
       this.indexMetodoSeleccionado = this.empleado.metodoPagoId?.metodoPagoId;
     }
-    this.esTransferencia = this.indexMetodoSeleccionado == 4;
-
-    if (this.esTransferencia) {
-      this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+    this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+        
         if (datos.resultado) {
+          this.datoscuenta = datos.datos;
 
           let datosEnv : any = {
             metodoPagoId: this.indexMetodoSeleccionado,
             idEmpleado: this.idEmpleado,
-            idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
-            datoscuenta: datos.datos
+            idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
+            datoscuenta: this.datoscuenta
           };
       
           this.ventana.showVentana(this.ventana.detallecuenta,{datos:datosEnv}).then(valor =>{
+            debugger;
             if(valor.datos){
-              
-                //this.agregarDocumento(valor.datos);
+                this.enviandoMetodoPagoNew(valor.datos);
             }
           });
 
         }
 
       });
-
-    }
 
   }
 
@@ -499,97 +480,41 @@ export class PagosComponent implements OnInit {
     });
   }
 
-  public validarBanco(clabe: any) {
-    
 
-    this.myFormMetodoPago.controls.csBanco.setValue("");
-    if (this.myFormMetodoPago.controls.clabe.errors?.pattern === undefined) {
-
-
-      if (clabe == '' || clabe == null || clabe == undefined) {
-
-        this.myFormMetodoPago.controls.csBanco.setValue("");
-        this.myFormMetodoPago.controls.clabe.setValue("");
-      } else {
-        if(clabe.length == 18){
-          this.bancosPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
-            if (datos.resultado) {
-              this.myFormMetodoPago.controls.csBanco.setValue( datos.datos.bancoId);
-              this.myFormMetodoPago.controls.clabe.setValue(clabe);
-              this.myFormMetodoPago.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
-            }
-            else {
-              this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
-            }
-          });
-        }else{
-          this.modalPrd.showMessageDialog(this.modalPrd.error, "La cuenta clabe debe ser a 18 dijitos");
-          this.myFormMetodoPago.controls.csBanco.setValue("");
-          this.myFormMetodoPago.controls.numeroCuenta.setValue("");
-        }  
-      }
-
-    }
-
-  }
-
-  public enviandoMetodoPago() { //Método guardar transferencia bancaría...
-    this.submitEnviado = true;
-    if (this.myFormMetodoPago.invalid) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error);
-      return;
-    }
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar los datos?").then(valor => {
-      if (valor) {
+  public enviandoMetodoPagoNew(objEn : any) { //Método guardar transferencia bancaría...
+    debugger;
 
         let objContrato = {
           ...this.empleado,
           metodoPagoId: {
-            metodoPagoId: this.indexMetodoSeleccionado
+            metodoPagoId: Number(objEn.idMetodoPago)
           }
         }
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
         this.contratoColaboradorPrd.update(objContrato).subscribe((respContrato) => {
 
           if (respContrato.resultado) {
-
-
-
-            if (this.indexMetodoSeleccionado != 4) {
-              this.cancelar();
-              this.ngOnInit();
-              return;
+            this.empleado = respContrato.datos;
+            if (Number(objEn.idMetodoPago) != 4) {
+                  this.modalPrd.showMessageDialog(respContrato.resultado,respContrato.mensaje);
+                  this.cancelar();
+                  return;
             }
 
-
-
-            let obj = this.myFormMetodoPago.value;
-            let objEnviar: any = {
-              numeroCuenta: obj.numeroCuenta,
-              clabe: obj.clabe,
-              bancoId: {
-                bancoId: obj.csBanco
-              },
-              numInformacion: obj.numInformacion,
-              ncoPersona: {
-                personaId: this.idEmpleado
-              },
-              nclCentrocCliente: {
-                centrocClienteId: this.empleado.centrocClienteId.centrocClienteId
-              },
-              nombreCuenta: '  '
-
-            };
-
-
-            if (!Boolean(obj.cuentaBancoId)) {
-
-              this.bancosPrd.save(objEnviar).subscribe(datos => {
+            if (!Boolean(objEn.cuentaBancoId)) {
+              delete objEn.idMetodoPago; 
+              delete objEn.cuentaBancoId; 
+              this.bancosPrd.save(objEn).subscribe(datos => {
                 this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
                   if (datos.resultado) {
-                    this.cancelar();
-                    this.ngOnInit();
+                    this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+                      this.cuentaBanco = datos.datos;
+
+                      this.cancelar();
+                      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+             
+                    });
+
                   } else {
                     this.modalPrd.showMessageDialog(datos.resultado);
                   }
@@ -597,14 +522,18 @@ export class PagosComponent implements OnInit {
 
               });
             } else {
-
-
-              objEnviar.cuentaBancoId = obj.cuentaBancoId;
-              objEnviar.esActivo = true;
-              this.bancosPrd.modificar(objEnviar).subscribe(datos => {
+              delete objEn.idMetodoPago; 
+              objEn.cuentaBancoId = objEn.cuentaBancoId;
+              objEn.esActivo = true;
+              this.bancosPrd.modificar(objEn).subscribe(datos => {
                 this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-                  this.cancelar();
-                  this.ngOnInit();
+                  this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
+                    this.cuentaBanco = datos.datos;
+
+                    this.cancelar();
+                    this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+           
+                  });
                 });
 
               });
@@ -615,18 +544,15 @@ export class PagosComponent implements OnInit {
           }
         });
 
-
-
-
-
-      }
-    });
   }
 
   public cancelar() {
+    debugger;
     if (this.empleado.metodoPagoId.metodoPagoId == 4) {
       this.detalleCuenta = true;
-    } 
+    }else{
+      this.detalleCuenta = false;
+    }
     this.metodopagobool = false;
     this.detallecompensacionbool = false;
   }
@@ -646,9 +572,6 @@ export class PagosComponent implements OnInit {
 
   }
 
-  public cambiaValorMetodo() {
-    this.editandoMetodoPago("");
-  }
   public get f() {
     return this.myFormMetodoPago.controls;
   }
@@ -813,6 +736,7 @@ export class PagosComponent implements OnInit {
 
 
   public verDetalleCompensacion() {
+    debugger;
     this.recalcular = false;
     this.detallecompensacionbool = true
     console.log("DETALLE COMPENSACION", this.typeppp);
@@ -824,6 +748,25 @@ export class PagosComponent implements OnInit {
       this.myFormCompensacion.controls.pagoComplementario.setValue(this.empleado.pppMontoComplementario);
 
     }
+  }
+
+  public verDetalleCompensacionNew() {
+    this.recalcular = false;
+    this.detallecompensacionbool = true
+    this.suscribirseCompensacion();
+    if (this.typeppp) {
+      let datosEnv : any = {
+        idEmpleado: this.idEmpleado,
+        idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
+        datoscompensacion: this.empleado
+      };
+      this.ventana.showVentana(this.ventana.detallecompesacion,{datos:datosEnv}).then(valor =>{
+        if(valor.datos){
+            this.enviandoMetodoPagoNew(valor.datos);
+        }
+      });
+    }
+
   }
 
 

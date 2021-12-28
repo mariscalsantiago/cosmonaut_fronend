@@ -72,7 +72,8 @@ export class ContenidoComponent implements OnInit {
     mensajechat: false,
     adminTimbradoDispersion: false,
     listaempleados: false,
-    detallecuenta: false
+    detallecuenta: false,
+    detallecompesacion: false
   }
 
   public emergente = {

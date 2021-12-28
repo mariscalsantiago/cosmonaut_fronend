@@ -43,14 +43,13 @@
 
             <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                 <label>Sueldo bruto *</label>
-                <input appSolonumeros placement="top" [mdbTooltip]="'salarioNetoMensual' | tooltip" formControlName="sueldobruto" [class.is-invalid]="(f.sueldobruto.errors?.required && f.sueldobruto.touched) || (f.sueldobruto.errors?.min )" type="text" class="form-control">
+                <input formatos [numerosDecimales]="true" placement="top" maxlength="8" [mdbTooltip]="'salarioNetoMensual' | tooltip" formControlName="sueldobruto" [class.is-invalid]="(f.sueldobruto.errors?.required && f.sueldobruto.touched) || (f.sueldobruto.errors?.min )" type="text" class="form-control">
                 <div *ngIf="f.sueldobruto.errors?.required && f.sueldobruto.touched" class="invalid-feedback">
                     Campo requerido
                 </div>
                 <div *ngIf="f.sueldobruto.errors?.min " class="invalid-feedback">
                     El sueldo {{titulosueldo}} no puede ser inferior a $4251.00
                 </div>
-
             </div>
             <div *ngIf="esSueldoNeto" class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                 <label>Política *</label>
@@ -63,7 +62,7 @@
 
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
-                <label>Calculo en base a</label>
+                <label>Cálculo con base a: *</label>
                 <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && f.basePeriodoId.touched}" class="form-control">
                     <option *ngFor="let item of arregloBasePeriodos" [value]="item.nombreCorto">{{item.nombreCorto}}</option>
                   </select>
@@ -109,22 +108,22 @@
 
             <div class="form-group row margen">
                 <div class="input-group-sm mb-3 ">
-                    <table aria-hidden="true" class="table">
+                    <table aria-hidden="true" class="table" style="color: rgb(0, 38, 55);font-size: 15px;">
                         <tbody>
                             <tr>
-                                <th id="" class="text-left" scope="col">Limite inferior</th>
+                                <th id="" class="text-left" scope="col">Límite inferior</th>
                                 <td>{{limiteInferior}}</td>
                             </tr>
                             <tr>
-                                <th id="" class="text-left" scope="col">Excedente de limite inferior</th>
+                                <th id="" class="text-left" scope="col">Límite Superior</th>
                                 <td>{{excedente}}</td>
                             </tr>
-<!--                             <tr>
-                                <th id="" class="text-left" scope="col">Impuesto marginal</th>
-                                <td>{{impuestoMarginal}}</td>
-                            </tr> -->
                             <tr>
-                                <th id="" class="text-left" scope="col">Salario base de Cotización</th>
+                                <th id="" class="text-left" scope="col">IMSS</th>
+                                <td>{{imss}}</td>
+                            </tr>
+                            <tr>
+                                <th id="" class="text-left" scope="col">Salario base de cotización</th>
                                 <td>{{salarioBaseDeCotizacion}}</td>
                             </tr>
                             <tr>
@@ -132,17 +131,17 @@
                                 <td>{{salarioDiario}}</td>
                             </tr>
                             <tr>
-                                <th id="" class="text-left" scope="col">Salario neto mensual</th>
+                                <th id="" class="text-left" scope="col">Salario neto</th>
                                 <td>{{salarioNetoMensual}}</td>
                             </tr>
                             <tr>
-                                <th id="" class="text-left" scope="col">Porcentaje excedente de limite inferior</th>
-                                <td>{{excedente_limiteInferior}}</td>
+                                <th id="" class="text-left" scope="col">Porcentaje excedente de límite inferior</th>
+                                <td>{{excedente_limiteInferior}} %</td>
                             </tr>
-<!--                             <tr>
-                                <th id="" class="text-left" scope="col">ISR determinado</th>
-                                <td>{{isrDeterminado}}</td>
-                            </tr> -->
+                            <tr>
+                                <th id="" class="text-left" scope="col">Monto subsidio</th>
+                                <td>{{montoSubsidio}}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -14,8 +14,6 @@ export class VentanaDetalleCuentaComponent implements OnInit {
 
   public myForm!: FormGroup;
   public nomDocumento: boolean = false;
-  public empresa: number = 0;
-  public empleado: number = 0;
   public objEnviar: any = [];
   public arregloMetodosPago: any = [];
   public arreglobancos: any = [];
@@ -34,11 +32,15 @@ export class VentanaDetalleCuentaComponent implements OnInit {
     this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arreglobancos = datos.datos);
 
-    if(this.datos.metodoPagoId === 4){
-      this.metodoPago = true;
-    }
+    if(this.datos.datoscuenta !== undefined){
     this.myForm = this.createForm(this.datos.datoscuenta);
+    }else{
+      let obj= {};
+      this.myForm = this.createForm(obj);
 
+    }
+
+    this.validarTipoPago(this.datos.metodoPagoId);
 
   }
 
@@ -46,10 +48,10 @@ export class VentanaDetalleCuentaComponent implements OnInit {
   public createForm(obj: any) {
     return this.formBuild.group({
 
-      idMetodoPago: [this.datos.metodoPagoId, [Validators.required]],
-      numeroCuenta: [obj.numeroCuenta, [Validators.required]],
-      clabe: [obj.clabe, [Validators.required]],
-      csBanco: [obj.bancoId?.bancoId, [Validators.required]],
+      idMetodoPago: [this.datos.metodoPagoId],
+      numeroCuenta: [obj.numeroCuenta],
+      clabe: [obj.clabe],
+      csBanco: [obj.bancoId?.bancoId],
       numInformacion: obj.numInformacion,
       cuentaBancoId: obj.cuentaBancoId
 
@@ -93,10 +95,49 @@ export class VentanaDetalleCuentaComponent implements OnInit {
 
   public validarTipoPago(idPago:any){
     debugger;
-    if(idPago === 4){
+    if(Number(idPago) === 4){
       this.metodoPago = true;
+      this.myForm.controls.clabe.setValidators([Validators.required]);
+      this.myForm.controls.clabe.updateValueAndValidity();
+      this.myForm.controls.csBanco.setValidators([]);
+      this.myForm.controls.csBanco.updateValueAndValidity();
+      this.myForm.controls.numeroCuenta.setValidators([]);
+      this.myForm.controls.numeroCuenta.updateValueAndValidity();
     }else{
       this.metodoPago = false;
+      this.myForm.controls.clabe.setValidators([]);
+      this.myForm.controls.clabe.updateValueAndValidity();
+      this.myForm.controls.csBanco.setValidators([]);
+      this.myForm.controls.csBanco.updateValueAndValidity();
+      this.myForm.controls.numeroCuenta.setValidators([]);
+      this.myForm.controls.numeroCuenta.updateValueAndValidity();
+    }
+
+  }
+
+  public validarTipoPagoSelct(idPago:any){
+    debugger;
+    if(Number(idPago) === 4){
+      this.metodoPago = true;
+      
+      this.myForm.controls.clabe.setValue('');
+      this.myForm.controls.numeroCuenta.setValue('');
+      this.myForm.controls.csBanco.setValue('');
+      this.myForm.controls.numInformacion.setValue('');
+      this.myForm.controls.clabe.setValidators([Validators.required]);
+      this.myForm.controls.clabe.updateValueAndValidity();
+      this.myForm.controls.csBanco.setValidators([]);
+      this.myForm.controls.csBanco.updateValueAndValidity();
+      this.myForm.controls.numeroCuenta.setValidators([]);
+      this.myForm.controls.numeroCuenta.updateValueAndValidity();
+    }else{
+      this.metodoPago = false;
+      this.myForm.controls.clabe.setValidators([]);
+      this.myForm.controls.clabe.updateValueAndValidity();
+      this.myForm.controls.csBanco.setValidators([]);
+      this.myForm.controls.csBanco.updateValueAndValidity();
+      this.myForm.controls.numeroCuenta.setValidators([]);
+      this.myForm.controls.numeroCuenta.updateValueAndValidity();
     }
 
   }
@@ -120,37 +161,29 @@ export class VentanaDetalleCuentaComponent implements OnInit {
 
     }
 
-    let mensaje = this.datos.esInsert? "¿Deseas guardar el documento" : "¿Deseas actualizar el documento?";
-    
-    this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
-      
-        if(valor){
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas guardar los datos?").then(valor => {
+      if (valor) {
           
           let  obj = this.myForm.getRawValue();
-          
-          if(this.datos.esInsert){
-            this.objEnviar = {
-            centrocClienteId: this.empresa,
-            personaId: this.empleado,
-            usuarioId: this.empleado,
-            tipoDocumentoId: obj.idTipoDocumento,
-            nombreArchivo: obj.nombre,
-            documento: obj.documento
-            };
-                  
-        }else{
 
             this.objEnviar = {
-            //cmsArchivoId: this.datos.cmsArchivoId,
-            //centrocClienteId: this.empresa,
-            //personaId: this.empleado,
-            //usuarioId: this.empleado,
-            documentosEmpleadoId: this.datos.documentosEmpleadoId,
-            nombreArchivo: obj.nombre,
-            documento: obj.documento
-            };
+              numeroCuenta: obj.numeroCuenta,
+              clabe: obj.clabe,
+              bancoId: {
+                bancoId: obj.csBanco
+              },
+              numInformacion: obj.numInformacion,
+              ncoPersona: {
+                personaId: this.datos.idEmpleado
+              },
+              nclCentrocCliente: {
+                centrocClienteId: this.datos.idEmpresa
+              },
+              nombreCuenta: '  ',
+              idMetodoPago: obj.idMetodoPago,
+              cuentaBancoId: obj.cuentaBancoId
 
-        }
+            };
           
           this.salida.emit({type:"guardar",datos:this.objEnviar});
         }

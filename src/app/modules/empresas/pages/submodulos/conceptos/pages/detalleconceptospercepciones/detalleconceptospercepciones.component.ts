@@ -134,7 +134,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
-    
+    debugger;
+    this.arregloTipoPercepcion = [];
+    this.myForm.controls.tipoPercepcionId.setValue('');
     this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
       this.arregloTipoPercepcion = datos.datos 
       

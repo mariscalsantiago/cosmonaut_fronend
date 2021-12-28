@@ -350,13 +350,10 @@ export class DetalleUsuarioComponent implements OnInit {
 
   public cambiarMultiempresa() {
     
-    if(this.insertar){
       if(!Boolean(this.myForm.controls.multicliente.value)){
         this.myForm.controls.centrocClienteId.setValue('');
 
       }
-    }
-
   }
 
 
@@ -393,10 +390,8 @@ export class DetalleUsuarioComponent implements OnInit {
   public limpiarClientes(){
     
     if(Number(this.myForm.controls.rol.value) === 1){
-      if(this.insertar){
       this.myForm.controls.centrocClienteId.setValue('');
       this.myForm.controls.centrocClienteId.updateValueAndValidity();
-      }  
     }
     
   }

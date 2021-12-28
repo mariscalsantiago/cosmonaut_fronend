@@ -24,7 +24,8 @@ export class VentanaemergenteService {
   public mensajechat: string = "mensajechat";
   public adminTimbradoDispersion: string = "adminTimbradoDispersion";
   public listadoEmpleados: string = "listadoEmpleados";
-  public detallecuenta: string = "detallecuenta";
+  public detallecuenta: string = "detallecuenta"; 
+  public detallecompesacion: string = "detallecompesacion";
 
 
 
@@ -57,7 +58,8 @@ export class VentanaemergenteService {
     mensajechat: false,
     adminTimbradoDispersion: false,
     listaempleados: false,
-    detallecuenta: false
+    detallecuenta: false,
+    detallecompesacion: false
   }
 
   constructor() { }
@@ -155,6 +157,11 @@ export class VentanaemergenteService {
 
         this.mostrar.detallecuenta = true;
         this.emergente.titulo = "Detalle de la cuenta";
+        break;  
+      case this.detallecompesacion:
+
+        this.mostrar.detallecompesacion = true;
+        this.emergente.titulo = "Parámetros de nómina";
         break;        
 
 

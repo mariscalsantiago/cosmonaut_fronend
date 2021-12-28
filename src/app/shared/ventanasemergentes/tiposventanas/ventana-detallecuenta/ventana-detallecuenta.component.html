@@ -6,7 +6,7 @@
 
                 <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
                     <label for="exampleFormControlSelect1">Método de pago *</label>
-                    <select formControlName="idMetodoPago" #idmetodoPago (change)="validarTipoPago(idmetodoPago.value)" class="form-control">
+                    <select formControlName="idMetodoPago" #idmetodoPago (change)="validarTipoPagoSelct(idmetodoPago.value)" class="form-control">
                     <option *ngFor="let item of arregloMetodosPago" [value]="item.metodoPagoId">{{item.descripcion}}</option>
                 </select>
                 </div>
@@ -23,23 +23,16 @@
                     </div>
                 </div>
                 <div *ngIf="metodoPago" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                    <label>Número de cuenta *</label>
+                    <label>Número de cuenta</label>
                     <input appSolonumeros maxlength="10" formControlName="numeroCuenta" type="text" class="form-control disabled bg-light" placeholder="" 
-                    [class.is-invalid]="f.numeroCuenta.errors && f.numeroCuenta.touched">
-                    <div *ngIf="f.numeroCuenta.errors && f.numeroCuenta.touched" class="invalid-feedback">
-                        Campo requerido
-                    </div>
+                    >
 
                 </div>
                 <div *ngIf="metodoPago" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
-                    <label>Banco *</label>
-                    <select [class.is-invalid]="f.csBanco.errors && f.csBanco.touched" formControlName="csBanco" class="form-control disabled bg-light" name="">
+                    <label>Banco</label>
+                    <select formControlName="csBanco" class="form-control disabled bg-light" name="">
                     <option *ngFor="let item of arreglobancos" [value]="item.bancoId">{{item.nombreCorto}}</option>
                 </select>
-                <div *ngIf="f.csBanco.errors && f.csBanco.touched" class="invalid-feedback">
-                    Campo requerido
-                </div>
-
 
                 </div>
                 <div *ngIf="metodoPago" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">

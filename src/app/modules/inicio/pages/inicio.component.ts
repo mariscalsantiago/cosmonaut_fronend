@@ -12,6 +12,8 @@ import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/us
 import { Noticia } from './../../../core/modelos/noticia';
 import { NoticiasService } from './../../noticias/services/noticias.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
+import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
 
 @Component({
   selector: 'app-inicio',
@@ -29,6 +31,7 @@ export class InicioComponent implements OnInit   {
   public apareceListadoEventos: boolean = false;
   public vistosTrue: boolean = false;
   public vistosFalse: boolean = false;
+  public moduloId: boolean = false;
 
   public arreglotabla: any = {
     columnas: [],
@@ -44,6 +47,8 @@ export class InicioComponent implements OnInit   {
   public arreglosIdSubmodulo: any = [];
   public contratoDesc: string | undefined;
   public dataUrl: any = []; 
+  public iframe: string = '';
+  public datosIframe: any = [];
 
   noticiasAdministrador: Noticia[] = [];
   noticiasEmpresa: Noticia[] = [];
@@ -63,14 +68,40 @@ export class InicioComponent implements OnInit   {
     private usuariosSistemaPrd: UsuarioSistemaService,
     public ContenidoComponent: ContenidoComponent,
     public configuracionPrd: ConfiguracionesService,
-    private notificaciones:ServerSentEventService) { }
+    private notificaciones:ServerSentEventService, 
+    private rolesPrd: RolesService,
+    private authUsuarioPrd: UsuariosauthService
+    ) { }
 
 
   ngOnInit(): void {
 
-    let id = 'https://datastudio.google.com/embed/reporting/d60a5a01-b359-4963-82af-e67370d81203/page/odxgC';
-    this.cargando = true;
-    this.url = this._sanitizer.bypassSecurityTrustResourceUrl(id);
+    debugger;
+
+    this.authUsuarioPrd.getVersionByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      if(datos.datos !== undefined){
+        let objVersion = datos.datos.versionCosmonautId;
+        if(datos.datos.versionCosmonautId?.versionCosmonautId === 1){
+          this.moduloId = true;
+        }
+        else if(datos.datos.versionCosmonautId?.versionCosmonautId === 4){
+          this.moduloId = true;
+        }
+        this.datosIframe = this.usuariosSistemaPrd.usuario;
+
+        this.rolesPrd.getIframe(this.datosIframe.usuarioId,this.datosIframe.centrocClienteId,objVersion.versionCosmonautId).subscribe(datos => {
+          if(datos.datos !== undefined){  
+            this.iframe = datos.datos;  
+            //'https://datastudio.google.com/embed/reporting/d60a5a01-b359-4963-82af-e67370d81203/page/odxgC';
+            this.cargando = true;
+            this.url = this._sanitizer.bypassSecurityTrustResourceUrl(this.iframe);
+          }
+        });
+      }
+
+    });
+    
+
 
 
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();

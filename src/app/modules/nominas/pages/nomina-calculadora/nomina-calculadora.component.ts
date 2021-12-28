@@ -26,13 +26,13 @@ export class NominaCalculadoraComponent implements OnInit {
   public idEmpresa: number = 0;
   public limiteInferior: string = "";
   public excedente: string = "";
-  public impuestoMarginal: string = "";
+  public imss: string = "";
   public cuotaFija: string = "";
   public salarioBaseDeCotizacion: string = "";
   public salarioDiario: string = "";
   public salarioNetoMensual: string = "";
   public excedente_limiteInferior: string = "";
-  public isrDeterminado: string = ""; 
+  public montoSubsidio: string = ""; 
   public contratoDesc: number | undefined;
 
   public esMensual:boolean = false;
@@ -80,7 +80,7 @@ export class NominaCalculadoraComponent implements OnInit {
       tiposueldo: ['b', Validators.required],
       periodicidadPagoId: [undefined, Validators.required],
       sueldobruto: [0, Validators.required],
-      basePeriodoId: [undefined],
+      basePeriodoId: [undefined, Validators.required],
       politicaId: [undefined],
       imss:[],
       subsidio:[]
@@ -109,11 +109,13 @@ export class NominaCalculadoraComponent implements OnInit {
 
 
     this.myForm.controls.periodicidadPagoId.valueChanges.subscribe(vv => {
+      debugger;
       this.esMensual = vv == "05";
       this.verificarValidacionSueldo();
     });
 
     this.myForm.controls.imss.valueChanges.subscribe(vv =>{
+      debugger;
       this.esImss = vv;
       this.verificarValidacionSueldo();
     });
@@ -164,16 +166,24 @@ export class NominaCalculadoraComponent implements OnInit {
             
               .then(()=> {
                  if (datos.resultado) {
+                  const formatter = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 2
+                  })
+                  const formatterDec = new Intl.NumberFormat('en-US', {
+                    minimumFractionDigits: 2
+                  })
                   this.calculado = true; 
                   this.resultCalculo = datos.datos;
-                  this.limiteInferior = this.resultCalculo.limiteInferior;
-                  this.excedente = this.resultCalculo.excedenteLimiteInferior;
-                  this.impuestoMarginal = this.resultCalculo.impuestoMarginal;
-                  this.salarioBaseDeCotizacion = this.resultCalculo.salarioBaseDeCotizacion;
-                  this.salarioDiario = this.resultCalculo.salarioDiario;
-                  this.salarioNetoMensual = this.resultCalculo.salarioNetoMensual;
-                  this.excedente_limiteInferior = this.resultCalculo.porcentajeExcedenteLimiteInferior;
-                  //this.isrDeterminado = this.resultCalculo.isrDeterminado;
+                  this.limiteInferior = formatter.format(this.resultCalculo.limiteInferior);
+                  this.excedente = formatter.format(this.resultCalculo.excedenteLimiteInferior);
+                  this.imss = formatter.format(this.resultCalculo.imss);
+                  this.salarioBaseDeCotizacion = formatter.format(this.resultCalculo.salarioBaseDeCotizacion);
+                  this.salarioDiario = formatter.format(this.resultCalculo.salarioDiario);
+                  this.salarioNetoMensual = formatter.format(this.resultCalculo.salarioNetoMensual);
+                  this.excedente_limiteInferior = formatterDec.format(this.resultCalculo.porcentajeExcedenteLimiteInferior);
+                  this.montoSubsidio = formatter.format(this.resultCalculo.montoSubsidio);
                   
               } 
               });
