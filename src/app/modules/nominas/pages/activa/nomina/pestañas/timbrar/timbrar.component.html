@@ -16,12 +16,13 @@
         <input [(ngModel)]="rfc" maxlength="13" type="text" name="" placeholder="RFC" class="form-control">
     </div>
     <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
-        <button (click)="filtrar()" type="button" class="btn btn-primary button-outlet mr-3 ">Filtrar</button>
+        <button (click)="filtrar()" type="button" class="btn btn-primary button-outlet">Filtrar</button>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-11 text-right">
+
+<div class="row mr-3">
+    <div class="col-12 text-right">
         <a *ngIf="esDescargar" style="margin-top: 18px;font-size: 20px;" (click)="descargarNomina()" class="botonestilo aparece-desktop estiloextralink"><small class="underline" style="color:rgb(7 165 156); text-decoration-line: underline;" *ngIf="!cargandoIcon">
             <i aria-hidden="true" class="fas fa-download"></i>&nbsp;Descargar nómina</small>                    
                 <div *ngIf="cargandoIcon" class="spinner-border" role="status">
@@ -29,7 +30,11 @@
                 </div>
             </a>
     </div>
+
 </div>
+
+
+
 
 <div class="row especialrow">
     <div class="col-6">
@@ -55,14 +60,14 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <a class="color-hiperlink" (click)="descargarNomina()"><small *ngIf="!cargandoIcon"><i aria-hidden="true" style="margin-left: 2px;" class="fas fa-download"></i></small>
+        <a *ngIf="esDescargar" style="margin-top: 18px;font-size: 20px;" (click)="actualizarLista()" class="botonestilo aparece-desktop estiloextralink"><small class="underline" style="color:rgb(7 165 156);    text-decoration-line: underline;" *ngIf="!cargandoIcon"><i aria-hidden="true" class="fas fa-redo-alt"></i>&nbsp;Actualizar estatus</small>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-            <span>Descargar nómina</span>
         </a>
-    </div>
+      </div>      
 </div>
+
 <div class="row">
     <div class="col">
         <app-tablapaginado [nominatimbrar]="true" [datosExtras]="datosExtras" [desglosar]="true" [datos]="arreglotabla" [cargando]="cargando" [timbrado]="true" [checkbox]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
