@@ -426,7 +426,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
       this.myForm.controls.salarioDiario.setValue('');
       this.myForm.controls.sueldoBrutoMensualPPP.setValue('');
       this.myForm.controls.sueldoBrutoMensual.setValue('');
-
+      this.myForm.controls.sueldoNetoMensual.setValue('');
       this.myForm.controls.sueldoNetoMensual.setValidators([Validators.required]);
       this.myForm.controls.sueldoNetoMensual.updateValueAndValidity();
 
