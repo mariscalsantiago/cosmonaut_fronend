@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/configuraciones.service';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
@@ -17,11 +17,14 @@ export class FormEmpleadoComponent implements OnInit {
 
   public titulo:string = "DAR DE ALTA EMPLEADO";
 
+  @Output() enviado = new EventEmitter();
+
   public activado = [
     { tab: true, form: true, disabled: false,seleccionado:true },
     { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false,seleccionado:false },   
+    { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false ,seleccionado:false}
   ];
 
@@ -123,7 +126,7 @@ export class FormEmpleadoComponent implements OnInit {
     this.routerPrd.navigate(['/empleados/empleadosincompletos']);
   }
   public recibir(elemento: any) {
-    
+    debugger;
     switch (elemento.type) {
       case "informacion":
         this.datosPersona = elemento.datos;
@@ -160,6 +163,16 @@ export class FormEmpleadoComponent implements OnInit {
 
         this.ocultarempleada = false;
         break;
+        case "documentos":
+
+          this.activado[5].tab = true;
+          this.activado[5].form = true;
+          this.activado[5].disabled = false;
+          this.activado[5].seleccionado = true;
+          this.tabsEnviar[5] = elemento.datos;
+          this.activado[4].seleccionado = false;
+          this.activado[4].form = false;
+          break;
       case "empleo":
        
         this.ocultarDetalleTransfrencia = elemento.metodopago.metodoPagoId !== 4;
@@ -167,6 +180,8 @@ export class FormEmpleadoComponent implements OnInit {
         this.datosPersona.metodopago = elemento.metodopago;
         this.datosPersona.tieneContrato = true;
 
+        
+        
         this.tabsEnviar[3] = elemento.datos;
         this.tabsEnviar[0].tieneContrato = true;
 
@@ -185,21 +200,35 @@ export class FormEmpleadoComponent implements OnInit {
           this.activado[4].seleccionado = true;
           this.activado[3].seleccionado = false;
           this.activado[3].form = false;
-
           // this.activado[0].tab = false;
           // this.activado[1].tab = false;
           // this.activado[2].tab = false;
           //this.activado[3].tab = false;
-
+         
           this.ocultarempleada = false;
           this.ocultarMenuHam = false;
         } else {
-
-          this.routerPrd.navigate(['/empleados']);
-          this.ocultarempleada = true;
+          this.activado[5].tab = true;
+          this.activado[5].form = true;
+          this.activado[5].disabled = false;
+          this.activado[5].seleccionado = true;
+      //    this.routerPrd.navigate(['/empleados']);
+          this.ocultarempleada = false;
         }
 
         break;
+
+  case "detalle":
+        this.activado[5].tab = true;
+        this.activado[5].form = true;
+        this.activado[5].disabled = false;
+        this.activado[5].seleccionado = true;
+        this.activado[4].form = false;
+        this.ocultarempleada = false;
+        this.datosPersona.datosTranferencia= elemento.datos;
+       break;
+
+
     }
 
   }
@@ -255,7 +284,7 @@ export class FormEmpleadoComponent implements OnInit {
   }
 
 
-  public backTab(numero: number) {
+  public backTab(numero: number) { 
 
     if (!this.activado[numero].tab) return;
 

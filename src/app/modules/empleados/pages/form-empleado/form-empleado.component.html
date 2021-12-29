@@ -84,6 +84,7 @@
                     <a (click)="backTab(4)" class="nav-item nav-link " [ngClass]="{'activado':activado[4].tab,'disabled':activado[4].disabled,'ocultar':ocultarDetalleTransfrencia,'selecciona':activado[4].seleccionado}" id="nav-contact-tab" role="tab" aria-controls="nav-detalle"
                         aria-selected="false">4. Detalle de la
             cuenta</a>
+                    <a (click)="backTab(5)" class="nav-item nav-link " [ngClass]="{'activado':activado[5].tab,'disabled':activado[5].disabled,'selecciona':activado[5].seleccionado}" id="nav-contact-tab" role="tab" aria-controls="nav-empleo" aria-selected="false">5. Documentos</a>            
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -104,6 +105,9 @@
                 <div class="tab-pane fade" [ngClass]="{'show active':activado[4].form}" id="nav-detalle" role="tabpanel" aria-labelledby="nav-detalle-tab">
                     <app-detalle *ngIf="activado[4].form" (enviado)="recibir($event)" [datosPersona]="datosPersona"></app-detalle>
                 </div>
+                <div class="tab-pane fade" [ngClass]="{'show active':activado[5].form}" id="nav-detalle" role="tabpanel" aria-labelledby="nav-detalle-tab">
+                    <app-documentos *ngIf="activado[5].form" (enviado)="recibir($event)" [datosPersona]="datosPersona"></app-documentos>
+                </div>                
             </div>
         </div>
 

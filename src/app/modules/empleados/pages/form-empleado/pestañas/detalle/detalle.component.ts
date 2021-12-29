@@ -29,14 +29,13 @@ export class DetalleComponent implements OnInit {
     private modalPrd:ModalService,private navigate:Router, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    this.myForm = this.createForm({});
-
+    debugger;
+    this.myForm = this.createForm(
+      this.datosPersona.datosTranferencia || {} 
+    );
 
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arreglobancos = datos.datos);
-
   }
-
-
 
 
 
@@ -46,7 +45,7 @@ export class DetalleComponent implements OnInit {
       metodo_pago_id: { value: obj.metodo_pago_id, disabled: true },
       numeroCuenta: [obj.numeroCuenta, [Validators.required]],
       clabe: [obj.clabe, [Validators.required]],
-      csBanco: [obj.csBanco?.bancoId, [Validators.required]],
+      csBanco: [obj.bancoId?.bancoId, [Validators.required]],
       numInformacion: obj.numInformacion
     });
 
@@ -56,15 +55,12 @@ export class DetalleComponent implements OnInit {
 
 
   public cancelar() {
-    
-
+  
     if(this.myForm.invalid){
-
       this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede cancelar, la cuenta bancaria para un empleado de transferencia es obligatorio.");
       return;
     }
-
-    this.navigate.navigate(['/empleados']);
+      this.navigate.navigate(['/empleados']);
   }
 
   public validarBanco(clabe:any){
@@ -106,7 +102,7 @@ export class DetalleComponent implements OnInit {
   }
 
   public enviarFormulario() {
-
+debugger;
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -119,7 +115,7 @@ export class DetalleComponent implements OnInit {
 
         let obj = this.myForm.value;
   
-        let objEnviar = {
+        let objEnviar:any = {
   
           numeroCuenta: obj.numeroCuenta,
           clabe: obj.clabe,
@@ -137,10 +133,12 @@ export class DetalleComponent implements OnInit {
   
   
         };
-  
+  debugger;
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-        this.bancosPrd.save(objEnviar).subscribe(datos => {
+
+      if  ( !Boolean(this.datosPersona.datosTranferencia?.cuentaBancoId) ){      
+       this.bancosPrd.save(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
             if(datos.resultado){
@@ -148,12 +146,34 @@ export class DetalleComponent implements OnInit {
                 perfilesPendientes: true
               }
               this.configuracionPrd.breadcrum.permisos.push(obj);
-              this.navigate.navigate(['/empleados']);
+              this.enviado.emit({ type: "detalle", valor: true, datos:datos.datos });
+
+             // this.navigate.navigate(['/empleados']);
             }
           });
 
         });
-  
+
+      } else {
+         objEnviar.cuentaBancoId = this.datosPersona.datosTranferencia.cuentaBancoId;
+         objEnviar.esActivo =true;
+        this.bancosPrd.modificar(objEnviar).subscribe(datos => {
+          this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+          this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+            if(datos.resultado){
+              let obj = {
+                perfilesPendientes: true
+              }
+              this.configuracionPrd.breadcrum.permisos.push(obj);
+              this.enviado.emit({ type: "detalle", valor: true, datos:datos.datos });
+
+             // this.navigate.navigate(['/empleados']);
+            }
+          });
+
+        });
+
+      }
   
       }
     });
