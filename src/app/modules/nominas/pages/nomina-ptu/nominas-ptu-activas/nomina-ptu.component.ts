@@ -35,6 +35,7 @@ export class NominaPTUComponent implements OnInit {
 
   public modulo: string = "";
   public subModulo: string = "";
+  public mensajePendiente:string = "";
 
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService, private empleadoPrd: EmpleadosService, private usuariSistemaPrd: UsuarioSistemaService,
@@ -121,6 +122,7 @@ export class NominaPTUComponent implements OnInit {
     }
     this.nominaPtuPrd.calcularNomina(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+      this.mensajePendiente = datos.mensaje;
       if (datos.resultado) {
         this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaPtu.nominaXperiodoId);
         item.nominaPtu.estadoProcesoNominaId = 1;
@@ -185,7 +187,7 @@ export class NominaPTUComponent implements OnInit {
         }
       });
     } else if (item.nominaPtu.estadoProcesoNominaId == 1) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, this.mensajePendiente);
     }
 
   }

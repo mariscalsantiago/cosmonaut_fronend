@@ -33,6 +33,7 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
 
   public modulo: string = "";
   public subModulo: string = "";
+  public mensajePendiente:string = "";
 
   public suscripcion!:Subscription;
 
@@ -126,6 +127,7 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
     }
     this.nominaOrdinariaPrd.calcularNomina(objEnviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+      this.mensajePendiente = datos.mensaje;
       if (datos.resultado) {
         this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaOrdinaria.nominaXperiodoId);
         item.nominaOrdinaria.estadoProcesoNominaId = 1;
@@ -194,7 +196,7 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
         }
       });
     } else if (item.nominaOrdinaria.estadoProcesoNominaId == 1) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos.\nEl sistema te notificará cuando concluya el proceso.");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, this.mensajePendiente);
     }
 
   }
