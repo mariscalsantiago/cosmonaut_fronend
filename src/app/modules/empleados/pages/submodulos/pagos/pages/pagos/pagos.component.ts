@@ -25,6 +25,7 @@ export class PagosComponent implements OnInit {
 
   public metodopagobool: boolean = false;
   public detallecompensacionbool: boolean = false;
+  public detallecompensacionboolNew: boolean = false;
   public esTransferencia: boolean = false;
   public submitEnviado: boolean = false;
   public indexMetodoSeleccionado: number = 0;
@@ -759,14 +760,13 @@ export class PagosComponent implements OnInit {
   public verDetalleCompensacionNew() {
     debugger;
     this.recalcular = false;
-    this.detallecompensacionbool = false
-    this.suscribirseCompensacion();
-    
+ 
       let datosEnv : any = {
         idEmpleado: this.idEmpleado,
         idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
         datoscompensacion: this.empleado,
-        typeppp: this.typeppp
+        typeppp: this.typeppp,
+        detallecompensacionbool: this.detallecompensacionboolNew = true
       };
       this.ventana.showVentana(this.ventana.detallecompesacion,{datos:datosEnv}).then(valor =>{
         if(valor.datos){

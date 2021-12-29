@@ -167,12 +167,12 @@
                                                             mensual</span><span
                                                             *ngIf="!typeppp && fc.tiposueldo.value == 'n'">Sueldo neto
                                                             mensual</span>
-                                                        <span *ngIf="typeppp">Sueldo neto mensual mixto*</span>
+                                                        <span *ngIf="typeppp">Sueldo neto mensual mixto *</span>
                                                         </td>
-                                                    <td *ngIf="!detallecompensacionbool">
-                                                      <span  *ngIf="!typeppp && fc.tiposueldo.value == 'b'">{{empleado.sueldoBrutoMensual |
+                                                    <td>
+                                                      <span  *ngIf="!typeppp">{{empleado.sueldoBrutoMensual |
                                                         currency:'$'}}</span>
-                                                        <span  *ngIf="typeppp">{{(empleado.pppSnm||0) |
+                                                        <span  *ngIf="typeppp">{{(empleado.pppSnm) |
                                                             currency:'$'}}</span>
                                                         
                                                     </td>
