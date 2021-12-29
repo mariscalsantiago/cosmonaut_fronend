@@ -179,7 +179,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
         }
       });
     } else if (item.nominaLiquidacion.estadoProcesoNominaId == 1) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, this.mensajePendiente);
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "El sistema está realizando el cálculo de nómina solicitado");
     }
 
   }

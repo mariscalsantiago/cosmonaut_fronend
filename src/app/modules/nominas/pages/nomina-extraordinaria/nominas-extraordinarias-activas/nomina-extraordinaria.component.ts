@@ -176,7 +176,7 @@ export class NominaExtraordinariaComponent implements OnInit, OnDestroy {
         }
       });
     } else if (item.nominaExtraordinaria.estadoProcesoNominaId == 1) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, this.mensajePendiente);
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "El sistema está realizando el cálculo de nómina solicitado");
     }
 
   }

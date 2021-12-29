@@ -187,7 +187,7 @@ export class NominaPTUComponent implements OnInit {
         }
       });
     } else if (item.nominaPtu.estadoProcesoNominaId == 1) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, this.mensajePendiente);
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "El sistema está realizando el cálculo de nómina solicitado");
     }
 
   }
