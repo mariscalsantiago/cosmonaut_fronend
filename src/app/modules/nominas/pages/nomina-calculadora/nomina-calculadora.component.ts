@@ -34,11 +34,13 @@ export class NominaCalculadoraComponent implements OnInit {
   public excedente_limiteInferior: string = "";
   public montoSubsidio: string = ""; 
   public contratoDesc: number | undefined;
+  public valorPeriodo: boolean = false;
 
   public esMensual:boolean = false;
   public esImss:boolean = false;
   public titulosueldo:string = "bruto";
   public resultCalculo: any = [];
+  public diasPeriodo: string = '';
 
   public modulo: string = "";
   public subModulo: string = "";
@@ -112,6 +114,7 @@ export class NominaCalculadoraComponent implements OnInit {
       debugger;
       this.esMensual = vv == "05";
       this.verificarValidacionSueldo();
+      this.validaPeriodo();
     });
 
     this.myForm.controls.imss.valueChanges.subscribe(vv =>{
@@ -135,6 +138,31 @@ export class NominaCalculadoraComponent implements OnInit {
 
   public inicio(){
     this.router.navigate(['/inicio']);
+  }
+
+  public validaPeriodo(){
+    this.diasPeriodo = this.myForm.controls.periodicidadPagoId.value;
+    this.myForm.controls.basePeriodoId.setValue('');
+    this.myForm.controls.basePeriodoId.updateValueAndValidity();
+    if(this.diasPeriodo === '02'){
+      this.myForm.controls.basePeriodoId.setValue('7');
+      this.valorPeriodo = false;
+    }
+    else if(this.diasPeriodo === '10'){
+      this.myForm.controls.basePeriodoId.setValue('10');
+      this.valorPeriodo = false;
+    }
+    else if(this.diasPeriodo === '03'){
+      this.myForm.controls.basePeriodoId.setValue('14');
+      this.valorPeriodo = false;
+    }
+    else if(this.diasPeriodo === '04'){
+      this.myForm.controls.basePeriodoId.setValue('15');
+      this.valorPeriodo = false;
+    }
+    else if(this.diasPeriodo === '05'){
+      this.valorPeriodo = true;
+    }
   }
 
   public calcular() {

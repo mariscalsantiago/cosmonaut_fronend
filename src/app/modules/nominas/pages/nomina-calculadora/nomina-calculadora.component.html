@@ -32,7 +32,7 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                 <label>Periodo *</label>
-                <select [class.is-invalid]="f.periodicidadPagoId.errors && f.periodicidadPagoId.touched" formControlName="periodicidadPagoId" class="form-control" id="exampleFormControlSelect1">
+                <select (change)="validaPeriodo()" [class.is-invalid]="f.periodicidadPagoId.errors && f.periodicidadPagoId.touched" formControlName="periodicidadPagoId" class="form-control" id="exampleFormControlSelect1">
                     <option *ngFor="let item of arregloPeriocidad" [value]="item.periodicidadPagoId">{{item.descripcion}}</option>
                 </select>
                 <div *ngIf="f.periodicidadPagoId.errors && f.periodicidadPagoId.touched" class="invalid-feedback">
@@ -61,7 +61,7 @@
                 </div>
 
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+            <div *ngIf="valorPeriodo" class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                 <label>Cálculo con base a: *</label>
                 <select formControlName="basePeriodoId" [ngClass]="{'is-invalid':f.basePeriodoId.errors && f.basePeriodoId.touched}" class="form-control">
                     <option *ngFor="let item of arregloBasePeriodos" [value]="item.nombreCorto">{{item.nombreCorto}}</option>
