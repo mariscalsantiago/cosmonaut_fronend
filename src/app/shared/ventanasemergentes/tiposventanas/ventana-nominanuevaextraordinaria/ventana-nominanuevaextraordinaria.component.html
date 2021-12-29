@@ -1,6 +1,15 @@
 <form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
     <div class="form-group row">
         <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Grupo de nómina *</label>
+            <select [class.is-invalid]="f.grupoNomina.errors && f.grupoNomina.touched" formControlName="grupoNomina" class="form-control">
+                <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
+            </select>
+            <div  class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Nombre de la nómina *</label>
             <input formControlName="nombreNomina"  [class.is-invalid]="f.nombreNomina.errors && f.nombreNomina.touched" type="text" name=""  class="form-control">
             <div *ngIf="f.nombreNomina.errors && f.nombreNomina.touched" class="invalid-feedback">
@@ -50,7 +59,7 @@
         <div class="input-group-sm mb-3 col-6">
             <div>
                 <label>Seleccionar *</label>
-                <div >
+                <div>
 
                     <label class="contenedorInputCheckRadio">Todos los empleados
                         <input formControlName="seleccionarempleados" #tipouno 

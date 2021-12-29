@@ -1,25 +1,10 @@
 <div class="form-group margen row mt-2 text-center"><label style="    margin: auto;" class="titulo">Resumen</label></div>
 <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-        <table aria-hidden="true" class="table">
-            <tbody>
-                <tr>
-                    <td>Total pago neto</td>
-                    <td>{{datos.totalPagoNeto|currency}}</td>
-                </tr>
-                <tr>
-                    <td>Pagos realizados</td>
-                    <td>{{datos.pagosRealizados}}</td>
-                </tr>
-                <tr>
-                    <td>Timbrados</td>
-                    <td>{{datos.recibosPagos}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="col-1"></div>
+    <div class="col-10">
+        <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando" ></app-tablapaginado>
     </div>
-    <div class="col-2"></div>
+    <div class="col-1"></div>
 </div>
 <div class="row">
     <div class="col-2"></div>

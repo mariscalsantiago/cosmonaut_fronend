@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
@@ -21,7 +22,13 @@ export class CompletarComponent implements OnInit {
   public cargandoIcon: boolean = false;
   public datos:any = {};
 
+  public cargando:boolean = false;
+
   private esOrdinaria:boolean = false;
+  public arreglotabla:any = {
+    columnas:[],
+    filas:[]
+  }
   constructor(private modalPrd: ModalService,
     private reportesPrd:ReportesService,private nominaPrd:NominaordinariaService,
     private usuarioSistemaPrd:UsuarioSistemaService,
@@ -45,9 +52,30 @@ export class CompletarComponent implements OnInit {
 
     
 
+
+    this.cargando = true;
     this.nominaPrd.concluir(this.nominaSeleccionada[this.llave].nominaXperiodoId,this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+      this.cargando = false;
       this.cargandoIcon = false;
       this.datos = datos.datos;
+      let columnas: Array<tabla> = [
+        new tabla("totalPagoNeto", "Total pago neto"),
+        new tabla("totalPagoNetoTotal", "Total pago neto total"),
+        new tabla("totalPagoNetoDiferencia", "Diferencia"),
+        new tabla("pagosRealizados", "Pago realizado"),
+        new tabla("pagosRealizadosTotal", "Total"),
+        new tabla("pagosRealizadosDiferencia", "Diferencias"),
+        new tabla("recibosPagos", "Recibos de pago "),
+        new tabla("recibosPagosTotal", "Pagos"),
+        new tabla("recibosPagosDiferencia", "Diferencia ")
+      ];
+
+      this.arreglotabla = {
+        columnas: columnas,
+        filas: this.datos
+      };
+
+
     });
 
 

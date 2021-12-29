@@ -35,6 +35,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   public tiponomina: number = 2;
 
   public empleadoEnviar: any = [];
+  public arreglogruponominas:any = [];
 
 
 
@@ -42,10 +43,11 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     private usuariosPrd: UsuarioSistemaService, private formbuilder: FormBuilder,
     private usuarioSistemaPrd: UsuarioSistemaService, private nominaAguinaldoPrd: NominaaguinaldoService,
     private catalogosPrd: CatalogosService, private cuentasBancariasPrd: CuentasbancariasService,
-    private companiasPrd: SharedCompaniaService, private empleadosPrd: EmpleadosService) { }
+    private companiasPrd: SharedCompaniaService, private empleadosPrd: EmpleadosService,private gruponominaPrd: GruponominasService) { }
 
   ngOnInit(): void {
     this.myForm = this.creandoForm();
+    this.gruponominaPrd.getAll(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.arreglogruponominas = datos.datos);
 
     this.catalogosPrd.getTiposNomina(true).subscribe(datos => {
       this.arregloTipoNominas = datos.datos;    
@@ -103,7 +105,8 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
         tipoNominaId: [this.tiponomina],
         clabe: [, [Validators.required]],
         seleccionarempleados: ["true"],
-        personaId: []
+        personaId: [],
+        grupoNomina:[]
       }
     );
   }
@@ -156,7 +159,8 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
           todos: obj.seleccionarempleados == "true",
           monedaId: obj.monedaId,
           empleados: temp,
-          tipoNominaId:obj.tipoNominaId
+          tipoNominaId:obj.tipoNominaId,
+          grupoNominaId:obj.grupoNomina
         };
         this.guardarNomina();
       }
