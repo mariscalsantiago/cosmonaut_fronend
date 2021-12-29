@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tabla } from 'src/app/core/data/tabla';
@@ -32,7 +33,7 @@ export class CompletarComponent implements OnInit {
   constructor(private modalPrd: ModalService,
     private reportesPrd:ReportesService,private nominaPrd:NominaordinariaService,
     private usuarioSistemaPrd:UsuarioSistemaService,
-    private navigate:Router) { }
+    private navigate:Router,private currency:CurrencyPipe) { }
 
   ngOnInit(): void {
 
@@ -59,16 +60,25 @@ export class CompletarComponent implements OnInit {
       this.cargandoIcon = false;
       this.datos = datos.datos;
       let columnas: Array<tabla> = [
-        new tabla("totalPagoNeto", "Total pago neto"),
-        new tabla("totalPagoNetoTotal", "Total pago neto total"),
-        new tabla("totalPagoNetoDiferencia", "Diferencia"),
-        new tabla("pagosRealizados", "Pago realizado"),
-        new tabla("pagosRealizadosTotal", "Total"),
-        new tabla("pagosRealizadosDiferencia", "Diferencias"),
-        new tabla("recibosPagos", "Recibos de pago "),
-        new tabla("recibosPagosTotal", "Pagos"),
-        new tabla("recibosPagosDiferencia", "Diferencia ")
+        new tabla("totalPagoNetoTotal", "Total pago neto"),
+        new tabla("totalPagoNeto", "Total pagado"),
+        new tabla("totalPagoNetoDiferencia", "Pago neto pendiente"),
+        new tabla("pagosRealizadosTotal", "Total a pagar"),
+        new tabla("pagosRealizados", "Pago realizados"),
+        new tabla("pagosRealizadosDiferencia", "Pagos pendientes"),
+        new tabla("recibosPagosTotal", "Total a timbrar"),
+        new tabla("recibosPagos", "Timbrados"),
+        new tabla("recibosPagosDiferencia", "Pendientes por timbrar")
       ];
+
+
+      if(this.datos){
+        for(let item of this.datos){
+            item["totalPagoNetoTotal"] = this.currency.transform( item["totalPagoNetoTotal"]);
+            item["totalPagoNeto"] = this.currency.transform( item["totalPagoNeto"]);
+            item["totalPagoNetoDiferencia"] = this.currency.transform( item["totalPagoNetoDiferencia"]);
+        }
+      }
 
       this.arreglotabla = {
         columnas: columnas,
