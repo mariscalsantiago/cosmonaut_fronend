@@ -23,7 +23,7 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Tipo sueldo de entrada <span *ngIf="!grupoNominaSeleccionado.pagoComplementario">*</span></label>
-                    <select formControlName="tiposueldo" (change)="cambiarSueldoField()" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.tiposueldo.errors && f.tiposueldo.touched}">
+                    <select formControlName="tiposueldo" (change)="cambiarSueldoFieldEdit()" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.tiposueldo.errors && f.tiposueldo.touched}">
                         <option value="b">Bruto</option>
                         <option value="n">Neto</option>
                     </select>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
-                    <button  (click)="calcularsueldo()" style="margin-top: 28px; margin-left: 30px;" type="button" class="btn btn-primary button-fill">Calcular sueldo</button>
+                    <button  (click)="calcularSueldoNew()" style="margin-top: 28px; margin-left: 30px;" type="button" class="btn btn-primary button-fill">Calcular sueldo</button>
                 </div>
                 <div *ngIf="grupoNominaSeleccionado.pagoComplementario" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Salario diario integrado</label>
@@ -90,7 +90,8 @@
                 </div>
                 <div *ngIf="f.tiposueldo.value == 'b' && !typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Sueldo neto mensual</label>
-                    <input placement="top" [mdbTooltip]="'salarioNetoMensual'| tooltip" formControlName="sueldoNetoMensual" formatos [moneda]="true" [control]="f.sueldoNetoMensual" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldoNetoMensual.errors && f.sueldoNetoMensual.touched,'disabled':!sueldoNeto}">
+                    <input placement="top" [mdbTooltip]="'salarioNetoMensual'| tooltip" formControlName="sueldoNetoMensual" formatos [moneda]="true" [control]="f.sueldoNetoMensual" type="text" name="" id="" class="form-control disabled bg-light" 
+                    [ngClass]="{'is-invalid':f.sueldoNetoMensual.errors && f.sueldoNetoMensual.touched}">
 
                     <div class="invalid-feedback">
                         Campo requerido
@@ -108,7 +109,7 @@
                 <div *ngIf="f.tiposueldo.value== 'n' && !typeppp" class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
 
                     <label for="exampleFormControlSelect1">Sueldo bruto mensual</label>
-                    <input placement="top" [mdbTooltip]="'sueldoBrutoMensual' | tooltip" formControlName="sueldoBrutoMensual" formatos [moneda]="true" [control]="f.sueldoBrutoMensual" type="text" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && f.sueldoBrutoMensual.touched,'disabled':!sueldoBruto}">
+                    <input placement="top" [mdbTooltip]="'sueldoBrutoMensual' | tooltip" formControlName="sueldoBrutoMensual" formatos [moneda]="true" [control]="f.sueldoBrutoMensual" type="text" name="" id="" class="form-control disabled bg-light" [ngClass]="{'is-invalid':f.sueldoBrutoMensual.errors && f.sueldoBrutoMensual.touched}">
 
                     <div  class="invalid-feedback">
                         Campo requerido
@@ -127,7 +128,8 @@
                         Campo requerido
                     </div>
 
-                </div>
+                </div>                            
+
 
             </div>
         </div>

@@ -557,19 +557,22 @@ export class PagosComponent implements OnInit {
     this.detallecompensacionbool = false;
   }
 
-  public cancelarEspecial() {
+/*   public cancelarEspecial() {
     this.recalcular = false;
     this.primeraVez = true;
     // this.createFormCompensacion(this.empleado);
     this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
     this.cambiarGrupoNomina();
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
-
-
-
     this.detallecompensacionbool = false;
+  } */
 
-
+  public cancelarEspecial() {
+    this.recalcular = false;
+    this.primeraVez = true;
+    this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
+    this.cambiarGrupoNomina();
+    this.detallecompensacionbool = false;
   }
 
   public get f() {
@@ -626,17 +629,10 @@ export class PagosComponent implements OnInit {
         control.markAsTouched();
       })
       return;
-
-
-
     }
-
-
-
     if (this.recalcular) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Se debe calcular de nuevo el sueldo");
       return;
-
     }
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas actualizar los datos del usuario?").then(valor => {
@@ -647,8 +643,6 @@ export class PagosComponent implements OnInit {
   }
 
   public enviarCompensacio() {
-
-
     const obj = this.myFormCompensacion.getRawValue();
     const objEnviar = {
       ...this.empleado,
@@ -660,10 +654,7 @@ export class PagosComponent implements OnInit {
       salarioDiario: obj.salarioDiario,
 
     }
-
-
     if (this.grupoNominaSeleccionado.pagoComplementario) {
-
       objEnviar.sueldoNetoMensual = obj.salarioNetoMensualImss; //Pago imss
       delete obj.salarioNetoMensualImss;
       objEnviar.pppMontoComplementario = obj.pagoComplementario; //Pago complementario
@@ -686,6 +677,21 @@ export class PagosComponent implements OnInit {
     });
   }
 
+  public enviarCompensacioNew(objcompe : any) {
+    
+    debugger;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    this.contratoColaboradorPrd.updateCmpensacionKardex(objcompe).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+        if (datos.resultado) {
+          this.empleado = datos.datos;
+          this.cancelarEspecial();
+          //this.ngOnInit();
+        }
+      });
+    });
+  }
   public cambiassueldoPPP() {
 
     if (this.myFormCompensacion.controls.salarioDiario.invalid) {
@@ -751,21 +757,23 @@ export class PagosComponent implements OnInit {
   }
 
   public verDetalleCompensacionNew() {
+    debugger;
     this.recalcular = false;
-    this.detallecompensacionbool = true
+    this.detallecompensacionbool = false
     this.suscribirseCompensacion();
-    if (this.typeppp) {
+    
       let datosEnv : any = {
         idEmpleado: this.idEmpleado,
         idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
-        datoscompensacion: this.empleado
+        datoscompensacion: this.empleado,
+        typeppp: this.typeppp
       };
       this.ventana.showVentana(this.ventana.detallecompesacion,{datos:datosEnv}).then(valor =>{
         if(valor.datos){
-            this.enviandoMetodoPagoNew(valor.datos);
+            this.enviarCompensacioNew(valor.datos);
         }
       });
-    }
+
 
   }
 
