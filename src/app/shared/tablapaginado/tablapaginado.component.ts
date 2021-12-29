@@ -16,6 +16,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   public tooltipText = "";
   @Input() public cargando: any = false;
   @Input() public datosExtras: any;
+  @Input() public ocultarpaginado: boolean = false;
   public arreglo: any = [];
   public numeroitems: number = 5;
   public total: any = 0;

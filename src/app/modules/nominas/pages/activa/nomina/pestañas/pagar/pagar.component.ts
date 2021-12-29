@@ -160,7 +160,7 @@ export class PagarComponent implements OnInit {
         item["nombrecompleto"] = item[llave].nombre + " " + item[llave].apellidoPat + " ";
         item["nombrecompleto"] += item[llave].apellidoMat || "";
         item["rfc"] = item[llave].rfc;
-        item["banco"] = item[llave].banco;
+        item["banco"] = item[llave].metodoPago=='Efectivo'?"":item[llave].banco;
         item["tipopago"] = item[llave].metodoPago;
         item["total"] = this.cp.transform(item[llave].totalNeto);
         item["status"] = item[llave].estatusPago;

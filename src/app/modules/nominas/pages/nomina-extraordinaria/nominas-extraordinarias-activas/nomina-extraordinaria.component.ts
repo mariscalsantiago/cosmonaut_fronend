@@ -33,6 +33,7 @@ export class NominaExtraordinariaComponent implements OnInit, OnDestroy {
 
   public modulo: string = "";
   public subModulo: string = "";
+  public mensajePendiente:string = "";
 
   private suscripcion!: Subscription;
 
@@ -123,6 +124,7 @@ export class NominaExtraordinariaComponent implements OnInit, OnDestroy {
         }
         this.nominaAguinaldoPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+          this.mensajePendiente = datos.mensaje;
           if (datos.resultado) {
             this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaExtraordinaria.nominaXperiodoId);
             item.nominaExtraordinaria.estadoProcesoNominaId = 1;
@@ -174,7 +176,7 @@ export class NominaExtraordinariaComponent implements OnInit, OnDestroy {
         }
       });
     } else if (item.nominaExtraordinaria.estadoProcesoNominaId == 1) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "El sistema está realizando el cálculo de nómina solicitado");
     }
 
   }

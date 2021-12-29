@@ -10,6 +10,7 @@ import { SharedAreasService } from 'src/app/shared/services/areasypuestos/shared
 import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.service';
 import { DatePipe } from '@angular/common';
+import { GruponominasService } from 'src/app/modules/empresas/pages/submodulos/gruposNomina/services/gruponominas.service';
 
 @Component({
   selector: 'app-nominanueva-ptu',
@@ -18,6 +19,7 @@ import { DatePipe } from '@angular/common';
 })
 export class NominanuevaPtuComponent implements OnInit,OnChanges {
   @ViewChild("inputarea") elemento!:ElementRef;
+  @ViewChild("inputgruponomina") gruponomina!:ElementRef;
   @ViewChild("inputFile") inputFile!:ElementRef;
   @Input() public datos:any ;
 
@@ -50,17 +52,19 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
 
   public maximo:any;
   public arreglonacionalidad: any = [];
+  public arreglogruponominas:any = [];
 
   constructor(private formbuilder: FormBuilder, private modal: ModalService, private cuentasBancariasPrd: CuentasbancariasService,
     private catalogosPrd: CatalogosService, private usuariosPrd: UsuarioSistemaService,
     private companiasPrd: SharedCompaniaService, private areasPrd: SharedAreasService,
-    private empleadosPrd: EmpleadosService, private nominaPrd: NominaptuService) { }
+    private empleadosPrd: EmpleadosService, private nominaPrd: NominaptuService,private gruponominaPrd: GruponominasService) { }
 
   ngOnInit(): void {
     
     this.maximo = (new DatePipe("es-MX").transform((new Date(new Date().getFullYear(),11,31)),"yyyy-MM-dd"));
 
-        
+
+    this.gruponominaPrd.getAll(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.arreglogruponominas = datos.datos);
     this.editar = Boolean(this.datos?.editar)
     if(this.editar){
       this.activado[0].tab = false;
@@ -316,7 +320,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
   }
 
 
-  public obtenerEmpleados() {
+  public  obtenerEmpleados() {
     
     let valor = [];
     
@@ -338,6 +342,14 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
         
             valor.push(item.personaId?.personaId);
        }
+        break;
+        case "4":
+          debugger;
+          for(let item of this.arregloEmpleados){
+            if(item.grupoNominaId?.grupoNominaId == this.gruponomina.nativeElement.value){
+              valor.push(item.personaId?.personaId);
+            }
+         }
         break;
     }
     return valor;

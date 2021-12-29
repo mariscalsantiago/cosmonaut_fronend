@@ -109,9 +109,19 @@
                                 <input [(ngModel)]="valor" name="seleccion" type="radio" value="2">
                                 <span class="radiomark"></span>
                             </label>
+                            <label style="font-size: 15px !important;" class="contenedorInputCheckRadio">Filtrar por grupo de nómina
+                                <input [(ngModel)]="valor" name="seleccion" type="radio" value="4">
+                                <span class="radiomark"></span>
+                            </label>
                             <div *ngIf="valor == '2'">
                                 <select #inputarea style="font-size: 15px;" name="" class="form-control mb-2">
                                     <option *ngFor="let item of arregloareas" [value]="item.areaId">{{item.descripcion}}</option>
+                                </select>
+
+                            </div>
+                            <div *ngIf="valor == '4'">
+                                <select #inputgruponomina style="font-size: 15px;" name="" class="form-control mb-2">
+                                    <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
                                 </select>
 
                             </div>
@@ -124,7 +134,6 @@
                                     <label for="exampleFormControlSelect1" style="font-size: 15px;">Empleados *</label>
                                     <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
                                 </div>
-
                             </div>
                         </div>
 

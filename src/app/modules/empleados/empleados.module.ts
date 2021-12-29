@@ -16,11 +16,12 @@ import { FormBajaEmpleadoComponent } from './pages/form-baja-empleado/form-baja-
 import { EmpleadosIncompletosComponent } from './pages/empleados-incompletos/empleados-incompletos.component';
 import { CargaMasivaComponent } from './pages/carga-masiva/carga-masiva.component';
 import { TooltipModule } from 'ng-uikit-pro-standard';
+import { DocumentosComponent } from './pages/form-empleado/pestañas/documentos/documentos.component';
 
 
 @NgModule({
     declarations: [ListaempleadosComponent, EmpleadoComponent, FormEmpleadoComponent, InformacionbasicaComponent, DomicilioComponent, PreferenciasComponent, EmpleoComponent,
-                   DetalleComponent, FormBajaEmpleadoComponent, EmpleadosIncompletosComponent, CargaMasivaComponent],
+                   DetalleComponent, FormBajaEmpleadoComponent, EmpleadosIncompletosComponent, CargaMasivaComponent, DocumentosComponent],
     imports: [
       CommonModule,
       empleadosRoutingModule,
