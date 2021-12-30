@@ -1,0 +1,32 @@
+<div class="row ml-2 mr-2 titulosfijos" style="background-color: transparent;">
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+            > {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;" class="float-left">
+            {{subModulo}} 
+
+        </li>
+    </ul>
+</div>
+
+
+<br>
+
+        <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="105">
+
+            <div style="background-color: transparent;">
+                <div class="col-4 titulo-outlet-inicio">   
+                    <label>WIZZARD DE REPORTES</label>
+                </div>
+            </div>
+            <iframe width="1160" height="430" [src]="url" frameborder="10" style="border:0" allowfullscreen></iframe>
+
+        </div>   
+
+
+
