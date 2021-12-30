@@ -289,10 +289,6 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
 
-<<<<<<< HEAD
-  public cambiarGrupoNomina(noRestablecer: boolean) {
-
-=======
   public cambiarGrupoNomina() {
     debugger;
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
@@ -340,7 +336,6 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
   public cambiarGrupoNominaEdit(noRestablecer: boolean) {
     debugger;
->>>>>>> origin/desarrollo
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
     let aux = this.pagoComplementario(gruponominaId);
     if (!noRestablecer) {

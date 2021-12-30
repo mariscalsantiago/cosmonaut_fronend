@@ -678,10 +678,6 @@ export class PagosComponent implements OnInit {
   }
 
   public enviarCompensacioNew(objcompe : any) {
-<<<<<<< HEAD
-
-
-=======
 
     debugger;
     this.sueldoBruto = objcompe.sueldoBruto;
@@ -691,7 +687,6 @@ export class PagosComponent implements OnInit {
     delete objcompe.sueldoNeto;
     delete objcompe.typeppp;
 
->>>>>>> origin/desarrollo
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.contratoColaboradorPrd.updateCmpensacionKardex(objcompe).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
