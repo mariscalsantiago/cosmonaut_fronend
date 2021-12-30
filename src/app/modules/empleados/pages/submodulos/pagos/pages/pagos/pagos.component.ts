@@ -42,7 +42,8 @@ export class PagosComponent implements OnInit {
   public detalleCuenta: boolean = false;
   public cargandoPer: boolean = false;
   public cargandoDed: boolean = false;
-
+  public sueldoBruto: boolean = false;
+  public sueldoNeto: boolean = false;
 
   public myFormMetodoPago!: FormGroup;
 
@@ -571,8 +572,8 @@ export class PagosComponent implements OnInit {
   public cancelarEspecial() {
     this.recalcular = false;
     this.primeraVez = true;
-    this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
-    this.cambiarGrupoNomina();
+    //this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
+    //this.cambiarGrupoNomina();
     this.detallecompensacionbool = false;
   }
 
@@ -592,8 +593,6 @@ export class PagosComponent implements OnInit {
     pagoComplementario: false
   };
   ;
-  public sueldoBruto: boolean = false;
-  public sueldoNeto: boolean = false;
   public sueldoControlName: string = "";
   public typeppp: boolean = false;
 
@@ -681,6 +680,11 @@ export class PagosComponent implements OnInit {
   public enviarCompensacioNew(objcompe : any) {
     
     debugger;
+    this.sueldoBruto = objcompe.sueldoBruto;
+    this.sueldoNeto = objcompe.sueldoNeto;
+    delete objcompe.sueldoBruto;
+    delete objcompe.sueldoNeto;
+
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.contratoColaboradorPrd.updateCmpensacionKardex(objcompe).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -766,7 +770,9 @@ export class PagosComponent implements OnInit {
         idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
         datoscompensacion: this.empleado,
         typeppp: this.typeppp,
-        detallecompensacionbool: this.detallecompensacionboolNew = true
+        detallecompensacionbool: this.detallecompensacionboolNew = true,
+        sueldoBruto : this.sueldoBruto,
+        sueldoNeto : this.sueldoNeto
       };
       this.ventana.showVentana(this.ventana.detallecompesacion,{datos:datosEnv}).then(valor =>{
         if(valor.datos){

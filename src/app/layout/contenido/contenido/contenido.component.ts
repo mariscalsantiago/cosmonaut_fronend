@@ -125,6 +125,7 @@ export class ContenidoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger;
         this.configuracionPrd.cambiarColor.next({
           type:"vistaPrevia",
           datos:{
@@ -245,6 +246,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public seleccionarSubmenu(obj: any, obj2: any) {
+    debugger;
     if (obj2) {
 
       obj2 = {
@@ -350,12 +352,15 @@ export class ContenidoComponent implements OnInit {
 
 
   public irRuta(item: any) {
-
-
-
-
+    debugger;
     this.configuracionPrd.accesoRuta = true;
+    if(item.pathServicio !== undefined){
     this.navigate.navigate([item.pathServicio]);
+    }else{
+      if(item.nombreSubmodulo === 'Generales'){
+      this.navigate.navigate(["/reportes/generales"]);
+      }  
+    }
     this.configuracionPrd.menu = false;
     setTimeout(() => {
       if (!this.configuracionPrd.cargandomodulo) {

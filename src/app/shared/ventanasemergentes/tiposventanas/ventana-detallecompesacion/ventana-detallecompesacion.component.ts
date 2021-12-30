@@ -34,6 +34,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
   public typeppp: boolean = false;
+  public tipoSueldo: string = '';
 
   @Input() public datos:any;
   @Output() salida = new EventEmitter<any>();
@@ -48,6 +49,12 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
     this.typeppp = this.datos.typeppp;
     this.detallecompensacionbool = this.datos.detallecompensacionbool;
+    if(this.datos.sueldoBruto){
+      this.tipoSueldo = 'b';
+    }
+    if(this.datos.sueldoNeto){
+      this.tipoSueldo = 'n';
+    }
     
     this.gruponominaPrd.getAll(this.datos.idEmpresa).subscribe(datos => {
       this.arreglogruponominas = datos.datos;
@@ -76,7 +83,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
       sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
       sueldoNetoMensual: obj.sueldoNetoMensual,
       salarioDiario: [{ value: obj.salarioDiario, disabled: true }, []],
-      tiposueldo: ['b', [Validators.required]],
+      tiposueldo: [this.tipoSueldo, [Validators.required]],
       sbc: [{ value: obj.sbc, disabled: true }],
       salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []],
       salarioNetoMensualImss: [obj.salarioNetoMensualImss],
@@ -477,6 +484,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
       this.myForm.controls.salarioDiario.setValue('');
       this.myForm.controls.sueldoBrutoMensualPPP.setValue('');
       this.myForm.controls.sueldoNetoMensual.setValue('');
+      this.myForm.controls.sueldoBrutoMensual.setValue('');
       this.myForm.controls.sueldoBrutoMensual.setValidators([Validators.required]);
       this.myForm.controls.sueldoBrutoMensual.updateValueAndValidity();
     }
@@ -514,7 +522,10 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
           sueldoNetoMensual: obj.sueldoNetoMensual,
           sueldoBrutoMensual: obj.sueldoBrutoMensual,
           salarioDiario: obj.salarioDiario,
+          sueldoBruto: this.sueldoBruto,
+          sueldoNeto: this.sueldoNeto
     
+
         }
         if (this.grupoNominaSeleccionado.pagoComplementario) {
           this.objEnviar.sueldoNetoMensual = obj.salarioNetoMensualImss; //Pago imss
