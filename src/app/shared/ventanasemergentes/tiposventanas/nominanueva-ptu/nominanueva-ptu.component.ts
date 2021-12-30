@@ -344,7 +344,7 @@ export class NominanuevaPtuComponent implements OnInit,OnChanges {
        }
         break;
         case "4":
-          debugger;
+          
           for(let item of this.arregloEmpleados){
             if(item.grupoNominaId?.grupoNominaId == this.gruponomina.nativeElement.value){
               valor.push(item.personaId?.personaId);

@@ -27,7 +27,7 @@ export class VentanaDetalleCuentaComponent implements OnInit {
   { }
 
   ngOnInit(): void {
-    debugger;
+    
 
     this.catalogosPrd.getAllMetodosPago(true).subscribe(datos => this.arregloMetodosPago = datos.datos);
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arreglobancos = datos.datos);
@@ -94,7 +94,7 @@ export class VentanaDetalleCuentaComponent implements OnInit {
   }
 
   public validarTipoPago(idPago:any){
-    debugger;
+    
     if(Number(idPago) === 4){
       this.metodoPago = true;
       this.myForm.controls.clabe.setValidators([Validators.required]);
@@ -116,7 +116,7 @@ export class VentanaDetalleCuentaComponent implements OnInit {
   }
 
   public validarTipoPagoSelct(idPago:any){
-    debugger;
+    
     if(Number(idPago) === 4){
       this.metodoPago = true;
       

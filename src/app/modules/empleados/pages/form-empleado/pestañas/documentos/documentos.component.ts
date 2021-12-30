@@ -29,7 +29,7 @@ export class DocumentosComponent implements OnInit {
   public arregloDocumentos: any = [];
   public idTipoDocumento : number = 0;
   public esKiosko:boolean = false;
-  
+
   public arreglotabla:any = {
     columnas:[],
     filas:[]
@@ -43,20 +43,20 @@ export class DocumentosComponent implements OnInit {
 
 
 
-  constructor(private routerPrd: Router, private documentosPrd: DocumentosService,private modalPrd:ModalService, 
+  constructor(private routerPrd: Router, private documentosPrd: DocumentosService,private modalPrd:ModalService,
     private router:ActivatedRoute, private ventana:VentanaemergenteService,private usuariosSistemaPrd:UsuarioSistemaService) { }
 
   ngOnInit(): void {
 
     this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
-    
-    
+
+
     this.router.params.subscribe(params => {
       this.idEmpleado = params["id"];
     });
 
     this.documentosPrd.getDocumentosEmpleado().subscribe(datos => this.arregloDocumentos = datos.datos);
-    
+
     this.cargando = true;
     this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.datosPersona.personaId).subscribe(datos => {
         this.crearTabla(datos);
@@ -67,10 +67,10 @@ export class DocumentosComponent implements OnInit {
 
 
   public crearTabla(datos:any){
-    
+
     this.arreglo = datos.datos;
 
-    
+
     let columnas: Array<tabla> = [
       new tabla("nombreArchivo", "Nombre"),
       new tabla("fechaCargaDocumento", "Fecha"),
@@ -101,50 +101,50 @@ export class DocumentosComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-    debugger;
+
     if (obj.type == "editar") {
       let datos = obj.datos;
       this.ventana.showVentana(this.ventana.subirdocumento,{datos:datos}).then(valor =>{
         if(valor.datos){
-          
+
             this.modificarDocumento(valor.datos);
         }
       });
     }
     if (obj.type == "descargar") {
       this.iniciarDescarga(obj.datos);
-      
+
     }
     if (obj.type == "eliminar") {
-      
+
       let mensaje = "¿Estás seguro de eliminar el documento? Al eliminarlo no podrá ser recuperado posteriormente";
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
       if(valor){
       let idDocuemnto = obj.datos.documentosEmpleadoId;
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
-  
+
       this.documentosPrd.eliminar(idDocuemnto).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
         this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.datosPersona.personaId).subscribe(datos => {
           this.crearTabla(datos);
         });
-        
+
       });
     }
 
     });
-      
+
     }
-  
+
   }
 
   public filtrar(){
-    debugger;
+
     if(this.idTipoDocumento != 0){
-    
+
       this.cargando = true;
-    
+
       this.documentosPrd.getListaTipoDocumento(this.usuariosSistemaPrd.getIdEmpresa(),this.datosPersona.personaId,this.idTipoDocumento).subscribe(datos => {
           this.crearTabla(datos);
       });
@@ -157,7 +157,7 @@ export class DocumentosComponent implements OnInit {
   }
 
   public iniciarDescarga(obj:any) {
-    debugger;
+
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
       this.documentosPrd.getDescargaDocEmpleado(obj.cmsArchivoId).subscribe(archivo => {
@@ -204,19 +204,19 @@ export class DocumentosComponent implements OnInit {
         this.fileName = `${archivo.datos.nombre}.txt`;
         }
         const downloadLink = document.createElement("a");
-        
- 
+
+
         downloadLink.href = linkSource;
         downloadLink.download = this.fileName;
         downloadLink.click();
       });
-    
+
 
 
   }
 
   public agregar(){
-    
+
     let datos : any = {
       idEmpleado: this.datosPersona.personaId,
       idEmpresa: this.usuariosSistemaPrd.getIdEmpresa(),
@@ -225,38 +225,38 @@ export class DocumentosComponent implements OnInit {
 
     this.ventana.showVentana(this.ventana.subirdocumento,{datos:datos}).then(valor =>{
       if(valor.datos){
-        
+
           this.agregarDocumento(valor.datos);
       }
     });
   }
 
   public agregarDocumento(obj:any){
-  
+
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-  
+
     this.documentosPrd.save(obj).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
       this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.datosPersona.personaId).subscribe(datos => {
         this.crearTabla(datos);
       });
-      
+
     });
   }
 
   public modificarDocumento(obj:any){
-    debugger;
-    
+
+
       this.modalPrd.showMessageDialog(this.modalPrd.loading);
-    
+
       this.documentosPrd.modificar(obj).subscribe(datos => {
         this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
         this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje);
         this.documentosPrd.getListaDocumentosEmpleado(this.usuariosSistemaPrd.getIdEmpresa(),this.datosPersona.personaId).subscribe(datos => {
           this.crearTabla(datos);
         });
-        
+
       });
     }
 

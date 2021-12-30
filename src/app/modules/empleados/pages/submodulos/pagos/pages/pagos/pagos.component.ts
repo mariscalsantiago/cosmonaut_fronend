@@ -75,13 +75,13 @@ export class PagosComponent implements OnInit {
   ngOnInit(): void {
 
     this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
-    
+
     this.arreglogrupoNomina = this.router.snapshot.data.gruponomina;
     this.empleado = this.router.snapshot.data.contratoColaborador;
     this.idEmpleado = this.empleado.personaId.personaId;
     this.primeraVez = true;
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
-    debugger;
+
     if (this.empleado.metodoPagoId.metodoPagoId == 4) {
       this.detalleCuenta = true;
     } else {
@@ -117,7 +117,7 @@ export class PagosComponent implements OnInit {
     this.catalogosPrd.getCompensacion(true).subscribe(datos => this.arregloCompensacion = datos.datos);
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arreglobancos = datos.datos);
 
-   
+
 
   }
 
@@ -174,7 +174,7 @@ export class PagosComponent implements OnInit {
               item.valorMonto = item.valor + '%';
           else
               item.valorMonto = formatter.format(item.valor);
-          
+
         }
         else if (item.montoTotal !== undefined) {
           item.valorMonto = formatter.format(item.montoTotal);
@@ -189,7 +189,7 @@ export class PagosComponent implements OnInit {
   }
 
 
-  
+
   public crearTablaDeduccion(datos: any) {
 
 
@@ -251,7 +251,7 @@ export class PagosComponent implements OnInit {
             }
         }
         else if (item.montoTotal !== undefined) {
-          item.valorMonto = item.montoTotal  
+          item.valorMonto = item.montoTotal
         }
         else if (item.interesPorcentaje !== undefined) {
           item.valorMonto = item.interesPorcentaje
@@ -275,7 +275,7 @@ export class PagosComponent implements OnInit {
       return;
     }
 
-  
+
 
 
 
@@ -314,12 +314,12 @@ export class PagosComponent implements OnInit {
 
   public editandoMetodoPagoNew(obj: any) {
 
-    debugger;
+
     if (obj == undefined) {
       this.indexMetodoSeleccionado = this.empleado.metodoPagoId?.metodoPagoId;
     }
     this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
-        
+
         if (datos.resultado) {
           this.datoscuenta = datos.datos;
 
@@ -329,9 +329,9 @@ export class PagosComponent implements OnInit {
             idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
             datoscuenta: this.datoscuenta
           };
-      
+
           this.ventana.showVentana(this.ventana.detallecuenta,{datos:datosEnv}).then(valor =>{
-            debugger;
+
             if(valor.datos){
                 this.enviandoMetodoPagoNew(valor.datos);
             }
@@ -482,7 +482,7 @@ export class PagosComponent implements OnInit {
 
 
   public enviandoMetodoPagoNew(objEn : any) { //Método guardar transferencia bancaría...
-    debugger;
+
 
         let objContrato = {
           ...this.empleado,
@@ -502,8 +502,8 @@ export class PagosComponent implements OnInit {
             }
 
             if (!Boolean(objEn.cuentaBancoId)) {
-              delete objEn.idMetodoPago; 
-              delete objEn.cuentaBancoId; 
+              delete objEn.idMetodoPago;
+              delete objEn.cuentaBancoId;
               this.bancosPrd.save(objEn).subscribe(datos => {
                 this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
                   if (datos.resultado) {
@@ -512,7 +512,7 @@ export class PagosComponent implements OnInit {
 
                       this.cancelar();
                       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-             
+
                     });
 
                   } else {
@@ -522,7 +522,7 @@ export class PagosComponent implements OnInit {
 
               });
             } else {
-              delete objEn.idMetodoPago; 
+              delete objEn.idMetodoPago;
               objEn.cuentaBancoId = objEn.cuentaBancoId;
               objEn.esActivo = true;
               this.bancosPrd.modificar(objEn).subscribe(datos => {
@@ -532,7 +532,7 @@ export class PagosComponent implements OnInit {
 
                     this.cancelar();
                     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-           
+
                   });
                 });
 
@@ -547,7 +547,7 @@ export class PagosComponent implements OnInit {
   }
 
   public cancelar() {
-    debugger;
+
     if (this.empleado.metodoPagoId.metodoPagoId == 4) {
       this.detalleCuenta = true;
     }else{
@@ -678,8 +678,8 @@ export class PagosComponent implements OnInit {
   }
 
   public enviarCompensacioNew(objcompe : any) {
-    
-    debugger;
+
+
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.contratoColaboradorPrd.updateCmpensacionKardex(objcompe).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -742,7 +742,7 @@ export class PagosComponent implements OnInit {
 
 
   public verDetalleCompensacion() {
-    debugger;
+
     this.recalcular = false;
     this.detallecompensacionbool = true
     console.log("DETALLE COMPENSACION", this.typeppp);
@@ -757,11 +757,11 @@ export class PagosComponent implements OnInit {
   }
 
   public verDetalleCompensacionNew() {
-    debugger;
+
     this.recalcular = false;
     this.detallecompensacionbool = false
     this.suscribirseCompensacion();
-    
+
       let datosEnv : any = {
         idEmpleado: this.idEmpleado,
         idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
@@ -815,7 +815,7 @@ export class PagosComponent implements OnInit {
     const gruponominaId = this.myFormCompensacion.controls.grupoNominaId.value;
     console.log(gruponominaId);
 
-    
+
     this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
 
@@ -833,7 +833,7 @@ export class PagosComponent implements OnInit {
     //this.grupoNominaSeleccionado.pagoComplementario = true;
 
 
-    
+
 
 
 

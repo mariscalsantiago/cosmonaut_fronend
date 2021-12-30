@@ -20,7 +20,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   public objEnviar: any = [];
   public sueldoBruto: boolean = false;
   public sueldoNeto: boolean = false;
-  public esTransferencia: boolean = true; 
+  public esTransferencia: boolean = true;
   public id_empresa!: number;
   public recalcular: boolean = false;
 
@@ -37,13 +37,13 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   @Input() public datos:any;
   @Output() salida = new EventEmitter<any>();
 
-  constructor(private modalPrd:ModalService, private formBuild: FormBuilder, 
-    private catalogosPrd: CatalogosService, private bancosPrd: CuentasbancariasService, 
-    private gruponominaPrd: GruponominasService, private calculoPrd: CalculosService) 
+  constructor(private modalPrd:ModalService, private formBuild: FormBuilder,
+    private catalogosPrd: CatalogosService, private bancosPrd: CuentasbancariasService,
+    private gruponominaPrd: GruponominasService, private calculoPrd: CalculosService)
   { }
 
   ngOnInit(): void {
-    debugger;
+
 
     this.typeppp = this.datos.typeppp;
     this.gruponominaPrd.getAll(this.datos.idEmpresa).subscribe(datos => {
@@ -59,14 +59,14 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
       }
     });
     this.catalogosPrd.getCompensacion(true).subscribe(datos => this.arregloCompensacion = datos.datos);
-    
+
 
     if(this.datos.datoscompensacion !== undefined){
       this.myForm = this.createForm(this.datos.datoscompensacion);
       }else{
         let obj= {};
         this.myForm = this.createForm(obj);
-  
+
       }
 
       this.cambiarSueldoField();
@@ -95,7 +95,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   }
 
   public calcularSueldoNew() {
-    debugger;
+
     if (!this.grupoNominaSeleccionado.pagoComplementario) {
       this.cambiasueldobruto(this.f.tiposueldo.value == 'b');
     } else {
@@ -105,7 +105,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   }
 
   public validarBanco(clabe: any) {
-    
+
 
     this.myForm.controls.csBanco.setValue("");
     if (this.myForm.controls.clabe.errors?.pattern === undefined) {
@@ -131,7 +131,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
           this.modalPrd.showMessageDialog(this.modalPrd.error, "La cuenta clabe debe ser a 18 dijitos");
           this.myForm.controls.csBanco.setValue("");
           this.myForm.controls.numeroCuenta.setValue("");
-        }  
+        }
       }
 
     }
@@ -286,10 +286,10 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
     return variable;
   }
 
-  
+
 
   public cambiarGrupoNomina(noRestablecer: boolean) {
-    debugger;
+
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
     let aux = this.pagoComplementario(gruponominaId);
     if (!noRestablecer) {
@@ -345,7 +345,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   }
 
   public limpiarMontos() {
-    debugger;
+
     this.myForm.controls.tipoCompensacionId.setValue("");
     this.myForm.controls.tiposueldo.setValue("b");
     this.myForm.controls.sueldoNetoMensual.setValue("");
@@ -363,7 +363,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   }
 
   public pagoComplementario(gruponominaId: number) {
-    debugger;
+
     let aux;
     for (let item of this.arreglogruponominas) {
       if (item.id == gruponominaId) {
@@ -383,7 +383,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   public cancelar(){
     this.salida.emit({type:"cancelar"});
   }
-  
+
 
   public cambiarSueldoField() {
 
@@ -450,7 +450,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
   public enviarPeticion(){
-    debugger;
+
     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach(control => {
         control.markAsTouched();
@@ -476,7 +476,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
           sueldoNetoMensual: obj.sueldoNetoMensual,
           sueldoBrutoMensual: obj.sueldoBrutoMensual,
           salarioDiario: obj.salarioDiario,
-    
+
         }
         if (this.grupoNominaSeleccionado.pagoComplementario) {
           this.objEnviar.sueldoNetoMensual = obj.salarioNetoMensualImss; //Pago imss
@@ -487,7 +487,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
           this.objEnviar.pppSalarioBaseMensual = obj.sueldoBrutoMensualPPP;//sueldo menusal ppp
           this.objEnviar.pppSnm = obj.sueldonetomensualppp;
         }
-    
+
         this.salida.emit({type:"guardar",datos:this.objEnviar});
       }
     });
