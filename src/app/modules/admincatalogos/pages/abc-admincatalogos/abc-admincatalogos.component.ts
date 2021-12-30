@@ -820,7 +820,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
         this.percepcion = true;
       }
       else if(this.detCatalogos.listaCatalogosId == 15){
-        this.catEstatus = false;
+        this.catEstatus = true;
         this.referencia = true;
         this.descripcionGeneral = false;
       }
