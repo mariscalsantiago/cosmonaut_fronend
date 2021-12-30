@@ -21,6 +21,7 @@
 
 </div>
  -->
+
  
 <div class="scrooll-designempresa">
   <div class="mt-3">
@@ -28,7 +29,7 @@
           <div class="col titulo">
               <label>RESULTADOS</label>
           </div>
-          <div class="col text-right" style="margin-right: 42px !important;">
+          <div class="col-11 text-right" style="margin-right: 42px !important;">
               <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
                   Subir documento
               </button>
@@ -38,4 +39,12 @@
         <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [editar]="!esKiosko" [eliminar]="!esKiosko" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
       </div>
   </div>
+  
+  <div class="row">
+    <div class="col-11">
+        <div class="text-right margin mr-4">
+            <button (click)="concluir()" type="button" class="btn btn-primary button-outlet mr-2">Concluir</button>
+        </div>
+    </div>
+</div>
 </div>
