@@ -32,7 +32,7 @@ export class NominaCalculadoraComponent implements OnInit {
   public salarioDiario: string = "";
   public salarioNetoMensual: string = "";
   public excedente_limiteInferior: string = "";
-  public montoSubsidio: string = ""; 
+  public montoSubsidio: string = "";
   public contratoDesc: number | undefined;
   public valorPeriodo: boolean = false;
 
@@ -53,7 +53,7 @@ export class NominaCalculadoraComponent implements OnInit {
 
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
-    
+
     this.myForm = this.crearFormulario();
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
     this.suscripciones();
@@ -66,14 +66,14 @@ export class NominaCalculadoraComponent implements OnInit {
     });
 
     this.catalogosPrd.getBasePeriodos(true).subscribe(datos => {
-      
+
       for(let item of datos.datos){
-        
+
             this.contratoDesc = datos.datos.find((itemmov: any) => itemmov.basePeriodoId === item.basePeriodoId)?.basePeriodoId;
             if(this.contratoDesc == 3)
             continue;
             this.arregloBasePeriodos.push(item);
-      } 
+      }
     });
   }
 
@@ -90,7 +90,7 @@ export class NominaCalculadoraComponent implements OnInit {
   }
 
   public suscripciones() {
-    
+
     this.myForm.controls.tiposueldo.valueChanges.subscribe(valor => {
       this.esSueldoNeto = valor == "n";
 
@@ -111,19 +111,19 @@ export class NominaCalculadoraComponent implements OnInit {
 
 
     this.myForm.controls.periodicidadPagoId.valueChanges.subscribe(vv => {
-      debugger;
+
       this.esMensual = vv == "05";
       this.verificarValidacionSueldo();
       this.validaPeriodo();
     });
 
     this.myForm.controls.imss.valueChanges.subscribe(vv =>{
-      debugger;
+
       this.esImss = vv;
       this.verificarValidacionSueldo();
     });
 
-    
+
   }
 
   public verificarValidacionSueldo(){
@@ -168,11 +168,11 @@ export class NominaCalculadoraComponent implements OnInit {
   public calcular() {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas calcular?").then(valor => {
       if(valor){
-            
+
         let  obj = this.myForm.getRawValue();
 
           obj.basePeriodoId = Number.parseFloat(obj.basePeriodoId);
-          let objEnviar : any = 
+          let objEnviar : any =
           {
               clienteId: this.idEmpresa,
               periodicidadPagoId: obj.periodicidadPagoId,
@@ -183,15 +183,15 @@ export class NominaCalculadoraComponent implements OnInit {
 
         };
 
-        
+
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
-            debugger;
+
             this.grupoNominaPrd.calculadoraBruto(objEnviar).subscribe(datos => {
 
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
 
             this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje)
-            
+
               .then(()=> {
                  if (datos.resultado) {
                   const formatter = new Intl.NumberFormat('en-US', {
@@ -202,7 +202,7 @@ export class NominaCalculadoraComponent implements OnInit {
                   const formatterDec = new Intl.NumberFormat('en-US', {
                     minimumFractionDigits: 2
                   })
-                  this.calculado = true; 
+                  this.calculado = true;
                   this.resultCalculo = datos.datos;
                   this.limiteInferior = formatter.format(this.resultCalculo.limiteInferior);
                   this.excedente = formatter.format(this.resultCalculo.excedenteLimiteInferior);
@@ -212,10 +212,10 @@ export class NominaCalculadoraComponent implements OnInit {
                   this.salarioNetoMensual = formatter.format(this.resultCalculo.salarioNetoMensual);
                   this.excedente_limiteInferior = formatterDec.format(this.resultCalculo.porcentajeExcedenteLimiteInferior);
                   this.montoSubsidio = formatter.format(this.resultCalculo.montoSubsidio);
-                  
-              } 
+
+              }
               });
-          });     
+          });
 
       }
     });

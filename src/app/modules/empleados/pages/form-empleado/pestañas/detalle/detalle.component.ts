@@ -20,7 +20,7 @@ export class DetalleComponent implements OnInit {
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
-  
+
 
   public arreglobancos: any = [];
 
@@ -29,9 +29,9 @@ export class DetalleComponent implements OnInit {
     private modalPrd:ModalService,private navigate:Router, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    debugger;
+
     this.myForm = this.createForm(
-      this.datosPersona.datosTranferencia || {} 
+      this.datosPersona.datosTranferencia || {}
     );
 
     this.catalogosPrd.getCuentasBanco(true).subscribe(datos => this.arreglobancos = datos.datos);
@@ -55,7 +55,7 @@ export class DetalleComponent implements OnInit {
 
 
   public cancelar() {
-  
+
     if(this.myForm.invalid){
       this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede cancelar, la cuenta bancaria para un empleado de transferencia es obligatorio.");
       return;
@@ -64,26 +64,26 @@ export class DetalleComponent implements OnInit {
   }
 
   public validarBanco(clabe:any){
-    
+
     this.myForm.controls.csBanco.setValue("");
     //this.myForm.controls.clabe.setValue("");
-  
+
     if(this.myForm.controls.clabe.errors?.pattern === undefined ){
-  
-  
+
+
     if(clabe == '' || clabe == null || clabe == undefined){
-  
+
       this.myForm.controls.csBanco.setValue("");
       this.myForm.controls.clabe.setValue("");
     }else{
       if(clabe.length == 18){
         this.bancosPrd.getListaCuentaBancaria(clabe).subscribe(datos => {
           if (datos.resultado) {
-      
+
             this.myForm.controls.csBanco.setValue( datos.datos.bancoId);
             this.myForm.controls.clabe.setValue(clabe);
             this.myForm.controls.numeroCuenta.setValue(datos.datos.numeroCuenta);
-              
+
           }
           else{
             this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje)
@@ -93,16 +93,16 @@ export class DetalleComponent implements OnInit {
         this.modalPrd.showMessageDialog(this.modalPrd.error, "La cuenta clabe debe ser a 18 dijitos");
         this.myForm.controls.csBanco.setValue("");
         this.myForm.controls.numeroCuenta.setValue("");
-      }  
-  
+      }
+
     }
-  
+
   }
-  
+
   }
 
   public enviarFormulario() {
-debugger;
+
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
@@ -114,9 +114,9 @@ debugger;
 
 
         let obj = this.myForm.value;
-  
+
         let objEnviar:any = {
-  
+
           numeroCuenta: obj.numeroCuenta,
           clabe: obj.clabe,
           bancoId: {
@@ -130,14 +130,14 @@ debugger;
             centrocClienteId: this.usuariosSistemaPrd.getIdEmpresa()
           },
           nombreCuenta: '  '
-  
-  
+
+
         };
-  debugger;
+
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
-      if  ( !Boolean(this.datosPersona.datosTranferencia?.cuentaBancoId) ){      
+      if  ( !Boolean(this.datosPersona.datosTranferencia?.cuentaBancoId) ){
        this.bancosPrd.save(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
@@ -174,7 +174,7 @@ debugger;
         });
 
       }
-  
+
       }
     });
 
@@ -185,5 +185,5 @@ debugger;
   }
 
 
- 
+
 }

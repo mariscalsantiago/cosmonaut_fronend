@@ -27,7 +27,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public tipoPercepcion: string = "";
   public mostrartipoPercepcion: string = "E";
   public mensajePercepcion: boolean = false;
-  public noMensajePercepcion: boolean = true; 
+  public noMensajePercepcion: boolean = true;
   public limpiarTipopercepcion: boolean = false;
 
 
@@ -38,7 +38,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     private catalogosPrd: CatalogosService, private modalPrd: ModalService) { }
 
   ngOnInit(): void {
-    
+
 
     this.routerActive.params.subscribe(datos => {
       this.id_empresa = datos["id"];
@@ -50,18 +50,18 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     });
 
     if(!this.esInsert){
-      
+
     this.obj = history.state.data == undefined ? {} : history.state.data;
     this.obj.descripcion = this.obj.tipoPercepcionId?.tipoPercepcionId + "-" + this.obj.tipoPercepcionId?.descripcion;
-    
-    
+
+
     if (this.obj.tipoPeriodicidad == "Periodica") {
       if(this.obj.tipoPercepcionId.tipoPeriodicidad == "A"){
         this.mostrartipoPercepcion = "P";
       }else{
       this.obj.tipoPeriodicidad = "P"
       }
-      
+
     }
     if (this.obj.tipoPeriodicidad == "Estandar") {
       if(this.obj.tipoPercepcionId.tipoPeriodicidad == "A"){
@@ -90,19 +90,19 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
 
     this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{
-    this.arregloTipoPercepcion = datos.datos 
+    this.arregloTipoPercepcion = datos.datos
     this.mostrarAmbas(this.obj.tipoPeriodicidad);
 
     });
-    
-    
+
+
     this.validarTipoConceptoMod(this.obj.descripcion);
     this.myForm = this.createForm(this.obj);
      }else{
     this.obj = {};
     this.myForm = this.createForm(this.obj);
     }
-    
+
 
   }
 
@@ -110,7 +110,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    
+
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
@@ -134,12 +134,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
   public validarPercepcion(tipo:any){
-    debugger;
+
     this.arregloTipoPercepcion = [];
     this.myForm.controls.tipoPercepcionId.setValue('');
-    this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{ 
-      this.arregloTipoPercepcion = datos.datos 
-      
+    this.catalogosPrd.getTipoPercepcionFiltro(tipo,true).subscribe(datos =>{
+      this.arregloTipoPercepcion = datos.datos
+
     if(this.arregloTipoPercepcion == undefined){
 
       this.mensajePercepcion = true;
@@ -150,12 +150,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
     this.mostrarAmbas(tipo);
   });
-  
+
   }
-  
+
 
   public mostrarAmbas(tipo:any){
-    
+
     if(tipo == "A"){
       this.ambasPeriodicidad = true;
       this.conAmbasPeriodicidad = false;
@@ -165,8 +165,8 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
   }
   public validarTipoConcepto(tipo:any){
-  
-    
+
+
     this.limpiarTipopercepcion = false;
     //let type = String(tipo).substring(0,3)
     const nombreCapturado = tipo;
@@ -216,7 +216,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
           this.myForm.controls.gravaIsn.setValue(false);
           this.myForm.controls.gravaIsn.enable();
         }
-        
+
        if(item.integraIsr == "S"){
           this.myForm.controls.gravaIsr.setValue(true);
           this.myForm.controls.gravaIsr.disable();
@@ -259,23 +259,23 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
 }
   public validarTipoConceptoMod(tipo:any){
-  
-      
-      this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{ 
-        this.arregloTipoPercepcionMod = datos.datos 
+
+
+      this.catalogosPrd.getTipoPercepcionFiltro(this.obj.tipoPeriodicidad,true).subscribe(datos =>{
+        this.arregloTipoPercepcionMod = datos.datos
 
         const nombreCapturado = tipo;
         if (nombreCapturado !== undefined) {
           if (nombreCapturado.trim() !== "") {
           for(let item of this.arregloTipoPercepcionMod){
-    
+
           const nombreCompleto = item.descripcion;
           if (nombreCapturado.includes(nombreCompleto)) {
         //let type = String(tipo).substring(0,3)
         //for(let item of this.arregloTipoPercepcionMod){
-        
+
         //if(item.tipoPercepcionId == Number(type)){
-          
+
           if(item.tipoConcepto == "N"){
             this.mostrartipoConcepto = false;
           }
@@ -317,7 +317,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
             this.myForm.controls.gravaIsn.setValue(false);
             this.myForm.controls.gravaIsn.enable();
           }
-          
+
          if(item.integraIsr == "S"){
             this.myForm.controls.gravaIsr.setValue(true);
             this.myForm.controls.gravaIsr.disable();
@@ -360,7 +360,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public enviarPeticion() {
-    
+
     this.submitInvalido = true;
     if (this.myForm.invalid) {
 
@@ -375,11 +375,11 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
       .then(valor => {
-        
-        
+
+
         if (valor) {
-          
-          
+
+
           let obj = this.myForm.getRawValue();
           if(obj.tipoConcepto == null){
             obj.tipoConcepto = 'N';
@@ -397,8 +397,8 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
                 if (nombreCapturado.includes(nombreCompleto)) {
                 especializacion = item.especializacion;
                 tipoPercepcion = item.tipoPercepcionId;
-              }  
-            }  
+              }
+            }
           }else{
           let splitE = this.tipoPercepcion.split('-');
           especializacion = splitE[1];
@@ -450,14 +450,14 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
 
 
-          
+
 
 
           //return;
 
 
           if (this.esInsert) {
-            
+
             this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
             this.conceptosPrd.savePer(this.peticion).subscribe(datos => {

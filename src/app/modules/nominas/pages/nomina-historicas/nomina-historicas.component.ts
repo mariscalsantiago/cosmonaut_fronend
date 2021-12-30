@@ -77,7 +77,7 @@ export class NominaHistoricasComponent implements OnInit {
     }
 
 
-    
+
     this.arreglotabla = {
       columnas: columnas,
       filas: datos,
@@ -90,7 +90,7 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
-    
+
 
     obj.datos.cargandoDetalle = false;
     let objEnviar: any;
@@ -238,7 +238,7 @@ export class NominaHistoricasComponent implements OnInit {
         });
         break;
       case "paginado_cantidad":
-        
+
         this.elementos = obj.datos.elementos;
         this.pagina = obj.datos.pagina;
         if (!this.cargando || this.primeraVes) {
@@ -254,7 +254,7 @@ export class NominaHistoricasComponent implements OnInit {
   }
 
   public validarFecha(){
-    debugger;
+
     if(this.fechaFin !== "" && this.fechaInc !== ""){
       if(this.fechaFin < this.fechaInc){
         this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha hasta no puede ser menor a la fecha desde");
@@ -271,7 +271,7 @@ export class NominaHistoricasComponent implements OnInit {
 
 
   public obtenerReportes() {
-    
+
     let objEnviar: any;
     switch (`${this.reporteindex}`) {
       case "1":
@@ -284,7 +284,7 @@ export class NominaHistoricasComponent implements OnInit {
 
         this.modalPrd.showMessageDialog(this.modalPrd.loading);
         this.nominashistoricasPrd.acumuladosPorMes(objEnviar).subscribe(datos => {
-          
+
           if (datos.resultado) {
             this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
             this.reportesPrd.crearArchivo(datos.datos, `Acumuladospormes_${this.mesIndex}`, "xlsx");
@@ -318,10 +318,10 @@ export class NominaHistoricasComponent implements OnInit {
 
 
     this.validarFecha();
-    
+
     this.pagina = 0;
     this.elementos = 20;
-    this.arreglo = []; 
+    this.arreglo = [];
     this.objEnviar = [];
       this.objEnviar = {
       centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa(),
@@ -343,7 +343,7 @@ export class NominaHistoricasComponent implements OnInit {
           }
           else{
             this.arreglo = undefined;
-          }  
+          }
 
           this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
         }
@@ -369,7 +369,7 @@ export class NominaHistoricasComponent implements OnInit {
 
   public filtrarPagina(repetir: boolean = false, desdeFiltrado: boolean = false) {
 
-    
+
 
     this.objEnviar = [];
       this.objEnviar = {
@@ -377,7 +377,7 @@ export class NominaHistoricasComponent implements OnInit {
       estadoNominaIdActual: 5,
       nombreNomina: this.nombreNomina || null,
       clavePeriodo: this.periodo || null,
-      fechaInicio: this.fechaInc || null, 
+      fechaInicio: this.fechaInc || null,
       fechaFin: this.fechaFin || null
     }
 
@@ -395,7 +395,7 @@ export class NominaHistoricasComponent implements OnInit {
           }
           else{
             this.arreglo = undefined;
-          }  
+          }
 
           this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
         }

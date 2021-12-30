@@ -61,7 +61,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
     }
   }
-  
+
 
   public esRegistrar:boolean = false;
   public esConsultar:boolean = false;
@@ -70,7 +70,7 @@ export class ListajornadalaboralComponent implements OnInit {
 
 
 
- 
+
 
   constructor(private jornadaPrd: JornadalaboralService, private routerPrd: Router,
     private routerActive: ActivatedRoute, private modalPrd: ModalService,private configuracionesPrd:ConfiguracionesService) { }
@@ -96,18 +96,18 @@ export class ListajornadalaboralComponent implements OnInit {
           new tabla("descripcion", "Tipo de jornada"),
           new tabla("count", "Número de empleados",true,true,true)
         ];
-    
-    
+
+
         this.arreglotabla = {
           columnas: [],
           filas: []
         };
-    
+
         this.arreglotabla.columnas = columnas;
         this.arreglotabla.filas = this.arreglo;
-    
+
         this.cargando = false;
-    
+
       });
 
     });
@@ -184,7 +184,7 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
   public traerModal(indice: any) {
-    debugger;
+
     this.arreglodetalle = [];
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalito = true;
@@ -216,16 +216,16 @@ export class ListajornadalaboralComponent implements OnInit {
     //let jornadaitem = this.arreglo[indice];
 
     this.cargandodetallegrupo = true;
-    
+
     this.jornadaPrd.getdetalleJornada(this.id_empresa, indice.jornadaId).subscribe(datos => {
-      
+
       this.cargandodetallegrupo = false;
-      
+
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
       if (this.arreglodetalle !== undefined){
         for (let item of this.arreglodetalle){
           item.nombrecompleto = `${item.nombre == undefined ? '':item.nombre} ${item.apellidop == undefined ? '':item.apellidop} ${item.apellidom == undefined ? '':item.apellidom}`;
-          
+
         }
       }
     });
@@ -233,7 +233,7 @@ export class ListajornadalaboralComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    
+
     switch (obj.type) {
       case "editar":
         this.verdetalle(obj.datos);
@@ -247,7 +247,7 @@ export class ListajornadalaboralComponent implements OnInit {
       case "desglosar":
         let item = obj.datos;
         this.jornadaPrd.getdetalleJornadaHorario(this.id_empresa, item.jornadaId).subscribe(datos => {
-          
+
           this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
 
           for(let item of this.arreglodetalle.nclHorarioJornada){
@@ -421,11 +421,11 @@ export class ListajornadalaboralComponent implements OnInit {
             }
 
         }
-          
-          
-          
-        
-     
+
+
+
+
+
 
         let columnas:Array<tabla>=[
           new tabla("nombre","Nombre de jornada"),
@@ -456,17 +456,17 @@ export class ListajornadalaboralComponent implements OnInit {
           this.arreglodetalle.sabado = this.arreglodetalle.sabado?"Si":"No";
           this.arreglodetalle.domingo = this.arreglodetalle.domingo?"Si":"No";
           this.arreglodetalle.tipoJornada = this.arreglodetalle.tipoJornadaId.descripcion;
-          this.arreglodetalle.sumaHorasJornada = this.arreglodetalle.sumaHorasJornadaId.descripcion; 
+          this.arreglodetalle.sumaHorasJornada = this.arreglodetalle.sumaHorasJornadaId.descripcion;
 
 
         this.arreglotablaDesglose.columnas = columnas;
         this.arreglotablaDesglose.filas = this.arreglodetalle;
 
-        
+
         item.cargandoDetalle = false;
         });
         break;
-        
+
     }
   }
 

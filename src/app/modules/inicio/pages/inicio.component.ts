@@ -46,7 +46,7 @@ export class InicioComponent implements OnInit   {
   public vistosRecientesFinal: any = [];
   public arreglosIdSubmodulo: any = [];
   public contratoDesc: string | undefined;
-  public dataUrl: any = []; 
+  public dataUrl: any = [];
   public iframe: string = '';
   public datosIframe: any = [];
 
@@ -68,7 +68,7 @@ export class InicioComponent implements OnInit   {
     private usuariosSistemaPrd: UsuarioSistemaService,
     public ContenidoComponent: ContenidoComponent,
     public configuracionPrd: ConfiguracionesService,
-    private notificaciones:ServerSentEventService, 
+    private notificaciones:ServerSentEventService,
     private rolesPrd: RolesService,
     private authUsuarioPrd: UsuariosauthService
     ) { }
@@ -76,7 +76,7 @@ export class InicioComponent implements OnInit   {
 
   ngOnInit(): void {
 
-    debugger;
+
 
     this.authUsuarioPrd.getVersionByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       if(datos.datos !== undefined){
@@ -90,8 +90,8 @@ export class InicioComponent implements OnInit   {
         this.datosIframe = this.usuariosSistemaPrd.usuario;
 
         this.rolesPrd.getIframe(this.datosIframe.usuarioId,this.datosIframe.centrocClienteId,objVersion.versionCosmonautId).subscribe(datos => {
-          if(datos.datos !== undefined){  
-            this.iframe = datos.datos;  
+          if(datos.datos !== undefined){
+            this.iframe = datos.datos;
             //'https://datastudio.google.com/embed/reporting/d60a5a01-b359-4963-82af-e67370d81203/page/odxgC';
             this.cargando = true;
             this.url = this._sanitizer.bypassSecurityTrustResourceUrl(this.iframe);
@@ -100,7 +100,7 @@ export class InicioComponent implements OnInit   {
       }
 
     });
-    
+
 
 
 
@@ -283,7 +283,7 @@ export class InicioComponent implements OnInit   {
   }
 
   public enbase() {
-    
+
     let mm:any = document.getElementById("ventanaEmergente");
     mm.style.display = "block"
 
