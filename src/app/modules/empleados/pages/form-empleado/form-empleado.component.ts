@@ -184,14 +184,14 @@ export class FormEmpleadoComponent implements OnInit {
                
         
         if (!this.ocultarDetalleTransfrencia) {
-          this.activado[5].tab = true;
-          this.activado[5].form = true;
-          this.activado[5].seleccionado = true;
-          this.activado[5].disabled = false;
+          this.activado[4].tab = true;
+          this.activado[4].form = true;
+          this.activado[4].seleccionado = true;
+          this.activado[4].disabled = false;
 
-          this.activado[4].seleccionado = false;
-          this.activado[4].form = false;
-          this.tabsEnviar[4] = elemento.datos;
+          this.activado[3].seleccionado = false;
+          this.activado[3].form = false;
+          this.tabsEnviar[3] = elemento.datos;
           // this.activado[0].tab = false;
           // this.activado[1].tab = false;
           // this.activado[2].tab = false;
