@@ -523,7 +523,8 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
           sueldoBrutoMensual: obj.sueldoBrutoMensual,
           salarioDiario: obj.salarioDiario,
           sueldoBruto: this.sueldoBruto,
-          sueldoNeto: this.sueldoNeto
+          sueldoNeto: this.sueldoNeto,
+          typeppp: this.typeppp
     
 
         }

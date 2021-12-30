@@ -682,9 +682,11 @@ export class PagosComponent implements OnInit {
     debugger;
     this.sueldoBruto = objcompe.sueldoBruto;
     this.sueldoNeto = objcompe.sueldoNeto;
+    this.typeppp = objcompe.typeppp;
     delete objcompe.sueldoBruto;
     delete objcompe.sueldoNeto;
-
+    delete objcompe.typeppp;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.contratoColaboradorPrd.updateCmpensacionKardex(objcompe).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
