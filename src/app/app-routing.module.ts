@@ -12,6 +12,7 @@ import { ConfiguracionesService } from './shared/services/configuraciones/config
 export const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: 'inicio', component: ContenidoComponent, canActivate: [InicioRutasService], loadChildren: () => import('./modules/inicio/inicio.module').then(m => m.InicioModule) },
+  { path: 'reportes', component: ContenidoComponent, canActivate: [ProteccionRutasService], canLoad: [LoadingRutasService], loadChildren: () => import('./modules/reportes/reportes.module').then(m => ConfiguracionesService.establecerMenu(m).ReportesModule) },
   { path: 'usuarios', component: ContenidoComponent, canActivate: [ProteccionRutasService], canLoad: [LoadingRutasService], loadChildren: () => import('./modules/usuarios/usuarios.module').then(m => ConfiguracionesService.establecerMenu(m).UsuariosModule) },
   { path: 'cliente', component: ContenidoComponent, canActivate: [ProteccionRutasService], canLoad: [LoadingRutasService], loadChildren: () => import('./modules/usuarios/usuarios.module').then(m => ConfiguracionesService.establecerMenu(m).UsuariosModule) },
   { path: 'company', component: ContenidoComponent, canActivate: [ProteccionRutasService], canLoad: [LoadingRutasService], loadChildren: () => import('./modules/company/company.module').then(m => ConfiguracionesService.establecerMenu(m).CompanyModule) },

@@ -1,0 +1,87 @@
+.vacaciones.checkmark{
+    background-color:#67bf89 !important;
+  }
+.cumpleanios.checkmark{
+    background-color:#4cc1b0 !important;
+  }
+.diaseconomicos.checkmark{
+    background-color: #5db2c9 !important;
+  }
+.faltas.checkmark{
+      background-color: #7973ba !important;
+  }
+.horasextras.checkmark{
+      background-color: #deaa57 !important;
+  }
+.incapacidades.checkmark{
+      background-color: #e17b5b !important;
+  }
+.aniversarios.checkmark{
+    background-color: #bec3cd !important;
+  }
+
+.contenedorInputCheckRadio{
+  color:rgb(129, 129, 129) !important;
+  
+}
+
+.nopadding {
+  padding: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  
+  div.cn-anuncios-kiosko > :not(:first-child) {
+    padding-top: 0.5rem;
+  }
+  div.cn-anuncios-kiosko > :not(:last-child) {
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+
+  div.cn-anuncios-kiosko > :not(:first-child) {
+    padding-left: 0.5rem;
+  }
+  div.cn-anuncios-kiosko > :not(:last-child) {
+    padding-right: 0.5rem;
+  }
+}
+
+.sinborde{
+  border:0 !important;
+}
+
+.botonestilos{
+  bottom: 5px;
+  right: 10px;
+  color:#022538;
+  background-color: white;
+  border: 1px solid #022538;
+  width: 100px;
+  margin:auto;
+}
+
+.tituloPanelInicio{
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  background-color: #00C1AF;
+  color: #F5F7F8;
+  padding-top: 5px;
+
+}
+
+.iconoVisto{
+  background-color: #00c1af;
+
+}
+
+.table tr {
+  border-bottom: 0px solid #9ca4a5 !important;
+}
+
+
+input,select{
+  font-size: small;
+}

@@ -25,9 +25,11 @@ export class ConfiguracionesService {
   public readonly JWT: string = "jwt";
 
 
+
   public accesoRuta: boolean = false;
 
   public cantidad: number = 0;
+  public arregloReportes: any = [];
 
   public cargandomodulo:boolean = false;
 
@@ -130,17 +132,21 @@ export class ConfiguracionesService {
 
 
   public traerDatosMenu(permisos: any, menu: any, version: number, esCliente?: boolean) {
-    
+    debugger;
     let arreglo: [any] = menu;
+    
 
 
     arreglo.forEach((valor: any[any]) => {
-
+      this.arregloReportes = [];
       valor.seleccionado = false;
       valor.checked = false;
       valor.previo = false;
+
       if (valor.submodulos) {
+
         valor.submodulos.forEach((valor2: any[any]) => {
+
           let primerAuxSubmodulo = true;
           valor2.checked = false;
           valor2.previo = false;
@@ -184,7 +190,15 @@ export class ConfiguracionesService {
             });
           }
 
+          if(valor2.nombreSubmodulo === 'Generales'){
+            this.arregloReportes.push(valor2);
+          }
+
         });
+
+      }
+      if(valor.moduloId === 7){
+        valor.submodulos = this.arregloReportes;
       }
     });
 
@@ -230,7 +244,7 @@ export class ConfiguracionesService {
 
 
   public static establecerMenu(m:any){
-    
+    debugger;
     
     setTimeout(() => {
      ConfiguracionesService.referencia.accesoRuta = false;

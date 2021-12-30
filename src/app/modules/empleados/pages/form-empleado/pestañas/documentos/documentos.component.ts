@@ -165,43 +165,43 @@ export class DocumentosComponent implements OnInit {
         let linkSource: string = "";
         if(archivo.datos.tipoMM?.extension == "jpg"){
             linkSource = 'data:application/jpg;base64,' + `${archivo.datos.contenido}\n`;
-            this.fileName = `${archivo.datos.nombre}.jpg`;
+            this.fileName = `${archivo.datos.nombre}`;
         }
         else if(archivo.datos.tipoMM?.extension == "docx"){
           linkSource = 'data:application/docx;base64,' + `${archivo.datos.contenido}\n`;
-            this.fileName = `${archivo.datos.nombre}.docx`;
+            this.fileName = `${archivo.datos.nombre}`;
         }
         else if(archivo.datos.tipoMM?.extension == "png"){
           linkSource = 'data:application/png;base64,' + `${archivo.datos.contenido}\n`;
-          this.fileName = `${archivo.datos.nombre}.png`;
+          this.fileName = `${archivo.datos.nombre}`;
         }
         else if(archivo.datos.tipoMM?.extension == "zip"){
           linkSource = 'data:application/zip;base64,' + `${archivo.datos.contenido}\n`;
-          this.fileName = `${archivo.datos.nombre}.zip`;
+          this.fileName = `${archivo.datos.nombre}`;
         }
         else if(archivo.datos.tipoMM?.extension == "rar"){
           linkSource = 'data:application/rar;base64,' + `${archivo.datos.contenido}\n`;
-          this.fileName = `${archivo.datos.nombre}.rar`;
+          this.fileName = `${archivo.datos.nombre}`;
         }
         else if(archivo.datos.tipoMM?.extension == "xlsx"){
           linkSource = 'data:application/xlsx;base64,' + `${archivo.datos.contenido}\n`;
-          this.fileName = `${archivo.datos.nombre}.xlsx`;
+          this.fileName = `${archivo.datos.nombre}`;
         }
         else if(archivo.datos.tipoMM?.extension == "pdf"){
           linkSource = 'data:application/pdf;base64,' + `${archivo.datos.contenido}\n`;
-          this.fileName = `${archivo.datos.nombre}.pdf`;
+          this.fileName = `${archivo.datos.nombre}`;
         }
         else if(archivo.datos.tipoMM?.extension == "doc"){
           linkSource = 'data:application/doc;base64,' + `${archivo.datos.contenido}\n`;
-          this.fileName = `${archivo.datos.nombre}.doc`;
+          this.fileName = `${archivo.datos.nombre}`;
         }
         else if(archivo.datos.tipoMM?.extension == "jpg"){
         linkSource = 'data:application/jpg;base64,' + `${archivo.datos.contenido}\n`;
-        this.fileName = `${archivo.datos.nombre}.jpg`;
+        this.fileName = `${archivo.datos.nombre}`;
         }
         else{
         linkSource = 'data:application/txt;base64,' + `${archivo.datos.contenido}\n`;
-        this.fileName = `${archivo.datos.nombre}.txt`;
+        this.fileName = `${archivo.datos.nombre}`;
         }
         const downloadLink = document.createElement("a");
 
@@ -214,6 +214,10 @@ export class DocumentosComponent implements OnInit {
 
 
   }
+
+public concluir(){
+  this.routerPrd.navigate(['/empleados']);
+}
 
   public agregar(){
 

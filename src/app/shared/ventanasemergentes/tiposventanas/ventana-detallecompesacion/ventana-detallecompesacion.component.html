@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Grupo de nómina *</label>
-                    <select placement="top" [mdbTooltip]="'grupoNomina' | tooltip" (change)="cambiarGrupoNomina(false)" formControlName="grupoNominaId" class="form-control" [ngClass]="{'is-invalid':f.grupoNominaId.errors && f.grupoNominaId.touched}">
+                    <select placement="top" [mdbTooltip]="'grupoNomina' | tooltip" (change) = "cambiarGrupoNominaEdit(false)" formControlName="grupoNominaId" class="form-control" [ngClass]="{'is-invalid':f.grupoNominaId.errors && f.grupoNominaId.touched}">
                         <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
                     </select>
                     <div class="invalid-feedback">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-4">
                     <label for="exampleFormControlSelect1">Tipo de compensación *</label>
-                    <select formControlName="tipoCompensacionId" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.tipoCompensacionId.errors && f.tipoCompensacionId.touched}">
+                    <select formControlName="tipoCompensacionId" (change) = "suscribirseCompensacion()" name="" id="" class="form-control" [ngClass]="{'is-invalid':f.tipoCompensacionId.errors && f.tipoCompensacionId.touched}">
                         <option *ngFor="let item of arregloCompensacion" [value]="item.tipoCompensacionId">
                             {{item.descripcion}}</option>
                     </select>

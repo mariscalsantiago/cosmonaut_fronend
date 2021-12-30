@@ -489,7 +489,8 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     let i, j;
     let aux;
     let llave = item.id;
-    if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio') || llave.includes('fechaFin')) {
+    debugger;
+    if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio') || llave.includes('fechaFin') || llave.includes('fecha')) {
       for (i = 0; i < this.arreglotemp.length; i++) {
         j = i;
         aux = this.arreglotemp[i];
@@ -535,6 +536,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
+    debugger;
 
     let i, j;
     let aux;

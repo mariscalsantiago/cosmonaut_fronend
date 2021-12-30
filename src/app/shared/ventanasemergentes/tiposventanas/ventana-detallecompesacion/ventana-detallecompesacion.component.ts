@@ -23,6 +23,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   public esTransferencia: boolean = true;
   public id_empresa!: number;
   public recalcular: boolean = false;
+  public detallecompensacionbool: boolean = false;
 
   public grupoNominaSeleccionado: any = {
     pagoComplementario: false
@@ -33,6 +34,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
   public typeppp: boolean = false;
+  public tipoSueldo: string = '';
 
   @Input() public datos:any;
   @Output() salida = new EventEmitter<any>();
@@ -46,17 +48,17 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
     this.typeppp = this.datos.typeppp;
+    this.detallecompensacionbool = this.datos.detallecompensacionbool;
+    if(this.datos.sueldoBruto){
+      this.tipoSueldo = 'b';
+    }
+    if(this.datos.sueldoNeto){
+      this.tipoSueldo = 'n';
+    }
+
     this.gruponominaPrd.getAll(this.datos.idEmpresa).subscribe(datos => {
       this.arreglogruponominas = datos.datos;
-      this.cambiarGrupoNomina(true);
-
-      if (this.typeppp) {
-        //this.myForm.controls.sueldonetomensualppp.setValue(this.tabsDatos[3].pppSnm || 0);
-        //this.myForm.controls.salarioDiarioIntegrado.setValue(this.tabsDatos[3].sbc);
-        //this.myForm.controls.salarioNetoMensualImss.setValue(this.tabsDatos[3].sueldoNetoMensual);
-        //this.myForm.controls.pagoComplementario.setValue(this.tabsDatos[3].pppMontoComplementario);
-
-      }
+      this.cambiarGrupoNomina();
     });
     this.catalogosPrd.getCompensacion(true).subscribe(datos => this.arregloCompensacion = datos.datos);
 
@@ -68,8 +70,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
         this.myForm = this.createForm(obj);
 
       }
-
-      this.cambiarSueldoField();
+      this.suscribirseCompensacion();
 
   }
 
@@ -82,7 +83,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
       sueldoBrutoMensual: [obj.sueldoBrutoMensual, [Validators.required]],
       sueldoNetoMensual: obj.sueldoNetoMensual,
       salarioDiario: [{ value: obj.salarioDiario, disabled: true }, []],
-      tiposueldo: ['b', [Validators.required]],
+      tiposueldo: [this.tipoSueldo, [Validators.required]],
       sbc: [{ value: obj.sbc, disabled: true }],
       salarioDiarioIntegrado: [obj.salarioDiarioIntegrado, []],
       salarioNetoMensualImss: [obj.salarioNetoMensualImss],
@@ -141,7 +142,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
   public cambiasueldobruto(esBruto: boolean) {
-
+    debugger;
     if (this.verificaCambiosNecesarios()) return;
     if (this.grupoNominaSeleccionado.pagoComplementario) {
       if (this.myForm.controls.salarioDiario.invalid) {
@@ -191,11 +192,11 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
       let objenviarMensual = {
         centroClienteId: this.datos.idEmpresa,
-        politicaId: this.f.politicaId.value,
+        politicaId: this.datos.datoscompensacion.politicaId?.politicaId,
         grupoNominaId: this.f.grupoNominaId.value,
         periodicidadId: "05",
         sueldoNeto: this.f.sueldoNetoMensual.value,
-        fechaAntiguedad: this.f.fechaAntiguedad.value,
+        fechaAntiguedad: this.datos.datoscompensacion.fechaAntiguedad,
         fechaInicio: new DatePipe("es-MX").transform(new Date(), "yyyy-MM-dd")
       };
       this.calculoPrd.calculoSueldoNetoabruto(objenviarMensual).subscribe(datos => {
@@ -246,8 +247,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
     //*************calculo PPP *******************+ */
-
-    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    this.modalPrd.showMessageDialog(this.modalPrd.loading, "Calculando");
     this.calculoPrd.calculoSueldoNetoPPP(objenviar).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       let aux = datos.datos;
@@ -270,6 +270,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   }
 
   public verificaCambiosNecesarios(): boolean {
+    debugger;
     let variable: boolean = false;
 
 
@@ -288,8 +289,58 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
 
+<<<<<<< HEAD
   public cambiarGrupoNomina(noRestablecer: boolean) {
 
+=======
+  public cambiarGrupoNomina() {
+    debugger;
+    const gruponominaId = this.myForm.controls.grupoNominaId.value;
+    let aux = this.pagoComplementario(gruponominaId);
+    this.grupoNominaSeleccionado = aux;
+
+    if (this.grupoNominaSeleccionado.pagoComplementario) {
+
+      this.myForm.controls.sueldonetomensualppp.setValidators([Validators.required]);
+      this.myForm.controls.sueldonetomensualppp.updateValueAndValidity();
+
+      this.typeppp = true;
+      this.myForm.controls.salarioNetoMensualImss.disable();
+      this.myForm.controls.pagoComplementario.disable();
+      this.myForm.controls.tiposueldo.disable();
+      this.myForm.controls.tiposueldo.setValue('n');
+      this.myForm.controls.salarioDiario.enable();
+      this.myForm.controls.salarioDiario.setValidators([Validators.required]);
+      this.myForm.controls.salarioDiario.updateValueAndValidity();
+      this.myForm.controls.salarioDiarioIntegrado.setValidators([Validators.required]);
+      this.myForm.controls.salarioDiarioIntegrado.updateValueAndValidity();
+      this.myForm.controls.salarioDiarioIntegrado.disable();
+
+      this.cambiarSueldoField();
+    } else {
+
+
+      this.myForm.controls.sueldonetomensualppp.clearValidators();
+      this.myForm.controls.sueldonetomensualppp.updateValueAndValidity();
+      this.typeppp = false;
+      this.myForm.controls.salarioDiario.setValidators([]);
+      this.myForm.controls.salarioDiario.updateValueAndValidity();
+      this.myForm.controls.salarioDiarioIntegrado.setValidators([]);
+      this.myForm.controls.salarioDiarioIntegrado.updateValueAndValidity();
+
+
+      this.myForm.controls.tiposueldo.enable();
+      this.myForm.controls.salarioDiario.disable();
+
+    }
+
+
+
+  }
+
+  public cambiarGrupoNominaEdit(noRestablecer: boolean) {
+    debugger;
+>>>>>>> origin/desarrollo
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
     let aux = this.pagoComplementario(gruponominaId);
     if (!noRestablecer) {
@@ -309,18 +360,17 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
       this.myForm.controls.pagoComplementario.disable();
       this.myForm.controls.tiposueldo.disable();
       this.myForm.controls.tiposueldo.setValue('n');
-
-
       this.myForm.controls.tipoCompensacionId.setValue(2);
-
-
       this.myForm.controls.salarioDiario.enable();
-
       this.myForm.controls.salarioDiario.setValidators([Validators.required]);
       this.myForm.controls.salarioDiario.updateValueAndValidity();
       this.myForm.controls.salarioDiarioIntegrado.setValidators([Validators.required]);
       this.myForm.controls.salarioDiarioIntegrado.updateValueAndValidity();
       this.myForm.controls.salarioDiarioIntegrado.disable();
+      this.myForm.controls.sueldoBrutoMensual.setValidators([]);
+      this.myForm.controls.sueldoBrutoMensual.updateValueAndValidity();
+      this.myForm.controls.salarioNetoMensual.setValidators([]);
+      this.myForm.controls.salarioNetoMensual.updateValueAndValidity();
 
       this.cambiarSueldoField();
     } else {
@@ -439,6 +489,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
       this.myForm.controls.salarioDiario.setValue('');
       this.myForm.controls.sueldoBrutoMensualPPP.setValue('');
       this.myForm.controls.sueldoNetoMensual.setValue('');
+      this.myForm.controls.sueldoBrutoMensual.setValue('');
       this.myForm.controls.sueldoBrutoMensual.setValidators([Validators.required]);
       this.myForm.controls.sueldoBrutoMensual.updateValueAndValidity();
     }
@@ -476,6 +527,10 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
           sueldoNetoMensual: obj.sueldoNetoMensual,
           sueldoBrutoMensual: obj.sueldoBrutoMensual,
           salarioDiario: obj.salarioDiario,
+          sueldoBruto: this.sueldoBruto,
+          sueldoNeto: this.sueldoNeto,
+          typeppp: this.typeppp
+
 
         }
         if (this.grupoNominaSeleccionado.pagoComplementario) {
@@ -510,10 +565,22 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
     })
 
     this.myForm.controls.sueldonetomensualppp.valueChanges.subscribe(valor =>{
-      if(this.myForm && this.typeppp){
+      if(this.detallecompensacionbool && this.typeppp){
         this.recalcular = true;
       }
     });
+
+    this.myForm.controls.salarioDiario.valueChanges.subscribe(valor =>{
+      if(this.detallecompensacionbool && this.typeppp){
+        this.recalcular = true;
+      }
+    });
+    this.myForm.controls.grupoNominaId.valueChanges.subscribe(valor =>{
+        this.recalcular = true;
+    });
+    this.myForm.controls.tipoCompensacionId.valueChanges.subscribe(valor =>{
+      this.recalcular = true;
+  });
 
   }
 

@@ -163,16 +163,7 @@ export class FormEmpleadoComponent implements OnInit {
 
         this.ocultarempleada = false;
         break;
-        case "documentos":
 
-          this.activado[5].tab = true;
-          this.activado[5].form = true;
-          this.activado[5].disabled = false;
-          this.activado[5].seleccionado = true;
-          this.tabsEnviar[5] = elemento.datos;
-          this.activado[4].seleccionado = false;
-          this.activado[4].form = false;
-          break;
       case "empleo":
 
         this.ocultarDetalleTransfrencia = elemento.metodopago.metodoPagoId !== 4;
@@ -192,14 +183,15 @@ export class FormEmpleadoComponent implements OnInit {
         });
 
 
-
         if (!this.ocultarDetalleTransfrencia) {
           this.activado[4].tab = true;
           this.activado[4].form = true;
-          this.activado[4].disabled = false;
           this.activado[4].seleccionado = true;
+          this.activado[4].disabled = false;
+
           this.activado[3].seleccionado = false;
           this.activado[3].form = false;
+          this.tabsEnviar[3] = elemento.datos;
           // this.activado[0].tab = false;
           // this.activado[1].tab = false;
           // this.activado[2].tab = false;
@@ -212,7 +204,13 @@ export class FormEmpleadoComponent implements OnInit {
           this.activado[5].form = true;
           this.activado[5].disabled = false;
           this.activado[5].seleccionado = true;
+          this.activado[3].form = false;
+          this.activado[3].seleccionado = false;
+          this.tabsEnviar[3] = elemento.datos;
+         // item.form = false;
+          //item.seleccionado = false;
       //    this.routerPrd.navigate(['/empleados']);
+          this.ocultarMenuHam = false;
           this.ocultarempleada = false;
         }
 
@@ -224,6 +222,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[5].disabled = false;
         this.activado[5].seleccionado = true;
         this.activado[4].form = false;
+        this.activado[4].seleccionado = false;
         this.ocultarempleada = false;
         this.datosPersona.datosTranferencia= elemento.datos;
        break;

@@ -25,6 +25,7 @@ export class PagosComponent implements OnInit {
 
   public metodopagobool: boolean = false;
   public detallecompensacionbool: boolean = false;
+  public detallecompensacionboolNew: boolean = false;
   public esTransferencia: boolean = false;
   public submitEnviado: boolean = false;
   public indexMetodoSeleccionado: number = 0;
@@ -41,7 +42,8 @@ export class PagosComponent implements OnInit {
   public detalleCuenta: boolean = false;
   public cargandoPer: boolean = false;
   public cargandoDed: boolean = false;
-
+  public sueldoBruto: boolean = false;
+  public sueldoNeto: boolean = false;
 
   public myFormMetodoPago!: FormGroup;
 
@@ -570,8 +572,8 @@ export class PagosComponent implements OnInit {
   public cancelarEspecial() {
     this.recalcular = false;
     this.primeraVez = true;
-    this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
-    this.cambiarGrupoNomina();
+    //this.myFormCompensacion.controls.grupoNominaId.setValue(this.empleado.grupoNominaId.grupoNominaId);
+    //this.cambiarGrupoNomina();
     this.detallecompensacionbool = false;
   }
 
@@ -591,8 +593,6 @@ export class PagosComponent implements OnInit {
     pagoComplementario: false
   };
   ;
-  public sueldoBruto: boolean = false;
-  public sueldoNeto: boolean = false;
   public sueldoControlName: string = "";
   public typeppp: boolean = false;
 
@@ -678,8 +678,20 @@ export class PagosComponent implements OnInit {
   }
 
   public enviarCompensacioNew(objcompe : any) {
+<<<<<<< HEAD
 
 
+=======
+
+    debugger;
+    this.sueldoBruto = objcompe.sueldoBruto;
+    this.sueldoNeto = objcompe.sueldoNeto;
+    this.typeppp = objcompe.typeppp;
+    delete objcompe.sueldoBruto;
+    delete objcompe.sueldoNeto;
+    delete objcompe.typeppp;
+
+>>>>>>> origin/desarrollo
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.contratoColaboradorPrd.updateCmpensacionKardex(objcompe).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -759,14 +771,15 @@ export class PagosComponent implements OnInit {
   public verDetalleCompensacionNew() {
 
     this.recalcular = false;
-    this.detallecompensacionbool = false
-    this.suscribirseCompensacion();
 
       let datosEnv : any = {
         idEmpleado: this.idEmpleado,
         idEmpresa: this.empleado.centrocClienteId.centrocClienteId,
         datoscompensacion: this.empleado,
-        typeppp: this.typeppp
+        typeppp: this.typeppp,
+        detallecompensacionbool: this.detallecompensacionboolNew = true,
+        sueldoBruto : this.sueldoBruto,
+        sueldoNeto : this.sueldoNeto
       };
       this.ventana.showVentana(this.ventana.detallecompesacion,{datos:datosEnv}).then(valor =>{
         if(valor.datos){

@@ -9,9 +9,9 @@ import { AuthService } from '../auth.service';
   providedIn: 'root'
 })
 export class LoadingRutasService implements CanLoad {
-
+  
   constructor(private configuracionesPrd:ConfiguracionesService,private routerPrd:Router,private authPrd:AuthService) { }
-
+  
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
       this.configuracionesPrd.cargandomodulo = true;
       if(!this.configuracionesPrd.accesoRuta && this.authPrd.isAuthenticated()){

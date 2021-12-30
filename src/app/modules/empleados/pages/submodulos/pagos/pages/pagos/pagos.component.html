@@ -163,16 +163,18 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="titulorow"><span
-                                                            *ngIf="!typeppp && fc.tiposueldo.value == 'b'">Sueldo bruto
+                                                            *ngIf="!typeppp && sueldoBruto">Sueldo bruto
                                                             mensual</span><span
-                                                            *ngIf="!typeppp && fc.tiposueldo.value == 'n'">Sueldo neto
+                                                            *ngIf="!typeppp && sueldoNeto">Sueldo neto
                                                             mensual</span>
-                                                        <span *ngIf="typeppp">Sueldo neto mensual mixto*</span>
+                                                        <span *ngIf="typeppp">Sueldo neto mensual mixto *</span>
                                                         </td>
-                                                    <td *ngIf="!detallecompensacionbool">
-                                                      <span  *ngIf="!typeppp && fc.tiposueldo.value == 'b'">{{empleado.sueldoBrutoMensual |
+                                                    <td>
+                                                      <span  *ngIf="!typeppp && sueldoBruto">{{empleado.sueldoBrutoMensual |
                                                         currency:'$'}}</span>
-                                                        <span  *ngIf="typeppp">{{(empleado.pppSnm||0) |
+                                                      <span  *ngIf="!typeppp && sueldoNeto">{{empleado.sueldoNetoMensual |
+                                                        currency:'$'}}</span>  
+                                                        <span  *ngIf="typeppp">{{(empleado.pppSnm) |
                                                             currency:'$'}}</span>
                                                         
                                                     </td>
