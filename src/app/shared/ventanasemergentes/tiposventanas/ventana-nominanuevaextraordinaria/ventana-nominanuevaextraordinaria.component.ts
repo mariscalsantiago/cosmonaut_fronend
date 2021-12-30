@@ -29,12 +29,13 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
   public arregloEmpleados: any = [];
   public arregloMonedas: any = [];
 
-  public mostrarAlgunosEmpleados: boolean = false;
+  public mostrarAlgunosEmpleados: string = "";
   public seleccionarUsuariosCheck: boolean = false;
   public objEnviar: any = [];
   public tiponomina: number = 2;
 
   public empleadoEnviar: any = [];
+  public arreglogruponominas:any = [];
 
 
 
@@ -42,10 +43,11 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     private usuariosPrd: UsuarioSistemaService, private formbuilder: FormBuilder,
     private usuarioSistemaPrd: UsuarioSistemaService, private nominaAguinaldoPrd: NominaaguinaldoService,
     private catalogosPrd: CatalogosService, private cuentasBancariasPrd: CuentasbancariasService,
-    private companiasPrd: SharedCompaniaService, private empleadosPrd: EmpleadosService) { }
+    private companiasPrd: SharedCompaniaService, private empleadosPrd: EmpleadosService,private gruponominaPrd: GruponominasService) { }
 
   ngOnInit(): void {
     this.myForm = this.creandoForm();
+    this.gruponominaPrd.getAll(this.usuariosPrd.getIdEmpresa()).subscribe(datos => this.arreglogruponominas = datos.datos);
 
     this.catalogosPrd.getTiposNomina(true).subscribe(datos => {
       this.arregloTipoNominas = datos.datos;    
@@ -83,7 +85,8 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
   public suscripciones() {
       this.myForm.controls.seleccionarempleados.valueChanges.subscribe(valor =>{
-         this.mostrarAlgunosEmpleados = valor == "false";
+         this.mostrarAlgunosEmpleados = valor;
+         this.myForm.controls.grupoNomina.setValue("");
       });
   }
 
@@ -102,8 +105,9 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
         centrocClienteId: [, [Validators.required]],
         tipoNominaId: [this.tiponomina],
         clabe: [, [Validators.required]],
-        seleccionarempleados: ["true"],
-        personaId: []
+        seleccionarempleados: ["1",[Validators.required]],
+        personaId: [],
+        grupoNomina:[]
       }
     );
   }
@@ -153,10 +157,11 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
           usuarioId: obj.usuarioId,
           nombreNomina: obj.nombreNomina,
           cuentaBancoId: obj.clabe,
-          todos: obj.seleccionarempleados == "true",
+          todos: obj.seleccionarempleados == '1' || obj.seleccionarempleados == '2',
           monedaId: obj.monedaId,
           empleados: temp,
-          tipoNominaId:obj.tipoNominaId
+          tipoNominaId:obj.tipoNominaId,
+          grupoNominaId:obj.grupoNomina
         };
         this.guardarNomina();
       }

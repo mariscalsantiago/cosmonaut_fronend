@@ -1,25 +1,8 @@
 <div class="form-group margen row mt-2 text-center"><label style="    margin: auto;" class="titulo">Resumen</label></div>
 <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-        <table aria-hidden="true" class="table">
-            <tbody>
-                <tr>
-                    <td>Total pago neto</td>
-                    <td>{{datos.totalPagoNeto|currency}}</td>
-                </tr>
-                <tr>
-                    <td>Pagos realizados</td>
-                    <td>{{datos.pagosRealizados}}</td>
-                </tr>
-                <tr>
-                    <td>Timbrados</td>
-                    <td>{{datos.recibosPagos}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="col-12">
+        <app-tablapaginado [ocultarpaginado]="true" [datos]="arreglotabla" [cargando]="cargando" ></app-tablapaginado>
     </div>
-    <div class="col-2"></div>
 </div>
 <div class="row">
     <div class="col-2"></div>
@@ -34,7 +17,7 @@
                 <span class="sr-only">Loading...</span>
             </div>
         </button>
-        <button *ngIf="esDescargar" [disabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" [class.botondisabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" (click)="descargarFolios()" class="btn btn-primary button-fill mr-2"><span *ngIf="!cargandoIcon">Descargar folios</span>
+        <button *ngIf="esDescargar" [disabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" [class.botondisabled]="datos.pagosRealizados == 0 || datos.recibosPagos == 0" (click)="descargarFolios()" class="btn btn-primary button-outlet mr-2"><span *ngIf="!cargandoIcon">Descargar folios</span>
             <div *ngIf="cargandoIcon" class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>

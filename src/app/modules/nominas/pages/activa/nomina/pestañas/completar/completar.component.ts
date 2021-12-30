@@ -1,5 +1,7 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { tabla } from 'src/app/core/data/tabla';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { NominaordinariaService } from 'src/app/shared/services/nominas/nominaordinaria.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
@@ -21,11 +23,17 @@ export class CompletarComponent implements OnInit {
   public cargandoIcon: boolean = false;
   public datos:any = {};
 
+  public cargando:boolean = false;
+
   private esOrdinaria:boolean = false;
+  public arreglotabla:any = {
+    columnas:[],
+    filas:[]
+  }
   constructor(private modalPrd: ModalService,
     private reportesPrd:ReportesService,private nominaPrd:NominaordinariaService,
     private usuarioSistemaPrd:UsuarioSistemaService,
-    private navigate:Router) { }
+    private navigate:Router,private currency:CurrencyPipe) { }
 
   ngOnInit(): void {
 
@@ -45,9 +53,39 @@ export class CompletarComponent implements OnInit {
 
     
 
+
+    this.cargando = true;
     this.nominaPrd.concluir(this.nominaSeleccionada[this.llave].nominaXperiodoId,this.usuarioSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+      this.cargando = false;
       this.cargandoIcon = false;
       this.datos = datos.datos;
+      let columnas: Array<tabla> = [
+        new tabla("totalPagoNetoTotal", "Total pago neto"),
+        new tabla("totalPagoNeto", "Total pagado"),
+        new tabla("totalPagoNetoDiferencia", "Pago neto pendiente"),
+        new tabla("pagosRealizadosTotal", "Total a pagar"),
+        new tabla("pagosRealizados", "Pago realizados"),
+        new tabla("pagosRealizadosDiferencia", "Pagos pendientes"),
+        new tabla("recibosPagosTotal", "Total a timbrar"),
+        new tabla("recibosPagos", "Timbrados"),
+        new tabla("recibosPagosDiferencia", "Pendientes por timbrar")
+      ];
+
+
+      if(this.datos){
+        for(let item of this.datos){
+            item["totalPagoNetoTotal"] = this.currency.transform( item["totalPagoNetoTotal"]);
+            item["totalPagoNeto"] = this.currency.transform( item["totalPagoNeto"]);
+            item["totalPagoNetoDiferencia"] = this.currency.transform( item["totalPagoNetoDiferencia"]);
+        }
+      }
+
+      this.arreglotabla = {
+        columnas: columnas,
+        filas: this.datos
+      };
+
+
     });
 
 

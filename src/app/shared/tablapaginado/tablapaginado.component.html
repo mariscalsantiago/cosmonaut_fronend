@@ -1,4 +1,4 @@
-<div *ngIf="(!cargando && arreglo !== undefined  && !paginado_server) || (paginado_server && arreglo !== undefined && !cargando)" class="row-between  margen mt-3" style="margin-bottom: -25px;">
+<div *ngIf="((!cargando && arreglo !== undefined  && !paginado_server) || (paginado_server && arreglo !== undefined && !cargando)) && !ocultarpaginado" class="row-between  margen mt-3" style="margin-bottom: -25px;">
     <div class="input-group  mb-3 mostrarelementos ">
         <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
@@ -389,7 +389,7 @@
 <div *ngIf="!cargando && arreglo == undefined" class="alert  col text-center">
     <strong>En este momento no existen registros</strong>
 </div>
-<div *ngIf="(!cargando && arreglo !== undefined) || (paginado_server && !paginadoServer_primeravez)" class="row" style="width: 100%;">
+<div *ngIf="((!cargando && arreglo !== undefined) || (paginado_server && !paginadoServer_primeravez)) && !ocultarpaginado" class="row" style="width: 100%;">
     <div class="col">
         <nav aria-label="cosmonaut" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">

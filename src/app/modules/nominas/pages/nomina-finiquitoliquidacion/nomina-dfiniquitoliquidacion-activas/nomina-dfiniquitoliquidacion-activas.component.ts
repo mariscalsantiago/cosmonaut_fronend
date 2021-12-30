@@ -36,6 +36,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
 
   public modulo: string = "";
   public subModulo: string = "";
+  public mensajePendiente:string = "";
 
   constructor(private ventana: VentanaemergenteService, private router: Router,
     private modalPrd: ModalService, private nominaFiniquitoPrd: NominafiniquitoliquidacionService, private usuariSistemaPrd: UsuarioSistemaService,
@@ -127,6 +128,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
         }
         this.nominaFiniquitoPrd.calcularNomina(objEnviar).subscribe(datos => {
           this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+          this.mensajePendiente = datos.mensaje;
           if (datos.resultado) {
             this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaLiquidacion.nominaXperiodoId);
             item.nominaLiquidacion.estadoProcesoNominaId = 1;
@@ -177,7 +179,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
         }
       });
     } else if (item.nominaLiquidacion.estadoProcesoNominaId == 1) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "La nómina se está procesando, podría tardar varios minutos. Si lo deseas puedes navegar en el sistema y volver a la pantalla de nóminas más tarde");
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "El sistema está realizando el cálculo de nómina solicitado");
     }
 
   }

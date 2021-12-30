@@ -50,19 +50,24 @@
         <div class="input-group-sm mb-3 col-6">
             <div>
                 <label>Seleccionar *</label>
-                <div >
+                <div>
 
                     <label class="contenedorInputCheckRadio">Todos los empleados
                         <input formControlName="seleccionarempleados" #tipouno 
                              name="seleccionarempleados" type="radio"
-                           value = "true">
+                           value = "1">
                         <span class="radiomark"></span>
                     </label>
-                    
+                    <label class="contenedorInputCheckRadio">Por grupo de nómina
+                        <input formControlName="seleccionarempleados" #tipodos
+                             name="seleccionarempleados" type="radio"
+                           value = "2">
+                        <span class="radiomark"></span>
+                    </label>
                     <label class="contenedorInputCheckRadio">Por empleados
                         <input formControlName="seleccionarempleados" #tipodos
                              name="seleccionarempleados" type="radio"
-                           value = "false">
+                           value = "3">
                         <span class="radiomark"></span>
                     </label>
 
@@ -72,9 +77,18 @@
 
             </div>
         </div>
-        <div *ngIf="mostrarAlgunosEmpleados" class="input-group-sm mb-3 col-6">
+        <div *ngIf="mostrarAlgunosEmpleados == '3'" class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Empleados *</label>
             <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEtiquetas($event)"></app-tag>
+        </div>
+        <div *ngIf="mostrarAlgunosEmpleados == '2'" class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Grupo de nómina *</label>
+            <select [class.is-invalid]="f.grupoNomina.errors && f.grupoNomina.touched" formControlName="grupoNomina" class="form-control">
+                <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
+            </select>
+            <div  class="invalid-feedback">
+                Campo requerido
+            </div>
         </div>
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Moneda *</label>
