@@ -120,7 +120,7 @@ export class InicioComponent implements OnInit   {
     this.objFiltro = {
       clienteId: this.idEmpresa,
     };
-    debugger;
+    
 
     this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
       if(datos.datos !== undefined){
