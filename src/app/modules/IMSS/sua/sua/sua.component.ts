@@ -96,8 +96,10 @@ export class SuaComponent implements OnInit {
           if(item.fecha_movimiento !== undefined ){
           item.fechamovimiento = new DatePipe("es-MX").transform(item.fecha_movimiento, 'dd-MMM-y')?.replace(".","");
           item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
+
+          }
+          if(item.sbc !== undefined ){
           item.sbcDecimal = item.sbc.toFixed(2); 
- 
           }
         }
       }

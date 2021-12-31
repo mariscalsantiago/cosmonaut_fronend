@@ -230,6 +230,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 15){
+      debugger;
       this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.tipoValorReferenciaId?.descripcion;
@@ -340,6 +341,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     this.myForm = this.createForm((this.objdetrep));
     this.validaForm();
+    
 
 
   }
@@ -381,6 +383,33 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     });
   }
+
+  public validaReferencia(){
+
+    if(this.detCatalogos.listaCatalogosId == 15){
+
+      if(this.objdetrep.tipoValorReferenciaId?.descripcion !== undefined){
+        let valorRefInvalid = false;
+        this.adminCatalogosPrd.getListaTipoValorReferencia(true).subscribe(datos =>{
+            this.arregloValoresReferencia = datos.datos
+            for(let item of this.arregloValoresReferencia ){
+              if(item.descripcion === this.objdetrep.tipoValorReferenciaId?.descripcion){
+                valorRefInvalid = true;
+              }
+            }
+            if(valorRefInvalid == false){
+                this.myForm.controls.valorReferencia.setValue('');
+                this.myForm.controls.valorReferencia.updateValueAndValidity();
+                this.myForm.controls.valorReferencia.invalid;
+            }
+
+        });
+        
+      }
+    }
+
+  }
+
 
   ngAfterViewInit(): void {
 
@@ -519,6 +548,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.myForm.controls.codBanco.updateValueAndValidity();
     this.myForm.controls.razonSocial.setValidators([]);
     this.myForm.controls.razonSocial.updateValueAndValidity();
+    this.validaReferencia();
   }
   else if(this.detCatalogos.listaCatalogosId == 17){
     this.myForm.controls.PeriodicidadPago.setValidators([Validators.required]);
@@ -884,12 +914,14 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }  
 
   public enviarPeticion() {
+    debugger;
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       return;
 
     }
+
     if(this.detCatalogos.listaCatalogosId == 15 || this.detCatalogos.listaCatalogosId == 17 || this.detCatalogos.listaCatalogosId == 18 || this.detCatalogos.listaCatalogosId == 19){
       
       if (!this.validaFechaFinal()) {
