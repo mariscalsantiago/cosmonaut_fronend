@@ -79,7 +79,7 @@
             </div>
         </div>
 
-    <div class="col-6">
+    <div *ngIf="moduloId" class="col-6">
             <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="430">
                 <div style="background-color: transparent;">
                     <div class="col-7 titulo-outlet-inicio">
@@ -108,6 +108,74 @@
             </div>
 
     </div>
+
+    <div *ngIf="!moduloId" class="col-6">
+        <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="430">
+            <div style="background-color: transparent;">
+                <div class="col-7 titulo-outlet-inicio">
+                    <div class="col-2 menu-hamburgesa"></div> <label>VIGENCIA DE MOVIMIENTO IMSS </label>
+                </div>
+            </div>
+            <br>
+            <div class="row margen">
+                <div class="col-12">
+                          
+                    <div class="row mb-4 ">
+                        <article class="titulo  col">
+                            Tipo de movimiento 
+                            <article >{{movbaja}}</article>
+                        </article>
+                        <article class="titulo  col">
+                            Extemporáneo
+                            <article >{{countExt}}</article>
+                        </article>
+                        <article class="titulo  col">
+                            Próximo a vencer	
+                            <article >{{proxVencer}}</article>
+                        </article>
+       
+                    </div>
+                    <div class="row mb-4 ">
+                        <article class="titulo  col">
+                            Tipo de movimiento 
+                            <article >{{modsalario}}</article>
+                        </article>
+                        <article class="titulo  col">
+                            Extemporáneo
+                            <article >{{countExtSal}}</article>
+                        </article>
+                        <article class="titulo  col">
+                            Próximo a vencer	
+                            <article >{{proxVencerSal}}</article>
+                        </article>
+       
+                    </div>
+
+                    <div class="row mb-4 ">
+                        <article class="titulo  col">
+                            Tipo de movimiento 
+                            <article >{{altarein}}</article>
+                        </article>
+                        <article class="titulo  col">
+                            Extemporáneo
+                            <article >{{countExtAlt}}</article>
+                        </article>
+                        <article class="titulo  col">
+                            Próximo a vencer	
+                            <article >{{proxVencerAlt}}</article>
+                        </article>
+       
+                    </div>
+
+                </div>
+        
+            </div>
+
+        </div>
+
+</div>
+
+    
 </div>
 
 
