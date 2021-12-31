@@ -108,6 +108,7 @@ export class NoticiasDetalleComponent implements OnInit {
 
           this.llenarFormulario();
           this.validarImagen();
+          this.companiasenviar = this.editando?.centrocClienteId || [];
 
           this.servicioModales.showMessageDialog(
             this.servicioModales.loadingfinish
@@ -118,6 +119,8 @@ export class NoticiasDetalleComponent implements OnInit {
         this.servicioModales.loadingfinish
       );
     }
+
+
 
     this.validarImagen();
 
@@ -215,7 +218,7 @@ export class NoticiasDetalleComponent implements OnInit {
         '',
         [Validators.required, this.validarFecha, this.validarFechaMin],
       ],
-      categoria: [{ value: 1, disabled: !this.esAdministradorCosmonaut() }, Validators.required],
+      categoria: [{ value: 1, disabled: this.esAdministradorCosmonaut() }, Validators.required],
       empresa: [],
       contenido: [''],
       enlace: [''],
@@ -312,7 +315,7 @@ export class NoticiasDetalleComponent implements OnInit {
 
     this.formulario.controls.empresa.setValue(
       !!this.editando
-        ? this.editando.centrocClienteId
+        ? this.editando.clienteId
         : !this.esAdministradorCosmonaut()
         ? ''
         : this.usuario?.centrocClienteId
@@ -323,6 +326,18 @@ export class NoticiasDetalleComponent implements OnInit {
       !!this.editando ? this.editando.contenido : ''
     );
     this.formulario.controls.contenido.updateValueAndValidity();
+    this.formulario.controls.seleccionarEmpresa.setValue(this.editando?.todos?'1':'2');
+    this.formulario.controls.seleccionarEmpleado.setValue("1");
+    if(this.esEmpresa()){
+       if(Boolean(this.editando?.grupoNominaId)){
+          this.formulario.controls.seleccionarEmpleado.setValue("2");
+      }else if(!this.editando?.todosEmpleados){
+        this.formulario.controls.seleccionarEmpleado.setValue("3");
+      }
+    }
+
+    this.formulario.controls.enlace.setValue(this.editando?.enlace);
+    this.formulario.controls.grupoNomina.setValue(this.editando?.grupoNominaId);
   }
 
   validarImagen() {
@@ -385,7 +400,7 @@ export class NoticiasDetalleComponent implements OnInit {
       const json = {
         noticiaId: this.editando.noticiaId,
         usuarioId: this.usuario?.usuarioId,
-        centrocClienteId: Number(this.formulario.controls.empresa.value),
+        centrocClienteId: this.serviceUsuario.getIdEmpresa(),
         titulo: this.formulario.controls.titulo.value,
         subtitulo: this.formulario.controls.subtitulo.value,
         categoriaId: {
