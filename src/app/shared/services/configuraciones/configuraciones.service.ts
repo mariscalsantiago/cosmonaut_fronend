@@ -132,7 +132,7 @@ export class ConfiguracionesService {
 
 
   public traerDatosMenu(permisos: any, menu: any, version: number, esCliente?: boolean) {
-    debugger;
+    
     let arreglo: [any] = menu;
     
 
@@ -244,7 +244,7 @@ export class ConfiguracionesService {
 
 
   public static establecerMenu(m:any){
-    debugger;
+    
     
     setTimeout(() => {
      ConfiguracionesService.referencia.accesoRuta = false;

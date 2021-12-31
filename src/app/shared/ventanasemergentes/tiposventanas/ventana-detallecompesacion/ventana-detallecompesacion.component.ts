@@ -142,7 +142,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
   public cambiasueldobruto(esBruto: boolean) {
-    debugger;
+    
     if (this.verificaCambiosNecesarios()) return;
     if (this.grupoNominaSeleccionado.pagoComplementario) {
       if (this.myForm.controls.salarioDiario.invalid) {
@@ -270,7 +270,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   }
 
   public verificaCambiosNecesarios(): boolean {
-    debugger;
+    
     let variable: boolean = false;
 
 
@@ -290,7 +290,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
 
 
   public cambiarGrupoNomina() {
-    debugger;
+    
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
     let aux = this.pagoComplementario(gruponominaId);
     this.grupoNominaSeleccionado = aux;
@@ -335,7 +335,7 @@ export class VentanaDetalleCompensacionComponent implements OnInit {
   }
 
   public cambiarGrupoNominaEdit(noRestablecer: boolean) {
-    debugger;
+    
     const gruponominaId = this.myForm.controls.grupoNominaId.value;
     let aux = this.pagoComplementario(gruponominaId);
     if (!noRestablecer) {

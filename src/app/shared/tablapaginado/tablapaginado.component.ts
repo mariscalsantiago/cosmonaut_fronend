@@ -489,7 +489,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     let i, j;
     let aux;
     let llave = item.id;
-    debugger;
+    
     if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio') || llave.includes('fechaFin') || llave.includes('fecha')) {
       for (i = 0; i < this.arreglotemp.length; i++) {
         j = i;
@@ -521,22 +521,24 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     }
     this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
 
-    for (i = 0; i < this.arreglotemp.length; i++) {
+    if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio') || llave.includes('fechaFin') || llave.includes('fecha')) {
+      for (i = 0; i < this.arreglotemp.length; i++) {
 
-      j = i;
-      aux = this.arreglotemp[i];
-      let fechar: string = '';
-      fechar = aux[llave].split("-");
-      if (fechar.length == 3) {
-        aux[llave] = new DatePipe("es-MX").transform(aux[llave], 'dd-MMM-y')?.replace(".","");
-        
+        j = i;
+        aux = this.arreglotemp[i];
+        let fechar: string = '';
+        fechar = aux[llave].split("-");
+        if (fechar.length == 3) {
+          aux[llave] = new DatePipe("es-MX").transform(aux[llave], 'dd-MMM-y')?.replace(".","");
+          
+        }
       }
     }
     this.paginar();
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
-    debugger;
+    
 
     let i, j;
     let aux;

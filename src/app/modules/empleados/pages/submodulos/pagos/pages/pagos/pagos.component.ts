@@ -679,7 +679,7 @@ export class PagosComponent implements OnInit {
 
   public enviarCompensacioNew(objcompe : any) {
 
-    debugger;
+    
     this.sueldoBruto = objcompe.sueldoBruto;
     this.sueldoNeto = objcompe.sueldoNeto;
     this.typeppp = objcompe.typeppp;
