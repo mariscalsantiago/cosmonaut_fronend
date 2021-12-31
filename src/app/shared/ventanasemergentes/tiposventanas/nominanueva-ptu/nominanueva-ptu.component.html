@@ -99,8 +99,8 @@
                         <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
                             <label style="font-size: 15px !important;">Seleccionar los empleados a incluir en el formato</label>
                         </div>
-                        <br> 
-                            <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">    
+                        <br>
+                            <div class="input-group-sm mb-4 col-12 col-sm-7 col-lg-7">
                             <label style="font-size: 15px !important;" class="contenedorInputCheckRadio">Todos los empleados
                                 <input [(ngModel)]="valor" name="seleccion" type="radio" value="1">
                                 <span class="radiomark"></span>
@@ -109,16 +109,17 @@
                                 <input [(ngModel)]="valor" name="seleccion" type="radio" value="2">
                                 <span class="radiomark"></span>
                             </label>
+                            <div *ngIf="valor == '2'">
+                              <select #inputarea style="font-size: 15px;" name="" class="form-control mb-2">
+                                  <option *ngFor="let item of arregloareas" [value]="item.areaId">{{item.descripcion}}</option>
+                              </select>
+
+                          </div>
                             <label style="font-size: 15px !important;" class="contenedorInputCheckRadio">Filtrar por grupo de nómina
                                 <input [(ngModel)]="valor" name="seleccion" type="radio" value="4">
                                 <span class="radiomark"></span>
                             </label>
-                            <div *ngIf="valor == '2'">
-                                <select #inputarea style="font-size: 15px;" name="" class="form-control mb-2">
-                                    <option *ngFor="let item of arregloareas" [value]="item.areaId">{{item.descripcion}}</option>
-                                </select>
 
-                            </div>
                             <div *ngIf="valor == '4'">
                                 <select #inputgruponomina style="font-size: 15px;" name="" class="form-control mb-2">
                                     <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
