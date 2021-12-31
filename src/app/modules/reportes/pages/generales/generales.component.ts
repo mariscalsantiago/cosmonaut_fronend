@@ -37,7 +37,7 @@ export class GeneralesComponent implements OnInit   {
   }
 
   public cargando: boolean = false;
-  public dataUrl: any = []; 
+  public dataUrl: any = [];
   public iframe: string = '';
   public datosIframe: any = [];
 
@@ -56,7 +56,7 @@ export class GeneralesComponent implements OnInit   {
     private usuariosSistemaPrd: UsuarioSistemaService,
     public ContenidoComponent: ContenidoComponent,
     public configuracionPrd: ConfiguracionesService,
-    private notificaciones:ServerSentEventService, 
+    private notificaciones:ServerSentEventService,
     private rolesPrd: RolesService,
     private authUsuarioPrd: UsuariosauthService
     ) { }
@@ -64,19 +64,19 @@ export class GeneralesComponent implements OnInit   {
 
   ngOnInit(): void {
 
-    
+
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
         this.datosIframe = this.usuariosSistemaPrd.usuario;
         let centroCliente = this.datosIframe.centrocClienteId;
-            
+
             let ruta1 = 'https://datastudio.google.com/embed/reporting/75a75df8-b651-48e3-907e-e441a03881d5/page/cG9hC?params=%7B%22ds0.centro_cliente%22%3A';
             let ruta2 = centroCliente+"%7D";
             this.iframe = ruta1+ruta2;
             this.cargando = true;
             this.url = this._sanitizer.bypassSecurityTrustResourceUrl(this.iframe);
-  
+
 
   }
 

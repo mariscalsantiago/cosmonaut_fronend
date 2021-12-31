@@ -125,7 +125,7 @@ export class ContenidoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
         this.configuracionPrd.cambiarColor.next({
           type:"vistaPrevia",
           datos:{
@@ -135,7 +135,7 @@ export class ContenidoComponent implements OnInit {
         });
 
 
-       
+
     this.chat = this.chatPrd.getChatDatos();
 
     this.rol = this.sistemaUsuarioPrd.getRol();
@@ -146,7 +146,7 @@ export class ContenidoComponent implements OnInit {
     this.nombreEmpresa = this.sistemaUsuarioPrd.getUsuario().nombreEmpresa;
     this.companyProd.getEmpresaById(this.sistemaUsuarioPrd.getUsuario().centrocClienteIdPadre).subscribe(datos => {
       this.centrocClienteIdPadre = datos.datos.nombre;
-     
+
     });
 
     this.chatPrd.setChatDatos(this.chat);
@@ -246,7 +246,7 @@ export class ContenidoComponent implements OnInit {
 
 
   public seleccionarSubmenu(obj: any, obj2: any) {
-    
+
     if (obj2) {
 
       obj2 = {
@@ -352,14 +352,14 @@ export class ContenidoComponent implements OnInit {
 
 
   public irRuta(item: any) {
-    
+
     this.configuracionPrd.accesoRuta = true;
     if(item.pathServicio !== undefined){
     this.navigate.navigate([item.pathServicio]);
     }else{
       if(item.nombreSubmodulo === 'Generales'){
       this.navigate.navigate(["/reportes/generales"]);
-      }  
+      }
     }
     this.configuracionPrd.menu = false;
     setTimeout(() => {
@@ -372,7 +372,7 @@ export class ContenidoComponent implements OnInit {
     }, 10);
   }
   public entraComponente(obj: any) {
-    
+
     for (let item of this.PRINCIPAL_MENU) {
       item.labelflotante = false;
     }
@@ -386,7 +386,7 @@ export class ContenidoComponent implements OnInit {
     }
   }
   public saleComponente(item: any) {
-    
+
     for (let item of this.PRINCIPAL_MENU) {
       item.labelflotante = false;
     }
@@ -444,7 +444,7 @@ export class ContenidoComponent implements OnInit {
     }
   }
 
- 
+
 
 
 

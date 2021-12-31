@@ -108,7 +108,7 @@ export class InicioComponent implements OnInit   {
 
     if (this.puedeConsultarKiosko()) {
 
-      this.serviceNoticia.getNoticiasEmpleado(this.idEmpresa).subscribe(
+      this.serviceNoticia.getNoticiasEmpleado(this.idEmpresa,this.usuariosSistemaPrd.usuario.centrocClienteIdPadre,this.usuariosSistemaPrd.usuario.usuarioId).subscribe(
 
         (response) => {
 

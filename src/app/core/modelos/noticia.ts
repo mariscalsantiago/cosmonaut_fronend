@@ -1,7 +1,7 @@
 export interface Noticia {
     noticiaId: number,
     usuarioId: number,
-    centrocClienteId: number,
+    clienteId: number,
     titulo: string,
     subtitulo?: string,
     categoriaId: {
@@ -17,4 +17,9 @@ export interface Noticia {
     fechaFin: string,
 
     __categoriaFormato?: string,
+    todos?:boolean,
+    todosEmpleados?:boolean,
+    grupoNominaId?:number,
+    centrocClienteId?:Array<any>,
+    enlace?:string
 }
