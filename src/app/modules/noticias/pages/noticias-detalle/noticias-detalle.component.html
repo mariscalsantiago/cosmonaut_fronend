@@ -3,18 +3,18 @@
         <div (click)="configuracion.menu = !configuracion.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
             <img src="assets/imgs/menu.png" alt="" srcset="">
         </button>
-        </div>  
-        <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+        </div>
+        <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab"
             > {{modulo}}</a>
         </li>
         <li >
-            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab"
             (click)="regresar()" >{{subModulo}}</a>
         </li>
-        <li style="padding-top: 10PX;" class="float-left"> 
+        <li style="padding-top: 10PX;" class="float-left">
             CONFIGURACIÓN DE NOTICIA
         </li>
-    </ul> 
+    </ul>
 </div>
 
 <hr>
@@ -91,18 +91,72 @@
                             {{parseErrors(f.categoria.errors)}}
                         </div>
                     </div>
-
-                    <div [style.display]="puedeSeleccionarEmpresa() ? 'block' : 'none'"
-                        class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4 ">
-                        <label for="empresa">Empresa *</label>
-                        <select formControlName="empresa" class="form-control">
-                            <option *ngFor="let empresa of empresas" [value]="empresa.centrocClienteId">
-                                {{empresa.razonSocial}}</option>
-                        </select>
-                        <div *ngIf="f.empresa.errors && submitEnviado" class="invalid-feedback" style="display: block">
-                            {{parseErrors(f.empresa.errors)}}
-                        </div>
+                    <div *ngIf="!esAdministradorCosmonaut()" class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4">
+                    <label for="empresa">Ingresar URL *</label>
+                    <input formControlName="enlace" type="text" name="" id="" class="form-control">
+                    <div *ngIf="f.empresa.errors && submitEnviado" class="invalid-feedback" style="display: block">
+                        {{parseErrors(f.empresa.errors)}}
                     </div>
+                </div>
+                <div *ngIf="!esEmpresa()" class="input-group-sm mb-3 col-3">
+                  <label>Seleccionar *</label>
+                      <div>
+                          <label class="contenedorInputCheckRadio">Todos los clientes
+                              <input formControlName="seleccionarEmpresa" #tipouno
+                                   name="seleccionarEmpresa" type="radio"
+                                 value = "1">
+                              <span class="radiomark"></span>
+                          </label>
+                          <label class="contenedorInputCheckRadio">Por cliente
+                              <input formControlName="seleccionarEmpresa" #tipodos
+                                   name="seleccionarEmpresa" type="radio"
+                                 value = "2">
+                              <span class="radiomark"></span>
+                          </label>
+                      </div>
+              </div>
+                <div *ngIf="f.seleccionarEmpresa.value == '2'" class=" input-group-sm mb-3 col-6 col-sm-6 col-lg-4">
+                  <label>{{!esAdministradorCosmonaut()?'Empresas':'Clientes'}} *</label>
+                  <app-tag [datos]="empresas" [llave]="'razonSocial'" [arregloEtiquetas]="companiasenviar" (salida)="recibirEtiquetas($event)"></app-tag>
+                </div>
+
+                <div *ngIf="esEmpresa()" class="input-group-sm mb-3 col-3">
+                  <label>Seleccionar *</label>
+                      <div>
+                          <label class="contenedorInputCheckRadio">Todos los empleados
+                              <input formControlName="seleccionarEmpleado" #tipouno
+                                   name="seleccionarEmpleado" type="radio"
+                                 value = "1">
+                              <span class="radiomark"></span>
+                          </label>
+                          <label class="contenedorInputCheckRadio">Empleados por grupo de nómina
+                            <input formControlName="seleccionarEmpleado" #tipouno
+                                 name="seleccionarEmpleado" type="radio"
+                               value = "2">
+                            <span class="radiomark"></span>
+                        </label>
+                          <label class="contenedorInputCheckRadio">Por empleado
+                              <input formControlName="seleccionarEmpleado" #tipodos
+                                   name="seleccionarEmpleado" type="radio"
+                                 value = "3">
+                              <span class="radiomark"></span>
+                          </label>
+                      </div>
+              </div>
+              <div *ngIf="f.seleccionarEmpleado.value == '2'" class="input-group-sm mb-3 col-6">
+                <label for="exampleFormControlSelect1">Grupo de nómina *</label>
+                <select [class.is-invalid]="f.grupoNomina.errors && f.grupoNomina.touched" formControlName="grupoNomina" class="form-control">
+                    <option *ngFor="let item of arreglogruposnomina" [value]="item.id">{{item.nombre}}</option>
+                </select>
+                <div *ngIf="f.grupoNomina.errors && f.grupoNomina.touched" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="f.seleccionarEmpleado.value == '3'" class="input-group-sm mb-3 col-6">
+              <label for="exampleFormControlSelect1">Empleados *</label>
+              <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEmpleados($event)"></app-tag>
+          </div>
+
 
                     <div class=" input-group-sm col-12" style="display: none;">
                         <label for="contenido">Contenido de la noticia</label>

@@ -41,7 +41,7 @@ export class ConfiguracionesService {
 
   public notificaciones: number = 0;
 
-  
+
 
   public menu: boolean = false;
   public MENUPRINCIPAL:any = undefined;
@@ -53,7 +53,7 @@ export class ConfiguracionesService {
 
 
   public cambiarColor:Subject<any> = new Subject<any>();
-  
+
 
 
 
@@ -63,9 +63,9 @@ export class ConfiguracionesService {
   public static regexRFC = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
   /* public static regexRFCFisica = /^([A-ZÑ&]{4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/; */
   public static regexRFCFisica = /^(([A-Z]|[a-z]|'\'s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))$/;
-                                   
-  constructor() { 
-    
+
+  constructor() {
+
     ConfiguracionesService.referencia = this;
   }
 
@@ -113,7 +113,7 @@ export class ConfiguracionesService {
   public setElementosSesion(llave: string, datos: any) {
 
     let sesion = sessionStorage["sesion"];
-   
+
     if (Boolean(sesion)) {
       let bytes = CryptoJS.AES.decrypt(sesion, this.secretKey);
       let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
@@ -132,9 +132,9 @@ export class ConfiguracionesService {
 
 
   public traerDatosMenu(permisos: any, menu: any, version: number, esCliente?: boolean) {
-    debugger;
+
     let arreglo: [any] = menu;
-    
+
 
 
     arreglo.forEach((valor: any[any]) => {
@@ -180,7 +180,7 @@ export class ConfiguracionesService {
                     let bytes = CryptoJS.AES.decrypt(sessionStorage["usuario"], this.secretKey);
                     let textodesencriptado = bytes.toString(CryptoJS.enc.Utf8);
                     let usuario = JSON.parse(textodesencriptado);
-                    
+
                     usuario.esRecursosHumanos = true;
                     sessionStorage["usuario"] = CryptoJS.AES.encrypt(JSON.stringify(usuario), this.secretKey).toString();
 
@@ -244,8 +244,8 @@ export class ConfiguracionesService {
 
 
   public static establecerMenu(m:any){
-    debugger;
-    
+
+
     setTimeout(() => {
      ConfiguracionesService.referencia.accesoRuta = false;
      ConfiguracionesService.referencia.cargandomodulo = false;
