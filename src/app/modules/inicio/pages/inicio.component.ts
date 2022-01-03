@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
@@ -15,6 +15,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
 import { EmpleadosService } from '../../empleados/services/empleados.service';
+import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 
 @Component({
   selector: 'app-inicio',
@@ -50,6 +51,20 @@ export class InicioComponent implements OnInit   {
   public dataUrl: any = [];
   public iframe: string = '';
   public datosIframe: any = [];
+  public objFiltro: any = [];
+  public countBaja: number = 0;
+  public countExt: number = 0;
+  public proxVencer: number = 0;
+
+  public countExtSal: number = 0;
+  public proxVencerSal: number = 0;
+
+  public countExtAlt: number = 0;
+  public proxVencerAlt: number = 0;
+
+  public movbaja: string = '';
+  public modsalario: string = '';
+  public altarein: string = '';
 
   noticiasAdministrador: Noticia[] = [];
   noticiasEmpresa: Noticia[] = [];
@@ -72,13 +87,14 @@ export class InicioComponent implements OnInit   {
     private notificaciones:ServerSentEventService,
     private rolesPrd: RolesService,
     private authUsuarioPrd: UsuariosauthService,
-    private empleadosPrd:EmpleadosService
+    private empleadosPrd:EmpleadosService,
+    private empresasPrd: EmpresasService
     ) { }
 
 
   ngOnInit(): void {
 
-
+    this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
     this.authUsuarioPrd.getVersionByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       if(datos.datos !== undefined){
@@ -86,9 +102,9 @@ export class InicioComponent implements OnInit   {
         if(datos.datos.versionCosmonautId?.versionCosmonautId === 1){
           this.moduloId = true;
         }
-        else if(datos.datos.versionCosmonautId?.versionCosmonautId === 4){
-          this.moduloId = true;
-        }
+    /*         else if(datos.datos.versionCosmonautId?.versionCosmonautId === 4){
+            this.moduloId = true;
+          } */
         this.datosIframe = this.usuariosSistemaPrd.usuario;
 
         this.rolesPrd.getIframe(this.datosIframe.usuarioId,this.datosIframe.centrocClienteId,objVersion.versionCosmonautId).subscribe(datos => {
@@ -103,10 +119,51 @@ export class InicioComponent implements OnInit   {
 
     });
 
+    this.objFiltro = {
+      clienteId: this.idEmpresa,
+    };
 
 
+    this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
+      if(datos.datos !== undefined){
 
-    this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
+        for(let item of datos.datos){
+          if(item.movimientoImssId == 1){
+            this.movbaja = item.movimiento;
+            if(item.vigencia_movimiento === 'Extemporáneo'){
+              this.countExt = this.countExt + 1;
+            }
+            if(item.vigencia_movimiento === 'Próximo a vencer'){
+              this.proxVencer = this.proxVencer + 1;
+            }
+          }
+
+          if(item.movimientoImssId == 2){
+            this.modsalario = item.movimiento;
+            if(item.vigencia_movimiento === 'Extemporáneo'){
+              this.countExtSal = this.countExtSal + 1;
+            }
+            if(item.vigencia_movimiento === 'Próximo a vencer'){
+              this.proxVencerSal = this.proxVencerSal + 1;
+            }
+          }
+
+          if(item.movimientoImssId == 3){
+            this.altarein = item.movimiento;
+            if(item.vigencia_movimiento === 'Extemporáneo'){
+              this.countExtAlt = this.countExtAlt + 1;
+            }
+            if(item.vigencia_movimiento === 'Próximo a vencer'){
+              this.proxVencerAlt = this.proxVencerAlt + 1;
+            }
+          }
+
+        }
+      }
+
+
+    });
+
 
     if (this.puedeConsultarKiosko()) {
       this.empleadosPrd.getPersonaByCorreo(this.usuariosSistemaPrd.usuario.correo, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {

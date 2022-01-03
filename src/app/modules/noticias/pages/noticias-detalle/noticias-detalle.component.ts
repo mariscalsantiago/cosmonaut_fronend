@@ -432,7 +432,7 @@ export class NoticiasDetalleComponent implements OnInit {
       };
 
       console.log(JSON.stringify(json));
-      debugger;
+      
       this.serviceNoticias.editNoticia(json).subscribe((response) => {
         if (!!response.resultado) {
           this.servicioModales.showMessageDialog(
@@ -470,7 +470,7 @@ export class NoticiasDetalleComponent implements OnInit {
       };
 
       console.log(JSON.stringify(json));
-      debugger;
+      
       this.serviceNoticias.createNoticia(json).subscribe((response) => {
         if (!!response.resultado) {
           this.servicioModales.showMessageDialog(

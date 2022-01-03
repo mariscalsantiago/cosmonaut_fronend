@@ -230,7 +230,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     }
     else if(this.detCatalogos.listaCatalogosId == 15){
-      debugger;
+      
       this.id_catalogo = this.detCatalogos.descripcion?.toUpperCase();
       this.idCatalogo = this.objdetrep.clave;
       this.descripcion = this.objdetrep.tipoValorReferenciaId?.descripcion;
@@ -914,7 +914,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }  
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
