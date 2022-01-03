@@ -115,12 +115,14 @@ export class IDSEComponent implements OnInit {
         if(item.salario_diario !== undefined ){
           item.salarioDiario = item.salario_diario.toFixed(2);   
         }
-        if(item.es_activo){
-          item.esActivo = 'Activo';
-          }
-        else if(!item.es_activo){
-          item.esActivo = 'Inactivo';
-          }
+        if(item.es_activo !== undefined){
+          if(item.es_activo){
+            item.esActivo = 'Activo';
+            }
+          else if(!item.es_activo){
+            item.esActivo = 'Inactivo';
+            }
+        }  
       }
     }
 
