@@ -109,6 +109,18 @@ export class NoticiasDetalleComponent implements OnInit {
           this.llenarFormulario();
           this.validarImagen();
           this.companiasenviar = this.editando?.centrocClienteId || [];
+          let personasEnviar = this.editando?.personasId || [];
+          debugger;
+          for(let item of personasEnviar){
+            item['nombre'] =
+            item.nombre +
+            ' ' +
+            item.apellidoPaterno +
+            ' ' +
+            (item.apellidoMaterno || '');
+          }
+
+          this.empleadoEnviar = personasEnviar;
 
           this.servicioModales.showMessageDialog(
             this.servicioModales.loadingfinish
@@ -391,8 +403,9 @@ export class NoticiasDetalleComponent implements OnInit {
     } else {
       companysend.push(this.serviceUsuario.getIdEmpresa());
 
+      debugger;
       for(let item of this.empleadoEnviar){
-        empleadosSend.push(item.personaId.personaId);
+        empleadosSend.push(item.personaId.personaId || item.personaId);
       }
     }
 
@@ -414,8 +427,8 @@ export class NoticiasDetalleComponent implements OnInit {
         enlace: this.formulario.controls.enlace.value,
         todos: this.formulario.controls.seleccionarEmpresa.value == '1',
         todosEmpleados:this.formulario.controls.seleccionarEmpleado.value == '1',
-        empleadosId:[this.empleadoEnviar],
-        grupoNominaId:this.formulario.controls.seleccionarEmpleado.value !== '2'?undefined:this.formulario.controls.grupoNomina.value
+        personasId:empleadosSend,
+        grupoNominaId:this.formulario.controls.seleccionarEmpleado.value !== '2' && this.formulario.controls.seleccionarEmpleado.value !== '1'?undefined:this.formulario.controls.grupoNomina.value
       };
 
       console.log(JSON.stringify(json));
@@ -452,8 +465,8 @@ export class NoticiasDetalleComponent implements OnInit {
         enlace: this.formulario.controls.enlace.value,
         todos: this.formulario.controls.seleccionarEmpresa.value == '1',
         todosEmpleados:this.formulario.controls.seleccionarEmpleado.value == '1',
-        empleadosId:empleadosSend,
-        grupoNominaId:this.formulario.controls.seleccionarEmpleado.value !== '2'?undefined:this.formulario.controls.grupoNomina.value
+        personasId:empleadosSend,
+        grupoNominaId:this.formulario.controls.seleccionarEmpleado.value !== '2' && this.formulario.controls.seleccionarEmpleado.value !== '1'?undefined:this.formulario.controls.grupoNomina.value
       };
 
       console.log(JSON.stringify(json));

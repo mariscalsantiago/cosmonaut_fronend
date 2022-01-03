@@ -21,5 +21,6 @@ export interface Noticia {
     todosEmpleados?:boolean,
     grupoNominaId?:number,
     centrocClienteId?:Array<any>,
-    enlace?:string
+    enlace?:string,
+    personasId?:Array<any>
 }

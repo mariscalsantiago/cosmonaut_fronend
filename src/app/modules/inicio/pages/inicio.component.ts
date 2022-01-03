@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
@@ -14,6 +14,7 @@ import { NoticiasService } from './../../noticias/services/noticias.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
+import { EmpleadosService } from '../../empleados/services/empleados.service';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 
 @Component({
@@ -50,7 +51,7 @@ export class InicioComponent implements OnInit   {
   public dataUrl: any = [];
   public iframe: string = '';
   public datosIframe: any = [];
-  public objFiltro: any = [];    
+  public objFiltro: any = [];
   public countBaja: number = 0;
   public countExt: number = 0;
   public proxVencer: number = 0;
@@ -86,6 +87,7 @@ export class InicioComponent implements OnInit   {
     private notificaciones:ServerSentEventService,
     private rolesPrd: RolesService,
     private authUsuarioPrd: UsuariosauthService,
+    private empleadosPrd:EmpleadosService,
     private empresasPrd: EmpresasService
     ) { }
 
@@ -120,7 +122,7 @@ export class InicioComponent implements OnInit   {
     this.objFiltro = {
       clienteId: this.idEmpresa,
     };
-    
+
 
     this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
       if(datos.datos !== undefined){
@@ -134,8 +136,8 @@ export class InicioComponent implements OnInit   {
             if(item.vigencia_movimiento === 'Próximo a vencer'){
               this.proxVencer = this.proxVencer + 1;
             }
-          } 
-          
+          }
+
           if(item.movimientoImssId == 2){
             this.modsalario = item.movimiento;
             if(item.vigencia_movimiento === 'Extemporáneo'){
@@ -144,7 +146,7 @@ export class InicioComponent implements OnInit   {
             if(item.vigencia_movimiento === 'Próximo a vencer'){
               this.proxVencerSal = this.proxVencerSal + 1;
             }
-          } 
+          }
 
           if(item.movimientoImssId == 3){
             this.altarein = item.movimiento;
@@ -154,54 +156,61 @@ export class InicioComponent implements OnInit   {
             if(item.vigencia_movimiento === 'Próximo a vencer'){
               this.proxVencerAlt = this.proxVencerAlt + 1;
             }
-          } 
+          }
 
         }
       }
-  
+
 
     });
-   
+
 
     if (this.puedeConsultarKiosko()) {
+      this.empleadosPrd.getPersonaByCorreo(this.usuariosSistemaPrd.usuario.correo, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        if (!datos.resultado) {
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        } else {
+          let idPersona = datos.datos.personaId;
+          this.serviceNoticia.getNoticiasEmpleado(this.idEmpresa,this.usuariosSistemaPrd.usuario.centrocClienteIdPadre,idPersona).subscribe(
 
-      this.serviceNoticia.getNoticiasEmpleado(this.idEmpresa,this.usuariosSistemaPrd.usuario.centrocClienteIdPadre,this.usuariosSistemaPrd.usuario.usuarioId).subscribe(
+            (response) => {
 
-        (response) => {
+              //console.log(response);
+              if (!!response.resultado) {
 
-          //console.log(response);
-          if (!!response.resultado) {
-
-            if (!!response.datos.noticiasCosmonaut) {
-              (response.datos.noticiasCosmonaut as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
-                this.noticiasAdministrador.push(noticia);
-              });
-            }
-
-            if (!!response.datos.noticiasGeneral) {
-              (response.datos.noticiasGeneral as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
-
-                switch (noticia.categoriaId.categoriaNoticiaId) {
-                  case 1:
-                    this.noticiasEmpresa.push(noticia);
-                    break;
-                  case 2:
-                  case 3:
-                  case 4:
-                    this.noticiasListado.push(noticia);
-                    break;
-                  case 5:
-                  case 6:
-                    this.noticiasCursos.push(noticia);
-                    break;
-                  default:
-                    break;
+                if (!!response.datos.noticiasCosmonaut) {
+                  (response.datos.noticiasCosmonaut as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
+                    this.noticiasAdministrador.push(noticia);
+                  });
                 }
-              });
+
+                if (!!response.datos.noticiasGeneral) {
+                  (response.datos.noticiasGeneral as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
+
+                    switch (noticia.categoriaId.categoriaNoticiaId) {
+                      case 1:
+                        this.noticiasEmpresa.push(noticia);
+                        break;
+                      case 2:
+                      case 3:
+                      case 4:
+                        this.noticiasListado.push(noticia);
+                        break;
+                      case 5:
+                      case 6:
+                        this.noticiasCursos.push(noticia);
+                        break;
+                      default:
+                        break;
+                    }
+                  });
+                }
+              }
             }
-          }
+          );
         }
-      );
+      });
+
     }
 
     if (this.configuracionPrd.VISTOS_RECIENTE.length != 0) {
