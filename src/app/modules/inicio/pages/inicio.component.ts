@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { ContenidoComponent } from 'src/app/layout/contenido/contenido/contenido.component';
@@ -15,6 +15,8 @@ import { NoticiasService } from './../../noticias/services/noticias.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
+import { EmpleadosService } from '../../empleados/services/empleados.service';
+import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
 
 @Component({
   selector: 'app-inicio',
@@ -47,9 +49,23 @@ export class InicioComponent implements OnInit   {
   public vistosRecientesFinal: any = [];
   public arreglosIdSubmodulo: any = [];
   public contratoDesc: string | undefined;
-  public dataUrl: any = []; 
+  public dataUrl: any = [];
   public iframe: string = '';
   public datosIframe: any = [];
+  public objFiltro: any = [];
+  public countBaja: number = 0;
+  public countExt: number = 0;
+  public proxVencer: number = 0;
+
+  public countExtSal: number = 0;
+  public proxVencerSal: number = 0;
+
+  public countExtAlt: number = 0;
+  public proxVencerAlt: number = 0;
+
+  public movbaja: string = '';
+  public modsalario: string = '';
+  public altarein: string = '';
 
   noticiasAdministrador: Noticia[] = [];
   noticiasEmpresa: Noticia[] = [];
@@ -73,29 +89,32 @@ export class InicioComponent implements OnInit   {
     private usuariosSistemaPrd: UsuarioSistemaService,
     public ContenidoComponent: ContenidoComponent,
     public configuracionPrd: ConfiguracionesService,
-    private notificaciones:ServerSentEventService, 
+    private notificaciones:ServerSentEventService,
     private rolesPrd: RolesService,
-    private authUsuarioPrd: UsuariosauthService
+    private authUsuarioPrd: UsuariosauthService,
+    private empleadosPrd:EmpleadosService,
+    private empresasPrd: EmpresasService
     ) { }
 
 
   ngOnInit(): void {
 
- 
+    debugger;
+
     this.authUsuarioPrd.getVersionByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       if(datos.datos !== undefined){
         let objVersion = datos.datos.versionCosmonautId;
         if(datos.datos.versionCosmonautId?.versionCosmonautId === 1){
           this.moduloId = true;
         }
-        else if(datos.datos.versionCosmonautId?.versionCosmonautId === 4){
-          this.moduloId = true;
-        }
+    /*         else if(datos.datos.versionCosmonautId?.versionCosmonautId === 4){
+            this.moduloId = true;
+          } */
         this.datosIframe = this.usuariosSistemaPrd.usuario;
 
         this.rolesPrd.getIframe(this.datosIframe.usuarioId,this.datosIframe.centrocClienteId,objVersion.versionCosmonautId).subscribe(datos => {
-          if(datos.datos !== undefined){  
-            this.iframe = datos.datos;  
+          if(datos.datos !== undefined){
+            this.iframe = datos.datos;
             //'https://datastudio.google.com/embed/reporting/d60a5a01-b359-4963-82af-e67370d81203/page/odxgC';
             this.cargando = true;
             this.url = this._sanitizer.bypassSecurityTrustResourceUrl(this.iframe);
@@ -104,32 +123,53 @@ export class InicioComponent implements OnInit   {
       }
 
     });
-    
+
+    this.objFiltro = {
+      clienteId: this.idEmpresa,
+    };
 
 
+    this.empresasPrd.filtrarIDSE(this.objFiltro).subscribe(datos => {
+      if(datos.datos !== undefined){
 
-    this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
+        for(let item of datos.datos){
+          if(item.movimientoImssId == 1){
+            this.movbaja = item.movimiento;
+            if(item.vigencia_movimiento === 'Extemporáneo'){
+              this.countExt = this.countExt + 1;
+            }
+            if(item.vigencia_movimiento === 'Próximo a vencer'){
+              this.proxVencer = this.proxVencer + 1;
+            }
+          }
 
-    if (this.puedeConsultarKiosko()) {
+          if(item.movimientoImssId == 2){
+            this.modsalario = item.movimiento;
+            if(item.vigencia_movimiento === 'Extemporáneo'){
+              this.countExtSal = this.countExtSal + 1;
+            }
+            if(item.vigencia_movimiento === 'Próximo a vencer'){
+              this.proxVencerSal = this.proxVencerSal + 1;
+            }
+          }
 
-      this.serviceNoticia.getNoticiasEmpleado(this.idEmpresa).subscribe(
+          if(item.movimientoImssId == 3){
+            this.altarein = item.movimiento;
+            if(item.vigencia_movimiento === 'Extemporáneo'){
+              this.countExtAlt = this.countExtAlt + 1;
+            }
+            if(item.vigencia_movimiento === 'Próximo a vencer'){
+              this.proxVencerAlt = this.proxVencerAlt + 1;
+            }
+          }
 
-        (response) => {
-
-          console.log(response);
+          //console.log(response);
           if (!!response.resultado) {
 
-            if (!!response.datos.noticiasCosmonaut) {
-              (response.datos.noticiasCosmonaut as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
-                this.noticiasAdministrador.push(noticia);
-              });
-            }
 
             if (!!response.datos.noticiasGeneral) {
               (response.datos.noticiasGeneral as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
-                debugger;
-                let cont : any;
-                cont= 0;
+
                 switch (noticia.categoriaId.categoriaNoticiaId) {
                   case 1:
                     this.noticiasEmpresa.push(noticia);
@@ -138,16 +178,6 @@ export class InicioComponent implements OnInit   {
                   case 3:
                   case 4:
                     this.noticiasListado.push(noticia);
-                    let tempo:GeneralSinGrupos;         
-                      tempo = {   // OK
-                        noticiaId:noticia.noticiaId,
-                        categoria:noticia.categoriaId.nombre,                        
-                        titulo:noticia.titulo,
-                        subtitulo:noticia.subtitulo,
-
-                    }                                                                                            
-                    this.noticiasAgrupado.push(tempo);
-                    
                     break;
                   case 5:
                   case 6:
@@ -157,37 +187,11 @@ export class InicioComponent implements OnInit   {
                     break;
                 }
               });
-
-              //notiAgrupadoArray: NoticiaAgrupado[] = [];
-              //auxNoti: NoticiaAgrupado | undefined;
-              //auxNotiArray: NoticiaAgrupado[] | undefined;
-              debugger;
-
-              this.noticiasAgrupado.forEach((item) => {
-                // obtenemos la formula si ya esta en el array de formulas
-                this.auxNotiArray = this.notiAgrupadoArray.filter((auxNoti) => auxNoti.categoria === item.categoria);
-         
-                this.auxNoti = this.auxNotiArray.length === 0 ? undefined : this.auxNotiArray[0];
-               // si no existe creamos la formula y la añadimos al array
-               if (!this.auxNoti) {
-                this.auxNoti = new NoticiaAgrupado(item.noticiaId!, item.categoria);
-                this.auxNotiArray.push(this.auxNoti);
-               }
-         
-               // si ya existe el medicamento dentro de la formula pasamos al siguiente medicamento
-               if (this.auxNoti.detalles.filter((detalles) => detalles.titulo === item.titulo).length > 0) {
-                 return;
-               }
-         
-               // si no existe el medicamento lo añadimos en la formula
-               this.auxNoti.addDetalleso(new DetalleGrupos(item.titulo!, item.subtitulo));
-             });
-
-
             }
-          }
+          );
         }
-      );
+      });
+
     }
 
     if (this.configuracionPrd.VISTOS_RECIENTE.length != 0) {
@@ -326,7 +330,7 @@ export class InicioComponent implements OnInit   {
   }
 
   public enbase() {
-    
+
     let mm:any = document.getElementById("ventanaEmergente");
     mm.style.display = "block"
 

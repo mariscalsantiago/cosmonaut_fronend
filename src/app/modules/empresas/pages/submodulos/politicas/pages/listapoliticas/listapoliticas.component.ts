@@ -75,11 +75,11 @@ export class ListapoliticasComponent implements OnInit {
     this.cargando = true;
 
     this.CanRouterPrd.params.subscribe(datos => {
-      
+
 
       this.id_empresa = datos["id"]
       this.politicasProd.getAllPol(this.id_empresa).subscribe(datos => {
-        
+
         this.traerdatosTabla(datos);
       });
 
@@ -196,7 +196,7 @@ export class ListapoliticasComponent implements OnInit {
 
   }
   public traerModalEmpleo(indice: any) {
-    debugger;
+
     this.arreglodetalleemp = [];
     let elemento: any = document.getElementById("vetanaprincipaltabla")
     this.aparecemodalitoempleado = true;
@@ -233,7 +233,7 @@ export class ListapoliticasComponent implements OnInit {
       if (this.arreglodetalleemp !== undefined){
         for (let item of this.arreglodetalleemp){
           item.nombrecompleto = `${item.nombre == undefined ? '':item.nombre} ${item.apellidoPat == undefined ? '':item.apellidoPat} ${item.apellidoMat == undefined ? '':item.apellidoMat}`;
-          
+
         }
       }
     });
@@ -265,7 +265,7 @@ export class ListapoliticasComponent implements OnInit {
         this.eliminar(obj.datos);
         break;
       case "desglosar":
-        
+
         let columnas: Array<tabla> = [
           new tabla("diasEconomicos", "Días económicos"),
           new tabla("primaAniversariodescripcion", "Prima vacacional"),
@@ -285,12 +285,12 @@ export class ListapoliticasComponent implements OnInit {
         item.descuentoPropDiadescripcion = (item.descuentoPropDia)?'Si':'No';
         item.calculoAntiguedadxdescripcion = (item.calculoAntiguedadId==2)?'Fecha de ingreso':'Fecha de antigüedad';
 
-          
-       
+
+
         this.arreglotablaDesglose.columnas = columnas;
         this.arreglotablaDesglose.filas = item;
         item.cargandoDetalle = false;
-        
+
         break;
       case "tablabeneficio":
         this.traerModal(obj.datos);

@@ -94,7 +94,8 @@ export class IDSEComponent implements OnInit {
       new tabla("sbcDecimal", "SBC"),
       new tabla("movimiento", "Movimiento"),
       new tabla("fechamovimiento", "Fecha de movimiento"),
-      new tabla("estatus", "Estatus de movimiento")
+      new tabla("esActivo", "Estatus de movimiento"),
+      new tabla("vigencia_movimiento", "Vigencia de movimiento")
     ];
 
     this.arreglotabla = {
@@ -106,18 +107,20 @@ export class IDSEComponent implements OnInit {
       for(let item of this.arreglo){
         if(item.fecha_movimiento !== undefined ){
         item.fechamovimiento = new DatePipe("es-MX").transform(item.fecha_movimiento, 'dd-MMM-y')?.replace(".","");
-        item.sbcDecimal = item.sbc.toFixed(2);  
-        item.salarioDiario = item.salario_diario.toFixed(2);
         item.nombre = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
-        item.esActivo = item.es_activo;
-        if(item.esActivo){
+        }
+        if(item.sbc !== undefined ){
+          item.sbcDecimal = item.sbc.toFixed(2);   
+        }
+        if(item.salario_diario !== undefined ){
+          item.salarioDiario = item.salario_diario.toFixed(2);   
+        }
+        if(item.es_activo){
           item.esActivo = 'Activo';
           }
-        else if(!item.esActivo){
+        else if(!item.es_activo){
           item.esActivo = 'Inactivo';
           }
-
-        }
       }
     }
 

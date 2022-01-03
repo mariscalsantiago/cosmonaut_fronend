@@ -23,7 +23,7 @@ export class FormEmpleadoComponent implements OnInit {
     { tab: true, form: true, disabled: false,seleccionado:true },
     { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false ,seleccionado:false},
-    { tab: false, form: false, disabled: false,seleccionado:false },   
+    { tab: false, form: false, disabled: false,seleccionado:false },
     { tab: false, form: false, disabled: false ,seleccionado:false},
     { tab: false, form: false, disabled: false ,seleccionado:false}
   ];
@@ -34,7 +34,7 @@ export class FormEmpleadoComponent implements OnInit {
   public cargandoIcon: boolean = false;
   public tabsEnviar: any = [{}, [{}], {}];
   public insertar: boolean = true;
-  public distEmpleado: boolean = true; 
+  public distEmpleado: boolean = true;
   public elEmpleado:any = {
     url:"assets/imgs/usuario.png"
   };
@@ -58,23 +58,23 @@ export class FormEmpleadoComponent implements OnInit {
     private ventana:VentanaemergenteService,private modalPrd:ModalService,public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
-    
+
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
-    
+
     let temp =  history.state.datos;
 
-    
+
     if(temp !== undefined){
       this.distEmpleado = false;
       this.titulo = "COMPLETAR DATOS DEL EMPLEADO";
       this.datosPersona = temp;
       this.datosPersona.insertar = history.state.insertar;
       this.datosPersona.reactivarCuenta = history.state.reactivarCuenta;
-     
+
       this.tabsEnviar[0] = temp;
       this.domicilioPrd.getDomicilioPorEmpleado(this.datosPersona.personaId).subscribe(datosdomicilio =>{
-        
+
 
           this.tabsEnviar[1] = datosdomicilio.datos;
           this.activado[3].tab = Boolean(this.tabsEnviar[1]);
@@ -85,7 +85,7 @@ export class FormEmpleadoComponent implements OnInit {
      // this.activado[3].tab = true; //Temporal
 
       //this.tabsEnviar[3] = temp;
-      
+
       if(this.datosPersona?.reactivarCuenta){
         this.titulo = "REACTIVACIÓN DEL EMPLEADO";
         this.activado[0].form = false;
@@ -126,7 +126,7 @@ export class FormEmpleadoComponent implements OnInit {
     this.routerPrd.navigate(['/empleados/empleadosincompletos']);
   }
   public recibir(elemento: any) {
-    debugger;
+
     switch (elemento.type) {
       case "informacion":
         this.datosPersona = elemento.datos;
@@ -148,7 +148,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.activado[3].disabled = false;
         this.activado[1].form = false;
         this.activado[1].seleccionado = false;
-        
+
         this.tabsEnviar[1] = elemento.datos;
 
         this.ocultarempleada = false;
@@ -165,24 +165,24 @@ export class FormEmpleadoComponent implements OnInit {
         break;
 
       case "empleo":
-       
+
         this.ocultarDetalleTransfrencia = elemento.metodopago.metodoPagoId !== 4;
         this.datosPersona.contratoColaborador = elemento.datos;
         this.datosPersona.metodopago = elemento.metodopago;
         this.datosPersona.tieneContrato = true;
 
-        
-        
+
+
         this.tabsEnviar[3] = elemento.datos;
         this.tabsEnviar[0].tieneContrato = true;
 
         this.empleadosPrd.getPorcentajeavance(this.datosPersona.personaId).subscribe(datos => {
-          
+
           this.porcentaje = datos;
-         
+
         });
-               
-        
+
+
         if (!this.ocultarDetalleTransfrencia) {
           this.activado[4].tab = true;
           this.activado[4].form = true;
@@ -238,12 +238,12 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   public recibiendoUserInsertado(evento: any) {
-    
+
     this.datosPersona = evento;
   }
 
 
-  
+
 
   public iniciarDescarga() {
     this.cargandoIcon = true;
@@ -283,7 +283,7 @@ export class FormEmpleadoComponent implements OnInit {
   }
 
 
-  public backTab(numero: number) { 
+  public backTab(numero: number) {
 
     if (!this.activado[numero].tab) return;
 
@@ -311,7 +311,7 @@ export class FormEmpleadoComponent implements OnInit {
             this.empleadosPrd.update(objEnviar).subscribe(actualizado =>{
               this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
               this.modalPrd.showMessageDialog(actualizado.resultado,actualizado.mensaje);
-              
+
             });
           });
       }

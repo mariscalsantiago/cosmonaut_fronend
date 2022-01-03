@@ -101,7 +101,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   constructor(private configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
-    
+
 
 
     this.numeroitems = Number(this.configuracionPrd.getElementosSesionDirecto(this.configuracionPrd.ELEMENTOSTABLA) || "5");
@@ -118,7 +118,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   public cambia() {
-    
+
 
     if (!this.paginado_server) {
       this.paginar();
@@ -150,7 +150,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    
+
     if (this.paginado_server) {
       if (this.datos?.reiniciar) {
         this.arreglo = undefined;
@@ -197,7 +197,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   public paginar() {
-    
+
     this.arreglopaginas = [];
 
 
@@ -407,7 +407,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     this.salida.emit({ type: "ver", datos: item, indice: indice });
   }
   public btnLlave(item: any, indice: number) {
-    
+
     this.salida.emit({ type: "llave", datos: item, indice: indice });
   }
 
@@ -483,13 +483,14 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   }
 
   public ordenar(item: any) {
-    
+
     item.acomodar = item.acomodar == undefined ? true : !item.acomodar;
 
     let i, j;
     let aux;
     let llave = item.id;
-    if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio') || llave.includes('fechaFin')) {
+
+    if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio') || llave.includes('fechaFin') || llave.includes('fecha')) {
       for (i = 0; i < this.arreglotemp.length; i++) {
         j = i;
         aux = this.arreglotemp[i];
@@ -514,27 +515,30 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
           fechaFinDescu.setFullYear(this.anio, this.mes - 1, this.dia);
 
           aux[llave] = String(new DatePipe("es-MX").transform(fechaFinDescu, "yyyy-MM-dd"));
-          
+
         }
       }
     }
     this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
 
-    for (i = 0; i < this.arreglotemp.length; i++) {
+    if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio') || llave.includes('fechaFin') || llave.includes('fecha')) {
+      for (i = 0; i < this.arreglotemp.length; i++) {
 
-      j = i;
-      aux = this.arreglotemp[i];
-      let fechar: string = '';
-      fechar = aux[llave].split("-");
-      if (fechar.length == 3) {
-        aux[llave] = new DatePipe("es-MX").transform(aux[llave], 'dd-MMM-y')?.replace(".","");
-        
+        j = i;
+        aux = this.arreglotemp[i];
+        let fechar: string = '';
+        fechar = aux[llave].split("-");
+        if (fechar.length == 3) {
+          aux[llave] = new DatePipe("es-MX").transform(aux[llave], 'dd-MMM-y')?.replace(".","");
+
+        }
       }
     }
     this.paginar();
   }
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
+
 
     let i, j;
     let aux;

@@ -93,7 +93,7 @@
                             [src]="rutaimagenes[icondefault]" class="tableimg">
                     </td>
                     <td class="wrap" *ngFor="let item2 of datos.columnas" [class.td-center]="item2.id | centrar"
-                        [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo'}"
+                        [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo', 'derecha':item2.derecha || item2.id == 'pagoComplementario'}"
                         (click)="eventoclick(item2,item,indice)">{{(item2.nombre ==
                         'Estatus')?(item[item2.id]==true)?'Activo':'Inactivo':item[item2.id]}}
                     </td>
