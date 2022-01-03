@@ -14,6 +14,7 @@ import { NoticiasService } from './../../noticias/services/noticias.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
+import { EmpleadosService } from '../../empleados/services/empleados.service';
 
 @Component({
   selector: 'app-inicio',
@@ -70,7 +71,8 @@ export class InicioComponent implements OnInit   {
     public configuracionPrd: ConfiguracionesService,
     private notificaciones:ServerSentEventService,
     private rolesPrd: RolesService,
-    private authUsuarioPrd: UsuariosauthService
+    private authUsuarioPrd: UsuariosauthService,
+    private empleadosPrd:EmpleadosService
     ) { }
 
 
@@ -107,44 +109,51 @@ export class InicioComponent implements OnInit   {
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
     if (this.puedeConsultarKiosko()) {
+      this.empleadosPrd.getPersonaByCorreo(this.usuariosSistemaPrd.usuario.correo, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        if (!datos.resultado) {
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        } else {
+          let idPersona = datos.datos.personaId;
+          this.serviceNoticia.getNoticiasEmpleado(this.idEmpresa,this.usuariosSistemaPrd.usuario.centrocClienteIdPadre,idPersona).subscribe(
 
-      this.serviceNoticia.getNoticiasEmpleado(this.idEmpresa,this.usuariosSistemaPrd.usuario.centrocClienteIdPadre,this.usuariosSistemaPrd.usuario.usuarioId).subscribe(
+            (response) => {
 
-        (response) => {
+              //console.log(response);
+              if (!!response.resultado) {
 
-          //console.log(response);
-          if (!!response.resultado) {
-
-            if (!!response.datos.noticiasCosmonaut) {
-              (response.datos.noticiasCosmonaut as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
-                this.noticiasAdministrador.push(noticia);
-              });
-            }
-
-            if (!!response.datos.noticiasGeneral) {
-              (response.datos.noticiasGeneral as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
-
-                switch (noticia.categoriaId.categoriaNoticiaId) {
-                  case 1:
-                    this.noticiasEmpresa.push(noticia);
-                    break;
-                  case 2:
-                  case 3:
-                  case 4:
-                    this.noticiasListado.push(noticia);
-                    break;
-                  case 5:
-                  case 6:
-                    this.noticiasCursos.push(noticia);
-                    break;
-                  default:
-                    break;
+                if (!!response.datos.noticiasCosmonaut) {
+                  (response.datos.noticiasCosmonaut as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
+                    this.noticiasAdministrador.push(noticia);
+                  });
                 }
-              });
+
+                if (!!response.datos.noticiasGeneral) {
+                  (response.datos.noticiasGeneral as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
+
+                    switch (noticia.categoriaId.categoriaNoticiaId) {
+                      case 1:
+                        this.noticiasEmpresa.push(noticia);
+                        break;
+                      case 2:
+                      case 3:
+                      case 4:
+                        this.noticiasListado.push(noticia);
+                        break;
+                      case 5:
+                      case 6:
+                        this.noticiasCursos.push(noticia);
+                        break;
+                      default:
+                        break;
+                    }
+                  });
+                }
+              }
             }
-          }
+          );
         }
-      );
+      });
+
     }
 
     if (this.configuracionPrd.VISTOS_RECIENTE.length != 0) {

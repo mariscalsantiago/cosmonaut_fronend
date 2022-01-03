@@ -154,7 +154,7 @@
             </div>
             <div *ngIf="f.seleccionarEmpleado.value == '3'" class="input-group-sm mb-3 col-6">
               <label for="exampleFormControlSelect1">Empleados *</label>
-              <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" (salida)="recibirEmpleados($event)"></app-tag>
+              <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" [arregloEtiquetas]="empleadoEnviar"  (salida)="recibirEmpleados($event)"></app-tag>
           </div>
 
 

@@ -8,8 +8,8 @@ export const environment = {
   rutaCatalogos:'/catalogos',
   rutaNomina:'/nomina',
   //rutaNomina:'http://8750-2806-107e-20-3c25-2d18-86ba-692d-175a.ngrok.io',
-  //rutaAdmin: 'http://192.168.0.33:8080',
-  rutaAdmin: '/admin',
+  rutaAdmin: 'http://192.168.0.33:8080',
+  //rutaAdmin: '/admin',
   rutaReportes:'/reportes',
   rutaSocket:'wss://cosmonautdev.wintermute.services/empresa',
   //rutaSocket:'ws://192.168.1.67:8080'
