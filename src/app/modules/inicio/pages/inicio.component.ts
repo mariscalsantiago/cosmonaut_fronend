@@ -10,6 +10,7 @@ import { ServerSentEventService } from 'src/app/shared/services/nominas/server-s
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { Noticia } from './../../../core/modelos/noticia';
+import { GeneralSinGrupos } from './../../../core/modelos/generalSinGrupo';
 import { NoticiasService } from './../../noticias/services/noticias.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
@@ -55,6 +56,10 @@ export class InicioComponent implements OnInit   {
   noticiasListado: Noticia[] = [];
   noticiasCursos: Noticia[] = [];
 
+  noticiasAgrupado: GeneralSinGrupos[] = [];
+  notiAgrupadoArray: NoticiaAgrupado[] = [];
+  auxNoti: NoticiaAgrupado | undefined;
+  auxNotiArray: NoticiaAgrupado[] | undefined;
   public url!: SafeResourceUrl;
 
   constructor(
@@ -76,8 +81,7 @@ export class InicioComponent implements OnInit   {
 
   ngOnInit(): void {
 
-    debugger;
-
+ 
     this.authUsuarioPrd.getVersionByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       if(datos.datos !== undefined){
         let objVersion = datos.datos.versionCosmonautId;
@@ -112,7 +116,7 @@ export class InicioComponent implements OnInit   {
 
         (response) => {
 
-          //console.log(response);
+          console.log(response);
           if (!!response.resultado) {
 
             if (!!response.datos.noticiasCosmonaut) {
@@ -123,7 +127,9 @@ export class InicioComponent implements OnInit   {
 
             if (!!response.datos.noticiasGeneral) {
               (response.datos.noticiasGeneral as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
-
+                debugger;
+                let cont : any;
+                cont= 0;
                 switch (noticia.categoriaId.categoriaNoticiaId) {
                   case 1:
                     this.noticiasEmpresa.push(noticia);
@@ -132,6 +138,16 @@ export class InicioComponent implements OnInit   {
                   case 3:
                   case 4:
                     this.noticiasListado.push(noticia);
+                    let tempo:GeneralSinGrupos;         
+                      tempo = {   // OK
+                        noticiaId:noticia.noticiaId,
+                        categoria:noticia.categoriaId.nombre,                        
+                        titulo:noticia.titulo,
+                        subtitulo:noticia.subtitulo,
+
+                    }                                                                                            
+                    this.noticiasAgrupado.push(tempo);
+                    
                     break;
                   case 5:
                   case 6:
@@ -141,6 +157,33 @@ export class InicioComponent implements OnInit   {
                     break;
                 }
               });
+
+              //notiAgrupadoArray: NoticiaAgrupado[] = [];
+              //auxNoti: NoticiaAgrupado | undefined;
+              //auxNotiArray: NoticiaAgrupado[] | undefined;
+              debugger;
+
+              this.noticiasAgrupado.forEach((item) => {
+                // obtenemos la formula si ya esta en el array de formulas
+                this.auxNotiArray = this.notiAgrupadoArray.filter((auxNoti) => auxNoti.categoria === item.categoria);
+         
+                this.auxNoti = this.auxNotiArray.length === 0 ? undefined : this.auxNotiArray[0];
+               // si no existe creamos la formula y la añadimos al array
+               if (!this.auxNoti) {
+                this.auxNoti = new NoticiaAgrupado(item.noticiaId!, item.categoria);
+                this.auxNotiArray.push(this.auxNoti);
+               }
+         
+               // si ya existe el medicamento dentro de la formula pasamos al siguiente medicamento
+               if (this.auxNoti.detalles.filter((detalles) => detalles.titulo === item.titulo).length > 0) {
+                 return;
+               }
+         
+               // si no existe el medicamento lo añadimos en la formula
+               this.auxNoti.addDetalleso(new DetalleGrupos(item.titulo!, item.subtitulo));
+             });
+
+
             }
           }
         }
