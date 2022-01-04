@@ -1,4 +1,6 @@
-class NoticiaAgrupado {
+import { DetalleGrupos } from './detalleGrupos';
+
+export class NoticiaAgrupado {
     noticiaId: number;
     categoria: string | undefined;   
     detalles:DetalleGrupos[]=[];

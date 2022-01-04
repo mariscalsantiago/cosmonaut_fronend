@@ -10,13 +10,16 @@ import { ServerSentEventService } from 'src/app/shared/services/nominas/server-s
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { Noticia } from './../../../core/modelos/noticia';
-import { GeneralSinGrupos } from './../../../core/modelos/generalSinGrupo';
 import { NoticiasService } from './../../noticias/services/noticias.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuariosauth.service';
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
 import { EmpleadosService } from '../../empleados/services/empleados.service';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
+import { GeneralSinGrupos } from './../../../core/modelos/generalSinGrupo';
+import { NoticiaAgrupado } from './../../../core/modelos/noticiaAgrupado';
+import { DetalleGrupos } from './../../../core/modelos/detalleGrupos';
+
 
 @Component({
   selector: 'app-inicio',
@@ -72,10 +75,11 @@ export class InicioComponent implements OnInit   {
   noticiasListado: Noticia[] = [];
   noticiasCursos: Noticia[] = [];
 
-  noticiasAgrupado: GeneralSinGrupos[] = [];
+  noticiasAgrupado:  GeneralSinGrupos[] = [];
   notiAgrupadoArray: NoticiaAgrupado[] = [];
   auxNoti: NoticiaAgrupado | undefined;
   auxNotiArray: NoticiaAgrupado[] | undefined;
+
   public url!: SafeResourceUrl;
 
   constructor(
@@ -99,7 +103,7 @@ export class InicioComponent implements OnInit   {
 
   ngOnInit(): void {
 
-    debugger;
+    this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
 
     this.authUsuarioPrd.getVersionByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       if(datos.datos !== undefined){
@@ -163,30 +167,93 @@ export class InicioComponent implements OnInit   {
             }
           }
 
-          //console.log(response);
-          if (!!response.resultado) {
+        }
+      }
 
 
-            if (!!response.datos.noticiasGeneral) {
-              (response.datos.noticiasGeneral as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
+    });
 
-                switch (noticia.categoriaId.categoriaNoticiaId) {
-                  case 1:
-                    this.noticiasEmpresa.push(noticia);
-                    break;
-                  case 2:
-                  case 3:
-                  case 4:
-                    this.noticiasListado.push(noticia);
-                    break;
-                  case 5:
-                  case 6:
-                    this.noticiasCursos.push(noticia);
-                    break;
-                  default:
-                    break;
+
+    if (this.puedeConsultarKiosko()) {
+      this.empleadosPrd.getPersonaByCorreo(this.usuariosSistemaPrd.usuario.correo, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+        if (!datos.resultado) {
+          this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+        } else {
+          let idPersona = datos.datos.personaId;
+          this.serviceNoticia.getNoticiasEmpleado(this.idEmpresa,this.usuariosSistemaPrd.usuario.centrocClienteIdPadre,idPersona).subscribe(
+
+            (response) => {
+
+              //console.log(response);
+              if (!!response.resultado) {
+
+                if (!!response.datos.noticiasCosmonaut) {
+                  (response.datos.noticiasCosmonaut as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
+                    this.noticiasAdministrador.push(noticia);
+                  });
                 }
-              });
+
+                if (!!response.datos.noticiasGeneral) {
+                  (response.datos.noticiasGeneral as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin))).forEach(noticia => {
+
+                    switch (noticia.categoriaId.categoriaNoticiaId) {
+                      case 1:
+                        this.noticiasEmpresa.push(noticia);
+                        break;
+                      case 2:
+                      case 3:
+                      case 4:
+                        this.noticiasListado.push(noticia);
+                        let tempo:GeneralSinGrupos;         
+                          tempo = {   // OK
+                            noticiaId:noticia.noticiaId,
+                            categoria:noticia.categoriaId.nombre,                        
+                            titulo:noticia.titulo,
+                            subtitulo:noticia.subtitulo,
+    
+                        }                                                                                            
+                        this.noticiasAgrupado.push(tempo);
+                        break;
+                      case 5:
+                      case 6:
+                        this.noticiasCursos.push(noticia);
+                        break;
+                      default:
+                        break;
+                    }
+                  });
+
+                   //notiAgrupadoArray: NoticiaAgrupado[] = [];
+              //auxNoti: NoticiaAgrupado | undefined;
+              //auxNotiArray: NoticiaAgrupado[] | undefined;
+              debugger;
+
+              this.noticiasAgrupado.forEach((item) => {
+                // obtenemos la noticia si ya esta en el array 
+                this.auxNotiArray = this.notiAgrupadoArray.filter((noticia) => noticia.categoria === item.categoria);
+                
+                
+                this.auxNoti = this.auxNotiArray.length === 0 ? undefined : this.auxNotiArray[0];
+               // si no existe creamos   y la añadimos al array
+               if (!this.auxNoti) {
+                this.auxNoti = new NoticiaAgrupado(item.noticiaId!, item.categoria);
+                this.notiAgrupadoArray.push(this.auxNoti);
+               }
+         
+               // si ya existe el detalle dentro de la noticia pasamos al siguiente 
+               if (this.auxNoti.detalles.filter((detalleNoticia) => detalleNoticia.titulo === item.titulo).length > 0) {
+                 return;
+               }
+         
+               // si no existe el detalle lo añadimos en la noticia
+               this.auxNoti.addDetalleso(new DetalleGrupos(item.titulo!, item.subtitulo));
+             });
+             console.log(this.noticiasAgrupado);
+             console.log(this.notiAgrupadoArray);
+
+                }
+
+              }
             }
           );
         }
@@ -233,7 +300,7 @@ export class InicioComponent implements OnInit   {
     return this.usuariosSistemaPrd.getUsuario().rolId != 2;
   }
 
-  mostrarContenido(noticia: Noticia) {
+  mostrarContenido(noticia: NoticiaAgrupado) {
 
     this.configuracionPrd.accesoRuta = true;
     this.routerPrd.navigate(['noticias', 'contenido_noticia', noticia.noticiaId], { state: { noticia: noticia } });

@@ -1,6 +1,7 @@
-class DetalleGrupos {
+export class DetalleGrupos {
     titulo: string;
     subtitulo?: string;
+  static titulo: string | undefined;
 
     constructor(
         titulo: string,

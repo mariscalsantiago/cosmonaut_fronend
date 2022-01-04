@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Noticia } from 'src/app/core/modelos/noticia';
-import { GeneralSinGrupos } from 'src/app/core/modelos/generalSinGrupo';
+import { NoticiaAgrupado } from 'src/app/core/modelos/noticiaAgrupado';
+
 
 @Component({
   selector: 'app-anuncio-listado',
@@ -10,7 +10,8 @@ import { GeneralSinGrupos } from 'src/app/core/modelos/generalSinGrupo';
 
 export class AnuncioListadoComponent implements OnInit {
 
-  @Input() public noticias: GeneralSinGrupos[] = [];
+  @Input() public noticias: NoticiaAgrupado[] = [];
+  
   @Output() onClick = new EventEmitter();
 
   constructor() { }
@@ -18,13 +19,12 @@ export class AnuncioListadoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  tieneContenido(noticias: GeneralSinGrupos): boolean {
+  tieneContenido(noticias: NoticiaAgrupado): boolean {
     
-
     return !!noticias.noticiaId;
   }
 
-  onClicked(noticia: Noticia) {
+  onClicked(noticia: NoticiaAgrupado) {
     this.onClick.emit(noticia);
   }
 }
