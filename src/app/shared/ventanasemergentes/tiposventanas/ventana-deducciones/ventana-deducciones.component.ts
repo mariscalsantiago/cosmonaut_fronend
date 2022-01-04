@@ -818,7 +818,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       } 
       }
 
-    let mensaje = this.esInsert ? "¿Deseas registrar la deducción" : "¿Deseas actualizar la deducción?";
+    let mensaje = this.esInsert ? "¿Deseas registrar la deducción?" : "¿Deseas actualizar la deducción?";
     
       this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
         if(valor){

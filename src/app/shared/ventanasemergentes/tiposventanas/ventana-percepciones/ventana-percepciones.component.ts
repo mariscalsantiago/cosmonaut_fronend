@@ -532,7 +532,7 @@ export class VentanaPercepcionesComponent implements OnInit {
       return;
 
     }
-    let mensaje = this.esInsert ? "¿Deseas registrar la percepción" : "¿Deseas actualizar la percepción?";
+    let mensaje = this.esInsert ? "¿Deseas registrar la percepción?" : "¿Deseas actualizar la percepción?";
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
 

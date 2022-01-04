@@ -576,7 +576,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
           }
         }
 
-        else if (aux[llave].charAt(1) === ',' || aux[llave].charAt(2) === ',' || aux[llave].charAt(3) === ',' || numeroCom == false && (llave === "limiteInferior" || llave === "limiteSuperior" || llave === "cuotaFija" || llave === "montoSubsidio")) {
+        else if (aux[llave].charAt(1) === ',' || aux[llave].charAt(2) === ',' || aux[llave].charAt(3) === ',' || numeroCom == false && (llave === "limiteInferior" || llave === "limiteSuperior" || llave === "cuotaFija" || llave === "montoSubsidio" || llave === "valor")) { 
           while (j > 0 && (Number(aux[llave].replace(/[,]+/g, "")) < Number(a[j - 1][llave].replace(/[,]+/g, "")))) {
             a[j] = a[j - 1];
             j--;
@@ -617,7 +617,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
           }
         }
 
-        else if (aux[llave].charAt(1) === ',' || aux[llave].charAt(2) === ',' || aux[llave].charAt(3) === ',' || numeroCom == false && (llave === "limiteInferior" || llave === "limiteSuperior" || llave === "cuotaFija" || llave === "montoSubsidio")) {
+        else if (aux[llave].charAt(1) === ',' || aux[llave].charAt(2) === ',' || aux[llave].charAt(3) === ',' || numeroCom == false && (llave === "limiteInferior" || llave === "limiteSuperior" || llave === "cuotaFija" || llave === "montoSubsidio" || llave === "valor")) {
           while (j > 0 && (Number(aux[llave].replace(/[,]+/g, "")) > Number(a[j - 1][llave].replace(/[,]+/g, "")))) {
             a[j] = a[j - 1];
             j--;

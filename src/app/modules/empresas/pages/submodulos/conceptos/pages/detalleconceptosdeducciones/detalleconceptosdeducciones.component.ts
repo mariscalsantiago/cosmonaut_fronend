@@ -123,7 +123,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
       return;
     }
 
-    let titulo = this.esInsert ? "¿Deseas registrar la deducción ?" : "¿Deseas actualizar la deducción?";
+    let titulo = this.esInsert ? "¿Deseas registrar la deducción?" : "¿Deseas actualizar la deducción?";
 
 
     this.modalPrd.showMessageDialog(this.modalPrd.warning, titulo)
