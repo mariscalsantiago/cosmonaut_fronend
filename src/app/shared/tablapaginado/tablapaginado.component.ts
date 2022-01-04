@@ -76,7 +76,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   public arreglotemp: any = [];
   public verpatronal: boolean = false;
   public verIsnBool: boolean = false;
-
+  public fechaVal: boolean = false;
 
   public top: number = 0;
 
@@ -491,6 +491,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     let llave = item.id;
 
     if (llave.includes('fechaAlta') || llave.includes('__fechaInicioFormato') || llave.includes('Fecha') || llave.includes('__fechaFinFormato') || llave.includes('fechaInicio') || llave.includes('fechaFin') || llave.includes('fecha')) {
+      this.fechaVal = true;
       for (i = 0; i < this.arreglotemp.length; i++) {
         j = i;
         aux = this.arreglotemp[i];
@@ -518,6 +519,8 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
         }
       }
+    }else{
+      this.fechaVal = false;
     }
     this.ordInsercion(this.arreglotemp, item.id, item.acomodar);
 
@@ -539,7 +542,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
 
-
+    debugger;
     let i, j;
     let aux;
 
@@ -554,8 +557,10 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
       if (tipoAcomodo) {
         let fechaFinal: string = "";
+        let numeroCom = isNaN(aux[llave]);
         fechaFinal = aux[llave].split("-");
-        if (fechaFinal.length == 3) {
+
+        if (fechaFinal.length === 3 && this.fechaVal === true) {
 
           while (j > 0 && (new Date(aux[llave]).getTime() < new Date(a[j - 1][llave]).getTime())) {
 
@@ -563,8 +568,16 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
             j--;
           }
         }
-        else if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-') {
+        else if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-' && fechaFinal.length !== 3 ) {
           while (j > 0 && (Number(aux[llave].replace(/[^0-9.-]+/g, "")) < Number(a[j - 1][llave].replace(/[^0-9.-]+/g, "")))) {
+            a[j] = a[j - 1];
+            j--;
+
+          }
+        }
+
+        else if (aux[llave].charAt(1) === ',' || aux[llave].charAt(2) === ',' || aux[llave].charAt(3) === ',' || numeroCom == false && (llave === "limiteInferior" || llave === "limiteSuperior" || llave === "cuotaFija" || llave === "montoSubsidio")) {
+          while (j > 0 && (Number(aux[llave].replace(/[,]+/g, "")) < Number(a[j - 1][llave].replace(/[,]+/g, "")))) {
             a[j] = a[j - 1];
             j--;
 
@@ -586,7 +599,8 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
       } else {
 
         let fechaFinal: string = "";
-        fechaFinal = aux[llave].split("-");
+        let numeroCom = isNaN(aux[llave]);
+
         if (fechaFinal.length == 3) {
 
           while (j > 0 && (new Date(aux[llave]).getTime() > new Date(a[j - 1][llave]).getTime())) {
@@ -595,8 +609,16 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
             j--;
           }
         }
-        else if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-') {
+        else if (aux[llave].charAt(0) === '$' || aux[llave].charAt(0) === '-' && fechaFinal.length !== 3) {
           while (j > 0 && (Number(aux[llave].replace(/[^0-9.-]+/g, "")) > Number(a[j - 1][llave].replace(/[^0-9.-]+/g, "")))) {
+            a[j] = a[j - 1];
+            j--;
+
+          }
+        }
+
+        else if (aux[llave].charAt(1) === ',' || aux[llave].charAt(2) === ',' || aux[llave].charAt(3) === ',' || numeroCom == false && (llave === "limiteInferior" || llave === "limiteSuperior" || llave === "cuotaFija" || llave === "montoSubsidio")) {
+          while (j > 0 && (Number(aux[llave].replace(/[,]+/g, "")) > Number(a[j - 1][llave].replace(/[,]+/g, "")))) {
             a[j] = a[j - 1];
             j--;
 
