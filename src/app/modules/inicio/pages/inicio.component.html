@@ -14,9 +14,9 @@
     [intervalo]=6000 (onClick)="mostrarContenido($event)"></app-banner-carousel>
 
 <div class="row margen cn-anuncios-kiosko"
-    *ngIf="puedeConsultarKiosko() && (!!noticiasListado.length || !!noticiasCursos.length)">
+    *ngIf="puedeConsultarKiosko() && (!!noticiasAgrupado.length || !!noticiasCursos.length)">
     <div class="col-md-6 col-12 nopadding" *ngIf="puedeConsultarKiosko() && !!noticiasListado.length">
-        <app-anuncio-listado [noticias]="noticiasListado" (onClick)="mostrarContenido($event)"></app-anuncio-listado>
+        <app-anuncio-listado [noticias]="notiAgrupadoArray" (onClick)="mostrarContenido($event)"></app-anuncio-listado>
     </div>
     <div class="col-md-6 col-12 nopadding" *ngIf="puedeConsultarKiosko() && !!noticiasCursos.length">
         <app-curso-listado [noticias]="noticiasCursos" (onClick)="mostrarContenido($event)"></app-curso-listado>

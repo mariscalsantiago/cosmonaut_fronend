@@ -16,6 +16,10 @@ import { UsuariosauthService } from 'src/app/shared/services/usuariosauth/usuari
 import { RolesService } from 'src/app/modules/rolesypermisos/services/roles.service';
 import { EmpleadosService } from '../../empleados/services/empleados.service';
 import { EmpresasService } from 'src/app/modules/empresas/services/empresas.service';
+import { GeneralSinGrupos } from './../../../core/modelos/generalSinGrupo';
+import { NoticiaAgrupado } from './../../../core/modelos/noticiaAgrupado';
+import { DetalleGrupos } from './../../../core/modelos/detalleGrupos';
+
 
 @Component({
   selector: 'app-inicio',
@@ -70,6 +74,11 @@ export class InicioComponent implements OnInit   {
   noticiasEmpresa: Noticia[] = [];
   noticiasListado: Noticia[] = [];
   noticiasCursos: Noticia[] = [];
+
+  noticiasAgrupado:  GeneralSinGrupos[] = [];
+  notiAgrupadoArray: NoticiaAgrupado[] = [];
+  auxNoti: NoticiaAgrupado | undefined;
+  auxNotiArray: NoticiaAgrupado[] | undefined;
 
   public url!: SafeResourceUrl;
 
@@ -195,6 +204,15 @@ export class InicioComponent implements OnInit   {
                       case 3:
                       case 4:
                         this.noticiasListado.push(noticia);
+                        let tempo:GeneralSinGrupos;         
+                          tempo = {   // OK
+                            noticiaId:noticia.noticiaId,
+                            categoria:noticia.categoriaId.nombre,                        
+                            titulo:noticia.titulo,
+                            subtitulo:noticia.subtitulo,
+    
+                        }                                                                                            
+                        this.noticiasAgrupado.push(tempo);
                         break;
                       case 5:
                       case 6:
@@ -204,7 +222,37 @@ export class InicioComponent implements OnInit   {
                         break;
                     }
                   });
+
+                   //notiAgrupadoArray: NoticiaAgrupado[] = [];
+              //auxNoti: NoticiaAgrupado | undefined;
+              //auxNotiArray: NoticiaAgrupado[] | undefined;
+              debugger;
+
+              this.noticiasAgrupado.forEach((item) => {
+                // obtenemos la noticia si ya esta en el array 
+                this.auxNotiArray = this.notiAgrupadoArray.filter((noticia) => noticia.categoria === item.categoria);
+                
+                
+                this.auxNoti = this.auxNotiArray.length === 0 ? undefined : this.auxNotiArray[0];
+               // si no existe creamos   y la añadimos al array
+               if (!this.auxNoti) {
+                this.auxNoti = new NoticiaAgrupado(item.noticiaId!, item.categoria);
+                this.notiAgrupadoArray.push(this.auxNoti);
+               }
+         
+               // si ya existe el detalle dentro de la noticia pasamos al siguiente 
+               if (this.auxNoti.detalles.filter((detalleNoticia) => detalleNoticia.titulo === item.titulo).length > 0) {
+                 return;
+               }
+         
+               // si no existe el detalle lo añadimos en la noticia
+               this.auxNoti.addDetalleso(new DetalleGrupos(item.titulo!, item.subtitulo));
+             });
+             console.log(this.noticiasAgrupado);
+             console.log(this.notiAgrupadoArray);
+
                 }
+
               }
             }
           );
@@ -252,7 +300,7 @@ export class InicioComponent implements OnInit   {
     return this.usuariosSistemaPrd.getUsuario().rolId != 2;
   }
 
-  mostrarContenido(noticia: Noticia) {
+  mostrarContenido(noticia: NoticiaAgrupado) {
 
     this.configuracionPrd.accesoRuta = true;
     this.routerPrd.navigate(['noticias', 'contenido_noticia', noticia.noticiaId], { state: { noticia: noticia } });

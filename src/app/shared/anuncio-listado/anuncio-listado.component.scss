@@ -38,14 +38,14 @@ div.cn-anuncios {
 
                 display: flex;
                 flex-direction: column;
-                flex: 1;
+                flex: 1;                
                 
                 span.cn-content-title.with-content {
                     cursor: pointer;
                 }
                 
                 span.cn-content-subtitle {
-                    font-weight: 300 !important;
+                    font-weight: 290 !important;
                 }
             }
             
@@ -54,9 +54,18 @@ div.cn-anuncios {
                 span {
                     color: #00C1AF;
                     font-style: italic;
-                    font-weight: 300 !important;
+                    font-size: 18px !important;                   
                 }
             }
         }
     }
 }
+
+
+.colorTextoTitulo {
+    color: black !important;
+  }
+
+  .colorTextoSubtitulo {
+    color: black !important;
+  }

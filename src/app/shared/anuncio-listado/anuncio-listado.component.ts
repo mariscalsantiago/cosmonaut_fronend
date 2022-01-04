@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Noticia } from 'src/app/core/modelos/noticia';
+import { NoticiaAgrupado } from 'src/app/core/modelos/noticiaAgrupado';
 
 
 @Component({
@@ -7,9 +7,11 @@ import { Noticia } from 'src/app/core/modelos/noticia';
   templateUrl: './anuncio-listado.component.html',
   styleUrls: ['./anuncio-listado.component.scss']
 })
+
 export class AnuncioListadoComponent implements OnInit {
 
-  @Input() public noticias: Noticia[] = [];
+  @Input() public noticias: NoticiaAgrupado[] = [];
+  
   @Output() onClick = new EventEmitter();
 
   constructor() { }
@@ -17,11 +19,12 @@ export class AnuncioListadoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  tieneContenido(noticia: Noticia): boolean {
-    return !!noticia.contenido;
+  tieneContenido(noticias: NoticiaAgrupado): boolean {
+    
+    return !!noticias.noticiaId;
   }
 
-  onClicked(noticia: Noticia) {
+  onClicked(noticia: NoticiaAgrupado) {
     this.onClick.emit(noticia);
   }
 }
