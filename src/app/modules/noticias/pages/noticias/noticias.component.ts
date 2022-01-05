@@ -89,7 +89,6 @@ export class NoticiasComponent implements OnInit {
     this.tamanio = documento.innerWidth;
 
     this.cargando = true;
-
     if (this.esClienteEmpresa) {
 
       if (this.usuario?.esCliente && this.usuario?.centrocClienteIdPadre == 0) {
@@ -106,7 +105,6 @@ export class NoticiasComponent implements OnInit {
           }
         );
       } else {
-
         this.serviceNoticia.getNoticiasEmpresa(this.usuario?.centrocClienteId).subscribe(
           (response) => {
             if (!!response.resultado && !!response.datos) {
@@ -120,11 +118,12 @@ export class NoticiasComponent implements OnInit {
         );
       }
     } else {
-
       this.serviceNoticia.getNoticiasCosmonaut().subscribe(
         (response) => {
           if (!!response.resultado && !!response.datos) {
+            console.log(response.datos);            
             this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
+            console.log(this.noticias);
             this.procesarTabla();
           }
 
@@ -164,8 +163,8 @@ export class NoticiasComponent implements OnInit {
 
     if(this.arreglo !== undefined) {
       for(let item of this.arreglo) {
-        item.fechaInicio = new DatePipe("es-MX").transform(new Date(item.fechaInicio), 'dd-MMM-y')?.replace(".","");
-        item.fechaFin = new DatePipe("es-MX").transform(new Date(item.fechaFin), 'dd-MMM-y')?.replace(".","");
+        item.fechaInicio = new DatePipe("es-MX").transform(item.fechaInicio, 'dd-MMM-y')?.replace(".","");
+        item.fechaFin = new DatePipe("es-MX").transform(item.fechaFin, 'dd-MMM-y')?.replace(".","");
         item.__categoriaFormato = item.categoriaId.descripcion; 
       }
     }    
@@ -219,11 +218,12 @@ export class NoticiasComponent implements OnInit {
 
     this.serviceNoticia.eliminarNoticia(noticia.noticiaId).subscribe(
       (response) => {
+        this.cargarTable();
         if (!!response.resultado) {
           this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
-          this.servicioModales.showMessageDialog(response.resultado, response.mensaje).then(() => {
+         this.servicioModales.showMessageDialog(response.resultado, response.mensaje).then(() => {           
             this.servicioModales.showMessageDialog(this.servicioModales.loadingfinish);
-            this.quitarNoticia(noticia);
+      //      this.quitarNoticia(noticia);
           });
         }
       }
@@ -233,7 +233,6 @@ export class NoticiasComponent implements OnInit {
   private quitarNoticia(noticia: Noticia) {
     this.noticias = this.noticias.filter(n => n.noticiaId != noticia.noticiaId);
     this.procesarTabla();
-    this.cargarTable();
   }
 
 
@@ -269,6 +268,19 @@ export class NoticiasComponent implements OnInit {
           }
         );
       }
+    }else {
+
+      this.serviceNoticia.getNoticiasCosmonaut().subscribe(
+        (response) => {
+          if (!!response.resultado && !!response.datos) {
+            this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
+            this.procesarTabla();
+          }
+
+          this.cargando = false;
+          this.cargandoBotones = false;
+        }
+      );
     }
   }
   
