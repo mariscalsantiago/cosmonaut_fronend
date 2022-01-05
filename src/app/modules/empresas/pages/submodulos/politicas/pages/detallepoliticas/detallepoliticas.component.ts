@@ -141,8 +141,8 @@ export class DetallepoliticasComponent implements OnInit {
 
 
   public updateList(id: number, property: string, event: any) {
-    
-    const value = event.target.textContent;
+    debugger;
+    //const value = event.target.textContent;
 /*     if ( value < this.arregloTablaBeneficios[id][property] ) {
       (event.target as HTMLInputElement).textContent = value.replace(value, this.arregloTablaBeneficios[id][property]);
     }  */
@@ -154,7 +154,7 @@ export class DetallepoliticasComponent implements OnInit {
 
   public changeValue(id: number, property: string, event: any) {
     
-    const value = event.target.textContent;
+    //const value = event.target.textContent;
 /*     if ( value < this.arregloTablaBeneficios[id][property] ) {
       (event.target as HTMLInputElement).textContent = value.replace(value, this.arregloTablaBeneficios[id][property]);
     }  */
@@ -224,7 +224,8 @@ export class DetallepoliticasComponent implements OnInit {
           });
 
         } else {
-          
+
+          this.beneficiotab = [];
           for(let item of this.arregloTablaBeneficios){
             this.beneficio = 
               {
