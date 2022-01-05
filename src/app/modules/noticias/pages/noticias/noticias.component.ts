@@ -269,7 +269,6 @@ export class NoticiasComponent implements OnInit {
         );
       }
     }else {
-
       this.serviceNoticia.getNoticiasCosmonaut().subscribe(
         (response) => {
           if (!!response.resultado && !!response.datos) {
