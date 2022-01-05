@@ -20,6 +20,12 @@ export class CursoListadoComponent implements OnInit {
     return !!noticia.contenido;
   }
 
+  public redireccion() {
+    
+    let url = this.noticias[0].contenido;
+    window.open(url, "_blank");
+  }
+
   onClicked(noticia: Noticia) {
     this.onClick.emit(noticia);
   }

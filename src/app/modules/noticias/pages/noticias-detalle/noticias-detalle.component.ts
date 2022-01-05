@@ -37,6 +37,7 @@ export class NoticiasDetalleComponent implements OnInit {
   noticia: string = ``;
   minimo = new Date();
   requiereImagen = false;
+  requiereURL = false;
   tieneImagen = false;
   tamanioRecomendado = NoticiasDetalleComponent.TAMANIO_RECOMENDADO_BANNER;
 
@@ -110,7 +111,7 @@ export class NoticiasDetalleComponent implements OnInit {
           this.validarImagen();
           this.companiasenviar = this.editando?.centrocClienteId || [];
           let personasEnviar = this.editando?.personasId || [];
-          debugger;
+          
           for(let item of personasEnviar){
             item['nombre'] =
             item.nombre +
@@ -275,7 +276,7 @@ export class NoticiasDetalleComponent implements OnInit {
 
   public parseErrors(errors: any) {
     if (!!errors.required) {
-      return 'Campo necesario';
+      return 'Campo requerido';
     }
     if (!!errors.maxlength) {
       return `Máximo ${errors.maxlength.requiredLength} caracteres`;
@@ -355,6 +356,7 @@ export class NoticiasDetalleComponent implements OnInit {
   validarImagen() {
     let categoria = this.formulario.controls.categoria.value;
     this.requiereImagen = categoria == 1 || categoria == 5 || categoria == 6;
+    this.requiereURL = categoria == 5 || categoria == 6;
     this.tieneImagen = !!this.imagen;
 
     this.tamanioRecomendado =
@@ -392,6 +394,7 @@ export class NoticiasDetalleComponent implements OnInit {
   }
 
   private guardar() {
+    
     this.servicioModales.showMessageDialog(this.servicioModales.loading);
 
     let companysend = [];
@@ -403,7 +406,7 @@ export class NoticiasDetalleComponent implements OnInit {
     } else {
       companysend.push(this.serviceUsuario.getIdEmpresa());
 
-      debugger;
+      
       for(let item of this.empleadoEnviar){
         empleadosSend.push(item.personaId.personaId || item.personaId);
       }

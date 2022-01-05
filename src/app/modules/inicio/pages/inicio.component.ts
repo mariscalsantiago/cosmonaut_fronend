@@ -226,7 +226,7 @@ export class InicioComponent implements OnInit   {
                    //notiAgrupadoArray: NoticiaAgrupado[] = [];
               //auxNoti: NoticiaAgrupado | undefined;
               //auxNotiArray: NoticiaAgrupado[] | undefined;
-              debugger;
+              
 
               this.noticiasAgrupado.forEach((item) => {
                 // obtenemos la noticia si ya esta en el array 

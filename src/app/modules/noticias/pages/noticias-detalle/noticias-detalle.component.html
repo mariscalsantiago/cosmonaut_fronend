@@ -91,14 +91,19 @@
                             {{parseErrors(f.categoria.errors)}}
                         </div>
                     </div>
-                    <div *ngIf="!esAdministradorCosmonaut()" class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div *ngIf="!esAdministradorCosmonaut()" class="input-group-sm mb-3 col-12 col-sm-12 col-md-6 col-lg-4" style="display: none;">
                     <label for="empresa">Ingresar URL *</label>
                     <input formControlName="enlace" type="text" name="" id="" class="form-control">
                     <div *ngIf="f.empresa.errors && submitEnviado" class="invalid-feedback" style="display: block">
                         {{parseErrors(f.empresa.errors)}}
                     </div>
-                </div>
-                <div *ngIf="!esEmpresa()" class="input-group-sm mb-3 col-3">
+                    </div>
+                    <div *ngIf="!esAdministradorCosmonaut() && requiereURL" class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
+                        <label>URL</label>
+                        <textarea formControlName="contenido" type="textarea" maxlength="500" class="form-control">
+                        </textarea>
+                    </div>
+                <div *ngIf="!esEmpresa()" class="input-group-sm mb-3 col-12 col-sm-12 col-md-4 col-lg-4">
                   <label>Seleccionar *</label>
                       <div>
                           <label class="contenedorInputCheckRadio">Todos los clientes
@@ -115,12 +120,12 @@
                           </label>
                       </div>
               </div>
-                <div *ngIf="f.seleccionarEmpresa.value == '2'" class=" input-group-sm mb-3 col-6 col-sm-6 col-lg-4">
+                <div *ngIf="f.seleccionarEmpresa.value == '2'" class=" input-group-sm mb-3 col-6 col-sm-4 col-lg-4">
                   <label>{{!esAdministradorCosmonaut()?'Empresas':'Clientes'}} *</label>
                   <app-tag [datos]="empresas" [llave]="'razonSocial'" [arregloEtiquetas]="companiasenviar" (salida)="recibirEtiquetas($event)"></app-tag>
                 </div>
 
-                <div *ngIf="esEmpresa()" class="input-group-sm mb-3 col-3">
+                <div *ngIf="esEmpresa()" class="input-group-sm mb-3 col-12 col-sm-12 col-md-4 col-lg-4">
                   <label>Seleccionar *</label>
                       <div>
                           <label class="contenedorInputCheckRadio">Todos los empleados
@@ -143,7 +148,7 @@
                           </label>
                       </div>
               </div>
-              <div *ngIf="f.seleccionarEmpleado.value == '2'" class="input-group-sm mb-3 col-6">
+              <div *ngIf="f.seleccionarEmpleado.value == '2'" class="input-group-sm mb-3 col-12 col-sm-12 col-md-4 col-lg-4">
                 <label for="exampleFormControlSelect1">Grupo de nómina *</label>
                 <select [class.is-invalid]="f.grupoNomina.errors && f.grupoNomina.touched" formControlName="grupoNomina" class="form-control">
                     <option *ngFor="let item of arreglogruposnomina" [value]="item.id">{{item.nombre}}</option>
@@ -152,7 +157,7 @@
                     Campo requerido
                 </div>
             </div>
-            <div *ngIf="f.seleccionarEmpleado.value == '3'" class="input-group-sm mb-3 col-6">
+            <div *ngIf="f.seleccionarEmpleado.value == '3'" class="input-group-sm mb-3 col-12 col-sm-12 col-md-4 col-lg-4">
               <label for="exampleFormControlSelect1">Empleados *</label>
               <app-tag [datos]="arregloEmpleados" [llave]="'nombre'" [arregloEtiquetas]="empleadoEnviar"  (salida)="recibirEmpleados($event)"></app-tag>
           </div>

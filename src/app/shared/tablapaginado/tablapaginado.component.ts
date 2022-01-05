@@ -542,7 +542,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
   public ordInsercion(a: any, llave: string, tipoAcomodo: boolean) {
 
-    debugger;
+    
     let i, j;
     let aux;
 

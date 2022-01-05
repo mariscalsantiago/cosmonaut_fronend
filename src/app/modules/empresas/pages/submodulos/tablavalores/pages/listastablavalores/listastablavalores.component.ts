@@ -84,7 +84,7 @@ export class ListasTablaValoresComponent implements OnInit {
       let fecha = new Date();
       let anio = fecha.getFullYear();
       this.cargandoRef = true;
-      this.tablavaloresProd.getListaReferenciaCat(2021).subscribe(datos => {
+      this.tablavaloresProd.getListaReferenciaCat(anio).subscribe(datos => {
           this.crearTablaReferencia(datos);
       });
 
