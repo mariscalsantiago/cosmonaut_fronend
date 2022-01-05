@@ -233,5 +233,49 @@ export class NoticiasComponent implements OnInit {
   private quitarNoticia(noticia: Noticia) {
     this.noticias = this.noticias.filter(n => n.noticiaId != noticia.noticiaId);
     this.procesarTabla();
+    this.cargarTable();
   }
+
+
+
+  private cargarTable(){
+    this.usuario = this.serviceUsuario.getUsuario();
+    if (this.esClienteEmpresa) {
+  
+      if (this.usuario?.esCliente && this.usuario?.centrocClienteIdPadre == 0) {
+  
+        this.serviceNoticia.getNoticiasCliente(this.usuario?.centrocClienteId).subscribe(
+          (response) => {
+            if (!!response.resultado && !!response.datos) {
+              this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
+              this.procesarTabla();
+            }
+  
+            this.cargando = false;
+            this.cargandoBotones = false;
+          }
+        );
+      } else {
+  
+        this.serviceNoticia.getNoticiasEmpresa(this.usuario?.centrocClienteId).subscribe(
+          (response) => {
+            if (!!response.resultado && !!response.datos) {
+              this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
+              this.procesarTabla();
+            }
+  
+            this.cargando = false;
+            this.cargandoBotones = false;
+          }
+        );
+      }
+    }
+  }
+  
+
+
+
+
 }
+
+
