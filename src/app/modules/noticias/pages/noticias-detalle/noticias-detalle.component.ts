@@ -452,6 +452,7 @@ export class NoticiasDetalleComponent implements OnInit {
         }
       });
     } else {
+      debugger;
       const json = {
         usuarioId: this.usuario?.usuarioId,
         centrocClienteId: this.serviceUsuario.getIdEmpresa(),
