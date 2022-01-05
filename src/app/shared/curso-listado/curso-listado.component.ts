@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { format } from 'path';
 import { Noticia } from 'src/app/core/modelos/noticia';
 
 @Component({
@@ -20,10 +21,15 @@ export class CursoListadoComponent implements OnInit {
     return !!noticia.contenido;
   }
 
-  public redireccion() {
-    
-    let url = this.noticias[0].contenido;
-    window.open(url, "_blank");
+  public redireccion(id:  any) {
+    for(let item of this.noticias){
+      if(item.noticiaId === id){
+        let url = item.contenido;
+        window.open(url, "_blank");
+
+      } 
+    }
+
   }
 
   onClicked(noticia: Noticia) {
