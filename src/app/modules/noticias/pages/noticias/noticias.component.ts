@@ -238,6 +238,7 @@ export class NoticiasComponent implements OnInit {
 
 
   private cargarTable(){
+    debugger;
     this.usuario = this.serviceUsuario.getUsuario();
     if (this.esClienteEmpresa) {
   
@@ -247,6 +248,8 @@ export class NoticiasComponent implements OnInit {
           (response) => {
             if (!!response.resultado && !!response.datos) {
               this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
+              this.procesarTabla();
+            }else{
               this.procesarTabla();
             }
   
@@ -261,6 +264,8 @@ export class NoticiasComponent implements OnInit {
             if (!!response.resultado && !!response.datos) {
               this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
               this.procesarTabla();
+            }else{
+              this.procesarTabla();
             }
   
             this.cargando = false;
@@ -273,6 +278,8 @@ export class NoticiasComponent implements OnInit {
         (response) => {
           if (!!response.resultado && !!response.datos) {
             this.noticias = (response.datos as Noticia[]).sort((a, b) => moment(a.fechaFin).diff(moment(b.fechaFin)));
+            this.procesarTabla();
+          }else{
             this.procesarTabla();
           }
 
