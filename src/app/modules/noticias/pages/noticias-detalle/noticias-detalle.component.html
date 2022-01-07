@@ -13,6 +13,7 @@
         </li>
         <li style="padding-top: 10PX;" class="float-left">
             CONFIGURACIÓN DE NOTICIA
+            
         </li>
     </ul>
 </div>
@@ -106,13 +107,13 @@
                 <div *ngIf="!esEmpresa()" class="input-group-sm mb-3 col-12 col-sm-12 col-md-4 col-lg-4">
                   <label>Seleccionar *</label>
                       <div>
-                          <label class="contenedorInputCheckRadio">Todos los clientes
+                          <label class="contenedorInputCheckRadio">{{!esAdministradorCosmonaut()?'Todos las empresas':'Todos los clientes'}}
                               <input formControlName="seleccionarEmpresa" #tipouno
                                    name="seleccionarEmpresa" type="radio"
                                  value = "1">
                               <span class="radiomark"></span>
                           </label>
-                          <label class="contenedorInputCheckRadio">Empresas
+                          <label class="contenedorInputCheckRadio">{{!esAdministradorCosmonaut()?'Empresas':'Clientes'}}
                               <input formControlName="seleccionarEmpresa" #tipodos
                                    name="seleccionarEmpresa" type="radio"
                                  value = "2">
