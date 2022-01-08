@@ -31,6 +31,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   public politica: number = 0;
   public nombrePer: string = "";
   public nomPercepcion: number = 0;
+  public nominaPercepcion: boolean = false;
 
   @Input() public datos: any;
 
@@ -43,6 +44,9 @@ export class VentanaPercepcionesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(this.datos.nominas !== undefined){
+      this.nominaPercepcion = this.datos.nominas;
+    }
 
     if (this.datos.idEmpleado != undefined) {
       this.empresa = this.datos.idEmpresa;
@@ -522,7 +526,7 @@ export class VentanaPercepcionesComponent implements OnInit {
 
 
   public enviarPeticion() {
-    
+    debugger;
     this.submitEnviado = true;
 
     if (this.myForm.invalid) {
@@ -532,10 +536,17 @@ export class VentanaPercepcionesComponent implements OnInit {
       return;
 
     }
-    let mensaje = this.esInsert ? "¿Deseas registrar la percepción?" : "¿Deseas actualizar la percepción?";
+    let mensaje;
+    let submensaje = '';
+    if(this.nominaPercepcion){
+        mensaje = "¿Deseas registrar la percepción?"; 
+        submensaje = "Deberás recalcular la nómina para que se considere en el cálculo";
+    }else{
+      mensaje = this.esInsert ? "¿Deseas registrar la percepción?" : "¿Deseas actualizar la percepción?";
+    }
 
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje).then(valor => {
-
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje, submensaje).then(valor => {
+      
       if (valor) {
         
 

@@ -11,6 +11,9 @@ import { NominaptuService } from 'src/app/shared/services/nominas/nominaptu.serv
 import { ServerSentEventService } from 'src/app/shared/services/nominas/server-sent-event.service';
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
+import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
+
+
 
 @Component({
   selector: 'app-calcular',
@@ -52,6 +55,7 @@ export class CalcularComponent implements OnInit {
   public apellidoPaterno: string = "";
   public apellidoMaterno: string = "";
   public numeroempleado: string = "";
+  public idEmpleado: number = -1;
 
   public esnormal: boolean = false;
 
@@ -59,7 +63,8 @@ export class CalcularComponent implements OnInit {
     private modalPrd: ModalService, private nominaOrdinariaPrd: NominaordinariaService,
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaFiniquito: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
     private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService,
-    private usuariSistemaPrd: UsuarioSistemaService, private ventana: VentanaemergenteService) { }
+    private usuariSistemaPrd: UsuarioSistemaService, private ventana: VentanaemergenteService,
+    private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
 
@@ -137,9 +142,9 @@ export class CalcularComponent implements OnInit {
         this.rellenandoTablas("calculoEmpleadoPtu");
       });
     }
+    debugger;
 
-
-    this.ocultarEliminar = this.nominaSeleccionada[this.llave].estadoActualNomina !== "Calculada" && this.nominaSeleccionada[this.llave].estadoActualNomina !== "Nueva";
+    this.ocultarEliminar = this.nominaSeleccionada[this.llave].estadoActualNomina === "Calculada" || this.nominaSeleccionada[this.llave].estadoActualNomina === "Nueva";
   }
 
 
@@ -187,6 +192,7 @@ export class CalcularComponent implements OnInit {
   public patronal: any = { datos: [] };
 
   public recibirTabla(obj: any) {
+    debugger;
     switch (obj.type) {
       case "desglosar":
 
@@ -246,7 +252,44 @@ export class CalcularComponent implements OnInit {
           this.patronal.datos = datos.datos;
         });
         break;
+        case "percepcion":
+        this.agregarPer(obj.datos.calculoEmpleado);
+        break;  
     }
+  }
+
+
+  public agregarPer(obj: any) {
+    debugger;
+    let esnomina = true;
+    this.idEmpleado = obj.personaId;
+    let datosPer: any = {
+      idEmpleado: this.idEmpleado,
+      idEmpresa: this.usuariSistemaPrd.getIdEmpresa(),
+      nominas: esnomina
+      
+    };
+    this.ventana.showVentana(this.ventana.percepciones, { datos: datosPer }).then(valor => {
+      if (valor.datos) {
+
+        this.agregarNuevaPercepcion(valor.datos);
+      }
+    });
+  }
+
+  public agregarNuevaPercepcion(obj: any) {
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    this.bancosPrd.savePercepcionEmpleado(obj).subscribe(datos => {
+
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+      this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariSistemaPrd.getIdEmpresa()).subscribe(datos => {
+
+      });
+
+    });
   }
 
   public regresarOrdinaria() {

@@ -42,6 +42,9 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   @Input() public eliminar: any;
   @Input() public descargar: any;
   @Input() public recalcular: any;
+  @Input() public evento: any;
+  @Input() public percepcion: any;
+  @Input() public deduccion: any;
   @Input() public desglosar: any;
   @Input() public checkbox: any;
   @Input() public filter: any;
@@ -391,6 +394,16 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
     this.salida.emit({ type: "descargar", datos: item, indice: indice });
   }
 
+  public btnEvento(item: any, indice: number) {
+    this.salida.emit({ type: "evento", datos: item, indice: indice });
+  }
+
+  public btnPercepcion(item: any, indice: number) {
+    this.salida.emit({ type: "percepcion", datos: item, indice: indice });
+  }
+  public btnDeduccion(item: any, indice: number) {
+    this.salida.emit({ type: "deduccion", datos: item, indice: indice });
+  }
   public btnRecalcular(item: any, indice: number) {
     this.salida.emit({ type: "recalcular", datos: item, indice: indice });
   }
