@@ -22,7 +22,7 @@
     <div class="container">
 <div class="row float-right">
 
-    <div *ngIf="!ocultarEliminar">
+    <div *ngIf="ocultarEliminar">
         <a (click)="recalcular()" *ngIf="esEliminar"  class="dropdown-toggle color-hiperlink">
             <i aria-hidden="true" class="fas fa-sync mr-3"></i><span style="margin-left: -12px;">Recalcular</span></a>
     </div>
@@ -70,7 +70,7 @@
 
 <div class="row">
     <div class="col">
-        <app-tablapaginado [nominacalculo]="true" [patronal]="patronal" [datosExtras]="datosDetalleEmpleadoNomina" [datos]="arreglotabla" [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
+        <app-tablapaginado [nominacalculo]="true" [percepcion] = "ocultarEliminar" [patronal]="patronal" [datosExtras]="datosDetalleEmpleadoNomina" [datos]="arreglotabla" [cargando]="cargando" [desglosar]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
 </div>
 
@@ -82,7 +82,7 @@
     <button (click)="continuar()" class="btn btn-primary button-fill">Continuar</button>
 </div>
 
-<div *ngIf="!ocultarEliminar" style="width: fit-content;" class="row">
+<div *ngIf="ocultarEliminar" style="width: fit-content;" class="row">
     <div class="col">
         <a (click)="eliminar()" *ngIf="esEliminar" style="color:#56dfd4;text-decoration: underline;" class="dropdown-toggle mt-3">
             <i aria-hidden="true" style="background-color: #56dfd4 !important;" class="icon_eliminar "></i> Eliminar nómina</a>

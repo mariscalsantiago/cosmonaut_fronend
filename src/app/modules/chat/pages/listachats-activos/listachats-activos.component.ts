@@ -11,6 +11,7 @@ import { VentanaemergenteService } from 'src/app/shared/services/modales/ventana
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { environment } from 'src/environments/environment';
 import { ChatService } from '../../services/chat.service';
+import { ContratocolaboradorService } from 'src/app/modules/empleados/services/contratocolaborador.service';
 
 @Component({
   selector: 'app-listachats-activos',
@@ -35,12 +36,16 @@ export class ListachatsActivosComponent implements OnInit {
   public modulo: string = "";
   public subModulo: string = "";
 
+  public idEmpleado!: number;
+  public empleado: any = [];
+
   public cargando: boolean = false;
   public suscripcion!: Subscription;
   constructor(private ventanaPrd: VentanaemergenteService, private chatPrd: ChatService,
     private usuariossistemaPrd: UsuarioSistemaService, private socket: ChatSocketService,
     private modalPrd: ModalService, public configuracionPrd: ConfiguracionesService,
-    private notificacionesPrd: NotificacionesService, private router: Router) { }
+    private notificacionesPrd: NotificacionesService, private router: Router,
+    private contratoColaboradorPrd: ContratocolaboradorService) { }
 
   ngOnInit(): void {
 
@@ -56,6 +61,7 @@ export class ListachatsActivosComponent implements OnInit {
     this.obtieneListaChat();
 
     this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(), this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
+      debugger;
       this.mensajes = datos.datos
     });
 
@@ -71,10 +77,11 @@ export class ListachatsActivosComponent implements OnInit {
   }
 
   public obtieneListaChat() {
-
+    debugger;
     this.chatPrd.getListaChat(this.usuariossistemaPrd.getIdEmpresa(), this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
       if (Boolean(datos.datos)) {
-        this.construirTabla(datos.datos);
+          this.construirTabla(datos.datos);
+       
       } else {
         this.arreglotabla = {
           filas: undefined
@@ -95,16 +102,20 @@ export class ListachatsActivosComponent implements OnInit {
 
   public construirTabla(obj: any) {
 
-
+    debugger;
 
     let columnas: Array<tabla> = [
       new tabla("nombreempleado", "Empleado"),
+      //new tabla("area","Área"),
       new tabla("mensajeultimo", "Mensaje"),
       new tabla("fecha", "Fecha", false, false, true)
     ]
 
     if (obj) {
       for (let item of obj) {
+
+  
+
         let arreglomensajes = item.mensajes;
         arreglomensajes = JSON.parse(arreglomensajes);
         item["nombreempleado"] = item?.nombre + " " + item.apellido_pat + " ";
@@ -112,7 +123,6 @@ export class ListachatsActivosComponent implements OnInit {
         item["mensajeultimo"] = arreglomensajes[arreglomensajes.length - 1]?.mensaje;
         var datePipe = new DatePipe("es-MX");
         item["fecha"] = datePipe.transform(item.fechaUltimoMensaje, 'dd-MMM-y')?.replace(".","");
-
       }
     }
 
@@ -127,6 +137,7 @@ export class ListachatsActivosComponent implements OnInit {
 
 
   public recibirTabla(obj: any) {
+    debugger;
     switch (obj.type) {
       case "responder":
         this.responderEmpleado(obj.datos);
@@ -203,6 +214,7 @@ export class ListachatsActivosComponent implements OnInit {
   }
 
   public atiendeChat(valorConversacion: any, ocultarchar: boolean) {
+    debugger;
     this.notificacionesPrd.mensajes = JSON.parse(valorConversacion.mensajes);
     this.notificacionesPrd.nombreEmpleado = valorConversacion.nombreempleado;
     this.notificacionesPrd.closeEspecifico();
