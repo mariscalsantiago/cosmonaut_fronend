@@ -131,16 +131,24 @@
                             font-style: normal;" aria-hidden="true"
                                 class="recalcularclass"></i></button>
                         
-                        <button  *ngIf="percepcion" style="color:#00C1AF;position: relative;    width: 78px;"
+                        <button  *ngIf="percepcion" style="color:#00C1AF;position: relative; width: 25px"
                             class="dropdown-toggle mt-3 " (click)="btnPercepcion(item,indice)">
                             <i style="position: absolute;
                             font-size: 11px;
                             top: -1px;
                             display: inline-block;
-                            width: 69px;
+                            width: 25px;
                             padding: -5px;
-                            left: -33px;" class="fas fa-plus"></i>
+                            " class="fas fa-plus"></i>
                         </button>        
+                        <button *ngIf="percepcion" style="color:#00C1AF;position: relative; width: 25px "
+                            (click)="btnDeduccion(item,indice)">
+                            <i style="position: absolute;
+                            display: inline-block;
+                            font-size: 11px;
+                            width: 25px;
+                            top: -1px;" class="fas fa-minus"></i>
+                        </button>  
                         <button *ngIf="ver" (click)="btnVer(item,indice)"><i aria-hidden="true"
                                 class="icon_24ver primary-bg"></i></button>
                         <button *ngIf="editar && (item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado' && item.tipoPercepcionId?.noEditable !== true && item.tipoDeduccionId?.noEditable !== true )" (click)="btnEditar(item,indice)"><i aria-hidden="true"
