@@ -76,7 +76,6 @@ export class VentanaPercepcionesComponent implements OnInit {
       this.myForm = this.createForm(this.datos);
       let tipo = (this.datos.conceptoPercepcionId?.tipoPeriodicidad == 'P') ? '1' : '2'
       this.validarTipoPercepcion(tipo);
-
     }
     this.myForm.clearValidators();
     this.myForm.updateValueAndValidity();
