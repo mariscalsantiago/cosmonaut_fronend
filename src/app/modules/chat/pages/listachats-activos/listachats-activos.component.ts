@@ -106,7 +106,7 @@ export class ListachatsActivosComponent implements OnInit {
 
     let columnas: Array<tabla> = [
       new tabla("nombreempleado", "Empleado"),
-      //new tabla("area","Área"),
+      new tabla("area","Área"),
       new tabla("mensajeultimo", "Mensaje"),
       new tabla("fecha", "Fecha", false, false, true)
     ]
@@ -118,9 +118,10 @@ export class ListachatsActivosComponent implements OnInit {
 
         let arreglomensajes = item.mensajes;
         arreglomensajes = JSON.parse(arreglomensajes);
-        item["nombreempleado"] = item.usuarioId?.nombre + " " + item.usuarioId.apellidoPat + " ";
-        item["nombreempleado"] += item.personaId?.apellidoMat ? "" : item.usuarioId?.apellidoMat || ""
+        item["nombreempleado"] = item?.nombre + " " + item.apellido_pat + " ";
+        item["nombreempleado"] += item?.apellido_mat ? "" : item?.apellido_mat || ""
         item["mensajeultimo"] = arreglomensajes[arreglomensajes.length - 1]?.mensaje;
+        item["area"] = item?.nombre_corto;
         var datePipe = new DatePipe("es-MX");
         item["fecha"] = datePipe.transform(item.fechaUltimoMensaje, 'dd-MMM-y')?.replace(".","");
       }
@@ -134,7 +135,6 @@ export class ListachatsActivosComponent implements OnInit {
 
 
   }
-
 
   public recibirTabla(obj: any) {
     debugger;
