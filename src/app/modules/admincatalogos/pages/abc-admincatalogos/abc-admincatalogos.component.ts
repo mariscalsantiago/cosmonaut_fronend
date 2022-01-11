@@ -933,7 +933,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
           let limiteInferior = this.myForm.controls.limiteInferior.value;
           if (limiteInferior > limiteSuperior) {
   
-            this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite inferior debe ser igual o menor que el límite superior')
+            this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite inferior debe ser menor que el límite superior')
               .then(() => {
                 this.myForm.controls.limiteInferior.setValue('');
                 this.myForm.controls.limiteInferior.updateValueAndValidity();
@@ -941,7 +941,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
             return;  
           }
     } 
-    const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catalogo?";
+    const titulo = (this.insertar) ? "¿Deseas agregar un nuevo registro al catálogo?" : "¿Deseas actualizar los datos del catálogo?";
     this.modalPrd.showMessageDialog(this.modalPrd.warning,titulo).then(valor =>{
       if(valor){
         
