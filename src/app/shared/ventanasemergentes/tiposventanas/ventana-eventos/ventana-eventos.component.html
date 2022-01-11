@@ -12,6 +12,7 @@
                         Campo requerido
                     </div>
                 </div>
+                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6"></div>
 <!--                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label>Empleado *</label>
                     <input autocomplete="off" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}" (focusout)="salirPersonaid()" list="empleadosreporta" class="form-control" formControlName="personaId" name="browser" id="browser">
@@ -136,7 +137,7 @@
                 <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
                     <label>Comentarios</label>
     
-                    <textarea formControlName="comentarios" type="text" rows="5" class="form-control"></textarea>
+                    <textarea formControlName="comentarios" type="text" rows="2" class="form-control"></textarea>
                 </div>
             </div>
 
@@ -146,7 +147,7 @@
     
         <div class="text-right margin" style="margin-bottom: 20px;">
     
-            <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+            <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
             <button type="submit" class="btn btn-primary button-fill">Guardar</button>
         </div>
     

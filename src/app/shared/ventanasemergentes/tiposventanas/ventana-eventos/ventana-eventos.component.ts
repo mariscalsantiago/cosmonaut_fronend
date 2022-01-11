@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CatalogosService } from 'src/app/shared/services/catalogos/catalogos.service';
@@ -17,7 +17,7 @@ import { EventosService } from 'src/app/modules/eventos/services/eventos.service
 })
 export class VentanaEventosComponent implements OnInit {
   @ViewChild("inputFile") public inputFile!: ElementRef;
-
+  @Output() salida = new EventEmitter<any>();
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
   public arregloIncidenciaTipo: any = [];
@@ -340,7 +340,7 @@ export class VentanaEventosComponent implements OnInit {
 
 
   public cancelar() {
-    //this.router.navigate(['/eventos/eventosxempleado']);
+    this.salida.emit({ type: "cancelar" });
   }
 
 
@@ -381,8 +381,7 @@ export class VentanaEventosComponent implements OnInit {
 
 
   public verificar(cadena: string) {
-
-
+    debugger;
     let ocultar = true;
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
