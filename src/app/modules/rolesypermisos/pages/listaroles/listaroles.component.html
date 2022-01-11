@@ -1,3 +1,6 @@
+<div class="scrooll-designempresa">
+    <div class="background-ajustar" appTamanioVentana [pixeles]="100">
+        <div class="scrooll-design">
 <div class="row margen titulosfijos">
     <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
         <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
@@ -60,8 +63,7 @@
 </div>
 
 
-<div class="background-ajustar" appTamanioVentana [pixeles]="100">
-<div class="scrooll-design">
+
 
     
     <div class="row margen">
@@ -74,5 +76,6 @@
     <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">  
         <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
     </div>
+</div>
 </div>
 </div>
