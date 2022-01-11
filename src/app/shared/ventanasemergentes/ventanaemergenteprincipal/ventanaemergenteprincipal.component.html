@@ -33,6 +33,7 @@
             <app-lista-empleados *ngIf="mostrar.listaempleados" [datos]="datos"></app-lista-empleados>
             <app-ventana-detallecuenta *ngIf="mostrar.detallecuenta" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-detallecuenta>
             <app-ventana-detallecompesacion *ngIf="mostrar.detallecompesacion" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-detallecompesacion>
+            <app-ventana-eventos *ngIf="mostrar.eventos" (salida)="recibirEmergente($event)" [datos]="datos"></app-ventana-eventos>
 
         </div>
     </div>

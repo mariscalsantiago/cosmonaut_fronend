@@ -281,6 +281,21 @@ export class CalcularComponent implements OnInit {
           } else if (this.nominaSeleccionada.nominaPtu) {
             this.agregarDed(obj.datos.calculoEmpleadoPtu);
           }
+        break; 
+        case "evento":
+
+          if (this.nominaSeleccionada.nominaOrdinaria) {
+            this.agregarEvento(obj.datos.calculoEmpleado);
+
+          } else if (this.nominaSeleccionada.nominaExtraordinaria) {
+            this.agregarEvento(obj.datos.calculoEmpleadoAguinaldo);
+
+          } else if (this.nominaSeleccionada.nominaLiquidacion) {
+            this.agregarEvento(obj.datos.calculoEmpleadoLiquidacion);
+
+          } else if (this.nominaSeleccionada.nominaPtu) {
+            this.agregarEvento(obj.datos.calculoEmpleadoPtu);
+          }
         break;         
     }
   }
@@ -300,6 +315,24 @@ export class CalcularComponent implements OnInit {
       if (valor.datos) {
 
         this.agregarNuevaPercepcion(valor.datos);
+      }
+    });
+  }
+
+  public agregarEvento(obj: any) {
+    debugger;
+    let esnomina = true;
+    this.idEmpleado = obj.personaId;
+    let datosEve: any = {
+      idEmpleado: this.idEmpleado,
+      idEmpresa: this.usuariSistemaPrd.getIdEmpresa(),
+      nominas: esnomina
+      
+    };
+    this.ventana.showVentana(this.ventana.eventos, { datos: datosEve }).then(valor => {
+      if (valor.datos) {
+
+        //this.agregarNuevaPercepcion(valor.datos);
       }
     });
   }

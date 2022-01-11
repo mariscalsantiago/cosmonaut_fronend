@@ -73,7 +73,8 @@ export class ContenidoComponent implements OnInit {
     adminTimbradoDispersion: false,
     listaempleados: false,
     detallecuenta: false,
-    detallecompesacion: false
+    detallecompesacion: false,
+    eventos: false
   }
 
   public emergente = {

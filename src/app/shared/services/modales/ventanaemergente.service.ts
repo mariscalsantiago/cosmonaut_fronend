@@ -26,6 +26,7 @@ export class VentanaemergenteService {
   public listadoEmpleados: string = "listadoEmpleados";
   public detallecuenta: string = "detallecuenta"; 
   public detallecompesacion: string = "detallecompesacion";
+  public eventos: string = "eventos";
 
 
 
@@ -59,7 +60,8 @@ export class VentanaemergenteService {
     adminTimbradoDispersion: false,
     listaempleados: false,
     detallecuenta: false,
-    detallecompesacion: false
+    detallecompesacion: false,
+    eventos: false
   }
 
   constructor() { }
@@ -163,7 +165,11 @@ export class VentanaemergenteService {
         this.mostrar.detallecompesacion = true;
         this.emergente.titulo = "Parámetros de nómina";
         break;        
+      case this.eventos:
 
+        this.mostrar.eventos = true;
+        this.emergente.titulo = "Agregar evento";
+        break; 
 
     }
 

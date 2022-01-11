@@ -1,0 +1,153 @@
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+    <input type="hidden">
+        
+            
+            <div class="form-group row margen">
+                <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
+                    <label for="exampleFormControlSelect1">Tipo de evento *</label>
+                    <select (change)="configurandoRestricciones()" formControlName="incidenciaId" class="form-control" [ngClass]="{'is-invalid':f.incidenciaId.errors && submitEnviado}" id="exampleFormControlSelect1">
+                        <option *ngFor="let item of arregloIncidenciaTipo" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.incidenciaId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+<!--                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+                    <label>Empleado *</label>
+                    <input autocomplete="off" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}" (focusout)="salirPersonaid()" list="empleadosreporta" class="form-control" formControlName="personaId" name="browser" id="browser">
+    
+                    <datalist id="empleadosreporta">
+                        <option *ngFor="let item of arregloEmpleados" [value]="item.nombre+' '+item.apellidoPaterno + ' ' + ((item.apellidoMaterno == undefined) ? '':item.apellidoMaterno)"></option>
+                    </datalist>
+                    <div *ngIf="f.personaId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div> -->
+                <div [ngClass]="{'ocultarCampo':verificar('unidadDia')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Unidad de medida *</label>
+    
+                    <select [ngClass]="{'is-invalid':f.unidadmedida.errors && submitEnviado}" formControlName="unidadmedida" class="form-control">
+                        <option *ngFor="let item of arregloUnidadMedidaDia" [value]="item.unidadMedidaId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.unidadmedida.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('unidad')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Unidad de medida *</label>
+    
+                    <select [ngClass]="{'is-invalid':f.unidadmedida.errors && submitEnviado}" formControlName="unidadmedida" class="form-control">
+                        <option *ngFor="let item of arregloUnidadMedida" [value]="item.unidadMedidaId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.unidadmedida.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('horas') || ocultarHorasTemp}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Número de horas *</label>
+    
+                    <input formatos [numeros]="true" [ngClass]="{'is-invalid':f.numerohoras.errors && submitEnviado}" formControlName="numerohoras" type="text" class="form-control">
+                    <div *ngIf="f.numerohoras.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('dias') || ocultarDiasTemp}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Días *</label>
+    
+                    <input appSolonumeros #numerodias (blur)="perderFoco()" formatos [numeros]="true" [ngClass]="{'is-invalid':f.duracion.errors && submitEnviado}" formControlName="duracion" type="text" class="form-control">
+                    <div *ngIf="f.duracion.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('fecha')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Fecha *</label>
+    
+                    <input  *ngIf="!tagcomponente" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
+                    <app-tag [class.is-invalid]="f.fechaInicio.errors && submitEnviado" *ngIf="tagcomponente" [calendario]="true" [dias]="numerodias.value" [dominical]="esDomingo" (salida)="recibirEtiquetas($event)"></app-tag>
+                    <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('monto') || ocultarMontoTemp}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Monto *</label>
+    
+                    <input formatos [moneda]="true" [control]="f.monto" [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
+                    <div *ngIf="f.monto.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('fechainicio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Fecha inicio *</label>
+    
+                    <input (change)="perderFoco()" [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}" formControlName="fechaInicio" type="date" class="form-control">
+                    <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('fechafin')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Fecha fin</label>
+    
+                    <input [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}" formControlName="fechaFin" type="date" class="form-control">
+                    <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('fechaaplicacion')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Fecha de aplicación *</label>
+                    <input [ngClass]="{'is-invalid':f.fechaAplicacion.errors && submitEnviado}" formControlName="fechaAplicacion" type="date" class="form-control">
+                    <div *ngIf="f.fechaAplicacion.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('monto2')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Monto *</label>
+    
+                    <input formatos [moneda]="true" [control]="f.monto" [ngClass]="{'is-invalid':f.monto.errors && submitEnviado}" formControlName="monto" type="text" class="form-control">
+                    <div *ngIf="f.monto.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('incapacidad')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Tipo de incapacidad *</label>
+                    <select [ngClass]="{'is-invalid':f.tipoIncapacidadId.errors && submitEnviado}" formControlName="tipoIncapacidadId" class="form-control">
+                        <option *ngFor="let item of arregloTipoIncapacidad" [value]="item.tipoIncapacidadId">{{item.descripcion}}</option>
+                    </select>
+                    <div *ngIf="f.tipoIncapacidadId.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('archivo')}" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Seleccionar archivo</label>
+                    <div class="input-group mb-3">
+                        <input #inputFile formControlName="archivo" type="text" class="form-control">
+                        <div (click)="abrirArchivo()" class="input-group-append" style="cursor: pointer;">
+                            <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><img src="assets/Iconos24/upload.png" alt="" srcset=""></span>
+                        </div>
+                    </div>
+                </div>
+                <div [ngClass]="{'ocultarCampo':verificar('folio')}" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Número de folio *</label>
+    
+                    <input appAlfanumerico [ngClass]="{'is-invalid':f.numeroFolio.errors && submitEnviado}" maxlength="8" formControlName="numeroFolio" type="text" class="form-control">
+                    <div *ngIf="f.numeroFolio.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
+                    <label>Comentarios</label>
+    
+                    <textarea formControlName="comentarios" type="text" rows="5" class="form-control"></textarea>
+                </div>
+            </div>
+
+    
+    
+    
+    
+        <div class="text-right margin" style="margin-bottom: 20px;">
+    
+            <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+            <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+        </div>
+    
+    </form>
