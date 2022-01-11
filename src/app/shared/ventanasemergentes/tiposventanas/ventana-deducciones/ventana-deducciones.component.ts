@@ -54,6 +54,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   public cambioEstatus : boolean = true;
   public fechaInicioDescu: Date = new Date();
   public fechaFinDescu: Date = new Date();
+  public nominaDeduccion: boolean = false;
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -65,7 +66,11 @@ export class VentanaDeduccionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
+    debugger;
     
+    if(this.datos.nominas !== undefined){
+      this.nominaDeduccion = this.datos.nominas;
+    }
     
     if(this.datos.idEmpleado != undefined){
       this.empresa = this.datos.idEmpresa;
@@ -817,10 +822,19 @@ export class VentanaDeduccionesComponent implements OnInit {
         return;  
       } 
       }
-
-    let mensaje = this.esInsert ? "¿Deseas registrar la deducción?" : "¿Deseas actualizar la deducción?";
     
-      this.modalPrd.showMessageDialog(this.modalPrd.warning,mensaje).then(valor =>{
+    let mensaje;
+    let submensaje = '';  
+
+    if(this.nominaDeduccion){
+        mensaje = "¿Deseas registrar la deducción?"; 
+        submensaje = "Deberás recalcular la nómina para que se considere en el cálculo";
+    }else{
+      mensaje = this.esInsert ? "¿Deseas registrar la deducción?" : "¿Deseas actualizar la deducción?";
+    }      
+    
+    
+      this.modalPrd.showMessageDialog(this.modalPrd.warning, mensaje, submensaje).then(valor =>{
         if(valor){
           
           let  obj = this.myForm.getRawValue();

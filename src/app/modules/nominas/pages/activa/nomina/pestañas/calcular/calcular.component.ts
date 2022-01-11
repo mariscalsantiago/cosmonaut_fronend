@@ -253,8 +253,35 @@ export class CalcularComponent implements OnInit {
         });
         break;
         case "percepcion":
-        this.agregarPer(obj.datos.calculoEmpleado);
+
+          if (this.nominaSeleccionada.nominaOrdinaria) {
+            this.agregarPer(obj.datos.calculoEmpleado);
+
+          } else if (this.nominaSeleccionada.nominaExtraordinaria) {
+            this.agregarPer(obj.datos.calculoEmpleadoAguinaldo);
+
+          } else if (this.nominaSeleccionada.nominaLiquidacion) {
+            this.agregarPer(obj.datos.calculoEmpleadoLiquidacion);
+
+          } else if (this.nominaSeleccionada.nominaPtu) {
+            this.agregarPer(obj.datos.calculoEmpleadoPtu);
+          }
         break;  
+        case "deduccion":
+
+          if (this.nominaSeleccionada.nominaOrdinaria) {
+            this.agregarDed(obj.datos.calculoEmpleado);
+
+          } else if (this.nominaSeleccionada.nominaExtraordinaria) {
+            this.agregarDed(obj.datos.calculoEmpleadoAguinaldo);
+
+          } else if (this.nominaSeleccionada.nominaLiquidacion) {
+            this.agregarDed(obj.datos.calculoEmpleadoLiquidacion);
+
+          } else if (this.nominaSeleccionada.nominaPtu) {
+            this.agregarDed(obj.datos.calculoEmpleadoPtu);
+          }
+        break;         
     }
   }
 
@@ -277,6 +304,24 @@ export class CalcularComponent implements OnInit {
     });
   }
 
+  public agregarDed(obj: any) {
+    debugger;
+    let esnomina = true;
+    this.idEmpleado = obj.personaId;
+
+    let datosDed: any = {
+      idEmpleado: this.idEmpleado,
+      idEmpresa: this.usuariSistemaPrd.getIdEmpresa(),
+      nominas: esnomina
+    };
+    this.ventana.showVentana(this.ventana.deducciones, { datos: datosDed }).then(valor => {
+      if (valor.datos) {
+
+        this.agregarNuevaDeduccion(valor.datos);
+      }
+    });
+  }
+
   public agregarNuevaPercepcion(obj: any) {
 
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
@@ -289,6 +334,19 @@ export class CalcularComponent implements OnInit {
 
       });
 
+    });
+  }
+
+
+  public agregarNuevaDeduccion(obj: any) {
+
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+
+    this.bancosPrd.saveDeduccionEmpleado(obj).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
+      this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado, this.usuariSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      });
     });
   }
 
