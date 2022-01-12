@@ -27,7 +27,7 @@
                     <th id="">Sab</th>
                 </thead>
                 <tbody >
-                    <tr *ngFor="let item of arregloArreglos" class="background-ajustar" appTamanioVentana [pixeles]="350">
+                    <tr *ngFor="let item of arregloArreglos" appTamanioVentana [pixeles]="420">
                         <td class="posicion fade-in " [ngClass]="{'noEsDia':!aux.mesActual,'tdActual':aux.esDiaNow}" *ngFor="let aux of item"><span class="absolutoClass"><span
                                     [ngClass]="{'diaActual':aux.esDiaNow}">{{aux.dia}}</span></span>
                            <div style="width: 100%; min-height: 16px;" (click)="aparecerModalEvento(evento,$event)" 
