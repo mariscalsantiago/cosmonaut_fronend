@@ -12,6 +12,7 @@ import { ServerSentEventService } from 'src/app/shared/services/nominas/server-s
 import { ReportesService } from 'src/app/shared/services/reportes/reportes.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { CuentasbancariasService } from 'src/app/modules/empresas/pages/submodulos/cuentasbancarias/services/cuentasbancarias.service';
+import { EventosService } from 'src/app/modules/eventos/services/eventos.service';
 
 
 
@@ -64,7 +65,7 @@ export class CalcularComponent implements OnInit {
     private nominaAguinaldoPrd: NominaaguinaldoService, private nominaFiniquito: NominafiniquitoliquidacionService, private cp: CurrencyPipe,
     private nominaPtuPrd: NominaptuService, private reportesPrd: ReportesService,
     private usuariSistemaPrd: UsuarioSistemaService, private ventana: VentanaemergenteService,
-    private bancosPrd: CuentasbancariasService) { }
+    private bancosPrd: CuentasbancariasService, private eventoPrd: EventosService) { }
 
   ngOnInit(): void {
 
@@ -321,20 +322,29 @@ export class CalcularComponent implements OnInit {
 
   public agregarEvento(obj: any) {
     debugger;
-    let esnomina = true;
     this.idEmpleado = obj.personaId;
     let datosEve: any = {
       idEmpleado: this.idEmpleado,
       idEmpresa: this.usuariSistemaPrd.getIdEmpresa(),
-      nominas: esnomina
-      
+      fechaContrato: obj.fechaContrato      
     };
     this.ventana.showVentana(this.ventana.eventos, { datos: datosEve }).then(valor => {
       if (valor.datos) {
 
-        //this.agregarNuevaPercepcion(valor.datos);
+        this.guardarEvento(valor.datos);
       }
     });
+  }
+
+  public guardarEvento(evento:any) {
+    debugger;
+    this.modalPrd.showMessageDialog(this.modalPrd.loading);
+    this.eventoPrd.save(evento).subscribe(datos => {
+      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
+      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
+      });
+    })
+
   }
 
   public agregarDed(obj: any) {
@@ -363,9 +373,6 @@ export class CalcularComponent implements OnInit {
 
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-      this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariSistemaPrd.getIdEmpresa()).subscribe(datos => {
-
-      });
 
     });
   }
@@ -378,8 +385,7 @@ export class CalcularComponent implements OnInit {
     this.bancosPrd.saveDeduccionEmpleado(obj).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
-      this.bancosPrd.getListaDeduccionesEmpleado(this.idEmpleado, this.usuariSistemaPrd.getIdEmpresa()).subscribe(datos => {
-      });
+
     });
   }
 

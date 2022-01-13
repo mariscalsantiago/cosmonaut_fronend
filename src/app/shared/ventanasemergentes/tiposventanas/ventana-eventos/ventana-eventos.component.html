@@ -3,7 +3,7 @@
         
             
             <div class="form-group row margen">
-                <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-6">
+                <div class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
                     <label for="exampleFormControlSelect1">Tipo de evento *</label>
                     <select (change)="configurandoRestricciones()" formControlName="incidenciaId" class="form-control" [ngClass]="{'is-invalid':f.incidenciaId.errors && submitEnviado}" id="exampleFormControlSelect1">
                         <option *ngFor="let item of arregloIncidenciaTipo" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
@@ -12,7 +12,7 @@
                         Campo requerido
                     </div>
                 </div>
-                <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6"></div>
+
 <!--                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label>Empleado *</label>
                     <input autocomplete="off" [ngClass]="{'is-invalid':f.personaId.errors && submitEnviado}" (focusout)="salirPersonaid()" list="empleadosreporta" class="form-control" formControlName="personaId" name="browser" id="browser">

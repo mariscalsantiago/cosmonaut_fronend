@@ -386,8 +386,6 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
 
   public verificar(cadena: string) {
-
-    debugger;
     let ocultar = true;
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);

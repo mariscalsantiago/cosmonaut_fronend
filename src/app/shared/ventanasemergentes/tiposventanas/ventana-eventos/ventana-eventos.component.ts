@@ -18,6 +18,8 @@ import { EventosService } from 'src/app/modules/eventos/services/eventos.service
 export class VentanaEventosComponent implements OnInit {
   @ViewChild("inputFile") public inputFile!: ElementRef;
   @Output() salida = new EventEmitter<any>();
+
+
   public myForm!: FormGroup;
   public submitEnviado: boolean = false;
   public arregloIncidenciaTipo: any = [];
@@ -29,11 +31,14 @@ export class VentanaEventosComponent implements OnInit {
   public arregloFechas: any = [];
   public archivo: string = '';
   public nombreArchivo: string = "";
+  public empleado: number = 0;
+  public fechaContrato: string = '';
 
   public esDomingo:boolean = false;
 
-  public modulo: string = "";
-  public subModulo: string = "";
+
+  @Input() public datos:any;
+
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private formbuilder: FormBuilder, private usuarioSistemaPrd: UsuarioSistemaService,
     private empleadosPrd: EmpleadosService, private router: Router, private eventoPrd: EventosService,
@@ -42,6 +47,14 @@ export class VentanaEventosComponent implements OnInit {
   ngOnInit(): void {
 
     debugger;
+    
+    if(this.datos.idEmpleado != undefined){
+      this.empleado = this.datos.idEmpleado;
+    }
+    if(this.datos.fechaContrato != undefined){
+      this.fechaContrato = this.datos.fechaContrato;
+    }
+
 
     this.myForm = this.createForms({});
 
@@ -67,15 +80,6 @@ export class VentanaEventosComponent implements OnInit {
       }
 
     });
-/*     let objenviar = {
-      centrocClienteId: {
-        centrocClienteId: this.usuarioSistemaPrd.getIdEmpresa()
-      },
-      esActivo: null
-    }
-
-    this.empleadosPrd.filtrar(objenviar).subscribe(datos => this.arregloEmpleados = datos.datos);
- */
   }
 
 
@@ -168,175 +172,142 @@ export class VentanaEventosComponent implements OnInit {
 
       }
     }
-
-    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas registrar el evento?").then(valor => {
+    let submensaje;
+    submensaje = "Deberás recalcular la nómina para que se considere en el cálculo";
+    this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas registrar el evento?", submensaje).then(valor => {
+      debugger;
       if (valor) {
+        this.myForm.controls.identificadorPersona.setValue(this.empleado);
+        let obj = this.myForm.getRawValue();
+        this.modalPrd.showMessageDialog(this.modalPrd.loading);
+        
+        let objEnviar = {
+          ...obj,
+          tipoIncapacidadId: {
+            tipoIncapacidadId: obj.tipoIncapacidadId
+          },
+          tipoIncidenciaId: {
+            tipoIncidenciaId: obj.incidenciaId
+          },
+          personaId: this.empleado,
+          clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
+          fechaContrato: this.fechaContrato,
+          archivo:  obj.archivo,
+          nombreArchivo: this.nombreArchivo
+        }
+    
+    
+        let seleccionado = Number(this.myForm.controls.incidenciaId.value);
+        let multifechas: boolean = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
+        switch (seleccionado) {
+          case 1:
+          case 2:
+          case 5:
+    
+            delete objEnviar.fechaFin;
+            delete objEnviar.urlArchivo;
+            delete objEnviar.archivo; 
+            delete objEnviar.nombreArchivo; 
+            delete objEnviar.numeroFolio;
+            delete objEnviar.tipoIncapacidadId;
+    
+            if(!this.tagcomponente){
+              multifechas = false;
+              delete objEnviar.duracion;
+              objEnviar.unidadMedidaId = {
+                unidadMedidaId: obj.unidadmedida
+              }
+              objEnviar.heTiempo = obj.numerohoras;
+    
+            }else{
+              multifechas = true;
+              delete objEnviar.monto;
+              delete objEnviar.unidadmedida;
+              delete objEnviar.numerohoras;
+            }
+            break;
+          case 11:
+          case 16:
+            delete objEnviar.numeroFolio;
+            delete objEnviar.numerohoras;
+            delete objEnviar.unidadmedida;
+            delete objEnviar.urlArchivo;
+            delete objEnviar.archivo;
+            delete objEnviar.nombreArchivo; 
+            delete objEnviar.fechaFin;
+            delete objEnviar.tipoIncapacidadId;
+            break;
+          case 13:
+          case 14:
+            delete objEnviar.duracion;
+            delete objEnviar.numeroFolio;
+            delete objEnviar.urlArchivo;
+            delete objEnviar.archivo;
+            delete objEnviar.nombreArchivo; 
+            delete objEnviar.fechaFin;
+            delete objEnviar.tipoIncapacidadId;
+            objEnviar.unidadMedidaId = {
+              unidadMedidaId: obj.unidadmedida
+            }
+            objEnviar.heTiempo = obj.numerohoras;
+            break;
+          case 3:
+            delete objEnviar.monto;
+            delete objEnviar.numerohoras;
+            break;
+          case 9:
+            delete objEnviar.tipoIncapacidadId;
+            delete objEnviar.fechaInicio;
+            delete objEnviar.monto;
+            delete objEnviar.numeroFolio;
+            delete objEnviar.numerohoras;
+            delete objEnviar.unidadmedida;
+            delete objEnviar.urlArchivo;
+            delete objEnviar.archivo;
+            delete objEnviar.nombreArchivo; 
+            delete objEnviar.fechaFin;
+    
+    
+            break;
+          case 8:
+            delete objEnviar.tipoIncapacidadId;
+            delete objEnviar.fechaFin;
+            delete objEnviar.duracion;
+            delete objEnviar.urlArchivo;
+            delete objEnviar.archivo;
+            delete objEnviar.nombreArchivo; 
+            delete objEnviar.numeroFolio;
+            delete objEnviar.unidadmedida;
+            delete objEnviar.numerohoras;
+            break;
+        }
+    
+        delete objEnviar.incidenciaId;
+    
+        let objEnviarArray: Array<any>;
+    
+    
+    
+    
+        if (multifechas) {
+          objEnviarArray = [];
+          for (let item of this.arregloFechas) {
+            let aux = JSON.parse(JSON.stringify(objEnviar));
+            aux.fechaInicio = new DatePipe("es-MX").transform(item,"yyyy-MM-dd");
+            aux.duracion = 1;
+            objEnviarArray.push(aux);
+          }
+        } else {
+          objEnviarArray = [objEnviar]
+        }
 
-        this.guardarEvento();
-
-
-
+        this.salida.emit({type:"guardar",datos: objEnviarArray});
       }
     });;
 
 
   }
 
-
-  public guardarEvento() {
-    
-    
-
-    let obj = this.myForm.getRawValue();
-    this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
-
-/*     if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
-      obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-    }
-
-    if (obj.fechaFin != undefined || obj.fechaFin != '') {
-      obj.fechaFin = new Date((new Date(obj.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-    }
-
-    if (obj.fechaAplicacion != undefined || obj.fechaAplicacion != '') {
-      obj.fechaAplicacion = new Date((new Date(obj.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-    } */
-
-
-
-    let objEnviar = {
-      ...obj,
-      tipoIncapacidadId: {
-        tipoIncapacidadId: obj.tipoIncapacidadId
-      },
-      tipoIncidenciaId: {
-        tipoIncidenciaId: obj.incidenciaId
-      },
-      personaId: obj.identificadorPersona,
-      clienteId: this.usuarioSistemaPrd.getIdEmpresa(),
-      fechaContrato: obj.fechaContrato,
-      archivo:  obj.archivo,
-      nombreArchivo: this.nombreArchivo
-    }
-
-
-    let seleccionado = Number(this.myForm.controls.incidenciaId.value);
-    let multifechas: boolean = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
-    switch (seleccionado) {
-      case 1:
-      case 2:
-      case 5:
-
-        delete objEnviar.fechaFin;
-        delete objEnviar.urlArchivo;
-        delete objEnviar.archivo; 
-        delete objEnviar.nombreArchivo; 
-        delete objEnviar.numeroFolio;
-        delete objEnviar.tipoIncapacidadId;
-
-        if(!this.tagcomponente){
-          multifechas = false;
-          delete objEnviar.duracion;
-          objEnviar.unidadMedidaId = {
-            unidadMedidaId: obj.unidadmedida
-          }
-          objEnviar.heTiempo = obj.numerohoras;
-
-        }else{
-          multifechas = true;
-          delete objEnviar.monto;
-          delete objEnviar.unidadmedida;
-          delete objEnviar.numerohoras;
-        }
-        break;
-      case 11:
-      case 16:
-        delete objEnviar.numeroFolio;
-        delete objEnviar.numerohoras;
-        delete objEnviar.unidadmedida;
-        delete objEnviar.urlArchivo;
-        delete objEnviar.archivo;
-        delete objEnviar.nombreArchivo; 
-        delete objEnviar.fechaFin;
-        delete objEnviar.tipoIncapacidadId;
-        break;
-      case 13:
-      case 14:
-        delete objEnviar.duracion;
-        delete objEnviar.numeroFolio;
-        delete objEnviar.urlArchivo;
-        delete objEnviar.archivo;
-        delete objEnviar.nombreArchivo; 
-        delete objEnviar.fechaFin;
-        delete objEnviar.tipoIncapacidadId;
-        objEnviar.unidadMedidaId = {
-          unidadMedidaId: obj.unidadmedida
-        }
-        objEnviar.heTiempo = obj.numerohoras;
-        break;
-      case 3:
-        delete objEnviar.monto;
-        delete objEnviar.numerohoras;
-        break;
-      case 9:
-        delete objEnviar.tipoIncapacidadId;
-        delete objEnviar.fechaInicio;
-        delete objEnviar.monto;
-        delete objEnviar.numeroFolio;
-        delete objEnviar.numerohoras;
-        delete objEnviar.unidadmedida;
-        delete objEnviar.urlArchivo;
-        delete objEnviar.archivo;
-        delete objEnviar.nombreArchivo; 
-        delete objEnviar.fechaFin;
-
-
-        break;
-      case 8:
-        delete objEnviar.tipoIncapacidadId;
-        delete objEnviar.fechaFin;
-        delete objEnviar.duracion;
-        delete objEnviar.urlArchivo;
-        delete objEnviar.archivo;
-        delete objEnviar.nombreArchivo; 
-        delete objEnviar.numeroFolio;
-        delete objEnviar.unidadmedida;
-        delete objEnviar.numerohoras;
-        break;
-    }
-
-    delete objEnviar.incidenciaId;
-
-    let objEnviarArray: Array<any>;
-
-
-
-
-    if (multifechas) {
-      objEnviarArray = [];
-      for (let item of this.arregloFechas) {
-        let aux = JSON.parse(JSON.stringify(objEnviar));
-        aux.fechaInicio = new DatePipe("es-MX").transform(item,"yyyy-MM-dd");
-        aux.duracion = 1;
-        objEnviarArray.push(aux);
-      }
-    } else {
-      objEnviarArray = [objEnviar]
-    }
-
-    //  this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-    //return;
-    this.eventoPrd.save(objEnviarArray).subscribe(datos => {
-      this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
-      this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
-        if (datos.resultado) {
-          //this.router.navigate(['/eventos/eventosxempleado']);
-        }
-      });
-    })
-
-  }
 
 
   public cancelar() {
@@ -381,12 +352,10 @@ export class VentanaEventosComponent implements OnInit {
 
 
   public verificar(cadena: string) {
-    debugger;
+
     let ocultar = true;
-
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
-
-    
+  
 
     var datePipe = new DatePipe("es-MX");
     switch (cadena) {
@@ -646,50 +615,6 @@ export class VentanaEventosComponent implements OnInit {
 
     }
   }
-
-
-/*   public salirPersonaid() {
-    
-    this.myForm.controls.personaId.clearValidators();
-    this.myForm.controls.personaId.updateValueAndValidity();
-
-    this.myForm.value.identificadorPersona = undefined;
-    const nombreCapturado = this.myForm.value.personaId;
-    if (nombreCapturado !== undefined) {
-      if (nombreCapturado.trim() !== "") {
-        let encontrado: boolean = false;
-        for (let item of this.arregloEmpleados) {
-          const nombreCompleto = item.nombre + " " + item.apellidoPaterno;
-          if (nombreCapturado.includes(nombreCompleto)) {
-            encontrado = true;
-            this.myForm.controls.identificadorPersona.setValue(item.idPersona);
-            this.myForm.controls.fechaContrato.setValue(item.fechaContrato);
-
-            break;
-          }
-        }
-
-
-        this.myForm.controls.personaId.setValidators([Validators.required]);
-        this.myForm.controls.personaId.updateValueAndValidity();
-
-        if (encontrado) {
-          this.myForm.controls.personaId.clearValidators();
-          this.myForm.controls.personaId.updateValueAndValidity();
-        } else {
-
-          this.myForm.controls.identificadorPersona.setValue('');
-          this.myForm.controls.fechaContrato.setValue('');
-          this.myForm.controls.personaId.setValue('');
-        }
-      } else {
-        this.myForm.controls.personaId.setValidators([Validators.required]);
-        this.myForm.controls.personaId.updateValueAndValidity();
-      }
-    }
-
-
-  } */
 
 
   public recibirEtiquetas(obj: any) {
