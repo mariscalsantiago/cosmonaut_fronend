@@ -238,7 +238,7 @@ export class NoticiasComponent implements OnInit {
 
 
   private cargarTable(){
-    debugger;
+    
     this.usuario = this.serviceUsuario.getUsuario();
     if (this.esClienteEmpresa) {
   

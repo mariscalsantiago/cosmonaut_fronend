@@ -55,6 +55,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   public fechaInicioDescu: Date = new Date();
   public fechaFinDescu: Date = new Date();
   public nominaDeduccion: boolean = false;
+  public fechaContrato: string = '';
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -66,10 +67,13 @@ export class VentanaDeduccionesComponent implements OnInit {
     private bancosPrd: CuentasbancariasService) { }
 
   ngOnInit(): void {
-    debugger;
+    
     
     if(this.datos.nominas !== undefined){
       this.nominaDeduccion = this.datos.nominas;
+    }
+    if(this.datos.fechaContrato != undefined){
+      this.fechaContrato = this.datos.fechaContrato;
     }
     
     if(this.datos.idEmpleado != undefined){
@@ -969,6 +973,13 @@ export class VentanaDeduccionesComponent implements OnInit {
              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
             }
           };
+
+          if(this.fechaContrato !== undefined){
+            this.objEnviar = {
+              ...this.objEnviar,
+              fechaContrato: this.fechaContrato
+          }
+          }
         }
         }else{
           if(obj.baseCalculoId == null){

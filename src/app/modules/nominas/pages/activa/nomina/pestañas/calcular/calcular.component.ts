@@ -143,7 +143,7 @@ export class CalcularComponent implements OnInit {
         this.rellenandoTablas("calculoEmpleadoPtu");
       });
     }
-    debugger;
+    
 
     this.ocultarEliminar = this.nominaSeleccionada[this.llave].estadoActualNomina === "Calculada" || this.nominaSeleccionada[this.llave].estadoActualNomina === "Nueva";
   }
@@ -193,7 +193,7 @@ export class CalcularComponent implements OnInit {
   public patronal: any = { datos: [] };
 
   public recibirTabla(obj: any) {
-    debugger;
+    
     switch (obj.type) {
       case "desglosar":
 
@@ -303,13 +303,14 @@ export class CalcularComponent implements OnInit {
 
 
   public agregarPer(obj: any) {
-    debugger;
+    
     let esnomina = true;
     this.idEmpleado = obj.personaId;
     let datosPer: any = {
       idEmpleado: this.idEmpleado,
       idEmpresa: this.usuariSistemaPrd.getIdEmpresa(),
-      nominas: esnomina
+      nominas: esnomina,
+      fechaContrato: obj.fechaContrato
       
     };
     this.ventana.showVentana(this.ventana.percepciones, { datos: datosPer }).then(valor => {
@@ -321,7 +322,7 @@ export class CalcularComponent implements OnInit {
   }
 
   public agregarEvento(obj: any) {
-    debugger;
+    
     this.idEmpleado = obj.personaId;
     let datosEve: any = {
       idEmpleado: this.idEmpleado,
@@ -337,7 +338,7 @@ export class CalcularComponent implements OnInit {
   }
 
   public guardarEvento(evento:any) {
-    debugger;
+    
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
     this.eventoPrd.save(evento).subscribe(datos => {
       this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
@@ -348,14 +349,15 @@ export class CalcularComponent implements OnInit {
   }
 
   public agregarDed(obj: any) {
-    debugger;
+    
     let esnomina = true;
     this.idEmpleado = obj.personaId;
 
     let datosDed: any = {
       idEmpleado: this.idEmpleado,
       idEmpresa: this.usuariSistemaPrd.getIdEmpresa(),
-      nominas: esnomina
+      nominas: esnomina,
+      fechaContrato: obj.fechaContrato
     };
     this.ventana.showVentana(this.ventana.deducciones, { datos: datosDed }).then(valor => {
       if (valor.datos) {

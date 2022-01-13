@@ -46,7 +46,7 @@ export class VentanaEventosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     
     if(this.datos.idEmpleado != undefined){
       this.empleado = this.datos.idEmpleado;
@@ -175,7 +175,7 @@ export class VentanaEventosComponent implements OnInit {
     let submensaje;
     submensaje = "Deberás recalcular la nómina para que se considere en el cálculo";
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas registrar el evento?", submensaje).then(valor => {
-      debugger;
+      
       if (valor) {
         this.myForm.controls.identificadorPersona.setValue(this.empleado);
         let obj = this.myForm.getRawValue();
@@ -494,7 +494,7 @@ export class VentanaEventosComponent implements OnInit {
   }
 
   public configurandoRestricciones() {
-    debugger;
+    
 
     let seleccionado = Number(this.myForm.controls.incidenciaId.value);
 

@@ -61,7 +61,7 @@ export class ListachatsActivosComponent implements OnInit {
     this.obtieneListaChat();
 
     this.socket.getMensajeGenericoByEmpresaByEmpleado(this.usuariossistemaPrd.getIdEmpresa(), this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
-      debugger;
+      
       this.mensajes = datos.datos
     });
 
@@ -77,7 +77,7 @@ export class ListachatsActivosComponent implements OnInit {
   }
 
   public obtieneListaChat() {
-    debugger;
+    
     this.chatPrd.getListaChat(this.usuariossistemaPrd.getIdEmpresa(), this.usuariossistemaPrd.usuario.usuarioId).subscribe(datos => {
       if (Boolean(datos.datos)) {
           this.construirTabla(datos.datos);
@@ -102,7 +102,7 @@ export class ListachatsActivosComponent implements OnInit {
 
   public construirTabla(obj: any) {
 
-    debugger;
+    
 
     let columnas: Array<tabla> = [
       new tabla("nombreempleado", "Empleado"),
@@ -137,7 +137,7 @@ export class ListachatsActivosComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    debugger;
+    
     switch (obj.type) {
       case "responder":
         this.responderEmpleado(obj.datos);
@@ -214,7 +214,7 @@ export class ListachatsActivosComponent implements OnInit {
   }
 
   public atiendeChat(valorConversacion: any, ocultarchar: boolean) {
-    debugger;
+    
     this.notificacionesPrd.mensajes = JSON.parse(valorConversacion.mensajes);
     this.notificacionesPrd.nombreEmpleado = valorConversacion.nombreempleado;
     this.notificacionesPrd.closeEspecifico();

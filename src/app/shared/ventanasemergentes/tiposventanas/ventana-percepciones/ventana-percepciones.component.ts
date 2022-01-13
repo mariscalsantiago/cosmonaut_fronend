@@ -32,6 +32,7 @@ export class VentanaPercepcionesComponent implements OnInit {
   public nombrePer: string = "";
   public nomPercepcion: number = 0;
   public nominaPercepcion: boolean = false;
+  public fechaContrato: string = '';
 
   @Input() public datos: any;
 
@@ -46,6 +47,9 @@ export class VentanaPercepcionesComponent implements OnInit {
 
     if(this.datos.nominas !== undefined){
       this.nominaPercepcion = this.datos.nominas;
+    }
+    if(this.datos.fechaContrato != undefined){
+      this.fechaContrato = this.datos.fechaContrato;
     }
 
     if (this.datos.idEmpleado != undefined) {
@@ -473,7 +477,7 @@ export class VentanaPercepcionesComponent implements OnInit {
     this.numPeriodo = this.myForm.value.numeroPeriodos;
     }
     
-    if (this.monto != null && this.numPeriodo != null) {
+    if (this.monto != null && this.numPeriodo != null && String(this.monto) != '' && String(this.numPeriodo) != '') {
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos => {
         this.montoPercepcion = datos.datos;
         var monto = this.montoPercepcion.toFixed(4);
@@ -510,7 +514,7 @@ export class VentanaPercepcionesComponent implements OnInit {
       this.myForm.controls.montoPorPeriodo.setValue('');
       this.myForm.controls.montoPorPeriodo.disable();
     }
-    else if (this.monto != null && periodo != null && periodo >= '1') {
+    else if (this.monto != null && periodo != null && periodo >= '1' && String(this.monto) != '' && periodo != '') {
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos => {
         this.montoPercepcion = datos.datos;
         var monto = this.montoPercepcion.toFixed(4);
@@ -525,7 +529,7 @@ export class VentanaPercepcionesComponent implements OnInit {
 
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitEnviado = true;
 
     if (this.myForm.invalid) {
@@ -622,9 +626,17 @@ export class VentanaPercepcionesComponent implements OnInit {
               fechaInicio: obj.fechaInicio,
               montoTotal: obj.montoPercepcion,
               numeroPeriodos: obj.numeroPeriodos,
-              montoPorPeriodo: obj.montoPorPeriodo
+              montoPorPeriodo: obj.montoPorPeriodo,
 
             };
+
+            if(this.fechaContrato !== undefined){
+              this.objEnviar = {
+                ...this.objEnviar,
+                fechaContrato: this.fechaContrato
+            }
+            }
+
           }
 
         } else {
