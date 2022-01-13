@@ -35,7 +35,7 @@ export class DetalleRolesComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    debugger;
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
@@ -68,11 +68,12 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public traerDatosMenu(obj?: any) {
-
+    debugger;
     let modificar = Boolean(obj);
 
     this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
       this.arreglo = datos;
+      console.log("lista modulos", this.arreglo);
       this.arreglo.forEach(valor => {
         valor.seleccionado = false;
         valor.checked = false;
@@ -115,6 +116,7 @@ export class DetalleRolesComponent implements OnInit {
 
 
       this.rolesPrd.getPermisosByVersiones(this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
+        console.log("lista permisos versiones", datos);
         this.cargando = false;
 
         if (this.usuariosSistemaPrd.getVersionSistema() !== 4 && this.usuariosSistemaPrd.getVersionSistema() !== 1) {

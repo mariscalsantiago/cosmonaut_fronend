@@ -32,6 +32,7 @@ export class DetallegruponominaComponent implements OnInit {
   public arregloBasePeriodos:any = [];
   public arregloCatPeriodosAguinaldo:any = [];
   public obj:any = [];
+  public pagoComplementario: boolean = false;
   //public ajustedeisr:boolean = false;
   public empresaRazon: string = '';
 
@@ -45,7 +46,7 @@ export class DetallegruponominaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+    debugger;
     this.activeprd.params.subscribe(datos => {
       this.id_empresa = datos["id"];
       if (datos["tipoinsert"] == "nuevo") {
@@ -63,9 +64,11 @@ export class DetallegruponominaComponent implements OnInit {
 
     });
 
-    this.companiaPrd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+    this.companiaPrd.getEmpresaById(this.id_empresa).subscribe(datos => {
+
       this.arreglocompany = datos.datos;
       this.empresaRazon = this.arreglocompany.razonSocial;
+      this.pagoComplementario = this.arreglocompany.pagoComplementario;
 
       this.obj = {
         esquemaPagoId:{},

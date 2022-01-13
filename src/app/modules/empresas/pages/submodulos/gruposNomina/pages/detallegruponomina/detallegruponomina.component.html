@@ -103,11 +103,11 @@
                     Campo requerido
                 </div>
             </div>
-            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+            <div *ngIf="pagoComplementario" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label class="contenedorInputCheckRadio">Pago complementario
-          <input formControlName="pagoComplementario" id="pagoComplementario" type="checkbox">
-          <span class="checkmark"></span>
-        </label>
+                    <input formControlName="pagoComplementario" id="pagoComplementario" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label placement="top" [mdbTooltip]="'calcularISR' | tooltip" class="contenedorInputCheckRadio">Calcular ISR de aguinaldo aplicando reglamento

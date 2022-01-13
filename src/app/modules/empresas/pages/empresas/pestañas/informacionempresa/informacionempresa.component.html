@@ -152,12 +152,12 @@
             </div>
         </div>
 
-        <div class="col-8">
+        <div class="col-12">
             <div class=" row">
                 <div class="col-12">
                     <div class=" row">
 
-                        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                        <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                             <label>Contraseña de certificado de sello digital *</label>
                             <input formControlName="contrasenia" maxlength="30" type="password" class="form-control"
                                 [class.is-invalid]="f.contrasenia.errors && f.contrasenia.touched" placeholder="">
@@ -166,12 +166,27 @@
                             </div>
                         </div>
 
-                        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                        <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
                             <label for="exampleFormControlSelect1">Estado de empresa *</label>
                             <select formControlName="esActivo" class="form-control">
                                 <option value="true" selected>ACTIVO</option>
                                 <option value="false">INACTIVO</option>
                             </select>
+                        </div>
+
+                        <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+                            <label> ¿La empresa tiene pagos complementarios? *</label><br>
+                                <label class="contenedorInputCheckRadio">Si
+                                <input name="pagoComplementario" formControlName="pagoComplementario" type="radio" value= "true" [class.is-invalid]="f.pagoComplementario.errors && f.pagoComplementario.touched" >
+                                <span class="radiomark"></span>
+                            </label>
+                            <label class="contenedorInputCheckRadio">No
+                                <input name="pagoComplementario" formControlName="pagoComplementario" type="radio" value= "false" [class.is-invalid]="f.pagoComplementario.errors && f.pagoComplementario.touched" >
+                                <span class="radiomark"></span>
+                            </label>
+                            <div *ngIf="f.pagoComplementario.errors?.required && f.pagoComplementario.touched" class="invalid-feedback">
+                                Campo requerido
+                            </div>
                         </div>
 
                     </div>

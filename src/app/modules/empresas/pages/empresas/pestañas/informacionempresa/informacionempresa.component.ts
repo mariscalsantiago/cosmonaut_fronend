@@ -175,7 +175,13 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-  
+    debugger;
+    if(!this.datos.insertar){
+      obj.pagoComplementario = obj.pagoComplementario ? "true" : "false";
+
+    }else{
+      obj.pagoComplementario = "true";
+    }
     if (this.datos.empresa?.certificadoSelloDigitalId) {
       obj.cer = 'Certificado de sello digital cargado';
       obj.key = 'Llave de certificado de sello digital cargado';
@@ -192,6 +198,7 @@ export class InformacionempresaComponent implements OnInit {
       regimenfiscalId: [obj.regimenfiscalId?.regimenfiscalId, [Validators.required]],
       centrocClienteId: obj.centrocClienteId,
       tieneCurp: [obj.tieneCurp],
+      pagoComplementario: [obj.pagoComplementario, Validators.required],
       cer: [{ value: obj.cer, disabled: true }, [Validators.required]],
       key: [{ value: obj.key, disabled: true }, [Validators.required]],
       contrasenia: [{ value: obj.contrasenia, disabled: this.datos.empresa?.certificadoSelloDigitalId }, [Validators.required]],
@@ -310,20 +317,19 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public guardarCambios() {
-    
+    debugger;
     let obj = this.myform.getRawValue();
     if (!Boolean(obj.key) && !Boolean(obj.cer)) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer y .key, favor de elegir archivos de certificado ");
       return;
     }
 
-
-    
     let objenviar :any = {
       nombre: obj.nombre,
       razonSocial: obj.razonSocial,
       cerKeyConstrasenia: false,
       rfc: obj.rfc,
+      pagoComplementario: obj.pagoComplementario,
       regimenfiscalId: {
         regimenfiscalId: obj.regimenfiscalId
       },

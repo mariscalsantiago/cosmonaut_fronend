@@ -82,6 +82,7 @@ export class ListagruposnominasComponent implements OnInit {
 
   ngOnInit(): void {
 
+    debugger;
     this.establecerPermisos();
 
     let documento: any = document.defaultView;
