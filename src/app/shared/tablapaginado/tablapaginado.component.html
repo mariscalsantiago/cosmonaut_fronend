@@ -109,7 +109,7 @@
                     </td>
 
                     <td *ngIf="percepcion" class="text-right opciones">
-                        <button  style="color:#00C1AF;position: relative;"
+                        <button  style="color:#00C1AF;position: relative; width: 30px"
                         class="dropdown-toggle mt-3 " (click)="btnPercepcion(item,indice)">
                         <i aria-hidden="true" style="position: absolute;
                         font-size: 11px;
@@ -117,19 +117,21 @@
                         " class="fas fa-plus" placement="top"
                             [mdbTooltip]="'toolpercepcion' | tooltip"></i>
                     </button>        
-                    <button style="color:#00C1AF;position: relative;"
+                    <button style="color:#00C1AF;position: relative; width: 25px "
                         (click)="btnDeduccion(item,indice)">
                         <i aria-hidden="true" style="position: absolute;
                         display: inline-block;
                         font-size: 11px;
+                        width: 9px;
                         top: -10px;" class="fas fa-minus" placement="top"
                             [mdbTooltip]="'tooldeduccion' | tooltip"></i>
                     </button> 
-                    <button style="color:#00C1AF;position: relative;"
+                    <button style="color:#00C1AF;position: relative; width: 17px "
                     (click)="btnEvento(item,indice)">
                     <i aria-hidden="true" style="position: absolute;
                     display: inline-block;
                     font-size: 11px;
+                    width: 17px;
                     top: -9px;" class="far fa-calendar " placement="top"
                             [mdbTooltip]="'toolevento' | tooltip"></i>
                 </button>  
