@@ -107,6 +107,33 @@
                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{item.porcentaje}}%</div>
                         </div>
                     </td>
+
+                    <td *ngIf="percepcion" class="text-right opciones">
+                        <button  style="color:#00C1AF;position: relative;"
+                        class="dropdown-toggle mt-3 " (click)="btnPercepcion(item,indice)">
+                        <i aria-hidden="true" style="position: absolute;
+                        font-size: 11px;
+                        top: -9px;
+                        " class="fas fa-plus" placement="top"
+                            [mdbTooltip]="'toolpercepcion' | tooltip"></i>
+                    </button>        
+                    <button style="color:#00C1AF;position: relative;"
+                        (click)="btnDeduccion(item,indice)">
+                        <i aria-hidden="true" style="position: absolute;
+                        display: inline-block;
+                        font-size: 11px;
+                        top: -10px;" class="fas fa-minus" placement="top"
+                            [mdbTooltip]="'tooldeduccion' | tooltip"></i>
+                    </button> 
+                    <button style="color:#00C1AF;position: relative;"
+                    (click)="btnEvento(item,indice)">
+                    <i aria-hidden="true" style="position: absolute;
+                    display: inline-block;
+                    font-size: 11px;
+                    top: -9px;" class="far fa-calendar " placement="top"
+                            [mdbTooltip]="'toolevento' | tooltip"></i>
+                </button>  
+                    </td>
                     <td *ngIf="!chat" class="opciones" [ngClass]="{'centrarIconos':item.nombre !== 'Política Estándar'}">
                         <button *ngIf="descargar && item.nombre !== 'Política Estándar'"
                             (click)="btnDescargar(item,indice)"><i aria-hidden="true"
@@ -131,32 +158,6 @@
                             font-style: normal;" aria-hidden="true"
                                 class="recalcularclass"></i></button>
                         
-                        <button  *ngIf="percepcion" style="color:#00C1AF;position: relative; width: 25px"
-                            class="dropdown-toggle mt-3 " (click)="btnPercepcion(item,indice)">
-                            <i style="position: absolute;
-                            font-size: 11px;
-                            top: -1px;
-                            display: inline-block;
-                            width: 25px;
-                            padding: -5px;
-                            " class="fas fa-plus"></i>
-                        </button>        
-                        <button *ngIf="percepcion" style="color:#00C1AF;position: relative; width: 20px "
-                            (click)="btnDeduccion(item,indice)">
-                            <i style="position: absolute;
-                            display: inline-block;
-                            font-size: 11px;
-                            width: 20px;
-                            top: -1px;" class="fas fa-minus"></i>
-                        </button> 
-                        <button *ngIf="percepcion" style="color:#00C1AF;position: relative; width: 17px "
-                        (click)="btnEvento(item,indice)">
-                        <i style="position: absolute;
-                        display: inline-block;
-                        font-size: 11px;
-                        width: 17px;
-                        top: -1px;" class="far fa-calendar"></i>
-                    </button>  
                         <button *ngIf="ver" (click)="btnVer(item,indice)"><i aria-hidden="true"
                                 class="icon_24ver primary-bg"></i></button>
                         <button *ngIf="editar && (item.nombre !== 'Política Estándar' && item.nombreRol !== 'Administrador Cosmonaut' &&  item.nombreRol !== 'Contacto inicial' &&  item.nombreRol !== 'Empleado' && item.tipoPercepcionId?.noEditable !== true && item.tipoDeduccionId?.noEditable !== true )" (click)="btnEditar(item,indice)"><i aria-hidden="true"

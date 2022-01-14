@@ -4,8 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'tooltip'
 })
 export class TooltipPipe implements PipeTransform {
-
+  
   transform(value: string): string {
+    debugger;
     if (value === 'curp') {
       return  "Clave Única de Registro de Población (CURP).\nClave alfanumérica de 18 caracteres.";
     } else if (value === 'curpRazon') {
@@ -107,7 +108,13 @@ export class TooltipPipe implements PipeTransform {
       return "Resetear contraseña";
     }else if(value =='contactoinicial'){
         return "Para desactivar a este usuario es necesario hacerlo desde el módulo de Administración de usuarios.";
-    }
+    }else if(value =='tooldeduccion'){
+        return "Agregar deducción";
+    }else if(value =='toolpercepcion'){
+        return "Agregar percepción";
+    }else if(value =='toolevento'){
+        return "Agregar incidencia";
+}
 
     return '';
   }

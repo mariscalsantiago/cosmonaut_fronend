@@ -153,7 +153,7 @@ export class CalcularComponent implements OnInit {
     let columnas: Array<tabla> = [
       new tabla("nombrecompleto", "Nombre"),
       new tabla("numeroEmpleado", "Número de empleado", false, false, true),
-      new tabla("fecha", "Fecha antigüedad"),
+      new tabla("fecha", "Fecha antigüedad/ingreso"),
       new tabla("diaslaborados", "Días laborados", false, false, true),
       new tabla("percepciones", "Percepciones", false, false, true),
       new tabla("deducciones", "Deducciones", false, false, true),
