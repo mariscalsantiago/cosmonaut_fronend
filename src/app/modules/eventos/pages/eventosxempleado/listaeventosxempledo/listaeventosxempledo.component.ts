@@ -109,7 +109,9 @@ export class ListaeventosxempledoComponent implements OnInit {
                 if(item.unidadMedidaId !== undefined){
                     if(item.unidadMedidaId == 2){
                       item.unidadM = 'Días';
-                      item.cantidad = item.heTiempo;
+                      if(item.duracion !== undefined){
+                        item.cantidad = item.duracion;
+                      }
                       
                     }
                     else if(item.unidadMedidaId == 3){

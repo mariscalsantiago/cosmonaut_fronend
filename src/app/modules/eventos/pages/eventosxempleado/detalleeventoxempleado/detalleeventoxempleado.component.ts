@@ -188,7 +188,7 @@ export class DetalleeventoxempleadoComponent implements OnInit {
   public guardarEvento() {
     
     
-
+    debugger;
     let obj = this.myForm.getRawValue();
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
 
@@ -236,18 +236,23 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.nombreArchivo; 
         delete objEnviar.numeroFolio;
         delete objEnviar.tipoIncapacidadId;
+        delete objEnviar.heTiempo;
 
-        if(!this.tagcomponente){
-          multifechas = false;
-          delete objEnviar.duracion;
+        if(obj.unidadmedida === '2' ){
+          multifechas = true;
+          delete objEnviar.unidadmedida;
+          delete objEnviar.numerohoras;
+          delete objEnviar.monto;
           objEnviar.unidadMedidaId = {
             unidadMedidaId: obj.unidadmedida
           }
-          objEnviar.heTiempo = obj.numerohoras;
 
         }else{
-          multifechas = true;
-          delete objEnviar.monto;
+          objEnviar.unidadMedidaId = {
+            unidadMedidaId: obj.unidadmedida
+          }
+          delete objEnviar.duracion;
+          multifechas = false;
           delete objEnviar.unidadmedida;
           delete objEnviar.numerohoras;
         }

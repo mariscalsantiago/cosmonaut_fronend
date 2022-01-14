@@ -211,17 +211,21 @@ export class VentanaEventosComponent implements OnInit {
             delete objEnviar.numeroFolio;
             delete objEnviar.tipoIncapacidadId;
     
-            if(!this.tagcomponente){
-              multifechas = false;
-              delete objEnviar.duracion;
+            if(obj.unidadmedida === '2' ){
+              multifechas = true;
+              delete objEnviar.unidadmedida;
+              delete objEnviar.numerohoras;
+              delete objEnviar.monto;
               objEnviar.unidadMedidaId = {
                 unidadMedidaId: obj.unidadmedida
               }
-              objEnviar.heTiempo = obj.numerohoras;
     
             }else{
-              multifechas = true;
-              delete objEnviar.monto;
+              objEnviar.unidadMedidaId = {
+                unidadMedidaId: obj.unidadmedida
+              }
+              delete objEnviar.duracion;
+              multifechas = false;
               delete objEnviar.unidadmedida;
               delete objEnviar.numerohoras;
             }

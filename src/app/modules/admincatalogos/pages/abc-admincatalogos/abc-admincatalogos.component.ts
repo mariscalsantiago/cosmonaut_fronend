@@ -664,7 +664,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       let limiteSuperior = limites.limiteSuperior;
       if (this.editFieldNum > limiteSuperior) {
   
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite inferior debe ser igual o menor que el límite superior')
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El límite inferior debe ser menor que el límite superior')
           .then(() => {
             this.arregloTablaValores[id][property] = this.editFieldNum;
             this.valFecha = false;
