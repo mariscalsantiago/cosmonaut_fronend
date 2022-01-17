@@ -115,8 +115,8 @@
 
         <div *ngIf="pensionAlimenticia" class="input-group-sm mb-3 col-6">
             <label>Fecha de demanda *</label>
-            <input [max]="f.fechaInicioDescto.value" formControlName="fechaRecepcionAvisoRetencion" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado && pensionAlimenticia}">
-            <div *ngIf="myForm.controls.fechaRecepcionAvisoRetencion.errors && submitEnviado && pensionAlimenticia" class="invalid-feedback">
+            <input [max]="f.fechaDemanda.value" formControlName="fechaDemanda" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaDemanda.errors && submitEnviado && pensionAlimenticia}">
+            <div *ngIf="myForm.controls.fechaDemanda.errors && submitEnviado && pensionAlimenticia" class="invalid-feedback">
                 Campo requerido
             </div>
         </div>
