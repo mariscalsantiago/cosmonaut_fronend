@@ -662,7 +662,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       
       maxvalue = editField.length; 
       if(maxvalue > 8){
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de cuota fija no deve ser mayor a 10 dígitos');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de cuota fija no debe ser mayor a 10 dígitos');
         this.valFecha = false;
         return;  
       }
@@ -675,7 +675,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
       maxvalue = editField.length; 
       if(maxvalue > 8){
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite inferior no deve ser mayor a 10 dígitos');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite inferior no debe ser mayor a 10 dígitos');
         this.valFecha = false;
         return;  
       }
@@ -699,7 +699,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       
       maxvalue = editField.length; 
       if(maxvalue > 8){
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite superior no deve ser mayor a 10 dígitos');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite superior no debe ser mayor a 10 dígitos');
         this.valFecha = false;
         return;  
       }
@@ -720,7 +720,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     if (property.includes('montoSubsidio')){ 
       maxvalue = editField.length; 
       if(maxvalue > 8){
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de monto subsidio no deve ser mayor a 10 dígitos');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de monto subsidio no debe ser mayor a 10 dígitos');
         this.valFecha = false;
         return;  
       }
@@ -730,7 +730,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     if (property.includes('porcExcedenteLimInf')){ 
       maxvalue = editField.length; 
       if(maxvalue > 5){
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de porcentaje excedente no deve ser mayor a 5 dígitos');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de porcentaje excedente no debe ser mayor a 5 dígitos');
         this.valFecha = false;
         return;  
       }
@@ -740,7 +740,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     if (property.includes('tasa')){ 
       maxvalue = editField.length; 
       if(maxvalue > 2){
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de tasa no deve ser mayor a 2 dígitos');
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de tasa no debe ser mayor a 2 dígitos');
         this.valFecha = false;
         return;  
       }
