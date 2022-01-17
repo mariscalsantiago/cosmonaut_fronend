@@ -189,7 +189,7 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite inferior *</label>
-                <input formatos [numerosDecimales]="true" maxlength="13" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteInferior.errors && submitEnviado}">
                 <div *ngIf="f.limiteInferior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -198,7 +198,7 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite superior *</label>
-                <input formatos [numerosDecimales]="true" maxlength="13" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteSuperior.errors && submitEnviado}">
                 <div *ngIf="f.limiteSuperior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -206,7 +206,7 @@
             </div>
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Cuota fija *</label>
-                <input formatos [numerosDecimales]="true" maxlength="13" formControlName="cuotaFija" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="cuotaFija" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.cuotaFija.errors && submitEnviado}">
                 <div *ngIf="f.cuotaFija.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -259,7 +259,7 @@
             </div>
             <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite inferior *</label>
-                <input formatos [numerosDecimales]="true" maxlength="13" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteInferior.errors && submitEnviado}">
                 <div *ngIf="f.limiteInferior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -267,7 +267,7 @@
             </div>
             <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite superior *</label>
-                <input formatos [numerosDecimales]="true" maxlength="13" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteSuperior.errors && submitEnviado}">
                 <div *ngIf="f.limiteSuperior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -276,7 +276,7 @@
             </div>
             <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Monto subsidio *</label>
-                <input formatos [numerosDecimales]="true" formControlName="montoSubsidio" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="montoSubsidio" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.montoSubsidio.errors && submitEnviado}">
                 <div *ngIf="f.montoSubsidio.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -315,7 +315,7 @@
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite inferior *</label>
-                <input formatos [numerosDecimales]="true" maxlength="13" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteInferior.errors && submitEnviado}">
                 <div *ngIf="f.limiteInferior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -324,7 +324,7 @@
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Límite superior *</label>
-                <input formatos [numerosDecimales]="true" maxlength="13" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.limiteSuperior.errors && submitEnviado}">
                 <div *ngIf="f.limiteSuperior.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -333,7 +333,7 @@
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Cuota fija *</label>
-                <input formatos [numerosDecimales]="true" maxlength="13" formControlName="cuotaFija" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="cuotaFija" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.cuotaFija.errors && submitEnviado}">
                 <div *ngIf="f.cuotaFija.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -341,7 +341,7 @@
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Tasa *</label>
-                <input formatos [numerosDecimales]="true" maxlength="13" formControlName="tasa" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="2" formControlName="tasa" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.tasa.errors && submitEnviado}">
                 <div *ngIf="f.tasa.errors && submitEnviado" class="invalid-feedback">
                     Campo requerido
@@ -447,16 +447,16 @@
                     </tr>
                     <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaIsrId = index">
                         <td class="td-center">
-                            <span (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
+                            <span (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteInferior', $event)" contenteditable="true" >{{valores.limiteInferior}}</span>
                         </td>
                         <td class="td-center">
-                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
                         </td>
                         <td class="td-center">
-                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'cuotaFija', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaIsrId, 'cuotaFija', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
                         </td>
                         <td class="td-center">
-                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)">{{valores.porcExcedenteLimInf}}</span>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)">{{valores.porcExcedenteLimInf}}</span>
                         </td>
                         <td class="td-center">
                             <input #isr id="isr" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaIsrId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'fechaInicio', $event)">
@@ -505,16 +505,16 @@
 
                     <tr *ngFor="let valores of arregloTablaValores; let tasaAplicableIsnId = index">
                         <td>
-                            <span (keyup)="changeValue(tasaAplicableIsnId, 'limiteInferior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
+                            <span (keypress)="soloNumeros($event)" (keyup)="changeValue(tasaAplicableIsnId, 'limiteInferior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'limiteSuperior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tasaAplicableIsnId, 'limiteSuperior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'cuotaFija', $event)" (blur)="updateList(tasaAplicableIsnId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tasaAplicableIsnId, 'cuotaFija', $event)" (blur)="updateList(tasaAplicableIsnId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true" (keyup)="changeValue(tasaAplicableIsnId, 'tasa', $event)" (blur)="updateList(tasaAplicableIsnId, 'tasa', $event)">{{valores.tasa}}</span>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tasaAplicableIsnId, 'tasa', $event)" (blur)="updateList(tasaAplicableIsnId, 'tasa', $event)">{{valores.tasa}}</span>
                         </td>
                         <td>
                             <input #isn id="isn" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tasaAplicableIsnId, 'fechaInicio', $event)" (blur)="updateList(tasaAplicableIsnId, 'fechaInicio', $event)">
@@ -559,13 +559,13 @@
                     </tr>
                     <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaSubsidioId = index">
                         <td class="td-center">
-                            <span (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
+                            <span (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
                         </td>
                         <td class="td-center">
-                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
                         </td>
                         <td class="td-center">
-                            <span contenteditable="true" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
                         </td>
                         <td class="td-center">
                             <input #isr id="isr" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)">

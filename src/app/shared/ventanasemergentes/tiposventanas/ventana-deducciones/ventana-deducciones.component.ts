@@ -792,7 +792,7 @@ export class VentanaDeduccionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-    
+    debugger;
   
     this.submitEnviado = true;
     this.myForm.updateValueAndValidity();
@@ -857,129 +857,92 @@ export class VentanaDeduccionesComponent implements OnInit {
             obj.retencion = '';
           }
 
-/*           let fechaIniDesc = "";
-          if (obj.fechaInicioDescto != undefined || obj.fechaInicioDescto != null) {
-      
-            if (obj.fechaInicioDescto != "") {
-      
-              const fecha1 = new Date(obj.fechaInicioDescto).toUTCString().replace("GMT", "");
-              fechaIniDesc = `${new Date(fecha1).getTime()}`;
-            }
-          } */
-/*           let fechaFinDesc = "";
-          if (obj.fechaFinDescuento != undefined || obj.fechaFinDescuento != null) {
-      
-            if (obj.fechaFinDescuento != "") {
-      
-              const fecha1 = new Date(obj.fechaFinDescuento).toUTCString().replace("GMT", "");
-              fechaFinDesc = `${new Date(fecha1).getTime()}`;
-            }
-          } */
-/*           let fechaRecepAviRetencion = "";
-          if (obj.fechaRecepcionAvisoRetencion != undefined || obj.fechaRecepcionAvisoRetencion != null) {
-      
-            if (obj.fechaRecepcionAvisoRetencion != "") {
-      
-              const fecha1 = new Date(obj.fechaRecepcionAvisoRetencion).toUTCString().replace("GMT", "");
-              fechaRecepAviRetencion = `${new Date(fecha1).getTime()}`;
-            }
-          } */
-/*           let fechaRecAviSuspension = "";
-          if (obj.fechaRecepcionAvisoSuspension != undefined || obj.fechaRecepcionAvisoSuspension != null) {
-      
-            if (obj.fechaRecepcionAvisoSuspension != "") {
-      
-              const fecha1 = new Date(obj.fechaRecepcionAvisoSuspension).toUTCString().replace("GMT", "");
-              fechaRecAviSuspension = `${new Date(fecha1).getTime()}`;
-            }
-          } */
-          
           if(this.esInsert){
-          if(this.politica !== undefined){
-          this.objEnviar = {
-            tipoDeduccionId: {
-              tipoDeduccionId: obj.nomDeduccion
-            },
-            conceptoDeduccionId: {
-              conceptoDeduccionId: this.conceptodeduccion
-            },
-            politicaId: {
-              politicaId: this.politica
-            },
-               
-            centrocClienteId: {
-              centrocClienteId: this.empresa
-              },
-              
-            baseCalculoId: {
-              baseCalculoId: obj.baseCalculoId
-            },
-            valor: obj.valor,
-            fechaInicioDescto: obj.fechaInicioDescto,
-            numeroFolio: obj.numeroFolio,
-            montoTotal: obj.montoTotal,
-            numeroCuotas: obj.numeroCuotas,
-            interesPorcentaje: obj.interesPorcentaje,
-            fechaFinDescuento: obj.fechaFinDescuento,
-            folioAvisoRetencion: obj.folioAvisoRetencion,
-            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
-            folioAvisoSuspension: obj.folioAvisoSuspension,
-            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
-            esActivo: obj.esActivo,
-            numPlazosMensuales:obj.numPlazosMensuales,
-            tipoDescuentoInfonavitId: {
-             tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
-            }
-          };
-        }else{
-          
-          this.objEnviar = {
-            tipoDeduccionId: {
-              tipoDeduccionId: obj.nomDeduccion
-            },
-            conceptoDeduccionId: {
-              conceptoDeduccionId: this.conceptodeduccion
-            },
-            personaId: {
-              personaId: this.empleado
-              
-              },
-                 
-            centrocClienteId: {
-              centrocClienteId: this.empresa
-              },
-              
-            baseCalculoId: {
-              baseCalculoId: obj.baseCalculoId
-            },
-            valor: obj.valor,
-            fechaInicioDescto: obj.fechaInicioDescto,
-            numeroFolio: obj.numeroFolio,
-            montoTotal: obj.montoTotal,
-            numeroCuotas: obj.numeroCuotas,
-            interesPorcentaje: obj.interesPorcentaje,
-            fechaFinDescuento: obj.fechaFinDescuento,
-            folioAvisoRetencion: obj.folioAvisoRetencion,
-            fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
-            folioAvisoSuspension: obj.folioAvisoSuspension,
-            fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
-            esActivo: obj.esActivo,
-            nombreretencion: this.nombreretencion,
-            nombresuspension: this.nombresuspension,
-            docsupension: obj.suspension,
-            docretencion: obj.retencion,
-            numPlazosMensuales:obj.numPlazosMensuales,
-            tipoDescuentoInfonavitId: {
-             tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
-            }
-          };
-
-          if(this.fechaContrato !== undefined){
+            if(this.politica !== undefined){
             this.objEnviar = {
-              ...this.objEnviar,
-              fechaContrato: this.fechaContrato
-          }
-          }
+              tipoDeduccionId: {
+                tipoDeduccionId: obj.nomDeduccion
+              },
+              conceptoDeduccionId: {
+                conceptoDeduccionId: this.conceptodeduccion
+              },
+              politicaId: {
+                politicaId: this.politica
+              },
+                
+              centrocClienteId: {
+                centrocClienteId: this.empresa
+                },
+                
+              baseCalculoId: {
+                baseCalculoId: obj.baseCalculoId
+              },
+              valor: obj.valor,
+              fechaInicioDescto: obj.fechaInicioDescto,
+              numeroFolio: obj.numeroFolio,
+              montoTotal: obj.montoTotal,
+              numeroCuotas: obj.numeroCuotas,
+              interesPorcentaje: obj.interesPorcentaje,
+              fechaFinDescuento: obj.fechaFinDescuento,
+              folioAvisoRetencion: obj.folioAvisoRetencion,
+              fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
+              folioAvisoSuspension: obj.folioAvisoSuspension,
+              fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
+              esActivo: obj.esActivo,
+              numPlazosMensuales:obj.numPlazosMensuales,
+              tipoDescuentoInfonavitId: {
+              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
+              }
+            };
+            }else{
+            
+            this.objEnviar = {
+              tipoDeduccionId: {
+                tipoDeduccionId: obj.nomDeduccion
+              },
+              conceptoDeduccionId: {
+                conceptoDeduccionId: this.conceptodeduccion
+              },
+              personaId: {
+                personaId: this.empleado
+                
+                },
+                  
+              centrocClienteId: {
+                centrocClienteId: this.empresa
+                },
+                
+              baseCalculoId: {
+                baseCalculoId: obj.baseCalculoId
+              },
+              valor: obj.valor,
+              fechaInicioDescto: obj.fechaInicioDescto,
+              numeroFolio: obj.numeroFolio,
+              montoTotal: obj.montoTotal,
+              numeroCuotas: obj.numeroCuotas,
+              interesPorcentaje: obj.interesPorcentaje,
+              fechaFinDescuento: obj.fechaFinDescuento,
+              folioAvisoRetencion: obj.folioAvisoRetencion,
+              fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
+              folioAvisoSuspension: obj.folioAvisoSuspension,
+              fechaRecepcionAvisoSuspension: obj.fechaRecepcionAvisoSuspension,
+              esActivo: obj.esActivo,
+              nombreretencion: this.nombreretencion,
+              nombresuspension: this.nombresuspension,
+              docsupension: obj.suspension,
+              docretencion: obj.retencion,
+              numPlazosMensuales:obj.numPlazosMensuales,
+              tipoDescuentoInfonavitId: {
+              tipoDescuentoInfonavitId: obj.tipoDescuentoInfonavitId
+              }
+            };
+
+            if(this.fechaContrato !== undefined){
+              this.objEnviar = {
+                ...this.objEnviar,
+                fechaContrato: this.fechaContrato
+            }
+            }
         }
         }else{
           if(obj.baseCalculoId == null){

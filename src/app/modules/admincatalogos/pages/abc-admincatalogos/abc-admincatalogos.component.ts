@@ -647,16 +647,38 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
   }
 
-  public updateList(id: number, property: string, event: any) {
+  public soloNumeros(e:any){
+    var key = window.Event ? e.which : e.keyCode;
     
-    let editField = event.target.textContent; 
+    if ((key > 31 && (key != 46 &&(key < 48 || key > 57))))
+      e.preventDefault();  
+  }
 
+  public updateList(id: number, property: string, event: any) {
+    debugger;
+    let editField = event.target.textContent; 
+    let maxvalue = 0;
     if (property.includes('cuotaFija')){
+      
+      maxvalue = editField.length; 
+      if(maxvalue > 8){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de cuota fija no deve ser mayor a 10 dígitos');
+        this.valFecha = false;
+        return;  
+      }
 
       this.editFieldNum = Number(editField);
+      
     } 
     
     if (property.includes('limiteInferior')){
+
+      maxvalue = editField.length; 
+      if(maxvalue > 8){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite inferior no deve ser mayor a 10 dígitos');
+        this.valFecha = false;
+        return;  
+      }
       
       this.editFieldNum = Number(editField);
 
@@ -675,6 +697,12 @@ export class ABCAdminCatalogosComponent implements OnInit {
 
     if (property.includes('limiteSuperior')){
       
+      maxvalue = editField.length; 
+      if(maxvalue > 8){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite superior no deve ser mayor a 10 dígitos');
+        this.valFecha = false;
+        return;  
+      }
       this.editFieldNum = Number(editField);
 
       let limites = this.arregloTablaValores[id];
@@ -690,14 +718,32 @@ export class ABCAdminCatalogosComponent implements OnInit {
       }
     }
     if (property.includes('montoSubsidio')){ 
+      maxvalue = editField.length; 
+      if(maxvalue > 8){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de monto subsidio no deve ser mayor a 10 dígitos');
+        this.valFecha = false;
+        return;  
+      }
       this.editFieldNum = Number(editField);
     }
 
     if (property.includes('porcExcedenteLimInf')){ 
+      maxvalue = editField.length; 
+      if(maxvalue > 5){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de porcentaje excedente no deve ser mayor a 5 dígitos');
+        this.valFecha = false;
+        return;  
+      }
       this.editFieldNum = Number(editField);
     }
 
     if (property.includes('tasa')){ 
+      maxvalue = editField.length; 
+      if(maxvalue > 2){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de tasa no deve ser mayor a 2 dígitos');
+        this.valFecha = false;
+        return;  
+      }
       this.editFieldNum = Number(editField);
     }   
 
