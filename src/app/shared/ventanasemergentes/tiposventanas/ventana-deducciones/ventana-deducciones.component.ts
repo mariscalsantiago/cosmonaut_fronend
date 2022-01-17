@@ -624,11 +624,12 @@ export class VentanaDeduccionesComponent implements OnInit {
    }
 
    public validarMontoTotal(monto:any){
+      
       this.monto = monto;
       if(!this.esInsert){
         this.numPeriodo = this.myForm.value.numeroCuotas;
       }
-      if(this.monto != null && this.numPeriodo != null){
+      if(this.monto != null && this.numPeriodo != null && String(this.monto) != '' && String(this.numPeriodo) != ''){
         this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
           this.montoPercepcion = datos.datos;
           var monto = this.montoPercepcion.toFixed(4); 
@@ -639,11 +640,12 @@ export class VentanaDeduccionesComponent implements OnInit {
    }
 
    public validarNumeroCuotas(cuotas:any){
+     
     this.numPeriodo = cuotas; 
     if(!this.esInsert){
       this.monto = this.myForm.value.montoTotal;
     }
-    if(this.monto != null && this.numPeriodo != null){
+    if(this.monto != null && this.numPeriodo != null && String(this.monto) != '' && String(this.numPeriodo) != ''){
       this.bancosPrd.getObtenerMontoPercepcion(this.monto, this.numPeriodo).subscribe(datos =>{
         this.montoPercepcion = datos.datos;
         var monto = this.montoPercepcion.toFixed(4); 
@@ -792,7 +794,7 @@ export class VentanaDeduccionesComponent implements OnInit {
  
 
   public enviarPeticion(){
-    debugger;
+    
   
     this.submitEnviado = true;
     this.myForm.updateValueAndValidity();

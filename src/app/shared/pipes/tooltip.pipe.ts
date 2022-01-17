@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TooltipPipe implements PipeTransform {
   
   transform(value: string): string {
-    debugger;
+    
     if (value === 'curp') {
       return  "Clave Única de Registro de Población (CURP).\nClave alfanumérica de 18 caracteres.";
     } else if (value === 'curpRazon') {

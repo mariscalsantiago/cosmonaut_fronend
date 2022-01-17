@@ -655,7 +655,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
-    debugger;
+    
     let editField = event.target.textContent; 
     let maxvalue = 0;
     if (property.includes('cuotaFija')){

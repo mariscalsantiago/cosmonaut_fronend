@@ -175,7 +175,7 @@ export class InformacionempresaComponent implements OnInit {
   }
 
   public createForm(obj: any) {
-    debugger;
+    
     if(!this.datos.insertar){
       obj.pagoComplementario = obj.pagoComplementario ? "true" : "false";
 
@@ -317,7 +317,7 @@ export class InformacionempresaComponent implements OnInit {
 
 
   public guardarCambios() {
-    debugger;
+    
     let obj = this.myform.getRawValue();
     if (!Boolean(obj.key) && !Boolean(obj.cer)) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "No se ha cargado el .cer y .key, favor de elegir archivos de certificado ");

@@ -35,7 +35,7 @@ export class DetalleRolesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.modulo = this.configuracionPrd.breadcrum.nombreModulo?.toUpperCase();
     this.subModulo = this.configuracionPrd.breadcrum.nombreSubmodulo?.toUpperCase();
 
@@ -68,7 +68,7 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public traerDatosMenu(obj?: any) {
-    debugger;
+    
     let modificar = Boolean(obj);
 
     this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
