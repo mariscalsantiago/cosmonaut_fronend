@@ -72,7 +72,7 @@ export class PagosComponent implements OnInit {
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private ventana: VentanaemergenteService, private usuariosSistemaPrd: UsuarioSistemaService,
     private formbuilder: FormBuilder, private router: ActivatedRoute, private routerPrd: Router, private contratoColaboradorPrd: ContratocolaboradorService,
     private bancosPrd: CuentasbancariasService, private calculoPrd: CalculosService,
-    private navparams: ActivatedRoute, private empleadoPrd: EmpleadosService) {
+    private navparams: ActivatedRoute, private gruponominaPrd: GruponominasService ) {
 
   }
 
@@ -102,6 +102,21 @@ export class PagosComponent implements OnInit {
 
     this.cambiarGrupoNomina();
 
+    }else{
+
+    this.contratoColaboradorPrd.getContratoColaboradorById(this.idEmpleado).subscribe(datos => {
+      this.empleado = datos.datos;
+        this.myFormCompensacion = this.createFormCompensacion(this.empleado);
+        if (this.empleado.metodoPagoId.metodoPagoId == 4) {
+          this.detalleCuenta = true;
+        } else {
+          this.detalleCuenta = false;
+        }
+        this.gruponominaPrd.getAll(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+          this.arreglogrupoNomina = datos.datos;
+        this.cambiarGrupoNomina();
+        })  
+      }) 
     }
 
     this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
@@ -252,7 +267,8 @@ export class PagosComponent implements OnInit {
           item.tipoPercepcionId.porDefecto = false;
         }
         if (item.valor !== undefined) {
-            if (item.baseCalculoId?.baseCalculoId == '1'){
+          debugger;
+            if (item.baseCalculoId?.baseCalculoId == '1' || item.tipoDescuentoInfonavitId?.tipoDescuentoInfonavitId == '2'){
               item.valorMonto = item.valor + '%';
             }else{
               item.valorMonto = formatter.format(item.valor);
