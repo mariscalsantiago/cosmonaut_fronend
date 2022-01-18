@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { VentanaemergenteService } from 'src/app/shared/services/modales/ventanaemergente.service';
 import { CalculosService } from 'src/app/shared/services/nominas/calculos.service';
+import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 
 @Component({
   selector: 'app-pagos',
@@ -70,16 +71,24 @@ export class PagosComponent implements OnInit {
 
   constructor(private modalPrd: ModalService, private catalogosPrd: CatalogosService, private ventana: VentanaemergenteService, private usuariosSistemaPrd: UsuarioSistemaService,
     private formbuilder: FormBuilder, private router: ActivatedRoute, private routerPrd: Router, private contratoColaboradorPrd: ContratocolaboradorService,
-    private bancosPrd: CuentasbancariasService, private calculoPrd: CalculosService) {
+    private bancosPrd: CuentasbancariasService, private calculoPrd: CalculosService,
+    private navparams: ActivatedRoute, private empleadoPrd: EmpleadosService) {
 
   }
 
   ngOnInit(): void {
 
+    debugger;
     this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
+    this.navparams.params.subscribe(param => {
+      this.idEmpleado = param["id"];
+    });
 
+    if(!this.esKiosko){
     this.arreglogrupoNomina = this.router.snapshot.data.gruponomina;
+ 
     this.empleado = this.router.snapshot.data.contratoColaborador;
+
     this.idEmpleado = this.empleado.personaId.personaId;
     this.primeraVez = true;
     this.myFormCompensacion = this.createFormCompensacion(this.empleado);
@@ -93,14 +102,11 @@ export class PagosComponent implements OnInit {
 
     this.cambiarGrupoNomina();
 
+    }
 
     this.bancosPrd.getByEmpleado(this.idEmpleado).subscribe(datos => {
-
       this.cuentaBanco = datos.datos;
-
     });
-
-
 
     this.cargandoPer = true;
     this.bancosPrd.getListaPercepcionesEmpleado(this.idEmpleado, this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {

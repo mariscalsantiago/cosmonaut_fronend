@@ -661,7 +661,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     if (property.includes('cuotaFija')){
       
       maxvalue = editField.length; 
-      if(maxvalue > 8){
+      if(maxvalue > 10){
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de cuota fija no debe ser mayor a 10 dígitos');
         this.valFecha = false;
         return;  
@@ -674,7 +674,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     if (property.includes('limiteInferior')){
 
       maxvalue = editField.length; 
-      if(maxvalue > 8){
+      if(maxvalue > 10){
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite inferior no debe ser mayor a 10 dígitos');
         this.valFecha = false;
         return;  
@@ -698,7 +698,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     if (property.includes('limiteSuperior')){
       
       maxvalue = editField.length; 
-      if(maxvalue > 8){
+      if(maxvalue > 10){
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite superior no debe ser mayor a 10 dígitos');
         this.valFecha = false;
         return;  
@@ -719,7 +719,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     }
     if (property.includes('montoSubsidio')){ 
       maxvalue = editField.length; 
-      if(maxvalue > 8){
+      if(maxvalue > 10){
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de monto subsidio no debe ser mayor a 10 dígitos');
         this.valFecha = false;
         return;  
