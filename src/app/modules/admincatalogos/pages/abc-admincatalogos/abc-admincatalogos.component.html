@@ -216,7 +216,7 @@
 
             <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Porcentaje excedente *</label>
-                <input formControlName="porcExcedenteLimInf" maxlength="5" type="text" class="form-control" 
+                <input formControlName="porcExcedenteLimInf" maxlength="6" type="text" class="form-control" 
                 [ngClass]="{'is-invalid':(submitEnviado && f.porcExcedenteLimInf.errors?.required) || (f.porcExcedenteLimInf.errors?.pattern && f.porcExcedenteLimInf.touched)}"
                     placeholder="">
                 <div *ngIf="submitEnviado && f.porcExcedenteLimInf.errors?.required" class="invalid-feedback">
@@ -341,11 +341,14 @@
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Tasa *</label>
-                <input formatos [numerosDecimales]="true" maxlength="2" formControlName="tasa" type="text" class="form-control" placeholder=""
+                <input formatos [numerosDecimales]="true" maxlength="6" formControlName="tasa" type="text" class="form-control" placeholder=""
                 [ngClass]="{'is-invalid':f.tasa.errors && submitEnviado}">
-                <div *ngIf="f.tasa.errors && submitEnviado" class="invalid-feedback">
+                <div *ngIf="submitEnviado && f.tasa.errors?.required" class="invalid-feedback">
                     Campo requerido
-                </div>  
+                </div> 
+                <div *ngIf="f.tasa.errors?.pattern && f.tasa.touched" class="invalid-feedback">
+                    La tasa no es válida
+                </div>
 
             </div>
             <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">

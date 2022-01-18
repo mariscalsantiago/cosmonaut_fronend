@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, PatternValidator, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { AdminCatalogosService } from '../../services/admincatalogos.service';
 import { truncate } from 'fs';
@@ -555,7 +555,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.myForm.controls.limiteInferior.setValidators([Validators.required]);
     this.myForm.controls.limiteSuperior.setValidators([Validators.required]);
     this.myForm.controls.cuotaFija.setValidators([Validators.required]);
-    this.myForm.controls.porcExcedenteLimInf.setValidators([Validators.required, Validators.pattern(/^[0-9]{1,2}([.][0-9]{1,2})?$/)]); 
+    this.myForm.controls.porcExcedenteLimInf.setValidators([Validators.required, Validators.pattern(/^[0-9]{1,2}([.][0-9]{1,3})?$/)]); 
     this.myForm.controls.fechaInicio.setValidators([Validators.required]);
     this.myForm.controls.fechaFin.setValidators([Validators.required]);
     this.myForm.controls.nombreCorto.setValidators([]);
@@ -591,7 +591,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.myForm.controls.limiteInferior.setValidators([Validators.required]);
     this.myForm.controls.limiteSuperior.setValidators([Validators.required]);
     this.myForm.controls.cuotaFija.setValidators([Validators.required]);
-    this.myForm.controls.tasa.setValidators([Validators.required]);
+    this.myForm.controls.tasa.setValidators([Validators.required, Validators.pattern(/^[0-9]{1,2}([.][0-9]{1,3})?$/)]); 
     this.myForm.controls.referenciaMarcoJuridico.setValidators([Validators.required]);
     this.myForm.controls.fechaInicio.setValidators([Validators.required]);
     this.myForm.controls.nombreCorto.setValidators([]);
@@ -655,15 +655,17 @@ export class ABCAdminCatalogosComponent implements OnInit {
   }
 
   public updateList(id: number, property: string, event: any) {
+    debugger;
     
     let editField = event.target.textContent; 
     let maxvalue = 0;
     if (property.includes('cuotaFija')){
-      
+     
       maxvalue = editField.length; 
       if(maxvalue > 10){
+        
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de cuota fija no debe ser mayor a 10 dígitos');
-        this.valFecha = false;
+        (event.target as HTMLInputElement).textContent = editField.replace(editField, this.arregloTablaValores[id][property]);
         return;  
       }
 
@@ -676,7 +678,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       maxvalue = editField.length; 
       if(maxvalue > 10){
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite inferior no debe ser mayor a 10 dígitos');
-        this.valFecha = false;
+        (event.target as HTMLInputElement).textContent = editField.replace(editField, this.arregloTablaValores[id][property]);
         return;  
       }
       
@@ -700,7 +702,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
       maxvalue = editField.length; 
       if(maxvalue > 10){
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de límite superior no debe ser mayor a 10 dígitos');
-        this.valFecha = false;
+        (event.target as HTMLInputElement).textContent = editField.replace(editField, this.arregloTablaValores[id][property]);
         return;  
       }
       this.editFieldNum = Number(editField);
@@ -721,28 +723,33 @@ export class ABCAdminCatalogosComponent implements OnInit {
       maxvalue = editField.length; 
       if(maxvalue > 10){
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de monto subsidio no debe ser mayor a 10 dígitos');
-        this.valFecha = false;
+        (event.target as HTMLInputElement).textContent = editField.replace(editField, this.arregloTablaValores[id][property]);
         return;  
       }
       this.editFieldNum = Number(editField);
     }
 
     if (property.includes('porcExcedenteLimInf')){ 
-      maxvalue = editField.length; 
-      if(maxvalue > 5){
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de porcentaje excedente no debe ser mayor a 5 dígitos');
-        this.valFecha = false;
-        return;  
+
+      let expresion = /^[0-9]{1,2}([.][0-9]{1,3})?$/;
+      let hallado = Boolean(editField.match(expresion));
+      if(!hallado){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de porcentaje excedente no es válido');
+        (event.target as HTMLInputElement).textContent = editField.replace(editField, this.arregloTablaValores[id][property]);
+        return; 
       }
+
       this.editFieldNum = Number(editField);
     }
 
     if (property.includes('tasa')){ 
-      maxvalue = editField.length; 
-      if(maxvalue > 2){
-        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de tasa no debe ser mayor a 2 dígitos');
-        this.valFecha = false;
-        return;  
+
+      let expresion = /^[0-9]{1,2}([.][0-9]{1,3})?$/;
+      let hallado = Boolean(editField.match(expresion));
+      if(!hallado){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'El valor de tasa no es válido');
+        (event.target as HTMLInputElement).textContent = editField.replace(editField, this.arregloTablaValores[id][property]);
+        return; 
       }
       this.editFieldNum = Number(editField);
     }   
