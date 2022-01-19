@@ -104,11 +104,11 @@ export class InicioComponent implements OnInit   {
   ngOnInit(): void {
 
     this.idEmpresa = this.usuariosSistemaPrd.getIdEmpresa();
-
+    debugger;
     this.authUsuarioPrd.getVersionByEmpresa(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       if(datos.datos !== undefined){
         let objVersion = datos.datos.versionCosmonautId;
-        if(datos.datos.versionCosmonautId?.versionCosmonautId === 1){
+        if(datos.datos.versionCosmonautId?.versionCosmonautId === 1 || this.usuariosSistemaPrd.getUsuario().rolId === 1 ){
           this.moduloId = true;
         }
     /*         else if(datos.datos.versionCosmonautId?.versionCosmonautId === 4){
