@@ -144,6 +144,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       folioAvisoRetencion: [obj.folioAvisoRetencion],
       tipoPercepcionId: [obj.tipoPercepcionId],
       valor: [obj.valor],
+      fechaOtorgamiento: [obj.fechaOtorgamiento],
       tipoDescuentoInfonavitId:[obj.tipoDescuentoInfonavitId?.tipoDescuentoInfonavitId],
       montoPorPeriodo: [obj.montoPorPeriodo],
       numeroFolio: [obj.numeroFolio],
@@ -404,7 +405,7 @@ export class VentanaDeduccionesComponent implements OnInit {
     else if(concepto=='004'){
 
       this.myForm.controls.montoTotal.setValidators([Validators.required]);
-      this.myForm.controls.fechaRecepcionAvisoRetencion.setValidators([Validators.required]);
+      this.myForm.controls.fechaOtorgamiento.setValidators([Validators.required]);
       this.myForm.controls.numeroCuotas.setValidators([Validators.required]);
 
       if(this.esInsert){
@@ -436,6 +437,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.numPlazosMensuales.updateValueAndValidity();
       this.myForm.controls.fechaDemanda.setValidators([]);
       this.myForm.controls.fechaDemanda.updateValueAndValidity();
+      this.myForm.controls.fechaOtorgamiento.setValidators([]);
+      this.myForm.controls.fechaOtorgamiento.updateValueAndValidity();
       
 
       if(this.politica !== undefined){
@@ -451,6 +454,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.numeroCuotas.updateValueAndValidity();  
       this.myForm.controls.fechaDemanda.setValidators([]);
       this.myForm.controls.fechaDemanda.updateValueAndValidity();
+      this.myForm.controls.fechaOtorgamiento.setValidators([]);
+      this.myForm.controls.fechaOtorgamiento.updateValueAndValidity();
 
       this.infonavit = false;
       this.deducPolitica = true;
@@ -493,6 +498,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.baseCalculoId.updateValueAndValidity();
       this.myForm.controls.fechaDemanda.setValidators([]);
       this.myForm.controls.fechaDemanda.updateValueAndValidity();
+      this.myForm.controls.fechaOtorgamiento.setValidators([]);
+      this.myForm.controls.fechaOtorgamiento.updateValueAndValidity();
 
       this.myForm.controls.baseCalculoId.disable();
       this.myForm.controls.baseCalculoId.setValue(2);
@@ -540,6 +547,9 @@ export class VentanaDeduccionesComponent implements OnInit {
 
       this.myForm.controls.fechaDemanda.setValidators([]);
       this.myForm.controls.fechaDemanda.updateValueAndValidity();
+
+      this.myForm.controls.fechaOtorgamiento.setValidators([]);
+      this.myForm.controls.fechaOtorgamiento.updateValueAndValidity();
 
 
       this.submenu = true;
@@ -627,6 +637,9 @@ export class VentanaDeduccionesComponent implements OnInit {
 
         this.myForm.controls.fechaDemanda.setValidators([]);
         this.myForm.controls.fechaDemanda.updateValueAndValidity();
+
+        this.myForm.controls.fechaOtorgamiento.setValidators([]);
+        this.myForm.controls.fechaOtorgamiento.updateValueAndValidity();
 
   
       }
@@ -906,6 +919,7 @@ export class VentanaDeduccionesComponent implements OnInit {
               numeroCuotas: obj.numeroCuotas,
               interesPorcentaje: obj.interesPorcentaje,
               fechaDemanda:obj.fechaDemanda,
+              fechaOtorgamiento:obj.fechaOtorgamiento,
               fechaFinDescuento: obj.fechaFinDescuento,
               folioAvisoRetencion: obj.folioAvisoRetencion,
               fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,
@@ -942,6 +956,7 @@ export class VentanaDeduccionesComponent implements OnInit {
               fechaInicioDescto: obj.fechaInicioDescto,
               numeroFolio: obj.numeroFolio,
               fechaDemanda: obj.fechaDemanda,
+              fechaOtorgamiento:obj.fechaOtorgamiento,
               montoTotal: obj.montoTotal,
               numeroCuotas: obj.numeroCuotas,
               interesPorcentaje: obj.interesPorcentaje,
@@ -1001,6 +1016,7 @@ export class VentanaDeduccionesComponent implements OnInit {
             montoTotal: obj.montoTotal,
             numeroCuotas: obj.numeroCuotas,
             fechaDemanda: obj.fechaDemanda,
+            fechaOtorgamiento:obj.fechaOtorgamiento,
             interesPorcentaje: obj.interesPorcentaje,
             fechaFinDescuento: obj.fechaFinDescuento,
             folioAvisoRetencion: obj.folioAvisoRetencion,
@@ -1042,6 +1058,7 @@ export class VentanaDeduccionesComponent implements OnInit {
             numeroCuotas: obj.numeroCuotas,
             interesPorcentaje: obj.interesPorcentaje,
             fechaDemanda: obj.fechaDemanda,
+            fechaOtorgamiento: obj.fechaOtorgamiento,
             fechaFinDescuento: obj.fechaFinDescuento,
             folioAvisoRetencion: obj.folioAvisoRetencion,
             fechaRecepcionAvisoRetencion: obj.fechaRecepcionAvisoRetencion,

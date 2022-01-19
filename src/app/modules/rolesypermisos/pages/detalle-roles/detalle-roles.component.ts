@@ -7,6 +7,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
 import { ModalService } from 'src/app/shared/services/modales/modal.service';
 import { UsuarioSistemaService } from 'src/app/shared/services/usuariosistema/usuario-sistema.service';
 import { RolesService } from '../../services/roles.service';
+import { SharedCompaniaService } from 'src/app/shared/services/compania/shared-compania.service';
 
 @Component({
   selector: 'app-detalle-roles',
@@ -25,13 +26,16 @@ export class DetalleRolesComponent implements OnInit {
 
   public numeroEmpleados!: number;
   public previoStatusRol: boolean = false;
+  public id_empresa:number = 0;
+  public arreglocompany:any = [];
 
   public modulo: string = "";
   public subModulo: string = "";
 
   constructor(private rolesPrd: RolesService, private fb: FormBuilder,
     private modalPrd: ModalService, private usuariosSistemaPrd: UsuarioSistemaService,
-    private routerPrd: Router, public configuracionPrd: ConfiguracionesService) { }
+    private routerPrd: Router, public configuracionPrd: ConfiguracionesService,
+    private companiaPrd:SharedCompaniaService) { }
 
   ngOnInit(): void {
 
@@ -41,9 +45,13 @@ export class DetalleRolesComponent implements OnInit {
 
     this.objrol = history.state.datos;
 
-
     this.actualizar = Boolean(this.objrol);
     this.myForm = this.createForm(this.objrol);
+    debugger;
+    this.companiaPrd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
+      this.arreglocompany = datos.datos;
+
+    });
 
     this.cargando = true;
     if (this.objrol) {
@@ -68,7 +76,7 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public traerDatosMenu(obj?: any) {
-    
+    debugger;
     let modificar = Boolean(obj);
 
     this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
@@ -82,10 +90,15 @@ export class DetalleRolesComponent implements OnInit {
         if (Number(valor.moduloId) == 8) {
           valor.mostrar = false;
         }
+        if (Number(valor.moduloId) == 5) {
+          //delete valor
+        }
 
         if (valor.submodulos) {
+          
 
           valor.submodulos.forEach(valor2 => {
+            
             let primerAuxSubmodulo = true;
             valor2.checked = true;
             valor2.previo = false;
