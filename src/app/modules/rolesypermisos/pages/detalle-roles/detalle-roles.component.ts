@@ -47,11 +47,10 @@ export class DetalleRolesComponent implements OnInit {
 
     this.actualizar = Boolean(this.objrol);
     this.myForm = this.createForm(this.objrol);
-    debugger;
+    
     this.companiaPrd.getEmpresaById(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos => {
       this.arreglocompany = datos.datos;
 
-    });
 
     this.cargando = true;
     if (this.objrol) {
@@ -65,6 +64,7 @@ export class DetalleRolesComponent implements OnInit {
       this.traerDatosMenu();
     }
 
+    });
   }
 
 
@@ -76,12 +76,12 @@ export class DetalleRolesComponent implements OnInit {
   }
 
   public traerDatosMenu(obj?: any) {
-    debugger;
+    
     let modificar = Boolean(obj);
 
     this.rolesPrd.getListaModulos(true, this.usuariosSistemaPrd.getVersionSistema()).subscribe(datos => {
       this.arreglo = datos;
-      console.log("lista modulos", this.arreglo);
+
       this.arreglo.forEach(valor => {
         valor.seleccionado = false;
         valor.checked = false;
@@ -90,13 +90,23 @@ export class DetalleRolesComponent implements OnInit {
         if (Number(valor.moduloId) == 8) {
           valor.mostrar = false;
         }
+        
         if (Number(valor.moduloId) == 5) {
-          //delete valor
+          if(!this.arreglocompany.pagoComplementario){
+            let temp : any = valor.submodulos;
+            let subFinal = []; 
+            for(let item of temp){
+              if(item.submoduloId == 32){ 
+                continue;
+              }
+              subFinal.push(item);
+              
+            }
+            valor.submodulos = subFinal;
+          }
         }
 
         if (valor.submodulos) {
-          
-
           valor.submodulos.forEach(valor2 => {
             
             let primerAuxSubmodulo = true;

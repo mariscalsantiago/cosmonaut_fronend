@@ -107,8 +107,8 @@
 
         <div *ngIf="prestamo" class="input-group-sm mb-3 col-6">
             <label>Fecha de otorgamiento del préstamo *</label>
-            <input [max]="f.fechaInicioDescto.value" formControlName="fechaOtorgamiento" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaOtorgamiento.errors && submitEnviado && prestamo}">
-            <div *ngIf="myForm.controls.fechaOtorgamiento.errors && submitEnviado && prestamo" class="invalid-feedback">
+            <input [max]="f.fechaInicioDescto.value" formControlName="fechaOtorgamiento" type="date" class="form-control" [ngClass]="{'is-invalid':myForm.controls.fechaOtorgamiento.errors && submitEnviado}">
+            <div *ngIf="myForm.controls.fechaOtorgamiento.errors && submitEnviado" class="invalid-feedback">
                 Campo requerido
             </div>
         </div>

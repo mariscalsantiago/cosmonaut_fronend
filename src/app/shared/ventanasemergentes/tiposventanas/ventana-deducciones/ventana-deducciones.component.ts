@@ -403,7 +403,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
     }    
     else if(concepto=='004'){
-
+      
       this.myForm.controls.montoTotal.setValidators([Validators.required]);
       this.myForm.controls.fechaOtorgamiento.setValidators([Validators.required]);
       this.myForm.controls.numeroCuotas.setValidators([Validators.required]);
@@ -437,8 +437,6 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.numPlazosMensuales.updateValueAndValidity();
       this.myForm.controls.fechaDemanda.setValidators([]);
       this.myForm.controls.fechaDemanda.updateValueAndValidity();
-      this.myForm.controls.fechaOtorgamiento.setValidators([]);
-      this.myForm.controls.fechaOtorgamiento.updateValueAndValidity();
       
 
       if(this.politica !== undefined){
@@ -498,8 +496,6 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.baseCalculoId.updateValueAndValidity();
       this.myForm.controls.fechaDemanda.setValidators([]);
       this.myForm.controls.fechaDemanda.updateValueAndValidity();
-      this.myForm.controls.fechaOtorgamiento.setValidators([]);
-      this.myForm.controls.fechaOtorgamiento.updateValueAndValidity();
 
       this.myForm.controls.baseCalculoId.disable();
       this.myForm.controls.baseCalculoId.setValue(2);

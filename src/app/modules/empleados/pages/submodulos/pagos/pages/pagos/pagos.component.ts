@@ -78,7 +78,7 @@ export class PagosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
     this.esKiosko = this.routerPrd.url.includes("/kiosko/perfil");
     this.navparams.params.subscribe(param => {
       this.idEmpleado = param["id"];
@@ -267,7 +267,7 @@ export class PagosComponent implements OnInit {
           item.tipoPercepcionId.porDefecto = false;
         }
         if (item.valor !== undefined) {
-          debugger;
+          
             if (item.baseCalculoId?.baseCalculoId == '1' || item.tipoDescuentoInfonavitId?.tipoDescuentoInfonavitId == '2'){
               item.valorMonto = item.valor + '%';
             }else{
