@@ -187,25 +187,10 @@ export class DetalleeventoxempleadoComponent implements OnInit {
 
   public guardarEvento() {
     
-    
+    debugger;
     
     let obj = this.myForm.getRawValue();
     this.modalPrd.showMessageDialog(this.modalPrd.loading);
-
-
-/*     if (obj.fechaInicio != undefined || obj.fechaInicio != '') {
-      obj.fechaInicio = new Date((new Date(obj.fechaInicio).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-    }
-
-    if (obj.fechaFin != undefined || obj.fechaFin != '') {
-      obj.fechaFin = new Date((new Date(obj.fechaFin).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-    }
-
-    if (obj.fechaAplicacion != undefined || obj.fechaAplicacion != '') {
-      obj.fechaAplicacion = new Date((new Date(obj.fechaAplicacion).toUTCString()).replace(" 00:00:00 GMT", "")).getTime();
-    } */
-
-
 
     let objEnviar = {
       ...obj,
@@ -227,7 +212,31 @@ export class DetalleeventoxempleadoComponent implements OnInit {
     let multifechas: boolean = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
     switch (seleccionado) {
       case 1:
+        delete objEnviar.fechaFin;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.archivo; 
+        delete objEnviar.nombreArchivo; 
+        delete objEnviar.numeroFolio;
+        delete objEnviar.tipoIncapacidadId;
+        delete objEnviar.heTiempo;
+        delete objEnviar.numerohoras;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.monto;
+
+          break;       
       case 2:
+        delete objEnviar.fechaFin;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.archivo; 
+        delete objEnviar.nombreArchivo; 
+        delete objEnviar.numeroFolio;
+        delete objEnviar.tipoIncapacidadId;
+        delete objEnviar.heTiempo;
+        delete objEnviar.numerohoras;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.monto; 
+        
+          break;
       case 5:
 
         delete objEnviar.fechaFin;
@@ -258,6 +267,18 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         }
         break;
       case 11:
+        delete objEnviar.fechaFin;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.archivo; 
+        delete objEnviar.nombreArchivo; 
+        delete objEnviar.numeroFolio;
+        delete objEnviar.tipoIncapacidadId;
+        delete objEnviar.heTiempo;
+
+        delete objEnviar.numerohoras;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.monto;
+        break;
       case 16:
         delete objEnviar.numeroFolio;
         delete objEnviar.numerohoras;
@@ -269,6 +290,18 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.tipoIncapacidadId;
         break;
       case 13:
+        delete objEnviar.fechaFin;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.archivo; 
+        delete objEnviar.nombreArchivo; 
+        delete objEnviar.numeroFolio;
+        delete objEnviar.tipoIncapacidadId;
+        delete objEnviar.heTiempo;
+
+        delete objEnviar.numerohoras;
+        delete objEnviar.unidadmedida;
+        delete objEnviar.monto;
+        break;
       case 14:
         delete objEnviar.duracion;
         delete objEnviar.numeroFolio;

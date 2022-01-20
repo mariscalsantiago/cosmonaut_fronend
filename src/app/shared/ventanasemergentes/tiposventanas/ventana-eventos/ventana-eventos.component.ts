@@ -201,7 +201,31 @@ export class VentanaEventosComponent implements OnInit {
         let multifechas: boolean = (seleccionado == 1 || seleccionado == 2 || seleccionado == 5 || seleccionado == 11 || seleccionado == 16 || seleccionado == 9);
         switch (seleccionado) {
           case 1:
+            delete objEnviar.fechaFin;
+            delete objEnviar.urlArchivo;
+            delete objEnviar.archivo; 
+            delete objEnviar.nombreArchivo; 
+            delete objEnviar.numeroFolio;
+            delete objEnviar.tipoIncapacidadId;
+            delete objEnviar.heTiempo;
+    
+            delete objEnviar.numerohoras;
+            delete objEnviar.unidadmedida;
+            delete objEnviar.monto;
+            break;
           case 2:
+            delete objEnviar.fechaFin;
+            delete objEnviar.urlArchivo;
+            delete objEnviar.archivo; 
+            delete objEnviar.nombreArchivo; 
+            delete objEnviar.numeroFolio;
+            delete objEnviar.tipoIncapacidadId;
+            delete objEnviar.heTiempo;
+    
+            delete objEnviar.numerohoras;
+            delete objEnviar.unidadmedida;
+            delete objEnviar.monto;
+            break;
           case 5:
     
             delete objEnviar.fechaFin;
@@ -231,6 +255,18 @@ export class VentanaEventosComponent implements OnInit {
             }
             break;
           case 11:
+            delete objEnviar.fechaFin;
+            delete objEnviar.urlArchivo;
+            delete objEnviar.archivo; 
+            delete objEnviar.nombreArchivo; 
+            delete objEnviar.numeroFolio;
+            delete objEnviar.tipoIncapacidadId;
+            delete objEnviar.heTiempo;
+    
+            delete objEnviar.numerohoras;
+            delete objEnviar.unidadmedida;
+            delete objEnviar.monto;
+            break;
           case 16:
             delete objEnviar.numeroFolio;
             delete objEnviar.numerohoras;
@@ -242,6 +278,18 @@ export class VentanaEventosComponent implements OnInit {
             delete objEnviar.tipoIncapacidadId;
             break;
           case 13:
+            delete objEnviar.fechaFin;
+            delete objEnviar.urlArchivo;
+            delete objEnviar.archivo; 
+            delete objEnviar.nombreArchivo; 
+            delete objEnviar.numeroFolio;
+            delete objEnviar.tipoIncapacidadId;
+            delete objEnviar.heTiempo;
+    
+            delete objEnviar.numerohoras;
+            delete objEnviar.unidadmedida;
+            delete objEnviar.monto;
+            break;
           case 14:
             delete objEnviar.duracion;
             delete objEnviar.numeroFolio;
