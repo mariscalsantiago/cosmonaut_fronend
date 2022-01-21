@@ -1005,6 +1005,7 @@ export class EmpleoComponent implements OnInit {
   }
 
   private datosDespuesGuardar(datos:any,esReactivarEmpleado:boolean = false){
+    debugger;
     this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje).then(() => {
       if (datos.resultado) {
 
