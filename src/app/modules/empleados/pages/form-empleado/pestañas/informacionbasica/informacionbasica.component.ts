@@ -279,7 +279,7 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public cambiaCurp(){
-    
+    debugger;
     if(this.myform.controls.curp.valid){
       const datePipe = new DatePipe("es-MX");
         let genero = this.myform.value.curp.slice(10,11);
@@ -294,11 +294,33 @@ export class InformacionbasicaComponent implements OnInit {
         let anioCalculado_year:number = Number(datePipe.transform(anioCalculado,"yy"))
         
 
-
-        const anioNacimiento:Date = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
-
-        
-        this.myform.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"yyyy-MM-dd")?.replace(".",""));
+        let anioNacimiento:Date;
+        let anyo;
+        let mes1:any;
+        let dia1:any;
+        let fecha;
+        let m = this.myform.value.curp.match( /^\w{4}(\w{2})(\w{2})(\w{2})/ );
+        if(this.myform.value.curp.substring(16,17).match("[0-9]+")){
+           //  anioNacimiento = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
+            anyo = parseInt(m[1],10)+1900;
+            if( anyo < 2000 ) 
+              anyo -= 100;
+           if( anyo < 1950 ) 
+             anyo += 100;
+           mes1 = parseInt(m[2], 10)-1;
+            dia1 = parseInt(m[3], 10);
+            fecha =new Date( anyo, mes1, dia1 );
+        }else{
+            anyo = parseInt(m[1],10)+1900;
+            if( anyo < 2000 ) 
+              anyo += 100;
+            mes1 = parseInt(m[2], 10)-1;
+            dia1 = parseInt(m[3], 10);
+            fecha =new Date( anyo, mes1, dia1 );
+            // anioNacimiento = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
+        }
+        //const anioNacimiento:Date = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);      
+        this.myform.controls.fechaNacimiento.setValue(datePipe.transform(fecha,"yyyy-MM-dd"));
 
 
     }else{
