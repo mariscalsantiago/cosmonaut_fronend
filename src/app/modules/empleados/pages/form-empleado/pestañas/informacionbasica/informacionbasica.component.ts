@@ -301,6 +301,7 @@ export class InformacionbasicaComponent implements OnInit {
         let fecha;
         let m = this.myform.value.curp.match( /^\w{4}(\w{2})(\w{2})(\w{2})/ );
         if(this.myform.value.curp.substring(16,17).match("[0-9]+")){
+          
            //  anioNacimiento = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
             anyo = parseInt(m[1],10)+1900;
             if( anyo < 2000 ) 
