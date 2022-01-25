@@ -43,6 +43,8 @@ export class DetalleconfrontaComponent implements OnInit {
     public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+
+    // no se usa
     this.idEmpresa = this.usuarioSistemaPrd.getIdEmpresa();
 
     this.myForm = this.createForms({});
