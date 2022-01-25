@@ -202,7 +202,8 @@ export class PersonalComponent implements OnInit {
   public cambiaCurp(){
     
     if(this.myForm.controls.curp.valid){
-      const datePipe = new DatePipe("es-MX");
+
+        const datePipe = new DatePipe("es-MX");
         let genero = this.myForm.value.curp.slice(10,11);
         this.myForm.controls.genero.setValue(genero=="M"?"F":"M");
 
@@ -215,11 +216,38 @@ export class PersonalComponent implements OnInit {
         let anioCalculado_year:number = Number(datePipe.transform(anioCalculado,"yy"))
         
 
+        let anyo;
+        let mes1:any;
+        let dia1:any;
+        let fecha;
+        let m = this.myForm.value.curp.match( /^\w{4}(\w{2})(\w{2})(\w{2})/ );
+        if(this.myForm.value.curp.substring(16,17).match("[0-9]+")){
+          
+           //  anioNacimiento = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
+            anyo = parseInt(m[1],10)+1900;
+            if( anyo < 2000 ) 
+              anyo -= 100;
+           if( anyo < 1950 ) 
+             anyo += 100;
+           mes1 = parseInt(m[2], 10)-1;
+            dia1 = parseInt(m[3], 10);
+            fecha =new Date( anyo, mes1, dia1 );
+        }else{
+            anyo = parseInt(m[1],10)+1900;
+            if( anyo < 2000 ) 
+              anyo += 100;
+            mes1 = parseInt(m[2], 10)-1;
+            dia1 = parseInt(m[3], 10);
+            fecha =new Date( anyo, mes1, dia1 );
+            // anioNacimiento = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
+        }
+        //const anioNacimiento:Date = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);      
+        this.myForm.controls.fechaNacimiento.setValue(datePipe.transform(fecha,"yyyy-MM-dd"));
 
-        const anioNacimiento:Date = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
+    //    const anioNacimiento:Date = (anio <= anioCalculado_year)?new Date(Number(anio)+Number(2000),mes-1,dia):new Date(anio,mes-1,dia);
 
         
-        this.myForm.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"yyyy-MM-dd"));
+      //  this.myForm.controls.fechaNacimiento.setValue(datePipe.transform(anioNacimiento,"yyyy-MM-dd"));
 
 
     }else{  
