@@ -44,7 +44,7 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Periodo de nómina *</label>
-                <select #periodopago formControlName="periodicidadPagoId" [ngClass]="{'is-invalid':f.periodicidadPagoId.errors && submitInvalido}" class="form-control">
+                <select #periodopago formControlName="periodicidadPagoId" (change)="limpiarCampos(periodopago.value)" [ngClass]="{'is-invalid':f.periodicidadPagoId.errors && submitInvalido}" class="form-control">
           <option *ngFor="let item of arregloPeriocidadPago" [value]="item.periodicidadPagoId">{{item.descripcion}}</option>
         </select>
                 <div *ngIf="submitInvalido && f.periodicidadPagoId.errors" class="invalid-feedback">
