@@ -160,7 +160,6 @@ export class EmpleoComponent implements OnInit {
       esSindicalizado: [`${obj.esSindicalizado}`],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
       fechaAltaImss: obj.fechaAltaImss,
-      dias_vacaciones: [obj.diasVacaciones, Validators.required],
       tipoRegimenContratacionId: [obj.tipoRegimenContratacionId?.tipoRegimenContratacionId, [Validators.required]],
 
     });
