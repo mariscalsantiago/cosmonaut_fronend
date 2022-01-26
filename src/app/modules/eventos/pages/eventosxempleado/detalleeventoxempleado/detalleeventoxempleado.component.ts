@@ -290,17 +290,28 @@ export class DetalleeventoxempleadoComponent implements OnInit {
         delete objEnviar.tipoIncapacidadId;
         break;
       case 13:
-        delete objEnviar.fechaFin;
-        delete objEnviar.urlArchivo;
-        delete objEnviar.archivo; 
-        delete objEnviar.nombreArchivo; 
+        delete objEnviar.duracion;
         delete objEnviar.numeroFolio;
+        delete objEnviar.urlArchivo;
+        delete objEnviar.archivo;
+        delete objEnviar.nombreArchivo;
+        delete objEnviar.fechaFin;
         delete objEnviar.tipoIncapacidadId;
-        delete objEnviar.heTiempo;
+        if(obj.unidadmedida === '1') {
+          objEnviar.unidadMedidaId = {
+              unidadMedidaId: obj.unidadmedida
+          };
+          objEnviar.heTiempo = obj.numerohoras;
+          delete objEnviar.monto;
+          delete objEnviar.unidadmedida;
+        }else{
+          objEnviar.unidadMedidaId = {
+            unidadMedidaId: obj.unidadmedida
+          };
+          delete objEnviar.numerohoras;
+          delete objEnviar.unidadmedida;
 
-        delete objEnviar.numerohoras;
-        delete objEnviar.unidadmedida;
-        delete objEnviar.monto;
+        }
         break;
       case 14:
         delete objEnviar.duracion;
