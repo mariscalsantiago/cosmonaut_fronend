@@ -128,7 +128,7 @@ export class NominaExtraordinariaComponent implements OnInit, OnDestroy {
           if (datos.resultado) {
             this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaExtraordinaria.nominaXperiodoId);
             item.nominaExtraordinaria.estadoProcesoNominaId = 1;
-            item.nominaExtraordinaria.estadoProcesoDescripcion = "Pendiente";
+            item.nominaExtraordinaria.estadoProcesoDescripcion = "Calculando";
             item.mensajePensando = item.nominaExtraordinaria.estadoProcesoNominaId == 4 ? item.nominaExtraordinaria.procesoNominaObservaciones : "";
             item.estadoPensando = item.nominaExtraordinaria.estadoProcesoNominaId == 1 || item.nominaExtraordinaria.estadoProcesoNominaId == 2 || item.nominaExtraordinaria.estadoProcesoNominaId == 4;
           }
