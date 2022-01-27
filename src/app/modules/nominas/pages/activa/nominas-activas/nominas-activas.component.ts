@@ -129,7 +129,7 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       this.mensajePendiente = datos.mensaje;
       if (datos.resultado) {
-        debugger;
+        
         this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaOrdinaria.nominaXperiodoId);
         item.nominaOrdinaria.estadoProcesoNominaId = 1;
         item.nominaOrdinaria.estadoProcesoDescripcion = "Calculando";

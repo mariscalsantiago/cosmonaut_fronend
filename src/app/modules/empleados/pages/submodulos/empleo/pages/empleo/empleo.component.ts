@@ -172,7 +172,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
-    debugger;
+    
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       Object.values(this.myForm.controls).forEach(control => {
