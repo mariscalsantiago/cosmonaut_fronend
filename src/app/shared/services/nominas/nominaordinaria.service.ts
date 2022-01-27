@@ -120,7 +120,7 @@ export class NominaordinariaService {
   public descargaDispercion(obj: any): Observable<any> {
 
     let json: string = JSON.stringify(obj);
-    return this.http.post(`${direcciones.nominaOrdinaria}/descarga/dispercion/`, json);https://github.com/ASG-BPM/cosmonaut-front/blob/desarrollo/src/app/shared/services/nominas/nominaordinaria.service.ts
+    return this.http.post(`${direcciones.nominaOrdinaria}/descarga/dispercion/`, json);
 
   }
 
