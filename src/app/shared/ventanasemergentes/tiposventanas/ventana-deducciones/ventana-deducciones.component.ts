@@ -56,6 +56,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   public fechaFinDescu: Date = new Date();
   public nominaDeduccion: boolean = false;
   public fechaContrato: string = '';
+  public esdefecto: boolean = false;
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -211,13 +212,14 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    
+    ;
 
     if(this.esInsert ){
       
       for(let item of this.obtenerPercepcion){
         if(concepto == item.conceptoDeduccionId){
             this.conceptodeduccion= item.conceptoDeduccionId;
+            this.esdefecto = item.tipoDeduccionId?.porDefecto;
         }
       }
       }
@@ -226,11 +228,13 @@ export class VentanaDeduccionesComponent implements OnInit {
       for(let item of this.obtenerPercepcion){
         if(concepto == item.conceptoDeduccionId){
             this.conceptodeduccion= item.conceptoDeduccionId;
+            this.esdefecto = item.tipoDeduccionId?.porDefecto;
         }
       }
       }
       else{
         this.conceptodeduccion = this.datos.conceptoDeduccionId?.conceptoDeduccionId;
+        this.esdefecto = this.datos.tipoDeduccionId?.porDefecto;
         this.cambioEstatus = false;
       }
     for(let item of this.obtenerPercepcion){
@@ -402,8 +406,8 @@ export class VentanaDeduccionesComponent implements OnInit {
       } 
 
     }    
-    else if(concepto=='004'){
-      
+    else if(concepto=='004' && this.esdefecto){
+      ;
       this.myForm.controls.montoTotal.setValidators([Validators.required]);
       this.myForm.controls.fechaOtorgamiento.setValidators([Validators.required]);
       this.myForm.controls.numeroCuotas.setValidators([Validators.required]);
