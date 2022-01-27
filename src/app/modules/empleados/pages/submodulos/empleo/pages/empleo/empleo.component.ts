@@ -160,6 +160,7 @@ export class EmpleoComponent implements OnInit {
       esSindicalizado: [`${obj.esSindicalizado}`],
       tipoContratoId: [obj.tipoContratoId?.tipoContratoId, [Validators.required]],
       fechaAltaImss: obj.fechaAltaImss,
+      dias_vacaciones: [obj.diasVacaciones],
       tipoRegimenContratacionId: [obj.tipoRegimenContratacionId?.tipoRegimenContratacionId, [Validators.required]],
 
     });
@@ -171,7 +172,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
-
+    debugger;
     if (this.myForm.invalid) {
       this.modalPrd.showMessageDialog(this.modalPrd.error);
       Object.values(this.myForm.controls).forEach(control => {
