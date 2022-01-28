@@ -24,7 +24,7 @@
                                 Campo requerido
                             </div>
                         </div>
-                        <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
+<!--                          <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
                             <label>Actividad económica nivel 1 *</label>
                             <input autocomplete="off" #actividad (focusout)="validarActividad2(actividad.value)"
                                 [value]="f.actividadEconomicaId.value | show: arregloactividad : 'actividadEconomicaId': 'descripcion'"
@@ -38,9 +38,18 @@
                             <div class="invalid-feedback">
                                 Campo requerido
                             </div>
-
-                        </div>
+                        </div>  -->
                         <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label>Actividad económica nivel 1 *</label>
+                            <select #actividad (change)="validarActividad2(actividad.value)" formControlName="actividadEconomicaId" type="text" class="form-control" [class.is-invalid]="f.actividadEconomicaId.errors && f.actividadEconomicaId.touched">
+                              <option value=""></option>
+                              <option *ngFor="let item of arregloactividad"  [value]="item.actividadEconomicaId">{{item.descripcion}}</option>
+                          </select>
+                          <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                        </div>
+<!--                         <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
                             <label>Actividad económica nivel 2 *</label>
                             <input autocomplete="off" formControlName="actividadEconomicaId2" type="text"
                                 class="form-control"
@@ -56,6 +65,16 @@
                             <div  class="invalid-feedback">
                                 Campo requerido
                             </div>
+                        </div> -->
+                        <div class="input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label>Actividad económica nivel 2 *</label>
+                            <select formControlName="actividadEconomicaId2" type="text" class="form-control" [class.is-invalid]="f.actividadEconomicaId2.errors && f.actividadEconomicaId2.touched">
+                              <option value=""></option>
+                              <option *ngFor="let item of arregloactividad2"  [value]="item.actividadEconomicaId">{{item.descripcion}}</option>
+                          </select>
+                          <div class="invalid-feedback">
+                            Campo requerido
+                          </div>
                         </div>
                         <div class=" input-group-sm mb-4 col-12 col-sm-12 col-md-6 col-lg-6">
                             <label>Régimen fiscal * </label>
