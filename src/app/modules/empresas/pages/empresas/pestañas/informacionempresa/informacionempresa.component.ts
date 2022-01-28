@@ -46,7 +46,7 @@ export class InformacionempresaComponent implements OnInit {
 
   ngOnInit(): void {
     
-    
+    debugger;
     this.obj = this.datos.empresa;
 
     if(this.obj){
@@ -338,7 +338,8 @@ export class InformacionempresaComponent implements OnInit {
         centrocClienteId: (this.usuariosSistemaPrd.esCliente()) ? this.usuariosSistemaPrd.getIdEmpresa() : this.usuariosSistemaPrd.getUsuario().centrocClienteIdPadre
       },
       actividadEconomicaId: {
-        actividadEconomicaId: this.arregloactividad2.find((value: any) => value.actividadEconomicaId === obj.actividadEconomicaId2)?.actividadEconomicaId || obj.actividadEconomicaId2.substring(0,obj.actividadEconomicaId2.lastIndexOf("-"))
+        actividadEconomicaId: obj.actividadEconomicaId2
+        //actividadEconomicaId: this.arregloactividad2.find((value: any) => value.actividadEconomicaId === obj.actividadEconomicaId2)?.actividadEconomicaId || obj.actividadEconomicaId2.substring(0,obj.actividadEconomicaId2.lastIndexOf("-"))
       },
       imagen: this.imagen,
       curp: obj.curp,
