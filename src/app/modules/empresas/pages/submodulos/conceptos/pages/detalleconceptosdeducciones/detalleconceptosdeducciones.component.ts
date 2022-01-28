@@ -44,7 +44,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     });
     
     this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => {
-      
+      ;
       this.arregloTipoDeduccion = datos.datos;
       this.arregloTipoDeduccionFinal=[];
       for (let item of this.arregloTipoDeduccion){

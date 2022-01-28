@@ -129,9 +129,10 @@ export class NominasActivasComponent implements OnInit,OnDestroy {
       this.modalPrd.showMessageDialog(datos.resultado, datos.mensaje);
       this.mensajePendiente = datos.mensaje;
       if (datos.resultado) {
+        
         this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaOrdinaria.nominaXperiodoId);
         item.nominaOrdinaria.estadoProcesoNominaId = 1;
-        item.nominaOrdinaria.estadoProcesoDescripcion = "Pendiente";
+        item.nominaOrdinaria.estadoProcesoDescripcion = "Calculando";
         item.mensajePensando = item.nominaOrdinaria.estadoProcesoNominaId == 4 ? item.nominaOrdinaria.procesoNominaObservaciones : "";
         item.estadoPensando = item.nominaOrdinaria.estadoProcesoNominaId == 1 || item.nominaOrdinaria.estadoProcesoNominaId == 2 || item.nominaOrdinaria.estadoProcesoNominaId == 4;
       }

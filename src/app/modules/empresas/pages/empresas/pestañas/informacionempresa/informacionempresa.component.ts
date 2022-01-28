@@ -57,10 +57,11 @@ export class InformacionempresaComponent implements OnInit {
 
     this.myform = this.createForm(this.obj);
     if (!this.datos.insertar) {
-      
+      debugger;
 
-      this.catalogosPrd.getActividadEconomica2(this.idNivel2, this.datos.empresa.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId).subscribe(datos => {
-        this.arregloactividad2 = datos.datos
+      this.catalogosPrd.getActividadEconomica2(this.idNivel2, this.obj.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId).subscribe(datos => {
+        this.arregloactividad2 = datos.datos;
+        
       });
       this.cargandoImg = true;
       this.companyPrd.getEmpresaById(this.datos.empresa.centrocClienteId).subscribe(datos => {
@@ -227,11 +228,11 @@ export class InformacionempresaComponent implements OnInit {
 
   
   public validarActividad2(actividad: any) {
-    
+    debugger;
     
     if (actividad) {
-      actividad = this.arregloactividad.find((value: any) => value['descripcion'] === actividad).actividadEconomicaId
-      this.catalogosPrd.getActividadEconomica2(this.idNivel2, actividad).subscribe(datos => this.arregloactividad2 = datos.datos);
+      //actividad = this.arregloactividad.find((value: any) => value['descripcion'] === actividad).actividadEconomicaId
+      this.catalogosPrd.getActividadEconomica2(this.idNivel2, Number(actividad)).subscribe(datos => this.arregloactividad2 = datos.datos);
       this.myform.controls.actividadEconomicaId2.setValue("");
     }else{
 

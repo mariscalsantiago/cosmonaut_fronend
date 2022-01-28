@@ -209,7 +209,7 @@ export class NominaordinariaService {
     if (this.adentro)
       return;
 
-    const suscribe: Subscription = timer(0, 3000).pipe(concatMap(() => this.http.get(`${environment.rutaNomina}/nomina/consulta/estatus/${idEmpresa}`))).pipe(map((x: any) => x.datos)).subscribe(datos => {
+    const suscribe: Subscription = timer(0, 200).pipe(concatMap(() => this.http.get(`${environment.rutaNomina}/nomina/consulta/estatus/${idEmpresa}`))).pipe(map((x: any) => x.datos)).subscribe(datos => {
       this.adentro = true;
       if (datos) {
         if (datos.some((nomina: any) => this.arreglonominasEnproceso.includes(nomina.nominaXperiodoId))) {

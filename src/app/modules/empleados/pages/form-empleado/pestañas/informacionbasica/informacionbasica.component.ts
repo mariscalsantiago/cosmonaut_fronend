@@ -279,7 +279,7 @@ export class InformacionbasicaComponent implements OnInit {
 
 
   public cambiaCurp(){
-    debugger;
+    
     if(this.myform.controls.curp.valid){
       const datePipe = new DatePipe("es-MX");
         let genero = this.myform.value.curp.slice(10,11);

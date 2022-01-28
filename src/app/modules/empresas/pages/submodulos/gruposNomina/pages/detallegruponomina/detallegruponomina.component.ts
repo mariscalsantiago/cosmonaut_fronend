@@ -154,6 +154,16 @@ export class DetallegruponominaComponent implements OnInit {
     });
   }
 
+  public limpiarCampos(obj:any){
+    if(obj === '05'){
+      this.myForm.controls.esAjusteMensualIsr.setValue('');
+      this.myForm.controls.esAjusteMensualIsr.updateValueAndValidity();
+      this.myForm.controls.ajustarBaseGravableFaltantes.setValue('false');
+      this.myForm.controls.ajustarBaseGravableFaltantes.updateValueAndValidity();
+      this.activadoISR = false;
+    }
+
+  }
   public enviarPeticion(){
     
 
@@ -245,11 +255,7 @@ export class DetallegruponominaComponent implements OnInit {
     }
 
   }
-  public limpiarTipo(){
-    
-      this.myForm.controls.ajustarBaseGravableFaltantes.setValue('false');
 
-  }
 
   public cancelar() {
     this.routerPrd.navigate(['/empresa/detalle', this.id_empresa, 'gruposnomina']);

@@ -146,7 +146,7 @@ export class PagosComponent implements OnInit {
 
 
   public crearTablaPercepcion(datos: any) {
-
+    debugger;
     this.arreglotablaPer = datos.datos;
     let columnas: Array<tabla> = [
 
@@ -214,7 +214,7 @@ export class PagosComponent implements OnInit {
 
 
   public crearTablaDeduccion(datos: any) {
-
+    debugger;
 
     this.arreglotablaDed = datos.datos;
 
@@ -267,12 +267,11 @@ export class PagosComponent implements OnInit {
           item.tipoPercepcionId.porDefecto = false;
         }
         if (item.valor !== undefined) {
-          
-            if (item.baseCalculoId?.baseCalculoId == '1' || item.tipoDescuentoInfonavitId?.tipoDescuentoInfonavitId == '2'){
+          if (item.baseCalculoId?.baseCalculoId == '1')
               item.valorMonto = item.valor + '%';
-            }else{
+          else
               item.valorMonto = formatter.format(item.valor);
-            }
+
         }
         else if (item.montoTotal !== undefined) {
           item.valorMonto = item.montoTotal

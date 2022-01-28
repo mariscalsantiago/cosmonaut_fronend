@@ -126,7 +126,7 @@ export class NominaPTUComponent implements OnInit {
       if (datos.resultado) {
         this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaPtu.nominaXperiodoId);
         item.nominaPtu.estadoProcesoNominaId = 1;
-        item.nominaPtu.estadoProcesoDescripcion = "Pendiente";
+        item.nominaPtu.estadoProcesoDescripcion = "Calculando";
         item.mensajePensando = item.nominaPtu.estadoProcesoNominaId == 4 ? item.nominaPtu.procesoNominaObservaciones : "";
         item.estadoPensando = item.nominaPtu.estadoProcesoNominaId == 1 || item.nominaPtu.estadoProcesoNominaId == 2 || item.nominaPtu.estadoProcesoNominaId == 4;
       }

@@ -132,7 +132,7 @@ export class NominaDFiniquitoliquidacionActivasComponent implements OnInit {
           if (datos.resultado) {
             this.nominaOrdinariaPrd.verEstatusNominasByEmpresa(this.usuariSistemaPrd.getIdEmpresa(), item.nominaLiquidacion.nominaXperiodoId);
             item.nominaLiquidacion.estadoProcesoNominaId = 1;
-            item.nominaLiquidacion.estadoProcesoDescripcion = "Pendiente";
+            item.nominaLiquidacion.estadoProcesoDescripcion = "Calculando";
             item.mensajePensando = item.nominaLiquidacion.estadoProcesoNominaId == 4 ? item.nominaLiquidacion.procesoNominaObservaciones : "";
             item.estadoPensando = item.nominaLiquidacion.estadoProcesoNominaId == 1 || item.nominaLiquidacion.estadoProcesoNominaId == 2 || item.nominaLiquidacion.estadoProcesoNominaId == 4;
           }
