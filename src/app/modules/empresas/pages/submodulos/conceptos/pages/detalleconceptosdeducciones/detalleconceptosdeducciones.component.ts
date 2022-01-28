@@ -32,7 +32,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+    
   
 
     this.routerActive.params.subscribe(datos => {

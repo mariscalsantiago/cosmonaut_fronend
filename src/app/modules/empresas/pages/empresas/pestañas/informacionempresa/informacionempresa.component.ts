@@ -46,7 +46,7 @@ export class InformacionempresaComponent implements OnInit {
 
   ngOnInit(): void {
     
-    debugger;
+    
     this.obj = this.datos.empresa;
 
     if(this.obj){
@@ -57,7 +57,7 @@ export class InformacionempresaComponent implements OnInit {
 
     this.myform = this.createForm(this.obj);
     if (!this.datos.insertar) {
-      debugger;
+      
 
       this.catalogosPrd.getActividadEconomica2(this.idNivel2, this.obj.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId).subscribe(datos => {
         this.arregloactividad2 = datos.datos;
@@ -228,7 +228,7 @@ export class InformacionempresaComponent implements OnInit {
 
   
   public validarActividad2(actividad: any) {
-    debugger;
+    
     
     if (actividad) {
       //actividad = this.arregloactividad.find((value: any) => value['descripcion'] === actividad).actividadEconomicaId

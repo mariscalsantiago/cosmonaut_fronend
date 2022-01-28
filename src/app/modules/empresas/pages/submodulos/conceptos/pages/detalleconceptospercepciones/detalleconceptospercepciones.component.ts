@@ -50,7 +50,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     });
 
     if(!this.esInsert){
-    debugger;
+    
     this.obj = history.state.data == undefined ? {} : history.state.data;
     this.noeditable = this.obj.tipoPercepcionId?.noEditable;
     this.obj.descripcion = this.obj.tipoPercepcionId?.tipoPercepcionId + "-" + this.obj.tipoPercepcionId?.descripcion;
@@ -376,7 +376,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public enviarPeticion() {
-    debugger;
+    
     this.submitInvalido = true;
     if (this.myForm.invalid) {
 
