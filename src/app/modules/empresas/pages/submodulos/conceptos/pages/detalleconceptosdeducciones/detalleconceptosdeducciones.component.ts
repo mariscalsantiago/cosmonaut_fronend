@@ -22,6 +22,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
   public arregloTipoDeduccionFinal: any = [];
   public tipoDeduccion : string = ""; 
   public obj: any = [];
+  public noeditable: boolean = false;
   
   public peticion: any = [];
 
@@ -31,7 +32,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+    debugger;
   
 
     this.routerActive.params.subscribe(datos => {
@@ -57,6 +58,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     if(!this.esInsert){
       
     this.obj = history.state.data == undefined ? {} : history.state.data;
+    this.noeditable = this.obj.tipoDeduccionId?.noEditable;
     //this.concatenaEspecializacion();
 
     this.myForm = this.createForm(this.obj);
@@ -65,7 +67,9 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
       this.myForm = this.createForm(this.obj);
     }
 
-
+    if(this.noeditable){
+      this.inavilitaCampos();
+    }
     
 
   }
@@ -101,6 +105,13 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     if(!this.esInsert){
       this.obj.tipodeduccionobj = this.obj.tipoDeduccionId.tipoDeduccionId + "-" + this.obj.tipoDeduccionId.especializacion;
     }
+  }
+
+  public inavilitaCampos(){
+    this.myForm.controls.nombre.disable();
+    this.myForm.controls.tipoDeduccionId.disable();
+    this.myForm.controls.esActivo.disable();
+
   }
 
   public validarTipoConcepto(tipo:any){
