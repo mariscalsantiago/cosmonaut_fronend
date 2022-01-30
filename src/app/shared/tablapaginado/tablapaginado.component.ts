@@ -116,8 +116,6 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
     }
 
-
-
   }
 
 

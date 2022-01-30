@@ -57,7 +57,7 @@ export class InformacionempresaComponent implements OnInit {
 
     this.myform = this.createForm(this.obj);
     if (!this.datos.insertar) {
-      debugger;
+      
 
       this.catalogosPrd.getActividadEconomica2(this.idNivel2, this.obj.padreActividadEconomicaId?.sectorCActividadEconomica?.actividadEconomicaId).subscribe(datos => {
         this.arregloactividad2 = datos.datos;
@@ -228,7 +228,7 @@ export class InformacionempresaComponent implements OnInit {
 
   
   public validarActividad2(actividad: any) {
-    debugger;
+    
     
     if (actividad) {
       //actividad = this.arregloactividad.find((value: any) => value['descripcion'] === actividad).actividadEconomicaId
@@ -338,7 +338,8 @@ export class InformacionempresaComponent implements OnInit {
         centrocClienteId: (this.usuariosSistemaPrd.esCliente()) ? this.usuariosSistemaPrd.getIdEmpresa() : this.usuariosSistemaPrd.getUsuario().centrocClienteIdPadre
       },
       actividadEconomicaId: {
-        actividadEconomicaId: this.arregloactividad2.find((value: any) => value.actividadEconomicaId === obj.actividadEconomicaId2)?.actividadEconomicaId || obj.actividadEconomicaId2.substring(0,obj.actividadEconomicaId2.lastIndexOf("-"))
+        actividadEconomicaId: obj.actividadEconomicaId2
+        //actividadEconomicaId: this.arregloactividad2.find((value: any) => value.actividadEconomicaId === obj.actividadEconomicaId2)?.actividadEconomicaId || obj.actividadEconomicaId2.substring(0,obj.actividadEconomicaId2.lastIndexOf("-"))
       },
       imagen: this.imagen,
       curp: obj.curp,

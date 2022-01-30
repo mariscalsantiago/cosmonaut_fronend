@@ -329,7 +329,7 @@ export class DetalleCompanyComponent implements OnInit,OnDestroy {
                     }
                   });
                 }
-
+              this.cancelarcomp();  
                
             }
 

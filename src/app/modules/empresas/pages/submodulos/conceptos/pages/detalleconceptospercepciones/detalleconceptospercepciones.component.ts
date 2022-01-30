@@ -29,7 +29,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public mensajePercepcion: boolean = false;
   public noMensajePercepcion: boolean = true;
   public limpiarTipopercepcion: boolean = false;
-
+  public noeditable: boolean = false;
 
   public peticion: any = [];
 
@@ -50,8 +50,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     });
 
     if(!this.esInsert){
-
+    
     this.obj = history.state.data == undefined ? {} : history.state.data;
+    this.noeditable = this.obj.tipoPercepcionId?.noEditable;
     this.obj.descripcion = this.obj.tipoPercepcionId?.tipoPercepcionId + "-" + this.obj.tipoPercepcionId?.descripcion;
 
 
@@ -102,6 +103,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     this.obj = {};
     this.myForm = this.createForm(this.obj);
     }
+    if(this.noeditable){
+      this.inavilitaCampos();
+    }
 
 
   }
@@ -132,6 +136,18 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
   }
 
+  public inavilitaCampos(){
+    this.myForm.controls.nombre.disable();
+    this.myForm.controls.tipoPeriodicidad.disable();
+    this.myForm.controls.tipoPercepcionId.disable();
+    this.myForm.controls.periodicidadTipo.disable();
+    this.myForm.controls.esActivo.disable();
+    this.myForm.controls.gravaIsr.disable();
+    this.myForm.controls.gravaIsn.disable();
+    this.myForm.controls.integraImss.disable();
+    this.myForm.controls.tipoConcepto.disable();
+
+  }
 
   public validarPercepcion(tipo:any){
 
@@ -360,7 +376,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public enviarPeticion() {
-
+    
     this.submitInvalido = true;
     if (this.myForm.invalid) {
 
@@ -391,12 +407,18 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
           let tipoPercepcion;
           if(this.tipoPercepcion == ""){
             //let type = String(obj.tipoPercepcionId).substring(0,3)
-            const nombreCapturado = obj.tipoPercepcionId;
-            for(let item of this.arregloTipoPercepcion){
-                const nombreCompleto = item.descripcion;
-                if (nombreCapturado.includes(nombreCompleto)) {
-                especializacion = item.especializacion;
-                tipoPercepcion = item.tipoPercepcionId;
+            if(this.noeditable){
+              especializacion = this.obj.tipoPercepcionId?.especializacion;
+              tipoPercepcion = this.obj.tipoPercepcionId?.tipoPercepcionId;
+
+            }else{
+              const nombreCapturado = obj.tipoPercepcionId;
+              for(let item of this.arregloTipoPercepcion){
+                  const nombreCompleto = item.descripcion;
+                  if (nombreCapturado.includes(nombreCompleto)) {
+                  especializacion = item.especializacion;
+                  tipoPercepcion = item.tipoPercepcionId;
+                }
               }
             }
           }else{
