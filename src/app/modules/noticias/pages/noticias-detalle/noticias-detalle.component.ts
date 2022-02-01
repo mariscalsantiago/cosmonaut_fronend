@@ -39,6 +39,7 @@ export class NoticiasDetalleComponent implements OnInit {
   requiereImagen = false;
   requiereURL = false;
   tieneImagen = false;
+  public fechaAlta: string = "";
   tamanioRecomendado = NoticiasDetalleComponent.TAMANIO_RECOMENDADO_BANNER;
 
   public cargando: boolean = true;
@@ -215,17 +216,11 @@ export class NoticiasDetalleComponent implements OnInit {
   }
 
   public crearFormulario() {
-    let datePipe = new DatePipe('en-MX');
+    let fechaActual = new DatePipe("es-MX").transform(new Date(),"dd-MMM-y")?.replace(".","");
     return this.formBuilder.group({
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
       subtitulo: ['', [Validators.maxLength(50)]],
-      fechaAlta: [
-        {
-          value: datePipe.transform(new Date(), 'dd-MMM-y'?.replace('.', '')),
-          disabled: true,
-        },
-        [Validators.required],
-      ],
+      fechaAlta: [{ value: fechaActual , disabled: true }, [Validators.required]],
       fechaInicio: ['', [Validators.required, this.validarFecha]],
       fechaFin: [
         '',
@@ -307,7 +302,7 @@ export class NoticiasDetalleComponent implements OnInit {
     this.formulario.controls.fechaAlta.setValue(
       !!this.editando
         ? this.editando.fechaAlta
-        : datePipe.transform(new Date(), 'dd-MMM-y')?.replace('.', '')
+        : datePipe.transform(new Date("es-MX"), 'dd-MMM-y')?.replace('.', '')
     );
     this.formulario.controls.fechaAlta.updateValueAndValidity();
 
