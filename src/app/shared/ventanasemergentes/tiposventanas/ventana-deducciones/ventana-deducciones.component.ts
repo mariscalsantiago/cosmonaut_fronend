@@ -407,7 +407,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
     }    
     else if(concepto=='004' && this.esdefecto){
-      ;
+
       this.myForm.controls.montoTotal.setValidators([Validators.required]);
       this.myForm.controls.fechaOtorgamiento.setValidators([Validators.required]);
       this.myForm.controls.numeroCuotas.setValidators([Validators.required]);
@@ -443,10 +443,10 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.fechaDemanda.updateValueAndValidity();
       
 
-      if(this.politica !== undefined){
+      /*if(this.politica !== undefined){
 
       
-      this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
+       this.myForm.controls.baseCalculoId.setValidators([Validators.required]);
       this.myForm.controls.valor.setValidators([Validators.required]);
       this.myForm.controls.montoTotal.setValidators([]);
       this.myForm.controls.montoTotal.updateValueAndValidity();  
@@ -457,7 +457,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.fechaDemanda.setValidators([]);
       this.myForm.controls.fechaDemanda.updateValueAndValidity();
       this.myForm.controls.fechaOtorgamiento.setValidators([]);
-      this.myForm.controls.fechaOtorgamiento.updateValueAndValidity();
+      this.myForm.controls.fechaOtorgamiento.updateValueAndValidity(); 
 
       this.infonavit = false;
       this.deducPolitica = true;
@@ -476,7 +476,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.valor.enable();
       this.myForm.controls.baseCalculoId.enable();
 
-      }else{
+      }else{*/
       this.submenu = true;
       this.prestamo = true;
       this.normalDeduccion = false;
@@ -504,7 +504,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.baseCalculoId.disable();
       this.myForm.controls.baseCalculoId.setValue(2);
       this.myForm.controls.valor.disable();
-      }
+      //}
 
       if(this.esInsert){
       this.myForm.controls.montoTotal.setValue(""); 

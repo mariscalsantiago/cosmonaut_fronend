@@ -98,7 +98,7 @@ export class DetalleContactoComponent implements OnInit {
   public createFormcont(obj: any) {
     
     console.log("Esta es el obj",obj);
-    let fechaActual = new DatePipe("es-MX").transform(new Date(),"dd-MMM-y");
+    let fechaActual = new DatePipe("es-MX").transform(new Date(),"dd-MMM-y")?.replace(".","");
     return this.formBuilder.group({
 
       nombre: [obj.nombre, [Validators.required]],

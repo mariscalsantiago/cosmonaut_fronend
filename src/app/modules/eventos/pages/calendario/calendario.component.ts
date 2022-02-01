@@ -118,18 +118,19 @@ export class CalendarioComponent implements OnInit {
 
       let aux:any = undefined;
       if (this.arreglo) {
+        debugger;
         let temporal = JSON.stringify(this.arreglo);
         aux = JSON.parse(temporal);
 
         for (let item of aux) {
-
+          let datepipe = new DatePipe("es-MX");
           item["nombrecompleado"] = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno == undefined ? "" : item.apellidoMaterno}`;
 
           if(item.fechaInicio !== undefined ){
-            item["fechaInicioTemp"] = new DatePipe("es-MX").transform(new Date(item.fechaInicio), 'dd-MMM-y')?.replace(".","");
+            item["fechaInicioTemp"] = datepipe.transform(item.fechaInicio , 'dd-MMM-y')?.replace(".","");
           }
           if(item.fechaFin !== undefined ){
-            item["fechaFinTemp"] = new DatePipe("es-MX").transform(new Date(item.fechaFin), 'dd-MMM-y')?.replace(".","");
+            item["fechaFinTemp"] = datepipe.transform(item.fechaFin , 'dd-MMM-y')?.replace(".","");
           }
         }
        
