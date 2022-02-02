@@ -118,7 +118,7 @@ export class CalendarioComponent implements OnInit {
 
       let aux:any = undefined;
       if (this.arreglo) {
-        debugger;
+        
         let temporal = JSON.stringify(this.arreglo);
         aux = JSON.parse(temporal);
 

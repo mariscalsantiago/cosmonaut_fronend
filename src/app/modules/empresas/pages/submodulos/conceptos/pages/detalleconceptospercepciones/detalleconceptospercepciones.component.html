@@ -67,19 +67,33 @@
             </div>
             <div  *ngIf="conAmbasPeriodicidad" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
             <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
-                <label class="contenedorInputCheckRadio">Grava ISR
+                <label *ngIf="!cambioEstilo" class="contenedorInputCheckRadio">Grava ISR
                     <input formControlName="gravaIsr" type="checkbox" name="" id="gravaIsr">
                     <span class="checkmark"></span>
                 </label>
+                <label *ngIf="cambioEstilo" class="contenedorInputCheckRadio" style="color: rgb(174, 174, 174);">Grava ISR
+                    <input formControlName="gravaIsr" type="checkbox"  name="" id="gravaIsr">
+                    <span class="checkmark disabled bg-light"></span>
+                </label>
 
-                <label class="contenedorInputCheckRadio">Grava ISN
+                <label *ngIf="!cambioEstilo" class="contenedorInputCheckRadio">Grava ISN
                     <input formControlName="gravaIsn" type="checkbox" name="" id="gravaIsn">
                     <span class="checkmark"></span>
                 </label>
 
-                <label class="contenedorInputCheckRadio">Integra IMSS
+                <label *ngIf="cambioEstilo" class="contenedorInputCheckRadio" style="color: rgb(174, 174, 174);">Grava ISN
+                    <input formControlName="gravaIsn" type="checkbox" name="" id="gravaIsn">
+                    <span class="checkmark disabled bg-light"></span>
+                </label>
+
+                <label *ngIf="!cambioEstilo" class="contenedorInputCheckRadio">Integra IMSS
                     <input formControlName="integraImss" type="checkbox" name="" id="integraImss">
                     <span class="checkmark"></span>
+                </label>
+
+                <label *ngIf="cambioEstilo" class="contenedorInputCheckRadio" style="color: rgb(174, 174, 174);">Integra IMSS
+                    <input formControlName="integraImss" type="checkbox" name="" id="integraImss">
+                    <span class="checkmark disabled bg-light"></span>
                 </label>
 
             </div>
