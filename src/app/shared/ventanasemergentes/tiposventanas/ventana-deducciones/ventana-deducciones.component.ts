@@ -442,7 +442,6 @@ export class VentanaDeduccionesComponent implements OnInit {
       this.myForm.controls.fechaDemanda.setValidators([]);
       this.myForm.controls.fechaDemanda.updateValueAndValidity();
       
-
       /*if(this.politica !== undefined){
 
       
