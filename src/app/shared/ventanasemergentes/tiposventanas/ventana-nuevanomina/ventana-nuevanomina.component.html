@@ -25,7 +25,7 @@
         </div>
         <div class="input-group-sm mb-3 col-6">
             <label for="exampleFormControlSelect1">Fecha de fin *</label>
-            <input [max]="fechaMaxima" formControlName="fechaFinPeriodo" #fechafin [class.is-invalid]="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" type="date" name=""  class="form-control">
+            <input [max]="fechaMaxima" (change)="validaFechaFinCaptura()" formControlName="fechaFinPeriodo" #fechafin [class.is-invalid]="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" type="date" name=""  class="form-control">
             <div *ngIf="f.fechaFinPeriodo.errors && f.fechaFinPeriodo.touched" class="invalid-feedback">
                 Campo requerido
             </div>

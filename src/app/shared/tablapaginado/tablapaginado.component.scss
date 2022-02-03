@@ -173,12 +173,19 @@ table {
 
 
 .tablaTimbrado {
+
     width: 100%;
     .totalesTimbrado {
         text-align: left !important;
         color: #56dfd4!important;
     }
     th {
+        padding: 2rem 0;
+        position: fixed;
+        left: 84px;
+        top: 391px;
+        right: 0;
+        
         text-align: left !important;
         border: 1px solid white;
     }
@@ -234,6 +241,14 @@ table {
     right:0; 
     color:rgb(204, 204, 204);
     outline: none !important;
+}
+
+.header{
+    padding: 2rem 0;
+    position: fixed;
+    left: 84px;
+    top: 391px;
+    right: 0;
 }
 
 .flechas:first-child{

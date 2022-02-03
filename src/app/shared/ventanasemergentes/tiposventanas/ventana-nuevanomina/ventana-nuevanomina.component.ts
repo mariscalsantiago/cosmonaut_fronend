@@ -109,6 +109,17 @@ export class VentanaNuevanominaComponent implements OnInit {
     this.salida.emit({ type: "cancelar" });
   }
 
+  public validaFechaFinCaptura(){
+    
+    let fechafinCap = this.myForm.controls.fechaFinPeriodo.value;
+    if(fechafinCap < this.fechaMaxima){
+      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha de fin esta fuera del periodo selecionado');
+      this.myForm.controls.fechaFinPeriodo.setValue('');
+      this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
+    }
+
+  }
+
 
   public validaFechaFinal(): Boolean{
     

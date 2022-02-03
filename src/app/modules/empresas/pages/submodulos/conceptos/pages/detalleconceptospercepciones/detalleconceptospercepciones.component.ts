@@ -30,7 +30,9 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   public noMensajePercepcion: boolean = true;
   public limpiarTipopercepcion: boolean = false;
   public noeditable: boolean = false;
-  public cambioEstilo: boolean = false;
+  public cambioEstiloIsn: boolean = false;
+  public cambioEstiloIsr: boolean = false;
+  public cambioEstiloImss: boolean = false;
 
   public peticion: any = [];
 
@@ -97,16 +99,17 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     });
 
-
-    this.validarTipoConceptoMod(this.obj.descripcion);
-    this.myForm = this.createForm(this.obj);
-     }else{
-    this.obj = {};
-    this.myForm = this.createForm(this.obj);
-    }
     if(this.noeditable){
       this.inavilitaCampos();
     }
+    this.validarTipoConceptoMod(this.obj.descripcion);
+    this.myForm = this.createForm(this.obj);
+
+    }else{
+    this.obj = {};
+    this.myForm = this.createForm(this.obj);
+    }
+
 
 
   }
@@ -143,11 +146,11 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     this.myForm.controls.tipoPercepcionId.disable();
     this.myForm.controls.periodicidadTipo.disable();
     this.myForm.controls.esActivo.disable();
-    this.cambioEstilo = true;
+    this.cambioEstiloIsr = true;
     this.myForm.controls.gravaIsr.disable();
-    this.cambioEstilo = true;
+    this.cambioEstiloIsn = true;
     this.myForm.controls.gravaIsn.disable();
-    this.cambioEstilo = true;
+    this.cambioEstiloImss = true;
     this.myForm.controls.integraImss.disable();
     this.myForm.controls.tipoConcepto.disable();
 
@@ -185,8 +188,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
   }
   public validarTipoConcepto(tipo:any){
-
-
+    
     this.limpiarTipopercepcion = false;
     //let type = String(tipo).substring(0,3)
     const nombreCapturado = tipo;
@@ -224,63 +226,63 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
        if(item.integraIsn == "S" ){
           this.myForm.controls.gravaIsn.setValue(true);
           this.myForm.controls.gravaIsn.disable();
-          this.cambioEstilo = true;
+          this.cambioEstiloIsn = true;
         }
        else if(item.integraIsn == "N" ){
           this.myForm.controls.gravaIsn.setValue(false);
           this.myForm.controls.gravaIsn.disable();
-          this.cambioEstilo = true;
+          this.cambioEstiloIsn = true;
         }
         else if(item.integraIsn == "C" ){
           this.myForm.controls.gravaIsn.setValue(true);
           this.myForm.controls.gravaIsn.enable();
-          this.cambioEstilo = false;
+          this.cambioEstiloIsn = false;
           
         }else{
           this.myForm.controls.gravaIsn.setValue(false);
           this.myForm.controls.gravaIsn.enable();
-          this.cambioEstilo = false;
+          this.cambioEstiloIsn = false;
         }
 
        if(item.integraIsr == "S"){
           this.myForm.controls.gravaIsr.setValue(true);
           this.myForm.controls.gravaIsr.disable();
-          this.cambioEstilo = true;
+          this.cambioEstiloIsr = true;
         }
         else if(item.integraIsr == "N"){
           this.myForm.controls.gravaIsr.setValue(false);
           this.myForm.controls.gravaIsr.disable();
-          this.cambioEstilo = true;
+          this.cambioEstiloIsr = true;
         }
         else if(item.integraIsr == "C"){
           this.myForm.controls.gravaIsr.setValue(true);
           this.myForm.controls.gravaIsr.enable();
-          this.cambioEstilo = false;
+          this.cambioEstiloIsr = false;
         }
         else{
           this.myForm.controls.gravaIsr.setValue(false);
           this.myForm.controls.gravaIsr.enable();
-          this.cambioEstilo = false;
+          this.cambioEstiloIsr = false;
         }
        if(item.integraSdi == "S"){
           this.myForm.controls.integraImss.setValue(true);
           this.myForm.controls.integraImss.disable();
-          this.cambioEstilo = true;
+          this.cambioEstiloImss = true;
         }
         else if(item.integraSdi == "N"){
           this.myForm.controls.integraImss.setValue(false);
           this.myForm.controls.integraImss.disable();
-          this.cambioEstilo = true;
+          this.cambioEstiloImss = true;
         }
         else if(item.integraSdi == "C"){
           this.myForm.controls.integraImss.setValue(true);
           this.myForm.controls.integraImss.enable();
-          this.cambioEstilo = false;
+          this.cambioEstiloImss = false;
         }
         else{
           this.myForm.controls.integraImss.setValue(false);
           this.myForm.controls.integraImss.enable();
-          this.cambioEstilo = false;
+          this.cambioEstiloImss = false;
         }
 
       }
@@ -338,56 +340,62 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
          if(item.integraIsn == "S" ){
             this.myForm.controls.gravaIsn.setValue(true);
             this.myForm.controls.gravaIsn.disable();
-            this.cambioEstilo = true;
+            this.cambioEstiloIsn = true;
           }
          else if(item.integraIsn == "N" ){
             this.myForm.controls.gravaIsn.setValue(false);
             this.myForm.controls.gravaIsn.disable();
-            this.cambioEstilo = true;
+            this.cambioEstiloIsn = true;
           }
           else if(item.integraIsn == "C" ){
             this.myForm.controls.gravaIsn.setValue(true);
             this.myForm.controls.gravaIsn.enable();
+            this.cambioEstiloIsn = false;
           }else{
             this.myForm.controls.gravaIsn.setValue(false);
             this.myForm.controls.gravaIsn.enable();
+            this.cambioEstiloIsn = false;
           }
 
          if(item.integraIsr == "S"){
             this.myForm.controls.gravaIsr.setValue(true);
             this.myForm.controls.gravaIsr.disable();
-            this.cambioEstilo = true;
+            this.cambioEstiloIsr = true;
           }
           else if(item.integraIsr == "N"){
             this.myForm.controls.gravaIsr.setValue(false);
             this.myForm.controls.gravaIsr.disable();
-            this.cambioEstilo = true;
+            this.cambioEstiloIsr = true;
           }
           else if(item.integraIsr == "C"){
             this.myForm.controls.gravaIsr.setValue(true);
             this.myForm.controls.gravaIsr.enable();
+            this.cambioEstiloIsr = false;
           }
           else{
             this.myForm.controls.gravaIsr.setValue(false);
             this.myForm.controls.gravaIsr.enable();
+            this.cambioEstiloIsr = false;
           }
          if(item.integraSdi == "S"){
             this.myForm.controls.integraImss.setValue(true);
             this.myForm.controls.integraImss.disable();
-            this.cambioEstilo = true;
+            this.cambioEstiloImss = true;
           }
           else if(item.integraSdi == "N"){
             this.myForm.controls.integraImss.setValue(false);
             this.myForm.controls.integraImss.disable();
-            this.cambioEstilo = true;
+            this.cambioEstiloImss = true;
           }
           else if(item.integraSdi == "C"){
             this.myForm.controls.integraImss.setValue(true);
             this.myForm.controls.integraImss.enable();
+            this.cambioEstiloImss = false;
           }
           else{
             this.myForm.controls.integraImss.setValue(false);
             this.myForm.controls.integraImss.enable();
+            this.cambioEstiloImss = false;
           }
 
         }
