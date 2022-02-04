@@ -487,15 +487,7 @@ export class IDSEComponent implements OnInit {
           let empleado : any = obj.datos.persona_id;
           this.configuracionPrd.accesoRuta = true;
           this.router.navigate(['/empleados',empleado, 'pagos']);
-      
-          setTimeout(() => {
-            if (!this.configuracionPrd.cargandomodulo) {
-              setTimeout(() => {
-                this.configuracionPrd.accesoRuta = false;
-              }, 30);
-            }
-      
-          }, 30);
+          this.configuracionPrd.activa = 3;
 
           break;
     }
