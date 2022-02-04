@@ -65,7 +65,7 @@ export class IDSEComponent implements OnInit {
 
 
   constructor(private empresasPrd: EmpresasService, private usauriosSistemaPrd: UsuarioSistemaService, private router: Router,
-    private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService) { }
+    private modalPrd:ModalService, private reportesPrd: ReportesService,public configuracionPrd:ConfiguracionesService,) { }
 
   ngOnInit(): void {
 
@@ -441,8 +441,7 @@ export class IDSEComponent implements OnInit {
           }
           
         });
-      }
-  
+      }  
       });
 
       break;
@@ -460,9 +459,6 @@ export class IDSEComponent implements OnInit {
 
           
         ];
-       
-
-
         this.arreglotablaDesglose.columnas = columnas;
         this.arreglotablaDesglose.filas = item;
 
@@ -470,7 +466,7 @@ export class IDSEComponent implements OnInit {
         
         break;
         case "filaseleccionada":
-          
+        
           this.activarMultiseleccion = obj.datos;
           
         break;
@@ -486,7 +482,22 @@ export class IDSEComponent implements OnInit {
           
           this.descargaAcuseMovimiento(obj.datos);
           break;
-        
+        case "editar":
+          debugger;
+          let empleado : any = obj.datos.persona_id;
+          this.configuracionPrd.accesoRuta = true;
+          this.router.navigate(['/empleados',empleado, 'pagos']);
+      
+          setTimeout(() => {
+            if (!this.configuracionPrd.cargandomodulo) {
+              setTimeout(() => {
+                this.configuracionPrd.accesoRuta = false;
+              }, 30);
+            }
+      
+          }, 30);
+
+          break;
     }
 
   }

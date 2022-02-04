@@ -38,6 +38,7 @@ export class EmpleadoComponent implements OnInit {
     private contratoColaboradorPrd:ContratocolaboradorService) { }
 
   ngOnInit(): void {
+    debugger;
     this.routerCan.params.subscribe(params => {
       this.esKiosko = this.router.url.includes("/kiosko/perfil");
 

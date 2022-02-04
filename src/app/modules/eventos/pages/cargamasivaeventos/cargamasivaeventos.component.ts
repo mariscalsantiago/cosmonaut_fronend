@@ -85,7 +85,7 @@ export class CargaMasivaEventosComponent implements OnInit {
 
     this.EmpleadosService.getEmpleadosCompania(this.idEmpresa).subscribe(datos => {
       for(let item of datos.datos){
-        if(item.estatusBajaId == 2)
+        if(item.estatusBajaId !== 1)
         continue;
         this.arregloEmpleados.push(item);
       }
