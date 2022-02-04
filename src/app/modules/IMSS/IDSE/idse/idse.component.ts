@@ -483,7 +483,7 @@ export class IDSEComponent implements OnInit {
           this.descargaAcuseMovimiento(obj.datos);
           break;
         case "editar":
-          debugger;
+          
           let empleado : any = obj.datos.persona_id;
           this.configuracionPrd.accesoRuta = true;
           this.router.navigate(['/empleados',empleado, 'pagos']);
