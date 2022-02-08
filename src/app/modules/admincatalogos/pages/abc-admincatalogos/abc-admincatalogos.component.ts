@@ -289,6 +289,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
            for (let item of datos.datos) {
             if (item.fechaInicio != undefined || item.fechaInicio != null) {
                 item.fechaInicio = new DatePipe("es-MX").transform((item.fechaInicio), 'yyyy-MM-dd');
+                item.fechaFin = new DatePipe("es-MX").transform((item.fechaFin), 'yyyy-MM-dd');
               }
              
            }
