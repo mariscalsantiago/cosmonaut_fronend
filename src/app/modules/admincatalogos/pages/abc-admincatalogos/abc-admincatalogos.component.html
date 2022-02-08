@@ -370,6 +370,15 @@
                 </div>
 
             </div>
+            <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha fin *</label>
+                <input formControlName="fechaFin" [min]="f.fechaInicio.value" #fechaFin type="date" class="form-control"
+                [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}">
+                <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
 
             <div *ngIf="catEstatus" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
                 <label>Estatus</label>
@@ -503,6 +512,7 @@
                         <th id="" class="text-center" scope="col">Cuota fija</th>
                         <th id="" class="text-center" scope="col">Excedente %</th>
                         <th id="" class="text-center" scope="col">Fecha Inicio</th>
+                        <th id="" class="text-center" scope="col">Fecha Fin</th>
 
                     </tr>
 
@@ -521,6 +531,9 @@
                         </td>
                         <td>
                             <input #isn id="isn" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tasaAplicableIsnId, 'fechaInicio', $event)" (blur)="updateList(tasaAplicableIsnId, 'fechaInicio', $event)">
+                        </td>
+                        <td>
+                            <input #isn id="isn" type="date" [value]="valores.fechaFin" (keydown)="changeValue(tasaAplicableIsnId, 'fechaFin', $event)" (blur)="updateList(tasaAplicableIsnId, 'fechaFin', $event)">
                         </td>
                     </tr>
 

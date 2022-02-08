@@ -594,6 +594,7 @@ export class ABCAdminCatalogosComponent implements OnInit {
     this.myForm.controls.tasa.setValidators([Validators.required, Validators.pattern(/^[0-9]{1,2}([.][0-9]{1,3})?$/)]); 
     this.myForm.controls.referenciaMarcoJuridico.setValidators([Validators.required]);
     this.myForm.controls.fechaInicio.setValidators([Validators.required]);
+    this.myForm.controls.fechaFin.setValidators([Validators.required]);
     this.myForm.controls.nombreCorto.setValidators([]);
     this.myForm.controls.nombreCorto.updateValueAndValidity();
 
@@ -1930,7 +1931,8 @@ export class ABCAdminCatalogosComponent implements OnInit {
                 estadoId: obj.PeriodicidadPago,
             },
            esActivo: obj.esActivo,
-           fechaInicio: obj.fechaInicio
+           fechaInicio: obj.fechaInicio,
+           fechaFin: obj.fechaFin
 
          }
           
