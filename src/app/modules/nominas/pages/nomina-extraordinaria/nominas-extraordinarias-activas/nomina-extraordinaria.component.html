@@ -30,6 +30,7 @@
             <article>{{item.nominaExtraordinaria?.nombreNomina}}
                 <article>Período del {{item.nominaExtraordinaria?.fechaInicio | date:'dd MMMM'}} al {{item.nominaExtraordinaria?.fechaFin | date:'dd MMMM'}}</article>
                 <article>Clave: {{item.nominaExtraordinaria?.clavePeriodo}}</article>
+                <article *ngIf="item.nominaExtraordinaria?.nombreGrupoNomina">Grupo de nómina: {{item.nominaExtraordinaria?.nombreGrupoNomina}}</article>
             </article>
 
         </div>
