@@ -83,7 +83,7 @@ export class CargaMasivaEventosComponent implements OnInit {
       }
     });
 
-    debugger;
+    
     this.EmpleadosService.getEmpleadosCompania(this.idEmpresa).subscribe(datos => {
       for(let item of datos.datos){
         if(item.estatusBajaId == 2)

@@ -32,7 +32,7 @@ export class ListagruposnominasComponent implements OnInit {
   public cargandodetallegrupo: boolean = false;
 
   public indexSeleccionado: number = 0;
-
+  public countEmp: number = 0;
 
 
   public arreglo: any = [];
@@ -309,6 +309,7 @@ export class ListagruposnominasComponent implements OnInit {
 
       this.cargandodetallegrupo = false;
       this.arreglodetalle = datos.datos == undefined ? [] : datos.datos;
+      this.countEmp= this.arreglodetalle.length;
 
     });
 

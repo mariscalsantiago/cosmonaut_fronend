@@ -139,12 +139,14 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
     this.modalPrd.showMessageDialog(this.modalPrd.warning, "¿Deseas crear la  nómina?").then(valor => {
       if (valor) {
         let obj = this.myForm.getRawValue();
+        
 
         let temp = null;
-        if(obj.seleccionarempleados == "false"){
+        if(obj.seleccionarempleados == "3"){
           temp = [];
           
             for(let item of this.empleadoEnviar){
+              
                 temp.push({
                   fecha_contrato:new DatePipe("es-MX").transform(item.fechaContrato,"yyyy-MM-dd"),
                   persona_id:item.personaId.personaId,
@@ -198,6 +200,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
 
 
   public recibirEtiquetas(evento: any) {
+    
     this.empleadoEnviar = evento;
 
   }
