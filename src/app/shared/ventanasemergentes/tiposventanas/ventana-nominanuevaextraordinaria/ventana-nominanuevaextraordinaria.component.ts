@@ -144,8 +144,7 @@ export class VentanaNominanuevaextraordinariaComponent implements OnInit {
         let temp = null;
         if(obj.seleccionarempleados == "3"){
           temp = [];
-          
-            for(let item of this.empleadoEnviar){
+              for(let item of this.empleadoEnviar){
               
                 temp.push({
                   fecha_contrato:new DatePipe("es-MX").transform(item.fechaContrato,"yyyy-MM-dd"),
