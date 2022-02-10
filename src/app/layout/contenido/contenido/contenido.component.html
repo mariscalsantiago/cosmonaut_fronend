@@ -43,6 +43,9 @@
                             <ng-container *ngFor="let item2 of item.submodulos">
                                 <li *ngIf="item2.checked">
                                     <span (click)="irRuta(item2);seleccionarSubmenu(item,item2);">{{item2.nombreSubmodulo }}</span>
+                                    <span *ngIf="item2.nombreSubmodulo.includes('Perfiles pendientes') && incompletos"  class="badge badge-danger" disabled style="background-color: red;
+                                    margin-left: 0px;
+                                    margin-right: 134px;">{{empIncompletos}}</span>
                                 </li>
                             </ng-container>
                         </ul>

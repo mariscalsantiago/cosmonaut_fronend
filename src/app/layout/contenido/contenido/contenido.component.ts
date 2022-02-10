@@ -14,6 +14,7 @@ import { ChatService } from 'src/app/modules/chat/services/chat.service';
 import { NotificacionesService } from 'src/app/shared/services/chat/notificaciones.service';
 import { CompanyService } from 'src/app/modules/company/services/company.service';
 import { environment } from 'src/environments/environment';
+import { EmpleadosService } from 'src/app/modules/empleados/services/empleados.service';
 
 
 const CryptoJS = require("crypto-js");
@@ -40,8 +41,9 @@ export class ContenidoComponent implements OnInit {
 
   public botonsalir: boolean = false;
 
-
-
+  public empIncompletos: number = 0;
+  public incompletos: boolean = false;
+  public arregloempen : any = []; 
 
 
 
@@ -118,7 +120,7 @@ export class ContenidoComponent implements OnInit {
     private chatPrd: ChatSocketService, private authPrd: AuthService, public configuracionPrd: ConfiguracionesService,
     private rolesPrd: RolesService, private usuariosSistemaPrd: UsuarioSistemaService,
     private charComponentPrd: ChatService, public notificacionesPrd: NotificacionesService,
-    private configuracionesPrd:ConfiguracionesService ) {
+    private configuracionesPrd:ConfiguracionesService,private empleadosPrd:EmpleadosService ) {
     this.modalPrd.setModal(this.modal);
     this.ventana.setModal(this.emergente, this.mostrar);
 
@@ -151,14 +153,16 @@ export class ContenidoComponent implements OnInit {
     });
 
     this.chatPrd.setChatDatos(this.chat);
+    this.empleadosPrd.getEmpleadosIncompletos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
+      debugger;
+      this.arregloempen = datos.datos == undefined ? [] : datos.datos;
+      this.empIncompletos = this.arregloempen.length;
+      this.incompletos = this.empIncompletos == 0 ? false : true;
 
-
+    });
 
 
     if (this.authPrd.isAuthenticated()) {
-
-
-
 
       this.mostrandoChatBoot();
       if (!this.configuracionPrd.isSession(this.configuracionPrd.MENUUSUARIO)) {
@@ -270,6 +274,7 @@ export class ContenidoComponent implements OnInit {
     this.modalPrd.recibiendomensajes(obj);
 
   }
+
 
   public mostrarVentana() {
     this.modalPrd.showMessageDialog(this.modalPrd.success).then();
