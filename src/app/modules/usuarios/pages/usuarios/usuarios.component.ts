@@ -189,7 +189,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public guardarMultiseleccion(tipoguardad: boolean) {
-
+    debugger;
 
     this.tipoguardad = tipoguardad;
     let mensaje = `¿Deseas ${tipoguardad ? "activar" : "desactivar"} estos usuarios?`;
@@ -276,8 +276,6 @@ export class UsuariosComponent implements OnInit {
   public filtrar(repetir:boolean = false,desdeFiltrado:boolean = false) {
 
     
-
-
     let arregloenviar = [];
     
     if(!Boolean(this.id_company)){
@@ -317,6 +315,7 @@ export class UsuariosComponent implements OnInit {
       this.usuariosAuthPrd.filtrarUsuariosPaginado(peticion,this.elementos,this.pagina).subscribe(datos => {
         if(datos.datos){
           let arreglo:Array<any> = datos.datos.usuarios;
+          this.arreglo = [];
           console.log("ARREGLO RECIBIDO FILTRANDO",arreglo);
           if(arreglo)
              if(!repetir)
