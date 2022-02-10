@@ -60,8 +60,8 @@ export class CompletarComponent implements OnInit {
       this.cargandoIcon = false;
       this.datos = datos.datos;
       let columnas: Array<tabla> = [
-        new tabla("totalPagoNetoTotal", "Total pago neto"),
-        new tabla("totalPagoNeto", "Total pagado"),
+        new tabla("totalPagoNeto", "Total pago neto"),
+        new tabla("totalPagoNetoTotal", "Total pagado"),
         new tabla("totalPagoNetoDiferencia", "Pago neto pendiente"),
         new tabla("pagosRealizadosTotal", "Total a pagar"),
         new tabla("pagosRealizados", "Pago realizados"),
@@ -73,10 +73,14 @@ export class CompletarComponent implements OnInit {
 
 
       if(this.datos){
+        debugger;
         for(let item of this.datos){
+
             item["totalPagoNetoTotal"] = this.currency.transform( item["totalPagoNetoTotal"]);
             item["totalPagoNeto"] = this.currency.transform( item["totalPagoNeto"]);
+            item["totalPagoNetoDiferencia"] = Math.abs(item["totalPagoNetoDiferencia"]);
             item["totalPagoNetoDiferencia"] = this.currency.transform( item["totalPagoNetoDiferencia"]);
+            
         }
       }
 
