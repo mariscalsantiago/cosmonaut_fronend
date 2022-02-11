@@ -110,31 +110,64 @@ export class VentanaNuevanominaComponent implements OnInit {
   }
 
   public validaFechaFinCaptura(){
-    
+    debugger;
     let fechafinCap = this.myForm.controls.fechaFinPeriodo.value;
-    if(fechafinCap < this.fechaMaxima){
-      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha de fin esta fuera del periodo selecionado');
-      this.myForm.controls.fechaFinPeriodo.setValue('');
-      this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
-    }
+
+    if(this.limiteDias === 31){
+      let fechaMax = new Date(this.fechaMaxima);
+      fechaMax = new Date(fechaMax.getFullYear(), fechaMax.getMonth(), fechaMax.getDate() - 3);
+      let fechaMaxUlt = String(new DatePipe("es-MX").transform(fechaMax, "yyyy-MM-dd"));
+      if(fechafinCap < fechaMaxUlt){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
+        this.myForm.controls.fechaFinPeriodo.setValue('');
+        this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
+      }
+    }else{
+      if(fechafinCap < this.fechaMaxima){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
+        this.myForm.controls.fechaFinPeriodo.setValue('');
+        this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
+      }
+
+    }  
 
   }
 
 
   public validaFechaFinal(): Boolean{
-    
+    debugger;
     let respuesta: boolean = true;
     let fechaInicioP = this.myForm.controls.fechaIniPeriodo.value;
     let fechafinP = this.myForm.controls.fechaFinPeriodo.value;
-    if (fechafinP > this.fechaMaxima) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha de fin esta fuera del periodo selecionado');
-      this.myForm.controls.fechaFinPeriodo.setValue("");
-      respuesta = false;
-    }
-    if ( fechafinP < fechaInicioP) {
-      this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha de fin debe ser mayor a la fecha de inicio');
-      this.myForm.controls.fechaFinPeriodo.setValue("");
-      respuesta = false;
+
+    if(this.limiteDias === 31){
+        let fechaMax = new Date(this.fechaMaxima);
+        fechaMax = new Date(fechaMax.getFullYear(), fechaMax.getMonth(), fechaMax.getDate() - 3);
+        let fechaMaxUlt = String(new DatePipe("es-MX").transform(fechaMax, "yyyy-MM-dd"));
+        if (fechafinP > fechaMaxUlt) {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
+          this.myForm.controls.fechaFinPeriodo.setValue("");
+          respuesta = false;
+        }
+        if ( fechafinP < fechaInicioP) {
+          this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser mayor a la fecha de inicio.');
+          this.myForm.controls.fechaFinPeriodo.setValue("");
+          respuesta = false;
+        }
+
+    }else{
+
+      if (fechafinP > this.fechaMaxima) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
+        this.myForm.controls.fechaFinPeriodo.setValue("");
+        respuesta = false;
+      }
+      if ( fechafinP < fechaInicioP) {
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin debe ser mayor a la fecha de inicio.');
+        this.myForm.controls.fechaFinPeriodo.setValue("");
+        respuesta = false;
+      }
+
     }
 
     return respuesta;
