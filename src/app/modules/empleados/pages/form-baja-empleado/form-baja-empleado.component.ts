@@ -143,10 +143,34 @@ export class FormBajaEmpleadoComponent implements OnInit {
     this.myFormcomp.value;
 
     this.myFormcomp.controls.ultimoDia.valueChanges.subscribe(valor => {
+      //this.validaFechaContrato();
       this.myFormcomp.controls.fechaFinUltimoPago.setValue('');
       this.fechaFinUltimoPago.nativeElement.max = valor;
       
     });
+
+  }
+
+  public validaFechaContrato(){
+    debugger;
+    let fechabaja = this.myFormcomp.controls.ultimoDia.value;
+    if(fechabaja < this.fechaContrato){
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha de baja debe ser mayor a la fecha de ingreso (fecha de contrato).");
+      this.myFormcomp.controls.ultimoDia.setValue('');
+      return;
+    }
+
+  }
+
+  public validaUltimoPago(){
+    debugger;
+    let fechaultimoPago = this.myFormcomp.controls.fechaFinUltimoPago.value;
+    let fechabaja = this.myFormcomp.controls.ultimoDia.value;
+    if(fechaultimoPago > fechabaja){
+      this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha a considerar para el cálculo de nómina debe ser igual o menor la fecha de baja");
+      this.myFormcomp.controls.fechaFinUltimoPago.setValue('');
+      return;
+    }
 
   }
 
@@ -269,27 +293,6 @@ export class FormBajaEmpleadoComponent implements OnInit {
       if(valor){
         
         let obj = this.myFormcomp.value;
-
-/*         let fechar = "";
-        if (obj.ultimoDia != undefined || obj.ultimoDia != null) {
-    
-          if (obj.ultimoDia != "") {
-    
-            const fecha1 = new Date(obj.ultimoDia).toUTCString().replace("GMT", "");
-            fechar = `${new Date(fecha1).getTime()}`;
-          }
-        } */
-
-/*         let fecharUltimoPago = "";
-        if (obj.fechaFinUltimoPago != undefined || obj.fechaFinUltimoPago != null) {
-    
-          if (obj.fechaFinUltimoPago != "") {
-    
-            const fecha1 = new Date(obj.fechaFinUltimoPago).toUTCString().replace("GMT", "");
-            fecharUltimoPago = `${new Date(fecha1).getTime()}`;
-          }
-        } */
-
 
         if(obj.pagosXliquidacionIdPrima == true && obj.tipoBajaId != "2"){
           obj.pagosLiquidacionId= 1

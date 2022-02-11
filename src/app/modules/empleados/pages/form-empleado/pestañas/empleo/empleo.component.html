@@ -351,7 +351,7 @@
             <div class="row">
                 <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
                     <label for="exampleFormControlSelect1">Fecha de ingreso *</label>
-                    <input placement="top" [mdbTooltip]="'fechaIngreso' | tooltip" [min]="f.fechaAntiguedad.value" #fechaInicioCont (focusout)="validarfechaInicioCont(fechaInicioCont.value)" [ngClass]="{'is-invalid':f.fechaInicio.errors && f.fechaInicio.touched}" formControlName="fechaInicio"
+                    <input placement="top" [mdbTooltip]="'fechaIngreso' | tooltip" [min]="f.fechaAntiguedad.value" #fechaInicioCont (focusout)="validarfechaInicioCont()" [ngClass]="{'is-invalid':f.fechaInicio.errors && f.fechaInicio.touched}" formControlName="fechaInicio"
                         type="date" name="" id="" class="form-control">
                     <div class="invalid-feedback">
                         Campo requerido
