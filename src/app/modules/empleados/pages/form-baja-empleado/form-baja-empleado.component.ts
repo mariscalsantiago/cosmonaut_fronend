@@ -14,6 +14,7 @@ import { ConfiguracionesService } from 'src/app/shared/services/configuraciones/
   styleUrls: ['./form-baja-empleado.component.scss']
 })
 export class FormBajaEmpleadoComponent implements OnInit {
+  @ViewChild("ultimoDia") ultimoDia!: ElementRef;
   @ViewChild("fechaFinUltimoPago") fechaFinUltimoPago!: ElementRef;
   @ViewChild("nombre") nombre: any;
 
@@ -94,6 +95,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
     });
 
     this.suscripciones();
+    
 
 
   }
@@ -141,42 +143,55 @@ export class FormBajaEmpleadoComponent implements OnInit {
 
   public suscripciones() {
     this.myFormcomp.value;
-
-    this.myFormcomp.controls.ultimoDia.valueChanges.subscribe(valor => {
-      //this.validaFechaContrato();
+    
+/*     this.myFormcomp.controls.ultimoDia.valueChanges.subscribe(valor => {
+      
       this.myFormcomp.controls.fechaFinUltimoPago.setValue('');
       this.fechaFinUltimoPago.nativeElement.max = valor;
+      this.fechaFinUltimoPago.nativeElement.min = this.fechaContrato;
       
-    });
+    }); */
 
   }
 
   public validaFechaContrato(){
     
     let fechabaja = this.myFormcomp.controls.ultimoDia.value;
-    if(fechabaja < this.fechaContrato){
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha de baja debe ser mayor a la fecha de ingreso (fecha de contrato).");
-      this.myFormcomp.controls.ultimoDia.setValue('');
-      return;
-    }
-
+    if(fechabaja != '' && fechabaja != null){
+      if(fechabaja < this.fechaContrato){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha de baja debe ser mayor a la fecha de ingreso (fecha de contrato).");
+        this.myFormcomp.controls.ultimoDia.setValue('');
+        this.myFormcomp.controls.fechaFinUltimoPago.setValue('');
+        return;
+      }else{
+        this.fechaFinUltimoPago.nativeElement.max = fechabaja;
+        this.fechaFinUltimoPago.nativeElement.min = this.fechaContrato;
+      } 
+    } 
   }
 
   public validaUltimoPago(){
     
     let fechaultimoPago = this.myFormcomp.controls.fechaFinUltimoPago.value;
     let fechabaja = this.myFormcomp.controls.ultimoDia.value;
-    if(fechaultimoPago > fechabaja){
-      this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha a considerar para el cálculo de nómina debe ser igual o menor la fecha de baja");
-      this.myFormcomp.controls.fechaFinUltimoPago.setValue('');
-      return;
-    }
+    if(fechaultimoPago !== '' && fechaultimoPago !== null){
+        if(fechaultimoPago > fechabaja){
+          this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha a considerar para el cálculo de nómina debe ser igual o menor la fecha de baja.");
+          this.myFormcomp.controls.fechaFinUltimoPago.setValue('');
+          return;
+        }
+        if(fechaultimoPago < this.fechaContrato){
+          this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha a considerar para el cálculo de nómina debe ser mayor a la fecha de ingreso (fecha de contrato).");
+          this.myFormcomp.controls.fechaFinUltimoPago.setValue('');
+          return;
+        }
 
+    }    
   }
 
   public validarEmpleado() {
     
-
+    
     const nombreCapturado = this.myFormcomp.value.personaId;
     if (nombreCapturado !== undefined) {
       if (nombreCapturado.trim() !== "") {
@@ -192,17 +207,20 @@ export class FormBajaEmpleadoComponent implements OnInit {
               this.EmpleadosService.getEmpleadoValidarFecha(this.personaId).subscribe(datos => {
                   this.arregloEmpleado = datos.datos;
                   console.log(this.arregloEmpleado);
-                  
+                  this.ultimoDia.nativeElement.min = this.fechaContrato;
                   if(this.arregloEmpleado.mostrarFechaFinUltimoPago == true){
                       this.ultimaNomina = true;
                       this.myFormcomp.controls.fechaFinUltimoPago.setValidators([Validators.required]);
                       this.myFormcomp.controls.fechaFinUltimoPago.updateValueAndValidity();
+                      this.myFormcomp.controls.ultimoDia.setValue('');
                   }else{
                     
                     this.myFormcomp.controls.fechaFinUltimoPago.setValidators([]);
                     this.myFormcomp.controls.fechaFinUltimoPago.updateValueAndValidity();
+                    this.myFormcomp.controls.ultimoDia.setValue('');
                     this.ultimaNomina = false;
                   }
+                  
               });
             }
 
