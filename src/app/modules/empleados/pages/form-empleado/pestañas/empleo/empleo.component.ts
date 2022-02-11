@@ -244,7 +244,7 @@ export class EmpleoComponent implements OnInit {
   }
 
   public validarfechaInicioCont() {
-    debugger;
+    
       let fechaIni = this.myForm.controls.fechaInicio.value; 
       let fechaAntiguedad = this.myForm.controls.fechaAntiguedad.value;
       if (`${this.myForm.controls.fechaAntiguedad.value}`.trim() == "" || `${this.myForm.controls.fechaAntiguedad.value}`.trim() == "null") {
@@ -265,7 +265,7 @@ export class EmpleoComponent implements OnInit {
   }
 
   public validarfechaFinCont() {
-    debugger;
+    
     let fechaFin: Date = new Date(this.myForm.controls.fechaFin.value);
     let fechaInicio: Date = new Date(this.myForm.controls.fechaInicio.value);
 
@@ -444,7 +444,7 @@ export class EmpleoComponent implements OnInit {
 
 
   public enviarFormulario() {
-    debugger;
+    
     console.log(this.myForm.getRawValue());
     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach(control => {

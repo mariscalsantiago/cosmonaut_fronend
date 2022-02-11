@@ -73,7 +73,7 @@ export class CompletarComponent implements OnInit {
 
 
       if(this.datos){
-        debugger;
+        
         for(let item of this.datos){
 
             item["totalPagoNetoTotal"] = this.currency.transform( item["totalPagoNetoTotal"]);

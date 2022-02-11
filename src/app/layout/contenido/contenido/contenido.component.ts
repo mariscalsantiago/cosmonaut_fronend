@@ -154,7 +154,7 @@ export class ContenidoComponent implements OnInit {
 
     this.chatPrd.setChatDatos(this.chat);
     this.empleadosPrd.getEmpleadosIncompletos(this.usuariosSistemaPrd.getIdEmpresa()).subscribe(datos =>{
-      debugger;
+      
       this.arregloempen = datos.datos == undefined ? [] : datos.datos;
       this.empIncompletos = this.arregloempen.length;
       this.incompletos = this.empIncompletos == 0 ? false : true;

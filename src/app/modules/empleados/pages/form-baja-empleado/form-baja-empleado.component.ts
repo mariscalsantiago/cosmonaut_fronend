@@ -152,7 +152,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public validaFechaContrato(){
-    debugger;
+    
     let fechabaja = this.myFormcomp.controls.ultimoDia.value;
     if(fechabaja < this.fechaContrato){
       this.modalPrd.showMessageDialog(this.modalPrd.error, "La fecha de baja debe ser mayor a la fecha de ingreso (fecha de contrato).");
@@ -163,7 +163,7 @@ export class FormBajaEmpleadoComponent implements OnInit {
   }
 
   public validaUltimoPago(){
-    debugger;
+    
     let fechaultimoPago = this.myFormcomp.controls.fechaFinUltimoPago.value;
     let fechabaja = this.myFormcomp.controls.ultimoDia.value;
     if(fechaultimoPago > fechabaja){

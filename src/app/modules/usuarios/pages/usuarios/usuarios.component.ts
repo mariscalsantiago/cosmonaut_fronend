@@ -189,7 +189,7 @@ export class UsuariosComponent implements OnInit {
 
 
   public guardarMultiseleccion(tipoguardad: boolean) {
-    debugger;
+    
 
     this.tipoguardad = tipoguardad;
     let mensaje = `¿Deseas ${tipoguardad ? "activar" : "desactivar"} estos usuarios?`;
