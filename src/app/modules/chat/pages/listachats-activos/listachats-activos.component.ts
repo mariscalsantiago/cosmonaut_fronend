@@ -137,10 +137,10 @@ export class ListachatsActivosComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    debugger;
+    let aux=JSON.parse(JSON.stringify(obj.datos));
     switch (obj.type) {
       case "responder":
-        this.responderEmpleado(obj.datos);
+        this.responderEmpleado(aux);
         break;
       case "default":
 
@@ -152,7 +152,7 @@ export class ListachatsActivosComponent implements OnInit {
               this.modalPrd.showMessageDialog(this.modalPrd.error, "No hay mensajes genericos que enviar");
             } else {
               let mensajeEnviar = this.mensajes[0].mensajeGenerico;
-              this.responderMensajeGenerico(obj.datos, mensajeEnviar);
+              this.responderMensajeGenerico(aux, mensajeEnviar);
             }
           }
         });
@@ -199,6 +199,8 @@ export class ListachatsActivosComponent implements OnInit {
       valorConversacion.nombreRrh = `${this.usuariossistemaPrd.usuario.nombre} ${this.usuariossistemaPrd.usuario.apellidoPat}`;
       valorConversacion.atendido = true;
       valorConversacion.idUsuarioRrh = this.usuariossistemaPrd.usuario.usuarioId;
+      valorConversacion.usuarioId={usuarioId:valorConversacion.usuarioId};
+      valorConversacion.centrocClienteId={centrocClienteId:valorConversacion.centrocClienteId};    
       this.notificacionesPrd.modificar(valorConversacion).subscribe(valor => {
         
         if (valor.resultado) {
@@ -246,6 +248,8 @@ export class ListachatsActivosComponent implements OnInit {
       valorConversacion.nombreRrh = `${this.usuariossistemaPrd.usuario.nombre} ${this.usuariossistemaPrd.usuario.apellidoPat}`;
       valorConversacion.atendido = true;
       valorConversacion.idUsuarioRrh = this.usuariossistemaPrd.usuario.usuarioId;
+      valorConversacion.usuarioId={usuarioId:valorConversacion.usuarioId};
+      valorConversacion.centrocClienteId={centrocClienteId:valorConversacion.centrocClienteId};     
       this.notificacionesPrd.modificar(valorConversacion).subscribe(valor => {
         if (valor.resultado) {
           const mensaje = `ACCEPTMESSAGEFROM${valorConversacion.usuarioId.usuarioId}`;
