@@ -137,7 +137,7 @@ export class ListachatsActivosComponent implements OnInit {
   }
 
   public recibirTabla(obj: any) {
-    
+    debugger;
     switch (obj.type) {
       case "responder":
         this.responderEmpleado(obj.datos);
