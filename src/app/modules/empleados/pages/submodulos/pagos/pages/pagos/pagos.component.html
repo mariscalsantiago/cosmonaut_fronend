@@ -1,6 +1,6 @@
 <div class="row col-11">
     <div class="col-12 col-lg-12 col-xl-6 mb-3 mt-3 ">
-               <div class="row"><label class="titulo">DETALLE DE PAGO</label><i aria-hidden="true" class="icon_24editar primary-bg" (click)="editandoMetodoPagoNew(undefined)" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+               <div class="row"><label class="titulo">DETALLE DE PAGO</label><i aria-hidden="true" *ngIf="!metodopagobool && !esKiosko" class="icon_24editar primary-bg" (click)="editandoMetodoPagoNew(undefined)" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
 
             <div class="row mb-4">
                 <article class="titulo  col">
@@ -30,7 +30,7 @@
             </div>
     </div>
     <div class="col-12 col-lg-12 col-xl-6 mb-3 mt-3 ">
-        <div class="row"><label class="titulo">DETALLE DE COMPENSACIÓN</label><i aria-hidden="true" class="icon_24editar primary-bg" (click)="verDetalleCompensacionNew()" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+        <div class="row"><label class="titulo">DETALLE DE COMPENSACIÓN</label><i aria-hidden="true" *ngIf="!metodopagobool && !esKiosko" class="icon_24editar primary-bg" (click)="verDetalleCompensacionNew()" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
 
      <div class="row mb-4">
          <article class="titulo  col">

@@ -110,7 +110,7 @@ export class VentanaNuevanominaComponent implements OnInit {
   }
 
   public validaFechaFinCaptura(){
-    debugger;
+    
     let fechafinCap = this.myForm.controls.fechaFinPeriodo.value;
 
     if(this.limiteDias === 31){
@@ -135,7 +135,7 @@ export class VentanaNuevanominaComponent implements OnInit {
 
 
   public validaFechaFinal(): Boolean{
-    debugger;
+    
     let respuesta: boolean = true;
     let fechaInicioP = this.myForm.controls.fechaIniPeriodo.value;
     let fechafinP = this.myForm.controls.fechaFinPeriodo.value;
