@@ -159,7 +159,7 @@ export class UsuarioSistemaService {
 
 
 export class usuarioClass {
-  public usuarioId!: number;
+  public usuarioId!: any;
   public nombre!: string;
   public apellidoPat!: string;
   public email!: string;
@@ -167,7 +167,7 @@ export class usuarioClass {
   public passwordProvisional!: boolean;
   public rolId!: number;
   public submodulosXpermisos!: any;
-  public centrocClienteId!: number;
+  public centrocClienteId!: any;
   public rfc!: string;
   public razonSocial!: string;
   public nombreEmpresa!: string;

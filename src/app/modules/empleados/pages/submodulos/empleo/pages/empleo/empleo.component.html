@@ -5,7 +5,7 @@
 
             <div class="row mb-4">
                 <article class="titulo  col">
-                    Número Empleado *
+                    Número Empleado <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.numEmpleado}}</article>
                     <article *ngIf="editarcampos">
 
@@ -17,7 +17,7 @@
                     </article>
                 </article>
                 <article class="titulo  col">
-                    Área *
+                    Área <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.areaId?.descripcion}}</article>
                     <article *ngIf="editarcampos">
                         <select (change)="cambiaArea()" formControlName="areaId" name="" class="form-control" [ngClass]="{'is-invalid':f.areaId.errors && f.areaId.touched}">
@@ -29,7 +29,7 @@
                     </article>
                 </article>
                 <article class="titulo  col">
-                    Puesto *
+                    Puesto <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.puestoId?.descripcion}}</article>
                     <article *ngIf="editarcampos">
 
@@ -73,7 +73,7 @@
                     </article>
                 </article>
                 <article class="titulo  col">
-                    Entidad federativa *
+                    Entidad federativa <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">{{empleado.estadoId?.estado}}</article>
                     <article *ngIf="editarcampos">
                         <select formControlName="estadoId" name="" class="form-control" [ngClass]="{'is-invalid':f.estadoId.errors && f.estadoId.touched}">
@@ -89,7 +89,7 @@
             <hr>
             <div class="row mb-4">
                 <article class="titulo col-4">
-                    Tipo de contrato *
+                    Tipo de contrato <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos" >{{contratoDesc}}</article>
 
                     <article *ngIf="editarcampos">
@@ -105,7 +105,7 @@
                 </article>    
 
                 <article class="titulo col-8">
-                        Régimen de contratación *
+                        Régimen de contratación <span *ngIf="editarcampos">*</span>
                         <article *ngIf="!editarcampos">{{ empleado.tipoRegimenContratacionId?.descripcion}}</article>
 
                     <article *ngIf="editarcampos">
@@ -131,7 +131,7 @@
                     </article> 
                 </article> 
                 <article class="titulo col">
-                    Políticas *
+                    Políticas <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">
                         {{empleado.politicaId?.nombre}}
                     </article>
@@ -146,7 +146,7 @@
                     </article>
                 </article>
                 <article class="titulo col">
-                    Jornada *
+                    Jornada <span *ngIf="editarcampos">*</span>
                     <article *ngIf="!editarcampos">
                         {{empleado.jornadaId?.nombre}}
                     </article>
@@ -165,7 +165,7 @@
             <hr>
             <div class="row mb-4">
                 <article class="titulo col">
-                    Fecha de Antigüedad *
+                    Fecha de Antigüedad <span *ngIf="editarcampos">*</span>
 
                 
                 <article *ngIf="editarcampos" style="color: #7C7C7C;">
@@ -186,7 +186,7 @@
             </article>
 
             <article class="titulo col">
-                Fecha de ingreso *
+                Fecha de ingreso <span *ngIf="editarcampos">*</span>
 
                     <article *ngIf="editarcampos" style="color: #7C7C7C;">
                         Elegir fecha
@@ -248,7 +248,7 @@
                     </article>
                 </article>
                 <article class="titulo col">
-                        Área geográfica *
+                        Área geográfica <span *ngIf="editarcampos">*</span>
                         <article *ngIf="!editarcampos"class="titulo col">
                             <article style="margin-left: -14px !important;">{{areaGeo}}</article>
                         </article>

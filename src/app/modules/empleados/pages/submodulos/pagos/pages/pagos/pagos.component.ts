@@ -290,18 +290,13 @@ export class PagosComponent implements OnInit {
 
   public cambiarStatus(valor: any) {
 
-    if (!(!!this.arreglogrupoNomina)) {
+/*     if (!(!!this.arreglogrupoNomina)) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Esperar, cargando cátalogos necesarios");
       return;
     } else if (this.arreglogrupoNomina.length == 0) {
       this.modalPrd.showMessageDialog(this.modalPrd.error, "Esperar, cargando cátalogos necesarios");
       return;
-    }
-
-
-
-
-
+    } */
     for (let x = 0; x < this.arreglopintar.length; x++) {
 
       if (x == valor) {
@@ -313,9 +308,9 @@ export class PagosComponent implements OnInit {
     }
     this.arreglopintar[valor] = !this.arreglopintar[valor];
 
-    if (valor) {
+/*     if (valor) {
       this.cambiarGrupoNomina();
-    }
+    } */
   }
 
   //*****************Métodos de pago******************* */
