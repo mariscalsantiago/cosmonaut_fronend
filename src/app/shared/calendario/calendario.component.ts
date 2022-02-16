@@ -21,6 +21,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
   public fecha!: Date;
 
   public arregloArreglos: any = [];
+  public arreglo: any = [];
 
   public aparecerModalita: boolean = false;
 
@@ -45,6 +46,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
       for (let y = 0; y <= 6; y++) {
         this.arregloArreglos[x][y].eventos = [];
         if (this.eventos !== undefined) {
+          
           for (let item of this.eventos) {
             let fechaEvento: Date = new Date(`${item.fechaInicio} `);
             
@@ -64,16 +66,8 @@ export class CalendarioComponent implements OnInit, OnChanges {
                 diascalendario: diascalendario
 
               });
-
-              // if(diascalendario !== 0){
-              //   arregloResagado.push({
-              //     ...item,
-              //     nombre: `${item.nombre} ${item.apellidoPaterno}`,
-              //     diascalendario: diascalendario,
-              //     inicio:true
-              //     });
-              // }
-            }            
+            }    
+                   
           }
         }
 
@@ -88,9 +82,28 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
         
       }
+
     }
 
-    
+    for(let item of this.arregloArreglos){
+      for(let arreg of item){
+        let evencount = 0;
+        for(let evento of arreg.eventos){
+          evencount = evencount + 1;
+        }
+        if(evencount !== 0){
+          arreg.numEventos = evencount; 
+            if(evencount > 10){
+              arreg.scroll = true;
+            }else{
+              arreg.scroll = false;
+            }
+        }
+
+      }
+      
+      
+    }
   }
 
   ngOnInit(): void {
@@ -196,7 +209,6 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
 
   public aparecerModalEvento(evento: any, mouse: any) {
-    
     
     this.eventoActual = evento;
     console.log("Este es el evento actual",this.eventoActual);
