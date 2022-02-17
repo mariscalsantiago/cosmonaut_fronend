@@ -20,6 +20,7 @@ export class DetalleComponent implements OnInit {
   public myForm!: FormGroup;
 
   public submitEnviado: boolean = false;
+  private nocancelar:boolean = false;
 
 
   public arreglobancos: any = [];
@@ -29,6 +30,7 @@ export class DetalleComponent implements OnInit {
     private modalPrd:ModalService,private navigate:Router, public configuracionPrd:ConfiguracionesService) { }
 
   ngOnInit(): void {
+    this.nocancelar = !Boolean(this.datosPersona.datosTranferencia?.cuentaBancoId);
 
     this.myForm = this.createForm(
       this.datosPersona.datosTranferencia || {}
@@ -56,7 +58,7 @@ export class DetalleComponent implements OnInit {
 
   public cancelar() {
 
-    if(this.myForm.invalid){
+    if(this.myForm.invalid || this.nocancelar){
       this.modalPrd.showMessageDialog(this.modalPrd.error,"No se puede cancelar, la cuenta bancaria para un empleado de transferencia es obligatorio.");
       return;
     }
@@ -139,8 +141,10 @@ export class DetalleComponent implements OnInit {
 
       if  ( !Boolean(this.datosPersona.datosTranferencia?.cuentaBancoId) ){
        this.bancosPrd.save(objEnviar).subscribe(datos => {
+        this.nocancelar = !datos.resultado;
           this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
           this.modalPrd.showMessageDialog(datos.resultado,datos.mensaje).then(()=>{
+            
             if(datos.resultado){
               let obj = {
                 perfilesPendientes: true
