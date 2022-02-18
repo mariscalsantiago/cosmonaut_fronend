@@ -125,7 +125,6 @@ export class VariabilidadComponent implements OnInit {
 
     public traerTabla(datos:any) {
 
-
       const columna: Array<tabla> = [
         new tabla("razonSocial", "Razón Social"),
         new tabla("anioFiscal", "Año"),
@@ -255,7 +254,7 @@ export class VariabilidadComponent implements OnInit {
       const columna: Array<tabla> = [
         new tabla("nombreCompleto", "Nombre"),
         new tabla("diasLaboradosBimestre", "Días"),
-        new tabla("diferencia", "Promedio"),
+        new tabla("diferencia", "Promedio",false, false, true),
 
       ];
 
@@ -263,13 +262,15 @@ export class VariabilidadComponent implements OnInit {
         columnas:[],
         filas:[]
       }
-
+      const formatterDec = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2
+      })
       if(this.arregloListaEmpleadosPromedio !== undefined){
+        
         for(let item of this.arregloListaEmpleadosPromedio){
           item.nombreCompleto = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
           item.diasLaboradosBimestre = item.diasLaboradosBimestre;
-          //item.diferencia = item.diferencia.toFixed(2);
-          item.diferencia = item.diferencia;
+          item.diferencia = formatterDec.format(item.diferencia);
 
         }
       }
