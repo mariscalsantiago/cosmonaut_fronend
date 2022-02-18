@@ -18,25 +18,25 @@
 
        
         <div class="form-group margen row  mt-3 " style="width: 100%;"><label class="titulo">BÚSQUEDA</label></div>
-                    <div style="width: 100%;" class="form group row margen">
-                        <div class=" input-group-sm mb-3 col-4 ">
+                    <div class="form group row margen">
+                        <div class="col-4 ">
                             <input type="text" class="form-control" [(ngModel)]="nombreNomina" id="nombreNominaHS" placeholder="Nombre nómina">
                         </div>
-                        <div class=" input-group-sm mb-3 col-4 ">
+                        <div class="col-4 ">
                             <input type="text" class="form-control" [(ngModel)]="periodo" id="periodoHS" placeholder="Clave período">
                         </div>
-                        <div class=" input-group-sm mb-3 col-4 ">
+                        <div class="col-4 ">
                         </div>
-                        <div class=" input-group-sm mb-3 col-4 ">
+                        <div class="col-4 ">
                             <label style="color:white">Desde</label>
                             <input (change)="validarFecha()" type="date" placeholder="desde" [(ngModel)]="fechaInc" id="fechaIncHis" class="form-control">
                         </div>
 
-                        <div class=" input-group-sm mb-3 col-4 ">
+                        <div class="col-4 ">
                             <label style="color:white" for="">Hasta</label>
                             <input (change)="validarFecha()" type="date" class="form-control" [(ngModel)]="fechaFin" id="fechaFinHis" placeholder="Hasta">
                         </div>
-                        <div class=" input-group-sm mb-1 text-right col-12 col-lg-2  col-xl-12 ">
+                        <div class="input-group-sm mb-1 text-right col-12 col-lg-2  col-xl-12 ">
                             <button type="button"class="btn btn-primary button-outlet " id="btnFiltrarHistoricas" (click)="filtrar(true)">Filtrar</button>
                         </div>
                     </div>
@@ -44,17 +44,17 @@
                     <div class="form-group margen row  mt-3 " style="width: 100%;"><label class="titulo">Reportes</label></div>
 
                     <div class="form group row margen">
-                        <div class="col-3">
+                        <div class="col-4">
                             <input type="text" maxlength="4" name="" appSolonumeros [(ngModel)]="anioactual" placeholder="Ingresa año" id="anioactualHS" class="form-control">
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             
                             <select name="" [(ngModel)]="mesIndex"  id="mesIndexHS" class="form-control">
                                 <option id="mesIndex0HS" value="">Seleccionar mes</option>
                                 <option id="mesIndex1HS" *ngFor ="let item of mes;let indice = index;" [value]="indice">{{item}}</option>
                             </select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <select name="" id="reporteindexHS" [(ngModel)]="reporteindex" class="form-control">
                                 <option id="reporteindex1HS" value="1">Acumulados por mes</option>
                                 <option id="reporteindex2HS" value="2">Acumulados por concepto</option>
