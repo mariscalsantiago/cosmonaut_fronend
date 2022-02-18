@@ -110,7 +110,7 @@ export class VentanaNuevanominaComponent implements OnInit {
   }
 
   public validaFechaFinCaptura(){
-    
+    debugger;
     let fechafinCap = this.myForm.controls.fechaFinPeriodo.value;
 
     if(this.limiteDias === 31){
@@ -118,6 +118,11 @@ export class VentanaNuevanominaComponent implements OnInit {
       fechaMax = new Date(fechaMax.getFullYear(), fechaMax.getMonth(), fechaMax.getDate() - 3);
       let fechaMaxUlt = String(new DatePipe("es-MX").transform(fechaMax, "yyyy-MM-dd"));
       if(fechafinCap < fechaMaxUlt){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
+        this.myForm.controls.fechaFinPeriodo.setValue('');
+        this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
+      }
+      else if(fechafinCap > this.fechaMaxima){
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
         this.myForm.controls.fechaFinPeriodo.setValue('');
         this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
@@ -131,9 +136,19 @@ export class VentanaNuevanominaComponent implements OnInit {
         this.myForm.controls.fechaFinPeriodo.setValue('');
         this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
       }
+      else if(fechafinCap > this.fechaMaxima){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
+        this.myForm.controls.fechaFinPeriodo.setValue('');
+        this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
+      }
     }
     else{
       if(fechafinCap < this.fechaMaxima){
+        this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
+        this.myForm.controls.fechaFinPeriodo.setValue('');
+        this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
+      }
+      else if(fechafinCap > this.fechaMaxima){
         this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
         this.myForm.controls.fechaFinPeriodo.setValue('');
         this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
