@@ -105,7 +105,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
   constructor(private configuracionPrd: ConfiguracionesService) { }
 
   ngOnInit(): void {
-
+    
 
 
     this.numeroitems = Number(this.configuracionPrd.getElementosSesionDirecto(this.configuracionPrd.ELEMENTOSTABLA) || "5");
@@ -120,7 +120,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   public cambia() {
-
+    
 
     if (!this.paginado_server) {
       this.paginar();
@@ -152,9 +152,12 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
 
 
   ngOnChanges(changes: SimpleChanges) {
+    
 
     if (this.paginado_server) {
+      
       if (this.datos?.reiniciar) {
+        
         this.arreglo = undefined;
         this.cambia();
         return;
@@ -185,6 +188,7 @@ export class TablapaginadoComponent implements OnInit, OnDestroy {
       this.arreglotemp = undefined;
       this.paginadoServer_primeravez = false;
       this.cargando = false;
+      this.paginado_server = false;
     }
 
 

@@ -68,11 +68,11 @@ export class NominaHistoricasComponent implements OnInit {
     new tabla("anio", "Año"),
     new tabla("fechai", "Fecha")
     ];
-    let datepipe = new DatePipe("es-MX");
+
     if (datos !== undefined) {
       for (let item of datos) {
-        item["anio"] =  datepipe.transform(item.fecha_inicio , 'yyyy');
-        item["fechai"] = datepipe.transform(item.fecha_inicio , 'dd-MMM-y')?.replace(".",""); 
+        item["anio"] = new DatePipe("es-MX").transform(item.fecha_inicio, "yyyy");
+        item["fechai"] = new DatePipe("es-MX").transform(new Date(item.fecha_inicio), 'dd-MMM-y')?.replace(".","");
       }
     }
 
