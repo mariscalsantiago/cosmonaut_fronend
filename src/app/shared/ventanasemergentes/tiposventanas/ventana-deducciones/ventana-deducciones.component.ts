@@ -56,7 +56,7 @@ export class VentanaDeduccionesComponent implements OnInit {
   public fechaFinDescu: Date = new Date();
   public nominaDeduccion: boolean = false;
   public fechaContrato: string = '';
-  public esdefecto: boolean = false;
+  public esEspecializacion: string = '';
 
   @Output() salida = new EventEmitter<any>();
   @Input() public datos:any;
@@ -93,7 +93,17 @@ export class VentanaDeduccionesComponent implements OnInit {
     this.bancosPrd.getObtenerDeduccionPoliticaActivos(this.empresa, true).subscribe(datos => this.obtenerPercepcion = datos.datos);
     }else{
     
-    this.bancosPrd.getObtenerDeduccionEmpleados(this.empresa, true).subscribe(datos => this.obtenerPercepcion = datos.datos);
+    this.bancosPrd.getObtenerDeduccionEmpleados(this.empresa, true).subscribe(datos => {
+       this.obtenerPercepcion = datos.datos
+       for(let item of this.obtenerPercepcion){
+          if(item.tipoDeduccionId?.especializacion == '900' && item.tipoDeduccionId?.tipoDeduccionId == '004'){
+            item.nombre = 'Préstamo personal';
+          }
+          else if(item.tipoDeduccionId?.especializacion == '004' && item.tipoDeduccionId?.tipoDeduccionId == '004'){
+            item.nombre = 'Otros';
+          }
+       }
+      });
     }
     if(this.datos.idEmpleado != undefined){
       this.datos = {};
@@ -212,14 +222,14 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    ;
+    debugger;
 
     if(this.esInsert ){
       
       for(let item of this.obtenerPercepcion){
         if(concepto == item.conceptoDeduccionId){
             this.conceptodeduccion= item.conceptoDeduccionId;
-            this.esdefecto = item.tipoDeduccionId?.porDefecto;
+            this.esEspecializacion = item.tipoDeduccionId?.especializacion;
         }
       }
       }
@@ -228,13 +238,13 @@ export class VentanaDeduccionesComponent implements OnInit {
       for(let item of this.obtenerPercepcion){
         if(concepto == item.conceptoDeduccionId){
             this.conceptodeduccion= item.conceptoDeduccionId;
-            this.esdefecto = item.tipoDeduccionId?.porDefecto;
+            this.esEspecializacion = item.tipoDeduccionId?.especializacion;
         }
       }
       }
       else{
         this.conceptodeduccion = this.datos.conceptoDeduccionId?.conceptoDeduccionId;
-        this.esdefecto = this.datos.tipoDeduccionId?.porDefecto;
+        this.esEspecializacion = this.datos.tipoDeduccionId?.especializacion;
         this.cambioEstatus = false;
       }
     for(let item of this.obtenerPercepcion){
@@ -406,7 +416,7 @@ export class VentanaDeduccionesComponent implements OnInit {
       } 
 
     }    
-    else if(concepto=='004' && this.esdefecto){
+    else if(concepto=='004' && this.esEspecializacion == '900'){
 
       this.myForm.controls.montoTotal.setValidators([Validators.required]);
       this.myForm.controls.fechaOtorgamiento.setValidators([Validators.required]);
