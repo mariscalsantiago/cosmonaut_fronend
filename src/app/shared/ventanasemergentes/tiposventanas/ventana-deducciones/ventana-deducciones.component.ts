@@ -222,7 +222,7 @@ export class VentanaDeduccionesComponent implements OnInit {
 
 
    public validarConceptoDeduccion(concepto:any){
-    debugger;
+    
 
     if(this.esInsert ){
       
