@@ -128,7 +128,7 @@ export class VentanaNuevanominaComponent implements OnInit {
   }
 
   public validaFechaFinCaptura(){
-    debugger;
+    
     let fechafinCap = this.myForm.controls.fechaFinPeriodo.value;
     if(fechafinCap !== ''){
       if(this.fechaMes === '02'){

@@ -608,7 +608,6 @@ export class PagosComponent implements OnInit {
   public grupoNominaSeleccionado: any = {
     pagoComplementario: false
   };
-  ;
   public sueldoControlName: string = "";
   public typeppp: boolean = false;
 

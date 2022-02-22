@@ -57,7 +57,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     });
 
     if(!this.esInsert){
-    debugger;
+    
     this.obj = history.state.data == undefined ? {} : history.state.data;
     this.noeditable = this.obj.tipoDeduccionId?.noEditable;
     //this.concatenaEspecializacion();
@@ -86,7 +86,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     return this.formBuild.group({
 
       nombre: [obj.nombre, [Validators.required]],
-      tipoDeduccionId: [obj.tipoDeduccionId?.tipoDeduccionId, [Validators.required]],
+      tipoDeduccionId: [obj.tipoDeduccionId?.especializacion, [Validators.required]],
       cuentaContable: [obj.cuentaContable],
       esActivo: [(!this.esInsert) ? obj.esActivo : { value: "true", disabled: true }],
       conceptoDeduccionId: [obj.conceptoDeduccionId]
@@ -120,7 +120,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     
     let type = String(tipo).substring(0,3)
       for(let item of this.arregloTipoDeduccion){
-        if(item.tipoDeduccionId == Number(type)){
+        if(item.especializacion == Number(type)){
           this.tipoDeduccion = item.tipoDeduccionId + "-" + item.especializacion;
         }
       }
