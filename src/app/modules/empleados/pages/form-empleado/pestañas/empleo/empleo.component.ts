@@ -213,8 +213,9 @@ export class EmpleoComponent implements OnInit {
     if (this.activaFechaFin)
       this.myForm.controls.fechaFin.setValidators([Validators.required]);
     else
+      this.myForm.controls.fechaFin.setValue('');
       this.myForm.controls.fechaFin.clearValidators();
-    this.myForm.controls.fechaFin.updateValueAndValidity();
+      this.myForm.controls.fechaFin.updateValueAndValidity();
   }
 
 

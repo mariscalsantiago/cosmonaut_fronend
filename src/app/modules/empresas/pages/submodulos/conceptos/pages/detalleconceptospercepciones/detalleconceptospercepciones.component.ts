@@ -53,7 +53,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     });
 
     if(!this.esInsert){
-    debugger;
+    
     this.obj = history.state.data == undefined ? {} : history.state.data;
     this.noeditable = this.obj.tipoPercepcionId?.noEditable;
     this.obj.descripcion = this.obj.tipoPercepcionId?.tipoPercepcionId + "-" + this.obj.tipoPercepcionId?.descripcion;
@@ -142,7 +142,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public inavilitaCampos(){
-    debugger;
+    
     this.myForm.controls.nombre.disable();
     this.myForm.controls.tipoPeriodicidad.disable();
     this.myForm.controls.tipoPercepcionId.disable();
@@ -190,7 +190,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
     }
   }
   public validarTipoConcepto(tipo:any){
-    debugger;
+    
     this.limpiarTipopercepcion = false;
     //let type = String(tipo).substring(0,3)
     const nombreCapturado = tipo;
