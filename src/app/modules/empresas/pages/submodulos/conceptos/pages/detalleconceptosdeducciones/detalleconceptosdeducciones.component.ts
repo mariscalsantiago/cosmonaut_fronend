@@ -45,7 +45,7 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
     });
     
     this.catalogosPrd.getTipoDeduccion(true).subscribe(datos => {
-      ;
+
       this.arregloTipoDeduccion = datos.datos;
       this.arregloTipoDeduccionFinal=[];
       for (let item of this.arregloTipoDeduccion){
@@ -55,22 +55,24 @@ export class DetalleconceptosdeduccionesComponent implements OnInit {
       }
     
     });
+
     if(!this.esInsert){
-      
+    debugger;
     this.obj = history.state.data == undefined ? {} : history.state.data;
     this.noeditable = this.obj.tipoDeduccionId?.noEditable;
     //this.concatenaEspecializacion();
 
     this.myForm = this.createForm(this.obj);
+    if(this.noeditable){
+      this.inavilitaCampos();
+    }
+    
     }else{
       this.obj = {};
       this.myForm = this.createForm(this.obj);
     }
 
-    if(this.noeditable){
-      this.inavilitaCampos();
-    }
-    
+  
 
   }
 
