@@ -262,15 +262,15 @@ export class VariabilidadComponent implements OnInit {
         columnas:[],
         filas:[]
       }
-      const formatterDec = new Intl.NumberFormat('en-US', {
+/*       const formatterDec = new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 2
-      })
+      }) */
       if(this.arregloListaEmpleadosPromedio !== undefined){
         
         for(let item of this.arregloListaEmpleadosPromedio){
           item.nombreCompleto = item.nombre + " " + item.apellidoPat+" "+(item.apellidoMat == undefined ? "":item.apellidoMat);
           item.diasLaboradosBimestre = item.diasLaboradosBimestre;
-          item.diferencia = formatterDec.format(item.diferencia);
+          item.diferencia = Number(item.diferencia).toFixed(2);
 
         }
       }

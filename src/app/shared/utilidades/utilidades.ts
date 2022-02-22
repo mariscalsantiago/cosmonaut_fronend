@@ -1,7 +1,9 @@
 export class Utilidades {
 
   public quitarAcentosYEspacios = (str: string) => {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, "");
+    let nombre = str.trim();
+    return nombre.replace(/\s\s+/g, ' ');
+    
   }
 
 }

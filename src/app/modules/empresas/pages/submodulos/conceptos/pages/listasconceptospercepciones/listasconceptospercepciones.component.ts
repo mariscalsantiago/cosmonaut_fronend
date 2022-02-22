@@ -108,7 +108,16 @@ export class ListasconceptospercepcionesComponent implements OnInit {
       this.cargandoDed = true;
 
       this.conceptosPrd.getListaConceptoDeduccion(this.id_empresa).subscribe(datos => {
-           this.crearTablaDeduccion(datos);
+        
+        for (let item of datos.datos){
+          if(item.tipoDeduccionId.tipoDeduccionId == '004' && item.tipoDeduccionId.especializacion == '900'){
+            item.nombre = 'Préstamo personal';
+          }
+          if(item.tipoDeduccionId.tipoDeduccionId == '004' && item.tipoDeduccionId.especializacion == '004'){
+            item.nombre = 'Otros';
+          }
+        } 
+           this.crearTablaDeduccion(datos.datos);
       });
 
     });
@@ -127,7 +136,7 @@ export class ListasconceptospercepcionesComponent implements OnInit {
 
   public crearTablaDeduccion(datos:any){
     
-    this.arreglotablaDed = datos.datos;
+    this.arreglotablaDed = datos;
 
     
     let columnas: Array<tabla> = [

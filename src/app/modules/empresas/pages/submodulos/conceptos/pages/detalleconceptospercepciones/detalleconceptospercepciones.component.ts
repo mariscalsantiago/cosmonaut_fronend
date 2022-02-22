@@ -99,11 +99,12 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
 
     });
 
+    this.validarTipoConceptoMod(this.obj.descripcion);
+    this.myForm = this.createForm(this.obj);
+
     if(this.noeditable){
       this.inavilitaCampos();
     }
-    this.validarTipoConceptoMod(this.obj.descripcion);
-    this.myForm = this.createForm(this.obj);
 
     }else{
     this.obj = {};
@@ -141,6 +142,7 @@ export class DetalleconceptospercepcionesComponent implements OnInit {
   }
 
   public inavilitaCampos(){
+    
     this.myForm.controls.nombre.disable();
     this.myForm.controls.tipoPeriodicidad.disable();
     this.myForm.controls.tipoPercepcionId.disable();

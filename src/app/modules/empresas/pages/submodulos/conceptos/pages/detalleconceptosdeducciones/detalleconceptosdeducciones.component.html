@@ -17,11 +17,11 @@
             </div>
             <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" style="position: relative;">
                 <label>Catálogo SAT *</label>
-                <input formatos [letras]="true" [especial]="true" [value]="f.tipoDeduccionId.value | show: arregloTipoDeduccion : 'tipoDeduccionId': 'descripcion'" #tipoConcepto (focusout)="validarTipoConcepto(tipoConcepto.value)" autocomplete="off" [ngClass]="{'is-invalid':f.tipoDeduccionId.errors && submitInvalido}"
+                <input formatos [letras]="true" [especial]="true" [value]="f.tipoDeduccionId.value | show: arregloTipoDeduccion : 'especializacion': 'descripcion'" #tipoConcepto (focusout)="validarTipoConcepto(tipoConcepto.value)" autocomplete="off" [ngClass]="{'is-invalid':f.tipoDeduccionId.errors && submitInvalido}"
                     formControlName="tipoDeduccionId" class="form-control" list="catalogoSAT" name="browser" id="browser">
 
                 <datalist id="catalogoSAT">                    
-                     <option *ngFor="let item of arregloTipoDeduccionFinal" [value]="item.tipoDeduccionId"  >
+                     <option *ngFor="let item of arregloTipoDeduccionFinal" [value]="item.especializacion"  >
                         {{item.descripcion}} </option>
     
                     </datalist>
