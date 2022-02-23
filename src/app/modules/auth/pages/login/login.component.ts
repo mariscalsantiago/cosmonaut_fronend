@@ -231,16 +231,17 @@ export class LoginComponent implements OnInit {
 
       if(err.status == 401){
         
-        if(!err.error.message.includes("Credenciales") && !err.error.message.includes("Crdenciales invalidas")){
+        if(!err.error.message.includes("Credenciales") && !err.error.message.includes("Crdenciales invalidas") ){
             this.mensajeerror = true;
             this.incorrectoback = false;
             this.mensajeDanger = err.error.message;
             this.restablecer = !err.error.message.includes("El usuario se encuentra dado de baja");
-            let rolInactivo = err.error.message.includes("Usuario sin accesso al sistema");
+            let rolInactivo = err.error.message.includes("Usuario sin accesso al sistema") || err.error.message.includes("La empresa a la que desea acceder no esta");
             
             if(rolInactivo){
               this.restablecer = false;
-            }            
+            }     
+            
         }
       }
 
