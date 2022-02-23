@@ -251,6 +251,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
             
             item.fechaInicio = new DatePipe("es-MX").transform((item.fechaInicio), 'yyyy-MM-dd');
             item.fechaFin = new DatePipe("es-MX").transform((item.fechaFin), 'yyyy-MM-dd');
+            item.limiteInferior = this.formatearNumero(item.limiteInferior);
+            item.limiteSuperior = this.formatearNumero(item.limiteSuperior);
+            item.cuotaFija = this.formatearNumero(item.cuotaFija);
+            item.porcExcedenteLimInf = this.formatearNumero(item.porcExcedenteLimInf);
            }
         }
         this.arregloTablaValores = datos.datos;
@@ -269,6 +273,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
           for (let item of datos.datos) {
             item["fechaInicio"] = new DatePipe("es-MX").transform((item.fechaInicio), 'yyyy-MM-dd');
             item["fechaFin"] = new DatePipe("es-MX").transform((item.fechaFin), 'yyyy-MM-dd');
+            item.limiteInferior = this.formatearNumero(item.limiteInferior);
+            item.limiteSuperior = this.formatearNumero(item.limiteSuperior);
+            item.montoSubsidio = this.formatearNumero(item.montoSubsidio);
+            
           }
         }
 
@@ -290,6 +298,10 @@ export class ABCAdminCatalogosComponent implements OnInit {
             if (item.fechaInicio != undefined || item.fechaInicio != null) {
                 item.fechaInicio = new DatePipe("es-MX").transform((item.fechaInicio), 'yyyy-MM-dd');
                 item.fechaFin = new DatePipe("es-MX").transform((item.fechaFin), 'yyyy-MM-dd');
+                item.limiteInferior = this.formatearNumero(item.limiteInferior);
+                item.limiteSuperior = this.formatearNumero(item.limiteSuperior);
+                item.cuotaFija = this.formatearNumero(item.cuotaFija);
+                item.tasa = this.formatearNumero(item.tasa);
               }
              
            }
@@ -654,6 +666,14 @@ export class ABCAdminCatalogosComponent implements OnInit {
     
     if ((key > 31 && (key != 46 &&(key < 48 || key > 57))))
       e.preventDefault();  
+  }
+
+  public formatearNumero(valor: number){
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+    });
+    return formatter.format(Number(valor));
   }
 
   public updateList(id: number, property: string, event: any) {
