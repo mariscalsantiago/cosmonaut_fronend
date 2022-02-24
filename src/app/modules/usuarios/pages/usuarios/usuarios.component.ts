@@ -277,7 +277,7 @@ export class UsuariosComponent implements OnInit {
 
     
     let arregloenviar = [];
-    
+
     if(!Boolean(this.id_company)){
       arregloenviar.push(this.usuariosSistemaPrd.getIdEmpresa());
       if(this.arregloCompany !== undefined){
@@ -306,30 +306,51 @@ export class UsuariosComponent implements OnInit {
       esActivo: this.activo == 0? null:this.activo == 1
     }
 
-
-
-    
-
     this.cargando = true;
     if(!desdeFiltrado){
       this.usuariosAuthPrd.filtrarUsuariosPaginado(peticion,this.elementos,this.pagina).subscribe(datos => {
-        if(datos.datos){
-          let arreglo:Array<any> = datos.datos.usuarios;
-          this.arreglo = [];
-          console.log("ARREGLO RECIBIDO FILTRANDO",arreglo);
-          if(arreglo)
-             if(!repetir)
-                arreglo.forEach(o => this.arreglo.push(o));   
-              else 
-                this.arreglo = arreglo;
+
+        let arreglo: Array<any> = datos.datos.usuarios;
+        if (arreglo)
+          if (!repetir)
+            arreglo.forEach(o => this.arreglo.push(o));
+          else
+            this.arreglo = arreglo;
 
 
-              console.log("Arreglo total",this.arreglo);
-                
-  
-          this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
+        this.arreglotabla.totalRegistros = datos.datos.totalRegistros;
+
+        let columnas: Array<tabla> = [
+          new tabla("usuarioId", "ID"),
+          new tabla("nombre", "Nombre"),
+          new tabla("apellidoPat", "Primer apellido"),
+          new tabla("apellidoMat", "Segundo apellido"),
+          new tabla("email", "Correo electrónico"),
+          new tabla("nameRol", "Rol"),
+          ((this.esClienteEmpresa) ? new tabla("esMulticliente", "Multicliente") : new tabla("empresa", "empresa")),
+          new tabla("activo", "Estatus ")
+        ];
+    
+        columnas.splice(6,1);
+      
+    
+        if (this.arreglo !== undefined) {
+          for (let item of this.arreglo) {
+            item["nameRol"] = item?.rolId?.nombreRol;
+            item["esMulticliente"] = item?.esMulticliente? "Sí":"No";
+            if(item.esActivo){
+              item.activo = 'Activo'
+             }
+             if(!item.esActivo){
+              item.activo = 'Inactivo'
+             }
+          }
         }
-        this.procesarTabla();
+        this.arreglotabla = {
+          columnas: columnas,
+          filas: this.arreglo,
+          totalRegistros:this.arreglotabla.totalRegistros
+        }
         this.cargando = false;
       });
     }else{
