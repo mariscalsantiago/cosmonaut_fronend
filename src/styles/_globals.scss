@@ -1,11 +1,8 @@
-/* Colors: */
-$unnamed-color-002637: #002637;
-$unnamed-color-00ded4: #00DED4;
-$unnamed-color-00c1af: #00C1AF;
+
 :root {
-    --principal: $unnamed-color-00c1af;
-    --fondo: $unnamed-color-002637;
-    --hover:$unnamed-color-00ded4;
+    --principal: #00C1AF;
+    --fondo: #002637;
+    --hover:#00DED4;
   }
 
 
@@ -36,7 +33,7 @@ $blue:#1C8DD4;
 $orange:#E17B5B;
 $yellow:#FED630;
 $light_titulo:#7C7C7C;
-$fondo: var(--fondo);;
+$fondo: var(--fondo);
 $pantallamovil:600px;
 
 

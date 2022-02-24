@@ -132,8 +132,8 @@ export class ContenidoComponent implements OnInit {
         this.configuracionPrd.cambiarColor.next({
           type:"vistaPrevia",
           datos:{
-            colorfondo:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colorfondo || '#022538',
-            colormenu:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colormenu || '#52cdc0'
+            colorfondo:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colorfondo || '#3a84cc',
+            colormenu:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colormenu || '#fb7356'
           }
         });
 
@@ -309,6 +309,13 @@ export class ContenidoComponent implements OnInit {
           this.authPrd.eliminarTokens();
           this.PRINCIPAL_MENU = undefined;
           this.navigate.navigateByUrl('/auth/login');
+          this.configuracionPrd.cambiarColor.next({
+            type:"vistaPrevia",
+            datos:{
+              colorfondo:'#022538',
+              colormenu:'#52cdc0'
+            }
+          })
         });
       }
     });

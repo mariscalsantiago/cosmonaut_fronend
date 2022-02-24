@@ -52,11 +52,11 @@ export class AppComponent implements OnInit,AfterContentInit {
   }
 
   private cambiarColor(colormenu:string,colorfondo:string):void{
-    document.documentElement.style.setProperty('--principal', "blue");
-    document.documentElement.style.setProperty('--fondo', "purple");    
+    document.documentElement.style.setProperty('--principal', "#FB7356");
+    document.documentElement.style.setProperty('--fondo', "#3A85CD");    
 
-    //document.documentElement.style.setProperty('--principal', colormenu);
-    //document.documentElement.style.setProperty('--fondo', colorfondo);    
+    document.documentElement.style.setProperty('--principal', colormenu);
+    document.documentElement.style.setProperty('--fondo', colorfondo);    
 
 
     return;
