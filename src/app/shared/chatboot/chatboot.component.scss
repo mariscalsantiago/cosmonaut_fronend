@@ -48,13 +48,13 @@ right: 3%;
     position: absolute !important;
     right: 11px !important;
     span {
-        color: #56dfd4;
+        color: var(--principal);
         font-size: 32px;
     }
 }
 
 .dialogo{
-    background-color: #4cc1b0;
+    background-color: var(--principal);
     height: 70px;
 }
 

@@ -19,7 +19,7 @@ position: absolute;
     position: absolute !important;
     right: 11px !important;
     span {
-        color: #56dfd4;
+        color: var(--principal);
         font-size: 32px;
     }
 }

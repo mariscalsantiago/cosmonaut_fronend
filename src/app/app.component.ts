@@ -52,7 +52,14 @@ export class AppComponent implements OnInit,AfterContentInit {
   }
 
   private cambiarColor(colormenu:string,colorfondo:string):void{
-    
+    document.documentElement.style.setProperty('--principal', "blue");
+    document.documentElement.style.setProperty('--fondo', "purple");    
+
+    //document.documentElement.style.setProperty('--principal', colormenu);
+    //document.documentElement.style.setProperty('--fondo', colorfondo);    
+
+
+    return;
     for(let item of Object.values(document.styleSheets)){
       let stylesheet:any = item;
       for(let i = 0; i < stylesheet.cssRules.length; i++) {
@@ -62,7 +69,7 @@ export class AppComponent implements OnInit,AfterContentInit {
           if(stylesheet.cssRules[i].selectorText?.includes(regla.etiqueta)) {
             for(let selector of regla.selector){
               stylesheet.cssRules[i].style.removeProperty(selector,"background-color");
-              stylesheet.cssRules[i].style.setProperty(selector,regla.contraste?"white":colormenu);
+             // stylesheet.cssRules[i].style.setProperty(selector,regla.contraste?"white":colormenu);
             }
           }
         }
@@ -70,7 +77,7 @@ export class AppComponent implements OnInit,AfterContentInit {
         for(let regla of fondo){
           if(stylesheet.cssRules[i].selectorText?.includes(regla.etiqueta)) {
             for(let selector of regla.selector){
-              stylesheet.cssRules[i].style.setProperty(selector,regla.contraste?"white":colorfondo);
+              //stylesheet.cssRules[i].style.setProperty(selector,regla.contraste?"white":colorfondo);
             }
           }
         }

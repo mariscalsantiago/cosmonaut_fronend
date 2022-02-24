@@ -40,12 +40,12 @@ article{
       }
 
       &::-webkit-scrollbar-thumb {
-        background: #00ded4; 
+        background: var(--principal); 
       }
 
 
       &::-webkit-scrollbar-thumb:hover {
-        background: #00c4ba; 
+        background: var(--principal); 
       }
 
       

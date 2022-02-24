@@ -18,9 +18,9 @@ html{
 }
 
 .button-outlet{
-     color:$primary !important;
+     color:$secondary !important;
      background-color:transparent;
-     border-color: $primary !important;
+     border-color: $secondary !important;
 }
 .button-outlet:hover{
 
@@ -30,8 +30,8 @@ html{
 
 .button-fill{
     color:white !important;
-    background-color: $primary !important;
-    border-color: $primary !important;
+    background-color: $secondary !important;
+    border-color: $secondary !important;
 }
 
 .titulo-outlet{
@@ -422,12 +422,12 @@ form{
       }
 
       &::-webkit-scrollbar-thumb {
-        background: #00ded4; 
+        background: $secondary; 
       }
 
 
       &::-webkit-scrollbar-thumb:hover {
-        background: #00c4ba; 
+        background: $secondary; 
       }
 
       

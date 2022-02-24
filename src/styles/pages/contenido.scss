@@ -127,8 +127,8 @@ a, a:hover, a:focus {
     width: 108px;
     text-align: center;
     border: 1px solid white;
-    background: #51cec0;
-    border-right: #51cec0;
+    background: $secondary;
+    border-right: $secondary;
     i{
         background: white!important;
     }
@@ -147,8 +147,8 @@ a, a:hover, a:focus {
 
 
 #sidebar ul li.active > a{
-    color: #00DED4;
-    background: #022538;
+    color: $secondary;
+    background: $fondo;
     border-style: solid;
     width: 116px;
     border-width: 2px;
