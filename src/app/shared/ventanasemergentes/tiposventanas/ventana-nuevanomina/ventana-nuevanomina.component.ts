@@ -67,6 +67,9 @@ export class VentanaNuevanominaComponent implements OnInit {
             fechaActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + 29);
             this.fechaMaxima = String(new DatePipe("es-MX").transform(fechaActual, "yyyy-MM-dd"));
 
+          }else{
+            fechaActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + this.limiteDias);
+            this.fechaMaxima = String(new DatePipe("es-MX").transform(fechaActual, "yyyy-MM-dd"));
           }
 
         }else{
@@ -161,6 +164,17 @@ export class VentanaNuevanominaComponent implements OnInit {
             this.myForm.controls.fechaFinPeriodo.setValue('');
             this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
           }
+        }else{
+          if(fechafinCap < this.fechaMaxima){
+            this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
+            this.myForm.controls.fechaFinPeriodo.setValue('');
+            this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
+          }
+          else if(fechafinCap > this.fechaMaxima){
+            this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
+            this.myForm.controls.fechaFinPeriodo.setValue('');
+            this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
+          }
         }
       }
       else if((this.fechaMes !== '02' && this.grupoPeriodo == 'Mensual')||(this.fechaMes !== '02' && this.grupoPeriodo == 'Quincenal')){
@@ -179,10 +193,7 @@ export class VentanaNuevanominaComponent implements OnInit {
         }
       }
       else{
-        let fechaMax = new Date(this.fechaMaxima);
-        fechaMax = new Date(fechaMax.getFullYear(), fechaMax.getMonth(), fechaMax.getDate() - 1);
-        let fechaMaxUlt = String(new DatePipe("es-MX").transform(fechaMax, "yyyy-MM-dd"));
-        if(fechafinCap <= fechaMaxUlt){
+        if(fechafinCap < this.fechaMaxima){
           this.modalPrd.showMessageDialog(this.modalPrd.error, 'La fecha fin está fuera del periodo seleccionado.');
           this.myForm.controls.fechaFinPeriodo.setValue('');
           this.myForm.controls.fechaFinPeriodo.updateValueAndValidity();
