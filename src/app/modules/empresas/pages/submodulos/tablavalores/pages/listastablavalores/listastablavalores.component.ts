@@ -222,32 +222,6 @@ export class ListasTablaValoresComponent implements OnInit {
     this.cargandoNomina = false;
 
   }
-  public crearTablaNomina(datos:any){
-
-
-    this.arregloNomina = datos.datos;
-
-    let columnas: Array<tabla> = [
-      new tabla("tabla", "Tipo tabla"),
-      new tabla("limiteInferior", "Límite inferior"),
-      new tabla("limiteSuperior", "Límite superior"),
-      new tabla("cuotaFija", "Cuota fija"),
-      new tabla("excedente", "Excedente %")
-      //new tabla("excedente", "Excedente %")
-    ];
-
-
-    this.arreglotablaNomina = {
-      columnas:[],
-      filas:[]
-    }
-
-
-    this.arreglotablaNomina.columnas = columnas;
-    this.arreglotablaNomina.filas = this.arregloNomina;
-    this.cargandoNomina = false;
-
-  }
 
 
   public cambiarStatus(valor: any) {
