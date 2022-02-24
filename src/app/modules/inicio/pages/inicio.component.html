@@ -30,23 +30,26 @@
                     <label>REPORTES</label>
                 </div>
             </div>
-            <iframe width="1170" height="300" [src]="url" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <div class="embed-container">
+                <iframe [src]="url" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>   
         
     </div>
 
 </div>
-<div class="row" *ngIf="puedeConsultarCalendario() && moduloId">
+<div  *ngIf="puedeConsultarCalendario() && moduloId">
     <div class="col-12">
-        <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="110">
+        <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="127">
             <div style="background-color: transparent;">
                 <div class="col-4 titulo-outlet-inicio">   
                     <label>REPORTES</label>
                 </div>
             </div>
 
-            <iframe  width="1500" height="550" [src]="url" frameborder="0" style="border:0" allowfullscreen></iframe>
-
+            <div class="embed-container">
+                <iframe [src]="url" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>   
         
     </div>
