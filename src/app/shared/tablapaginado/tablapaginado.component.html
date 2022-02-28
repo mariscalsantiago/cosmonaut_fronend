@@ -109,7 +109,7 @@
                     </td>
 
                     <td *ngIf="percepcion" class="text-right opciones">
-                        <button  style="color:#00C1AF;position: relative; width: 30px"
+                        <button  style="color:var(--principal);position: relative; width: 30px"
                         class="dropdown-toggle mt-3 " (click)="btnPercepcion(item,indice)">
                         <i aria-hidden="true" style="position: absolute;
                         font-size: 11px;
@@ -117,7 +117,7 @@
                         " class="fas fa-plus" placement="top"
                             [mdbTooltip]="'toolpercepcion' | tooltip"></i>
                     </button>        
-                    <button style="color:#00C1AF;position: relative; width: 25px "
+                    <button style="color:var(--principal);position: relative; width: 25px "
                         (click)="btnDeduccion(item,indice)">
                         <i aria-hidden="true" style="position: absolute;
                         display: inline-block;
@@ -126,7 +126,7 @@
                         top: -10px;" class="fas fa-minus" placement="top"
                             [mdbTooltip]="'tooldeduccion' | tooltip"></i>
                     </button> 
-                    <button style="color:#00C1AF;position: relative; width: 17px "
+                    <button style="color:var(--principal);position: relative; width: 17px "
                     (click)="btnEvento(item,indice)">
                     <i aria-hidden="true" style="position: absolute;
                     display: inline-block;
@@ -140,7 +140,7 @@
                         <button *ngIf="descargar && item.nombre !== 'Política Estándar'"
                             (click)="btnDescargar(item,indice)"><i aria-hidden="true"
                                 class="icon_24descargar primary-bg"></i></button>
-                        <button  *ngIf="recalcular && item.recalcula !== false" style="color:#00C1AF;position: relative;    width: 78px;"
+                        <button  *ngIf="recalcular && item.recalcula !== false" style="color:var(--principal);position: relative;    width: 78px;"
                             class="dropdown-toggle mt-3 " (click)="btnRecalcular(item,indice)">
                             <i style="position: absolute;
                             font-size: 11px;
@@ -172,10 +172,10 @@
                         </button>
                         <button *ngIf="desglosar" (click)="btnDesglosar(item,indice)">
                             <i aria-hidden="true" *ngIf="item.desglosarDown" class="icon_24flechaabajo primary" style="font-size: 12px;
-                    margin: 0px; background-color: #00C1AF;"></i>
+                    margin: 0px; background-color: var(--principal);"></i>
 
                             <i aria-hidden="true" *ngIf="!item.desglosarDown" class="icon_24flechaarriba primary" style="font-size: 12px;
-                    margin: 0px; background-color: #00C1AF;"></i>
+                    margin: 0px; background-color: var(--principal);"></i>
                         </button>
                     </td>
 
@@ -325,10 +325,10 @@
 
                             <article *ngFor="let item of datosExtras[0]" class="titulo  col-12 mb-3">
                                 {{item.valor}} <i (click)="verRegistroPatronal(item)" aria-hidden="true"
-                                    class="far fa-eye" style="    color: #3ca29a;
+                                    class="far fa-eye" style="    color: var(--principal);
                                 cursor: pointer;" *ngIf="item.valor == 'imss Patronal'"></i>
                                 <i (click)="verIsn(item)" aria-hidden="true"
-                                class="far fa-eye" style="    color: #3ca29a;
+                                class="far fa-eye" style="    color: var(--principal);
                             cursor: pointer;" *ngIf="item.valor == 'provision Isn'"></i>
                                 <article>{{item.dato | currency}}
 

@@ -91,7 +91,7 @@
 .estiloextralink{
     border: 0 !important;
     background: transparent !important;
-    color: #4cc1b0 !important;
+    color: var(--principal) !important;
     text-decoration: underline !important;
     max-width: 112px !important;
     text-align: center;
@@ -99,9 +99,9 @@
 
 
 .selecciona{
-    color: #619694 !important;
-    border-color: #1EC1AF;
-    background: #1EC1AF34;
+    color: white !important;
+    border-color: var(--principal);
+    background: var(--principal);
 }
 
 
@@ -130,7 +130,7 @@
 
 .estilolink{
     font-size: 10px;
-    color:#4cc1b0 ;
+    color:var(--principal) ;
     text-decoration: underline;
     margin-left: -16px;
     cursor:pointer;

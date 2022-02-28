@@ -59,7 +59,7 @@ padding-right: 20px !important;
 
 .disenioextra{
   width: 350px;
-  background: linear-gradient(rgb(76 193 176) 115px, rgb(255, 255, 255) 18%, rgb(255, 255, 255) 35%);
+  background: linear-gradient(var(--principal) 115px, rgb(255, 255, 255) 18%, rgb(255, 255, 255) 35%);
 }
 .letrasmenores{
   font-size: smaller;
@@ -73,7 +73,7 @@ padding-right: 20px !important;
   outline: none !important;
   margin: 0px !important;
   span {
-      color: #56dfd4;
+      color: var(--principal);
       font-size: 32px;
       border: 0 !important;
       outline: none !important;

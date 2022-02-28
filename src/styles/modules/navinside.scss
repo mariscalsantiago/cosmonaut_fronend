@@ -5,8 +5,8 @@
 
     .activado{
         color:$secondary !important;
-        border-color:  #1EC1AF;
-        background: #1EC1AF34;
+        border-color:  $secondary;
+        background: var(--principalhide100);
 
     }
 }

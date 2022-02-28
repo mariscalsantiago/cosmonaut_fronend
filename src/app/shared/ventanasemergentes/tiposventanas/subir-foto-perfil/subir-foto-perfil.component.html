@@ -1,4 +1,4 @@
-<div style="height: 100px; background-color: #00C1AF;" class="text-center">
+<div style="height: 100px; background-color: var(--principal);" class="text-center">
 
     <div class="containerimg">
         <img src="assets/icons/ICO_Alert.svg" width="75px" height="75px" alt="" srcset="">
@@ -10,7 +10,7 @@ margin-top: 40px;">
         <div class="form group row">
           <div class="col-12 ">
             <div style = "padding-left: 54px;" class=" input-group-sm mb-3 col-12">
-              <label style="margin-left: 28px; color:#00C1AF">Cambiar foto de perfil</label>
+              <label style="margin-left: 28px; color:var(--principal)">Cambiar foto de perfil</label>
               <app-subirarchivo [cargando]="cargandoImg" (emiteimagen)="recibirImagen($event)" [recibiendoImagen]="obj.url"></app-subirarchivo>
             </div>
           </div>

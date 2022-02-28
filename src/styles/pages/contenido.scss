@@ -135,7 +135,7 @@ a, a:hover, a:focus {
 }
 #sidebar ul li a:hover {
     color: $primary;
-    background: #3ea196;
+    background: var(--principalhide);
     
     i{
         background-color: $primary;

@@ -82,8 +82,8 @@
                     </div>
                 </div>
             </div>
-            <a *ngIf="esEliminar && item.eliminarBut" (click)="eliminar(item.nominaLiquidacion,indice)" style="color:#56dfd4;text-decoration: underline;width: fit-content;" class="dropdown-toggle mt-3">
-                <i aria-hidden="true" style="background-color: #56dfd4 !important;" class="icon_eliminar "></i> Eliminar
+            <a *ngIf="esEliminar && item.eliminarBut" (click)="eliminar(item.nominaLiquidacion,indice)" style="color:var(--principal);text-decoration: underline;width: fit-content;" class="dropdown-toggle mt-3">
+                <i aria-hidden="true" style="background-color: var(--principal) !important;" class="icon_eliminar "></i> Eliminar
             </a>
 
         </div>

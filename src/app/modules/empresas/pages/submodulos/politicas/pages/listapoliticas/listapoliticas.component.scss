@@ -40,7 +40,7 @@ td {
 .btnPersonalizado {
     background-color: transparent;
     i {
-        background-color: #00c1af !important;
+        background-color: var(--principal) !important;
     }
 }
 
@@ -71,7 +71,7 @@ td {
         position: absolute !important;
         right: 11px !important;
         span {
-            color: #56dfd4;
+            color: var(--principal);
             font-size: 32px;
         }
     }

@@ -28,13 +28,13 @@ table{
 
   .diaActual{
       border-radius: 50% ;
-      background-color:#00DED4 !important;
+      background-color:var(--principal) !important;
       color:white !important;
       padding: 10px;
 
   }
   .tdActual{
-    background-color: #00ded323  !important;
+    background-color: var(--principalhide100)  !important;
   }
 
   .posicion{

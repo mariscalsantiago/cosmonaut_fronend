@@ -1,6 +1,6 @@
 .estiloextralink{
     display: inline-block !important;
-    color:#56dfd4 !important;
+    color:var(--principal) !important;
     text-decoration: underline !important;
     
 }
@@ -18,5 +18,5 @@
 .imgEyes{
 
     margin-left: -9px;
-    color: #00c0af !important;
+    color: var(--principal) !important;
 }

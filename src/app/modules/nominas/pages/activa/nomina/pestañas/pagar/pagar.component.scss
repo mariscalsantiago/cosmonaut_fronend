@@ -7,7 +7,7 @@
 
 .estiloextralink{
     display: inline-block !important;
-    color:#56dfd4 !important;
+    color:var(--principal) !important;
     text-decoration: underline !important;
     margin-right: 10px;
 }
@@ -30,7 +30,7 @@ article{
 
 .active
 {
-    color: #40e0d7!important;
+    color: var(--principal)!important;
 }
 
 .underline:hover{

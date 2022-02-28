@@ -18,7 +18,7 @@
 
 .estiloextralink{
     display: inline-block !important;
-    color:var(--hover) !important;
+    color:var(--principal) !important;
     text-decoration: underline !important;
     font-size: 16px;
 }
@@ -150,7 +150,7 @@ table {
 }
 
 .colorear {
-    color: #53d2bf !important;
+    color: var(--principal) !important;
 }
 
 .titulo1xml {
@@ -165,7 +165,7 @@ table {
     outline: none;
 
     span {
-        color: #56dfd4;
+        color: var(--principal);
         font-size: 32px;
         border: 0 !important;
         outline: none !important;
@@ -179,7 +179,7 @@ table {
     width: 100%;
     .totalesTimbrado {
         text-align: left !important;
-        color: #56dfd4!important;
+        color: var(--principal)!important;
     }
     th {
       
@@ -209,7 +209,7 @@ table {
     border: 1px solid #b5b5b5;
     overflow: auto;
   .cabecera{
-      background-color: #022538;
+      background-color: var(--fondo);
       height: 20px;
       color:black;
       text-align: center;
@@ -292,7 +292,7 @@ table {
     color:white;
 }
 .estiloLinnk{
-    color: #56dfd4 !important;
+    color: var(--principal) !important;
     text-decoration: underline !important;
     cursor: pointer;
     top: 40%;
@@ -301,7 +301,7 @@ table {
     text-align: center;
     margin-top: calc(50%);
     i{
-        background: #57ded4;
+        background: var(--principal);
         /* margin-top: 1px; */
         display: inherit;
         margin: -5px;

@@ -52,11 +52,17 @@ export class AppComponent implements OnInit,AfterContentInit {
   }
 
   private cambiarColor(colormenu:string,colorfondo:string):void{
-    document.documentElement.style.setProperty('--principal', "#FB7356");
-    document.documentElement.style.setProperty('--fondo', "#3A85CD");    
+    
 
+    let coloralterado = this.hexadecimalChangeColor(colormenu,0.8);
+    let coloralterado2 = this.hexadecimalChangeColor(colormenu,0.2);
     document.documentElement.style.setProperty('--principal', colormenu);
-    document.documentElement.style.setProperty('--fondo', colorfondo);    
+    document.documentElement.style.setProperty('--fondo', colorfondo);   
+    document.documentElement.style.setProperty('--principalhide', coloralterado);   
+    document.documentElement.style.setProperty('--principalhide100', coloralterado2);   
+    
+    
+    
 
 
     return;
@@ -83,5 +89,20 @@ export class AppComponent implements OnInit,AfterContentInit {
         }
       }
     } 
+  }
+
+  hexToRGB(hex:string,hide:number) {
+
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r}, ${g}, ${b}, ${hide})`;;
+  }
+
+ 
+
+
+  private hexadecimalChangeColor(color:string,hide:number):string{
+      return this.hexToRGB(color,hide);
   }
 }

@@ -1,6 +1,6 @@
 .estiloextralink{
     display: inline-block !important;
-    color:#56dfd4 !important;
+    color:var(--principal) !important;
     text-decoration: underline !important;
     
 }
@@ -24,7 +24,7 @@
         position: absolute !important;
         right: 11px !important;
         span {
-            color: #56dfd4;
+            color: var(--principal);
             font-size: 32px;
         }
     }
@@ -41,7 +41,7 @@
 }
 
 .estiloid {
-    color: #56dfd4;
+    color: var(--principal);
     cursor: pointer;
 }
 
@@ -90,7 +90,7 @@ table {
 }
 
 .colorear {
-    color: #53d2bf !important;
+    color: var(--principal) !important;
 }
 
 .titulo1xml {
