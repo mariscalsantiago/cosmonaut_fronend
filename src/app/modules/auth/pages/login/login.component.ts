@@ -177,10 +177,10 @@ export class LoginComponent implements OnInit {
           usuario.esCliente = !Boolean(objRecibido.centroCostosCentrocClienteId);
           usuario.esRecursosHumanos = false;
           usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : objRecibido.centroCostosCentrocClienteId.centrocClienteId;
-/*           usuario.listaColores = valorusuario.datos.coloresDefecto;
+          usuario.listaColores = valorusuario.datos.coloresDefecto;
           if(usuario.listaColores){
             usuario.coloresSistema = usuario.listaColores.find(o=> o.clienteId == (usuario.centrocClienteIdPadre == 0 ? usuario.centrocClienteId : usuario.centrocClienteIdPadre))
-          } */
+          } 
 
           
           this.usuarioSistemaPrd.setUsuario(usuario);
@@ -465,9 +465,9 @@ export class LoginComponent implements OnInit {
     usuario.esCliente = !Boolean(this.clienteSeleccionado.centroCostosCentrocClienteId)
     usuario.centrocClienteIdPadre = (usuario.esCliente) ? 0 : this.clienteSeleccionado?.centroCostosCentrocClienteId?.centrocClienteId;
     usuario.multiempresa = this.clienteSeleccionado.multiempresa;
-/*     if(usuario.listaColores){
+    if(usuario.listaColores){
       usuario.coloresSistema = usuario.listaColores.find(o=> o.clienteId == (usuario.centrocClienteIdPadre == 0 ? usuario.centrocClienteId : usuario.centrocClienteIdPadre))
-    } */
+    } 
 
 
     this.usuarioSistemaPrd.setUsuario(usuario);
