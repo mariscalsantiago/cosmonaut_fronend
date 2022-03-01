@@ -18,11 +18,11 @@ div.cn-anuncios {
                 border-radius: 100%;
                 width: 0.6rem;
                 height: 0.6rem;
-                border: solid 1px #00C1AF;
+                border: solid 1px var(--principal);
             }
 
             div.cn-anuncio-status.selected {
-                background-color: #00C1AF;
+                background-color: var(--principal);
             }
         }
 
@@ -52,7 +52,7 @@ div.cn-anuncios {
             div.cn-type {
             
                 span {
-                    color: #00C1AF;
+                    color: var(--principal);
                     font-style: italic;
                     font-size: 18px !important;                   
                 }

@@ -163,5 +163,12 @@
     mask: url($rutaimg) no-repeat center;
 
   }
+  .icon_alerta{
+    $rutaimg : '../../assets/icons/ICO_Alert.svg';
+    @include icono-imagen($dark);
+    -webkit-mask: url($rutaimg) no-repeat center;
+    mask: url($rutaimg) no-repeat center;
+
+  }
 
 

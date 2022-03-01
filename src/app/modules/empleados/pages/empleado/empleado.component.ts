@@ -29,6 +29,8 @@ export class EmpleadoComponent implements OnInit {
     url: "assets/imgs/usuario.png"
   };
 
+  public cambiarUserIcon:boolean = false;
+
   constructor(private routerCan: ActivatedRoute,
     private empleadosPrd: EmpleadosService, private reportesPrd: ReportesService,
     private empledoContratoPrd: ContratocolaboradorService, private ventana: VentanaemergenteService,
@@ -81,6 +83,8 @@ export class EmpleadoComponent implements OnInit {
     this.empleadosPrd.getEmpleadoById(this.idEmpleado).subscribe(datos => {
 this.modalPrd.showMessageDialog(this.modalPrd.loadingfinish);
       if (datos.datos?.url !== undefined) {
+
+        this.cambiarUserIcon = true;
 
         this.elEmpleado.url = datos.datos?.url;
         

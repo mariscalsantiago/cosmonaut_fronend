@@ -28,7 +28,9 @@
 
 
             <div (click)="subirFotoperfil();" class="marginImage alinear">
-                <img style="border-radius: 50%;" width="60px" height="60px" [src]="elEmpleado.url" alt="..." class="tableimg">
+                <img *ngIf="cambiarUserIcon" style="border-radius: 50%;" width="60px" height="60px" [src]="elEmpleado.url" alt="..." class="tableimg">
+                <app-persona-icon *ngIf="!cambiarUserIcon"></app-persona-icon>
+                  
                 <br>
                 <span class="estilolink">Subir foto de perfil</span>
             </div>

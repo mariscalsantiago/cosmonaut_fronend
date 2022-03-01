@@ -89,8 +89,9 @@
 
                     <td *ngIf="imagen" style="width: 44px;">
                         <img alt="" *ngIf="item.url" width="45px" height="45px" [src]="item.url" class="tableimg">
-                        <img alt="" *ngIf="item.url == undefined" width="45px" height="45px"
-                            [src]="rutaimagenes[icondefault]" class="tableimg">
+                            <app-persona-icon *ngIf="item.url == undefined && icondefault=='usuario'"></app-persona-icon>
+                            <app-edificio-icon  *ngIf="item.url == undefined && icondefault=='empresa'"></app-edificio-icon>
+
                     </td>
                     <td class="wrap" *ngFor="let item2 of datos.columnas" [class.td-center]="item2.id | centrar"
                         [ngClass]="{'estiloid':item2.esId,'ocultarcolumna':item2.id == 'url' || item2.id == 'porcentaje','centrar':item2.centrar || item2.id == 'fechaAlta' || item2.id == 'esActivo' || item2.id == 'personaId' || item2.id == 'centrocClienteId' || item2.id == 'numeroCuenta' || item2.id == 'clabe' ||  item2.id == 'activo', 'derecha':item2.derecha || item2.id == 'pagoComplementario'}"

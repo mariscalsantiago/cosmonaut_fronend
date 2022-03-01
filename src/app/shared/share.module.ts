@@ -50,6 +50,11 @@ import { ListaEmpleadosComponent } from './ventanasemergentes/tiposventanas/list
 import { BannerCarouselComponent } from './banner-carousel/banner-carousel.component';
 import { AnuncioListadoComponent } from './anuncio-listado/anuncio-listado.component';
 import { CursoListadoComponent } from './curso-listado/curso-listado.component';
+import { PersonaIconComponent } from './icons-components/persona-icon/persona-icon.component';
+import { AlertIconComponent } from './icons-components/alert-icon/alert-icon.component';
+import { ErrorIconComponent } from './icons-components/error-icon/error-icon.component';
+import { SuccessIconComponent } from './icons-components/success-icon/success-icon.component';
+import { EdificioIconComponent } from './icons-components/edificio-icon/edificio-icon.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +104,12 @@ import { CursoListadoComponent } from './curso-listado/curso-listado.component';
     HighlightPipe,
     CentrarPipe,
     ShowPipe,
-    ListaEmpleadosComponent
+    ListaEmpleadosComponent,
+    PersonaIconComponent,
+    AlertIconComponent,
+    ErrorIconComponent,
+    SuccessIconComponent,
+    EdificioIconComponent
   ],
   imports: [
     CommonModule,
@@ -132,7 +142,11 @@ import { CursoListadoComponent } from './curso-listado/curso-listado.component';
     FormatosDirective,
     TooltipPipe,
     BooleanPipe,
-    HoraPipe],
+    HoraPipe,PersonaIconComponent,
+    AlertIconComponent,
+    ErrorIconComponent,
+    SuccessIconComponent,
+    EdificioIconComponent],
   providers: [CurrencyPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

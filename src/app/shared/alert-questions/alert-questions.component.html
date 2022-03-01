@@ -5,20 +5,20 @@
         <div [ngClass]="{'transparent':iconType==='loading'}"  class="text-center cabeceraalerta">
 
             <div *ngIf="iconType=='warning'" class="containerimg">
-                <img src="assets/icons/ICO_alerta.svg" width="75px" height="75px" alt="" srcset="">
+                <app-alert-icon></app-alert-icon>
             </div>
             <div *ngIf="iconType=='success'" class="containerimg">
-                <img src="assets/icons/ICO_success.svg" width="75px" height="75px" alt="" srcset="">
+                <app-success-icon></app-success-icon>
             </div>
             <div *ngIf="iconType=='error' || iconType=='question'" class="containerimg">
-                <img src="assets/icons/ICO_error.svg" width="75px" height="75px" alt="" srcset="">
+                <app-error-icon></app-error-icon>
             </div>
             <div *ngIf="iconType=='dispersar'" class="containerimg">
-                <img src="assets/icons/ICO_alerta.svg" width="75px" height="75px" alt="" srcset="">
+                <app-alert-icon></app-alert-icon>
             </div>
 
             <div *ngIf="iconType=='variabilidad'" class="containerimg">
-                <img src="assets/icons/ICO_alerta.svg" width="75px" height="75px" alt="" srcset="">
+                <app-alert-icon></app-alert-icon>
             </div>
             <div *ngIf="iconType=='loading'" class="modalLoading" [ngClass]="{'transparent':iconType==='loading'}">
                 <div>
