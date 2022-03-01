@@ -132,8 +132,8 @@ export class ContenidoComponent implements OnInit {
         this.configuracionPrd.cambiarColor.next({
           type:"vistaPrevia",
           datos:{
-            colorfondo:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colorfondo || '#00755F',
-            colormenu:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colormenu || '#8B1C2C'
+            colorfondo:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colorfondo || '#002637',
+            colormenu:this.usuariosSistemaPrd.getUsuario().coloresSistema?.colormenu || '#00C1AF'
           }
         });
 
